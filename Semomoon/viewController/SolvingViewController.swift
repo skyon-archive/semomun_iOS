@@ -23,6 +23,7 @@ class SolvingViewController: UIViewController {
         setRadius()
         setBorderWidth()
         setBorderColor()
+        setShadowFrame()
     }
     
     @IBAction func sol_click(_ sender: UIButton) {
@@ -46,34 +47,27 @@ extension SolvingViewController {
     func setRadius() {
         solvInputFrame.layer.cornerRadius = 20
         for bt in buttons {
-            bt.layer.cornerRadius = 15
+            bt.layer.cornerRadius = 20
         }
-//        sol_1.layer.cornerRadius = 15
-//        sol_2.layer.cornerRadius = 15
-//        sol_3.layer.cornerRadius = 15
-//        sol_4.layer.cornerRadius = 15
-//        sol_5.layer.cornerRadius = 15
     }
     
     func setBorderWidth() {
         for bt in buttons {
             bt.layer.borderWidth = 0.5
         }
-//        sol_1.layer.borderWidth = 0.5
-//        sol_2.layer.borderWidth = 0.5
-//        sol_3.layer.borderWidth = 0.5
-//        sol_4.layer.borderWidth = 0.5
-//        sol_5.layer.borderWidth = 0.5
     }
     
     func setBorderColor() {
         for bt in buttons {
             bt.layer.borderColor = UIColor.black.cgColor
         }
-//        sol_1.layer.borderColor = UIColor.black.cgColor
-//        sol_2.layer.borderColor = UIColor.black.cgColor
-//        sol_3.layer.borderColor = UIColor.black.cgColor
-//        sol_4.layer.borderColor = UIColor.black.cgColor
-//        sol_5.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    func setShadowFrame() {
+        solvInputFrame.layer.shadowColor = UIColor.lightGray.cgColor
+        solvInputFrame.layer.shadowOpacity = 0.3
+        solvInputFrame.layer.shadowOffset = CGSize(width: 3, height: 3)
+        solvInputFrame.layer.shadowRadius = 5
+        solvInputFrame.layer.masksToBounds = false
     }
 }
