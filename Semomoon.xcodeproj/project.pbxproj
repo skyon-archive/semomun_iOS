@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4AA1731226CF99880099253F /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA1731126CF99880099253F /* SolvingViewController.swift */; };
 		878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4AA1731126CF99880099253F /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
 		878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencleTestViewController.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				87AB9DD326CB2BDB0019A276 /* ViewController.swift */,
 				878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */,
+				4AA1731126CF99880099253F /* SolvingViewController.swift */,
 			);
 			path = viewController;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AA1731226CF99880099253F /* SolvingViewController.swift in Sources */,
 				87AB9DD426CB2BDB0019A276 /* ViewController.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,

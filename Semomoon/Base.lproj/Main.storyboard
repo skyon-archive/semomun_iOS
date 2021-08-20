@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Riv-6x-edc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eSB-pQ-cTM">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -450,6 +450,243 @@
             </objects>
             <point key="canvasLocation" x="-555" y="438"/>
         </scene>
+        <!--Solving View Controller-->
+        <scene sceneID="dpf-rK-6CJ">
+            <objects>
+                <viewController id="eSB-pQ-cTM" customClass="SolvingViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m5r-Ga-4da">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Up-cE-T83">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="67"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:25" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xk8-L6-FxK">
+                                        <rect key="frame" x="98" y="35" width="36" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3L-1u-Zeq">
+                                        <rect key="frame" x="692" y="29" width="61" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="TeO-hi-6wW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <state key="normal" title="채점하기 &gt;">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XM-tD-IfJ">
+                                        <rect key="frame" x="646.5" y="35" width="35.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BP3-HF-JiN">
+                                        <rect key="frame" x="15" y="26" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="9uG-zf-vhA"/>
+                                            <constraint firstAttribute="width" constant="35" id="jQq-cT-ZfZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="←">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11번" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wnb-D7-BU5">
+                                        <rect key="frame" x="58" y="35" width="35" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="7bc-OT-6E0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2021년 7월 고3 학력평가 (인천) 수학" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oh8-yh-fWD">
+                                        <rect key="frame" x="278.5" y="35" width="211" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="gray_light"/>
+                                <constraints>
+                                    <constraint firstItem="Wnb-D7-BU5" firstAttribute="centerY" secondItem="oh8-yh-fWD" secondAttribute="centerY" id="1zM-dq-zy6"/>
+                                    <constraint firstItem="xk8-L6-FxK" firstAttribute="leading" secondItem="Wnb-D7-BU5" secondAttribute="trailing" constant="5" id="6Va-fe-jFe"/>
+                                    <constraint firstItem="a3L-1u-Zeq" firstAttribute="centerY" secondItem="oh8-yh-fWD" secondAttribute="centerY" id="8gG-Zp-1Co"/>
+                                    <constraint firstItem="BP3-HF-JiN" firstAttribute="centerY" secondItem="oh8-yh-fWD" secondAttribute="centerY" id="Crf-8X-NsE"/>
+                                    <constraint firstItem="oh8-yh-fWD" firstAttribute="top" secondItem="2Up-cE-T83" secondAttribute="top" constant="35" id="Eq6-Dm-Xqy"/>
+                                    <constraint firstItem="oh8-yh-fWD" firstAttribute="centerX" secondItem="2Up-cE-T83" secondAttribute="centerX" id="N6p-kO-BcP"/>
+                                    <constraint firstItem="xk8-L6-FxK" firstAttribute="centerY" secondItem="oh8-yh-fWD" secondAttribute="centerY" id="PGb-XJ-rd9"/>
+                                    <constraint firstItem="BP3-HF-JiN" firstAttribute="leading" secondItem="2Up-cE-T83" secondAttribute="leading" constant="15" id="WXA-Fx-idn"/>
+                                    <constraint firstItem="4XM-tD-IfJ" firstAttribute="centerY" secondItem="oh8-yh-fWD" secondAttribute="centerY" id="cBX-Po-bOM"/>
+                                    <constraint firstItem="Wnb-D7-BU5" firstAttribute="leading" secondItem="BP3-HF-JiN" secondAttribute="trailing" constant="8" symbolic="YES" id="ceN-zv-fxy"/>
+                                    <constraint firstItem="a3L-1u-Zeq" firstAttribute="leading" secondItem="4XM-tD-IfJ" secondAttribute="trailing" constant="10" id="fZW-Fs-SQc"/>
+                                    <constraint firstAttribute="trailing" secondItem="a3L-1u-Zeq" secondAttribute="trailing" constant="15" id="jb1-ND-Qu3"/>
+                                    <constraint firstAttribute="bottom" secondItem="oh8-yh-fWD" secondAttribute="bottom" constant="15" id="yiT-K9-vXw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQC-wV-L8X">
+                                <rect key="frame" x="514" y="87" width="224" height="84"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmS-Js-Tm7">
+                                        <rect key="frame" x="6" y="46" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Dkj-vg-TRU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="정답">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2OU-9e-ulZ">
+                                        <rect key="frame" x="51" y="46" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="VjV-jx-4h7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="해설">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLQ-YY-hjU">
+                                        <rect key="frame" x="151" y="46" width="66" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="다음문제 &gt;">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeC-6X-Bc8">
+                                        <rect key="frame" x="51" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Hun-jX-rTt"/>
+                                            <constraint firstAttribute="width" constant="30" id="LRb-JX-4tS"/>
+                                        </constraints>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="rG5-Aj-dFJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMA-hv-8eK">
+                                        <rect key="frame" x="141" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Omi-pR-stl"/>
+                                            <constraint firstAttribute="width" constant="30" id="spN-Fn-h43"/>
+                                        </constraints>
+                                        <state key="normal" title="4">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="aBM-oZ-tH3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xt5-r2-46p">
+                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="3pg-3a-7du"/>
+                                            <constraint firstAttribute="width" constant="30" id="PvY-G2-GEb"/>
+                                        </constraints>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="3hB-Og-mWk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q1y-Rc-DPg">
+                                        <rect key="frame" x="186" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Aut-Am-Rvt"/>
+                                            <constraint firstAttribute="height" constant="30" id="Hwz-wd-Ocj"/>
+                                        </constraints>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="l2F-kf-vVd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xi5-yu-1rS">
+                                        <rect key="frame" x="96" y="46" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="wME-j0-PzO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="공유">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3I-qB-LTq">
+                                        <rect key="frame" x="96" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Tik-9Z-fgr"/>
+                                            <constraint firstAttribute="height" constant="30" id="xW8-Sk-3l8"/>
+                                        </constraints>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" name="mint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="Is7-c2-7zg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="gray_light"/>
+                                <constraints>
+                                    <constraint firstItem="q1y-Rc-DPg" firstAttribute="leading" secondItem="gMA-hv-8eK" secondAttribute="trailing" constant="15" id="BrL-Pr-r8d"/>
+                                    <constraint firstItem="H3I-qB-LTq" firstAttribute="leading" secondItem="TeC-6X-Bc8" secondAttribute="trailing" constant="15" id="HJG-Fv-F7T"/>
+                                    <constraint firstItem="H3I-qB-LTq" firstAttribute="top" secondItem="PQC-wV-L8X" secondAttribute="top" constant="8" id="L2N-gl-MmS"/>
+                                    <constraint firstItem="xt5-r2-46p" firstAttribute="centerY" secondItem="H3I-qB-LTq" secondAttribute="centerY" id="LWf-ac-TaK"/>
+                                    <constraint firstItem="TeC-6X-Bc8" firstAttribute="leading" secondItem="xt5-r2-46p" secondAttribute="trailing" constant="13" id="OX0-D1-DmB"/>
+                                    <constraint firstItem="jLQ-YY-hjU" firstAttribute="centerY" secondItem="xi5-yu-1rS" secondAttribute="centerY" id="OkM-x4-ddY"/>
+                                    <constraint firstItem="2OU-9e-ulZ" firstAttribute="leading" secondItem="dmS-Js-Tm7" secondAttribute="trailing" constant="15" id="RdG-Jo-1Jl"/>
+                                    <constraint firstAttribute="trailing" secondItem="q1y-Rc-DPg" secondAttribute="trailing" constant="8" id="anX-Yw-BBJ"/>
+                                    <constraint firstItem="xi5-yu-1rS" firstAttribute="top" secondItem="H3I-qB-LTq" secondAttribute="bottom" constant="8" symbolic="YES" id="eHV-63-27Q"/>
+                                    <constraint firstItem="xi5-yu-1rS" firstAttribute="centerX" secondItem="H3I-qB-LTq" secondAttribute="centerX" id="gB9-bh-UhP"/>
+                                    <constraint firstItem="jLQ-YY-hjU" firstAttribute="leading" secondItem="xi5-yu-1rS" secondAttribute="trailing" constant="25" id="oEg-iB-qth"/>
+                                    <constraint firstItem="gMA-hv-8eK" firstAttribute="centerY" secondItem="H3I-qB-LTq" secondAttribute="centerY" id="oX8-qq-T56"/>
+                                    <constraint firstItem="2OU-9e-ulZ" firstAttribute="centerY" secondItem="xi5-yu-1rS" secondAttribute="centerY" id="qfS-pf-nsq"/>
+                                    <constraint firstItem="gMA-hv-8eK" firstAttribute="leading" secondItem="H3I-qB-LTq" secondAttribute="trailing" constant="15" id="qy8-zC-bgf"/>
+                                    <constraint firstItem="TeC-6X-Bc8" firstAttribute="centerY" secondItem="H3I-qB-LTq" secondAttribute="centerY" id="rqH-bs-m4k"/>
+                                    <constraint firstItem="xi5-yu-1rS" firstAttribute="leading" secondItem="2OU-9e-ulZ" secondAttribute="trailing" constant="15" id="rxL-iU-huB"/>
+                                    <constraint firstItem="q1y-Rc-DPg" firstAttribute="centerY" secondItem="H3I-qB-LTq" secondAttribute="centerY" id="svH-M3-Bd5"/>
+                                    <constraint firstItem="dmS-Js-Tm7" firstAttribute="centerY" secondItem="xi5-yu-1rS" secondAttribute="centerY" id="u1j-tB-uaR"/>
+                                    <constraint firstItem="xt5-r2-46p" firstAttribute="leading" secondItem="PQC-wV-L8X" secondAttribute="leading" constant="8" id="xel-lg-vvf"/>
+                                    <constraint firstAttribute="bottom" secondItem="xi5-yu-1rS" secondAttribute="bottom" constant="8" id="ybE-nN-n3j"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eDZ-wN-Btp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eDZ-wN-Btp" firstAttribute="trailing" secondItem="PQC-wV-L8X" secondAttribute="trailing" constant="30" id="FGf-Gy-nsK"/>
+                            <constraint firstItem="eDZ-wN-Btp" firstAttribute="trailing" secondItem="2Up-cE-T83" secondAttribute="trailing" id="ULG-FX-5zH"/>
+                            <constraint firstItem="2Up-cE-T83" firstAttribute="top" secondItem="m5r-Ga-4da" secondAttribute="top" id="Wgc-P5-xy7"/>
+                            <constraint firstItem="2Up-cE-T83" firstAttribute="centerX" secondItem="eDZ-wN-Btp" secondAttribute="centerX" id="Xkf-yZ-EmR"/>
+                            <constraint firstItem="PQC-wV-L8X" firstAttribute="top" secondItem="2Up-cE-T83" secondAttribute="bottom" constant="20" id="ote-gv-4h3"/>
+                            <constraint firstItem="2Up-cE-T83" firstAttribute="leading" secondItem="eDZ-wN-Btp" secondAttribute="leading" id="vdT-NP-wU2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sol_1" destination="xt5-r2-46p" id="nqw-ja-pGG"/>
+                        <outlet property="sol_2" destination="TeC-6X-Bc8" id="eLp-k6-oLg"/>
+                        <outlet property="sol_3" destination="H3I-qB-LTq" id="7iL-jz-DRZ"/>
+                        <outlet property="sol_4" destination="gMA-hv-8eK" id="K7c-aV-kjO"/>
+                        <outlet property="sol_5" destination="q1y-Rc-DPg" id="4mE-Fl-T7c"/>
+                        <outlet property="solvInputFrame" destination="PQC-wV-L8X" id="jcB-Sn-GaF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nJY-Pi-fuA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="438"/>
+        </scene>
     </scenes>
     <resources>
         <image name="2021학년도 7월 고3 모의고사 국어 문제 4" width="1168" height="1652.5"/>
@@ -468,10 +705,10 @@
             <color red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="gray_light">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mint">
-            <color red="0.92549019607843142" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.44313725490196076" green="0.69803921568627447" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mint_light">
             <color red="0.98431372549019602" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
