@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */; };
+		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
+		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
+		87AB9DD426CB2BDB0019A276 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD326CB2BDB0019A276 /* ViewController.swift */; };
+		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
+		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
+		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
+		87AB9DE726CB2BDC0019A276 /* SemomoonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */; };
+		87AB9DF226CB2BDC0019A276 /* SemomoonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		87AB9DE326CB2BDC0019A276 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87AB9DC426CB2BDB0019A276 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87AB9DCB26CB2BDB0019A276;
+			remoteInfo = Semomoon;
+		};
+		87AB9DEE26CB2BDC0019A276 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87AB9DC426CB2BDB0019A276 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87AB9DCB26CB2BDB0019A276;
+			remoteInfo = Semomoon;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencleTestViewController.swift; sourceTree = "<group>"; };
+		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		87AB9DD326CB2BDB0019A276 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		87AB9DD626CB2BDB0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		87AB9DD826CB2BDC0019A276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SemomoonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomoonTests.swift; sourceTree = "<group>"; };
+		87AB9DE826CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SemomoonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomoonUITests.swift; sourceTree = "<group>"; };
+		87AB9DF326CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		87AB9DC926CB2BDB0019A276 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DDF26CB2BDC0019A276 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DEA26CB2BDC0019A276 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		878CFFC826CBDD750023C851 /* viewController */ = {
+			isa = PBXGroup;
+			children = (
+				87AB9DD326CB2BDB0019A276 /* ViewController.swift */,
+				878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */,
+			);
+			path = viewController;
+			sourceTree = "<group>";
+		};
+		87AB9DC326CB2BDB0019A276 = {
+			isa = PBXGroup;
+			children = (
+				87AB9DCE26CB2BDB0019A276 /* Semomoon */,
+				87AB9DE526CB2BDC0019A276 /* SemomoonTests */,
+				87AB9DF026CB2BDC0019A276 /* SemomoonUITests */,
+				87AB9DCD26CB2BDB0019A276 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		87AB9DCD26CB2BDB0019A276 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				87AB9DCC26CB2BDB0019A276 /* Semomoon.app */,
+				87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */,
+				87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
+			isa = PBXGroup;
+			children = (
+				878CFFC826CBDD750023C851 /* viewController */,
+				87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */,
+				87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */,
+				87AB9DD526CB2BDB0019A276 /* Main.storyboard */,
+				87AB9DD826CB2BDC0019A276 /* Assets.xcassets */,
+				87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */,
+				87AB9DDD26CB2BDC0019A276 /* Info.plist */,
+			);
+			path = Semomoon;
+			sourceTree = "<group>";
+		};
+		87AB9DE526CB2BDC0019A276 /* SemomoonTests */ = {
+			isa = PBXGroup;
+			children = (
+				87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */,
+				87AB9DE826CB2BDC0019A276 /* Info.plist */,
+			);
+			path = SemomoonTests;
+			sourceTree = "<group>";
+		};
+		87AB9DF026CB2BDC0019A276 /* SemomoonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */,
+				87AB9DF326CB2BDC0019A276 /* Info.plist */,
+			);
+			path = SemomoonUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		87AB9DCB26CB2BDB0019A276 /* Semomoon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87AB9DF626CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "Semomoon" */;
+			buildPhases = (
+				87AB9DC826CB2BDB0019A276 /* Sources */,
+				87AB9DC926CB2BDB0019A276 /* Frameworks */,
+				87AB9DCA26CB2BDB0019A276 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Semomoon;
+			productName = Semomoon;
+			productReference = 87AB9DCC26CB2BDB0019A276 /* Semomoon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		87AB9DE126CB2BDC0019A276 /* SemomoonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87AB9DF926CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonTests" */;
+			buildPhases = (
+				87AB9DDE26CB2BDC0019A276 /* Sources */,
+				87AB9DDF26CB2BDC0019A276 /* Frameworks */,
+				87AB9DE026CB2BDC0019A276 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87AB9DE426CB2BDC0019A276 /* PBXTargetDependency */,
+			);
+			name = SemomoonTests;
+			productName = SemomoonTests;
+			productReference = 87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		87AB9DEC26CB2BDC0019A276 /* SemomoonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87AB9DFC26CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonUITests" */;
+			buildPhases = (
+				87AB9DE926CB2BDC0019A276 /* Sources */,
+				87AB9DEA26CB2BDC0019A276 /* Frameworks */,
+				87AB9DEB26CB2BDC0019A276 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87AB9DEF26CB2BDC0019A276 /* PBXTargetDependency */,
+			);
+			name = SemomoonUITests;
+			productName = SemomoonUITests;
+			productReference = 87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		87AB9DC426CB2BDB0019A276 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					87AB9DCB26CB2BDB0019A276 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					87AB9DE126CB2BDC0019A276 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 87AB9DCB26CB2BDB0019A276;
+					};
+					87AB9DEC26CB2BDC0019A276 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 87AB9DCB26CB2BDB0019A276;
+					};
+				};
+			};
+			buildConfigurationList = 87AB9DC726CB2BDB0019A276 /* Build configuration list for PBXProject "Semomoon" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 87AB9DC326CB2BDB0019A276;
+			productRefGroup = 87AB9DCD26CB2BDB0019A276 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				87AB9DCB26CB2BDB0019A276 /* Semomoon */,
+				87AB9DE126CB2BDC0019A276 /* SemomoonTests */,
+				87AB9DEC26CB2BDC0019A276 /* SemomoonUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		87AB9DCA26CB2BDB0019A276 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */,
+				87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */,
+				87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DE026CB2BDC0019A276 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DEB26CB2BDC0019A276 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		87AB9DC826CB2BDB0019A276 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87AB9DD426CB2BDB0019A276 /* ViewController.swift in Sources */,
+				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
+				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
+				878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DDE26CB2BDC0019A276 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87AB9DE726CB2BDC0019A276 /* SemomoonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87AB9DE926CB2BDC0019A276 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87AB9DF226CB2BDC0019A276 /* SemomoonUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		87AB9DE426CB2BDC0019A276 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87AB9DCB26CB2BDB0019A276 /* Semomoon */;
+			targetProxy = 87AB9DE326CB2BDC0019A276 /* PBXContainerItemProxy */;
+		};
+		87AB9DEF26CB2BDC0019A276 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87AB9DCB26CB2BDB0019A276 /* Semomoon */;
+			targetProxy = 87AB9DEE26CB2BDC0019A276 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		87AB9DD526CB2BDB0019A276 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87AB9DD626CB2BDB0019A276 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87AB9DDB26CB2BDC0019A276 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		87AB9DF426CB2BDC0019A276 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		87AB9DF526CB2BDC0019A276 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		87AB9DF726CB2BDC0019A276 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2C96RNDN63;
+				INFOPLIST_FILE = Semomoon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		87AB9DF826CB2BDC0019A276 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2C96RNDN63;
+				INFOPLIST_FILE = Semomoon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		87AB9DFA26CB2BDC0019A276 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SemomoonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Semomoon.app/Semomoon";
+			};
+			name = Debug;
+		};
+		87AB9DFB26CB2BDC0019A276 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SemomoonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Semomoon.app/Semomoon";
+			};
+			name = Release;
+		};
+		87AB9DFD26CB2BDC0019A276 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SemomoonUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Semomoon;
+			};
+			name = Debug;
+		};
+		87AB9DFE26CB2BDC0019A276 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SemomoonUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Semomoon;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		87AB9DC726CB2BDB0019A276 /* Build configuration list for PBXProject "Semomoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87AB9DF426CB2BDC0019A276 /* Debug */,
+				87AB9DF526CB2BDC0019A276 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87AB9DF626CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "Semomoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87AB9DF726CB2BDC0019A276 /* Debug */,
+				87AB9DF826CB2BDC0019A276 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87AB9DF926CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87AB9DFA26CB2BDC0019A276 /* Debug */,
+				87AB9DFB26CB2BDC0019A276 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87AB9DFC26CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87AB9DFD26CB2BDC0019A276 /* Debug */,
+				87AB9DFE26CB2BDC0019A276 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 87AB9DC426CB2BDB0019A276 /* Project object */;
+}
