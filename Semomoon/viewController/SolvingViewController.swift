@@ -23,6 +23,8 @@ class SolvingViewController: UIViewController {
     @IBOutlet var bookmark: UIButton!
     @IBOutlet var collectionView: UICollectionView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var problemImg: UIImageView!
     
     var buttons: [UIButton] = []
     // 임시적으로 문제내용 생성
@@ -45,6 +47,9 @@ class SolvingViewController: UIViewController {
             stars.append(false)
             bookmarks.append(false)
         }
+        
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 5.0
     }
     
     // 객관식 1~5 클릭 부분
@@ -163,6 +168,13 @@ extension SolvingViewController {
         }
         bookmark.layer.cornerRadius = 17.5
         bookmark.clipsToBounds = true
+    }
+}
+
+extension SolvingViewController: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return problemImg
     }
 }
 
