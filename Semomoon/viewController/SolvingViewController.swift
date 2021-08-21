@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import PencilKit
 
-class SolvingViewController: UIViewController {
+class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPickerObserver {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
@@ -33,6 +34,10 @@ class SolvingViewController: UIViewController {
     var bookmarks: [Bool] = []
     var isHide: Bool = false
     var problemNumber: Int = 0
+    // 펜슬킷 캔버스
+    let canvas = PKCanvasView(frame: .zero)
+    var drawing = PKDrawing()
+    var showPencilTool: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +52,33 @@ class SolvingViewController: UIViewController {
             stars.append(false)
             bookmarks.append(false)
         }
-        
+        // 문제 확대축소 설정
         scrollView.delegate = self
         scrollView.maximumZoomScale = 5.0
+        // pencil kit 설정
+        canvas.delegate = self
+        canvas.drawing = drawing
+        scrollView.addSubview(canvas)
+        canvas.backgroundColor = .clear
+        
+        canvas.alwaysBounceVertical = true
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            canvas.topAnchor.constraint(equalTo: problemImg.topAnchor),
+            canvas.bottomAnchor.constraint(equalTo: problemImg.bottomAnchor),
+            canvas.leadingAnchor.constraint(equalTo: problemImg.leadingAnchor),
+            canvas.trailingAnchor.constraint(equalTo: problemImg.trailingAnchor),
+        ])
+        
+        guard let window = parent?.view.window,
+           let toolPicker = PKToolPicker.shared(for: window) else {
+            return
+        }
+        
+        toolPicker.addObserver(canvas)
+        canvas.becomeFirstResponder()
+        toolPicker.setVisible(true, forFirstResponder: canvas)
     }
     
     // 객관식 1~5 클릭 부분
@@ -99,6 +128,12 @@ class SolvingViewController: UIViewController {
         bookmarks[problemNumber] = !bookmarks[problemNumber]
         setBookmark()
     }
+    
+    // pencil toll 보이기 설정
+    @IBAction func showPencilKit(_ sender: Any) {
+        showPencilTool = !showPencilTool
+    }
+    
     
 }
 
