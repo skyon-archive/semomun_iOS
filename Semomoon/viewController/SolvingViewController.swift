@@ -26,6 +26,7 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var problemImg: UIImageView!
+    @IBOutlet weak var pencilButton: UIButton!
     
     var buttons: [UIButton] = []
     // 임시적으로 문제내용 생성
@@ -35,9 +36,21 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     var isHide: Bool = false
     var problemNumber: Int = 0
     // 펜슬킷 캔버스
-    let canvas = PKCanvasView(frame: .zero)
     var drawing = PKDrawing()
     var showPencilTool: Bool = false
+    
+    lazy var canvasView: PKCanvasView = {
+        let canvasView = PKCanvasView()
+        canvasView.drawingPolicy = .anyInput
+        canvasView.translatesAutoresizingMaskIntoConstraints = false
+        return canvasView
+    }()
+    
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        toolPicker.addObserver(self)
+        return toolPicker
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,31 +67,23 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
         }
         // 문제 확대축소 설정
         scrollView.delegate = self
-        scrollView.maximumZoomScale = 5.0
+        scrollView.maximumZoomScale = 2.0
         // pencil kit 설정
-        canvas.delegate = self
-        canvas.drawing = drawing
-        scrollView.addSubview(canvas)
-        canvas.backgroundColor = .clear
-        
-        canvas.alwaysBounceVertical = true
-        canvas.translatesAutoresizingMaskIntoConstraints = false
-        
+        scrollView.addSubview(canvasView)
         NSLayoutConstraint.activate([
-            canvas.topAnchor.constraint(equalTo: problemImg.topAnchor),
-            canvas.bottomAnchor.constraint(equalTo: problemImg.bottomAnchor),
-            canvas.leadingAnchor.constraint(equalTo: problemImg.leadingAnchor),
-            canvas.trailingAnchor.constraint(equalTo: problemImg.trailingAnchor),
+            canvasView.topAnchor.constraint(equalTo: problemImg.topAnchor),
+            canvasView.bottomAnchor.constraint(equalTo: problemImg.bottomAnchor),
+            canvasView.leadingAnchor.constraint(equalTo: problemImg.leadingAnchor),
+            canvasView.trailingAnchor.constraint(equalTo: problemImg.trailingAnchor),
         ])
         
-        guard let window = parent?.view.window,
-           let toolPicker = PKToolPicker.shared(for: window) else {
-            return
-        }
-        
-        toolPicker.addObserver(canvas)
-        canvas.becomeFirstResponder()
-        toolPicker.setVisible(true, forFirstResponder: canvas)
+        toolPicker.addObserver(canvasView)
+        canvasView.delegate = self
+        canvasView.drawing = drawing
+        canvasView.becomeFirstResponder()
+        canvasView.backgroundColor = .clear
+        canvasView.drawingPolicy = .pencilOnly
+//        canvasView.maximumZoomScale = 2.0
     }
     
     // 객관식 1~5 클릭 부분
@@ -108,8 +113,10 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
         UIView.animate(withDuration: 0.3) {
             if(self.isHide) {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 0)
             } else {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 78)
+                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 78)
             }
         }
         view.layoutIfNeeded()
@@ -132,6 +139,7 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     // pencil toll 보이기 설정
     @IBAction func showPencilKit(_ sender: Any) {
         showPencilTool = !showPencilTool
+        toolPicker.setVisible(showPencilTool, forFirstResponder: canvasView)
     }
     
     
@@ -210,6 +218,11 @@ extension SolvingViewController: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return problemImg
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        //        scaleView(view: textView, scale: scale)
+        //        scaleLayer(layer: textView.layer, scale: scale)
     }
 }
 

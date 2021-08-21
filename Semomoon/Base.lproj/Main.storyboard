@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eSB-pQ-cTM">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -90,9 +90,8 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwj-dv-7ii">
-                                <rect key="frame" x="352.5" y="982" width="63" height="31"/>
+                                <rect key="frame" x="361" y="983" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Pencil"/>
                                 <connections>
                                     <action selector="pencil:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F3l-Pu-K4A"/>
                                 </connections>
@@ -479,13 +478,17 @@
                                     <action selector="hide:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="ZjD-Bu-rCQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SV7-CN-KwL">
-                                <rect key="frame" x="693" y="896.5" width="60" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SV7-CN-KwL">
+                                <rect key="frame" x="708" y="896" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="EUK-jh-7Qg"/>
+                                    <constraint firstAttribute="height" constant="45" id="HG1-2f-x9u"/>
+                                </constraints>
                                 <color key="tintColor" name="mint"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="pencil.tip.crop.circle" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="25"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="pencil.tip.crop.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
                                 <connections>
                                     <action selector="showPencilKit:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="yPR-ff-61X"/>
                                 </connections>
@@ -527,6 +530,7 @@
                         <outlet property="bottomFrame" destination="2v7-ob-KQ8" id="Tyh-Ko-vSA"/>
                         <outlet property="collectionView" destination="Ilc-t3-fAd" id="4En-FC-Tpm"/>
                         <outlet property="hideButton" destination="Hw3-j3-nku" id="xZj-K8-BOc"/>
+                        <outlet property="pencilButton" destination="SV7-CN-KwL" id="c0C-8b-TDM"/>
                         <outlet property="problemImg" destination="HVT-X2-lPs" id="gLW-ly-bxv"/>
                         <outlet property="scrollView" destination="d0y-l4-qFl" id="38f-OE-oUV"/>
                         <outlet property="sol_1" destination="xt5-r2-46p" id="nqw-ja-pGG"/>
