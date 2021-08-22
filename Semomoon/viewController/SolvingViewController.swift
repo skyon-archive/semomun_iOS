@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PencilKit
 
 class SolvingViewController: UIViewController {
 
@@ -22,7 +23,10 @@ class SolvingViewController: UIViewController {
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var pencilButton: UIButton!
     
+    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var underlayView: UIImageView!
     
     var buttons: [UIButton] = []
     // 임시적으로 문제내용 생성
@@ -31,8 +35,23 @@ class SolvingViewController: UIViewController {
     var bookmarks: [Bool] = []
     var isHide: Bool = false
     var problemNumber: Int = 0
+    // 펜슬킷 캔버스
+    var drawing = PKDrawing()
+    var showPencilTool: Bool = false
+    lazy var image: UIImage = {
+        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
+//        return UIImage(named: "test")!
+    }()
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        toolPicker.addObserver(self)
+        return toolPicker
+    }()
     
     override func viewDidLoad() {
+        assert(self.canvasView != nil)
+        assert(self.underlayView != nil)
+        assert(self.underlayView.superview == self.canvasView)
         super.viewDidLoad()
         buttons = [sol_1, sol_2, sol_3, sol_4, sol_5]
         setRadius()
@@ -45,6 +64,52 @@ class SolvingViewController: UIViewController {
             stars.append(false)
             bookmarks.append(false)
         }
+        // pencil kit 설정
+        let image = self.image
+        
+        self.canvasView.translatesAutoresizingMaskIntoConstraints = false
+        self.canvasView.contentInsetAdjustmentBehavior = .never
+        self.canvasView.layer.borderColor = UIColor.red.cgColor
+        self.canvasView.layer.borderWidth = 2.0
+        self.canvasView.delegate = self
+        self.canvasView.maximumZoomScale = 2.0
+        self.canvasView.isOpaque = false
+        self.canvasView.backgroundColor = .clear
+        self.canvasView.contentOffset = CGPoint.zero
+        self.canvasView.contentSize = image.size
+        
+        self.underlayView.contentMode = .scaleAspectFill
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        self.underlayView.image = image
+        self.underlayView.layer.borderColor = UIColor.orange.cgColor
+        self.underlayView.layer.borderWidth = 1.0
+        
+        toolPicker.setVisible(true, forFirstResponder: self.canvasView)
+        toolPicker.addObserver(self.canvasView)
+        toolPicker.addObserver(self)
+        self.canvasView.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.canvasView.sendSubviewToBack(self.underlayView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.tool = PKInkingTool(.pen)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let contentSize = self.image.size
+        self.canvasView.contentSize = contentSize
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: contentSize)
+        let margin = (self.canvasView.bounds.size - contentSize) * 0.5
+        let insets = [margin.width, margin.height].map { $0 > 0 ? $0 : 0 }
+        self.canvasView.contentInset = UIEdgeInsets(top: insets[1], left: insets[0], bottom: insets[1], right: insets[0])
     }
     
     // 객관식 1~5 클릭 부분
@@ -74,8 +139,10 @@ class SolvingViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             if(self.isHide) {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 0)
             } else {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 78)
+                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 78)
             }
         }
         view.layoutIfNeeded()
@@ -94,6 +161,13 @@ class SolvingViewController: UIViewController {
         bookmarks[problemNumber] = !bookmarks[problemNumber]
         setBookmark()
     }
+    
+    // pencil toll 보이기 설정
+    @IBAction func showPencilKit(_ sender: Any) {
+        showPencilTool = !showPencilTool
+        toolPicker.setVisible(showPencilTool, forFirstResponder: canvasView)
+    }
+    
     
 }
 
@@ -164,6 +238,57 @@ extension SolvingViewController {
         bookmark.layer.cornerRadius = 17.5
         bookmark.clipsToBounds = true
     }
+}
+
+extension SolvingViewController: PKCanvasViewDelegate {
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        self.underlayView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+            let offsetX: CGFloat = max((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0)
+            let offsetY: CGFloat = max((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0)
+//            self.underlayView.frame.size = CGSize(width: self.view.bounds.width * scrollView.zoomScale, height: self.view.bounds.height * scrollView.zoomScale)
+            self.underlayView.frame.size = self.image.size * self.canvasView.zoomScale
+            self.underlayView.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
+        default:
+            break
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+        default:
+            break
+        }
+    }
+
+}
+
+extension SolvingViewController: PKToolPickerObserver {
+
+    func toolPickerSelectedToolDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerIsRulerActiveDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerVisibilityDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerFramesObscuredDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
 }
 
 extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataSource {

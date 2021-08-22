@@ -1,111 +1,132 @@
 //
-//  ViewController.swift
-//  Semomoon
+//  Canvas1ViewController.swift
+//  PKCanvasViewTester
 //
-//  Created by Kang Minsang on 2021/08/17.
+//  Created by Kaz Yoshikawa on 5/9/20.
+//  Copyright © 2020 Kaz Yoshikawa. All rights reserved.
 //
 
 import UIKit
 import PencilKit
 
+
 class ViewController: UIViewController {
-    @IBOutlet var img: UIImageView!
     
-    @IBOutlet var send: UIButton!
-    @IBOutlet var check_1: UIButton!
-    @IBOutlet var check_2: UIButton!
-    @IBOutlet var check_3: UIButton!
-    @IBOutlet var check_4: UIButton!
-    @IBOutlet var check_5: UIButton!
-    @IBOutlet var nextButton: UIButton!
-    @IBOutlet var timeFrame: UIView!
-    
-    @IBOutlet var bottomFrame: UIView!
-    
-    var tempBts: [String] = []
-    let canvas = PKCanvasView(frame: .zero)
-    
+    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var underlayView: UIImageView!
+
+    lazy var image: UIImage = {
+        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
+//        return UIImage(named: "001")!
+    }()
+
     override func viewDidLoad() {
+        assert(self.canvasView != nil)
+        assert(self.underlayView != nil)
+        assert(self.underlayView.superview == self.canvasView)
         super.viewDidLoad()
-        for i in 1...20 { tempBts.append("\(i)") }
-        
-        setRadius()
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(ViewController.doPinch(_:)))
-        self.view.addGestureRecognizer(pinch) // 핀치 제스처 등록
-        
-        canvas.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(canvas)
-        canvas.backgroundColor = .clear
-        
-        NSLayoutConstraint.activate([
-            canvas.topAnchor.constraint(equalTo: img.topAnchor),
-            canvas.bottomAnchor.constraint(equalTo: img.bottomAnchor),
-            canvas.leadingAnchor.constraint(equalTo: img.leadingAnchor),
-            canvas.trailingAnchor.constraint(equalTo: img.trailingAnchor),
-        ])
+
+        let image = self.image
+
+        self.canvasView.translatesAutoresizingMaskIntoConstraints = false
+        self.canvasView.contentInsetAdjustmentBehavior = .never
+        self.canvasView.layer.borderColor = UIColor.red.cgColor
+        self.canvasView.layer.borderWidth = 2.0
+        self.canvasView.delegate = self
+        self.canvasView.maximumZoomScale = 2.0
+        self.canvasView.isOpaque = false
+        self.canvasView.backgroundColor = .clear
+        self.canvasView.contentOffset = CGPoint.zero
+        self.canvasView.contentSize = image.size
+
+        self.underlayView.contentMode = .scaleAspectFill
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        self.underlayView.image = image
+        self.underlayView.layer.borderColor = UIColor.orange.cgColor
+        self.underlayView.layer.borderWidth = 1.0
+
+        if let window = UIApplication.shared.windows.first, let toolPicker = PKToolPicker.shared(for: window) {
+            toolPicker.setVisible(true, forFirstResponder: self.canvasView)
+            toolPicker.addObserver(self.canvasView)
+            toolPicker.addObserver(self)
+            self.canvasView.becomeFirstResponder()
+        }
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.canvasView.sendSubviewToBack(self.underlayView)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.tool = PKInkingTool(.pen)
     }
     
-    @IBAction func showPencle(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.showPencleView()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let contentSize = self.image.size
+        self.canvasView.contentSize = contentSize
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: contentSize)
+        let margin = (self.canvasView.bounds.size - contentSize) * 0.5
+        let insets = [margin.width, margin.height].map { $0 > 0 ? $0 : 0 }
+        self.canvasView.contentInset = UIEdgeInsets(top: insets[1], left: insets[0], bottom: insets[1], right: insets[0])
+    }
+    
+}
+
+extension ViewController: PKCanvasViewDelegate {
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        self.underlayView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+            // https://stackoom.com/question/3pNGe/%E5%A6%82%E4%BD%95%E5%B0%86UIImage%E8%BD%AC%E6%8D%A2%E6%88%96%E5%8A%A0%E8%BD%BD%E5%88%B0PKDrawing%E4%B8%AD
+            let offsetX: CGFloat = max((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0)
+            let offsetY: CGFloat = max((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0)
+//            self.underlayView.frame.size = CGSize(width: self.view.bounds.width * scrollView.zoomScale, height: self.view.bounds.height * scrollView.zoomScale)
+            self.underlayView.frame.size = self.image.size * self.canvasView.zoomScale
+            self.underlayView.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
+        default:
+            break
         }
     }
     
-    func showPencleView() {
-        guard let window = view.window,
-              let toolPicker = PKToolPicker.shared(for: window) else { return }
-        
-        toolPicker.setVisible(true, forFirstResponder: canvas)
-        toolPicker.addObserver(canvas)
-        canvas.becomeFirstResponder()
-        toolPicker.setVisible(true, forFirstResponder: canvas)
-    }
-    
-    @objc func doPinch(_ pinch: UIPinchGestureRecognizer) {
-        // 이미지를 스케일에 맞게 변환
-        img.transform = img.transform.scaledBy(x: pinch.scale, y: pinch.scale)
-        // 다음 변환을 위해 핀치의 스케일 속성을 1로 설정
-        pinch.scale = 1
-    }
-}
-
-extension ViewController {
-    func setRadius() {
-        let buttons: [UIButton] = [send, check_1, check_2, check_3, check_4, check_5, nextButton]
-        for button in buttons {
-            button.layer.cornerRadius = 15
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+        default:
+            break
         }
-        timeFrame.layer.cornerRadius = 15
-        bottomFrame.layer.cornerRadius = 30
-        bottomFrame.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
-    
-    func selectNum(_ num: String) {
-        print("선택 : \(num)")
-    }
+
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    //버튼 개수 반환
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tempBts.count
+extension ViewController: PKToolPickerObserver {
+
+    func toolPickerSelectedToolDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
     }
-    //버튼 화면 뿌리기
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "probButtonCell", for: indexPath) as? probButtonCell else {
-            return UICollectionViewCell()
-        }
-        cell.num.text = tempBts[indexPath.row]
-        cell.round.layer.cornerRadius = 20
-        return cell
+
+    func toolPickerIsRulerActiveDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
     }
-    //버튼 클릭시 이벤트
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectNum(tempBts[indexPath.row])
+
+    func toolPickerVisibilityDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
     }
+
+    func toolPickerFramesObscuredDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
 }
 
-class probButtonCell: UICollectionViewCell {
-    @IBOutlet var num: UILabel!
-    @IBOutlet var round: UIView!
-}
