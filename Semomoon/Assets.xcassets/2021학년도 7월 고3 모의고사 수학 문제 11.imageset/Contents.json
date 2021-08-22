@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "2021학년도 7월 고3 모의고사 수학 문제 11.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "2021학년도 7월 고3 모의고사 수학 문제 11-1.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "2021학년도 7월 고3 모의고사 수학 문제 11-2.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
