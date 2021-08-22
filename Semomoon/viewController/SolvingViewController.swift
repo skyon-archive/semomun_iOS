@@ -39,8 +39,9 @@ class SolvingViewController: UIViewController {
     var drawing = PKDrawing()
     var showPencilTool: Bool = false
     lazy var image: UIImage = {
-        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
+//        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
 //        return UIImage(named: "test")!
+        return UIImage(named: "test2")!
     }()
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -78,7 +79,7 @@ class SolvingViewController: UIViewController {
         self.canvasView.contentOffset = CGPoint.zero
         self.canvasView.contentSize = image.size
         
-        self.underlayView.contentMode = .scaleAspectFill
+        self.underlayView.contentMode = .scaleAspectFit
         self.underlayView.frame = CGRect(origin: CGPoint.zero, size: image.size)
         self.underlayView.image = image
         self.underlayView.layer.borderColor = UIColor.orange.cgColor
@@ -331,4 +332,20 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
 class solveNumberCell: UICollectionViewCell {
     @IBOutlet var num: UILabel!
     @IBOutlet var outerFrame: UIView!
+}
+
+extension UIImage {
+    func resize(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let size = CGSize(width: newWidth, height: newHeight)
+        let render = UIGraphicsImageRenderer(size: size)
+        let renderImage = render.image { context in self.draw(in: CGRect(origin: .zero, size: size))}
+        print("화면 배율: \(UIScreen.main.scale)")// 배수
+        print("origin: \(self), resize: \(renderImage)")
+        //    printDataSize(renderImage)
+        return renderImage
+    }
+    
+    
 }
