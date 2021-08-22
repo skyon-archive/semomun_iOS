@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var underlayView: UIImageView!
 
     lazy var image: UIImage = {
-//        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
-        return UIImage(named: "001")!
+        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
+//        return UIImage(named: "001")!
     }()
 
     override func viewDidLoad() {

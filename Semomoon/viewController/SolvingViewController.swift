@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPickerObserver {
+class SolvingViewController: UIViewController {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
@@ -23,10 +23,10 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
     @IBOutlet var collectionView: UICollectionView!
-    
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var problemImg: UIImageView!
     @IBOutlet weak var pencilButton: UIButton!
+    
+    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var underlayView: UIImageView!
     
     var buttons: [UIButton] = []
     // 임시적으로 문제내용 생성
@@ -38,14 +38,10 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     // 펜슬킷 캔버스
     var drawing = PKDrawing()
     var showPencilTool: Bool = false
-    
-    lazy var canvasView: PKCanvasView = {
-        let canvasView = PKCanvasView()
-        canvasView.drawingPolicy = .anyInput
-        canvasView.translatesAutoresizingMaskIntoConstraints = false
-        return canvasView
+    lazy var image: UIImage = {
+        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
+//        return UIImage(named: "test")!
     }()
-    
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
         toolPicker.addObserver(self)
@@ -53,6 +49,9 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
     }()
     
     override func viewDidLoad() {
+        assert(self.canvasView != nil)
+        assert(self.underlayView != nil)
+        assert(self.underlayView.superview == self.canvasView)
         super.viewDidLoad()
         buttons = [sol_1, sol_2, sol_3, sol_4, sol_5]
         setRadius()
@@ -65,25 +64,52 @@ class SolvingViewController: UIViewController, PKCanvasViewDelegate, PKToolPicke
             stars.append(false)
             bookmarks.append(false)
         }
-        // 문제 확대축소 설정
-        scrollView.delegate = self
-        scrollView.maximumZoomScale = 2.0
         // pencil kit 설정
-        scrollView.addSubview(canvasView)
-        NSLayoutConstraint.activate([
-            canvasView.topAnchor.constraint(equalTo: problemImg.topAnchor),
-            canvasView.bottomAnchor.constraint(equalTo: problemImg.bottomAnchor),
-            canvasView.leadingAnchor.constraint(equalTo: problemImg.leadingAnchor),
-            canvasView.trailingAnchor.constraint(equalTo: problemImg.trailingAnchor),
-        ])
+        let image = self.image
         
-        toolPicker.addObserver(canvasView)
-        canvasView.delegate = self
-        canvasView.drawing = drawing
-        canvasView.becomeFirstResponder()
-        canvasView.backgroundColor = .clear
-        canvasView.drawingPolicy = .pencilOnly
-//        canvasView.maximumZoomScale = 2.0
+        self.canvasView.translatesAutoresizingMaskIntoConstraints = false
+        self.canvasView.contentInsetAdjustmentBehavior = .never
+        self.canvasView.layer.borderColor = UIColor.red.cgColor
+        self.canvasView.layer.borderWidth = 2.0
+        self.canvasView.delegate = self
+        self.canvasView.maximumZoomScale = 2.0
+        self.canvasView.isOpaque = false
+        self.canvasView.backgroundColor = .clear
+        self.canvasView.contentOffset = CGPoint.zero
+        self.canvasView.contentSize = image.size
+        
+        self.underlayView.contentMode = .scaleAspectFill
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        self.underlayView.image = image
+        self.underlayView.layer.borderColor = UIColor.orange.cgColor
+        self.underlayView.layer.borderWidth = 1.0
+        
+        toolPicker.setVisible(true, forFirstResponder: self.canvasView)
+        toolPicker.addObserver(self.canvasView)
+        toolPicker.addObserver(self)
+        self.canvasView.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.canvasView.sendSubviewToBack(self.underlayView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.tool = PKInkingTool(.pen)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let contentSize = self.image.size
+        self.canvasView.contentSize = contentSize
+        self.underlayView.frame = CGRect(origin: CGPoint.zero, size: contentSize)
+        let margin = (self.canvasView.bounds.size - contentSize) * 0.5
+        let insets = [margin.width, margin.height].map { $0 > 0 ? $0 : 0 }
+        self.canvasView.contentInset = UIEdgeInsets(top: insets[1], left: insets[0], bottom: insets[1], right: insets[0])
     }
     
     // 객관식 1~5 클릭 부분
@@ -214,16 +240,55 @@ extension SolvingViewController {
     }
 }
 
-extension SolvingViewController: UIScrollViewDelegate {
-    
+extension SolvingViewController: PKCanvasViewDelegate {
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return problemImg
+        self.underlayView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+            let offsetX: CGFloat = max((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0)
+            let offsetY: CGFloat = max((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0)
+//            self.underlayView.frame.size = CGSize(width: self.view.bounds.width * scrollView.zoomScale, height: self.view.bounds.height * scrollView.zoomScale)
+            self.underlayView.frame.size = self.image.size * self.canvasView.zoomScale
+            self.underlayView.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
+        default:
+            break
+        }
     }
     
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        //        scaleView(view: textView, scale: scale)
-        //        scaleLayer(layer: textView.layer, scale: scale)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case canvasView:
+            print(Self.self, #function)
+        default:
+            break
+        }
     }
+
+}
+
+extension SolvingViewController: PKToolPickerObserver {
+
+    func toolPickerSelectedToolDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerIsRulerActiveDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerVisibilityDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
+    func toolPickerFramesObscuredDidChange(_ toolPicker: PKToolPicker) {
+        print(Self.self, #function)
+    }
+
 }
 
 extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
