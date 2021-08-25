@@ -16,6 +16,8 @@ class test_2ViewController: UIViewController {
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
     
+    @IBOutlet weak var height: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
