@@ -701,6 +701,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="SK3-zf-xSn" eventType="touchUpInside" id="06f-W1-7PO"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="YXK-tw-s2R"/>
                                         </connections>
                                     </button>
@@ -715,6 +716,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="SK3-zf-xSn" eventType="touchUpInside" id="UTn-co-X3d"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="tNk-Zf-G5j"/>
                                         </connections>
                                     </button>
@@ -729,6 +731,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="SK3-zf-xSn" eventType="touchUpInside" id="02z-Bh-Dfh"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="Afh-bX-Iub"/>
                                         </connections>
                                     </button>
@@ -744,6 +747,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="6Ya-bo-z0F"/>
+                                            <action selector="sol_click:" destination="SK3-zf-xSn" eventType="touchUpInside" id="hC6-7K-vnq"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wpx-5t-lMg">
@@ -767,6 +771,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="SK3-zf-xSn" eventType="touchUpInside" id="0sr-ez-TKh"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="27C-Sf-mkz"/>
                                         </connections>
                                     </button>
@@ -812,6 +817,16 @@
                             <constraint firstItem="Har-SQ-Ycp" firstAttribute="width" secondItem="BaT-J5-e5G" secondAttribute="width" multiplier="0.5" id="zXP-fV-IXP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bookmark" destination="m8o-0E-7ha" id="ou1-Vv-qBF"/>
+                        <outlet property="sol_1" destination="Jda-1g-2VE" id="6QB-yO-NB7"/>
+                        <outlet property="sol_2" destination="NVe-64-nbY" id="1ni-ZG-bOB"/>
+                        <outlet property="sol_3" destination="jts-nh-Dc9" id="g0d-JL-z3G"/>
+                        <outlet property="sol_4" destination="K34-eT-7OL" id="Siu-9i-DYL"/>
+                        <outlet property="sol_5" destination="dhf-3m-nLa" id="2iQ-RD-4lr"/>
+                        <outlet property="solvInputFrame" destination="E9w-g8-lEx" id="PiJ-NO-VCT"/>
+                        <outlet property="star" destination="KGw-Gg-QPM" id="Apx-F9-VYy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6RF-ni-JSd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -919,6 +934,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="7qz-Lj-6dz" eventType="touchUpInside" id="J49-21-BtS"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="OTT-1S-CI3"/>
                                         </connections>
                                     </button>
@@ -934,6 +950,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="0lh-IH-biO"/>
+                                            <action selector="sol_click:" destination="7qz-Lj-6dz" eventType="touchUpInside" id="FwN-bk-rXK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qII-uC-Wgd">
@@ -947,6 +964,7 @@
                                             <color key="titleColor" name="mint"/>
                                         </state>
                                         <connections>
+                                            <action selector="sol_click:" destination="7qz-Lj-6dz" eventType="touchUpInside" id="5Dg-qn-5FA"/>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="p9t-ek-ZsT"/>
                                         </connections>
                                     </button>
@@ -962,6 +980,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="fmk-oi-ezF"/>
+                                            <action selector="sol_click:" destination="7qz-Lj-6dz" eventType="touchUpInside" id="mX7-7f-21d"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VK4-Hx-w65">
@@ -986,6 +1005,7 @@
                                         </state>
                                         <connections>
                                             <action selector="sol_click:" destination="eSB-pQ-cTM" eventType="touchUpInside" id="OX9-Tq-qFD"/>
+                                            <action selector="sol_click:" destination="7qz-Lj-6dz" eventType="touchUpInside" id="eFM-kI-Kua"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1030,6 +1050,16 @@
                             <constraint firstItem="HMV-sK-czh" firstAttribute="bottom" secondItem="3X2-jN-TiC" secondAttribute="bottom" id="ymP-R3-kqi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bookmark" destination="YAl-yE-xmi" id="X3l-qS-xCR"/>
+                        <outlet property="sol_1" destination="qII-uC-Wgd" id="0JZ-ex-A6Q"/>
+                        <outlet property="sol_2" destination="4vY-1B-Kis" id="4oV-bn-yvz"/>
+                        <outlet property="sol_3" destination="17U-Pp-C27" id="ebF-DF-UBJ"/>
+                        <outlet property="sol_4" destination="etY-a9-zMr" id="JnG-Vn-Yxx"/>
+                        <outlet property="sol_5" destination="2VK-jS-INx" id="m59-S4-oR5"/>
+                        <outlet property="solvInputFrame" destination="vsP-QS-Shn" id="l7c-FG-yfp"/>
+                        <outlet property="star" destination="5eR-Jw-URG" id="XOS-gc-1mB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L9O-d9-8j4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1179,6 +1209,12 @@
                             <constraint firstItem="xSQ-2B-l9B" firstAttribute="trailing" secondItem="D3d-gm-4P7" secondAttribute="trailing" constant="10" id="qSx-in-Ndd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bookmark" destination="Szy-d1-YPM" id="GXH-CI-qee"/>
+                        <outlet property="solvInputFrame" destination="D3d-gm-4P7" id="acR-YM-51Z"/>
+                        <outlet property="star" destination="aa8-jv-r6v" id="Lpt-8B-ggG"/>
+                        <outlet property="textField" destination="cbP-wN-f8e" id="2r7-lK-GRe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zet-Ph-OU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
