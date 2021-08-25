@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
+		4A6AFE9626D6457500E65561 /* parentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9526D6457500E65561 /* parentViewController.swift */; };
+		4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */; };
+		4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */; };
+		4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */; };
 		4AA1731226CF99880099253F /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA1731126CF99880099253F /* SolvingViewController.swift */; };
 		878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
@@ -39,6 +43,10 @@
 
 /* Begin PBXFileReference section */
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
+		4A6AFE9526D6457500E65561 /* parentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parentViewController.swift; sourceTree = "<group>"; };
+		4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_1ViewController.swift; sourceTree = "<group>"; };
+		4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_2ViewController.swift; sourceTree = "<group>"; };
+		4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_3ViewController.swift; sourceTree = "<group>"; };
 		4AA1731126CF99880099253F /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
 		878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencleTestViewController.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +90,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A6AFE9426D6455F00E65561 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				4A6AFE9526D6457500E65561 /* parentViewController.swift */,
+				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
+				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
+				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		878CFFC826CBDD750023C851 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +134,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				4A6AFE9426D6455F00E65561 /* test */,
 				878CFFC826CBDD750023C851 /* viewController */,
 				87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */,
 				87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */,
@@ -277,7 +297,11 @@
 			files = (
 				4AA1731226CF99880099253F /* SolvingViewController.swift in Sources */,
 				87AB9DD426CB2BDB0019A276 /* ViewController.swift in Sources */,
+				4A6AFE9626D6457500E65561 /* parentViewController.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
+				4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */,
+				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
+				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */,
