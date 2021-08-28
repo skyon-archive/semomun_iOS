@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import PencilKit
 
-class test_1ViewController: UIViewController {
+class test_1ViewController: UIViewController, CALayerDelegate {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
@@ -18,7 +19,18 @@ class test_1ViewController: UIViewController {
     
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+//    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var underImage: UIImageView!
+    
+    @IBOutlet weak var imageWidth: NSLayoutConstraint!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    
     var buttons: [UIButton] = []
+    
+    
+    var height: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +40,29 @@ class test_1ViewController: UIViewController {
         setBorderWidth()
         setBorderColor()
         setShadowFrame()
-        // Do any additional setup after loading the view.
+        
+        underImage.layer.delegate = self
+        let image = UIImage(named: "A-1")!
+        underImage.image = image
+        height = image.size.height*(500/image.size.width)
+        underImage.frame = CGRect(x: 0, y: 0, width: 500, height: height)
+        imageHeight.constant = height
+        
+        addPinch()
     }
     
+    func addPinch() {
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(test_1ViewController.didPinch(_:)))
+        self.view.addGestureRecognizer(pinch)
+    }
+    
+    @objc func didPinch(_ gesture: UIPinchGestureRecognizer) {
+        if gesture.state == .changed {
+            imageWidth.constant *= gesture.scale
+            imageHeight.constant *= gesture.scale
+            gesture.scale = 1
+        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -99,3 +131,15 @@ extension test_1ViewController {
     }
     
 }
+
+
+//extension test_1ViewController: UIScrollViewDelegate {
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return underImage
+//    }
+//
+//    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+//        scrollView.center = view.center
+//        canvasView.center.x = scrollView.center.x
+//    }
+//}
