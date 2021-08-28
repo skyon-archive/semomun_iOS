@@ -8,7 +8,55 @@
 import UIKit
 
 class test_3ViewController: UIViewController {
+    
+    @IBOutlet weak var testImage: UIImageView!
+    var images: [UIImage] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        images = [UIImage(named: "B-1")!, UIImage(named: "B-2")!, UIImage(named: "B-3")!]
+        // Do any additional setup after loading the view.
+        testImage.image = UIImage(named: "B-0")!
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("3 : disappear")
+    }
+}
 
+
+
+extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KoreanCell", for: indexPath) as? KoreanCell else { return UICollectionViewCell() }
+        cell.buttons = [cell.sol_1, cell.sol_2, cell.sol_3, cell.sol_4, cell.sol_5]
+        cell.setRadius()
+        cell.setBorderWidth()
+        cell.setBorderColor()
+        cell.setShadowFrame()
+        cell.image.image = images[indexPath.item]
+        return cell
+    }
+    
+}
+
+//extension test_3ViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        // imageView 높이 설정
+//        let height: CGFloat = 
+//        // cell의 전체 높이 설정
+//    }
+//}
+
+
+class KoreanCell: UICollectionViewCell {
+    @IBOutlet var image: UIImageView!
+    
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
     @IBOutlet weak var sol_2: UIButton!
@@ -18,25 +66,9 @@ class test_3ViewController: UIViewController {
     
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
+    
     var buttons: [UIButton] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        buttons = [sol_1, sol_2, sol_3, sol_4, sol_5]
-
-        setRadius()
-        setBorderWidth()
-        setBorderColor()
-        setShadowFrame()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("3 : disappear")
-    }
-    
-    // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
         for bt in buttons {
@@ -49,10 +81,7 @@ class test_3ViewController: UIViewController {
             }
         }
     }
-}
-
-
-extension test_3ViewController {
+    
     // 뷰의 라운드 설정 부분
     func setRadius() {
         solvInputFrame.layer.cornerRadius = 20
