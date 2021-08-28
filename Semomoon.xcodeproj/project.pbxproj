@@ -13,6 +13,7 @@
 		4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */; };
 		4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */; };
 		4AA1731226CF99880099253F /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA1731126CF99880099253F /* SolvingViewController.swift */; };
+		4AA56FAD26D9DA9400D36327 /* KoreanCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA56FAC26D9DA9400D36327 /* KoreanCellLayout.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController2.swift */; };
 		878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_2ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_3ViewController.swift; sourceTree = "<group>"; };
 		4AA1731126CF99880099253F /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
+		4AA56FAC26D9DA9400D36327 /* KoreanCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreanCellLayout.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController2.swift; sourceTree = "<group>"; };
 		878CFFCB26CBDDCA0023C851 /* PencleTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencleTestViewController.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,14 @@
 			path = test;
 			sourceTree = "<group>";
 		};
+		4AA56FAB26D9DA7F00D36327 /* layout */ = {
+			isa = PBXGroup;
+			children = (
+				4AA56FAC26D9DA9400D36327 /* KoreanCellLayout.swift */,
+			);
+			path = layout;
+			sourceTree = "<group>";
+		};
 		878CFFC826CBDD750023C851 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				4AA56FAB26D9DA7F00D36327 /* layout */,
 				4A6AFE9426D6455F00E65561 /* test */,
 				878CFFC826CBDD750023C851 /* viewController */,
 				87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */,
@@ -309,6 +320,7 @@
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA9803326D6584D004E8FCC /* SolvingViewController2.swift in Sources */,
 				878CFFCC26CBDDCA0023C851 /* PencleTestViewController.swift in Sources */,
+				4AA56FAD26D9DA9400D36327 /* KoreanCellLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

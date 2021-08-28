@@ -39,23 +39,31 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.setBorderWidth()
         cell.setBorderColor()
         cell.setShadowFrame()
-        cell.image.image = images[indexPath.item]
+        cell.setImage(img: images[indexPath.item])
+        cell.setHeight(superWidth: collectionView.frame.width)
         return cell
     }
     
 }
 
-//extension test_3ViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        // imageView 높이 설정
-//        let height: CGFloat = 
-//        // cell의 전체 높이 설정
-//    }
-//}
-
+extension test_3ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // imageView 높이값 가져오기
+        let img = images[indexPath.row]
+        print("\(img.size.width) * \(img.size.height)")
+        print("\(collectionView.frame.width)")
+        let imgHeight: CGFloat = img.size.height * (collectionView.frame.width/img.size.width)
+        print("\(imgHeight)")
+        
+        let width: CGFloat = collectionView.frame.width
+        let height: CGFloat = 161 + imgHeight
+        // cell의 전체 높이 설정
+        return CGSize(width: width, height: height)
+    }
+}
 
 class KoreanCell: UICollectionViewCell {
-    @IBOutlet var image: UIImageView!
+    @IBOutlet var imgView: UIImageView!
     
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
@@ -67,7 +75,10 @@ class KoreanCell: UICollectionViewCell {
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
     
+    @IBOutlet weak var imgHeight: NSLayoutConstraint!
+    
     var buttons: [UIButton] = []
+    var image: UIImage = UIImage()
     
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
@@ -123,5 +134,15 @@ class KoreanCell: UICollectionViewCell {
         star.layer.shadowOffset = CGSize(width: 2, height: 2)
         star.layer.shadowRadius = 3
         star.layer.masksToBounds = false
+    }
+    
+    func setImage(img: UIImage) {
+        self.image = img
+        self.imgView.image = image
+    }
+    
+    func setHeight(superWidth: CGFloat) {
+        let newHeight: CGFloat = image.size.height * (superWidth/image.size.width)
+        imgHeight.constant = newHeight
     }
 }
