@@ -41,7 +41,7 @@ class SolvingViewController: UIViewController {
     lazy var image: UIImage = {
 //        return UIImage(named: "2021학년도 7월 고3 모의고사 수학 문제 11")!
 //        return UIImage(named: "test")!
-        return UIImage(named: "test2")!
+        return UIImage(named: "A-1")!
     }()
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -79,7 +79,7 @@ class SolvingViewController: UIViewController {
         self.canvasView.contentOffset = CGPoint.zero
         self.canvasView.contentSize = image.size
         
-        self.underlayView.contentMode = .scaleAspectFit
+        self.underlayView.contentMode = .scaleAspectFill
         self.underlayView.frame = CGRect(origin: CGPoint.zero, size: image.size)
         self.underlayView.image = image
         self.underlayView.layer.borderColor = UIColor.orange.cgColor
