@@ -14,7 +14,6 @@ class SolvingViewController2: UIViewController {
     @IBOutlet var bottomConst: NSLayoutConstraint!
     @IBOutlet var hideButton: UIButton!
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet weak var pencilButton: UIButton!
     @IBOutlet weak var childView: UIView!
     
     var vc1: UIViewController = test_1ViewController()
@@ -28,8 +27,6 @@ class SolvingViewController2: UIViewController {
     var isHide: Bool = false
     var problemNumber: Int = 0
     
-    var showPencilTool: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setRadius()
@@ -39,6 +36,12 @@ class SolvingViewController2: UIViewController {
             stars.append(false)
             bookmarks.append(false)
         }
+        problems.append("개")
+        problems.append("유")
+        stars.append(false)
+        bookmarks.append(false)
+        stars.append(false)
+        bookmarks.append(false)
         
         vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") ?? test_1ViewController()
         vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") ?? test_2ViewController()
@@ -50,7 +53,6 @@ class SolvingViewController2: UIViewController {
         vc1.view.frame = self.childView.bounds
         self.childView.addSubview(vc1.view)
         self.view.addSubview(hideButton)
-        self.view.addSubview(pencilButton)
     }
     
     // 문제 선택 가리기 버튼
@@ -67,21 +69,13 @@ class SolvingViewController2: UIViewController {
         UIView.animate(withDuration: 0.3) {
             if(self.isHide) {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 0)
             } else {
                 self.hideButton.transform = CGAffineTransform(translationX: 0, y: 78)
-                self.pencilButton.transform = CGAffineTransform(translationX: 0, y: 78)
             }
         }
         view.layoutIfNeeded()
         isHide = !isHide
     }
-    
-    // pencil toll 보이기 설정
-    @IBAction func showPencilKit(_ sender: Any) {
-        
-    }
-    
     
 }
 
@@ -110,7 +104,6 @@ extension SolvingViewController2 {
             break
         }
         self.view.addSubview(hideButton)
-        self.view.addSubview(pencilButton)
     }
 }
 
@@ -159,7 +152,7 @@ extension SolvingViewController2: UICollectionViewDelegate, UICollectionViewData
 //    func resize(newWidth: CGFloat) -> UIImage {
 //        let scale = newWidth / self.size.width
 //        let newHeight = self.size.height * scale
-//        let size = CGSize(width: newWidth, height: newHeight)
+//        let size = CGSize(width: newWidth, height: newHeight)s
 //        let render = UIGraphicsImageRenderer(size: size)
 //        let renderImage = render.image { context in self.draw(in: CGRect(origin: .zero, size: size))}
 //        print("화면 배율: \(UIScreen.main.scale)")// 배수

@@ -21,11 +21,13 @@ class test_1ViewController: UIViewController, CALayerDelegate {
     @IBOutlet var bookmark: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var canvasView: PKCanvasView!
+//    @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var underImage: UIImageView!
     
     @IBOutlet weak var imageWidth: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    
+//    @IBOutlet weak var contentHeight: NSLayoutConstraint!
     
     var buttons: [UIButton] = []
     
@@ -41,13 +43,19 @@ class test_1ViewController: UIViewController, CALayerDelegate {
         setBorderColor()
         setShadowFrame()
         
+//        underImage.layer.delegate = self
         let image = UIImage(named: "A-1")!
         underImage.image = image
         height = image.size.height*(500/image.size.width)
         underImage.frame = CGRect(x: 0, y: 0, width: 500, height: height)
         imageWidth.constant = 500
         imageHeight.constant = height
+//
         addPinch()
+        
+        scrollView.delegate = self
+//        scrollView.maximumZoomScale = 2.0
+        scrollView.zoomScale = 1.0
     }
     
     func addPinch() {
@@ -57,13 +65,9 @@ class test_1ViewController: UIViewController, CALayerDelegate {
     
     @objc func didPinch(_ gesture: UIPinchGestureRecognizer) {
         if gesture.state == .changed {
-            let maxWidth = scrollView.frame.width-20
-            let newWidth = imageWidth.constant * gesture.scale
-            
-            if(newWidth <= maxWidth) {
-                imageWidth.constant *= gesture.scale
-                imageHeight.constant *= gesture.scale
-            }
+            imageWidth.constant *= gesture.scale
+            imageHeight.constant *= gesture.scale
+//            contentHeight.constant *= gesture.scale
             gesture.scale = 1
         }
     }
