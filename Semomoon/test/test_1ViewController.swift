@@ -41,14 +41,18 @@ class test_1ViewController: UIViewController, CALayerDelegate {
         setBorderColor()
         setShadowFrame()
         
-        underImage.layer.delegate = self
+//        underImage.layer.delegate = self
         let image = UIImage(named: "A-1")!
         underImage.image = image
         height = image.size.height*(500/image.size.width)
         underImage.frame = CGRect(x: 0, y: 0, width: 500, height: height)
         imageHeight.constant = height
+//
+//        addPinch()
         
-        addPinch()
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 2.0
+        scrollView.zoomScale = 1.0
     }
     
     func addPinch() {
@@ -133,13 +137,13 @@ extension test_1ViewController {
 }
 
 
-//extension test_1ViewController: UIScrollViewDelegate {
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return underImage
-//    }
-//
-//    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-//        scrollView.center = view.center
-//        canvasView.center.x = scrollView.center.x
-//    }
-//}
+extension test_1ViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return underImage
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        scrollView.center = view.center
+        underImage.center.x = scrollView.center.x
+    }
+}
