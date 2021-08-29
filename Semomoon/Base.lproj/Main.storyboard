@@ -1094,7 +1094,7 @@
                                 <rect key="frame" x="10" y="126" width="814" height="976"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8E-8M-Atq" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="814" height="720"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="814" height="1130"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CF5-is-TSo">
                                                 <rect key="frame" x="157" y="10" width="500" height="700"/>
@@ -1104,12 +1104,22 @@
                                                     <constraint firstAttribute="height" constant="700" id="mPa-4k-OoB"/>
                                                 </constraints>
                                             </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBm-oh-z6k" userLabel="canvasView" customClass="PKCanvasView">
+                                                <rect key="frame" x="10" y="720" width="794" height="400"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="400" id="gEa-d6-F7B"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="gray_light"/>
                                         <constraints>
                                             <constraint firstItem="CF5-is-TSo" firstAttribute="top" secondItem="q8E-8M-Atq" secondAttribute="top" constant="10" id="ATA-kX-VuT"/>
+                                            <constraint firstAttribute="trailing" secondItem="eBm-oh-z6k" secondAttribute="trailing" constant="10" id="CVq-oa-vsE"/>
                                             <constraint firstItem="CF5-is-TSo" firstAttribute="centerX" secondItem="q8E-8M-Atq" secondAttribute="centerX" id="LhS-m7-9Q4"/>
-                                            <constraint firstAttribute="bottom" secondItem="CF5-is-TSo" secondAttribute="bottom" constant="10" id="h7d-8Q-dnn"/>
+                                            <constraint firstItem="eBm-oh-z6k" firstAttribute="leading" secondItem="q8E-8M-Atq" secondAttribute="leading" constant="10" id="Zvx-6c-aYb"/>
+                                            <constraint firstItem="eBm-oh-z6k" firstAttribute="top" secondItem="CF5-is-TSo" secondAttribute="bottom" constant="10" id="d4i-Vm-znf"/>
+                                            <constraint firstAttribute="bottom" secondItem="eBm-oh-z6k" secondAttribute="bottom" constant="10" id="l92-0T-00P"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1137,6 +1147,7 @@
                     </view>
                     <connections>
                         <outlet property="bookmark" destination="YAl-yE-xmi" id="X3l-qS-xCR"/>
+                        <outlet property="canvasView" destination="eBm-oh-z6k" id="Gdb-ug-9Yy"/>
                         <outlet property="imageHeight" destination="mPa-4k-OoB" id="j7Q-j7-Viu"/>
                         <outlet property="imageWidth" destination="eRZ-kO-H2q" id="dlB-E6-2o0"/>
                         <outlet property="scrollView" destination="azC-bO-naR" id="azt-Cl-3LN"/>
