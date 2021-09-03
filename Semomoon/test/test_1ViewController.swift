@@ -17,10 +17,10 @@ class test_1ViewController: UIViewController, PKToolPickerObserver {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var canvasWidth: NSLayoutConstraint!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
     var width: CGFloat!
     var height: CGFloat!
@@ -44,21 +44,20 @@ class test_1ViewController: UIViewController, PKToolPickerObserver {
         canvasView.becomeFirstResponder()
         
         guard let image = UIImage(named: "A-1") else { return }
-        let imageview = UIImageView(image: image)
-        imageview.contentMode = .scaleAspectFill
-        imageview.clipsToBounds = true
         
-        let contentView = canvasView.subviews[0]
-        contentView.addSubview(imageview)
-        contentView.sendSubviewToBack(imageview)
-        
-        width = contentView.frame.width - 20
+        width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
-        canvasWidth.constant = width
-        canvasHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageview.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        print("\(width),\(height)")
         
+        imageView.image = image
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        canvasHeight.constant = height
+        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
     
