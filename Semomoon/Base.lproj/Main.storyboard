@@ -1430,22 +1430,22 @@
                                 <rect key="frame" x="10" y="126" width="814" height="976"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLP-Uq-MOb" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="814" height="720"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="814" height="730"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tfd-H7-iiX">
-                                                <rect key="frame" x="157" y="10" width="500" height="700"/>
-                                                <color key="backgroundColor" name="mint"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5a-kG-0rH" customClass="PKCanvasView">
+                                                <rect key="frame" x="57" y="20" width="700" height="700"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="700" id="aSU-Y8-4Yj"/>
-                                                    <constraint firstAttribute="width" constant="500" id="cCJ-Nc-CX6"/>
+                                                    <constraint firstAttribute="width" constant="700" id="9tK-TO-N9c"/>
+                                                    <constraint firstAttribute="height" constant="700" id="Rwc-hX-n1Q"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="gray_light"/>
                                         <constraints>
-                                            <constraint firstItem="Tfd-H7-iiX" firstAttribute="centerX" secondItem="SLP-Uq-MOb" secondAttribute="centerX" id="LK6-gH-m0c"/>
-                                            <constraint firstItem="Tfd-H7-iiX" firstAttribute="top" secondItem="SLP-Uq-MOb" secondAttribute="top" constant="10" id="f5B-tW-zad"/>
-                                            <constraint firstAttribute="bottom" secondItem="Tfd-H7-iiX" secondAttribute="bottom" constant="10" id="fUM-Ta-CM1"/>
+                                            <constraint firstAttribute="bottom" secondItem="r5a-kG-0rH" secondAttribute="bottom" constant="10" id="YP4-lP-3Kh"/>
+                                            <constraint firstItem="r5a-kG-0rH" firstAttribute="top" secondItem="SLP-Uq-MOb" secondAttribute="top" constant="20" id="jxJ-kM-Jgo"/>
+                                            <constraint firstItem="r5a-kG-0rH" firstAttribute="centerX" secondItem="SLP-Uq-MOb" secondAttribute="centerX" id="ooW-su-wAE"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1473,13 +1473,13 @@
                     </view>
                     <connections>
                         <outlet property="bookmark" destination="WYE-Qa-aWg" id="seB-Ml-3xE"/>
+                        <outlet property="canvasHeight" destination="Rwc-hX-n1Q" id="9H5-AF-9S8"/>
+                        <outlet property="canvasView" destination="r5a-kG-0rH" id="Wu0-qg-nMz"/>
+                        <outlet property="canvasWidth" destination="9tK-TO-N9c" id="m92-Jm-fGM"/>
                         <outlet property="contentView" destination="SLP-Uq-MOb" id="ZAc-A3-mYW"/>
-                        <outlet property="imageHeight" destination="aSU-Y8-4Yj" id="7IX-Lr-9ze"/>
-                        <outlet property="imageWidth" destination="cCJ-Nc-CX6" id="YpI-xf-O5S"/>
                         <outlet property="scrollView" destination="Vk2-cu-jEf" id="voF-nu-of9"/>
                         <outlet property="solvInputFrame" destination="xNO-GA-fgL" id="bjz-NU-bfz"/>
                         <outlet property="star" destination="864-d6-lwZ" id="tbR-I4-RJH"/>
-                        <outlet property="underImage" destination="Tfd-H7-iiX" id="zdP-ob-hiI"/>
                         <outletCollection property="checkNumbers" destination="NGt-JS-tIX" collectionClass="NSMutableArray" id="Pza-TB-eri"/>
                         <outletCollection property="checkNumbers" destination="QaF-qq-aJd" collectionClass="NSMutableArray" id="kJi-PJ-jU2"/>
                         <outletCollection property="checkNumbers" destination="hTr-nP-gnc" collectionClass="NSMutableArray" id="ZC1-9j-yAP"/>

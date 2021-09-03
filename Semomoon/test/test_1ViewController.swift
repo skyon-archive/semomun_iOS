@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class test_1ViewController: UIViewController {
+class test_1ViewController: UIViewController, PKToolPickerObserver {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet var checkNumbers: [UIButton]!
@@ -16,15 +16,20 @@ class test_1ViewController: UIViewController {
     @IBOutlet var bookmark: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
-//    @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var underImage: UIImageView!
+    @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var contentView: UIView!
     
-    @IBOutlet weak var imageWidth: NSLayoutConstraint!
-    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var canvasWidth: NSLayoutConstraint!
+    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     
     var width: CGFloat!
     var height: CGFloat!
+    
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        toolPicker.addObserver(self)
+        return toolPicker
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,14 +39,27 @@ class test_1ViewController: UIViewController {
         setBorderColor()
         setShadowFrame()
         
+        canvasView.isOpaque = false
+        canvasView.backgroundColor = .clear
+        canvasView.becomeFirstResponder()
+        
         guard let image = UIImage(named: "A-1") else { return }
-        underImage.image = image
+        let imageview = UIImageView(image: image)
+        imageview.contentMode = .scaleAspectFill
+        imageview.clipsToBounds = true
+        
+        let contentView = canvasView.subviews[0]
+        contentView.addSubview(imageview)
+        contentView.sendSubviewToBack(imageview)
         
         width = contentView.frame.width - 20
         height = image.size.height*(width/image.size.width)
-        underImage.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageWidth.constant = width
-        imageHeight.constant = height
+        canvasWidth.constant = width
+        canvasHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageview.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
