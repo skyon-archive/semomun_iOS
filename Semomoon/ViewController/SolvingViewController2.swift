@@ -8,6 +8,10 @@
 import UIKit
 import PencilKit
 
+protocol SendData {
+    func sendData(data: String)
+}
+
 class SolvingViewController2: UIViewController {
 
     @IBOutlet var bottomFrame: UIView!
@@ -16,7 +20,7 @@ class SolvingViewController2: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var childView: UIView!
     
-    var vc1: UIViewController = test_1ViewController()
+    var vc1: test_1ViewController!
     var vc2: UIViewController = test_2ViewController()
     var vc3: UIViewController = test_3ViewController()
     
@@ -26,10 +30,13 @@ class SolvingViewController2: UIViewController {
     var bookmarks: [Bool] = []
     var isHide: Bool = false
     var problemNumber: Int = 0
+    var pageDatas: PageDatas!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setRadius()
+        pageDatas = PageDatas()
+        
         // 임시 문제 생성
         for i in 1...30 {
             problems.append("\(i)")
@@ -43,13 +50,14 @@ class SolvingViewController2: UIViewController {
         stars.append(false)
         bookmarks.append(false)
         
-        vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") ?? test_1ViewController()
+        vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") as? test_1ViewController
         vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") ?? test_2ViewController()
         vc3 = self.storyboard?.instantiateViewController(withIdentifier: "test_3ViewController") ?? test_3ViewController()
         self.addChild(vc1)
         self.addChild(vc2)
         self.addChild(vc3)
         
+        vc1.image = pageDatas.vc1Image
         vc1.view.frame = self.childView.bounds
         self.childView.addSubview(vc1.view)
         self.view.addSubview(hideButton)
@@ -92,6 +100,7 @@ extension SolvingViewController2 {
         for child in self.childView.subviews { child.removeFromSuperview() }
         switch(num%3) {
         case 0:
+            vc1.image = pageDatas.vc1Image
             vc1.view.frame = self.childView.bounds
             self.childView.addSubview(vc1.view)
         case 1:
@@ -143,23 +152,23 @@ extension SolvingViewController2: UICollectionViewDelegate, UICollectionViewData
     
 }
 
-//class solveNumberCell: UICollectionViewCell {
-//    @IBOutlet var num: UILabel!
-//    @IBOutlet var outerFrame: UIView!
-//}
+class solveNumberCell: UICollectionViewCell {
+    @IBOutlet var num: UILabel!
+    @IBOutlet var outerFrame: UIView!
+}
 
-//extension UIImage {
-//    func resize(newWidth: CGFloat) -> UIImage {
-//        let scale = newWidth / self.size.width
-//        let newHeight = self.size.height * scale
-//        let size = CGSize(width: newWidth, height: newHeight)s
-//        let render = UIGraphicsImageRenderer(size: size)
-//        let renderImage = render.image { context in self.draw(in: CGRect(origin: .zero, size: size))}
-//        print("화면 배율: \(UIScreen.main.scale)")// 배수
-//        print("origin: \(self), resize: \(renderImage)")
-//        //    printDataSize(renderImage)
-//        return renderImage
-//    }
-//
-//
-//}
+extension UIImage {
+    func resize(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let size = CGSize(width: newWidth, height: newHeight)
+        let render = UIGraphicsImageRenderer(size: size)
+        let renderImage = render.image { context in self.draw(in: CGRect(origin: .zero, size: size))}
+        print("화면 배율: \(UIScreen.main.scale)")// 배수
+        print("origin: \(self), resize: \(renderImage)")
+        //    printDataSize(renderImage)
+        return renderImage
+    }
+
+
+}
