@@ -24,6 +24,7 @@ class test_2ViewController: UIViewController, PKToolPickerObserver {
     
     var width: CGFloat!
     var height: CGFloat!
+    var image: UIImage!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -41,8 +42,12 @@ class test_2ViewController: UIViewController, PKToolPickerObserver {
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
         
-        guard let image = UIImage(named: "A-2") else { return }
-        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
         
@@ -52,10 +57,6 @@ class test_2ViewController: UIViewController, PKToolPickerObserver {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
-        
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

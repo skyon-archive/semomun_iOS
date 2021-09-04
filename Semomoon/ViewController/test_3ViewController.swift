@@ -19,7 +19,8 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
     
     var width: CGFloat!
     var height: CGFloat!
-    var images: [UIImage] = []
+    var mainImage: UIImage!
+    var subImages: [UIImage]!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -29,14 +30,18 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        images = [UIImage(named: "B-1")!, UIImage(named: "B-2")!, UIImage(named: "B-3")!]
         
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
         
-        guard let mainImage = UIImage(named: "B-0") else { return }
-        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         width = canvasView.frame.width
         height = mainImage.size.height*(width/mainImage.size.width)
         
@@ -46,10 +51,6 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
-        
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -62,7 +63,7 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
 
 extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return subImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,7 +72,7 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.setSolvUI()
         cell.setShadowFrame()
         cell.setCanvas()
-        cell.setImage(img: images[indexPath.item])
+        cell.setImage(img: subImages[indexPath.item])
         cell.setHeight(superWidth: collectionView.frame.width)
         return cell
     }
@@ -81,7 +82,7 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension test_3ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // imageView 높이값 가져오기
-        let img = images[indexPath.row]
+        let img = subImages[indexPath.row]
         let imgHeight: CGFloat = img.size.height * (collectionView.frame.width/img.size.width)
         
         let width: CGFloat = collectionView.frame.width

@@ -21,8 +21,8 @@ class SolvingViewController2: UIViewController {
     @IBOutlet weak var childView: UIView!
     
     var vc1: test_1ViewController!
-    var vc2: UIViewController = test_2ViewController()
-    var vc3: UIViewController = test_3ViewController()
+    var vc2: test_2ViewController!
+    var vc3: test_3ViewController!
     
     // 임시적으로 문제내용 생성
     var problems: [String] = []
@@ -51,15 +51,15 @@ class SolvingViewController2: UIViewController {
         bookmarks.append(false)
         
         vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") as? test_1ViewController
-        vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") ?? test_2ViewController()
-        vc3 = self.storyboard?.instantiateViewController(withIdentifier: "test_3ViewController") ?? test_3ViewController()
+        vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") as? test_2ViewController
+        vc3 = self.storyboard?.instantiateViewController(withIdentifier: "test_3ViewController") as? test_3ViewController
         self.addChild(vc1)
         self.addChild(vc2)
         self.addChild(vc3)
         
-        vc1.image = pageDatas.vc1Image
-        vc1.view.frame = self.childView.bounds
-        self.childView.addSubview(vc1.view)
+        let vc = whatVC(index: 0)
+        vc.view.frame = self.childView.bounds
+        self.childView.addSubview(vc.view)
         self.view.addSubview(hideButton)
     }
     
@@ -98,20 +98,10 @@ extension SolvingViewController2 {
     
     func chengeView(num: Int) {
         for child in self.childView.subviews { child.removeFromSuperview() }
-        switch(num%3) {
-        case 0:
-            vc1.image = pageDatas.vc1Image
-            vc1.view.frame = self.childView.bounds
-            self.childView.addSubview(vc1.view)
-        case 1:
-            vc2.view.frame = self.childView.bounds
-            self.childView.addSubview(vc2.view)
-        case 2:
-            vc3.view.frame = self.childView.bounds
-            self.childView.addSubview(vc3.view)
-        default:
-            break
-        }
+        
+        let vc = whatVC(index: num%3)
+        vc.view.frame = self.childView.bounds
+        self.childView.addSubview(vc.view)
         self.view.addSubview(hideButton)
     }
 }
@@ -171,4 +161,26 @@ extension UIImage {
     }
 
 
+}
+
+
+extension SolvingViewController2 {
+    
+    func whatVC(index: Int) -> UIViewController {
+        let page = pageDatas.pages[index]
+        let vc: UIViewController
+        switch(page.type) {
+        case .ontToFive:
+            vc = vc1
+            vc1.image = page.mainImage
+        case .string:
+            vc = vc2
+            vc2.image = page.mainImage
+        case .multiple:
+             vc = vc3
+            vc3.mainImage = page.mainImage
+            vc3.subImages = page.subImages
+        }
+        return vc
+    }
 }
