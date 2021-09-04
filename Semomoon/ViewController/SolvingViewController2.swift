@@ -38,17 +38,11 @@ class SolvingViewController2: UIViewController {
         pageDatas = PageDatas()
         
         // 임시 문제 생성
-        for i in 1...30 {
+        for i in 0..<pageDatas.count {
             problems.append("\(i)")
             stars.append(false)
             bookmarks.append(false)
         }
-        problems.append("개")
-        problems.append("유")
-        stars.append(false)
-        bookmarks.append(false)
-        stars.append(false)
-        bookmarks.append(false)
         
         vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") as? test_1ViewController
         vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") as? test_2ViewController
