@@ -72,6 +72,7 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.setBorderWidth()
         cell.setBorderColor()
         cell.setShadowFrame()
+        cell.setCanvas()
         cell.setImage(img: images[indexPath.item])
         cell.setHeight(superWidth: collectionView.frame.width)
         return cell
@@ -95,8 +96,12 @@ extension test_3ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-class KoreanCell: UICollectionViewCell {
-    @IBOutlet var imgView: UIImageView!
+class KoreanCell: UICollectionViewCell, PKToolPickerObserver {
+    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet weak var sol_1: UIButton!
@@ -108,10 +113,14 @@ class KoreanCell: UICollectionViewCell {
     @IBOutlet var star: UIButton!
     @IBOutlet var bookmark: UIButton!
     
-    @IBOutlet weak var imgHeight: NSLayoutConstraint!
-    
     var buttons: [UIButton] = []
     var image: UIImage = UIImage()
+    
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        toolPicker.addObserver(self)
+        return toolPicker
+    }()
     
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
@@ -169,13 +178,28 @@ class KoreanCell: UICollectionViewCell {
         star.layer.masksToBounds = false
     }
     
+    func setCanvas() {
+        canvasView.isOpaque = false
+        canvasView.backgroundColor = .clear
+        canvasView.becomeFirstResponder()
+        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+    }
+    
     func setImage(img: UIImage) {
         self.image = img
-        self.imgView.image = image
+        self.imageView.image = image
+        imageView.clipsToBounds = true
     }
     
     func setHeight(superWidth: CGFloat) {
-        let newHeight: CGFloat = image.size.height * (superWidth/image.size.width)
-        imgHeight.constant = newHeight
+        let height = image.size.height*(superWidth/image.size.width)
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
+        canvasHeight.constant = height
     }
 }

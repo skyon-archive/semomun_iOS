@@ -47,7 +47,6 @@ class test_1ViewController: UIViewController, PKToolPickerObserver {
         
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
-        print("\(width),\(height)")
         
         imageView.image = image
         imageView.clipsToBounds = true
