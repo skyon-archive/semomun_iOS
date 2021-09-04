@@ -887,13 +887,13 @@
                                             <outlet property="canvasView" destination="u1v-aV-QgD" id="Q8X-k5-Y1E"/>
                                             <outlet property="imageHeight" destination="8P1-ZL-RTS" id="8As-VC-GqD"/>
                                             <outlet property="imageView" destination="Uxq-tF-RwF" id="mxB-PJ-LK7"/>
-                                            <outlet property="sol_1" destination="SB9-wg-8Fj" id="e2X-Ds-3DH"/>
-                                            <outlet property="sol_2" destination="2wL-By-584" id="8cG-Af-VHQ"/>
-                                            <outlet property="sol_3" destination="hSe-tN-GRe" id="qQd-Rs-ihd"/>
-                                            <outlet property="sol_4" destination="brZ-HJ-V7V" id="thp-hM-MrG"/>
-                                            <outlet property="sol_5" destination="ZtQ-Nl-VQd" id="KE2-ah-PF0"/>
                                             <outlet property="solvInputFrame" destination="N0d-I4-gv4" id="TFn-BL-96c"/>
                                             <outlet property="star" destination="GtC-tI-fL7" id="Lg7-E5-VwX"/>
+                                            <outletCollection property="checkNumbers" destination="SB9-wg-8Fj" collectionClass="NSMutableArray" id="Seh-VR-agb"/>
+                                            <outletCollection property="checkNumbers" destination="2wL-By-584" collectionClass="NSMutableArray" id="PED-tU-f3e"/>
+                                            <outletCollection property="checkNumbers" destination="hSe-tN-GRe" collectionClass="NSMutableArray" id="wiV-SN-nn5"/>
+                                            <outletCollection property="checkNumbers" destination="brZ-HJ-V7V" collectionClass="NSMutableArray" id="pm9-nc-Tfh"/>
+                                            <outletCollection property="checkNumbers" destination="ZtQ-Nl-VQd" collectionClass="NSMutableArray" id="S8X-XB-9zp"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
