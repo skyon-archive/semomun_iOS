@@ -607,7 +607,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hX3-Xk-xZs" customClass="PKCanvasView">
                                                 <rect key="frame" x="0.0" y="0.0" width="417" height="500"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xMN-sq-SSc">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xMN-sq-SSc">
                                                         <rect key="frame" x="0.0" y="0.0" width="417" height="500"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="500" id="EgF-Nx-llK"/>
@@ -902,6 +902,13 @@
                             <constraint firstItem="IfI-b5-HZ2" firstAttribute="top" secondItem="z92-PL-OUQ" secondAttribute="top" id="xzu-CR-yt4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="canvasHeight" destination="ZHw-jT-nwf" id="Atz-mj-ytw"/>
+                        <outlet property="canvasView" destination="hX3-Xk-xZs" id="HBd-dc-wlq"/>
+                        <outlet property="imageHeight" destination="EgF-Nx-llK" id="4VY-Kh-bqC"/>
+                        <outlet property="imageView" destination="xMN-sq-SSc" id="MgV-E5-JJy"/>
+                        <outlet property="scrollView" destination="TrB-Fa-seH" id="wml-uv-I4i"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6RF-ni-JSd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

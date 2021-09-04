@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class test_3ViewController: UIViewController {
+class test_3ViewController: UIViewController, PKToolPickerObserver {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -17,13 +17,39 @@ class test_3ViewController: UIViewController {
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
+    var width: CGFloat!
+    var height: CGFloat!
     var images: [UIImage] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        toolPicker.addObserver(self)
+        return toolPicker
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         images = [UIImage(named: "B-1")!, UIImage(named: "B-2")!, UIImage(named: "B-3")!]
-        // Do any additional setup after loading the view.
         
+        canvasView.isOpaque = false
+        canvasView.backgroundColor = .clear
+        canvasView.becomeFirstResponder()
+        
+        guard let mainImage = UIImage(named: "B-0") else { return }
+        
+        width = canvasView.frame.width
+        height = mainImage.size.height*(width/mainImage.size.width)
+        
+        imageView.image = mainImage
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        canvasHeight.constant = height
+        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
