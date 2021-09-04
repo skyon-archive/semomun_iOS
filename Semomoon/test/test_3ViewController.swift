@@ -6,17 +6,24 @@
 //
 
 import UIKit
+import PencilKit
 
 class test_3ViewController: UIViewController {
     
-    @IBOutlet weak var testImage: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var canvasView: PKCanvasView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    
     var images: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         images = [UIImage(named: "B-1")!, UIImage(named: "B-2")!, UIImage(named: "B-3")!]
         // Do any additional setup after loading the view.
-        testImage.image = UIImage(named: "B-0")!
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
