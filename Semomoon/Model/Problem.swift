@@ -43,7 +43,7 @@ class Problem_Real {
     
     var realImage: UIImage
     
-    mutating func getRealImage(content: Int) {
+    func getRealImage(content: Int) {
 //        buf = /tmp/problems/content.png //byte array
 //        fs::write(buf, "문제이미지");
 //        let url = URL
