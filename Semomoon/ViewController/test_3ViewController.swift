@@ -14,6 +14,7 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
@@ -39,9 +40,8 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         width = canvasView.frame.width
         height = mainImage.size.height*(width/mainImage.size.width)
         
@@ -51,11 +51,18 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
+        
+        collectionView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("3 : disappear")
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        
     }
 }
 

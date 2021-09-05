@@ -34,13 +34,29 @@ class PageDatas {
         page2.addSubImage(image: UIImage(named: "국어-2-3")!)
         page2.addSubImage(image: UIImage(named: "국어-2-4")!)
         
-        let page3 = Page(type: .ontToFive, image: UIImage(named: "A-1")!)
-        let page4 = Page(type: .ontToFive, image: UIImage(named: "A-2")!)
+        var page3 = Page(type: .multiple, main: UIImage(named: "국어-3-0")!)
+        page3.addSubImage(image: UIImage(named: "국어-3-1")!)
+        page3.addSubImage(image: UIImage(named: "국어-3-2")!)
+        page3.addSubImage(image: UIImage(named: "국어-3-3")!)
+        page3.addSubImage(image: UIImage(named: "국어-3-4")!)
+        page3.addSubImage(image: UIImage(named: "국어-3-5")!)
+        
+        var page4 = Page(type: .multiple, main: UIImage(named: "국어-4-0")!)
+        page4.addSubImage(image: UIImage(named: "국어-4-1")!)
+        page4.addSubImage(image: UIImage(named: "국어-4-2")!)
+        page4.addSubImage(image: UIImage(named: "국어-4-3")!)
+        page4.addSubImage(image: UIImage(named: "국어-4-4")!)
+        page4.addSubImage(image: UIImage(named: "국어-4-5")!)
+        
+        let page_test1 = Page(type: .ontToFive, image: UIImage(named: "A-1")!)
+        let page_test2 = Page(type: .string, image: UIImage(named: "A-2")!)
         
         add(page: page1)
         add(page: page2)
         add(page: page3)
         add(page: page4)
+        add(page: page_test1)
+        add(page: page_test2)
     }
     
     func add(page: Page) {

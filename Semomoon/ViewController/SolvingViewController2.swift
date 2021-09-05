@@ -31,6 +31,7 @@ class SolvingViewController2: UIViewController {
     var isHide: Bool = false
     var problemNumber: Int = 0
     var pageDatas: PageDatas!
+    var currentVC: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +52,9 @@ class SolvingViewController2: UIViewController {
         self.addChild(vc2)
         self.addChild(vc3)
         
-        let vc = whatVC(index: 0)
-        vc.view.frame = self.childView.bounds
-        self.childView.addSubview(vc.view)
+        currentVC = whatVC(index: 0)
+        currentVC.view.frame = self.childView.bounds
+        self.childView.addSubview(currentVC.view)
         self.view.addSubview(hideButton)
     }
     
@@ -92,8 +93,11 @@ extension SolvingViewController2 {
     
     func chengeView(num: Int) {
         for child in self.childView.subviews { child.removeFromSuperview() }
+        currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
+        currentVC.removeFromParent() // parentVC로 부터 관계 삭제
+        currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
         
-        let vc = whatVC(index: num%3)
+        let vc = whatVC(index: num)
         vc.view.frame = self.childView.bounds
         self.childView.addSubview(vc.view)
         self.view.addSubview(hideButton)
