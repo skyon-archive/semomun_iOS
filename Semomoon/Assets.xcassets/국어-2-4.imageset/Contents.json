@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "국어-2-4.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -9,7 +10,6 @@
       "scale" : "2x"
     },
     {
-      "filename" : "국어-2-4.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
