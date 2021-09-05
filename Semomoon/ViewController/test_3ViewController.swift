@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class test_3ViewController: UIViewController, PKToolPickerObserver {
+class test_3ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!

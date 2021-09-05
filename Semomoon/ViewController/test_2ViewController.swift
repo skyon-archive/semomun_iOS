@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class test_2ViewController: UIViewController, PKToolPickerObserver {
+class test_2ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet var checkInput: UITextField!
