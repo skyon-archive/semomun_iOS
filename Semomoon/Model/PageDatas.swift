@@ -16,12 +16,6 @@ class PageDatas {
     init() {
         pages = []
         //test를 위한 코드
-//        add(page: Page(type: .ontToFive, image: UIImage(named: "A-1")!))
-//        add(page: Page(type: .string, image: UIImage(named: "A-2")!))
-//        add(page: Page(type: .multiple, main: UIImage(named: "B-0")!))
-//        pages[2].addSubImage(image: UIImage(named: "B-1")!)
-//        pages[2].addSubImage(image: UIImage(named: "B-2")!)
-//        pages[2].addSubImage(image: UIImage(named: "B-3")!)
         var page1 = Page(type: .multiple, main: UIImage(named: "국어-1-0")!)
         page1.addSubImage(image: UIImage(named: "국어-1-1")!)
         page1.addSubImage(image: UIImage(named: "국어-1-2")!)
