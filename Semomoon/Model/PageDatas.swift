@@ -17,6 +17,8 @@ class PageDatas {
         pages = []
         //test를 위한 코드
         var page1 = Page(type: .multiple, main: UIImage(named: "국어-1-0")!)
+//        buf = /tmp/problems/content.png //byte array
+//        fs::write(buf, "문제이미지");
         page1.addSubImage(image: UIImage(named: "국어-1-1")!)
         page1.addSubImage(image: UIImage(named: "국어-1-2")!)
         page1.addSubImage(image: UIImage(named: "국어-1-3")!)

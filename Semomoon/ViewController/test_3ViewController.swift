@@ -39,6 +39,9 @@ class test_3ViewController: UIViewController, PKToolPickerObserver {
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        
+        let tempData = PKDrawing()
+        canvasView.drawing = tempData
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -191,4 +194,8 @@ class KoreanCell: UICollectionViewCell, PKToolPickerObserver {
         canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
         canvasHeight.constant = height
     }
+    
+//    func getAactionFromCanvas() {
+//        data.data = currentData
+//    }
 }

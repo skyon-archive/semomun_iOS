@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class test_1ViewController: UIViewController, PKToolPickerObserver {
+class test_1ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
 
     @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet var checkNumbers: [UIButton]!
@@ -52,6 +52,8 @@ class test_1ViewController: UIViewController, PKToolPickerObserver {
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        
+        canvasView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,4 +134,12 @@ extension test_1ViewController {
         star.layer.masksToBounds = false
     }
     
+}
+
+
+
+extension test_1ViewController {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        print("update!")
+    }
 }
