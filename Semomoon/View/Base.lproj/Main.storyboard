@@ -64,209 +64,189 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="7fS-r0-orK"/>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IfI-b5-HZ2">
-                                <rect key="frame" x="417" y="20" width="412" height="1092"/>
+                                <rect key="frame" x="417" y="20" width="407" height="1092"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WEd-BJ-2r6">
-                                    <size key="itemSize" width="384" height="283"/>
+                                    <size key="itemSize" width="407" height="221"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KoreanCell" id="lig-M5-Tei" customClass="KoreanCell" customModule="Semomoon" customModuleProvider="target">
-                                        <rect key="frame" x="14" y="0.0" width="384" height="283"/>
+                                        <rect key="frame" x="0.5" y="0.0" width="406" height="221"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="283"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="406" height="221"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XN-0Y-8em">
-                                                    <rect key="frame" x="5" y="5" width="186" height="45"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOQ-vm-3wP">
+                                                    <rect key="frame" x="0.0" y="10" width="406" height="54"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GtC-tI-fL7">
-                                                            <rect key="frame" x="5" y="5" width="35" height="35"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="2Rp-73-HsR"/>
-                                                                <constraint firstAttribute="width" constant="35" id="fi8-gy-o9q"/>
-                                                            </constraints>
-                                                            <state key="normal" image="star_icon"/>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31C-fx-QMg">
-                                                            <rect key="frame" x="146" y="5" width="35" height="35"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="35" id="CX3-4c-ch6"/>
-                                                                <constraint firstAttribute="height" constant="35" id="KZO-Xs-BPH"/>
-                                                            </constraints>
-                                                            <state key="normal" image="bookmark_icon"/>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oar-OO-nxE">
-                                                            <rect key="frame" x="99" y="13.5" width="32" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정답율" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBN-ZC-49D">
-                                                            <rect key="frame" x="55" y="13.5" width="39" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <constraints>
-                                                        <constraint firstItem="oar-OO-nxE" firstAttribute="leading" secondItem="wBN-ZC-49D" secondAttribute="trailing" constant="5" id="1Lg-fX-fbi"/>
-                                                        <constraint firstItem="oar-OO-nxE" firstAttribute="centerY" secondItem="GtC-tI-fL7" secondAttribute="centerY" id="5U8-3h-3gv"/>
-                                                        <constraint firstAttribute="trailing" secondItem="31C-fx-QMg" secondAttribute="trailing" constant="5" id="SoG-jU-Qmb"/>
-                                                        <constraint firstItem="GtC-tI-fL7" firstAttribute="leading" secondItem="2XN-0Y-8em" secondAttribute="leading" constant="5" id="bck-9i-tv5"/>
-                                                        <constraint firstItem="wBN-ZC-49D" firstAttribute="centerY" secondItem="GtC-tI-fL7" secondAttribute="centerY" id="dhf-6c-a59"/>
-                                                        <constraint firstAttribute="bottom" secondItem="GtC-tI-fL7" secondAttribute="bottom" constant="5" id="gFj-SH-9s2"/>
-                                                        <constraint firstItem="wBN-ZC-49D" firstAttribute="leading" secondItem="GtC-tI-fL7" secondAttribute="trailing" constant="15" id="pej-Kn-Oug"/>
-                                                        <constraint firstItem="31C-fx-QMg" firstAttribute="centerY" secondItem="GtC-tI-fL7" secondAttribute="centerY" id="qeJ-K6-5S9"/>
-                                                        <constraint firstItem="31C-fx-QMg" firstAttribute="leading" secondItem="oar-OO-nxE" secondAttribute="trailing" constant="15" id="sWM-1Q-EZY"/>
-                                                        <constraint firstItem="GtC-tI-fL7" firstAttribute="top" secondItem="2XN-0Y-8em" secondAttribute="top" constant="5" id="uof-gx-4oX"/>
-                                                        <constraint firstItem="GtC-tI-fL7" firstAttribute="centerY" secondItem="2XN-0Y-8em" secondAttribute="centerY" id="xi6-14-Bde"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0d-I4-gv4">
-                                                    <rect key="frame" x="5" y="200" width="260" height="96"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NdL-j9-fCr">
-                                                            <rect key="frame" x="12.5" y="58" width="35" height="30"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="35" id="jOd-Ex-GBq"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                            <state key="normal" title="정답">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5I-tq-pVU">
-                                                            <rect key="frame" x="62.5" y="58" width="35" height="30"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="35" id="wXJ-VP-BZy"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                            <state key="normal" title="해설">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gnp-1D-GGa">
-                                                            <rect key="frame" x="177.5" y="58" width="66" height="30"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                            <state key="normal" title="다음문제 &gt;">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wL-By-584">
-                                                            <rect key="frame" x="60" y="10" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="Ibe-4B-qhS"/>
-                                                                <constraint firstAttribute="width" constant="40" id="c5Z-eT-vr8"/>
-                                                            </constraints>
-                                                            <state key="normal" title="2">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="voT-z2-HXK"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-HJ-V7V">
-                                                            <rect key="frame" x="160" y="10" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="Z6Y-bs-7WE"/>
-                                                                <constraint firstAttribute="width" constant="40" id="fht-YD-bNM"/>
-                                                            </constraints>
-                                                            <state key="normal" title="4">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="BDo-gM-bZd"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SB9-wg-8Fj">
-                                                            <rect key="frame" x="10" y="10" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="RGX-fS-REl"/>
-                                                                <constraint firstAttribute="width" constant="40" id="v54-aT-ydY"/>
-                                                            </constraints>
-                                                            <state key="normal" title="1">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="81e-ZH-y0G"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZtQ-Nl-VQd">
-                                                            <rect key="frame" x="210" y="10" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="40" id="a8N-0H-kMs"/>
-                                                                <constraint firstAttribute="height" constant="40" id="mIB-DT-YMT"/>
-                                                            </constraints>
-                                                            <state key="normal" title="5">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="L8F-dC-v2q"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYl-hk-1Qa">
-                                                            <rect key="frame" x="112.5" y="58" width="35" height="30"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="35" id="cPC-iU-Rrk"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                            <state key="normal" title="공유">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSe-tN-GRe">
-                                                            <rect key="frame" x="110" y="10" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="2Vj-al-nQE"/>
-                                                                <constraint firstAttribute="width" constant="40" id="4sP-Oj-Fps"/>
-                                                            </constraints>
-                                                            <state key="normal" title="3">
-                                                                <color key="titleColor" name="mint"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="lEO-qp-Wjr"/>
-                                                            </connections>
-                                                        </button>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RVO-fW-o9U">
+                                                            <rect key="frame" x="12" y="12" width="182" height="30"/>
+                                                            <subviews>
+                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1K-Je-Mad">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="OGK-xo-l5L"/>
+                                                                        <constraint firstAttribute="width" constant="30" id="mad-17-kgy"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="1">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="MbM-1z-mom"/>
+                                                                        <action selector="sol_click:" destination="i3D-FH-lwD" eventType="touchUpInside" id="sZn-1Z-Hq8"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFb-gR-ilo">
+                                                                    <rect key="frame" x="38" y="0.0" width="30" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="499-aQ-Ryk"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="RPH-Gf-VjK"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="2">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="sol_click:" destination="i3D-FH-lwD" eventType="touchUpInside" id="Imy-5b-Eqg"/>
+                                                                        <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="kLZ-1M-Oz9"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99X-hv-lIu">
+                                                                    <rect key="frame" x="76" y="0.0" width="30" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="N6o-Ce-2YP"/>
+                                                                        <constraint firstAttribute="width" constant="30" id="hll-8z-3Ed"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="3">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="S2f-v7-Zj4"/>
+                                                                        <action selector="sol_click:" destination="i3D-FH-lwD" eventType="touchUpInside" id="oq0-i8-GEY"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfY-sI-6su">
+                                                                    <rect key="frame" x="114" y="0.0" width="30" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="LTe-Y1-SG4"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="MeB-jn-cEr"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="4">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="77h-r8-hGd"/>
+                                                                        <action selector="sol_click:" destination="i3D-FH-lwD" eventType="touchUpInside" id="hl3-EC-nFZ"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvo-6m-AYe">
+                                                                    <rect key="frame" x="152" y="0.0" width="30" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="SRj-4i-LC3"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="ziJ-g6-5Bm"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="5">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="sol_click:" destination="lig-M5-Tei" eventType="touchUpInside" id="S2d-Ba-os8"/>
+                                                                        <action selector="sol_click:" destination="i3D-FH-lwD" eventType="touchUpInside" id="ycj-pj-bnS"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hhc-5X-kon">
+                                                            <rect key="frame" x="214" y="14.5" width="180" height="25"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVa-jW-6OD">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="25" id="CNI-dP-JQi"/>
+                                                                        <constraint firstAttribute="width" constant="25" id="XAd-KH-Fdy"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <color key="tintColor" name="mint"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" image="star" catalog="system">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lII-CM-YBW">
+                                                                    <rect key="frame" x="30" y="0.0" width="35" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="35" id="DKD-Fb-8Do"/>
+                                                                        <constraint firstAttribute="height" constant="25" id="o8g-tF-O73"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="정답">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6MW-fe-Wwt">
+                                                                    <rect key="frame" x="70" y="0.0" width="35" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="35" id="TIy-5r-KJb"/>
+                                                                        <constraint firstAttribute="height" constant="25" id="opS-dw-Fkr"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="해설">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkk-ds-G3K">
+                                                                    <rect key="frame" x="110" y="0.0" width="70" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="70" id="Pvw-3X-zhx"/>
+                                                                        <constraint firstAttribute="height" constant="25" id="YSM-2c-LJ8"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <color key="tintColor" name="mint"/>
+                                                                    <inset key="titleEdgeInsets" minX="-18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="56" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="다음문제" image="chevron.right" catalog="system">
+                                                                        <color key="titleColor" name="mint"/>
+                                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
+                                                                    </state>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" name="gray_light"/>
                                                     <constraints>
-                                                        <constraint firstItem="tYl-hk-1Qa" firstAttribute="leading" secondItem="K5I-tq-pVU" secondAttribute="trailing" constant="15" id="29r-h3-TmP"/>
-                                                        <constraint firstItem="brZ-HJ-V7V" firstAttribute="centerY" secondItem="hSe-tN-GRe" secondAttribute="centerY" id="39k-OM-J5q"/>
-                                                        <constraint firstItem="hSe-tN-GRe" firstAttribute="top" secondItem="N0d-I4-gv4" secondAttribute="top" constant="10" id="5PU-Ku-xVY"/>
-                                                        <constraint firstItem="tYl-hk-1Qa" firstAttribute="top" secondItem="hSe-tN-GRe" secondAttribute="bottom" constant="8" id="7a1-Ni-raD"/>
-                                                        <constraint firstItem="2wL-By-584" firstAttribute="centerY" secondItem="hSe-tN-GRe" secondAttribute="centerY" id="CUb-AY-M4S"/>
-                                                        <constraint firstItem="2wL-By-584" firstAttribute="leading" secondItem="SB9-wg-8Fj" secondAttribute="trailing" constant="10" id="InW-H5-hte"/>
-                                                        <constraint firstAttribute="bottom" secondItem="tYl-hk-1Qa" secondAttribute="bottom" constant="8" id="Jji-mh-Z74"/>
-                                                        <constraint firstItem="SB9-wg-8Fj" firstAttribute="centerY" secondItem="hSe-tN-GRe" secondAttribute="centerY" id="XRm-Nl-var"/>
-                                                        <constraint firstItem="ZtQ-Nl-VQd" firstAttribute="centerY" secondItem="hSe-tN-GRe" secondAttribute="centerY" id="Zib-eZ-Nnz"/>
-                                                        <constraint firstItem="Gnp-1D-GGa" firstAttribute="centerY" secondItem="tYl-hk-1Qa" secondAttribute="centerY" id="dPE-LJ-4j0"/>
-                                                        <constraint firstItem="K5I-tq-pVU" firstAttribute="centerY" secondItem="tYl-hk-1Qa" secondAttribute="centerY" id="eHR-Cg-Ac3"/>
-                                                        <constraint firstItem="brZ-HJ-V7V" firstAttribute="leading" secondItem="hSe-tN-GRe" secondAttribute="trailing" constant="10" id="fqE-qQ-jni"/>
-                                                        <constraint firstItem="NdL-j9-fCr" firstAttribute="centerY" secondItem="tYl-hk-1Qa" secondAttribute="centerY" id="gQt-2E-Yh2"/>
-                                                        <constraint firstItem="Gnp-1D-GGa" firstAttribute="leading" secondItem="tYl-hk-1Qa" secondAttribute="trailing" constant="30" id="hLl-vZ-ooC"/>
-                                                        <constraint firstItem="SB9-wg-8Fj" firstAttribute="leading" secondItem="N0d-I4-gv4" secondAttribute="leading" constant="10" id="lSu-Li-H8P"/>
-                                                        <constraint firstItem="ZtQ-Nl-VQd" firstAttribute="leading" secondItem="brZ-HJ-V7V" secondAttribute="trailing" constant="10" id="n1d-Vh-qxU"/>
-                                                        <constraint firstItem="K5I-tq-pVU" firstAttribute="leading" secondItem="NdL-j9-fCr" secondAttribute="trailing" constant="15" id="nC5-Lx-oaQ"/>
-                                                        <constraint firstItem="tYl-hk-1Qa" firstAttribute="centerX" secondItem="hSe-tN-GRe" secondAttribute="centerX" id="uE4-zl-JHz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ZtQ-Nl-VQd" secondAttribute="trailing" constant="10" id="vgw-la-bkM"/>
-                                                        <constraint firstItem="hSe-tN-GRe" firstAttribute="leading" secondItem="2wL-By-584" secondAttribute="trailing" constant="10" id="zb3-AK-UmY"/>
+                                                        <constraint firstAttribute="bottom" secondItem="RVO-fW-o9U" secondAttribute="bottom" constant="12" id="9UO-rb-sd8"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Hhc-5X-kon" secondAttribute="trailing" constant="12" id="CXf-qa-Z9T"/>
+                                                        <constraint firstItem="RVO-fW-o9U" firstAttribute="top" secondItem="nOQ-vm-3wP" secondAttribute="top" constant="12" id="CnK-RV-lv6"/>
+                                                        <constraint firstItem="RVO-fW-o9U" firstAttribute="leading" secondItem="nOQ-vm-3wP" secondAttribute="leading" constant="12" id="Ppb-jM-TNo"/>
+                                                        <constraint firstItem="RVO-fW-o9U" firstAttribute="centerY" secondItem="nOQ-vm-3wP" secondAttribute="centerY" id="apR-QV-jXA"/>
+                                                        <constraint firstItem="Hhc-5X-kon" firstAttribute="centerY" secondItem="nOQ-vm-3wP" secondAttribute="centerY" id="hD4-xr-Zz4"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1v-aV-QgD" customClass="PKCanvasView">
-                                                    <rect key="frame" x="0.0" y="50" width="384" height="150"/>
+                                                    <rect key="frame" x="0.0" y="64" width="406" height="150"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uxq-tF-RwF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="384" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="150" id="8P1-ZL-RTS"/>
                                                             </constraints>
@@ -283,27 +263,26 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="2XN-0Y-8em" firstAttribute="leading" secondItem="lig-M5-Tei" secondAttribute="leading" constant="5" id="El1-Sl-lXa"/>
+                                            <constraint firstAttribute="trailing" secondItem="nOQ-vm-3wP" secondAttribute="trailing" id="J6W-2M-TFK"/>
                                             <constraint firstAttribute="trailing" secondItem="u1v-aV-QgD" secondAttribute="trailing" id="R7Q-8o-e4W"/>
-                                            <constraint firstItem="N0d-I4-gv4" firstAttribute="top" secondItem="u1v-aV-QgD" secondAttribute="bottom" id="Xgb-tl-jSi"/>
+                                            <constraint firstItem="nOQ-vm-3wP" firstAttribute="leading" secondItem="lig-M5-Tei" secondAttribute="leading" id="VyP-lF-TmN"/>
+                                            <constraint firstItem="u1v-aV-QgD" firstAttribute="top" secondItem="nOQ-vm-3wP" secondAttribute="bottom" id="a7C-Wc-s2l"/>
                                             <constraint firstItem="u1v-aV-QgD" firstAttribute="leading" secondItem="lig-M5-Tei" secondAttribute="leading" id="f64-Ll-DI8"/>
-                                            <constraint firstItem="2XN-0Y-8em" firstAttribute="top" secondItem="lig-M5-Tei" secondAttribute="top" constant="5" id="mXZ-KW-tko"/>
-                                            <constraint firstItem="N0d-I4-gv4" firstAttribute="leading" secondItem="lig-M5-Tei" secondAttribute="leading" constant="5" id="oIk-8H-h4F"/>
-                                            <constraint firstItem="u1v-aV-QgD" firstAttribute="top" secondItem="2XN-0Y-8em" secondAttribute="bottom" id="uVN-9y-g40"/>
+                                            <constraint firstItem="nOQ-vm-3wP" firstAttribute="top" secondItem="lig-M5-Tei" secondAttribute="top" constant="10" id="iGQ-HI-wkk"/>
                                         </constraints>
+                                        <size key="customSize" width="406" height="221"/>
                                         <connections>
-                                            <outlet property="bookmark" destination="31C-fx-QMg" id="mU5-s1-ukL"/>
                                             <outlet property="canvasHeight" destination="Q90-bv-n07" id="qHC-dw-kJv"/>
                                             <outlet property="canvasView" destination="u1v-aV-QgD" id="Q8X-k5-Y1E"/>
                                             <outlet property="imageHeight" destination="8P1-ZL-RTS" id="8As-VC-GqD"/>
                                             <outlet property="imageView" destination="Uxq-tF-RwF" id="mxB-PJ-LK7"/>
-                                            <outlet property="solvInputFrame" destination="N0d-I4-gv4" id="TFn-BL-96c"/>
-                                            <outlet property="star" destination="GtC-tI-fL7" id="Lg7-E5-VwX"/>
-                                            <outletCollection property="checkNumbers" destination="SB9-wg-8Fj" collectionClass="NSMutableArray" id="Seh-VR-agb"/>
-                                            <outletCollection property="checkNumbers" destination="2wL-By-584" collectionClass="NSMutableArray" id="PED-tU-f3e"/>
-                                            <outletCollection property="checkNumbers" destination="hSe-tN-GRe" collectionClass="NSMutableArray" id="wiV-SN-nn5"/>
-                                            <outletCollection property="checkNumbers" destination="brZ-HJ-V7V" collectionClass="NSMutableArray" id="pm9-nc-Tfh"/>
-                                            <outletCollection property="checkNumbers" destination="ZtQ-Nl-VQd" collectionClass="NSMutableArray" id="S8X-XB-9zp"/>
+                                            <outlet property="solvInputFrame" destination="nOQ-vm-3wP" id="xLz-7K-U1H"/>
+                                            <outlet property="star" destination="TVa-jW-6OD" id="vsj-9Z-byu"/>
+                                            <outletCollection property="checkNumbers" destination="r1K-Je-Mad" collectionClass="NSMutableArray" id="vXE-Gc-at9"/>
+                                            <outletCollection property="checkNumbers" destination="TFb-gR-ilo" collectionClass="NSMutableArray" id="NL5-PN-maw"/>
+                                            <outletCollection property="checkNumbers" destination="99X-hv-lIu" collectionClass="NSMutableArray" id="6QK-Ou-P6e"/>
+                                            <outletCollection property="checkNumbers" destination="LfY-sI-6su" collectionClass="NSMutableArray" id="39D-Bv-Uzf"/>
+                                            <outletCollection property="checkNumbers" destination="gvo-6m-AYe" collectionClass="NSMutableArray" id="lyf-Mn-eVW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -316,7 +295,7 @@
                         <viewLayoutGuide key="safeArea" id="z92-PL-OUQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="z92-PL-OUQ" firstAttribute="trailing" secondItem="IfI-b5-HZ2" secondAttribute="trailing" constant="5" id="3OA-ax-Doz"/>
+                            <constraint firstItem="z92-PL-OUQ" firstAttribute="trailing" secondItem="IfI-b5-HZ2" secondAttribute="trailing" constant="10" id="3OA-ax-Doz"/>
                             <constraint firstItem="z92-PL-OUQ" firstAttribute="bottom" secondItem="TrB-Fa-seH" secondAttribute="bottom" id="5CF-74-gzt"/>
                             <constraint firstItem="IfI-b5-HZ2" firstAttribute="leading" secondItem="TrB-Fa-seH" secondAttribute="trailing" id="MEL-mY-OSr"/>
                             <constraint firstItem="z92-PL-OUQ" firstAttribute="bottom" secondItem="IfI-b5-HZ2" secondAttribute="bottom" id="UfR-Rx-b3r"/>
@@ -337,7 +316,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6RF-ni-JSd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1442" y="789"/>
+            <point key="canvasLocation" x="1441.7266187050361" y="788.84892086330933"/>
         </scene>
         <!--Solving View Controller2-->
         <scene sceneID="Gwk-og-DJG">

@@ -79,8 +79,7 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KoreanCell", for: indexPath) as? KoreanCell else { return UICollectionViewCell() }
         cell.setRadius()
-        cell.setSolvUI()
-        cell.setShadowFrame()
+        cell.setButtons()
         cell.setCanvas()
         cell.setImage(img: subImages[indexPath.item])
         cell.setHeight(superWidth: collectionView.frame.width)
@@ -96,7 +95,7 @@ extension test_3ViewController: UICollectionViewDelegateFlowLayout {
         let imgHeight: CGFloat = img.size.height * (collectionView.frame.width/img.size.width)
         
         let width: CGFloat = collectionView.frame.width
-        let height: CGFloat = 161 + imgHeight
+        let height: CGFloat = 64 + imgHeight
         return CGSize(width: width, height: height)
     }
 }
@@ -112,7 +111,6 @@ class KoreanCell: UICollectionViewCell, PKToolPickerObserver {
     @IBOutlet var checkNumbers: [UIButton]!
     
     @IBOutlet var star: UIButton!
-    @IBOutlet var bookmark: UIButton!
     
     var buttons: [UIButton] = []
     var image: UIImage = UIImage()
@@ -138,36 +136,13 @@ class KoreanCell: UICollectionViewCell, PKToolPickerObserver {
     
     // 뷰의 라운드 설정 부분
     func setRadius() {
-        solvInputFrame.layer.cornerRadius = 20
-        
-        star.layer.cornerRadius = 17.5
-        star.clipsToBounds = true
-        
-        bookmark.layer.cornerRadius = 17.5
-        bookmark.clipsToBounds = true
+        solvInputFrame.layer.cornerRadius = 27
     }
     
-    func setSolvUI() {
+    func setButtons() {
         for bt in checkNumbers {
-            bt.layer.cornerRadius = 20
-            bt.layer.borderWidth = 0.5
-            bt.layer.borderColor = UIColor.black.cgColor
+            bt.layer.cornerRadius = 15
         }
-    }
-    
-    // 객관식 입력창의 그림자 설정 부분
-    func setShadowFrame() {
-        solvInputFrame.layer.shadowColor = UIColor.lightGray.cgColor
-        solvInputFrame.layer.shadowOpacity = 0.3
-        solvInputFrame.layer.shadowOffset = CGSize(width: 3, height: 3)
-        solvInputFrame.layer.shadowRadius = 5
-        solvInputFrame.layer.masksToBounds = false
-        
-        star.layer.shadowColor = UIColor.lightGray.cgColor
-        star.layer.shadowOpacity = 0.3
-        star.layer.shadowOffset = CGSize(width: 2, height: 2)
-        star.layer.shadowRadius = 3
-        star.layer.masksToBounds = false
     }
     
     func setCanvas() {
@@ -194,8 +169,4 @@ class KoreanCell: UICollectionViewCell, PKToolPickerObserver {
         canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
         canvasHeight.constant = height
     }
-    
-//    func getAactionFromCanvas() {
-//        data.data = currentData
-//    }
 }
