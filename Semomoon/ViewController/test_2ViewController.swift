@@ -10,10 +10,8 @@ import PencilKit
 
 class test_2ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
 
-    @IBOutlet weak var solvInputFrame: UIView!
     @IBOutlet var checkInput: UITextField!
     @IBOutlet var star: UIButton!
-    @IBOutlet var bookmark: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -34,9 +32,7 @@ class test_2ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         setRadius()
-        setShadowFrame()
         
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
@@ -70,28 +66,9 @@ class test_2ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
 extension test_2ViewController {
     // 뷰의 라운드 설정 부분
     func setRadius() {
-        solvInputFrame.layer.cornerRadius = 20
-        
-        star.layer.cornerRadius = 17.5
-        star.clipsToBounds = true
-        
-        bookmark.layer.cornerRadius = 17.5
-        bookmark.clipsToBounds = true
+        checkInput.layer.cornerRadius = 17.5
+        checkInput.clipsToBounds = true
+        checkInput.layer.borderWidth = 1
+        checkInput.layer.borderColor = UIColor(named: "mint")?.cgColor
     }
-    
-    // 객관식 입력창의 그림자 설정 부분
-    func setShadowFrame() {
-        solvInputFrame.layer.shadowColor = UIColor.lightGray.cgColor
-        solvInputFrame.layer.shadowOpacity = 0.3
-        solvInputFrame.layer.shadowOffset = CGSize(width: 3, height: 3)
-        solvInputFrame.layer.shadowRadius = 5
-        solvInputFrame.layer.masksToBounds = false
-        
-        star.layer.shadowColor = UIColor.lightGray.cgColor
-        star.layer.shadowOpacity = 0.3
-        star.layer.shadowOffset = CGSize(width: 2, height: 2)
-        star.layer.shadowRadius = 3
-        star.layer.masksToBounds = false
-    }
-    
 }
