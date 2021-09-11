@@ -9,6 +9,7 @@ import Foundation
 
 struct Workbook: Codable {
     var wid: Int //문제집 고유 번호
+    var title: String
     var year: Int //출판연도
     var month: Int //출판 달
     var price: Int //가격(원)
@@ -38,5 +39,10 @@ class Workbook_Real {
         } catch let error {
             print(error.localizedDescription)
         }
+    }
+    
+    func convertToPreview() -> Preview {
+        let preview = Preview(wid: workBook.wid, title: workBook.title, image: workBook.image)
+        return preview
     }
 }
