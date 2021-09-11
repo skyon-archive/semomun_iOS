@@ -137,7 +137,6 @@ extension SolvingViewController2: UICollectionViewDelegate, UICollectionViewData
         chengeView(num: indexPath.row)
         collectionView.reloadData()
     }
-    
 }
 
 class solveNumberCell: UICollectionViewCell {

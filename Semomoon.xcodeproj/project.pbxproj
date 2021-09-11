@@ -21,6 +21,7 @@
 		4A8BEE7226E491BF00613602 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7126E491BF00613602 /* User.swift */; };
 		4A8BEE7426E4925100613602 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7326E4925100613602 /* History.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
+		4AA8878926EC81B6009D1A2C /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController2.swift */; };
 		4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5F32926E3305600ED71E6 /* PageDatas.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
@@ -64,6 +65,7 @@
 		4A8BEE7126E491BF00613602 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4A8BEE7326E4925100613602 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController2.swift; sourceTree = "<group>"; };
 		4AF5F32926E3305600ED71E6 /* PageDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDatas.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */,
 				4AA9803226D6584D004E8FCC /* SolvingViewController2.swift */,
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
 				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
@@ -351,6 +354,7 @@
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
+				4AA8878926EC81B6009D1A2C /* PreviewViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,

@@ -25,11 +25,21 @@ class Preview_Real {
 //        loadImage()
     }
     
+    init(wid: Int, title: String, image: Int) {
+        self.preview = Preview(wid: wid, title: title, image: image)
+        self.url = URL(string: "http://test/tmp/preview/\(image).png")!
+        self.imageData = Data()
+    }
+    
     func loadImage() {
         do {
             try self.imageData = Data(contentsOf: url)
         } catch let error {
             print(error.localizedDescription)
         }
+    }
+    
+    func setDumyData(data: Data) {
+        self.imageData = data
     }
 }
