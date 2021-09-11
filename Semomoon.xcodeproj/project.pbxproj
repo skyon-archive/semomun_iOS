@@ -127,12 +127,12 @@
 			isa = PBXGroup;
 			children = (
 				4AF5F32926E3305600ED71E6 /* PageDatas.swift */,
+				4A8BEE6F26E490FB00613602 /* Workbook.swift */,
+				4A8BEE6B26E4903A00613602 /* Section.swift */,
+				4A8BEE6926E48FBA00613602 /* View.swift */,
 				4A8BEE6526E48D8B00613602 /* Problem.swift */,
 				4A8BEE6726E48F3D00613602 /* Submission.swift */,
-				4A8BEE6926E48FBA00613602 /* View.swift */,
-				4A8BEE6B26E4903A00613602 /* Section.swift */,
 				4A8BEE6D26E490AB00613602 /* Report.swift */,
-				4A8BEE6F26E490FB00613602 /* Workbook.swift */,
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
 			);
