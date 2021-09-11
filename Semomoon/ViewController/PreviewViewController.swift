@@ -17,26 +17,38 @@ class PreviewViewController: UIViewController {
     var previews: [Preview_Real] = []
     var previews2: [Preview_Real] = []
     var categoryIndex: Int = 0
-    let dumyImage = UIImage(named: "256img")!
+    let addImage = UIImage(named: "addPreview")!
+    let dumyImage = UIImage(named: "256img_2")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         category.delegate = self
         preview.delegate = self
         
+        appendAddPreviewIcon()
+        
         previews.append(Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: 0))
-        previews[0].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
-        previews.append(Preview_Real(wid: 1, title: "고3 2021년 7월 확률과 통계", image: 1))
         previews[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+        previews.append(Preview_Real(wid: 1, title: "고3 2021년 7월 확률과 통계", image: 1))
+        previews[2].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
         
         previews2.append(Preview_Real(wid: 2, title: "고3 2021년 7월 영어", image: 2))
-        previews2[0].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+        previews2[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
         
         currentPreives = previews
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
         print("userInfo")
+    }
+}
+
+extension PreviewViewController {
+    func appendAddPreviewIcon() {
+        let addIcon = Preview_Real(wid: -1, title: "", image: nil)
+        addIcon.setDumyData(data: addImage.jpegData(compressionQuality: 1)!)
+        previews.append(addIcon)
+        previews2.append(addIcon)
     }
 }
 
@@ -54,6 +66,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == category {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
+            print("\(indexPath.row)")
             // 문제번호 설정
             cell.category.text = categoryButtons[indexPath.row]
             cell.underLine.alpha = indexPath.row == categoryIndex ? 1 : 0
@@ -63,7 +76,8 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PreviewCell", for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             // 문제번호 설정
-            cell.image.image = UIImage(data: currentPreives[indexPath.row].imageData)
+            guard let imageData = currentPreives[indexPath.row].imageData else { return UICollectionViewCell() }
+            cell.imageView.image = UIImage(data: imageData)
             cell.title.text = currentPreives[indexPath.row].preview.title
             
             return cell
@@ -97,7 +111,7 @@ extension PreviewViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: height)
         }
         else {
-            return CGSize(width: 80, height: 40)
+            return CGSize(width: 60, height: 40)
         }
     }
 }
@@ -113,6 +127,6 @@ class CategoryCell: UICollectionViewCell {
 
 
 class PreviewCell: UICollectionViewCell {
-    @IBOutlet var image: UIImageView!
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet var title: UILabel!
 }

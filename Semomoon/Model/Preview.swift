@@ -10,30 +10,30 @@ import Foundation
 struct Preview: Codable {
     var wid: Int
     var title: String
-    var image: Int
+    var image: Int?
 }
 
 class Preview_Real {
     var preview: Preview
-    var url: URL
-    var imageData: Data
+    var imageData: Data?
     
     init(preview: Preview) {
         self.preview = preview
-        self.url = URL(string: "http://test/tmp/preview/\(preview.image).png")!
-        self.imageData = Data()
-//        loadImage()
-    }
-    
-    init(wid: Int, title: String, image: Int) {
-        self.preview = Preview(wid: wid, title: title, image: image)
-        self.url = URL(string: "http://test/tmp/preview/\(image).png")!
-        self.imageData = Data()
-    }
-    
-    func loadImage() {
+        guard let image = preview.image,
+              let url = URL(string: "http://test/tmp/preview/\(image).png") else { return }
         do {
-            try self.imageData = Data(contentsOf: url)
+            try imageData = Data(contentsOf: url)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    init(wid: Int, title: String, image: Int?) {
+        self.preview = Preview(wid: wid, title: title, image: image)
+        guard let image = preview.image,
+              let url = URL(string: "http://test/tmp/preview/\(image).png") else { return }
+        do {
+            try imageData = Data(contentsOf: url)
         } catch let error {
             print(error.localizedDescription)
         }

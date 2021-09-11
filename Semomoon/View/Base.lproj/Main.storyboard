@@ -440,14 +440,15 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="256img" translatesAutoresizingMaskIntoConstraints="NO" id="H3F-cW-33Q">
                                                     <rect key="frame" x="16" y="10" width="150" height="187.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="6wi-X9-6Hd"/>
                                                         <constraint firstAttribute="width" secondItem="H3F-cW-33Q" secondAttribute="height" multiplier="4:5" id="fTA-dY-QRl"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ1-hH-ykv">
-                                                    <rect key="frame" x="16" y="207.5" width="150" height="62.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ1-hH-ykv">
+                                                    <rect key="frame" x="16" y="207.5" width="150" height="70"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19.5"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -456,14 +457,14 @@
                                                 <constraint firstItem="H3F-cW-33Q" firstAttribute="top" secondItem="Scf-p0-e1B" secondAttribute="top" constant="10" id="M7m-Xk-dzU"/>
                                                 <constraint firstItem="H3F-cW-33Q" firstAttribute="centerX" secondItem="Scf-p0-e1B" secondAttribute="centerX" id="Yvy-k4-7FS"/>
                                                 <constraint firstItem="oZ1-hH-ykv" firstAttribute="centerX" secondItem="Scf-p0-e1B" secondAttribute="centerX" id="bsf-zo-qXM"/>
-                                                <constraint firstAttribute="bottom" secondItem="oZ1-hH-ykv" secondAttribute="bottom" constant="10" id="tCM-9I-ZcM"/>
                                                 <constraint firstItem="oZ1-hH-ykv" firstAttribute="width" secondItem="H3F-cW-33Q" secondAttribute="width" id="tpG-Hn-r5A"/>
                                                 <constraint firstItem="oZ1-hH-ykv" firstAttribute="top" secondItem="H3F-cW-33Q" secondAttribute="bottom" constant="10" id="wCt-gz-58t"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="182" height="280"/>
                                         <connections>
-                                            <outlet property="image" destination="H3F-cW-33Q" id="f8y-ZN-xch"/>
+                                            <outlet property="imageView" destination="H3F-cW-33Q" id="f8y-ZN-xch"/>
                                             <outlet property="title" destination="oZ1-hH-ykv" id="jeT-3E-CdG"/>
                                         </connections>
                                     </collectionViewCell>
