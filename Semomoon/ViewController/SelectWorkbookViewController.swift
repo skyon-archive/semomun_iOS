@@ -10,17 +10,17 @@ import UIKit
 class SelectWorkbookViewController: UIViewController {
 
     @IBOutlet weak var frame: UIView!
-    @IBOutlet weak var selectSubject: UIButton!
+    @IBOutlet var selectButtons: [UIButton]!
     override func viewDidLoad() {
         super.viewDidLoad()
         setRadiusOfFrame()
-        setRadiusOfButtons()
+        setRadiusOfSelectButtons()
         
     }
-    @IBAction func test(_ sender: Any) {
-        selectSubject.setTitle("국어영역", for: .normal)
-    }
     
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 
@@ -29,9 +29,11 @@ extension SelectWorkbookViewController {
         frame.layer.cornerRadius = 30
     }
     
-    func setRadiusOfButtons() {
-        selectSubject.layer.borderWidth = 2
-        selectSubject.layer.borderColor = UIColor.lightGray.cgColor
-        selectSubject.layer.cornerRadius = 10
+    func setRadiusOfSelectButtons() {
+        selectButtons.forEach {
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.lightGray.cgColor
+            $0.layer.cornerRadius = 10
+        }
     }
 }

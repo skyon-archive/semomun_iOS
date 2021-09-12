@@ -775,36 +775,115 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6T6-EN-US8">
-                                <rect key="frame" x="34" y="172" width="700" height="700"/>
+                                <rect key="frame" x="0.0" y="120" width="768" height="804"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기출문제 추가하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpb-Dn-wwd">
-                                        <rect key="frame" x="278.5" y="30" width="143.5" height="24"/>
+                                        <rect key="frame" x="312.5" y="30" width="143.5" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrN-f6-O5w">
-                                        <rect key="frame" x="20" y="80" width="104" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="104" id="5v3-9r-y88"/>
-                                            <constraint firstAttribute="height" constant="41" id="983-gs-TnI"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="과목" image="chevron.down" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="iIl-mJ-f6R">
+                                        <rect key="frame" x="131" y="80" width="506" height="41"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrN-f6-O5w">
+                                                <rect key="frame" x="0.0" y="0.0" width="104" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="104" id="5v3-9r-y88"/>
+                                                    <constraint firstAttribute="height" constant="41" id="983-gs-TnI"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="과목" image="chevron.down" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-C0-Vn5">
+                                                <rect key="frame" x="134" y="0.0" width="104" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="41" id="DzV-ib-p96"/>
+                                                    <constraint firstAttribute="width" constant="104" id="YTi-zZ-3CQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="학년" image="chevron.down" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIX-OD-j2z">
+                                                <rect key="frame" x="268" y="0.0" width="104" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="41" id="CK1-Wn-6Ro"/>
+                                                    <constraint firstAttribute="width" constant="104" id="Dvg-re-MAc"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="년도" image="chevron.down" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkG-Su-I1K">
+                                                <rect key="frame" x="402" y="0.0" width="104" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="104" id="Jc2-hv-kab"/>
+                                                    <constraint firstAttribute="height" constant="41" id="ONU-zG-AXn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="월" image="chevron.down" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uwh-ia-jsU">
+                                        <rect key="frame" x="717" y="30" width="21" height="22"/>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="xmark" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="back:" destination="VKq-Q1-cY2" eventType="touchUpInside" id="y5r-D9-3IV"/>
+                                        </connections>
                                     </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c1J-U9-cLh">
+                                        <rect key="frame" x="20" y="141" width="728" height="643"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XpK-fY-Bqe">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aQZ-XY-Y7l">
+                                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qcf-Jo-PFx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </collectionViewCellContentView>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="700" id="09e-zc-RqD"/>
-                                    <constraint firstAttribute="height" constant="700" id="SZv-J3-YGq"/>
+                                    <constraint firstItem="iIl-mJ-f6R" firstAttribute="centerX" secondItem="6T6-EN-US8" secondAttribute="centerX" id="7P9-to-1oH"/>
+                                    <constraint firstItem="c1J-U9-cLh" firstAttribute="centerX" secondItem="6T6-EN-US8" secondAttribute="centerX" id="Gwq-6a-1YI"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uwh-ia-jsU" secondAttribute="trailing" constant="30" id="HXK-IX-h4Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="c1J-U9-cLh" secondAttribute="bottom" constant="20" id="TI9-uh-Zjd"/>
                                     <constraint firstItem="hpb-Dn-wwd" firstAttribute="top" secondItem="6T6-EN-US8" secondAttribute="top" constant="30" id="UqS-9l-3Ah"/>
+                                    <constraint firstItem="Uwh-ia-jsU" firstAttribute="top" secondItem="6T6-EN-US8" secondAttribute="top" constant="30" id="a7h-o4-syM"/>
+                                    <constraint firstItem="c1J-U9-cLh" firstAttribute="top" secondItem="iIl-mJ-f6R" secondAttribute="bottom" constant="20" id="aDq-MZ-2Lc"/>
                                     <constraint firstItem="hpb-Dn-wwd" firstAttribute="centerX" secondItem="6T6-EN-US8" secondAttribute="centerX" id="hxe-Ls-ZOP"/>
-                                    <constraint firstItem="NrN-f6-O5w" firstAttribute="leading" secondItem="6T6-EN-US8" secondAttribute="leading" constant="20" id="jyn-u0-Ffw"/>
-                                    <constraint firstItem="NrN-f6-O5w" firstAttribute="top" secondItem="6T6-EN-US8" secondAttribute="top" constant="80" id="wwu-53-jYr"/>
+                                    <constraint firstItem="iIl-mJ-f6R" firstAttribute="top" secondItem="hpb-Dn-wwd" secondAttribute="bottom" constant="26" id="jR4-9L-3C9"/>
+                                    <constraint firstItem="c1J-U9-cLh" firstAttribute="leading" secondItem="6T6-EN-US8" secondAttribute="leading" constant="20" id="npB-EX-tjJ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -812,10 +891,16 @@
                         <constraints>
                             <constraint firstItem="6T6-EN-US8" firstAttribute="centerY" secondItem="zna-4f-4Ht" secondAttribute="centerY" id="DCm-ox-B1Q"/>
                             <constraint firstItem="6T6-EN-US8" firstAttribute="centerX" secondItem="zna-4f-4Ht" secondAttribute="centerX" id="If6-5m-DRt"/>
+                            <constraint firstItem="6T6-EN-US8" firstAttribute="top" secondItem="zna-4f-4Ht" secondAttribute="top" constant="100" id="JYR-XG-Vp5"/>
+                            <constraint firstItem="6T6-EN-US8" firstAttribute="leading" secondItem="zna-4f-4Ht" secondAttribute="leading" id="VL5-Gb-pra"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="frame" destination="6T6-EN-US8" id="9ki-hZ-qpQ"/>
+                        <outletCollection property="selectButtons" destination="NrN-f6-O5w" collectionClass="NSMutableArray" id="QLa-nZ-muT"/>
+                        <outletCollection property="selectButtons" destination="7gr-C0-Vn5" collectionClass="NSMutableArray" id="fV0-UV-fOg"/>
+                        <outletCollection property="selectButtons" destination="zIX-OD-j2z" collectionClass="NSMutableArray" id="qyI-ld-GtQ"/>
+                        <outletCollection property="selectButtons" destination="XkG-Su-I1K" collectionClass="NSMutableArray" id="36I-dt-hga"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90x-ax-kQQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1245,6 +1330,7 @@
         <image name="down_icon" width="512" height="512"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="gray_light">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
