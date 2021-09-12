@@ -24,6 +24,7 @@
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
+		4AE92AF126EDB1920058ED11 /* SelectSubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */; };
 		4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5F32926E3305600ED71E6 /* PageDatas.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
@@ -69,6 +70,7 @@
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
+		4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSubjectViewController.swift; sourceTree = "<group>"; };
 		4AF5F32926E3305600ED71E6 /* PageDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDatas.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,11 +116,12 @@
 			isa = PBXGroup;
 			children = (
 				4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */,
+				4A4D92AF26EDA19E00B82EE9 /* SelectWorkbookViewController.swift */,
+				4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */,
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
 				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
 				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
-				4A4D92AF26EDA19E00B82EE9 /* SelectWorkbookViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* View.swift in Sources */,
+				4AE92AF126EDB1920058ED11 /* SelectSubjectViewController.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,

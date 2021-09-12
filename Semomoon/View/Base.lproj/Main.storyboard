@@ -690,15 +690,27 @@
             </objects>
             <point key="canvasLocation" x="1481.294964028777" y="111.6906474820144"/>
         </scene>
-        <!--View Controller-->
+        <!--Select Subject View Controller-->
         <scene sceneID="zXJ-Dh-Myr">
             <objects>
-                <viewController id="2lm-oK-gxG" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectSubjectViewController" id="2lm-oK-gxG" customClass="SelectSubjectViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="phe-2G-Lgi">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="과목선택창" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSM-59-ySS">
+                                <rect key="frame" x="347" y="511.5" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Iab-bJ-Ndg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hSM-59-ySS" firstAttribute="centerX" secondItem="Iab-bJ-Ndg" secondAttribute="centerX" id="Rg8-Dd-pLN"/>
+                            <constraint firstItem="hSM-59-ySS" firstAttribute="centerY" secondItem="Iab-bJ-Ndg" secondAttribute="centerY" id="qrS-EH-dx3"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ygu-oE-ZCm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -737,8 +749,11 @@
                                                 <state key="normal" title="과목" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="showSubject:" destination="VKq-Q1-cY2" eventType="touchUpInside" id="Cv9-QJ-0Kw"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-C0-Vn5">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-C0-Vn5">
                                                 <rect key="frame" x="134" y="0.0" width="104" height="41"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="41" id="DzV-ib-p96"/>
@@ -750,8 +765,11 @@
                                                 <state key="normal" title="학년" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="showSubject:" destination="VKq-Q1-cY2" eventType="touchUpInside" id="vhg-u7-FFs"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIX-OD-j2z">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIX-OD-j2z">
                                                 <rect key="frame" x="268" y="0.0" width="104" height="41"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="41" id="CK1-Wn-6Ro"/>
@@ -763,8 +781,11 @@
                                                 <state key="normal" title="년도" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="showSubject:" destination="VKq-Q1-cY2" eventType="touchUpInside" id="Xyp-JQ-3Ht"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkG-Su-I1K">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkG-Su-I1K">
                                                 <rect key="frame" x="402" y="0.0" width="104" height="41"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="104" id="Jc2-hv-kab"/>
@@ -776,6 +797,9 @@
                                                 <state key="normal" title="월" image="chevron.down" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="showSubject:" destination="VKq-Q1-cY2" eventType="touchUpInside" id="uEG-b6-nux"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
