@@ -10,16 +10,35 @@ import Foundation
 // { count, workbooks }
 // { wid, title, image }
 
-struct SearchPreview: Codable {
+struct SearchPreview: Codable, CustomStringConvertible {
+    var description: String {
+        return "\(count), \(workbooks)"
+    }
+    
     var count: Int
-    var workbooks: [Preview]
+    var workbooks: [Preview_dumy]
 }
 
-struct Preview: Codable {
+struct Preview: Codable, CustomStringConvertible {
+    var description: String {
+        return "\(wid), \(title), \(image)"
+    }
+    
     var wid: Int
     var title: String
     var image: Int?
 }
+
+struct Preview_dumy: Codable, CustomStringConvertible {
+    var description: String {
+        return "\(wid), \(title), \(image)"
+    }
+    
+    var wid: Int
+    var title: String
+    var image: String?
+}
+
 
 class Preview_Real {
     var preview: Preview

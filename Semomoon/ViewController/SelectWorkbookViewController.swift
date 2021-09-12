@@ -20,7 +20,7 @@ class SelectWorkbookViewController: UIViewController {
     var loadedPreviews: [Preview_Real] = []
     let dumyImage = UIImage(named: "256img_2")!
     
-    let dbUrlString = "https://3205-61-79-139-252.ngrok.io"
+    let dbUrlString = "https://9932-61-79-139-252.ngrok.io/workbooks/preview"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,8 @@ extension SelectWorkbookViewController {
         data.forEach { title in
             let button = UIAlertAction(title: title, style: .default) { _ in
                 self.selectButtons[index].setTitle(title, for: .normal)
-                self.loadPreviewFromDB(query: query)
+//                self.loadPreviewFromDB(query: query)
+                for _ in 0..<15 { self.addDumyPreview(json: query) }
             }
             button.setValue(UIColor.label, forKey: "titleTextColor")
             alertController.addAction(button)
@@ -117,10 +118,13 @@ extension SelectWorkbookViewController {
                 print("Error of jsonData")
                 return
             }
-            // { count, workbooks }
-            // { wid, title, image }
-//            print(jsonData)
             let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
+            print(getJsonData.workbooks[0].wid)
+            print(getJsonData.workbooks[0].title)
+            print(getJsonData.workbooks[0].image)
+            print(getJsonData.workbooks[1].wid)
+            print(getJsonData.workbooks[1].title)
+            print(getJsonData.workbooks[1].image)
         } catch let error {
             print(error.localizedDescription)
         }
