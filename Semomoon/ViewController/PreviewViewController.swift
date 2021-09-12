@@ -51,9 +51,11 @@ extension PreviewViewController {
         previews2.append(addIcon)
     }
     
-    func showSelectWorkbookVC() {
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectWorkbookViewController")
-//        nextVC?.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
+    func showViewController(identifier: String, isFull: Bool) {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: identifier)
+        if isFull {
+            nextVC?.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
+        }
 //        nextVC?.modalTransitionStyle = .crossDissolve //전환 애니메이션 설정
         self.present(nextVC!, animated: true, completion: nil)
     }
@@ -106,8 +108,12 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
             let wid = currentPreives[indexPath.row].preview.wid
             switch wid {
             case -1:
-                showSelectWorkbookVC()
+                showViewController(identifier: "SelectWorkbookViewController", isFull: false)
             default:
+                //여기서 section 선택하는 화면으로 넘어가야 하나, 일단은 바로 학습공간으로
+                if(wid == 0) {
+                    showViewController(identifier: "SolvingViewController", isFull: true)
+                }
                 print(wid)
             }
         }

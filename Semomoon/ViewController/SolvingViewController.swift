@@ -12,7 +12,7 @@ protocol SendData {
     func sendData(data: String)
 }
 
-class SolvingViewController2: UIViewController {
+class SolvingViewController: UIViewController {
 
     @IBOutlet var bottomFrame: UIView!
     @IBOutlet var bottomConst: NSLayoutConstraint!
@@ -80,9 +80,13 @@ class SolvingViewController2: UIViewController {
         isHide = !isHide
     }
     
+    @IBAction func back(_ sender: Any) {
+        //저장되는 알고리즘이 필요, 일단은 뒤로가기
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
-extension SolvingViewController2 {
+extension SolvingViewController {
     // 뷰의 라운드 설정 부분
     func setRadius() {
         bottomFrame.layer.cornerRadius = 30
@@ -104,7 +108,7 @@ extension SolvingViewController2 {
     }
 }
 
-extension SolvingViewController2: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return problems.count
@@ -161,7 +165,7 @@ extension UIImage {
 }
 
 
-extension SolvingViewController2 {
+extension SolvingViewController {
     
     func whatVC(index: Int) -> UIViewController {
         let page = pageDatas.pages[index]
