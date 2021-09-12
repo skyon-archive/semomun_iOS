@@ -50,6 +50,13 @@ extension PreviewViewController {
         previews.append(addIcon)
         previews2.append(addIcon)
     }
+    
+    func showSelectWorkbookVC() {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectWorkbookViewController")
+//        nextVC?.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
+//        nextVC?.modalTransitionStyle = .crossDissolve //전환 애니메이션 설정
+        self.present(nextVC!, animated: true, completion: nil)
+    }
 }
 
 extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -96,7 +103,13 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
             category.reloadData()
             preview.reloadData()
         } else {
-            print(previews[indexPath.row].preview.wid)
+            let wid = currentPreives[indexPath.row].preview.wid
+            switch wid {
+            case -1:
+                showSelectWorkbookVC()
+            default:
+                print(wid)
+            }
         }
     }
     
