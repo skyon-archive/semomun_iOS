@@ -7,6 +7,14 @@
 
 import Foundation
 
+// { count, workbooks }
+// { wid, title, image }
+
+struct SearchPreview: Codable {
+    var count: Int
+    var workbooks: [Preview]
+}
+
 struct Preview: Codable {
     var wid: Int
     var title: String

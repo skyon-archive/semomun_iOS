@@ -20,6 +20,8 @@ class SelectWorkbookViewController: UIViewController {
     var loadedPreviews: [Preview_Real] = []
     let dumyImage = UIImage(named: "256img_2")!
     
+    let dbUrlString = "https://3205-61-79-139-252.ngrok.io"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         preview.delegate = self
@@ -77,11 +79,12 @@ extension SelectWorkbookViewController {
 //        let titleAttrString = NSMutableAttributedString(string: title, attributes: titleFont)
 //        alertController.setValue(titleAttrString, forKey: "attributedContentText")
 //        alertController.setValue(titleAttrString, forKey: "attributedMessage")
+        var query: String = "query something"
         
         data.forEach { title in
             let button = UIAlertAction(title: title, style: .default) { _ in
                 self.selectButtons[index].setTitle(title, for: .normal)
-                for _ in 0..<15 { self.addDumyPreview() }
+                self.loadPreviewFromDB(query: query)
             }
             button.setValue(UIColor.label, forKey: "titleTextColor")
             alertController.addAction(button)
@@ -95,11 +98,32 @@ extension SelectWorkbookViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func addDumyPreview() {
+    func addDumyPreview(json: String) {
         let dumyPreview = Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: 0)
         dumyPreview.setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
         loadedPreviews.append(dumyPreview)
         preview.reloadData()
+    }
+    
+    func loadPreviewFromDB(query: String) {
+        // something query to DB
+        // download json String
+        guard let dbURL = URL(string: dbUrlString) else {
+            print("Error of url")
+            return
+        }
+        do {
+            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
+                print("Error of jsonData")
+                return
+            }
+            // { count, workbooks }
+            // { wid, title, image }
+//            print(jsonData)
+            let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 
