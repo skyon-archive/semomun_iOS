@@ -151,7 +151,10 @@ extension SelectWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wid = loadedPreviews[indexPath.row].preview.wid
-        print(wid)
+        // 데이터 넘기기
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowWorkbookSpec") as? ShowWorkbookSpec else { return }
+        nextVC.wid_data = wid
+        self.present(nextVC, animated: true, completion: nil)
     }
     
 }
