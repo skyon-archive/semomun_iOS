@@ -40,7 +40,11 @@ struct Preview_dumy: Codable, CustomStringConvertible {
 }
 
 
-class Preview_Real {
+class Preview_Real: CustomStringConvertible {
+    var description: String {
+        return "preview: \(preview), data: \(imageData)"
+    }
+    
     var preview: Preview
     var imageData: Data?
     
@@ -55,15 +59,16 @@ class Preview_Real {
         }
     }
     
-    init(wid: Int, title: String, image: Int?) {
-        self.preview = Preview(wid: wid, title: title, image: image)
-        guard let image = preview.image,
-              let url = URL(string: "http://test/tmp/preview/\(image).png") else { return }
-        do {
-            try imageData = Data(contentsOf: url)
-        } catch let error {
-            print(error.localizedDescription)
-        }
+    init(wid: Int, title: String, image: Data?) {
+        self.preview = Preview(wid: wid, title: title, image: 0)
+        self.imageData = image
+//        guard let image = preview.image,
+//              let url = URL(string: "http://test/tmp/preview/.png") else { return }
+//        do {
+//            try imageData = Data(contentsOf: url)
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
     }
     
     func setDumyData(data: Data) {

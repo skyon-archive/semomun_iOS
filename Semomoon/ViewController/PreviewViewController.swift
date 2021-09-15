@@ -16,9 +16,13 @@ class PreviewViewController: UIViewController {
     var currentPreives: [Preview_Real] = []
     var previews: [Preview_Real] = []
     var previews2: [Preview_Real] = []
+    var previews_core: [Preview_Core] = []
+    
     var categoryIndex: Int = 0
     let addImage = UIImage(named: "addPreview")!
     let dumyImage = UIImage(named: "256img_2")!
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,16 +30,23 @@ class PreviewViewController: UIViewController {
         preview.delegate = self
         
         appendAddPreviewIcon()
+        let tempData = dumyImage.jpegData(compressionQuality: 1)!
         
-        previews.append(Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: 0))
-        previews[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
-        previews.append(Preview_Real(wid: 1, title: "고3 2021년 7월 확률과 통계", image: 1))
-        previews[2].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+        fetchPreviews()
+        print(previews_core.count)
         
-        previews2.append(Preview_Real(wid: 2, title: "고3 2021년 7월 영어", image: 2))
-        previews2[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
         
-        currentPreives = previews
+//        previews.append(Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: tempData))
+//        previews[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+//        previews.append(Preview_Real(wid: 1, title: "고3 2021년 7월 확률과 통계", image: tempData))
+//        previews[2].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+//
+//        previews2.append(Preview_Real(wid: 2, title: "고3 2021년 7월 영어", image: tempData))
+//        previews2[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+        
+        
+        
+//        currentPreives = previews
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
@@ -49,6 +60,7 @@ extension PreviewViewController {
         addIcon.setDumyData(data: addImage.jpegData(compressionQuality: 1)!)
         previews.append(addIcon)
         previews2.append(addIcon)
+        currentPreives.append(addIcon)
     }
     
     func showViewController(identifier: String, isFull: Bool) {
@@ -58,6 +70,23 @@ extension PreviewViewController {
         }
 //        nextVC?.modalTransitionStyle = .crossDissolve //전환 애니메이션 설정
         self.present(nextVC!, animated: true, completion: nil)
+    }
+    
+    func fetchPreviews() {
+        let tempData = dumyImage.jpegData(compressionQuality: 1)!
+        do {
+            self.previews_core = try context.fetch(Preview_Core.fetchRequest())
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        previews_core.forEach {
+            let preview_real = Preview_Real(wid: Int($0.wid), title: $0.title!, image: tempData)
+            currentPreives.append(preview_real)
+            print(currentPreives.count)
+        }
+        DispatchQueue.main.async {
+            self.preview.reloadData()
+        }
     }
 }
 
@@ -75,7 +104,6 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == category {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
-            print("\(indexPath.row)")
             // 문제번호 설정
             cell.category.text = categoryButtons[indexPath.row]
             cell.underLine.alpha = indexPath.row == categoryIndex ? 1 : 0
@@ -85,6 +113,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PreviewCell", for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             // 문제번호 설정
+            print(currentPreives[indexPath.row])
             guard let imageData = currentPreives[indexPath.row].imageData else { return UICollectionViewCell() }
             cell.imageView.image = UIImage(data: imageData)
             cell.title.text = currentPreives[indexPath.row].preview.title
@@ -106,6 +135,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
             preview.reloadData()
         } else {
             let wid = currentPreives[indexPath.row].preview.wid
+            print(wid)
             switch wid {
             case -1:
                 showViewController(identifier: "SelectWorkbookViewController", isFull: false)

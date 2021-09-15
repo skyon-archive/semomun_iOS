@@ -100,7 +100,7 @@ extension SelectWorkbookViewController {
     }
     
     func addDumyPreview(json: String) {
-        let dumyPreview = Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: 0)
+        let dumyPreview = Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: Data())
         dumyPreview.setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
         loadedPreviews.append(dumyPreview)
         preview.reloadData()

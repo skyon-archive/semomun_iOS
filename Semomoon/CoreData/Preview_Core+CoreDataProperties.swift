@@ -15,13 +15,12 @@ extension Preview_Core {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Preview_Core> {
         return NSFetchRequest<Preview_Core>(entityName: "Preview_Core")
     }
-
-    @NSManaged public var image: String?
-    @NSManaged public var title: String?
+    
     @NSManaged public var wid: Int64
-
+    @NSManaged public var image: Data?
+    @NSManaged public var title: String?
 }
 
-extension Preview_Core : Identifiable {
-
-}
+//extension Preview_Core : Identifiable {
+//
+//}

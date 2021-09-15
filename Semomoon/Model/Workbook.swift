@@ -21,7 +21,7 @@ struct Workbook: Codable {
     var subject: String //문제집 주제
     
     func preview() -> Preview_Real {
-        let preview = Preview_Real(wid: wid, title: title, image: image)
+        let preview = Preview_Real(wid: wid, title: title, image: Data())
         return preview
     }
 }
