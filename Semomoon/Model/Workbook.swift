@@ -8,9 +8,9 @@
 import Foundation
 
 struct Workbook: Codable {
-    var wid: Int //문제집 고유 번호
+    var wid: Int64 //문제집 고유 번호
     var title: String
-    var image: Int //문제집 표지 이미지
+    var image: Data? //문제집 표지 이미지
     var year: Int //출판연도
     var month: Int //출판 달
     var price: Int //가격(원)
@@ -20,8 +20,10 @@ struct Workbook: Codable {
     var category: String //문제집 유형
     var subject: String //문제집 주제
     
-    func preview() -> Preview_Real {
-        let preview = Preview_Real(wid: wid, title: title, image: Data())
+    func preview() -> Preview_Core {
+//        let preview = Preview_Real(wid: wid, title: title, image: Data())
+        let preview = Preview_Core()
+        preview.preview2core(wid: wid, title: title, image: image)
         return preview
     }
 }

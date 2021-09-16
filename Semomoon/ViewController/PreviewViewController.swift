@@ -13,9 +13,8 @@ class PreviewViewController: UIViewController {
     @IBOutlet weak var preview: UICollectionView!
     //임시적인 데이터
     let categoryButtons: [String] = ["최근", "국어", "수학"]
-    var currentPreives: [Preview_Real] = []
-    var previews: [Preview_Real] = []
-    var previews2: [Preview_Real] = []
+    var previews: [Preview_Core] = []
+    var previews2: [Preview_Core] = []
     var previews_core: [Preview_Core] = []
     
     var categoryIndex: Int = 0
@@ -34,19 +33,6 @@ class PreviewViewController: UIViewController {
         
         fetchPreviews()
         print(previews_core.count)
-        
-        
-//        previews.append(Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: tempData))
-//        previews[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
-//        previews.append(Preview_Real(wid: 1, title: "고3 2021년 7월 확률과 통계", image: tempData))
-//        previews[2].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
-//
-//        previews2.append(Preview_Real(wid: 2, title: "고3 2021년 7월 영어", image: tempData))
-//        previews2[1].setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
-        
-        
-        
-//        currentPreives = previews
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
@@ -56,11 +42,11 @@ class PreviewViewController: UIViewController {
 
 extension PreviewViewController {
     func appendAddPreviewIcon() {
-        let addIcon = Preview_Real(wid: -1, title: "", image: nil)
-        addIcon.setDumyData(data: addImage.jpegData(compressionQuality: 1)!)
+        let addIcon = Preview_Core()
+        addIcon.preview2core(wid: -1, title: "", image: nil)
+        addIcon.setValue(addImage.jpegData(compressionQuality: 1)!, forKey: "image")
         previews.append(addIcon)
         previews2.append(addIcon)
-        currentPreives.append(addIcon)
     }
     
     func showViewController(identifier: String, isFull: Bool) {
@@ -79,10 +65,9 @@ extension PreviewViewController {
         } catch let error {
             print(error.localizedDescription)
         }
+        // only because there is no image data saved in Core Data
         previews_core.forEach {
-            let preview_real = Preview_Real(wid: Int($0.wid), title: $0.title!, image: tempData)
-            currentPreives.append(preview_real)
-            print(currentPreives.count)
+            $0.image = tempData
         }
         DispatchQueue.main.async {
             self.preview.reloadData()
@@ -96,7 +81,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView == category {
             return categoryButtons.count
         } else {
-            return currentPreives.count
+            return previews_core.count
         }
     }
     
@@ -113,10 +98,10 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PreviewCell", for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             // 문제번호 설정
-            print(currentPreives[indexPath.row])
-            guard let imageData = currentPreives[indexPath.row].imageData else { return UICollectionViewCell() }
+            print(previews_core[indexPath.row])
+            guard let imageData = previews_core[indexPath.row].image else { return UICollectionViewCell() }
             cell.imageView.image = UIImage(data: imageData)
-            cell.title.text = currentPreives[indexPath.row].preview.title
+            cell.title.text = previews_core[indexPath.row].title
             
             return cell
         }
@@ -127,14 +112,14 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView == category {
             categoryIndex = indexPath.row
             if(categoryIndex != 0) {
-                currentPreives = previews2
+                previews_core = previews2
             } else {
-                currentPreives = previews
+                previews_core = previews
             }
             category.reloadData()
             preview.reloadData()
         } else {
-            let wid = currentPreives[indexPath.row].preview.wid
+            let wid = previews_core[indexPath.row].wid
             print(wid)
             switch wid {
             case -1:

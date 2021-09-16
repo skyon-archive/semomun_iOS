@@ -16,7 +16,7 @@ struct SearchPreview: Codable, CustomStringConvertible {
     }
     
     var count: Int
-    var workbooks: [Preview_dumy]
+    var workbooks: [Preview]
 }
 
 struct Preview: Codable, CustomStringConvertible {
@@ -24,54 +24,7 @@ struct Preview: Codable, CustomStringConvertible {
         return "\(wid), \(title), \(image)"
     }
     
-    var wid: Int
+    var wid: Int64
     var title: String
-    var image: Int?
-}
-
-struct Preview_dumy: Codable, CustomStringConvertible {
-    var description: String {
-        return "\(wid), \(title), \(image)"
-    }
-    
-    var wid: Int
-    var title: String
-    var image: String?
-}
-
-
-class Preview_Real: CustomStringConvertible {
-    var description: String {
-        return "preview: \(preview), data: \(imageData)"
-    }
-    
-    var preview: Preview
-    var imageData: Data?
-    
-    init(preview: Preview) {
-        self.preview = preview
-        guard let image = preview.image,
-              let url = URL(string: "http://test/tmp/preview/\(image).png") else { return }
-        do {
-            try imageData = Data(contentsOf: url)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    init(wid: Int, title: String, image: Data?) {
-        self.preview = Preview(wid: wid, title: title, image: 0)
-        self.imageData = image
-//        guard let image = preview.image,
-//              let url = URL(string: "http://test/tmp/preview/.png") else { return }
-//        do {
-//            try imageData = Data(contentsOf: url)
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-    }
-    
-    func setDumyData(data: Data) {
-        self.imageData = data
-    }
+    var image: Data?
 }

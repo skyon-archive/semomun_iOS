@@ -17,7 +17,7 @@ class SelectWorkbookViewController: UIViewController {
     let dataOfGrade: [String] = ["1학년", "2학년", "3학년"]
     let dataOfYear: [String] = ["2021년", "2020년", "2019년", "2018년"]
     let dataOfMonth: [String] = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "수능", "12월"]
-    var loadedPreviews: [Preview_Real] = []
+    var loadedPreviews: [Preview_Core] = []
     let dumyImage = UIImage(named: "256img_2")!
     
     let dbUrlString = "https://9932-61-79-139-252.ngrok.io/workbooks/preview"
@@ -100,8 +100,9 @@ extension SelectWorkbookViewController {
     }
     
     func addDumyPreview(json: String) {
-        let dumyPreview = Preview_Real(wid: 0, title: "고3 2021년 7월 화법과 작문", image: Data())
-        dumyPreview.setDumyData(data: dumyImage.jpegData(compressionQuality: 1)!)
+        let dumyPreview = Preview_Core()
+        dumyPreview.preview2core(wid: 0, title: "고3 2021년 7월 화법과 작문", image: Data())
+        dumyPreview.setValue(dumyImage.jpegData(compressionQuality: 1)!, forKey: "image")
         loadedPreviews.append(dumyPreview)
         preview.reloadData()
     }
@@ -141,16 +142,16 @@ extension SelectWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchedPreviewCell", for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
-        guard let imageData = loadedPreviews[indexPath.row].imageData else { return UICollectionViewCell() }
+        guard let imageData = loadedPreviews[indexPath.row].image else { return UICollectionViewCell() }
         cell.imageView.image = UIImage(data: imageData)
-        cell.title.text = loadedPreviews[indexPath.row].preview.title
+        cell.title.text = loadedPreviews[indexPath.row].title
         
         return cell
     }
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let wid = loadedPreviews[indexPath.row].preview.wid
+        let wid = loadedPreviews[indexPath.row].wid
         // 데이터 넘기기
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowWorkbookSpec") as? ShowWorkbookSpec else { return }
         nextVC.wid_data = wid

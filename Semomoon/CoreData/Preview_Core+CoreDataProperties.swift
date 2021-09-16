@@ -20,7 +20,3 @@ extension Preview_Core {
     @NSManaged public var image: Data?
     @NSManaged public var title: String?
 }
-
-//extension Preview_Core : Identifiable {
-//
-//}
