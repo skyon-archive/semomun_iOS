@@ -16,11 +16,7 @@ struct SearchPreview: Codable, CustomStringConvertible {
     var workbooks: [Preview]
 }
 
-struct Preview: Codable, CustomStringConvertible {
-    var description: String {
-        return "\(wid), \(title), \(image)"
-    }
-    
+struct Preview: Codable {
     var wid: Int64
     var title: String
     var image: Data?

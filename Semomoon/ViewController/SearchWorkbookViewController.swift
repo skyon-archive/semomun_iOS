@@ -100,10 +100,11 @@ extension SearchWorkbookViewController {
     }
     
     func addDumyPreview(json: String) {
-        let dumyPreview = Preview_Core()
-        dumyPreview.preview2core(wid: 0, title: "고3 2021년 7월 화법과 작문", image: Data())
-        dumyPreview.setValue(dumyImage.jpegData(compressionQuality: 1)!, forKey: "image")
-        loadedPreviews.append(dumyPreview)
+        let dumyImageData = dumyImage.pngData()!
+        let dumyPreview = Preview(wid: -1, title: "", image: dumyImageData)
+        let dumyPreview_core = Preview_Core(context: CoreDataManager.shared.context)
+        dumyPreview_core.preview2core(preview: dumyPreview)
+        loadedPreviews.append(dumyPreview_core)
         preview.reloadData()
     }
     
@@ -151,10 +152,10 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let wid = loadedPreviews[indexPath.row].wid
+        let selectedPreview = loadedPreviews[indexPath.row]
         // 데이터 넘기기
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
-        nextVC.wid_data = wid
+        nextVC.selectedPreview = selectedPreview
         self.present(nextVC, animated: true, completion: nil)
     }
     

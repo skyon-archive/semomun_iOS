@@ -23,6 +23,7 @@
 		4A8BEE7226E491BF00613602 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7126E491BF00613602 /* User.swift */; };
 		4A8BEE7426E4925100613602 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7326E4925100613602 /* History.swift */; };
 		4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */; };
+		4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
@@ -72,6 +73,7 @@
 		4A8BEE7126E491BF00613602 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4A8BEE7326E4925100613602 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4A9470C426EDED7D000BB59C /* Semomoon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Semomoon.xcdatamodel; sourceTree = "<group>"; };
+		4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */,
 				4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */,
+				4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* View.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
+				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
 				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,

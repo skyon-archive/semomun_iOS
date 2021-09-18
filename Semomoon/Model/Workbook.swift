@@ -19,13 +19,6 @@ struct Workbook: Codable {
     var publisher: String //문제집 출판사
     var category: String //문제집 유형
     var subject: String //문제집 주제
-    
-    func preview() -> Preview_Core {
-//        let preview = Preview_Real(wid: wid, title: title, image: Data())
-        let preview = Preview_Core()
-        preview.preview2core(wid: wid, title: title, image: image)
-        return preview
-    }
 }
 
 class Workbook_Real {
