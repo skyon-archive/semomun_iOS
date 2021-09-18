@@ -13,7 +13,7 @@ protocol SendData {
 }
 
 class SolvingViewController: UIViewController {
-
+    
     @IBOutlet var bottomFrame: UIView!
     @IBOutlet var bottomConst: NSLayoutConstraint!
     @IBOutlet var hideButton: UIButton!

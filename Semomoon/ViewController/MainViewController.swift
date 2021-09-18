@@ -31,10 +31,15 @@ class MainViewController: UIViewController {
         queryDictionary["영어"] = NSPredicate(format: "subject = %@", "영어")
         
         fetchPreviews(filter: "전체")
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshPreviews(_:)), name: ShowDetailOfWorkbookViewController.refresh, object: nil)
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
         print("userInfo")
+    }
+    
+    @objc func refreshPreviews(_ notification: Notification) {
+        fetchPreviews(filter: "전체")
     }
 }
 

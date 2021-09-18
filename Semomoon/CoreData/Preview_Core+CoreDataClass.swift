@@ -22,7 +22,7 @@ public class Preview_Core: NSManagedObject{
     
     // functions to replace the custom initialization methods
     func preview2core(preview: Preview){
-        self.setValue(preview.wid, forKey: "wid")
+        self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(preview.image, forKey: "image")
         self.setValue(nil, forKey: "subject")

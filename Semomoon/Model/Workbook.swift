@@ -8,9 +8,9 @@
 import Foundation
 
 struct Workbook: Codable {
-    var wid: Int64 //문제집 고유 번호
+    var wid: Int //문제집 고유 번호
     var title: String
-    var image: Data? //문제집 표지 이미지
+    var image: String //문제집 표지 이미지
     var year: Int //출판연도
     var month: Int //출판 달
     var price: Int //가격(원)
@@ -28,9 +28,9 @@ class Workbook_Real {
     
     init(workBook: Workbook) {
         self.workBook = workBook
-        self.url = URL(string: "http://\(123123)/tmp/workbook/\(workBook.image).png")!
+        self.url = URL(string: workBook.image)!
         self.imageData = Data()
-//        loadImage()
+        loadImage()
     }
     
     func loadImage() {
@@ -42,7 +42,7 @@ class Workbook_Real {
     }
     
     func convertToPreview() -> Preview {
-        let preview = Preview(wid: workBook.wid, title: workBook.title, image: workBook.image)
+        let preview = Preview(wid: workBook.wid, title: workBook.title, image: imageData)
         return preview
     }
 }

@@ -17,7 +17,7 @@ struct SearchPreview: Codable, CustomStringConvertible {
 }
 
 struct Preview: Codable {
-    var wid: Int64
+    var wid: Int
     var title: String
-    var image: Data?
+    var image: Data
 }
