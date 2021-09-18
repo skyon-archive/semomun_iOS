@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectWorkbookViewController: UIViewController {
+class SearchWorkbookViewController: UIViewController {
 
     @IBOutlet weak var frame: UIView!
     @IBOutlet var selectButtons: [UIButton]!
@@ -59,7 +59,7 @@ class SelectWorkbookViewController: UIViewController {
 }
 
 
-extension SelectWorkbookViewController {
+extension SearchWorkbookViewController {
     func setRadiusOfFrame() {
         frame.layer.cornerRadius = 30
     }
@@ -132,7 +132,7 @@ extension SelectWorkbookViewController {
     }
 }
 
-extension SelectWorkbookViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return loadedPreviews.count
@@ -153,14 +153,14 @@ extension SelectWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wid = loadedPreviews[indexPath.row].wid
         // 데이터 넘기기
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowWorkbookSpec") as? ShowWorkbookSpec else { return }
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
         nextVC.wid_data = wid
         self.present(nextVC, animated: true, completion: nil)
     }
     
 }
 
-extension SelectWorkbookViewController: UICollectionViewDelegateFlowLayout {
+extension SearchWorkbookViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (preview.frame.width)/5
         let height = preview.frame.height/3

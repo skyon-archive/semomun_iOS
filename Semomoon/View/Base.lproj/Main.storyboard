@@ -321,7 +321,7 @@
         <!--Item-->
         <scene sceneID="ldV-kc-c9v">
             <objects>
-                <viewController id="3zH-Gd-er2" customClass="PreviewViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3zH-Gd-er2" customClass="MainViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ti8-tN-4Qf">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -438,7 +438,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="182" height="280"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="256img" translatesAutoresizingMaskIntoConstraints="NO" id="H3F-cW-33Q">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="256img_2" translatesAutoresizingMaskIntoConstraints="NO" id="H3F-cW-33Q">
                                                     <rect key="frame" x="16" y="10" width="150" height="187.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -505,10 +505,10 @@
             </objects>
             <point key="canvasLocation" x="-559" y="111"/>
         </scene>
-        <!--Show Workbook Spec-->
+        <!--Show Detail Of Workbook View Controller-->
         <scene sceneID="IFg-RV-JhF">
             <objects>
-                <viewController storyboardIdentifier="ShowWorkbookSpec" id="sz0-Y3-4Tn" customClass="ShowWorkbookSpec" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowDetailOfWorkbookViewController" id="sz0-Y3-4Tn" customClass="ShowDetailOfWorkbookViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Euy-C2-nlT">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -544,7 +544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0VR-r9-BgA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="803" y="96"/>
+            <point key="canvasLocation" x="793" y="95"/>
         </scene>
         <!--Solving View Controller-->
         <scene sceneID="Gwk-og-DJG">
@@ -732,10 +732,10 @@
             </objects>
             <point key="canvasLocation" x="1481.294964028777" y="111.6906474820144"/>
         </scene>
-        <!--Select Workbook View Controller-->
+        <!--Search Workbook View Controller-->
         <scene sceneID="hl4-HV-Wlb">
             <objects>
-                <viewController storyboardIdentifier="SelectWorkbookViewController" id="VKq-Q1-cY2" customClass="SelectWorkbookViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchWorkbookViewController" id="VKq-Q1-cY2" customClass="SearchWorkbookViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fAj-k3-zUc">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -912,7 +912,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90x-ax-kQQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86" y="96"/>
+            <point key="canvasLocation" x="112" y="111"/>
         </scene>
         <!--Test1 View Controller-->
         <scene sceneID="SSc-mg-qce">
@@ -1156,7 +1156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgH-fU-jJz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1481" y="-562"/>
+            <point key="canvasLocation" x="2194" y="-558"/>
         </scene>
         <!--Test2 View Controller-->
         <scene sceneID="1ei-7j-kRG">
@@ -1326,7 +1326,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="256img" width="256" height="256"/>
         <image name="256img_2" width="256" height="256"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>

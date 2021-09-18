@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A12461B26F1F39F00402F58 /* ShowWorkbookSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowWorkbookSpec.swift */; };
+		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
-		4A4D92B026EDA19E00B82EE9 /* SelectWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SelectWorkbookViewController.swift */; };
+		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */; };
 		4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */; };
 		4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */; };
@@ -24,9 +24,8 @@
 		4A8BEE7426E4925100613602 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7326E4925100613602 /* History.swift */; };
 		4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
-		4AA8878926EC81B6009D1A2C /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */; };
+		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
-		4AE92AF126EDB1920058ED11 /* SelectSubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */; };
 		4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */; };
 		4AF59D7A26F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */; };
 		4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5F32926E3305600ED71E6 /* PageDatas.swift */; };
@@ -57,9 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A12461A26F1F39F00402F58 /* ShowWorkbookSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowWorkbookSpec.swift; sourceTree = "<group>"; };
+		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
-		4A4D92AF26EDA19E00B82EE9 /* SelectWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkbookViewController.swift; sourceTree = "<group>"; };
+		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_1ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_2ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_3ViewController.swift; sourceTree = "<group>"; };
@@ -74,9 +73,8 @@
 		4A8BEE7326E4925100613602 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4A9470C426EDED7D000BB59C /* Semomoon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Semomoon.xcdatamodel; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
-		4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
-		4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSubjectViewController.swift; sourceTree = "<group>"; };
 		4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview_Core+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview_Core+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AF5F32926E3305600ED71E6 /* PageDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDatas.swift; sourceTree = "<group>"; };
@@ -123,14 +121,13 @@
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4AA8878826EC81B6009D1A2C /* PreviewViewController.swift */,
-				4A4D92AF26EDA19E00B82EE9 /* SelectWorkbookViewController.swift */,
-				4AE92AF026EDB1920058ED11 /* SelectSubjectViewController.swift */,
+				4AA8878826EC81B6009D1A2C /* MainViewController.swift */,
+				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
+				4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */,
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
 				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
 				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
-				4A12461A26F1F39F00402F58 /* ShowWorkbookSpec.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -382,18 +379,17 @@
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
-				4AA8878926EC81B6009D1A2C /* PreviewViewController.swift in Sources */,
+				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* View.swift in Sources */,
-				4AE92AF126EDB1920058ED11 /* SelectSubjectViewController.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
-				4A12461B26F1F39F00402F58 /* ShowWorkbookSpec.swift in Sources */,
-				4A4D92B026EDA19E00B82EE9 /* SelectWorkbookViewController.swift in Sources */,
+				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
+				4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */,
 				4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

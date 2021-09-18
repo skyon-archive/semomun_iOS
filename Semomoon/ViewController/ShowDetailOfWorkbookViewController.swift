@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ShowWorkbookSpec: UIViewController {
+class ShowDetailOfWorkbookViewController: UIViewController {
     
     @IBOutlet weak var wid: UILabel!
     var wid_data: Int64 = 0

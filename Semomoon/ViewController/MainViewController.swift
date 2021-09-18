@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PreviewViewController: UIViewController {
+class MainViewController: UIViewController {
 
     @IBOutlet weak var category: UICollectionView!
     @IBOutlet weak var preview: UICollectionView!
@@ -40,7 +40,7 @@ class PreviewViewController: UIViewController {
     }
 }
 
-extension PreviewViewController {
+extension MainViewController {
     func appendAddPreviewIcon() {
         let addIcon = Preview_Core()
         addIcon.preview2core(wid: -1, title: "", image: nil)
@@ -75,7 +75,7 @@ extension PreviewViewController {
     }
 }
 
-extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == category {
@@ -123,7 +123,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
             print(wid)
             switch wid {
             case -1:
-                showViewController(identifier: "SelectWorkbookViewController", isFull: false)
+                showViewController(identifier: "SearchWorkbookViewController", isFull: false)
             default:
                 //여기서 section 선택하는 화면으로 넘어가야 하나, 일단은 바로 학습공간으로
                 if(wid == 0) {
@@ -136,7 +136,7 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-extension PreviewViewController: UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == preview {
             let width = (preview.frame.width)/4

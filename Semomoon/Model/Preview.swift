@@ -7,9 +7,6 @@
 
 import Foundation
 
-// { count, workbooks }
-// { wid, title, image }
-
 struct SearchPreview: Codable, CustomStringConvertible {
     var description: String {
         return "\(count), \(workbooks)"
