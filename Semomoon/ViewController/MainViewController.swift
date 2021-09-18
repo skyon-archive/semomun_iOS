@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     var previews: [Preview_Core] = []
     
     var categoryIndex: Int = 0
-    let addImage = UIImage(named: "addPreview")!
+    let addImage = UIImage(named: "workbook_1")!
     let dumyImage = UIImage(named: "256img_2")!
     var queryDictionary: [String:NSPredicate] = [:]
     
@@ -54,7 +54,7 @@ extension MainViewController {
     
     func fetchPreviews(filter: String) {
         previews.removeAll()
-        let fetchRequest = Preview_Core.fetchRequest()
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         if filter != "전체" {
             let filter = queryDictionary[filter]
             fetchRequest.predicate = filter
@@ -98,7 +98,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             // Preview cell 설정
             if indexPath.row == 0 {
                 let image = UIImage(named: "addPreview")!
-                let imageData = image.jpegData(compressionQuality: 1)!
+                let imageData = image.pngData()!
                 cell.imageView.image = UIImage(data: imageData)
                 cell.title.text = " "
             } else {
