@@ -39,18 +39,6 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController {
-    func appendAddPreviewIcon() {
-        previews.removeAll()
-        let image = UIImage(named: "addPreview")!
-        let imageData = image.jpegData(compressionQuality: 1)!
-        let dumyPreview = Preview(wid: -1, title: "", image: imageData)
-        let addIconPreview = Preview_Core(context: CoreDataManager.shared.context)
-        addIconPreview.preview2core(preview: dumyPreview)
-        previews.append(addIconPreview)
-        print(previews.count)
-        print(previews)
-    }
-    
     func showViewController(identifier: String, isFull: Bool) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: identifier)
         if isFull {
@@ -60,26 +48,22 @@ extension MainViewController {
     }
     
     func fetchPreviews(filter: String) {
-        appendAddPreviewIcon()
-//        let fetchRequest = NSFetchRequest<Preview_Core>
+        previews.removeAll()
         let fetchRequest = Preview_Core.fetchRequest()
         if filter != "전체" {
             let filter = queryDictionary[filter]
             fetchRequest.predicate = filter
         }
         let tempData = dumyImage.jpegData(compressionQuality: 1)!
-        var loadedPreviews: [Preview_Core] = []
         do {
-            loadedPreviews = try CoreDataManager.shared.context.fetch(fetchRequest)
+            previews = try CoreDataManager.shared.context.fetch(fetchRequest)
         } catch let error {
             print(error.localizedDescription)
         }
         // MARK:- dumy image setting
-        loadedPreviews.forEach {
+        previews.forEach {
             $0.image = tempData
         }
-        previews.append(contentsOf: loadedPreviews)
-        print(previews)
         self.preview.reloadData()
     }
 }
@@ -90,7 +74,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == category {
             return categoryButtons.count
         } else {
-            return previews.count
+            return previews.count+1
         }
     }
     
@@ -106,20 +90,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PreviewCell", for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
-            // 문제번호 설정
-            print(previews[indexPath.row])
-            guard let imageData = previews[indexPath.row].image else { return UICollectionViewCell() }
-//            if indexPath.row == 0 {
-//                let image = UIImage(named: "addPreview")!
-//                let imageData = image.jpegData(compressionQuality: 1)!
-//                cell.imageView.image = UIImage(data: imageData)
-//            } else {
-//                cell.imageView.image = UIImage(data: imageData)
-//            }
-            cell.imageView.image = UIImage(data: imageData)
-            
-            cell.title.text = previews[indexPath.row].title
-            
+            // Preview cell 설정
+            if indexPath.row == 0 {
+                let image = UIImage(named: "addPreview")!
+                let imageData = image.jpegData(compressionQuality: 1)!
+                cell.imageView.image = UIImage(data: imageData)
+                cell.title.text = " "
+            } else {
+                guard let imageData = previews[indexPath.row-1].image else { return UICollectionViewCell() }
+                cell.imageView.image = UIImage(data: imageData)
+                cell.title.text = previews[indexPath.row-1].title
+            }
             return cell
         }
     }
@@ -132,13 +113,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             category.reloadData()
             preview.reloadData()
         } else {
-            let wid = previews[indexPath.row].wid
-            print(wid)
-            switch wid {
-            case -1:
+            if indexPath.row == 0 {
                 showViewController(identifier: "SearchWorkbookViewController", isFull: false)
-            default:
-                showViewController(identifier: "SolvingViewController", isFull: true)
+            }
+            else {
+                print(previews[indexPath.row-1].wid)
+                showViewController(identifier: "SolvingViewController", isFull: true) //해당 wid 문제 풀이
             }
         }
     }
