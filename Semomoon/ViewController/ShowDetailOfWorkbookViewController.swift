@@ -22,10 +22,7 @@ class ShowDetailOfWorkbookViewController: UIViewController {
         let tempWorkBook = Workbook(wid: 0, title: "ASdf", image: "////.png", year: 1, month: 2, price: 1, detail: "123", sales: 1, publisher: "123", category: "!23", subject: "!23")
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValue(selectedPreview.wid, forKey: "wid")
-        preview_core.setValue(selectedPreview.title, forKey: "title")
-        preview_core.setValue(selectedPreview.image, forKey: "image")
-        preview_core.setValue(tempWorkBook.subject, forKey: "subject")
+        preview_core.setValues(preview: selectedPreview, subject: tempWorkBook.subject)
         do {
             try CoreDataManager.shared.appDelegate.saveContext()
             print("save complete")

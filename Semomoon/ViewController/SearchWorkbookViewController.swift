@@ -13,11 +13,8 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet var selectButtons: [UIButton]!
     @IBOutlet weak var preview: UICollectionView!
     
-    let buttonTitles: [String] = ["과목 선택", "학년 선택", "년도 선택", "월 선택"]
-    let dataOfSubject: [String] = ["국어", "수학", "영어", "과학"]
-    let dataOfGrade: [String] = ["1학년", "2학년", "3학년"]
-    let dataOfYear: [String] = ["2021년", "2020년", "2019년", "2018년"]
-    let dataOfMonth: [String] = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "수능", "12월"]
+    var buttonTitles: [String] = []
+    var popupButtons: [[String]] = []
     var loadedPreviews: [Preview] = []
     
     let dbUrlString = "https://9932-61-79-139-252.ngrok.io/workbooks/preview"
@@ -26,6 +23,7 @@ class SearchWorkbookViewController: UIViewController {
         super.viewDidLoad()
         preview.delegate = self
         preview.dataSource = self
+        setPopupButtons()
         setRadiusOfFrame()
         setRadiusOfSelectButtons()
     }
@@ -36,7 +34,7 @@ class SearchWorkbookViewController: UIViewController {
     
     @IBAction func showSubject(_ sender: UIButton) {
         let idx = Int(sender.tag)
-        showAlertController(title: buttonTitles[idx], index: idx, data: dataOfSubject)
+        showAlertController(title: buttonTitles[idx], index: idx, data: popupButtons[idx])
     }
 }
 
@@ -52,6 +50,17 @@ extension SearchWorkbookViewController {
             $0.layer.borderColor = UIColor.lightGray.cgColor
             $0.layer.cornerRadius = 10
         }
+    }
+    
+    func setPopupButtons() {
+        buttonTitles.append("과목 선택")
+        popupButtons.append(["국어", "수학", "영어", "과학"])
+        buttonTitles.append("학년 선택")
+        popupButtons.append(["1학년", "2학년", "3학년"])
+        buttonTitles.append("년도 선택")
+        popupButtons.append(["2021년", "2020년", "2019년", "2018년"])
+        buttonTitles.append("월 선택")
+        popupButtons.append(["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "수능", "12월"])
     }
     
     func showAlertController(title: String, index: Int, data: [String]) {
