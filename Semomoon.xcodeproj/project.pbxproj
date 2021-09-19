@@ -10,6 +10,8 @@
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
+		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
+		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
 		4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */; };
 		4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */; };
 		4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */; };
@@ -60,6 +62,8 @@
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
+		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_1ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_2ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_3ViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A55DE5826F70137008F1C35 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4A55DE5926F70151008F1C35 /* StartViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				4A8BEE6326E4865700613602 /* PKDrawing.swift */,
+				4A55DE5626F6FF7C008F1C35 /* UIButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -212,6 +225,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				4A55DE5826F70137008F1C35 /* Login */,
 				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
 				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
@@ -371,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
+				4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */,
 				4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */,
 				4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
+				4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */,
 				4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */,
 				4AF59D7A26F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
