@@ -24,7 +24,7 @@ public class Preview_Core: NSManagedObject{
     func setValues(preview: Preview, subject: String){
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
-        self.setValue(preview.image, forKey: "image")
+        self.setValue(Data(), forKey: "image")
         self.setValue(subject, forKey: "subject")
     }
 }

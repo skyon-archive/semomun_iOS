@@ -16,6 +16,8 @@ class SearchWorkbookViewController: UIViewController {
     var buttonTitles: [String] = []
     var popupButtons: [[String]] = []
     var loadedPreviews: [Preview] = []
+    var loadedImageDatas: [Int:Data] = [:]
+    var loadedImages: [Int:UIImage] = [:]
     
     let dbUrlString = "https://f9eb-118-36-227-50.ngrok.io/workbooks/preview"
     let imageUrlString = "https://f9eb-118-36-227-50.ngrok.io/images/workbook/64x64/"
@@ -130,8 +132,11 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
             do {
                 let url = URL(string: imageUrlString)!
                 let imageData = try Data(contentsOf: url)
+                self.loadedImageDatas[indexPath.row] = imageData
                 DispatchQueue.main.async {
-                    cell.imageView.image = UIImage(data: imageData)
+                    let loadedImage = UIImage(data: imageData)
+                    self.loadedImages[indexPath.row] = loadedImage
+                    cell.imageView.image = loadedImage
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -148,6 +153,8 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
         // 데이터 넘기기
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
         nextVC.selectedPreview = selectedPreview
+        nextVC.loadedImage = loadedImages[indexPath.row]
+        nextVC.loadedImageData = loadedImageDatas[indexPath.row]
         self.present(nextVC, animated: true, completion: nil)
     }
     

@@ -67,10 +67,10 @@ extension MainViewController {
         } catch let error {
             print(error.localizedDescription)
         }
-        // MARK:- dumy image setting
-        previews.forEach {
-            $0.image = tempData
-        }
+//        // MARK:- dumy image setting
+//        previews.forEach {
+//            $0.image = tempData
+//        }
         self.preview.reloadData()
     }
     
@@ -130,7 +130,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.title.text = " "
             } else {
                 guard let imageData = previews[indexPath.row-1].image else { return UICollectionViewCell() }
-                cell.imageView.image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: imageData)
+                }
                 cell.title.text = previews[indexPath.row-1].title
             }
             return cell

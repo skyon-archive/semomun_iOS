@@ -13,6 +13,8 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     
     @IBOutlet weak var wid: UILabel!
     var selectedPreview: Preview!
+    var loadedImageData: Data!
+    var loadedImage: UIImage!
     
     override func viewDidLoad() {
         wid.text = "\(selectedPreview.wid)"
@@ -23,6 +25,7 @@ class ShowDetailOfWorkbookViewController: UIViewController {
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         preview_core.setValues(preview: selectedPreview, subject: tempWorkBook.subject)
+        preview_core.setValue(loadedImageData, forKey: "image")
         do {
             try CoreDataManager.shared.appDelegate.saveContext()
             print("save complete")
