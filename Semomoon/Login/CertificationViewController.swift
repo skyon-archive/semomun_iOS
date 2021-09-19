@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheckPhoneViewController: UIViewController {
+class CertificationViewController: UIViewController {
 
     @IBOutlet weak var warningOfName: UIView!
     @IBOutlet weak var warningOfName2: UILabel!

@@ -17,7 +17,8 @@ class SearchWorkbookViewController: UIViewController {
     var popupButtons: [[String]] = []
     var loadedPreviews: [Preview] = []
     
-    let dbUrlString = "https://9932-61-79-139-252.ngrok.io/workbooks/preview"
+    let dbUrlString = "https://f9eb-118-36-227-50.ngrok.io/workbooks/preview"
+    let imageUrlString = "https://f9eb-118-36-227-50.ngrok.io/images/workbook/64x64/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +71,8 @@ extension SearchWorkbookViewController {
         data.forEach { title in
             let button = UIAlertAction(title: title, style: .default) { _ in
                 self.selectButtons[index].setTitle(title, for: .normal)
-//                self.loadPreviewFromDB(query: query)
-                self.addDumyPreview(json: query)
+                self.loadPreviewFromDB(query: query)
+//                self.addDumyPreview(json: query)
             }
             button.setValue(UIColor.label, forKey: "titleTextColor")
             alertController.addAction(button)
@@ -89,15 +90,13 @@ extension SearchWorkbookViewController {
         let dumyImage = UIImage(named: "256img_2")!
         let dumyImageData = dumyImage.pngData()!
         for i in 1...15 {
-            let dumyPreview = Preview(wid: i, title: "Dumy Preview Title", image: dumyImageData)
+            let dumyPreview = Preview(wid: i, title: "Dumy Preview Title", image: "dumyImageData")
             loadedPreviews.append(dumyPreview)
         }
         preview.reloadData()
     }
     
     func loadPreviewFromDB(query: String) {
-        // something query to DB
-        // download json String
         guard let dbURL = URL(string: dbUrlString) else {
             print("Error of url")
             return
@@ -108,12 +107,8 @@ extension SearchWorkbookViewController {
                 return
             }
             let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
-            print(getJsonData.workbooks[0].wid)
-            print(getJsonData.workbooks[0].title)
-            print(getJsonData.workbooks[0].image)
-            print(getJsonData.workbooks[1].wid)
-            print(getJsonData.workbooks[1].title)
-            print(getJsonData.workbooks[1].image)
+            loadedPreviews = getJsonData.workbooks
+            preview.reloadData()
         } catch let error {
             print(error.localizedDescription)
         }
@@ -130,8 +125,18 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchedPreviewCell", for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
-        let imageData = loadedPreviews[indexPath.row].image
-        cell.imageView.image = UIImage(data: imageData)
+        let imageUrlString = imageUrlString + loadedPreviews[indexPath.row].image
+        DispatchQueue.global().async {
+            do {
+                let url = URL(string: imageUrlString)!
+                let imageData = try Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: imageData)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
         cell.title.text = loadedPreviews[indexPath.row].title
         
         return cell

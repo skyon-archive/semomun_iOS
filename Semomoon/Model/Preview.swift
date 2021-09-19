@@ -19,5 +19,18 @@ struct SearchPreview: Codable, CustomStringConvertible {
 struct Preview: Codable {
     var wid: Int
     var title: String
-    var image: Data
+    var image: String
+}
+
+struct Preview_loaded {
+    var wid: Int
+    var title: String
+    var image: Data = Data()
+    
+    init(preview: Preview) {
+        self.wid = preview.wid
+        self.title = preview.title
+    }
+    
+//    mutating
 }

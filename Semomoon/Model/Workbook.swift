@@ -42,7 +42,7 @@ class Workbook_Real {
     }
     
     func convertToPreview() -> Preview {
-        let preview = Preview(wid: workBook.wid, title: workBook.title, image: imageData)
+        let preview = Preview(wid: workBook.wid, title: workBook.title, image: workBook.image)
         return preview
     }
 }
