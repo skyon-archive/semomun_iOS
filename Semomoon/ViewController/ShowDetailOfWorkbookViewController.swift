@@ -14,7 +14,7 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     @IBOutlet weak var wid: UILabel!
     var selectedPreview: Preview!
     var loadedImageData: Data!
-    var loadedImage: UIImage!
+//    var loadedImage: UIImage!
     
     override func viewDidLoad() {
         wid.text = "\(selectedPreview.wid)"

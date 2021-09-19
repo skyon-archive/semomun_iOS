@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchWorkbookViewController: UIViewController {
 
@@ -19,8 +20,8 @@ class SearchWorkbookViewController: UIViewController {
     var loadedImageDatas: [Int:Data] = [:]
     var loadedImages: [Int:UIImage] = [:]
     
-    let dbUrlString = "https://f9eb-118-36-227-50.ngrok.io/workbooks/preview"
-    let imageUrlString = "https://f9eb-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    let dbUrlString = "https://96d3-118-36-227-50.ngrok.io/workbooks/preview"
+    let imageUrlString = "https://96d3-118-36-227-50.ngrok.io/images/workbook/64x64/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,20 +129,15 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchedPreviewCell", for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
         let imageUrlString = imageUrlString + loadedPreviews[indexPath.row].image
+        let url = URL(string: imageUrlString)!
         DispatchQueue.global().async {
             do {
-                let url = URL(string: imageUrlString)!
-                let imageData = try Data(contentsOf: url)
-                self.loadedImageDatas[indexPath.row] = imageData
-                DispatchQueue.main.async {
-                    let loadedImage = UIImage(data: imageData)
-                    self.loadedImages[indexPath.row] = loadedImage
-                    cell.imageView.image = loadedImage
-                }
+                self.loadedImageDatas[indexPath.row] = try Data(contentsOf: url)
             } catch let error {
                 print(error.localizedDescription)
             }
         }
+        cell.imageView.kf.setImage(with: url)
         cell.title.text = loadedPreviews[indexPath.row].title
         
         return cell
@@ -153,7 +149,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
         // 데이터 넘기기
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
         nextVC.selectedPreview = selectedPreview
-        nextVC.loadedImage = loadedImages[indexPath.row]
+//        nextVC.loadedImage = loadedImages[indexPath.row]
         nextVC.loadedImageData = loadedImageDatas[indexPath.row]
         self.present(nextVC, animated: true, completion: nil)
     }
