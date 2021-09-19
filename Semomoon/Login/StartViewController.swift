@@ -15,12 +15,13 @@ class StartViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func register(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CheckPhoneViewController") else { return }
+        nextVC.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
+        
+        self.present(nextVC, animated: false, completion: nil) // present
     }
     @IBAction func registerWithApple(_ sender: Any) {
     }
     @IBAction func login(_ sender: Any) {
     }
-    @IBAction func nextView(_ sender: Any) {
-    }
-    
 }
