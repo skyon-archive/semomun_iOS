@@ -20,17 +20,19 @@ class MainViewController: UIViewController {
     let addImage = UIImage(named: "workbook_1")!
     let dumyImage = UIImage(named: "256img_2")!
     var queryDictionary: [String:NSPredicate] = [:]
+    var currentFilter: String = "전체"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         category.delegate = self
         preview.delegate = self
+        addLongpressGesture(target: preview)
         
         queryDictionary["국어"] = NSPredicate(format: "subject = %@", "국어")
         queryDictionary["수학"] = NSPredicate(format: "subject = %@", "수학")
         queryDictionary["영어"] = NSPredicate(format: "subject = %@", "영어")
         
-        fetchPreviews(filter: "전체")
+        fetchPreviews(filter: currentFilter)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPreviews(_:)), name: ShowDetailOfWorkbookViewController.refresh, object: nil)
     }
     
@@ -70,6 +72,31 @@ extension MainViewController {
             $0.image = tempData
         }
         self.preview.reloadData()
+    }
+    
+    func deleteAlert(idx: Int) {
+        let alert = UIAlertController(title: previews[idx].title,
+            message: "삭제하시겠습니까?",
+            preferredStyle: UIAlertController.Style.alert)
+        let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
+        let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.delete(object: self.previews[idx])
+            self.fetchPreviews(filter: self.currentFilter)
+        })
+        
+        alert.addAction(cancle)
+        alert.addAction(delete)
+        present(alert,animated: true,completion: nil)
+    }
+    
+    func delete(object: NSManagedObject) {
+        CoreDataManager.shared.context.delete(object)
+        do {
+            CoreDataManager.shared.appDelegate.saveContext()
+        } catch let error {
+            print(error.localizedDescription)
+            CoreDataManager.shared.context.rollback()
+        }
     }
 }
 
@@ -114,9 +141,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == category {
             categoryIndex = indexPath.row
-            fetchPreviews(filter: categoryButtons[indexPath.row])
+            currentFilter = categoryButtons[indexPath.row]
+            fetchPreviews(filter: currentFilter)
             category.reloadData()
-            preview.reloadData()
         } else {
             if indexPath.row == 0 {
                 showViewController(identifier: "SearchWorkbookViewController", isFull: false)
@@ -157,4 +184,23 @@ class CategoryCell: UICollectionViewCell {
 class PreviewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var title: UILabel!
+}
+
+
+extension MainViewController {
+    func addLongpressGesture(target: UIView) {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
+        target.addGestureRecognizer(longPressRecognizer)
+        longPressRecognizer.minimumPressDuration = 0.7
+    }
+    
+    @objc func longPressed(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: preview)
+            guard let indexPath = preview.indexPathForItem(at: touchPoint) else { return }
+            if indexPath.row-1 >= 0 {
+                deleteAlert(idx: indexPath.row-1)
+            }
+        }
+    }
 }
