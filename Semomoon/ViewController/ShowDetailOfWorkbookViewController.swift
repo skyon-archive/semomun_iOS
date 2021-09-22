@@ -21,7 +21,8 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
-        let tempWorkBook = Workbook(wid: 0, title: "ASdf", image: "////.png", year: 1, month: 2, price: 1, detail: "123", sales: 1, publisher: "123", category: "!23", subject: "!23")
+//        let tempWorkBook = Workbook(wid: 0, title: "ASdf", image: "////.png", year: 1, month: 2, price: 1, detail: "123", sales: 1, publisher: "123", category: "!23", subject: "!23")
+        let tempWorkBook = Workbook(wid: 0, title: "ASdf", year: 1, month: 2, price: 1, detail: "121", image: "sdf", sales: 1, publisher: "1212", category: "모의고사", subject: "국어", grade: 1, sections: [])
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         preview_core.setValues(preview: selectedPreview, subject: tempWorkBook.subject)

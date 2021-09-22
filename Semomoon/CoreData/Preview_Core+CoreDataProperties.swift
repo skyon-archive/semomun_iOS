@@ -18,4 +18,5 @@ extension Preview_Core {
     @NSManaged public var image: Data?
     @NSManaged public var title: String?
     @NSManaged public var subject: String?
+    @NSManaged public var sids: [Int]
 }

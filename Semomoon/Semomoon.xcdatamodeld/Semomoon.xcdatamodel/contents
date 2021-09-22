@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Preview_Core" representedClassName="Preview_Core" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="sids" optional="YES" attributeType="Transformable"/>
         <attribute name="subject" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Preview_Core" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Preview_Core" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>

@@ -44,8 +44,8 @@
             filePath = "Semomoon/ViewController/ShowDetailOfWorkbookViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "addWorkbook(_:)"
             landmarkType = "7">
          </BreakpointContent>
