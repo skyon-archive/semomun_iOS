@@ -152,7 +152,26 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             else {
                 print(previews[indexPath.row-1].wid)
-                showViewController(identifier: "SolvingViewController", isFull: true) //해당 wid 문제 풀이
+                var sections: [Section_Core] = []
+                if(previews[indexPath.row-1].sids.count == 1){
+                    let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
+                    fetchRequest.predicate = NSPredicate(format: "sid = %@", previews[indexPath.row-1].sids[0])
+                    do {
+                        sections = try CoreDataManager.shared.context.fetch(fetchRequest)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                    // check if sections have been loaded
+                    if(sections.count == 0){
+                        
+                    }
+                    else{
+                        showViewController(identifier: "SolvingViewController", isFull: true) //해당 wid 문제 풀이
+                    }
+                }
+                else{
+                    //go to section View Controller
+                }
             }
         }
     }
