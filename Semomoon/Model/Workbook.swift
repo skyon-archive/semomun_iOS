@@ -23,8 +23,6 @@ struct Workbook: Codable {
     var sections: [Section]
 }
 
-
-
 class Workbook_Real {
     var workBook: Workbook
     var url: URL

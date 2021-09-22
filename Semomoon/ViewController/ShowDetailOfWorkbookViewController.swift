@@ -16,6 +16,9 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     var loadedImageData: Data!
 //    var loadedImage: UIImage!
     
+    let dbUrlString = "https://96d3-118-36-227-50.ngrok.io/workbooks/preview"
+    let imageUrlString = "https://96d3-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    
     override func viewDidLoad() {
         wid.text = "\(selectedPreview.wid)"
     }
@@ -36,5 +39,23 @@ class ShowDetailOfWorkbookViewController: UIViewController {
             print(error.localizedDescription)
         }
         
+    }
+    
+    func loadPreviewFromDB(query: String) {
+        guard let dbURL = URL(string: dbUrlString) else {
+            print("Error of url")
+            return
+        }
+        do {
+            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
+                print("Error of jsonData")
+                return
+            }
+//            let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
+//            loadedPreviews = getJsonData.workbooks
+//            preview.reloadData()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
