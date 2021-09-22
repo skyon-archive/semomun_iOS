@@ -24,12 +24,14 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
-//        let tempWorkBook = Workbook(wid: 0, title: "ASdf", image: "////.png", year: 1, month: 2, price: 1, detail: "123", sales: 1, publisher: "123", category: "!23", subject: "!23")
-        let tempWorkBook = Workbook(wid: 0, title: "ASdf", year: 1, month: 2, price: 1, detail: "121", image: "sdf", sales: 1, publisher: "1212", category: "모의고사", subject: "국어", grade: 1, sections: [])
+        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid, query: "query") else { return }
+        let loadedWorkbook = DBDatas.0
+        let sids = DBDatas.1
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValues(preview: selectedPreview, subject: tempWorkBook.subject)
+        preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
         preview_core.setValue(loadedImageData, forKey: "image")
+        
         do {
             try CoreDataManager.shared.appDelegate.saveContext()
             print("save complete")
@@ -41,21 +43,25 @@ class ShowDetailOfWorkbookViewController: UIViewController {
         
     }
     
-    func loadPreviewFromDB(query: String) {
-        guard let dbURL = URL(string: dbUrlString) else {
+    func loadSidsFromDB(wid: Int, query: String) -> (Workbook, [Int])? {
+        guard let dbURL = URL(string: query) else {
             print("Error of url")
-            return
+            return nil
         }
         do {
             guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
                 print("Error of jsonData")
-                return
+                return nil
             }
-//            let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
-//            loadedPreviews = getJsonData.workbooks
-//            preview.reloadData()
+            let getJsonData: Workbook = try! JSONDecoder().decode(Workbook.self, from: jsonData)
+            // 지금은 sid 값들만 추출
+            let sections = getJsonData.sections
+            var sids: [Int] = []
+            sections.forEach { sids.append($0.sid) }
+            return (getJsonData, sids)
         } catch let error {
             print(error.localizedDescription)
         }
+        return nil
     }
 }
