@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */; };
+		1E717BC826FAF997009784CB /* Section_Core+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
@@ -62,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section_Core+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section_Core+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 		4AF59D7B26F1E53D00E7AE26 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */,
+				1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */,
 				4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */,
 				4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */,
 				4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */,
@@ -420,6 +426,7 @@
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* View.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
+				1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
 				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
@@ -427,6 +434,7 @@
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */,
 				4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */,
+				1E717BC826FAF997009784CB /* Section_Core+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
