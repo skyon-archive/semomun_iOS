@@ -20,14 +20,14 @@ class SearchWorkbookViewController: UIViewController {
     var loadedImageDatas: [Int:Data] = [:]
     var loadedImages: [Int:UIImage] = [:]
     
-    let dbUrlString = "https://96d3-118-36-227-50.ngrok.io/workbooks/preview"
-    let imageUrlString = "https://96d3-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    let dbUrlString = "https://01ea-118-36-227-50.ngrok.io/workbooks/preview/"
+    let imageUrlString = "https://01ea-118-36-227-50.ngrok.io/images/workbook/64x64/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         preview.delegate = self
         preview.dataSource = self
-        setPopupButtons()
+//        setPopupButtons()
         setRadiusOfFrame()
         setRadiusOfSelectButtons()
     }
@@ -38,7 +38,8 @@ class SearchWorkbookViewController: UIViewController {
     
     @IBAction func showSubject(_ sender: UIButton) {
         let idx = Int(sender.tag)
-        showAlertController(title: buttonTitles[idx], index: idx, data: popupButtons[idx])
+//        showAlertController(title: buttonTitles[idx], index: idx, data: popupButtons[idx])
+        showAlertController(title: Query.shared.buttonTitles[idx], index: idx, data: Query.shared.popupButtons[idx])
     }
 }
 
@@ -56,26 +57,29 @@ extension SearchWorkbookViewController {
         }
     }
     
-    func setPopupButtons() {
-        buttonTitles.append("과목 선택")
-        popupButtons.append(["국어", "수학", "영어", "과학"])
-        buttonTitles.append("학년 선택")
-        popupButtons.append(["1학년", "2학년", "3학년"])
-        buttonTitles.append("년도 선택")
-        popupButtons.append(["2021년", "2020년", "2019년", "2018년"])
-        buttonTitles.append("월 선택")
-        popupButtons.append(["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "수능", "12월"])
-    }
+//    func setPopupButtons() {
+//        buttonTitles.append("과목 선택")
+//        popupButtons.append(["국어", "수학", "영어", "과학"])
+//        buttonTitles.append("학년 선택")
+//        popupButtons.append(["1학년", "2학년", "3학년"])
+//        buttonTitles.append("년도 선택")
+//        popupButtons.append(["2021년", "2020년", "2019년", "2018년"])
+//        buttonTitles.append("월 선택")
+//        popupButtons.append(["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "수능", "12월"])
+//    }
     
     func showAlertController(title: String, index: Int, data: [String]) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         var query: String = "query something"
         
-        data.forEach { title in
+        for (idx, title) in data.enumerated() {
             let button = UIAlertAction(title: title, style: .default) { _ in
                 self.selectButtons[index].setTitle(title, for: .normal)
+                let queryKey = Query.shared.queryTitle[index]
+                let queryValue = Query.shared.queryOfItems[index][idx]
+                print(queryKey + "=" + queryValue)
+        
                 self.loadPreviewFromDB(query: query)
-//                self.addDumyPreview(json: query)
             }
             button.setValue(UIColor.label, forKey: "titleTextColor")
             alertController.addAction(button)
@@ -99,7 +103,10 @@ extension SearchWorkbookViewController {
         preview.reloadData()
     }
     
+//    func createQuery()
+    
     func loadPreviewFromDB(query: String) {
+        
         guard let dbURL = URL(string: dbUrlString) else {
             print("Error of url")
             return

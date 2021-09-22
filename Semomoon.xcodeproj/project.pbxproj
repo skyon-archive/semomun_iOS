@@ -13,6 +13,7 @@
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
+		4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3538B826FB07E800F3A1F3 /* Query.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
 		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
@@ -71,6 +72,7 @@
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
+		4A3538B826FB07E800F3A1F3 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				4A8BEE6D26E490AB00613602 /* Report.swift */,
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
+				4A3538B826FB07E800F3A1F3 /* Query.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
+				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */,
