@@ -787,12 +787,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYj-UN-CAG">
                                 <rect key="frame" x="0.0" y="30" width="768" height="52"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 기출문제" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4b6-yA-p2g">
-                                        <rect key="frame" x="20" y="5" width="190" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCD-Pc-538">
                                         <rect key="frame" x="713" y="8.5" width="35" height="35"/>
                                         <constraints>
@@ -808,14 +802,27 @@
                                             <action selector="userInfo:" destination="3zH-Gd-er2" eventType="touchUpInside" id="lpC-jy-X6M"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-Ss-qrv">
+                                        <rect key="frame" x="16" y="14" width="145" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="수능 및 모의고사" image="chevron.left" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showSidebar:" destination="3zH-Gd-er2" eventType="touchUpInside" id="qKX-29-6cY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="lCD-Pc-538" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="EiE-uc-goM"/>
+                                    <constraint firstItem="mNH-Ss-qrv" firstAttribute="leading" secondItem="MYj-UN-CAG" secondAttribute="leading" constant="16" id="LO9-CN-3Cx"/>
+                                    <constraint firstAttribute="height" constant="52" id="W8Z-Bm-eFG"/>
                                     <constraint firstAttribute="trailing" secondItem="lCD-Pc-538" secondAttribute="trailing" constant="20" id="ZJD-Ye-84G"/>
-                                    <constraint firstItem="4b6-yA-p2g" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="dQF-xj-F72"/>
-                                    <constraint firstItem="4b6-yA-p2g" firstAttribute="leading" secondItem="MYj-UN-CAG" secondAttribute="leading" constant="20" id="e9G-a0-rlp"/>
-                                    <constraint firstItem="4b6-yA-p2g" firstAttribute="top" secondItem="MYj-UN-CAG" secondAttribute="top" constant="5" id="pxv-Mz-yKX"/>
+                                    <constraint firstItem="mNH-Ss-qrv" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="w9b-iS-lxm"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qow-Pp-er9">
@@ -956,6 +963,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="WX5-t3-fbI"/>
                     <connections>
                         <outlet property="category" destination="qow-Pp-er9" id="ERG-cv-6Un"/>
+                        <outlet property="currentMode" destination="mNH-Ss-qrv" id="vbv-tC-ZeR"/>
                         <outlet property="preview" destination="snq-vH-c7w" id="vrn-J1-1hu"/>
                     </connections>
                 </viewController>
