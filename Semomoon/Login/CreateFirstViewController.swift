@@ -20,9 +20,8 @@ class CreateFirstViewController: UIViewController {
     }
 
     @IBAction func nextVC(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "MainViewController") else { return }
-        nextVC.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
-        
-        self.present(nextVC, animated: false, completion: nil) // present
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateSecondViewController") else { return }
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
