@@ -34,6 +34,7 @@
 		4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577226FEEA7B002543D6 /* LoginViewController.swift */; };
 		4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577426FEEBC1002543D6 /* FindIDViewController.swift */; };
 		4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */; };
+		4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */; };
 		4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
@@ -96,6 +97,7 @@
 		4A97577226FEEA7B002543D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4A97577426FEEBC1002543D6 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
+		4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
 				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
 				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
+				4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
+				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
 				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
