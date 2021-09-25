@@ -23,20 +23,25 @@ class CertificationViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         nextButton.layer.cornerRadius = 35
         nextButton.clipsToBounds = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "회원가입"
+    }
+    
     @IBAction func dissmiss(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+//        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func nextVC(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateFirstViewController") else { return }
-        nextVC.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
-        
-        self.present(nextVC, animated: false, completion: nil) // present
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }

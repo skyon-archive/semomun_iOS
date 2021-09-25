@@ -16,9 +16,8 @@ class StartViewController: UIViewController {
     }
     @IBAction func register(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CertificationViewController") else { return }
-        nextVC.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
-        
-        self.present(nextVC, animated: false, completion: nil) // present
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     @IBAction func registerWithApple(_ sender: Any) {
     }
