@@ -9,9 +9,11 @@ import Foundation
 
 struct Section: Codable {
     var sid: Int
+    var wid: Int
     var index: Int
     var title: String
     var detail: String
+    var image: String
     var cutoff: String
 }
 

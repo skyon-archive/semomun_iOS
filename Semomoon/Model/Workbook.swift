@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct SearchWorkbook: Codable {
+    var workbook: Workbook
+    var sections: [Section]
+}
+
 struct Workbook: Codable {
     var wid: Int //문제집 고유 번호
     var title: String
@@ -20,7 +25,6 @@ struct Workbook: Codable {
     var category: String //문제집 유형
     var subject: String //문제집 주제
     var grade: Int
-    var sections: [Section]
 }
 
 class Workbook_Real {

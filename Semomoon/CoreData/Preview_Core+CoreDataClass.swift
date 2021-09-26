@@ -15,9 +15,10 @@ public class Preview_Core: NSManagedObject{
 //    @NSManaged public var image: Data?
 //    @NSManaged public var title: String?
 //    @NSManaged public var subject: String?
+//    @NSManaged public var sids: [Int]
     
     public override var description: String{
-        return "Preview of \(self.title!), wid is \(self.wid)"
+        return "Preview(\(self.wid), \(self.image), \(self.title), \(self.subject), \(self.sids)"
     }
     
     // functions to replace the custom initialization methods

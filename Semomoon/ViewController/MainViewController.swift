@@ -248,6 +248,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.imageView.image = UIImage(data: imageData)
                 cell.title.text = " "
             } else {
+                print(previews[indexPath.row-1])
                 guard let imageData = previews[indexPath.row-1].image else { return UICollectionViewCell() }
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: imageData)

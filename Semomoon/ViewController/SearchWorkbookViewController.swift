@@ -176,12 +176,13 @@ extension SearchWorkbookViewController {
                 print("Error of jsonData")
                 return nil
             }
-            let getJsonData: Workbook = try! JSONDecoder().decode(Workbook.self, from: jsonData)
+            let getJsonData: SearchWorkbook = try! JSONDecoder().decode(SearchWorkbook.self, from: jsonData)
             // 지금은 sid 값들만 추출
+            let workbook = getJsonData.workbook
             let sections = getJsonData.sections
             var sids: [Int] = []
             sections.forEach { sids.append($0.sid) }
-            return (getJsonData, sids)
+            return (workbook, sids)
         } catch let error {
             print(error.localizedDescription)
         }
