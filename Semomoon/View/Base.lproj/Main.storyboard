@@ -965,6 +965,7 @@
                         <outlet property="category" destination="qow-Pp-er9" id="ERG-cv-6Un"/>
                         <outlet property="currentMode" destination="mNH-Ss-qrv" id="vbv-tC-ZeR"/>
                         <outlet property="preview" destination="snq-vH-c7w" id="vrn-J1-1hu"/>
+                        <outlet property="userInfo" destination="lCD-Pc-538" id="pEr-4S-07h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sGv-8e-icm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -92,7 +92,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadPreviewFromDB() {
-        var components = URLComponents(string: Server.previewDirectory)
+        var components = URLComponents(string: Server.previewURL)
         var queryItems: [URLQueryItem] = []
         queryDic.forEach {
             if($0.value != nil){
@@ -136,12 +136,13 @@ extension SearchWorkbookViewController {
     
     func showAlertToAddPreview(index: Int) {
         let selectedPreview = loadedPreviews[index]
+        print(selectedPreview)
         let alert = UIAlertController(title: selectedPreview.title,
             message: "해당 시험을 추가하시겠습니까?",
             preferredStyle: UIAlertController.Style.alert)
         
         let cancle = UIAlertAction(title: "취소", style: .destructive, handler: nil)
-        let ok = UIAlertAction(title: "추가", style: .cancel) { _ in
+        let ok = UIAlertAction(title: "추가", style: .default) { _ in
             self.addPreview(selectedPreview: selectedPreview)
         }
         
@@ -151,7 +152,7 @@ extension SearchWorkbookViewController {
     }
     
     func addPreview(selectedPreview: Preview) {
-        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid, query: "query") else { return }
+        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid) else { return }
         let loadedWorkbook = DBDatas.0
         let sids = DBDatas.1
         
@@ -159,18 +160,14 @@ extension SearchWorkbookViewController {
         preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
         preview_core.setValue(loadImageData(imageString: selectedPreview.image), forKey: "image")
         
-        do {
-            try CoreDataManager.shared.appDelegate.saveContext()
-            print("save complete")
-            NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
-            self.dismiss(animated: true, completion: nil)
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        CoreDataManager.shared.appDelegate.saveContext()
+        print("save complete")
+        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
+//        self.dismiss(animated: true, completion: nil)
     }
     
-    func loadSidsFromDB(wid: Int, query: String) -> (Workbook, [Int])? {
-        guard let dbURL = URL(string: query) else {
+    func loadSidsFromDB(wid: Int) -> (Workbook, [Int])? {
+        guard let dbURL = URL(string: Server.workbookDirectory(wid: wid)) else {
             print("Error of url")
             return nil
         }

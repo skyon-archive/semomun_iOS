@@ -8,9 +8,11 @@
 import Foundation
 
 class Server {
-    static let baseURL: String = "https://ccee-118-36-227-50.ngrok.io"
-    static let previewDirectory: String = baseURL + "/workbooks/preview/"
-    static let workbookImageDirectory: String = baseURL + "/images/workbook/"
+    static let baseURL: String = "https://ccee-118-36-227-50.ngrok.io/"
+    static let workbooksURL: String = baseURL + "workbooks/"
+    static let previewURL: String = workbooksURL + "preview/"
+    static let workbookImageURL: String = baseURL + "images/workbook/"
+    
     
     enum scale: String {
         case small = "64x64/"
@@ -19,6 +21,14 @@ class Server {
     }
     
     static func workbookImageDirectory(scale: scale) -> String {
-        return Server.workbookImageDirectory+scale.rawValue
+        let url = Server.workbookImageURL+scale.rawValue
+        print(url)
+        return url
+    }
+    
+    static func workbookDirectory(wid: Int) -> String {
+        let url = Server.workbooksURL+"\(wid)"
+        print(url)
+        return url
     }
 }

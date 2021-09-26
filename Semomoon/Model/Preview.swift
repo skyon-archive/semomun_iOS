@@ -16,10 +16,14 @@ struct SearchPreview: Codable, CustomStringConvertible {
     var workbooks: [Preview]
 }
 
-struct Preview: Codable {
+struct Preview: Codable, CustomStringConvertible {
     var wid: Int
     var title: String
     var image: String
+    
+    var description: String {
+        return "(\(wid), \(title), \(image))"
+    }
 }
 
 struct Preview_loaded {

@@ -8,12 +8,11 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, SideMenuViewControllerDelegate {
-
+class MainViewController: UIViewController, SideMenuViewControllerDelegate, UIContextMenuInteractionDelegate {
     @IBOutlet weak var currentMode: UIButton!
     @IBOutlet weak var category: UICollectionView!
     @IBOutlet weak var preview: UICollectionView!
-//    @IBOutlet weak var sideMenuShadowView: UIView!
+    @IBOutlet weak var userInfo: UIButton!
     
     //임시적인 데이터
     let categoryButtons: [String] = ["전체", "국어", "수학"]
@@ -45,6 +44,10 @@ class MainViewController: UIViewController, SideMenuViewControllerDelegate {
         
         fetchPreviews(filter: currentFilter)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPreviews(_:)), name: ShowDetailOfWorkbookViewController.refresh, object: nil)
+        
+        //MARK:- set userInfo button action
+        let interaction = UIContextMenuInteraction(delegate: self)
+        userInfo.addInteraction(interaction)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,6 +142,29 @@ extension MainViewController {
 }
 
 extension MainViewController {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            // Create an action for sharing
+            let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                // Show system share sheet
+            }
+            
+            // Create an action for renaming
+            let rename = UIAction(title: "Rename", image: UIImage(systemName: "square.and.pencil")) { action in
+                // Perform renaming
+            }
+            
+            // Here we specify the "destructive" attribute to show that it’s destructive in nature
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                // Perform delete
+            }
+            
+            // Create and return a UIMenu with all of the actions as children
+            return UIMenu(title: "", children: [share, rename, delete])
+        }
+    }
+    
     func showViewController(identifier: String, isFull: Bool) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: identifier)
         if isFull {
