@@ -14,8 +14,8 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     @IBOutlet weak var wid: UILabel!
     var selectedPreview: Preview!
     
-    let dbUrlString = "https://96d3-118-36-227-50.ngrok.io/workbooks/preview"
-    let imageUrlString = "https://96d3-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    let dbUrlString = "https://ccee-118-36-227-50.ngrok.io/workbooks/preview/"
+    let imageUrlString = "https://ccee-118-36-227-50.ngrok.io/images/workbook/64x64/"
     
     override func viewDidLoad() {
         wid.text = "\(selectedPreview.wid)"

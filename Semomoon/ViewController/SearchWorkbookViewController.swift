@@ -17,8 +17,8 @@ class SearchWorkbookViewController: UIViewController {
     var loadedPreviews: [Preview] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
     
-    let dbUrlString = "https://01ea-118-36-227-50.ngrok.io/workbooks/preview/"
-    let imageUrlString = "https://01ea-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    let dbUrlString = "https://ccee-118-36-227-50.ngrok.io/workbooks/preview/"
+    let imageUrlString = "https://ccee-118-36-227-50.ngrok.io/images/workbook/64x64/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +126,9 @@ extension SearchWorkbookViewController {
             if let getJsonData: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) {
                 // 원하는 작업
                 self.loadedPreviews = getJsonData.workbooks
-                self.preview.reloadData()
+                DispatchQueue.main.async {
+                    self.preview.reloadData()
+                }
             }
         }
         dataTask.resume()
