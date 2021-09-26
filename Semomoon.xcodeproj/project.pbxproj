@@ -36,6 +36,7 @@
 		4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */; };
 		4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */; };
 		4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */; };
+		4AA19F6F2700357F00C600CF /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA19F6E2700357F00C600CF /* Server.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
@@ -99,6 +100,7 @@
 		4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		4AA19F6E2700357F00C600CF /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
 				4A3538B826FB07E800F3A1F3 /* Query.swift */,
+				4AA19F6E2700357F00C600CF /* Server.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
+				4AA19F6F2700357F00C600CF /* Server.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
 				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
@@ -645,7 +649,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -665,7 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

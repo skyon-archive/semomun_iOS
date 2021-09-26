@@ -37,22 +37,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FFAEA924-282C-4815-9025-3300590B1267"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Semomoon/ViewController/ShowDetailOfWorkbookViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "addWorkbook(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1C6F9CFC-B3DC-4DA2-8C2C-D474DD920DF8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -60,8 +44,8 @@
             filePath = "Semomoon/ViewController/SearchWorkbookViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "loadPreviewFromDB()"
             landmarkType = "7">
          </BreakpointContent>

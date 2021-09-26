@@ -22,51 +22,9 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
-        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid, query: "query") else { return }
-        let loadedWorkbook = DBDatas.0
-        let sids = DBDatas.1
         
-        let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
-        preview_core.setValue(loadImageData(), forKey: "image")
-        
-        do {
-            try CoreDataManager.shared.appDelegate.saveContext()
-            print("save complete")
-            NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
-            self.dismiss(animated: true, completion: nil)
-        } catch let error {
-            print(error.localizedDescription)
-        }
         
     }
     
-    func loadSidsFromDB(wid: Int, query: String) -> (Workbook, [Int])? {
-        guard let dbURL = URL(string: query) else {
-            print("Error of url")
-            return nil
-        }
-        do {
-            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
-                print("Error of jsonData")
-                return nil
-            }
-            let getJsonData: Workbook = try! JSONDecoder().decode(Workbook.self, from: jsonData)
-            // 지금은 sid 값들만 추출
-            let sections = getJsonData.sections
-            var sids: [Int] = []
-            sections.forEach { sids.append($0.sid) }
-            return (getJsonData, sids)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        return nil
-    }
     
-    func loadImageData() -> Data? {
-        let imageUrlString = imageUrlString + selectedPreview.image
-        let url = URL(string: imageUrlString)!
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return data
-    }
 }

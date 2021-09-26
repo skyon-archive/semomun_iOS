@@ -16,9 +16,7 @@ class SearchWorkbookViewController: UIViewController {
     
     var loadedPreviews: [Preview] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
-    
-    let dbUrlString = "https://ccee-118-36-227-50.ngrok.io/workbooks/preview/"
-    let imageUrlString = "https://ccee-118-36-227-50.ngrok.io/images/workbook/64x64/"
+    var imageScale: Server.scale = .large
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +92,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadPreviewFromDB() {
-        var components = URLComponents(string: dbUrlString)
+        var components = URLComponents(string: Server.previewDirectory)
         var queryItems: [URLQueryItem] = []
         queryDic.forEach {
             if($0.value != nil){
@@ -135,6 +133,70 @@ extension SearchWorkbookViewController {
         }
         dataTask.resume()
     }
+    
+    func showAlertToAddPreview(index: Int) {
+        let selectedPreview = loadedPreviews[index]
+        let alert = UIAlertController(title: selectedPreview.title,
+            message: "해당 시험을 추가하시겠습니까?",
+            preferredStyle: UIAlertController.Style.alert)
+        
+        let cancle = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        let ok = UIAlertAction(title: "추가", style: .cancel) { _ in
+            self.addPreview(selectedPreview: selectedPreview)
+        }
+        
+        alert.addAction(cancle)
+        alert.addAction(ok)
+        present(alert,animated: true,completion: nil)
+    }
+    
+    func addPreview(selectedPreview: Preview) {
+        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid, query: "query") else { return }
+        let loadedWorkbook = DBDatas.0
+        let sids = DBDatas.1
+        
+        let preview_core = Preview_Core(context: CoreDataManager.shared.context)
+        preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
+        preview_core.setValue(loadImageData(imageString: selectedPreview.image), forKey: "image")
+        
+        do {
+            try CoreDataManager.shared.appDelegate.saveContext()
+            print("save complete")
+            NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
+            self.dismiss(animated: true, completion: nil)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func loadSidsFromDB(wid: Int, query: String) -> (Workbook, [Int])? {
+        guard let dbURL = URL(string: query) else {
+            print("Error of url")
+            return nil
+        }
+        do {
+            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
+                print("Error of jsonData")
+                return nil
+            }
+            let getJsonData: Workbook = try! JSONDecoder().decode(Workbook.self, from: jsonData)
+            // 지금은 sid 값들만 추출
+            let sections = getJsonData.sections
+            var sids: [Int] = []
+            sections.forEach { sids.append($0.sid) }
+            return (getJsonData, sids)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
+    func loadImageData(imageString: String) -> Data? {
+        let imageUrlString = Server.workbookImageDirectory(scale: imageScale) + imageString
+        let url = URL(string: imageUrlString)!
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return data
+    }
 }
 
 extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -147,7 +209,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchedPreviewCell", for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
-        let imageUrlString = imageUrlString + loadedPreviews[indexPath.row].image
+        let imageUrlString = Server.workbookImageDirectory(scale: imageScale) + loadedPreviews[indexPath.row].image
         let url = URL(string: imageUrlString)!
         cell.imageView.kf.setImage(with: url)
         cell.title.text = loadedPreviews[indexPath.row].title
@@ -157,11 +219,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPreview = loadedPreviews[indexPath.row]
-        // 데이터 넘기기
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
-        nextVC.selectedPreview = selectedPreview
-        self.present(nextVC, animated: true, completion: nil)
+        showAlertToAddPreview(index: indexPath.row)
     }
     
 }
