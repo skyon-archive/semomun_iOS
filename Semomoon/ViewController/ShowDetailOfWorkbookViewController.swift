@@ -13,8 +13,6 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     
     @IBOutlet weak var wid: UILabel!
     var selectedPreview: Preview!
-    var loadedImageData: Data!
-//    var loadedImage: UIImage!
     
     let dbUrlString = "https://96d3-118-36-227-50.ngrok.io/workbooks/preview"
     let imageUrlString = "https://96d3-118-36-227-50.ngrok.io/images/workbook/64x64/"
@@ -30,7 +28,7 @@ class ShowDetailOfWorkbookViewController: UIViewController {
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
-        preview_core.setValue(loadedImageData, forKey: "image")
+        preview_core.setValue(loadImageData(), forKey: "image")
         
         do {
             try CoreDataManager.shared.appDelegate.saveContext()
@@ -63,5 +61,12 @@ class ShowDetailOfWorkbookViewController: UIViewController {
             print(error.localizedDescription)
         }
         return nil
+    }
+    
+    func loadImageData() -> Data? {
+        let imageUrlString = imageUrlString + selectedPreview.image
+        let url = URL(string: imageUrlString)!
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return data
     }
 }

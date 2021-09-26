@@ -15,8 +15,6 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet weak var preview: UICollectionView!
     
     var loadedPreviews: [Preview] = []
-    var loadedImageDatas: [Int:Data] = [:]
-    var loadedImages: [Int:UIImage] = [:]
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
     
     let dbUrlString = "https://01ea-118-36-227-50.ngrok.io/workbooks/preview/"
@@ -101,18 +99,37 @@ extension SearchWorkbookViewController {
             print("Error of url")
             return
         }
+
+        // 세션 생성, 환경설정
+        let defaultSession = URLSession(configuration: .default)
         
-        do {
-            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
-                print("Error of jsonData")
+        // Request
+        let request = URLRequest(url: dbURL)
+        
+        // dataTask
+        let dataTask = defaultSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            // getting Data Error
+            guard error == nil else {
+                print("Error occur: \(String(describing: error))")
                 return
             }
-            let getJsonData: SearchPreview = try! JSONDecoder().decode(SearchPreview.self, from: jsonData)
-            loadedPreviews = getJsonData.workbooks
-            preview.reloadData()
-        } catch let error {
-            print(error.localizedDescription)
+            
+            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                return
+            }
+            
+            // 통신에 성공한 경우 data에 Data 객체가 전달됩니다.
+            
+            // 받아오는 데이터가 json 형태일 경우,
+            // json을 serialize하여 json 데이터를 swift 데이터 타입으로 변환
+            // json serialize란 json 데이터를 String 형태로 변환하여 Swift에서 사용할 수 있도록 하는 것을 말합니다.
+            if let getJsonData: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) {
+                // 원하는 작업
+                self.loadedPreviews = getJsonData.workbooks
+                self.preview.reloadData()
+            }
         }
+        dataTask.resume()
     }
 }
 
@@ -128,13 +145,6 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
         // 문제번호 설정
         let imageUrlString = imageUrlString + loadedPreviews[indexPath.row].image
         let url = URL(string: imageUrlString)!
-        DispatchQueue.global().async {
-            do {
-                self.loadedImageDatas[indexPath.row] = try Data(contentsOf: url)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
         cell.imageView.kf.setImage(with: url)
         cell.title.text = loadedPreviews[indexPath.row].title
         
@@ -147,8 +157,6 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
         // 데이터 넘기기
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "ShowDetailOfWorkbookViewController") as? ShowDetailOfWorkbookViewController else { return }
         nextVC.selectedPreview = selectedPreview
-//        nextVC.loadedImage = loadedImages[indexPath.row]
-        nextVC.loadedImageData = loadedImageDatas[indexPath.row]
         self.present(nextVC, animated: true, completion: nil)
     }
     
