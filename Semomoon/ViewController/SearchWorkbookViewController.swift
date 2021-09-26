@@ -160,10 +160,14 @@ extension SearchWorkbookViewController {
         preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
         preview_core.setValue(loadImageData(imageString: selectedPreview.image), forKey: "image")
         
-        CoreDataManager.shared.appDelegate.saveContext()
-        print("save complete")
-        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
-//        self.dismiss(animated: true, completion: nil)
+        do {
+            try CoreDataManager.shared.appDelegate.saveContext()
+            print("save complete")
+            NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
+            self.dismiss(animated: true, completion: nil)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     func loadSidsFromDB(wid: Int) -> (Workbook, [Int])? {
