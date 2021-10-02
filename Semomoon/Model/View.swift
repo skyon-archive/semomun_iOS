@@ -9,11 +9,11 @@ import Foundation
 
 struct View: Codable {
     var vid: Int //뷰어의 고유 번호
-    var sic: Int //뷰어가 속한 Section 의 sid
     var index_start: Int //뷰어에 포함될 문제의 시작 인덱스
     var index_end: Int //뷰어에 포함될 문제의 끝 인덱스
     var material: Int //뷰어의 자료로 쓰일 이미지 정보
     var form: Int //0: 세로선 기준, 1: 가로선 기준 구분형태
+    var problems: [Problem]
 }
 
 //ViewController 는 이 클래스 하나만 지니면 되는 형태
