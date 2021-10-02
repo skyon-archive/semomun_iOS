@@ -16,7 +16,7 @@ class SearchWorkbookViewController: UIViewController {
     
     var loadedPreviews: [Preview] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
-    var imageScale: Server.scale = .large
+    var imageScale: Network.scale = .large
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,46 +92,23 @@ extension SearchWorkbookViewController {
     }
     
     func loadPreviewFromDB() {
-        var components = URLComponents(string: Server.previewURL)
+        let queryItem = queryStringOfPreviews()
+        Network.downloadPreviews(queryItems: queryItem) { searchPreview in
+            self.loadedPreviews = searchPreview.workbooks
+            DispatchQueue.main.async {
+                self.preview.reloadData()
+            }
+        }
+    }
+    
+    func queryStringOfPreviews() -> [URLQueryItem] {
         var queryItems: [URLQueryItem] = []
         queryDic.forEach {
             if($0.value != nil){
                 queryItems.append(URLQueryItem(name: $0.key, value: $0.value!))
             }
         }
-        components?.queryItems = queryItems
-        guard let dbURL = components?.url else {
-            print("Error of url")
-            return
-        }
-
-        // 세션 생성, 환경설정
-        let defaultSession = URLSession(configuration: .default)
-        
-        // Request
-        let request = URLRequest(url: dbURL)
-        
-        // dataTask
-        let dataTask = defaultSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            // getting Data Error
-            guard error == nil else {
-                print("Error occur: \(String(describing: error))")
-                return
-            }
-            
-            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                return
-            }
-            
-            if let getJsonData: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) {
-                // 원하는 작업
-                self.loadedPreviews = getJsonData.workbooks
-                DispatchQueue.main.async {
-                    self.preview.reloadData()
-                }
-            }
-        }
-        dataTask.resume()
+        return queryItems
     }
     
     func showAlertToAddPreview(index: Int) {
@@ -171,7 +148,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadSidsFromDB(wid: Int) -> (Workbook, [Int])? {
-        guard let dbURL = URL(string: Server.workbookDirectory(wid: wid)) else {
+        guard let dbURL = URL(string: Network.workbookDirectory(wid: wid)) else {
             print("Error of url")
             return nil
         }
@@ -194,7 +171,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadImageData(imageString: String) -> Data? {
-        let imageUrlString = Server.workbookImageDirectory(scale: imageScale) + imageString
+        let imageUrlString = Network.workbookImageDirectory(scale: imageScale) + imageString
         let url = URL(string: imageUrlString)!
         guard let data = try? Data(contentsOf: url) else { return nil }
         return data
@@ -211,7 +188,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchedPreviewCell", for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
-        let imageUrlString = Server.workbookImageDirectory(scale: imageScale) + loadedPreviews[indexPath.row].image
+        let imageUrlString = Network.workbookImageDirectory(scale: imageScale) + loadedPreviews[indexPath.row].image
         let url = URL(string: imageUrlString)!
         cell.imageView.kf.setImage(with: url)
         cell.title.text = loadedPreviews[indexPath.row].title

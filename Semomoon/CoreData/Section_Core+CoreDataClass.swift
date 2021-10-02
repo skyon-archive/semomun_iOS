@@ -21,7 +21,7 @@ public class View_core: NSObject{
     var material: Int64
     var form: Int64
     var problems: [Problem_Real]
-    
+
     override init(){
         vid = 0
         index_start = 0

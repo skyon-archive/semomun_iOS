@@ -261,41 +261,68 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // MARK: - category
         if collectionView == category {
-            categoryIndex = indexPath.row
-            currentFilter = categoryButtons[indexPath.row]
+            categoryIndex = indexPath.item
+            currentFilter = categoryButtons[indexPath.item]
             fetchPreviews(filter: currentFilter)
             category.reloadData()
+            return
+        }
+        
+        // MARK: - preview cell: searchPreview
+        if indexPath.item == 0 {
+            showViewController(identifier: "SearchWorkbookViewController", isFull: false)
+            return
+        }
+        
+        // MARK: - preview cell: selectSectionView
+        let index = indexPath.item - 1
+        if showSelectSectionView(index: index) {
+            print("goToSelectSectionViewController")
+            //move to selectSectionViewController
+            return
+        }
+        
+        if self.previews[index].sids.isEmpty { return }
+        
+        // MARK: - preview cell: get sectionData
+        let sid = self.previews[index].sids[0]
+        if let section = sectionOfCoreData(sid: sid) {
+            print("section of CoreData")
+            //get section from CoreData
+            print(section)
+            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
         } else {
-            if indexPath.row == 0 {
-                showViewController(identifier: "SearchWorkbookViewController", isFull: false)
+            print("views of DB")
+            //download views from DB
+            Network.downloadSection(sid: self.previews[index].sids[0]) { views in
+                print(views)
             }
-            else {
-                print(previews[indexPath.row-1].wid)
-                var sections: [Section_Core] = []
-                if(previews[indexPath.row-1].sids.count == 1){
-                    let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
-                    fetchRequest.predicate = NSPredicate(format: "sid = %@", previews[indexPath.row-1].sids[0])
-                    do {
-                        sections = try CoreDataManager.shared.context.fetch(fetchRequest)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                    // check if sections have been loaded
-                    if(sections.count == 0){
-                        
-                    }
-                    else{
-                        showViewController(identifier: "SolvingViewController", isFull: true) //해당 wid 문제 풀이
-                    }
-                }
-                else{
-                    //go to section View Controller
-                }
-            }
+            //convert views to section, view to CoreData
+            
+            //then, showSolvingViewController
+            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
         }
     }
     
+    func showSelectSectionView(index: Int) -> Bool {
+        return self.previews[index].sids.count > 1
+    }
+    
+    func sectionOfCoreData(sid: Int) -> Section_Core? {
+        var sections: [Section_Core] = []
+        let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "sid = %@", sid)
+        
+        do {
+            sections = try CoreDataManager.shared.context.fetch(fetchRequest)
+            return !sections.isEmpty ? sections[0] : nil
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {

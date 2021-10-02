@@ -9,7 +9,7 @@ import Foundation
 
 struct SearchWorkbook: Codable {
     var workbook: Workbook
-    var sections: [Section]
+    var sections: [SectionOfDB]
 }
 
 struct Workbook: Codable {

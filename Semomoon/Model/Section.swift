@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Section: Codable {
-    var sid: Int
-    var wid: Int
-    var index: Int
-    var title: String
-    var detail: String
-    var image: String
-    var cutoff: String
+struct SectionOfDB: Codable {
+    let sid: Int
+    let wid: Int
+    let index: Int
+    let title: String
+    let detail: String?
+    let image: String
+    let cutoff: String?
 }
 
 //class Section_Real {
