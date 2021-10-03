@@ -80,6 +80,27 @@ class Network {
         task.resume()
     }
     
+    static func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
+        guard let dbURL = URL(string: Network.workbookDirectory(wid: wid)) else {
+            print("Error of url")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: dbURL) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+            
+            if let getJsonData: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) {
+                handler(getJsonData)
+            }
+        }
+        task.resume()
+    }
+    
     static func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
         guard let url = URL(string: Network.sectionDirectory(sid: sid)) else {
             print("URL is nil")

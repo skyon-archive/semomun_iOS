@@ -148,15 +148,13 @@ extension SearchWorkbookViewController {
     }
     
     func showAlertToAddPreview(index: Int) {
-        let selectedPreview = manager.loadedPreviews[index]
-        print(selectedPreview)
-        let alert = UIAlertController(title: selectedPreview.title,
+        let alert = UIAlertController(title: manager.title(at: index),
             message: "해당 시험을 추가하시겠습니까?",
             preferredStyle: UIAlertController.Style.alert)
         
         let cancle = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         let ok = UIAlertAction(title: "추가", style: .default) { _ in
-            self.addPreview(selectedPreview: selectedPreview)
+            self.loadSidsFromDB(index: index)
         }
         
         alert.addAction(cancle)
@@ -164,14 +162,13 @@ extension SearchWorkbookViewController {
         present(alert,animated: true,completion: nil)
     }
     
-    func addPreview(selectedPreview: PreviewOfDB) {
-        guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid) else { return }
-        let loadedWorkbook = DBDatas.0
-        let sids = DBDatas.1
+    func savePreview(index: Int, workbook: WorkbookOfDB, sids: [Int]) {
+        let loadedWorkbook = workbook
+        let sids = sids
         
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValues(preview: selectedPreview, subject: loadedWorkbook.subject, sids: sids)
-        preview_core.setValue(loadImageData(imageString: selectedPreview.image), forKey: "image")
+        preview_core.setValues(preview: manager.preview(at: index), subject: loadedWorkbook.subject, sids: sids)
+        preview_core.setValue(loadImageData(imageString: manager.preview(at: index).image), forKey: "image")
         
         do {
             try CoreDataManager.shared.appDelegate.saveContext()
@@ -183,27 +180,15 @@ extension SearchWorkbookViewController {
         }
     }
     
-    func loadSidsFromDB(wid: Int) -> (WorkbookOfDB, [Int])? {
-        guard let dbURL = URL(string: Network.workbookDirectory(wid: wid)) else {
-            print("Error of url")
-            return nil
-        }
-        do {
-            guard let jsonData = try String(contentsOf: dbURL).data(using: .utf8) else {
-                print("Error of jsonData")
-                return nil
-            }
-            let getJsonData: SearchWorkbook = try! JSONDecoder().decode(SearchWorkbook.self, from: jsonData)
-            // 지금은 sid 값들만 추출
-            let workbook = getJsonData.workbook
-            let sections = getJsonData.sections
+    func loadSidsFromDB(index: Int) {
+        Network.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
+            let workbook = searchWorkbook.workbook
+            let sections = searchWorkbook.sections
             var sids: [Int] = []
             sections.forEach { sids.append($0.sid) }
-            return (workbook, sids)
-        } catch let error {
-            print(error.localizedDescription)
+            
+            self.savePreview(index: index, workbook: workbook, sids: sids)
         }
-        return nil
     }
     
     func loadImageData(imageString: String) -> Data? {
