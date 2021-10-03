@@ -288,22 +288,28 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // MARK: - preview cell: get sectionData
         let sid = self.previews[index].sids[0]
-        if let section = sectionOfCoreData(sid: sid) {
-            print("section of CoreData")
-            //get section from CoreData
-            print(section)
-            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
-        } else {
-            print("views of DB")
-            //download views from DB
-            Network.downloadSection(sid: self.previews[index].sids[0]) { views in
-                print(views)
-            }
-            //convert views to section, view to CoreData
-            
-            //then, showSolvingViewController
-            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
+        
+        Network.downloadSection(sid: self.previews[index].sids[0]) { views in
+            print("NETWORK RESULT")
+            print(views)
         }
+        
+//        if let section = sectionOfCoreData(sid: sid) {
+//            print("section of CoreData")
+//            //get section from CoreData
+//            print(section)
+//            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
+//        } else {
+//            print("views of DB")
+//            //download views from DB
+//            Network.downloadSection(sid: self.previews[index].sids[0]) { views in
+//                print(views)
+//            }
+//            //convert views to section, view to CoreData
+//
+//            //then, showSolvingViewController
+//            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
+//        }
     }
     
     func showSelectSectionView(index: Int) -> Bool {

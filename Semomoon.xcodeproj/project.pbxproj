@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */; };
-		1E717BC826FAF997009784CB /* Section_Core+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
@@ -30,6 +28,7 @@
 		4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6F26E490FB00613602 /* Workbook.swift */; };
 		4A8BEE7226E491BF00613602 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7126E491BF00613602 /* User.swift */; };
 		4A8BEE7426E4925100613602 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7326E4925100613602 /* History.swift */; };
+		4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */; };
 		4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */; };
 		4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577226FEEA7B002543D6 /* LoginViewController.swift */; };
 		4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577426FEEBC1002543D6 /* FindIDViewController.swift */; };
@@ -40,8 +39,9 @@
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
-		4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */; };
-		4AF59D7A26F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */; };
+		4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB5E2709617D0085ABAE /* Section_Core.swift */; };
+		4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB62270962720085ABAE /* Page_Core.swift */; };
+		4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */; };
 		4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5F32926E3305600ED71E6 /* PageDatas.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
@@ -71,8 +71,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section_Core+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section_Core+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +92,7 @@
 		4A8BEE6F26E490FB00613602 /* Workbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workbook.swift; sourceTree = "<group>"; };
 		4A8BEE7126E491BF00613602 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4A8BEE7326E4925100613602 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem_Core.swift; sourceTree = "<group>"; };
 		4A9470C426EDED7D000BB59C /* Semomoon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Semomoon.xcdatamodel; sourceTree = "<group>"; };
 		4A97577226FEEA7B002543D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4A97577426FEEBC1002543D6 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
@@ -104,8 +103,9 @@
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
-		4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview_Core+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview_Core+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4ACAEB5E2709617D0085ABAE /* Section_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section_Core.swift; sourceTree = "<group>"; };
+		4ACAEB62270962720085ABAE /* Page_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page_Core.swift; sourceTree = "<group>"; };
+		4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview_Core.swift; sourceTree = "<group>"; };
 		4AF5F32926E3305600ED71E6 /* PageDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDatas.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -189,10 +189,10 @@
 		4AF59D7B26F1E53D00E7AE26 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				1E717BC626FAF997009784CB /* Section_Core+CoreDataProperties.swift */,
-				1E717BC526FAF997009784CB /* Section_Core+CoreDataClass.swift */,
-				4AF59D7726F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift */,
-				4AF59D7826F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift */,
+				4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */,
+				4ACAEB5E2709617D0085ABAE /* Section_Core.swift */,
+				4ACAEB62270962720085ABAE /* Page_Core.swift */,
+				4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */,
 				4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
@@ -435,12 +435,13 @@
 				4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */,
 				4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */,
 				4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */,
-				4AF59D7A26F1E53400E7AE26 /* Preview_Core+CoreDataProperties.swift in Sources */,
+				4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
 				4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */,
 				4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */,
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
+				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
@@ -450,19 +451,18 @@
 				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* View.swift in Sources */,
+				4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
-				1E717BC726FAF997009784CB /* Section_Core+CoreDataClass.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
 				4AA19F6F2700357F00C600CF /* Network.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
-				4AF59D7926F1E53400E7AE26 /* Preview_Core+CoreDataClass.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */,
+				4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */,
 				4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */,
 				4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */,
-				1E717BC826FAF997009784CB /* Section_Core+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

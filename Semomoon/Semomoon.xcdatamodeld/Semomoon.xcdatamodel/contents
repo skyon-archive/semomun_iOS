@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Page_Core" representedClassName="Page_Core" syncable="YES">
+        <attribute name="form" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="materialImage" optional="YES" attributeType="Binary"/>
+        <attribute name="problems" optional="YES" attributeType="Transformable"/>
+        <attribute name="vid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Preview_Core" representedClassName="Preview_Core" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="sids" optional="YES" attributeType="Transformable"/>
@@ -7,12 +13,30 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="Problem_Core" representedClassName="Problem_Core" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="String"/>
+        <attribute name="contentImage" optional="YES" attributeType="Binary"/>
+        <attribute name="correct" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="drawing" optional="YES" attributeType="Binary"/>
+        <attribute name="explanationImage" optional="YES" attributeType="Binary"/>
+        <attribute name="pid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rate" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="solved" optional="YES" attributeType="String"/>
+        <attribute name="star" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Section_Core" representedClassName="Section_Core" syncable="YES">
+        <attribute name="buttons" optional="YES" attributeType="Transformable"/>
+        <attribute name="dictionaryOfProblem" optional="YES" attributeType="Binary"/>
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="views" optional="YES" attributeType="Transformable"/>
+        <attribute name="stars" optional="YES" attributeType="Transformable"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Preview_Core" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Section_Core" positionX="-63" positionY="18" width="128" height="59"/>
+        <element name="Problem_Core" positionX="-63" positionY="18" width="128" height="194"/>
+        <element name="Section_Core" positionX="-63" positionY="18" width="128" height="104"/>
+        <element name="Page_Core" positionX="-63" positionY="81" width="128" height="89"/>
     </elements>
 </model>

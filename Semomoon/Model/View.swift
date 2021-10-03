@@ -9,7 +9,7 @@ import Foundation
 
 struct ViewOfDB: Codable, CustomStringConvertible {
     var description: String {
-        return "View[\(vid), \(!(material?.isEmpty ?? true)), \(problems)]"
+        return "View[\(vid), \(!(material?.isEmpty ?? true)), \(problems)]\n"
     }
     
     let vid: Int //뷰어의 고유 번호
