@@ -7,33 +7,3 @@
 
 import Foundation
 
-struct SectionOfDB: Codable {
-    let sid: Int
-    let wid: Int
-    let index: Int
-    let title: String
-    let detail: String?
-    let image: String
-    let cutoff: String?
-}
-
-//class Section_Real {
-//    var section: Section
-//    var url: URL
-//    var imageData: Data
-//
-//    init(section: Section) {
-//        self.section = section
-//        self.url = URL(string: "http://semomoonDB/tmp/section/\(section.image).png")!
-//        self.imageData = Data()
-////        loadImage()
-//    }
-//
-//    func loadImage() {
-//        do {
-//            try self.imageData = Data(contentsOf: url)
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//    }
-//}

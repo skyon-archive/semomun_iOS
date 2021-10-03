@@ -12,7 +12,7 @@ class ShowDetailOfWorkbookViewController: UIViewController {
     static let refresh = Notification.Name("refresh")
     
     @IBOutlet weak var wid: UILabel!
-    var selectedPreview: Preview!
+    var selectedPreview: PreviewOfDB!
     
     let dbUrlString = "https://ccee-118-36-227-50.ngrok.io/workbooks/preview/"
     let imageUrlString = "https://ccee-118-36-227-50.ngrok.io/images/workbook/64x64/"

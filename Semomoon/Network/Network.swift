@@ -58,7 +58,7 @@ class Network {
         task.resume()
     }
     
-    static func downloadSection(sid: Int, hander: @escaping([ViewOfDB]) -> ()) {
+    static func downloadSection(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
         guard let url = URL(string: Network.sectionDirectory(sid: sid)) else {
             print("URL is nil")
             return
@@ -75,7 +75,7 @@ class Network {
                 return
             }
             
-            if let getJsonData: [ViewOfDB] = try? JSONDecoder().decode([ViewOfDB].self, from: data) {
+            if let getJsonData: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) {
                 hander(getJsonData)
             }
         }

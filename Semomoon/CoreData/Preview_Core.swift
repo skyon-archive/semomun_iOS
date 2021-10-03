@@ -28,7 +28,7 @@ public class Preview_Core: NSManagedObject{
         return "Preview(\(self.wid), \(self.image), \(self.title), \(self.subject), \(self.sids)"
     }
     // functions to replace the custom initialization methods
-    func setValues(preview: Preview, subject: String, sids: [Int]){
+    func setValues(preview: PreviewOfDB, subject: String, sids: [Int]){
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(Data(), forKey: "image")

@@ -14,7 +14,7 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet var selectButtons: [UIButton]!
     @IBOutlet weak var preview: UICollectionView!
     
-    var loadedPreviews: [Preview] = []
+    var loadedPreviews: [PreviewOfDB] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
     var imageScale: Network.scale = .large
     
@@ -85,7 +85,7 @@ extension SearchWorkbookViewController {
         let dumyImage = UIImage(named: "256img_2")!
         let dumyImageData = dumyImage.pngData()!
         for i in 1...15 {
-            let dumyPreview = Preview(wid: i, title: "Dumy Preview Title", image: "dumyImageData")
+            let dumyPreview = PreviewOfDB(wid: i, title: "Dumy Preview Title", image: "dumyImageData")
             loadedPreviews.append(dumyPreview)
         }
         preview.reloadData()
@@ -128,7 +128,7 @@ extension SearchWorkbookViewController {
         present(alert,animated: true,completion: nil)
     }
     
-    func addPreview(selectedPreview: Preview) {
+    func addPreview(selectedPreview: PreviewOfDB) {
         guard let DBDatas = loadSidsFromDB(wid: selectedPreview.wid) else { return }
         let loadedWorkbook = DBDatas.0
         let sids = DBDatas.1
@@ -147,7 +147,7 @@ extension SearchWorkbookViewController {
         }
     }
     
-    func loadSidsFromDB(wid: Int) -> (Workbook, [Int])? {
+    func loadSidsFromDB(wid: Int) -> (WorkbookOfDB, [Int])? {
         guard let dbURL = URL(string: Network.workbookDirectory(wid: wid)) else {
             print("Error of url")
             return nil
