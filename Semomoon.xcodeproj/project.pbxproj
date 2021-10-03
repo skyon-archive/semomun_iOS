@@ -39,6 +39,9 @@
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
+		4AC446042709828D000DD64B /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC446032709828D000DD64B /* ImageCache.swift */; };
+		4AC446062709834E000DD64B /* SearchWorkbookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC446052709834E000DD64B /* SearchWorkbookManager.swift */; };
+		4AC4460927098521000DD64B /* SearchPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC4460827098521000DD64B /* SearchPreviewCell.swift */; };
 		4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB5E2709617D0085ABAE /* Section_Core.swift */; };
 		4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB62270962720085ABAE /* Page_Core.swift */; };
 		4ACAEB6827097D3F0085ABAE /* SectionHeader_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB6627097D3F0085ABAE /* SectionHeader_Core.swift */; };
@@ -109,6 +112,9 @@
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
+		4AC446032709828D000DD64B /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		4AC446052709834E000DD64B /* SearchWorkbookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookManager.swift; sourceTree = "<group>"; };
+		4AC4460827098521000DD64B /* SearchPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewCell.swift; sourceTree = "<group>"; };
 		4ACAEB5E2709617D0085ABAE /* Section_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section_Core.swift; sourceTree = "<group>"; };
 		4ACAEB62270962720085ABAE /* Page_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page_Core.swift; sourceTree = "<group>"; };
 		4ACAEB6627097D3F0085ABAE /* SectionHeader_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader_Core.swift; sourceTree = "<group>"; };
@@ -198,6 +204,22 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		4AC4460227098284000DD64B /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4AC446032709828D000DD64B /* ImageCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		4AC4460727098500000DD64B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4AC4460827098521000DD64B /* SearchPreviewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4ACAEB6927097D6D0085ABAE /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +268,7 @@
 				4A8BEE6D26E490AB00613602 /* Report.swift */,
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
+				4AC446052709834E000DD64B /* SearchWorkbookManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,6 +316,8 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				4AC4460727098500000DD64B /* Cell */,
+				4AC4460227098284000DD64B /* Cache */,
 				4ACAEB6927097D6D0085ABAE /* Network */,
 				4A55DE5826F70137008F1C35 /* Login */,
 				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
@@ -460,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */,
+				4AC446042709828D000DD64B /* ImageCache.swift in Sources */,
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
 				4ACAEB6F27097DE50085ABAE /* PreviewOfDB.swift in Sources */,
 				4ACAEB7327097E130085ABAE /* SectionOfDB.swift in Sources */,
@@ -474,7 +500,9 @@
 				4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */,
 				4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */,
 				4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */,
+				4AC446062709834E000DD64B /* SearchWorkbookManager.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
+				4AC4460927098521000DD64B /* SearchPreviewCell.swift in Sources */,
 				4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */,
 				4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */,
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,

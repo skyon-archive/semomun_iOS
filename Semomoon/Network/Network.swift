@@ -8,7 +8,7 @@
 import Foundation
 
 class Network {
-    static let base: String = "https://957c-118-36-227-50.ngrok.io/"
+    static let base: String = "https://87b5-118-36-227-50.ngrok.io/"
     static let workbooks: String = base + "workbooks/"
     static let sections: String = base + "sections/"
     static let preview: String = workbooks + "preview/"
@@ -22,16 +22,19 @@ class Network {
     
     static func workbookImageDirectory(scale: scale) -> String {
         let url = Network.workbookImageURL+scale.rawValue
+        print(url)
         return url
     }
     
     static func workbookDirectory(wid: Int) -> String {
         let url = Network.workbooks+"\(wid)"
+        print(url)
         return url
     }
     
     static func sectionDirectory(sid: Int) -> String {
         let url = Network.sections+"\(sid)"
+        print(url)
         return url
     }
     
@@ -39,6 +42,7 @@ class Network {
         guard var components = URLComponents(string: Network.preview) else { return }
         components.queryItems = queryItems
         guard let dbURL = components.url else { return }
+        print(dbURL)
         
         let request = URLRequest(url: dbURL)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -58,7 +62,25 @@ class Network {
         task.resume()
     }
     
-    static func downloadSection(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
+    static func downloadImage(url: String, hander: @escaping(Data) -> ()) {
+        guard let url = URL(string: url) else {
+            print("URL is nil")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+            hander(data)
+        }
+        task.resume()
+    }
+    
+    static func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
         guard let url = URL(string: Network.sectionDirectory(sid: sid)) else {
             print("URL is nil")
             return

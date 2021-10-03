@@ -289,7 +289,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         // MARK: - preview cell: get sectionData
         let sid = self.previews[index].sids[0]
         
-        Network.downloadSection(sid: self.previews[index].sids[0]) { views in
+        Network.downloadPages(sid: self.previews[index].sids[0]) { views in
             print("NETWORK RESULT")
             print(views)
         }
