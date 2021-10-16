@@ -64,4 +64,10 @@ class NetworkUsecase {
             hander(pageOfDBs)
         }
     }
+    
+    static func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
+        Network.get(url: url) { data in
+            handler(data)
+        }
+    }
 }

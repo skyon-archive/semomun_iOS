@@ -25,7 +25,7 @@ class SearchWorkbookManager {
     }
     
     func imageURL(at: Int) -> String {
-        let url = NetworkUsecase.workbookImageDirectory(scale: imageScale) + preview(at: at).image
+        let url = NetworkUsecase.URL.workbookImageDirectory(imageScale) + preview(at: at).image
         return url
     }
 }

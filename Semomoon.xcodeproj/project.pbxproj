@@ -148,6 +148,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4A3F9801271A7B3900880B86 /* SearchWorkbook */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
+				4AC446052709834E000DD64B /* SearchWorkbookManager.swift */,
+			);
+			path = SearchWorkbook;
+			sourceTree = "<group>";
+		};
 		4A55DE5826F70137008F1C35 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +174,6 @@
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
 				4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */,
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
@@ -249,7 +257,6 @@
 				4A8BEE6D26E490AB00613602 /* Report.swift */,
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
-				4AC446052709834E000DD64B /* SearchWorkbookManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -281,8 +288,9 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
-				4A3F97FA271A731400880B86 /* Main */,
 				4A55DE5826F70137008F1C35 /* Login */,
+				4A3F97FA271A731400880B86 /* Main */,
+				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
 				4A6AFE9426D6455F00E65561 /* ViewController */,
 				4AC4460727098500000DD64B /* Cell */,
 				4A8BEE6226E4863400613602 /* Extension */,
