@@ -18,22 +18,20 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     let addImage = UIImage(named: "workbook_1")!
     let dumyImage = UIImage(named: "256img_2")!
     
-    private var sideMenuViewController: SideMenuViewController!
     private var previewManager: PreviewManager!
-    private var viewModel: MainViewModel!
     
-    private var sideMenuTrailingConstraint: NSLayoutConstraint!
-    
-    private var sideMenuShadowView: UIView!
-    private var revealSideMenuOnTop: Bool = true
-    private var isExpanded: Bool = false
-    private var sideMenuRevealWidth: CGFloat = 260
-    private let paddingForRotation: CGFloat = 150
+    // Sidebar ViewController Properties
+    var sideMenuViewController: SideMenuViewController!
+    var sideMenuTrailingConstraint: NSLayoutConstraint!
+    var sideMenuShadowView: UIView!
+    var revealSideMenuOnTop: Bool = true
+    var isExpanded: Bool = false
+    var sideMenuRevealWidth: CGFloat = 260
+    let paddingForRotation: CGFloat = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureManager()
-        self.configureViewModel()
         self.configureCollectionView()
         self.configureObserve()
         self.previewManager.fetchPreviews()
@@ -42,154 +40,69 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Shadow Background View
-        self.sideMenuShadowView = UIView(frame: self.view.bounds)
-        self.sideMenuShadowView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.sideMenuShadowView.backgroundColor = .black
-        self.sideMenuShadowView.alpha = 0.0
-        view.insertSubview(self.sideMenuShadowView, at: 4)
-        
-        // MARK:- setting sidebar ViewController
-        self.sideMenuViewController = storyboard?.instantiateViewController(withIdentifier: "SideMenuViewController") as? SideMenuViewController
-        self.sideMenuViewController.defaultHighlightedCell = 0
-        self.sideMenuViewController.delegate = self
-        
-        view.insertSubview(self.sideMenuViewController!.view, at: 5)
-        addChild(self.sideMenuViewController!)
-        self.sideMenuViewController!.didMove(toParent: self)
-        
-        // MARK:- setting sidebar autolayout
-        self.sideMenuViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        if self.revealSideMenuOnTop {
-            self.sideMenuTrailingConstraint = self.sideMenuViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -self.sideMenuRevealWidth - self.paddingForRotation)
-            self.sideMenuTrailingConstraint.isActive = true
-        }
-        NSLayoutConstraint.activate([
-            self.sideMenuViewController.view.widthAnchor.constraint(equalToConstant: self.sideMenuRevealWidth),
-            self.sideMenuViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.sideMenuViewController.view.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
-    }
-    
-    @IBAction func userInfo(_ sender: UIButton) {
-        print("userInfo")
-    }
-    
-    @objc func refreshPreviews(_ notification: Notification) {
-        fetchPreviews(filter: "전체")
+        self.configureSideBarViewController()
     }
     
     @IBAction func showSidebar(_ sender: Any) {
         self.sideMenuState(expanded: self.isExpanded ? false : true)
     }
-}
-// MARK:- sidebar viewController codes
-extension MainViewController {
     
-    func animateShadow(targetPosition: CGFloat) {
-        UIView.animate(withDuration: 0.5) {
-            // When targetPosition is 0, which means side menu is expanded, the shadow opacity is 0.6
-            self.sideMenuShadowView.alpha = (targetPosition == 0) ? 0.3 : 0.0
-        }
-    }
-    
-    func sideMenuState(expanded: Bool) {
-        if expanded {
-            self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in
-                self.isExpanded = true
-            }
-            // Animate Shadow (Fade In)
-            UIView.animate(withDuration: 0.5) { self.sideMenuShadowView.alpha = 0.3 }
-        }
-        else {
-            self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? (-self.sideMenuRevealWidth - self.paddingForRotation) : 0) { _ in
-                self.isExpanded = false
-            }
-            // Animate Shadow (Fade Out)
-            UIView.animate(withDuration: 0.5) { self.sideMenuShadowView.alpha = 0.0 }
-        }
-    }
-    
-    func animateSideMenu(targetPosition: CGFloat, completion: @escaping (Bool) -> ()) {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .layoutSubviews, animations: {
-            if self.revealSideMenuOnTop {
-                self.sideMenuTrailingConstraint.constant = targetPosition
-                self.view.layoutIfNeeded()
-            }
-            else {
-                self.view.subviews[1].frame.origin.x = targetPosition
-            }
-        }, completion: completion)
+    @IBAction func userInfo(_ sender: UIButton) {
+        print("userInfo")
     }
 }
 
+// MARK: - Configure MainViewController
 extension MainViewController {
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
-            
-            // Create an action for sharing
-            let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
-                // Show system share sheet
-            }
-            
-            // Create an action for renaming
-            let rename = UIAction(title: "Rename", image: UIImage(systemName: "square.and.pencil")) { action in
-                // Perform renaming
-            }
-            
-            // Here we specify the "destructive" attribute to show that it’s destructive in nature
-            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
-                // Perform delete
-            }
-            
-            // Create and return a UIMenu with all of the actions as children
-            return UIMenu(title: "", children: [share, rename, delete])
+    func configureManager() {
+        self.previewManager = PreviewManager(delegate: self)
+    }
+    
+    func configureCollectionView() {
+        self.category.delegate = self
+        self.preview.delegate = self
+        self.addLongpressGesture(target: self.preview)
+    }
+    
+    func configureObserve() {
+        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { _ in
+            self.previewManager.fetchPreviews()
         }
     }
     
+    func configureUserInfoAction() {
+        let interaction = UIContextMenuInteraction(delegate: self)
+        userInfo.addInteraction(interaction)
+    }
+}
+
+// MARK: - CollectionView LongPress Action
+extension MainViewController {
+    func addLongpressGesture(target: UIView) {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
+        target.addGestureRecognizer(longPressRecognizer)
+        longPressRecognizer.minimumPressDuration = 0.7
+    }
+    
+    @objc func longPressed(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: preview)
+            guard let indexPath = preview.indexPathForItem(at: touchPoint) else { return }
+            if indexPath.row-1 >= 0 {
+                deleteAlert(idx: indexPath.row-1)
+            }
+        }
+    }
+}
+
+// MARK: - Logic
+extension MainViewController {
     func showViewController(identifier: String, isFull: Bool) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: identifier)
         if isFull {
             nextVC?.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
         }
         self.present(nextVC!, animated: true, completion: nil)
-    }
-    
-    func fetchPreviews(filter: String) {
-        previews.removeAll()
-        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
-        if filter != "전체" {
-            let filter = queryDictionary[filter]
-            fetchRequest.predicate = filter
-        }
-        let tempData = dumyImage.jpegData(compressionQuality: 1)!
-        do {
-            previews = try CoreDataManager.shared.context.fetch(fetchRequest)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-//        // MARK:- dumy image setting
-//        previews.forEach {
-//            $0.image = tempData
-//        }
-        self.preview.reloadData()
-    }
-    
-    func deleteAlert(idx: Int) {
-        let alert = UIAlertController(title: previews[idx].title,
-            message: "삭제하시겠습니까?",
-            preferredStyle: UIAlertController.Style.alert)
-        let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
-        let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            self.delete(object: self.previews[idx])
-            self.fetchPreviews(filter: self.currentFilter)
-        })
-        
-        alert.addAction(cancle)
-        alert.addAction(delete)
-        present(alert,animated: true,completion: nil)
     }
     
     func delete(object: NSManagedObject) {
@@ -329,22 +242,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-class CategoryCell: UICollectionViewCell {
-    @IBOutlet var category: UILabel!
-    @IBOutlet var underLine: UIView!
-    
-    func setRadiusOfUnderLine() {
-        self.underLine.layer.cornerRadius = 1.5
-    }
-}
-
-
-class PreviewCell: UICollectionViewCell {
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var title: UILabel!
-}
-
-
+// MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
         print(sideMenuViewController.testTitles[row])
@@ -353,61 +251,24 @@ extension MainViewController: SideMenuViewControllerDelegate {
     }
 }
 
-
-// MARK: - Configure MainViewController
-extension MainViewController {
-    func configureManager() {
-        self.previewManager = PreviewManager(delegate: self)
-    }
-    
-    func configureViewModel() {
-        self.viewModel = MainViewModel(delegate: self)
-    }
-    
-    func configureCollectionView() {
-        self.category.delegate = self
-        self.preview.delegate = self
-        self.addLongpressGesture(target: self.preview)
-    }
-    
-    func configureObserve() {
-        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { _ in
-            self.previewManager.fetchPreviews()
-        }
-    }
-    
-    func configureUserInfoAction() {
-        let interaction = UIContextMenuInteraction(delegate: self)
-        userInfo.addInteraction(interaction)
-    }
-}
-
-// MARK: - CollectionView LongPress Action
-extension MainViewController {
-    func addLongpressGesture(target: UIView) {
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
-        target.addGestureRecognizer(longPressRecognizer)
-        longPressRecognizer.minimumPressDuration = 0.7
-    }
-    
-    @objc func longPressed(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            let touchPoint = longPressGestureRecognizer.location(in: preview)
-            guard let indexPath = preview.indexPathForItem(at: touchPoint) else { return }
-            if indexPath.row-1 >= 0 {
-                deleteAlert(idx: indexPath.row-1)
-            }
-        }
-    }
-}
-
-
+// MARK: - Protocol: PreviewDatasource
 extension MainViewController: PreviewDatasource {
     func reloadData() {
         self.preview.reloadData()
     }
-}
-
-extension MainViewController: MainActions {
     
+    func deleteAlert(title: String?) {
+        let alert = UIAlertController(title: title,
+            message: "삭제하시겠습니까?",
+            preferredStyle: UIAlertController.Style.alert)
+        let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
+        let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.delete(object: self.previews[idx])
+            self.fetchPreviews(filter: self.currentFilter)
+        })
+        
+        alert.addAction(cancle)
+        alert.addAction(delete)
+        present(alert,animated: true,completion: nil)
+    }
 }

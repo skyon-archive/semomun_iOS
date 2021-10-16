@@ -10,6 +10,7 @@ import CoreData
 
 protocol PreviewDatasource: AnyObject {
     func reloadData()
+    func deleteAlert(title: String?)
 }
 
 class PreviewManager {
@@ -49,5 +50,10 @@ class PreviewManager {
             print(error.localizedDescription)
         }
         delegate.reloadData()
+    }
+    
+    func delegePreview(at: Int) {
+        guard let title = self.previews[at].title else { return }
+        delegate.deleteAlert(title: self.previews[at].title)
     }
 }

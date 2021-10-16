@@ -14,9 +14,12 @@
 		4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3538B826FB07E800F3A1F3 /* Query.swift */; };
 		4A3F97FE271A74A300880B86 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4A3F97FD271A74A300880B86 /* Alamofire */; };
 		4A3F9800271A74E900880B86 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F97FF271A74E900880B86 /* Network.swift */; };
-		4A3F9803271A902500880B86 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9802271A902500880B86 /* MainViewModel.swift */; };
 		4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9806271A90DA00880B86 /* PreviewManager.swift */; };
 		4A3F9809271A910100880B86 /* MainUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9808271A910100880B86 /* MainUsecase.swift */; };
+		4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980B271A98C200880B86 /* CategoryCell.swift */; };
+		4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980D271A990300880B86 /* PreviewCell.swift */; };
+		4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */; };
+		4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9811271AAD3800880B86 /* LogicTest.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
 		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
@@ -72,9 +75,12 @@
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		4A3538B826FB07E800F3A1F3 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		4A3F97FF271A74E900880B86 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		4A3F9802271A902500880B86 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4A3F9806271A90DA00880B86 /* PreviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewManager.swift; sourceTree = "<group>"; };
 		4A3F9808271A910100880B86 /* MainUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsecase.swift; sourceTree = "<group>"; };
+		4A3F980B271A98C200880B86 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		4A3F980D271A990300880B86 /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
+		4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Extension.swift"; sourceTree = "<group>"; };
+		4A3F9811271AAD3800880B86 /* LogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicTest.swift; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -141,20 +147,14 @@
 			isa = PBXGroup;
 			children = (
 				4AA8878826EC81B6009D1A2C /* MainViewController.swift */,
+				4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */,
 				4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */,
+				4A3F980A271A98A000880B86 /* Cell */,
 				4A3F9805271A90CB00880B86 /* PreviewManager */,
-				4A3F97FB271A736F00880B86 /* ViewModel */,
 				4A3F9804271A903000880B86 /* MainUsecase */,
+				4A3F9811271AAD3800880B86 /* LogicTest.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		4A3F97FB271A736F00880B86 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				4A3F9802271A902500880B86 /* MainViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4A3F9801271A7B3900880B86 /* SearchWorkbook */ = {
@@ -180,6 +180,15 @@
 				4A3F9806271A90DA00880B86 /* PreviewManager.swift */,
 			);
 			path = PreviewManager;
+			sourceTree = "<group>";
+		};
+		4A3F980A271A98A000880B86 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4A3F980B271A98C200880B86 /* CategoryCell.swift */,
+				4A3F980D271A990300880B86 /* PreviewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		4A55DE5826F70137008F1C35 /* Login */ = {
@@ -413,7 +422,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A3F9803271A902500880B86 /* MainViewModel.swift in Sources */,
 				4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */,
 				4AC446042709828D000DD64B /* ImageCache.swift in Sources */,
 				4A3F9800271A74E900880B86 /* Network.swift in Sources */,
@@ -442,16 +450,20 @@
 				4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */,
 				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,
+				4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */,
+				4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */,
 				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */,
 				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* Page.swift in Sources */,
+				4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */,
 				4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */,
+				4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
 				4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */,

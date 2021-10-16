@@ -12,7 +12,10 @@ protocol SideMenuViewControllerDelegate {
 }
 
 class SideMenuViewController: UIViewController {
+    static let identifier = "SideMenuViewController"
+    
     @IBOutlet weak var sideMenuTableView: UITableView!
+    
     var delegate: SideMenuViewControllerDelegate?
     var defaultHighlightedCell: Int = 0
     var testTitles: [String] = ["수능 및 모의고사", "LEET", "공인회계사", "공인중개사", "9급 공무원"]
