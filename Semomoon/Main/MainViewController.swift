@@ -15,17 +15,15 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     @IBOutlet weak var userInfo: UIButton!
     
     //임시적인 데이터
-    let categoryButtons: [String] = ["전체", "국어", "수학"]
-    var previews: [Preview_Core] = []
-    
-    var categoryIndex: Int = 0
     let addImage = UIImage(named: "workbook_1")!
     let dumyImage = UIImage(named: "256img_2")!
-    var queryDictionary: [String:NSPredicate] = [:]
-    var currentFilter: String = "전체"
     
     private var sideMenuViewController: SideMenuViewController!
+    private var previewManager: PreviewManager!
+    private var viewModel: MainViewModel!
+    
     private var sideMenuTrailingConstraint: NSLayoutConstraint!
+    
     private var sideMenuShadowView: UIView!
     private var revealSideMenuOnTop: Bool = true
     private var isExpanded: Bool = false
@@ -34,20 +32,12 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        category.delegate = self
-        preview.delegate = self
-        addLongpressGesture(target: preview)
-        
-        queryDictionary["국어"] = NSPredicate(format: "subject = %@", "국어")
-        queryDictionary["수학"] = NSPredicate(format: "subject = %@", "수학")
-        queryDictionary["영어"] = NSPredicate(format: "subject = %@", "영어")
-        
-        fetchPreviews(filter: currentFilter)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshPreviews(_:)), name: ShowDetailOfWorkbookViewController.refresh, object: nil)
-        
-        //MARK:- set userInfo button action
-        let interaction = UIContextMenuInteraction(delegate: self)
-        userInfo.addInteraction(interaction)
+        self.configureManager()
+        self.configureViewModel()
+        self.configureCollectionView()
+        self.configureObserve()
+        self.previewManager.fetchPreviews()
+        self.configureUserInfoAction()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -355,6 +345,44 @@ class PreviewCell: UICollectionViewCell {
 }
 
 
+extension MainViewController: SideMenuViewControllerDelegate {
+    func selectedCell(_ row: Int) {
+        print(sideMenuViewController.testTitles[row])
+        self.currentMode.setTitle(sideMenuViewController.testTitles[row], for: .normal)
+        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
+    }
+}
+
+
+// MARK: - Configure MainViewController
+extension MainViewController {
+    func configureManager() {
+        self.previewManager = PreviewManager(delegate: self)
+    }
+    
+    func configureViewModel() {
+        self.viewModel = MainViewModel(delegate: self)
+    }
+    
+    func configureCollectionView() {
+        self.category.delegate = self
+        self.preview.delegate = self
+        self.addLongpressGesture(target: self.preview)
+    }
+    
+    func configureObserve() {
+        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { _ in
+            self.previewManager.fetchPreviews()
+        }
+    }
+    
+    func configureUserInfoAction() {
+        let interaction = UIContextMenuInteraction(delegate: self)
+        userInfo.addInteraction(interaction)
+    }
+}
+
+// MARK: - CollectionView LongPress Action
 extension MainViewController {
     func addLongpressGesture(target: UIView) {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
@@ -374,10 +402,12 @@ extension MainViewController {
 }
 
 
-extension MainViewController: SideMenuViewControllerDelegate {
-    func selectedCell(_ row: Int) {
-        print(sideMenuViewController.testTitles[row])
-        self.currentMode.setTitle(sideMenuViewController.testTitles[row], for: .normal)
-        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
+extension MainViewController: PreviewDatasource {
+    func reloadData() {
+        self.preview.reloadData()
     }
+}
+
+extension MainViewController: MainActions {
+    
 }
