@@ -234,12 +234,12 @@
 		4AF59D7B26F1E53D00E7AE26 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */,
 				4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */,
 				4ACAEB6627097D3F0085ABAE /* SectionHeader_Core.swift */,
 				4ACAEB5E2709617D0085ABAE /* Section_Core.swift */,
 				4ACAEB62270962720085ABAE /* Page_Core.swift */,
 				4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */,
-				4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";

@@ -11,6 +11,8 @@ import CoreData
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
     
+    private init() {}
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var context = appDelegate.persistentContainer.viewContext
 }

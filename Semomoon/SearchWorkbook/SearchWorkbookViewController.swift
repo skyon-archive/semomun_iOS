@@ -161,31 +161,33 @@ extension SearchWorkbookViewController {
     }
     
     func savePreview(index: Int, workbook: WorkbookOfDB, sids: [Int]) {
-        let loadedWorkbook = workbook
-        let sids = sids
-        
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValues(preview: manager.preview(at: index), subject: loadedWorkbook.subject, sids: sids)
+        preview_core.setValues(preview: manager.preview(at: index), subject: workbook.subject, sids: sids)
         preview_core.setValue(loadImageData(imageString: manager.preview(at: index).image), forKey: "image")
-        
-        do {
-            try CoreDataManager.shared.appDelegate.saveContext()
-            print("save complete")
-            NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
-            self.dismiss(animated: true, completion: nil)
-        } catch let error {
-            print(error.localizedDescription)
+        CoreDataManager.shared.appDelegate.saveContext()
+    }
+    
+    func saveSectionHeader(sections: [SectionOfDB]) {
+        let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
+        sections.forEach {
+            sectionHeader_core.setValues(section: $0)
+            CoreDataManager.shared.appDelegate.saveContext()
         }
+        print("save complete")
+        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func loadSidsFromDB(index: Int) {
         NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
+            // workbook: sids를 저장
             var sids: [Int] = []
             sections.forEach { sids.append($0.sid) }
-            
             self.savePreview(index: index, workbook: workbook, sids: sids)
+            // section 데이터 저장
+            self.saveSectionHeader(sections: sections)
         }
     }
     

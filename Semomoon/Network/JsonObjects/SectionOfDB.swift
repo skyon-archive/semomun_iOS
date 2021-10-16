@@ -8,11 +8,11 @@
 import Foundation
 
 struct SectionOfDB: Codable {
-    let sid: Int
+    let sid: Int // 식별값
     let wid: Int
     let index: Int
-    let title: String
-    let detail: String?
-    let image: String
-    let cutoff: String?
+    let title: String // 문제집 이름
+    let detail: String? // json 형식의 문제집 설명내용
+    let image: String // 문제집 표지
+    let cutoff: String? // json 형식의 커트라인
 }
