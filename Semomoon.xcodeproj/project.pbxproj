@@ -12,6 +12,8 @@
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
 		4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3538B826FB07E800F3A1F3 /* Query.swift */; };
+		4A3F97FE271A74A300880B86 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4A3F97FD271A74A300880B86 /* Alamofire */; };
+		4A3F9800271A74E900880B86 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F97FF271A74E900880B86 /* Network.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
 		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
@@ -35,7 +37,7 @@
 		4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */; };
 		4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */; };
 		4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */; };
-		4AA19F6F2700357F00C600CF /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA19F6E2700357F00C600CF /* Network.swift */; };
+		4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
@@ -58,26 +60,7 @@
 		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
 		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
 		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
-		87AB9DE726CB2BDC0019A276 /* SemomoonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */; };
-		87AB9DF226CB2BDC0019A276 /* SemomoonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		87AB9DE326CB2BDC0019A276 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 87AB9DC426CB2BDB0019A276 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 87AB9DCB26CB2BDB0019A276;
-			remoteInfo = Semomoon;
-		};
-		87AB9DEE26CB2BDC0019A276 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 87AB9DC426CB2BDB0019A276 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 87AB9DCB26CB2BDB0019A276;
-			remoteInfo = Semomoon;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +68,7 @@
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		4A3538B826FB07E800F3A1F3 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		4A3F97FF271A74E900880B86 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -108,7 +92,7 @@
 		4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		4AA19F6E2700357F00C600CF /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUsecase.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
@@ -132,12 +116,6 @@
 		87AB9DD826CB2BDC0019A276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SemomoonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomoonTests.swift; sourceTree = "<group>"; };
-		87AB9DE826CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SemomoonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomoonUITests.swift; sourceTree = "<group>"; };
-		87AB9DF326CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,26 +124,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		87AB9DDF26CB2BDC0019A276 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		87AB9DEA26CB2BDC0019A276 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4A3F97FE271A74A300880B86 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A3F97FA271A731400880B86 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4A3F97FB271A736F00880B86 /* ViewModel */,
+				4AA8878826EC81B6009D1A2C /* MainViewController.swift */,
+				4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4A3F97FB271A736F00880B86 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4A55DE5826F70137008F1C35 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,14 +165,12 @@
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4AA8878826EC81B6009D1A2C /* MainViewController.swift */,
 				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
 				4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */,
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
 				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
 				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
-				4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -223,9 +203,10 @@
 		4ACAEB6927097D6D0085ABAE /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				4ACAEB6D27097DD60085ABAE /* JsonObjects */,
-				4AA19F6E2700357F00C600CF /* Network.swift */,
+				4A3F97FF271A74E900880B86 /* Network.swift */,
+				4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */,
 				4A3538B826FB07E800F3A1F3 /* Query.swift */,
+				4ACAEB6D27097DD60085ABAE /* JsonObjects */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -273,21 +254,9 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		872A187326E79FCA00806320 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				87AB9DD526CB2BDB0019A276 /* Main.storyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		872A187426E79FE500806320 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */,
-				87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */,
-				87AB9DD826CB2BDC0019A276 /* Assets.xcassets */,
-				87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */,
 				4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */,
 			);
 			path = App;
@@ -297,8 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				87AB9DCE26CB2BDB0019A276 /* Semomoon */,
-				87AB9DE526CB2BDC0019A276 /* SemomoonTests */,
-				87AB9DF026CB2BDC0019A276 /* SemomoonUITests */,
 				87AB9DCD26CB2BDB0019A276 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -307,8 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				87AB9DCC26CB2BDB0019A276 /* Semomoon.app */,
-				87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */,
-				87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,38 +281,25 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
-				4AC4460727098500000DD64B /* Cell */,
-				4AC4460227098284000DD64B /* Cache */,
-				4ACAEB6927097D6D0085ABAE /* Network */,
+				4A3F97FA271A731400880B86 /* Main */,
 				4A55DE5826F70137008F1C35 /* Login */,
-				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
+				4A6AFE9426D6455F00E65561 /* ViewController */,
+				4AC4460727098500000DD64B /* Cell */,
 				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
-				872A187326E79FCA00806320 /* View */,
-				4A6AFE9426D6455F00E65561 /* ViewController */,
+				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
+				4AC4460227098284000DD64B /* Cache */,
+				4ACAEB6927097D6D0085ABAE /* Network */,
 				872A187426E79FE500806320 /* App */,
+				87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */,
+				87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */,
+				87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */,
+				87AB9DD526CB2BDB0019A276 /* Main.storyboard */,
+				87AB9DD826CB2BDC0019A276 /* Assets.xcassets */,
 				87AB9DDD26CB2BDC0019A276 /* Info.plist */,
 				4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */,
 			);
 			path = Semomoon;
-			sourceTree = "<group>";
-		};
-		87AB9DE526CB2BDC0019A276 /* SemomoonTests */ = {
-			isa = PBXGroup;
-			children = (
-				87AB9DE626CB2BDC0019A276 /* SemomoonTests.swift */,
-				87AB9DE826CB2BDC0019A276 /* Info.plist */,
-			);
-			path = SemomoonTests;
-			sourceTree = "<group>";
-		};
-		87AB9DF026CB2BDC0019A276 /* SemomoonUITests */ = {
-			isa = PBXGroup;
-			children = (
-				87AB9DF126CB2BDC0019A276 /* SemomoonUITests.swift */,
-				87AB9DF326CB2BDC0019A276 /* Info.plist */,
-			);
-			path = SemomoonUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,46 +320,11 @@
 			name = Semomoon;
 			packageProductDependencies = (
 				8719B8A626F7331F00423D12 /* Kingfisher */,
+				4A3F97FD271A74A300880B86 /* Alamofire */,
 			);
 			productName = Semomoon;
 			productReference = 87AB9DCC26CB2BDB0019A276 /* Semomoon.app */;
 			productType = "com.apple.product-type.application";
-		};
-		87AB9DE126CB2BDC0019A276 /* SemomoonTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 87AB9DF926CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonTests" */;
-			buildPhases = (
-				87AB9DDE26CB2BDC0019A276 /* Sources */,
-				87AB9DDF26CB2BDC0019A276 /* Frameworks */,
-				87AB9DE026CB2BDC0019A276 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				87AB9DE426CB2BDC0019A276 /* PBXTargetDependency */,
-			);
-			name = SemomoonTests;
-			productName = SemomoonTests;
-			productReference = 87AB9DE226CB2BDC0019A276 /* SemomoonTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		87AB9DEC26CB2BDC0019A276 /* SemomoonUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 87AB9DFC26CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonUITests" */;
-			buildPhases = (
-				87AB9DE926CB2BDC0019A276 /* Sources */,
-				87AB9DEA26CB2BDC0019A276 /* Frameworks */,
-				87AB9DEB26CB2BDC0019A276 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				87AB9DEF26CB2BDC0019A276 /* PBXTargetDependency */,
-			);
-			name = SemomoonUITests;
-			productName = SemomoonUITests;
-			productReference = 87AB9DED26CB2BDC0019A276 /* SemomoonUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -419,12 +336,6 @@
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					87AB9DCB26CB2BDB0019A276 = {
-						CreatedOnToolsVersion = 12.5.1;
-					};
-					87AB9DE126CB2BDC0019A276 = {
-						CreatedOnToolsVersion = 12.5.1;
-					};
-					87AB9DEC26CB2BDC0019A276 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
@@ -440,14 +351,13 @@
 			mainGroup = 87AB9DC326CB2BDB0019A276;
 			packageReferences = (
 				8719B8A526F7331F00423D12 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 87AB9DCD26CB2BDB0019A276 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				87AB9DCB26CB2BDB0019A276 /* Semomoon */,
-				87AB9DE126CB2BDC0019A276 /* SemomoonTests */,
-				87AB9DEC26CB2BDC0019A276 /* SemomoonUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -463,20 +373,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		87AB9DE026CB2BDC0019A276 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		87AB9DEB26CB2BDC0019A276 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -486,6 +382,7 @@
 			files = (
 				4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */,
 				4AC446042709828D000DD64B /* ImageCache.swift in Sources */,
+				4A3F9800271A74E900880B86 /* Network.swift in Sources */,
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
 				4ACAEB6F27097DE50085ABAE /* PreviewOfDB.swift in Sources */,
 				4ACAEB7327097E130085ABAE /* SectionOfDB.swift in Sources */,
@@ -521,7 +418,7 @@
 				4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
-				4AA19F6F2700357F00C600CF /* Network.swift in Sources */,
+				4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
@@ -534,36 +431,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		87AB9DDE26CB2BDC0019A276 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				87AB9DE726CB2BDC0019A276 /* SemomoonTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		87AB9DE926CB2BDC0019A276 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				87AB9DF226CB2BDC0019A276 /* SemomoonUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		87AB9DE426CB2BDC0019A276 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 87AB9DCB26CB2BDB0019A276 /* Semomoon */;
-			targetProxy = 87AB9DE326CB2BDC0019A276 /* PBXContainerItemProxy */;
-		};
-		87AB9DEF26CB2BDC0019A276 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 87AB9DCB26CB2BDB0019A276 /* Semomoon */;
-			targetProxy = 87AB9DEE26CB2BDC0019A276 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		87AB9DD526CB2BDB0019A276 /* Main.storyboard */ = {
@@ -741,82 +609,6 @@
 			};
 			name = Release;
 		};
-		87AB9DFA26CB2BDC0019A276 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SemomoonTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		87AB9DFB26CB2BDC0019A276 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SemomoonTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		87AB9DFD26CB2BDC0019A276 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SemomoonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		87AB9DFE26CB2BDC0019A276 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SemomoonUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.SemomoonUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -838,27 +630,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		87AB9DF926CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				87AB9DFA26CB2BDC0019A276 /* Debug */,
-				87AB9DFB26CB2BDC0019A276 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		87AB9DFC26CB2BDC0019A276 /* Build configuration list for PBXNativeTarget "SemomoonUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				87AB9DFD26CB2BDC0019A276 /* Debug */,
-				87AB9DFE26CB2BDC0019A276 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		8719B8A526F7331F00423D12 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -870,6 +652,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4A3F97FD271A74A300880B86 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		8719B8A626F7331F00423D12 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8719B8A526F7331F00423D12 /* XCRemoteSwiftPackageReference "Kingfisher" */;

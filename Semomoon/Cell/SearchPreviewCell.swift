@@ -21,7 +21,7 @@ class SearchedPreviewCell: UICollectionViewCell {
         }
         
         DispatchQueue.global().async {
-            Network.downloadImage(url: url) { data in
+            NetworkUsecase.downloadImage(url: url) { data in
                 DispatchQueue.main.async {
                     guard let image = UIImage(data: data) else { return }
                     ImageCache.shared.setObject(image, forKey: cacheKey)

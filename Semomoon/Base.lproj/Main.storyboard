@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hzy-ou-21d">
-    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -415,7 +415,6 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="dlt-tU-UjU" firstAttribute="centerX" secondItem="T1K-o1-g5B" secondAttribute="centerX" id="3NJ-fc-bos"/>
                                     <constraint firstAttribute="bottom" secondItem="D2V-Hz-I6f" secondAttribute="bottom" constant="10" id="Qpd-da-7ZG"/>
@@ -612,7 +611,6 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="QSc-Zq-aUP" firstAttribute="top" secondItem="ybX-gx-iyM" secondAttribute="bottom" constant="80" id="2jI-Hm-Efd"/>
                                     <constraint firstItem="8HQ-ra-hyU" firstAttribute="top" secondItem="ybX-gx-iyM" secondAttribute="bottom" constant="5" id="7eh-8G-uXP"/>
@@ -2061,7 +2059,6 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="mZL-ly-ke2" firstAttribute="top" secondItem="tqR-cx-fvY" secondAttribute="bottom" id="7BP-4V-Xwb"/>
                                     <constraint firstItem="tqR-cx-fvY" firstAttribute="leading" secondItem="k2a-4v-hoA" secondAttribute="leading" id="8GC-R9-PRt"/>
@@ -2334,7 +2331,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="70M-Zz-idE" secondAttribute="bottom" constant="39" id="0Sq-cr-76f"/>
                                     <constraint firstItem="70M-Zz-idE" firstAttribute="leading" secondItem="KgW-pa-OSg" secondAttribute="leading" id="2Sf-hw-Grw"/>
@@ -2476,7 +2472,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="BQe-aZ-6T6" firstAttribute="top" secondItem="hbD-9M-JzT" secondAttribute="bottom" constant="8" symbolic="YES" id="2qz-tL-roN"/>
                                     <constraint firstItem="BQe-aZ-6T6" firstAttribute="top" secondItem="7kr-fi-xxd" secondAttribute="bottom" constant="80" id="4Os-sg-w7E"/>
@@ -2667,7 +2662,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="kCu-Fg-uO8" firstAttribute="centerX" secondItem="JTG-MU-97Q" secondAttribute="centerX" id="6xV-PM-uNF"/>
                                     <constraint firstItem="c59-ho-EKn" firstAttribute="top" secondItem="bxw-Oa-g0v" secondAttribute="bottom" constant="8" symbolic="YES" id="9zA-83-ede"/>
@@ -2848,7 +2842,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="cmC-Fn-rKt" firstAttribute="leading" secondItem="gAD-Mm-P51" secondAttribute="leading" id="1WU-31-wfV"/>
                                     <constraint firstAttribute="bottom" secondItem="cmC-Fn-rKt" secondAttribute="bottom" constant="35.5" id="9Ag-6f-1eg"/>
@@ -2962,7 +2955,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="down_icon" width="512" height="512"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

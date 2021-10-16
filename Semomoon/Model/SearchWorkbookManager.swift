@@ -10,7 +10,7 @@ import Foundation
 class SearchWorkbookManager {
     var loadedPreviews: [PreviewOfDB] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
-    var imageScale: Network.scale = .large
+    var imageScale: NetworkUsecase.scale = .large
     
     var count: Int {
         return loadedPreviews.count
@@ -25,7 +25,7 @@ class SearchWorkbookManager {
     }
     
     func imageURL(at: Int) -> String {
-        let url = Network.workbookImageDirectory(scale: imageScale) + preview(at: at).image
+        let url = NetworkUsecase.workbookImageDirectory(scale: imageScale) + preview(at: at).image
         return url
     }
 }

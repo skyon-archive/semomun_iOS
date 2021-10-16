@@ -129,7 +129,7 @@ extension SearchWorkbookViewController {
     
     func loadPreviewFromDB() {
         let queryItem = queryStringOfPreviews()
-        Network.downloadPreviews(queryItems: queryItem) { searchPreview in
+        NetworkUsecase.downloadPreviews(queryItems: queryItem) { searchPreview in
             self.manager.loadedPreviews = searchPreview.workbooks
             DispatchQueue.main.async {
                 self.preview.reloadData()
@@ -181,7 +181,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadSidsFromDB(index: Int) {
-        Network.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
+        NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
             var sids: [Int] = []
@@ -192,7 +192,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadImageData(imageString: String) -> Data? {
-        let imageUrlString = Network.workbookImageDirectory(scale: manager.imageScale) + imageString
+        let imageUrlString = NetworkUsecase.workbookImageDirectory(scale: manager.imageScale) + imageString
         let url = URL(string: imageUrlString)!
         guard let data = try? Data(contentsOf: url) else { return nil }
         return data

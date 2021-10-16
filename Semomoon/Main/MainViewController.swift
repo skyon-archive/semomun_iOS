@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, SideMenuViewControllerDelegate, UIContextMenuInteractionDelegate {
+class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     @IBOutlet weak var currentMode: UIButton!
     @IBOutlet weak var category: UICollectionView!
     @IBOutlet weak var preview: UICollectionView!
@@ -93,12 +93,6 @@ class MainViewController: UIViewController, SideMenuViewControllerDelegate, UICo
     
     @IBAction func showSidebar(_ sender: Any) {
         self.sideMenuState(expanded: self.isExpanded ? false : true)
-    }
-    
-    func selectedCell(_ row: Int) {
-        print(sideMenuViewController.testTitles[row])
-        self.currentMode.setTitle(sideMenuViewController.testTitles[row], for: .normal)
-        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
     }
 }
 // MARK:- sidebar viewController codes
@@ -376,5 +370,14 @@ extension MainViewController {
                 deleteAlert(idx: indexPath.row-1)
             }
         }
+    }
+}
+
+
+extension MainViewController: SideMenuViewControllerDelegate {
+    func selectedCell(_ row: Int) {
+        print(sideMenuViewController.testTitles[row])
+        self.currentMode.setTitle(sideMenuViewController.testTitles[row], for: .normal)
+        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
     }
 }
