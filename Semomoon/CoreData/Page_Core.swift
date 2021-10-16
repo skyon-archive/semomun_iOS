@@ -18,7 +18,7 @@ extension Page_Core {
 
     @NSManaged public var vid: Int64
     @NSManaged public var materialImage: Data?
-    @NSManaged public var form: Int64
+    @NSManaged public var layoutType: Int64
     @NSManaged public var problems: NSObject?
 
 }
@@ -29,5 +29,7 @@ extension Page_Core : Identifiable {
 
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
-
+    func updateImage(data: Data?) {
+        self.setValue(data, forKey: "materialImage")
+    }
 }

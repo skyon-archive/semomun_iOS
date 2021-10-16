@@ -33,5 +33,7 @@ extension Problem_Core : Identifiable {
 
 @objc(Problem_Core)
 public class Problem_Core: NSManagedObject {
-
+    func updateImage(data: Data?) {
+        self.setValue(data, forKey: "contentImage")
+    }
 }
