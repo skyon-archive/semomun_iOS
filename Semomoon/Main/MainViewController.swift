@@ -9,14 +9,15 @@ import UIKit
 import CoreData
 
 class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
+    static let identifier = "MainViewController"
+    
     @IBOutlet weak var currentMode: UIButton!
     @IBOutlet weak var category: UICollectionView!
     @IBOutlet weak var preview: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
     //임시적인 데이터
-    let addImage = UIImage(named: "workbook_1")!
-    let dumyImage = UIImage(named: "256img_2")!
+    var addImageData: Data!
     
     private var previewManager: PreviewManager!
     
@@ -36,6 +37,7 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
         self.configureObserve()
         self.previewManager.fetchPreviews()
         self.configureUserInfoAction()
+        self.configureAddImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +76,14 @@ extension MainViewController {
         let interaction = UIContextMenuInteraction(delegate: self)
         userInfo.addInteraction(interaction)
     }
+    
+    func configureAddImage() {
+        guard let addImage = UIImage(named: "addPreview") else {
+            print("Error: addImage not corrent")
+            return
+        }
+        addImageData = addImage.pngData()
+    }
 }
 
 // MARK: - CollectionView LongPress Action
@@ -88,8 +98,8 @@ extension MainViewController {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
             let touchPoint = longPressGestureRecognizer.location(in: preview)
             guard let indexPath = preview.indexPathForItem(at: touchPoint) else { return }
-            if indexPath.row-1 >= 0 {
-                deleteAlert(idx: indexPath.row-1)
+            if indexPath.item-1 >= 0 {
+                self.previewManager.deletePreview(at: indexPath.item-1)
             }
         }
     }
@@ -104,53 +114,41 @@ extension MainViewController {
         }
         self.present(nextVC!, animated: true, completion: nil)
     }
-    
-    func delete(object: NSManagedObject) {
-        CoreDataManager.shared.context.delete(object)
-        do {
-            CoreDataManager.shared.appDelegate.saveContext()
-        } catch let error {
-            print(error.localizedDescription)
-            CoreDataManager.shared.context.rollback()
-        }
-    }
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == category {
-            return categoryButtons.count
+            return self.previewManager.categoryCount
         } else {
-            return previews.count+1
+            return self.previewManager.previewCount+1
         }
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == category {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
             // 문제번호 설정
-            cell.category.text = categoryButtons[indexPath.row]
-            cell.underLine.alpha = indexPath.row == categoryIndex ? 1 : 0
+            cell.category.text = self.previewManager.category(at: indexPath.item)
+            cell.underLine.alpha = indexPath.item == self.previewManager.categoryIndex ? 1 : 0
             cell.setRadiusOfUnderLine()
             
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PreviewCell", for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             // Preview cell 설정
-            if indexPath.row == 0 {
-                let image = UIImage(named: "addPreview")!
-                let imageData = image.pngData()!
-                cell.imageView.image = UIImage(data: imageData)
+            if indexPath.item == 0 {
+                cell.imageView.image = UIImage(data: addImageData)
                 cell.title.text = " "
             } else {
-                print(previews[indexPath.row-1])
-                guard let imageData = previews[indexPath.row-1].image else { return UICollectionViewCell() }
+                let preview = self.previewManager.preview(at: indexPath.item-1)
+                guard let imageData = preview.image else { return UICollectionViewCell() }
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: imageData)
                 }
-                cell.title.text = previews[indexPath.row-1].title
+                cell.title.text = preview.title
             }
             return cell
         }
@@ -160,31 +158,26 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // MARK: - category
         if collectionView == category {
-            categoryIndex = indexPath.item
-            currentFilter = categoryButtons[indexPath.item]
-            fetchPreviews(filter: currentFilter)
-            category.reloadData()
+            self.previewManager.updateCategory(idx: indexPath.item)
             return
         }
         
         // MARK: - preview cell: searchPreview
         if indexPath.item == 0 {
-            showViewController(identifier: "SearchWorkbookViewController", isFull: false)
+            showViewController(identifier: SearchWorkbookViewController.identifier, isFull: false)
             return
         }
         
         // MARK: - preview cell: selectSectionView
         let index = indexPath.item - 1
-        if showSelectSectionView(index: index) {
+        if self.previewManager.showSelectSectionView(index: index) {
             print("goToSelectSectionViewController")
-            //move to selectSectionViewController
             return
         }
         
-        if self.previews[index].sids.isEmpty { return }
-        
         // MARK: - preview cell: get sectionData
-        let sid = self.previews[index].sids[0]
+        let preview = self.previewManager.preview(at: indexPath.item-1)
+        guard let sid = preview.sids.first else { return }
         
         NetworkUsecase.downloadPages(sid: sid) { views in
             print("NETWORK RESULT")
@@ -207,24 +200,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //            //then, showSolvingViewController
 //            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
 //        }
-    }
-    
-    func showSelectSectionView(index: Int) -> Bool {
-        return self.previews[index].sids.count > 1
-    }
-    
-    func sectionOfCoreData(sid: Int) -> Section_Core? {
-        var sections: [Section_Core] = []
-        let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "sid = %@", sid)
-        
-        do {
-            sections = try CoreDataManager.shared.context.fetch(fetchRequest)
-            return !sections.isEmpty ? sections[0] : nil
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        return nil
     }
 }
 
@@ -254,21 +229,47 @@ extension MainViewController: SideMenuViewControllerDelegate {
 // MARK: - Protocol: PreviewDatasource
 extension MainViewController: PreviewDatasource {
     func reloadData() {
+        self.category.reloadData()
         self.preview.reloadData()
     }
     
-    func deleteAlert(title: String?) {
+    func deleteAlert(title: String, idx: Int) {
         let alert = UIAlertController(title: title,
             message: "삭제하시겠습니까?",
             preferredStyle: UIAlertController.Style.alert)
         let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
         let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            self.delete(object: self.previews[idx])
-            self.fetchPreviews(filter: self.currentFilter)
+            self.previewManager.delete(at: idx)
         })
         
         alert.addAction(cancle)
         alert.addAction(delete)
         present(alert,animated: true,completion: nil)
     }
+}
+
+
+extension MainViewController {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+                
+                // Create an action for sharing
+                let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                    // Show system share sheet
+                }
+                
+                // Create an action for renaming
+                let rename = UIAction(title: "Rename", image: UIImage(systemName: "square.and.pencil")) { action in
+                    // Perform renaming
+                }
+                
+                // Here we specify the "destructive" attribute to show that it’s destructive in nature
+                let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                    // Perform delete
+                }
+                
+                // Create and return a UIMenu with all of the actions as children
+                return UIMenu(title: "", children: [share, rename, delete])
+            }
+        }
 }

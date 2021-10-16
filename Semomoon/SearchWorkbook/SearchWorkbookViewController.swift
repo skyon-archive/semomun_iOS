@@ -9,6 +9,8 @@ import UIKit
 import Kingfisher
 
 class SearchWorkbookViewController: UIViewController {
+    static let identifier = "SearchWorkbookViewController"
+    
     @IBOutlet weak var frame: UIView!
     @IBOutlet var selectButtons: [UIButton]!
     @IBOutlet weak var preview: UICollectionView!
