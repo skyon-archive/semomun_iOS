@@ -52,7 +52,7 @@ extension MainViewController{
         guard let imgString = img_string else { return }
         let url: String = NetworkUsecase.URL.base + imgString; // temporary
         NetworkUsecase.downloadImage(url: url) { data in
-            page.updateImage(data: data)
+            page.updateMaterialImage(data: data)
         }
     }
     

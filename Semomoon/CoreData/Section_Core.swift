@@ -37,4 +37,23 @@ public class Section_Core: NSManagedObject {
         self.setValue([], forKey: "stars")
         self.setValue([:], forKey: "dictionaryOfProblem")
     }
+    
+    func setValues(header: SectionHeader_Core) {
+        self.setValue(header.sid, forKey: "sid")
+        self.setValue(header.title, forKey: "title")
+        self.setValue(0, forKey: "time")
+        self.setValue([], forKey: "buttons")
+        self.setValue([], forKey: "stars")
+        self.setValue([:], forKey: "dictionaryOfProblem")
+    }
+    
+    func updateButtons(buttons: [String]) {
+        self.setValue(buttons, forKey: "buttons")
+        let stars = Array(repeating: false, count: buttons.count)
+        self.setValue(stars, forKey: "stars")
+    }
+    
+    func updateDictionary(dict: [String: Int]) {
+        self.setValue(dict, forKey: "dictionaryOfProblem")
+    }
 }

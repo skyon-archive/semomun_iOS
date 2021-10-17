@@ -13,6 +13,7 @@ protocol SendData {
 }
 
 class SolvingViewController: UIViewController {
+    static let identifier = "SolvingViewController"
     
     @IBOutlet var bottomFrame: UIView!
     @IBOutlet var bottomConst: NSLayoutConstraint!
@@ -32,6 +33,8 @@ class SolvingViewController: UIViewController {
     var problemNumber: Int = 0
     var pageDatas: PageDatas!
     var currentVC: UIViewController!
+    
+    var sectionCore: Section_Core! //저장되어 있는 섹션 정보
     
     override func viewDidLoad() {
         super.viewDidLoad()

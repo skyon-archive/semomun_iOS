@@ -94,18 +94,4 @@ class PreviewManager {
     func showSelectSectionView(index: Int) -> Bool {
         return self.previews[index].sids.count > 1
     }
-    
-    func sectionOfCoreData(sid: Int) -> Section_Core? {
-        var sections: [Section_Core] = []
-        let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "sid = %@", sid)
-        
-        do {
-            sections = try CoreDataManager.shared.context.fetch(fetchRequest)
-            return !sections.isEmpty ? sections[0] : nil
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        return nil
-    }
 }

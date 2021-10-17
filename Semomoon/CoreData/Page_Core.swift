@@ -29,11 +29,11 @@ extension Page_Core : Identifiable {
 
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
-    func setValues(page: PageOfDB) {
+    func setValues(page: PageOfDB, pids: [Int]) {
         self.setValue(page.vid, forKey: "vid")
         self.setValue(nil, forKey: "materialImage")
         self.setValue(page.form, forKey: "layoutType") //수정될 부분
-        let problems = page.problems.map { $0.pid }
+        self.setValue(pids, forKey: "problems")
         self.setValue(problems, forKey: "problems")
     }
     

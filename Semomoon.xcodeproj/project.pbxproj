@@ -15,11 +15,11 @@
 		4A3F97FE271A74A300880B86 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4A3F97FD271A74A300880B86 /* Alamofire */; };
 		4A3F9800271A74E900880B86 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F97FF271A74E900880B86 /* Network.swift */; };
 		4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9806271A90DA00880B86 /* PreviewManager.swift */; };
-		4A3F9809271A910100880B86 /* MainUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9808271A910100880B86 /* MainUsecase.swift */; };
 		4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980B271A98C200880B86 /* CategoryCell.swift */; };
 		4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980D271A990300880B86 /* PreviewCell.swift */; };
 		4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */; };
 		4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9811271AAD3800880B86 /* LogicTest.swift */; };
+		4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9813271BD47B00880B86 /* CoreUsecase.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
 		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
@@ -76,11 +76,11 @@
 		4A3538B826FB07E800F3A1F3 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		4A3F97FF271A74E900880B86 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4A3F9806271A90DA00880B86 /* PreviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewManager.swift; sourceTree = "<group>"; };
-		4A3F9808271A910100880B86 /* MainUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsecase.swift; sourceTree = "<group>"; };
 		4A3F980B271A98C200880B86 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		4A3F980D271A990300880B86 /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
 		4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Extension.swift"; sourceTree = "<group>"; };
 		4A3F9811271AAD3800880B86 /* LogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicTest.swift; sourceTree = "<group>"; };
+		4A3F9813271BD47B00880B86 /* CoreUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreUsecase.swift; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -151,8 +151,7 @@
 				4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */,
 				4A3F980A271A98A000880B86 /* Cell */,
 				4A3F9805271A90CB00880B86 /* PreviewManager */,
-				4A3F9804271A903000880B86 /* MainUsecase */,
-				4A3F9811271AAD3800880B86 /* LogicTest.swift */,
+				4A3F9804271A903000880B86 /* Usecase */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -166,12 +165,13 @@
 			path = SearchWorkbook;
 			sourceTree = "<group>";
 		};
-		4A3F9804271A903000880B86 /* MainUsecase */ = {
+		4A3F9804271A903000880B86 /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
-				4A3F9808271A910100880B86 /* MainUsecase.swift */,
+				4A3F9813271BD47B00880B86 /* CoreUsecase.swift */,
+				4A3F9811271AAD3800880B86 /* LogicTest.swift */,
 			);
-			path = MainUsecase;
+			path = Usecase;
 			sourceTree = "<group>";
 		};
 		4A3F9805271A90CB00880B86 /* PreviewManager */ = {
@@ -438,7 +438,6 @@
 				4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */,
 				4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */,
 				4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */,
-				4A3F9809271A910100880B86 /* MainUsecase.swift in Sources */,
 				4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */,
 				4AC446062709834E000DD64B /* SearchWorkbookManager.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
@@ -468,6 +467,7 @@
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
 				4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
+				4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,

@@ -114,6 +114,12 @@ extension MainViewController {
         }
         self.present(nextVC!, animated: true, completion: nil)
     }
+    
+    func showSolvingVC(section: Section_Core) {
+        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        solvingVC.sectionCore = section
+        self.present(solvingVC, animated: true, completion: nil)
+    }
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -169,37 +175,35 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         // MARK: - preview cell: selectSectionView
-        let index = indexPath.item - 1
+        let index = indexPath.item-1
         if self.previewManager.showSelectSectionView(index: index) {
             print("goToSelectSectionViewController")
             return
         }
         
-        // MARK: - preview cell: get sectionData
-        let preview = self.previewManager.preview(at: indexPath.item-1)
+        let preview = self.previewManager.preview(at: index)
         guard let sid = preview.sids.first else { return }
         
+        // MARK: - Section: form CoreData
+        if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
+            self.showSolvingVC(section: section)
+            return
+        }
+        
+        // MARK: - Section: Download from DB
         NetworkUsecase.downloadPages(sid: sid) { views in
             print("NETWORK RESULT")
             print(views)
+            // save to coreData
+            CoreUsecase.savePages(sid: sid, pages: views) { section in
+                guard let section = section else {
+                    print("Error: can't get SectionCore")
+                    return
+                }
+                self.showSolvingVC(section: section)
+                return
+            }
         }
-        
-//        if let section = sectionOfCoreData(sid: sid) {
-//            print("section of CoreData")
-//            //get section from CoreData
-//            print(section)
-//            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
-//        } else {
-//            print("views of DB")
-//            //download views from DB
-//            Network.downloadSection(sid: self.previews[index].sids[0]) { views in
-//                print(views)
-//            }
-//            //convert views to section, view to CoreData
-//
-//            //then, showSolvingViewController
-//            showViewController(identifier: "SolvingViewController", isFull: true) //해당 section 문제 풀이
-//        }
     }
 }
 
