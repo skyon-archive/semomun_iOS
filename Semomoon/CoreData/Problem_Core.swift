@@ -15,6 +15,7 @@ extension Problem_Core {
     }
 
     @NSManaged public var pid: Int64 //문제 고유번호
+    @NSManaged public var pName: String? //하단버튼 표시내용
     @NSManaged public var contentImage: Data? //문제 이미지
     @NSManaged public var time: Int64 //누적시간
     @NSManaged public var answer: String? //정답
@@ -35,16 +36,17 @@ extension Problem_Core : Identifiable {
 public class Problem_Core: NSManagedObject {
     func setValues(prob: ProblemOfDB){
         self.setValue(Int64(prob.pid), forKey: "pid")
+        self.setValue(prob.icon_name, forKey: "pName")
         self.setValue(nil, forKey: "contentImage")
         self.setValue(Int64(0), forKey: "time")
         self.setValue(prob.answer, forKey: "answer")
         self.setValue(nil, forKey: "solved")
-        self.setValue(false , forKey: "correct");
-        self.setValue(nil , forKey: "explanationImage"); // temporary
-        self.setValue(prob.rate, forKey: "rate");
-        self.setValue(nil, forKey: "drawing");
-        self.setValue(prob.type, forKey: "type");
-        self.setValue(false, forKey: "star");
+        self.setValue(false , forKey: "correct")
+        self.setValue(nil , forKey: "explanationImage") // temporary
+        self.setValue(prob.rate, forKey: "rate")
+        self.setValue(nil, forKey: "drawing")
+        self.setValue(prob.type, forKey: "type")
+        self.setValue(false, forKey: "star")
     }
     
     func updateContentImage(data: Data?) {

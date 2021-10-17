@@ -16,19 +16,25 @@ extension Section_Core {
         return NSFetchRequest<Section_Core>(entityName: "Section_Core")
     }
 
-    @NSManaged public var sid: Int64
-    @NSManaged public var title: String?
-    @NSManaged public var buttons: NSObject?
-    @NSManaged public var dictionaryOfProblem: Data?
-    @NSManaged public var stars: NSObject?
-
+    @NSManaged public var sid: Int64 //식별 고유값
+    @NSManaged public var title: String? //섹션 제목
+    @NSManaged public var time: Int64 //누적 시간
+    @NSManaged public var buttons: [String] //하단 버튼내용들
+    @NSManaged public var stars: [Bool] //하단 버튼 스타표시여부
+    @NSManaged public var dictionaryOfProblem: [String: Int] //버튼 - vid 간 관계
 }
 
 extension Section_Core : Identifiable {
-
 }
 
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
-
+    func setvalues(section: SectionOfDB) {
+        self.setValue(section.sid, forKey: "sid")
+        self.setValue(section.title, forKey: "title")
+        self.setValue(0, forKey: "time")
+        self.setValue([], forKey: "buttons")
+        self.setValue([], forKey: "stars")
+        self.setValue([:], forKey: "dictionaryOfProblem")
+    }
 }
