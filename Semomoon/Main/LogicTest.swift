@@ -10,23 +10,11 @@ import CoreData
 
 extension MainViewController{
     func problemToCore(prob: ProblemOfDB) -> Problem_Core {
-        let returnData = Problem_Core(context: CoreDataManager.shared.context);
+        let newProbOfCore = Problem_Core(context: CoreDataManager.shared.context)
+        newProbOfCore.setValues(prob: prob)
         
-        returnData.setValue(prob.pid , forKey: "pid");
-        returnData.setValue(Data() , forKey: "contentImage");
-        returnData.setValue(0 , forKey: "time");
-        returnData.setValue(prob.answer , forKey: "answer");
-        returnData.setValue(nil , forKey: "solved");
-        returnData.setValue(false , forKey: "correct");
-        returnData.setValue(prob.explanation , forKey: "explanationImage"); // temporary
-        returnData.setValue(prob.rate, forKey: "rate");
-        returnData.setValue(nil, forKey: "drawing");
-        returnData.setValue(prob.type, forKey: "type");
-        returnData.setValue(false, forKey: "star");
-        
-        setImageforProblemCore(prob: returnData, img_string: prob.content)
-        
-        return returnData;
+        setImageforProblemCore(prob: newProbOfCore, img_string: prob.content)
+        return newProbOfCore
     }
     
     func sectionToCore(section: SectionOfDB) -> Section_Core {
@@ -72,7 +60,7 @@ extension MainViewController{
         guard let imgString = img_string else { return }
         let url: String = NetworkUsecase.URL.base + imgString; // temporary
         NetworkUsecase.downloadImage(url: url) { data in
-            prob.updateImage(data: data)
+            prob.updateContentImage(data: data)
         }
     }
 }
