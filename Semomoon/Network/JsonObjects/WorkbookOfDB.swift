@@ -25,4 +25,10 @@ struct WorkbookOfDB: Codable {
     var category: String //문제집 유형
     var subject: String //문제집 주제
     var grade: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case wid, title, year, month, price, detail
+        case image = "bookcover"
+        case sales, publisher, category, subject, grade
+    }
 }

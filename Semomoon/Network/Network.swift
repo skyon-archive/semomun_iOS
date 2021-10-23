@@ -22,17 +22,18 @@ class Network {
             }
         }.resume()
     }
-
-    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
+    
+    static func get(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
         print(url, param)
         
         var queryItems: [URLQueryItem] = []
-        param.forEach {
-            queryItems.append(URLQueryItem(name: $0.key, value: $0.value))
-        }
-        guard let url = URL(string: url) else { return }
+        param.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
         
-        let request = URLRequest(url: url)
+        guard var components = URLComponents(string: url) else { return }
+        components.queryItems = queryItems
+        guard let dbURL = components.url else { return }
+        
+        let request = URLRequest(url: dbURL)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
@@ -47,11 +48,9 @@ class Network {
             completion(data)
         }
         task.resume()
-        
-        
-        
-        
-        
+    }
+
+//    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
 //        AF.request(url, method: .post, parameters: param).responseJSON { response in
 //            switch response.result {
 //            case .success:
@@ -62,5 +61,5 @@ class Network {
 //                completion(nil)
 //            }
 //        }.resume()
-    }
+//    }
 }

@@ -63,7 +63,9 @@ class PreviewManager {
         }
         
         do {
-            self.previews = try CoreDataManager.shared.context.fetch(fetchRequest)
+            let loaded = try CoreDataManager.shared.context.fetch(fetchRequest)
+            self.previews = try loaded
+            
         } catch let error {
             print(error.localizedDescription)
         }

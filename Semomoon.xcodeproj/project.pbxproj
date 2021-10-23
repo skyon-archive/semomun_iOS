@@ -161,6 +161,7 @@
 			children = (
 				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
 				4AC446052709834E000DD64B /* SearchWorkbookManager.swift */,
+				4AC4460827098521000DD64B /* SearchPreviewCell.swift */,
 			);
 			path = SearchWorkbook;
 			sourceTree = "<group>";
@@ -237,7 +238,6 @@
 		4AC4460727098500000DD64B /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				4AC4460827098521000DD64B /* SearchPreviewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

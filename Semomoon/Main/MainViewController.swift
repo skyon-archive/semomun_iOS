@@ -32,12 +32,12 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureAddImage()
         self.configureManager()
         self.configureCollectionView()
         self.configureObserve()
         self.previewManager.fetchPreviews()
         self.configureUserInfoAction()
-        self.configureAddImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -148,13 +148,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if indexPath.item == 0 {
                 cell.imageView.image = UIImage(data: addImageData)
                 cell.title.text = " "
+                return cell
             } else {
                 let preview = self.previewManager.preview(at: indexPath.item-1)
+                cell.title.text = preview.title
                 guard let imageData = preview.image else { return UICollectionViewCell() }
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: imageData)
                 }
-                cell.title.text = preview.title
+                return cell
             }
             return cell
         }

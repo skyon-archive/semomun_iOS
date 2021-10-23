@@ -33,8 +33,10 @@ public class Page_Core: NSManagedObject {
         self.setValue(page.form, forKey: "layoutType") //수정될 부분
         self.setValue(pids, forKey: "problems")
         self.setValue(problems, forKey: "problems")
-        
-        self.setValue(nil, forKey: "materialImage")
+        guard let materialPath = page.material,
+              let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) else { return }
+        let imageData = try? Data(contentsOf: url)
+        self.setValue(imageData, forKey: "materialImage")
     }
     
     func updateMaterialImage(data: Data?) {

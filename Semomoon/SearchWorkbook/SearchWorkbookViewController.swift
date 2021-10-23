@@ -179,7 +179,9 @@ extension SearchWorkbookViewController {
         }
         print("save complete")
         NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
-        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func loadSidsFromDB(index: Int) {
