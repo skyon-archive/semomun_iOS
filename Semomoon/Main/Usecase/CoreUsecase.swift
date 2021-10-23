@@ -26,19 +26,19 @@ struct CoreUsecase {
     static func savePages(sid: Int, pages: [PageOfDB], completion: @escaping(Section_Core?) -> Void) {
         DispatchQueue.global().async {
             let sectionOfCore = Section_Core(context: CoreDataManager.shared.context)
-            // 1. sectionHeader 로딩, error 시 nil 반환
+            // Section: 1. sectionHeader 로딩, error 시 nil 반환
             guard let sectionHeader = loadSectionHeader(sid: sid) else {
                 completion(nil)
                 return
             }
-            // 2. 하단 button 타이틀 변수
+            // Section: 2. 하단 button 타이틀 변수
             var buttons: [String] = []
-            // 3. 하단 button -> vid 딕셔너리 변수
+            // Section: 3. 하단 button -> vid 딕셔너리 변수
             var dictOfButtonToView: [String: Int] = [:]
             
             for page in pages {
-                //page
                 let pageOfCore = Page_Core(context: CoreDataManager.shared.context)
+                // Page: 1. 페이지 내 pid들 변수
                 var problems: [Int] = []
                 
                 for problem in page.problems {
@@ -50,10 +50,10 @@ struct CoreUsecase {
                     dictOfButtonToView[problem.icon_name] = page.vid
                     problems.append(problem.pid)
                 }
-                
+                // Page: 2. page 최종 저장
                 pageOfCore.setValues(page: page, pids: problems)
             }
-            // 4. section 최종 저장
+            // Section: 4. section 최종 저장
             sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
         }
     }

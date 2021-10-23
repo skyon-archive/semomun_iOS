@@ -21,6 +21,11 @@ struct PreviewOfDB: Codable, CustomStringConvertible {
     var title: String
     var image: String
     
+    enum CodingKeys: String, CodingKey {
+        case wid, title
+        case image = "bookcover"
+    }
+    
     var description: String {
         return "(\(wid), \(title), \(image))"
     }

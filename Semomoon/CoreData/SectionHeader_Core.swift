@@ -30,12 +30,14 @@ public class SectionHeader_Core: NSManagedObject {
         return "SectionHeader(\(self.sid), \(self.title))"
     }
     // functions to replace the custom initialization methods
-    func setValues(section: SectionOfDB) {
+    func setValues(section: SectionOfDB, baseURL: String) {
         self.setValue(Int64(section.sid), forKey: "sid")
         self.setValue(section.title, forKey: "title")
         self.setValue(section.detail, forKey: "detail")
-        // TODO: - image 데이터형식 맞추기
-        self.setValue(section.image, forKey: "image")
+//        guard let url = URL(string: baseURL + section.image) else { return }
+//        let imageData = try? Data(contentsOf: url)
+//        self.setValue(imageData, forKey: "image")
+        self.setValue(nil, forKey: "image")
         self.setValue(section.cutoff, forKey: "cutoff")
     }
 }

@@ -9,20 +9,25 @@ import Foundation
 
 class NetworkUsecase {
     enum URL {
-        static let base: String = "https://87b5-118-36-227-50.ngrok.io/"
-        static let workbooks: String = base + "workbooks/"
-        static let sections: String = base + "sections/"
+        static let base: String = "https://5b23-118-36-227-79.ngrok.io"
+        static let workbooks: String = base + "/workbooks/"
+        static let sections: String = base + "/sections/"
         static let preview: String = workbooks + "preview/"
-        static let workbookImageURL: String = base + "images/workbook/"
+        static let images: String = base + "/images"
+        static let workbookImageURL: String = images + "/workbook"
+        static let sectionImageURL: String = images + "/section"
+        static let materialImageURL: String = images + "/material"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
+        static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
+        static var materialImageDirectory: (scale) -> String = { materialImageURL + $0.rawValue }
         static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
         static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
     }
     enum scale: String {
-        case small = "64x64/"
-        case normal = "128x128/"
-        case large = "256x256/"
+        case small = "/64x64/"
+        case normal = "/128x128/"
+        case large = "/256x256/"
     }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {

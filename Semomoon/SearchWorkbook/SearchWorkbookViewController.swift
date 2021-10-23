@@ -174,7 +174,7 @@ extension SearchWorkbookViewController {
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
-            sectionHeader_core.setValues(section: $0)
+            sectionHeader_core.setValues(section: $0, baseURL: "test")
             CoreDataManager.shared.appDelegate.saveContext()
         }
         print("save complete")
