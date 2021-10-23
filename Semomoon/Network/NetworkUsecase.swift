@@ -17,6 +17,8 @@ class NetworkUsecase {
         static let workbookImageURL: String = images + "/workbook"
         static let sectionImageURL: String = images + "/section"
         static let materialImage: String = images + "/material/"
+        static let contentImage: String = images + "/content/"
+        static let explanation: String = images + "/explanation/"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }

@@ -117,6 +117,7 @@ extension MainViewController {
     
     func showSolvingVC(section: Section_Core) {
         guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
         self.present(solvingVC, animated: true, completion: nil)
     }
@@ -202,7 +203,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     print("Error: can't get SectionCore")
                     return
                 }
-                self.showSolvingVC(section: section)
+                DispatchQueue.main.async {
+                    self.showSolvingVC(section: section)
+                }
                 return
             }
         }

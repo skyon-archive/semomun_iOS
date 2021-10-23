@@ -27,18 +27,18 @@ extension SectionHeader_Core {
 @objc(SectionHeader_Core)
 public class SectionHeader_Core: NSManagedObject {
     public override var description: String{
-        return "SectionHeader(\(self.sid), \(self.title))"
+        return "SectionHeader(\(self.sid), \(self.title), \(self.image))\n"
     }
     // functions to replace the custom initialization methods
     func setValues(section: SectionOfDB, baseURL: String) {
         self.setValue(Int64(section.sid), forKey: "sid")
         self.setValue(section.title, forKey: "title")
         self.setValue(section.detail, forKey: "detail")
-//        guard let url = URL(string: baseURL + section.image) else { return }
-//        let imageData = try? Data(contentsOf: url)
-//        self.setValue(imageData, forKey: "image")
         self.setValue(nil, forKey: "image")
         self.setValue(section.cutoff, forKey: "cutoff")
+        guard let url = URL(string: baseURL + section.image) else { return }
+        let imageData = try? Data(contentsOf: url)
+        self.setValue(imageData, forKey: "image")
     }
 }
 

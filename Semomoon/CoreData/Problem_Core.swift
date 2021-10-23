@@ -29,24 +29,33 @@ extension Problem_Core {
 }
 
 extension Problem_Core : Identifiable {
-
 }
 
 @objc(Problem_Core)
 public class Problem_Core: NSManagedObject {
+    public override var description: String{
+        return "Problem(\(self.pid), \(self.pName), \(self.contentImage), \(self.explanationImage), \(self.star)\n"
+    }
+    
     func setValues(prob: ProblemOfDB){
         self.setValue(Int64(prob.pid), forKey: "pid")
         self.setValue(prob.icon_name, forKey: "pName")
-        self.setValue(nil, forKey: "contentImage")
         self.setValue(Int64(0), forKey: "time")
         self.setValue(prob.answer, forKey: "answer")
         self.setValue(nil, forKey: "solved")
         self.setValue(false , forKey: "correct")
-        self.setValue(nil , forKey: "explanationImage") // temporary
         self.setValue(prob.rate, forKey: "rate")
         self.setValue(nil, forKey: "drawing")
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
+        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content),
+              let explanation = prob.explanation,
+              let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) else { return }
+        let contentData = try? Data(contentsOf: contentURL)
+        let explanationData = try? Data(contentsOf: explanationURL)
+        self.setValue(contentData, forKey: "contentImage")
+        self.setValue(explanationData, forKey: "explanationImage")
+        print("Problem: \(prob.pid) save complete")
     }
     
     func updateContentImage(data: Data?) {

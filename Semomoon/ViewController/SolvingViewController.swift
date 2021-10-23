@@ -59,6 +59,8 @@ class SolvingViewController: UIViewController {
         currentVC.view.frame = self.childView.bounds
         self.childView.addSubview(currentVC.view)
         self.view.addSubview(hideButton)
+        
+        print(self.sectionCore)
     }
     
     // 문제 선택 가리기 버튼

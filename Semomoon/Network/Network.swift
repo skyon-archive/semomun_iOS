@@ -24,14 +24,13 @@ class Network {
     }
     
     static func get(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
-        print(url, param)
-        
         var queryItems: [URLQueryItem] = []
         param.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
         
         guard var components = URLComponents(string: url) else { return }
         components.queryItems = queryItems
         guard let dbURL = components.url else { return }
+        print(dbURL.relativeString)
         
         let request = URLRequest(url: dbURL)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -50,16 +49,15 @@ class Network {
         task.resume()
     }
 
-//    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
-//        AF.request(url, method: .post, parameters: param).responseJSON { response in
-//            switch response.result {
-//            case .success:
-//                print(String(data: response.data!, encoding: .utf8))
-//                completion(response.data)
-//            case .failure(let error):
-//                print("Error: \(error._code)", error.localizedDescription, url)
-//                completion(nil)
-//            }
-//        }.resume()
-//    }
+    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
+        AF.request(url, method: .post, parameters: param).responseJSON { response in
+            switch response.result {
+            case .success:
+                completion(response.data)
+            case .failure(let error):
+                print("Error: \(error._code)", error.localizedDescription, url)
+                completion(nil)
+            }
+        }.resume()
+    }
 }

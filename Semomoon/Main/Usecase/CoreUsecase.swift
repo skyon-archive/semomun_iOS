@@ -11,7 +11,8 @@ import CoreData
 struct CoreUsecase {
     static func sectionOfCoreData(sid: Int) -> Section_Core? {
         let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "sid = %@", sid)
+        let filter = NSPredicate(format: "sid = %@", "\(sid)")
+        fetchRequest.predicate = filter
         
         if let sections = try? CoreDataManager.shared.context.fetch(fetchRequest) {
             guard let section = sections.first else {
@@ -42,8 +43,8 @@ struct CoreUsecase {
                 var problems: [Int] = []
                 
                 for problem in page.problems {
-                    //problem
                     let problemOfCore = Problem_Core(context: CoreDataManager.shared.context)
+                    // Problem: 1. problem 최종 저장
                     problemOfCore.setValues(prob: problem)
                     
                     buttons.append(problem.icon_name)
@@ -55,18 +56,20 @@ struct CoreUsecase {
             }
             // Section: 4. section 최종 저장
             sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
+            completion(sectionOfCore)
         }
     }
     
     static func loadSectionHeader(sid: Int) -> SectionHeader_Core? {
         let fetchRequest: NSFetchRequest<SectionHeader_Core> = SectionHeader_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "sid = %@", sid)
+        fetchRequest.predicate = NSPredicate(format: "sid = %@", "\(sid)")
         
         if let sectionHeaders = try? CoreDataManager.shared.context.fetch(fetchRequest) {
             guard let sectionHeader = sectionHeaders.first else {
                 print("Error: not exist SectionHeader of \(sid)")
                 return nil
             }
+            print("loaded: \(sectionHeader)")
             return sectionHeader
         }
         return nil

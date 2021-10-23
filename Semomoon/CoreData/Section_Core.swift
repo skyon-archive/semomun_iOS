@@ -29,13 +29,18 @@ extension Section_Core : Identifiable {
 
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
+    public override var description: String{
+        return "Section(\(self.sid), \(self.title), \(self.buttons), \(self.stars), \(self.dictionaryOfProblem))\n"
+    }
+    
     func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {
         self.setValue(header.sid, forKey: "sid")
         self.setValue(header.title, forKey: "title")
         self.setValue(0, forKey: "time")
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
-        self.setValue(stars, forKey: "start")
+        self.setValue(stars, forKey: "stars")
         self.setValue(dict, forKey: "dictionaryOfProblem")
+        print("Section: \(header.sid) save complete")
     }
 }

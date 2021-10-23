@@ -28,15 +28,19 @@ extension Page_Core : Identifiable {
 
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
+    public override var description: String{
+        return "Page(\(self.vid), \(self.problems), \(self.materialImage))\n"
+    }
+    
     func setValues(page: PageOfDB, pids: [Int]) {
-        self.setValue(page.vid, forKey: "vid")
-        self.setValue(page.form, forKey: "layoutType") //수정될 부분
+        self.setValue(Int64(page.vid), forKey: "vid")
+        self.setValue(Int64(page.form), forKey: "layoutType") //수정될 부분
         self.setValue(pids, forKey: "problems")
-        self.setValue(problems, forKey: "problems")
         guard let materialPath = page.material,
               let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) else { return }
         let imageData = try? Data(contentsOf: url)
         self.setValue(imageData, forKey: "materialImage")
+        print("Page: \(page.vid) save complete")
     }
     
     func updateMaterialImage(data: Data?) {

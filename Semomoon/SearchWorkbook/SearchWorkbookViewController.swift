@@ -174,7 +174,7 @@ extension SearchWorkbookViewController {
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
-            sectionHeader_core.setValues(section: $0, baseURL: "test")
+            sectionHeader_core.setValues(section: $0, baseURL: NetworkUsecase.URL.sectionImageDirectory(manager.imageScale))
             CoreDataManager.shared.appDelegate.saveContext()
         }
         print("save complete")
