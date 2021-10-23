@@ -24,15 +24,25 @@ extension Preview_Core {
 @objc(Preview_Core)
 public class Preview_Core: NSManagedObject{
     
-    public override var description: String{
+    public override var description: String {
         return "Preview(\(self.wid), \(self.image), \(self.title), \(self.subject), \(self.sids)"
     }
     // functions to replace the custom initialization methods
-    func setValues(preview: PreviewOfDB, subject: String, sids: [Int]){
+    func setValues(preview: PreviewOfDB, subject: String, sids: [Int]) {
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(Data(), forKey: "image")
         self.setValue(subject, forKey: "subject")
         self.setValue(sids, forKey: "sids")
+    }
+    
+    func setValues(preview: PreviewOfDB, workbook: WorkbookOfDB, sids: [Int], baseURL: String) {
+        self.setValue(Int64(preview.wid), forKey: "wid")
+        self.setValue(preview.title, forKey: "title")
+        self.setValue(workbook.subject, forKey: "subject")
+        self.setValue(sids, forKey: "sids")
+        guard let url = URL(string: baseURL + preview.image) else { return }
+        let imageData = try? Data(contentsOf: url)
+        self.setValue(imageData, forKey: "image")
     }
 }

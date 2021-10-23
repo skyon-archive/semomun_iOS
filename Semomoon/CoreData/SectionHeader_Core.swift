@@ -34,6 +34,7 @@ public class SectionHeader_Core: NSManagedObject {
         self.setValue(Int64(section.sid), forKey: "sid")
         self.setValue(section.title, forKey: "title")
         self.setValue(section.detail, forKey: "detail")
+        // TODO: - image 데이터형식 맞추기
         self.setValue(section.image, forKey: "image")
         self.setValue(section.cutoff, forKey: "cutoff")
     }

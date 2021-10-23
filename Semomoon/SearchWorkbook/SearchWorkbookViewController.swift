@@ -83,7 +83,6 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showAlertToAddPreview(index: indexPath.row)
     }
-    
 }
 
 extension SearchWorkbookViewController: UICollectionViewDelegateFlowLayout {
@@ -164,13 +163,16 @@ extension SearchWorkbookViewController {
     
     func savePreview(index: Int, workbook: WorkbookOfDB, sids: [Int]) {
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        preview_core.setValues(preview: manager.preview(at: index), subject: workbook.subject, sids: sids)
-        preview_core.setValue(loadImageData(imageString: manager.preview(at: index).image), forKey: "image")
+        let preview = self.manager.preview(at: index)
+        let baseURL = NetworkUsecase.URL.workbookImageDirectory(manager.imageScale)
+        
+        preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL)
         CoreDataManager.shared.appDelegate.saveContext()
     }
     
     func saveSectionHeader(sections: [SectionOfDB]) {
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
+        
         sections.forEach {
             sectionHeader_core.setValues(section: $0)
             CoreDataManager.shared.appDelegate.saveContext()
@@ -184,20 +186,14 @@ extension SearchWorkbookViewController {
         NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
-            // workbook: sids를 저장
+            
             var sids: [Int] = []
             sections.forEach { sids.append($0.sid) }
-            self.savePreview(index: index, workbook: workbook, sids: sids)
-            // section 데이터 저장
-            self.saveSectionHeader(sections: sections)
+            DispatchQueue.global().async {
+                self.savePreview(index: index, workbook: workbook, sids: sids)
+                self.saveSectionHeader(sections: sections)
+            }
         }
-    }
-    
-    func loadImageData(imageString: String) -> Data? {
-        let imageUrlString = NetworkUsecase.URL.workbookImageDirectory(manager.imageScale) + imageString
-        let url = URL(string: imageUrlString)!
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return data
     }
 }
 
