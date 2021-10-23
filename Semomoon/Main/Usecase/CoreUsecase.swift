@@ -25,8 +25,9 @@ struct CoreUsecase {
     }
     
     static func savePages(sid: Int, pages: [PageOfDB], completion: @escaping(Section_Core?) -> Void) {
+        let context = CoreDataManager.shared.context
         DispatchQueue.global().async {
-            let sectionOfCore = Section_Core(context: CoreDataManager.shared.context)
+            let sectionOfCore = Section_Core(context: context)
             // Section: 1. sectionHeader 로딩, error 시 nil 반환
             guard let sectionHeader = loadSectionHeader(sid: sid) else {
                 completion(nil)
@@ -38,12 +39,12 @@ struct CoreUsecase {
             var dictOfButtonToView: [String: Int] = [:]
             
             for page in pages {
-                let pageOfCore = Page_Core(context: CoreDataManager.shared.context)
+                let pageOfCore = Page_Core(context: context)
                 // Page: 1. 페이지 내 pid들 변수
                 var problems: [Int] = []
                 
                 for problem in page.problems {
-                    let problemOfCore = Problem_Core(context: CoreDataManager.shared.context)
+                    let problemOfCore = Problem_Core(context: context)
                     // Problem: 1. problem 최종 저장
                     problemOfCore.setValues(prob: problem)
                     
@@ -56,6 +57,7 @@ struct CoreUsecase {
             }
             // Section: 4. section 최종 저장
             sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
+            do { try context.save() } catch let error { print(error.localizedDescription) }
             completion(sectionOfCore)
         }
     }
