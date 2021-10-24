@@ -21,9 +21,9 @@ class SolvingViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
     
-    var vc1: SingleWith5Answer!
-    var vc2: SingleWithTextAnswer!
-    var vc3: MultipleWith5Answer!
+    var singleWith5Answer: SingleWith5Answer!
+    var singleWithTextAnswer: SingleWithTextAnswer!
+    var multipleWith5Answer: MultipleWith5Answer!
     
     // 임시적으로 문제내용 생성
     var problems: [String] = []
@@ -48,16 +48,24 @@ class SolvingViewController: UIViewController {
             bookmarks.append(false)
         }
         
-        vc1 = self.storyboard?.instantiateViewController(withIdentifier: SingleWith5Answer.identifier) as? SingleWith5Answer
-        vc2 = self.storyboard?.instantiateViewController(withIdentifier: SingleWithTextAnswer.identifier) as? SingleWithTextAnswer
-        vc3 = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
-        self.addChild(vc1)
-        self.addChild(vc2)
-        self.addChild(vc3)
+        singleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith5Answer.identifier) as? SingleWith5Answer
+        singleWithTextAnswer = self.storyboard?.instantiateViewController(withIdentifier: SingleWithTextAnswer.identifier) as? SingleWithTextAnswer
+        multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
+        self.addChild(singleWith5Answer)
+        self.addChild(singleWithTextAnswer)
+        self.addChild(multipleWith5Answer)
         
         currentVC = whatVC(index: 0)
         currentVC.view.frame = self.solvingFrameView.bounds
         self.solvingFrameView.addSubview(currentVC.view)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.subviews.forEach { $0.removeFromSuperview() }
+        self.singleWith5Answer = nil
+        self.singleWithTextAnswer = nil
+        self.multipleWith5Answer = nil
     }
     
     @IBAction func back(_ sender: Any) {
@@ -149,15 +157,15 @@ extension SolvingViewController {
         let vc: UIViewController
         switch(page.type) {
         case .ontToFive:
-            vc = vc1
-            vc1.image = page.mainImage
+            vc = singleWith5Answer
+            singleWith5Answer.image = page.mainImage
         case .string:
-            vc = vc2
-            vc2.image = page.mainImage
+            vc = singleWithTextAnswer
+            singleWithTextAnswer.image = page.mainImage
         case .multiple:
-             vc = vc3
-            vc3.mainImage = page.mainImage
-            vc3.subImages = page.subImages
+             vc = multipleWith5Answer
+            multipleWith5Answer.mainImage = page.mainImage
+            multipleWith5Answer.subImages = page.subImages
         }
         return vc
     }
