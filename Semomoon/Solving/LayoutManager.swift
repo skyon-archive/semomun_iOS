@@ -25,10 +25,16 @@ class LayoutManager {
     var section: Section_Core!
     var buttons: [String] = []
     var stars: [Bool] = []
+    let context = CoreDataManager.shared.context
     
     init(delegate: LayoutDelegate, section: Section_Core) {
         self.delegate = delegate
         self.section = section
+    }
+    
+    func configureSection() {
+        self.buttons = section.buttons
+        self.stars = section.stars
     }
     
     var count: Int {
@@ -58,6 +64,7 @@ class LayoutManager {
     func updateStar(title: String, to: Bool) {
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
+            
         }
     }
 }
