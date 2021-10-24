@@ -25,6 +25,4 @@ class ShowDetailOfWorkbookViewController: UIViewController {
         
         
     }
-    
-    
 }

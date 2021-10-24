@@ -23,6 +23,7 @@
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
 		4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5926F70151008F1C35 /* StartViewController.swift */; };
+		4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */; };
 		4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */; };
 		4A6AFE9A26D645DA00E65561 /* test_2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */; };
 		4A6AFE9C26D64B5F00E65561 /* test_3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */; };
@@ -84,6 +85,7 @@
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4A55DE5926F70151008F1C35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemNameCell.swift; sourceTree = "<group>"; };
 		4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_1ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_2ViewController.swift; sourceTree = "<group>"; };
 		4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_3ViewController.swift; sourceTree = "<group>"; };
@@ -206,14 +208,38 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		4A60E48D27250BDA00946FD5 /* Solving */ = {
+			isa = PBXGroup;
+			children = (
+				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
+				4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */,
+				4A60E48E27250BF000946FD5 /* LayoutViewControllers */,
+			);
+			path = Solving;
+			sourceTree = "<group>";
+		};
+		4A60E48E27250BF000946FD5 /* LayoutViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
+				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
+				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
+			);
+			path = LayoutViewControllers;
+			sourceTree = "<group>";
+		};
+		4A60E48F27250C2800946FD5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			path = Solving/Model;
+			sourceTree = "<group>";
+		};
 		4A6AFE9426D6455F00E65561 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */,
-				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
-				4A6AFE9B26D64B5F00E65561 /* test_3ViewController.swift */,
-				4A6AFE9726D645CC00E65561 /* test_1ViewController.swift */,
-				4A6AFE9926D645DA00E65561 /* test_2ViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -233,13 +259,6 @@
 				4AC446032709828D000DD64B /* ImageCache.swift */,
 			);
 			path = Cache;
-			sourceTree = "<group>";
-		};
-		4AC4460727098500000DD64B /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		4ACAEB6927097D6D0085ABAE /* Network */ = {
@@ -325,8 +344,9 @@
 				4A55DE5826F70137008F1C35 /* Login */,
 				4A3F97FA271A731400880B86 /* Main */,
 				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
+				4A60E48D27250BDA00946FD5 /* Solving */,
+				4A60E48F27250C2800946FD5 /* Model */,
 				4A6AFE9426D6455F00E65561 /* ViewController */,
-				4AC4460727098500000DD64B /* Cell */,
 				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
 				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
@@ -450,6 +470,7 @@
 				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,
 				4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */,
+				4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* test_1ViewController.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */,

@@ -15,11 +15,11 @@ protocol SendData {
 class SolvingViewController: UIViewController {
     static let identifier = "SolvingViewController"
     
-    @IBOutlet var bottomFrame: UIView!
-    @IBOutlet var bottomConst: NSLayoutConstraint!
-    @IBOutlet var hideButton: UIButton!
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet weak var childView: UIView!
+    @IBOutlet weak var sectionTitle: UILabel!
+    @IBOutlet weak var sectionTime: UILabel!
+    @IBOutlet weak var bottomFrame: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var solvingFrameView: UIView!
     
     var vc1: test_1ViewController!
     var vc2: test_2ViewController!
@@ -38,7 +38,7 @@ class SolvingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setRadius()
+        self.configureUI()
         pageDatas = PageDatas()
         
         // 임시 문제 생성
@@ -56,60 +56,37 @@ class SolvingViewController: UIViewController {
         self.addChild(vc3)
         
         currentVC = whatVC(index: 0)
-        currentVC.view.frame = self.childView.bounds
-        self.childView.addSubview(currentVC.view)
-        self.view.addSubview(hideButton)
-        
-        print(self.sectionCore)
-    }
-    
-    // 문제 선택 가리기 버튼
-    @IBAction func hide(_ sender: Any) {
-        UIView.animate(withDuration: 0.15) {
-            if(self.isHide) {
-                self.bottomFrame.alpha = 1
-                self.hideButton.setImage(UIImage(named: "down_icon"), for: .normal)
-            } else {
-                self.bottomFrame.alpha = 0
-                self.hideButton.setImage(UIImage(named: "up_icon"), for: .normal)
-            }
-        }
-        UIView.animate(withDuration: 0.3) {
-            if(self.isHide) {
-                self.hideButton.transform = CGAffineTransform(translationX: 0, y: 0)
-            } else {
-                self.hideButton.transform = CGAffineTransform(translationX: 0, y: 78)
-            }
-        }
-        view.layoutIfNeeded()
-        isHide = !isHide
+        currentVC.view.frame = self.solvingFrameView.bounds
+        self.solvingFrameView.addSubview(currentVC.view)
     }
     
     @IBAction func back(_ sender: Any) {
         //저장되는 알고리즘이 필요, 일단은 뒤로가기
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func finish(_ sender: Any) {
+        // DB에 Post 하는 알고리즘이 필요
+    }
+    
 }
 
 extension SolvingViewController {
     // 뷰의 라운드 설정 부분
-    func setRadius() {
+    func configureUI() {
         bottomFrame.layer.cornerRadius = 30
         bottomFrame.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-        hideButton.layer.cornerRadius = 17.5
     }
     
     func chengeView(num: Int) {
-        for child in self.childView.subviews { child.removeFromSuperview() }
+        for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
         currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
         currentVC.removeFromParent() // parentVC로 부터 관계 삭제
         currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
         
         let vc = whatVC(index: num)
-        vc.view.frame = self.childView.bounds
-        self.childView.addSubview(vc.view)
-        self.view.addSubview(hideButton)
+        vc.view.frame = self.solvingFrameView.bounds
+        self.solvingFrameView.addSubview(vc.view)
     }
 }
 
@@ -121,7 +98,7 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "solveNumberCell", for: indexPath) as? solveNumberCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
         // 문제번호 설정
         cell.num.text = problems[indexPath.row]
         cell.outerFrame.layer.cornerRadius = 5
@@ -146,11 +123,6 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
         chengeView(num: indexPath.row)
         collectionView.reloadData()
     }
-}
-
-class solveNumberCell: UICollectionViewCell {
-    @IBOutlet var num: UILabel!
-    @IBOutlet var outerFrame: UIView!
 }
 
 extension UIImage {

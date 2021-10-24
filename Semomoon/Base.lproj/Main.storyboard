@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3zH-Gd-er2">
-    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="dark"/>
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
@@ -1037,7 +1037,7 @@
                                             <action selector="back:" destination="fXE-86-ZFW" eventType="touchUpInside" id="vWz-bD-Qsf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021년 7월 화법과 작문" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcm-XP-a1a">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021년 7월 화법과 작문" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcm-XP-a1a">
                                         <rect key="frame" x="282.5" y="30" width="203" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
@@ -1056,6 +1056,9 @@
                                         <state key="normal" title="제출하기" image="chevron.right" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="16"/>
                                         </state>
+                                        <connections>
+                                            <action selector="finish:" destination="fXE-86-ZFW" eventType="touchUpInside" id="Kw7-om-0Po"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34:02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbm-Xz-UKb">
                                         <rect key="frame" x="368" y="59" width="32.5" height="13.5"/>
@@ -1093,7 +1096,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="solveNumberCell" id="jiA-lQ-sqa" customClass="solveNumberCell" customModule="Semomoon" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProblemNameCell" id="jiA-lQ-sqa" customClass="ProblemNameCell" customModule="Semomoon" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EqU-Zf-9xR">
@@ -1127,8 +1130,8 @@
                                                 <color key="backgroundColor" name="gray_light"/>
                                                 <size key="customSize" width="50" height="50"/>
                                                 <connections>
-                                                    <outlet property="num" destination="Po5-pg-tqg" id="iLP-Zx-JVG"/>
-                                                    <outlet property="outerFrame" destination="bl0-df-kbu" id="9O9-CS-eBx"/>
+                                                    <outlet property="num" destination="Po5-pg-tqg" id="5Vu-De-Ybz"/>
+                                                    <outlet property="outerFrame" destination="bl0-df-kbu" id="Vq9-07-2N1"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -1147,31 +1150,15 @@
                                     <constraint firstItem="rUp-FG-AtM" firstAttribute="centerX" secondItem="Dzh-ht-595" secondAttribute="centerX" id="y9J-xL-UcU"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoL-7o-xdv">
-                                <rect key="frame" x="366.5" y="901" width="35" height="35"/>
-                                <color key="backgroundColor" name="gray_light"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="JGK-WX-CrR"/>
-                                    <constraint firstAttribute="width" constant="35" id="Sw5-BY-8DF"/>
-                                </constraints>
-                                <color key="tintColor" name="gray_light"/>
-                                <state key="normal" image="down_icon">
-                                    <color key="titleColor" systemColor="labelColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="hide:" destination="fXE-86-ZFW" eventType="touchUpInside" id="4Bu-7d-rfh"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TrD-FC-hsT">
                                 <rect key="frame" x="0.0" y="77.5" width="768" height="866.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TJH-w3-hMr"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="gray_light"/>
                         <constraints>
                             <constraint firstItem="TrD-FC-hsT" firstAttribute="leading" secondItem="TJH-w3-hMr" secondAttribute="leading" id="4wW-bK-9Ri"/>
-                            <constraint firstItem="NoL-7o-xdv" firstAttribute="centerX" secondItem="Dzh-ht-595" secondAttribute="centerX" id="7yE-Ky-oGV"/>
                             <constraint firstItem="TJH-w3-hMr" firstAttribute="trailing" secondItem="Rfo-oX-vCt" secondAttribute="trailing" id="CoZ-ZF-ULg"/>
                             <constraint firstItem="Rfo-oX-vCt" firstAttribute="centerX" secondItem="TJH-w3-hMr" secondAttribute="centerX" id="IGw-Yz-ags"/>
                             <constraint firstItem="Rfo-oX-vCt" firstAttribute="leading" secondItem="TJH-w3-hMr" secondAttribute="leading" id="PLk-XY-TLE"/>
@@ -1181,16 +1168,15 @@
                             <constraint firstItem="Dzh-ht-595" firstAttribute="top" secondItem="TrD-FC-hsT" secondAttribute="bottom" id="YEh-pF-XGV"/>
                             <constraint firstItem="TrD-FC-hsT" firstAttribute="top" secondItem="Rfo-oX-vCt" secondAttribute="bottom" id="aJI-qy-GpU"/>
                             <constraint firstItem="Dzh-ht-595" firstAttribute="leading" secondItem="TJH-w3-hMr" secondAttribute="leading" id="nD7-pZ-O0a"/>
-                            <constraint firstItem="TJH-w3-hMr" firstAttribute="bottom" secondItem="NoL-7o-xdv" secondAttribute="bottom" constant="88" id="qR1-Au-Lbc"/>
                             <constraint firstItem="TJH-w3-hMr" firstAttribute="bottom" secondItem="Dzh-ht-595" secondAttribute="bottom" id="rXK-Yb-5ka"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConst" destination="qR1-Au-Lbc" id="vo5-Ey-3t0"/>
                         <outlet property="bottomFrame" destination="Dzh-ht-595" id="4rh-Tw-z1V"/>
-                        <outlet property="childView" destination="TrD-FC-hsT" id="T1F-6r-HEv"/>
                         <outlet property="collectionView" destination="rUp-FG-AtM" id="Fh6-XU-8vs"/>
-                        <outlet property="hideButton" destination="NoL-7o-xdv" id="CIX-v6-np3"/>
+                        <outlet property="sectionTime" destination="dbm-Xz-UKb" id="KrW-3b-FJ6"/>
+                        <outlet property="sectionTitle" destination="Lcm-XP-a1a" id="Zaw-ak-KtS"/>
+                        <outlet property="solvingFrameView" destination="TrD-FC-hsT" id="T1F-6r-HEv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEI-NZ-13U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2955,8 +2941,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
-        <image name="down_icon" width="512" height="512"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
