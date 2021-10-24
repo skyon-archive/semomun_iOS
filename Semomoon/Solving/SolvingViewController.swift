@@ -21,9 +21,9 @@ class SolvingViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
     
-    var vc1: test_1ViewController!
-    var vc2: test_2ViewController!
-    var vc3: test_3ViewController!
+    var vc1: SingleWith5Answer!
+    var vc2: SingleWithTextAnswer!
+    var vc3: MultipleWith5Answer!
     
     // 임시적으로 문제내용 생성
     var problems: [String] = []
@@ -48,9 +48,9 @@ class SolvingViewController: UIViewController {
             bookmarks.append(false)
         }
         
-        vc1 = self.storyboard?.instantiateViewController(withIdentifier: "test_1ViewController") as? test_1ViewController
-        vc2 = self.storyboard?.instantiateViewController(withIdentifier: "test_2ViewController") as? test_2ViewController
-        vc3 = self.storyboard?.instantiateViewController(withIdentifier: "test_3ViewController") as? test_3ViewController
+        vc1 = self.storyboard?.instantiateViewController(withIdentifier: SingleWith5Answer.identifier) as? SingleWith5Answer
+        vc2 = self.storyboard?.instantiateViewController(withIdentifier: SingleWithTextAnswer.identifier) as? SingleWithTextAnswer
+        vc3 = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
         self.addChild(vc1)
         self.addChild(vc2)
         self.addChild(vc3)

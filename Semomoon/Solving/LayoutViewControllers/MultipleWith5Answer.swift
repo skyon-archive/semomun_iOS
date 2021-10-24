@@ -8,7 +8,8 @@
 import UIKit
 import PencilKit
 
-class test_3ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
+class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
+    static let identifier = "MultipleWith5Answer"
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -71,7 +72,7 @@ class test_3ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
 
 
 
-extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return subImages.count
     }
@@ -88,7 +89,7 @@ extension test_3ViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
-extension test_3ViewController: UICollectionViewDelegateFlowLayout {
+extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // imageView 높이값 가져오기
         let img = subImages[indexPath.row]

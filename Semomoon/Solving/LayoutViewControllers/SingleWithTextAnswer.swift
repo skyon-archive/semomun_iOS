@@ -8,9 +8,10 @@
 import UIKit
 import PencilKit
 
-class test_1ViewController: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
+class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
+    static let identifier = "SingleWithTextAnswer"
 
-    @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet var checkInput: UITextField!
     @IBOutlet var star: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -30,14 +31,9 @@ class test_1ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
         return toolPicker
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("test1 load!")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setButtons()
+        setRadius()
         
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
@@ -46,8 +42,6 @@ class test_1ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
-        
-        canvasView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,35 +61,15 @@ class test_1ViewController: UIViewController, PKToolPickerObserver, PKCanvasView
         print("1 : disappear")
     }
     
-    // 객관식 1~5 클릭 부분
-    @IBAction func sol_click(_ sender: UIButton) {
-        let num: Int = sender.tag
-        for bt in checkNumbers {
-            if(bt.tag == num) {
-                bt.backgroundColor = UIColor(named: "mint")
-                bt.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
-        }
-    }
-    
 }
 
 
-extension test_1ViewController {
-    func setButtons() {
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
-        }
-    }
-}
-
-
-
-extension test_1ViewController {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        print("update!")
+extension SingleWithTextAnswer {
+    // 뷰의 라운드 설정 부분
+    func setRadius() {
+        checkInput.layer.cornerRadius = 17.5
+        checkInput.clipsToBounds = true
+        checkInput.layer.borderWidth = 1
+        checkInput.layer.borderColor = UIColor(named: "mint")?.cgColor
     }
 }
