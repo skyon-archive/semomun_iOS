@@ -8,7 +8,7 @@
 import UIKit
 
 class MultipleWithNoAnswer: UIViewController {
-    static let identifier = "MultipleWithNoAnswer"
+    static let identifier = "MultipleWithNoAnswer" // form == 1 && type == 0
 
     override func viewDidLoad() {
         super.viewDidLoad()

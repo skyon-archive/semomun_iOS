@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
-    static let identifier = "MultipleWith5Answer"
+    static let identifier = "MultipleWith5Answer" // form == 1 && type == 5
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!

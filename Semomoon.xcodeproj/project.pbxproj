@@ -26,6 +26,7 @@
 		4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */; };
 		4A60E4932725199100946FD5 /* SingleWith4Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E4922725199100946FD5 /* SingleWith4Answer.swift */; };
 		4A60E495272519B700946FD5 /* MultipleWithNoAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E494272519B700946FD5 /* MultipleWithNoAnswer.swift */; };
+		4A60E49727251AB700946FD5 /* LayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E49627251AB700946FD5 /* LayoutManager.swift */; };
 		4A6AFE9826D645CC00E65561 /* SingleWith5Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9726D645CC00E65561 /* SingleWith5Answer.swift */; };
 		4A6AFE9A26D645DA00E65561 /* SingleWithTextAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9926D645DA00E65561 /* SingleWithTextAnswer.swift */; };
 		4A6AFE9C26D64B5F00E65561 /* MultipleWith5Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AFE9B26D64B5F00E65561 /* MultipleWith5Answer.swift */; };
@@ -90,6 +91,7 @@
 		4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemNameCell.swift; sourceTree = "<group>"; };
 		4A60E4922725199100946FD5 /* SingleWith4Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith4Answer.swift; sourceTree = "<group>"; };
 		4A60E494272519B700946FD5 /* MultipleWithNoAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswer.swift; sourceTree = "<group>"; };
+		4A60E49627251AB700946FD5 /* LayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutManager.swift; sourceTree = "<group>"; };
 		4A6AFE9726D645CC00E65561 /* SingleWith5Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith5Answer.swift; sourceTree = "<group>"; };
 		4A6AFE9926D645DA00E65561 /* SingleWithTextAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithTextAnswer.swift; sourceTree = "<group>"; };
 		4A6AFE9B26D64B5F00E65561 /* MultipleWith5Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5Answer.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A60E49027250F9A00946FD5 /* ProblemNameCell.swift */,
+				4A60E49627251AB700946FD5 /* LayoutManager.swift */,
 				4A60E48E27250BF000946FD5 /* LayoutViewControllers */,
 			);
 			path = Solving;
@@ -467,6 +470,7 @@
 				4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */,
 				4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */,
 				4AC446062709834E000DD64B /* SearchWorkbookManager.swift in Sources */,
+				4A60E49727251AB700946FD5 /* LayoutManager.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
 				4AC4460927098521000DD64B /* SearchPreviewCell.swift in Sources */,
 				4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */,

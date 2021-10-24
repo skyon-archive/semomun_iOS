@@ -8,7 +8,7 @@
 import UIKit
 
 class SingleWith4Answer: UIViewController {
-    static let identifier = "SingleWith4Answer"
+    static let identifier = "SingleWith4Answer" // form == 2 && type == 4
 
     override func viewDidLoad() {
         super.viewDidLoad()

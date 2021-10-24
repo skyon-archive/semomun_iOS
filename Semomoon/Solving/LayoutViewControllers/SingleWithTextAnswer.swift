@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
-    static let identifier = "SingleWithTextAnswer"
+    static let identifier = "SingleWithTextAnswer" // form == 2 && type == 1
 
     @IBOutlet var checkInput: UITextField!
     @IBOutlet var star: UIButton!

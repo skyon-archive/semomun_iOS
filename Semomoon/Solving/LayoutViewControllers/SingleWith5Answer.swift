@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "SingleWith5Answer"
+    static let identifier = "SingleWith5Answer" // form == 2 && type == 5
 
     @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet var star: UIButton!

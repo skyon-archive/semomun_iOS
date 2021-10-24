@@ -43,6 +43,7 @@ struct CoreUsecase {
                 let pageOfCore = Page_Core(context: context)
                 // Page: 1. 페이지 내 pid들 변수
                 var problems: [Int] = []
+                var type: Int = 5
                 
                 for problem in page.problems {
                     let problemOfCore = Problem_Core(context: context)
@@ -52,9 +53,10 @@ struct CoreUsecase {
                     buttons.append(problem.icon_name)
                     dictOfButtonToView[problem.icon_name] = page.vid
                     problems.append(problem.pid)
+                    type = problem.type
                 }
                 // Page: 2. page 최종 저장
-                pageOfCore.setValues(page: page, pids: problems)
+                pageOfCore.setValues(page: page, pids: problems, type: type)
             }
             // Section: 4. section 최종 저장
             sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
