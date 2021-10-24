@@ -48,7 +48,7 @@ public class Page_Core: NSManagedObject {
     }
     
     func getLayout(form: Int, type: Int) -> String {
-        if form == 2 {
+        if form == 0 {
             switch type {
             case 1: return SingleWithTextAnswer.identifier
             case 4: return SingleWith4Answer.identifier
