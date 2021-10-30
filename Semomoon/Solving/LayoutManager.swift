@@ -22,7 +22,6 @@ class LayoutManager {
     }
     
     weak var delegate: LayoutDelegate!
-    let context = CoreDataManager.shared.context
     var section: Section_Core!
     var buttons: [String] = []
     var stars: [Bool] = []
@@ -36,7 +35,7 @@ class LayoutManager {
         self.delegate = delegate
         self.section = section
         self.configureSection()
-        self.changePage(at: currentIndex)
+        self.changePage(at: 0)
     }
     
     func configureSection() {
@@ -46,11 +45,17 @@ class LayoutManager {
     }
     
     func changePage(at index: Int) {
+        self.currentIndex = index
         // 2. vid 구하기
         let pageID = pageID(at: buttonTitle(at: index))
         
-        // 3. pageData 생성
+        // 3. pageData 생성 -> 내부서 5까지 구현
+        // 현재는 생성로직, 추후 cache 필요
+        self.currentPage = nil
         self.currentPage = PageData(vid: pageID)
+        
+        // 6. 변경된 PageData 반환
+        self.delegate.changeVC(pageData: self.currentPage)
     }
     
     var count: Int {
@@ -65,26 +70,20 @@ class LayoutManager {
         return self.dictionanry[at] ?? 0
     }
     
-    func buttonChecked(at: Int) -> Bool {
+    func showStarColor(at: Int) -> Bool {
         return self.stars[at]
     }
-    
-    func loadPageCore(vid: Int) -> Page_Core {
-        return Page_Core()
-    }
-    
-    func loadProblemCore(pid: Int) -> Problem_Core {
-        return Problem_Core()
-    }
-    
-//    func createPageData() -> PageData {
-//        return PageData()
-//    }
     
     func updateStar(title: String, to: Bool) {
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
             
+        }
+    }
+    
+    func saveCoreData() {
+        do { try CoreDataManager.shared.context.save() } catch let error {
+            print(error.localizedDescription)
         }
     }
 }
