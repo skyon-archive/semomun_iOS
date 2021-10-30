@@ -1607,7 +1607,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgH-fU-jJz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2194" y="-558"/>
+            <point key="canvasLocation" x="2193.75" y="-558.3984375"/>
         </scene>
         <!--Single With Text Answer-->
         <scene sceneID="1ei-7j-kRG">
@@ -2960,6 +2960,9 @@
                                                         <state key="normal" title="1">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="sol_click:" destination="tEX-AX-hrm" eventType="touchUpInside" id="32w-D9-dr5"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsa-S1-5hO">
                                                         <rect key="frame" x="45" y="0.0" width="35" height="35"/>
@@ -3129,6 +3132,18 @@
                             <constraint firstItem="Jgk-Ns-jeN" firstAttribute="bottom" secondItem="GHF-56-ja7" secondAttribute="bottom" id="xhi-Jm-YsQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="canvasHeight" destination="vQe-6c-gTv" id="byl-XM-X12"/>
+                        <outlet property="canvasView" destination="iku-uI-jAJ" id="lEm-ge-Vyb"/>
+                        <outlet property="imageHeight" destination="T8N-Fh-jke" id="2Uf-DT-17I"/>
+                        <outlet property="imageView" destination="9GO-KI-vEF" id="4a2-9k-OiS"/>
+                        <outlet property="scrollView" destination="GHF-56-ja7" id="vus-2A-DI4"/>
+                        <outlet property="star" destination="SLq-M7-NTj" id="1ps-GG-0ox"/>
+                        <outletCollection property="checkNumbers" destination="TNP-Tn-Lnw" collectionClass="NSMutableArray" id="IQ6-o3-eVm"/>
+                        <outletCollection property="checkNumbers" destination="Lsa-S1-5hO" collectionClass="NSMutableArray" id="TaA-8r-Akh"/>
+                        <outletCollection property="checkNumbers" destination="HLI-Vv-jXP" collectionClass="NSMutableArray" id="aiF-cc-oBh"/>
+                        <outletCollection property="checkNumbers" destination="xXK-lH-NiJ" collectionClass="NSMutableArray" id="ASV-Ct-DBJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uiB-sa-ae8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
