@@ -40,7 +40,6 @@ class SolvingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        self.configureManager()
         pageDatas = PageDatas()
         
         // 임시 문제 생성
@@ -57,9 +56,7 @@ class SolvingViewController: UIViewController {
         self.addChild(singleWithTextAnswer)
         self.addChild(multipleWith5Answer)
         
-        currentVC = whatVC(index: 0)
-        currentVC.view.frame = self.solvingFrameView.bounds
-        self.solvingFrameView.addSubview(currentVC.view)
+        self.configureManager()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -177,11 +174,46 @@ extension SolvingViewController {
         }
         return vc
     }
+    
+    func showVC() {
+        currentVC.view.frame = self.solvingFrameView.bounds
+        self.solvingFrameView.addSubview(currentVC.view)
+    }
 }
 
 extension SolvingViewController: LayoutDelegate {
     func changeVC(pageData: PageData) {
-        // change
-        
+        switch pageData.layoutType {
+        case SingleWith5Answer.identifier:
+            self.currentVC = singleWith5Answer
+            singleWith5Answer.image = getImage(data: pageData.problems[0].contentImage)
+        case SingleWithTextAnswer.identifier:
+            self.currentVC = singleWithTextAnswer
+            singleWithTextAnswer.image = getImage(data: pageData.problems[0].contentImage)
+        case MultipleWith5Answer.identifier:
+            self.currentVC = multipleWith5Answer
+            multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
+            multipleWith5Answer.subImages = getImages(problems: pageData.problems)
+        default:
+            break
+        }
+        self.showVC()
+    }
+    
+    func getImage(data: Data?) -> UIImage {
+        guard let data = data else { return UIImage() }
+        return UIImage(data: data) ?? UIImage()
+    }
+    
+    func getImages(problems: [Problem_Core]) -> [UIImage] {
+        var images: [UIImage] = []
+        problems.forEach {
+            guard let data = $0.contentImage else {
+                images.append(UIImage())
+                return
+            }
+            images.append(getImage(data: data))
+        }
+        return images
     }
 }
