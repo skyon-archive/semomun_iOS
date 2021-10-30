@@ -24,6 +24,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
+    var pageData: PageData!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()

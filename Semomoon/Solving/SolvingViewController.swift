@@ -8,8 +8,8 @@
 import UIKit
 import PencilKit
 
-protocol SendData {
-    func sendData(data: String)
+protocol PageDelegate: AnyObject {
+    func updateStar(btName: String, to: Bool)
 }
 
 class SolvingViewController: UIViewController {
@@ -208,14 +208,18 @@ extension SolvingViewController: LayoutDelegate {
         switch pageData.layoutType {
         case SingleWith5Answer.identifier:
             self.currentVC = singleWith5Answer
+            singleWith5Answer.delegate = self
             singleWith5Answer.image = getImage(data: pageData.problems[0].contentImage)
+            singleWith5Answer.pageData = pageData
         case SingleWithTextAnswer.identifier:
             self.currentVC = singleWithTextAnswer
             singleWithTextAnswer.image = getImage(data: pageData.problems[0].contentImage)
+            singleWithTextAnswer.pageData = pageData
         case MultipleWith5Answer.identifier:
             self.currentVC = multipleWith5Answer
             multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
             multipleWith5Answer.subImages = getImages(problems: pageData.problems)
+            multipleWith5Answer.pageData = pageData
         default:
             break
         }
@@ -224,5 +228,11 @@ extension SolvingViewController: LayoutDelegate {
     
     func reloadButtons() {
         self.collectionView.reloadData()
+    }
+}
+
+extension SolvingViewController: PageDelegate {
+    func updateStar(btName: String, to: Bool) {
+        self.manager.updateStar(title: btName, to: to)
     }
 }

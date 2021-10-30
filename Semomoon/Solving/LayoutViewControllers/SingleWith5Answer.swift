@@ -24,7 +24,9 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
+    weak var delegate: PageDelegate!
     var pageData: PageData!
+    var problem: Problem_Core!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -34,25 +36,18 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("test1 load!")
+        print("\(Self.identifier) didLoad")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setButtons()
-        
-        canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
-        
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        
-        canvasView.delegate = self
+        self.configureProblem()
+        self.configureUI()
+        self.configureCanvasView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("\(Self.identifier) didAppear")
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
         
@@ -83,14 +78,46 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         }
     }
     
+    @IBAction func toggleStar(_ sender: Any) {
+        guard let pName = self.problem.pName else { return }
+        self.star.isSelected.toggle()
+        let status = self.star.isSelected
+        self.problem.setValue(status, forKey: "star")
+        self.delegate.updateStar(btName: pName, to: status)
+    }
+    
+    @IBAction func showAnswer(_ sender: Any) {
+        
+    }
+    @IBAction func showExplanation(_ sender: Any) {
+        
+    }
+    @IBAction func nextProblem(_ sender: Any) {
+        
+    }
 }
 
 
 extension SingleWith5Answer {
-    func setButtons() {
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
-        }
+    func configureProblem() {
+        self.problem = self.pageData.problems[0]
+    }
+    
+    func configureUI() {
+        for bt in checkNumbers { bt.layer.cornerRadius = 17.5 }
+        self.star.isSelected = self.problem.star
+    }
+    
+    func configureCanvasView() {
+        canvasView.isOpaque = false
+        canvasView.backgroundColor = .clear
+        canvasView.becomeFirstResponder()
+        
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        
+        canvasView.delegate = self
     }
 }
 

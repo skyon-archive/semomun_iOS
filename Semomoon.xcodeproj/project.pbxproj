@@ -41,6 +41,7 @@
 		4A8BEE7226E491BF00613602 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7126E491BF00613602 /* User.swift */; };
 		4A8BEE7426E4925100613602 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE7326E4925100613602 /* History.swift */; };
 		4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */; };
+		4A8FA099272D1E44005AD614 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8FA098272D1E44005AD614 /* UIViewController.swift */; };
 		4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */; };
 		4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577226FEEA7B002543D6 /* LoginViewController.swift */; };
 		4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577426FEEBC1002543D6 /* FindIDViewController.swift */; };
@@ -106,6 +107,7 @@
 		4A8BEE7126E491BF00613602 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4A8BEE7326E4925100613602 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4A8EA9DA27095CDB007B4900 /* Problem_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem_Core.swift; sourceTree = "<group>"; };
+		4A8FA098272D1E44005AD614 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4A9470C426EDED7D000BB59C /* Semomoon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Semomoon.xcdatamodel; sourceTree = "<group>"; };
 		4A97577226FEEA7B002543D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4A97577426FEEBC1002543D6 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			children = (
 				4A8BEE6326E4865700613602 /* PKDrawing.swift */,
 				4A55DE5626F6FF7C008F1C35 /* UIButton.swift */,
+				4A8FA098272D1E44005AD614 /* UIViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */,
 				4A7FA86F26FAFCD90052B6CD /* CreateSecondViewController.swift in Sources */,
 				4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */,
+				4A8FA099272D1E44005AD614 /* UIViewController.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
 				4A60E495272519B700946FD5 /* MultipleWithNoAnswer.swift in Sources */,
 				4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */,

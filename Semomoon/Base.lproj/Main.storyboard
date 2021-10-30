@@ -1467,7 +1467,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="b4Z-Ty-Wh0">
                                                 <rect key="frame" x="355" y="7" width="226" height="31"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwB-ac-X9s">
+                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwB-ac-X9s">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="7Xl-Ii-rTq"/>
@@ -1476,6 +1476,10 @@
                                                         <color key="tintColor" name="mint"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="star" catalog="system"/>
+                                                        <state key="selected" image="star.fill" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="toggleStar:" destination="i3D-FH-lwD" eventType="touchUpInside" id="6J2-K1-eWd"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="act-1A-9LC">
                                                         <rect key="frame" x="41" y="0.0" width="45" height="31"/>
@@ -1487,6 +1491,9 @@
                                                         <state key="normal" title="정답">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="showAnswer:" destination="i3D-FH-lwD" eventType="touchUpInside" id="lZ7-3e-bL4"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPY-ga-96D">
                                                         <rect key="frame" x="96" y="0.0" width="45" height="31"/>
@@ -1498,6 +1505,9 @@
                                                         <state key="normal" title="해설">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="showExplanation:" destination="i3D-FH-lwD" eventType="touchUpInside" id="1Hc-di-Xp2"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2t-b0-3Eq">
                                                         <rect key="frame" x="151" y="0.0" width="75" height="31"/>
@@ -1512,6 +1522,9 @@
                                                             <color key="titleColor" name="mint"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="nextProblem:" destination="i3D-FH-lwD" eventType="touchUpInside" id="1tx-aR-JJ0"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -3337,10 +3350,11 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="128" height="128"/>
+        <image name="circleButton" width="87.5" height="90"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="gray_light">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

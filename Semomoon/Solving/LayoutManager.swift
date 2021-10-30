@@ -79,7 +79,9 @@ class LayoutManager {
     func updateStar(title: String, to: Bool) {
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
-            
+            self.section.setValue(self.stars, forKey: "stars")
+            self.saveCoreData()
+            self.delegate.reloadButtons()
         }
     }
     

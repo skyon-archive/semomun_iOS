@@ -23,6 +23,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     var height: CGFloat!
     var mainImage: UIImage!
     var subImages: [UIImage]!
+    var pageData: PageData!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
