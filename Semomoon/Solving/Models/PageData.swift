@@ -8,5 +8,11 @@
 import Foundation
 
 class PageData {
+    var vid: Int
     
+    init(vid: Int) {
+        self.vid = vid
+    }
+    
+    // 4. pageCore 로딩
 }

@@ -34,11 +34,13 @@ class SolvingViewController: UIViewController {
     var pageDatas: PageDatas!
     var currentVC: UIViewController!
     
+    var manager: LayoutManager!
     var sectionCore: Section_Core! //저장되어 있는 섹션 정보
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureManager()
         pageDatas = PageDatas()
         
         // 임시 문제 생성
@@ -79,13 +81,19 @@ class SolvingViewController: UIViewController {
     
 }
 
+// MARK: - Configure
 extension SolvingViewController {
-    // 뷰의 라운드 설정 부분
     func configureUI() {
         bottomFrame.layer.cornerRadius = 30
         bottomFrame.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    func configureManager() {
+        self.manager = LayoutManager(delegate: self, section: self.sectionCore)
+    }
+}
+
+extension SolvingViewController {
     func chengeView(num: Int) {
         for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
         currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
@@ -168,5 +176,11 @@ extension SolvingViewController {
             multipleWith5Answer.subImages = page.subImages
         }
         return vc
+    }
+}
+
+extension SolvingViewController: LayoutDelegate {
+    func changeVC(pageData: PageData) {
+        // change
     }
 }

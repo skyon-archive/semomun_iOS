@@ -22,19 +22,35 @@ class LayoutManager {
     }
     
     weak var delegate: LayoutDelegate!
+    let context = CoreDataManager.shared.context
     var section: Section_Core!
     var buttons: [String] = []
     var stars: [Bool] = []
-    let context = CoreDataManager.shared.context
+    var dictionanry: [String: Int] = [:]
     
+    var currentIndex: Int = 0
+    var currentPage: PageData!
+    
+    // 1. Section 로딩
     init(delegate: LayoutDelegate, section: Section_Core) {
         self.delegate = delegate
         self.section = section
+        self.configureSection()
+        self.changePage(at: currentIndex)
     }
     
     func configureSection() {
         self.buttons = section.buttons
         self.stars = section.stars
+        self.dictionanry = section.dictionaryOfProblem
+    }
+    
+    func changePage(at index: Int) {
+        // 2. vid 구하기
+        let pageID = pageID(at: buttonTitle(at: index))
+        
+        // 3. pageData 생성
+        self.currentPage = PageData(vid: pageID)
     }
     
     var count: Int {
@@ -43,6 +59,10 @@ class LayoutManager {
     
     func buttonTitle(at: Int) -> String {
         return self.buttons[at]
+    }
+    
+    func pageID(at: String) -> Int {
+        return self.dictionanry[at] ?? 0
     }
     
     func buttonChecked(at: Int) -> Bool {
@@ -57,9 +77,9 @@ class LayoutManager {
         return Problem_Core()
     }
     
-    func createPageData() -> PageData {
-        return PageData()
-    }
+//    func createPageData() -> PageData {
+//        return PageData()
+//    }
     
     func updateStar(title: String, to: Bool) {
         if let idx = self.buttons.firstIndex(of: title) {
