@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "SingleWith5Answer" // form == 2 && type == 5
+    static let identifier = "SingleWith5Answer" // form == 0 && type == 5
 
     @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet var star: UIButton!
@@ -24,6 +24,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
+    var pageData: PageData!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()

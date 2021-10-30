@@ -182,5 +182,6 @@ extension SolvingViewController {
 extension SolvingViewController: LayoutDelegate {
     func changeVC(pageData: PageData) {
         // change
+        
     }
 }

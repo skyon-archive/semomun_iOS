@@ -18,7 +18,6 @@
 		4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980B271A98C200880B86 /* CategoryCell.swift */; };
 		4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980D271A990300880B86 /* PreviewCell.swift */; };
 		4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */; };
-		4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9811271AAD3800880B86 /* LogicTest.swift */; };
 		4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3F9813271BD47B00880B86 /* CoreUsecase.swift */; };
 		4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */; };
 		4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A55DE5626F6FF7C008F1C35 /* UIButton.swift */; };
@@ -84,7 +83,6 @@
 		4A3F980B271A98C200880B86 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		4A3F980D271A990300880B86 /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
 		4A3F980F271A996B00880B86 /* MainViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Extension.swift"; sourceTree = "<group>"; };
-		4A3F9811271AAD3800880B86 /* LogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicTest.swift; sourceTree = "<group>"; };
 		4A3F9813271BD47B00880B86 /* CoreUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreUsecase.swift; sourceTree = "<group>"; };
 		4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A55DE5626F6FF7C008F1C35 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				4A3F9813271BD47B00880B86 /* CoreUsecase.swift */,
-				4A3F9811271AAD3800880B86 /* LogicTest.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				4A6AFE9A26D645DA00E65561 /* SingleWithTextAnswer.swift in Sources */,
 				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,
-				4A3F9812271AAD3800880B86 /* LogicTest.swift in Sources */,
 				4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* SingleWith5Answer.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,

@@ -159,7 +159,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
                 return cell
             }
-            return cell
         }
     }
     

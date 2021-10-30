@@ -43,10 +43,6 @@ public class Page_Core: NSManagedObject {
         print("Page: \(page.vid) save complete")
     }
     
-    func updateMaterialImage(data: Data?) {
-        self.setValue(data, forKey: "materialImage")
-    }
-    
     func getLayout(form: Int, type: Int) -> String {
         if form == 0 {
             switch type {

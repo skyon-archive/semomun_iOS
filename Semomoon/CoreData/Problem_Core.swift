@@ -57,12 +57,4 @@ public class Problem_Core: NSManagedObject {
         self.setValue(explanationData, forKey: "explanationImage")
         print("Problem: \(prob.pid) save complete")
     }
-    
-    func updateContentImage(data: Data?) {
-        self.setValue(data, forKey: "contentImage")
-    }
-    
-    func updateExplanationImage(data: Data?) {
-        self.setValue(data, forKey: "explanationImage")
-    }
 }
