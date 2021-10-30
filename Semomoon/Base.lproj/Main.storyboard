@@ -1467,7 +1467,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="b4Z-Ty-Wh0">
                                                 <rect key="frame" x="355" y="7" width="226" height="31"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwB-ac-X9s">
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TwB-ac-X9s">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="7Xl-Ii-rTq"/>
