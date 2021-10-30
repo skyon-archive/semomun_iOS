@@ -106,23 +106,23 @@ extension SolvingViewController {
 extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return problems.count
+        return self.manager.count
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
         // 문제번호 설정
-        cell.num.text = problems[indexPath.row]
+        cell.num.text = self.manager.buttonTitle(at: indexPath.item)
         cell.outerFrame.layer.cornerRadius = 5
         // star 체크 여부
-        if(stars[indexPath.row]) {
+        if self.manager.showStarColor(at: indexPath.item) {
             cell.outerFrame.backgroundColor = UIColor(named: "yellow")
         } else {
             cell.outerFrame.backgroundColor = UIColor.white
         }
         // 크기 조절
-        if(indexPath.row == problemNumber) {
+        if indexPath.item == self.manager.currentIndex {
             cell.outerFrame.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         } else {
             cell.outerFrame.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -132,9 +132,7 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        problemNumber = indexPath.row
-        chengeView(num: indexPath.row)
-        collectionView.reloadData()
+        self.manager.changePage(at: indexPath.item)
     }
 }
 
@@ -179,10 +177,34 @@ extension SolvingViewController {
         currentVC.view.frame = self.solvingFrameView.bounds
         self.solvingFrameView.addSubview(currentVC.view)
     }
+    
+    func getImage(data: Data?) -> UIImage {
+        guard let data = data else { return UIImage() }
+        return UIImage(data: data) ?? UIImage()
+    }
+    
+    func getImages(problems: [Problem_Core]) -> [UIImage] {
+        var images: [UIImage] = []
+        problems.forEach {
+            guard let data = $0.contentImage else {
+                images.append(UIImage())
+                return
+            }
+            images.append(getImage(data: data))
+        }
+        return images
+    }
 }
 
 extension SolvingViewController: LayoutDelegate {
     func changeVC(pageData: PageData) {
+        if let _ = currentVC {
+            for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
+            currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
+            currentVC.removeFromParent() // parentVC로 부터 관계 삭제
+            currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
+        }
+        
         switch pageData.layoutType {
         case SingleWith5Answer.identifier:
             self.currentVC = singleWith5Answer
@@ -200,20 +222,7 @@ extension SolvingViewController: LayoutDelegate {
         self.showVC()
     }
     
-    func getImage(data: Data?) -> UIImage {
-        guard let data = data else { return UIImage() }
-        return UIImage(data: data) ?? UIImage()
-    }
-    
-    func getImages(problems: [Problem_Core]) -> [UIImage] {
-        var images: [UIImage] = []
-        problems.forEach {
-            guard let data = $0.contentImage else {
-                images.append(UIImage())
-                return
-            }
-            images.append(getImage(data: data))
-        }
-        return images
+    func reloadButtons() {
+        self.collectionView.reloadData()
     }
 }

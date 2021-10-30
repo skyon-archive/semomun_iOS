@@ -10,6 +10,7 @@ import CoreData
 
 protocol LayoutDelegate: AnyObject {
     func changeVC(pageData: PageData)
+    func reloadButtons()
 }
 
 class LayoutManager {
@@ -55,6 +56,7 @@ class LayoutManager {
         self.currentPage = PageData(vid: pageID)
         
         // 6. 변경된 PageData 반환
+        self.delegate.reloadButtons()
         self.delegate.changeVC(pageData: self.currentPage)
     }
     
@@ -66,12 +68,12 @@ class LayoutManager {
         return self.buttons[at]
     }
     
-    func pageID(at: String) -> Int {
-        return self.dictionanry[at] ?? 0
-    }
-    
     func showStarColor(at: Int) -> Bool {
         return self.stars[at]
+    }
+    
+    func pageID(at: String) -> Int {
+        return self.dictionanry[at] ?? 0
     }
     
     func updateStar(title: String, to: Bool) {
