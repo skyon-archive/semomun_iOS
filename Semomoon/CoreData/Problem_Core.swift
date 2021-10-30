@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Alamofire
 
 extension Problem_Core {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Problem_Core> {
@@ -37,7 +38,7 @@ public class Problem_Core: NSManagedObject {
         return "Problem(\(self.pid), \(self.pName), \(self.contentImage), \(self.explanationImage), \(self.star)\n"
     }
     
-    func setValues(prob: ProblemOfDB){
+    func setValues(prob: ProblemOfDB) {
         self.setValue(Int64(prob.pid), forKey: "pid")
         self.setValue(prob.icon_name, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")

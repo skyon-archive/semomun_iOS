@@ -10,6 +10,7 @@ import PencilKit
 
 protocol PageDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
+    func nextProblem()
 }
 
 class SolvingViewController: UIViewController {
@@ -234,5 +235,9 @@ extension SolvingViewController: LayoutDelegate {
 extension SolvingViewController: PageDelegate {
     func updateStar(btName: String, to: Bool) {
         self.manager.updateStar(title: btName, to: to)
+    }
+    
+    func nextProblem() {
+//        self.manager.changeNextPage()
     }
 }
