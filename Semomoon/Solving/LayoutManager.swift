@@ -11,6 +11,7 @@ import CoreData
 protocol LayoutDelegate: AnyObject {
     func changeVC(pageData: PageData)
     func reloadButtons()
+    func showAlert(text: String)
 }
 
 class LayoutManager {
@@ -83,6 +84,26 @@ class LayoutManager {
             self.saveCoreData()
             self.delegate.reloadButtons()
         }
+    }
+    
+    func changeNextPage() {
+        let currentVid = self.currentPage.vid
+        var tempIndex = self.currentIndex
+        while true {
+            if self.currentIndex == self.buttons.count-1 {
+                self.delegate.showAlert(text: "마지막 페이지 입니다.")
+                break
+            }
+            
+            tempIndex += 1
+            let nextVid = self.pageID(at: buttonTitle(at: tempIndex))
+            if nextVid != currentVid {
+                self.changePage(at: tempIndex)
+                break
+            }
+        }
+        
+        
     }
     
     func saveCoreData() {

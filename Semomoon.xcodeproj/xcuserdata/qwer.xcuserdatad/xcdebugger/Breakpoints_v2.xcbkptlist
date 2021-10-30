@@ -220,10 +220,10 @@
             filePath = "Semomoon/Main/Usecase/CoreUsecase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "CoreUsecase"
-            landmarkType = "14">
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "savePages(sid:pages:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -236,10 +236,10 @@
             filePath = "Semomoon/Main/Usecase/CoreUsecase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "CoreUsecase"
-            landmarkType = "14">
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "savePages(sid:pages:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -252,10 +252,10 @@
             filePath = "Semomoon/Main/Usecase/CoreUsecase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "CoreUsecase"
-            landmarkType = "14">
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "savePages(sid:pages:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

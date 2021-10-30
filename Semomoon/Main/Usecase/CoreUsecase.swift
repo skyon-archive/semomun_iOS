@@ -25,6 +25,11 @@ struct CoreUsecase {
     }
     
     static func savePages(sid: Int, pages: [PageOfDB], completion: @escaping(Section_Core?) -> Void) {
+        if pages.isEmpty {
+            completion(nil)
+            return
+        }
+        
         let context = CoreDataManager.shared.context
         DispatchQueue.global().async {
             let sectionOfCore = Section_Core(context: context)

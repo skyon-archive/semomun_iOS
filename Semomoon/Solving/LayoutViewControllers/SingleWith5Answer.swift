@@ -93,7 +93,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         
     }
     @IBAction func nextProblem(_ sender: Any) {
-        
+        self.delegate.nextPage()
     }
 }
 

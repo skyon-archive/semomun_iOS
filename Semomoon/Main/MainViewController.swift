@@ -199,7 +199,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             // save to coreData
             CoreUsecase.savePages(sid: sid, pages: views) { section in
                 guard let section = section else {
-                    print("Error: can't get SectionCore")
+                    self.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
                     return
                 }
                 DispatchQueue.main.async {
