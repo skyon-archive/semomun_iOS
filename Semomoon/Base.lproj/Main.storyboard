@@ -3211,7 +3211,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KoreanCell" id="dSB-a8-6qm" customClass="KoreanCell" customModule="Semomoon" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NoAnswerCell" id="dSB-a8-6qm" customClass="NoAnswerCell" customModule="Semomoon" customModuleProvider="target">
                                         <rect key="frame" x="-16" y="0.0" width="406" height="221"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -3294,11 +3294,12 @@
                                         <size key="customSize" width="406" height="221"/>
                                         <connections>
                                             <outlet property="canvasHeight" destination="ARO-4T-Ka6" id="Qyv-fL-N7C"/>
-                                            <outlet property="canvasView" destination="G89-fI-Qdu" id="ZEJ-z6-z9u"/>
+                                            <outlet property="canvasView" destination="G89-fI-Qdu" id="14l-mZ-KDq"/>
                                             <outlet property="imageHeight" destination="WZt-mG-6K7" id="kft-Ta-Qm8"/>
-                                            <outlet property="imageView" destination="ptI-Ul-Iq2" id="3bJ-q0-33i"/>
+                                            <outlet property="imageView" destination="ptI-Ul-Iq2" id="4VU-2u-GUo"/>
+                                            <outlet property="probHeaderFrame" destination="V1h-xi-cJi" id="r1T-Ap-at1"/>
                                             <outlet property="solvInputFrame" destination="V1h-xi-cJi" id="8eE-6D-sAR"/>
-                                            <outlet property="star" destination="ezv-Q6-3Ps" id="P7y-kj-vay"/>
+                                            <outlet property="star" destination="ezv-Q6-3Ps" id="5qz-CZ-oA0"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -3317,6 +3318,10 @@
                             <constraint firstItem="xrz-4w-WfP" firstAttribute="bottom" secondItem="7Sp-lP-G9k" secondAttribute="bottom" id="kzw-RI-A6u"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="ubl-m0-Muh" id="ffV-Uh-gx5"/>
+                        <outlet property="scrollView" destination="7Sp-lP-G9k" id="dR1-OP-bQc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4f-pW-Dme" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
