@@ -34,6 +34,10 @@ class PreviewCell: UICollectionViewCell {
         imageShadowView.addSubview(imageView)
     }
     
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
+    
     func disappearShadow() {
         imageShadowView.layer.shadowColor = UIColor.clear.cgColor
     }

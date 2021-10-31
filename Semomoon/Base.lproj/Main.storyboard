@@ -814,7 +814,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="lCD-Pc-538" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="EiE-uc-goM"/>
                                     <constraint firstItem="mNH-Ss-qrv" firstAttribute="leading" secondItem="MYj-UN-CAG" secondAttribute="leading" constant="16" id="LO9-CN-3Cx"/>
@@ -825,7 +825,7 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qow-Pp-er9">
                                 <rect key="frame" x="20" y="90" width="728" height="40"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="ColorWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Q18-da-6Rl"/>
                                 </constraints>
@@ -846,7 +846,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gx-yc-gag">
                                                     <rect key="frame" x="25" y="14" width="30" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-Xy-GqO">
@@ -865,6 +865,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Bo7-Xy-GqO" secondAttribute="bottom" id="Tls-RB-WHL"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="80" height="40"/>
                                         <connections>
                                             <outlet property="category" destination="3gx-yc-gag" id="1Yt-vR-QeV"/>
@@ -886,7 +887,7 @@
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="snq-vH-c7w">
                                 <rect key="frame" x="20" y="150" width="728" height="854"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="ColorWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="uJf-4R-AUj">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -940,7 +941,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="c9u-CN-Lax"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qow-Pp-er9" firstAttribute="centerX" secondItem="c9u-CN-Lax" secondAttribute="centerX" id="1jN-yf-zxr"/>
                             <constraint firstItem="MYj-UN-CAG" firstAttribute="centerX" secondItem="c9u-CN-Lax" secondAttribute="centerX" id="2Ju-Lq-Mne"/>
@@ -3367,6 +3368,9 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="ColorWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="gray_light">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
