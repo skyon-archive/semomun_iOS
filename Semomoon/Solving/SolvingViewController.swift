@@ -35,7 +35,7 @@ class SolvingViewController: UIViewController {
     var pageDatas: PageDatas!
     var currentVC: UIViewController!
     
-    var manager: LayoutManager!
+    var manager: SectionManager!
     var sectionCore: Section_Core! //저장되어 있는 섹션 정보
     
     override func viewDidLoad() {
@@ -69,8 +69,7 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        //저장되는 알고리즘이 필요, 일단은 뒤로가기
-        self.dismiss(animated: true, completion: nil)
+        self.manager.stopTimer()
     }
     
     @IBAction func finish(_ sender: Any) {
@@ -87,7 +86,7 @@ extension SolvingViewController {
     }
     
     func configureManager() {
-        self.manager = LayoutManager(delegate: self, section: self.sectionCore)
+        self.manager = SectionManager(delegate: self, section: self.sectionCore)
     }
 }
 
@@ -202,6 +201,10 @@ extension SolvingViewController: LayoutDelegate {
         self.sectionTitle.text = title
     }
     
+    func showTime(time: Int64) {
+        self.sectionTime.text = time.toTimeString()
+    }
+    
     func changeVC(pageData: PageData) {
         if let _ = currentVC {
             for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
@@ -237,6 +240,10 @@ extension SolvingViewController: LayoutDelegate {
     
     func showAlert(text: String) {
         self.showAlertWithOK(title: text, text: "")
+    }
+    
+    func saveComplete() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

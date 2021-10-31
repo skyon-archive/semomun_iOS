@@ -1,5 +1,5 @@
 //
-//  LayoutManager.swift
+//  SectionManager.swift
 //  Semomoon
 //
 //  Created by qwer on 2021/10/24.
@@ -13,39 +13,39 @@ protocol LayoutDelegate: AnyObject {
     func reloadButtons()
     func showAlert(text: String)
     func showTitle(title: String)
+    func showTime(time: Int64)
+    func saveComplete()
 }
 
-class LayoutManager {
-    enum Identifier {
-        static let singleWith5Answer = SingleWith5Answer.identifier
-        static let singleWithTextAnswer = SingleWithTextAnswer.identifier
-        static let multipleWith5Answer = MultipleWith5Answer.identifier
-        static let singleWith4Answer = SingleWith4Answer.identifier
-        static let multipleWithNoAnswer = MultipleWithNoAnswer.identifier
-    }
-    
+class SectionManager {
     weak var delegate: LayoutDelegate!
     var section: Section_Core!
     var buttons: [String] = []
     var stars: [Bool] = []
     var dictionanry: [String: Int] = [:]
-    
+    var currentTime: Int64 = 0
     var currentIndex: Int = 0
     var currentPage: PageData!
+    
+    var timer: Timer!
+    var isRunning: Bool = true
     
     // 1. Section 로딩
     init(delegate: LayoutDelegate, section: Section_Core) {
         self.delegate = delegate
         self.section = section
-        self.showTitle()
         self.configureSection()
+        self.showTitle()
+        self.showTime()
         self.changePage(at: 0)
+        self.startTimer()
     }
     
     func configureSection() {
         self.buttons = section.buttons
         self.stars = section.stars
         self.dictionanry = section.dictionaryOfProblem
+        self.currentTime = section.time
     }
     
     func changePage(at index: Int) {
@@ -109,6 +109,33 @@ class LayoutManager {
     func showTitle() {
         guard let title = self.section.title else { return }
         self.delegate.showTitle(title: title)
+    }
+    
+    func showTime() {
+        DispatchQueue.main.async {
+            self.delegate.showTime(time: self.currentTime)
+        }
+    }
+    
+    func startTimer() {
+        DispatchQueue.global().async {
+            let runLoop = RunLoop.current
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.currentTime += 1
+                self.showTime()
+            }
+            while self.isRunning {
+                runLoop.run(until: Date().addingTimeInterval(0.1))
+            }
+        }
+    }
+    
+    func stopTimer() {
+        self.isRunning = false
+        self.timer.invalidate()
+        self.section.setValue(currentTime, forKey: "time")
+        self.saveCoreData()
+        self.delegate.saveComplete()
     }
     
     func saveCoreData() {
