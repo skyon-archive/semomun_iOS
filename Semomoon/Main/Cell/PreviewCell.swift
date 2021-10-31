@@ -12,4 +12,10 @@ class PreviewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var title: UILabel!
+    
+    override func awakeFromNib() {
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 15
+        imageView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
+    }
 }
