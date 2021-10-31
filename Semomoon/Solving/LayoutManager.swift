@@ -12,6 +12,7 @@ protocol LayoutDelegate: AnyObject {
     func changeVC(pageData: PageData)
     func reloadButtons()
     func showAlert(text: String)
+    func showTitle(title: String)
 }
 
 class LayoutManager {
@@ -36,6 +37,7 @@ class LayoutManager {
     init(delegate: LayoutDelegate, section: Section_Core) {
         self.delegate = delegate
         self.section = section
+        self.showTitle()
         self.configureSection()
         self.changePage(at: 0)
     }
@@ -102,8 +104,11 @@ class LayoutManager {
                 break
             }
         }
-        
-        
+    }
+    
+    func showTitle() {
+        guard let title = self.section.title else { return }
+        self.delegate.showTitle(title: title)
     }
     
     func saveCoreData() {

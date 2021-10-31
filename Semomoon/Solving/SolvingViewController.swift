@@ -198,6 +198,10 @@ extension SolvingViewController {
 }
 
 extension SolvingViewController: LayoutDelegate {
+    func showTitle(title: String) {
+        self.sectionTitle.text = title
+    }
+    
     func changeVC(pageData: PageData) {
         if let _ = currentVC {
             for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
