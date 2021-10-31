@@ -9,9 +9,8 @@ import UIKit
 import PencilKit
 
 class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "SingleWith4Answer" // form == 2 && type == 4
+    static let identifier = "SingleWith4Answer" // form == 0 && type == 4
     
-    // check numbers needed
     @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet var star: UIButton!
     
@@ -26,6 +25,8 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var height: CGFloat!
     var image: UIImage!
     var pageData: PageData!
+    var problem: Problem_Core!
+    weak var delegate: PageDelegate!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -35,14 +36,99 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        print("\(Self.identifier) didLoad")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setButtons()
+        self.scrollView.setContentOffset(.zero, animated: true)
+        self.configureProblem()
+        self.configureUI()
+        self.configureCanvasView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("\(Self.identifier) didAppear")
+        self.configureImageView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("1 : disappear")
+    }
+    
+    @IBAction func sol_click(_ sender: UIButton) {
+        let num: Int = sender.tag
+        self.problem.solved = String(num)
+        for bt in checkNumbers {
+            if(bt.tag == num) {
+                bt.backgroundColor = UIColor(named: "mint")
+                bt.setTitleColor(UIColor.white, for: .normal)
+            } else {
+                bt.backgroundColor = UIColor.white
+                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+            }
+        }
+        saveCoreData()
+    }
+    
+    @IBAction func toggleStar(_ sender: Any) {
+        guard let pName = self.problem.pName else { return }
+        self.star.isSelected.toggle()
+        let status = self.star.isSelected
+        self.problem.setValue(status, forKey: "star")
+        self.delegate.updateStar(btName: pName, to: status)
+    }
+    
+    @IBAction func showAnswer(_ sender: Any) {
         
+    }
+    
+    @IBAction func showExplanation(_ sender: Any) {
+        
+    }
+    
+    @IBAction func nextProblem(_ sender: Any) {
+        self.delegate.nextPage()
+    }
+}
+
+extension SingleWith4Answer {
+    func configureProblem() {
+        self.problem = self.pageData.problems[0]
+    }
+    
+    func configureUI() {
+        self.configureCheckButtons()
+        self.configureStar()
+    }
+    
+    func configureCheckButtons() {
+        if let solved = self.problem.solved {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                if String(bt.tag) == solved {
+                    bt.backgroundColor = UIColor(named: "mint")
+                    bt.setTitleColor(UIColor.white, for: .normal)
+                } else {
+                    bt.backgroundColor = UIColor.white
+                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+                }
+            }
+        } else {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                bt.backgroundColor = UIColor.white
+                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+            }
+        }
+    }
+    
+    func configureStar() {
+        self.star.isSelected = self.problem.star
+    }
+    
+    func configureCanvasView() {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -54,7 +140,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         canvasView.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    func configureImageView() {
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
         
@@ -64,34 +150,6 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("1 : disappear")
-    }
-    
-    @IBAction func sol_click(_ sender: UIButton) {
-        let num: Int = sender.tag
-        for bt in checkNumbers {
-            if(bt.tag == num) {
-                bt.backgroundColor = UIColor(named: "mint")
-                bt.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
-        }
-    }
-    
-
-}
-
-extension SingleWith4Answer {
-    func setButtons() {
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
-        }
     }
 }
 

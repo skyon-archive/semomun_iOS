@@ -3000,6 +3000,9 @@
                                                         <state key="normal" title="2">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="sol_click:" destination="tEX-AX-hrm" eventType="touchUpInside" id="sUd-xP-JrV"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLI-Vv-jXP">
                                                         <rect key="frame" x="90" y="0.0" width="35" height="35"/>
@@ -3013,6 +3016,9 @@
                                                         <state key="normal" title="3">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="sol_click:" destination="tEX-AX-hrm" eventType="touchUpInside" id="0Cb-KX-ttE"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXK-lH-NiJ">
                                                         <rect key="frame" x="135" y="0.0" width="35" height="35"/>
@@ -3026,6 +3032,9 @@
                                                         <state key="normal" title="4">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="sol_click:" destination="tEX-AX-hrm" eventType="touchUpInside" id="M31-Ze-Yyw"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -3041,6 +3050,9 @@
                                                         <color key="tintColor" name="mint"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="star" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="toggleStar:" destination="tEX-AX-hrm" eventType="touchUpInside" id="hPE-Uz-JrU"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSv-k4-deL">
                                                         <rect key="frame" x="41" y="0.0" width="45" height="31"/>
@@ -3052,6 +3064,9 @@
                                                         <state key="normal" title="정답">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="showAnswer:" destination="tEX-AX-hrm" eventType="touchUpInside" id="ifU-H8-Zox"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2J-wU-GHj">
                                                         <rect key="frame" x="96" y="0.0" width="45" height="31"/>
@@ -3063,6 +3078,9 @@
                                                         <state key="normal" title="해설">
                                                             <color key="titleColor" name="mint"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="showExplanation:" destination="tEX-AX-hrm" eventType="touchUpInside" id="aZl-cw-tK9"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XW0-g5-Awn">
                                                         <rect key="frame" x="151" y="0.0" width="75" height="31"/>
@@ -3077,6 +3095,9 @@
                                                             <color key="titleColor" name="mint"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="nextProblem:" destination="tEX-AX-hrm" eventType="touchUpInside" id="EVz-v0-Jeq"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
