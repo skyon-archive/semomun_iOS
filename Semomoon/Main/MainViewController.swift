@@ -78,7 +78,7 @@ extension MainViewController {
     }
     
     func configureAddImage() {
-        guard let addImage = UIImage(named: "addPreview") else {
+        guard let addImage = UIImage(named: "addButton") else {
             print("Error: addImage not corrent")
             return
         }
