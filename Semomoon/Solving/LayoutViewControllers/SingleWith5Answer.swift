@@ -24,9 +24,9 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
-    weak var delegate: PageDelegate!
     var pageData: PageData!
     var problem: Problem_Core!
+    weak var delegate: PageDelegate!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -41,6 +41,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblem()
         self.configureUI()
         self.configureCanvasView()
@@ -48,15 +49,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewDidAppear(_ animated: Bool) {
         print("\(Self.identifier) didAppear")
-        width = canvasView.frame.width
-        height = image.size.height*(width/image.size.width)
-        
-        imageView.image = image
-        imageView.clipsToBounds = true
-        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        canvasHeight.constant = height
+        self.configureImageView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -91,9 +84,11 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     @IBAction func showAnswer(_ sender: Any) {
         
     }
+    
     @IBAction func showExplanation(_ sender: Any) {
         
     }
+    
     @IBAction func nextProblem(_ sender: Any) {
         self.delegate.nextPage()
     }
@@ -145,6 +140,18 @@ extension SingleWith5Answer {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         
         canvasView.delegate = self
+    }
+    
+    func configureImageView() {
+        width = canvasView.frame.width
+        height = image.size.height*(width/image.size.width)
+        
+        imageView.image = image
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        canvasHeight.constant = height
     }
 }
 
