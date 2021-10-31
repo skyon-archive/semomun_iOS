@@ -149,6 +149,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if indexPath.item == 0 {
                 cell.imageView.image = UIImage(data: addImageData)
                 cell.title.text = " "
+                cell.disappearShadow()
                 return cell
             } else {
                 let preview = self.previewManager.preview(at: indexPath.item-1)
@@ -157,6 +158,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: imageData)
                 }
+                cell.showShadow()
                 return cell
             }
         }
