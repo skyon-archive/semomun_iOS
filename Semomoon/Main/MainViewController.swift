@@ -153,6 +153,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return cell
             } else {
                 let preview = self.previewManager.preview(at: indexPath.item-1)
+                print("////////////\(preview)")
                 cell.title.text = preview.title
                 guard let imageData = preview.image else { return UICollectionViewCell() }
                 DispatchQueue.main.async {
@@ -161,6 +162,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.showShadow()
                 return cell
             }
+            
         }
     }
     

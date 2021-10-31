@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
-    static let identifier = "SingleWithTextAnswer" // form == 2 && type == 1
+    static let identifier = "SingleWithTextAnswer" // form == 0 && type == 1
 
     @IBOutlet var checkInput: UITextField!
     @IBOutlet var star: UIButton!
@@ -25,6 +25,8 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     var height: CGFloat!
     var image: UIImage!
     var pageData: PageData!
+    var problem: Problem_Core!
+    weak var delegate: PageDelegate!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -32,10 +34,90 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         return toolPicker
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("\(Self.identifier) didLoad")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setRadius()
-        
+        self.scrollView.setContentOffset(.zero, animated: true)
+        self.configureProblem()
+        self.configureUI()
+        self.configureCanvasView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("\(Self.identifier) didAppear")
+        self.configureImageView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("1 : disappear")
+    }
+    
+    // 객관식 1~5 클릭 부분
+//    @IBAction func sol_click(_ sender: UIButton) {
+//        let num: Int = sender.tag
+//        self.problem.solved = String(num)
+//        for bt in checkNumbers {
+//            if(bt.tag == num) {
+//                bt.backgroundColor = UIColor(named: "mint")
+//                bt.setTitleColor(UIColor.white, for: .normal)
+//            } else {
+//                bt.backgroundColor = UIColor.white
+//                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+//            }
+//        }
+//        saveCoreData()
+//    }
+    
+
+    @IBAction func toggleStar(_ sender: Any) {
+        guard let pName = self.problem.pName else { return }
+        self.star.isSelected.toggle()
+        let status = self.star.isSelected
+        self.problem.setValue(status, forKey: "star")
+        self.delegate.updateStar(btName: pName, to: status)
+    }
+
+    @IBAction func showAnswer(_ sender: Any) {
+
+    }
+
+    @IBAction func showExplanation(_ sender: Any) {
+
+    }
+
+    @IBAction func nextProblem(_ sender: Any) {
+        self.delegate.nextPage()
+    }
+}
+
+
+extension SingleWithTextAnswer {
+    func configureProblem() {
+        self.problem = self.pageData.problems[0]
+    }
+    
+    func configureUI() {
+        self.configureCheckInput()
+        self.configureStar()
+    }
+    
+    func configureCheckInput() {
+        checkInput.layer.cornerRadius = 17.5
+        checkInput.clipsToBounds = true
+        checkInput.layer.borderWidth = 1
+        checkInput.layer.borderColor = UIColor(named: "mint")?.cgColor
+    }
+    
+    func configureStar() {
+        self.star.isSelected = self.problem.star
+    }
+    
+    func configureCanvasView() {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -43,9 +125,11 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        
+        canvasView.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    func configureImageView() {
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
         
@@ -55,22 +139,5 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("1 : disappear")
-    }
-    
-}
-
-
-extension SingleWithTextAnswer {
-    // 뷰의 라운드 설정 부분
-    func setRadius() {
-        checkInput.layer.cornerRadius = 17.5
-        checkInput.clipsToBounds = true
-        checkInput.layer.borderWidth = 1
-        checkInput.layer.borderColor = UIColor(named: "mint")?.cgColor
     }
 }

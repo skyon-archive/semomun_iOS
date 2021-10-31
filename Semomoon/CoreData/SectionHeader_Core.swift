@@ -39,6 +39,7 @@ public class SectionHeader_Core: NSManagedObject {
         guard let url = URL(string: baseURL + section.image) else { return }
         let imageData = try? Data(contentsOf: url)
         self.setValue(imageData, forKey: "image")
+        print("save Header complete")
     }
 }
 

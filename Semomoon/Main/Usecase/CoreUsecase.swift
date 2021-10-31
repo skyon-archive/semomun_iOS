@@ -44,7 +44,6 @@ struct CoreUsecase {
             var dictOfButtonToView: [String: Int] = [:]
 
             for page in pages {
-                print(page)
                 let pageOfCore = Page_Core(context: context)
                 // Page: 1. 페이지 내 pid들 변수
                 var problems: [Int] = []

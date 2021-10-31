@@ -43,6 +43,8 @@ public class Preview_Core: NSManagedObject{
         self.setValue(sids, forKey: "sids")
         guard let url = URL(string: baseURL + preview.image) else { return }
         let imageData = try? Data(contentsOf: url)
+        print("imageData: \(imageData)")
         self.setValue(imageData, forKey: "image")
+        print("savePreview complete")
     }
 }

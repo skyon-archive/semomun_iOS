@@ -164,7 +164,8 @@ extension SearchWorkbookViewController {
     func savePreview(index: Int, workbook: WorkbookOfDB, sids: [Int]) {
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         let preview = self.manager.preview(at: index)
-        let baseURL = NetworkUsecase.URL.workbookImageDirectory(manager.imageScale)
+//        let baseURL = NetworkUsecase.URL.workbookImageDirectory(manager.imageScale)
+        let baseURL = NetworkUsecase.URL.bookcovoerImageDirectory(manager.imageScale)
         
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL)
         CoreDataManager.shared.appDelegate.saveContext()

@@ -16,6 +16,7 @@ class SearchedPreviewCell: UICollectionViewCell {
     
     func showImage(url: String) {
         guard let url = URL(string: url) else { return }
+        print(url)
         self.imageView.kf.setImage(with: url)
     }
 }

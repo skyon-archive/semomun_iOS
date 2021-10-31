@@ -69,7 +69,9 @@ class PreviewManager {
         } catch let error {
             print(error.localizedDescription)
         }
-        delegate.reloadData()
+        DispatchQueue.main.async {
+            self.delegate.reloadData()
+        }
     }
     
     func preview(at: Int) -> Preview_Core {

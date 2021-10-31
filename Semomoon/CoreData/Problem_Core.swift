@@ -49,13 +49,16 @@ public class Problem_Core: NSManagedObject {
         self.setValue(nil, forKey: "drawing")
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
-        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content),
-              let explanation = prob.explanation,
-              let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) else { return }
+        print("//////////url : \(NetworkUsecase.URL.contentImage + prob.content)")
+//        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content),
+//              let explanation = prob.explanation,
+//              let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) else { return }
+        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content) else { return }
+        print("Problem Image : \(contentURL)")
         let contentData = try? Data(contentsOf: contentURL)
-        let explanationData = try? Data(contentsOf: explanationURL)
+//        let explanationData = try? Data(contentsOf: explanationURL)
         self.setValue(contentData, forKey: "contentImage")
-        self.setValue(explanationData, forKey: "explanationImage")
+//        self.setValue(explanationData, forKey: "explanationImage")
         print("Problem: \(prob.pid) save complete")
     }
 }
