@@ -67,6 +67,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
+        self.problem.solved = String(num)
         for bt in checkNumbers {
             if(bt.tag == num) {
                 bt.backgroundColor = UIColor(named: "mint")
@@ -76,6 +77,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
                 bt.setTitleColor(UIColor(named: "mint"), for: .normal)
             }
         }
+        saveCoreData()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
@@ -104,7 +106,32 @@ extension SingleWith5Answer {
     }
     
     func configureUI() {
-        for bt in checkNumbers { bt.layer.cornerRadius = 17.5 }
+        self.configureCheckButtons()
+        self.configureStar()
+    }
+    
+    func configureCheckButtons() {
+        if let solved = self.problem.solved {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                if String(bt.tag) == solved {
+                    bt.backgroundColor = UIColor(named: "mint")
+                    bt.setTitleColor(UIColor.white, for: .normal)
+                } else {
+                    bt.backgroundColor = UIColor.white
+                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+                }
+            }
+        } else {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                bt.backgroundColor = UIColor.white
+                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+            }
+        }
+    }
+    
+    func configureStar() {
         self.star.isSelected = self.problem.star
     }
     
