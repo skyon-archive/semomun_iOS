@@ -118,7 +118,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     func configureCheckButtons() {
         if let solved = self.problem?.solved {
             for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
                 if String(bt.tag) == solved {
                     bt.backgroundColor = UIColor(named: "mint")
                     bt.setTitleColor(UIColor.white, for: .normal)
@@ -129,7 +128,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             }
         } else {
             for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
                 bt.backgroundColor = UIColor.white
                 bt.setTitleColor(UIColor(named: "mint"), for: .normal)
             }
