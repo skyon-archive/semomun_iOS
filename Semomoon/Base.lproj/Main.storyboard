@@ -1708,6 +1708,9 @@
                                                 <color key="textColor" name="mint"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="solveInputChanged:" destination="8zh-ly-hdh" eventType="editingDidEnd" id="E4N-Fe-1IM"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" name="gray_light"/>
@@ -1788,10 +1791,10 @@
                     <connections>
                         <outlet property="canvasHeight" destination="urz-AS-hVT" id="deC-mE-sCo"/>
                         <outlet property="canvasView" destination="7U0-NN-UaU" id="CQ4-hV-iHk"/>
-                        <outlet property="checkInput" destination="0oA-Wg-IR1" id="zJb-lZ-Dhk"/>
                         <outlet property="imageHeight" destination="DRP-j5-fBE" id="6Ea-3t-rM0"/>
                         <outlet property="imageView" destination="KlB-ec-g5u" id="u2f-mC-urn"/>
                         <outlet property="scrollView" destination="0MT-UC-b3C" id="QFE-sm-z8x"/>
+                        <outlet property="solveInput" destination="0oA-Wg-IR1" id="ngE-Zo-fWV"/>
                         <outlet property="star" destination="ZFq-cF-qpF" id="3Jf-Lc-j1q"/>
                     </connections>
                 </viewController>
@@ -3383,7 +3386,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>

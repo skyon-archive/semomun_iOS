@@ -11,7 +11,7 @@ import PencilKit
 class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     static let identifier = "SingleWithTextAnswer" // form == 0 && type == 1
 
-    @IBOutlet var checkInput: UITextField!
+    @IBOutlet var solveInput: UITextField!
     @IBOutlet var star: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,10 +23,10 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     var width: CGFloat!
     var height: CGFloat!
-    var image: UIImage!
-    var pageData: PageData!
-    var problem: Problem_Core!
-    weak var delegate: PageDelegate!
+    var image: UIImage?
+    var pageData: PageData?
+    var problem: Problem_Core?
+    weak var delegate: PageDelegate?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -41,6 +41,8 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("객관식 willAppear")
+        
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblem()
         self.configureUI()
@@ -48,38 +50,30 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("\(Self.identifier) didAppear")
+        print("객관식 didAppear")
         self.configureImageView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("1 : disappear")
+        print("객관식 : disappear")
     }
     
-    // 객관식 1~5 클릭 부분
-//    @IBAction func sol_click(_ sender: UIButton) {
-//        let num: Int = sender.tag
-//        self.problem.solved = String(num)
-//        for bt in checkNumbers {
-//            if(bt.tag == num) {
-//                bt.backgroundColor = UIColor(named: "mint")
-//                bt.setTitleColor(UIColor.white, for: .normal)
-//            } else {
-//                bt.backgroundColor = UIColor.white
-//                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-//            }
-//        }
-//        saveCoreData()
-//    }
+    // 주관식 입력 부분
+    @IBAction func solveInputChanged(_ sender: UITextField) {
+        guard let input = sender.text,
+              let problem = self.problem else { return }
+        problem.solved = input
+        saveCoreData()
+    }
     
 
     @IBAction func toggleStar(_ sender: Any) {
-        guard let pName = self.problem.pName else { return }
+        guard let pName = self.problem?.pName else { return }
         self.star.isSelected.toggle()
         let status = self.star.isSelected
-        self.problem.setValue(status, forKey: "star")
-        self.delegate.updateStar(btName: pName, to: status)
+        self.problem?.setValue(status, forKey: "star")
+        self.delegate?.updateStar(btName: pName, to: status)
     }
 
     @IBAction func showAnswer(_ sender: Any) {
@@ -91,14 +85,14 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     }
 
     @IBAction func nextProblem(_ sender: Any) {
-        self.delegate.nextPage()
+        self.delegate?.nextPage()
     }
 }
 
 
 extension SingleWithTextAnswer {
     func configureProblem() {
-        self.problem = self.pageData.problems[0]
+        self.problem = self.pageData?.problems[0] ?? nil
     }
     
     func configureUI() {
@@ -107,14 +101,19 @@ extension SingleWithTextAnswer {
     }
     
     func configureCheckInput() {
-        checkInput.layer.cornerRadius = 17.5
-        checkInput.clipsToBounds = true
-        checkInput.layer.borderWidth = 1
-        checkInput.layer.borderColor = UIColor(named: "mint")?.cgColor
+        solveInput.layer.cornerRadius = 17.5
+        solveInput.clipsToBounds = true
+        solveInput.layer.borderWidth = 1
+        solveInput.layer.borderColor = UIColor(named: "mint")?.cgColor
+        if let solved = self.problem?.solved {
+            solveInput.text = solved
+        } else {
+            solveInput.text = ""
+        }
     }
     
     func configureStar() {
-        self.star.isSelected = self.problem.star
+        self.star.isSelected = self.problem?.star ?? false
     }
     
     func configureCanvasView() {
@@ -131,6 +130,7 @@ extension SingleWithTextAnswer {
     
     func configureImageView() {
         width = canvasView.frame.width
+        guard let image = self.image else { return }
         height = image.size.height*(width/image.size.width)
         
         imageView.image = image
