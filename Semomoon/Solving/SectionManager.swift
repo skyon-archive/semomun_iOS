@@ -92,7 +92,7 @@ class SectionManager {
         let currentVid = self.currentPage.vid
         var tempIndex = self.currentIndex
         while true {
-            if self.currentIndex == self.buttons.count-1 {
+            if tempIndex == self.buttons.count-1 {
                 self.delegate.showAlert(text: "마지막 페이지 입니다.")
                 break
             }

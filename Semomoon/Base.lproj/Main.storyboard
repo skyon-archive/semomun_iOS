@@ -189,6 +189,9 @@
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
                                                                     <state key="selected" image="star.fill" catalog="system"/>
+                                                                    <connections>
+                                                                        <action selector="toggleStar:" destination="lig-M5-Tei" eventType="touchUpInside" id="qxj-6I-N4P"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lII-CM-YBW">
                                                                     <rect key="frame" x="30" y="0.0" width="35" height="25"/>
@@ -201,6 +204,9 @@
                                                                     <state key="normal" title="정답">
                                                                         <color key="titleColor" name="mint"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="showAnswer:" destination="lig-M5-Tei" eventType="touchUpInside" id="ARX-QY-eK6"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6MW-fe-Wwt">
                                                                     <rect key="frame" x="70" y="0.0" width="35" height="25"/>
@@ -213,6 +219,9 @@
                                                                     <state key="normal" title="해설">
                                                                         <color key="titleColor" name="mint"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="showExplanation:" destination="lig-M5-Tei" eventType="touchUpInside" id="cjO-t9-bk3"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkk-ds-G3K">
                                                                     <rect key="frame" x="110" y="0.0" width="60" height="25"/>
@@ -228,6 +237,9 @@
                                                                         <color key="titleColor" name="mint"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="nextProblem:" destination="lig-M5-Tei" eventType="touchUpInside" id="sxS-Sr-zct"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -3401,7 +3413,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>

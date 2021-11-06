@@ -45,6 +45,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblems()
         self.configureCanvasView()
+        self.collectionView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
