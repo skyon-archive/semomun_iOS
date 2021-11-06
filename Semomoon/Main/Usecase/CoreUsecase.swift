@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import Kingfisher
 
 struct CoreUsecase {
     static func sectionOfCoreData(sid: Int) -> Section_Core? {
@@ -24,7 +25,7 @@ struct CoreUsecase {
         return nil
     }
     
-    static func savePages(sid: Int, pages: [PageOfDB], completion: @escaping(Section_Core?) -> Void) {
+    static func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
         if pages.isEmpty {
             completion(nil)
             return
@@ -61,6 +62,9 @@ struct CoreUsecase {
                 }
                 // Page: 2. page 최종 저장
                 pageOfCore.setValues(page: page, pids: problems, type: type)
+                DispatchQueue.main.async {
+                    loading.updateProgress()
+                }
             }
             // Section: 4. section 최종 저장
             sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)

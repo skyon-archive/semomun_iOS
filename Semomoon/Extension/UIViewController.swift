@@ -23,4 +23,11 @@ extension UIViewController {
         alert.addAction(ok)
         present(alert,animated: true,completion: nil)
     }
+    
+    func startLoading(count: Int) -> loadingDelegate {
+        let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
+        loadingIndicator.totalPageCount = count
+        self.present(loadingIndicator, animated: true, completion: nil)
+        return loadingIndicator as loadingDelegate
+    }
 }

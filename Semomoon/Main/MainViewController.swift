@@ -199,12 +199,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             print("NETWORK RESULT")
             print(views)
             // save to coreData
-            CoreUsecase.savePages(sid: sid, pages: views) { section in
+            let loading = self.startLoading(count: views.count)
+            CoreUsecase.savePages(sid: sid, pages: views, loading: loading) { section in
                 guard let section = section else {
+                    loading.terminate()
                     self.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
                     return
                 }
                 DispatchQueue.main.async {
+                    loading.terminate()
                     self.showSolvingVC(section: section)
                 }
                 return
