@@ -8,8 +8,11 @@
 import UIKit
 import PencilKit
 
-class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver {
+class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWith5Cell"
+    
+    @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet var star: UIButton!
     
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
@@ -18,18 +21,22 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver {
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
     @IBOutlet weak var solvInputFrame: UIView!
-    @IBOutlet var checkNumbers: [UIButton]!
     
-    @IBOutlet var star: UIButton!
-    
-    var buttons: [UIButton] = []
-    var image: UIImage = UIImage()
+    var contentImage: UIImage?
+    var problem: Problem_Core?
+    weak var delegate: PageDelegate?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
         toolPicker.addObserver(self)
         return toolPicker
     }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.configureBaseUI()
+        print("\(Self.identifier) awakeFromNib")
+    }
     
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
@@ -44,18 +51,72 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver {
         }
     }
     
-    // 뷰의 라운드 설정 부분
-    func setRadius() {
+    // MARK: - Configure
+    func configureBaseUI() {
         solvInputFrame.layer.cornerRadius = 27
+        checkNumbers.forEach { $0.layer.cornerRadius = 15 }
     }
     
-    func setButtons() {
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 15
+    // MARK: - Configure Reuse
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat) {
+        self.configureProblem(problem)
+        self.configureUI(contentImage, superWidth)
+        self.configureCanvasView()
+    }
+    
+    func configureProblem(_ problem: Problem_Core?) {
+        self.problem = problem
+    }
+    
+    func configureUI(_ contentImage: UIImage?, _ superWidth: CGFloat) {
+        self.configureImage(contentImage)
+        self.configureHeight(superWidth)
+        self.configureCheckButtons()
+        self.configureStar()
+    }
+    
+    func configureImage(_ contentImage: UIImage?) {
+        guard let contentImage = contentImage else { return }
+        self.contentImage = contentImage
+        self.imageView.image = contentImage
+    }
+    
+    func configureHeight(_ superWidth: CGFloat) {
+        guard let contentImage = self.contentImage else { return }
+        let height = contentImage.size.height*(superWidth/contentImage.size.width)
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
+        canvasHeight.constant = height
+    }
+    
+    func configureCheckButtons() {
+        if let solved = self.problem?.solved {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                if String(bt.tag) == solved {
+                    bt.backgroundColor = UIColor(named: "mint")
+                    bt.setTitleColor(UIColor.white, for: .normal)
+                } else {
+                    bt.backgroundColor = UIColor.white
+                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+                }
+            }
+        } else {
+            for bt in checkNumbers {
+                bt.layer.cornerRadius = 17.5
+                bt.backgroundColor = UIColor.white
+                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+            }
         }
     }
     
-    func setCanvas() {
+    func configureStar() {
+        self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureCanvasView() {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -63,21 +124,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver {
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
-    }
-    
-    func setImage(contentImage: UIImage?) {
-        guard let contentImage = contentImage else { return }
-        self.image = contentImage
-        self.imageView.image = image
-        imageView.clipsToBounds = true
-    }
-    
-    func setHeight(superWidth: CGFloat) {
-        let height = image.size.height*(superWidth/image.size.width)
         
-        imageView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
-        canvasHeight.constant = height
+        canvasView.delegate = self
     }
 }

@@ -22,7 +22,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     var width: CGFloat!
     var height: CGFloat!
     var mainImage: UIImage?
-    var subImages: [UIImage]?
+    var subImages: [UIImage?]?
     var pageData: PageData?
     var problems: [Problem_Core]?
     weak var delegate: PageDelegate?
@@ -98,12 +98,14 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
-        // 로직 수정 필요
-        cell.setRadius()
-        cell.setButtons()
-        cell.setCanvas()
-        cell.setImage(contentImage: self.subImages?[indexPath.item] ?? nil)
-        cell.setHeight(superWidth: collectionView.frame.width)
+        
+        let contentImage = self.subImages?[indexPath.item] ?? nil
+        let problem = self.problems?[indexPath.item] ?? nil
+        let superWidth = self.collectionView.frame.width
+        
+        cell.delegate = self.delegate
+        cell.configureReuse(contentImage, problem, superWidth)
+        
         return cell
     }
     
