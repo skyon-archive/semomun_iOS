@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import Alamofire
+import UIKit
 
 extension Problem_Core {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Problem_Core> {
@@ -49,16 +50,38 @@ public class Problem_Core: NSManagedObject {
         self.setValue(nil, forKey: "drawing")
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
-        print("//////////url : \(NetworkUsecase.URL.contentImage + prob.content)")
-//        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content),
-//              let explanation = prob.explanation,
-//              let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) else { return }
-        guard let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content) else { return }
-        print("Problem Image : \(contentURL)")
-        let contentData = try? Data(contentsOf: contentURL)
-//        let explanationData = try? Data(contentsOf: explanationURL)
-        self.setValue(contentData, forKey: "contentImage")
-//        self.setValue(explanationData, forKey: "explanationImage")
+        
+        // MARK: - contentImage
+        if let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content) {
+            let contentData = try? Data(contentsOf: contentURL)
+            if contentData != nil {
+                self.setValue(contentData, forKey: "contentImage")
+            } else {
+                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                self.setValue(warningImage.pngData(), forKey: "contentImage")
+            }
+        } else {
+            guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+            self.setValue(warningImage.pngData(), forKey: "contentImage")
+        }
+        
+        // MARK: - explanationImage
+        if let explanation = prob.explanation {
+            if let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) {
+                let contentData = try? Data(contentsOf: explanationURL)
+                if contentData != nil {
+                    self.setValue(contentData, forKey: "explanationImage")
+                } else {
+                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                    self.setValue(warningImage.pngData(), forKey: "explanationImage")
+                }
+            } else {
+                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                self.setValue(warningImage.pngData(), forKey: "explanationImage")
+            }
+        } else {
+            self.setValue(nil, forKey: "explanationImage")
+        }
         print("Problem: \(prob.pid) save complete")
     }
 }

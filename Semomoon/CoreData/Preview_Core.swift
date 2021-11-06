@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 extension Preview_Core {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Preview_Core> {
@@ -41,10 +42,18 @@ public class Preview_Core: NSManagedObject{
         self.setValue(preview.title, forKey: "title")
         self.setValue(workbook.subject, forKey: "subject")
         self.setValue(sids, forKey: "sids")
-        guard let url = URL(string: baseURL + preview.image) else { return }
-        let imageData = try? Data(contentsOf: url)
-        print("imageData: \(imageData)")
-        self.setValue(imageData, forKey: "image")
+        if let url = URL(string: baseURL + preview.image) {
+            let imageData = try? Data(contentsOf: url)
+            if imageData != nil {
+                self.setValue(imageData, forKey: "image")
+            } else {
+                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                self.setValue(warningImage.pngData(), forKey: "image")
+            }
+        } else {
+            guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+            self.setValue(warningImage.pngData(), forKey: "image")
+        }
         print("savePreview complete")
     }
 }

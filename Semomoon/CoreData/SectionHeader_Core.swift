@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension SectionHeader_Core {
 
@@ -36,9 +36,18 @@ public class SectionHeader_Core: NSManagedObject {
         self.setValue(section.detail, forKey: "detail")
         self.setValue(nil, forKey: "image")
         self.setValue(section.cutoff, forKey: "cutoff")
-        guard let url = URL(string: baseURL + section.image) else { return }
-        let imageData = try? Data(contentsOf: url)
-        self.setValue(imageData, forKey: "image")
+        if let url = URL(string: baseURL + section.image) {
+            let imageData = try? Data(contentsOf: url)
+            if imageData != nil {
+                self.setValue(imageData, forKey: "image")
+            } else {
+                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                self.setValue(warningImage.pngData(), forKey: "image")
+            }
+        } else {
+            guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+            self.setValue(warningImage.pngData(), forKey: "image")
+        }
         print("save Header complete")
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Page_Core {
 
@@ -36,10 +36,23 @@ public class Page_Core: NSManagedObject {
         self.setValue(Int64(page.vid), forKey: "vid")
         self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
-        guard let materialPath = page.material,
-              let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) else { return }
-        let imageData = try? Data(contentsOf: url)
-        self.setValue(imageData, forKey: "materialImage")
+        
+        if let materialPath = page.material {
+            if let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) {
+                let imageData = try? Data(contentsOf: url)
+                if imageData != nil {
+                    self.setValue(imageData, forKey: "materialImage")
+                } else {
+                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                    self.setValue(warningImage.pngData(), forKey: "materialImage")
+                }
+            } else {
+                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                self.setValue(warningImage.pngData(), forKey: "materialImage")
+            }
+        } else {
+            self.setValue(nil, forKey: "materialImage")
+        }
         print("Page: \(page.vid) save complete")
     }
     
