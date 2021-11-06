@@ -90,19 +90,6 @@ extension SolvingViewController {
     }
 }
 
-extension SolvingViewController {
-    func chengeView(num: Int) {
-        for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
-        currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
-        currentVC.removeFromParent() // parentVC로 부터 관계 삭제
-        currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
-        
-        let vc = whatVC(index: num)
-        vc.view.frame = self.solvingFrameView.bounds
-        self.solvingFrameView.addSubview(vc.view)
-    }
-}
-
 extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -136,43 +123,7 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
 }
 
-extension UIImage {
-    func resize(newWidth: CGFloat) -> UIImage {
-        let scale = newWidth / self.size.width
-        let newHeight = self.size.height * scale
-        let size = CGSize(width: newWidth, height: newHeight)
-        let render = UIGraphicsImageRenderer(size: size)
-        let renderImage = render.image { context in self.draw(in: CGRect(origin: .zero, size: size))}
-        print("화면 배율: \(UIScreen.main.scale)")// 배수
-        print("origin: \(self), resize: \(renderImage)")
-        //    printDataSize(renderImage)
-        return renderImage
-    }
-
-
-}
-
-
 extension SolvingViewController {
-    
-    func whatVC(index: Int) -> UIViewController {
-        let page = pageDatas.pages[index]
-        let vc: UIViewController
-        switch(page.type) {
-        case .ontToFive:
-            vc = singleWith5Answer
-            singleWith5Answer.image = page.mainImage
-        case .string:
-            vc = singleWithTextAnswer
-            singleWithTextAnswer.image = page.mainImage
-        case .multiple:
-             vc = multipleWith5Answer
-            multipleWith5Answer.mainImage = page.mainImage
-            multipleWith5Answer.subImages = page.subImages
-        }
-        return vc
-    }
-    
     func showVC() {
         currentVC.view.frame = self.solvingFrameView.bounds
         self.solvingFrameView.addSubview(currentVC.view)
@@ -219,15 +170,20 @@ extension SolvingViewController: LayoutDelegate {
             singleWith5Answer.delegate = self
             singleWith5Answer.image = getImage(data: pageData.problems[0].contentImage)
             singleWith5Answer.pageData = pageData
+            
         case SingleWithTextAnswer.identifier:
             self.currentVC = singleWithTextAnswer
+            singleWithTextAnswer.delegate = self
             singleWithTextAnswer.image = getImage(data: pageData.problems[0].contentImage)
             singleWithTextAnswer.pageData = pageData
+            
         case MultipleWith5Answer.identifier:
             self.currentVC = multipleWith5Answer
+            multipleWith5Answer.delegate = self
             multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
             multipleWith5Answer.subImages = getImages(problems: pageData.problems)
             multipleWith5Answer.pageData = pageData
+            
         default:
             break
         }
