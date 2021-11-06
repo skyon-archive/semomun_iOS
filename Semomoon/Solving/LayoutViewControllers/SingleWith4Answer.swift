@@ -24,9 +24,9 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
-    var pageData: PageData!
-    var problem: Problem_Core!
-    weak var delegate: PageDelegate!
+    var pageData: PageData?
+    var problem: Problem_Core?
+    weak var delegate: PageDelegate?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -41,6 +41,8 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("4다선지 willAppear")
+        
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblem()
         self.configureUI()
@@ -48,18 +50,21 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("\(Self.identifier) didAppear")
+        print("4다선지 didAppear")
         self.configureImageView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("1 : disappear")
+        print("4다선지 : disappear")
     }
     
+    // 객관식 1~4 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
-        self.problem.solved = String(num)
+        guard let problem = self.problem else { return }
+        problem.solved = String(num)
+        saveCoreData()
         for bt in checkNumbers {
             if(bt.tag == num) {
                 bt.backgroundColor = UIColor(named: "mint")
@@ -69,15 +74,14 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
                 bt.setTitleColor(UIColor(named: "mint"), for: .normal)
             }
         }
-        saveCoreData()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
-        guard let pName = self.problem.pName else { return }
+        guard let pName = self.problem?.pName else { return }
         self.star.isSelected.toggle()
         let status = self.star.isSelected
-        self.problem.setValue(status, forKey: "star")
-        self.delegate.updateStar(btName: pName, to: status)
+        self.problem?.setValue(status, forKey: "star")
+        self.delegate?.updateStar(btName: pName, to: status)
     }
     
     @IBAction func showAnswer(_ sender: Any) {
@@ -89,13 +93,13 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func nextProblem(_ sender: Any) {
-        self.delegate.nextPage()
+        self.delegate?.nextPage()
     }
 }
 
 extension SingleWith4Answer {
     func configureProblem() {
-        self.problem = self.pageData.problems[0]
+        self.problem = self.pageData?.problems[0] ?? nil
     }
     
     func configureUI() {
@@ -104,7 +108,7 @@ extension SingleWith4Answer {
     }
     
     func configureCheckButtons() {
-        if let solved = self.problem.solved {
+        if let solved = self.problem?.solved {
             for bt in checkNumbers {
                 bt.layer.cornerRadius = 17.5
                 if String(bt.tag) == solved {
@@ -125,7 +129,7 @@ extension SingleWith4Answer {
     }
     
     func configureStar() {
-        self.star.isSelected = self.problem.star
+        self.star.isSelected = self.problem?.star ?? false
     }
     
     func configureCanvasView() {

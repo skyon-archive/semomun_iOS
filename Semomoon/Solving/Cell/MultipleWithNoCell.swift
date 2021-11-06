@@ -45,14 +45,6 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
         self.delegate?.updateStar(btName: pName, to: status)
     }
     
-    @IBAction func showAnswer(_ sender: Any) {
-        
-    }
-    
-    @IBAction func showExplanation(_ sender: Any) {
-        
-    }
-    
     @IBAction func nextProblem(_ sender: Any) {
         self.delegate?.nextPage()
     }

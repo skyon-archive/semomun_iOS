@@ -46,6 +46,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.configureProblems()
         self.configureCanvasView()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 didAppear")

@@ -25,6 +25,8 @@ class SolvingViewController: UIViewController {
     var singleWith5Answer: SingleWith5Answer!
     var singleWithTextAnswer: SingleWithTextAnswer!
     var multipleWith5Answer: MultipleWith5Answer!
+    var singleWith4Answer: SingleWith4Answer!
+    var multipleWithNoAnswer: MultipleWithNoAnswer!
     
     // 임시적으로 문제내용 생성
     var problems: [String] = []
@@ -53,6 +55,9 @@ class SolvingViewController: UIViewController {
         singleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith5Answer.identifier) as? SingleWith5Answer
         singleWithTextAnswer = self.storyboard?.instantiateViewController(withIdentifier: SingleWithTextAnswer.identifier) as? SingleWithTextAnswer
         multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
+        singleWith4Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith4Answer.identifier) as? SingleWith4Answer
+        multipleWithNoAnswer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWithNoAnswer.identifier) as? MultipleWithNoAnswer
+        
         self.addChild(singleWith5Answer)
         self.addChild(singleWithTextAnswer)
         self.addChild(multipleWith5Answer)
@@ -183,6 +188,19 @@ extension SolvingViewController: LayoutDelegate {
             multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
             multipleWith5Answer.subImages = getImages(problems: pageData.problems)
             multipleWith5Answer.pageData = pageData
+            
+        case SingleWith4Answer.identifier:
+            self.currentVC = singleWith4Answer
+            singleWith4Answer.delegate = self
+            singleWith4Answer.image = getImage(data: pageData.problems[0].contentImage)
+            singleWith4Answer.pageData = pageData
+            
+        case MultipleWithNoAnswer.identifier:
+            self.currentVC = multipleWithNoAnswer
+            multipleWithNoAnswer.delegate = self
+            multipleWithNoAnswer.mainImage = getImage(data: pageData.pageData.materialImage)
+            multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
+            multipleWithNoAnswer.pageData = pageData
             
         default:
             break
