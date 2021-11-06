@@ -38,8 +38,12 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         print("\(Self.identifier) awakeFromNib")
     }
     
+    // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag
+        guard let problem = self.problem else { return }
+        problem.solved = String(num)
+        saveCoreData()
         for bt in checkNumbers {
             if(bt.tag == num) {
                 bt.backgroundColor = UIColor(named: "mint")
@@ -49,6 +53,26 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
                 bt.setTitleColor(UIColor(named: "mint"), for: .normal)
             }
         }
+    }
+    
+    @IBAction func toggleStar(_ sender: Any) {
+        guard let pName = self.problem?.pName else { return }
+        self.star.isSelected.toggle()
+        let status = self.star.isSelected
+        self.problem?.setValue(status, forKey: "star")
+        self.delegate?.updateStar(btName: pName, to: status)
+    }
+    
+    @IBAction func showAnswer(_ sender: Any) {
+        
+    }
+    
+    @IBAction func showExplanation(_ sender: Any) {
+        
+    }
+    
+    @IBAction func nextProblem(_ sender: Any) {
+        self.delegate?.nextPage()
     }
     
     // MARK: - Configure
