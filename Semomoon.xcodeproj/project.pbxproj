@@ -69,6 +69,8 @@
 		4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACAEB7627097E650085ABAE /* ProblemOfDB.swift */; };
 		4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */; };
 		4AF5F32A26E3305600ED71E6 /* PageDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF5F32926E3305600ED71E6 /* PageDatas.swift */; };
+		4AF8032F2736685600F32306 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8032E2736685600F32306 /* CircularProgressView.swift */; };
+		4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8033027366A2900F32306 /* LoadingIndicator.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
@@ -139,6 +141,8 @@
 		4ACAEB7627097E650085ABAE /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview_Core.swift; sourceTree = "<group>"; };
 		4AF5F32926E3305600ED71E6 /* PageDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDatas.swift; sourceTree = "<group>"; };
+		4AF8032E2736685600F32306 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		4AF8033027366A2900F32306 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -354,6 +358,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4AF8032D2736683F00F32306 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				4AF8032E2736685600F32306 /* CircularProgressView.swift */,
+				4AF8033027366A2900F32306 /* LoadingIndicator.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		872A187426E79FE500806320 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +394,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				4AF8032D2736683F00F32306 /* Loading */,
 				4A55DE5826F70137008F1C35 /* Login */,
 				4A3F97FA271A731400880B86 /* Main */,
 				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
@@ -508,6 +522,7 @@
 				4A9470C526EDED7D000BB59C /* Semomoon.xcdatamodeld in Sources */,
 				4A6AFE9C26D64B5F00E65561 /* MultipleWith5Answer.swift in Sources */,
 				4A8BEE7026E490FB00613602 /* Workbook.swift in Sources */,
+				4AF8032F2736685600F32306 /* CircularProgressView.swift in Sources */,
 				4ACAEB6827097D3F0085ABAE /* SectionHeader_Core.swift in Sources */,
 				4A79342F272E537C00FA7D5A /* Int64.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* SingleWithTextAnswer.swift in Sources */,
@@ -538,6 +553,7 @@
 				4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */,
 				4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */,
 				4AA8878726EC727E009D1A2C /* Preview.swift in Sources */,
+				4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */,
 				4AC8FCA82736494200E7B37E /* MultipleWithNoCell.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */,
