@@ -991,48 +991,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ay-T5-xuo">
-                                <rect key="frame" x="284" y="397" width="200" height="250"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-lg-Fhk" customClass="CircularProgressView" customModule="Semomoon" customModuleProvider="target">
+                                <rect key="frame" x="334" y="472" width="100" height="100"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-lg-Fhk" customClass="CircularProgressView" customModule="Semomoon" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="13" width="150" height="150"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="2YX-XS-9Ia"/>
-                                            <constraint firstAttribute="height" constant="150" id="qh8-8G-aSb"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다운로드중" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9F-F4-E5N">
-                                        <rect key="frame" x="63" y="171" width="74" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-/-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGP-VK-a2G">
-                                        <rect key="frame" x="87.5" y="203.5" width="25.5" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="37" y="37" width="26.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        <color key="textColor" name="mint"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="a9F-F4-E5N" firstAttribute="top" secondItem="bNk-lg-Fhk" secondAttribute="bottom" constant="8" symbolic="YES" id="0pq-4D-NP7"/>
-                                    <constraint firstItem="a9F-F4-E5N" firstAttribute="centerX" secondItem="bNk-lg-Fhk" secondAttribute="centerX" id="7lI-Qg-8wS"/>
-                                    <constraint firstItem="CGP-VK-a2G" firstAttribute="top" secondItem="a9F-F4-E5N" secondAttribute="bottom" constant="12" id="OVR-YJ-fph"/>
-                                    <constraint firstAttribute="height" constant="250" id="UG9-ga-Qxk"/>
-                                    <constraint firstItem="bNk-lg-Fhk" firstAttribute="top" secondItem="2Ay-T5-xuo" secondAttribute="top" constant="13" id="Y4m-vU-k6S"/>
-                                    <constraint firstItem="CGP-VK-a2G" firstAttribute="centerX" secondItem="2Ay-T5-xuo" secondAttribute="centerX" id="l8L-SE-LuQ"/>
-                                    <constraint firstAttribute="width" constant="200" id="sW5-n2-P4g"/>
-                                    <constraint firstItem="bNk-lg-Fhk" firstAttribute="centerX" secondItem="2Ay-T5-xuo" secondAttribute="centerX" id="zmS-II-8AM"/>
+                                    <constraint firstAttribute="width" constant="100" id="2YX-XS-9Ia"/>
+                                    <constraint firstItem="CGP-VK-a2G" firstAttribute="centerX" secondItem="bNk-lg-Fhk" secondAttribute="centerX" id="5lU-t3-nz9"/>
+                                    <constraint firstItem="CGP-VK-a2G" firstAttribute="centerY" secondItem="bNk-lg-Fhk" secondAttribute="centerY" id="c37-wf-Ozh"/>
+                                    <constraint firstAttribute="height" constant="100" id="qh8-8G-aSb"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xv7-sa-Oln"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="2Ay-T5-xuo" firstAttribute="centerX" secondItem="xv7-sa-Oln" secondAttribute="centerX" id="EAd-Tb-U6J"/>
-                            <constraint firstItem="2Ay-T5-xuo" firstAttribute="centerY" secondItem="xv7-sa-Oln" secondAttribute="centerY" id="OOt-Lz-gSN"/>
+                            <constraint firstItem="bNk-lg-Fhk" firstAttribute="centerX" secondItem="xv7-sa-Oln" secondAttribute="centerX" id="d2g-tX-dDV"/>
+                            <constraint firstItem="bNk-lg-Fhk" firstAttribute="centerY" secondItem="xv7-sa-Oln" secondAttribute="centerY" id="grI-8y-xz6"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3515,9 +3497,6 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -17,8 +17,8 @@ class LoadingIndicator: UIViewController {
     static let update = Notification.Name("update")
     static let terminate = Notification.Name("terminate")
 
-    @IBOutlet var loadingProgress: CircularProgressView!
-    @IBOutlet var statusLabel: UILabel!
+    @IBOutlet weak var loadingProgress: CircularProgressView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     var totalPageCount: Int = 0
     var currentCount: Int = 0
@@ -26,9 +26,6 @@ class LoadingIndicator: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.clipsToBounds = true
-        self.view.layer.cornerRadius = 20
-        
         self.setProgress()
     }
     
@@ -43,8 +40,8 @@ class LoadingIndicator: UIViewController {
     
     func setProgress() {
         self.loadingProgress.progressWidth = 15.0
-        self.loadingProgress.trackColor = UIColor.lightGray
-        self.loadingProgress.progressColor = UIColor.darkGray
+        self.loadingProgress.trackColor = UIColor.darkGray
+        self.loadingProgress.progressColor = UIColor(named: "mint")!
         self.statusLabel.text = "\(self.currentCount)/\(self.totalPageCount)"
         self.loadingProgress.setProgressWithAnimation(duration: 0.2, value: 0.0, from: 0)
     }
