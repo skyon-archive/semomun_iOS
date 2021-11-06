@@ -96,8 +96,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "downloadProblem(buttons:dictOfButtonToView:type:problems:problemOfCore:page:problem:completion:)"
-            landmarkType = "9">
+            landmarkName = "CoreUsecase"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

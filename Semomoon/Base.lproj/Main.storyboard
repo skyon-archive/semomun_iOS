@@ -2198,6 +2198,12 @@
                             <constraint firstItem="Ujx-ci-g6y" firstAttribute="trailing" secondItem="9jG-6g-Fly" secondAttribute="trailing" id="vmW-Xf-X0C"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="IDtextField" destination="LQ5-bC-89s" id="Uts-3j-TUr"/>
+                        <outlet property="PasswdtextField" destination="u6j-A2-2wj" id="qQ1-NL-JeC"/>
+                        <outlet property="PrivacyCheckButton" destination="p77-7G-id5" id="i4m-ee-riy"/>
+                        <outlet property="PwdChecktextField" destination="2jy-sF-M1k" id="kGc-8F-ufr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9l-Y1-GZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2451,6 +2457,13 @@
                             <constraint firstItem="zpI-Vg-M8U" firstAttribute="top" secondItem="Byg-Za-VQS" secondAttribute="bottom" constant="20" id="vyI-xK-e8E"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="CurrentScoreSelectButton" destination="73h-dA-KSn" id="sMY-Wm-CXO"/>
+                        <outlet property="FieldSelectButton" destination="4tz-E7-Igs" id="oEt-ok-Ebo"/>
+                        <outlet property="GradeSelectButton" destination="AzH-rq-yvV" id="hC9-R7-ruU"/>
+                        <outlet property="NameTextField" destination="J05-Mi-Wfa" id="vAs-gD-Mxd"/>
+                        <outlet property="SchoolTextField" destination="0lv-Fo-IJ6" id="ixi-J2-2al"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zf8-XI-48B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

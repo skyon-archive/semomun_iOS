@@ -8,7 +8,8 @@
 import UIKit
 
 class CertificationViewController: UIViewController {
-
+    var Certificated: Bool = false
+    
     @IBOutlet weak var warningOfName: UIView!
     @IBOutlet weak var warningOfName2: UILabel!
     @IBOutlet weak var warningOfPhone: UIView!
@@ -39,9 +40,14 @@ class CertificationViewController: UIViewController {
     }
     
     @IBAction func nextVC(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateFirstViewController") else { return }
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if(Certificated){
+            guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateFirstViewController") else { return }
+            self.title = ""
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+        else{
+            // need notification to try authenticating him/herself
+        }
     }
     
 }
