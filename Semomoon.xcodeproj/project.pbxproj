@@ -80,6 +80,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Semomoon.entitlements; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
@@ -394,6 +395,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */,
 				4AF8032D2736683F00F32306 /* Loading */,
 				4A55DE5826F70137008F1C35 /* Login */,
 				4A3F97FA271A731400880B86 /* Main */,
@@ -707,8 +709,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2C96RNDN63;
+				DEVELOPMENT_TEAM = 2NDSUS68CP;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -727,8 +730,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2C96RNDN63;
+				DEVELOPMENT_TEAM = 2NDSUS68CP;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
