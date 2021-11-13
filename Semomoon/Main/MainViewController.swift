@@ -40,6 +40,7 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
         self.configureUserInfoAction()
         
 //        self.createMockCoreDataForMath()
+//        self.createMockCoreDataForKorean()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -322,6 +323,43 @@ extension MainViewController {
         let buttons = ["1", "2", "3", "4", "5"]
         let dict = ["1": -11, "2": -22, "3": -33, "4": -44, "5": -55]
         sectionCore.setMocks(sid: -1, buttons: buttons, dict: dict)
+        
+        do { try context.save() } catch let error { print(error.localizedDescription) }
+        print("MOCK SAVE COMPLETE")
+    }
+    
+    func createMockCoreDataForKorean() {
+        let context = CoreDataManager.shared.context
+        
+        let problemOfCore1 = Problem_Core(context: context)
+        problemOfCore1.setMocks(pid: -101, type: 5, btName: "1", imgName: "mockImg11")
+        let problemOfCore2 = Problem_Core(context: context)
+        problemOfCore2.setMocks(pid: -202, type: 5, btName: "2", imgName: "mockImg12")
+        let problemOfCore3 = Problem_Core(context: context)
+        problemOfCore3.setMocks(pid: -303, type: 5, btName: "3", imgName: "mockImg13")
+        let problemOfCore4 = Problem_Core(context: context)
+        problemOfCore4.setMocks(pid: -404, type: 5, btName: "4", imgName: "mockImg13")
+        
+        let pageOfCore1 = Page_Core(context: context)
+        pageOfCore1.setMocks(vid: -10, form: 1, type: 5, pids: [-101, -202, -303, -404], mateImgName: "material1")
+        
+        let problemOfCore5 = Problem_Core(context: context)
+        problemOfCore5.setMocks(pid: -505, type: 5, btName: "5", imgName: "mockImg21")
+        let problemOfCore6 = Problem_Core(context: context)
+        problemOfCore6.setMocks(pid: -606, type: 5, btName: "6", imgName: "mockImg22")
+        let problemOfCore7 = Problem_Core(context: context)
+        problemOfCore7.setMocks(pid: -707, type: 5, btName: "7", imgName: "mockImg23")
+        let problemOfCore8 = Problem_Core(context: context)
+        problemOfCore8.setMocks(pid: -808, type: 5, btName: "8", imgName: "mockImg23")
+        
+        let pageOfCore2 = Page_Core(context: context)
+        pageOfCore2.setMocks(vid: -20, form: 1, type: 5, pids: [-101, -202, -303, -404], mateImgName: "material2")
+        
+        let sectionCore = Section_Core(context: context)
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8"]
+        let dict = ["1": -10, "2": -10, "3": -10, "4": -10,
+                    "5": -20, "6": -20, "7": -20, "8": -20]
+        sectionCore.setMocks(sid: -2, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }
         print("MOCK SAVE COMPLETE")

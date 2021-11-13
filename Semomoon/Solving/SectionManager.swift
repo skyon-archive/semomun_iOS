@@ -151,6 +151,8 @@ class SectionManager {
     
     func configureMock() {
         // 수학 타입
-        self.section = CoreUsecase.sectionOfCoreData(sid: -1)
+//        self.section = CoreUsecase.sectionOfCoreData(sid: -1)
+        // 국어 타입
+        self.section = CoreUsecase.sectionOfCoreData(sid: -2)
     }
 }
