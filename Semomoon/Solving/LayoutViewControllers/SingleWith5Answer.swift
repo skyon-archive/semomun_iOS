@@ -133,6 +133,8 @@ extension SingleWith5Answer {
     }
     
     func configureCanvasView() {
+        self.configureCanvasViewData()
+        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -144,6 +146,18 @@ extension SingleWith5Answer {
         toolPicker.addObserver(canvasView)
         
         canvasView.delegate = self
+    }
+    
+    func configureCanvasViewData() {
+        if let pkData = self.problem?.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
     }
     
     func configureImageView() {
@@ -164,6 +178,8 @@ extension SingleWith5Answer {
 
 extension SingleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        saveCoreData()
         print("update!")
     }
 }
