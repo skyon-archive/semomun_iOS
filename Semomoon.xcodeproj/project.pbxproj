@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E7C4D0E273F5EA20096C708 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7C4D0D273F5EA20096C708 /* GoogleSignIn */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
@@ -160,6 +161,7 @@
 			files = (
 				8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */,
 				4A3F97FE271A74A300880B86 /* Alamofire in Frameworks */,
+				1E7C4D0E273F5EA20096C708 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +441,7 @@
 			packageProductDependencies = (
 				8719B8A626F7331F00423D12 /* Kingfisher */,
 				4A3F97FD271A74A300880B86 /* Alamofire */,
+				1E7C4D0D273F5EA20096C708 /* GoogleSignIn */,
 			);
 			productName = Semomoon;
 			productReference = 87AB9DCC26CB2BDB0019A276 /* Semomoon.app */;
@@ -470,6 +473,7 @@
 			packageReferences = (
 				8719B8A526F7331F00423D12 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				1E7C4D0C273F5EA20096C708 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 87AB9DCD26CB2BDB0019A276 /* Products */;
 			projectDirPath = "";
@@ -711,14 +715,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2NDSUS68CP;
+				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.Semomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -732,14 +736,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2NDSUS68CP;
+				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FDEE.test.Semomoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.Semomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -770,6 +774,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1E7C4D0C273F5EA20096C708 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -789,6 +801,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1E7C4D0D273F5EA20096C708 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E7C4D0C273F5EA20096C708 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
 		4A3F97FD271A74A300880B86 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4A3F97FC271A74A300880B86 /* XCRemoteSwiftPackageReference "Alamofire" */;
