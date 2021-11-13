@@ -43,4 +43,15 @@ public class Section_Core: NSManagedObject {
         self.setValue(dict, forKey: "dictionaryOfProblem")
         print("Section: \(header.sid) save complete")
     }
+    
+    func setMocks(sid: Int, buttons: [String], dict: [String: Int]) {
+        self.setValue(sid, forKey: "sid")
+        self.setValue("MOCK_DATA", forKey: "title")
+        self.setValue(0, forKey: "time")
+        self.setValue(buttons, forKey: "buttons")
+        let stars = Array(repeating: false, count: buttons.count)
+        self.setValue(stars, forKey: "stars")
+        self.setValue(dict, forKey: "dictionaryOfProblem")
+        print("MOCK Section: \(sid) save complete")
+    }
 }

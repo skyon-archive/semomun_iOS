@@ -34,23 +34,14 @@ class SolvingViewController: UIViewController {
     var bookmarks: [Bool] = []
     var isHide: Bool = false
     var problemNumber: Int = 0
-    var pageDatas: PageDatas!
     var currentVC: UIViewController!
     
     var manager: SectionManager!
-    var sectionCore: Section_Core! //저장되어 있는 섹션 정보
+    var sectionCore: Section_Core? //저장되어 있는 섹션 정보
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        pageDatas = PageDatas()
-        
-        // 임시 문제 생성
-        for i in 0..<pageDatas.count {
-            problems.append("\(i)")
-            stars.append(false)
-            bookmarks.append(false)
-        }
         
         singleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith5Answer.identifier) as? SingleWith5Answer
         singleWithTextAnswer = self.storyboard?.instantiateViewController(withIdentifier: SingleWithTextAnswer.identifier) as? SingleWithTextAnswer

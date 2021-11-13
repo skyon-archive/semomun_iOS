@@ -74,4 +74,17 @@ public class Page_Core: NSManagedObject {
         }
         return SingleWith5Answer.identifier
     }
+    
+    func setMocks(vid: Int, form: Int, type: Int, pids: [Int], mateImgName: String?) {
+        self.setValue(Int64(vid), forKey: "vid")
+        self.setValue(getLayout(form: form, type: type), forKey: "layoutType")
+        self.setValue(pids, forKey: "problems")
+        if let mateImgName = mateImgName {
+            let imgData = UIImage(named: mateImgName)!.pngData()
+            self.setValue(imgData, forKey: "materialImage")
+        } else {
+            self.setValue(nil, forKey: "materialImage")
+        }
+        print("MOCK Page: \(vid) save complete")
+    }
 }

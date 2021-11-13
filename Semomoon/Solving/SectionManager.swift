@@ -19,7 +19,7 @@ protocol LayoutDelegate: AnyObject {
 
 class SectionManager {
     weak var delegate: LayoutDelegate!
-    var section: Section_Core!
+    var section: Section_Core?
     var buttons: [String] = []
     var stars: [Bool] = []
     var dictionanry: [String: Int] = [:]
@@ -31,9 +31,12 @@ class SectionManager {
     var isRunning: Bool = true
     
     // 1. Section 로딩
-    init(delegate: LayoutDelegate, section: Section_Core) {
+    init(delegate: LayoutDelegate, section: Section_Core?) {
         self.delegate = delegate
         self.section = section
+        if section == nil {
+            self.configureMock()
+        }
         self.configureSection()
         self.showTitle()
         self.showTime()
@@ -42,6 +45,7 @@ class SectionManager {
     }
     
     func configureSection() {
+        guard let section = self.section else { return }
         self.buttons = section.buttons
         self.stars = section.stars
         self.dictionanry = section.dictionaryOfProblem
@@ -80,9 +84,10 @@ class SectionManager {
     }
     
     func updateStar(title: String, to: Bool) {
+        guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
-            self.section.setValue(self.stars, forKey: "stars")
+            section.setValue(self.stars, forKey: "stars")
             self.saveCoreData()
             self.delegate.reloadButtons()
         }
@@ -107,7 +112,7 @@ class SectionManager {
     }
     
     func showTitle() {
-        guard let title = self.section.title else { return }
+        guard let title = self.section?.title else { return }
         self.delegate.showTitle(title: title)
     }
     
@@ -133,7 +138,7 @@ class SectionManager {
     func stopTimer() {
         self.isRunning = false
         self.timer.invalidate()
-        self.section.setValue(currentTime, forKey: "time")
+        self.section?.setValue(currentTime, forKey: "time")
         self.saveCoreData()
         self.delegate.saveComplete()
     }
@@ -142,5 +147,10 @@ class SectionManager {
         do { try CoreDataManager.shared.context.save() } catch let error {
             print(error.localizedDescription)
         }
+    }
+    
+    func configureMock() {
+        // 수학 타입
+        self.section = CoreUsecase.sectionOfCoreData(sid: -1)
     }
 }
