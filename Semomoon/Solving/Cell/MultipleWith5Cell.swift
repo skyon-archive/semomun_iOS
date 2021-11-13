@@ -26,10 +26,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     var problem: Problem_Core?
     weak var delegate: PageDelegate?
     
-    lazy var toolPicker: PKToolPicker = {
-        let toolPicker = PKToolPicker()
-        return toolPicker
-    }()
+    var toolPicker: PKToolPicker?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,11 +77,17 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         checkNumbers.forEach { $0.layer.cornerRadius = 15 }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.toolPicker = nil
+    }
+    
     // MARK: - Configure Reuse
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat) {
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?, _ isShow: Bool) {
         self.configureProblem(problem)
         self.configureUI(contentImage, superWidth)
-        self.configureCanvasView()
+        self.toolPicker = toolPicker
+        self.configureCanvasView(isShow)
     }
     
     func configureProblem(_ problem: Problem_Core?) {
@@ -137,7 +140,9 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.star.isSelected = self.problem?.star ?? false
     }
     
-    func configureCanvasView() {
+    func configureCanvasView(_ isShow: Bool) {
+        self.configureCanvasViewData()
+        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -145,9 +150,30 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
+        if !isShow {
+            toolPicker?.setVisible(true, forFirstResponder: canvasView)
+        }
+        toolPicker?.addObserver(canvasView)
         
         canvasView.delegate = self
+    }
+    
+    func configureCanvasViewData() {
+        if let pkData = self.problem?.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
+    }
+}
+
+extension MultipleWith5Cell {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        saveCoreData()
     }
 }

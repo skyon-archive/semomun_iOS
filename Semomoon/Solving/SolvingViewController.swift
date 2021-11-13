@@ -28,6 +28,11 @@ class SolvingViewController: UIViewController {
     var singleWith4Answer: SingleWith4Answer!
     var multipleWithNoAnswer: MultipleWithNoAnswer!
     
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        return toolPicker
+    }()
+    
     // 임시적으로 문제내용 생성
     var problems: [String] = []
     var stars: [Bool] = []
@@ -176,6 +181,7 @@ extension SolvingViewController: LayoutDelegate {
         case MultipleWith5Answer.identifier:
             self.currentVC = multipleWith5Answer
             multipleWith5Answer.delegate = self
+            multipleWith5Answer.toolPicker = self.toolPicker
             multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
             multipleWith5Answer.subImages = getImages(problems: pageData.problems)
             multipleWith5Answer.pageData = pageData

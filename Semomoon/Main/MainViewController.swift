@@ -350,10 +350,10 @@ extension MainViewController {
         let problemOfCore7 = Problem_Core(context: context)
         problemOfCore7.setMocks(pid: -707, type: 5, btName: "7", imgName: "mockImg23")
         let problemOfCore8 = Problem_Core(context: context)
-        problemOfCore8.setMocks(pid: -808, type: 5, btName: "8", imgName: "mockImg23")
+        problemOfCore8.setMocks(pid: -808, type: 5, btName: "8", imgName: "mockImg24")
         
         let pageOfCore2 = Page_Core(context: context)
-        pageOfCore2.setMocks(vid: -20, form: 1, type: 5, pids: [-101, -202, -303, -404], mateImgName: "material2")
+        pageOfCore2.setMocks(vid: -20, form: 1, type: 5, pids: [-505, -606, -707, -808], mateImgName: "material2")
         
         let sectionCore = Section_Core(context: context)
         let buttons = ["1", "2", "3", "4", "5", "6", "7", "8"]

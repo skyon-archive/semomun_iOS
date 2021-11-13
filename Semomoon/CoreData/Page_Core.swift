@@ -20,6 +20,7 @@ extension Page_Core {
     @NSManaged public var materialImage: Data? //좌측 이미지
     @NSManaged public var layoutType: String //뷰컨트롤러 타입
     @NSManaged public var problems: [Int] //Problem: pid 값들
+    @NSManaged public var drawing: Data? //Pencil 데이터
 }
 
 extension Page_Core : Identifiable {
@@ -36,6 +37,7 @@ public class Page_Core: NSManagedObject {
         self.setValue(Int64(page.vid), forKey: "vid")
         self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
+        self.setValue(nil, forKey: "drawing")
         
         if let materialPath = page.material {
             if let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) {
@@ -79,6 +81,7 @@ public class Page_Core: NSManagedObject {
         self.setValue(Int64(vid), forKey: "vid")
         self.setValue(getLayout(form: form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
+        self.setValue(nil, forKey: "drawing")
         if let mateImgName = mateImgName {
             let imgData = UIImage(named: mateImgName)!.pngData()
             self.setValue(imgData, forKey: "materialImage")

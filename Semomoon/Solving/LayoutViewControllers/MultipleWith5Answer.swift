@@ -26,11 +26,9 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     var pageData: PageData?
     var problems: [Problem_Core]?
     weak var delegate: PageDelegate?
+    var isShow: Bool = false
     
-    lazy var toolPicker: PKToolPicker = {
-        let toolPicker = PKToolPicker()
-        return toolPicker
-    }()
+    var toolPicker: PKToolPicker?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +49,26 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewDidAppear(animated)
         print("5다선지 좌우형 didAppear")
         self.configureMainImageView()
+        self.isShow = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("5다선지 좌우형 : disappear")
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        print("----------------------")
+//        self.toolPicker?.removeObserver(canvasView)
+//        guard let count = problems?.count else { return }
+//        for i in 0..<count {
+//            let index = IndexPath(row: i, section: 0)
+//            guard let cell = collectionView.cellForItem(at: index) as? MultipleWith5Cell else { return }
+//            cell.toolPicker?.removeObserver(cell.canvasView)
+//            print("remove at: \(i)")
+//        }
+        
     }
 }
 
@@ -65,6 +78,8 @@ extension MultipleWith5Answer {
     }
     
     func configureCanvasView() {
+        self.configureCanvasViewData()
+        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -72,10 +87,24 @@ extension MultipleWith5Answer {
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
+        if !isShow {
+            toolPicker?.setVisible(true, forFirstResponder: canvasView)
+        }
+        toolPicker?.addObserver(canvasView)
         
         canvasView.delegate = self
+    }
+    
+    func configureCanvasViewData() {
+        if let pkData = self.pageData?.pageData.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
     }
     
     func configureMainImageView() {
@@ -107,9 +136,14 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
         let superWidth = self.collectionView.frame.width
         
         cell.delegate = self.delegate
-        cell.configureReuse(contentImage, problem, superWidth)
-        
+        cell.configureReuse(contentImage, problem, superWidth, toolPicker, isShow)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? MultipleWith5Cell else { return }
+        cell.toolPicker?.removeObserver(cell.canvasView)
+        print("remove at: \(indexPath.item)")
     }
     
 }
@@ -127,5 +161,12 @@ extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
         let height: CGFloat = solveInputFrameHeight + imgHeight
         
         return CGSize(width: width, height: height)
+    }
+}
+
+extension MultipleWith5Answer {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.pageData?.pageData.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        saveCoreData()
     }
 }

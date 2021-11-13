@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Page_Core" representedClassName="Page_Core" syncable="YES">
+        <attribute name="drawing" optional="YES" attributeType="Binary"/>
         <attribute name="layoutType" optional="YES" attributeType="String"/>
         <attribute name="materialImage" optional="YES" attributeType="Binary"/>
         <attribute name="problems" optional="YES" attributeType="Transformable"/>
@@ -43,7 +44,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Page_Core" positionX="-63" positionY="81" width="128" height="89"/>
+        <element name="Page_Core" positionX="-63" positionY="81" width="128" height="104"/>
         <element name="Preview_Core" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="Problem_Core" positionX="-63" positionY="18" width="128" height="209"/>
         <element name="Section_Core" positionX="-63" positionY="18" width="128" height="119"/>
