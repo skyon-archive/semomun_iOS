@@ -180,6 +180,5 @@ extension SingleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
         saveCoreData()
-        print("update!")
     }
 }

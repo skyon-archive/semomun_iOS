@@ -116,6 +116,8 @@ extension SingleWithTextAnswer {
     }
     
     func configureCanvasView() {
+        self.configureCanvasViewData()
+        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -129,6 +131,18 @@ extension SingleWithTextAnswer {
         canvasView.delegate = self
     }
     
+    func configureCanvasViewData() {
+        if let pkData = self.problem?.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
+    }
+    
     func configureImageView() {
         width = canvasView.frame.width
         guard let image = self.image else { return }
@@ -140,5 +154,12 @@ extension SingleWithTextAnswer {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
+    }
+}
+
+extension SingleWithTextAnswer {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        saveCoreData()
     }
 }
