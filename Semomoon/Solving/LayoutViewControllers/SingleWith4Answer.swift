@@ -30,7 +30,6 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
-        toolPicker.addObserver(self)
         return toolPicker
     }()
     
@@ -136,10 +135,12 @@ extension SingleWith4Answer {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
+        canvasView.drawingPolicy = .pencilOnly
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
         
         canvasView.delegate = self
     }

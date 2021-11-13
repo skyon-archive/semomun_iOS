@@ -29,7 +29,6 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
-        toolPicker.addObserver(self)
         return toolPicker
     }()
     
@@ -68,10 +67,12 @@ extension MultipleWithNoAnswer {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
+        canvasView.drawingPolicy = .pencilOnly
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
         
         canvasView.delegate = self
     }

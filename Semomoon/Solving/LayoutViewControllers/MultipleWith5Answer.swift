@@ -29,7 +29,6 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
-        toolPicker.addObserver(self)
         return toolPicker
     }()
     
@@ -69,10 +68,12 @@ extension MultipleWith5Answer {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
+        canvasView.drawingPolicy = .pencilOnly
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
         
         canvasView.delegate = self
     }
