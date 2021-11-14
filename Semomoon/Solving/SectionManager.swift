@@ -153,6 +153,8 @@ class SectionManager {
         // 수학 타입
 //        self.section = CoreUsecase.sectionOfCoreData(sid: -1)
         // 국어 타입
-        self.section = CoreUsecase.sectionOfCoreData(sid: -2)
+//        self.section = CoreUsecase.sectionOfCoreData(sid: -2)
+        // 멀티 타입
+        self.section = CoreUsecase.sectionOfCoreData(sid: -3)
     }
 }
