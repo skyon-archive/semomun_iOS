@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E7C4D0E273F5EA20096C708 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7C4D0D273F5EA20096C708 /* GoogleSignIn */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
+		4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1BABE02740C16100912F3A /* ExplanationViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
 		4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */; };
 		4A2BE42626D214AD0095CBCF /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Semomoon.entitlements; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
+		4A1BABE02740C16100912F3A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
 		4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
 		4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A60E49627251AB700946FD5 /* SectionManager.swift */,
+				4A1BABE02740C16100912F3A /* ExplanationViewController.swift */,
 				4A7EEDDA2736318000BF1A20 /* Cell */,
 				4A60E4982725499D00946FD5 /* Models */,
 				4A60E48E27250BF000946FD5 /* LayoutViewControllers */,
@@ -558,6 +561,7 @@
 				4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */,
 				4AC8FCA82736494200E7B37E /* MultipleWithNoCell.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
+				4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */,
 				4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */,
 				4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */,
 				4ACAEB7527097E500085ABAE /* PageOfDB.swift in Sources */,

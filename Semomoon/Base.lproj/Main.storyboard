@@ -1434,6 +1434,92 @@
             </objects>
             <point key="canvasLocation" x="112" y="111"/>
         </scene>
+        <!--Explanation View Controller-->
+        <scene sceneID="xAz-ht-6LT">
+            <objects>
+                <viewController storyboardIdentifier="ExplanationViewController" id="gjW-yz-eFF" customClass="ExplanationViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SCQ-eQ-pPB">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정답과 해설" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InM-9x-LJ1">
+                                <rect key="frame" x="338.5" y="70" width="91.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuP-c1-S97">
+                                <rect key="frame" x="668" y="52" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="ShE-kF-R3x"/>
+                                    <constraint firstAttribute="height" constant="60" id="eii-vi-qHN"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="close:" destination="gjW-yz-eFF" eventType="touchUpInside" id="zfg-19-wLr"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRB-Zr-MWo">
+                                <rect key="frame" x="40" y="124" width="688" height="850"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRb-Iy-scO" userLabel="contentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="688" height="300"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SgE-st-3QC">
+                                                <rect key="frame" x="0.0" y="0.0" width="688" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="xc3-wi-pLe"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="SgE-st-3QC" firstAttribute="top" secondItem="HRb-Iy-scO" secondAttribute="top" id="6DG-Ll-oLy"/>
+                                            <constraint firstAttribute="bottom" secondItem="SgE-st-3QC" secondAttribute="bottom" id="P3W-iG-k2W"/>
+                                            <constraint firstItem="SgE-st-3QC" firstAttribute="leading" secondItem="HRb-Iy-scO" secondAttribute="leading" id="f2u-0X-acl"/>
+                                            <constraint firstAttribute="trailing" secondItem="SgE-st-3QC" secondAttribute="trailing" id="fBg-bS-nX3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HRb-Iy-scO" firstAttribute="width" secondItem="D4q-Xz-ZcQ" secondAttribute="width" id="G75-Fe-Ldv"/>
+                                    <constraint firstItem="HRb-Iy-scO" firstAttribute="leading" secondItem="7jY-PS-cqQ" secondAttribute="leading" id="HtJ-3t-OYl"/>
+                                    <constraint firstItem="HRb-Iy-scO" firstAttribute="bottom" secondItem="7jY-PS-cqQ" secondAttribute="bottom" id="dFM-n5-6Cl"/>
+                                    <constraint firstItem="HRb-Iy-scO" firstAttribute="top" secondItem="7jY-PS-cqQ" secondAttribute="top" id="hhQ-2u-ZAI"/>
+                                    <constraint firstItem="HRb-Iy-scO" firstAttribute="trailing" secondItem="7jY-PS-cqQ" secondAttribute="trailing" id="xQx-7N-3bk"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="7jY-PS-cqQ"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="D4q-Xz-ZcQ"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QsX-Sm-DVZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QsX-Sm-DVZ" firstAttribute="trailing" secondItem="QRB-Zr-MWo" secondAttribute="trailing" constant="40" id="4Up-1Y-IGN"/>
+                            <constraint firstItem="QRB-Zr-MWo" firstAttribute="top" secondItem="InM-9x-LJ1" secondAttribute="bottom" constant="30" id="4xa-5a-vXd"/>
+                            <constraint firstItem="QsX-Sm-DVZ" firstAttribute="bottom" secondItem="QRB-Zr-MWo" secondAttribute="bottom" constant="50" id="DxL-0c-DHF"/>
+                            <constraint firstItem="QRB-Zr-MWo" firstAttribute="centerX" secondItem="QsX-Sm-DVZ" secondAttribute="centerX" id="H8M-W1-4PJ"/>
+                            <constraint firstItem="QRB-Zr-MWo" firstAttribute="leading" secondItem="QsX-Sm-DVZ" secondAttribute="leading" constant="40" id="LLI-V4-gT4"/>
+                            <constraint firstItem="InM-9x-LJ1" firstAttribute="top" secondItem="QsX-Sm-DVZ" secondAttribute="top" constant="50" id="P7e-kI-J7N"/>
+                            <constraint firstItem="QsX-Sm-DVZ" firstAttribute="trailing" secondItem="JuP-c1-S97" secondAttribute="trailing" constant="40" id="bPk-2Y-LWI"/>
+                            <constraint firstItem="JuP-c1-S97" firstAttribute="centerY" secondItem="InM-9x-LJ1" secondAttribute="centerY" id="q2c-vB-lWx"/>
+                            <constraint firstItem="InM-9x-LJ1" firstAttribute="centerX" secondItem="QsX-Sm-DVZ" secondAttribute="centerX" id="w1v-cT-YeO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="explanationImageView" destination="SgE-st-3QC" id="C5P-mC-k1j"/>
+                        <outlet property="imageHeight" destination="xc3-wi-pLe" id="MjB-8H-9vL"/>
+                        <outlet property="scrollView" destination="QRB-Zr-MWo" id="khz-9n-7VP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kfh-Oq-w8E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1480.46875" y="-558.3984375"/>
+        </scene>
         <!--Single With5 Answer-->
         <scene sceneID="SSc-mg-qce">
             <objects>
@@ -3838,6 +3924,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
