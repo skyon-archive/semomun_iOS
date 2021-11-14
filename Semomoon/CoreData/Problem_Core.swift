@@ -85,7 +85,7 @@ public class Problem_Core: NSManagedObject {
         print("Problem: \(prob.pid) save complete")
     }
     
-    func setMocks(pid: Int, type: Int, btName: String, imgName: String) {
+    func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil) {
         self.setValue(Int64(pid), forKey: "pid")
         self.setValue(btName, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")
@@ -98,6 +98,12 @@ public class Problem_Core: NSManagedObject {
         self.setValue(false, forKey: "star")
         let imgData = UIImage(named: imgName)!.pngData()
         self.setValue(imgData, forKey: "contentImage")
+        if let expName = expName {
+            let expData = UIImage(named: expName)!.pngData()
+            self.setValue(expData, forKey: "explanationImage")
+        } else {
+            self.setValue(nil, forKey: "explanationImage")
+        }
         print("MOCK Problem: \(pid) save complete")
     }
 }

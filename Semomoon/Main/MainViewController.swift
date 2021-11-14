@@ -295,22 +295,22 @@ extension MainViewController {
         let context = CoreDataManager.shared.context
         
         let problemOfCore1 = Problem_Core(context: context)
-        problemOfCore1.setMocks(pid: -111, type: 5, btName: "1", imgName: "mock1")
+        problemOfCore1.setMocks(pid: -111, type: 5, btName: "1", imgName: "mock1", expName: "exp1")
         let pageOfCore1 = Page_Core(context: context)
         pageOfCore1.setMocks(vid: -11, form: 0, type: 5, pids: [-111], mateImgName: nil)
         
         let problemOfCore2 = Problem_Core(context: context)
-        problemOfCore2.setMocks(pid: -222, type: 5, btName: "2", imgName: "mock2")
+        problemOfCore2.setMocks(pid: -222, type: 5, btName: "2", imgName: "mock2", expName: "exp2")
         let pageOfCore2 = Page_Core(context: context)
         pageOfCore2.setMocks(vid: -22, form: 0, type: 5, pids: [-222], mateImgName: nil)
         
         let problemOfCore3 = Problem_Core(context: context)
-        problemOfCore3.setMocks(pid: -333, type: 5, btName: "3", imgName: "mock3")
+        problemOfCore3.setMocks(pid: -333, type: 5, btName: "3", imgName: "mock3", expName: "exp3")
         let pageOfCore3 = Page_Core(context: context)
         pageOfCore3.setMocks(vid: -33, form: 0, type: 5, pids: [-333], mateImgName: nil)
         
         let problemOfCore4 = Problem_Core(context: context)
-        problemOfCore4.setMocks(pid: -444, type: 5, btName: "4", imgName: "mock4")
+        problemOfCore4.setMocks(pid: -444, type: 5, btName: "4", imgName: "mock4", expName: "exp4")
         let pageOfCore4 = Page_Core(context: context)
         pageOfCore4.setMocks(vid: -44, form: 0, type: 5, pids: [-444], mateImgName: nil)
         
