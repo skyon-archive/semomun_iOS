@@ -12,7 +12,9 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     static let identifier = "MultipleWith5Cell"
     
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet var star: UIButton!
+    @IBOutlet weak var star: UIButton!
+    @IBOutlet weak var answer: UIButton!
+    @IBOutlet weak var explanation: UIButton!
     
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,7 +26,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     
     var contentImage: UIImage?
     var problem: Problem_Core?
-    weak var delegate: PageDelegate?
+    weak var delegate: CollectionCellDelegate?
     
     var toolPicker: PKToolPicker?
     
@@ -60,11 +62,19 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        
+        guard let answer = self.problem?.answer else { return }
+        self.answer.isSelected.toggle()
+        if self.answer.isSelected {
+            self.answer.setTitle(answer, for: .normal)
+        } else {
+            self.answer.setTitle("정답", for: .normal)
+        }
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        
+        guard let imageData = self.problem?.explanationImage,
+              let explanationImage = UIImage(data: imageData) else { return }
+        self.delegate?.showExplanation(image: explanationImage)
     }
     
     @IBAction func nextProblem(_ sender: Any) {
@@ -99,6 +109,8 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.configureHeight(superWidth)
         self.configureCheckButtons()
         self.configureStar()
+        self.configureAnswer()
+        self.configureExplanation()
     }
     
     func configureImage(_ contentImage: UIImage?) {
@@ -138,6 +150,28 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     
     func configureStar() {
         self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureAnswer() {
+        self.answer.setTitle("정답", for: .normal)
+        self.answer.isSelected = false
+        if self.problem?.answer == nil {
+            self.answer.isUserInteractionEnabled = false
+            self.answer.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answer.isUserInteractionEnabled = true
+            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+    }
+    
+    func configureExplanation() {
+        if self.problem?.explanationImage == nil {
+            self.explanation.isUserInteractionEnabled = false
+            self.explanation.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanation.isUserInteractionEnabled = true
+            self.explanation.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
     }
     
     func configureCanvasView(_ isShow: Bool) {

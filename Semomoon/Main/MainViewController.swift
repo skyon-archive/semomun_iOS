@@ -332,11 +332,11 @@ extension MainViewController {
         let context = CoreDataManager.shared.context
         
         let problemOfCore1 = Problem_Core(context: context)
-        problemOfCore1.setMocks(pid: -101, type: 5, btName: "1", imgName: "mockImg11")
+        problemOfCore1.setMocks(pid: -101, type: 5, btName: "1", imgName: "mockImg11", expName: "exp1", answer: "1")
         let problemOfCore2 = Problem_Core(context: context)
-        problemOfCore2.setMocks(pid: -202, type: 5, btName: "2", imgName: "mockImg12")
+        problemOfCore2.setMocks(pid: -202, type: 5, btName: "2", imgName: "mockImg12", expName: "exp2")
         let problemOfCore3 = Problem_Core(context: context)
-        problemOfCore3.setMocks(pid: -303, type: 5, btName: "3", imgName: "mockImg13")
+        problemOfCore3.setMocks(pid: -303, type: 5, btName: "3", imgName: "mockImg13", answer: "3")
         let problemOfCore4 = Problem_Core(context: context)
         problemOfCore4.setMocks(pid: -404, type: 5, btName: "4", imgName: "mockImg13")
         
@@ -344,11 +344,11 @@ extension MainViewController {
         pageOfCore1.setMocks(vid: -10, form: 1, type: 5, pids: [-101, -202, -303, -404], mateImgName: "material1")
         
         let problemOfCore5 = Problem_Core(context: context)
-        problemOfCore5.setMocks(pid: -505, type: 5, btName: "5", imgName: "mockImg21")
+        problemOfCore5.setMocks(pid: -505, type: 5, btName: "5", imgName: "mockImg21", expName: "exp3", answer: "5")
         let problemOfCore6 = Problem_Core(context: context)
-        problemOfCore6.setMocks(pid: -606, type: 5, btName: "6", imgName: "mockImg22")
+        problemOfCore6.setMocks(pid: -606, type: 5, btName: "6", imgName: "mockImg22", expName: "exp4")
         let problemOfCore7 = Problem_Core(context: context)
-        problemOfCore7.setMocks(pid: -707, type: 5, btName: "7", imgName: "mockImg23")
+        problemOfCore7.setMocks(pid: -707, type: 5, btName: "7", imgName: "mockImg23", answer: "2")
         let problemOfCore8 = Problem_Core(context: context)
         problemOfCore8.setMocks(pid: -808, type: 5, btName: "8", imgName: "mockImg24")
         

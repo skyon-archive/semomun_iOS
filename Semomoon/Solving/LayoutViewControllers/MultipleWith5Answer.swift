@@ -8,6 +8,12 @@
 import UIKit
 import PencilKit
 
+protocol CollectionCellDelegate: AnyObject {
+    func updateStar(btName: String, to: Bool)
+    func nextPage()
+    func showExplanation(image: UIImage)
+}
+
 class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     static let identifier = "MultipleWith5Answer" // form == 1 && type == 5
     
@@ -135,7 +141,7 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
         let problem = self.problems?[indexPath.item] ?? nil
         let superWidth = self.collectionView.frame.width
         
-        cell.delegate = self.delegate
+        cell.delegate = self
         cell.configureReuse(contentImage, problem, superWidth, toolPicker, isShow)
         return cell
     }
@@ -168,5 +174,21 @@ extension MultipleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.pageData?.pageData.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
         saveCoreData()
+    }
+}
+
+extension MultipleWith5Answer: CollectionCellDelegate {
+    func updateStar(btName: String, to: Bool) {
+        self.delegate?.updateStar(btName: btName, to: to)
+    }
+    
+    func nextPage() {
+        self.delegate?.nextPage()
+    }
+    
+    func showExplanation(image: UIImage) {
+        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
+        explanationVC.explanationImage = image
+        self.present(explanationVC, animated: true, completion: nil)
     }
 }

@@ -285,8 +285,10 @@
                                         </constraints>
                                         <size key="customSize" width="406" height="221"/>
                                         <connections>
+                                            <outlet property="answer" destination="lII-CM-YBW" id="ybh-pN-2tC"/>
                                             <outlet property="canvasHeight" destination="Q90-bv-n07" id="qHC-dw-kJv"/>
                                             <outlet property="canvasView" destination="u1v-aV-QgD" id="Q8X-k5-Y1E"/>
+                                            <outlet property="explanation" destination="6MW-fe-Wwt" id="fpr-Eo-h9o"/>
                                             <outlet property="imageHeight" destination="8P1-ZL-RTS" id="8As-VC-GqD"/>
                                             <outlet property="imageView" destination="Uxq-tF-RwF" id="mxB-PJ-LK7"/>
                                             <outlet property="solvInputFrame" destination="nOQ-vm-3wP" id="xLz-7K-U1H"/>
