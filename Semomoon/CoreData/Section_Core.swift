@@ -22,6 +22,7 @@ extension Section_Core {
     @NSManaged public var buttons: [String] //하단 버튼내용들
     @NSManaged public var stars: [Bool] //하단 버튼 스타표시여부
     @NSManaged public var dictionaryOfProblem: [String: Int] //버튼 - vid 간 관계
+    @NSManaged public var lastPageId: Int64
 }
 
 extension Section_Core : Identifiable {
@@ -41,6 +42,7 @@ public class Section_Core: NSManagedObject {
         let stars = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
         self.setValue(dict, forKey: "dictionaryOfProblem")
+        self.setValue(dict[buttons[0]], forKey: "lastPageId")
         print("Section: \(header.sid) save complete")
     }
     
@@ -52,6 +54,7 @@ public class Section_Core: NSManagedObject {
         let stars = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
         self.setValue(dict, forKey: "dictionaryOfProblem")
+        self.setValue(dict[buttons[0]], forKey: "lastPageId")
         print("MOCK Section: \(sid) save complete")
     }
 }

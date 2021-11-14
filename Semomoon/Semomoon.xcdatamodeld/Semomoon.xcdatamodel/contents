@@ -25,12 +25,14 @@
         <attribute name="rate" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="solved" optional="YES" attributeType="String"/>
         <attribute name="star" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Section_Core" representedClassName="Section_Core" syncable="YES">
         <attribute name="buttons" optional="YES" attributeType="Transformable"/>
         <attribute name="dictionaryOfProblem" optional="YES" attributeType="Transformable"/>
+        <attribute name="lastPageId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="stars" optional="YES" attributeType="Transformable"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -46,8 +48,8 @@
     <elements>
         <element name="Page_Core" positionX="-63" positionY="81" width="128" height="104"/>
         <element name="Preview_Core" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Problem_Core" positionX="-63" positionY="18" width="128" height="209"/>
-        <element name="Section_Core" positionX="-63" positionY="18" width="128" height="119"/>
+        <element name="Problem_Core" positionX="-63" positionY="18" width="128" height="224"/>
+        <element name="Section_Core" positionX="-63" positionY="18" width="128" height="134"/>
         <element name="SectionHeader_Core" positionX="-54" positionY="90" width="128" height="104"/>
     </elements>
 </model>
