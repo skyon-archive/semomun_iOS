@@ -78,7 +78,13 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     }
 
     @IBAction func showAnswer(_ sender: Any) {
-
+        guard let answer = self.problem?.answer else { return }
+        self.answer.isSelected.toggle()
+        if self.answer.isSelected {
+            self.answer.setTitle(answer, for: .normal)
+        } else {
+            self.answer.setTitle("정답", for: .normal)
+        }
     }
 
     @IBAction func showExplanation(_ sender: Any) {
@@ -103,6 +109,7 @@ extension SingleWithTextAnswer {
     func configureUI() {
         self.configureCheckInput()
         self.configureStar()
+        self.configureAnswer()
         self.configureExplanation()
     }
     
@@ -120,6 +127,18 @@ extension SingleWithTextAnswer {
     
     func configureStar() {
         self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureAnswer() {
+        self.answer.setTitle("정답", for: .normal)
+        self.answer.isSelected = false
+        if self.problem?.answer == nil {
+            self.answer.isUserInteractionEnabled = false
+            self.answer.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answer.isUserInteractionEnabled = true
+            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
     }
     
     func configureExplanation() {
