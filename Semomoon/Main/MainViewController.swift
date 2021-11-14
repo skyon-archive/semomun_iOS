@@ -305,17 +305,17 @@ extension MainViewController {
         pageOfCore2.setMocks(vid: -22, form: 0, type: 5, pids: [-222], mateImgName: nil)
         
         let problemOfCore3 = Problem_Core(context: context)
-        problemOfCore3.setMocks(pid: -333, type: 5, btName: "3", imgName: "mock3", expName: "exp3")
+        problemOfCore3.setMocks(pid: -333, type: 5, btName: "3", imgName: "mock3", expName: "exp4")
         let pageOfCore3 = Page_Core(context: context)
         pageOfCore3.setMocks(vid: -33, form: 0, type: 5, pids: [-333], mateImgName: nil)
         
         let problemOfCore4 = Problem_Core(context: context)
-        problemOfCore4.setMocks(pid: -444, type: 5, btName: "4", imgName: "mock4", expName: "exp4")
+        problemOfCore4.setMocks(pid: -444, type: 5, btName: "4", imgName: "mock4")
         let pageOfCore4 = Page_Core(context: context)
         pageOfCore4.setMocks(vid: -44, form: 0, type: 5, pids: [-444], mateImgName: nil)
         
         let problemOfCore5 = Problem_Core(context: context)
-        problemOfCore5.setMocks(pid: -555, type: 1, btName: "5", imgName: "mock5")
+        problemOfCore5.setMocks(pid: -555, type: 1, btName: "5", imgName: "mock5", expName: "exp3")
         let pageOfCore5 = Page_Core(context: context)
         pageOfCore5.setMocks(vid: -55, form: 0, type: 1, pids: [-555], mateImgName: nil)
         

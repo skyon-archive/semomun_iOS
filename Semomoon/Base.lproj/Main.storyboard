@@ -1455,10 +1455,10 @@
                                     <constraint firstAttribute="height" constant="60" id="eii-vi-qHN"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                </state>
                                 <connections>
                                     <action selector="close:" destination="gjW-yz-eFF" eventType="touchUpInside" id="zfg-19-wLr"/>
                                 </connections>
@@ -1760,8 +1760,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answer" destination="act-1A-9LC" id="1Te-Hp-HPL"/>
                         <outlet property="canvasHeight" destination="Rwc-hX-n1Q" id="9H5-AF-9S8"/>
                         <outlet property="canvasView" destination="r5a-kG-0rH" id="Wu0-qg-nMz"/>
+                        <outlet property="explanation" destination="XPY-ga-96D" id="NUY-Ab-Apu"/>
                         <outlet property="imageHeight" destination="eyS-PS-gfw" id="Scb-kH-3Iy"/>
                         <outlet property="imageView" destination="2kl-3z-gN4" id="epa-Sw-JzJ"/>
                         <outlet property="scrollView" destination="Vk2-cu-jEf" id="voF-nu-of9"/>

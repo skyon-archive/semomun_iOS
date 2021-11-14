@@ -12,7 +12,9 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     static let identifier = "SingleWith5Answer" // form == 0 && type == 5
 
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet var star: UIButton!
+    @IBOutlet weak var star: UIButton!
+    @IBOutlet weak var answer: UIButton!
+    @IBOutlet weak var explanation: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -88,7 +90,11 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        
+        guard let imageData = self.problem?.explanationImage else { return }
+        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
+        let explanationImage = UIImage(data: imageData)
+        explanationVC.explanationImage = explanationImage
+        self.present(explanationVC, animated: true, completion: nil)
     }
     
     @IBAction func nextProblem(_ sender: Any) {
@@ -105,6 +111,7 @@ extension SingleWith5Answer {
     func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
+        self.configureExplanation()
     }
     
     func configureCheckButtons() {
@@ -130,6 +137,16 @@ extension SingleWith5Answer {
     
     func configureStar() {
         self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureExplanation() {
+        if self.problem?.explanationImage == nil {
+            self.explanation.isUserInteractionEnabled = false
+            self.explanation.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanation.isUserInteractionEnabled = true
+            self.explanation.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
     }
     
     func configureCanvasView() {
