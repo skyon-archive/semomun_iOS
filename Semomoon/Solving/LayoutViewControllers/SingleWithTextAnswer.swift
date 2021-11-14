@@ -12,7 +12,9 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     static let identifier = "SingleWithTextAnswer" // form == 0 && type == 1
 
     @IBOutlet var solveInput: UITextField!
-    @IBOutlet var star: UIButton!
+    @IBOutlet weak var star: UIButton!
+    @IBOutlet weak var answer: UIButton!
+    @IBOutlet weak var explanation: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -80,7 +82,11 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     }
 
     @IBAction func showExplanation(_ sender: Any) {
-
+        guard let imageData = self.problem?.explanationImage else { return }
+        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
+        let explanationImage = UIImage(data: imageData)
+        explanationVC.explanationImage = explanationImage
+        self.present(explanationVC, animated: true, completion: nil)
     }
 
     @IBAction func nextProblem(_ sender: Any) {
@@ -97,6 +103,7 @@ extension SingleWithTextAnswer {
     func configureUI() {
         self.configureCheckInput()
         self.configureStar()
+        self.configureExplanation()
     }
     
     func configureCheckInput() {
@@ -113,6 +120,16 @@ extension SingleWithTextAnswer {
     
     func configureStar() {
         self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureExplanation() {
+        if self.problem?.explanationImage == nil {
+            self.explanation.isUserInteractionEnabled = false
+            self.explanation.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanation.isUserInteractionEnabled = true
+            self.explanation.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
     }
     
     func configureCanvasView() {

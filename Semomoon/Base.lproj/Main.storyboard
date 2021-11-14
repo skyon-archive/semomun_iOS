@@ -1948,8 +1948,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answer" destination="l9T-RH-n9j" id="9w5-5e-90d"/>
                         <outlet property="canvasHeight" destination="urz-AS-hVT" id="deC-mE-sCo"/>
                         <outlet property="canvasView" destination="7U0-NN-UaU" id="CQ4-hV-iHk"/>
+                        <outlet property="explanation" destination="lyg-Yp-d4M" id="s78-2w-YUe"/>
                         <outlet property="imageHeight" destination="DRP-j5-fBE" id="6Ea-3t-rM0"/>
                         <outlet property="imageView" destination="KlB-ec-g5u" id="u2f-mC-urn"/>
                         <outlet property="scrollView" destination="0MT-UC-b3C" id="QFE-sm-z8x"/>
