@@ -193,13 +193,14 @@
                                                                         <action selector="toggleStar:" destination="lig-M5-Tei" eventType="touchUpInside" id="qxj-6I-N4P"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lII-CM-YBW">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lII-CM-YBW">
                                                                     <rect key="frame" x="30" y="0.0" width="35" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="35" id="DKD-Fb-8Do"/>
                                                                         <constraint firstAttribute="height" constant="25" id="o8g-tF-O73"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <color key="tintColor" name="mint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="정답">
                                                                         <color key="titleColor" name="mint"/>
@@ -1636,12 +1637,14 @@
                                                             <action selector="toggleStar:" destination="i3D-FH-lwD" eventType="touchUpInside" id="6J2-K1-eWd"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="act-1A-9LC">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="act-1A-9LC">
                                                         <rect key="frame" x="41" y="0.0" width="45" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="45" id="6Qa-V2-Nfb"/>
                                                             <constraint firstAttribute="height" constant="31" id="qEa-ka-62T"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="tintColor" name="mint"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
                                                             <color key="titleColor" name="mint"/>
@@ -1810,12 +1813,14 @@
                                                             <action selector="toggleStar:" destination="8zh-ly-hdh" eventType="touchUpInside" id="J3g-I0-d2Q"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9T-RH-n9j">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9T-RH-n9j">
                                                         <rect key="frame" x="41" y="0.0" width="45" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="38I-XD-aQQ"/>
                                                             <constraint firstAttribute="width" constant="45" id="r6k-tj-dcb"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="tintColor" name="mint"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
                                                             <color key="titleColor" name="mint"/>
@@ -3370,12 +3375,14 @@
                                                             <action selector="toggleStar:" destination="tEX-AX-hrm" eventType="touchUpInside" id="hPE-Uz-JrU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSv-k4-deL">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSv-k4-deL">
                                                         <rect key="frame" x="41" y="0.0" width="45" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="45" id="DQB-h0-KNl"/>
                                                             <constraint firstAttribute="height" constant="31" id="dCV-5A-ARs"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="tintColor" name="mint"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
                                                             <color key="titleColor" name="mint"/>

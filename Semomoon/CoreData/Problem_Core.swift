@@ -85,11 +85,11 @@ public class Problem_Core: NSManagedObject {
         print("Problem: \(prob.pid) save complete")
     }
     
-    func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil) {
+    func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {
         self.setValue(Int64(pid), forKey: "pid")
         self.setValue(btName, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")
-        self.setValue(nil, forKey: "answer")
+        self.setValue(answer, forKey: "answer")
         self.setValue(nil, forKey: "solved")
         self.setValue(false, forKey: "correct")
         self.setValue(Int64(0), forKey: "rate")
