@@ -338,7 +338,7 @@ extension MainViewController {
         let problemOfCore3 = Problem_Core(context: context)
         problemOfCore3.setMocks(pid: -303, type: 5, btName: "3", imgName: "mockImg13", answer: "3")
         let problemOfCore4 = Problem_Core(context: context)
-        problemOfCore4.setMocks(pid: -404, type: 5, btName: "4", imgName: "mockImg13")
+        problemOfCore4.setMocks(pid: -404, type: 5, btName: "4", imgName: "mockImg14")
         
         let pageOfCore1 = Page_Core(context: context)
         pageOfCore1.setMocks(vid: -10, form: 1, type: 5, pids: [-101, -202, -303, -404], mateImgName: "material1")

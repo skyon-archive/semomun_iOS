@@ -34,7 +34,10 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     weak var delegate: PageDelegate?
     var isShow: Bool = false
     
-    var toolPicker: PKToolPicker?
+    lazy var toolPicker: PKToolPicker = {
+        let toolPicker = PKToolPicker()
+        return toolPicker
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,19 +46,24 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("5다선지 좌우형 willAppear")
+        print("5다선지 좌우형 : willAppear")
+        print(self.toolPicker.isVisible)
         
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblems()
-        self.configureCanvasView()
         self.collectionView.reloadData()
+        self.configureMainImageView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("5다선지 좌우형 didAppear")
-        self.configureMainImageView()
-        self.isShow = true
+        print("5다선지 좌우형 : didAppear")
+        self.configureCanvasView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("5다선지 좌우형 : willDisapplear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -65,16 +73,12 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
-        print("----------------------")
-//        self.toolPicker?.removeObserver(canvasView)
-//        guard let count = problems?.count else { return }
-//        for i in 0..<count {
-//            let index = IndexPath(row: i, section: 0)
-//            guard let cell = collectionView.cellForItem(at: index) as? MultipleWith5Cell else { return }
-//            cell.toolPicker?.removeObserver(cell.canvasView)
-//            print("remove at: \(i)")
-//        }
-        
+        print("5다선지 좌우형 : willMove")
+    }
+    
+    deinit {       // << here !!
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(canvasView)
     }
 }
 
@@ -93,10 +97,8 @@ extension MultipleWith5Answer {
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
-        if !isShow {
-            toolPicker?.setVisible(true, forFirstResponder: canvasView)
-        }
-        toolPicker?.addObserver(canvasView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
         
         canvasView.delegate = self
     }
@@ -145,13 +147,6 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
         cell.configureReuse(contentImage, problem, superWidth, toolPicker, isShow)
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? MultipleWith5Cell else { return }
-        cell.toolPicker?.removeObserver(cell.canvasView)
-        print("remove at: \(indexPath.item)")
-    }
-    
 }
 
 extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
@@ -173,6 +168,7 @@ extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
 extension MultipleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.pageData?.pageData.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        print("///////\(pageData?.vid) save complete")
         saveCoreData()
     }
 }

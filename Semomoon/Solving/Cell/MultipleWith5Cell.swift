@@ -87,11 +87,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         checkNumbers.forEach { $0.layer.cornerRadius = 15 }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.toolPicker = nil
-    }
-    
     // MARK: - Configure Reuse
     func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?, _ isShow: Bool) {
         self.configureProblem(problem)
@@ -179,14 +174,12 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
+//        canvasView.becomeFirstResponder()
         canvasView.drawingPolicy = .pencilOnly
         
         canvasView.subviews[0].addSubview(imageView)
         canvasView.subviews[0].sendSubviewToBack(imageView)
-        if !isShow {
-            toolPicker?.setVisible(true, forFirstResponder: canvasView)
-        }
+//        toolPicker?.setVisible(true, forFirstResponder: canvasView)
         toolPicker?.addObserver(canvasView)
         
         canvasView.delegate = self
@@ -203,11 +196,17 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             canvasView.drawing = PKDrawing()
         }
     }
+    
+    deinit {       // << here !!
+        toolPicker?.setVisible(false, forFirstResponder: canvasView)
+        toolPicker?.removeObserver(canvasView)
+    }
 }
 
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        print("///////\(problem?.pid) save complete")
         saveCoreData()
     }
 }

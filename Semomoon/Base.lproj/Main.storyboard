@@ -35,7 +35,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" name="mint"/>
                                                 <constraints>
                                                     <constraint firstItem="xMN-sq-SSc" firstAttribute="centerX" secondItem="hX3-Xk-xZs" secondAttribute="centerX" id="5xf-on-BWM"/>
                                                     <constraint firstAttribute="height" constant="500" id="ZHw-jT-nwf"/>
@@ -265,7 +265,7 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                    <color key="backgroundColor" name="mint"/>
                                                     <constraints>
                                                         <constraint firstItem="Uxq-tF-RwF" firstAttribute="top" secondItem="u1v-aV-QgD" secondAttribute="top" id="Jtm-fs-QF7"/>
                                                         <constraint firstAttribute="height" constant="150" id="Q90-bv-n07"/>
@@ -1723,7 +1723,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" name="mint"/>
                                                 <constraints>
                                                     <constraint firstItem="2kl-3z-gN4" firstAttribute="leading" secondItem="r5a-kG-0rH" secondAttribute="leading" id="15t-ld-rUY"/>
                                                     <constraint firstItem="2kl-3z-gN4" firstAttribute="centerX" secondItem="r5a-kG-0rH" secondAttribute="centerX" id="8Xa-Ke-uep"/>
@@ -1913,7 +1913,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" name="mint"/>
                                                 <constraints>
                                                     <constraint firstItem="KlB-ec-g5u" firstAttribute="top" secondItem="7U0-NN-UaU" secondAttribute="top" id="HYk-e1-mnS"/>
                                                     <constraint firstItem="KlB-ec-g5u" firstAttribute="centerX" secondItem="7U0-NN-UaU" secondAttribute="centerX" id="LpD-Vs-Fu8"/>
@@ -3461,7 +3461,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" name="mint"/>
                                                 <constraints>
                                                     <constraint firstItem="9GO-KI-vEF" firstAttribute="leading" secondItem="iku-uI-jAJ" secondAttribute="leading" id="Ipr-Xt-aDr"/>
                                                     <constraint firstItem="9GO-KI-vEF" firstAttribute="top" secondItem="iku-uI-jAJ" secondAttribute="top" id="jRq-1G-Udk"/>
@@ -3543,7 +3543,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" name="mint"/>
                                                 <constraints>
                                                     <constraint firstItem="Ir2-CN-hGB" firstAttribute="leading" secondItem="alq-nG-XOz" secondAttribute="leading" id="4i8-1A-gm4"/>
                                                     <constraint firstItem="Ir2-CN-hGB" firstAttribute="centerX" secondItem="alq-nG-XOz" secondAttribute="centerX" id="BEO-MY-1eH"/>
@@ -3650,7 +3650,7 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                    <color key="backgroundColor" name="mint"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="ARO-4T-Ka6"/>
                                                         <constraint firstItem="ptI-Ul-Iq2" firstAttribute="leading" secondItem="G89-fI-Qdu" secondAttribute="leading" id="Dhs-1U-Eab"/>
@@ -3940,9 +3940,6 @@
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
