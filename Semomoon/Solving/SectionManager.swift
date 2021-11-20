@@ -104,6 +104,7 @@ class SectionManager {
         guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
             self.wrongs[idx] = to
+            print(self.wrongs)
             section.setValue(self.wrongs, forKey: "wrongs")
             self.saveCoreData()
         }
@@ -139,6 +140,8 @@ class SectionManager {
     }
     
     func startTimer() {
+        guard let terminated = self.section?.terminated else { return }
+        if terminated { return } // 이미 종료된 문제집의 경우 시간 정지
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
@@ -166,11 +169,20 @@ class SectionManager {
     }
     
     func configureMock() {
-        // 수학 타입
-//        self.section = CoreUsecase.sectionOfCoreData(sid: -1)
-        // 국어 타입
-//        self.section = CoreUsecase.sectionOfCoreData(sid: -2)
-        // 멀티 타입
         self.section = CoreUsecase.sectionOfCoreData(sid: -3)
+    }
+    
+    func terminateSection() {
+        guard let section = self.section else { return }
+        // 1. 현재까지 변경사항 저장
+        self.saveCoreData()
+        // 2. 저장하기 위한 배열들 선언
+//        var pids: [Int] = []
+//        var totalScore: Int = 0
+//        var wrongProblems: [String] = []
+        // 마지막 : section : terminated 상태 선언
+        section.setValue(true, forKey: "terminated")
+        self.saveCoreData()
+        self.delegate.reloadButtons()
     }
 }

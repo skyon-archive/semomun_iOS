@@ -70,7 +70,8 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
-        // DB에 Post 하는 알고리즘이 필요
+        // 채점로직
+        self.manager.terminateSection()
     }
     
 }

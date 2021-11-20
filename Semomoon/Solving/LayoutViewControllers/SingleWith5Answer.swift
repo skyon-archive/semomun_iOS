@@ -70,6 +70,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         guard let problem = self.problem else { return }
+        if problem.terminated { return }
+        
         let input: Int = sender.tag
         self.updateSolved(problem: problem, input: "\(input)")
         
