@@ -21,8 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            window.rootViewController = storyboard.instantiateViewController(withIdentifier: "SolvingViewController")
-// Your RootViewController in here
+            let startVC = storyboard.instantiateViewController(withIdentifier: "StartViewController")
+            let navigationController = UINavigationController(rootViewController: startVC)
+            window.rootViewController = navigationController
+            
             self.window = window
             window.makeKeyAndVisible()
         }

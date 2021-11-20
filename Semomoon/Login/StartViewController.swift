@@ -26,12 +26,6 @@ class StartViewController: UIViewController, ASAuthorizationControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func register(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CertificationViewController") else { return }
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
     @IBAction func login(_ sender: Any) {
         print("login")
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: "LoginViewController") else { return }
@@ -44,10 +38,19 @@ class StartViewController: UIViewController, ASAuthorizationControllerDelegate, 
 
 extension StartViewController{
     
+    func showNextVC() {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CertificationViewController") else { return }
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     func setUpSignInAppleButton(){
-        let authorizationButton = ASAuthorizationAppleIDButton()
+        let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+        authorizationButton.widthAnchor.constraint(equalToConstant: 450).isActive = true
+        authorizationButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         authorizationButton.addTarget(self, action: #selector(appleSignInButtonPress), for: .touchUpInside)
-        authorizationButton.cornerRadius = 20
+        authorizationButton.cornerRadius = 8
         //Add button on some view or stack
         self.signInButtonStack.addArrangedSubview(authorizationButton) // have to divide the stack view of signing in and signing out
     }
@@ -68,6 +71,7 @@ extension StartViewController{
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+        showNextVC()
     }
     
     @objc func appleSignUpButtonPress() {
@@ -80,11 +84,21 @@ extension StartViewController{
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+        switch authorization.credential{
+        case let appleIDCredential  as  ASAuthorizationAppleIDCredential :
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
             print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
+            
+            self.saveUserinKeychain(userIdentifier)
+        
+        case let passwordCredential as ASPasswordCredential:
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+            
+        default:
+            break
         }
     }
     
@@ -92,14 +106,24 @@ extension StartViewController{
         // Handle error.
     }
     
+    private func saveUserinKeychain(_ userIdentifier: String){
+        do{
+            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").saveItem(userIdentifier)
+        } catch {
+            print("Unable to save userIdentifier to keychain.")
+        }
+    }
     
 }
 
 extension StartViewController{
     func setUpSignInGoogleButton(){
         let googleSignInButton: GIDSignInButton! = GIDSignInButton()
-        googleSignInButton.style = .standard
-        googleSignInButton.layer.cornerRadius = 20
+        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
+        googleSignInButton.widthAnchor.constraint(equalToConstant: 500).isActive = true
+        googleSignInButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
+        googleSignInButton.layer.cornerRadius = 8
         googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPress), for: .touchUpInside)
         self.signInButtonStack.addArrangedSubview(googleSignInButton)
     }
@@ -116,6 +140,27 @@ extension StartViewController{
             let familyName = user.profile?.familyName
             
             let profilePicUrl = user.profile?.imageURL(withDimension: 320)
+            
+            user.authentication.do { authentication, error in
+                guard error == nil else{return}
+                guard let authenticatioin = authentication else {return}
+                
+                let idToken = authentication?.idToken
+                self.tokenSignIn(idToken: idToken!)
+            }
         }
+    }
+}
+
+extension StartViewController{
+    func tokenSignIn(idToken: String){
+        guard let authData = try? JSONEncoder().encode(["idToken" : idToken]) else {return}
+        let url = URL(string: "https://yourbackend.example.com/tokensignin")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue(("application/json"), forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.uploadTask(with: request, from: authData) {data, response, error in }
+        task.resume()
     }
 }

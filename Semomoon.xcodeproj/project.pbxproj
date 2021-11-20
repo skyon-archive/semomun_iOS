@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E7C4D0E273F5EA20096C708 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7C4D0D273F5EA20096C708 /* GoogleSignIn */; };
+		1E7C4D1027489F0A0096C708 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1BABE02740C16100912F3A /* ExplanationViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Semomoon.entitlements; sourceTree = "<group>"; };
+		1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1BABE02740C16100912F3A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E7C4D1127489F1C0096C708 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4A3F97FA271A731400880B86 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +236,7 @@
 				4A97577226FEEA7B002543D6 /* LoginViewController.swift */,
 				4A97577426FEEBC1002543D6 /* FindIDViewController.swift */,
 				4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */,
+				1E7C4D1127489F1C0096C708 /* Supporting Files */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -540,6 +551,7 @@
 				4A60E49A272549C700946FD5 /* PageData.swift in Sources */,
 				4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */,
 				4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */,
+				1E7C4D1027489F0A0096C708 /* KeychainItem.swift in Sources */,
 				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */,
