@@ -29,6 +29,7 @@ extension Problem_Core {
     @NSManaged public var type: Int64 //문제타입: 0,1,4,5
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
+    @NSManaged public var point: Int64 //문제 배점
 }
 
 extension Problem_Core : Identifiable {
@@ -52,6 +53,11 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(false, forKey: "terminated")
+        if let point = prob.point {
+            self.setValue(Int64(point), forKey: "point")
+        } else {
+            self.setValue(Int64(0), forKey: "point")
+        }
         
         // MARK: - contentImage
         if let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content) {
@@ -99,6 +105,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(Int64(type), forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(false, forKey: "terminated")
+        self.setValue(Int64(3), forKey: "point")
         let imgData = UIImage(named: imgName)!.pngData()
         self.setValue(imgData, forKey: "contentImage")
         if let expName = expName {

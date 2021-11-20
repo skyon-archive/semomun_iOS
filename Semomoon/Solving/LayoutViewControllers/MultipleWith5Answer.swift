@@ -76,9 +76,11 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : willMove")
     }
     
-    deinit {       // << here !!
+    deinit {
+        guard let canvasView = self.canvasView else { return }
         toolPicker.setVisible(false, forFirstResponder: canvasView)
         toolPicker.removeObserver(canvasView)
+        print("5다선지 좌우형 deinit")
     }
 }
 

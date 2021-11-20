@@ -60,6 +60,13 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 : disappear")
     }
     
+    deinit {
+        guard let canvasView = self.canvasView else { return }
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(canvasView)
+        print("5다선지 deinit")
+    }
+    
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag

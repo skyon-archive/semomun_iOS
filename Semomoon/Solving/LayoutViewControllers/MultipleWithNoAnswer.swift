@@ -39,7 +39,7 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("답없는형 좌우형 willAppear")
+        print("답없는 좌우형 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureProblems()
@@ -48,13 +48,20 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("답없는형 좌우형 didAppear")
+        print("답없는 좌우형 didAppear")
         self.configureMainImageView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("답없는형 좌우형 : disappear")
+        print("답없는 좌우형 : disappear")
+    }
+    
+    deinit {
+        guard let canvasView = self.canvasView else { return }
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(canvasView)
+        print("답없는 좌우형 deinit")
     }
 }
 

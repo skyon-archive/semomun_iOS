@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Section_Core {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section_Core> {
@@ -22,7 +21,8 @@ extension Section_Core {
     @NSManaged public var buttons: [String] //하단 버튼내용들
     @NSManaged public var stars: [Bool] //하단 버튼 스타표시여부
     @NSManaged public var dictionaryOfProblem: [String: Int] //버튼 - vid 간 관계
-    @NSManaged public var lastPageId: Int64
+    @NSManaged public var lastPageId: Int64 //마지막 화면 id
+    @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
 }
 
 extension Section_Core : Identifiable {
@@ -40,7 +40,9 @@ public class Section_Core: NSManagedObject {
         self.setValue(0, forKey: "time")
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
+        let wrongs = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
+        self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
         print("Section: \(header.sid) save complete")
@@ -52,7 +54,9 @@ public class Section_Core: NSManagedObject {
         self.setValue(0, forKey: "time")
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
+        let wrongs = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
+        self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
         print("MOCK Section: \(sid) save complete")
