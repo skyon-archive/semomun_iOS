@@ -50,7 +50,6 @@ class SectionManager {
         self.buttons = section.buttons
         self.stars = section.stars
         self.wrongs = section.wrongs
-        self.wrongs[2] = true
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
     }
@@ -98,6 +97,15 @@ class SectionManager {
             section.setValue(self.stars, forKey: "stars")
             self.saveCoreData()
             self.delegate.reloadButtons()
+        }
+    }
+    
+    func updateWrong(title: String, to: Bool) {
+        guard let section = self.section else { return }
+        if let idx = self.buttons.firstIndex(of: title) {
+            self.wrongs[idx] = to
+            section.setValue(self.wrongs, forKey: "wrongs")
+            self.saveCoreData()
         }
     }
     

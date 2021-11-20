@@ -46,6 +46,7 @@ public class Section_Core: NSManagedObject {
         self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
+        self.setValue(false, forKey: "terminated")
         print("Section: \(header.sid) save complete")
     }
     
@@ -60,6 +61,7 @@ public class Section_Core: NSManagedObject {
         self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
+        self.setValue(true, forKey: "terminated")
         print("MOCK Section: \(sid) save complete")
     }
 }

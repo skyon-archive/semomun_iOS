@@ -73,15 +73,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         let input: Int = sender.tag
         self.updateSolved(problem: problem, input: "\(input)")
         
-        for bt in checkNumbers {
-            if(bt.tag == input) {
-                bt.backgroundColor = UIColor(named: "mint")
-                bt.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
-        }
+        self.configureCheckButtons()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
@@ -130,6 +122,7 @@ extension SingleWith5Answer {
     
     func configureCheckButtons() {
         guard let problem = self.problem else { return }
+        
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
             bt.layer.cornerRadius = 17.5
@@ -221,10 +214,13 @@ extension SingleWith5Answer {
     }
     
     func updateSolved(problem: Problem_Core, input: String) {
+        if problem.terminated == true { return } // 이미 채점된 문제일 경우 저장 안함
+        guard let pName = self.problem?.pName else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         if let answer = problem.answer {
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
+            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
         saveCoreData()
     }
