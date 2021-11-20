@@ -58,6 +58,13 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("4다선지 : disappear")
     }
     
+    deinit {
+        guard let canvasView = self.canvasView else { return }
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(canvasView)
+        print("4다선지 deinit")
+    }
+    
     // 객관식 1~4 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
         let num: Int = sender.tag

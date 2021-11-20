@@ -60,6 +60,13 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("객관식 : disappear")
     }
     
+    deinit {
+        guard let canvasView = self.canvasView else { return }
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(canvasView)
+        print("객관식 deinit")
+    }
+    
     // 주관식 입력 부분
     @IBAction func solveInputChanged(_ sender: UITextField) {
         guard let input = sender.text,
