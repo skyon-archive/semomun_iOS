@@ -32,6 +32,8 @@ class CertificationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "회원가입"
+        let userIdentifier = KeychainItem.currentUserIdentifier
+        print("userIdentifier: \(userIdentifier)")
     }
     
     @IBAction func dissmiss(_ sender: Any) {
@@ -40,14 +42,14 @@ class CertificationViewController: UIViewController {
     }
     
     @IBAction func nextVC(_ sender: Any) {
-        if(Certificated){
-            guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateFirstViewController") else { return }
-            self.title = ""
-            self.navigationController?.pushViewController(nextVC, animated: true)
-        }
-        else{
-            // need notification to try authenticating him/herself
-        }
+//        if(Certificated){
+//            guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CreateFirstViewController") else { return }
+//            self.title = ""
+//            self.navigationController?.pushViewController(nextVC, animated: true)
+//        }
+//        else{
+//            // need notification to try authenticating him/herself
+//        }
     }
     
 }

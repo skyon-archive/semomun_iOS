@@ -9,7 +9,8 @@ import UIKit
 import AuthenticationServices
 import GoogleSignIn
 
-class StartViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding{
+class StartViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    static let identifier = "StartViewController"
     
     let signInConfig = GIDConfiguration.init(clientID: "436503570920-07bqbk38ub6tauc97csf5uo1o2781lm1.apps.googleusercontent.com")
     
@@ -26,12 +27,12 @@ class StartViewController: UIViewController, ASAuthorizationControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func login(_ sender: Any) {
-        print("login")
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "LoginViewController") else { return }
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
+//    @IBAction func login(_ sender: Any) {
+//        print("login")
+//        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "LoginViewController") else { return }
+//        self.title = ""
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+//    }
     
     
 }
@@ -71,7 +72,6 @@ extension StartViewController{
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
-        showNextVC()
     }
     
     @objc func appleSignUpButtonPress() {
@@ -92,10 +92,8 @@ extension StartViewController{
             print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
             
             self.saveUserinKeychain(userIdentifier)
-        
-        case let passwordCredential as ASPasswordCredential:
-            let username = passwordCredential.user
-            let password = passwordCredential.password
+            
+            showNextVC()
             
         default:
             break
@@ -140,14 +138,20 @@ extension StartViewController{
             let familyName = user.profile?.familyName
             
             let profilePicUrl = user.profile?.imageURL(withDimension: 320)
+
+            
             
             user.authentication.do { authentication, error in
                 guard error == nil else{return}
-                guard let authenticatioin = authentication else {return}
+                guard let authentication = authentication else {return}
                 
-                let idToken = authentication?.idToken
-                self.tokenSignIn(idToken: idToken!)
+                let idToken = authentication.idToken
+//                self.tokenSignIn(idToken: idToken!)
+                self.saveUserinKeychain(idToken!)
+                print("User id is \(idToken) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: emailAddress))")
             }
+            
+            self.showNextVC()
         }
     }
 }

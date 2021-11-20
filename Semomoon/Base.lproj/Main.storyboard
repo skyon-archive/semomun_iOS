@@ -341,33 +341,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="2Yw-xk-W09">
-                                <rect key="frame" x="245" y="919" width="278" height="24"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이미 회원이신가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7Y-bZ-tBF">
-                                        <rect key="frame" x="0.0" y="0.0" width="153" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6J-GD-reT">
-                                        <rect key="frame" x="178" y="0.0" width="100" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="SL4-me-PlY"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="75" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="로그인" image="chevron.right" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="login:" destination="h9f-Ve-bz9" eventType="touchUpInside" id="CYU-8P-qAW"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLg-bd-NVw">
                                 <rect key="frame" x="74" y="232" width="620" height="580"/>
                                 <subviews>
@@ -405,9 +378,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MLg-bd-NVw" firstAttribute="centerX" secondItem="ElI-cY-1Cs" secondAttribute="centerX" id="8z4-tl-hDW"/>
-                            <constraint firstItem="2Yw-xk-W09" firstAttribute="centerX" secondItem="ElI-cY-1Cs" secondAttribute="centerX" id="INl-PR-44Q"/>
                             <constraint firstItem="MLg-bd-NVw" firstAttribute="centerY" secondItem="ElI-cY-1Cs" secondAttribute="centerY" id="PUj-Qr-jQm"/>
-                            <constraint firstItem="ElI-cY-1Cs" firstAttribute="bottom" secondItem="2Yw-xk-W09" secondAttribute="bottom" constant="31" id="cek-d0-RfM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Unp-z6-10d"/>
@@ -667,7 +638,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gb-8l-NI5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="689.0625" y="-1372.265625"/>
+            <point key="canvasLocation" x="688" y="-1372"/>
         </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="jFC-11-50g">
@@ -3865,7 +3836,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="128" height="128"/>
+        <image name="circleButton" width="87.5" height="90"/>
         <image name="logo" width="256" height="220"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

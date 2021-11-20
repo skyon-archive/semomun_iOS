@@ -39,6 +39,8 @@ class CreateSecondViewController: UIViewController {
     
     @IBAction func finish(_ sender: Any) {
         if(NameTextField != nil && SchoolTextField != nil && GradeSelectButton != nil && FieldSelectButton != nil && CurrentScoreSelectButton != nil){
+            // 유저 회원가입 완료
+            UserDefaults.standard.setValue(true, forKey: "logined")
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: "MainViewController") else { return }
             nextVC.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
         
