@@ -129,23 +129,27 @@ extension SingleWith5Answer {
     }
     
     func configureCheckButtons() {
-        if let solved = self.problem?.solved {
-            for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
-                if String(bt.tag) == solved {
-                    bt.backgroundColor = UIColor(named: "mint")
-                    bt.setTitleColor(UIColor.white, for: .normal)
-                } else {
-                    bt.backgroundColor = UIColor.white
-                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-                }
-            }
-        } else {
-            for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
+        guard let problem = self.problem else { return }
+        // 일단 모든 버튼 표시 구현
+        for bt in checkNumbers {
+            bt.layer.cornerRadius = 17.5
+            bt.backgroundColor = UIColor.white
+            bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+        // 사용자 체크한 데이터 표시
+        if let solved = problem.solved {
+            guard let targetIndex = Int(solved) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+        }
+        // 채점이 완료된 경우 && 틀린 경우 표시
+        if let answer = problem.answer,
+           let solved = problem.solved,
+           answer != solved,
+           problem.terminated == true {
+            guard let targetIndex = Int(answer) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
     }
     
@@ -217,7 +221,7 @@ extension SingleWith5Answer {
     }
     
     func updateSolved(problem: Problem_Core, input: String) {
-        problem.solved = String(input) // 사용자 입력 값 저장
+        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         if let answer = problem.answer {
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
