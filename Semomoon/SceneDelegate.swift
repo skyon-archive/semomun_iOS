@@ -21,9 +21,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let startVC = storyboard.instantiateViewController(withIdentifier: "StartViewController")
-            let navigationController = UINavigationController(rootViewController: startVC)
-            window.rootViewController = navigationController
+            
+            let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
+            
+            let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
+            
+            if isLogined {
+                window.rootViewController = mainViewController
+            } else {
+                let navigationController = UINavigationController(rootViewController: startLoginViewController)
+                window.rootViewController = navigationController
+            }
             
             self.window = window
             window.makeKeyAndVisible()
