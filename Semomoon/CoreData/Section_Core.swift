@@ -22,6 +22,7 @@ extension Section_Core {
     @NSManaged public var stars: [Bool] //하단 버튼 스타표시여부
     @NSManaged public var dictionaryOfProblem: [String: Int] //버튼 - vid 간 관계
     @NSManaged public var lastPageId: Int64 //마지막 화면 id
+    @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
 }
 

@@ -22,6 +22,7 @@ class SectionManager {
     var section: Section_Core?
     var buttons: [String] = []
     var stars: [Bool] = []
+    var wrongs: [Bool] = []
     var dictionanry: [String: Int] = [:]
     var currentTime: Int64 = 0
     var currentIndex: Int = 0
@@ -48,6 +49,8 @@ class SectionManager {
         guard let section = self.section else { return }
         self.buttons = section.buttons
         self.stars = section.stars
+        self.wrongs = section.wrongs
+        self.wrongs[2] = true
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
     }
@@ -78,6 +81,11 @@ class SectionManager {
     func showStarColor(at: Int) -> Bool {
         return self.stars[at]
     }
+    
+    func showWrongColor(at: Int) -> Bool {
+        return self.wrongs[at] && self.section?.terminated ?? false
+    }
+    
     
     func pageID(at: String) -> Int {
         return self.dictionanry[at] ?? 0

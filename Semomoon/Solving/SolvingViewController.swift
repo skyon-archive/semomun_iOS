@@ -98,12 +98,15 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
         // 문제번호 설정
         cell.num.text = self.manager.buttonTitle(at: indexPath.item)
         cell.outerFrame.layer.cornerRadius = 5
-        // star 체크 여부
-        if self.manager.showStarColor(at: indexPath.item) {
+        // star, wrong 체크 여부
+        if self.manager.showWrongColor(at: indexPath.item) {
+            cell.outerFrame.backgroundColor = UIColor(named: "colorRed")
+        } else if self.manager.showStarColor(at: indexPath.item) {
             cell.outerFrame.backgroundColor = UIColor(named: "yellow")
         } else {
             cell.outerFrame.backgroundColor = UIColor.white
         }
+        
         // 크기 조절
         if indexPath.item == self.manager.currentIndex {
             cell.outerFrame.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)

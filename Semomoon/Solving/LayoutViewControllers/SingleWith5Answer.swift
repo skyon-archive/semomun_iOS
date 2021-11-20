@@ -69,12 +69,12 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        let num: Int = sender.tag
         guard let problem = self.problem else { return }
-        problem.solved = String(num)
-        saveCoreData()
+        let input: Int = sender.tag
+        self.updateSolved(problem: problem, input: "\(input)")
+        
         for bt in checkNumbers {
-            if(bt.tag == num) {
+            if(bt.tag == input) {
                 bt.backgroundColor = UIColor(named: "mint")
                 bt.setTitleColor(UIColor.white, for: .normal)
             } else {
@@ -214,6 +214,15 @@ extension SingleWith5Answer {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
+    }
+    
+    func updateSolved(problem: Problem_Core, input: String) {
+        problem.solved = String(input) // 사용자 입력 값 저장
+        if let answer = problem.answer {
+            let correct = input == answer
+            problem.setValue(correct, forKey: "correct")
+        }
+        saveCoreData()
     }
 }
 
