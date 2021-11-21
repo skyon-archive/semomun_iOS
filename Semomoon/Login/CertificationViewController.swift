@@ -12,6 +12,8 @@ class CertificationViewController: UIViewController {
     
     var Certificated: Bool = false
     
+    var signUpInfo: SignUpInfo!
+    
     @IBOutlet weak var warningOfName: UIView!
     @IBOutlet weak var warningOfName2: UILabel!
     @IBOutlet weak var warningOfPhone: UIView!
@@ -26,7 +28,7 @@ class CertificationViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.signUpInfo = SignUpInfo()
         nextButton.layer.cornerRadius = 35
         nextButton.clipsToBounds = true
     }
@@ -44,9 +46,14 @@ class CertificationViewController: UIViewController {
     }
     
     @IBAction func nextVC(_ sender: Any) {
+        Certificated = true
         if(Certificated){
-            guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) else { return }
+            guard let name = self.name.text,
+                  let phoneNumber = self.phone.text else { return }
+            self.signUpInfo.configureFirst(name: name, phoneNumber: phoneNumber)
+            guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
             self.title = ""
+            nextVC.signUpInfo = self.signUpInfo
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
         else{

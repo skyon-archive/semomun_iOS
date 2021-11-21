@@ -2751,6 +2751,9 @@
                                 <state key="normal" image="arrow.right" catalog="system" backgroundImage="circleButton">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextVC:" destination="Go8-8S-Huu" eventType="touchUpInside" id="8lZ-KV-6GR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="voq-wp-9zA"/>
@@ -3942,6 +3945,7 @@
                                 <state key="normal" title="시작" backgroundImage="circleButton"/>
                                 <connections>
                                     <action selector="finish:" destination="trF-yw-Dmj" eventType="touchUpInside" id="rff-mH-KLi"/>
+                                    <action selector="finishInitialSetting:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="ElR-aV-rni"/>
                                 </connections>
                             </button>
                         </subviews>
