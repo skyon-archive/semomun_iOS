@@ -43,7 +43,13 @@ class SectionResultViewController: UIViewController {
     }
     
     func wrongProblems(problems: [String]) -> String {
-        let problems = problems.sorted(by: < )
-        return problems.reduce("", { $0 + ", \($1)" })
+        var result: String = ""
+        for (idx, problem) in problems.enumerated() {
+            result += problem
+            if idx != problems.count-1 {
+                result += ", "
+            }
+        }
+        return result
     }
 }

@@ -53,7 +53,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(false, forKey: "terminated")
-        if let point = prob.point {
+        if let point = prob.score {
             self.setValue(Int64(point), forKey: "point")
         } else {
             self.setValue(Int64(0), forKey: "point")

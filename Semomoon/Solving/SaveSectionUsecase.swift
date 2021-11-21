@@ -21,8 +21,7 @@ class SaveSectionUsecase {
     
     func fetchPids() {
         let dumlicatedVids = section.dictionaryOfProblem.values.map() { $0 }
-        let setVids = Set(dumlicatedVids)
-        self.vids = Array(setVids)
+        self.vids = Array(Set(dumlicatedVids)).sorted(by: < )
     }
     
     func calculateSectionResult() {

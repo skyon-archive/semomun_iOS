@@ -22,8 +22,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVf-Lz-s4q">
                                 <rect key="frame" x="60" y="379" width="648" height="286.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-ff-I88">
-                                        <rect key="frame" x="307.5" y="35" width="33" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-ff-I88">
+                                        <rect key="frame" x="116" y="35" width="416" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -127,6 +127,7 @@
                                     <constraint firstItem="Rl4-nF-PVc" firstAttribute="top" secondItem="Kbm-ff-I88" secondAttribute="bottom" constant="16" id="Tra-SB-daN"/>
                                     <constraint firstItem="Kbm-ff-I88" firstAttribute="top" secondItem="TVf-Lz-s4q" secondAttribute="top" constant="35" id="UNn-El-t7m"/>
                                     <constraint firstAttribute="bottom" secondItem="SBe-7G-Hgs" secondAttribute="bottom" constant="35" id="WN0-Ga-wK8"/>
+                                    <constraint firstItem="xiH-rt-Xal" firstAttribute="leading" secondItem="Kbm-ff-I88" secondAttribute="trailing" constant="16" id="XqM-kr-kLt"/>
                                     <constraint firstItem="Kbm-ff-I88" firstAttribute="centerX" secondItem="TVf-Lz-s4q" secondAttribute="centerX" id="b5a-h8-ox0"/>
                                     <constraint firstItem="xiH-rt-Xal" firstAttribute="centerY" secondItem="Kbm-ff-I88" secondAttribute="centerY" id="c0r-ji-8WL"/>
                                     <constraint firstItem="SBe-7G-Hgs" firstAttribute="centerX" secondItem="TVf-Lz-s4q" secondAttribute="centerX" id="ecG-iN-9uN"/>
