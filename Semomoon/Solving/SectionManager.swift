@@ -185,9 +185,14 @@ class SectionManager {
         
         let saveSectionUsecase = SaveSectionUsecase(section: section)
         saveSectionUsecase.fetchPids()
+        saveSectionUsecase.calculateSectionResult()
         
-//        section.setValue(true, forKey: "terminated")
+        dump(saveSectionUsecase.totalScore)
+        dump(saveSectionUsecase.wrongProblems)
+        dump(saveSectionUsecase.submissions)
+        
+        section.setValue(true, forKey: "terminated")
         self.stopTimer()
-//        self.delegate.reloadButtons()
+        self.delegate.reloadButtons()
     }
 }
