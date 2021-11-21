@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E7C4D0E273F5EA20096C708 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1E7C4D0D273F5EA20096C708 /* GoogleSignIn */; };
 		1E7C4D1027489F0A0096C708 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */; };
+		1E7C4D13274A2EB20096C708 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */; };
+		1E7C4D15274A2EDE0096C708 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */; };
+		1E7C4D18274A30E20096C708 /* SignUpInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C4D17274A30E20096C708 /* SignUpInfo.swift */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1BABE02740C16100912F3A /* ExplanationViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
@@ -87,6 +90,9 @@
 /* Begin PBXFileReference section */
 		1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Semomoon.entitlements; sourceTree = "<group>"; };
 		1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
+		1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
+		1E7C4D17274A30E20096C708 /* SignUpInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInfo.swift; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1BABE02740C16100912F3A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
@@ -180,8 +186,20 @@
 			isa = PBXGroup;
 			children = (
 				1E7C4D0F27489F0A0096C708 /* KeychainItem.swift */,
+				1E7C4D17274A30E20096C708 /* SignUpInfo.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1E7C4D16274A2F1E0096C708 /* temp */ = {
+			isa = PBXGroup;
+			children = (
+				4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */,
+				4A97577226FEEA7B002543D6 /* LoginViewController.swift */,
+				4A97577426FEEBC1002543D6 /* FindIDViewController.swift */,
+				4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */,
+			);
+			path = temp;
 			sourceTree = "<group>";
 		};
 		4A3F97FA271A731400880B86 /* Main */ = {
@@ -237,11 +255,10 @@
 			children = (
 				4A55DE5926F70151008F1C35 /* StartViewController.swift */,
 				4A1E742026F70DBD001C3420 /* CertificationViewController.swift */,
-				4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */,
 				4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */,
-				4A97577226FEEA7B002543D6 /* LoginViewController.swift */,
-				4A97577426FEEBC1002543D6 /* FindIDViewController.swift */,
-				4A97577626FEEBCF002543D6 /* FindPasswordViewController.swift */,
+				1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */,
+				1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */,
+				1E7C4D16274A2F1E0096C708 /* temp */,
 				1E7C4D1127489F1C0096C708 /* Supporting Files */,
 			);
 			path = Login;
@@ -543,6 +560,7 @@
 				4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */,
 				4AF59D7A26F1E53400E7AE26 /* Preview_Core.swift in Sources */,
 				4AC446062709834E000DD64B /* SearchWorkbookManager.swift in Sources */,
+				1E7C4D18274A30E20096C708 /* SignUpInfo.swift in Sources */,
 				4A60E49727251AB700946FD5 /* SectionManager.swift in Sources */,
 				4A8BEE7226E491BF00613602 /* User.swift in Sources */,
 				4AC4460927098521000DD64B /* SearchPreviewCell.swift in Sources */,
@@ -573,6 +591,7 @@
 				4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */,
 				4AA69911274A02E10038917A /* SectionResultViewController.swift in Sources */,
 				4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */,
+				1E7C4D15274A2EDE0096C708 /* PersonalInfoViewController.swift in Sources */,
 				4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4AC8FCA6273646BE00E7B37E /* UICollectionViewCell.swift in Sources */,
@@ -586,6 +605,7 @@
 				4AC8FCA82736494200E7B37E /* MultipleWithNoCell.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */,
+				1E7C4D13274A2EB20096C708 /* SurveyViewController.swift in Sources */,
 				4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */,
 				4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */,
 				4ACAEB7527097E500085ABAE /* PageOfDB.swift in Sources */,

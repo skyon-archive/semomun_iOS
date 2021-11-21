@@ -27,20 +27,12 @@ class StartViewController: UIViewController, ASAuthorizationControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
-//    @IBAction func login(_ sender: Any) {
-//        print("login")
-//        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "LoginViewController") else { return }
-//        self.title = ""
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-//    }
-    
-    
 }
 
 extension StartViewController{
     
     func showNextVC() {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: "CertificationViewController") else { return }
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: CertificationViewController.identifier) else { return }
         self.title = ""
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
