@@ -11,7 +11,7 @@ import PencilKit
 class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWithNoAnswer" // form == 1 && type == 0
 
-//    @IBOutlet weak var star: UIButton!
+//    @IBOutlet var star: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
@@ -65,13 +65,13 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("답없는 좌우형 deinit")
     }
     
-    @IBAction func toggleStar(_ sender: Any) {
+//    @IBAction func toggleStar(_ sender: UIButton) {
 //        guard let pName = self.problem?.pName else { return }
 //        self.star.isSelected.toggle()
 //        let status = self.star.isSelected
 //        self.problem?.setValue(status, forKey: "star")
 //        self.delegate?.updateStar(btName: pName, to: status)
-    }
+//    }
     
     @IBAction func nextProblem(_ sender: Any) {
         self.delegate?.nextPage()
