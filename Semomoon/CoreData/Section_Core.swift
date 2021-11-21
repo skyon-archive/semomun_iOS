@@ -56,7 +56,7 @@ public class Section_Core: NSManagedObject {
         self.setValue(0, forKey: "time")
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
-        let wrongs = Array(repeating: false, count: buttons.count)
+        let wrongs = Array(repeating: true, count: buttons.count)
         self.setValue(stars, forKey: "stars")
         self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")

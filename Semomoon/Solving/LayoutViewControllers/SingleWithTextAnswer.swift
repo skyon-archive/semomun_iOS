@@ -69,10 +69,26 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     // 주관식 입력 부분
     @IBAction func solveInputChanged(_ sender: UITextField) {
-        guard let input = sender.text,
-              let problem = self.problem else { return }
-        problem.solved = input
+        guard let problem = self.problem,
+              let pName = problem.pName,
+              let input = sender.text else { return }
+        
+        if problem.terminated { // 종료된 문제일 경우 이전 사용자 입력값으로 변경
+            if let solved = problem.solved {
+                sender.text = solved
+            }
+            return
+        }
+        
+        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         saveCoreData()
+        
+        if let answer = problem.answer {
+            let correct = input == answer
+            problem.setValue(correct, forKey: "correct")
+            saveCoreData()
+            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
+        }
     }
     
 
@@ -125,6 +141,7 @@ extension SingleWithTextAnswer {
         solveInput.clipsToBounds = true
         solveInput.layer.borderWidth = 1
         solveInput.layer.borderColor = UIColor(named: "mint")?.cgColor
+        
         if let solved = self.problem?.solved {
             solveInput.text = solved
         } else {
@@ -137,14 +154,22 @@ extension SingleWithTextAnswer {
     }
     
     func configureAnswer() {
+        guard let problem = self.problem else { return }
         self.answer.setTitle("정답", for: .normal)
         self.answer.isSelected = false
         if self.problem?.answer == nil {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+            if problem.terminated,
+               problem.correct == false {
+                self.answer.isUserInteractionEnabled = true
+                self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
+                self.answer.setTitle(problem.answer, for: .normal)
+            } else {
+                self.answer.isUserInteractionEnabled = true
+                self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+            }
         }
     }
     

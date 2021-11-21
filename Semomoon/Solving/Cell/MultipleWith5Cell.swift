@@ -36,21 +36,21 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         print("\(Self.identifier) awakeFromNib")
     }
     
+    deinit {
+        guard let canvasView = self.canvasView else { return }
+        toolPicker?.setVisible(false, forFirstResponder: canvasView)
+        toolPicker?.removeObserver(canvasView)
+    }
+    
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        let num: Int = sender.tag
         guard let problem = self.problem else { return }
-        problem.solved = String(num)
-        saveCoreData()
-        for bt in checkNumbers {
-            if(bt.tag == num) {
-                bt.backgroundColor = UIColor(named: "mint")
-                bt.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
-        }
+        if problem.terminated { return }
+        
+        let input: Int = sender.tag
+        self.updateSolved(problem: problem, input: "\(input)")
+        
+        self.configureCheckButtons()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
@@ -125,21 +125,28 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     func configureCheckButtons() {
-        if let solved = self.problem?.solved {
-            for bt in checkNumbers {
-                if String(bt.tag) == solved {
-                    bt.backgroundColor = UIColor(named: "mint")
-                    bt.setTitleColor(UIColor.white, for: .normal)
-                } else {
-                    bt.backgroundColor = UIColor.white
-                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-                }
-            }
-        } else {
-            for bt in checkNumbers {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
+        guard let problem = self.problem else { return }
+        
+        // 일단 모든 버튼 표시 구현
+        for bt in checkNumbers {
+            bt.layer.cornerRadius = 17.5
+            bt.backgroundColor = UIColor.white
+            bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+        // 사용자 체크한 데이터 표시
+        if let solved = problem.solved {
+            guard let targetIndex = Int(solved) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+        }
+        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
+        if let answer = problem.answer,
+           let solved = problem.solved,
+           answer != solved,
+           problem.terminated == true {
+            guard let targetIndex = Int(answer) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
     }
     
@@ -197,16 +204,23 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         }
     }
     
-    deinit {       // << here !!
-        toolPicker?.setVisible(false, forFirstResponder: canvasView)
-        toolPicker?.removeObserver(canvasView)
+    func updateSolved(problem: Problem_Core, input: String) {
+        guard let pName = problem.pName else { return }
+        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
+        saveCoreData()
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+            let correct = input == answer
+            problem.setValue(correct, forKey: "correct")
+            saveCoreData()
+            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
+        }
     }
 }
 
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        print("///////\(problem?.pid) save complete")
         saveCoreData()
     }
 }

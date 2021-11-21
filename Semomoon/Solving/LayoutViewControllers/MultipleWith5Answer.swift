@@ -12,6 +12,7 @@ protocol CollectionCellDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func nextPage()
     func showExplanation(image: UIImage)
+    func updateWrong(btName: String, to: Bool)
 }
 
 class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
@@ -170,7 +171,6 @@ extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
 extension MultipleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.pageData?.pageData.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        print("///////\(pageData?.vid) save complete")
         saveCoreData()
     }
 }
@@ -188,5 +188,9 @@ extension MultipleWith5Answer: CollectionCellDelegate {
         guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
         explanationVC.explanationImage = image
         self.present(explanationVC, animated: true, completion: nil)
+    }
+    
+    func updateWrong(btName: String, to: Bool) {
+        self.delegate?.updateWrong(btName: btName, to: to)
     }
 }

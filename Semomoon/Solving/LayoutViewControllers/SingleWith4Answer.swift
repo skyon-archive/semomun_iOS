@@ -12,7 +12,9 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     static let identifier = "SingleWith4Answer" // form == 0 && type == 4
     
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet var star: UIButton!
+    @IBOutlet weak var star: UIButton!
+    @IBOutlet weak var answer: UIButton!
+    @IBOutlet weak var explanation: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -67,19 +69,13 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     // 객관식 1~4 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        let num: Int = sender.tag
         guard let problem = self.problem else { return }
-        problem.solved = String(num)
-        saveCoreData()
-        for bt in checkNumbers {
-            if(bt.tag == num) {
-                bt.backgroundColor = UIColor(named: "mint")
-                bt.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
-        }
+        if problem.terminated { return }
+        
+        let input: Int = sender.tag
+        self.updateSolved(problem: problem, input: "\(input)")
+        
+        self.configureCheckButtons()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
@@ -91,11 +87,23 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        
+        guard let answer = self.problem?.answer else { return }
+        self.answer.isSelected.toggle()
+        if self.answer.isSelected {
+            self.answer.setTitle(answer, for: .normal)
+        } else {
+            self.answer.setTitle("정답", for: .normal)
+        }
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        
+        guard let answer = self.problem?.answer else { return }
+        self.answer.isSelected.toggle()
+        if self.answer.isSelected {
+            self.answer.setTitle(answer, for: .normal)
+        } else {
+            self.answer.setTitle("정답", for: .normal)
+        }
     }
     
     @IBAction func nextProblem(_ sender: Any) {
@@ -111,31 +119,60 @@ extension SingleWith4Answer {
     func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
+        self.configureAnswer()
+        self.configureExplanation()
     }
     
     func configureCheckButtons() {
-        if let solved = self.problem?.solved {
-            for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
-                if String(bt.tag) == solved {
-                    bt.backgroundColor = UIColor(named: "mint")
-                    bt.setTitleColor(UIColor.white, for: .normal)
-                } else {
-                    bt.backgroundColor = UIColor.white
-                    bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-                }
-            }
-        } else {
-            for bt in checkNumbers {
-                bt.layer.cornerRadius = 17.5
-                bt.backgroundColor = UIColor.white
-                bt.setTitleColor(UIColor(named: "mint"), for: .normal)
-            }
+        guard let problem = self.problem else { return }
+        
+        // 일단 모든 버튼 표시 구현
+        for bt in checkNumbers {
+            bt.layer.cornerRadius = 17.5
+            bt.backgroundColor = UIColor.white
+            bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+        // 사용자 체크한 데이터 표시
+        if let solved = problem.solved {
+            guard let targetIndex = Int(solved) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+        }
+        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
+        if let answer = problem.answer,
+           let solved = problem.solved,
+           answer != solved,
+           problem.terminated == true {
+            guard let targetIndex = Int(answer) else { return }
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
+            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
     }
     
     func configureStar() {
         self.star.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureAnswer() {
+        self.answer.setTitle("정답", for: .normal)
+        self.answer.isSelected = false
+        if self.problem?.answer == nil {
+            self.answer.isUserInteractionEnabled = false
+            self.answer.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answer.isUserInteractionEnabled = true
+            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+    }
+    
+    func configureExplanation() {
+        if self.problem?.explanationImage == nil {
+            self.explanation.isUserInteractionEnabled = false
+            self.explanation.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanation.isUserInteractionEnabled = true
+            self.explanation.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
     }
     
     func configureCanvasView() {
@@ -152,6 +189,18 @@ extension SingleWith4Answer {
         canvasView.delegate = self
     }
     
+    func configureCanvasViewData() {
+        if let pkData = self.problem?.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
+    }
+    
     func configureImageView() {
         width = canvasView.frame.width
         height = image.size.height*(width/image.size.width)
@@ -163,10 +212,24 @@ extension SingleWith4Answer {
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
     }
+    
+    func updateSolved(problem: Problem_Core, input: String) {
+        guard let pName = problem.pName else { return }
+        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
+        saveCoreData()
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+            let correct = input == answer
+            problem.setValue(correct, forKey: "correct")
+            saveCoreData()
+            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
+        }
+    }
 }
 
 extension SingleWith4Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        print("update!")
+        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        saveCoreData()
     }
 }

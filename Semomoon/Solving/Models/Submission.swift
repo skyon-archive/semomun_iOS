@@ -8,7 +8,7 @@
 import Foundation
 
 struct Submission: Codable {
-    var uid: String // 사용자 uid
+    var token: String // 사용자 uid
     var pid: Int // 문제 pid
     var elapsed: Int // 걸린 시간
     var recent_time: String // 현재 시각
@@ -17,7 +17,7 @@ struct Submission: Codable {
     var note: Data? // 필기데이터
     
     init(problem: Problem_Core) {
-        self.uid = "abcde" // TODO: key chain 에서 얻는 식으로 수정
+        self.token = "abcde" // TODO: key chain 에서 얻는 식으로 수정
         self.pid = Int(problem.pid)
         self.elapsed = Int(problem.time)
         self.recent_time = Self.nowTime(at: Date())

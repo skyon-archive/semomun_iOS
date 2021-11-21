@@ -3577,8 +3577,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answer" destination="VSv-k4-deL" id="kA8-t6-d45"/>
                         <outlet property="canvasHeight" destination="vQe-6c-gTv" id="byl-XM-X12"/>
                         <outlet property="canvasView" destination="iku-uI-jAJ" id="lEm-ge-Vyb"/>
+                        <outlet property="explanation" destination="k2J-wU-GHj" id="OGd-fW-q9V"/>
                         <outlet property="imageHeight" destination="T8N-Fh-jke" id="2Uf-DT-17I"/>
                         <outlet property="imageView" destination="9GO-KI-vEF" id="4a2-9k-OiS"/>
                         <outlet property="scrollView" destination="GHF-56-ja7" id="vus-2A-DI4"/>
@@ -3681,9 +3683,6 @@
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
                                                                     <state key="selected" image="star.fill" catalog="system"/>
-                                                                    <connections>
-                                                                        <action selector="toggleStar:" destination="dSB-a8-6qm" eventType="touchUpInside" id="BnB-sj-XFO"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRa-ST-CEc">
                                                                     <rect key="frame" x="30" y="0.0" width="60" height="25"/>
@@ -3701,6 +3700,7 @@
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="nextProblem:" destination="dSB-a8-6qm" eventType="touchUpInside" id="Iwe-Lm-fFG"/>
+                                                                        <action selector="nextProblem:" destination="URH-UH-7ba" eventType="touchUpInside" id="pbM-cd-jQ7"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -3748,14 +3748,9 @@
                                             <outlet property="imageHeight" destination="WZt-mG-6K7" id="jUc-uN-frl"/>
                                             <outlet property="imageView" destination="ptI-Ul-Iq2" id="r8D-CP-5Cz"/>
                                             <outlet property="solvInputFrame" destination="V1h-xi-cJi" id="C2n-od-FFA"/>
-                                            <outlet property="star" destination="ezv-Q6-3Ps" id="yTZ-sF-DCJ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="URH-UH-7ba" id="cUH-0D-PmV"/>
-                                    <outlet property="delegate" destination="URH-UH-7ba" id="pH6-KN-oG0"/>
-                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xrz-4w-WfP"/>
@@ -3774,7 +3769,7 @@
                     <connections>
                         <outlet property="canvasHeight" destination="JlP-pZ-3yz" id="2rH-d7-40L"/>
                         <outlet property="canvasView" destination="alq-nG-XOz" id="vTo-P7-EdJ"/>
-                        <outlet property="collectionView" destination="ubl-m0-Muh" id="ffV-Uh-gx5"/>
+                        <outlet property="collectionView" destination="ubl-m0-Muh" id="AiY-92-U5J"/>
                         <outlet property="imageHeight" destination="SJx-sz-HHf" id="Rya-ab-AcV"/>
                         <outlet property="imageView" destination="Ir2-CN-hGB" id="bYZ-TL-yCP"/>
                         <outlet property="scrollView" destination="7Sp-lP-G9k" id="dR1-OP-bQc"/>
