@@ -381,7 +381,7 @@ extension MainViewController {
         pageOfCore2.setMocks(vid: -23, form: 0, type: 5, pids: [-232], mateImgName: nil)
         
         let problemOfCore3 = Problem_Core(context: context)
-        problemOfCore3.setMocks(pid: -343, type: 5, btName: "3", imgName: "mock3", expName: "exp4")
+        problemOfCore3.setMocks(pid: -343, type: 5, btName: "3", imgName: "mock3", expName: "exp4", answer: "2")
         let pageOfCore3 = Page_Core(context: context)
         pageOfCore3.setMocks(vid: -34, form: 0, type: 5, pids: [-343], mateImgName: nil)
         
@@ -399,11 +399,11 @@ extension MainViewController {
         let problemOfCore6 = Problem_Core(context: context)
         problemOfCore6.setMocks(pid: -131, type: 5, btName: "6", imgName: "mockImg11", expName: "exp1", answer: "1")
         let problemOfCore7 = Problem_Core(context: context)
-        problemOfCore7.setMocks(pid: -242, type: 5, btName: "7", imgName: "mockImg12", expName: "exp2")
+        problemOfCore7.setMocks(pid: -242, type: 5, btName: "7", imgName: "mockImg12", expName: "exp2", answer: "5")
         let problemOfCore8 = Problem_Core(context: context)
         problemOfCore8.setMocks(pid: -353, type: 5, btName: "8", imgName: "mockImg13", answer: "3")
         let problemOfCore9 = Problem_Core(context: context)
-        problemOfCore9.setMocks(pid: -464, type: 5, btName: "9", imgName: "mockImg14")
+        problemOfCore9.setMocks(pid: -464, type: 5, btName: "9", imgName: "mockImg14", answer: "4")
         
         let pageOfCore6 = Page_Core(context: context)
         pageOfCore6.setMocks(vid: -13, form: 1, type: 5, pids: [-131, -242, -353, -464], mateImgName: "material1")
@@ -411,11 +411,11 @@ extension MainViewController {
         let problemOfCore10 = Problem_Core(context: context)
         problemOfCore10.setMocks(pid: -575, type: 5, btName: "10", imgName: "mockImg21", expName: "exp3", answer: "5")
         let problemOfCore11 = Problem_Core(context: context)
-        problemOfCore11.setMocks(pid: -686, type: 5, btName: "11", imgName: "mockImg22", expName: "exp4")
+        problemOfCore11.setMocks(pid: -686, type: 5, btName: "11", imgName: "mockImg22", expName: "exp4", answer: "2")
         let problemOfCore12 = Problem_Core(context: context)
         problemOfCore12.setMocks(pid: -797, type: 5, btName: "12", imgName: "mockImg23", answer: "2")
         let problemOfCore13 = Problem_Core(context: context)
-        problemOfCore13.setMocks(pid: -898, type: 5, btName: "13", imgName: "mockImg24")
+        problemOfCore13.setMocks(pid: -898, type: 5, btName: "13", imgName: "mockImg24", answer: "1")
         
         let pageOfCore7 = Page_Core(context: context)
         pageOfCore7.setMocks(vid: -24, form: 1, type: 5, pids: [-575, -686, -797, -898], mateImgName: "material2")

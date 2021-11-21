@@ -196,6 +196,7 @@ class SectionManager {
                                    totalTime: section.time,
                                    wrongProblems: saveSectionUsecase.wrongProblems)
         // 반환
+        self.saveCoreData()
         self.delegate.reloadButtons()
         self.delegate.terminateSection(result: result)
     }

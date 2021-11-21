@@ -43,6 +43,7 @@ class SectionResultViewController: UIViewController {
     }
     
     func wrongProblems(problems: [String]) -> String {
+        let problems = problems.sorted(by: < )
         return problems.reduce("", { $0 + ", \($1)" })
     }
 }
