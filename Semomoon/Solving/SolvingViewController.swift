@@ -70,8 +70,9 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
-        // 채점로직
-        self.manager.terminateSection()
+        self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { _ in
+            self.manager.terminateSection()
+        }
     }
     
 }
@@ -215,6 +216,14 @@ extension SolvingViewController: LayoutDelegate {
     
     func saveComplete() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func terminateSection(result: SectionResult) {
+        // VC 띄우기
+        guard let sectionResultVC = self.storyboard?.instantiateViewController(withIdentifier: SectionResultViewController.identifier) as? SectionResultViewController else { return }
+        sectionResultVC.result = result
+        self.present(sectionResultVC, animated: true, completion: nil)
+        // Backend post 하기
     }
 }
 

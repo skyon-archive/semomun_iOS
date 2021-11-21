@@ -15,6 +15,7 @@ protocol LayoutDelegate: AnyObject {
     func showTitle(title: String)
     func showTime(time: Int64)
     func saveComplete()
+    func terminateSection(result: SectionResult)
 }
 
 class SectionManager {
@@ -157,6 +158,7 @@ class SectionManager {
     func stopSection() {
         self.stopTimer()
         self.delegate.saveComplete()
+        self.saveCoreData()
     }
     
     func stopTimer() {
@@ -166,7 +168,6 @@ class SectionManager {
         self.isRunning = false
         self.timer.invalidate()
         self.section?.setValue(currentTime, forKey: "time")
-        self.saveCoreData()
     }
     
     func saveCoreData() {
@@ -181,18 +182,21 @@ class SectionManager {
     
     func terminateSection() {
         self.saveCoreData()
-        guard let section = self.section else { return }
-        
+        guard let section = self.section,
+              let title = section.title else { return }
+        // 채점 로직
         let saveSectionUsecase = SaveSectionUsecase(section: section)
         saveSectionUsecase.fetchPids()
         saveSectionUsecase.calculateSectionResult()
-        
-        dump(saveSectionUsecase.totalScore)
-        dump(saveSectionUsecase.wrongProblems)
-        dump(saveSectionUsecase.submissions)
-        
-        section.setValue(true, forKey: "terminated")
+        // 결과
         self.stopTimer()
+        section.setValue(true, forKey: "terminated")
+        let result = SectionResult(title: title,
+                                   totalScore: saveSectionUsecase.totalScore,
+                                   totalTime: section.time,
+                                   wrongProblems: saveSectionUsecase.wrongProblems)
+        // 반환
         self.delegate.reloadButtons()
+        self.delegate.terminateSection(result: result)
     }
 }

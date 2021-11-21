@@ -56,6 +56,7 @@
 		4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */; };
 		4AA6990D2749EDF70038917A /* SectionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990C2749EDF70038917A /* SectionResult.swift */; };
 		4AA6990F2749EE4E0038917A /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990E2749EE4E0038917A /* Submission.swift */; };
+		4AA69911274A02E10038917A /* SectionResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69910274A02E10038917A /* SectionResultViewController.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
@@ -132,6 +133,7 @@
 		4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSectionUsecase.swift; sourceTree = "<group>"; };
 		4AA6990C2749EDF70038917A /* SectionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResult.swift; sourceTree = "<group>"; };
 		4AA6990E2749EE4E0038917A /* Submission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
+		4AA69910274A02E10038917A /* SectionResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultViewController.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
@@ -249,8 +251,9 @@
 			isa = PBXGroup;
 			children = (
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
-				4A60E49627251AB700946FD5 /* SectionManager.swift */,
 				4A1BABE02740C16100912F3A /* ExplanationViewController.swift */,
+				4AA69910274A02E10038917A /* SectionResultViewController.swift */,
+				4A60E49627251AB700946FD5 /* SectionManager.swift */,
 				4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */,
 				4A7EEDDA2736318000BF1A20 /* Cell */,
 				4A60E4982725499D00946FD5 /* Models */,
@@ -568,6 +571,7 @@
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* Page.swift in Sources */,
 				4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */,
+				4AA69911274A02E10038917A /* SectionResultViewController.swift in Sources */,
 				4ACAEB64270962720085ABAE /* Page_Core.swift in Sources */,
 				4A3F980C271A98C200880B86 /* CategoryCell.swift in Sources */,
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,

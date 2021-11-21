@@ -8,13 +8,15 @@
 import Foundation
 
 struct SectionResult {
-    let pids: [Int]
+    let title: String
     let totalScore: Int
+    let totalTime: Int64
     let wrongProblems: [String]
     
-    init(pids: [Int], totalScore: Int, wrongProblems: [String]) {
-        self.pids = pids
+    init(title: String, totalScore: Int, totalTime: Int64, wrongProblems: [String]) {
+        self.title = title
         self.totalScore = totalScore
+        self.totalTime = totalTime
         self.wrongProblems = wrongProblems
     }
 }
