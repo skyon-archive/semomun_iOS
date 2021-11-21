@@ -137,7 +137,7 @@ extension SingleWith5Answer {
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
-        // 채점이 완료된 경우 && 틀린 경우 표시
+        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
            let solved = problem.solved,
            answer != solved,
@@ -216,15 +216,15 @@ extension SingleWith5Answer {
     }
     
     func updateSolved(problem: Problem_Core, input: String) {
-        if problem.terminated == true { return } // 이미 채점된 문제일 경우 저장 안함
-        guard let pName = self.problem?.pName else { return }
+        guard let pName = problem.pName else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        if let answer = problem.answer {
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
+            saveCoreData()
             self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
-        saveCoreData()
     }
 }
 

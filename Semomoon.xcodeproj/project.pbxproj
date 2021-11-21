@@ -38,7 +38,6 @@
 		4A7FA86F26FAFCD90052B6CD /* CreateSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */; };
 		4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6326E4865700613602 /* PKDrawing.swift */; };
 		4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6526E48D8B00613602 /* Problem.swift */; };
-		4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6726E48F3D00613602 /* Submission.swift */; };
 		4A8BEE6A26E48FBA00613602 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6926E48FBA00613602 /* Page.swift */; };
 		4A8BEE6C26E4903A00613602 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6B26E4903A00613602 /* Section.swift */; };
 		4A8BEE6E26E490AB00613602 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BEE6D26E490AB00613602 /* Report.swift */; };
@@ -54,6 +53,9 @@
 		4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */; };
 		4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */; };
 		4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */; };
+		4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */; };
+		4AA6990D2749EDF70038917A /* SectionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990C2749EDF70038917A /* SectionResult.swift */; };
+		4AA6990F2749EE4E0038917A /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6990E2749EE4E0038917A /* Submission.swift */; };
 		4AA8878726EC727E009D1A2C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878626EC727E009D1A2C /* Preview.swift */; };
 		4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8878826EC81B6009D1A2C /* MainViewController.swift */; };
 		4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9803226D6584D004E8FCC /* SolvingViewController.swift */; };
@@ -112,7 +114,6 @@
 		4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecondViewController.swift; sourceTree = "<group>"; };
 		4A8BEE6326E4865700613602 /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
 		4A8BEE6526E48D8B00613602 /* Problem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem.swift; sourceTree = "<group>"; };
-		4A8BEE6726E48F3D00613602 /* Submission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
 		4A8BEE6926E48FBA00613602 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		4A8BEE6B26E4903A00613602 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		4A8BEE6D26E490AB00613602 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
@@ -128,6 +129,9 @@
 		4A97577826FEFA2F002543D6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		4A99CC2926F5AE55000D0AF9 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUsecase.swift; sourceTree = "<group>"; };
+		4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSectionUsecase.swift; sourceTree = "<group>"; };
+		4AA6990C2749EDF70038917A /* SectionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResult.swift; sourceTree = "<group>"; };
+		4AA6990E2749EE4E0038917A /* Submission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
 		4AA8878626EC727E009D1A2C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4AA8878826EC81B6009D1A2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4AA9803226D6584D004E8FCC /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 				4AA9803226D6584D004E8FCC /* SolvingViewController.swift */,
 				4A60E49627251AB700946FD5 /* SectionManager.swift */,
 				4A1BABE02740C16100912F3A /* ExplanationViewController.swift */,
+				4AA6990A2749ED520038917A /* SaveSectionUsecase.swift */,
 				4A7EEDDA2736318000BF1A20 /* Cell */,
 				4A60E4982725499D00946FD5 /* Models */,
 				4A60E48E27250BF000946FD5 /* LayoutViewControllers */,
@@ -278,6 +283,8 @@
 			isa = PBXGroup;
 			children = (
 				4A60E499272549C700946FD5 /* PageData.swift */,
+				4AA6990C2749EDF70038917A /* SectionResult.swift */,
+				4AA6990E2749EE4E0038917A /* Submission.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,7 +371,6 @@
 				4A8BEE6B26E4903A00613602 /* Section.swift */,
 				4A8BEE6926E48FBA00613602 /* Page.swift */,
 				4A8BEE6526E48D8B00613602 /* Problem.swift */,
-				4A8BEE6726E48F3D00613602 /* Submission.swift */,
 				4A8BEE6D26E490AB00613602 /* Report.swift */,
 				4A8BEE7126E491BF00613602 /* User.swift */,
 				4A8BEE7326E4925100613602 /* History.swift */,
@@ -519,9 +525,11 @@
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
 				4ACAEB6F27097DE50085ABAE /* PreviewOfDB.swift in Sources */,
 				4ACAEB7327097E130085ABAE /* SectionOfDB.swift in Sources */,
+				4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */,
 				4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */,
 				4ACAEB7127097DFC0085ABAE /* WorkbookOfDB.swift in Sources */,
 				4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */,
+				4AA6990D2749EDF70038917A /* SectionResult.swift in Sources */,
 				4A7FA86F26FAFCD90052B6CD /* CreateSecondViewController.swift in Sources */,
 				4A8FA099272D1E44005AD614 /* UIViewController.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
@@ -550,13 +558,13 @@
 				4A7EEDDC273631C200BF1A20 /* MultipleWith5Cell.swift in Sources */,
 				4A60E49A272549C700946FD5 /* PageData.swift in Sources */,
 				4A3F9807271A90DA00880B86 /* PreviewManager.swift in Sources */,
+				4AA6990F2749EE4E0038917A /* Submission.swift in Sources */,
 				4A3F980E271A990300880B86 /* PreviewCell.swift in Sources */,
 				1E7C4D1027489F0A0096C708 /* KeychainItem.swift in Sources */,
 				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
 				4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */,
 				4A60E4932725199100946FD5 /* SingleWith4Answer.swift in Sources */,
-				4A8BEE6826E48F3D00613602 /* Submission.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
 				4A8BEE6A26E48FBA00613602 /* Page.swift in Sources */,
 				4A3F9810271A996B00880B86 /* MainViewController+Extension.swift in Sources */,

@@ -66,7 +66,7 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        self.manager.stopTimer()
+        self.manager.stopSection()
     }
     
     @IBAction func finish(_ sender: Any) {

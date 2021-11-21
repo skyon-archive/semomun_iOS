@@ -154,12 +154,19 @@ class SectionManager {
         }
     }
     
+    func stopSection() {
+        self.stopTimer()
+        self.delegate.saveComplete()
+    }
+    
     func stopTimer() {
+        guard let section = self.section else { return }
+        if section.terminated { return }
+        
         self.isRunning = false
         self.timer.invalidate()
         self.section?.setValue(currentTime, forKey: "time")
         self.saveCoreData()
-        self.delegate.saveComplete()
     }
     
     func saveCoreData() {
@@ -173,16 +180,14 @@ class SectionManager {
     }
     
     func terminateSection() {
+        self.saveCoreData()
         guard let section = self.section else { return }
-        // 1. 현재까지 변경사항 저장
-        self.saveCoreData()
-        // 2. 저장하기 위한 배열들 선언
-//        var pids: [Int] = []
-//        var totalScore: Int = 0
-//        var wrongProblems: [String] = []
-        // 마지막 : section : terminated 상태 선언
-        section.setValue(true, forKey: "terminated")
-        self.saveCoreData()
-        self.delegate.reloadButtons()
+        
+        let saveSectionUsecase = SaveSectionUsecase(section: section)
+        saveSectionUsecase.fetchPids()
+        
+//        section.setValue(true, forKey: "terminated")
+        self.stopTimer()
+//        self.delegate.reloadButtons()
     }
 }
