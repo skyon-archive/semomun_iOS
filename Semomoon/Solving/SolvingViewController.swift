@@ -179,11 +179,9 @@ extension SolvingViewController: LayoutDelegate {
             
         case MultipleWith5Answer.identifier:
             self.currentVC = multipleWith5Answer
-            multipleWith5Answer.delegate = self
-            multipleWith5Answer.mainImage = getImage(data: pageData.pageData.materialImage)
+            multipleWith5Answer.viewModel = MultipleWith5AnswerViewModel(delegate: self, pageData: pageData)
+            multipleWith5Answer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWith5Answer.subImages = getImages(problems: pageData.problems)
-            multipleWith5Answer.pageData = pageData
-            print("setting finish")
             
         case SingleWith4Answer.identifier:
             self.currentVC = singleWith4Answer
@@ -194,7 +192,7 @@ extension SolvingViewController: LayoutDelegate {
         case MultipleWithNoAnswer.identifier:
             self.currentVC = multipleWithNoAnswer
             multipleWithNoAnswer.delegate = self
-            multipleWithNoAnswer.mainImage = getImage(data: pageData.pageData.materialImage)
+            multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
             multipleWithNoAnswer.pageData = pageData
             

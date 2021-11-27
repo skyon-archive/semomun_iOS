@@ -25,7 +25,7 @@ final class SingleWith5AnswerViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
     }
     
-    func cancleObserver() {
+    func cancelObserver() {
         NotificationCenter.default.removeObserver(self)
     }
     

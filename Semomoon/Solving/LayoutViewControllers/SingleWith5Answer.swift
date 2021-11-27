@@ -57,7 +57,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
         
-        self.viewModel?.cancleObserver()
+        self.viewModel?.cancelObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

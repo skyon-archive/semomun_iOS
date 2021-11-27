@@ -88,11 +88,11 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     // MARK: - Configure Reuse
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?, _ isShow: Bool) {
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?) {
         self.configureProblem(problem)
         self.configureUI(contentImage, superWidth)
         self.toolPicker = toolPicker
-        self.configureCanvasView(isShow)
+        self.configureCanvasView()
     }
     
     func configureProblem(_ problem: Problem_Core?) {
@@ -176,7 +176,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         }
     }
     
-    func configureCanvasView(_ isShow: Bool) {
+    func configureCanvasView() {
         self.configureCanvasViewData()
         
         canvasView.isOpaque = false

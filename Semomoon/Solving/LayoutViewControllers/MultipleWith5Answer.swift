@@ -30,10 +30,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     var height: CGFloat!
     var mainImage: UIImage?
     var subImages: [UIImage?]?
-    var pageData: PageData?
-    var problems: [Problem_Core]?
-    weak var delegate: PageDelegate?
-    var isShow: Bool = false
+    var viewModel: MultipleWith5AnswerViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -48,10 +45,9 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
-        print(self.toolPicker.isVisible)
         
+        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureProblems()
         self.collectionView.reloadData()
         self.configureMainImageView()
     }
@@ -59,12 +55,15 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
+        
         self.configureCanvasView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("5다선지 좌우형 : willDisapplear")
+        
+        self.viewModel?.cancelObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -86,10 +85,6 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
 }
 
 extension MultipleWith5Answer {
-    func configureProblems() {
-        self.problems = self.pageData?.problems ?? nil
-    }
-    
     func configureCanvasView() {
         self.configureCanvasViewData()
         
@@ -107,7 +102,7 @@ extension MultipleWith5Answer {
     }
     
     func configureCanvasViewData() {
-        if let pkData = self.pageData?.pageData.drawing {
+        if let pkData = self.viewModel?.pageData.pageCore.drawing {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
@@ -136,18 +131,18 @@ extension MultipleWith5Answer {
 // MARK: - Configure MultipleWith5Cell
 extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.problems?.count ?? 0
+        return self.viewModel?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
-        let problem = self.problems?[indexPath.item] ?? nil
+        let problem = self.viewModel?.problem(at: indexPath.item)
         let superWidth = self.collectionView.frame.width
         
         cell.delegate = self
-        cell.configureReuse(contentImage, problem, superWidth, toolPicker, isShow)
+        cell.configureReuse(contentImage, problem, superWidth, toolPicker)
         return cell
     }
 }
@@ -170,18 +165,18 @@ extension MultipleWith5Answer: UICollectionViewDelegateFlowLayout {
 
 extension MultipleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.pageData?.pageData.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        saveCoreData()
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data)
     }
 }
 
 extension MultipleWith5Answer: CollectionCellDelegate {
     func updateStar(btName: String, to: Bool) {
-        self.delegate?.updateStar(btName: btName, to: to)
+        self.viewModel?.delegate?.updateStar(btName: btName, to: to)
     }
     
     func nextPage() {
-        self.delegate?.nextPage()
+        self.viewModel?.delegate?.nextPage()
     }
     
     func showExplanation(image: UIImage) {
@@ -191,6 +186,6 @@ extension MultipleWith5Answer: CollectionCellDelegate {
     }
     
     func updateWrong(btName: String, to: Bool) {
-        self.delegate?.updateWrong(btName: btName, to: to)
+        self.viewModel?.delegate?.updateWrong(btName: btName, to: to)
     }
 }

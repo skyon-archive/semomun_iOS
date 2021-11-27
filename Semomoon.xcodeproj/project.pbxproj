@@ -15,6 +15,7 @@
 		4A1119B62751DC3C00EBF98A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119B52751DC3C00EBF98A /* NotificationName.swift */; };
 		4A1119B92751DE0900EBF98A /* SingleWith5AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119B82751DE0900EBF98A /* SingleWith5AnswerViewModel.swift */; };
 		4A1119BB2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119BA2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift */; };
+		4A1119BD2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119BC2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift */; };
 		4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */; };
 		4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1BABE02740C16100912F3A /* ExplanationViewController.swift */; };
 		4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E742026F70DBD001C3420 /* CertificationViewController.swift */; };
@@ -99,6 +100,7 @@
 		4A1119B52751DC3C00EBF98A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		4A1119B82751DE0900EBF98A /* SingleWith5AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith5AnswerViewModel.swift; sourceTree = "<group>"; };
 		4A1119BA2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithTextAnswerViewModel.swift; sourceTree = "<group>"; };
+		4A1119BC2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerViewModel.swift; sourceTree = "<group>"; };
 		4A12461A26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailOfWorkbookViewController.swift; sourceTree = "<group>"; };
 		4A1BABE02740C16100912F3A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		4A1E742026F70DBD001C3420 /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				4A1119B82751DE0900EBF98A /* SingleWith5AnswerViewModel.swift */,
 				4A1119BA2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift */,
+				4A1119BC2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift */,
 			);
 			path = LayoutViewModels;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
 				4ACAEB6F27097DE50085ABAE /* PreviewOfDB.swift in Sources */,
 				4ACAEB7327097E130085ABAE /* SectionOfDB.swift in Sources */,
+				4A1119BD2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift in Sources */,
 				4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */,
 				4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */,
 				4ACAEB7127097DFC0085ABAE /* WorkbookOfDB.swift in Sources */,

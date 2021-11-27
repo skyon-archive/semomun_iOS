@@ -59,7 +59,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillDisappear(animated)
         print("객관식 willDisappear")
         
-        self.viewModel?.cancleObserver()
+        self.viewModel?.cancelObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
