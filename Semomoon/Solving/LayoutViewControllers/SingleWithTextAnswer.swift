@@ -26,9 +26,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage?
-    var pageData: PageData?
-    var problem: Problem_Core?
-    weak var delegate: PageDelegate?
+    var viewModel: SingleWithTextAnswerViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -44,15 +42,24 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillAppear(animated)
         print("객관식 willAppear")
         
+        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureProblem()
         self.configureUI()
         self.configureCanvasView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         print("객관식 didAppear")
+        
         self.configureImageView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("객관식 willDisappear")
+        
+        self.viewModel?.cancleObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,39 +76,31 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     // 주관식 입력 부분
     @IBAction func solveInputChanged(_ sender: UITextField) {
-        guard let problem = self.problem,
-              let pName = problem.pName,
+        guard let problem = self.viewModel?.problem,
               let input = sender.text else { return }
         
-        if problem.terminated { // 종료된 문제일 경우 이전 사용자 입력값으로 변경
+        if problem.terminated {
             if let solved = problem.solved {
                 sender.text = solved
             }
             return
         }
         
-        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        saveCoreData()
-        
-        if let answer = problem.answer {
-            let correct = input == answer
-            problem.setValue(correct, forKey: "correct")
-            saveCoreData()
-            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
-        }
+        self.viewModel?.updateSolved(input: "\(input)")
     }
     
 
     @IBAction func toggleStar(_ sender: Any) {
-        guard let pName = self.problem?.pName else { return }
+        guard let problem = self.viewModel?.problem,
+              let pName = problem.pName else { return }
+        
         self.star.isSelected.toggle()
         let status = self.star.isSelected
-        self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.viewModel?.updateStar(btName: pName, to: status)
     }
 
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
+        guard let answer = self.viewModel?.problem?.answer else { return }
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
             self.answer.setTitle(answer, for: .normal)
@@ -111,24 +110,21 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     }
 
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage else { return }
+        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+        
         guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
         let explanationImage = UIImage(data: imageData)
         explanationVC.explanationImage = explanationImage
         self.present(explanationVC, animated: true, completion: nil)
     }
-
+    
     @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
+        self.viewModel?.delegate?.nextPage()
     }
 }
 
 
 extension SingleWithTextAnswer {
-    func configureProblem() {
-        self.problem = self.pageData?.problems[0] ?? nil
-    }
-    
     func configureUI() {
         self.configureCheckInput()
         self.configureStar()
@@ -142,7 +138,7 @@ extension SingleWithTextAnswer {
         solveInput.layer.borderWidth = 1
         solveInput.layer.borderColor = UIColor(named: "mint")?.cgColor
         
-        if let solved = self.problem?.solved {
+        if let solved = self.viewModel?.problem?.solved {
             solveInput.text = solved
         } else {
             solveInput.text = ""
@@ -150,14 +146,14 @@ extension SingleWithTextAnswer {
     }
     
     func configureStar() {
-        self.star.isSelected = self.problem?.star ?? false
+        self.star.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureAnswer() {
-        guard let problem = self.problem else { return }
+        guard let problem = self.viewModel?.problem else { return }
         self.answer.setTitle("정답", for: .normal)
         self.answer.isSelected = false
-        if self.problem?.answer == nil {
+        if problem.answer == nil {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -174,7 +170,7 @@ extension SingleWithTextAnswer {
     }
     
     func configureExplanation() {
-        if self.problem?.explanationImage == nil {
+        if self.viewModel?.problem?.explanationImage == nil {
             self.explanation.isUserInteractionEnabled = false
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -200,7 +196,7 @@ extension SingleWithTextAnswer {
     }
     
     func configureCanvasViewData() {
-        if let pkData = self.problem?.drawing {
+        if let pkData = self.viewModel?.problem?.drawing {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
@@ -227,7 +223,7 @@ extension SingleWithTextAnswer {
 
 extension SingleWithTextAnswer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        saveCoreData()
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data)
     }
 }
