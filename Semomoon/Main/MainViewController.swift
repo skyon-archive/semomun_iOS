@@ -41,7 +41,7 @@ class MainViewController: UIViewController, UIContextMenuInteractionDelegate {
         
 //        self.createMockCoreDataForMath()
 //        self.createMockCoreDataForKorean()
-//        self.createMockDataForMulty()
+        self.createMockDataForMulty()
     }
     
     override func viewDidAppear(_ animated: Bool) {

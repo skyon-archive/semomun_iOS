@@ -26,9 +26,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage?
-    var pageData: PageData?
-    var problem: Problem_Core?
-    weak var delegate: PageDelegate?
+    var viewModel: SingleWith5AnswerViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -44,8 +42,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         super.viewWillAppear(animated)
         print("5다선지 willAppear")
         
+        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureProblem()
         self.configureUI()
         self.configureCanvasView()
     }
@@ -53,6 +51,13 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
         self.configureImageView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("5다선지 willDisappear")
+        
+        self.viewModel?.cancleObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,25 +74,27 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.problem else { return }
+        guard let problem = self.viewModel?.problem else { return }
         if problem.terminated { return }
         
         let input: Int = sender.tag
-        self.updateSolved(problem: problem, input: "\(input)")
+        self.viewModel?.updateSolved(input: "\(input)")
         
         self.configureCheckButtons()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
-        guard let pName = self.problem?.pName else { return }
+        guard let problem = self.viewModel?.problem,
+              let pName = problem.pName else { return }
+        
         self.star.isSelected.toggle()
         let status = self.star.isSelected
-        self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.viewModel?.updateStar(btName: pName, to: status)
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
+        guard let answer = self.viewModel?.problem?.answer else { return }
+        
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
             self.answer.setTitle(answer, for: .normal)
@@ -97,7 +104,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage else { return }
+        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+        
         guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
         let explanationImage = UIImage(data: imageData)
         explanationVC.explanationImage = explanationImage
@@ -105,16 +113,12 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
+        self.viewModel?.delegate?.nextPage()
     }
 }
 
 
 extension SingleWith5Answer {
-    func configureProblem() {
-        self.problem = self.pageData?.problems[0] ?? nil
-    }
-    
     func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
@@ -123,7 +127,7 @@ extension SingleWith5Answer {
     }
     
     func configureCheckButtons() {
-        guard let problem = self.problem else { return }
+        guard let problem = self.viewModel?.problem else { return }
         
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
@@ -149,13 +153,13 @@ extension SingleWith5Answer {
     }
     
     func configureStar() {
-        self.star.isSelected = self.problem?.star ?? false
+        self.star.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureAnswer() {
         self.answer.setTitle("정답", for: .normal)
         self.answer.isSelected = false
-        if self.problem?.answer == nil {
+        if self.viewModel?.problem?.answer == nil {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -165,7 +169,7 @@ extension SingleWith5Answer {
     }
     
     func configureExplanation() {
-        if self.problem?.explanationImage == nil {
+        if self.viewModel?.problem?.explanationImage == nil {
             self.explanation.isUserInteractionEnabled = false
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -191,7 +195,7 @@ extension SingleWith5Answer {
     }
     
     func configureCanvasViewData() {
-        if let pkData = self.problem?.drawing {
+        if let pkData = self.viewModel?.problem?.drawing {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
@@ -214,26 +218,13 @@ extension SingleWith5Answer {
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
     }
-    
-    func updateSolved(problem: Problem_Core, input: String) {
-        guard let pName = problem.pName else { return }
-        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        saveCoreData()
-        
-        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
-            let correct = input == answer
-            problem.setValue(correct, forKey: "correct")
-            saveCoreData()
-            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
-        }
-    }
 }
 
 
 
 extension SingleWith5Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        saveCoreData()
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data)
     }
 }

@@ -146,6 +146,7 @@ class SectionManager {
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 self.currentTime += 1
                 self.showTime()
             }
@@ -204,26 +205,5 @@ class SectionManager {
             return
         }
         print(String(data: data, encoding: .utf8))
-    }
-    
-//    func json(from object:Any) -> String? {
-//        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
-//            return nil
-//        }
-//        return String(data: data, encoding: String.Encoding.utf8)
-//    }
-    
-    func convertIntoJSONString(arrayObject: [Any]) -> String? {
-        
-        do {
-            let jsonData: Data = try JSONSerialization.data(withJSONObject: arrayObject, options: [])
-            if  let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) {
-                return jsonString as String
-            }
-            
-        } catch let error as NSError {
-            print("Array convertIntoJSON - \(error.description)")
-        }
-        return nil
     }
 }

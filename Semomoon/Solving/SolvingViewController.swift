@@ -169,9 +169,8 @@ extension SolvingViewController: LayoutDelegate {
         switch pageData.layoutType {
         case SingleWith5Answer.identifier:
             self.currentVC = singleWith5Answer
-            singleWith5Answer.delegate = self
+            singleWith5Answer.viewModel = SingleWith5AnswerViewModel(delegate: self, pageData: pageData)
             singleWith5Answer.image = getImage(data: pageData.problems[0].contentImage)
-            singleWith5Answer.pageData = pageData
             
         case SingleWithTextAnswer.identifier:
             self.currentVC = singleWithTextAnswer
