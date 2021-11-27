@@ -21,6 +21,7 @@ extension Page_Core {
     @NSManaged public var layoutType: String //뷰컨트롤러 타입
     @NSManaged public var problems: [Int] //Problem: pid 값들
     @NSManaged public var drawing: Data? //Pencil 데이터
+    @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
 }
 
 extension Page_Core : Identifiable {
@@ -38,6 +39,7 @@ public class Page_Core: NSManagedObject {
         self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
         self.setValue(nil, forKey: "drawing")
+        self.setValue(Int64(0), forKey: "time")
         
         if let materialPath = page.material {
             if let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) {
@@ -82,6 +84,7 @@ public class Page_Core: NSManagedObject {
         self.setValue(getLayout(form: form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
         self.setValue(nil, forKey: "drawing")
+        self.setValue(Int64(0), forKey: "time")
         if let mateImgName = mateImgName {
             let imgData = UIImage(named: mateImgName)!.pngData()
             self.setValue(imgData, forKey: "materialImage")

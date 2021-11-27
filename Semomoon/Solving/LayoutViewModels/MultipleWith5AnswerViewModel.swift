@@ -13,12 +13,21 @@ final class MultipleWith5AnswerViewModel {
     private(set) var pageData: PageData
     private(set) var problems: [Problem_Core]?
     private var time: Int64
+    private var baseTimes: [Int64] = []
     
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
         self.pageData = pageData
         self.problems = self.pageData.problems
-        self.time = 0
+        self.time = self.pageData.pageCore.time
+        self.configureTimes()
+    }
+    
+    func configureTimes() {
+        guard let problems = self.problems else { return }
+        problems.forEach {
+            self.baseTimes.append($0.time)
+        }
     }
     
     func configureObserver() {
@@ -31,7 +40,13 @@ final class MultipleWith5AnswerViewModel {
     
     @objc func updateTime() {
         self.time = self.time + 1
-        
+        guard let problems = problems else { return }
+        let perTime = Int64(ceil(Double(time)/Double(problems.count)))
+        for (idx, problem) in problems.enumerated() {
+            print(baseTimes[idx] + perTime)
+            problem.setValue(baseTimes[idx] + perTime, forKey: "time")
+        }
+
         self.saveCoreData()
     }
     
