@@ -25,52 +25,98 @@ struct CoreUsecase {
         return nil
     }
     
+//    static func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
+//        if pages.isEmpty {
+//            completion(nil)
+//            return
+//        }
+//
+//        let context = CoreDataManager.shared.context
+//        DispatchQueue.global().async {
+//            let sectionOfCore = Section_Core(context: context)
+//            // Section: 1. sectionHeader 로딩, error 시 nil 반환
+//            guard let sectionHeader = loadSectionHeader(sid: sid) else {
+//                completion(nil)
+//                return
+//            }
+//            // Section: 2. 하단 button 타이틀 변수
+//            var buttons: [String] = []
+//            // Section: 3. 하단 button -> vid 딕셔너리 변수
+//            var dictOfButtonToView: [String: Int] = [:]
+//
+//            for page in pages {
+//                let pageOfCore = Page_Core(context: context)
+//                // Page: 1. 페이지 내 pid들 변수
+//                var problems: [Int] = []
+//                var type: Int = 5
+//
+//                for problem in page.problems {
+//                    let problemOfCore = Problem_Core(context: context)
+//                    // Problem: 1. problem 최종 저장
+//                    problemOfCore.setValues(prob: problem)
+//
+//                    buttons.append(problem.icon_name)
+//                    dictOfButtonToView[problem.icon_name] = page.vid
+//                    problems.append(problem.pid)
+//                    type = problem.type
+//                }
+//                // Page: 2. page 최종 저장
+//                pageOfCore.setValues(page: page, pids: problems, type: type)
+//                DispatchQueue.main.async {
+//                    loading.updateProgress()
+//                }
+//            }
+//            // Section: 4. section 최종 저장
+//            sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
+//            do { try context.save() } catch let error { print(error.localizedDescription) }
+//            completion(sectionOfCore)
+//        }
+//    }
+    
     static func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
+        let context = CoreDataManager.shared.context
+        let sectionOfCore = Section_Core(context: context)
+        
         if pages.isEmpty {
             completion(nil)
             return
         }
+       
+        guard let sectionHeader = loadSectionHeader(sid: sid) else {
+            completion(nil)
+            return
+        }
         
-        let context = CoreDataManager.shared.context
+        var problemNames: [String] = []
+        var problemNameToPage: [String: Int] = [:]
+        
         DispatchQueue.global().async {
-            let sectionOfCore = Section_Core(context: context)
-            // Section: 1. sectionHeader 로딩, error 시 nil 반환
-            guard let sectionHeader = loadSectionHeader(sid: sid) else {
-                completion(nil)
-                return
-            }
-            // Section: 2. 하단 button 타이틀 변수
-            var buttons: [String] = []
-            // Section: 3. 하단 button -> vid 딕셔너리 변수
-            var dictOfButtonToView: [String: Int] = [:]
-
             for page in pages {
                 let pageOfCore = Page_Core(context: context)
-                // Page: 1. 페이지 내 pid들 변수
-                var problems: [Int] = []
-                var type: Int = 5
+                var problemIds: [Int] = []
+                var pageLayoutType: Int = 5
 
                 for problem in page.problems {
                     let problemOfCore = Problem_Core(context: context)
                     // Problem: 1. problem 최종 저장
                     problemOfCore.setValues(prob: problem)
 
-                    buttons.append(problem.icon_name)
-                    dictOfButtonToView[problem.icon_name] = page.vid
-                    problems.append(problem.pid)
-                    type = problem.type
+                    problemNames.append(problem.icon_name)
+                    problemNameToPage[problem.icon_name] = page.vid
+                    problemIds.append(problem.pid)
+                    pageLayoutType = problem.type
                 }
                 // Page: 2. page 최종 저장
-                pageOfCore.setValues(page: page, pids: problems, type: type)
+                pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
                 DispatchQueue.main.async {
                     loading.updateProgress()
                 }
             }
-            // Section: 4. section 최종 저장
-            sectionOfCore.setValues(header: sectionHeader, buttons: buttons, dict: dictOfButtonToView)
-            do { try context.save() } catch let error { print(error.localizedDescription) }
-            completion(sectionOfCore)
         }
+        
+        sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
+        do { try context.save() } catch let error { print(error.localizedDescription) }
+        completion(sectionOfCore)
     }
     
     

@@ -10,6 +10,18 @@ import Foundation
 import CoreData
 import UIKit
 
+struct PageResult {
+    let vid: Int
+    let url: URL?
+    let isImage: Bool
+    
+    init(vid: Int, url: URL?, isImage: Bool) {
+        self.vid = vid
+        self.url = url
+        self.isImage = isImage
+    }
+}
+
 extension Page_Core {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Page_Core> {
@@ -34,30 +46,42 @@ public class Page_Core: NSManagedObject {
         return "Page(\(self.vid), \(self.problems), \(self.materialImage))\n"
     }
     
-    func setValues(page: PageOfDB, pids: [Int], type: Int) {
+    func setValues(page: PageOfDB, pids: [Int], type: Int) -> PageResult {
         self.setValue(Int64(page.vid), forKey: "vid")
         self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
         self.setValue(pids, forKey: "problems")
         self.setValue(nil, forKey: "drawing")
         self.setValue(Int64(0), forKey: "time")
+        print("Page: \(page.vid) save complete")
         
-        if let materialPath = page.material {
-            if let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) {
-                let imageData = try? Data(contentsOf: url)
-                if imageData != nil {
-                    self.setValue(imageData, forKey: "materialImage")
-                } else {
-                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
-                    self.setValue(warningImage.pngData(), forKey: "materialImage")
-                }
+        guard let materialPath = page.material else {
+            return PageResult(vid: page.vid, url: nil, isImage: false)
+        }
+        guard let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) else {
+            return PageResult(vid: page.vid, url: nil, isImage: true)
+        }
+        return PageResult(vid: page.vid, url: url, isImage: true)
+    }
+    
+    func setMaterial(pageResult: PageResult) {
+        if !pageResult.isImage {
+            self.setValue(nil, forKey: "materialImage")
+            return
+        }
+        
+        if let url = pageResult.url {
+            let imageData = try? Data(contentsOf: url)
+            if imageData != nil {
+                self.setValue(imageData, forKey: "materialImage")
             } else {
                 guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
                 self.setValue(warningImage.pngData(), forKey: "materialImage")
             }
         } else {
-            self.setValue(nil, forKey: "materialImage")
+            guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+            self.setValue(warningImage.pngData(), forKey: "materialImage")
         }
-        print("Page: \(page.vid) save complete")
+        print("Page: \(pageResult.vid) save Material")
     }
     
     func getLayout(form: Int, type: Int) -> String {
