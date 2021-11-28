@@ -81,7 +81,6 @@ struct CoreUsecase {
             completion(nil)
             return
         }
-       
         guard let sectionHeader = loadSectionHeader(sid: sid) else {
             completion(nil)
             return
@@ -89,7 +88,12 @@ struct CoreUsecase {
         
         var problemNames: [String] = []
         var problemNameToPage: [String: Int] = [:]
+        var pageCores: [Page_Core] = []
+        var problemCores: [Problem_Core] = []
+        var pageResults: [PageResult] = []
+        var problemResults: [ProblemResult] = []
         
+        print("----------save start----------")
         DispatchQueue.global().async {
             for page in pages {
                 let pageOfCore = Page_Core(context: context)
@@ -98,21 +102,26 @@ struct CoreUsecase {
 
                 for problem in page.problems {
                     let problemOfCore = Problem_Core(context: context)
-                    // Problem: 1. problem 최종 저장
-                    problemOfCore.setValues(prob: problem)
-
+                    let problemResult = problemOfCore.setValues(prob: problem)
+                    // Section property
                     problemNames.append(problem.icon_name)
                     problemNameToPage[problem.icon_name] = page.vid
+                    // Page property
                     problemIds.append(problem.pid)
                     pageLayoutType = problem.type
+                    // append instance
+                    problemCores.append(problemOfCore)
+                    problemResults.append(problemResult)
                 }
-                // Page: 2. page 최종 저장
-                pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
-                DispatchQueue.main.async {
-                    loading.updateProgress()
-                }
+                let pageResult = pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
+                // append instance
+                pageCores.append(pageOfCore)
+                pageResults.append(pageResult)
             }
         }
+        print("----------save end----------")
+        // Images download start
+        
         
         sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
         do { try context.save() } catch let error { print(error.localizedDescription) }
