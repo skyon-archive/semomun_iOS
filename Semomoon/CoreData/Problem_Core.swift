@@ -11,6 +11,18 @@ import CoreData
 import Alamofire
 import UIKit
 
+struct ProblemResult {
+    let pid: Int
+    let contentUrl: URL?
+    let explanationUrl: URL?
+    
+    init(pid: Int, contentUrl: URL?, explanationUrl: URL?) {
+        self.pid = pid
+        self.contentUrl = contentUrl
+        self.explanationUrl = explanationUrl
+    }
+}
+
 extension Problem_Core {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Problem_Core> {
         return NSFetchRequest<Problem_Core>(entityName: "Problem_Core")
@@ -41,7 +53,7 @@ public class Problem_Core: NSManagedObject {
         return "Problem(\(self.pid), \(self.pName), \(self.contentImage), \(self.explanationImage), \(self.star)\n"
     }
     
-    func setValues(prob: ProblemOfDB) {
+    func setValues(prob: ProblemOfDB) -> ProblemResult {
         self.setValue(Int64(prob.pid), forKey: "pid")
         self.setValue(prob.icon_name, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")
@@ -58,9 +70,22 @@ public class Problem_Core: NSManagedObject {
         } else {
             self.setValue(Int64(0), forKey: "point")
         }
+        print("Problem: \(prob.pid) save complete")
         
+        var contentUrl: URL? = nil
+        if let url = URL(string: NetworkUsecase.URL.contentImage + prob.content) {
+            contentUrl = url
+        }
+        guard let explanation = prob.explanation,
+              let url = URL(string: NetworkUsecase.URL.explanation + explanation) else {
+                  return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: nil)
+              }
+        return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: url)
+    }
+    
+    func fetchImages(problemResult: ProblemResult) {
         // MARK: - contentImage
-        if let contentURL = URL(string: NetworkUsecase.URL.contentImage + prob.content) {
+        if let contentURL = problemResult.contentUrl {
             let contentData = try? Data(contentsOf: contentURL)
             if contentData != nil {
                 self.setValue(contentData, forKey: "contentImage")
@@ -74,15 +99,10 @@ public class Problem_Core: NSManagedObject {
         }
         
         // MARK: - explanationImage
-        if let explanation = prob.explanation {
-            if let explanationURL = URL(string: NetworkUsecase.URL.explanation + explanation) {
-                let contentData = try? Data(contentsOf: explanationURL)
-                if contentData != nil {
-                    self.setValue(contentData, forKey: "explanationImage")
-                } else {
-                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
-                    self.setValue(warningImage.pngData(), forKey: "explanationImage")
-                }
+        if let explanationURL = problemResult.explanationUrl {
+            let contentData = try? Data(contentsOf: explanationURL)
+            if contentData != nil {
+                self.setValue(contentData, forKey: "explanationImage")
             } else {
                 guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
                 self.setValue(warningImage.pngData(), forKey: "explanationImage")
@@ -90,7 +110,7 @@ public class Problem_Core: NSManagedObject {
         } else {
             self.setValue(nil, forKey: "explanationImage")
         }
-        print("Problem: \(prob.pid) save complete")
+        print("Problem: \(problemResult.pid) save Images")
     }
     
     func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {
