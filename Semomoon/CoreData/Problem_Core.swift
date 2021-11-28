@@ -86,12 +86,13 @@ public class Problem_Core: NSManagedObject {
     func fetchImages(problemResult: ProblemResult, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         if let contentURL = problemResult.contentUrl {
-            let contentData = try? Data(contentsOf: contentURL)
-            if contentData != nil {
-                self.setValue(contentData, forKey: "contentImage")
-            } else {
-                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
-                self.setValue(warningImage.pngData(), forKey: "contentImage")
+            Network.get(url: contentURL) { contentData in
+                if contentData != nil {
+                    self.setValue(contentData, forKey: "contentImage")
+                } else {
+                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                    self.setValue(warningImage.pngData(), forKey: "contentImage")
+                }
             }
         } else {
             guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
@@ -100,12 +101,16 @@ public class Problem_Core: NSManagedObject {
         
         // MARK: - explanationImage
         if let explanationURL = problemResult.explanationUrl {
-            let contentData = try? Data(contentsOf: explanationURL)
-            if contentData != nil {
-                self.setValue(contentData, forKey: "explanationImage")
-            } else {
-                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
-                self.setValue(warningImage.pngData(), forKey: "explanationImage")
+            Network.get(url: explanationURL) { explanationData in
+                print(explanationData)
+                if explanationData != nil {
+                    self.setValue(explanationData, forKey: "explanationImage")
+                    completion()
+                } else {
+                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                    self.setValue(warningImage.pngData(), forKey: "explanationImage")
+                    completion()
+                }
             }
         } else {
             self.setValue(nil, forKey: "explanationImage")

@@ -94,59 +94,62 @@ struct CoreUsecase {
         var problemResults: [ProblemResult] = []
         
         print("----------save start----------")
-        DispatchQueue.global().async {
-            for page in pages {
-                let pageOfCore = Page_Core(context: context)
-                var problemIds: [Int] = []
-                var pageLayoutType: Int = 5
+        for page in pages {
+            let pageOfCore = Page_Core(context: context)
+            var problemIds: [Int] = []
+            var pageLayoutType: Int = 5
 
-                for problem in page.problems {
-                    let problemOfCore = Problem_Core(context: context)
-                    let problemResult = problemOfCore.setValues(prob: problem)
-                    // Section property
-                    problemNames.append(problem.icon_name)
-                    problemNameToPage[problem.icon_name] = page.vid
-                    // Page property
-                    problemIds.append(problem.pid)
-                    pageLayoutType = problem.type
-                    // append instance
-                    problemCores.append(problemOfCore)
-                    problemResults.append(problemResult)
-                }
-                let pageResult = pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
+            for problem in page.problems {
+                let problemOfCore = Problem_Core(context: context)
+                let problemResult = problemOfCore.setValues(prob: problem)
+                // Section property
+                problemNames.append(problem.icon_name)
+                problemNameToPage[problem.icon_name] = page.vid
+                // Page property
+                problemIds.append(problem.pid)
+                pageLayoutType = problem.type
                 // append instance
-                pageCores.append(pageOfCore)
-                pageResults.append(pageResult)
+                problemCores.append(problemOfCore)
+                problemResults.append(problemResult)
             }
+            let pageResult = pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
+            // append instance
+            pageCores.append(pageOfCore)
+            pageResults.append(pageResult)
         }
         print("----------save end----------")
-        DispatchQueue.main.async {
-            loading.setCount(count: problemResults.count + pageResults.count)
-        }
-        // Images download start
-        let downloadQueue = DispatchQueue(label: "downloadQueue",attributes: .concurrent)
-        let downloadGroup = DispatchGroup()
+        let totalCount: Int = problemResults.count + pageResults.count
+        var currentCount: Int = 0
         
-        downloadQueue.async(group: downloadGroup) {
+        DispatchQueue.main.async {
+            loading.setCount(count: totalCount)
+        }
+        
+        DispatchQueue.global().async {
             for (idx, problem) in problemCores.enumerated() {
                 problem.fetchImages(problemResult: problemResults[idx]) {
                     DispatchQueue.main.async {
                         loading.updateProgress()
+                        currentCount += 1
+                        print(currentCount)
                     }
                 }
             }
-        }
-        downloadQueue.async(group: downloadGroup) {
             for (idx, page) in pageCores.enumerated() {
                 page.setMaterial(pageResult: pageResults[idx]) {
                     DispatchQueue.main.async {
                         loading.updateProgress()
+                        currentCount += 1
+                        print(currentCount)
                     }
                 }
             }
-        }
-        
-        downloadGroup.notify(queue: downloadQueue) {
+            
+            while true {
+                if currentCount == totalCount {
+                    break
+                }
+            }
             print("----------download end----------")
             sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
             do { try context.save() } catch let error { print(error.localizedDescription) }

@@ -14,7 +14,18 @@ class Network {
         AF.request(url, method: .get).responseJSON { response in
             switch response.result {
             case .success:
-                print(String(data: response.data!, encoding: .utf8))
+                completion(response.data)
+            case .failure(let error):
+                print("Error: \(error._code)")
+                completion(nil)
+            }
+        }.resume()
+    }
+    
+    static func get(url: URL, completion: @escaping(Data?) -> Void) {
+        AF.request(url, method: .get).responseData { response in
+            switch response.result {
+            case .success:
                 completion(response.data)
             case .failure(let error):
                 print("Error: \(error._code)")
