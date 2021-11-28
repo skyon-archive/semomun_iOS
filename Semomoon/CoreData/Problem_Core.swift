@@ -15,11 +15,14 @@ struct ProblemResult {
     let pid: Int
     let contentUrl: URL?
     let explanationUrl: URL?
+    var imageCount: Int = 0
     
     init(pid: Int, contentUrl: URL?, explanationUrl: URL?) {
         self.pid = pid
         self.contentUrl = contentUrl
         self.explanationUrl = explanationUrl
+        if self.contentUrl != nil { self.imageCount += 1 }
+        if self.explanationUrl != nil { self.imageCount += 1 }
     }
 }
 
@@ -87,16 +90,23 @@ public class Problem_Core: NSManagedObject {
         // MARK: - contentImage
         if let contentURL = problemResult.contentUrl {
             Network.get(url: contentURL) { contentData in
+                print(contentData)
                 if contentData != nil {
                     self.setValue(contentData, forKey: "contentImage")
+                    print("Problem: \(problemResult.pid) save contentImage")
+                    completion()
                 } else {
                     guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
                     self.setValue(warningImage.pngData(), forKey: "contentImage")
+                    print("Problem: \(problemResult.pid) save contentImage")
+                    completion()
                 }
             }
         } else {
             guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
             self.setValue(warningImage.pngData(), forKey: "contentImage")
+            print("Problem: \(problemResult.pid) save contentImage")
+            completion()
         }
         
         // MARK: - explanationImage
@@ -105,18 +115,20 @@ public class Problem_Core: NSManagedObject {
                 print(explanationData)
                 if explanationData != nil {
                     self.setValue(explanationData, forKey: "explanationImage")
+                    print("Problem: \(problemResult.pid) save explanationImage")
                     completion()
                 } else {
                     guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
                     self.setValue(warningImage.pngData(), forKey: "explanationImage")
+                    print("Problem: \(problemResult.pid) save explanationImage")
                     completion()
                 }
             }
         } else {
             self.setValue(nil, forKey: "explanationImage")
+            print("Problem: \(problemResult.pid) save Images")
+            completion()
         }
-        print("Problem: \(problemResult.pid) save Images")
-        completion()
     }
     
     func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {

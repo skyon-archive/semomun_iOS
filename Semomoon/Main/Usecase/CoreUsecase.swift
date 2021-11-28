@@ -92,6 +92,8 @@ struct CoreUsecase {
         var problemCores: [Problem_Core] = []
         var pageResults: [PageResult] = []
         var problemResults: [ProblemResult] = []
+        var pageImageCount: Int = 0
+        var problemImageCount: Int = 0
         
         print("----------save start----------")
         for page in pages {
@@ -109,20 +111,24 @@ struct CoreUsecase {
                 problemIds.append(problem.pid)
                 pageLayoutType = problem.type
                 // append instance
+                problemImageCount += problemResult.imageCount
                 problemCores.append(problemOfCore)
                 problemResults.append(problemResult)
             }
             let pageResult = pageOfCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
             // append instance
+            if pageResult.isImage { pageImageCount += 1 }
             pageCores.append(pageOfCore)
             pageResults.append(pageResult)
         }
         print("----------save end----------")
-        let totalCount: Int = problemResults.count + pageResults.count
+        let totalCount: Int = problemImageCount + pageResults.count
+        let loadingCount: Int = problemImageCount + pageImageCount
+        print(totalCount, loadingCount)
         var currentCount: Int = 0
         
         DispatchQueue.main.async {
-            loading.setCount(count: totalCount)
+            loading.setCount(count: loadingCount)
         }
         
         DispatchQueue.global().async {
@@ -138,7 +144,9 @@ struct CoreUsecase {
             for (idx, page) in pageCores.enumerated() {
                 page.setMaterial(pageResult: pageResults[idx]) {
                     DispatchQueue.main.async {
-                        loading.updateProgress()
+                        if pageResults[idx].isImage {
+                            loading.updateProgress()
+                        }
                         currentCount += 1
                         print(currentCount)
                     }

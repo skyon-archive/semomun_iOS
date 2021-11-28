@@ -66,23 +66,31 @@ public class Page_Core: NSManagedObject {
     func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
         if !pageResult.isImage {
             self.setValue(nil, forKey: "materialImage")
+            print("Page: \(pageResult.vid) save Material")
+            completion()
             return
         }
         
         if let url = pageResult.url {
-            let imageData = try? Data(contentsOf: url)
-            if imageData != nil {
-                self.setValue(imageData, forKey: "materialImage")
-            } else {
-                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
-                self.setValue(warningImage.pngData(), forKey: "materialImage")
+            Network.get(url: url) { materialImageData in
+                print(materialImageData)
+                if materialImageData != nil {
+                    self.setValue(materialImageData, forKey: "materialImage")
+                    print("Page: \(pageResult.vid) save Material")
+                    completion()
+                } else {
+                    guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                    self.setValue(warningImage.pngData(), forKey: "materialImage")
+                    print("Page: \(pageResult.vid) save Material")
+                    completion()
+                }
             }
         } else {
             guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
             self.setValue(warningImage.pngData(), forKey: "materialImage")
+            print("Page: \(pageResult.vid) save Material")
+            completion()
         }
-        print("Page: \(pageResult.vid) save Material")
-        completion()
     }
     
     func getLayout(form: Int, type: Int) -> String {
