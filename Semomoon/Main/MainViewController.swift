@@ -203,7 +203,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             print("NETWORK RESULT")
             print(views)
             // save to coreData
-            let loading = self.startLoading(count: views.count)
+            let loading = self.startLoading()
             CoreUsecase.savePages(sid: sid, pages: views, loading: loading) { section in
                 guard let section = section else {
                     loading.terminate()

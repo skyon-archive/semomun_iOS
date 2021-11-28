@@ -8,6 +8,7 @@
 import UIKit
 
 protocol loadingDelegate: AnyObject {
+    func setCount(count: Int)
     func updateProgress()
     func terminate()
 }
@@ -48,6 +49,11 @@ class LoadingIndicator: UIViewController {
 }
 
 extension LoadingIndicator: loadingDelegate {
+    func setCount(count: Int) {
+        self.totalPageCount = count
+        self.setProgress()
+    }
+    
     func updateProgress() {
         self.currentCount += 1
         let newPersent = Float(currentCount)/Float(totalPageCount)

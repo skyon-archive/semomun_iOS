@@ -63,7 +63,7 @@ public class Page_Core: NSManagedObject {
         return PageResult(vid: page.vid, url: url, isImage: true)
     }
     
-    func setMaterial(pageResult: PageResult) {
+    func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
         if !pageResult.isImage {
             self.setValue(nil, forKey: "materialImage")
             return
@@ -82,6 +82,7 @@ public class Page_Core: NSManagedObject {
             self.setValue(warningImage.pngData(), forKey: "materialImage")
         }
         print("Page: \(pageResult.vid) save Material")
+        completion()
     }
     
     func getLayout(form: Int, type: Int) -> String {

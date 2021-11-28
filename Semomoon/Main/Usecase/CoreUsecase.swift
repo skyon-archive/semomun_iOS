@@ -120,12 +120,38 @@ struct CoreUsecase {
             }
         }
         print("----------save end----------")
+        DispatchQueue.main.async {
+            loading.setCount(count: problemResults.count + pageResults.count)
+        }
         // Images download start
+        let downloadQueue = DispatchQueue(label: "downloadQueue",attributes: .concurrent)
+        let downloadGroup = DispatchGroup()
         
+        downloadQueue.async(group: downloadGroup) {
+            for (idx, problem) in problemCores.enumerated() {
+                problem.fetchImages(problemResult: problemResults[idx]) {
+                    DispatchQueue.main.async {
+                        loading.updateProgress()
+                    }
+                }
+            }
+        }
+        downloadQueue.async(group: downloadGroup) {
+            for (idx, page) in pageCores.enumerated() {
+                page.setMaterial(pageResult: pageResults[idx]) {
+                    DispatchQueue.main.async {
+                        loading.updateProgress()
+                    }
+                }
+            }
+        }
         
-        sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
-        do { try context.save() } catch let error { print(error.localizedDescription) }
-        completion(sectionOfCore)
+        downloadGroup.notify(queue: downloadQueue) {
+            print("----------download end----------")
+            sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
+            do { try context.save() } catch let error { print(error.localizedDescription) }
+            completion(sectionOfCore)
+        }
     }
     
     

@@ -83,7 +83,7 @@ public class Problem_Core: NSManagedObject {
         return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: url)
     }
     
-    func fetchImages(problemResult: ProblemResult) {
+    func fetchImages(problemResult: ProblemResult, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         if let contentURL = problemResult.contentUrl {
             let contentData = try? Data(contentsOf: contentURL)
@@ -111,6 +111,7 @@ public class Problem_Core: NSManagedObject {
             self.setValue(nil, forKey: "explanationImage")
         }
         print("Problem: \(problemResult.pid) save Images")
+        completion()
     }
     
     func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {
