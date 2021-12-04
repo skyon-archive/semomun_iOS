@@ -18,6 +18,7 @@ class PreviewManager {
     
     weak var delegate: PreviewDatasource!
     
+    // TODO: categoryButtons : 사용자의 다운로드 된 category들로 수정 : UserDefaults 에서 가져오는 식으로 변경
     let categoryButtons: [String] = ["전체", "국어", "수학"]
     var categoryIndex: Int = 0
     var queryDictionary: [String:NSPredicate] = [:]
@@ -31,6 +32,7 @@ class PreviewManager {
     }
     
     func configureQueryDict() {
+        // TODO: categoryButtons 값에 따라 결정되는 식으로 로직 변경
         self.queryDictionary["국어"] = NSPredicate(format: "subject = %@", "국어")
         self.queryDictionary["수학"] = NSPredicate(format: "subject = %@", "수학")
         self.queryDictionary["영어"] = NSPredicate(format: "subject = %@", "영어")
@@ -84,15 +86,39 @@ class PreviewManager {
     }
     
     func delete(at: Int) {
-        let object = self.previews[at]
-        CoreDataManager.shared.context.delete(object)
-        do {
-            CoreDataManager.shared.appDelegate.saveContext()
-            self.fetchPreviews()
-        } catch let error {
-            print(error.localizedDescription)
-            CoreDataManager.shared.context.rollback()
+        // TODO: 삭제 로직 수정
+        var targetCoreDatas: [NSManagedObject] = []
+        let targetPreview = self.previews[at]
+        targetCoreDatas.append(targetPreview)
+        
+        let targetSids = targetPreview.sids
+        var targetVids: [Int] = []
+        var targetPids: [Int] = []
+        
+        targetSids.forEach { sid in
+            if let targetSection = CoreUsecase.fetchSections(sid: sid) {
+                targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
+                targetCoreDatas.append(targetSection)
+            }
         }
+        
+        targetVids.forEach { vid in
+            if let targetPage = CoreUsecase.fetchPages(vid: vid) {
+                targetPids += targetPage.problems
+                targetCoreDatas.append(targetPage)
+            }
+        }
+        
+        targetPids.forEach { pid in
+            if let targetProblem = CoreUsecase.fetchProblems(pid: pid) {
+                targetCoreDatas.append(targetProblem)
+            }
+        }
+        
+        targetCoreDatas.forEach { coreData in
+            CoreDataManager.shared.context.delete(coreData)
+        }
+        CoreUsecase.saveCoreData()
     }
     
     func showSelectSectionView(index: Int) -> Bool {
