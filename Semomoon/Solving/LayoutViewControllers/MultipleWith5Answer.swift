@@ -118,7 +118,14 @@ extension MultipleWith5Answer {
         guard let mainImage = self.mainImage else { return }
         height = mainImage.size.height*(width/mainImage.size.width)
         
-        imageView.image = mainImage
+        if mainImage.size.width > 0 && mainImage.size.height > 0 {
+            imageView.image = mainImage
+        } else {
+            let worningImage = UIImage(named: "warningWithNoImage")!
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
+        }
+        
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height

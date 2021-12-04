@@ -149,21 +149,17 @@ extension StartViewController{
 }
 
 extension StartViewController{
-    func tokenSignIn(idToken: String){
-        guard let authData = try? JSONEncoder().encode(["idToken" : idToken]) else {return}
-        let url = URL(string: "https://yourbackend.example.com/tokensignin")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue(("application/json"), forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.uploadTask(with: request, from: authData) {data, response, error in }
-        task.resume()
-        NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: true, isApple: false) { data in
-            guard let data = data else {
-                print("login result is nil")
+    func tokenSignIn(idToken: String) {
+        NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: true, isApple: false) { isUser in
+            guard let isUser = isUser else {
+                // TODO: Network Error 표시 로직 필요
                 return
             }
-            print(String(data: data, encoding: .utf8))
+            if isUser {
+                print("isUser")
+            } else {
+                print("noneUser")
+            }
         }
     }
 }

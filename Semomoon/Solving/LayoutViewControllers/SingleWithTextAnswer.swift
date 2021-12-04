@@ -209,10 +209,17 @@ extension SingleWithTextAnswer {
     
     func configureImageView() {
         width = canvasView.frame.width
-        guard let image = self.image else { return }
-        height = image.size.height*(width/image.size.width)
+        guard let mainImage = self.image else { return }
+        height = mainImage.size.height*(width/mainImage.size.width)
         
-        imageView.image = image
+        if mainImage.size.width > 0 && mainImage.size.height > 0 {
+            imageView.image = mainImage
+        } else {
+            let worningImage = UIImage(named: "warningWithNoImage")!
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
+        }
+        
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height

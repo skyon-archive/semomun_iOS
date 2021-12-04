@@ -80,11 +80,21 @@ class NetworkUsecase {
         }
     }
     
-    static func postCheckUser(userToken: String, isGoogle: Bool, isApple: Bool, completion: @escaping(Data?) -> Void) {
+    static func postCheckUser(userToken: String, isGoogle: Bool, isApple: Bool, completion: @escaping(Bool?) -> Void) {
         let paramKey: String = isGoogle ? "token_google" : "token_apple"
         let param = [paramKey: userToken]
         Network.post(url: URL.checkUser, param: param) { data in
-            completion(data)
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(validate.check)
         }
     }
 }

@@ -1002,9 +1002,9 @@
                                                         <constraint firstAttribute="width" secondItem="H3F-cW-33Q" secondAttribute="height" multiplier="4:5" id="fTA-dY-QRl"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ1-hH-ykv">
-                                                    <rect key="frame" x="16" y="207.5" width="150" height="70"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ1-hH-ykv">
+                                                    <rect key="frame" x="16" y="207.5" width="150" height="52"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14.5"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
