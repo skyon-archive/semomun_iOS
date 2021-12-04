@@ -12,7 +12,7 @@ final class SingleWithTextAnswerViewModel {
     
     private(set) var pageData: PageData
     private(set) var problem: Problem_Core?
-    private var time: Int64
+    private var time: Int64?
     
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
@@ -30,10 +30,11 @@ final class SingleWithTextAnswerViewModel {
     }
     
     @objc func updateTime() {
-        guard let problem = self.problem else { return }
-        self.time = self.time + 1
-        print("time: \(self.time)")
-        problem.setValue(self.time, forKey: "time")
+        guard let problem = self.problem,
+              let time = self.time else { return }
+        let resultTime = time+1
+        self.time = resultTime
+        problem.setValue(resultTime, forKey: "time")
         self.saveCoreData()
     }
     

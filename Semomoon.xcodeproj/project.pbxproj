@@ -243,6 +243,7 @@
 				4A4D92AF26EDA19E00B82EE9 /* SearchWorkbookViewController.swift */,
 				4AC446052709834E000DD64B /* SearchWorkbookManager.swift */,
 				4AC4460827098521000DD64B /* SearchPreviewCell.swift */,
+				875FBA34275B409F00C636CD /* Model */,
 			);
 			path = SearchWorkbook;
 			sourceTree = "<group>";
@@ -394,7 +395,6 @@
 			children = (
 				4A3F97FF271A74E900880B86 /* Network.swift */,
 				4AA19F6E2700357F00C600CF /* NetworkUsecase.swift */,
-				4A3538B826FB07E800F3A1F3 /* Query.swift */,
 				4ACAEB6D27097DD60085ABAE /* JsonObjects */,
 			);
 			path = Network;
@@ -455,6 +455,14 @@
 				4A2BE42526D214AD0095CBCF /* CoreGraphics+Z.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		875FBA34275B409F00C636CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4A3538B826FB07E800F3A1F3 /* Query.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		87AB9DC326CB2BDB0019A276 = {

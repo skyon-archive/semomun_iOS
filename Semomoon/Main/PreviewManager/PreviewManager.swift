@@ -119,6 +119,7 @@ class PreviewManager {
             CoreDataManager.shared.context.delete(coreData)
         }
         CoreUsecase.saveCoreData()
+        self.fetchPreviews()
     }
     
     func showSelectSectionView(index: Int) -> Bool {

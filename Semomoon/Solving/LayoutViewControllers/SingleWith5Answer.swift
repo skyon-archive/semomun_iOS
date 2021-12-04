@@ -42,7 +42,6 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         super.viewWillAppear(animated)
         print("5다선지 willAppear")
         
-        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
@@ -50,6 +49,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
+        
+        self.viewModel?.configureObserver()
         self.configureImageView()
     }
     

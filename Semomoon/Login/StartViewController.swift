@@ -81,7 +81,7 @@ extension StartViewController{
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
-            print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
+//            print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
             
             self.saveUserinKeychain(userIdentifier)
             
@@ -138,9 +138,9 @@ extension StartViewController{
                 guard let authentication = authentication else {return}
                 
                 let idToken = authentication.idToken
-//                self.tokenSignIn(idToken: idToken!)
+                self.tokenSignIn(idToken: idToken!)
                 self.saveUserinKeychain(idToken!)
-                print("User id is \(idToken) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: emailAddress))")
+//                print("User id is \(idToken) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: emailAddress))")
             }
             
             self.showNextVC()
@@ -155,8 +155,15 @@ extension StartViewController{
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(("application/json"), forHTTPHeaderField: "Content-Type")
-        
+
         let task = URLSession.shared.uploadTask(with: request, from: authData) {data, response, error in }
         task.resume()
+        NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: true, isApple: false) { data in
+            guard let data = data else {
+                print("login result is nil")
+                return
+            }
+            print(String(data: data, encoding: .utf8))
+        }
     }
 }

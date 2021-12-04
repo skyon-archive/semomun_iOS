@@ -12,7 +12,7 @@ final class SingleWith5AnswerViewModel {
     
     private(set) var pageData: PageData
     private(set) var problem: Problem_Core?
-    private var time: Int64
+    private var time: Int64?
     
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
@@ -22,18 +22,21 @@ final class SingleWith5AnswerViewModel {
     }
     
     func configureObserver() {
+        print("setting")
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
     }
     
     func cancelObserver() {
+        print("cancle")
         NotificationCenter.default.removeObserver(self)
     }
     
     @objc func updateTime() {
-        guard let problem = self.problem else { return }
-        self.time = self.time + 1
-        print("time: \(self.time)")
-        problem.setValue(self.time, forKey: "time")
+        guard let problem = self.problem,
+              let time = self.time else { return }
+        let resultTime = time+1
+        self.time = resultTime
+        problem.setValue(resultTime, forKey: "time")
         self.saveCoreData()
     }
     

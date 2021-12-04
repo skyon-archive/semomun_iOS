@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkUsecase {
     enum URL {
-        static let base: String = "https://e45b-118-36-227-50.ngrok.io"
+        static let base: String = "https://c472-118-36-227-50.ngrok.io"
         static let workbooks: String = base + "/workbooks/"
         static let sections: String = base + "/sections/"
         static let preview: String = workbooks + "preview"
@@ -20,6 +20,7 @@ class NetworkUsecase {
         static let materialImage: String = images + "/material/"
         static let contentImage: String = images + "/content/"
         static let explanation: String = images + "/explanation/"
+        static let checkUser: String = base + "/auth/login"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
@@ -76,6 +77,14 @@ class NetworkUsecase {
     static func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
         Network.get(url: url) { data in
             handler(data)
+        }
+    }
+    
+    static func postCheckUser(userToken: String, isGoogle: Bool, isApple: Bool, completion: @escaping(Data?) -> Void) {
+        let paramKey: String = isGoogle ? "token_google" : "token_apple"
+        let param = [paramKey: userToken]
+        Network.post(url: URL.checkUser, param: param) { data in
+            completion(data)
         }
     }
 }
