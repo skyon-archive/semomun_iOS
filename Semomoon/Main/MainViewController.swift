@@ -109,6 +109,12 @@ extension MainViewController {
         self.present(nextVC!, animated: true, completion: nil)
     }
     
+    func showSearchWorkbookViewController() {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
+        nextVC.manager = SearchWorkbookManager(filter: previewManager.previews)
+        self.present(nextVC, animated: true, completion: nil)
+    }
+    
     func showSolvingVC(section: Section_Core) {
         guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
         solvingVC.modalPresentationStyle = .fullScreen

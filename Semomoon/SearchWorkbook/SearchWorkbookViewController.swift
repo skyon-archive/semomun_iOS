@@ -15,12 +15,11 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet var selectButtons: [UIButton]!
     @IBOutlet weak var preview: UICollectionView!
     
-    private var manager: SearchWorkbookManager!
+    var manager: SearchWorkbookManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDelegate()
-        configureManager()
         configureUI()
     }
     
@@ -39,10 +38,6 @@ extension SearchWorkbookViewController {
     func configureDelegate() {
         preview.delegate = self
         preview.dataSource = self
-    }
-    
-    func configureManager() {
-        self.manager = SearchWorkbookManager()
     }
     
     func configureUI() {
@@ -130,21 +125,11 @@ extension SearchWorkbookViewController {
     }
     
     func loadPreviewFromDB() {
-        let queryItem = queryStringOfPreviews()
-        NetworkUsecase.downloadPreviews(param: queryItem) { searchPreview in
-            self.manager.loadedPreviews = searchPreview.workbooks
+        manager.loadPreviews {
             DispatchQueue.main.async {
                 self.preview.reloadData()
             }
         }
-    }
-    
-    func queryStringOfPreviews() -> [String: String] {
-        var queryItems: [String: String] = [:]
-        manager.queryDic.forEach {
-            if($0.value != nil) { queryItems[$0.key] = $0.value }
-        }
-        return queryItems
     }
     
     func showAlertToAddPreview(index: Int) {
