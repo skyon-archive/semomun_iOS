@@ -174,7 +174,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // MARK: - preview cell: searchPreview
         if indexPath.item == 0 {
-            showViewController(identifier: SearchWorkbookViewController.identifier, isFull: false)
+            showSearchWorkbookViewController()
             return
         }
         
