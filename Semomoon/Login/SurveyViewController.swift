@@ -12,24 +12,58 @@ class SurveyViewController: UIViewController {
     
     var surveyFilled: Bool = false
     var signUpInfo: SignUpInfo!
+    @IBOutlet var gender: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        self.configureGengerUI()
     }
     
-
+    @IBAction func selectGender(_ sender: UIButton) {
+        guard let sex = sender.titleLabel?.text else { return }
+        print(sex)
+        switch sender.tag {
+        case 0:
+            self.didSelect(to: gender[0])
+            self.diSelect(from: gender[1])
+        case 1:
+            self.didSelect(to: gender[1])
+            self.diSelect(from: gender[0])
+        default: return
+        }
+    }
+    
     @IBAction func nextVC(_ sender: Any) {
         surveyFilled = true
         if(surveyFilled){
-//            guard let name = self.name.text,
-//                  let phoneNumber = self.phone.text else { return }
             self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: PersonalInfoViewController.identifier) as? PersonalInfoViewController else { return }
             self.title = ""
             nextVC.signUpInfo = self.signUpInfo
             self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
+    
+    private func didSelect(to button: UIButton) {
+        button.borderColor = UIColor.clear
+        button.backgroundColor = UIColor(named: "mint")
+        button.setTitleColor(UIColor.white, for: .normal)
+    }
+    
+    private func diSelect(from button: UIButton) {
+        button.borderColor = UIColor.black
+        button.backgroundColor = UIColor.white
+        button.setTitleColor(UIColor.black, for: .normal)
+    }
+}
+
+//MARK: - Configure
+extension SurveyViewController {
+    private func configureGengerUI() {
+        gender.forEach { button in
+            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 8
         }
     }
 }

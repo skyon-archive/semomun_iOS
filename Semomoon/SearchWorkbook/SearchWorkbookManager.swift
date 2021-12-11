@@ -37,7 +37,7 @@ class SearchWorkbookManager {
     func queryStringOfPreviews() -> [String: String] {
         var queryItems: [String: String] = [:]
         self.queryDic.forEach {
-            if($0.value != nil) { queryItems[$0.key] = $0.value }g
+            if($0.value != nil) { queryItems[$0.key] = $0.value }
         }
         return queryItems
     }
