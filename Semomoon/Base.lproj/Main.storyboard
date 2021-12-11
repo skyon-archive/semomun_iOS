@@ -892,14 +892,27 @@
                                             <action selector="userInfo:" destination="3zH-Gd-er2" eventType="touchUpInside" id="lpC-jy-X6M"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fDt-JF-bnf">
+                                        <rect key="frame" x="16" y="15" width="14" height="22"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="hhi-cU-E1o"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="19"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수능 및 모의고사" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sb0-9q-2nW">
+                                        <rect key="frame" x="35" y="14" width="130" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-Ss-qrv">
-                                        <rect key="frame" x="16" y="14" width="145" height="24"/>
+                                        <rect key="frame" x="15" y="8" width="170" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="수능 및 모의고사" image="chevron.left" catalog="system">
+                                        <state key="normal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
                                         <connections>
                                             <action selector="showSidebar:" destination="3zH-Gd-er2" eventType="touchUpInside" id="qKX-29-6cY"/>
@@ -908,10 +921,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="fDt-JF-bnf" firstAttribute="centerY" secondItem="mNH-Ss-qrv" secondAttribute="centerY" id="92Z-sE-9dJ"/>
                                     <constraint firstItem="lCD-Pc-538" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="EiE-uc-goM"/>
-                                    <constraint firstItem="mNH-Ss-qrv" firstAttribute="leading" secondItem="MYj-UN-CAG" secondAttribute="leading" constant="16" id="LO9-CN-3Cx"/>
+                                    <constraint firstItem="mNH-Ss-qrv" firstAttribute="width" secondItem="sb0-9q-2nW" secondAttribute="width" constant="40" id="L2o-WH-jdt"/>
+                                    <constraint firstItem="sb0-9q-2nW" firstAttribute="centerY" secondItem="mNH-Ss-qrv" secondAttribute="centerY" id="N5j-4v-OrE"/>
+                                    <constraint firstItem="mNH-Ss-qrv" firstAttribute="centerX" secondItem="sb0-9q-2nW" secondAttribute="centerX" id="Pf5-N2-uqE"/>
                                     <constraint firstAttribute="height" constant="52" id="W8Z-Bm-eFG"/>
                                     <constraint firstAttribute="trailing" secondItem="lCD-Pc-538" secondAttribute="trailing" constant="20" id="ZJD-Ye-84G"/>
+                                    <constraint firstItem="sb0-9q-2nW" firstAttribute="leading" secondItem="fDt-JF-bnf" secondAttribute="trailing" constant="5" id="fHW-Mh-RwV"/>
+                                    <constraint firstItem="fDt-JF-bnf" firstAttribute="leading" secondItem="MYj-UN-CAG" secondAttribute="leading" constant="16" id="kCH-jq-ihl"/>
                                     <constraint firstItem="mNH-Ss-qrv" firstAttribute="centerY" secondItem="MYj-UN-CAG" secondAttribute="centerY" id="w9b-iS-lxm"/>
                                 </constraints>
                             </view>
@@ -1054,14 +1072,15 @@
                     <tabBarItem key="tabBarItem" title="Item" id="WX5-t3-fbI"/>
                     <connections>
                         <outlet property="category" destination="qow-Pp-er9" id="ERG-cv-6Un"/>
-                        <outlet property="currentMode" destination="mNH-Ss-qrv" id="vbv-tC-ZeR"/>
+                        <outlet property="categorySelector" destination="mNH-Ss-qrv" id="vbv-tC-ZeR"/>
+                        <outlet property="currentCategory" destination="sb0-9q-2nW" id="aip-8T-FKg"/>
                         <outlet property="preview" destination="snq-vH-c7w" id="vrn-J1-1hu"/>
                         <outlet property="userInfo" destination="lCD-Pc-538" id="pEr-4S-07h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sGv-8e-icm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="111"/>
+            <point key="canvasLocation" x="-559.375" y="110.74218749999999"/>
         </scene>
         <!--Loading Indicator-->
         <scene sceneID="xhn-8w-XmJ">
@@ -4012,7 +4031,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

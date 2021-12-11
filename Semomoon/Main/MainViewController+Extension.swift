@@ -40,6 +40,15 @@ extension MainViewController {
         ])
     }
     
+    func configureTapGesture() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedShadowView))
+        self.sideMenuShadowView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTappedShadowView() {
+        self.sideMenuState(expanded: false)
+    }
+    
     func sideMenuState(expanded: Bool) {
         if expanded {
             self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in

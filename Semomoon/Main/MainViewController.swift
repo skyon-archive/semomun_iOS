@@ -11,7 +11,8 @@ import CoreData
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
     
-    @IBOutlet weak var currentMode: UIButton!
+    @IBOutlet weak var currentCategory: UILabel!
+    @IBOutlet weak var categorySelector: UIButton!
     @IBOutlet weak var category: UICollectionView!
     @IBOutlet weak var preview: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
@@ -42,6 +43,7 @@ class MainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureSideBarViewController()
+        self.configureTapGesture()
     }
     
     @IBAction func showSidebar(_ sender: Any) {
@@ -233,9 +235,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
-        print(sideMenuViewController.testTitles[row])
-        self.currentMode.setTitle(sideMenuViewController.testTitles[row], for: .normal)
-        DispatchQueue.main.async { self.sideMenuState(expanded: false) }
+        self.currentCategory.text = sideMenuViewController.testTitles[row]
+        DispatchQueue.main.async { [weak self] in self?.sideMenuState(expanded: false) }
     }
 }
 
