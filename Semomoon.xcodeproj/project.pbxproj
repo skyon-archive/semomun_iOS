@@ -86,6 +86,7 @@
 		4AF8032F2736685600F32306 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8032E2736685600F32306 /* CircularProgressView.swift */; };
 		4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8033027366A2900F32306 /* LoadingIndicator.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
+		872ACA4C27644A5F0072A4AF /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */; };
 		875FBA37275B5E2A00C636CD /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875FBA36275B5E2A00C636CD /* Validate.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
@@ -172,6 +173,7 @@
 		4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview_Core.swift; sourceTree = "<group>"; };
 		4AF8032E2736685600F32306 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		4AF8033027366A2900F32306 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
 		875FBA36275B5E2A00C636CD /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -284,7 +286,8 @@
 				1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */,
 				1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */,
 				4AC7592D2753495F00A92A12 /* CollecitonViews */,
-				4AC7593027534B1500A92A12 /* CollectionViewModels */,
+				4AC7593027534B1500A92A12 /* CollectionViewManagers */,
+				872ACA4A27644A0C0072A4AF /* CollecitonCells */,
 				1E7C4D16274A2F1E0096C708 /* temp */,
 				1E7C4D1127489F1C0096C708 /* Supporting Files */,
 				875FBA35275B5DD600C636CD /* Model */,
@@ -318,14 +321,6 @@
 				4A60E494272519B700946FD5 /* MultipleWithNoAnswer.swift */,
 			);
 			path = LayoutViewControllers;
-			sourceTree = "<group>";
-		};
-		4A60E48F27250C2800946FD5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = Solving/Model;
 			sourceTree = "<group>";
 		};
 		4A60E4982725499D00946FD5 /* Models */ = {
@@ -385,12 +380,12 @@
 			path = CollecitonViews;
 			sourceTree = "<group>";
 		};
-		4AC7593027534B1500A92A12 /* CollectionViewModels */ = {
+		4AC7593027534B1500A92A12 /* CollectionViewManagers */ = {
 			isa = PBXGroup;
 			children = (
 				4AC7593127534B2F00A92A12 /* CategoryManager.swift */,
 			);
-			path = CollectionViewModels;
+			path = CollectionViewManagers;
 			sourceTree = "<group>";
 		};
 		4ACAEB6927097D6D0085ABAE /* Network */ = {
@@ -460,6 +455,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		872ACA4A27644A0C0072A4AF /* CollecitonCells */ = {
+			isa = PBXGroup;
+			children = (
+				872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */,
+			);
+			path = CollecitonCells;
+			sourceTree = "<group>";
+		};
 		875FBA34275B409F00C636CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,7 +504,6 @@
 				4A3F97FA271A731400880B86 /* Main */,
 				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
 				4A60E48D27250BDA00946FD5 /* Solving */,
-				4A60E48F27250C2800946FD5 /* Model */,
 				4A6AFE9426D6455F00E65561 /* ViewController */,
 				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
@@ -651,6 +653,7 @@
 				1E7C4D1027489F0A0096C708 /* KeychainItem.swift in Sources */,
 				4AA8878926EC81B6009D1A2C /* MainViewController.swift in Sources */,
 				4A8BEE6C26E4903A00613602 /* Section.swift in Sources */,
+				872ACA4C27644A5F0072A4AF /* FavoriteCategoryCell.swift in Sources */,
 				4A1E742126F70DBD001C3420 /* CertificationViewController.swift in Sources */,
 				4A60E4932725199100946FD5 /* SingleWith4Answer.swift in Sources */,
 				4A8BEE6E26E490AB00613602 /* Report.swift in Sources */,
