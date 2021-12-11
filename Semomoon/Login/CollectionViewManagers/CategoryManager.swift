@@ -25,7 +25,8 @@ final class CategoryManager {
         return self.items[at]
     }
     
-    func selected(to index: Int) {
+    func selected(to index: Int, completion: @escaping((String) -> Void)) {
         self.selectedIndex = index
+        completion(item(at: index))
     }
 }

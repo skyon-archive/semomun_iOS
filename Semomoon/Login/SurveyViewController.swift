@@ -15,7 +15,7 @@ class SurveyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dump(signUpInfo)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -32,14 +32,22 @@ class SurveyViewController: UIViewController {
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//MARK: - Connection CollectionViews
+extension SurveyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case CategoryViewController.Identifier.segue:
+            guard let destination = segue.destination as? CategoryViewController else { return }
+            destination.delegate = self
+        default: return
+        }
     }
-    */
+}
 
+extension SurveyViewController: CategorySetable {
+    func didSelectCategory(to: String) {
+        print(to)
+    }
 }

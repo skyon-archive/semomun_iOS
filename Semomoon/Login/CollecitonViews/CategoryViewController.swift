@@ -46,8 +46,10 @@ extension CategoryViewController {
 //MARK: - CollectionView
 extension CategoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.manager?.selected(to: indexPath.item)
-        self.categoryCollectionView.reloadData()
+        self.manager?.selected(to: indexPath.item, completion: { [weak self] category in
+            self?.delegate?.didSelectCategory(to: category)
+            self?.categoryCollectionView.reloadData()
+        })
     }
 }
 
@@ -69,5 +71,16 @@ extension CategoryViewController: UICollectionViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension CategoryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let horizontalInset: CGFloat = 15
+        let rowCount: Int = 3
+        let cellWidth = (self.categoryCollectionView.frame.width-(CGFloat(rowCount-1)*horizontalInset))/CGFloat(rowCount)
+        let cellHeight: CGFloat = 55
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }

@@ -15,7 +15,7 @@ class FavoriteCategoryCell: UICollectionViewCell {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 1
         self.contentView.layer.borderColor = UIColor.black.cgColor
-        self.contentView.layer.cornerRadius = 5
+        self.contentView.layer.cornerRadius = 8
         self.contentView.backgroundColor = UIColor.white
         self.title.textColor = UIColor.black
     }
