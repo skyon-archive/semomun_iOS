@@ -9,14 +9,24 @@ import UIKit
 
 class SurveyViewController: UIViewController {
     static let identifier = "SurveyViewController"
+    enum NotificationName {
+        static let selectMajor = Notification.Name.init(rawValue: "selectMajor")
+    }
+    enum NotificationUserInfo {
+        static let sectionKey = "sectionKey"
+    }
     
     var surveyFilled: Bool = false
     var signUpInfo: SignUpInfo!
     @IBOutlet var gender: [UIButton]!
+    @IBOutlet weak var majorDetailTitle: UILabel!
+    @IBOutlet weak var majorDetailView: UIView!
+    @IBOutlet weak var genderFrame: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureGengerUI()
+        self.configureMajorDetailView()
     }
     
     @IBAction func selectGender(_ sender: UIButton) {
@@ -66,6 +76,21 @@ extension SurveyViewController {
             button.layer.cornerRadius = 8
         }
     }
+    
+    private func configureMajorDetailView() {
+        self.majorDetailTitle.alpha = 0
+        self.majorDetailView.alpha = 0
+        self.genderFrame.transform = CGAffineTransform.init(translationX: 0, y: -160)
+    }
+    
+    private func acticationMajorDetail(section index: Int) {
+        NotificationCenter.default.post(name: NotificationName.selectMajor, object: nil, userInfo: [NotificationUserInfo.sectionKey: index])
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.majorDetailTitle.alpha = 1
+            self?.majorDetailView.alpha = 1
+            self?.genderFrame.transform = CGAffineTransform.identity
+        }
+    }
 }
 
 //MARK: - Connection CollectionViews
@@ -78,6 +103,9 @@ extension SurveyViewController {
         case MajorViewController.Identifier.segue:
             guard let destination = segue.destination as? MajorViewController else { return }
             destination.delegate = self
+        case MajorDetailViewController.Identifier.segue:
+            guard let destination = segue.destination as? MajorDetailViewController else { return }
+            destination.delegate = self
         default: return
         }
     }
@@ -89,7 +117,13 @@ extension SurveyViewController: CategorySetable {
     }
 }
 extension SurveyViewController: MajorSetable {
-    func didSelectMajor(to: String) {
+    func didSelectMajor(section index: Int, to: String) {
+        self.acticationMajorDetail(section: index)
+        print(to)
+    }
+}
+extension SurveyViewController: MajorDetailSetable {
+    func didSelectMajorDetail(to: String) {
         print(to)
     }
 }
