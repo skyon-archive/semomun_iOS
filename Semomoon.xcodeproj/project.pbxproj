@@ -87,6 +87,9 @@
 		4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8033027366A2900F32306 /* LoadingIndicator.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
 		872ACA4C27644A5F0072A4AF /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */; };
+		872ACA512764668C0072A4AF /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA502764668C0072A4AF /* MajorCell.swift */; };
+		872ACA53276466F50072A4AF /* MajorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA52276466F40072A4AF /* MajorViewController.swift */; };
+		872ACA55276467490072A4AF /* MajorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA54276467490072A4AF /* MajorManager.swift */; };
 		875FBA37275B5E2A00C636CD /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875FBA36275B5E2A00C636CD /* Validate.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
@@ -174,6 +177,9 @@
 		4AF8032E2736685600F32306 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		4AF8033027366A2900F32306 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
+		872ACA502764668C0072A4AF /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
+		872ACA52276466F40072A4AF /* MajorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorViewController.swift; sourceTree = "<group>"; };
+		872ACA54276467490072A4AF /* MajorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorManager.swift; sourceTree = "<group>"; };
 		875FBA36275B5E2A00C636CD /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -376,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				4AC7592E275349AF00A92A12 /* CategoryViewController.swift */,
+				872ACA52276466F40072A4AF /* MajorViewController.swift */,
 			);
 			path = CollecitonViews;
 			sourceTree = "<group>";
@@ -384,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				4AC7593127534B2F00A92A12 /* CategoryManager.swift */,
+				872ACA54276467490072A4AF /* MajorManager.swift */,
 			);
 			path = CollectionViewManagers;
 			sourceTree = "<group>";
@@ -459,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */,
+				872ACA502764668C0072A4AF /* MajorCell.swift */,
 			);
 			path = CollecitonCells;
 			sourceTree = "<group>";
@@ -604,6 +613,7 @@
 			files = (
 				4A1E742326F71AFB001C3420 /* CreateFirstViewController.swift in Sources */,
 				4AC446042709828D000DD64B /* ImageCache.swift in Sources */,
+				872ACA53276466F50072A4AF /* MajorViewController.swift in Sources */,
 				4A3F9800271A74E900880B86 /* Network.swift in Sources */,
 				4A8BEE7426E4925100613602 /* History.swift in Sources */,
 				4ACAEB6F27097DE50085ABAE /* PreviewOfDB.swift in Sources */,
@@ -619,6 +629,7 @@
 				4A8FA099272D1E44005AD614 /* UIViewController.swift in Sources */,
 				87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */,
 				4A60E495272519B700946FD5 /* MultipleWithNoAnswer.swift in Sources */,
+				872ACA55276467490072A4AF /* MajorManager.swift in Sources */,
 				4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */,
 				4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */,
 				4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */,
@@ -637,6 +648,7 @@
 				4ACAEB6827097D3F0085ABAE /* SectionHeader_Core.swift in Sources */,
 				4A79342F272E537C00FA7D5A /* Int64.swift in Sources */,
 				4A6AFE9A26D645DA00E65561 /* SingleWithTextAnswer.swift in Sources */,
+				872ACA512764668C0072A4AF /* MajorCell.swift in Sources */,
 				4AC7593227534B2F00A92A12 /* CategoryManager.swift in Sources */,
 				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,

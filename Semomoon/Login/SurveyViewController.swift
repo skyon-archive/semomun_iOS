@@ -41,6 +41,9 @@ extension SurveyViewController {
         case CategoryViewController.Identifier.segue:
             guard let destination = segue.destination as? CategoryViewController else { return }
             destination.delegate = self
+        case MajorViewController.Identifier.segue:
+            guard let destination = segue.destination as? MajorViewController else { return }
+            destination.delegate = self
         default: return
         }
     }
@@ -48,6 +51,11 @@ extension SurveyViewController {
 
 extension SurveyViewController: CategorySetable {
     func didSelectCategory(to: String) {
+        print(to)
+    }
+}
+extension SurveyViewController: MajorSetable {
+    func didSelectMajor(to: String) {
         print(to)
     }
 }

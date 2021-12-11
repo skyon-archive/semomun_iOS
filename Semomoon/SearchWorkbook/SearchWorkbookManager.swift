@@ -37,7 +37,7 @@ class SearchWorkbookManager {
     func queryStringOfPreviews() -> [String: String] {
         var queryItems: [String: String] = [:]
         self.queryDic.forEach {
-            if($0.value != nil) { queryItems[$0.key] = $0.value }
+            if($0.value != nil) { queryItems[$0.key] = $0.value }g
         }
         return queryItems
     }
@@ -45,7 +45,7 @@ class SearchWorkbookManager {
     func loadPreviews(completion: @escaping ()->Void) {
         NetworkUsecase.downloadPreviews(param: queryStringOfPreviews()) { searchPreview in
             let previews = searchPreview.workbooks
-            self.loadedPreviews = previews.filter { self.filter.contains($0.wid) }
+            self.loadedPreviews = previews.filter { !self.filter.contains($0.wid) }
             completion()
         }
     }
