@@ -32,6 +32,12 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +49,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
+        self.configureImageView()
         self.configureUI()
         self.configureCanvasView()
     }
@@ -51,7 +58,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 didAppear")
         
         self.viewModel?.configureObserver()
-        self.configureImageView()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +66,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 willDisappear")
         
         self.viewModel?.cancelObserver()
+        self.resultImageView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -143,13 +151,33 @@ extension SingleWith5Answer {
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
+        if problem.terminated {
+            self.showResultImage(to: problem.correct)
+        }
+        
         if let answer = problem.answer,
            problem.correct == false,
            problem.terminated == true {
             guard let targetIndex = Int(answer) else { return }
+            self.showResultImage(to: problem.correct)
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
+    }
+    
+    func showResultImage(to: Bool) {
+        let imageName: String = to ? "correct" : "wrong"ㅣ
+        self.resultImageView.image = UIImage(named: imageName)
+        
+        self.view.addSubview(self.resultImageView)
+        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+            self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+            self.resultImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+            self.resultImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15)
+        ])
     }
     
     func configureStar() {
