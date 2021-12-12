@@ -176,7 +176,6 @@ extension SingleWith5Answer {
                 self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
             ])
         }
-        
     }
     
     func configureStar() {

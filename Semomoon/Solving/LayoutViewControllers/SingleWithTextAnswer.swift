@@ -58,6 +58,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("객관식 didAppear")
         
         self.configureImageView()
+        self.showResultImage()
         self.viewModel?.configureObserver()
     }
     
@@ -165,7 +166,6 @@ extension SingleWithTextAnswer {
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
             if problem.terminated {
-                self.showResultImage(to: problem.correct)
                 if problem.correct == false {
                     self.answer.isUserInteractionEnabled = true
                     self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
@@ -177,19 +177,22 @@ extension SingleWithTextAnswer {
         }
     }
     
-    func showResultImage(to: Bool) {
-        let imageName: String = to ? "correct" : "wrong"
-        self.resultImageView.image = UIImage(named: imageName)
-        
-        self.view.addSubview(self.resultImageView)
-        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
-            self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
-            self.resultImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
-            self.resultImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15)
-        ])
+    func showResultImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated && problem.answer != nil {
+            let imageName: String = problem.correct ? "correct" : "wrong"
+            self.resultImageView.image = UIImage(named: imageName)
+            
+            self.imageView.addSubview(self.resultImageView)
+            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20),
+                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
+            ])
+        }
     }
     
     func configureExplanation() {

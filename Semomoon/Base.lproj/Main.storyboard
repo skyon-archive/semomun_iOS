@@ -164,7 +164,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TrB-Fa-seH">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrB-Fa-seH">
                                 <rect key="frame" x="0.0" y="20" width="384" height="1004"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJW-aj-PoR" userLabel="contentView">
@@ -175,12 +175,13 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xMN-sq-SSc">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="500"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="500" id="EgF-Nx-llK"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="mint"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="xMN-sq-SSc" firstAttribute="centerX" secondItem="hX3-Xk-xZs" secondAttribute="centerX" id="5xf-on-BWM"/>
                                                     <constraint firstAttribute="height" constant="500" id="ZHw-jT-nwf"/>
@@ -405,12 +406,13 @@
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uxq-tF-RwF">
                                                             <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="150" id="8P1-ZL-RTS"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="mint"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="Uxq-tF-RwF" firstAttribute="top" secondItem="u1v-aV-QgD" secondAttribute="top" id="Jtm-fs-QF7"/>
                                                         <constraint firstAttribute="height" constant="150" id="Q90-bv-n07"/>
@@ -1817,7 +1819,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="mint"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="2kl-3z-gN4" firstAttribute="leading" secondItem="r5a-kG-0rH" secondAttribute="leading" id="15t-ld-rUY"/>
                                                     <constraint firstItem="2kl-3z-gN4" firstAttribute="centerX" secondItem="r5a-kG-0rH" secondAttribute="centerX" id="8Xa-Ke-uep"/>
@@ -1991,7 +1993,7 @@
                                     <constraint firstItem="d9i-OF-MZ2" firstAttribute="top" secondItem="t0w-Qj-uhK" secondAttribute="top" constant="5" id="fSe-Ci-afi"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MT-UC-b3C">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MT-UC-b3C">
                                 <rect key="frame" x="0.0" y="70" width="768" height="954"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OcS-yz-beM" userLabel="contentView">
@@ -2002,12 +2004,13 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlB-ec-g5u">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="700"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="700" id="DRP-j5-fBE"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="mint"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="KlB-ec-g5u" firstAttribute="top" secondItem="7U0-NN-UaU" secondAttribute="top" id="HYk-e1-mnS"/>
                                                     <constraint firstItem="KlB-ec-g5u" firstAttribute="centerX" secondItem="7U0-NN-UaU" secondAttribute="centerX" id="LpD-Vs-Fu8"/>
@@ -3572,7 +3575,7 @@
                                     <constraint firstItem="W0t-xP-JEG" firstAttribute="centerX" secondItem="8EG-3j-8fe" secondAttribute="centerX" id="zQj-RI-XM1"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHF-56-ja7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHF-56-ja7">
                                 <rect key="frame" x="0.0" y="70" width="768" height="954"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpq-cE-5Mc" userLabel="contentView">
@@ -3583,12 +3586,13 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9GO-KI-vEF">
                                                         <rect key="frame" x="0.0" y="0.0" width="768" height="700"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="700" id="T8N-Fh-jke"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="mint"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="9GO-KI-vEF" firstAttribute="leading" secondItem="iku-uI-jAJ" secondAttribute="leading" id="Ipr-Xt-aDr"/>
                                                     <constraint firstItem="9GO-KI-vEF" firstAttribute="top" secondItem="iku-uI-jAJ" secondAttribute="top" id="jRq-1G-Udk"/>
@@ -3656,7 +3660,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sp-lP-G9k">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sp-lP-G9k">
                                 <rect key="frame" x="0.0" y="20" width="384" height="1004"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L83-Sx-65j" userLabel="contentView">
@@ -3667,12 +3671,13 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ir2-CN-hGB">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="500"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="500" id="SJx-sz-HHf"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" name="mint"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="Ir2-CN-hGB" firstAttribute="leading" secondItem="alq-nG-XOz" secondAttribute="leading" id="4i8-1A-gm4"/>
                                                     <constraint firstItem="Ir2-CN-hGB" firstAttribute="centerX" secondItem="alq-nG-XOz" secondAttribute="centerX" id="BEO-MY-1eH"/>
@@ -3772,12 +3777,13 @@
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ptI-Ul-Iq2">
                                                             <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="150" id="WZt-mG-6K7"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="mint"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="ARO-4T-Ka6"/>
                                                         <constraint firstItem="ptI-Ul-Iq2" firstAttribute="leading" secondItem="G89-fI-Qdu" secondAttribute="leading" id="Dhs-1U-Eab"/>
