@@ -144,8 +144,7 @@ extension SingleWith5Answer {
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           let solved = problem.solved,
-           answer != solved,
+           problem.correct == false,
            problem.terminated == true {
             guard let targetIndex = Int(answer) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")

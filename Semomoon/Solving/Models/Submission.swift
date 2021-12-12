@@ -21,7 +21,7 @@ struct Submission: Codable {
         self.pid = Int(problem.pid)
         self.elapsed = Int(problem.time)
         self.recent_time = Self.nowTime(at: Date())
-        self.user_answer = problem.answer
+        self.user_answer = problem.solved
         if let _ = problem.answer {
             self.correct = problem.correct == true ? 1 : 0
         } else {
