@@ -89,7 +89,7 @@ struct CoreUsecase {
                     DispatchQueue.main.async {
                         loading.updateProgress()
                         currentCount += 1
-                        print(currentCount)
+                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
                     }
                 }
             }
@@ -100,20 +100,20 @@ struct CoreUsecase {
                             loading.updateProgress()
                         }
                         currentCount += 1
-                        print(currentCount)
+                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
                     }
                 }
             }
-            
-            while true {
-                if currentCount == totalCount {
-                    break
-                }
-            }
+        }
+    }
+    
+    static func terminateDownload(currentCount: Int, totalCount: Int, section: Section_Core, header: SectionHeader_Core, buttons: [String], dict: [String: Int], completion: ((Section_Core?) -> Void)) {
+        if currentCount == totalCount {
             print("----------download end----------")
-            sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
+            let context = CoreDataManager.shared.context
+            section.setValues(header: header, buttons: buttons, dict: dict)
             do { try context.save() } catch let error { print(error.localizedDescription) }
-            completion(sectionOfCore)
+            completion(section)
         }
     }
     
