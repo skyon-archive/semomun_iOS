@@ -58,7 +58,6 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 didAppear")
         
         self.viewModel?.configureObserver()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,7 +150,7 @@ extension SingleWith5Answer {
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if problem.terminated {
+        if problem.terminated && problem.answer != nil {
             self.showResultImage(to: problem.correct)
         }
         
@@ -166,7 +165,7 @@ extension SingleWith5Answer {
     }
     
     func showResultImage(to: Bool) {
-        let imageName: String = to ? "correct" : "wrong"ㅣ
+        let imageName: String = to ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
         
         self.view.addSubview(self.resultImageView)

@@ -32,6 +32,12 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +66,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("객관식 willDisappear")
         
         self.viewModel?.cancelObserver()
+        self.resultImageView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -157,16 +164,32 @@ extension SingleWithTextAnswer {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
-            if problem.terminated,
-               problem.correct == false {
-                self.answer.isUserInteractionEnabled = true
-                self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
-                self.answer.setTitle(problem.answer, for: .normal)
-            } else {
-                self.answer.isUserInteractionEnabled = true
-                self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+            if problem.terminated {
+                self.showResultImage(to: problem.correct)
+                if problem.correct == false {
+                    self.answer.isUserInteractionEnabled = true
+                    self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
+                } else {
+                    self.answer.isUserInteractionEnabled = true
+                    self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+                }
             }
         }
+    }
+    
+    func showResultImage(to: Bool) {
+        let imageName: String = to ? "correct" : "wrong"
+        self.resultImageView.image = UIImage(named: imageName)
+        
+        self.view.addSubview(self.resultImageView)
+        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+            self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+            self.resultImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+            self.resultImageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15)
+        ])
     }
     
     func configureExplanation() {
