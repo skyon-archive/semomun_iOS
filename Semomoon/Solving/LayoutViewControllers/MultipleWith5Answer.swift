@@ -46,7 +46,6 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
         
-        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
         self.collectionView.reloadData()
         self.configureMainImageView()
@@ -57,6 +56,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : didAppear")
         
         self.configureCanvasView()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

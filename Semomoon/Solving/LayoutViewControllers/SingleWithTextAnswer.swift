@@ -48,7 +48,6 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillAppear(animated)
         print("객관식 willAppear")
         
-        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
@@ -59,6 +58,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("객관식 didAppear")
         
         self.configureImageView()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

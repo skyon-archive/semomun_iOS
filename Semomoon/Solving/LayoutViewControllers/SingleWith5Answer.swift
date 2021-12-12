@@ -49,7 +49,6 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureImageView()
         self.configureUI()
         self.configureCanvasView()
     }
@@ -57,6 +56,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
         
+        self.configureImageView()
         self.viewModel?.configureObserver()
     }
     
@@ -224,12 +224,12 @@ extension SingleWith5Answer {
     func configureCanvasViewData() {
         if let pkData = self.viewModel?.problem?.drawing {
             do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
+                try self.canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
             }
         } else {
-            canvasView.drawing = PKDrawing()
+            self.canvasView.drawing = PKDrawing()
         }
     }
     
