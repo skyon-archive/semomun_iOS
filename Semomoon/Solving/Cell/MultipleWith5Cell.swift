@@ -29,10 +29,17 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     weak var delegate: CollectionCellDelegate?
     
     var toolPicker: PKToolPicker?
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureBaseUI()
+        self.resultImageView.removeFromSuperview()
         print("\(Self.identifier) awakeFromNib")
     }
     
@@ -140,6 +147,10 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
+        if problem.terminated && problem.answer != nil {
+            self.showResultImage(to: problem.correct)
+        }
+        
         if let answer = problem.answer,
            problem.correct == false,
            problem.terminated == true {
@@ -147,6 +158,21 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
+    }
+    
+    func showResultImage(to: Bool) {
+        let imageName: String = to ? "correct" : "wrong"
+        self.resultImageView.image = UIImage(named: imageName)
+        
+        self.contentView.addSubview(self.resultImageView)
+        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.resultImageView.widthAnchor.constraint(equalToConstant: 50),
+            self.resultImageView.heightAnchor.constraint(equalToConstant: 50),
+            self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
+            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 50)
+        ])
     }
     
     func configureStar() {
