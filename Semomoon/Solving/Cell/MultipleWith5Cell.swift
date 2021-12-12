@@ -129,7 +129,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
+            bt.layer.cornerRadius = 15
             bt.backgroundColor = UIColor.white
             bt.setTitleColor(UIColor(named: "mint"), for: .normal)
         }
@@ -141,8 +141,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           let solved = problem.solved,
-           answer != solved,
+           problem.correct == false,
            problem.terminated == true {
             guard let targetIndex = Int(answer) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
