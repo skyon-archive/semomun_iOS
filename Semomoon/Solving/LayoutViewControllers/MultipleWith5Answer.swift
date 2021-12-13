@@ -46,17 +46,19 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
         
-        self.collectionView.reloadData()
-        self.configureMainImageView()
+        self.configureCanvasView()
+        self.configureCanvasViewData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
         
-        self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureCanvasView()
+        self.configureMainImageView()
+        self.collectionView.reloadData()
         self.viewModel?.configureObserver()
+        self.configureCanvasViewData()
+        self.scrollView.setContentOffset(.zero, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,8 +88,6 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
 
 extension MultipleWith5Answer {
     func configureCanvasView() {
-        self.configureCanvasViewData()
-        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -126,7 +126,6 @@ extension MultipleWith5Answer {
             height = worningImage.size.height*(width/worningImage.size.width)
         }
         
-        imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)

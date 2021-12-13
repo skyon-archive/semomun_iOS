@@ -50,17 +50,16 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
-        self.configureImageView()
-        self.showResultImage()
         self.configureCanvasView()
-        self.configureCanvasViewData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
         
-        self.viewModel?.configureObserver()
         self.configureCanvasViewData()
+        self.configureImageView()
+        self.showResultImage()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -245,6 +244,7 @@ extension SingleWith5Answer {
             height = worningImage.size.height*(width/worningImage.size.width)
         }
         
+        imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
