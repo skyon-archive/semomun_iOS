@@ -74,6 +74,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : willDisapplear")
         
         self.viewModel?.cancelObserver()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {

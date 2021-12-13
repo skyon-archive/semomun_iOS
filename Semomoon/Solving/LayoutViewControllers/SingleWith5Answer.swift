@@ -76,6 +76,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
