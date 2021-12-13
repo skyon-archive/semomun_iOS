@@ -36,16 +36,25 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureLoader()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
         
+        self.scrollView.setContentOffset(.zero, animated: true)
+        self.collectionView.reloadData()
         self.configureCanvasView()
         self.configureCanvasViewData()
     }
@@ -54,11 +63,10 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
         
+        self.stopLoader()
+//        self.configureCanvasViewData()
         self.configureMainImageView()
-        self.collectionView.reloadData()
         self.viewModel?.configureObserver()
-        self.configureCanvasViewData()
-        self.scrollView.setContentOffset(.zero, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,6 +95,25 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
 }
 
 extension MultipleWith5Answer {
+    func configureLoader() {
+        self.scrollView.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+        self.canvasView.isHidden = true
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+        self.canvasView.isHidden = false
+    }
+    
     func configureCanvasView() {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
@@ -126,6 +153,7 @@ extension MultipleWith5Answer {
             height = worningImage.size.height*(width/worningImage.size.width)
         }
         
+        imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
