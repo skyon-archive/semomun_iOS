@@ -39,8 +39,10 @@ final class SingleWithTextAnswerViewModel {
     }
     
     func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+        DispatchQueue.global().async {
+            do { try CoreDataManager.shared.context.save() } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     func updateSolved(input: String) {

@@ -11,7 +11,7 @@ import PencilKit
 protocol CollectionCellDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func nextPage()
-    func showExplanation(image: UIImage)
+    func showExplanation(image: UIImage?)
     func updateWrong(btName: String, to: Bool)
 }
 
@@ -46,7 +46,6 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
         
-        self.scrollView.setContentOffset(.zero, animated: true)
         self.collectionView.reloadData()
         self.configureMainImageView()
     }
@@ -55,6 +54,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
         
+        self.scrollView.setContentOffset(.zero, animated: true)
         self.configureCanvasView()
         self.viewModel?.configureObserver()
     }
@@ -186,7 +186,7 @@ extension MultipleWith5Answer: CollectionCellDelegate {
         self.viewModel?.delegate?.nextPage()
     }
     
-    func showExplanation(image: UIImage) {
+    func showExplanation(image: UIImage?) {
         guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
         explanationVC.explanationImage = image
         self.present(explanationVC, animated: true, completion: nil)

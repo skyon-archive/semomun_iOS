@@ -45,7 +45,6 @@ final class MultipleWith5AnswerViewModel {
         self.time = resultTime
         let perTime = Int64(ceil(Double(resultTime)/Double(problems.count)))
         for (idx, problem) in problems.enumerated() {
-            print(baseTimes[idx] + perTime)
             problem.setValue(baseTimes[idx] + perTime, forKey: "time")
         }
 
@@ -53,8 +52,10 @@ final class MultipleWith5AnswerViewModel {
     }
     
     func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+        DispatchQueue.global().async {
+            do { try CoreDataManager.shared.context.save() } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     

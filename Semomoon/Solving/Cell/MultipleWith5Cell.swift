@@ -79,9 +79,8 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage,
-              let explanationImage = UIImage(data: imageData) else { return }
-        self.delegate?.showExplanation(image: explanationImage)
+        guard let imageData = self.problem?.explanationImage else { return }
+        self.delegate?.showExplanation(image: UIImage(data: imageData))
     }
     
     @IBAction func nextProblem(_ sender: Any) {

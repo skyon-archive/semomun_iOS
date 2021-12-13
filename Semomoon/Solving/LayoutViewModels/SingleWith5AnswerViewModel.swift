@@ -41,8 +41,10 @@ final class SingleWith5AnswerViewModel {
     }
     
     func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+        DispatchQueue.global().async {
+            do { try CoreDataManager.shared.context.save() } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     
