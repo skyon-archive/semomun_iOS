@@ -38,10 +38,17 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureLoader()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +63,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
         
+        self.stopLoader()
         self.configureCanvasViewData()
         self.configureImageView()
         self.showResultImage()
@@ -129,6 +137,23 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
 
 
 extension SingleWith5Answer {
+    func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+    }
+    
     func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
