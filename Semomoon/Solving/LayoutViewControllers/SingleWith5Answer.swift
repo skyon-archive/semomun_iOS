@@ -164,7 +164,7 @@ extension SingleWith5Answer {
     }
     
     @objc func rightDragged() {
-        print("right dragged")
+        self.viewModel?.delegate?.beforePage()
     }
     
     @objc func leftDragged() {

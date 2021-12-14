@@ -12,6 +12,7 @@ protocol PageDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func updateWrong(btName: String, to: Bool)
     func nextPage()
+    func beforePage()
 }
 
 class SolvingViewController: UIViewController {
@@ -234,5 +235,9 @@ extension SolvingViewController: PageDelegate {
     
     func nextPage() {
         self.manager.changeNextPage()
+    }
+    
+    func beforePage() {
+        self.manager.changeBeforePage()
     }
 }

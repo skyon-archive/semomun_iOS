@@ -129,6 +129,10 @@ class SectionManager {
         }
     }
     
+    func changeBeforePage() {
+        print("before page")
+    }
+    
     func showTitle() {
         guard let title = self.section?.title else { return }
         self.delegate.showTitle(title: title)
