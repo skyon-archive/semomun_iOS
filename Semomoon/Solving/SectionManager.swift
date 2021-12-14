@@ -27,7 +27,7 @@ class SectionManager {
     var dictionanry: [String: Int] = [:]
     var currentTime: Int64 = 0
     var currentIndex: Int = 0
-    var currentPage: PageData!
+    var currentPage: PageData?
     
     var timer: Timer!
     var isRunning: Bool = true
@@ -60,14 +60,20 @@ class SectionManager {
         // 2. vid 구하기
         let pageID = pageID(at: buttonTitle(at: index))
         
+        if self.currentPage?.vid == pageID {
+            self.delegate.reloadButtons()
+            return
+        }
+        
         // 3. pageData 생성 -> 내부서 5까지 구현
         // 현재는 생성로직, 추후 cache 필요
         self.currentPage = nil
-        self.currentPage = PageData(vid: pageID)
+        let pageData = PageData(vid: pageID)
+        self.currentPage = pageData
         
         // 6. 변경된 PageData 반환
         self.delegate.reloadButtons()
-        self.delegate.changeVC(pageData: self.currentPage)
+        self.delegate.changeVC(pageData: pageData)
     }
     
     var count: Int {
@@ -112,7 +118,7 @@ class SectionManager {
     }
     
     func changeNextPage() {
-        let currentVid = self.currentPage.vid
+        let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex
         while true {
             if tempIndex == self.buttons.count-1 {
@@ -130,7 +136,7 @@ class SectionManager {
     }
     
     func changeBeforePage() {
-        let currentVid = self.currentPage.vid
+        let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex
         while true {
             if tempIndex == 0 {
