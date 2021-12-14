@@ -130,7 +130,21 @@ class SectionManager {
     }
     
     func changeBeforePage() {
-        print("before page")
+        let currentVid = self.currentPage.vid
+        var tempIndex = self.currentIndex
+        while true {
+            if tempIndex == 0 {
+                self.delegate.showAlert(text: "첫 페이지 입니다.")
+                break
+            }
+            
+            tempIndex -= 1
+            let beforeVid = self.pageID(at: buttonTitle(at: tempIndex))
+            if beforeVid != currentVid {
+                self.changePage(at: tempIndex)
+                break
+            }
+        }
     }
     
     func showTitle() {
