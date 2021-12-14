@@ -1,6 +1,6 @@
 //
-//  test_1ViewController.swift
-//  test_1ViewController
+//  SingleWith5Answer.swift
+//  Semomoon
 //
 //  Created by qwer on 2021/08/25.
 //

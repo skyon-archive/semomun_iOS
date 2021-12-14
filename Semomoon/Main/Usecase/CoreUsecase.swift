@@ -135,7 +135,7 @@ struct CoreUsecase {
     static func createMockDataForMulty() {
         let context = CoreDataManager.shared.context
         
-        //Math
+        //5Answer
         let problemOfCore1 = Problem_Core(context: context)
         problemOfCore1.setMocks(pid: -121, type: 5, btName: "1", imgName: "mock1", expName: "exp1", answer: "1")
         let pageOfCore1 = Page_Core(context: context)
@@ -156,12 +156,13 @@ struct CoreUsecase {
         let pageOfCore4 = Page_Core(context: context)
         pageOfCore4.setMocks(vid: -45, form: 0, type: 5, pids: [-454], mateImgName: nil)
         
+        //Text
         let problemOfCore5 = Problem_Core(context: context)
         problemOfCore5.setMocks(pid: -565, type: 1, btName: "5", imgName: "mock5", expName: "exp3", answer: "123")
         let pageOfCore5 = Page_Core(context: context)
         pageOfCore5.setMocks(vid: -56, form: 0, type: 1, pids: [-565], mateImgName: nil)
         
-        //Korean
+        //Multi 5
         let problemOfCore6 = Problem_Core(context: context)
         problemOfCore6.setMocks(pid: -131, type: 5, btName: "6", imgName: "mockImg11", expName: "exp1", answer: "1")
         let problemOfCore7 = Problem_Core(context: context)
@@ -186,12 +187,24 @@ struct CoreUsecase {
         let pageOfCore7 = Page_Core(context: context)
         pageOfCore7.setMocks(vid: -24, form: 1, type: 5, pids: [-575, -686, -797, -898], mateImgName: "material2")
         
+        //4Answer
+        let problemOfCore14 = Problem_Core(context: context)
+        problemOfCore14.setMocks(pid: -141, type: 4, btName: "14", imgName: "mock1", expName: "exp1", answer: "1")
+        let pageOfCore8 = Page_Core(context: context)
+        pageOfCore8.setMocks(vid: -14, form: 0, type: 4, pids: [-141], mateImgName: nil)
+        
+        let problemOfCore15 = Problem_Core(context: context)
+        problemOfCore15.setMocks(pid: -252, type: 4, btName: "15", imgName: "mock2", expName: "exp2", answer: "3")
+        let pageOfCore9 = Page_Core(context: context)
+        pageOfCore9.setMocks(vid: -25, form: 0, type: 4, pids: [-252], mateImgName: nil)
+        
         //Section
         let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
         let dict = ["1": -12, "2": -23, "3": -34, "4": -45, "5": -56,
                     "6": -13, "7": -13, "8": -13, "9": -13,
-                    "10": -24, "11": -24, "12": -24, "13": -24]
+                    "10": -24, "11": -24, "12": -24, "13": -24,
+                    "14": -14, "15": -25]
         sectionCore.setMocks(sid: -3, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }

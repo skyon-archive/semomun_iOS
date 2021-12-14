@@ -91,6 +91,7 @@
 		872ACA53276466F50072A4AF /* MajorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA52276466F40072A4AF /* MajorViewController.swift */; };
 		872ACA55276467490072A4AF /* MajorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA54276467490072A4AF /* MajorManager.swift */; };
 		875FBA37275B5E2A00C636CD /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875FBA36275B5E2A00C636CD /* Validate.swift */; };
+		8767B3762768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */; };
 		8784D3B127648EB400C43209 /* MajorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B027648EB400C43209 /* MajorDetailViewController.swift */; };
 		8784D3B327648ED000C43209 /* MajorDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B227648ED000C43209 /* MajorDetailManager.swift */; };
 		8784D3B527648EE300C43209 /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B427648EE300C43209 /* MajorDetailCell.swift */; };
@@ -184,6 +185,7 @@
 		872ACA52276466F40072A4AF /* MajorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorViewController.swift; sourceTree = "<group>"; };
 		872ACA54276467490072A4AF /* MajorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorManager.swift; sourceTree = "<group>"; };
 		875FBA36275B5E2A00C636CD /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
+		8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith4AnswerViewModel.swift; sourceTree = "<group>"; };
 		8784D3B027648EB400C43209 /* MajorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailViewController.swift; sourceTree = "<group>"; };
 		8784D3B227648ED000C43209 /* MajorDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailManager.swift; sourceTree = "<group>"; };
 		8784D3B427648EE300C43209 /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				4A1119B82751DE0900EBF98A /* SingleWith5AnswerViewModel.swift */,
 				4A1119BA2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift */,
 				4A1119BC2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift */,
+				8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */,
 			);
 			path = LayoutViewModels;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				4A97577326FEEA7B002543D6 /* LoginViewController.swift in Sources */,
 				4A8EA9DC27095CDB007B4900 /* Problem_Core.swift in Sources */,
 				4ACAEB7527097E500085ABAE /* PageOfDB.swift in Sources */,
+				8767B3762768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift in Sources */,
 				8784D3B127648EB400C43209 /* MajorDetailViewController.swift in Sources */,
 				4A4D92B026EDA19E00B82EE9 /* SearchWorkbookViewController.swift in Sources */,
 				4AA9803326D6584D004E8FCC /* SolvingViewController.swift in Sources */,

@@ -196,7 +196,12 @@ class SectionManager {
     }
     
     func configureMock() {
-        self.section = CoreUsecase.sectionOfCoreData(sid: -3)
+        if let section = CoreUsecase.sectionOfCoreData(sid: -3) {
+            self.section = section
+        } else {
+            CoreUsecase.createMockDataForMulty()
+            self.section = CoreUsecase.sectionOfCoreData(sid: -3)
+        }
     }
     
     func terminateSection() {
