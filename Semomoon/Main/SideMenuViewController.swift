@@ -42,6 +42,7 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.selectedCell(indexPath.row)
+        self.sideMenuTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
