@@ -47,6 +47,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("\(Self.identifier) didLoad")
         
         self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,6 +108,26 @@ extension MultipleWith5Answer {
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.canvasView.isHidden = true
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
     }
     
     func stopLoader() {

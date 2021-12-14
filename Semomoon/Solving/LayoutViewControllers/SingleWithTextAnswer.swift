@@ -49,6 +49,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("\(Self.identifier) didLoad")
         
         self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,6 +154,26 @@ extension SingleWithTextAnswer {
         
         self.loader.isHidden = false
         self.loader.startAnimating()
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
     }
     
     func stopLoader() {
