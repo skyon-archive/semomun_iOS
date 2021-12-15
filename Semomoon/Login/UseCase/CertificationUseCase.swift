@@ -7,11 +7,45 @@
 
 import Foundation
 
+protocol Certificateable: AnyObject {
+    func nameResult(result: CertificationUseCase.Results)
+    func phoneResult(result: CertificationUseCase.Results)
+    func certificationResult(result: CertificationUseCase.Results)
+}
+
 class CertificationUseCase {
+    weak var delegate: Certificateable?
+    enum Results {
+        case valid
+        case error
+    }
     
-//    func checkName(name: String?) {
-//        let status = statusOfId(id: id)
-//        states[0] = status == .candidate ? true : false
-//        NotificationCenter.default.post(name: Notifications.idResult, object: self, userInfo: [Keys.idStatus : status])
-//    }
+    init(delegate: Certificateable) {
+        self.delegate = delegate
+    }
+    
+    func checkName(with name: String?) {
+        //한글, 또는 영어만의 3~10글자
+        guard let name = name, name.count > 0 else {
+            self.delegate?.nameResult(result: .error)
+            return
+        }
+        let nameChecker = "^[가-힣A-Za-z]{3,10}"
+        let result = resultOfPredicate(text: name, cheker: nameChecker)
+        self.delegate?.nameResult(result: result == true ? .valid : .error)
+    }
+    
+    func checkPhone(with: String?) {
+        
+    }
+    
+    func checkCertification(with: String?) {
+        
+    }
+    
+    func resultOfPredicate(text: String, cheker: String) -> Bool {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", cheker)
+        let result = predicate.evaluate(with: text)
+        return result
+    }
 }

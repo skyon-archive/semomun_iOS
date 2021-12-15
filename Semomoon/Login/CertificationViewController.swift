@@ -21,13 +21,15 @@ class CertificationViewController: UIViewController {
     @IBOutlet weak var certification: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     
-    var Certificated: Bool = false
-    var signUpInfo: SignUpInfo!
+    private var certificated: Bool = false
+    private var signUpInfo: SignUpInfo?
+    private var usecase: CertificationUseCase?
+    private var states: [Bool] = [false, false, false]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        self.signUpInfo = SignUpInfo()
+        self.configureProperty()
         self.configureNextButton()
         self.configureWarningUI()
         self.configureDelegate()
@@ -40,11 +42,11 @@ class CertificationViewController: UIViewController {
     }
     
     @IBAction func nextVC(_ sender: Any) {
-        Certificated = true
-        if(Certificated){
+        certificated = true
+        if(certificated){
             guard let name = self.name.text,
                   let phoneNumber = self.phone.text else { return }
-            self.signUpInfo.configureFirst(name: name, phoneNumber: phoneNumber)
+            self.signUpInfo?.configureFirst(name: name, phoneNumber: phoneNumber)
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
             self.title = ""
             nextVC.signUpInfo = self.signUpInfo
@@ -58,18 +60,50 @@ class CertificationViewController: UIViewController {
 }
 
 extension CertificationViewController: UITextFieldDelegate {
+    func configureProperty() {
+        self.signUpInfo = SignUpInfo()
+        self.usecase = CertificationUseCase(delegate: self)
+    }
+    
     func configureNextButton() {
         self.nextButton.layer.cornerRadius = 35
         self.nextButton.clipsToBounds = true
     }
     
     func configureWarningUI() {
+        self.validNameUI()
+        self.validPhoneUI()
+        self.validCertificationUI()
+    }
+    
+    func validNameUI() {
         self.warningOfName.isHidden = true
         self.warningOfName2.isHidden = true
+    }
+    
+    func validPhoneUI() {
         self.warningOfPhone.isHidden = true
         self.warningOfPhone2.isHidden = true
+    }
+    
+    func validCertificationUI() {
         self.warningOfCertification.isHidden = true
         self.warningOfCertification2.isHidden = true
+    }
+    
+    func invalidNameUI() {
+        self.warningOfName.isHidden = false
+        self.warningOfName2.isHidden = false
+    }
+    
+    func invalidPhoneUI() {
+        self.warningOfPhone.isHidden = false
+        self.warningOfPhone2.isHidden = false
+    }
+    
+    func invalidCertificationUI() {
+        self.warningOfCertification.isHidden = false
+        self.warningOfCertification2.isHidden = false
     }
     
     func configureDelegate() {
@@ -85,14 +119,35 @@ extension CertificationViewController: UITextFieldDelegate {
     }
     
     @objc func nameChanged() {
-        print(name.text)
+        self.usecase?.checkName(with: name.text)
     }
     
     @objc func phoneChanged() {
-        print(phone.text)
+        self.usecase?.checkPhone(with: phone.text)
     }
     
     @objc func certificationChanged() {
-        print(certification.text)
+        self.usecase?.checkCertification(with: certification.text)
+    }
+}
+
+extension CertificationViewController: Certificateable {
+    func nameResult(result: CertificationUseCase.Results) {
+        switch result {
+        case .valid:
+            self.states[0] = true
+            self.validNameUI()
+        case .error:
+            self.states[0] = false
+            self.invalidNameUI()
+        }
+    }
+    
+    func phoneResult(result: CertificationUseCase.Results) {
+        print(result.hashValue)
+    }
+    
+    func certificationResult(result: CertificationUseCase.Results) {
+        print(result.hashValue)
     }
 }
