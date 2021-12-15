@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fXE-86-ZFW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3zH-Gd-er2">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -771,7 +771,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cirtification" destination="GJj-iF-1tV" id="Bqb-qU-yZP"/>
+                        <outlet property="certification" destination="GJj-iF-1tV" id="Bqb-qU-yZP"/>
                         <outlet property="name" destination="AkJ-Sg-e9h" id="2kD-Rr-1bK"/>
                         <outlet property="nextButton" destination="WZn-lB-2WJ" id="QeT-2D-Nf4"/>
                         <outlet property="phone" destination="Rm0-Kw-BHn" id="Jdd-v1-XU0"/>
@@ -4177,7 +4177,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

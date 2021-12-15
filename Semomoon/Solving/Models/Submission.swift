@@ -17,7 +17,7 @@ struct Submission: Codable {
     var note: Data? // 필기데이터
     
     init(problem: Problem_Core) {
-        self.token = "abcde" // TODO: key chain 에서 얻는 식으로 수정
+        self.token = KeychainItem.currentUserIdentifier //TODO: 맞는지 확인 필요
         self.pid = Int(problem.pid)
         self.elapsed = Int(problem.time)
         self.recent_time = Self.nowTime(at: Date())

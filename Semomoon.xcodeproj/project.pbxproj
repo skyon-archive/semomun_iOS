@@ -92,6 +92,7 @@
 		872ACA55276467490072A4AF /* MajorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA54276467490072A4AF /* MajorManager.swift */; };
 		875FBA37275B5E2A00C636CD /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875FBA36275B5E2A00C636CD /* Validate.swift */; };
 		8767B3762768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */; };
+		8767B3792768D631007C82B3 /* CertificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8767B3782768D631007C82B3 /* CertificationUseCase.swift */; };
 		8784D3B127648EB400C43209 /* MajorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B027648EB400C43209 /* MajorDetailViewController.swift */; };
 		8784D3B327648ED000C43209 /* MajorDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B227648ED000C43209 /* MajorDetailManager.swift */; };
 		8784D3B527648EE300C43209 /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B427648EE300C43209 /* MajorDetailCell.swift */; };
@@ -186,6 +187,7 @@
 		872ACA54276467490072A4AF /* MajorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorManager.swift; sourceTree = "<group>"; };
 		875FBA36275B5E2A00C636CD /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith4AnswerViewModel.swift; sourceTree = "<group>"; };
+		8767B3782768D631007C82B3 /* CertificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationUseCase.swift; sourceTree = "<group>"; };
 		8784D3B027648EB400C43209 /* MajorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailViewController.swift; sourceTree = "<group>"; };
 		8784D3B227648ED000C43209 /* MajorDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailManager.swift; sourceTree = "<group>"; };
 		8784D3B427648EE300C43209 /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		4A55DE5826F70137008F1C35 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				8767B3772768D61A007C82B3 /* UseCase */,
 				4A55DE5926F70151008F1C35 /* StartViewController.swift */,
 				4A1E742026F70DBD001C3420 /* CertificationViewController.swift */,
 				4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */,
@@ -500,6 +503,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8767B3772768D61A007C82B3 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				8767B3782768D631007C82B3 /* CertificationUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		87AB9DC326CB2BDB0019A276 = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +676,7 @@
 				4ACAEB602709617D0085ABAE /* Section_Core.swift in Sources */,
 				4A97577726FEEBCF002543D6 /* FindPasswordViewController.swift in Sources */,
 				4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */,
+				8767B3792768D631007C82B3 /* CertificationUseCase.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* SingleWith5Answer.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4A7EEDDC273631C200BF1A20 /* MultipleWith5Cell.swift in Sources */,
