@@ -35,17 +35,37 @@ class CertificationUseCase {
         self.delegate?.nameResult(result: result == true ? .valid : .error)
     }
     
-    func checkPhone(with: String?) {
-        
+    func checkPhone(with phone: String?) {
+        //11글자의 숫자
+        guard let phone = phone, phone.count > 0 else {
+            self.delegate?.phoneResult(result: .error)
+            return
+        }
+        let phoneChecker = "^[0-9]{11}"
+        let result = resultOfPredicate(text: phone, cheker: phoneChecker)
+        self.delegate?.phoneResult(result: result == true ? .valid : .error)
     }
     
-    func checkCertification(with: String?) {
-        
+    func checkCertification(with certification: String?) {
+        //6글자의 숫자
+        guard let certification = certification, certification.count > 0 else {
+            self.delegate?.certificationResult(result: .error)
+            return
+        }
+        let certificationChecker = "^[0-9]{6}"
+        let result = resultOfPredicate(text: certification, cheker: certificationChecker)
+        self.delegate?.certificationResult(result: result == true ? .valid : .error)
     }
     
     func resultOfPredicate(text: String, cheker: String) -> Bool {
         let predicate = NSPredicate(format: "SELF MATCHES %@", cheker)
         let result = predicate.evaluate(with: text)
+        return result
+    }
+    
+    func isValidForSignUp(states: [Bool]) -> Bool {
+        var result: Bool = true
+        states.forEach { result = result && $0 }
         return result
     }
 }

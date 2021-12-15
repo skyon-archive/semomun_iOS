@@ -21,7 +21,6 @@ class CertificationViewController: UIViewController {
     @IBOutlet weak var certification: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     
-    private var certificated: Bool = false
     private var signUpInfo: SignUpInfo?
     private var usecase: CertificationUseCase?
     private var states: [Bool] = [false, false, false]
@@ -42,18 +41,20 @@ class CertificationViewController: UIViewController {
     }
     
     @IBAction func nextVC(_ sender: Any) {
-        certificated = true
-        if(certificated){
+        guard let usecase = self.usecase else { return }
+        if usecase.isValidForSignUp(states: self.states) {
             guard let name = self.name.text,
                   let phoneNumber = self.phone.text else { return }
+            
             self.signUpInfo?.configureFirst(name: name, phoneNumber: phoneNumber)
+            
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
             self.title = ""
             nextVC.signUpInfo = self.signUpInfo
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
-        else{
-            // need notification to try authenticating him/herself
+        else {
+            self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
     }
     
@@ -144,10 +145,24 @@ extension CertificationViewController: Certificateable {
     }
     
     func phoneResult(result: CertificationUseCase.Results) {
-        print(result.hashValue)
+        switch result {
+        case .valid:
+            self.states[1] = true
+            self.validPhoneUI()
+        case .error:
+            self.states[1] = false
+            self.invalidPhoneUI()
+        }
     }
     
     func certificationResult(result: CertificationUseCase.Results) {
-        print(result.hashValue)
+        switch result {
+        case .valid:
+            self.states[2] = true
+            self.validCertificationUI()
+        case .error:
+            self.states[2] = false
+            self.invalidCertificationUI()
+        }
     }
 }
