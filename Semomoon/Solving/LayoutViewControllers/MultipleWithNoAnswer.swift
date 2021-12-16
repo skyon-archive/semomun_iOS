@@ -8,10 +8,14 @@
 import UIKit
 import PencilKit
 
+protocol CollectionCellWithNoAnswerDelegate: AnyObject {
+    func updateStar(btName: String, to: Bool)
+    func nextPage()
+}
+
 class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWithNoAnswer" // form == 1 && type == 0
 
-//    @IBOutlet var star: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,18 +28,25 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     var height: CGFloat!
     var mainImage: UIImage?
     var subImages: [UIImage?]?
-    var pageData: PageData?
-    var problems: [Problem_Core]?
-    weak var delegate: PageDelegate?
+    var viewModel: MultipleWithNoAnswerViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureDelegate()
+        self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,19 +54,37 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("답없는 좌우형 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureProblems()
+        self.collectionView.reloadData()
         self.configureCanvasView()
+        self.configureCanvasViewData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("답없는 좌우형 didAppear")
+        
+        self.stopLoader()
+//        self.configureCanvasViewData()
         self.configureMainImageView()
+        self.viewModel?.configureObserver()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("답없는 좌우형 : willDisapplear")
+        
+        self.viewModel?.cancelObserver()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("답없는 좌우형 : disappear")
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        print("5다선지 좌우형 : willMove")
     }
     
     deinit {
@@ -64,23 +93,51 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         toolPicker.removeObserver(canvasView)
         print("답없는 좌우형 deinit")
     }
-    
-//    @IBAction func toggleStar(_ sender: UIButton) {
-//        guard let pName = self.problem?.pName else { return }
-//        self.star.isSelected.toggle()
-//        let status = self.star.isSelected
-//        self.problem?.setValue(status, forKey: "star")
-//        self.delegate?.updateStar(btName: pName, to: status)
-//    }
-    
-    @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
-    }
 }
 
 extension MultipleWithNoAnswer {
-    func configureProblems() {
-        self.problems = self.pageData?.problems ?? nil
+    func configureDelegate() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
+    func configureLoader() {
+        self.scrollView.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+        self.canvasView.isHidden = true
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+        self.canvasView.isHidden = false
     }
     
     func configureCanvasView() {
@@ -97,12 +154,31 @@ extension MultipleWithNoAnswer {
         canvasView.delegate = self
     }
     
+    func configureCanvasViewData() {
+        if let pkData = self.viewModel?.pageData.pageCore.drawing {
+            do {
+                try canvasView.drawing = PKDrawing.init(data: pkData)
+            } catch {
+                print("Error loading drawing object")
+            }
+        } else {
+            canvasView.drawing = PKDrawing()
+        }
+    }
+    
     func configureMainImageView() {
         width = canvasView.frame.width
         guard let mainImage = self.mainImage else { return }
         height = mainImage.size.height*(width/mainImage.size.width)
         
-        imageView.image = mainImage
+        if mainImage.size.width > 0 && mainImage.size.height > 0 {
+            imageView.image = mainImage
+        } else {
+            let worningImage = UIImage(named: "warningWithNoImage")!
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
+        }
+        
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height
@@ -111,21 +187,21 @@ extension MultipleWithNoAnswer {
     }
 }
 
+// MARK: - Configure MultipleWithNoCell
 extension MultipleWithNoAnswer: UICollectionViewDelegate, UICollectionViewDataSource{
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.problems?.count ?? 0
+        return self.viewModel?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
-        let problem = self.problems?[indexPath.item] ?? nil
+        let problem = self.viewModel?.problem(at: indexPath.item)
         let superWidth = self.collectionView.frame.width
         
-        cell.delegate = self.delegate
-        cell.configureReuse(contentImage, problem, superWidth)
+        cell.delegate = self
+        cell.configureReuse(contentImage, problem, superWidth, toolPicker)
         
         return cell
     }
@@ -144,5 +220,22 @@ extension MultipleWithNoAnswer: UICollectionViewDelegateFlowLayout{
         let height: CGFloat = solveInputFrameHeight + imgHeight
         
         return CGSize(width: width, height: height)
+    }
+}
+
+extension MultipleWithNoAnswer {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data)
+    }
+}
+
+extension MultipleWithNoAnswer: CollectionCellWithNoAnswerDelegate {
+    func updateStar(btName: String, to: Bool) {
+        self.viewModel?.delegate?.updateStar(btName: btName, to: to)
+    }
+    
+    func nextPage() {
+        self.viewModel?.delegate?.nextPage()
     }
 }

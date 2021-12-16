@@ -191,10 +191,9 @@ extension SolvingViewController: LayoutDelegate {
             
         case MultipleWithNoAnswer.identifier:
             self.currentVC = multipleWithNoAnswer
-            multipleWithNoAnswer.delegate = self
+            multipleWithNoAnswer.viewModel = MultipleWithNoAnswerViewModel(delegate: self, pageData: pageData)
             multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
-            multipleWithNoAnswer.pageData = pageData
             
         default:
             break

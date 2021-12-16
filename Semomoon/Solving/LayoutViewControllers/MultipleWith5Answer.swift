@@ -46,6 +46,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
         
+        self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
     }
@@ -97,6 +98,11 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
 }
 
 extension MultipleWith5Answer {
+    func configureDelegate() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
     func configureLoader() {
         self.scrollView.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
@@ -199,6 +205,7 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
         
         cell.delegate = self
         cell.configureReuse(contentImage, problem, superWidth, toolPicker)
+        
         return cell
     }
 }

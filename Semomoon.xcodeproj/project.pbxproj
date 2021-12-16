@@ -96,6 +96,7 @@
 		8784D3B127648EB400C43209 /* MajorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B027648EB400C43209 /* MajorDetailViewController.swift */; };
 		8784D3B327648ED000C43209 /* MajorDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B227648ED000C43209 /* MajorDetailManager.swift */; };
 		8784D3B527648EE300C43209 /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784D3B427648EE300C43209 /* MajorDetailCell.swift */; };
+		8798F7A42769CB9A002327F0 /* MultipleWithNoAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8798F7A32769CB9A002327F0 /* MultipleWithNoAnswerViewModel.swift */; };
 		87AB9DD026CB2BDB0019A276 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */; };
 		87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */; };
 		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
@@ -191,6 +192,7 @@
 		8784D3B027648EB400C43209 /* MajorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailViewController.swift; sourceTree = "<group>"; };
 		8784D3B227648ED000C43209 /* MajorDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailManager.swift; sourceTree = "<group>"; };
 		8784D3B427648EE300C43209 /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
+		8798F7A32769CB9A002327F0 /* MultipleWithNoAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerViewModel.swift; sourceTree = "<group>"; };
 		87AB9DCC26CB2BDB0019A276 /* Semomoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semomoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AB9DCF26CB2BDB0019A276 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87AB9DD126CB2BDB0019A276 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				4A1119BA2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift */,
 				4A1119BC2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift */,
 				8767B3752768BDAB007C82B3 /* SingleWith4AnswerViewModel.swift */,
+				8798F7A32769CB9A002327F0 /* MultipleWithNoAnswerViewModel.swift */,
 			);
 			path = LayoutViewModels;
 			sourceTree = "<group>";
@@ -297,12 +300,12 @@
 		4A55DE5826F70137008F1C35 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				8767B3772768D61A007C82B3 /* UseCase */,
 				4A55DE5926F70151008F1C35 /* StartViewController.swift */,
 				4A1E742026F70DBD001C3420 /* CertificationViewController.swift */,
 				4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */,
 				1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */,
 				1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */,
+				8767B3772768D61A007C82B3 /* UseCase */,
 				4AC7592D2753495F00A92A12 /* CollecitonViews */,
 				4AC7593027534B1500A92A12 /* CollectionViewManagers */,
 				872ACA4A27644A0C0072A4AF /* CollecitonCells */,
@@ -654,6 +657,7 @@
 				4A60E495272519B700946FD5 /* MultipleWithNoAnswer.swift in Sources */,
 				872ACA55276467490072A4AF /* MajorManager.swift in Sources */,
 				4A55DE5A26F70151008F1C35 /* StartViewController.swift in Sources */,
+				8798F7A42769CB9A002327F0 /* MultipleWithNoAnswerViewModel.swift in Sources */,
 				4A8BEE6626E48D8B00613602 /* Problem.swift in Sources */,
 				4A97577526FEEBC1002543D6 /* FindIDViewController.swift in Sources */,
 				4ACAEB7727097E650085ABAE /* ProblemOfDB.swift in Sources */,

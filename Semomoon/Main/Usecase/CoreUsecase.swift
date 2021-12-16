@@ -198,13 +198,23 @@ struct CoreUsecase {
         let pageOfCore9 = Page_Core(context: context)
         pageOfCore9.setMocks(vid: -25, form: 0, type: 4, pids: [-252], mateImgName: nil)
         
+        //Multi No
+        let problemOfCore16 = Problem_Core(context: context)
+        problemOfCore16.setMocks(pid: -151, type: 0, btName: "16", imgName: "mockImg11")
+        let problemOfCore17 = Problem_Core(context: context)
+        problemOfCore17.setMocks(pid: -262, type: 0, btName: "17", imgName: "mockImg12")
+        
+        let pageOfCore10 = Page_Core(context: context)
+        pageOfCore10.setMocks(vid: -15, form: 1, type: 0, pids: [-151, -262], mateImgName: "material1")
+        
         //Section
         let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
         let dict = ["1": -12, "2": -23, "3": -34, "4": -45, "5": -56,
                     "6": -13, "7": -13, "8": -13, "9": -13,
                     "10": -24, "11": -24, "12": -24, "13": -24,
-                    "14": -14, "15": -25]
+                    "14": -14, "15": -25,
+                    "16": -15, "17": -15]
         sectionCore.setMocks(sid: -3, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }
@@ -272,5 +282,34 @@ struct CoreUsecase {
     static func vidsFromDictionary(dict: [String: Int]) -> [Int] {
         let dumlicatedVids = dict.values.map() { $0 }
         return Array(Set(dumlicatedVids)).sorted(by: < )
+    }
+    
+    static func deleteSection(sid: Int) {
+        var targetCoreDatas: [NSManagedObject] = []
+        var targetVids: [Int] = []
+        var targetPids: [Int] = []
+        
+        if let targetSection = CoreUsecase.fetchSections(sid: sid) {
+            targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
+            targetCoreDatas.append(targetSection)
+        }
+        
+        targetVids.forEach { vid in
+            if let targetPage = CoreUsecase.fetchPages(vid: vid) {
+                targetPids += targetPage.problems
+                targetCoreDatas.append(targetPage)
+            }
+        }
+        
+        targetPids.forEach { pid in
+            if let targetProblem = CoreUsecase.fetchProblems(pid: pid) {
+                targetCoreDatas.append(targetProblem)
+            }
+        }
+        
+        targetCoreDatas.forEach { coreData in
+            CoreDataManager.shared.context.delete(coreData)
+        }
+        CoreUsecase.saveCoreData()
     }
 }
