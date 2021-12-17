@@ -8,32 +8,26 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: windowScene)
         
-//        if let windowScene = scene as? UIWindowScene {
-//            let window = UIWindow(windowScene: windowScene)
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//
-//            let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
-//            let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
-//
-//            let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
-//
-//            if isLogined {
-//                window.rootViewController = mainViewController
-//            } else {
-//                let navigationController = UINavigationController(rootViewController: startLoginViewController)
-//                window.rootViewController = navigationController
-//            }
-//
-//            self.window = window
-//            window.makeKeyAndVisible()
-//        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
+        
+        let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
+
+        if isLogined {
+            self.window?.rootViewController = mainViewController
+        } else {
+            let navigationController = UINavigationController(rootViewController: startLoginViewController)
+            self.window?.rootViewController = navigationController
+        }
+        
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -63,7 +57,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

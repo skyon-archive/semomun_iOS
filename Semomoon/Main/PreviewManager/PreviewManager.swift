@@ -78,7 +78,6 @@ class PreviewManager {
     }
     
     func delete(at: Int) {
-        // TODO: 삭제 로직 수정
         var targetCoreDatas: [NSManagedObject] = []
         let targetPreview = self.previews[at]
         targetCoreDatas.append(targetPreview)
