@@ -2,7 +2,7 @@
 //  SaveSectionUsecase.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/11/21.
+//  Created by Kang Minsang on 2021/11/21.
 //
 
 import Foundation

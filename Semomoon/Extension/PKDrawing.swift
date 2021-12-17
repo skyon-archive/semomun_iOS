@@ -2,7 +2,7 @@
 //  PKDrawing.swift
 //  PKDrawing
 //
-//  Created by qwer on 2021/09/05.
+//  Created by Kang Minsang on 2021/09/05.
 //
 
 import Foundation

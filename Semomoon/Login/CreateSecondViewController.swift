@@ -2,7 +2,7 @@
 //  CreateSecondViewController.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/09/22.
+//  Created by Kang Minsang on 2021/09/22.
 //
 
 import UIKit

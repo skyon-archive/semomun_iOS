@@ -1,8 +1,8 @@
 //
 //  CoreDataManager.swift
-//  CoreDataManager
+//  Semomoon
 //
-//  Created by qwer on 2021/09/18.
+//  Created by Kang Minsang on 2021/09/18.
 //
 
 import UIKit

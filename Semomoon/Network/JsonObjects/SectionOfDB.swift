@@ -2,7 +2,7 @@
 //  Section.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/03.
+//  Created by Kang Minsang on 2021/10/03.
 //
 
 import Foundation

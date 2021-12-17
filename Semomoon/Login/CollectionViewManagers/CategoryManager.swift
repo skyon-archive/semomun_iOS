@@ -2,7 +2,7 @@
 //  CategoryManager.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/11/28.
+//  Created by Kang Minsang on 2021/11/28.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  PreviewViewController.swift
 //  PreviewViewController
 //
-//  Created by qwer on 2021/09/11.
+//  Created by Kang Minsang on 2021/09/11.
 //
 
 import UIKit
@@ -13,8 +13,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var currentCategory: UILabel!
     @IBOutlet weak var categorySelector: UIButton!
-    @IBOutlet weak var category: UICollectionView!
-    @IBOutlet weak var preview: UICollectionView!
+    @IBOutlet weak var subjects: UICollectionView!
+    @IBOutlet weak var previews: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
     //임시적인 데이터
@@ -62,9 +62,9 @@ extension MainViewController {
     }
     
     func configureCollectionView() {
-        self.category.delegate = self
-        self.preview.delegate = self
-        self.addLongpressGesture(target: self.preview)
+        self.subjects.delegate = self
+        self.previews.delegate = self
+        self.addLongpressGesture(target: self.previews)
     }
     
     func configureObserve() {
@@ -92,8 +92,8 @@ extension MainViewController {
     
     @objc func longPressed(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            let touchPoint = longPressGestureRecognizer.location(in: preview)
-            guard let indexPath = preview.indexPathForItem(at: touchPoint) else { return }
+            let touchPoint = longPressGestureRecognizer.location(in: previews)
+            guard let indexPath = previews.indexPathForItem(at: touchPoint) else { return }
             if indexPath.item-1 >= 0 {
                 self.previewManager.deletePreview(at: indexPath.item-1)
             }
@@ -128,33 +128,36 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == category {
-            return self.previewManager.categoryCount
+        if collectionView == subjects {
+            return self.previewManager.subjectsCount
         } else {
-            return self.previewManager.previewCount+1
+            return self.previewManager.previewsCount+1
         }
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == category {
+        if collectionView == subjects {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
-            // 문제번호 설정
-            cell.category.text = self.previewManager.category(at: indexPath.item)
-            cell.underLine.alpha = indexPath.item == self.previewManager.categoryIndex ? 1 : 0
+            
+            cell.category.text = self.previewManager.subject(at: indexPath.item)
+            cell.underLine.alpha = indexPath.item == self.previewManager.currentIndex ? 1 : 0
             cell.setRadiusOfUnderLine()
             
             return cell
-        } else {
+        }
+        else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
-            // Preview cell 설정
+            
             if indexPath.item == 0 {
                 cell.imageView.image = UIImage(data: addImageData)
                 cell.title.text = " "
                 cell.disappearShadow()
+                
                 return cell
-            } else {
-                let preview = self.previewManager.preview(at: indexPath.item-1)
+            }
+            else {
+                let preview = self.previewManager.preview(at: indexPath.item)
                 cell.title.text = preview.title
                 guard let imageData = preview.image else { return cell }
                 DispatchQueue.main.async {
@@ -169,7 +172,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // MARK: - category
-        if collectionView == category {
+        if collectionView == subjects {
             self.previewManager.updateCategory(idx: indexPath.item)
             return
         }
@@ -220,9 +223,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == preview {
-            let width = (preview.frame.width)/4
-            let height = preview.frame.height/3
+        if collectionView == previews {
+            let width = (previews.frame.width)/4
+            let height = previews.frame.height/3
             
             return CGSize(width: width, height: height)
         }
@@ -243,8 +246,8 @@ extension MainViewController: SideMenuViewControllerDelegate {
 // MARK: - Protocol: PreviewDatasource
 extension MainViewController: PreviewDatasource {
     func reloadData() {
-        self.category.reloadData()
-        self.preview.reloadData()
+        self.subjects.reloadData()
+        self.previews.reloadData()
     }
     
     func deleteAlert(title: String, idx: Int) {

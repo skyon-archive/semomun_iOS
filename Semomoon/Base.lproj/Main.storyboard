@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fXE-86-ZFW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3zH-Gd-er2">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1069,10 +1069,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="WX5-t3-fbI"/>
                     <connections>
-                        <outlet property="category" destination="qow-Pp-er9" id="ERG-cv-6Un"/>
                         <outlet property="categorySelector" destination="mNH-Ss-qrv" id="vbv-tC-ZeR"/>
                         <outlet property="currentCategory" destination="sb0-9q-2nW" id="aip-8T-FKg"/>
-                        <outlet property="preview" destination="snq-vH-c7w" id="vrn-J1-1hu"/>
+                        <outlet property="previews" destination="snq-vH-c7w" id="vrn-J1-1hu"/>
+                        <outlet property="subjects" destination="qow-Pp-er9" id="ERG-cv-6Un"/>
                         <outlet property="userInfo" destination="lCD-Pc-538" id="pEr-4S-07h"/>
                     </connections>
                 </viewController>
@@ -3864,6 +3864,9 @@
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapYear:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="mrj-0K-9fS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYc-8z-fPZ">
                                         <rect key="frame" x="229.5" y="0.0" width="195" height="55"/>
@@ -3878,6 +3881,9 @@
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapMonth:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="Soy-1y-sfQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scm-bl-Ym9">
                                         <rect key="frame" x="459" y="0.0" width="195" height="55"/>
@@ -3892,6 +3898,9 @@
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapDay:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="xJk-tf-tCw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -3920,6 +3929,9 @@
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapSchool:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="tqk-rI-vUR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSy-go-KtF">
                                         <rect key="frame" x="344" y="0.0" width="310" height="55"/>
@@ -3934,6 +3946,9 @@
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tapGraduation:" destination="cFO-Jf-Glg" eventType="touchUpInside" id="ov6-it-9jd"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -3971,6 +3986,13 @@
                             <constraint firstItem="oXh-Ly-WtM" firstAttribute="leading" secondItem="rIK-8D-Rgs" secondAttribute="leading" id="uz1-9Y-I9t"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="day" destination="scm-bl-Ym9" id="xNc-TQ-sQR"/>
+                        <outlet property="graduation" destination="fSy-go-KtF" id="b54-mC-w6J"/>
+                        <outlet property="month" destination="LYc-8z-fPZ" id="moo-Mu-hOL"/>
+                        <outlet property="school" destination="hiw-so-2ag" id="4tp-CN-lca"/>
+                        <outlet property="year" destination="F9s-8d-F6z" id="bJV-JI-qsc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvC-Uh-Ryq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -2,7 +2,7 @@
 //  SingleWith5Answer.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/08/25.
+//  Created by Kang Minsang on 2021/08/25.
 //
 
 import UIKit

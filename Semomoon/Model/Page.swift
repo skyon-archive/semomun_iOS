@@ -1,15 +1,11 @@
 //
 //  View.swift
-//  View
+//  Semomoon
 //
-//  Created by qwer on 2021/09/05.
+//  Created by Kang Minsang on 2021/09/05.
 //
 
 import Foundation
-
-
-
-//ViewController 는 이 클래스 하나만 지니면 되는 형태
 
 class View_Real {
     enum ViewType {
@@ -28,7 +24,6 @@ class View_Real {
         self.view = view
         self.url = URL(string: "http://semomoonDB/tmp/section/\(view.material).png")!
         self.imageData = Data()
-//        loadImage()
         self.problems = []
         self.type = .notProblem
     }

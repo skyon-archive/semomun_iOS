@@ -1,8 +1,8 @@
 //
-//  test_1ViewController.swift
-//  test_1ViewController
+//  SingleWithTextAnswer.swift
+//  Semomoon
 //
-//  Created by qwer on 2021/08/25.
+//  Created by Kang Minsang on 2021/08/25.
 //
 
 import UIKit

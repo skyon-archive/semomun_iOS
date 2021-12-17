@@ -2,7 +2,7 @@
 //  ProblemNameCell.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/24.
+//  Created by Kang Minsang on 2021/10/24.
 //
 
 import UIKit

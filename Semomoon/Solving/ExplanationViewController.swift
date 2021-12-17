@@ -2,7 +2,7 @@
 //  ExplanationViewController.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/11/14.
+//  Created by Kang Minsang on 2021/11/14.
 //
 
 import UIKit

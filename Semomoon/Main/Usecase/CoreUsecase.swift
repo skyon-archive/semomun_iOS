@@ -2,7 +2,7 @@
 //  CoreUsecase.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/17.
+//  Created by Kang Minsang on 2021/10/17.
 //
 
 import Foundation
@@ -221,6 +221,20 @@ struct CoreUsecase {
         print("MOCK SAVE COMPLETE")
     }
     
+    static func fetchPreviews(subject: String) -> [Preview_Core]? {
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        if subject != "전체" {
+            let filter = NSPredicate(format: "subject = %@", subject)
+            fetchRequest.predicate = filter
+        }
+        
+        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return previews
+        } else {
+            return nil
+        }
+    }
+    
     static func fetchPreview(wid: Int) -> Preview_Core? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         let filter = NSPredicate(format: "wid = %@", "\(wid)")
@@ -234,7 +248,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchSections(sid: Int) -> Section_Core? {
+    static func fetchSection(sid: Int) -> Section_Core? {
         let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
         let filter = NSPredicate(format: "sid = %@", "\(sid)")
         fetchRequest.predicate = filter
@@ -247,7 +261,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchPages(vid: Int) -> Page_Core? {
+    static func fetchPage(vid: Int) -> Page_Core? {
         let fetchRequest: NSFetchRequest<Page_Core> = Page_Core.fetchRequest()
         let filter = NSPredicate(format: "vid = %@", "\(vid)")
         fetchRequest.predicate = filter
@@ -260,7 +274,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchProblems(pid: Int) -> Problem_Core? {
+    static func fetchProblem(pid: Int) -> Problem_Core? {
         let fetchRequest: NSFetchRequest<Problem_Core> = Problem_Core.fetchRequest()
         let filter = NSPredicate(format: "pid = %@", "\(pid)")
         fetchRequest.predicate = filter
@@ -289,20 +303,20 @@ struct CoreUsecase {
         var targetVids: [Int] = []
         var targetPids: [Int] = []
         
-        if let targetSection = CoreUsecase.fetchSections(sid: sid) {
+        if let targetSection = CoreUsecase.fetchSection(sid: sid) {
             targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
             targetCoreDatas.append(targetSection)
         }
         
         targetVids.forEach { vid in
-            if let targetPage = CoreUsecase.fetchPages(vid: vid) {
+            if let targetPage = CoreUsecase.fetchPage(vid: vid) {
                 targetPids += targetPage.problems
                 targetCoreDatas.append(targetPage)
             }
         }
         
         targetPids.forEach { pid in
-            if let targetProblem = CoreUsecase.fetchProblems(pid: pid) {
+            if let targetProblem = CoreUsecase.fetchProblem(pid: pid) {
                 targetCoreDatas.append(targetProblem)
             }
         }

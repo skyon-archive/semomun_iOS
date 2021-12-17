@@ -1,8 +1,8 @@
 //
 //  Preview.swift
-//  Preview
+//  Semomoon
 //
-//  Created by qwer on 2021/09/11.
+//  Created by Kang Minsang on 2021/09/11.
 //
 
 import Foundation
@@ -16,6 +16,4 @@ struct Preview_loaded {
         self.wid = preview.wid
         self.title = preview.title
     }
-    
-//    mutating
 }

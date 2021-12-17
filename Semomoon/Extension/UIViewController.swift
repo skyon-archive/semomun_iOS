@@ -2,7 +2,7 @@
 //  UIViewController.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/30.
+//  Created by Kang Minsang on 2021/10/30.
 //
 
 import UIKit
