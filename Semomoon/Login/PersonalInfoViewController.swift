@@ -25,8 +25,20 @@ class PersonalInfoViewController: UIViewController {
         if(infoFilled){
 //            guard let name = self.name.text,
 //                  let phoneNumber = self.phone.text else { return }
-            self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
+//            self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
             self.signUpInfo.configureThird(birthdayYear: "2021", birthdayMonth: "11", birthdayDay: "11", schoolName: "Sky", graduationStatus: "Yes")
+            let SignUpInfo = SignUpInfo_DB(name: signUpInfo.name, phoneNumber: signUpInfo.phoneNumber, desiredCategory: signUpInfo.desiredCategory, field: signUpInfo.field, interest: signUpInfo.interest, gender: signUpInfo.gender, birthday: signUpInfo.birthday, schoolName: signUpInfo.schoolName, graduationStatus: signUpInfo.graduationStatus)
+            let jsonEncoder = JSONEncoder()
+            let jsonData_signUpInfo = try! jsonEncoder.encode(SignUpInfo)
+            let jsonData_token = try! jsonEncoder.encode(signUpInfo.token)
+            let json_signUpInfo = String(data: jsonData_signUpInfo, encoding: String.Encoding.utf8)
+            let json_token = String(data: jsonData_token, encoding: String.Encoding.utf8)
+            let json: [String: Any] = ["info" : json_signUpInfo!,
+                                       "token": json_token!]
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            print(json)
+            print(jsonData)
             // Backend 확인 이후 로직
             UserDefaults.standard.setValue(true, forKey: "logined")
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }

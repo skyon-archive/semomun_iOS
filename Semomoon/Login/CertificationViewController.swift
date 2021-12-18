@@ -50,7 +50,7 @@ class CertificationViewController: UIViewController {
         if(Certificated){
             guard let name = self.name.text,
                   let phoneNumber = self.phone.text else { return }
-            self.signUpInfo.configureFirst(name: name, phoneNumber: phoneNumber)
+            self.signUpInfo.configureFirst(name: name, phoneNumber: phoneNumber, token: KeychainItem.currentUserIdentifier)
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
             self.title = ""
             nextVC.signUpInfo = self.signUpInfo
