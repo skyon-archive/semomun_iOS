@@ -30,7 +30,7 @@ class CertificationUseCase {
             self.delegate?.nameResult(result: .error)
             return
         }
-        let nameChecker = "^[가-힣A-Za-z]{3,10}"
+        let nameChecker = "^[가-힣A-Za-z]{2,10}"
         let result = resultOfPredicate(text: name, cheker: nameChecker)
         self.delegate?.nameResult(result: result == true ? .valid : .error)
     }
