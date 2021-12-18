@@ -85,6 +85,7 @@
 		4AF8032F2736685600F32306 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8032E2736685600F32306 /* CircularProgressView.swift */; };
 		4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8033027366A2900F32306 /* LoadingIndicator.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
+		87247E51276DB09600D1B2F5 /* UserInfoToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */; };
 		872ACA4C27644A5F0072A4AF /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */; };
 		872ACA512764668C0072A4AF /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA502764668C0072A4AF /* MajorCell.swift */; };
 		872ACA53276466F50072A4AF /* MajorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA52276466F40072A4AF /* MajorViewController.swift */; };
@@ -180,6 +181,7 @@
 		4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview_Core.swift; sourceTree = "<group>"; };
 		4AF8032E2736685600F32306 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		4AF8033027366A2900F32306 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoToggleView.swift; sourceTree = "<group>"; };
 		872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
 		872ACA502764668C0072A4AF /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
 		872ACA52276466F40072A4AF /* MajorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorViewController.swift; sourceTree = "<group>"; };
@@ -469,6 +471,22 @@
 			path = Loading;
 			sourceTree = "<group>";
 		};
+		87247E4E276DB03100D1B2F5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				87247E4F276DB03F00D1B2F5 /* View */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		87247E4F276DB03F00D1B2F5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		872A187426E79FE500806320 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +548,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				87247E4E276DB03100D1B2F5 /* Global */,
 				1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */,
 				4AF8032D2736683F00F32306 /* Loading */,
 				4A55DE5826F70137008F1C35 /* Login */,
@@ -644,6 +663,7 @@
 				4A1119BD2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift in Sources */,
 				4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */,
 				4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */,
+				87247E51276DB09600D1B2F5 /* UserInfoToggleView.swift in Sources */,
 				4AC7592F275349AF00A92A12 /* CategoryViewController.swift in Sources */,
 				4ACAEB7127097DFC0085ABAE /* WorkbookOfDB.swift in Sources */,
 				4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */,
@@ -870,7 +890,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -892,7 +912,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

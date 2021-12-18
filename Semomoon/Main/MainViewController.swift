@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
     var isExpanded: Bool = false
     var sideMenuRevealWidth: CGFloat = 260
     let paddingForRotation: CGFloat = 150
+    private lazy var userInfoView = UserInfoToggleView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,13 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
-        print("userInfo")
+        sender.isSelected.toggle()
+        print(sender)
+        if sender.isSelected {
+            self.showUserInfoView()
+        } else {
+            self.hideUserInfoView()
+        }
     }
 }
 
@@ -262,5 +269,33 @@ extension MainViewController: PreviewDatasource {
         alert.addAction(cancle)
         alert.addAction(delete)
         present(alert,animated: true,completion: nil)
+    }
+}
+
+extension MainViewController {
+    func showUserInfoView() {
+        self.userInfoView.alpha = 0
+        self.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        self.view.addSubview(self.userInfoView)
+        self.userInfoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.userInfoView.widthAnchor.constraint(equalToConstant: 250),
+            self.userInfoView.heightAnchor.constraint(equalToConstant: 200),
+            self.userInfoView.trailingAnchor.constraint(equalTo: self.userInfo.trailingAnchor),
+            self.userInfoView.topAnchor.constraint(equalTo: self.userInfo.bottomAnchor, constant: 20)
+        ])
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.userInfoView.alpha = 1
+            self?.userInfoView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func hideUserInfoView() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.userInfoView.alpha = 0
+            self?.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } completion: { [weak self] _ in
+            self?.userInfoView.removeFromSuperview()
+        }
     }
 }
