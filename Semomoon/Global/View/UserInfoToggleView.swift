@@ -22,7 +22,7 @@ final class UserInfoToggleView: UIView {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
         return UIImage(systemName: "person.fill", withConfiguration: largeConfig)
     }()
-    lazy var userImageButton: UIButton = {
+    private lazy var userImageButton: UIButton = {
         let button = UIButton()
         button.setImage(self.baseImage, for: .normal)
         button.tintColor = UIColor.darkGray
@@ -32,10 +32,27 @@ final class UserInfoToggleView: UIView {
         button.clipsToBounds = true
         return button
     }()
+    private lazy var userNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = UIColor.darkGray
+        label.contentMode = .center
+        return label
+    }()
+    private lazy var userSettingButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("개인정보 수정하기 >", for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        button.contentMode = .left
+        button.addTarget(self, action: #selector(showUserSetting), for: .touchUpInside)
+        return button
+    }()
     
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
+        self.configureName(to: "홍길동")
     }
     
     func configureDelegate(delegate: UserInfoPushable) {
@@ -43,7 +60,7 @@ final class UserInfoToggleView: UIView {
     }
     
     private func configureLayout() {
-        self.addSubviews(self.userImageButton)
+        self.addSubviews(self.userImageButton, self.userNameLabel, self.userSettingButton)
         
         self.backgroundColor = UIColor.white
         self.layer.shadowColor = UIColor.gray.cgColor
@@ -56,8 +73,32 @@ final class UserInfoToggleView: UIView {
         NSLayoutConstraint.activate([
             self.userImageButton.widthAnchor.constraint(equalToConstant: 50),
             self.userImageButton.heightAnchor.constraint(equalToConstant: 50),
-            self.userImageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            self.userImageButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+            self.userImageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            self.userImageButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
         ])
+        
+        NSLayoutConstraint.activate([
+            self.userNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 22),
+            self.userNameLabel.leadingAnchor.constraint(equalTo: self.userImageButton.trailingAnchor, constant: 20),
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.userSettingButton.topAnchor.constraint(equalTo: self.userNameLabel.bottomAnchor),
+            self.userSettingButton.leadingAnchor.constraint(equalTo: self.userNameLabel.leadingAnchor)
+        ])
+    }
+    
+    func configureName(to name: String) {
+        self.userNameLabel.text = name
+    }
+}
+
+extension UserInfoToggleView {
+    @objc func showUserSetting() {
+        self.delegate?.showSetting()
+    }
+    
+    @objc func showSetting() {
+        self.delegate?.showSetting()
     }
 }

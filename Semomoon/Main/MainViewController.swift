@@ -274,6 +274,7 @@ extension MainViewController: PreviewDatasource {
 
 extension MainViewController {
     func showUserInfoView() {
+        self.userInfoView.configureDelegate(delegate: self)
         self.userInfoView.alpha = 0
         self.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.view.addSubview(self.userInfoView)
@@ -297,5 +298,15 @@ extension MainViewController {
         } completion: { [weak self] _ in
             self?.userInfoView.removeFromSuperview()
         }
+    }
+}
+
+extension MainViewController: UserInfoPushable {
+    func showUserSetting() {
+        print("showUserSetting")
+    }
+    
+    func showSetting() {
+        print("showSetting")
     }
 }
