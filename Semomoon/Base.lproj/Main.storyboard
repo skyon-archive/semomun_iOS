@@ -1087,13 +1087,175 @@
                     <view key="view" contentMode="scaleToFill" id="BX9-Kq-spb">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xps-cV-WWW">
+                                <rect key="frame" x="50" y="70" width="87" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" name="mint"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGf-Xl-8EP">
+                                <rect key="frame" x="50" y="218.5" width="668" height="1"/>
+                                <color key="backgroundColor" name="mint"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="sjs-oJ-OXY"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세부정보" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cg8-ms-CYW">
+                                <rect key="frame" x="50" y="244.5" width="87" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" name="mint"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yc1-Di-8DD">
+                                <rect key="frame" x="187" y="74.5" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26L-nS-kvh">
+                                <rect key="frame" x="187" y="120.5" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJa-V6-3AW">
+                                <rect key="frame" x="337" y="74.5" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활빈당" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rc-2p-7Xd">
+                                <rect key="frame" x="337" y="120.5" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aog-nf-Gis">
+                                <rect key="frame" x="187" y="166.5" width="98" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="개인정보 변경하기 &gt;">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심문제" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svt-Aw-xXD">
+                                <rect key="frame" x="187" y="249" width="59" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학교" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WX1-Mb-xFw">
+                                <rect key="frame" x="187" y="295" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="재학/졸업" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIO-0A-yDV">
+                                <rect key="frame" x="187" y="341" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계열" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhp-H3-zDa">
+                                <rect key="frame" x="187" y="387" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심 전공" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdy-SO-5C0">
+                                <rect key="frame" x="187" y="433" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공인중개사" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mby-De-s5X">
+                                <rect key="frame" x="337" y="249" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울대학교" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTK-nd-mGe">
+                                <rect key="frame" x="337" y="295" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="졸업" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1X-Ul-kT8">
+                                <rect key="frame" x="337" y="341" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이과 계열" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTF-0r-Fdb">
+                                <rect key="frame" x="337" y="387" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공학" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB3-2T-Qar">
+                                <rect key="frame" x="337" y="433" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsM-lA-TEg">
+                                <rect key="frame" x="187" y="479" width="98" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="세부정보 변경하기 &gt;">
+                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="IOb-cB-3dc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xps-cV-WWW" firstAttribute="leading" secondItem="IOb-cB-3dc" secondAttribute="leading" constant="50" id="1GN-UU-Op3"/>
+                            <constraint firstItem="RTF-0r-Fdb" firstAttribute="leading" secondItem="h1X-Ul-kT8" secondAttribute="leading" id="1Sy-KO-fvi"/>
+                            <constraint firstItem="mby-De-s5X" firstAttribute="centerY" secondItem="Svt-Aw-xXD" secondAttribute="centerY" id="38K-a0-reM"/>
+                            <constraint firstItem="Aog-nf-Gis" firstAttribute="top" secondItem="26L-nS-kvh" secondAttribute="bottom" constant="25" id="3Tk-Do-9pd"/>
+                            <constraint firstItem="wB3-2T-Qar" firstAttribute="centerY" secondItem="xdy-SO-5C0" secondAttribute="centerY" id="4gz-Ut-dtu"/>
+                            <constraint firstItem="WsM-lA-TEg" firstAttribute="top" secondItem="xdy-SO-5C0" secondAttribute="bottom" constant="25" id="4mH-md-MpA"/>
+                            <constraint firstItem="Yhp-H3-zDa" firstAttribute="top" secondItem="YIO-0A-yDV" secondAttribute="bottom" constant="25" id="7Bp-hG-5m0"/>
+                            <constraint firstItem="Aog-nf-Gis" firstAttribute="leading" secondItem="26L-nS-kvh" secondAttribute="leading" id="Bma-aW-9pJ"/>
+                            <constraint firstItem="Yc1-Di-8DD" firstAttribute="leading" secondItem="xps-cV-WWW" secondAttribute="trailing" constant="50" id="CSH-r8-QQP"/>
+                            <constraint firstItem="pGf-Xl-8EP" firstAttribute="top" secondItem="Aog-nf-Gis" secondAttribute="bottom" constant="25" id="Fmo-ac-gG3"/>
+                            <constraint firstItem="Yc1-Di-8DD" firstAttribute="centerY" secondItem="xps-cV-WWW" secondAttribute="centerY" id="FxR-kE-r9m"/>
+                            <constraint firstItem="EJa-V6-3AW" firstAttribute="leading" secondItem="xps-cV-WWW" secondAttribute="trailing" constant="200" id="GMj-HZ-efW"/>
+                            <constraint firstItem="Cg8-ms-CYW" firstAttribute="top" secondItem="pGf-Xl-8EP" secondAttribute="bottom" constant="25" id="Gd6-HC-Q3i"/>
+                            <constraint firstItem="WsM-lA-TEg" firstAttribute="leading" secondItem="xdy-SO-5C0" secondAttribute="leading" id="Gex-7z-SMp"/>
+                            <constraint firstItem="pGf-Xl-8EP" firstAttribute="leading" secondItem="IOb-cB-3dc" secondAttribute="leading" constant="50" id="IZa-J7-TFh"/>
+                            <constraint firstItem="EJa-V6-3AW" firstAttribute="centerY" secondItem="Yc1-Di-8DD" secondAttribute="centerY" id="Pad-0G-tg5"/>
+                            <constraint firstItem="pGf-Xl-8EP" firstAttribute="centerX" secondItem="IOb-cB-3dc" secondAttribute="centerX" id="SYY-ne-1Jv"/>
+                            <constraint firstItem="xdy-SO-5C0" firstAttribute="top" secondItem="Yhp-H3-zDa" secondAttribute="bottom" constant="25" id="ThI-ll-CwX"/>
+                            <constraint firstItem="YIO-0A-yDV" firstAttribute="top" secondItem="WX1-Mb-xFw" secondAttribute="bottom" constant="25" id="WUY-hu-dLd"/>
+                            <constraint firstItem="h1X-Ul-kT8" firstAttribute="leading" secondItem="KTK-nd-mGe" secondAttribute="leading" id="bje-2c-itK"/>
+                            <constraint firstItem="26L-nS-kvh" firstAttribute="top" secondItem="Yc1-Di-8DD" secondAttribute="bottom" constant="25" id="boV-rf-skJ"/>
+                            <constraint firstItem="xps-cV-WWW" firstAttribute="top" secondItem="IOb-cB-3dc" secondAttribute="top" constant="50" id="e3I-QT-sYZ"/>
+                            <constraint firstItem="KTK-nd-mGe" firstAttribute="leading" secondItem="mby-De-s5X" secondAttribute="leading" id="fAz-JG-kxT"/>
+                            <constraint firstItem="wB3-2T-Qar" firstAttribute="leading" secondItem="RTF-0r-Fdb" secondAttribute="leading" id="gPj-zw-7hN"/>
+                            <constraint firstItem="RTF-0r-Fdb" firstAttribute="centerY" secondItem="Yhp-H3-zDa" secondAttribute="centerY" id="o5A-LK-Mu9"/>
+                            <constraint firstItem="26L-nS-kvh" firstAttribute="leading" secondItem="Yc1-Di-8DD" secondAttribute="leading" id="ocb-hY-4Tw"/>
+                            <constraint firstItem="5rc-2p-7Xd" firstAttribute="leading" secondItem="EJa-V6-3AW" secondAttribute="leading" id="pbd-dY-09K"/>
+                            <constraint firstItem="Cg8-ms-CYW" firstAttribute="leading" secondItem="IOb-cB-3dc" secondAttribute="leading" constant="50" id="qRO-kv-cdU"/>
+                            <constraint firstItem="WX1-Mb-xFw" firstAttribute="leading" secondItem="Svt-Aw-xXD" secondAttribute="leading" id="rzt-sZ-aT7"/>
+                            <constraint firstItem="5rc-2p-7Xd" firstAttribute="centerY" secondItem="26L-nS-kvh" secondAttribute="centerY" id="sG8-UY-ekk"/>
+                            <constraint firstItem="xdy-SO-5C0" firstAttribute="leading" secondItem="Yhp-H3-zDa" secondAttribute="leading" id="sLV-Zp-R1o"/>
+                            <constraint firstItem="Yhp-H3-zDa" firstAttribute="leading" secondItem="YIO-0A-yDV" secondAttribute="leading" id="slb-0e-1sB"/>
+                            <constraint firstItem="h1X-Ul-kT8" firstAttribute="centerY" secondItem="YIO-0A-yDV" secondAttribute="centerY" id="tyf-9t-KLV"/>
+                            <constraint firstItem="Svt-Aw-xXD" firstAttribute="leading" secondItem="Cg8-ms-CYW" secondAttribute="trailing" constant="50" id="ucj-dN-TV9"/>
+                            <constraint firstItem="Svt-Aw-xXD" firstAttribute="centerY" secondItem="Cg8-ms-CYW" secondAttribute="centerY" id="vaO-PG-uNu"/>
+                            <constraint firstItem="mby-De-s5X" firstAttribute="leading" secondItem="Cg8-ms-CYW" secondAttribute="trailing" constant="200" id="voe-bI-AUk"/>
+                            <constraint firstItem="WX1-Mb-xFw" firstAttribute="top" secondItem="Svt-Aw-xXD" secondAttribute="bottom" constant="25" id="vuN-aB-nm7"/>
+                            <constraint firstItem="YIO-0A-yDV" firstAttribute="leading" secondItem="WX1-Mb-xFw" secondAttribute="leading" id="wgb-Ju-bw3"/>
+                            <constraint firstItem="KTK-nd-mGe" firstAttribute="centerY" secondItem="WX1-Mb-xFw" secondAttribute="centerY" id="xJ6-KM-umh"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZcK-ml-iqS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="778"/>
+            <point key="canvasLocation" x="-559.375" y="777.5390625"/>
         </scene>
         <!--Loading Indicator-->
         <scene sceneID="xhn-8w-XmJ">
