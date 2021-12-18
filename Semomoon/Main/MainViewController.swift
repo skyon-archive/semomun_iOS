@@ -281,7 +281,7 @@ extension MainViewController {
         self.userInfoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.userInfoView.widthAnchor.constraint(equalToConstant: 250),
-            self.userInfoView.heightAnchor.constraint(equalToConstant: 200),
+            self.userInfoView.heightAnchor.constraint(equalToConstant: 160),
             self.userInfoView.trailingAnchor.constraint(equalTo: self.userInfo.trailingAnchor),
             self.userInfoView.topAnchor.constraint(equalTo: self.userInfo.bottomAnchor, constant: 20)
         ])

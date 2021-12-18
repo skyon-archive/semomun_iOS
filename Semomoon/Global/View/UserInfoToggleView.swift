@@ -22,6 +22,10 @@ final class UserInfoToggleView: UIView {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
         return UIImage(systemName: "person.fill", withConfiguration: largeConfig)
     }()
+    let settingImage: UIImage? = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .small)
+        return UIImage(systemName: "gearshape", withConfiguration: largeConfig)
+    }()
     private lazy var userImageButton: UIButton = {
         let button = UIButton()
         button.setImage(self.baseImage, for: .normal)
@@ -45,7 +49,24 @@ final class UserInfoToggleView: UIView {
         button.setTitleColor(UIColor.lightGray, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         button.contentMode = .left
-        button.addTarget(self, action: #selector(showUserSetting), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.showUserSetting), for: .touchUpInside)
+        return button
+    }()
+    private lazy var settingButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.systemGray6
+        button.setTitle("설정", for: .normal)
+        button.setTitleColor(UIColor.darkGray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.setImage(self.settingImage, for: .normal)
+        button.tintColor = UIColor.darkGray
+        button.contentHorizontalAlignment = .left
+        button.semanticContentAttribute = .forceRightToLeft
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 135, bottom: 0, right: -135)
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(self.showSetting), for: .touchUpInside)
         return button
     }()
     
@@ -60,7 +81,7 @@ final class UserInfoToggleView: UIView {
     }
     
     private func configureLayout() {
-        self.addSubviews(self.userImageButton, self.userNameLabel, self.userSettingButton)
+        self.addSubviews(self.userImageButton, self.userNameLabel, self.userSettingButton, self.settingButton)
         
         self.backgroundColor = UIColor.white
         self.layer.shadowColor = UIColor.gray.cgColor
@@ -86,6 +107,13 @@ final class UserInfoToggleView: UIView {
             self.userSettingButton.topAnchor.constraint(equalTo: self.userNameLabel.bottomAnchor),
             self.userSettingButton.leadingAnchor.constraint(equalTo: self.userNameLabel.leadingAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            self.settingButton.heightAnchor.constraint(equalToConstant: 50),
+            self.settingButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            self.settingButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            self.settingButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+        ])
     }
     
     func configureName(to name: String) {
@@ -95,7 +123,7 @@ final class UserInfoToggleView: UIView {
 
 extension UserInfoToggleView {
     @objc func showUserSetting() {
-        self.delegate?.showSetting()
+        self.delegate?.showUserSetting()
     }
     
     @objc func showSetting() {
