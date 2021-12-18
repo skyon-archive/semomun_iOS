@@ -2,7 +2,7 @@
 //  PreviewManager.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/16.
+//  Created by Kang Minsang on 2021/10/16.
 //
 
 import Foundation
@@ -14,79 +14,70 @@ protocol PreviewDatasource: AnyObject {
 }
 
 class PreviewManager {
-    static let identifier = "PreviewManager"
+    weak var delegate: PreviewDatasource?
     
-    weak var delegate: PreviewDatasource!
-    
-    // TODO: categoryButtons : 사용자의 다운로드 된 category들로 수정 : UserDefaults 에서 가져오는 식으로 변경
-    let categoryButtons: [String] = ["전체", "국어", "수학"]
-    var categoryIndex: Int = 0
-    var queryDictionary: [String:NSPredicate] = [:]
-    var currentFilter: String = "전체"
-    
-    var previews: [Preview_Core] = []
+    private var subjects: [String] = ["전체"]
+    private var currentFilter: String = "전체"
+    private(set) var previews: [Preview_Core] = []
+    private(set) var currentIndex: Int = 0
     
     init(delegate: PreviewDatasource) {
         self.delegate = delegate
-        self.configureQueryDict()
     }
     
-    func configureQueryDict() {
-        // TODO: categoryButtons 값에 따라 결정되는 식으로 로직 변경
-        self.queryDictionary["국어"] = NSPredicate(format: "subject = %@", "국어")
-        self.queryDictionary["수학"] = NSPredicate(format: "subject = %@", "수학")
-        self.queryDictionary["영어"] = NSPredicate(format: "subject = %@", "영어")
+    func updateSubjects(with previews: [Preview_Core]) {
+        previews.forEach { preview in
+            if let subject = preview.subject {
+                if !self.subjects.contains(subject) {
+                    self.subjects.append(subject)
+                }
+            }
+        }
     }
     
-    var categoryCount: Int {
-        return self.categoryButtons.count
+    var subjectsCount: Int {
+        return self.subjects.count
     }
     
-    var previewCount: Int {
+    var previewsCount: Int {
         return self.previews.count
     }
     
-    func category(at: Int) -> String {
-        return self.categoryButtons[at]
+    func subject(at: Int) -> String {
+        return self.subjects[at]
     }
     
     func updateCategory(idx: Int) {
-        self.categoryIndex = idx
-        self.currentFilter = categoryButtons[idx]
+        self.currentIndex = idx
+        self.currentFilter = subjects[idx]
         self.fetchPreviews()
     }
     
     func fetchPreviews() {
-        previews.removeAll()
-        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
-        if currentFilter != "전체" {
-            let filter = queryDictionary[currentFilter]
-            fetchRequest.predicate = filter
-        }
+        self.previews.removeAll()
         
-        do {
-            let loaded = try CoreDataManager.shared.context.fetch(fetchRequest)
-            self.previews = try loaded
-            
-        } catch let error {
-            print(error.localizedDescription)
+        guard let previews = CoreUsecase.fetchPreviews(subject: self.currentFilter) else {
+            print("no previews")
+            return
         }
+        self.previews = previews
+        self.updateSubjects(with: previews)
+        
         DispatchQueue.main.async {
-            self.delegate.reloadData()
+            self.delegate?.reloadData()
         }
     }
     
     func preview(at: Int) -> Preview_Core {
-        return self.previews[at]
+        return self.previews[at-1]
     }
     
     func deletePreview(at: Int) {
         guard let title = self.previews[at].title else { return }
-        delegate.deleteAlert(title: title, idx: at)
+        self.delegate?.deleteAlert(title: title, idx: at)
     }
     
     func delete(at: Int) {
-        // TODO: 삭제 로직 수정
         var targetCoreDatas: [NSManagedObject] = []
         let targetPreview = self.previews[at]
         targetCoreDatas.append(targetPreview)
@@ -96,21 +87,21 @@ class PreviewManager {
         var targetPids: [Int] = []
         
         targetSids.forEach { sid in
-            if let targetSection = CoreUsecase.fetchSections(sid: sid) {
+            if let targetSection = CoreUsecase.fetchSection(sid: sid) {
                 targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
                 targetCoreDatas.append(targetSection)
             }
         }
         
         targetVids.forEach { vid in
-            if let targetPage = CoreUsecase.fetchPages(vid: vid) {
+            if let targetPage = CoreUsecase.fetchPage(vid: vid) {
                 targetPids += targetPage.problems
                 targetCoreDatas.append(targetPage)
             }
         }
         
         targetPids.forEach { pid in
-            if let targetProblem = CoreUsecase.fetchProblems(pid: pid) {
+            if let targetProblem = CoreUsecase.fetchProblem(pid: pid) {
                 targetCoreDatas.append(targetProblem)
             }
         }

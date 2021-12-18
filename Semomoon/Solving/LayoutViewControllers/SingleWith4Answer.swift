@@ -2,7 +2,7 @@
 //  SingleWith4Answer.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/24.
+//  Created by Kang Minsang on 2021/10/24.
 //
 
 import UIKit
@@ -26,18 +26,30 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     var width: CGFloat!
     var height: CGFloat!
     var image: UIImage!
-    var pageData: PageData?
-    var problem: Problem_Core?
-    weak var delegate: PageDelegate?
+    var viewModel: SingleWith4AnswerViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,14 +57,27 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("4다선지 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.configureProblem()
         self.configureUI()
         self.configureCanvasView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("4다선지 didAppear")
+        
+        self.stopLoader()
+        self.configureCanvasViewData()
         self.configureImageView()
+        self.showResultImage()
+        self.viewModel?.configureObserver()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("5다선지 willDisappear")
+        
+        self.viewModel?.cancelObserver()
+        self.resultImageView.removeFromSuperview()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,25 +94,27 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     // 객관식 1~4 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.problem else { return }
+        guard let problem = self.viewModel?.problem else { return }
         if problem.terminated { return }
         
         let input: Int = sender.tag
-        self.updateSolved(problem: problem, input: "\(input)")
+        self.viewModel?.updateSolved(input: "\(input)")
         
         self.configureCheckButtons()
     }
     
     @IBAction func toggleStar(_ sender: Any) {
-        guard let pName = self.problem?.pName else { return }
+        guard let problem = self.viewModel?.problem,
+              let pName = problem.pName else { return }
+        
         self.star.isSelected.toggle()
         let status = self.star.isSelected
-        self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.viewModel?.updateStar(btName: pName, to: status)
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
+        guard let answer = self.viewModel?.problem?.answer else { return }
+        
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
             self.answer.setTitle(answer, for: .normal)
@@ -97,23 +124,55 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
-        self.answer.isSelected.toggle()
-        if self.answer.isSelected {
-            self.answer.setTitle(answer, for: .normal)
-        } else {
-            self.answer.setTitle("정답", for: .normal)
-        }
+        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+        
+        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
+        let explanationImage = UIImage(data: imageData)
+        explanationVC.explanationImage = explanationImage
+        self.present(explanationVC, animated: true, completion: nil)
     }
     
     @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
+        self.viewModel?.delegate?.nextPage()
     }
 }
 
 extension SingleWith4Answer {
-    func configureProblem() {
-        self.problem = self.pageData?.problems[0] ?? nil
+    func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
     }
     
     func configureUI() {
@@ -124,7 +183,7 @@ extension SingleWith4Answer {
     }
     
     func configureCheckButtons() {
-        guard let problem = self.problem else { return }
+        guard let problem = self.viewModel?.problem else { return }
         
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
@@ -140,8 +199,7 @@ extension SingleWith4Answer {
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           let solved = problem.solved,
-           answer != solved,
+           problem.correct == false,
            problem.terminated == true {
             guard let targetIndex = Int(answer) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
@@ -149,14 +207,32 @@ extension SingleWith4Answer {
         }
     }
     
+    func showResultImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated && problem.answer != nil {
+            let imageName: String = problem.correct ? "correct" : "wrong"
+            self.resultImageView.image = UIImage(named: imageName)
+            
+            self.imageView.addSubview(self.resultImageView)
+            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20),
+                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
+            ])
+        }
+    }
+    
     func configureStar() {
-        self.star.isSelected = self.problem?.star ?? false
+        self.star.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureAnswer() {
         self.answer.setTitle("정답", for: .normal)
         self.answer.isSelected = false
-        if self.problem?.answer == nil {
+        if self.viewModel?.problem?.answer == nil {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -166,7 +242,7 @@ extension SingleWith4Answer {
     }
     
     func configureExplanation() {
-        if self.problem?.explanationImage == nil {
+        if self.viewModel?.problem?.explanationImage == nil {
             self.explanation.isUserInteractionEnabled = false
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -190,46 +266,41 @@ extension SingleWith4Answer {
     }
     
     func configureCanvasViewData() {
-        if let pkData = self.problem?.drawing {
+        if let pkData = self.viewModel?.problem?.drawing {
             do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
+                try self.canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
             }
         } else {
-            canvasView.drawing = PKDrawing()
+            self.canvasView.drawing = PKDrawing()
         }
     }
     
     func configureImageView() {
         width = canvasView.frame.width
-        height = image.size.height*(width/image.size.width)
+        guard let mainImage = self.image else { return }
+        height = mainImage.size.height*(width/mainImage.size.width)
         
-        imageView.image = image
+        if mainImage.size.width > 0 && mainImage.size.height > 0 {
+            imageView.image = mainImage
+        } else {
+            let worningImage = UIImage(named: "warningWithNoImage")!
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
+        }
+        
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
     }
-    
-    func updateSolved(problem: Problem_Core, input: String) {
-        guard let pName = problem.pName else { return }
-        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        saveCoreData()
-        
-        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
-            let correct = input == answer
-            problem.setValue(correct, forKey: "correct")
-            saveCoreData()
-            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
-        }
-    }
 }
 
 extension SingleWith4Answer {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        saveCoreData()
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data)
     }
 }

@@ -2,7 +2,7 @@
 //  UIViewController.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/30.
+//  Created by Kang Minsang on 2021/10/30.
 //
 
 import UIKit
@@ -42,5 +42,15 @@ extension UIViewController {
         loadingIndicator.totalPageCount = count
         self.present(loadingIndicator, animated: true, completion: nil)
         return loadingIndicator as loadingDelegate
+    }
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

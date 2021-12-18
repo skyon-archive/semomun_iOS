@@ -2,7 +2,7 @@
 //  Network.swift
 //  Semomoon
 //
-//  Created by FreeDeveloper97 on 2021/10/11.
+//  Created by Kang Minsang on 2021/10/11.
 //
 
 import Foundation

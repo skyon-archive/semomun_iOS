@@ -2,7 +2,7 @@
 //  DataBase.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/09/26.
+//  Created by Kang Minsang on 2021/09/26.
 //
 
 import Foundation

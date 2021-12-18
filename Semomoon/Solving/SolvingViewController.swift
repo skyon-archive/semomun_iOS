@@ -2,7 +2,7 @@
 //  SolvingViewController.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/08/20.
+//  Created by Kang Minsang on 2021/08/20.
 //
 
 import UIKit
@@ -12,6 +12,7 @@ protocol PageDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func updateWrong(btName: String, to: Bool)
     func nextPage()
+    func beforePage()
 }
 
 class SolvingViewController: UIViewController {
@@ -185,16 +186,14 @@ extension SolvingViewController: LayoutDelegate {
             
         case SingleWith4Answer.identifier:
             self.currentVC = singleWith4Answer
-            singleWith4Answer.delegate = self
+            singleWith4Answer.viewModel = SingleWith4AnswerViewModel(delegate: self, pageData: pageData)
             singleWith4Answer.image = getImage(data: pageData.problems[0].contentImage)
-            singleWith4Answer.pageData = pageData
             
         case MultipleWithNoAnswer.identifier:
             self.currentVC = multipleWithNoAnswer
-            multipleWithNoAnswer.delegate = self
+            multipleWithNoAnswer.viewModel = MultipleWithNoAnswerViewModel(delegate: self, pageData: pageData)
             multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
-            multipleWithNoAnswer.pageData = pageData
             
         default:
             break
@@ -234,5 +233,9 @@ extension SolvingViewController: PageDelegate {
     
     func nextPage() {
         self.manager.changeNextPage()
+    }
+    
+    func beforePage() {
+        self.manager.changeBeforePage()
     }
 }

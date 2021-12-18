@@ -2,7 +2,7 @@
 //  LoadingIndicator.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/11/06.
+//  Created by Kang Minsang on 2021/11/06.
 //
 
 import UIKit

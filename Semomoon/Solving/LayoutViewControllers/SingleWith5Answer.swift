@@ -1,8 +1,8 @@
 //
-//  test_1ViewController.swift
-//  test_1ViewController
+//  SingleWith5Answer.swift
+//  Semomoon
 //
-//  Created by qwer on 2021/08/25.
+//  Created by Kang Minsang on 2021/08/25.
 //
 
 import UIKit
@@ -32,10 +32,24 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,8 +64,11 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     override func viewDidAppear(_ animated: Bool) {
         print("5다선지 didAppear")
         
-        self.viewModel?.configureObserver()
+        self.stopLoader()
+        self.configureCanvasViewData()
         self.configureImageView()
+        self.showResultImage()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +76,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         print("5다선지 willDisappear")
         
         self.viewModel?.cancelObserver()
+        self.resultImageView.removeFromSuperview()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -120,6 +139,43 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
 
 
 extension SingleWith5Answer {
+    func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+    }
+    
     func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
@@ -144,12 +200,29 @@ extension SingleWith5Answer {
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           let solved = problem.solved,
-           answer != solved,
+           problem.correct == false,
            problem.terminated == true {
             guard let targetIndex = Int(answer) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+        }
+    }
+    
+    func showResultImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated && problem.answer != nil {
+            let imageName: String = problem.correct ? "correct" : "wrong"
+            self.resultImageView.image = UIImage(named: imageName)
+            
+            self.imageView.addSubview(self.resultImageView)
+            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20),
+                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
+            ])
         }
     }
     
@@ -180,8 +253,6 @@ extension SingleWith5Answer {
     }
     
     func configureCanvasView() {
-        self.configureCanvasViewData()
-        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -198,12 +269,12 @@ extension SingleWith5Answer {
     func configureCanvasViewData() {
         if let pkData = self.viewModel?.problem?.drawing {
             do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
+                try self.canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
             }
         } else {
-            canvasView.drawing = PKDrawing()
+            self.canvasView.drawing = PKDrawing()
         }
     }
     

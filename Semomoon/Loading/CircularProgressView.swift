@@ -2,7 +2,7 @@
 //  Test.swift
 //  Project_Timer
 //
-//  Created by Min_MacBook Pro on 2020/07/17.
+//  Created by Kang Minsang on 2020/07/17.
 //  Copyright © 2020 FDEE. All rights reserved.
 //
 

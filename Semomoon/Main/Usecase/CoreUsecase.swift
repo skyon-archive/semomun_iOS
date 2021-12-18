@@ -2,7 +2,7 @@
 //  CoreUsecase.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/17.
+//  Created by Kang Minsang on 2021/10/17.
 //
 
 import Foundation
@@ -89,7 +89,7 @@ struct CoreUsecase {
                     DispatchQueue.main.async {
                         loading.updateProgress()
                         currentCount += 1
-                        print(currentCount)
+                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
                     }
                 }
             }
@@ -100,20 +100,20 @@ struct CoreUsecase {
                             loading.updateProgress()
                         }
                         currentCount += 1
-                        print(currentCount)
+                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
                     }
                 }
             }
-            
-            while true {
-                if currentCount == totalCount {
-                    break
-                }
-            }
+        }
+    }
+    
+    static func terminateDownload(currentCount: Int, totalCount: Int, section: Section_Core, header: SectionHeader_Core, buttons: [String], dict: [String: Int], completion: ((Section_Core?) -> Void)) {
+        if currentCount == totalCount {
             print("----------download end----------")
-            sectionOfCore.setValues(header: sectionHeader, buttons: problemNames, dict: problemNameToPage)
+            let context = CoreDataManager.shared.context
+            section.setValues(header: header, buttons: buttons, dict: dict)
             do { try context.save() } catch let error { print(error.localizedDescription) }
-            completion(sectionOfCore)
+            completion(section)
         }
     }
     
@@ -135,7 +135,7 @@ struct CoreUsecase {
     static func createMockDataForMulty() {
         let context = CoreDataManager.shared.context
         
-        //Math
+        //5Answer
         let problemOfCore1 = Problem_Core(context: context)
         problemOfCore1.setMocks(pid: -121, type: 5, btName: "1", imgName: "mock1", expName: "exp1", answer: "1")
         let pageOfCore1 = Page_Core(context: context)
@@ -156,12 +156,13 @@ struct CoreUsecase {
         let pageOfCore4 = Page_Core(context: context)
         pageOfCore4.setMocks(vid: -45, form: 0, type: 5, pids: [-454], mateImgName: nil)
         
+        //Text
         let problemOfCore5 = Problem_Core(context: context)
         problemOfCore5.setMocks(pid: -565, type: 1, btName: "5", imgName: "mock5", expName: "exp3", answer: "123")
         let pageOfCore5 = Page_Core(context: context)
         pageOfCore5.setMocks(vid: -56, form: 0, type: 1, pids: [-565], mateImgName: nil)
         
-        //Korean
+        //Multi 5
         let problemOfCore6 = Problem_Core(context: context)
         problemOfCore6.setMocks(pid: -131, type: 5, btName: "6", imgName: "mockImg11", expName: "exp1", answer: "1")
         let problemOfCore7 = Problem_Core(context: context)
@@ -186,16 +187,52 @@ struct CoreUsecase {
         let pageOfCore7 = Page_Core(context: context)
         pageOfCore7.setMocks(vid: -24, form: 1, type: 5, pids: [-575, -686, -797, -898], mateImgName: "material2")
         
+        //4Answer
+        let problemOfCore14 = Problem_Core(context: context)
+        problemOfCore14.setMocks(pid: -141, type: 4, btName: "14", imgName: "mock1", expName: "exp1", answer: "1")
+        let pageOfCore8 = Page_Core(context: context)
+        pageOfCore8.setMocks(vid: -14, form: 0, type: 4, pids: [-141], mateImgName: nil)
+        
+        let problemOfCore15 = Problem_Core(context: context)
+        problemOfCore15.setMocks(pid: -252, type: 4, btName: "15", imgName: "mock2", expName: "exp2", answer: "3")
+        let pageOfCore9 = Page_Core(context: context)
+        pageOfCore9.setMocks(vid: -25, form: 0, type: 4, pids: [-252], mateImgName: nil)
+        
+        //Multi No
+        let problemOfCore16 = Problem_Core(context: context)
+        problemOfCore16.setMocks(pid: -151, type: 0, btName: "16", imgName: "mockImg11")
+        let problemOfCore17 = Problem_Core(context: context)
+        problemOfCore17.setMocks(pid: -262, type: 0, btName: "17", imgName: "mockImg12")
+        
+        let pageOfCore10 = Page_Core(context: context)
+        pageOfCore10.setMocks(vid: -15, form: 1, type: 0, pids: [-151, -262], mateImgName: "material1")
+        
         //Section
         let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
         let dict = ["1": -12, "2": -23, "3": -34, "4": -45, "5": -56,
                     "6": -13, "7": -13, "8": -13, "9": -13,
-                    "10": -24, "11": -24, "12": -24, "13": -24]
+                    "10": -24, "11": -24, "12": -24, "13": -24,
+                    "14": -14, "15": -25,
+                    "16": -15, "17": -15]
         sectionCore.setMocks(sid: -3, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }
         print("MOCK SAVE COMPLETE")
+    }
+    
+    static func fetchPreviews(subject: String) -> [Preview_Core]? {
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        if subject != "전체" {
+            let filter = NSPredicate(format: "subject = %@", subject)
+            fetchRequest.predicate = filter
+        }
+        
+        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return previews
+        } else {
+            return nil
+        }
     }
     
     static func fetchPreview(wid: Int) -> Preview_Core? {
@@ -211,7 +248,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchSections(sid: Int) -> Section_Core? {
+    static func fetchSection(sid: Int) -> Section_Core? {
         let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
         let filter = NSPredicate(format: "sid = %@", "\(sid)")
         fetchRequest.predicate = filter
@@ -224,7 +261,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchPages(vid: Int) -> Page_Core? {
+    static func fetchPage(vid: Int) -> Page_Core? {
         let fetchRequest: NSFetchRequest<Page_Core> = Page_Core.fetchRequest()
         let filter = NSPredicate(format: "vid = %@", "\(vid)")
         fetchRequest.predicate = filter
@@ -237,7 +274,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchProblems(pid: Int) -> Problem_Core? {
+    static func fetchProblem(pid: Int) -> Problem_Core? {
         let fetchRequest: NSFetchRequest<Problem_Core> = Problem_Core.fetchRequest()
         let filter = NSPredicate(format: "pid = %@", "\(pid)")
         fetchRequest.predicate = filter
@@ -259,5 +296,34 @@ struct CoreUsecase {
     static func vidsFromDictionary(dict: [String: Int]) -> [Int] {
         let dumlicatedVids = dict.values.map() { $0 }
         return Array(Set(dumlicatedVids)).sorted(by: < )
+    }
+    
+    static func deleteSection(sid: Int) {
+        var targetCoreDatas: [NSManagedObject] = []
+        var targetVids: [Int] = []
+        var targetPids: [Int] = []
+        
+        if let targetSection = CoreUsecase.fetchSection(sid: sid) {
+            targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
+            targetCoreDatas.append(targetSection)
+        }
+        
+        targetVids.forEach { vid in
+            if let targetPage = CoreUsecase.fetchPage(vid: vid) {
+                targetPids += targetPage.problems
+                targetCoreDatas.append(targetPage)
+            }
+        }
+        
+        targetPids.forEach { pid in
+            if let targetProblem = CoreUsecase.fetchProblem(pid: pid) {
+                targetCoreDatas.append(targetProblem)
+            }
+        }
+        
+        targetCoreDatas.forEach { coreData in
+            CoreDataManager.shared.context.delete(coreData)
+        }
+        CoreUsecase.saveCoreData()
     }
 }

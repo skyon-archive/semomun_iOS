@@ -2,7 +2,7 @@
 //  MainViewController+Extension.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/16.
+//  Created by Kang Minsang on 2021/10/16.
 //
 
 import UIKit
@@ -38,6 +38,15 @@ extension MainViewController {
             self.sideMenuViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             self.sideMenuViewController.view.topAnchor.constraint(equalTo: view.topAnchor)
         ])
+    }
+    
+    func configureTapGesture() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedShadowView))
+        self.sideMenuShadowView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTappedShadowView() {
+        self.sideMenuState(expanded: false)
     }
     
     func sideMenuState(expanded: Bool) {

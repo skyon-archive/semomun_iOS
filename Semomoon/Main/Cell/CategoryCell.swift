@@ -2,7 +2,7 @@
 //  CategoryCell.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/10/16.
+//  Created by Kang Minsang on 2021/10/16.
 //
 
 import UIKit

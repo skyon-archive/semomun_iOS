@@ -2,7 +2,7 @@
 //  SingleWith5Answer.swift
 //  Semomoon
 //
-//  Created by qwer on 2021/11/27.
+//  Created by Kang Minsang on 2021/11/27.
 //
 
 import Foundation
@@ -41,8 +41,10 @@ final class SingleWith5AnswerViewModel {
     }
     
     func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+        DispatchQueue.global().async {
+            do { try CoreDataManager.shared.context.save() } catch let error {
+                print(error.localizedDescription)
+            }
         }
     }
     

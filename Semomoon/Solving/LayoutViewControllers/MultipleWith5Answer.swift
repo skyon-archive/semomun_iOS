@@ -1,8 +1,8 @@
 //
-//  test_3ViewController.swift
-//  test_3ViewController
+//  MultipleWith5Answer.swift
+//  Semomoon
 //
-//  Created by qwer on 2021/08/25.
+//  Created by Kang Minsang on 2021/08/25.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import PencilKit
 protocol CollectionCellDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func nextPage()
-    func showExplanation(image: UIImage)
+    func showExplanation(image: UIImage?)
     func updateWrong(btName: String, to: Bool)
 }
 
@@ -36,27 +36,39 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureDelegate()
+        self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("5다선지 좌우형 : willAppear")
         
-        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
         self.collectionView.reloadData()
-        self.configureMainImageView()
+        self.configureCanvasView()
+        self.configureCanvasViewData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
         
-        self.configureCanvasView()
+        self.stopLoader()
+//        self.configureCanvasViewData()
+        self.configureMainImageView()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,6 +76,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : willDisapplear")
         
         self.viewModel?.cancelObserver()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -85,9 +98,51 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
 }
 
 extension MultipleWith5Answer {
-    func configureCanvasView() {
-        self.configureCanvasViewData()
+    func configureDelegate() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
+    func configureLoader() {
+        self.scrollView.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor)
+        ])
         
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+        self.canvasView.isHidden = true
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+        self.canvasView.isHidden = false
+    }
+    
+    func configureCanvasView() {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()
@@ -150,6 +205,7 @@ extension MultipleWith5Answer: UICollectionViewDelegate, UICollectionViewDataSou
         
         cell.delegate = self
         cell.configureReuse(contentImage, problem, superWidth, toolPicker)
+        
         return cell
     }
 }
@@ -186,7 +242,7 @@ extension MultipleWith5Answer: CollectionCellDelegate {
         self.viewModel?.delegate?.nextPage()
     }
     
-    func showExplanation(image: UIImage) {
+    func showExplanation(image: UIImage?) {
         guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
         explanationVC.explanationImage = image
         self.present(explanationVC, animated: true, completion: nil)

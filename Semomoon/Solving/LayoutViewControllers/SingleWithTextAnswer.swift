@@ -1,8 +1,8 @@
 //
-//  test_1ViewController.swift
-//  test_1ViewController
+//  SingleWithTextAnswer.swift
+//  Semomoon
 //
-//  Created by qwer on 2021/08/25.
+//  Created by Kang Minsang on 2021/08/25.
 //
 
 import UIKit
@@ -32,17 +32,30 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
+    lazy var resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private lazy var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.gray
+        return loader
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
+        self.configureLoader()
+        self.configureSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("객관식 willAppear")
         
-        self.viewModel?.configureObserver()
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
@@ -52,7 +65,11 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewDidAppear(animated)
         print("객관식 didAppear")
         
+        self.stopLoader()
+        self.configureCanvasViewData()
         self.configureImageView()
+        self.showResultImage()
+        self.viewModel?.configureObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,6 +77,8 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         print("객관식 willDisappear")
         
         self.viewModel?.cancelObserver()
+        self.resultImageView.removeFromSuperview()
+        self.imageView.image = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -125,6 +144,43 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
 
 
 extension SingleWithTextAnswer {
+    func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+    }
+    
+    func configureSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 2
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    @objc func leftDragged() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+    }
+    
     func configureUI() {
         self.configureCheckInput()
         self.configureStar()
@@ -157,15 +213,33 @@ extension SingleWithTextAnswer {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
-            if problem.terminated,
-               problem.correct == false {
-                self.answer.isUserInteractionEnabled = true
-                self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
-                self.answer.setTitle(problem.answer, for: .normal)
-            } else {
-                self.answer.isUserInteractionEnabled = true
-                self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+            if problem.terminated {
+                if problem.correct == false {
+                    self.answer.isUserInteractionEnabled = true
+                    self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
+                } else {
+                    self.answer.isUserInteractionEnabled = true
+                    self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+                }
             }
+        }
+    }
+    
+    func showResultImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated && problem.answer != nil {
+            let imageName: String = problem.correct ? "correct" : "wrong"
+            self.resultImageView.image = UIImage(named: imageName)
+            
+            self.imageView.addSubview(self.resultImageView)
+            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20),
+                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
+            ])
         }
     }
     
@@ -180,8 +254,6 @@ extension SingleWithTextAnswer {
     }
     
     func configureCanvasView() {
-        self.configureCanvasViewData()
-        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
         canvasView.becomeFirstResponder()

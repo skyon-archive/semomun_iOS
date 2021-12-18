@@ -2,7 +2,7 @@
 //  UIButton.swift
 //  UIButton
 //
-//  Created by qwer on 2021/09/19.
+//  Created by Kang Minsang on 2021/09/19.
 //
 
 import UIKit
