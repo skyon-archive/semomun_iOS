@@ -103,6 +103,7 @@
 		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
 		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
 		87B6E251276DE7FD00F2F32C /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */; };
+		87B6E253276E145300F2F32C /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */; };
 		87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD5C18276DB7A3004ABC74 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +204,7 @@
 		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
+		87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87BD5C18276DB7A3004ABC74 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -583,6 +585,7 @@
 			isa = PBXGroup;
 			children = (
 				87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */,
+				87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */,
 			);
 			path = PersonalSetting;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */,
 				4AC8FCA82736494200E7B37E /* MultipleWithNoCell.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
+				87B6E253276E145300F2F32C /* PersonalSettingNameViewController.swift in Sources */,
 				4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */,
 				4A1119BB2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift in Sources */,
 				8784D3B327648ED000C43209 /* MajorDetailManager.swift in Sources */,

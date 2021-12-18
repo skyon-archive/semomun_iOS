@@ -14,4 +14,16 @@ class PersonalSettingViewController: UIViewController {
         super.viewDidLoad()
         self.title = "설정"
     }
+    
+    @IBAction func showSettingNameVC(_ sender: Any) {
+        self.showSettingNames()
+    }
+}
+
+extension PersonalSettingViewController {
+    func showSettingNames() {
+        guard let settingNameVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingNameViewController.identifier) as? PersonalSettingNameViewController else { return }
+        
+        self.present(settingNameVC, animated: true, completion: nil)
+    }
 }
