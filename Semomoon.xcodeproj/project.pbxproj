@@ -102,6 +102,7 @@
 		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
 		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
 		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
+		87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD5C18276DB7A3004ABC74 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,6 +201,7 @@
 		87AB9DD826CB2BDC0019A276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BD5C18276DB7A3004ABC74 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +383,7 @@
 				4A79342E272E537C00FA7D5A /* Int64.swift */,
 				4AC8FCA5273646BE00E7B37E /* UICollectionViewCell.swift */,
 				4A1119B52751DC3C00EBF98A /* NotificationName.swift */,
+				87BD5C18276DB7A3004ABC74 /* UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 		87247E4E276DB03100D1B2F5 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4A8BEE6226E4863400613602 /* Extension */,
 				87247E4F276DB03F00D1B2F5 /* View */,
 			);
 			path = Global;
@@ -556,7 +560,6 @@
 				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
 				4A60E48D27250BDA00946FD5 /* Solving */,
 				4A6AFE9426D6455F00E65561 /* ViewController */,
-				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
 				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
 				4AC4460227098284000DD64B /* Cache */,
@@ -723,6 +726,7 @@
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4AC8FCA6273646BE00E7B37E /* UICollectionViewCell.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
+				87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */,
 				4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
 				4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */,

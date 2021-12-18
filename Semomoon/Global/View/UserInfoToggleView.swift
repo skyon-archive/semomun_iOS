@@ -18,6 +18,21 @@ final class UserInfoToggleView: UIView {
     private let shadowOpacity: Float = 0.3
     private weak var delegate: UserInfoPushable?
     
+    let baseImage: UIImage? = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
+        return UIImage(systemName: "person.fill", withConfiguration: largeConfig)
+    }()
+    lazy var userImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(self.baseImage, for: .normal)
+        button.tintColor = UIColor.darkGray
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.clipsToBounds = true
+        return button
+    }()
+    
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
@@ -28,6 +43,8 @@ final class UserInfoToggleView: UIView {
     }
     
     private func configureLayout() {
+        self.addSubviews(self.userImageButton)
+        
         self.backgroundColor = UIColor.white
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize.zero
@@ -35,5 +52,12 @@ final class UserInfoToggleView: UIView {
         self.layer.shadowRadius = self.radius
         self.layer.cornerRadius = self.shadowRadius
         self.clipsToBounds = false
+        
+        NSLayoutConstraint.activate([
+            self.userImageButton.widthAnchor.constraint(equalToConstant: 50),
+            self.userImageButton.heightAnchor.constraint(equalToConstant: 50),
+            self.userImageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            self.userImageButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+        ])
     }
 }
