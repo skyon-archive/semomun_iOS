@@ -42,20 +42,18 @@ class PersonalInfoViewController: UIViewController {
             self.signUpInfo?.configureThird(birthdayYear: "2021", birthdayMonth: "11", birthdayDay: "11", schoolName: "Sky", graduationStatus: "Yes")
             // Backend 확인 이후 로직
             UserDefaults.standard.setValue(true, forKey: "logined")
-            guard let nextVC = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
-            
-            nextVC.modalPresentationStyle = .fullScreen
-            self.present(nextVC, animated: true, completion: nil)
+            self.goMainVC()
         }
     }
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension PersonalInfoViewController {
+    private func goMainVC() {
+        guard let mainViewController = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        navigationController.navigationBar.tintColor = UIColor(named: "mint")
+        
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
     }
-    */
-
 }

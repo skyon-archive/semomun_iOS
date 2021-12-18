@@ -102,6 +102,7 @@
 		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
 		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
 		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
+		87B6E251276DE7FD00F2F32C /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */; };
 		87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD5C18276DB7A3004ABC74 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +202,7 @@
 		87AB9DD826CB2BDC0019A276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87BD5C18276DB7A3004ABC74 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -552,6 +554,7 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				87B6E24F276DE7E500F2F32C /* PersonalSetting */,
 				87247E4E276DB03100D1B2F5 /* Global */,
 				1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */,
 				4AF8032D2736683F00F32306 /* Loading */,
@@ -574,6 +577,14 @@
 				4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */,
 			);
 			path = Semomoon;
+			sourceTree = "<group>";
+		};
+		87B6E24F276DE7E500F2F32C /* PersonalSetting */ = {
+			isa = PBXGroup;
+			children = (
+				87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */,
+			);
+			path = PersonalSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -702,6 +713,7 @@
 				4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */,
 				8767B3792768D631007C82B3 /* CertificationUseCase.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* SingleWith5Answer.swift in Sources */,
+				87B6E251276DE7FD00F2F32C /* PersonalSettingViewController.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4A7EEDDC273631C200BF1A20 /* MultipleWith5Cell.swift in Sources */,
 				4A60E49A272549C700946FD5 /* PageData.swift in Sources */,

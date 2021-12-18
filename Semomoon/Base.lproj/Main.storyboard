@@ -1080,6 +1080,21 @@
             </objects>
             <point key="canvasLocation" x="-559.375" y="110.74218749999999"/>
         </scene>
+        <!--Personal Setting View Controller-->
+        <scene sceneID="6Tu-0R-BI5">
+            <objects>
+                <viewController storyboardIdentifier="PersonalSettingViewController" id="Qx0-Kp-BRG" customClass="PersonalSettingViewController" customModule="Semomoon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BX9-Kq-spb">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IOb-cB-3dc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZcK-ml-iqS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-559" y="778"/>
+        </scene>
         <!--Loading Indicator-->
         <scene sceneID="xhn-8w-XmJ">
             <objects>
@@ -1121,7 +1136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uec-O8-lxX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-615.625" y="838.4765625"/>
+            <point key="canvasLocation" x="-1516" y="111"/>
         </scene>
         <!--Show Detail Of Workbook View Controller-->
         <scene sceneID="IFg-RV-JhF">

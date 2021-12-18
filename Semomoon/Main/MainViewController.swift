@@ -303,7 +303,11 @@ extension MainViewController {
 
 extension MainViewController: UserInfoPushable {
     func showUserSetting() {
-        print("showUserSetting")
+        let backItem = UIBarButtonItem()
+        backItem.title = "뒤로가기"
+        self.navigationItem.backBarButtonItem = backItem
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingViewController.identifier) else { return }
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     func showSetting() {
