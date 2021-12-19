@@ -174,7 +174,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return cell
             }
             else {
-                let preview = self.previewManager.preview(at: indexPath.item)
+                let preview = self.previewManager.preview(at: indexPath.item-1)
                 cell.title.text = preview.title
                 guard let imageData = preview.image else { return cell }
                 DispatchQueue.main.async {
