@@ -159,12 +159,12 @@ extension SingleWithTextAnswer {
     func configureSwipeGesture() {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
         rightSwipeGesture.direction = .right
-        rightSwipeGesture.numberOfTouchesRequired = 2
+        rightSwipeGesture.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(rightSwipeGesture)
         
         let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
         leftSwipeGesture.direction = .left
-        leftSwipeGesture.numberOfTouchesRequired = 2
+        leftSwipeGesture.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
     
