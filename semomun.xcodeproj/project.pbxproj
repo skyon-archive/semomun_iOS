@@ -63,6 +63,31 @@
 		87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E99276F6B70001C9C4A /* Section_Core.swift */; };
 		87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9B276F6B7F001C9C4A /* Page_Core.swift */; };
 		87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */; };
+		87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */; };
+		87C85EA2276F6BF0001C9C4A /* SearchWorkbookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */; };
+		87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */; };
+		87C85EA7276F6C30001C9C4A /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA6276F6C30001C9C4A /* Query.swift */; };
+		87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */; };
+		87C85EAF276F6C9B001C9C4A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */; };
+		87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */; };
+		87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB2276F6CBE001C9C4A /* SectionManager.swift */; };
+		87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */; };
+		87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */; };
+		87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */; };
+		87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */; };
+		87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBC276F6D13001C9C4A /* PageData.swift */; };
+		87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBE276F6D26001C9C4A /* SectionResult.swift */; };
+		87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC0276F6D32001C9C4A /* Submission.swift */; };
+		87C85EC3276F6D44001C9C4A /* SingleWith5Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC2276F6D44001C9C4A /* SingleWith5Answer.swift */; };
+		87C85EC5276F6D55001C9C4A /* SingleWithTextAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC4276F6D55001C9C4A /* SingleWithTextAnswer.swift */; };
+		87C85EC7276F6D67001C9C4A /* MultipleWith5Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC6276F6D67001C9C4A /* MultipleWith5Answer.swift */; };
+		87C85EC9276F6D77001C9C4A /* SingleWith4Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC8276F6D77001C9C4A /* SingleWith4Answer.swift */; };
+		87C85ECB276F6D86001C9C4A /* MultipleWithNoAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ECA276F6D86001C9C4A /* MultipleWithNoAnswer.swift */; };
+		87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift */; };
+		87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift */; };
+		87C85ED1276F6DB5001C9C4A /* MultipleWith5AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerViewModel.swift */; };
+		87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ED2276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift */; };
+		87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +146,31 @@
 		87C85E99276F6B70001C9C4A /* Section_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section_Core.swift; sourceTree = "<group>"; };
 		87C85E9B276F6B7F001C9C4A /* Page_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page_Core.swift; sourceTree = "<group>"; };
 		87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem_Core.swift; sourceTree = "<group>"; };
+		87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
+		87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookManager.swift; sourceTree = "<group>"; };
+		87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewCell.swift; sourceTree = "<group>"; };
+		87C85EA6276F6C30001C9C4A /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
+		87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
+		87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultViewController.swift; sourceTree = "<group>"; };
+		87C85EB2276F6CBE001C9C4A /* SectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionManager.swift; sourceTree = "<group>"; };
+		87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSectionUsecase.swift; sourceTree = "<group>"; };
+		87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemNameCell.swift; sourceTree = "<group>"; };
+		87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5Cell.swift; sourceTree = "<group>"; };
+		87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoCell.swift; sourceTree = "<group>"; };
+		87C85EBC276F6D13001C9C4A /* PageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageData.swift; sourceTree = "<group>"; };
+		87C85EBE276F6D26001C9C4A /* SectionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResult.swift; sourceTree = "<group>"; };
+		87C85EC0276F6D32001C9C4A /* Submission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
+		87C85EC2276F6D44001C9C4A /* SingleWith5Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith5Answer.swift; sourceTree = "<group>"; };
+		87C85EC4276F6D55001C9C4A /* SingleWithTextAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithTextAnswer.swift; sourceTree = "<group>"; };
+		87C85EC6276F6D67001C9C4A /* MultipleWith5Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5Answer.swift; sourceTree = "<group>"; };
+		87C85EC8276F6D77001C9C4A /* SingleWith4Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith4Answer.swift; sourceTree = "<group>"; };
+		87C85ECA276F6D86001C9C4A /* MultipleWithNoAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswer.swift; sourceTree = "<group>"; };
+		87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith5AnswerViewModel.swift; sourceTree = "<group>"; };
+		87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithTextAnswerViewModel.swift; sourceTree = "<group>"; };
+		87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerViewModel.swift; sourceTree = "<group>"; };
+		87C85ED2276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith4AnswerViewModel.swift; sourceTree = "<group>"; };
+		87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +306,10 @@
 		87C85E2E276F65EC001C9C4A /* SearchWorkbook */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */,
+				87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */,
+				87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */,
+				87C85EA5276F6C26001C9C4A /* Model */,
 			);
 			path = SearchWorkbook;
 			sourceTree = "<group>";
@@ -263,6 +317,15 @@
 		87C85E2F276F65F4001C9C4A /* Solving */ = {
 			isa = PBXGroup;
 			children = (
+				87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */,
+				87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */,
+				87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */,
+				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
+				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
+				87C85EA8276F6C4F001C9C4A /* Cell */,
+				87C85EA9276F6C55001C9C4A /* Models */,
+				87C85EAA276F6C5C001C9C4A /* LayoutViewControllers */,
+				87C85EAB276F6C62001C9C4A /* LayoutViewModels */,
 			);
 			path = Solving;
 			sourceTree = "<group>";
@@ -414,6 +477,58 @@
 			path = Usecase;
 			sourceTree = "<group>";
 		};
+		87C85EA5276F6C26001C9C4A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				87C85EA6276F6C30001C9C4A /* Query.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87C85EA8276F6C4F001C9C4A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
+				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
+				87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		87C85EA9276F6C55001C9C4A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87C85EBC276F6D13001C9C4A /* PageData.swift */,
+				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
+				87C85EC0276F6D32001C9C4A /* Submission.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		87C85EAA276F6C5C001C9C4A /* LayoutViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				87C85EC2276F6D44001C9C4A /* SingleWith5Answer.swift */,
+				87C85EC4276F6D55001C9C4A /* SingleWithTextAnswer.swift */,
+				87C85EC6276F6D67001C9C4A /* MultipleWith5Answer.swift */,
+				87C85EC8276F6D77001C9C4A /* SingleWith4Answer.swift */,
+				87C85ECA276F6D86001C9C4A /* MultipleWithNoAnswer.swift */,
+			);
+			path = LayoutViewControllers;
+			sourceTree = "<group>";
+		};
+		87C85EAB276F6C62001C9C4A /* LayoutViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift */,
+				87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift */,
+				87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerViewModel.swift */,
+				87C85ED2276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift */,
+				87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift */,
+			);
+			path = LayoutViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -497,17 +612,26 @@
 			files = (
 				871B6E55276EE48D008CEEBA /* ViewController.swift in Sources */,
 				87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */,
+				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift in Sources */,
+				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
+				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift in Sources */,
 				87C85E50276F67C5001C9C4A /* StartViewController.swift in Sources */,
 				87C85E79276F699F001C9C4A /* FindIDViewController.swift in Sources */,
+				87C85EC5276F6D55001C9C4A /* SingleWithTextAnswer.swift in Sources */,
 				87C85E56276F67F8001C9C4A /* SurveyViewController.swift in Sources */,
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
 				87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
+				87C85EA7276F6C30001C9C4A /* Query.swift in Sources */,
 				87C85E87276F6A7A001C9C4A /* SideMenuViewController.swift in Sources */,
+				87C85EC3276F6D44001C9C4A /* SingleWith5Answer.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
+				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
+				87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */,
 				87C85E90276F6B03001C9C4A /* PreviewManager.swift in Sources */,
+				87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
@@ -516,27 +640,43 @@
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
 				87C85E52276F67D7001C9C4A /* CertificationViewController.swift in Sources */,
 				87C85E8A276F6AA5001C9C4A /* CategoryCell.swift in Sources */,
+				87C85ECB276F6D86001C9C4A /* MultipleWithNoAnswer.swift in Sources */,
 				87C85E77276F6992001C9C4A /* LoginViewController.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
+				87C85EC9276F6D77001C9C4A /* SingleWith4Answer.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
+				87C85EAF276F6C9B001C9C4A /* ExplanationViewController.swift in Sources */,
 				87C85E3E276F66CC001C9C4A /* UIButton.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				87C85E6D276F693A001C9C4A /* MajorDetailManager.swift in Sources */,
+				87C85EA2276F6BF0001C9C4A /* SearchWorkbookManager.swift in Sources */,
+				87C85ED1276F6DB5001C9C4A /* MultipleWith5AnswerViewModel.swift in Sources */,
+				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
 				87C85E65276F68F0001C9C4A /* MajorViewController.swift in Sources */,
 				87C85E58276F680D001C9C4A /* PersonalInfoViewController.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
+				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift in Sources */,
+				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
+				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
+				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,
+				87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */,
 				87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */,
+				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* SignUpInfo.swift in Sources */,
 				87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */,
+				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				87C85E69276F6910001C9C4A /* CategoryManager.swift in Sources */,
 				87C85E75276F6984001C9C4A /* CreateFirstViewController.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
+				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift in Sources */,
+				87C85EC7276F6D67001C9C4A /* MultipleWith5Answer.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
+				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
