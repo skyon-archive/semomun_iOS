@@ -105,6 +105,7 @@
 		87C85EF4276F6EFE001C9C4A /* PageOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */; };
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */; };
+		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +206,7 @@
 		87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageOfDB.swift; sourceTree = "<group>"; };
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
+		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
 				871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */,
 				871B6E5E276EE48D008CEEBA /* Info.plist */,
+				87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */,
 			);
 			path = semomun;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
+				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				87C85EE5276F6E6B001C9C4A /* History.swift in Sources */,
@@ -1031,6 +1035,19 @@
 			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */,
+			);
+			currentVersion = 87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */;
+			path = semomun.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 871B6E45276EE48D008CEEBA /* Project object */;
 }
