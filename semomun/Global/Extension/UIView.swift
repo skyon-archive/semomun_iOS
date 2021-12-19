@@ -1,6 +1,6 @@
 //
 //  UIView.swift
-//  Semomoon
+//  semomun
 //
 //  Created by Kang Minsang on 2021/12/18.
 //

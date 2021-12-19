@@ -1,6 +1,6 @@
 //
 //  UICollectionViewCell.swift
-//  Semomoon
+//  semomun
 //
 //  Created by Kang Minsang on 2021/11/06.
 //

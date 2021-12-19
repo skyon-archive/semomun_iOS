@@ -1,6 +1,6 @@
 //
 //  PersonalSettingNameViewController.swift
-//  Semomoon
+//  semomun
 //
 //  Created by Kang Minsang on 2021/12/18.
 //
@@ -12,9 +12,9 @@ class PersonalSettingNameViewController: UIViewController {
     
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var nameFrameView: UIView!
-    @IBOutlet weak var nickNameFrameView: UIView!
+//    @IBOutlet weak var nickNameFrameView: UIView!
     @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var nicknameField: UITextField!
+//    @IBOutlet weak var nicknameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ extension PersonalSettingNameViewController {
         self.frameView.clipsToBounds = true
         self.frameView.layer.cornerRadius = 25
         self.setShadow(to: self.nameFrameView)
-        self.setShadow(to: self.nickNameFrameView)
+//        self.setShadow(to: self.nickNameFrameView)
     }
     
     func setShadow(to view: UIView) {
@@ -49,6 +49,6 @@ extension PersonalSettingNameViewController {
     }
     
     func configureNickName(to nickName: String) {
-        self.nicknameField.text = nickName
+//        self.nicknameField.text = nickName
     }
 }
