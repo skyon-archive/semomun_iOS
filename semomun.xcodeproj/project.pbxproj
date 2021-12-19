@@ -16,6 +16,19 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
+		87D15DF8276EF7F400A1BF5B /* Cache in Resources */ = {isa = PBXBuildFile; fileRef = 87D15DF7276EF7F400A1BF5B /* Cache */; };
+		87D15E01276EF83D00A1BF5B /* CoreData in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E00276EF83D00A1BF5B /* CoreData */; };
+		87D15E03276EF84400A1BF5B /* Global in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E02276EF84400A1BF5B /* Global */; };
+		87D15E05276EF84A00A1BF5B /* Loading in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E04276EF84A00A1BF5B /* Loading */; };
+		87D15E07276EF85200A1BF5B /* Login in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E06276EF85200A1BF5B /* Login */; };
+		87D15E09276EF85900A1BF5B /* Main in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E08276EF85900A1BF5B /* Main */; };
+		87D15E0B276EF86000A1BF5B /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E0A276EF86000A1BF5B /* Model */; };
+		87D15E0D276EF86B00A1BF5B /* Network in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E0C276EF86B00A1BF5B /* Network */; };
+		87D15E0F276EF87100A1BF5B /* PersonalSetting in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E0E276EF87100A1BF5B /* PersonalSetting */; };
+		87D15E11276EF87E00A1BF5B /* SearchWorkbook in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E10276EF87E00A1BF5B /* SearchWorkbook */; };
+		87D15E13276EF88700A1BF5B /* Solving in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E12276EF88700A1BF5B /* Solving */; };
+		87D15E15276EF88E00A1BF5B /* test in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E14276EF88E00A1BF5B /* test */; };
+		87D15E17276EF89600A1BF5B /* ViewController in Resources */ = {isa = PBXBuildFile; fileRef = 87D15E16276EF89600A1BF5B /* ViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +40,19 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87D15DF7276EF7F400A1BF5B /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = "<group>"; };
+		87D15E00276EF83D00A1BF5B /* CoreData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CoreData; sourceTree = "<group>"; };
+		87D15E02276EF84400A1BF5B /* Global */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Global; sourceTree = "<group>"; };
+		87D15E04276EF84A00A1BF5B /* Loading */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Loading; sourceTree = "<group>"; };
+		87D15E06276EF85200A1BF5B /* Login */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Login; sourceTree = "<group>"; };
+		87D15E08276EF85900A1BF5B /* Main */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Main; sourceTree = "<group>"; };
+		87D15E0A276EF86000A1BF5B /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		87D15E0C276EF86B00A1BF5B /* Network */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Network; sourceTree = "<group>"; };
+		87D15E0E276EF87100A1BF5B /* PersonalSetting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PersonalSetting; sourceTree = "<group>"; };
+		87D15E10276EF87E00A1BF5B /* SearchWorkbook */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SearchWorkbook; sourceTree = "<group>"; };
+		87D15E12276EF88700A1BF5B /* Solving */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Solving; sourceTree = "<group>"; };
+		87D15E14276EF88E00A1BF5B /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+		87D15E16276EF89600A1BF5B /* ViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ViewController; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +88,19 @@
 		871B6E4F276EE48D008CEEBA /* semomun */ = {
 			isa = PBXGroup;
 			children = (
+				87D15E06276EF85200A1BF5B /* Login */,
+				87D15E08276EF85900A1BF5B /* Main */,
+				87D15E0E276EF87100A1BF5B /* PersonalSetting */,
+				87D15E10276EF87E00A1BF5B /* SearchWorkbook */,
+				87D15E12276EF88700A1BF5B /* Solving */,
+				87D15DF7276EF7F400A1BF5B /* Cache */,
+				87D15E00276EF83D00A1BF5B /* CoreData */,
+				87D15E02276EF84400A1BF5B /* Global */,
+				87D15E04276EF84A00A1BF5B /* Loading */,
+				87D15E0A276EF86000A1BF5B /* Model */,
+				87D15E0C276EF86B00A1BF5B /* Network */,
+				87D15E16276EF89600A1BF5B /* ViewController */,
+				87D15E14276EF88E00A1BF5B /* test */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
 				871B6E54276EE48D008CEEBA /* ViewController.swift */,
@@ -141,8 +180,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87D15E0B276EF86000A1BF5B /* Model in Resources */,
+				87D15E13276EF88700A1BF5B /* Solving in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
+				87D15E03276EF84400A1BF5B /* Global in Resources */,
+				87D15E01276EF83D00A1BF5B /* CoreData in Resources */,
+				87D15E05276EF84A00A1BF5B /* Loading in Resources */,
+				87D15E11276EF87E00A1BF5B /* SearchWorkbook in Resources */,
+				87D15DF8276EF7F400A1BF5B /* Cache in Resources */,
+				87D15E09276EF85900A1BF5B /* Main in Resources */,
+				87D15E0D276EF86B00A1BF5B /* Network in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
+				87D15E15276EF88E00A1BF5B /* test in Resources */,
+				87D15E0F276EF87100A1BF5B /* PersonalSetting in Resources */,
+				87D15E17276EF89600A1BF5B /* ViewController in Resources */,
+				87D15E07276EF85200A1BF5B /* Login in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
