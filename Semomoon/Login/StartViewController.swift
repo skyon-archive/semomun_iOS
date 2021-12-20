@@ -80,6 +80,8 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
                 if isUser {
                     print("isUser from apple")
                     //TODO: 바로 홈화면으로 이동 로직 필요
+                    UserDefaults.standard.setValue(true, forKey: "logined")
+                    self?.goMainVC()
                 } else {
                     self?.saveUserinKeychain(userIdentifier)
                     self?.showNextVC()
@@ -106,6 +108,8 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
                 if isUser {
                     print("isUser from google")
                     //TODO: 바로 홈화면으로 이동 로직 필요
+                    UserDefaults.standard.setValue(true, forKey: "logined")
+                    self?.goMainVC()
                 } else {
                     self?.saveUserinKeychain(idToken)
                     self?.showNextVC()
@@ -164,5 +168,14 @@ extension StartViewController {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: CertificationViewController.identifier) else { return }
         self.title = ""
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    private func goMainVC() {
+        guard let mainViewController = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        navigationController.navigationBar.tintColor = UIColor(named: "mint")
+        
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
     }
 }

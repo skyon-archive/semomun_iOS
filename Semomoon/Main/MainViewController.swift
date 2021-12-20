@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
     var isExpanded: Bool = false
     var sideMenuRevealWidth: CGFloat = 260
     let paddingForRotation: CGFloat = 150
+    private lazy var userInfoView = UserInfoToggleView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +41,20 @@ class MainViewController: UIViewController {
         self.previewManager.fetchPreviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureSideBarViewController()
         self.configureTapGesture()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     @IBAction func showSidebar(_ sender: Any) {
@@ -51,7 +62,13 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
-        print("userInfo")
+        sender.isSelected.toggle()
+        print(sender)
+        if sender.isSelected {
+            self.showUserInfoView()
+        } else {
+            self.hideUserInfoView()
+        }
     }
 }
 
@@ -157,7 +174,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return cell
             }
             else {
-                let preview = self.previewManager.preview(at: indexPath.item)
+                let preview = self.previewManager.preview(at: indexPath.item-1)
                 cell.title.text = preview.title
                 guard let imageData = preview.image else { return cell }
                 DispatchQueue.main.async {
@@ -262,5 +279,48 @@ extension MainViewController: PreviewDatasource {
         alert.addAction(cancle)
         alert.addAction(delete)
         present(alert,animated: true,completion: nil)
+    }
+}
+
+extension MainViewController {
+    func showUserInfoView() {
+        self.userInfoView.configureDelegate(delegate: self)
+        self.userInfoView.alpha = 0
+        self.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        self.view.addSubview(self.userInfoView)
+        self.userInfoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.userInfoView.widthAnchor.constraint(equalToConstant: 250),
+            self.userInfoView.heightAnchor.constraint(equalToConstant: 160),
+            self.userInfoView.trailingAnchor.constraint(equalTo: self.userInfo.trailingAnchor),
+            self.userInfoView.topAnchor.constraint(equalTo: self.userInfo.bottomAnchor, constant: 20)
+        ])
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.userInfoView.alpha = 1
+            self?.userInfoView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func hideUserInfoView() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.userInfoView.alpha = 0
+            self?.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } completion: { [weak self] _ in
+            self?.userInfoView.removeFromSuperview()
+        }
+    }
+}
+
+extension MainViewController: UserInfoPushable {
+    func showUserSetting() {
+        let backItem = UIBarButtonItem()
+        backItem.title = "뒤로가기"
+        self.navigationItem.backBarButtonItem = backItem
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingViewController.identifier) else { return }
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func showSetting() {
+        print("showSetting")
     }
 }

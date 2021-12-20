@@ -85,6 +85,7 @@
 		4AF8032F2736685600F32306 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8032E2736685600F32306 /* CircularProgressView.swift */; };
 		4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF8033027366A2900F32306 /* LoadingIndicator.swift */; };
 		8719B8A726F7331F00423D12 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8719B8A626F7331F00423D12 /* Kingfisher */; };
+		87247E51276DB09600D1B2F5 /* UserInfoToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */; };
 		872ACA4C27644A5F0072A4AF /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */; };
 		872ACA512764668C0072A4AF /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA502764668C0072A4AF /* MajorCell.swift */; };
 		872ACA53276466F50072A4AF /* MajorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ACA52276466F40072A4AF /* MajorViewController.swift */; };
@@ -101,6 +102,9 @@
 		87AB9DD726CB2BDB0019A276 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD526CB2BDB0019A276 /* Main.storyboard */; };
 		87AB9DD926CB2BDC0019A276 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DD826CB2BDC0019A276 /* Assets.xcassets */; };
 		87AB9DDC26CB2BDC0019A276 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AB9DDA26CB2BDC0019A276 /* LaunchScreen.storyboard */; };
+		87B6E251276DE7FD00F2F32C /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */; };
+		87B6E253276E145300F2F32C /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */; };
+		87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD5C18276DB7A3004ABC74 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +184,7 @@
 		4AF59D7826F1E53400E7AE26 /* Preview_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview_Core.swift; sourceTree = "<group>"; };
 		4AF8032E2736685600F32306 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		4AF8033027366A2900F32306 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoToggleView.swift; sourceTree = "<group>"; };
 		872ACA4B27644A5F0072A4AF /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
 		872ACA502764668C0072A4AF /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
 		872ACA52276466F40072A4AF /* MajorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +203,9 @@
 		87AB9DD826CB2BDC0019A276 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87AB9DDB26CB2BDC0019A276 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87AB9DDD26CB2BDC0019A276 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
+		87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
+		87BD5C18276DB7A3004ABC74 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +387,7 @@
 				4A79342E272E537C00FA7D5A /* Int64.swift */,
 				4AC8FCA5273646BE00E7B37E /* UICollectionViewCell.swift */,
 				4A1119B52751DC3C00EBF98A /* NotificationName.swift */,
+				87BD5C18276DB7A3004ABC74 /* UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -469,6 +478,23 @@
 			path = Loading;
 			sourceTree = "<group>";
 		};
+		87247E4E276DB03100D1B2F5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				4A8BEE6226E4863400613602 /* Extension */,
+				87247E4F276DB03F00D1B2F5 /* View */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		87247E4F276DB03F00D1B2F5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87247E50276DB09600D1B2F5 /* UserInfoToggleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		872A187426E79FE500806320 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +556,8 @@
 		87AB9DCE26CB2BDB0019A276 /* Semomoon */ = {
 			isa = PBXGroup;
 			children = (
+				87B6E24F276DE7E500F2F32C /* PersonalSetting */,
+				87247E4E276DB03100D1B2F5 /* Global */,
 				1E7C2C342737C1C300BCE907 /* Semomoon.entitlements */,
 				4AF8032D2736683F00F32306 /* Loading */,
 				4A55DE5826F70137008F1C35 /* Login */,
@@ -537,7 +565,6 @@
 				4A3F9801271A7B3900880B86 /* SearchWorkbook */,
 				4A60E48D27250BDA00946FD5 /* Solving */,
 				4A6AFE9426D6455F00E65561 /* ViewController */,
-				4A8BEE6226E4863400613602 /* Extension */,
 				4AF5F32826E3302300ED71E6 /* Model */,
 				4AF59D7B26F1E53D00E7AE26 /* CoreData */,
 				4AC4460227098284000DD64B /* Cache */,
@@ -552,6 +579,15 @@
 				4A9470C326EDED7D000BB59C /* Semomoon.xcdatamodeld */,
 			);
 			path = Semomoon;
+			sourceTree = "<group>";
+		};
+		87B6E24F276DE7E500F2F32C /* PersonalSetting */ = {
+			isa = PBXGroup;
+			children = (
+				87B6E250276DE7FD00F2F32C /* PersonalSettingViewController.swift */,
+				87B6E252276E145300F2F32C /* PersonalSettingNameViewController.swift */,
+			);
+			path = PersonalSetting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -644,6 +680,7 @@
 				4A1119BD2751FA4400EBF98A /* MultipleWith5AnswerViewModel.swift in Sources */,
 				4AA6990B2749ED520038917A /* SaveSectionUsecase.swift in Sources */,
 				4A55DE5726F6FF7C008F1C35 /* UIButton.swift in Sources */,
+				87247E51276DB09600D1B2F5 /* UserInfoToggleView.swift in Sources */,
 				4AC7592F275349AF00A92A12 /* CategoryViewController.swift in Sources */,
 				4ACAEB7127097DFC0085ABAE /* WorkbookOfDB.swift in Sources */,
 				4A8BEE6426E4865700613602 /* PKDrawing.swift in Sources */,
@@ -679,6 +716,7 @@
 				4A60E49127250F9A00946FD5 /* ProblemNameCell.swift in Sources */,
 				8767B3792768D631007C82B3 /* CertificationUseCase.swift in Sources */,
 				4A6AFE9826D645CC00E65561 /* SingleWith5Answer.swift in Sources */,
+				87B6E251276DE7FD00F2F32C /* PersonalSettingViewController.swift in Sources */,
 				4A3538B926FB07E800F3A1F3 /* Query.swift in Sources */,
 				4A7EEDDC273631C200BF1A20 /* MultipleWith5Cell.swift in Sources */,
 				4A60E49A272549C700946FD5 /* PageData.swift in Sources */,
@@ -703,6 +741,7 @@
 				87AB9DD226CB2BDB0019A276 /* SceneDelegate.swift in Sources */,
 				4AC8FCA6273646BE00E7B37E /* UICollectionViewCell.swift in Sources */,
 				4A99CC2A26F5AE55000D0AF9 /* CoreDataManager.swift in Sources */,
+				87BD5C19276DB7A3004ABC74 /* UIView.swift in Sources */,
 				4AA19F6F2700357F00C600CF /* NetworkUsecase.swift in Sources */,
 				4A97577926FEFA2F002543D6 /* SideMenuViewController.swift in Sources */,
 				4A3F9814271BD47B00880B86 /* CoreUsecase.swift in Sources */,
@@ -711,6 +750,7 @@
 				4AF8033127366A2900F32306 /* LoadingIndicator.swift in Sources */,
 				4AC8FCA82736494200E7B37E /* MultipleWithNoCell.swift in Sources */,
 				4A12461B26F1F39F00402F58 /* ShowDetailOfWorkbookViewController.swift in Sources */,
+				87B6E253276E145300F2F32C /* PersonalSettingNameViewController.swift in Sources */,
 				4A1BABE12740C16100912F3A /* ExplanationViewController.swift in Sources */,
 				4A1119BB2751F4F200EBF98A /* SingleWithTextAnswerViewModel.swift in Sources */,
 				8784D3B327648ED000C43209 /* MajorDetailManager.swift in Sources */,
@@ -870,7 +910,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -892,7 +932,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Semomoon/Semomoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				INFOPLIST_FILE = Semomoon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

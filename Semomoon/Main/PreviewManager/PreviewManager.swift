@@ -69,7 +69,7 @@ class PreviewManager {
     }
     
     func preview(at: Int) -> Preview_Core {
-        return self.previews[at-1]
+        return self.previews[at]
     }
     
     func deletePreview(at: Int) {
