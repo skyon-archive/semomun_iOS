@@ -10,16 +10,18 @@ import UIKit
 class PersonalInfoViewController: UIViewController {
     static let identifier = "PersonalInfoViewController"
 
-    @IBOutlet weak var year: UIButton!
-    @IBOutlet weak var month: UIButton!
-    @IBOutlet weak var day: UIButton!
+    @IBOutlet weak var dateOfBorn: UITextField!
     @IBOutlet weak var school: UIButton!
     @IBOutlet weak var graduation: UIButton!
     private var infoFilled: Bool = false
+    private var datePicker: UIDatePicker?
     var signUpInfo: SignUpInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
+        self.configureDatePicker()
+        self.configureTextField()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,12 +29,7 @@ class PersonalInfoViewController: UIViewController {
         self.title = "회원가입"
     }
     
-    @IBAction func tapYear(_ sender: Any) {
-    }
-    @IBAction func tapMonth(_ sender: Any) {
-    }
-    @IBAction func tapDay(_ sender: Any) {
-    }
+    
     @IBAction func tapSchool(_ sender: Any) {
     }
     @IBAction func tapGraduation(_ sender: Any) {
@@ -74,5 +71,25 @@ extension PersonalInfoViewController {
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    private func configureDatePicker() {
+        self.datePicker = UIDatePicker()
+        self.datePicker?.datePickerMode = .date
+        self.datePicker?.preferredDatePickerStyle = .wheels
+        self.datePicker?.locale = NSLocale(localeIdentifier: "ko_KO") as Locale
+        self.datePicker?.addTarget(self, action: #selector(dateChanged), for: .allEvents)
+    }
+    
+    private func configureTextField() {
+        self.dateOfBorn.inputView = self.datePicker
+    }
+    
+    @objc func dateChanged() {
+        guard let date = self.datePicker?.date else { return }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.dateOfBorn.text = dateFormatter.string(from: date)
     }
 }

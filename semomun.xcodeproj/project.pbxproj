@@ -30,7 +30,6 @@
 		87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E4D276F67AD001C9C4A /* LoadingIndicator.swift */; };
 		87C85E50276F67C5001C9C4A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E4F276F67C5001C9C4A /* StartViewController.swift */; };
 		87C85E52276F67D7001C9C4A /* CertificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E51276F67D7001C9C4A /* CertificationViewController.swift */; };
-		87C85E54276F67E7001C9C4A /* CreateSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E53276F67E7001C9C4A /* CreateSecondViewController.swift */; };
 		87C85E56276F67F8001C9C4A /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E55276F67F8001C9C4A /* SurveyViewController.swift */; };
 		87C85E58276F680D001C9C4A /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */; };
 		87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E60276F68CE001C9C4A /* CertificationUseCase.swift */; };
@@ -43,10 +42,6 @@
 		87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */; };
 		87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E70276F6967001C9C4A /* MajorCell.swift */; };
 		87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E72276F6975001C9C4A /* MajorDetailCell.swift */; };
-		87C85E75276F6984001C9C4A /* CreateFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E74276F6984001C9C4A /* CreateFirstViewController.swift */; };
-		87C85E77276F6992001C9C4A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E76276F6992001C9C4A /* LoginViewController.swift */; };
-		87C85E79276F699F001C9C4A /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E78276F699F001C9C4A /* FindIDViewController.swift */; };
-		87C85E7B276F69AD001C9C4A /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7A276F69AD001C9C4A /* FindPasswordViewController.swift */; };
 		87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7C276F69BD001C9C4A /* KeychainItem.swift */; };
 		87C85E7F276F69CD001C9C4A /* SignUpInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7E276F69CD001C9C4A /* SignUpInfo.swift */; };
 		87C85E81276F69E9001C9C4A /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E80276F69E9001C9C4A /* Validate.swift */; };
@@ -132,7 +127,6 @@
 		87C85E4D276F67AD001C9C4A /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		87C85E4F276F67C5001C9C4A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		87C85E51276F67D7001C9C4A /* CertificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewController.swift; sourceTree = "<group>"; };
-		87C85E53276F67E7001C9C4A /* CreateSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecondViewController.swift; sourceTree = "<group>"; };
 		87C85E55276F67F8001C9C4A /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		87C85E60276F68CE001C9C4A /* CertificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationUseCase.swift; sourceTree = "<group>"; };
@@ -145,10 +139,6 @@
 		87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
 		87C85E70276F6967001C9C4A /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
 		87C85E72276F6975001C9C4A /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
-		87C85E74276F6984001C9C4A /* CreateFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFirstViewController.swift; sourceTree = "<group>"; };
-		87C85E76276F6992001C9C4A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		87C85E78276F699F001C9C4A /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
-		87C85E7A276F69AD001C9C4A /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		87C85E7C276F69BD001C9C4A /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		87C85E7E276F69CD001C9C4A /* SignUpInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInfo.swift; sourceTree = "<group>"; };
 		87C85E80276F69E9001C9C4A /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
@@ -325,7 +315,6 @@
 				87C85E5A276F683E001C9C4A /* CollecitonViews */,
 				87C85E5B276F6845001C9C4A /* CollectionViewManagers */,
 				87C85E5C276F684C001C9C4A /* CollecitonCells */,
-				87C85E5D276F6854001C9C4A /* temp */,
 				87C85E5E276F685B001C9C4A /* Supporting Files */,
 				87C85E5F276F6864001C9C4A /* Model */,
 			);
@@ -473,18 +462,6 @@
 				87C85E72276F6975001C9C4A /* MajorDetailCell.swift */,
 			);
 			path = CollecitonCells;
-			sourceTree = "<group>";
-		};
-		87C85E5D276F6854001C9C4A /* temp */ = {
-			isa = PBXGroup;
-			children = (
-				87C85E74276F6984001C9C4A /* CreateFirstViewController.swift */,
-				87C85E76276F6992001C9C4A /* LoginViewController.swift */,
-				87C85E78276F699F001C9C4A /* FindIDViewController.swift */,
-				87C85E7A276F69AD001C9C4A /* FindPasswordViewController.swift */,
-				87C85E53276F67E7001C9C4A /* CreateSecondViewController.swift */,
-			);
-			path = temp;
 			sourceTree = "<group>";
 		};
 		87C85E5E276F685B001C9C4A /* Supporting Files */ = {
@@ -683,7 +660,6 @@
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift in Sources */,
 				87C85E50276F67C5001C9C4A /* StartViewController.swift in Sources */,
-				87C85E79276F699F001C9C4A /* FindIDViewController.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87C85EC5276F6D55001C9C4A /* SingleWithTextAnswer.swift in Sources */,
 				87C85E56276F67F8001C9C4A /* SurveyViewController.swift in Sources */,
@@ -708,7 +684,6 @@
 				87C85E52276F67D7001C9C4A /* CertificationViewController.swift in Sources */,
 				87C85E8A276F6AA5001C9C4A /* CategoryCell.swift in Sources */,
 				87C85ECB276F6D86001C9C4A /* MultipleWithNoAnswer.swift in Sources */,
-				87C85E77276F6992001C9C4A /* LoginViewController.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				87C85EC9276F6D77001C9C4A /* SingleWith4Answer.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
@@ -744,7 +719,6 @@
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				87C85EE5276F6E6B001C9C4A /* History.swift in Sources */,
 				87C85E69276F6910001C9C4A /* CategoryManager.swift in Sources */,
-				87C85E75276F6984001C9C4A /* CreateFirstViewController.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				87C85ED7276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift in Sources */,
@@ -761,8 +735,6 @@
 				87C85EDF276F6E47001C9C4A /* Problem.swift in Sources */,
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
-				87C85E54276F67E7001C9C4A /* CreateSecondViewController.swift in Sources */,
-				87C85E7B276F69AD001C9C4A /* FindPasswordViewController.swift in Sources */,
 				87C85E67276F68FE001C9C4A /* MajorDetailViewController.swift in Sources */,
 				87C85E63276F68E1001C9C4A /* CategoryViewController.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */,
@@ -915,7 +887,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -923,9 +895,12 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -947,7 +922,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -955,9 +930,12 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
