@@ -2994,9 +2994,6 @@
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
-                                        <connections>
-                                            <action selector="tapGraduation:" destination="aaR-uy-UbX" eventType="touchUpInside" id="OMv-cy-YiG"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

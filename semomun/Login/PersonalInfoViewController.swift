@@ -15,6 +15,7 @@ class PersonalInfoViewController: UIViewController {
     @IBOutlet weak var graduation: UIButton!
     private var infoFilled: Bool = false
     private var datePicker: UIDatePicker?
+    private var graduationMenu: UIMenu?
     var signUpInfo: SignUpInfo?
     
     override func viewDidLoad() {
@@ -22,6 +23,8 @@ class PersonalInfoViewController: UIViewController {
         self.hideKeyboard()
         self.configureDatePicker()
         self.configureTextField()
+        self.configureGraduationMenuItems()
+        self.configureGraduation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,8 +34,6 @@ class PersonalInfoViewController: UIViewController {
     
     
     @IBAction func tapSchool(_ sender: Any) {
-    }
-    @IBAction func tapGraduation(_ sender: Any) {
     }
     
     @IBAction func completeSignup(_ sender: Any) {
@@ -91,5 +92,25 @@ extension PersonalInfoViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.dateOfBorn.text = dateFormatter.string(from: date)
+    }
+    
+    private func configureGraduationMenuItems() {
+        var menuItems: [UIAction] = []
+        menuItems.append(UIAction(title: "재학", image: nil, handler: { [weak self] _ in
+            self?.graduation.setTitle("재학", for: .normal)
+            self?.graduation.setTitleColor(.black, for: .normal)
+            self?.signUpInfo?.configureGraduation(to: "재학")
+        }))
+        menuItems.append(UIAction(title: "졸업", image: nil, handler: { [weak self] _ in
+            self?.graduation.setTitle("졸업", for: .normal)
+            self?.graduation.setTitleColor(.black, for: .normal)
+            self?.signUpInfo?.configureGraduation(to: "졸업")
+        }))
+        self.graduationMenu = UIMenu(title: "재학/졸업 여부", image: nil, identifier: nil, options: [], children: menuItems)
+    }
+    
+    private func configureGraduation() {
+        self.graduation.menu = self.graduationMenu
+        self.graduation.showsMenuAsPrimaryAction = true
     }
 }

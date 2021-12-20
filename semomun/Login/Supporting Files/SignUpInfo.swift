@@ -32,6 +32,11 @@ class SignUpInfo {
         self.token = token
     }
     
+    func configureGraduation(to status: String) {
+        print("update status")
+        self.graduationStatus = status
+    }
+    
     func configureSecond(desiredCategory: [String], field: String, interest: [String]) {
         self.desiredCategory = desiredCategory
         self.field = field
