@@ -29,6 +29,11 @@ class SurveyViewController: UIViewController {
         self.configureMajorDetailView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "회원가입"
+    }
+    
     @IBAction func selectGender(_ sender: UIButton) {
         guard let sex = sender.titleLabel?.text else { return }
         print(sex)
@@ -45,12 +50,9 @@ class SurveyViewController: UIViewController {
     
     @IBAction func nextVC(_ sender: Any) {
         surveyFilled = true
-        if(surveyFilled){
+        if(surveyFilled) {
             self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
-            guard let nextVC = self.storyboard?.instantiateViewController(identifier: PersonalInfoViewController.identifier) as? PersonalInfoViewController else { return }
-            self.title = ""
-            nextVC.signUpInfo = self.signUpInfo
-            self.navigationController?.pushViewController(nextVC, animated: true)
+            self.nextVC()
         }
     }
     
@@ -90,6 +92,14 @@ extension SurveyViewController {
             self?.majorDetailView.alpha = 1
             self?.genderFrame.transform = CGAffineTransform.identity
         }
+    }
+    
+    private func nextVC() {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: PersonalInfoViewController.identifier) as? PersonalInfoViewController else { return }
+        nextVC.signUpInfo = self.signUpInfo
+        
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 

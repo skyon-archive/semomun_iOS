@@ -38,7 +38,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.style = .wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
+//        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         
         self.configureLayoutGooleButton(with: googleSignInButton)
@@ -135,7 +135,10 @@ extension StartViewController {
         NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: false, isApple: true) { isUser in
             guard let isUser = isUser else {
                 print("nil error")
-                self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
+//                self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
+//                    self?.showNextVC() // TODO: Network Error 표시 로직 필요
+//                }
+                self.showAlertOKWithClosure(title: "더미 인증 성공", text: "임시적인 팝업창") { [weak self] _ in
                     self?.showNextVC() // TODO: Network Error 표시 로직 필요
                 }
                 return

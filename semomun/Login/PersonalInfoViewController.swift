@@ -22,6 +22,11 @@ class PersonalInfoViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "회원가입"
+    }
+    
     @IBAction func tapYear(_ sender: Any) {
     }
     @IBAction func tapMonth(_ sender: Any) {

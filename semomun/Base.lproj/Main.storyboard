@@ -643,7 +643,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="checkPhone:" destination="3kE-Fo-1PO" eventType="touchUpInside" id="tKx-tj-Cyr"/>
+                                            <action selector="sendPhone:" destination="3kE-Fo-1PO" eventType="touchUpInside" id="vc4-ek-fpK"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인증번호" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uf5-Mu-UlD">
@@ -698,7 +698,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="checkCertification:" destination="3kE-Fo-1PO" eventType="touchUpInside" id="mIb-IA-twD"/>
+                                            <action selector="sendCertification:" destination="3kE-Fo-1PO" eventType="touchUpInside" id="RfM-zi-dq2"/>
                                         </connections>
                                     </button>
                                 </subviews>

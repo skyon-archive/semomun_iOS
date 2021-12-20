@@ -37,6 +37,17 @@ extension UIViewController {
         present(alert,animated: true,completion: nil)
     }
     
+    func showAlertOKWithClosure(title: String, text: String, completion: @escaping(Bool) -> Void) {
+        let alert = UIAlertController(title: title,
+                                      message: text,
+                                      preferredStyle: UIAlertController.Style.alert)
+        let ok = UIAlertAction(title: "확인", style: .default, handler:  { _ in
+            completion(true)
+        })
+        alert.addAction(ok)
+        present(alert,animated: true,completion: nil)
+    }
+    
     func startLoading(count: Int = 0) -> loadingDelegate {
         let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
         loadingIndicator.totalPageCount = count

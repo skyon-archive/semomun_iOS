@@ -40,18 +40,42 @@ class CertificationViewController: UIViewController {
         self.title = "회원가입"
     }
     
+    @IBAction func sendPhone(_ sender: Any) {
+        self.dismissKeyboard()
+        self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
+            if let valid = valid {
+                if valid {
+                    self?.states[1] = true
+                    self?.showAlertWithOK(title: "전송 완료", text: "인증번호를 확인해주시기 바랍니다.")
+                } else {
+                    self?.showAlertWithOK(title: "전송 실패", text: "다시 시도하시기 바랍니다.")
+                }
+            } else {
+                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
+            }
+        })
+    }
+    @IBAction func sendCertification(_ sender: Any) {
+        self.dismissKeyboard()
+        self.usecase?.checkCertification(with: self.phone.text, completion: { [weak self] valid in
+            if let valid = valid {
+                if valid {
+                    self?.states[2] = true
+                    self?.showAlertWithOK(title: "인증 완료", text: "인증이 완료되었습니다.")
+                } else {
+                    self?.showAlertWithOK(title: "인증 실패", text: "다시 시도하시기 바랍니다.")
+                }
+            } else {
+                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
+            }
+        })
+    }
+    
     @IBAction func nextVC(_ sender: Any) {
         guard let usecase = self.usecase else { return }
         if usecase.isValidForSignUp(states: self.states) {
-            guard let name = self.name.text,
-                  let phoneNumber = self.phone.text else { return }
-            
-            self.signUpInfo?.configureFirst(name: name, phoneNumber: phoneNumber, token: KeychainItem.currentUserIdentifier)
-
-            guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
-            self.title = ""
-            nextVC.signUpInfo = self.signUpInfo
-            self.navigationController?.pushViewController(nextVC, animated: true)
+            self.configureSignUpInfo()
+            self.nextVC()
         }
         else {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
@@ -130,6 +154,23 @@ extension CertificationViewController: UITextFieldDelegate {
     @objc func certificationChanged() {
         self.usecase?.checkCertification(with: certification.text)
     }
+    
+    func configureSignUpInfo() {
+        guard let name = self.name.text,
+              let phoneNumber = self.phone.text else { return }
+        
+        self.signUpInfo?.configureName(to: name)
+        self.signUpInfo?.configurePhoneNumber(to: phoneNumber)
+        self.signUpInfo?.configureToken(to: KeychainItem.currentUserIdentifier)
+    }
+    
+    func nextVC() {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
+        nextVC.signUpInfo = self.signUpInfo
+        
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
 
 extension CertificationViewController: Certificateable {
@@ -147,10 +188,8 @@ extension CertificationViewController: Certificateable {
     func phoneResult(result: CertificationUseCase.Results) {
         switch result {
         case .valid:
-            self.states[1] = true
             self.validPhoneUI()
         case .error:
-            self.states[1] = false
             self.invalidPhoneUI()
         }
     }
@@ -158,10 +197,8 @@ extension CertificationViewController: Certificateable {
     func certificationResult(result: CertificationUseCase.Results) {
         switch result {
         case .valid:
-            self.states[2] = true
             self.validCertificationUI()
         case .error:
-            self.states[2] = false
             self.invalidCertificationUI()
         }
     }

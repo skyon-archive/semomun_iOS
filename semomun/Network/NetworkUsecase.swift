@@ -99,34 +99,34 @@ class NetworkUsecase {
     }
     
     static func getCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
-        Network.get(url: "TODO: url", param: ["phone" : phone]) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
+//        Network.get(url: "TODO: url", param: ["phone" : phone]) { data in
+//            guard let data = data else {
+//                print("Error: no data")
+//                completion(nil)
+//                return
+//            }
 //            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
 //                print("Error: Decode")
 //                completion(nil)
 //                return
 //            }
             completion(true)
-        }
+//        }
     }
     
     static func getCheckCertification(with certifi: String, completion: @escaping(Bool?) -> Void) {
-        Network.get(url: "TODO: url", param: ["certifi" : certifi]) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
+//        Network.get(url: "TODO: url", param: ["certifi" : certifi]) { data in
+//            guard let data = data else {
+//                print("Error: no data")
+//                completion(nil)
+//                return
+//            }
 //            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
 //                print("Error: Decode")
 //                completion(nil)
 //                return
 //            }
             completion(true)
-        }
+//        }
     }
 }

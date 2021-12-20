@@ -9,22 +9,26 @@ import Foundation
 
 class SignUpInfo {
     var name: String = ""
+    var nickName: String = "User0000"
     var phoneNumber: String = ""
     var desiredCategory: [String] = []
     var field: String = ""
     var interest: [String] = []
-    
     var gender: String = ""
-    
     var birthday: String = ""
     var schoolName: String = ""
     var graduationStatus: String = ""
-    
     var token: String = ""
     
-    func configureFirst(name: String, phoneNumber: String, token: String) {
+    func configureName(to name: String) {
         self.name = name
+    }
+    
+    func configurePhoneNumber(to phoneNumber: String) {
         self.phoneNumber = phoneNumber
+    }
+    
+    func configureToken(to token: String) {
         self.token = token
     }
     
