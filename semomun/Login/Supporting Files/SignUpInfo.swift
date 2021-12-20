@@ -32,8 +32,11 @@ class SignUpInfo {
         self.token = token
     }
     
+    func configureBirthday(to birthday: String) {
+        self.birthday = birthday
+    }
+    
     func configureGraduation(to status: String) {
-        print("update status")
         self.graduationStatus = status
     }
     

@@ -11,9 +11,11 @@ class PersonalInfoViewController: UIViewController {
     static let identifier = "PersonalInfoViewController"
 
     @IBOutlet weak var dateOfBorn: UITextField!
-    @IBOutlet weak var school: UIButton!
+    @IBOutlet weak var schoolTextField: UITextField!
+    @IBOutlet weak var searchSchoolButton: UIButton!
     @IBOutlet weak var graduation: UIButton!
     private var infoFilled: Bool = false
+    private var states: [Bool] = [false, false, false]
     private var datePicker: UIDatePicker?
     private var graduationMenu: UIMenu?
     var signUpInfo: SignUpInfo?
@@ -22,7 +24,8 @@ class PersonalInfoViewController: UIViewController {
         super.viewDidLoad()
         self.hideKeyboard()
         self.configureDatePicker()
-        self.configureTextField()
+        self.configureBornTextField()
+        self.configureSchoolTextField()
         self.configureGraduationMenuItems()
         self.configureGraduation()
     }
@@ -32,8 +35,15 @@ class PersonalInfoViewController: UIViewController {
         self.title = "회원가입"
     }
     
+    @IBAction func schoolInputChanged(_ sender: UITextField) {
+        guard let input = sender.text else { return }
+        self.searchSchool(to: input)
+    }
     
-    @IBAction func tapSchool(_ sender: Any) {
+    @IBAction func searchSchool(_ sender: Any) {
+        self.dismissKeyboard()
+        guard let input = self.schoolTextField.text else { return }
+        self.searchSchool(to: input)
     }
     
     @IBAction func completeSignup(_ sender: Any) {
@@ -82,7 +92,7 @@ extension PersonalInfoViewController {
         self.datePicker?.addTarget(self, action: #selector(dateChanged), for: .allEvents)
     }
     
-    private func configureTextField() {
+    private func configureBornTextField() {
         self.dateOfBorn.inputView = self.datePicker
     }
     
@@ -91,7 +101,10 @@ extension PersonalInfoViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.dateOfBorn.text = dateFormatter.string(from: date)
+        let birthday = dateFormatter.string(from: date)
+        self.dateOfBorn.text = birthday
+        self.signUpInfo?.configureBirthday(to: birthday)
+        self.states[0] = true
     }
     
     private func configureGraduationMenuItems() {
@@ -100,11 +113,13 @@ extension PersonalInfoViewController {
             self?.graduation.setTitle("재학", for: .normal)
             self?.graduation.setTitleColor(.black, for: .normal)
             self?.signUpInfo?.configureGraduation(to: "재학")
+            self?.states[2] = true
         }))
         menuItems.append(UIAction(title: "졸업", image: nil, handler: { [weak self] _ in
             self?.graduation.setTitle("졸업", for: .normal)
             self?.graduation.setTitleColor(.black, for: .normal)
             self?.signUpInfo?.configureGraduation(to: "졸업")
+            self?.states[2] = true
         }))
         self.graduationMenu = UIMenu(title: "재학/졸업 여부", image: nil, identifier: nil, options: [], children: menuItems)
     }
@@ -112,5 +127,22 @@ extension PersonalInfoViewController {
     private func configureGraduation() {
         self.graduation.menu = self.graduationMenu
         self.graduation.showsMenuAsPrimaryAction = true
+    }
+    
+    private func searchSchool(to: String) {
+        print("search: \(to)")
+        self.schoolTextField.textColor = .black
+    }
+}
+
+extension PersonalInfoViewController: UITextFieldDelegate {
+    private func configureSchoolTextField() {
+        self.schoolTextField.delegate = self
+        self.schoolTextField.addTarget(self, action: #selector(self.schoolChanged), for: .editingChanged)
+    }
+    
+    @objc func schoolChanged() {
+        self.schoolTextField.textColor = .lightGray
+        self.states[1] = false
     }
 }

@@ -2959,47 +2959,6 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-EY-uNV">
-                                <rect key="frame" x="57" y="313" width="654" height="70"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfM-ic-ZXV">
-                                        <rect key="frame" x="0.0" y="0.0" width="310" height="70"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="310" id="733-Fy-ZlQ"/>
-                                            <constraint firstAttribute="height" constant="70" id="wiJ-dk-2w3"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="265" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="학교를 입력하세요." image="magnifyingglass" catalog="system">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tapSchool:" destination="aaR-uy-UbX" eventType="touchUpInside" id="Soy-3T-4xh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sn-rq-xHT">
-                                        <rect key="frame" x="344" y="0.0" width="310" height="70"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="310" id="MGV-qH-1wA"/>
-                                            <constraint firstAttribute="height" constant="70" id="ReL-6Y-lyy"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="265" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="재학/졸업 여부를 선택하세요." image="chevron.down" catalog="system">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="654" id="JSh-52-VHq"/>
-                                </constraints>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5E-s4-oe5">
                                 <rect key="frame" x="641" y="854" width="70" height="70"/>
                                 <constraints>
@@ -3033,26 +2992,86 @@
                                     <constraint firstAttribute="width" constant="654" id="xD2-Cl-Wb7"/>
                                 </constraints>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="yjx-aA-FO1">
+                                <rect key="frame" x="57" y="313" width="654" height="70"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udN-8V-byP">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-CM-Eaj">
+                                                <rect key="frame" x="270" y="16.5" width="35" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="biU-5h-H3W"/>
+                                                    <constraint firstAttribute="width" secondItem="zYL-CM-Eaj" secondAttribute="height" multiplier="21:22" id="zTM-jd-dgX"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="magnifyingglass" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="searchSchool:" destination="aaR-uy-UbX" eventType="touchUpInside" id="mZY-F6-iGk"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학교를 입력하세요." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7sn-fg-5bg">
+                                                <rect key="frame" x="20" y="22.5" width="245" height="25.5"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="schoolInputChanged:" destination="aaR-uy-UbX" eventType="editingDidEnd" id="Rqc-Y1-jm9"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <constraints>
+                                            <constraint firstItem="zYL-CM-Eaj" firstAttribute="leading" secondItem="7sn-fg-5bg" secondAttribute="trailing" constant="5" id="6kr-5u-nkb"/>
+                                            <constraint firstAttribute="width" constant="310" id="IUj-k6-F1g"/>
+                                            <constraint firstAttribute="trailing" secondItem="zYL-CM-Eaj" secondAttribute="trailing" constant="5" id="OYN-uW-cAw"/>
+                                            <constraint firstItem="7sn-fg-5bg" firstAttribute="leading" secondItem="udN-8V-byP" secondAttribute="leading" constant="20" id="b6C-fQ-lT4"/>
+                                            <constraint firstItem="7sn-fg-5bg" firstAttribute="centerY" secondItem="udN-8V-byP" secondAttribute="centerY" id="fYN-vI-l3d"/>
+                                            <constraint firstItem="zYL-CM-Eaj" firstAttribute="centerY" secondItem="udN-8V-byP" secondAttribute="centerY" id="gxv-Qu-WSa"/>
+                                            <constraint firstAttribute="height" constant="70" id="w2L-0R-km9"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHw-JU-9GY">
+                                        <rect key="frame" x="344" y="0.0" width="310" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="8o3-Zh-xGA"/>
+                                            <constraint firstAttribute="width" constant="310" id="fwX-qC-Gpz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="265" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="재학/졸업 여부를 선택하세요." image="chevron.down" catalog="system">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LH8-37-Kjr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="a5E-s4-oe5" firstAttribute="trailing" secondItem="yBD-EY-uNV" secondAttribute="trailing" id="0nC-bh-tZg"/>
                             <constraint firstItem="e8C-5B-brN" firstAttribute="centerX" secondItem="LH8-37-Kjr" secondAttribute="centerX" id="9Yc-DJ-Oa6"/>
                             <constraint firstItem="Xlk-PM-kNI" firstAttribute="leading" secondItem="e8C-5B-brN" secondAttribute="leading" id="9sk-xT-6Fd"/>
                             <constraint firstItem="LH8-37-Kjr" firstAttribute="bottom" secondItem="a5E-s4-oe5" secondAttribute="bottom" constant="100" id="D30-0J-dIn"/>
-                            <constraint firstItem="yBD-EY-uNV" firstAttribute="centerX" secondItem="LH8-37-Kjr" secondAttribute="centerX" id="Kag-H1-0Ub"/>
+                            <constraint firstItem="s58-tR-guB" firstAttribute="leading" secondItem="udN-8V-byP" secondAttribute="leading" id="OEl-W8-b6z"/>
                             <constraint firstItem="s58-tR-guB" firstAttribute="top" secondItem="e8C-5B-brN" secondAttribute="bottom" constant="75" id="YXo-DE-Hh2"/>
-                            <constraint firstItem="yBD-EY-uNV" firstAttribute="top" secondItem="s58-tR-guB" secondAttribute="bottom" constant="10" id="aUR-n5-6XG"/>
+                            <constraint firstItem="yjx-aA-FO1" firstAttribute="top" secondItem="s58-tR-guB" secondAttribute="bottom" constant="10" id="aVW-ot-got"/>
+                            <constraint firstItem="yjx-aA-FO1" firstAttribute="centerX" secondItem="LH8-37-Kjr" secondAttribute="centerX" id="bRa-Ic-3Rs"/>
                             <constraint firstItem="e8C-5B-brN" firstAttribute="top" secondItem="Xlk-PM-kNI" secondAttribute="bottom" constant="10" id="eJ7-pY-b5t"/>
                             <constraint firstItem="Xlk-PM-kNI" firstAttribute="top" secondItem="LH8-37-Kjr" secondAttribute="top" constant="80" id="fKX-wb-kyt"/>
-                            <constraint firstItem="s58-tR-guB" firstAttribute="leading" secondItem="yBD-EY-uNV" secondAttribute="leading" id="l0z-j4-aeP"/>
+                            <constraint firstItem="a5E-s4-oe5" firstAttribute="trailing" secondItem="yjx-aA-FO1" secondAttribute="trailing" id="vd1-T9-FKA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dateOfBorn" destination="wza-oJ-jDh" id="I3a-I7-fuO"/>
-                        <outlet property="graduation" destination="5sn-rq-xHT" id="7xw-0O-MyY"/>
-                        <outlet property="school" destination="UfM-ic-ZXV" id="CtR-dn-ehB"/>
+                        <outlet property="graduation" destination="PHw-JU-9GY" id="H3G-GX-XYM"/>
+                        <outlet property="schoolTextField" destination="7sn-fg-5bg" id="FW5-lQ-d0g"/>
+                        <outlet property="searchSchoolButton" destination="zYL-CM-Eaj" id="Hxx-rL-2BG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a52-Kl-6xP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
