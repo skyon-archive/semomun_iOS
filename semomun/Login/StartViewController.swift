@@ -14,7 +14,7 @@ class StartViewController: UIViewController {
     
     @IBOutlet weak var signInButtonStack: UIStackView!
     private let buttonWidth: CGFloat = 450
-    private let buttonHeight: CGFloat = 40
+    private let buttonHeight: CGFloat = 50
     private let buttonRadius: CGFloat = 8
     private let signInConfig = GIDConfiguration.init(clientID: "436503570920-07bqbk38ub6tauc97csf5uo1o2781lm1.apps.googleusercontent.com")
     
@@ -22,6 +22,9 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         self.configureSignInAppleButton()
         self.configureSignInGoogleButton()
+    }
+    @IBAction func temp(_ sender: Any) {
+        self.showNextVC()
     }
 }
 
@@ -38,7 +41,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     }
     
     func configureSignInGoogleButton() {
-        let googleSignInButton = GIDSignInButton()
+        let googleSignInButton = GIDSignInButton(frame: CGRect(origin: .zero, size: CGSize(width: self.buttonWidth, height: self.buttonHeight)))
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
         googleSignInButton.widthAnchor.constraint(equalToConstant: self.buttonWidth).isActive = true

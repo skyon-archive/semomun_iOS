@@ -15,20 +15,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+        let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
 
-//        let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
+        let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
 
-//        if isLogined {
+        if isLogined {
             let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(named: "mint")
             self.window?.rootViewController = navigationController
-//        } else {
-//            let navigationController = UINavigationController(rootViewController: startLoginViewController)
-//            navigationController.navigationBar.tintColor = UIColor(named: "mint")
-//            self.window?.rootViewController = navigationController
-//        }
+        } else {
+            let navigationController = UINavigationController(rootViewController: startLoginViewController)
+            navigationController.navigationBar.tintColor = UIColor(named: "mint")
+            self.window?.rootViewController = navigationController
+        }
 
         self.window?.makeKeyAndVisible()
     }
