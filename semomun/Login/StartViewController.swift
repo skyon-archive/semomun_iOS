@@ -133,7 +133,7 @@ extension StartViewController {
     
     private func saveUserinKeychain(_ userIdentifier: String) {
         do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").saveItem(userIdentifier)
+            try KeychainItem(service: "com.skyon.semomunService", account: "userIdentifier").saveItem(userIdentifier)
         } catch {
             print("Unable to save userIdentifier to keychain.")
         }

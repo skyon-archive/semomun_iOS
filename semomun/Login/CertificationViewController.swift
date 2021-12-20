@@ -42,7 +42,7 @@ class CertificationViewController: UIViewController {
     @IBAction func checkPhone(_ sender: Any) {
         self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
             if let valid = valid {
-                
+                self?.showAlertWithOK(title: "인증번호 전송", text: "인증번호를 전송하였습니다.")
             } else {
                 self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
             }

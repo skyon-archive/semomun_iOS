@@ -117,6 +117,7 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
@@ -242,6 +243,7 @@
 		871B6E4F276EE48D008CEEBA /* semomun */ = {
 			isa = PBXGroup;
 			children = (
+				8745569C27701BB700E3CBEE /* semomun.entitlements */,
 				87C85E27276F6596001C9C4A /* PersonalSetting */,
 				87C85E28276F65A0001C9C4A /* Global */,
 				87C85E2B276F65C8001C9C4A /* Loading */,
@@ -911,6 +913,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
@@ -942,6 +945,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
