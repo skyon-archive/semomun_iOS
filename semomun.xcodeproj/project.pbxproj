@@ -319,7 +319,6 @@
 			children = (
 				87C85E4F276F67C5001C9C4A /* StartViewController.swift */,
 				87C85E51276F67D7001C9C4A /* CertificationViewController.swift */,
-				87C85E53276F67E7001C9C4A /* CreateSecondViewController.swift */,
 				87C85E55276F67F8001C9C4A /* SurveyViewController.swift */,
 				87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */,
 				87C85E59276F6836001C9C4A /* UseCase */,
@@ -483,6 +482,7 @@
 				87C85E76276F6992001C9C4A /* LoginViewController.swift */,
 				87C85E78276F699F001C9C4A /* FindIDViewController.swift */,
 				87C85E7A276F69AD001C9C4A /* FindPasswordViewController.swift */,
+				87C85E53276F67E7001C9C4A /* CreateSecondViewController.swift */,
 			);
 			path = temp;
 			sourceTree = "<group>";

@@ -234,6 +234,7 @@
 		1E7C4D16274A2F1E0096C708 /* temp */ = {
 			isa = PBXGroup;
 			children = (
+				4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */,
 				4A1E742226F71AFB001C3420 /* CreateFirstViewController.swift */,
 				4A97577226FEEA7B002543D6 /* LoginViewController.swift */,
 				4A97577426FEEBC1002543D6 /* FindIDViewController.swift */,
@@ -308,7 +309,6 @@
 			children = (
 				4A55DE5926F70151008F1C35 /* StartViewController.swift */,
 				4A1E742026F70DBD001C3420 /* CertificationViewController.swift */,
-				4A7FA86E26FAFCD90052B6CD /* CreateSecondViewController.swift */,
 				1E7C4D12274A2EB20096C708 /* SurveyViewController.swift */,
 				1E7C4D14274A2EDE0096C708 /* PersonalInfoViewController.swift */,
 				8767B3772768D61A007C82B3 /* UseCase */,

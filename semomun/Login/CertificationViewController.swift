@@ -39,17 +39,6 @@ class CertificationViewController: UIViewController {
         super.viewWillAppear(animated)
         self.title = "회원가입"
     }
-    @IBAction func checkPhone(_ sender: Any) {
-        self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
-            if let valid = valid {
-                self?.showAlertWithOK(title: "인증번호 전송", text: "인증번호를 전송하였습니다.")
-            } else {
-                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
-            }
-        })
-    }
-    @IBAction func checkCertification(_ sender: Any) {
-    }
     
     @IBAction func nextVC(_ sender: Any) {
         guard let usecase = self.usecase else { return }
@@ -57,8 +46,8 @@ class CertificationViewController: UIViewController {
             guard let name = self.name.text,
                   let phoneNumber = self.phone.text else { return }
             
-            self.signUpInfo?.configureFirst(name: name, phoneNumber: phoneNumber)
-            
+            self.signUpInfo?.configureFirst(name: name, phoneNumber: phoneNumber, token: KeychainItem.currentUserIdentifier)
+
             guard let nextVC = self.storyboard?.instantiateViewController(identifier: SurveyViewController.identifier) as? SurveyViewController else { return }
             self.title = ""
             nextVC.signUpInfo = self.signUpInfo
@@ -68,6 +57,7 @@ class CertificationViewController: UIViewController {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
     }
+    
 }
 
 extension CertificationViewController: UITextFieldDelegate {
