@@ -12,9 +12,9 @@ import GoogleSignIn
 class StartViewController: UIViewController {
     static let identifier = "StartViewController"
     
-    @IBOutlet weak var signInButtonStack: UIStackView!
-    private let buttonWidth: CGFloat = 450
-    private let buttonHeight: CGFloat = 40
+    @IBOutlet weak var semomunTitle: UILabel!
+    private let buttonWidth: CGFloat = 230
+    private let buttonHeight: CGFloat = 43
     private let buttonRadius: CGFloat = 8
     private let signInConfig = GIDConfiguration.init(clientID: "436503570920-07bqbk38ub6tauc97csf5uo1o2781lm1.apps.googleusercontent.com")
     
@@ -28,25 +28,20 @@ class StartViewController: UIViewController {
 extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
-        authorizationButton.widthAnchor.constraint(equalToConstant: self.buttonWidth).isActive = true
-        authorizationButton.heightAnchor.constraint(equalToConstant: self.buttonHeight).isActive = true
         authorizationButton.addTarget(self, action: #selector(appleSignInButtonPressed), for: .touchUpInside)
         authorizationButton.cornerRadius = self.buttonRadius
         
-        self.signInButtonStack.addArrangedSubview(authorizationButton)
+        self.configureLayoutAppleButton(with: authorizationButton)
     }
     
     func configureSignInGoogleButton() {
         let googleSignInButton = GIDSignInButton()
+        googleSignInButton.style = .wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
-        googleSignInButton.widthAnchor.constraint(equalToConstant: self.buttonWidth).isActive = true
-        googleSignInButton.heightAnchor.constraint(equalToConstant: self.buttonHeight).isActive = true
         googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         
-        self.signInButtonStack.addArrangedSubview(googleSignInButton)
+        self.configureLayoutGooleButton(with: googleSignInButton)
     }
 
     @objc func appleSignInButtonPressed() {
@@ -177,5 +172,29 @@ extension StartViewController {
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
+    }
+}
+
+extension StartViewController {
+    private func configureLayoutAppleButton(with button: UIControl) {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: self.buttonWidth-8),
+            button.heightAnchor.constraint(equalToConstant: self.buttonHeight),
+            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 200),
+            button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
+        ])
+    }
+    
+    private func configureLayoutGooleButton(with button: UIControl) {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: self.buttonWidth),
+            button.heightAnchor.constraint(equalToConstant: self.buttonHeight),
+            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 270),
+            button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
+        ])
     }
 }

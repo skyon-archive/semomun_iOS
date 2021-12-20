@@ -484,19 +484,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RJX-Wb-QM7">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJX-Wb-QM7">
                                 <rect key="frame" x="74" y="232" width="620" height="580"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="세상의 모든 문제 만나러 가기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyt-UO-FkI">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세상의 모든 문제 만나러 가기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyt-UO-FkI">
                                         <rect key="frame" x="169.5" y="270" width="281" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                         <color key="textColor" name="mint"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="2WA-xN-ZG9">
-                                        <rect key="frame" x="10" y="500" width="600" height="70"/>
-                                    </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ttn-qz-BYY">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ttn-qz-BYY">
                                         <rect key="frame" x="182" y="10" width="256" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="256" id="GYx-M1-ehr"/>
@@ -507,24 +504,13 @@
                                 <constraints>
                                     <constraint firstItem="uyt-UO-FkI" firstAttribute="top" secondItem="Ttn-qz-BYY" secondAttribute="bottom" constant="40" id="5ee-iu-hhj"/>
                                     <constraint firstItem="Ttn-qz-BYY" firstAttribute="centerX" secondItem="RJX-Wb-QM7" secondAttribute="centerX" id="9o5-cv-1yX"/>
-                                    <constraint firstItem="2WA-xN-ZG9" firstAttribute="centerX" secondItem="RJX-Wb-QM7" secondAttribute="centerX" id="JKB-cF-lqO"/>
-                                    <constraint firstItem="2WA-xN-ZG9" firstAttribute="leading" secondItem="RJX-Wb-QM7" secondAttribute="leading" constant="10" id="O8g-Z8-cU4"/>
                                     <constraint firstItem="Ttn-qz-BYY" firstAttribute="top" secondItem="RJX-Wb-QM7" secondAttribute="top" constant="10" id="PkE-jG-ocG"/>
-                                    <constraint firstAttribute="bottom" secondItem="2WA-xN-ZG9" secondAttribute="bottom" constant="10" id="WFL-VU-v64"/>
+                                    <constraint firstAttribute="bottom" secondItem="uyt-UO-FkI" secondAttribute="bottom" constant="280" id="W9a-hs-ufT"/>
                                     <constraint firstItem="uyt-UO-FkI" firstAttribute="centerX" secondItem="Ttn-qz-BYY" secondAttribute="centerX" id="WHl-9c-vc0"/>
-                                    <constraint firstAttribute="trailing" secondItem="2WA-xN-ZG9" secondAttribute="trailing" constant="10" id="Zwv-77-7hs"/>
-                                    <constraint firstItem="2WA-xN-ZG9" firstAttribute="top" secondItem="uyt-UO-FkI" secondAttribute="bottom" constant="200" id="fSd-sa-Pqw"/>
+                                    <constraint firstItem="Ttn-qz-BYY" firstAttribute="leading" secondItem="RJX-Wb-QM7" secondAttribute="leading" constant="182" id="eH7-YE-y0a"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ttn-qz-BYY" secondAttribute="trailing" constant="182" id="eHo-ou-Lr3"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aC-js-TSW">
-                                <rect key="frame" x="579" y="136" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="temp:" destination="t0L-o8-wBU" eventType="touchUpInside" id="Evj-l9-IeY"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ktp-No-JOE"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -535,7 +521,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="nQg-dp-5yP"/>
                     <connections>
-                        <outlet property="signInButtonStack" destination="2WA-xN-ZG9" id="bl7-dY-FiS"/>
+                        <outlet property="semomunTitle" destination="uyt-UO-FkI" id="FqG-i9-o36"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dM6-Us-NI7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4467,7 +4453,7 @@
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
