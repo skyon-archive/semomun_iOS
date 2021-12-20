@@ -14,7 +14,6 @@ class PersonalInfoViewController: UIViewController {
     @IBOutlet weak var schoolTextField: UITextField!
     @IBOutlet weak var searchSchoolButton: UIButton!
     @IBOutlet weak var graduation: UIButton!
-    private var infoFilled: Bool = false
     private var states: [Bool] = [false, false, false]
     private var datePicker: UIDatePicker?
     private var graduationMenu: UIMenu?
@@ -47,29 +46,26 @@ class PersonalInfoViewController: UIViewController {
     }
     
     @IBAction func completeSignup(_ sender: Any) {
-        infoFilled = true
-        if(infoFilled) {
-//            guard let name = self.name.text,
-//                  let phoneNumber = self.phone.text else { return }
-
-//            self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
-            self.signUpInfo?.configureThird(birthdayYear: "2021", birthdayMonth: "11", birthdayDay: "11", schoolName: "Sky", graduationStatus: "Yes")
-            let SignUpInfo = SignUpInfo_DB(name: signUpInfo?.name ?? "", phoneNumber: signUpInfo!.phoneNumber ?? "", desiredCategory: signUpInfo?.desiredCategory ?? [""], field: signUpInfo?.field ?? "", interest: signUpInfo?.interest ?? [], gender: signUpInfo?.gender ?? "", birthday: signUpInfo?.birthday ?? "", schoolName: signUpInfo?.schoolName ?? "", graduationStatus: signUpInfo?.graduationStatus ?? "")
-            let jsonEncoder = JSONEncoder()
-            let jsonData_signUpInfo = try! jsonEncoder.encode(SignUpInfo)
-            let jsonData_token = try! jsonEncoder.encode(signUpInfo?.token)
-            let json_signUpInfo = String(data: jsonData_signUpInfo, encoding: String.Encoding.utf8)
-            let json_token = String(data: jsonData_token, encoding: String.Encoding.utf8)
-            let json: [String: Any] = ["info" : json_signUpInfo!,
-                                       "token": json_token!]
+        if self.isValidForSignUp {
             
-            let jsonData = try? JSONSerialization.data(withJSONObject: json)
-            print(json)
-            print(jsonData)
+//            let SignUpInfo = SignUpInfo_DB(name: signUpInfo?.name ?? "", phoneNumber: signUpInfo!.phoneNumber ?? "", desiredCategory: signUpInfo?.desiredCategory ?? [""], field: signUpInfo?.field ?? "", interest: signUpInfo?.interest ?? [], gender: signUpInfo?.gender ?? "", birthday: signUpInfo?.birthday ?? "", schoolName: signUpInfo?.schoolName ?? "", graduationStatus: signUpInfo?.graduationStatus ?? "")
+//            let jsonEncoder = JSONEncoder()
+//            let jsonData_signUpInfo = try! jsonEncoder.encode(SignUpInfo)
+//            let jsonData_token = try! jsonEncoder.encode(signUpInfo?.token)
+//            let json_signUpInfo = String(data: jsonData_signUpInfo, encoding: String.Encoding.utf8)
+//            let json_token = String(data: jsonData_token, encoding: String.Encoding.utf8)
+//            let json: [String: Any] = ["info" : json_signUpInfo!,
+//                                       "token": json_token!]
+//
+//            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+//            print(json)
+//            print(jsonData)
 
             // Backend 확인 이후 로직
             UserDefaults.standard.setValue(true, forKey: "logined")
             self.goMainVC()
+        } else {
+            self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
     }
 }
@@ -129,9 +125,16 @@ extension PersonalInfoViewController {
         self.graduation.showsMenuAsPrimaryAction = true
     }
     
-    private func searchSchool(to: String) {
-        print("search: \(to)")
+    private func searchSchool(to school: String) {
+        print("search: \(school)") //TODO: 검색 어떻게 할지 의논 필요
+        
         self.schoolTextField.textColor = .black
+        self.signUpInfo?.configureSchool(to: school)
+        self.states[1] = true
+    }
+    
+    private var isValidForSignUp: Bool {
+        return self.states[0] && self.states[1] && self.states[2]
     }
 }
 

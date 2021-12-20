@@ -36,6 +36,10 @@ class SignUpInfo {
         self.birthday = birthday
     }
     
+    func configureSchool(to school: String) {
+        self.schoolName = school
+    }
+    
     func configureGraduation(to status: String) {
         self.graduationStatus = status
     }
@@ -44,12 +48,6 @@ class SignUpInfo {
         self.desiredCategory = desiredCategory
         self.field = field
         self.interest = interest
-    }
-    
-    func configureThird(birthdayYear: String, birthdayMonth: String, birthdayDay: String, schoolName: String, graduationStatus: String) {
-        self.birthday = "\(birthdayYear)-\(birthdayMonth)-\(birthdayDay)"
-        self.schoolName = schoolName
-        self.graduationStatus = graduationStatus
     }
 }
 
