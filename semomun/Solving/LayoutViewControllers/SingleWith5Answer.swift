@@ -23,8 +23,8 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
-    var width: CGFloat!
-    var height: CGFloat!
+    private var width: CGFloat!
+    private var height: CGFloat!
     var image: UIImage?
     var viewModel: SingleWith5AnswerViewModel?
     

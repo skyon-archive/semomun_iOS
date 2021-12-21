@@ -18,7 +18,6 @@ class SignUpInfo: Codable {
     var birthday: String = ""
     var schoolName: String = ""
     var graduationStatus: String = ""
-    var token: String = ""
     
     func configureName(to name: String) {
         self.name = name
@@ -26,10 +25,6 @@ class SignUpInfo: Codable {
     
     func configurePhoneNumber(to phoneNumber: String) {
         self.phoneNumber = phoneNumber
-    }
-    
-    func configureToken(to token: String) {
-        self.token = token
     }
     
     func configureGender(to gender: String) {

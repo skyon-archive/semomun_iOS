@@ -38,7 +38,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.style = .wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-//        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
+        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         
         self.configureLayoutGooleButton(with: googleSignInButton)
