@@ -1427,7 +1427,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQk-BX-ku2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="793" y="95"/>
+            <point key="canvasLocation" x="-541" y="1798"/>
         </scene>
         <!--Solving View Controller-->
         <scene sceneID="TwZ-Ez-K5K">
@@ -2500,8 +2500,8 @@
                         <outlet property="genderFrame" destination="zUH-NR-ATc" id="R78-4w-e6w"/>
                         <outlet property="majorDetailTitle" destination="iqN-Yb-AjN" id="RHO-tS-gh3"/>
                         <outlet property="majorDetailView" destination="K7y-V7-Qxg" id="ucU-3i-c9R"/>
-                        <outletCollection property="gender" destination="GbE-gn-yYO" collectionClass="NSMutableArray" id="ted-uX-D1P"/>
-                        <outletCollection property="gender" destination="iHO-Kg-Tio" collectionClass="NSMutableArray" id="fXC-tb-CIk"/>
+                        <outletCollection property="genders" destination="GbE-gn-yYO" collectionClass="NSMutableArray" id="ted-uX-D1P"/>
+                        <outletCollection property="genders" destination="iHO-Kg-Tio" collectionClass="NSMutableArray" id="fXC-tb-CIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Hf-YJ-ARo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

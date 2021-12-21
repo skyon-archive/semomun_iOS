@@ -15,13 +15,11 @@ class SurveyViewController: UIViewController {
     enum NotificationUserInfo {
         static let sectionKey = "sectionKey"
     }
-    
-    var surveyFilled: Bool = false
-    var signUpInfo: SignUpInfo!
-    @IBOutlet var gender: [UIButton]!
     @IBOutlet weak var majorDetailTitle: UILabel!
     @IBOutlet weak var majorDetailView: UIView!
     @IBOutlet weak var genderFrame: UIView!
+    @IBOutlet var genders: [UIButton]!
+    var signUpInfo: SignUpInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,24 +33,25 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func selectGender(_ sender: UIButton) {
-        guard let sex = sender.titleLabel?.text else { return }
-        print(sex)
-        switch sender.tag {
-        case 0:
-            self.didSelect(to: gender[0])
-            self.diSelect(from: gender[1])
-        case 1:
-            self.didSelect(to: gender[1])
-            self.diSelect(from: gender[0])
+        guard let gender = sender.titleLabel?.text else { return }
+        switch gender {
+        case "남":
+            self.didSelect(to: genders[0])
+            self.diSelect(from: genders[1])
+        case "여":
+            self.didSelect(to: genders[1])
+            self.diSelect(from: genders[0])
         default: return
         }
+        self.signUpInfo?.configureGender(to: gender)
     }
     
     @IBAction func nextVC(_ sender: Any) {
-        surveyFilled = true
-        if(surveyFilled) {
-            self.signUpInfo.configureSecond(desiredCategory: [], field: "", interest: [])
+        guard let signUpInfo = signUpInfo else { return }
+        if signUpInfo.isValidSurvay {
             self.nextVC()
+        } else {
+            self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
     }
     
@@ -72,7 +71,7 @@ class SurveyViewController: UIViewController {
 //MARK: - Configure
 extension SurveyViewController {
     private func configureGengerUI() {
-        gender.forEach { button in
+        genders.forEach { button in
             button.layer.borderColor = UIColor.black.cgColor
             button.layer.borderWidth = 1
             button.layer.cornerRadius = 8
@@ -122,18 +121,19 @@ extension SurveyViewController {
 }
 
 extension SurveyViewController: CategorySetable {
-    func didSelectCategory(to: String) {
-        print(to)
+    func didSelectCategory(to category: String) {
+        self.signUpInfo?.configureCategory(to: category)
     }
 }
 extension SurveyViewController: MajorSetable {
-    func didSelectMajor(section index: Int, to: String) {
+    func didSelectMajor(section index: Int, to major: String) {
         self.acticationMajorDetail(section: index)
-        print(to)
+        self.signUpInfo?.configureMajor(to: major)
+        self.signUpInfo?.configureMajorDetail(to: nil)
     }
 }
 extension SurveyViewController: MajorDetailSetable {
-    func didSelectMajorDetail(to: String) {
-        print(to)
+    func didSelectMajorDetail(to majorDetail: String) {
+        self.signUpInfo?.configureMajorDetail(to: majorDetail)
     }
 }

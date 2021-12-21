@@ -47,20 +47,7 @@ class PersonalInfoViewController: UIViewController {
     
     @IBAction func completeSignup(_ sender: Any) {
         if self.isValidForSignUp {
-            
-//            let SignUpInfo = SignUpInfo_DB(name: signUpInfo?.name ?? "", phoneNumber: signUpInfo!.phoneNumber ?? "", desiredCategory: signUpInfo?.desiredCategory ?? [""], field: signUpInfo?.field ?? "", interest: signUpInfo?.interest ?? [], gender: signUpInfo?.gender ?? "", birthday: signUpInfo?.birthday ?? "", schoolName: signUpInfo?.schoolName ?? "", graduationStatus: signUpInfo?.graduationStatus ?? "")
-//            let jsonEncoder = JSONEncoder()
-//            let jsonData_signUpInfo = try! jsonEncoder.encode(SignUpInfo)
-//            let jsonData_token = try! jsonEncoder.encode(signUpInfo?.token)
-//            let json_signUpInfo = String(data: jsonData_signUpInfo, encoding: String.Encoding.utf8)
-//            let json_token = String(data: jsonData_token, encoding: String.Encoding.utf8)
-//            let json: [String: Any] = ["info" : json_signUpInfo!,
-//                                       "token": json_token!]
-//
-//            let jsonData = try? JSONSerialization.data(withJSONObject: json)
-//            print(json)
-//            print(jsonData)
-
+            self.configureSignupInfo()
             // Backend 확인 이후 로직
             UserDefaults.standard.setValue(true, forKey: "logined")
             self.goMainVC()
@@ -135,6 +122,19 @@ extension PersonalInfoViewController {
     
     private var isValidForSignUp: Bool {
         return self.states[0] && self.states[1] && self.states[2]
+    }
+    
+    private func configureSignupInfo() {
+        let jsonEncoder = JSONEncoder()
+        guard let jsonData = try? jsonEncoder.encode(self.signUpInfo) else { return }
+        guard let jsonToken = try? jsonEncoder.encode(KeychainItem.currentUserIdentifier) else { return }
+        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+        guard let jsonStringToken = String(data: jsonToken, encoding: String.Encoding.utf8) else { return }
+        let jsonSignupInfo: [String: Any] = ["info" : jsonStringData,
+                                   "token": jsonStringToken]
+
+        let signupInfoData = try? JSONSerialization.data(withJSONObject: jsonSignupInfo)
+        print(jsonStringData)
     }
 }
 

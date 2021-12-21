@@ -24,21 +24,13 @@ class SolvingViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
     
-    var singleWith5Answer: SingleWith5Answer!
-    var singleWithTextAnswer: SingleWithTextAnswer!
-    var multipleWith5Answer: MultipleWith5Answer!
-    var singleWith4Answer: SingleWith4Answer!
-    var multipleWithNoAnswer: MultipleWithNoAnswer!
-    
-    // 임시적으로 문제내용 생성
-    var problems: [String] = []
-    var stars: [Bool] = []
-    var bookmarks: [Bool] = []
-    var isHide: Bool = false
-    var problemNumber: Int = 0
-    var currentVC: UIViewController!
-    
-    var manager: SectionManager!
+    private var singleWith5Answer: SingleWith5Answer!
+    private var singleWithTextAnswer: SingleWithTextAnswer!
+    private var multipleWith5Answer: MultipleWith5Answer!
+    private var singleWith4Answer: SingleWith4Answer!
+    private var multipleWithNoAnswer: MultipleWithNoAnswer!
+    private var currentVC: UIViewController!
+    private var manager: SectionManager!
     var sectionCore: Section_Core? //저장되어 있는 섹션 정보
     
     override func viewDidLoad() {

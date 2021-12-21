@@ -234,18 +234,17 @@
 			isa = PBXGroup;
 			children = (
 				8745569C27701BB700E3CBEE /* semomun.entitlements */,
-				87C85E27276F6596001C9C4A /* PersonalSetting */,
-				87C85E28276F65A0001C9C4A /* Global */,
-				87C85E2B276F65C8001C9C4A /* Loading */,
 				87C85E2C276F65D6001C9C4A /* Login */,
 				87C85E2D276F65E1001C9C4A /* Main */,
+				87C85E27276F6596001C9C4A /* PersonalSetting */,
 				87C85E2E276F65EC001C9C4A /* SearchWorkbook */,
 				87C85E2F276F65F4001C9C4A /* Solving */,
-				87C85E30276F65FD001C9C4A /* ViewController */,
 				87C85E32276F660A001C9C4A /* Model */,
 				87C85E33276F6613001C9C4A /* CoreData */,
-				87C85E34276F661A001C9C4A /* Cache */,
 				87C85E2A276F65B3001C9C4A /* Network */,
+				87C85E28276F65A0001C9C4A /* Global */,
+				87C85E2B276F65C8001C9C4A /* Loading */,
+				87C85E34276F661A001C9C4A /* Cache */,
 				87C85E29276F65AA001C9C4A /* test */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
@@ -280,6 +279,7 @@
 		87C85E29276F65AA001C9C4A /* test */ = {
 			isa = PBXGroup;
 			children = (
+				87C85ED6276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift */,
 				87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */,
 			);
 			path = test;
@@ -359,14 +359,6 @@
 				87C85EAB276F6C62001C9C4A /* LayoutViewModels */,
 			);
 			path = Solving;
-			sourceTree = "<group>";
-		};
-		87C85E30276F65FD001C9C4A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				87C85ED6276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		87C85E32276F660A001C9C4A /* Model */ = {

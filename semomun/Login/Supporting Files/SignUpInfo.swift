@@ -7,14 +7,14 @@
 
 import Foundation
 
-class SignUpInfo {
+class SignUpInfo: Codable {
     var name: String = ""
     var nickName: String = "User0000"
     var phoneNumber: String = ""
-    var desiredCategory: [String] = []
-    var field: String = ""
-    var interest: [String] = []
-    var gender: String = ""
+    var category: String = ""
+    var major: String?
+    var majorDetail: String?
+    var gender: String?
     var birthday: String = ""
     var schoolName: String = ""
     var graduationStatus: String = ""
@@ -32,6 +32,22 @@ class SignUpInfo {
         self.token = token
     }
     
+    func configureGender(to gender: String) {
+        self.gender = gender
+    }
+    
+    func configureCategory(to category: String) {
+        self.category = category
+    }
+    
+    func configureMajor(to major: String) {
+        self.major = major
+    }
+    
+    func configureMajorDetail(to majorDetail: String?) {
+        self.majorDetail = majorDetail
+    }
+    
     func configureBirthday(to birthday: String) {
         self.birthday = birthday
     }
@@ -44,10 +60,8 @@ class SignUpInfo {
         self.graduationStatus = status
     }
     
-    func configureSecond(desiredCategory: [String], field: String, interest: [String]) {
-        self.desiredCategory = desiredCategory
-        self.field = field
-        self.interest = interest
+    var isValidSurvay: Bool {
+        return self.gender != nil && self.major != nil && self.majorDetail != nil
     }
 }
 
