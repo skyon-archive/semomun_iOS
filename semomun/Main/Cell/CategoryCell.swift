@@ -13,7 +13,8 @@ class CategoryCell: UICollectionViewCell {
     @IBOutlet var category: UILabel!
     @IBOutlet var underLine: UIView!
     
-    func setRadiusOfUnderLine() {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.underLine.layer.cornerRadius = 1.5
     }
 }

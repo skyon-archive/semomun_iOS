@@ -159,7 +159,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             cell.category.text = self.previewManager.subject(at: indexPath.item)
             cell.underLine.alpha = indexPath.item == self.previewManager.currentIndex ? 1 : 0
-            cell.setRadiusOfUnderLine()
             
             return cell
         }
