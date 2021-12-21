@@ -161,7 +161,6 @@ extension CertificationViewController: UITextFieldDelegate {
         
         self.signUpInfo?.configureName(to: name)
         self.signUpInfo?.configurePhoneNumber(to: phoneNumber)
-        self.signUpInfo?.configureToken(to: KeychainItem.currentUserIdentifier)
     }
     
     func nextVC() {

@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
+final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     static let identifier = "SingleWith5Answer" // form == 0 && type == 5
 
     @IBOutlet var checkNumbers: [UIButton]!
@@ -62,6 +62,7 @@ class SingleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         print("5다선지 didAppear")
         
         self.stopLoader()
@@ -253,17 +254,17 @@ extension SingleWith5Answer {
     }
     
     func configureCanvasView() {
-        canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
-        canvasView.drawingPolicy = .pencilOnly
+        self.canvasView.isOpaque = false
+        self.canvasView.backgroundColor = .clear
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.drawingPolicy = .pencilOnly
         
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
+        self.canvasView.subviews[0].addSubview(imageView)
+        self.canvasView.subviews[0].sendSubviewToBack(imageView)
+        self.toolPicker.setVisible(true, forFirstResponder: canvasView)
+        self.toolPicker.addObserver(canvasView)
         
-        canvasView.delegate = self
+        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -279,29 +280,29 @@ extension SingleWith5Answer {
     }
     
     func configureImageView() {
-        width = canvasView.frame.width
+        self.width = canvasView.frame.width
         guard let mainImage = self.image else { return }
-        height = mainImage.size.height*(width/mainImage.size.width)
+        self.height = mainImage.size.height*(width/mainImage.size.width)
         
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            imageView.image = mainImage
+            self.imageView.image = mainImage
         } else {
             let worningImage = UIImage(named: "warningWithNoImage")!
-            imageView.image = worningImage
-            height = worningImage.size.height*(width/worningImage.size.width)
+            self.imageView.image = worningImage
+            self.height = worningImage.size.height*(width/worningImage.size.width)
         }
         
-        imageView.clipsToBounds = true
-        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        canvasHeight.constant = height
+        self.imageView.clipsToBounds = true
+        self.imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.imageHeight.constant = height
+        self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.canvasHeight.constant = height
     }
 }
 
 
 
-extension SingleWith5Answer {
+extension SingleWith5Answer: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)
