@@ -209,14 +209,11 @@ extension SingleWith5Answer {
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           problem.correct == false,
            problem.terminated == true {
             self.answer.isHidden = true
             guard let targetIndex = Int(answer) else { return }
             // 체크 이미지 표시
             self.createCheckImage(to: targetIndex-1)
-//            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
-//            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
     }
     
