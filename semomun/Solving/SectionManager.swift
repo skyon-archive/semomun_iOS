@@ -76,6 +76,11 @@ class SectionManager {
         self.delegate.changeVC(pageData: pageData)
     }
     
+    func refreshPage() {
+        guard let currentPage = currentPage else { return }
+        self.delegate.changeVC(pageData: currentPage)
+    }
+    
     var count: Int {
         return self.buttons.count
     }
@@ -228,6 +233,8 @@ class SectionManager {
         // 반환
         self.saveCoreData()
         self.delegate.reloadButtons()
+        self.refreshPage()
+        self.changePage(at: currentIndex)
         self.delegate.terminateSection(result: result)
         // test
         guard let data = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
