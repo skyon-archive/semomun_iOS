@@ -38,11 +38,18 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    lazy var checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
     }()
+    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +87,8 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.answer.isHidden = false
+        self.checkImageView.removeFromSuperview()
+        self.timerView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -202,13 +211,40 @@ extension SingleWith5Answer {
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           problem.correct == false,
            problem.terminated == true {
             self.answer.isHidden = true
             guard let targetIndex = Int(answer) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+            // 체크 이미지 표시
+            self.createCheckImage(to: targetIndex-1)
+            self.configureTimerView()
         }
+    }
+    
+    func createCheckImage(to index: Int) {
+        self.checkImageView.image = UIImage(named: "check")
+        self.view.addSubview(self.checkImageView)
+        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
+            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
+        ])
+    }
+    
+    func configureTimerView() {
+        guard let time = self.viewModel?.time else { return }
+        
+        self.view.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 25)
+        ])
+        
+        self.timerView.configureTime(to: time)
     }
     
     func showResultImage() {

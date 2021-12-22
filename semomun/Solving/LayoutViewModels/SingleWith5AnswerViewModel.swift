@@ -12,7 +12,7 @@ final class SingleWith5AnswerViewModel {
     
     private(set) var pageData: PageData
     private(set) var problem: Problem_Core?
-    private var time: Int64?
+    private(set) var time: Int64?
     
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate

@@ -35,16 +35,25 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    lazy var checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private lazy var timerView = ProblemTimerView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureBaseUI()
-        self.resultImageView.removeFromSuperview()
         print("\(Self.identifier) awakeFromNib")
     }
     
     override func prepareForReuse() {
+        self.resultImageView.removeFromSuperview()
+        self.checkImageView.removeFromSuperview()
         self.answer.isHidden = false
+        self.timerView.removeFromSuperview()
     }
     
     deinit {
@@ -149,19 +158,30 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
-        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if problem.terminated && problem.answer != nil {
-            self.answer.isHidden = true
-            self.showResultImage(to: problem.correct)
-        }
         
+        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
-           problem.correct == false,
            problem.terminated == true {
+            self.answer.isHidden = true
             guard let targetIndex = Int(answer) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+            // 체크 이미지 표시
+            self.showResultImage(to: problem.correct)
+            self.createCheckImage(to: targetIndex-1)
+            self.configureTimerView()
         }
+    }
+    
+    func createCheckImage(to index: Int) {
+        self.checkImageView.image = UIImage(named: "check")
+        self.contentView.addSubview(self.checkImageView)
+        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
+            self.checkImageView.heightAnchor.constraint(equalToConstant: 70),
+            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 9),
+            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -9)
+        ])
     }
     
     func showResultImage(to: Bool) {
@@ -177,6 +197,20 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
             self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 50)
         ])
+    }
+    
+    func configureTimerView() {
+        guard let time = self.problem?.time else { return }
+        
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 15)
+        ])
+        
+        self.timerView.configureTime(to: time)
     }
     
     func configureStar() {
