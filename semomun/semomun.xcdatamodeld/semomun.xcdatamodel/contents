@@ -4,13 +4,13 @@
         <attribute name="drawing" optional="YES" attributeType="Binary"/>
         <attribute name="layoutType" optional="YES" attributeType="String"/>
         <attribute name="materialImage" optional="YES" attributeType="Binary"/>
-        <attribute name="problems" optional="YES" attributeType="Transformable"/>
+        <attribute name="problems" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="vid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Preview_Core" representedClassName="Preview_Core" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="sids" optional="YES" attributeType="Transformable"/>
+        <attribute name="sids" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="subject" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -32,15 +32,15 @@
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Section_Core" representedClassName="Section_Core" syncable="YES">
-        <attribute name="buttons" optional="YES" attributeType="Transformable"/>
-        <attribute name="dictionaryOfProblem" optional="YES" attributeType="Transformable"/>
+        <attribute name="buttons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="dictionaryOfProblem" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="lastPageId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="stars" optional="YES" attributeType="Transformable"/>
+        <attribute name="stars" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="wrongs" optional="YES" attributeType="Transformable"/>
+        <attribute name="wrongs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
     </entity>
     <entity name="SectionHeader_Core" representedClassName="SectionHeader_Core" syncable="YES">
         <attribute name="cutoff" optional="YES" attributeType="String"/>
