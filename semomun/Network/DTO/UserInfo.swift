@@ -7,17 +7,20 @@
 
 import Foundation
 
-class SignUpInfo: Codable {
-    var name: String = ""
-    var nickName: String = "User00000"
-    var phoneNumber: String = ""
-    var favoriteCategory: String = ""
+class UserInfo: Codable, CustomStringConvertible {
+    var description: String {
+        return "User(\(self.name!), \(self.nickName!), \(self.phoneNumber!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.schoolName!), \(self.graduationStatus!)\n"
+    }
+    var name: String?
+    var nickName: String?
+    var phoneNumber: String?
+    var favoriteCategory: String?
     var major: String?
     var majorDetail: String?
     var gender: String?
-    var birthday: String = ""
-    var schoolName: String = ""
-    var graduationStatus: String = ""
+    var birthday: String?
+    var schoolName: String?
+    var graduationStatus: String?
     
     func configureName(to name: String) {
         self.name = name
@@ -58,20 +61,4 @@ class SignUpInfo: Codable {
     var isValidSurvay: Bool {
         return self.gender != nil && self.major != nil && self.majorDetail != nil
     }
-}
-
-struct SignUpInfo_DB: Codable {
-    var name: String
-    var phoneNumber: String
-    var desiredCategory: [String]
-    var field: String
-    var interest: [String]
-    
-    var gender: String
-    var birthday: String
-    
-    var schoolName: String
-    var graduationStatus: String
-    
-//    var token: String
 }

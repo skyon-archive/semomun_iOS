@@ -37,7 +37,7 @@ public class UserCoreData: NSManagedObject {
         return "User(\(self.name!), \(self.nickName!), \(self.phoneNumber!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.schoolName!), \(self.graduationStatus!)\n"
     }
     
-    func setValues(userInfo: SignUpInfo) {
+    func setValues(userInfo: UserInfo) {
         self.setValue(userInfo.name, forKey: "name")
         self.setValue(userInfo.nickName, forKey: "nickName")
         self.setValue(userInfo.phoneNumber, forKey: "phoneNumber")

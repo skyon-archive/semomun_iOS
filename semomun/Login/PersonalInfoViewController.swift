@@ -17,7 +17,7 @@ class PersonalInfoViewController: UIViewController {
     private var states: [Bool] = [false, false, false]
     private var datePicker: UIDatePicker?
     private var graduationMenu: UIMenu?
-    var signUpInfo: SignUpInfo?
+    var signUpInfo: UserInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,9 +48,6 @@ class PersonalInfoViewController: UIViewController {
     @IBAction func completeSignup(_ sender: Any) {
         if self.isValidForSignUp {
             self.configureSignupInfo()
-            // Backend 확인 이후 로직
-            UserDefaults.standard.setValue(true, forKey: "logined")
-            self.goMainVC()
         } else {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
@@ -127,14 +124,23 @@ extension PersonalInfoViewController {
     private func configureSignupInfo() {
         let jsonEncoder = JSONEncoder()
         guard let jsonData = try? jsonEncoder.encode(self.signUpInfo) else { return }
-        guard let jsonToken = try? jsonEncoder.encode(KeychainItem.currentUserIdentifier) else { return }
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-        guard let jsonStringToken = String(data: jsonToken, encoding: String.Encoding.utf8) else { return }
-        let jsonSignupInfo: [String: Any] = ["info" : jsonStringData,
-                                   "token": jsonStringToken]
-
-        let signupInfoData = try? JSONSerialization.data(withJSONObject: jsonSignupInfo)
-        print(jsonStringData)
+        let jsonSignupInfo: [String: String] = ["info" : jsonStringData,
+                                             "token": KeychainItem.currentUserIdentifier]
+        NetworkUsecase.postUserSignup(userInfo: jsonSignupInfo) { [weak self] success in
+            guard let success = success else {
+                print("nil data")
+                return
+            }
+            if success {
+                self?.showAlertOKWithClosure(title: "회원가입이 완료되었습니다.", text: "", completion: { [weak self] _ in
+                    UserDefaults.standard.setValue(true, forKey: "logined")
+                    self?.goMainVC()
+                })
+            } else {
+                self?.showAlertWithOK(title: "회원가입 실패", text: "다시 시도해주시기 바랍니다.")
+            }
+        }
     }
 }
 

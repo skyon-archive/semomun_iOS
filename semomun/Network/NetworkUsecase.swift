@@ -98,6 +98,19 @@ class NetworkUsecase {
         }
     }
     
+    static func postUserSignup(userInfo: [String: String], completion: @escaping(Bool?) -> Void) {
+        print(userInfo)
+//        Network.post(url: "TODO: signUp url 필요", param: param) { data in
+//            guard let data = data else {
+//                print("Error: no data")
+//                completion(nil)
+//                return
+//            }
+//            // TODO: 수신 객체 필요
+            completion(true)
+//        }
+    }
+    
     static func getCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
 //        Network.get(url: "TODO: url", param: ["phone" : phone]) { data in
 //            guard let data = data else {

@@ -44,7 +44,7 @@
 		87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E70276F6967001C9C4A /* MajorCell.swift */; };
 		87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E72276F6975001C9C4A /* MajorDetailCell.swift */; };
 		87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7C276F69BD001C9C4A /* KeychainItem.swift */; };
-		87C85E7F276F69CD001C9C4A /* SignUpInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7E276F69CD001C9C4A /* SignUpInfo.swift */; };
+		87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7E276F69CD001C9C4A /* UserInfo.swift */; };
 		87C85E81276F69E9001C9C4A /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E80276F69E9001C9C4A /* Validate.swift */; };
 		87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E82276F6A54001C9C4A /* MainViewController.swift */; };
 		87C85E85276F6A6A001C9C4A /* MainViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E84276F6A6A001C9C4A /* MainViewController+Extension.swift */; };
@@ -142,7 +142,7 @@
 		87C85E70276F6967001C9C4A /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
 		87C85E72276F6975001C9C4A /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
 		87C85E7C276F69BD001C9C4A /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
-		87C85E7E276F69CD001C9C4A /* SignUpInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInfo.swift; sourceTree = "<group>"; };
+		87C85E7E276F69CD001C9C4A /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		87C85E80276F69E9001C9C4A /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		87C85E82276F6A54001C9C4A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		87C85E84276F6A6A001C9C4A /* MainViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -236,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				8745569C27701BB700E3CBEE /* semomun.entitlements */,
+				87C85E28276F65A0001C9C4A /* Global */,
 				87C85E2C276F65D6001C9C4A /* Login */,
 				87C85E2D276F65E1001C9C4A /* Main */,
 				87C85E27276F6596001C9C4A /* PersonalSetting */,
@@ -244,7 +245,6 @@
 				87C85E32276F660A001C9C4A /* Model */,
 				87C85E33276F6613001C9C4A /* CoreData */,
 				87C85E2A276F65B3001C9C4A /* Network */,
-				87C85E28276F65A0001C9C4A /* Global */,
 				87C85E2B276F65C8001C9C4A /* Loading */,
 				87C85E34276F661A001C9C4A /* Cache */,
 				87C85E29276F65AA001C9C4A /* test */,
@@ -260,6 +260,21 @@
 			path = semomun;
 			sourceTree = "<group>";
 		};
+		879B172C2772CC030042478F /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				87C85E91276F6B16001C9C4A /* CoreUsecase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		879B172D2772CC920042478F /* Object */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
 		87C85E27276F6596001C9C4A /* PersonalSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +287,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
 			);
@@ -292,7 +308,8 @@
 			children = (
 				87C85EE8276F6E95001C9C4A /* Network.swift */,
 				87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */,
-				87C85EEC276F6EC9001C9C4A /* JsonObjects */,
+				87C85EEC276F6EC9001C9C4A /* DTO */,
+				879B172D2772CC920042478F /* Object */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -331,7 +348,6 @@
 				87C85E86276F6A7A001C9C4A /* SideMenuViewController.swift */,
 				87C85E88276F6A8E001C9C4A /* Cell */,
 				87C85E8D276F6ACB001C9C4A /* PreviewManager */,
-				87C85E8E276F6AE6001C9C4A /* Usecase */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -463,7 +479,6 @@
 			isa = PBXGroup;
 			children = (
 				87C85E7C276F69BD001C9C4A /* KeychainItem.swift */,
-				87C85E7E276F69CD001C9C4A /* SignUpInfo.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -491,14 +506,6 @@
 				87C85E8F276F6B03001C9C4A /* PreviewManager.swift */,
 			);
 			path = PreviewManager;
-			sourceTree = "<group>";
-		};
-		87C85E8E276F6AE6001C9C4A /* Usecase */ = {
-			isa = PBXGroup;
-			children = (
-				87C85E91276F6B16001C9C4A /* CoreUsecase.swift */,
-			);
-			path = Usecase;
 			sourceTree = "<group>";
 		};
 		87C85EA5276F6C26001C9C4A /* Model */ = {
@@ -553,16 +560,17 @@
 			path = LayoutViewModels;
 			sourceTree = "<group>";
 		};
-		87C85EEC276F6EC9001C9C4A /* JsonObjects */ = {
+		87C85EEC276F6EC9001C9C4A /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E7E276F69CD001C9C4A /* UserInfo.swift */,
 				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
 				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
 				87C85EF1276F6EF0001C9C4A /* SectionOfDB.swift */,
 				87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */,
 				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
 			);
-			path = JsonObjects;
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -706,7 +714,7 @@
 				87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */,
 				87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
-				87C85E7F276F69CD001C9C4A /* SignUpInfo.swift in Sources */,
+				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,

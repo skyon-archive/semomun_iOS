@@ -21,7 +21,7 @@ class CertificationViewController: UIViewController {
     @IBOutlet weak var certification: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     
-    private var signUpInfo: SignUpInfo?
+    private var signUpInfo: UserInfo?
     private var usecase: CertificationUseCase?
     private var states: [Bool] = [false, false, false]
     
@@ -86,7 +86,7 @@ class CertificationViewController: UIViewController {
 
 extension CertificationViewController: UITextFieldDelegate {
     func configureProperty() {
-        self.signUpInfo = SignUpInfo()
+        self.signUpInfo = UserInfo()
         self.usecase = CertificationUseCase(delegate: self)
     }
     

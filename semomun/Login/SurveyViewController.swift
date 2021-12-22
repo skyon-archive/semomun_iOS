@@ -19,7 +19,7 @@ class SurveyViewController: UIViewController {
     @IBOutlet weak var majorDetailView: UIView!
     @IBOutlet weak var genderFrame: UIView!
     @IBOutlet var genders: [UIButton]!
-    var signUpInfo: SignUpInfo?
+    var signUpInfo: UserInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
