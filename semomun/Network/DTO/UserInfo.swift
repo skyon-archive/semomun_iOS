@@ -26,6 +26,10 @@ class UserInfo: Codable, CustomStringConvertible {
         self.name = name
     }
     
+    func configureNickname() {
+        self.nickName = "User" + String.randomUserNumber
+    }
+    
     func configurePhoneNumber(to phoneNumber: String) {
         self.phoneNumber = phoneNumber
     }
