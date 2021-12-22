@@ -38,6 +38,12 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    lazy var checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
@@ -80,6 +86,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.answer.isHidden = false
+        self.checkImageView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -206,9 +213,24 @@ extension SingleWith5Answer {
            problem.terminated == true {
             self.answer.isHidden = true
             guard let targetIndex = Int(answer) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
+            // 체크 이미지 표시
+            self.createCheckImage(to: targetIndex-1)
+//            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
+//            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
+    }
+    
+    func createCheckImage(to index: Int) {
+        self.checkImageView.image = UIImage(named: "check")
+        self.view.addSubview(self.checkImageView)
+        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
+            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
+        ])
     }
     
     func showResultImage() {
