@@ -78,6 +78,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
+        self.answer.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -201,6 +202,7 @@ extension SingleWith4Answer {
         if let answer = problem.answer,
            problem.correct == false,
            problem.terminated == true {
+            self.answer.isHidden = true
             guard let targetIndex = Int(answer) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "colorRed")
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)

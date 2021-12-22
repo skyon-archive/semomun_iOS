@@ -43,6 +43,10 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         print("\(Self.identifier) awakeFromNib")
     }
     
+    override func prepareForReuse() {
+        self.answer.isHidden = false
+    }
+    
     deinit {
         guard let canvasView = self.canvasView else { return }
         toolPicker?.setVisible(false, forFirstResponder: canvasView)
@@ -147,6 +151,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if problem.terminated && problem.answer != nil {
+            self.answer.isHidden = true
             self.showResultImage(to: problem.correct)
         }
         

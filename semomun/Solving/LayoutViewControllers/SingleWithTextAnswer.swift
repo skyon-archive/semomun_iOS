@@ -79,6 +79,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
+        self.answer.isHidden = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -214,6 +215,7 @@ extension SingleWithTextAnswer {
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
             if problem.terminated {
+                self.answer.isHidden = true
                 if problem.correct == false {
                     self.answer.isUserInteractionEnabled = true
                     self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)

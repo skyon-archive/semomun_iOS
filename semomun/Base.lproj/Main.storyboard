@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -319,8 +319,8 @@
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="AWE-fV-VMm">
-                                                            <rect key="frame" x="224" y="14.5" width="170" height="25"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="AWE-fV-VMm">
+                                                            <rect key="frame" x="242" y="14.5" width="152" height="25"/>
                                                             <subviews>
                                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15v-BP-LmH">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -340,7 +340,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6a-6i-vWS">
-                                                                    <rect key="frame" x="30" y="0.0" width="35" height="25"/>
+                                                                    <rect key="frame" x="29" y="0.0" width="35" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="35" id="DjG-Lu-oag"/>
                                                                         <constraint firstAttribute="height" constant="25" id="aUy-6C-10Z"/>
@@ -356,7 +356,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sXz-Df-0eM">
-                                                                    <rect key="frame" x="70" y="0.0" width="35" height="25"/>
+                                                                    <rect key="frame" x="68" y="0.0" width="35" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="25" id="MNu-Ia-16T"/>
                                                                         <constraint firstAttribute="width" constant="35" id="YqL-mE-rlI"/>
@@ -371,15 +371,15 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVY-pC-Azv">
-                                                                    <rect key="frame" x="110" y="0.0" width="60" height="25"/>
+                                                                    <rect key="frame" x="107" y="0.0" width="45" height="25"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="60" id="SU0-oR-X0x"/>
+                                                                        <constraint firstAttribute="width" constant="45" id="SU0-oR-X0x"/>
                                                                         <constraint firstAttribute="height" constant="25" id="u4h-N0-aYB"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="tintColor" name="mint"/>
                                                                     <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                    <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                                         <color key="titleColor" name="mint"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
@@ -1881,7 +1881,7 @@
                                 <rect key="frame" x="0.0" y="15" width="768" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j7-EX-lAy" userLabel="innerView">
-                                        <rect key="frame" x="98.5" y="5" width="571" height="45"/>
+                                        <rect key="frame" x="101" y="5" width="566" height="45"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VVB-X0-j9N">
                                                 <rect key="frame" x="10" y="5" width="215" height="35"/>
@@ -1969,7 +1969,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wbq-zi-e4B">
-                                                <rect key="frame" x="355" y="7" width="211" height="31"/>
+                                                <rect key="frame" x="355" y="7" width="206" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zUa-0z-I3m">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
@@ -2016,14 +2016,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIh-xF-y9G">
-                                                        <rect key="frame" x="151" y="0.0" width="60" height="31"/>
+                                                        <rect key="frame" x="151" y="0.0" width="55" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="MTG-jh-c3a"/>
-                                                            <constraint firstAttribute="width" constant="60" id="esX-bZ-rQZ"/>
+                                                            <constraint firstAttribute="width" constant="55" id="esX-bZ-rQZ"/>
                                                         </constraints>
                                                         <color key="tintColor" name="mint"/>
-                                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                             <color key="titleColor" name="mint"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
@@ -2143,10 +2143,10 @@
                                 <rect key="frame" x="0.0" y="15" width="768" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4q-Th-kyM" userLabel="innerView">
-                                        <rect key="frame" x="98.5" y="5" width="571" height="45"/>
+                                        <rect key="frame" x="101" y="5" width="566" height="45"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UNl-yH-kvN">
-                                                <rect key="frame" x="355" y="7" width="211" height="31"/>
+                                                <rect key="frame" x="355" y="7" width="206" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smm-RY-l1X">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
@@ -2193,14 +2193,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB5-2t-dsK">
-                                                        <rect key="frame" x="151" y="0.0" width="60" height="31"/>
+                                                        <rect key="frame" x="151" y="0.0" width="55" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="h9J-eq-67V"/>
-                                                            <constraint firstAttribute="width" constant="60" id="odr-4j-P9I"/>
+                                                            <constraint firstAttribute="width" constant="55" id="odr-4j-P9I"/>
                                                         </constraints>
                                                         <color key="tintColor" name="mint"/>
-                                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                             <color key="titleColor" name="mint"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
@@ -2520,7 +2520,7 @@
                                 <rect key="frame" x="0.0" y="15" width="768" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhb-jC-Eva" userLabel="innerView">
-                                        <rect key="frame" x="121" y="5" width="526" height="45"/>
+                                        <rect key="frame" x="123.5" y="5" width="521" height="45"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SiA-ua-Ctj">
                                                 <rect key="frame" x="10" y="5" width="170" height="35"/>
@@ -2592,7 +2592,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2xJ-dD-r1Z">
-                                                <rect key="frame" x="310" y="7" width="211" height="31"/>
+                                                <rect key="frame" x="310" y="7" width="206" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZ9-zB-tak">
                                                         <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
@@ -2639,14 +2639,14 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edg-Eh-uxR">
-                                                        <rect key="frame" x="151" y="0.0" width="60" height="31"/>
+                                                        <rect key="frame" x="151" y="0.0" width="55" height="31"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="31" id="Rm0-vd-2Dc"/>
-                                                            <constraint firstAttribute="width" constant="60" id="eJr-M9-oPL"/>
+                                                            <constraint firstAttribute="width" constant="55" id="eJr-M9-oPL"/>
                                                         </constraints>
                                                         <color key="tintColor" name="mint"/>
-                                                        <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                        <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                             <color key="titleColor" name="mint"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
@@ -3149,10 +3149,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1g-nm-e6K">
-                                                    <rect key="frame" x="292" y="10" width="114" height="54"/>
+                                                    <rect key="frame" x="308" y="10" width="98" height="54"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xf1-fE-aer">
-                                                            <rect key="frame" x="12" y="14.5" width="90" height="25"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xf1-fE-aer">
+                                                            <rect key="frame" x="12" y="14.5" width="74" height="25"/>
                                                             <subviews>
                                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9p-6Y-C1n">
                                                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -3172,15 +3172,15 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s00-je-ZVc">
-                                                                    <rect key="frame" x="30" y="0.0" width="60" height="25"/>
+                                                                    <rect key="frame" x="29" y="0.0" width="45" height="25"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="60" id="5jY-fT-mjc"/>
+                                                                        <constraint firstAttribute="width" constant="45" id="5jY-fT-mjc"/>
                                                                         <constraint firstAttribute="height" constant="25" id="bMB-Ds-Cg0"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="tintColor" name="mint"/>
                                                                     <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                    <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                                         <color key="titleColor" name="mint"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
