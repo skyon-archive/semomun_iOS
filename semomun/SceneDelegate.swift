@@ -23,7 +23,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if isLogined {
             let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(named: "mint")
-            self.window?.rootViewController = navigationController
+            NetworkUsecase.getCategorys { categorys in
+                guard let categorys = categorys else {
+                    //TODO: 경고창 보인 후 로딩 안되게끔 로직 필요
+                    return
+                }
+                UserDefaults.standard.setValue(categorys, forKey: "categorys")
+                self.window?.rootViewController = navigationController
+            }
         } else {
             let navigationController = UINavigationController(rootViewController: startLoginViewController)
             navigationController.navigationBar.tintColor = UIColor(named: "mint")

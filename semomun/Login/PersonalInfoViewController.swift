@@ -136,13 +136,19 @@ extension PersonalInfoViewController {
             if success {
                 self?.showAlertOKWithClosure(title: "회원가입이 완료되었습니다.", text: "", completion: { [weak self] _ in
                     CoreUsecase.createUserCoreData(userInfo: self?.signUpInfo)
-                    UserDefaults.standard.setValue(true, forKey: "logined")
+                    self?.configureUserDefaults()
                     self?.goMainVC()
                 })
             } else {
                 self?.showAlertWithOK(title: "회원가입 실패", text: "다시 시도해주시기 바랍니다.")
             }
         }
+    }
+    
+    private func configureUserDefaults() {
+        guard let currentCategory = self.signUpInfo?.favoriteCategory else { return }
+        UserDefaults.standard.setValue(true, forKey: "logined")
+        UserDefaults.standard.setValue(currentCategory, forKey: "currentCategory")
     }
 }
 

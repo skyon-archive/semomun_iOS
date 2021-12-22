@@ -142,4 +142,8 @@ class NetworkUsecase {
             completion(true)
 //        }
     }
+    
+    static func getCategorys(completion: @escaping([String]?) -> Void) {
+        completion(["수능 및 모의고사", "LEET", "공인회계사", "공인중개사", "9급 공무원"])
+    }
 }

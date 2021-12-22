@@ -18,15 +18,20 @@ class SideMenuViewController: UIViewController {
     
     var delegate: SideMenuViewControllerDelegate?
     var defaultHighlightedCell: Int = 0
-    var testTitles: [String] = ["수능 및 모의고사", "LEET", "공인회계사", "공인중개사", "9급 공무원"]
+    var testTitles: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.sideMenuTableView.delegate = self
         self.sideMenuTableView.dataSource = self
+        self.configureCategorys()
     }
+}
 
+extension SideMenuViewController {
+    func configureCategorys() {
+        self.testTitles = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
+    }
 }
 
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {

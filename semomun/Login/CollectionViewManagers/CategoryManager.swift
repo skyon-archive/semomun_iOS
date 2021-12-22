@@ -12,9 +12,15 @@ final class CategoryManager {
     private(set) var selectedIndex: Int?
     
     func fetch(completion: @escaping(() -> Void)) {
-        // TODO: 추후 DB 에서 수신하는 것으로 수정 예정
-        self.items = ["수능 및 모의고사", "LEET", "공인회계사", "공인중개사", "9급 공무원"]
-        completion()
+        NetworkUsecase.getCategorys { categorys in
+            guard let categorys = categorys else {
+                print("no data")
+                return
+            }
+            self.items = categorys
+            UserDefaults.standard.setValue(categorys, forKey: "categorys")
+            completion()
+        }
     }
     
     var count: Int {
