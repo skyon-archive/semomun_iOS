@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
-		871B6E55276EE48D008CEEBA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E54276EE48D008CEEBA /* ViewController.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
 		871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E59276EE48D008CEEBA /* Assets.xcassets */; };
 		871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */; };
@@ -104,10 +104,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		871B6E54276EE48D008CEEBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		871B6E57276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -248,7 +248,6 @@
 				87C85E29276F65AA001C9C4A /* test */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
-				871B6E54276EE48D008CEEBA /* ViewController.swift */,
 				871B6E56276EE48D008CEEBA /* Main.storyboard */,
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
 				871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */,
@@ -406,6 +405,7 @@
 				87C85E43276F6708001C9C4A /* UICollectionViewCell.swift */,
 				87C85E45276F6717001C9C4A /* NotificationName.swift */,
 				87C85E47276F6726001C9C4A /* UIView.swift */,
+				250D82422772C43400AF1A46 /* String.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -643,7 +643,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				871B6E55276EE48D008CEEBA /* ViewController.swift in Sources */,
 				87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
@@ -722,6 +721,7 @@
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
+				250D82432772C43400AF1A46 /* String.swift in Sources */,
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
 				87C85EDF276F6E47001C9C4A /* Problem.swift in Sources */,
