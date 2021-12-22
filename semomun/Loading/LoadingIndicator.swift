@@ -30,6 +30,15 @@ class LoadingIndicator: UIViewController {
         self.setProgress()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.configureUI()
+    }
+    
+    func configureUI() {
+        self.view.isUserInteractionEnabled = false
+    }
+    
     func configureObserve() {
         NotificationCenter.default.addObserver(forName: Self.update, object: nil, queue: .main) { _ in
             self.updateProgress()

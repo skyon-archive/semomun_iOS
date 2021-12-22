@@ -48,6 +48,13 @@ extension UIViewController {
         present(alert,animated: true,completion: nil)
     }
     
+    func makeLoaderWithoutPercentage(_ tag: Int = 123) -> UIActivityIndicatorView {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.color = UIColor.white
+        loader.tag = tag
+        return loader
+    }
+    
     func startLoading(count: Int = 0) -> loadingDelegate {
         let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
         loadingIndicator.totalPageCount = count

@@ -17,10 +17,14 @@ class SearchWorkbookViewController: UIViewController {
     
     var manager: SearchWorkbookManager!
     
+    lazy var loaderForPreview = self.makeLoaderWithoutPercentage()
+    lazy var loaderForButton = self.makeLoaderWithoutPercentage()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureDelegate()
         configureUI()
+        configureLoader()
     }
     
     @IBAction func back(_ sender: Any) {
@@ -45,6 +49,16 @@ extension SearchWorkbookViewController {
         self.setRadiusOfSelectButtons()
     }
     
+    func configureLoader() {
+        self.view.addSubview(self.loaderForPreview)
+        self.loaderForPreview.translatesAutoresizingMaskIntoConstraints = false
+        self.loaderForPreview.layer.zPosition = CGFloat.greatestFiniteMagnitude
+        NSLayoutConstraint.activate([
+            self.loaderForPreview.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loaderForPreview.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+    
     func setRadiusOfFrame() {
         frame.layer.cornerRadius = 30
     }
@@ -55,6 +69,41 @@ extension SearchWorkbookViewController {
             $0.layer.borderColor = UIColor.lightGray.cgColor
             $0.layer.cornerRadius = 10
         }
+    }
+}
+
+extension SearchWorkbookViewController {
+    func startPreviewLoader() {
+        self.loaderForPreview.isHidden = false
+        self.loaderForPreview.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        let backgroundView = UIView()
+        backgroundView.tag = 123
+        backgroundView.backgroundColor = .gray.withAlphaComponent(0.8)
+        backgroundView.frame = self.frame.frame
+        backgroundView.layer.cornerRadius = 30
+        print(backgroundView)
+        self.view.addSubview(backgroundView)
+    }
+    
+    func stopPreviewLoader() {
+        self.loaderForPreview.isHidden = true
+        self.loaderForPreview.stopAnimating()
+        self.view.isUserInteractionEnabled = true
+        if let backgroundView = self.view.viewWithTag(123) {
+            backgroundView.removeFromSuperview()
+        }
+    }
+    
+    func startButtonLoader() {
+        self.loaderForButton.isHidden = false
+        self.loaderForButton.startAnimating()
+    }
+    
+    func stopButtonLoader() {
+        self.loaderForButton.isHidden = true
+        self.loaderForButton.stopAnimating()
     }
 }
 
@@ -139,6 +188,7 @@ extension SearchWorkbookViewController {
         
         let cancle = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         let ok = UIAlertAction(title: "추가", style: .default) { _ in
+            self.startPreviewLoader()
             self.loadSidsFromDB(index: index)
         }
         
@@ -166,6 +216,7 @@ extension SearchWorkbookViewController {
         print("save complete")
         NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
         DispatchQueue.main.async {
+            self.stopPreviewLoader()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -174,9 +225,8 @@ extension SearchWorkbookViewController {
         NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
+            let sids: [Int] = sections.map(\.sid)
             
-            var sids: [Int] = []
-            sections.forEach { sids.append($0.sid) }
             DispatchQueue.global().async {
                 self.savePreview(index: index, workbook: workbook, sids: sids)
                 self.saveSectionHeader(sections: sections)

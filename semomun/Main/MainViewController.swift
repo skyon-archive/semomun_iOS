@@ -119,13 +119,6 @@ extension MainViewController {
 
 // MARK: - Logic
 extension MainViewController {
-    func showViewController(identifier: String, isFull: Bool) {
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: identifier)
-        if isFull {
-            nextVC?.modalPresentationStyle = .fullScreen //전체화면으로 보이게 설정
-        }
-        self.present(nextVC!, animated: true, completion: nil)
-    }
     
     func showSearchWorkbookViewController() {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
@@ -157,7 +150,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
             
             cell.category.text = self.previewManager.subject(at: indexPath.item)
-            cell.underLine.alpha = indexPath.item == self.previewManager.currentIndex ? 1 : 0
+            cell.underLine.alpha = (indexPath.item == self.previewManager.currentIndex) ? 1 : 0
             
             return cell
         }
@@ -213,7 +206,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.showSolvingVC(section: section)
             return
         }
-        
+        // 여기에 else로 넣을까? return을 빼고
         // MARK: - Section: Download from DB
         NetworkUsecase.downloadPages(sid: sid) { views in
             print("NETWORK RESULT")
@@ -226,9 +219,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     self.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
                     return
                 }
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { // 메모
                     loading.terminate()
-                    self.showSolvingVC(section: section)
+                    self.view.isUserInteractionEnabled = true
                 }
                 return
             }

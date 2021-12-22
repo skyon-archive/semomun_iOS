@@ -114,6 +114,6 @@ class PreviewManager {
     }
     
     func showSelectSectionView(index: Int) -> Bool {
-        return self.previews[index].sids.count > 1
+        return self.preview(at: index).sids.count > 1
     }
 }
