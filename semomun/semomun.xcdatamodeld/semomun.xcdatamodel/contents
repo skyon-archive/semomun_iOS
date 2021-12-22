@@ -49,11 +49,25 @@
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="UserCoreData" representedClassName="UserCoreData" syncable="YES">
+        <attribute name="birthday" optional="YES" attributeType="String"/>
+        <attribute name="favoriteCategory" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="graduationStatus" optional="YES" attributeType="String"/>
+        <attribute name="major" optional="YES" attributeType="String"/>
+        <attribute name="majorDetail" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="nickName" optional="YES" attributeType="String"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String"/>
+        <attribute name="schoolName" optional="YES" attributeType="String"/>
+        <attribute name="userImage" optional="YES" attributeType="Binary"/>
+    </entity>
     <elements>
         <element name="Page_Core" positionX="-63" positionY="-18" width="128" height="119"/>
         <element name="Preview_Core" positionX="-54" positionY="36" width="128" height="104"/>
         <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="239"/>
         <element name="Section_Core" positionX="-18" positionY="153" width="128" height="164"/>
         <element name="SectionHeader_Core" positionX="0" positionY="171" width="128" height="104"/>
+        <element name="UserCoreData" positionX="-18" positionY="144" width="128" height="194"/>
     </elements>
 </model>

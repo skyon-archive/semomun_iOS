@@ -9,9 +9,9 @@ import Foundation
 
 class SignUpInfo: Codable {
     var name: String = ""
-    var nickName: String = "User0000"
+    var nickName: String = "User00000"
     var phoneNumber: String = ""
-    var category: String = ""
+    var favoriteCategory: String = ""
     var major: String?
     var majorDetail: String?
     var gender: String?
@@ -36,7 +36,7 @@ class SignUpInfo: Codable {
     }
     
     func configureCategory(to category: String) {
-        self.category = category
+        self.favoriteCategory = category
     }
     
     func configureMajor(to major: String) {
