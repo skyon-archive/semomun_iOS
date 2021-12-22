@@ -46,11 +46,11 @@ extension MainViewController {
     }
     
     @objc func didTappedShadowView() {
-        self.sideMenuState(expanded: false)
+        self.sideMenuState()
     }
     
-    func sideMenuState(expanded: Bool) {
-        if expanded {
+    func sideMenuState() {
+        if !isExpanded {
             self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in
                 self.isExpanded = true
             }

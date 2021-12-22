@@ -18,8 +18,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var userInfo: UIButton!
     
     //임시적인 데이터
-    var addImageData: Data!
-    
+    private var addImageData: Data!
     private var previewManager: PreviewManager!
     
     // Sidebar ViewController Properties
@@ -58,7 +57,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func showSidebar(_ sender: Any) {
-        self.sideMenuState(expanded: self.isExpanded ? false : true)
+        self.sideMenuState()
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
@@ -255,7 +254,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
         self.currentCategory.text = sideMenuViewController.testTitles[row]
-        DispatchQueue.main.async { [weak self] in self?.sideMenuState(expanded: false) }
+        DispatchQueue.main.async { [weak self] in self?.sideMenuState() }
     }
 }
 
