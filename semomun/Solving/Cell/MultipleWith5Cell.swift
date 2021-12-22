@@ -41,6 +41,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    private lazy var timerView = ProblemTimerView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +53,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.resultImageView.removeFromSuperview()
         self.checkImageView.removeFromSuperview()
         self.answer.isHidden = false
+        self.timerView.removeFromSuperview()
     }
     
     deinit {
@@ -165,6 +167,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             // 체크 이미지 표시
             self.showResultImage(to: problem.correct)
             self.createCheckImage(to: targetIndex-1)
+            self.configureTimerView()
         }
     }
     
@@ -194,6 +197,20 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
             self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 50)
         ])
+    }
+    
+    func configureTimerView() {
+        guard let time = self.problem?.time else { return }
+        
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 15)
+        ])
+        
+        self.timerView.configureTime(to: time)
     }
     
     func configureStar() {

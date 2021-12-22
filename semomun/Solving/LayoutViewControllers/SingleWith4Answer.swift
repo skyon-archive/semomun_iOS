@@ -49,6 +49,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         loader.color = UIColor.gray
         return loader
     }()
+    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         self.imageView.image = nil
         self.answer.isHidden = false
         self.checkImageView.removeFromSuperview()
+        self.timerView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -212,6 +214,7 @@ extension SingleWith4Answer {
             guard let targetIndex = Int(answer) else { return }
             // 체크 이미지 표시
             self.createCheckImage(to: targetIndex-1)
+            self.configureTimerView()
         }
     }
     
@@ -226,6 +229,20 @@ extension SingleWith4Answer {
             self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
             self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
         ])
+    }
+    
+    func configureTimerView() {
+        guard let time = self.viewModel?.time else { return }
+        
+        self.view.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 25)
+        ])
+        
+        self.timerView.configureTime(to: time)
     }
     
     func showResultImage() {
