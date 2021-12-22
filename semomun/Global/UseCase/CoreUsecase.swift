@@ -287,6 +287,17 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchUserInfo() -> UserCoreData? {
+        let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
+        
+        if let datas = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            guard let userInfo = datas.first else { return nil }
+            return userInfo
+        } else {
+            return nil
+        }
+    }
+    
     static func saveCoreData() {
         do { try CoreDataManager.shared.context.save() } catch let error {
             print(error.localizedDescription)
@@ -325,5 +336,13 @@ struct CoreUsecase {
             CoreDataManager.shared.context.delete(coreData)
         }
         CoreUsecase.saveCoreData()
+    }
+    
+    static func createUserCoreData(userInfo: UserInfo?) {
+        guard let userInfo = userInfo else { return }
+        let context = CoreDataManager.shared.context
+        let userCore = UserCoreData(context: context)
+        userCore.setValues(userInfo: userInfo)
+        do { try context.save() } catch let error { print(error.localizedDescription) }
     }
 }

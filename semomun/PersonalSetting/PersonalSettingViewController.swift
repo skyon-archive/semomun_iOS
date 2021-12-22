@@ -13,6 +13,7 @@ class PersonalSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "설정"
+        self.loadUserInfo()
     }
     
     @IBAction func showSettingNameVC(_ sender: Any) {
@@ -21,7 +22,14 @@ class PersonalSettingViewController: UIViewController {
 }
 
 extension PersonalSettingViewController {
-    func showSettingNames() {
+    private func loadUserInfo() {
+        guard let userInfo = CoreUsecase.fetchUserInfo() else {
+            print("no userInfo error")
+            return
+        }
+        print(userInfo)
+    }
+    private func showSettingNames() {
         guard let settingNameVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingNameViewController.identifier) as? PersonalSettingNameViewController else { return }
         
         self.present(settingNameVC, animated: true, completion: nil)

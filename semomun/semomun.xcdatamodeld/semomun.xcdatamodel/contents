@@ -51,7 +51,7 @@
     </entity>
     <entity name="UserCoreData" representedClassName="UserCoreData" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="String"/>
-        <attribute name="favoriteCategory" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="favoriteCategory" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="graduationStatus" optional="YES" attributeType="String"/>
         <attribute name="major" optional="YES" attributeType="String"/>
