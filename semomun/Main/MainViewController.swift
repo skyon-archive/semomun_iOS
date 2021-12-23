@@ -238,7 +238,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: height)
         }
         else {
-            return CGSize(width: 60, height: 40)
+            return CGSize(width: 70, height: 40)
         }
     }
 }

@@ -938,7 +938,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7bE-77-2bJ"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wjB-ki-XS8">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="wjB-ki-XS8">
                                     <size key="itemSize" width="60" height="40"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -946,20 +946,20 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="lTt-OM-Xns" customClass="CategoryCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9jY-oq-Px3">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agf-1e-pOi">
-                                                    <rect key="frame" x="25" y="14" width="30" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제2외국어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agf-1e-pOi">
+                                                    <rect key="frame" x="0.5" y="14" width="69" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQi-Xz-AOo">
-                                                    <rect key="frame" x="15" y="37" width="50" height="3"/>
+                                                    <rect key="frame" x="10" y="37" width="50" height="3"/>
                                                     <color key="backgroundColor" name="mint"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="3" id="5TK-2M-T84"/>
@@ -975,7 +975,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="customSize" width="80" height="40"/>
+                                        <size key="customSize" width="70" height="40"/>
                                         <connections>
                                             <outlet property="category" destination="Agf-1e-pOi" id="WpW-Nn-baO"/>
                                             <outlet property="underLine" destination="AQi-Xz-AOo" id="Jbg-H1-rSl"/>
