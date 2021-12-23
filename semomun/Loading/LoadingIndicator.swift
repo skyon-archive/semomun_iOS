@@ -27,16 +27,12 @@ class LoadingIndicator: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureUI()
         self.setProgress()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.configureUI()
-    }
-    
     func configureUI() {
-        self.view.isUserInteractionEnabled = false
+        self.isModalInPresentation = true
     }
     
     func configureObserve() {

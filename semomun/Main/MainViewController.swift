@@ -221,7 +221,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
                 DispatchQueue.main.async { // 메모
                     loading.terminate()
-                    self.view.isUserInteractionEnabled = true
                 }
                 return
             }
