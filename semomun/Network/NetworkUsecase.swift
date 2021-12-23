@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkUsecase {
     enum URL {
-        static let base: String = "https://www.saemomoon.com"
+        static let base: String = "http://www.saemomoon.com:8080"
         static let workbooks: String = base + "/workbooks/"
         static let sections: String = base + "/sections/"
         static let preview: String = workbooks + "preview"
