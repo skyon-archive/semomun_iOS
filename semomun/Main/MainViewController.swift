@@ -163,21 +163,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             
             if indexPath.item == 0 {
-                cell.imageView.image = UIImage(data: addImageData)
-                cell.title.text = " "
-                cell.disappearShadow()
+                cell.configureAddCell(image: UIImage(data: self.addImageData))
                 
                 return cell
             }
             else {
                 let preview = self.previewManager.preview(at: indexPath.item-1)
                 print("\(indexPath.item): \(preview)")
-                cell.title.text = preview.title
-                guard let imageData = preview.image else { return cell }
-                DispatchQueue.main.async {
-                    cell.imageView.image = UIImage(data: imageData)
-                }
-                cell.showShadow()
+                cell.configure(with: preview)
+                
                 return cell
             }
         }
@@ -220,13 +214,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             // save to coreData
             let loading = self.startLoading()
             CoreUsecase.savePages(sid: sid, pages: views, loading: loading) { section in
-                guard let section = section else {
+                if section == nil {
                     loading.terminate()
                     self.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
                     return
                 }
-                DispatchQueue.main.async { // 메모
+                
+                DispatchQueue.main.async { [weak self] in
                     loading.terminate()
+                    preview.setValue(true, forKey: "downloaded")
+                    self?.saveCoreData()
+                    self?.reloadData()
                 }
                 return
             }

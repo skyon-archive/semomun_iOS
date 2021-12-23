@@ -24,6 +24,7 @@ extension Section_Core {
     @NSManaged public var lastPageId: Int64 //마지막 화면 id
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
+    @NSManaged public var checks: [Bool] //푼 문제인지 여부
 }
 
 extension Section_Core : Identifiable {
@@ -42,11 +43,13 @@ public class Section_Core: NSManagedObject {
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
         let wrongs = Array(repeating: true, count: buttons.count)
+        let checks = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
         self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
         self.setValue(false, forKey: "terminated")
+        self.setValue(checks, forKey: "checks")
         print("Section: \(header.sid) save complete")
     }
     
@@ -57,10 +60,12 @@ public class Section_Core: NSManagedObject {
         self.setValue(buttons, forKey: "buttons")
         let stars = Array(repeating: false, count: buttons.count)
         let wrongs = Array(repeating: true, count: buttons.count)
+        let checks = Array(repeating: false, count: buttons.count)
         self.setValue(stars, forKey: "stars")
         self.setValue(wrongs, forKey: "wrongs")
         self.setValue(dict, forKey: "dictionaryOfProblem")
         self.setValue(dict[buttons[0]], forKey: "lastPageId")
+        self.setValue(checks, forKey: "checks")
         print("MOCK Section: \(sid) save complete")
     }
 }
