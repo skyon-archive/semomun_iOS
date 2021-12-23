@@ -82,6 +82,15 @@ class PreviewManager {
     func delete(at: Int) {
         var targetCoreDatas: [NSManagedObject] = []
         let targetPreview = self.previews[at]
+        
+        if currentFilter != "전체" {
+            if let subject = targetPreview.subject,
+                (CoreUsecase.fetchPreviews(subject: subject) ?? []).count <= 1 {
+                currentFilter = "전체"
+                currentIndex = 0
+            }
+        }
+        
         targetCoreDatas.append(targetPreview)
         
         let targetSids = targetPreview.sids
