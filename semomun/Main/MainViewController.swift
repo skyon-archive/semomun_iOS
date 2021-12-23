@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var previews: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
-    var currentCategory: String?
+    private var currentCategory: String?
     private var addImageData: Data!
     private var previewManager: PreviewManager!
     
@@ -75,7 +75,7 @@ class MainViewController: UIViewController {
 // MARK: - Configure MainViewController
 extension MainViewController {
     func configureCategory() {
-        self.currentCategory = UserDefaults.standard.string(forKey: "currentCategory") ?? "수능및모의고사"
+        self.currentCategory = UserDefaults.standard.string(forKey: "currentCategory") ?? "수능 및 모의고사"
     }
     
     func configureManager() {
@@ -124,10 +124,10 @@ extension MainViewController {
 
 // MARK: - Logic
 extension MainViewController {
-    
     func showSearchWorkbookViewController() {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
-        nextVC.manager = SearchWorkbookManager(filter: previewManager.previews)
+        guard let category = self.currentCategory else { return }
+        nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category)
         self.present(nextVC, animated: true, completion: nil)
     }
     
@@ -171,6 +171,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             else {
                 let preview = self.previewManager.preview(at: indexPath.item-1)
+                print("\(indexPath.item): \(preview)")
                 cell.title.text = preview.title
                 guard let imageData = preview.image else { return cell }
                 DispatchQueue.main.async {
@@ -249,8 +250,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
-    func selectedCell(_ row: Int) {
-        self.categoryLabel.text = sideMenuViewController.testTitles[row]
+    func selectCategory(to category: String) {
+        self.currentCategory = category
+        self.categoryLabel.text = category
         DispatchQueue.main.async { [weak self] in self?.sideMenuState() }
     }
 }

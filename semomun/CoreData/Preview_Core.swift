@@ -29,7 +29,7 @@ extension Preview_Core {
 public class Preview_Core: NSManagedObject{
     
     public override var description: String {
-        return "Preview(\(self.wid), \(self.image), \(self.title), \(self.subject), \(self.sids))\n"
+        return "Preview(\(self.wid), \(self.image!), \(self.title!), \(self.subject!), \(self.sids), \(self.terminated), \(self.category!), \(self.downloaded)\n"
     }
     // functions to replace the custom initialization methods
     func setValues(preview: PreviewOfDB, subject: String, sids: [Int], category: String) {

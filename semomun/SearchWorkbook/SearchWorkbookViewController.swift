@@ -202,7 +202,7 @@ extension SearchWorkbookViewController {
         let preview = self.manager.preview(at: index)
         let baseURL = NetworkUsecase.URL.bookcovoerImageDirectory(manager.imageScale)
         
-        preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL)
+        preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: self.manager.category)
         CoreDataManager.shared.appDelegate.saveContext()
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SideMenuViewControllerDelegate {
-    func selectedCell(_ row: Int)
+    func selectCategory(to: String)
 }
 
 class SideMenuViewController: UIViewController {
@@ -18,7 +18,7 @@ class SideMenuViewController: UIViewController {
     
     var delegate: SideMenuViewControllerDelegate?
     var defaultHighlightedCell: Int = 0
-    var testTitles: [String] = []
+    var categorys: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,23 +30,23 @@ class SideMenuViewController: UIViewController {
 
 extension SideMenuViewController {
     func configureCategorys() {
-        self.testTitles = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
+        self.categorys = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
     }
 }
 
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.testTitles.count
+        return self.categorys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuCell", for: indexPath) as? SideMenuCell else { return UITableViewCell() }
-        cell.title.text = testTitles[indexPath.row]
+        cell.title.text = categorys[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.selectedCell(indexPath.row)
+        self.delegate?.selectCategory(to: self.categorys[indexPath.row])
         self.sideMenuTableView.deselectRow(at: indexPath, animated: true)
     }
 }
