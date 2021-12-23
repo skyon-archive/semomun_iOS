@@ -118,7 +118,7 @@ class SectionManager {
             self.wrongs[idx] = to
             print(self.wrongs)
             section.setValue(self.wrongs, forKey: "wrongs")
-            self.saveCoreData()
+            CoreDataManager.saveCoreData()
         }
     }
     

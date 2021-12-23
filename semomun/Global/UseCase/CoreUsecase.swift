@@ -110,9 +110,8 @@ struct CoreUsecase {
     static func terminateDownload(currentCount: Int, totalCount: Int, section: Section_Core, header: SectionHeader_Core, buttons: [String], dict: [String: Int], completion: ((Section_Core?) -> Void)) {
         if currentCount == totalCount {
             print("----------download end----------")
-            let context = CoreDataManager.shared.context
             section.setValues(header: header, buttons: buttons, dict: dict)
-            do { try context.save() } catch let error { print(error.localizedDescription) }
+            self.saveCoreData()
             completion(section)
         }
     }
@@ -300,7 +299,7 @@ struct CoreUsecase {
     
     static func saveCoreData() {
         do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+            print("CoreData 저장 에러 \(error.localizedDescription)")
         }
     }
     

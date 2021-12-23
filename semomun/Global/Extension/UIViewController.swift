@@ -11,7 +11,7 @@ import CoreData
 extension UIViewController {
     func saveCoreData() {
         do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
+            self.showAlertWithOK(title: "CoreData 저장 에러", text: error.localizedDescription)
         }
     }
     

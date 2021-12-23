@@ -38,12 +38,12 @@ class MainViewController: UIViewController {
         self.configureManager()
         self.configureCollectionView()
         self.configureObserve()
-        self.previewManager.fetchPreviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        self.previewManager.fetchPreviews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -131,10 +131,11 @@ extension MainViewController {
         self.present(nextVC, animated: true, completion: nil)
     }
     
-    func showSolvingVC(section: Section_Core) {
+    func showSolvingVC(section: Section_Core, preview: Preview_Core) {
         guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
+        solvingVC.previewCore = preview
         self.present(solvingVC, animated: true, completion: nil)
     }
 }
@@ -203,7 +204,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // MARK: - Section: form CoreData
         if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
-            self.showSolvingVC(section: section)
+            self.showSolvingVC(section: section, preview: preview)
             return
         }
         // 여기에 else로 넣을까? return을 빼고

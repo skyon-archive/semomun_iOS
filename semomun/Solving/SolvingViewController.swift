@@ -31,7 +31,8 @@ class SolvingViewController: UIViewController {
     private var multipleWithNoAnswer: MultipleWithNoAnswer!
     private var currentVC: UIViewController!
     private var manager: SectionManager!
-    var sectionCore: Section_Core? //저장되어 있는 섹션 정보
+    var sectionCore: Section_Core?
+    var previewCore: Preview_Core?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +64,8 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
-        self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { _ in
-            self.manager.terminateSection()
+        self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] _ in
+            self?.manager.terminateSection()
         }
     }
     
@@ -206,6 +207,8 @@ extension SolvingViewController: LayoutDelegate {
     }
     
     func terminateSection(result: SectionResult) {
+        self.previewCore?.setValue(true, forKey: "terminated")
+        self.saveCoreData()
         // VC 띄우기
         guard let sectionResultVC = self.storyboard?.instantiateViewController(withIdentifier: SectionResultViewController.identifier) as? SectionResultViewController else { return }
         sectionResultVC.result = result

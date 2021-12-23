@@ -83,6 +83,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
         
+        CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil

@@ -15,4 +15,10 @@ class CoreDataManager {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var context = appDelegate.persistentContainer.viewContext
+    
+    static func saveCoreData() {
+        do { try shared.context.save() } catch let error {
+            print("CoreData 에러: \(error.localizedDescription)")
+        }
+    }
 }
