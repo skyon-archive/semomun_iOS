@@ -227,6 +227,7 @@ class SectionManager {
         self.stopTimer()
         section.setValue(true, forKey: "terminated")
         let result = SectionResult(title: title,
+                                   perfectScore: saveSectionUsecase.perfactScore,
                                    totalScore: saveSectionUsecase.totalScore,
                                    totalTime: section.time,
                                    wrongProblems: saveSectionUsecase.wrongProblems)

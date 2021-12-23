@@ -103,6 +103,7 @@
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
+		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +203,7 @@
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
+		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +511,7 @@
 				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
 				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
 				87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */,
+				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85EE1276F6E53001C9C4A /* Report.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift in Sources */,
+				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,

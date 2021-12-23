@@ -11,6 +11,7 @@ import CoreData
 class SaveSectionUsecase {
     let section: Section_Core
     var vids: [Int] = []
+    var perfactScore: Int = 0
     var totalScore: Int = 0
     var wrongProblems: [String] = []
     var submissions: [Submission] = []
@@ -70,13 +71,14 @@ class SaveSectionUsecase {
             
             if let correct = submission.correct,
                let pName = problem.pName {
+                self.perfactScore += Int(problem.point)
                 if correct == 0 {
                     self.wrongProblems.append(pName)
                 } else {
                     self.totalScore += Int(problem.point)
                 }
             } else {
-                self.totalScore += Int(problem.point)
+//                self.totalScore += Int(problem.point)
             }
         }
     }

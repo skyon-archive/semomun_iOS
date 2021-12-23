@@ -14,13 +14,15 @@ class SectionResultViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var totalScoreLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
-    @IBOutlet weak var wrongProblemsLabel: UILabel!
-    
+    @IBOutlet weak var wrongProblems: UICollectionView!
+    @IBOutlet weak var wrongsHight: NSLayoutConstraint!
+    private var wrongs: [String] = []
     var result: SectionResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.configureDataSource()
         self.configureUI()
         self.configureData()
     }
@@ -29,27 +31,46 @@ class SectionResultViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func configureUI() {
+    private func configureDataSource() {
+        self.wrongProblems.dataSource = self
+    }
+    
+    private func configureUI() {
         self.frameView.clipsToBounds = true
         self.frameView.layer.cornerRadius = 25
     }
     
-    func configureData() {
+    private func configureData() {
         guard let result = self.result else { return }
         self.titleLabel.text = result.title
-        self.totalScoreLabel.text = "\(result.totalScore)"
+        self.totalScoreLabel.text = "\(result.totalScore) / \(result.perfectScore)"
         self.totalTimeLabel.text = result.totalTime.toTimeString()
-        self.wrongProblemsLabel.text = self.wrongProblems(problems: result.wrongProblems)
+        self.configureWrongProblems(to: result.wrongProblems)
     }
     
-    func wrongProblems(problems: [String]) -> String {
-        var result: String = ""
-        for (idx, problem) in problems.enumerated() {
-            result += problem
-            if idx != problems.count-1 {
-                result += ", "
-            }
-        }
-        return result
+    private func configureWrongProblems(to problems: [String]) {
+        let cellHeight: Int = 25
+        self.wrongsHight.constant = CGFloat(cellHeight*(1+problems.count/6))
+        self.wrongs = problems
+        self.wrongProblems.reloadData()
+    }
+}
+
+extension SectionResultViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.wrongs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WrongProblemCell.identifier, for: indexPath) as? WrongProblemCell else { return UICollectionViewCell() }
+        
+        cell.configure(to: self.wrongs[indexPath.item])
+        return cell
+    }
+}
+
+extension SectionResultViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 33, height: 25)
     }
 }
