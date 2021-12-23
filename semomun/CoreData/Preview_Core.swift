@@ -20,6 +20,9 @@ extension Preview_Core {
     @NSManaged public var title: String?
     @NSManaged public var subject: String?
     @NSManaged public var sids: [Int]
+    @NSManaged public var terminated: Bool
+    @NSManaged public var category: String?
+    @NSManaged public var downloaded: Bool
 }
 
 @objc(Preview_Core)
@@ -29,19 +32,25 @@ public class Preview_Core: NSManagedObject{
         return "Preview(\(self.wid), \(self.image), \(self.title), \(self.subject), \(self.sids))\n"
     }
     // functions to replace the custom initialization methods
-    func setValues(preview: PreviewOfDB, subject: String, sids: [Int]) {
+    func setValues(preview: PreviewOfDB, subject: String, sids: [Int], category: String) {
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(Data(), forKey: "image")
         self.setValue(subject, forKey: "subject")
         self.setValue(sids, forKey: "sids")
+        self.setValue(false, forKey: "terminated")
+        self.setValue(false, forKey: "downloaded")
+        self.setValue(category, forKey: "category")
     }
     
-    func setValues(preview: PreviewOfDB, workbook: WorkbookOfDB, sids: [Int], baseURL: String) {
+    func setValues(preview: PreviewOfDB, workbook: WorkbookOfDB, sids: [Int], baseURL: String, category: String) {
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(workbook.subject, forKey: "subject")
         self.setValue(sids, forKey: "sids")
+        self.setValue(false, forKey: "terminated")
+        self.setValue(false, forKey: "downloaded")
+        self.setValue(category, forKey: "category")
         if let url = URL(string: baseURL + preview.image) {
             let imageData = try? Data(contentsOf: url)
             if imageData != nil {

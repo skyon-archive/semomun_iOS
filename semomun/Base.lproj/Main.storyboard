@@ -1070,8 +1070,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="xTL-FV-HuA"/>
                     <connections>
+                        <outlet property="categoryLabel" destination="ltH-l1-QFt" id="Akq-LZ-G1F"/>
                         <outlet property="categorySelector" destination="Bb4-Jn-fL7" id="LAx-dS-AQx"/>
-                        <outlet property="currentCategory" destination="ltH-l1-QFt" id="Akq-LZ-G1F"/>
                         <outlet property="previews" destination="B5T-74-0qG" id="SLX-CO-jAX"/>
                         <outlet property="subjects" destination="btP-Hb-5Ub" id="VKB-Kr-PUu"/>
                         <outlet property="userInfo" destination="Bar-9g-0es" id="9ot-XD-gzP"/>

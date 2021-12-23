@@ -11,13 +11,13 @@ import CoreData
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
     
-    @IBOutlet weak var currentCategory: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categorySelector: UIButton!
     @IBOutlet weak var subjects: UICollectionView!
     @IBOutlet weak var previews: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
-    //임시적인 데이터
+    var currentCategory: String?
     private var addImageData: Data!
     private var previewManager: PreviewManager!
     
@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureCategory()
         self.configureAddImage()
         self.configureManager()
         self.configureCollectionView()
@@ -73,6 +74,10 @@ class MainViewController: UIViewController {
 
 // MARK: - Configure MainViewController
 extension MainViewController {
+    func configureCategory() {
+        self.currentCategory = UserDefaults.standard.string(forKey: "currentCategory") ?? "수능및모의고사"
+    }
+    
     func configureManager() {
         self.previewManager = PreviewManager(delegate: self)
     }
@@ -245,7 +250,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
-        self.currentCategory.text = sideMenuViewController.testTitles[row]
+        self.categoryLabel.text = sideMenuViewController.testTitles[row]
         DispatchQueue.main.async { [weak self] in self?.sideMenuState() }
     }
 }
