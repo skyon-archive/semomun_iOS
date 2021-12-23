@@ -80,26 +80,19 @@ class PreviewManager {
         targetCoreDatas.append(targetPreview)
         
         let targetSids = targetPreview.sids
-        var targetVids: [Int] = []
-        var targetPids: [Int] = []
         
-        targetSids.forEach { sid in
-            if let targetSection = CoreUsecase.fetchSection(sid: sid) {
-                targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
-                targetCoreDatas.append(targetSection)
-            }
-        }
-        
-        targetVids.forEach { vid in
-            if let targetPage = CoreUsecase.fetchPage(vid: vid) {
-                targetPids += targetPage.problems
+        targetSids.compactMap({ CoreUsecase.fetchSection(sid: $0) }).forEach { targetSection in
+            
+            targetCoreDatas.append(targetSection)
+            
+            let targetVids = CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
+            
+            targetVids.compactMap({ CoreUsecase.fetchPage(vid: $0) }).forEach { targetPage in
+                
                 targetCoreDatas.append(targetPage)
-            }
-        }
-        
-        targetPids.forEach { pid in
-            if let targetProblem = CoreUsecase.fetchProblem(pid: pid) {
-                targetCoreDatas.append(targetProblem)
+                
+                let targetProblems = targetPage.problems
+                targetCoreDatas += targetProblems.compactMap({CoreUsecase.fetchProblem(pid: $0)})
             }
         }
         
