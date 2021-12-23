@@ -53,12 +53,17 @@ class PreviewManager {
     func fetchPreviews() {
         self.previews.removeAll()
         
+        guard let allPreviews = CoreUsecase.fetchPreviews(subject: "전체") else {
+            print("No previews")
+            return 
+        }
+        self.updateSubjects(with: allPreviews)
+        
         guard let previews = CoreUsecase.fetchPreviews(subject: self.currentFilter) else {
             print("no previews")
             return
         }
         self.previews = previews
-        self.updateSubjects(with: previews)
         
         DispatchQueue.main.async {
             self.delegate?.reloadData()
