@@ -80,8 +80,20 @@ class NetworkUsecase {
         }
     }
     
-    static func postCheckUser(userToken: String, isGoogle: Bool, isApple: Bool, completion: @escaping(Bool?) -> Void) {
-        let paramKey: String = isGoogle ? "token_google" : "token_apple"
+    enum UserLoginMethod {
+        case google, apple
+        func getToken() -> String {
+            switch self {
+            case .apple:
+                return "token_apple"
+            case .google:
+                return "token_google"
+            }
+        }
+    }
+    
+    static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
+        let paramKey: String = userLoginMethod.getToken()
         let param = [paramKey: userToken]
         Network.post(url: URL.checkUser, param: param) { data in
             guard let data = data else {

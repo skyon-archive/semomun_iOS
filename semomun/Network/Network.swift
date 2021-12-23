@@ -35,9 +35,7 @@ class Network {
     }
     
     static func get(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
-        var queryItems: [URLQueryItem] = []
-        param.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
-        
+        let queryItems = param.map { URLQueryItem(name: $0.key, value: $0.value ) }
         guard var components = URLComponents(string: url) else { return }
         components.queryItems = queryItems
         guard let dbURL = components.url else { return }

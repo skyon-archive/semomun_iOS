@@ -132,7 +132,7 @@ extension StartViewController {
     }
     
     func tokenSignInWithApple(idToken: String, completion: @escaping(Bool) -> Void) {
-        NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: false, isApple: true) { isUser in
+        NetworkUsecase.postCheckUser(userToken: idToken, userLoginMethod: .apple) { isUser in
             guard let isUser = isUser else {
                 print("nil error")
 //                self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
@@ -148,7 +148,7 @@ extension StartViewController {
     }
     
     func tokenSignInWithGoogle(idToken: String, completion: @escaping(Bool) -> Void) {
-        NetworkUsecase.postCheckUser(userToken: idToken, isGoogle: true, isApple: false) { isUser in
+        NetworkUsecase.postCheckUser(userToken: idToken, userLoginMethod: .google) { isUser in
             guard let isUser = isUser else {
                 print("nil error")
                 self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
