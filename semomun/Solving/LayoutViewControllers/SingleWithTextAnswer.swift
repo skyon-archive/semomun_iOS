@@ -11,7 +11,8 @@ import PencilKit
 class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     static let identifier = "SingleWithTextAnswer" // form == 0 && type == 1
 
-    @IBOutlet var solveInput: UITextField!
+    @IBOutlet weak var solveFrameView: UIView!
+    @IBOutlet weak var solveInput: UITextField!
     @IBOutlet weak var star: UIButton!
     @IBOutlet weak var answer: UIButton!
     @IBOutlet weak var explanation: UIButton!
@@ -42,6 +43,14 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
+    }()
+    private lazy var answerResultView: ProblemTextResultView = {
+        let resultView = ProblemTextResultView()
+        resultView.layer.borderWidth = 1
+        resultView.layer.borderColor = UIColor(named: "mint")?.cgColor
+        resultView.layer.cornerRadius = 12
+        resultView.clipsToBounds = true
+        return resultView
     }()
     
     override func viewDidLoad() {
@@ -79,7 +88,9 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
+        self.solveInput.isHidden = false
         self.answer.isHidden = false
+        self.answerResultView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -96,19 +107,9 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     // 주관식 입력 부분
     @IBAction func solveInputChanged(_ sender: UITextField) {
-        guard let problem = self.viewModel?.problem,
-              let input = sender.text else { return }
-        
-        if problem.terminated {
-            if let solved = problem.solved {
-                sender.text = solved
-            }
-            return
-        }
-        
+        guard let input = sender.text else { return }
         self.viewModel?.updateSolved(input: "\(input)")
     }
-    
 
     @IBAction func toggleStar(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
@@ -187,6 +188,7 @@ extension SingleWithTextAnswer {
         self.configureStar()
         self.configureAnswer()
         self.configureExplanation()
+        self.configureResultView()
     }
     
     func configureCheckInput() {
@@ -214,16 +216,34 @@ extension SingleWithTextAnswer {
             self.answer.isUserInteractionEnabled = false
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
-            if problem.terminated {
-                self.answer.isHidden = true
-                if problem.correct == false {
-                    self.answer.isUserInteractionEnabled = true
-                    self.answer.setTitleColor(UIColor(named: "colorRed"), for: .normal)
-                } else {
-                    self.answer.isUserInteractionEnabled = true
-                    self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
-                }
+            self.answer.isUserInteractionEnabled = true
+            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+        }
+    }
+    
+    func configureResultView() {
+        guard let problem = self.viewModel?.problem,
+              let time = self.viewModel?.time else { return }
+        
+        if let answer = problem.answer, problem.terminated == true {
+            self.solveInput.isHidden = true
+            self.answer.isHidden = true
+            self.view.addSubview(self.answerResultView)
+            self.answerResultView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.answerResultView.heightAnchor.constraint(equalToConstant: 40),
+                self.answerResultView.centerYAnchor.constraint(equalTo: self.solveFrameView.centerYAnchor),
+                self.answerResultView.leadingAnchor.constraint(equalTo: self.solveFrameView.leadingAnchor)
+            ])
+            
+            if let solved = problem.solved {
+                self.answerResultView.configureSolvedAnswer(to: solved)
+            } else {
+                self.answerResultView.configureSolvedAnswer(to: "미기입")
             }
+            self.answerResultView.configureAnswer(to: answer)
+            self.answerResultView.configureTime(to: time)
         }
     }
     
