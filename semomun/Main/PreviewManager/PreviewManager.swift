@@ -26,12 +26,9 @@ class PreviewManager {
     }
     
     func updateSubjects(with previews: [Preview_Core]) {
-        previews.forEach { preview in
-            if let subject = preview.subject {
-                if !self.subjects.contains(subject) {
-                    self.subjects.append(subject)
-                }
-            }
+        self.subjects = ["전체"]
+        for subject in previews.compactMap(\.subject) where !self.subjects.contains(subject) {
+            self.subjects.append(subject)
         }
     }
     
