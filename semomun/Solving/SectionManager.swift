@@ -99,7 +99,7 @@ class SectionManager {
     
     
     func pageID(at: String) -> Int {
-        return self.dictionanry[at] ?? 0
+        return self.dictionanry[at, default: 0]
     }
     
     func updateStar(title: String, to: Bool) {
