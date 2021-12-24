@@ -1617,6 +1617,7 @@
                         <outlet property="collectionView" destination="UXt-VD-Zqc" id="0vq-iI-fca"/>
                         <outlet property="sectionTime" destination="ve3-NQ-qgp" id="PwS-tZ-X3s"/>
                         <outlet property="sectionTitle" destination="F1R-lY-NjY" id="ffo-Az-TXn"/>
+                        <outlet property="showResultVC" destination="FB5-YC-4xR" id="b4K-pe-1XY"/>
                         <outlet property="solvingFrameView" destination="6QW-Ft-KTH" id="yZU-wc-I6z"/>
                     </connections>
                 </viewController>
@@ -3300,7 +3301,7 @@
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="circleButton" width="128" height="128"/>
+        <image name="circleButton" width="87.5" height="90"/>
         <image name="logo" width="256" height="220"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

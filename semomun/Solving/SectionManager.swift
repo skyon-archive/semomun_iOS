@@ -15,7 +15,9 @@ protocol LayoutDelegate: AnyObject {
     func showTitle(title: String)
     func showTime(time: Int64)
     func saveComplete()
-    func terminateSection(result: SectionResult)
+    func showResultViewController(result: SectionResult)
+    func terminateSection(result: SectionResult, jsonString: String)
+    func changeResultLabel()
 }
 
 class SectionManager {
@@ -42,6 +44,7 @@ class SectionManager {
             self.configureMock()
         }
         self.configureSection()
+        self.configureSendText()
         self.showTitle()
         self.showTime()
         self.changePage(at: 0)
@@ -57,6 +60,12 @@ class SectionManager {
         self.isTerminated = section.terminated
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
+    }
+    
+    func configureSendText() {
+        if self.isTerminated {
+            self.delegate.changeResultLabel()
+        }
     }
     
     func changePage(at index: Int) {
@@ -235,7 +244,6 @@ class SectionManager {
         saveSectionUsecase.calculateSectionResult()
         // 결과
         self.stopTimer()
-        section.setValue(true, forKey: "terminated")
         let result = SectionResult(title: title,
                                    perfectScore: saveSectionUsecase.perfactScore,
                                    totalScore: saveSectionUsecase.totalScore,
@@ -243,15 +251,20 @@ class SectionManager {
                                    wrongProblems: saveSectionUsecase.wrongProblems)
         // 반환
         self.saveCoreData()
-        self.isTerminated = true
         self.delegate.reloadButtons()
         self.refreshPage()
         self.changePage(at: currentIndex)
-        self.delegate.terminateSection(result: result)
-        // test
-        guard let data = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
-            return
+        
+        if self.isTerminated {
+            self.delegate.showResultViewController(result: result)
+        } else {
+            self.isTerminated = true
+            section.setValue(true, forKey: "terminated")
+            self.saveCoreData()
+            let jsonEncoder = JSONEncoder()
+            guard let jsonData = try? jsonEncoder.encode(saveSectionUsecase.submissions) else { return }
+            guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+            self.delegate.terminateSection(result: result, jsonString: jsonStringData)
         }
-        print(String(data: data, encoding: .utf8))
     }
 }

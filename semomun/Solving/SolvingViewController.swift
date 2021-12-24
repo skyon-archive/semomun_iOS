@@ -23,6 +23,7 @@ class SolvingViewController: UIViewController {
     @IBOutlet weak var bottomFrame: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
+    @IBOutlet weak var showResultVC: UIButton!
     
     private var singleWith5Answer: SingleWith5Answer!
     private var singleWithTextAnswer: SingleWithTextAnswer!
@@ -64,11 +65,14 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
+        if manager.isTerminated {
+            self.manager.terminateSection()
+            return
+        }
         self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] _ in
             self?.manager.terminateSection()
         }
     }
-    
 }
 
 // MARK: - Configure
@@ -199,14 +203,21 @@ extension SolvingViewController: LayoutDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func terminateSection(result: SectionResult) {
-        self.previewCore?.setValue(true, forKey: "terminated")
-        self.saveCoreData()
-        // VC 띄우기
+    func showResultViewController(result: SectionResult) {
         guard let sectionResultVC = self.storyboard?.instantiateViewController(withIdentifier: SectionResultViewController.identifier) as? SectionResultViewController else { return }
         sectionResultVC.result = result
         self.present(sectionResultVC, animated: true, completion: nil)
-        // Backend post 하기
+    }
+    
+    func terminateSection(result: SectionResult, jsonString: String) {
+        // Backend post 하기 : 네트워크에 따른 분기처리, loader 필요, completion 이 필요
+        self.previewCore?.setValue(true, forKey: "terminated")
+        self.changeResultLabel()
+        self.showResultViewController(result: result)
+    }
+    
+    func changeResultLabel() {
+        self.showResultVC.setTitle("결과보기", for: .normal)
     }
 }
 
