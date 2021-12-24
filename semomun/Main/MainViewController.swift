@@ -45,6 +45,7 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         self.previewManager.fetchPreviews()
+        self.userInfoView.configureUserName()
     }
     
     override func viewDidAppear(_ animated: Bool) {

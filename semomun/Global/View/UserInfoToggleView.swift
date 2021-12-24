@@ -73,7 +73,15 @@ final class UserInfoToggleView: UIView {
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
-        self.configureName(to: "홍길동")
+        self.configureUserName()
+    }
+    
+    func configureUserName() {
+        guard let userInfo = CoreUsecase.fetchUserInfo(), let name = userInfo.name else {
+            self.configureName(to: "홍길동")
+            return
+        }
+        self.configureName(to: name)
     }
     
     func configureDelegate(delegate: UserInfoPushable) {
