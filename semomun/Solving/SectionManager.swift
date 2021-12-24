@@ -15,7 +15,9 @@ protocol LayoutDelegate: AnyObject {
     func showTitle(title: String)
     func showTime(time: Int64)
     func saveComplete()
-    func terminateSection(result: SectionResult)
+    func showResultViewController(result: SectionResult)
+    func terminateSection(result: SectionResult, jsonString: String)
+    func changeResultLabel()
 }
 
 class SectionManager {
@@ -24,6 +26,8 @@ class SectionManager {
     var buttons: [String] = []
     var stars: [Bool] = []
     var wrongs: [Bool] = []
+    var checks: [Bool] = []
+    var isTerminated: Bool = true
     var dictionanry: [String: Int] = [:]
     var currentTime: Int64 = 0
     var currentIndex: Int = 0
@@ -40,6 +44,7 @@ class SectionManager {
             self.configureMock()
         }
         self.configureSection()
+        self.configureSendText()
         self.showTitle()
         self.showTime()
         self.changePage(at: 0)
@@ -51,8 +56,16 @@ class SectionManager {
         self.buttons = section.buttons
         self.stars = section.stars
         self.wrongs = section.wrongs
+        self.checks = section.checks
+        self.isTerminated = section.terminated
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
+    }
+    
+    func configureSendText() {
+        if self.isTerminated {
+            self.delegate.changeResultLabel()
+        }
     }
     
     func changePage(at index: Int) {
@@ -89,14 +102,17 @@ class SectionManager {
         return self.buttons[at]
     }
     
-    func showStarColor(at: Int) -> Bool {
+    func isStar(at: Int) -> Bool {
         return self.stars[at]
     }
     
-    func showWrongColor(at: Int) -> Bool {
+    func isWrong(at: Int) -> Bool {
         return self.wrongs[at] && self.section?.terminated ?? false
     }
     
+    func isCheckd(at: Int) -> Bool {
+        return self.checks[at]
+    }
     
     func pageID(at: String) -> Int {
         return self.dictionanry[at, default: 0]
@@ -115,7 +131,10 @@ class SectionManager {
         guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
             self.wrongs[idx] = to
+            self.checks[idx] = true
             section.setValue(self.wrongs, forKey: "wrongs")
+            section.setValue(self.checks, forKey: "checks")
+            self.delegate.reloadButtons()
         }
     }
     
@@ -215,7 +234,6 @@ class SectionManager {
         saveSectionUsecase.calculateSectionResult()
         // 결과
         self.stopTimer()
-        section.setValue(true, forKey: "terminated")
         let result = SectionResult(title: title,
                                    perfectScore: saveSectionUsecase.perfactScore,
                                    totalScore: saveSectionUsecase.totalScore,
@@ -226,11 +244,17 @@ class SectionManager {
         self.delegate.reloadButtons()
         self.refreshPage()
         self.changePage(at: currentIndex)
-        self.delegate.terminateSection(result: result)
-        // test
-        guard let data = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
-            return
+        
+        if self.isTerminated {
+            self.delegate.showResultViewController(result: result)
+        } else {
+            self.isTerminated = true
+            section.setValue(true, forKey: "terminated")
+            CoreDataManager.saveCoreData()
+            let jsonEncoder = JSONEncoder()
+            guard let jsonData = try? jsonEncoder.encode(saveSectionUsecase.submissions) else { return }
+            guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+            self.delegate.terminateSection(result: result, jsonString: jsonStringData)
         }
-        print(String(data: data, encoding: .utf8))
     }
 }

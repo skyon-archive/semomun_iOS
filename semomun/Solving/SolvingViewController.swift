@@ -23,6 +23,7 @@ class SolvingViewController: UIViewController {
     @IBOutlet weak var bottomFrame: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
+    @IBOutlet weak var showResultVC: UIButton!
     
     private var singleWith5Answer: SingleWith5Answer!
     private var singleWithTextAnswer: SingleWithTextAnswer!
@@ -65,11 +66,14 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
+        if manager.isTerminated {
+            self.manager.terminateSection()
+            return
+        }
         self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] _ in
             self?.manager.terminateSection()
         }
     }
-    
 }
 
 // MARK: - Configure
@@ -93,24 +97,17 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        // 문제번호 설정
-        cell.num.text = self.manager.buttonTitle(at: indexPath.item)
-        cell.outerFrame.layer.cornerRadius = 5
-        // star, wrong 체크 여부
-        if self.manager.showWrongColor(at: indexPath.item) {
-            cell.outerFrame.backgroundColor = UIColor(named: "colorRed")
-        } else if self.manager.showStarColor(at: indexPath.item) {
-            cell.outerFrame.backgroundColor = UIColor(named: "yellow")
-        } else {
-            cell.outerFrame.backgroundColor = UIColor.white
-        }
         
-        // 크기 조절
-        if indexPath.item == self.manager.currentIndex {
-            cell.outerFrame.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        } else {
-            cell.outerFrame.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
+        let num = self.manager.buttonTitle(at: indexPath.item)
+        let isStar = self.manager.isStar(at: indexPath.item)
+        let isTerminated = self.manager.isTerminated
+        let isWrong = self.manager.isWrong(at: indexPath.item)
+        let isCheckd = self.manager.isCheckd(at: indexPath.item)
+        let isSelect = indexPath.item == self.manager.currentIndex
+        
+        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd)
+        cell.configureSize(isSelect: isSelect)
+        
         return cell
     }
     
@@ -207,14 +204,21 @@ extension SolvingViewController: LayoutDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func terminateSection(result: SectionResult) {
-        self.previewCore?.setValue(true, forKey: "terminated")
-        CoreDataManager.saveCoreData()
-        // VC 띄우기
+    func showResultViewController(result: SectionResult) {
         guard let sectionResultVC = self.storyboard?.instantiateViewController(withIdentifier: SectionResultViewController.identifier) as? SectionResultViewController else { return }
         sectionResultVC.result = result
         self.present(sectionResultVC, animated: true, completion: nil)
-        // Backend post 하기
+    }
+    
+    func terminateSection(result: SectionResult, jsonString: String) {
+        // Backend post 하기 : 네트워크에 따른 분기처리, loader 필요, completion 이 필요
+        self.previewCore?.setValue(true, forKey: "terminated")
+        self.changeResultLabel()
+        self.showResultViewController(result: result)
+    }
+    
+    func changeResultLabel() {
+        self.showResultVC.setTitle("결과보기", for: .normal)
     }
 }
 
