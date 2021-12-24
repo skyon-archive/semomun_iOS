@@ -1263,6 +1263,14 @@
                             <constraint firstItem="TwT-8B-KWC" firstAttribute="top" secondItem="3f2-kR-bea" secondAttribute="bottom" constant="25" id="xwG-h0-M9r"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="favoriteCategory" destination="8Qi-1F-MWy" id="7FA-J5-L2u"/>
+                        <outlet property="graduationStatus" destination="tRZ-xz-mqY" id="Mda-ua-E0c"/>
+                        <outlet property="major" destination="odG-O3-Rdw" id="dEa-je-Akb"/>
+                        <outlet property="majorDetail" destination="fdW-45-po6" id="1i8-nJ-eaQ"/>
+                        <outlet property="schoolName" destination="s2Z-XC-dfP" id="CG6-yb-9SC"/>
+                        <outlet property="userName" destination="jOQ-Uv-ERJ" id="YAg-oU-kf1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N5y-gj-uwC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1307,6 +1315,9 @@
                                                 <rect key="frame" x="20" y="17.5" width="292" height="25.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="editingDidEnd:" destination="oYR-Lx-1ao" eventType="editingDidEnd" id="h8j-LG-WFv"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
