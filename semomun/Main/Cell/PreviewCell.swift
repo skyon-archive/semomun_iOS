@@ -43,7 +43,6 @@ class PreviewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        imageView.image = nil
         self.statusImageView.backgroundColor = .clear
         self.statusImageView.image = nil
     }

@@ -204,7 +204,6 @@ extension SearchWorkbookViewController {
         let baseURL = NetworkUsecase.URL.bookcovoerImageDirectory(manager.imageScale)
         
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: self.manager.category)
-        CoreDataManager.shared.appDelegate.saveContext()
     }
     
     func saveSectionHeader(sections: [SectionOfDB]) {
@@ -212,8 +211,8 @@ extension SearchWorkbookViewController {
         
         sections.forEach {
             sectionHeader_core.setValues(section: $0, baseURL: NetworkUsecase.URL.sectionImageDirectory(manager.imageScale))
-            CoreDataManager.shared.appDelegate.saveContext()
         }
+        CoreDataManager.saveCoreData()
         print("save complete")
         NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
         DispatchQueue.main.async {
