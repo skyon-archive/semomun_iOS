@@ -24,6 +24,8 @@ class SectionManager {
     var buttons: [String] = []
     var stars: [Bool] = []
     var wrongs: [Bool] = []
+    var checks: [Bool] = []
+    var isTerminated: Bool = true
     var dictionanry: [String: Int] = [:]
     var currentTime: Int64 = 0
     var currentIndex: Int = 0
@@ -51,6 +53,8 @@ class SectionManager {
         self.buttons = section.buttons
         self.stars = section.stars
         self.wrongs = section.wrongs
+        self.checks = section.checks
+        self.isTerminated = section.terminated
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
     }
@@ -89,14 +93,17 @@ class SectionManager {
         return self.buttons[at]
     }
     
-    func showStarColor(at: Int) -> Bool {
+    func isStar(at: Int) -> Bool {
         return self.stars[at]
     }
     
-    func showWrongColor(at: Int) -> Bool {
+    func isWrong(at: Int) -> Bool {
         return self.wrongs[at] && self.section?.terminated ?? false
     }
     
+    func isCheckd(at: Int) -> Bool {
+        return self.checks[at]
+    }
     
     func pageID(at: String) -> Int {
         return self.dictionanry[at, default: 0]
@@ -116,9 +123,12 @@ class SectionManager {
         guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
             self.wrongs[idx] = to
+            self.checks[idx] = true
             print(self.wrongs)
             section.setValue(self.wrongs, forKey: "wrongs")
+            section.setValue(self.checks, forKey: "checks")
             CoreDataManager.saveCoreData()
+            self.delegate.reloadButtons()
         }
     }
     
@@ -233,6 +243,7 @@ class SectionManager {
                                    wrongProblems: saveSectionUsecase.wrongProblems)
         // 반환
         self.saveCoreData()
+        self.isTerminated = true
         self.delegate.reloadButtons()
         self.refreshPage()
         self.changePage(at: currentIndex)

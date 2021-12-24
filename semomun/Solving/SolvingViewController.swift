@@ -92,24 +92,17 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        // 문제번호 설정
-        cell.num.text = self.manager.buttonTitle(at: indexPath.item)
-        cell.outerFrame.layer.cornerRadius = 5
-        // star, wrong 체크 여부
-        if self.manager.showWrongColor(at: indexPath.item) {
-            cell.outerFrame.backgroundColor = UIColor(named: "colorRed")
-        } else if self.manager.showStarColor(at: indexPath.item) {
-            cell.outerFrame.backgroundColor = UIColor(named: "yellow")
-        } else {
-            cell.outerFrame.backgroundColor = UIColor.white
-        }
         
-        // 크기 조절
-        if indexPath.item == self.manager.currentIndex {
-            cell.outerFrame.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        } else {
-            cell.outerFrame.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
+        let num = self.manager.buttonTitle(at: indexPath.item)
+        let isStar = self.manager.isStar(at: indexPath.item)
+        let isTerminated = self.manager.isTerminated
+        let isWrong = self.manager.isWrong(at: indexPath.item)
+        let isCheckd = self.manager.isCheckd(at: indexPath.item)
+        let isSelect = indexPath.item == self.manager.currentIndex
+        
+        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd)
+        cell.configureSize(isSelect: isSelect)
+        
         return cell
     }
     
