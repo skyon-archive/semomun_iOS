@@ -59,6 +59,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         
         self.configureLoader()
         self.configureSwipeGesture()
+        self.addCoreDataAlertObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {

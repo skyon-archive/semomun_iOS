@@ -25,6 +25,7 @@ class SearchWorkbookViewController: UIViewController {
         configureDelegate()
         configureUI()
         configureLoader()
+        self.addCoreDataAlertObserver()
     }
     
     @IBAction func back(_ sender: Any) {

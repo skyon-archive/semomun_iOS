@@ -9,11 +9,6 @@ import UIKit
 import CoreData
 
 extension UIViewController {
-    func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            self.showAlertWithOK(title: "CoreData 저장 에러", text: error.localizedDescription)
-        }
-    }
     
     func showAlertWithOK(title: String, text: String) {
         let alert = UIAlertController(title: title,
@@ -70,5 +65,15 @@ extension UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func addCoreDataAlertObserver() {
+        NotificationCenter.default.addObserver(forName: CoreDataManager.saveErrorNotificationName, object: nil, queue: .main) { noti in
+            if let userInfo = noti.userInfo, let errorMessage = userInfo["errorMessage"] as? String {
+                self.showAlertWithOK(title: "데이터 저장 실패", text: errorMessage)
+            } else {
+                self.showAlertWithOK(title: "데이터 저장 실패", text: "에러 메시지 정보 없음")
+            }
+        }
     }
 }

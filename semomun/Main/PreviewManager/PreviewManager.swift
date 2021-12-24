@@ -113,7 +113,7 @@ class PreviewManager {
         targetCoreDatas.forEach { coreData in
             CoreDataManager.shared.context.delete(coreData)
         }
-        CoreUsecase.saveCoreData()
+        CoreDataManager.saveCoreData()
         self.fetchPreviews()
     }
     

@@ -49,6 +49,7 @@ class SolvingViewController: UIViewController {
         self.addChild(multipleWith5Answer)
         
         self.configureManager()
+        self.addCoreDataAlertObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -208,7 +209,7 @@ extension SolvingViewController: LayoutDelegate {
     
     func terminateSection(result: SectionResult) {
         self.previewCore?.setValue(true, forKey: "terminated")
-        self.saveCoreData()
+        CoreDataManager.saveCoreData()
         // VC 띄우기
         guard let sectionResultVC = self.storyboard?.instantiateViewController(withIdentifier: SectionResultViewController.identifier) as? SectionResultViewController else { return }
         sectionResultVC.result = result

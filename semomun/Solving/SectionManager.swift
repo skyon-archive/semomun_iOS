@@ -107,7 +107,6 @@ class SectionManager {
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
             section.setValue(self.stars, forKey: "stars")
-            self.saveCoreData()
             self.delegate.reloadButtons()
         }
     }
@@ -116,9 +115,7 @@ class SectionManager {
         guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
             self.wrongs[idx] = to
-            print(self.wrongs)
             section.setValue(self.wrongs, forKey: "wrongs")
-            CoreDataManager.saveCoreData()
         }
     }
     
@@ -188,7 +185,7 @@ class SectionManager {
     func stopSection() {
         self.stopTimer()
         self.delegate.saveComplete()
-        self.saveCoreData()
+        CoreDataManager.saveCoreData()
     }
     
     func stopTimer() {
@@ -198,12 +195,6 @@ class SectionManager {
         self.isRunning = false
         self.timer.invalidate()
         self.section?.setValue(currentTime, forKey: "time")
-    }
-    
-    func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
-        }
     }
     
     func configureMock() {
@@ -216,7 +207,6 @@ class SectionManager {
     }
     
     func terminateSection() {
-        self.saveCoreData()
         guard let section = self.section,
               let title = section.title else { return }
         // 채점 로직
@@ -232,7 +222,7 @@ class SectionManager {
                                    totalTime: section.time,
                                    wrongProblems: saveSectionUsecase.wrongProblems)
         // 반환
-        self.saveCoreData()
+        CoreDataManager.saveCoreData()
         self.delegate.reloadButtons()
         self.refreshPage()
         self.changePage(at: currentIndex)

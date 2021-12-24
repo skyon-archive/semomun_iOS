@@ -47,13 +47,12 @@ final class MultipleWithNoAnswerViewModel {
         for (idx, problem) in problems.enumerated() {
             problem.setValue(baseTimes[idx] + perTime, forKey: "time")
         }
-        CoreUsecase.saveCoreDataConcurrently()
+        CoreDataManager.saveCoreData()
     }
     
     func updatePencilData(to: Data) {
         self.pageData.pageCore.setValue(to, forKey: "drawing")
     }
-    
     var count: Int {
         return self.problems?.count ?? 0
     }

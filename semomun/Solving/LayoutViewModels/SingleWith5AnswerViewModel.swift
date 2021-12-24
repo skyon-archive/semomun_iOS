@@ -38,7 +38,7 @@ final class SingleWith5AnswerViewModel {
         let resultTime = time+1
         self.time = resultTime
         problem.setValue(resultTime, forKey: "time")
-        CoreUsecase.saveCoreDataConcurrently()
+        CoreDataManager.saveCoreData()
     }
     
     func updateSolved(input: String) {

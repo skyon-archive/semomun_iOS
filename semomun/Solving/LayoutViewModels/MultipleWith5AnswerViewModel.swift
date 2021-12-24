@@ -48,7 +48,7 @@ final class MultipleWith5AnswerViewModel {
             problem.setValue(baseTimes[idx] + perTime, forKey: "time")
         }
 
-        CoreUsecase.saveCoreDataConcurrently()
+        CoreDataManager.saveCoreData()
     }
     
     func updatePencilData(to: Data) {

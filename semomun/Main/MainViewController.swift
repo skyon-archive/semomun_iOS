@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
         self.configureManager()
         self.configureCollectionView()
         self.configureObserve()
+        self.addCoreDataAlertObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,12 +222,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     return
                 }
                 
-                DispatchQueue.main.async { [weak self] in
-                    loading.terminate()
-                    preview.setValue(true, forKey: "downloaded")
-                    self?.saveCoreData()
-                    self?.reloadData()
-                }
+                loading.terminate()
+                preview.setValue(true, forKey: "downloaded")
+                CoreDataManager.saveCoreData()
+                self.reloadData()
                 return
             }
         }
@@ -265,8 +264,8 @@ extension MainViewController: PreviewDatasource {
     
     func deleteAlert(title: String, idx: Int) {
         let alert = UIAlertController(title: title,
-            message: "삭제하시겠습니까?",
-            preferredStyle: UIAlertController.Style.alert)
+                                      message: "삭제하시겠습니까?",
+                                      preferredStyle: UIAlertController.Style.alert)
         let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
         let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
             self.previewManager.delete(at: idx)

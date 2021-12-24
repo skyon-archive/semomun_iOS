@@ -47,6 +47,7 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
+        self.addCoreDataAlertObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -35,7 +35,7 @@ final class SingleWithTextAnswerViewModel {
         let resultTime = time+1
         self.time = resultTime
         problem.setValue(resultTime, forKey: "time")
-        CoreUsecase.saveCoreDataConcurrently()
+        CoreDataManager.saveCoreData()
     }
     
     func updateSolved(input: String) {
@@ -46,7 +46,7 @@ final class SingleWithTextAnswerViewModel {
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
-            CoreUsecase.saveCoreDataConcurrently()
+            CoreDataManager.saveCoreData()
             self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
     }

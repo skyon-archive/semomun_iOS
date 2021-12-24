@@ -57,6 +57,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         
         self.configureLoader()
         self.configureSwipeGesture()
+        self.addCoreDataAlertObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
