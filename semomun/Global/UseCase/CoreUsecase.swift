@@ -25,6 +25,22 @@ struct CoreUsecase {
         return nil
     }
     
+    static func saveCoreDataConcurrently() {
+        let privateMOC = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateMOC.parent = CoreDataManager.shared.context
+        privateMOC.perform {
+            do {
+                if privateMOC.hasChanges {
+                    try privateMOC.save()
+                }
+            } catch {
+                let saveError = error as NSError
+                print("Unable to Save Changes of Private Managed Object Context")
+                print("\(saveError), \(saveError.localizedDescription)")
+            }
+        }
+    }
+    
     static func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
         let context = CoreDataManager.shared.context
         let sectionOfCore = Section_Core(context: context)
@@ -297,6 +313,9 @@ struct CoreUsecase {
         }
     }
     
+    /// - Warning: DispatchQueue로 이 함수를 호출하지 말고, saveCoreDataConcurrently()를 사용.
+    ///
+    /// 이 [튜토리얼](https://cocoacasts.com/core-data-and-concurrency/)과 이 [애플 문서](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Concurrency.html)를 참고
     static func saveCoreData() {
         do { try CoreDataManager.shared.context.save() } catch let error {
             print("CoreData 저장 에러 \(error.localizedDescription)")
