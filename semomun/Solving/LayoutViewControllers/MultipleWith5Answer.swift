@@ -75,6 +75,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillDisappear(animated)
         print("5다선지 좌우형 : willDisapplear")
         
+        CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.imageView.image = nil
     }

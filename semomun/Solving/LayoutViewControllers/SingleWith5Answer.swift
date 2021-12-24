@@ -129,7 +129,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
-            self.answer.setTitle(answer, for: .normal)
+            self.answer.setTitle(answer.circledAnswer, for: .normal)
         } else {
             self.answer.setTitle("정답", for: .normal)
         }

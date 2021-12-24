@@ -85,6 +85,7 @@ class SingleWithTextAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillDisappear(animated)
         print("객관식 willDisappear")
         
+        CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil

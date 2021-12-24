@@ -15,11 +15,11 @@ extension String {
     
     var circledAnswer: String {
         switch self {
-        case "1": return "①"
-        case "2": return "②"
-        case "3": return "③"
-        case "4": return "④"
-        case "5": return "⑤"
+        case "1": return "⓵"
+        case "2": return "⓶"
+        case "3": return "⓷"
+        case "4": return "⓸"
+        case "5": return "⓹"
         default: return self
         }
     }

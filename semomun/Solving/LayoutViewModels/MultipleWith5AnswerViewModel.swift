@@ -48,20 +48,12 @@ final class MultipleWith5AnswerViewModel {
             problem.setValue(baseTimes[idx] + perTime, forKey: "time")
         }
 
-        self.saveCoreData()
-    }
-    
-    func saveCoreData() {
-        DispatchQueue.global().async {
-            do { try CoreDataManager.shared.context.save() } catch let error {
-                print(error.localizedDescription)
-            }
-        }
+        CoreDataManager.saveCoreData()
     }
     
     func updatePencilData(to: Data) {
         self.pageData.pageCore.setValue(to, forKey: "drawing")
-        self.saveCoreData()
+//        CoreDataManager.saveCoreData()
     }
     
     var count: Int {

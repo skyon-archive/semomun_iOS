@@ -85,7 +85,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         guard let answer = self.problem?.answer else { return }
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
-            self.answer.setTitle(answer, for: .normal)
+            self.answer.setTitle(answer.circledAnswer, for: .normal)
         } else {
             self.answer.setTitle("정답", for: .normal)
         }
@@ -270,12 +270,12 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     func updateSolved(problem: Problem_Core, input: String) {
         guard let pName = problem.pName else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        saveCoreData()
+//        CoreDataManager.saveCoreData()
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
-            saveCoreData()
+//            CoreDataManager.saveCoreData()
             self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
     }
@@ -284,6 +284,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        saveCoreData()
+//        CoreDataManager.saveCoreData()
     }
 }

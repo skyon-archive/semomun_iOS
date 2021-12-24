@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-extension UICollectionViewCell {
-    func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-}
+//extension UICollectionViewCell {
+//    func saveCoreData() {
+//        do { try CoreDataManager.shared.context.save() } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
+//}
