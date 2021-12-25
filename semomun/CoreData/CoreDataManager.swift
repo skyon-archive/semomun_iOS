@@ -18,9 +18,12 @@ class CoreDataManager {
     lazy var context = appDelegate.persistentContainer.viewContext
     
     static func saveCoreData() {
-        do { try CoreDataManager.shared.context.save() } catch let error {
-            print("CoreData 저장 에러 \(error.localizedDescription)")
-            NotificationCenter.default.post(name: saveErrorNotificationName, object: nil, userInfo: ["errorMessage": error.localizedDescription])
+        guard CoreDataManager.shared.context.hasChanges else { return }
+        CoreDataManager.shared.context.perform {
+            do { try CoreDataManager.shared.context.save() } catch let error {
+                print("CoreData 저장 에러 \(error.localizedDescription)")
+                NotificationCenter.default.post(name: saveErrorNotificationName, object: nil, userInfo: ["errorMessage": error.localizedDescription])
+            }
         }
     }
     
