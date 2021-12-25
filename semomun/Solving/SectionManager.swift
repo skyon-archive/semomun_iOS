@@ -47,7 +47,7 @@ class SectionManager {
         self.configureSendText()
         self.showTitle()
         self.showTime()
-        self.changePage(at: 0)
+        self.configureStartPage()
         self.startTimer()
     }
     
@@ -60,6 +60,18 @@ class SectionManager {
         self.isTerminated = section.terminated
         self.dictionanry = section.dictionaryOfProblem
         self.currentTime = section.time
+    }
+    
+    private func configureStartPage() {
+        if let lastPageId = self.section?.lastPageId, let key = dictionanry.first(where: {$0.value == lastPageId})?.key, let idx = buttons.firstIndex(of: key) {
+                self.currentIndex = idx
+                let pageData = PageData(vid: Int(lastPageId))
+                self.currentPage = pageData
+                self.delegate.reloadButtons()
+                self.delegate.changeVC(pageData: pageData)
+        } else {
+            changePage(at: 0)
+        }
     }
     
     func configureSendText() {
@@ -87,6 +99,8 @@ class SectionManager {
         // 6. 변경된 PageData 반환
         self.delegate.reloadButtons()
         self.delegate.changeVC(pageData: pageData)
+        
+        self.section?.setValue(pageID, forKey: "lastPageId")
     }
     
     func refreshPage() {
