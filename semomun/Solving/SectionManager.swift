@@ -51,7 +51,7 @@ class SectionManager {
         self.startTimer()
     }
     
-    func configureSection() {
+    private func configureSection() {
         guard let section = self.section else { return }
         self.buttons = section.buttons
         self.stars = section.stars
@@ -193,6 +193,7 @@ class SectionManager {
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 self.currentTime += 1
+                self.section?.setValue(self.currentTime, forKey: "time")
                 self.showTime()
             }
             while self.isRunning {
@@ -213,7 +214,6 @@ class SectionManager {
         
         self.isRunning = false
         self.timer.invalidate()
-        self.section?.setValue(currentTime, forKey: "time")
     }
     
     func configureMock() {
