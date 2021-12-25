@@ -206,7 +206,7 @@ extension SearchWorkbookViewController {
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: self.manager.category)
     }
     
-    func saveSectionHeader(sections: [SectionOfDB]) {
+    func saveSectionHeader(sections: [SectionOfDB], subject: String) {
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
@@ -214,7 +214,7 @@ extension SearchWorkbookViewController {
         }
         CoreDataManager.saveCoreData()
         print("save complete")
-        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self)
+        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self, userInfo: ["subject" : subject])
         DispatchQueue.main.async {
             self.stopPreviewLoader()
             self.dismiss(animated: true, completion: nil)
@@ -229,7 +229,7 @@ extension SearchWorkbookViewController {
             
             DispatchQueue.global().async {
                 self.savePreview(index: index, workbook: workbook, sids: sids)
-                self.saveSectionHeader(sections: sections)
+                self.saveSectionHeader(sections: sections, subject: workbook.subject)
             }
         }
     }

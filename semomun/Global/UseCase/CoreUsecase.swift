@@ -219,12 +219,14 @@ struct CoreUsecase {
         print("MOCK SAVE COMPLETE")
     }
     
-    static func fetchPreviews(subject: String) -> [Preview_Core]? {
+    static func fetchPreviews(subject: String, category: String) -> [Preview_Core]? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        var filters: [NSPredicate] = []
+        filters.append(NSPredicate(format: "category = %@", category))
         if subject != "전체" {
-            let filter = NSPredicate(format: "subject = %@", subject)
-            fetchRequest.predicate = filter
+            filters.append(NSPredicate(format: "subject = %@", subject))
         }
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: filters)
         
         if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
             return previews

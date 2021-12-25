@@ -1757,8 +1757,8 @@
                                                                 <constraint firstAttribute="width" constant="110" id="cwW-s6-8o9"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lne-rb-bvu">
-                                                            <rect key="frame" x="10" y="152.5" width="110" height="43"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면 어떻게 보일까 궁금합니다" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lne-rb-bvu">
+                                                            <rect key="frame" x="10" y="152.5" width="110" height="57.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

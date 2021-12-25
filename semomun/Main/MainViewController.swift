@@ -17,7 +17,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var previews: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
-    private var currentCategory: String?
     private var addImageData: Data!
     private var previewManager: PreviewManager!
     
@@ -33,18 +32,19 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCategory()
         self.configureAddImage()
         self.configureManager()
         self.configureCollectionView()
         self.configureObserve()
         self.addCoreDataAlertObserver()
+        self.previewManager.fetchPreviews()
+        self.previewManager.fetchSubjects()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        self.previewManager.fetchPreviews()
+        self.reloadData()
         self.userInfoView.configureUserName()
     }
     
@@ -76,12 +76,9 @@ class MainViewController: UIViewController {
 
 // MARK: - Configure MainViewController
 extension MainViewController {
-    func configureCategory() {
-        self.currentCategory = UserDefaults.standard.string(forKey: "currentCategory") ?? "수능 및 모의고사"
-    }
-    
     func configureManager() {
         self.previewManager = PreviewManager(delegate: self)
+        self.categoryLabel.text = self.previewManager.currentCategory
     }
     
     func configureCollectionView() {
@@ -91,8 +88,11 @@ extension MainViewController {
     }
     
     func configureObserve() {
-        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { _ in
+        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { notification in
+            guard let targetSubject = notification.userInfo?["subject"] as? String else { return }
+            self.previewManager.checkSubject(with: targetSubject)
             self.previewManager.fetchPreviews()
+            self.reloadData()
         }
     }
     
@@ -118,7 +118,7 @@ extension MainViewController {
             let touchPoint = longPressGestureRecognizer.location(in: previews)
             guard let indexPath = previews.indexPathForItem(at: touchPoint) else { return }
             if indexPath.item-1 >= 0 {
-                self.previewManager.deletePreview(at: indexPath.item-1)
+                self.previewManager.showDeleteAlert(at: indexPath.item-1)
             }
         }
     }
@@ -128,7 +128,7 @@ extension MainViewController {
 extension MainViewController {
     func showSearchWorkbookViewController() {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
-        guard let category = self.currentCategory else { return }
+        let category = self.previewManager.currentCategory
         nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category)
         self.present(nextVC, animated: true, completion: nil)
     }
@@ -184,7 +184,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // MARK: - category
         if collectionView == subjects {
-            self.previewManager.updateCategory(idx: indexPath.item)
+            self.previewManager.selectSubject(idx: indexPath.item)
+            self.previewManager.fetchPreviews()
+            self.reloadData()
             return
         }
         
@@ -250,8 +252,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectCategory(to category: String) {
-        self.currentCategory = category
         self.categoryLabel.text = category
+        self.previewManager.updateCategory(to: category)
         DispatchQueue.main.async { [weak self] in self?.sideMenuState() }
     }
 }
