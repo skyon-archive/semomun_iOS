@@ -19,7 +19,7 @@ class CoreDataManager {
     
     static func saveCoreData() {
         guard CoreDataManager.shared.context.hasChanges else { return }
-        CoreDataManager.shared.context.perform {
+        CoreDataManager.shared.context.performAndWait {
             do { try CoreDataManager.shared.context.save() } catch let error {
                 print("CoreData 저장 에러 \(error.localizedDescription)")
                 NotificationCenter.default.post(name: saveErrorNotificationName, object: nil, userInfo: ["errorMessage": error.localizedDescription])
