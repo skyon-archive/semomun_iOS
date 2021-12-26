@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SwiftUI
 
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
@@ -321,5 +322,7 @@ extension MainViewController: UserInfoPushable {
     
     func showSetting() {
         print("showSetting")
+        let settingView = UIHostingController(rootView: SettingView())
+        self.present(settingView, animated: true, completion: nil)
     }
 }
