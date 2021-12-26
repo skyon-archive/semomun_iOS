@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
+		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
+		252AC362277893E2008AD5E4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC361277893E2008AD5E4 /* SettingView.swift */; };
+		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
@@ -113,6 +116,9 @@
 
 /* Begin PBXFileReference section */
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
+		252AC361277893E2008AD5E4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -301,6 +307,9 @@
 			children = (
 				87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */,
 				87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */,
+				257B8E3E27774DB100C1C856 /* SettingUserView.swift */,
+				252AC35F27787145008AD5E4 /* UnivFinderView.swift */,
+				252AC361277893E2008AD5E4 /* SettingView.swift */,
 			);
 			path = PersonalSetting;
 			sourceTree = "<group>";
@@ -701,6 +710,7 @@
 				87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */,
 				87C85E90276F6B03001C9C4A /* PreviewManager.swift in Sources */,
 				87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */,
+				257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
@@ -731,6 +741,7 @@
 				87C85EE1276F6E53001C9C4A /* Report.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerViewModel.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
+				252AC362277893E2008AD5E4 /* SettingView.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,
@@ -745,6 +756,7 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
+				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
 				87C85EE5276F6E6B001C9C4A /* History.swift in Sources */,
 				87C85E69276F6910001C9C4A /* CategoryManager.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
