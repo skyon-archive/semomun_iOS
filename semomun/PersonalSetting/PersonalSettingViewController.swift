@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol ReloadUserData: AnyObject {
     func loadData()
@@ -26,6 +27,13 @@ class PersonalSettingViewController: UIViewController {
         self.title = "설정"
         self.loadData()
         self.loadUserInfo()
+    }
+    
+    @IBAction func showSettingUserVC(_ sender: Any) {
+        let view = SettingUserView(delegate: self)
+        let vc = UIHostingController(rootView: view)
+        vc.view.backgroundColor = .clear
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func showSettingNameVC(_ sender: Any) {
