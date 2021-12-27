@@ -16,6 +16,8 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
+		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
+		8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8742544A27798B0300D60264 /* schoolToken.xcconfig */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
@@ -115,6 +117,8 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
+		8742544A27798B0300D60264 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
@@ -262,6 +266,14 @@
 			path = semomun;
 			sourceTree = "<group>";
 		};
+		8742544927798AD200D60264 /* APIToken */ = {
+			isa = PBXGroup;
+			children = (
+				8742544A27798B0300D60264 /* schoolToken.xcconfig */,
+			);
+			path = APIToken;
+			sourceTree = "<group>";
+		};
 		879B172C2772CC030042478F /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +294,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				8742544927798AD200D60264 /* APIToken */,
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -559,6 +572,7 @@
 				87C85EF1276F6EF0001C9C4A /* SectionOfDB.swift */,
 				87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */,
 				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
+				8742544727795D3900D60264 /* QueryListButton.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -631,6 +645,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
@@ -726,6 +741,7 @@
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				250D82432772C43400AF1A46 /* String.swift in Sources */,
+				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
 				87C85EDF276F6E47001C9C4A /* Problem.swift in Sources */,
@@ -878,6 +894,7 @@
 		};
 		871B6E62276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8742544A27798B0300D60264 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -913,6 +930,7 @@
 		};
 		871B6E63276EE48D008CEEBA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8742544A27798B0300D60264 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
