@@ -1656,75 +1656,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Kv1-GY-nbb">
-                                        <rect key="frame" x="131" y="80" width="506" height="41"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKF-Rg-UbP">
-                                                <rect key="frame" x="0.0" y="0.0" width="104" height="41"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="41" id="YgH-Bp-X6E"/>
-                                                    <constraint firstAttribute="width" constant="104" id="y5c-Zm-kHl"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="과목" image="chevron.down" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showSubject:" destination="Mls-re-g6S" eventType="touchUpInside" id="6P4-uw-cN3"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeO-2a-nxB">
-                                                <rect key="frame" x="134" y="0.0" width="104" height="41"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="41" id="MrN-BI-PhY"/>
-                                                    <constraint firstAttribute="width" constant="104" id="yMv-df-dtD"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="학년" image="chevron.down" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showSubject:" destination="Mls-re-g6S" eventType="touchUpInside" id="X0I-ZZ-SOF"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXG-fc-1G2">
-                                                <rect key="frame" x="268" y="0.0" width="104" height="41"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="104" id="Esi-Cs-LP3"/>
-                                                    <constraint firstAttribute="height" constant="41" id="rKb-WQ-fge"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="년도" image="chevron.down" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showSubject:" destination="Mls-re-g6S" eventType="touchUpInside" id="Wsr-QN-7F4"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="456-YM-aoC">
-                                                <rect key="frame" x="402" y="0.0" width="104" height="41"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="104" id="KPt-7W-Tqi"/>
-                                                    <constraint firstAttribute="height" constant="41" id="viL-4z-8Bv"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="월" image="chevron.down" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showSubject:" destination="Mls-re-g6S" eventType="touchUpInside" id="EKf-uV-9vR"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-j9-rAW">
                                         <rect key="frame" x="717" y="30" width="21" height="22"/>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1786,14 +1717,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="Kv1-GY-nbb" firstAttribute="centerX" secondItem="Mzm-hI-RG6" secondAttribute="centerX" id="0pY-7g-fPR"/>
                                     <constraint firstAttribute="trailing" secondItem="yh4-j9-rAW" secondAttribute="trailing" constant="30" id="3Qk-tf-XKL"/>
                                     <constraint firstItem="CbS-5x-w4x" firstAttribute="centerX" secondItem="Mzm-hI-RG6" secondAttribute="centerX" id="8ST-In-tVB"/>
-                                    <constraint firstItem="CbS-5x-w4x" firstAttribute="top" secondItem="Kv1-GY-nbb" secondAttribute="bottom" constant="20" id="Qaq-wd-i5R"/>
-                                    <constraint firstItem="Kv1-GY-nbb" firstAttribute="top" secondItem="M0I-Rd-uTA" secondAttribute="bottom" constant="26" id="SoF-WF-4tr"/>
                                     <constraint firstItem="M0I-Rd-uTA" firstAttribute="top" secondItem="Mzm-hI-RG6" secondAttribute="top" constant="30" id="Tax-jN-ASr"/>
                                     <constraint firstItem="yh4-j9-rAW" firstAttribute="top" secondItem="Mzm-hI-RG6" secondAttribute="top" constant="30" id="Z9F-t7-AUz"/>
                                     <constraint firstAttribute="bottom" secondItem="CbS-5x-w4x" secondAttribute="bottom" constant="20" id="o4M-VJ-EcS"/>
+                                    <constraint firstItem="CbS-5x-w4x" firstAttribute="top" secondItem="M0I-Rd-uTA" secondAttribute="bottom" constant="87" id="qqK-Yv-QLm"/>
                                     <constraint firstItem="M0I-Rd-uTA" firstAttribute="centerX" secondItem="Mzm-hI-RG6" secondAttribute="centerX" id="r1P-VQ-yO5"/>
                                     <constraint firstItem="CbS-5x-w4x" firstAttribute="leading" secondItem="Mzm-hI-RG6" secondAttribute="leading" constant="20" id="wNB-Ec-pdf"/>
                                 </constraints>
@@ -1810,10 +1739,7 @@
                     <connections>
                         <outlet property="frameView" destination="Mzm-hI-RG6" id="wo7-Hd-mQB"/>
                         <outlet property="previews" destination="CbS-5x-w4x" id="fhF-JU-EMj"/>
-                        <outletCollection property="selectButtons" destination="lKF-Rg-UbP" collectionClass="NSMutableArray" id="hfa-Hi-qNg"/>
-                        <outletCollection property="selectButtons" destination="aeO-2a-nxB" collectionClass="NSMutableArray" id="fMT-ZU-H3r"/>
-                        <outletCollection property="selectButtons" destination="KXG-fc-1G2" collectionClass="NSMutableArray" id="JBf-AF-oFH"/>
-                        <outletCollection property="selectButtons" destination="456-YM-aoC" collectionClass="NSMutableArray" id="a8R-Lj-Yby"/>
+                        <outlet property="titleLabel" destination="M0I-Rd-uTA" id="IeJ-Fc-kW6"/>
                         <segue destination="gCx-BE-n5E" kind="show" id="fsa-xo-Bag"/>
                     </connections>
                 </viewController>
@@ -3313,9 +3239,6 @@
         <namedColor name="mint">
             <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

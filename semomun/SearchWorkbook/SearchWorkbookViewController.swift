@@ -12,8 +12,11 @@ class SearchWorkbookViewController: UIViewController {
     static let identifier = "SearchWorkbookViewController"
     
     @IBOutlet weak var frameView: UIView!
-    @IBOutlet var selectButtons: [UIButton]!
     @IBOutlet weak var previews: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
+    private var queryButtons: [UIButton] = []
+    private var queryDtos: [QueryListButton] = []
+    private var stackView: UIStackView?
     
     var manager: SearchWorkbookManager?
     
@@ -22,36 +25,73 @@ class SearchWorkbookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.fetchQueryButtons()
         self.configureDelegate()
         self.configureUI()
         self.configureLoader()
         self.addCoreDataAlertObserver()
-        self.testPrint()
+        
     }
     
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func showSubject(_ sender: UIButton) {
-        let idx = Int(sender.tag)
-        showAlertController(title: Query.shared.buttonTitles[idx], index: idx, data: Query.shared.popupButtons[idx])
-    }
-    
-    func testPrint() {
-        guard let manager = self.manager else { return }
-        NetworkUsecase.getQeuryButtons(category: manager.category) { queryListButtons in
-            guard let queryListButtons = queryListButtons else {
-                print("Error")
-                return
-            }
-            print(queryListButtons.map { $0.title })
-        }
-    }
 }
 
 // MARK: - Configure
 extension SearchWorkbookViewController {
+    func fetchQueryButtons() {
+        guard let manager = self.manager else { return }
+        NetworkUsecase.getQeuryButtons(category: manager.category) { [weak self] queryListButtons in
+            guard let queryListButtons = queryListButtons else {
+                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+                return
+            }
+            self?.queryDtos = queryListButtons
+            for (idx, button) in queryListButtons.enumerated() {
+                self?.createQueryButton(with: button, idx: idx)
+            }
+            self?.createStckView()
+        }
+    }
+    
+    func createQueryButton(with buttonDto: QueryListButton, idx: Int) {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.setTitle(buttonDto.title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.tag = idx
+        button.addTarget(self, action: #selector(printFunc(_:)), for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 104),
+            button.heightAnchor.constraint(equalToConstant: 41)
+        ])
+        
+        self.queryButtons.append(button)
+    }
+    
+    @objc func printFunc(_ sender: UIButton) {
+        let idx = sender.tag
+        print(self.queryDtos[idx].title)
+        self.showAlertController(title: self.queryDtos[idx].title, index: idx, data: self.queryDtos[idx].menus)
+    }
+    
+    func createStckView() {
+        let stackView = UIStackView(arrangedSubviews: self.queryButtons)
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 30
+        
+        self.view.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 25),
+            stackView.centerXAnchor.constraint(equalTo: self.titleLabel.centerXAnchor)
+        ])
+    }
+    
     func configureDelegate() {
         previews.delegate = self
         previews.dataSource = self
@@ -77,7 +117,7 @@ extension SearchWorkbookViewController {
     }
     
     func setRadiusOfSelectButtons() {
-        selectButtons.forEach {
+        queryButtons.forEach {
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.lightGray.cgColor
             $0.layer.cornerRadius = 10
@@ -160,8 +200,8 @@ extension SearchWorkbookViewController {
         
         for (idx, title) in data.enumerated() {
             let button = UIAlertAction(title: title, style: .default) { _ in
-                let queryKey = Query.shared.queryTitle[index]
-                let queryValue = Query.shared.queryOfItems[index][idx]
+                let queryKey = self.queryDtos[index].queryParamKey
+                let queryValue = self.queryDtos[index].queryParamValues[idx]
                 
                 if queryValue == "전체" {
                     self.manager?.queryDic.updateValue(nil, forKey: queryKey)
@@ -173,15 +213,15 @@ extension SearchWorkbookViewController {
                 DispatchQueue.global().async {
                     self.loadPreviewFromDB()
                 }
-                self.selectButtons[index].setTitle(title, for: .normal)
+                self.queryButtons[index].setTitle(title, for: .normal)
             }
             button.setValue(UIColor.label, forKey: "titleTextColor")
             alertController.addAction(button)
         }
         
         if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = self.selectButtons[index]
-            popoverController.sourceRect = CGRect(x: self.selectButtons[index].bounds.midX, y: self.selectButtons[index].bounds.maxY, width: 0, height: 0)
+            popoverController.sourceView = self.queryButtons[index]
+            popoverController.sourceRect = CGRect(x: self.queryButtons[index].bounds.midX, y: self.queryButtons[index].bounds.maxY, width: 0, height: 0)
         }
         
         self.present(alertController, animated: true, completion: nil)
