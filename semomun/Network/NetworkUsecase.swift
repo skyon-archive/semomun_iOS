@@ -196,6 +196,8 @@ class NetworkUsecase {
             break
         case "LEET":
             fileName = "LEET"
+        case "공인회계사":
+            fileName = "공인회계사"
         default:
             return
         }
