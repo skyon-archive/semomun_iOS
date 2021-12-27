@@ -32,14 +32,16 @@ final class MajorDetailViewController: UIViewController {
 extension MajorDetailViewController {
     private func configureManager() {
         self.manager = MajorDetailManager(delegate: self)
-        manager?.fetch { [weak self] in
-            self?.majorCollectionView.reloadData()
-        }
     }
     
     private func configureDelegate() {
         self.majorCollectionView.delegate = self
         self.majorCollectionView.dataSource = self
+    }
+    
+    func updateMajors(with majors: [[String: [String]]]) {
+        self.manager?.updateItems(with: majors)
+        self.majorCollectionView.reloadData()
     }
 }
 
