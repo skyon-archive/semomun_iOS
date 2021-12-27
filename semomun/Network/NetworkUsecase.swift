@@ -21,6 +21,7 @@ class NetworkUsecase {
         static let contentImage: String = images + "/content/"
         static let explanation: String = images + "/explanation/"
         static let checkUser: String = base + "/auth/login"
+        static let categorys: String = base + "/login/info/category"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
@@ -156,6 +157,15 @@ class NetworkUsecase {
     }
     
     static func getCategorys(completion: @escaping([String]?) -> Void) {
-        completion(["수능 및 모의고사", "LEET", "공인회계사", "공인중개사", "9급 공무원"])
+        Network.get(url: URL.categorys) { data in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8))
+            guard let categorysDto: Categorys = try? JSONDecoder().decode(Categorys.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(categorysDto.category)
+        }
     }
 }
