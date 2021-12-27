@@ -39,10 +39,13 @@ class SearchWorkbookViewController: UIViewController {
     }
     
     func testPrint() {
-        let button1 = QueryListButton(title: "과목", menus: ["전체", "국어", "수학"], queryParamKey: "s", queryParamValues: ["전체", "국어", "수학"])
-        let button2 = QueryListButton(title: "학년", menus: ["전체", "고1", "고2", "고3"], queryParamKey: "g", queryParamValues: ["전체", "10", "11", "12"])
-        let button3 = QueryListButton(title: "년도", menus: ["전체", "2021", "2020"], queryParamKey: "y", queryParamValues: ["전체", "2021", "2020"])
-        let buttons = CategoryQueryButtons(queryButtons: [button1, button2, button3])
+        NetworkUsecase.getQeuryButtons(category: self.manager.category) { queryListButtons in
+            guard let queryListButtons = queryListButtons else {
+                print("Error")
+                return
+            }
+            print(queryListButtons.map { $0.title })
+        }
     }
 }
 

@@ -187,4 +187,26 @@ class NetworkUsecase {
             completion(majors.major)
         }
     }
+    
+    static func getQeuryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
+        var fileName: String = "수능및모의고사"
+        switch category {
+        case "수능 및 모의고사":
+            fileName = "수능및모의고사"
+            break
+        default:
+            return
+        }
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+              let data = try? Data(contentsOf: url) else {
+                  completion(nil)
+                  return
+              }
+        guard let buttonsDto: CategoryQueryButtons = try? JSONDecoder().decode(CategoryQueryButtons.self, from: data) else {
+            print("Error: Decode")
+            completion(nil)
+            return
+        }
+        completion(buttonsDto.queryButtons)
+    }
 }
