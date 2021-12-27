@@ -198,6 +198,8 @@ class NetworkUsecase {
             fileName = "LEET"
         case "공인회계사":
             fileName = "공인회계사"
+        case "공인중개사":
+            fileName = "공인중개사"
         default:
             return
         }
