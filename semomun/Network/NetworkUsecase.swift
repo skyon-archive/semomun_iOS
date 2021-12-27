@@ -200,6 +200,8 @@ class NetworkUsecase {
             fileName = "공인회계사"
         case "공인중개사":
             fileName = "공인중개사"
+        case "9급 공무원":
+            fileName = "9급공무원"
         default:
             return
         }

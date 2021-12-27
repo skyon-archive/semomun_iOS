@@ -28,6 +28,7 @@
 		874D3BDD2779F9E500072F8A /* LEET.json in Resources */ = {isa = PBXBuildFile; fileRef = 874D3BDC2779F9E500072F8A /* LEET.json */; };
 		874D3BDF2779FAD500072F8A /* 공인회계사.json in Resources */ = {isa = PBXBuildFile; fileRef = 874D3BDE2779FAD500072F8A /* 공인회계사.json */; };
 		874D3BE12779FB8A00072F8A /* 공인중개사.json in Resources */ = {isa = PBXBuildFile; fileRef = 874D3BE02779FB8A00072F8A /* 공인중개사.json */; };
+		874D3BE32779FC5D00072F8A /* 9급공무원.json in Resources */ = {isa = PBXBuildFile; fileRef = 874D3BE22779FC5D00072F8A /* 9급공무원.json */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
@@ -139,6 +140,7 @@
 		874D3BDC2779F9E500072F8A /* LEET.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LEET.json; sourceTree = "<group>"; };
 		874D3BDE2779FAD500072F8A /* 공인회계사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "공인회계사.json"; sourceTree = "<group>"; };
 		874D3BE02779FB8A00072F8A /* 공인중개사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "공인중개사.json"; sourceTree = "<group>"; };
+		874D3BE22779FC5D00072F8A /* 9급공무원.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "9급공무원.json"; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				874D3BDC2779F9E500072F8A /* LEET.json */,
 				874D3BDE2779FAD500072F8A /* 공인회계사.json */,
 				874D3BE02779FB8A00072F8A /* 공인중개사.json */,
+				874D3BE22779FC5D00072F8A /* 9급공무원.json */,
 			);
 			path = Dummy;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 			files = (
 				8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */,
 				874D3BDD2779F9E500072F8A /* LEET.json in Resources */,
+				874D3BE32779FC5D00072F8A /* 9급공무원.json in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				874D3BE12779FB8A00072F8A /* 공인중개사.json in Resources */,
