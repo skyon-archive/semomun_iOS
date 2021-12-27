@@ -39,9 +39,10 @@ class SearchWorkbookViewController: UIViewController {
     }
     
     func testPrint() {
-        let button1 = QueryListButton(queryTitle: "과목", queryItems: ["국어", "수학"])
-        let button2 = QueryListButton(queryTitle: "학년", queryItems: ["고1", "고2", "고3"])
-        let buttons = CategoryQueryButtons(queryButtons: [button1, button2])
+        let button1 = QueryListButton(title: "과목", menus: ["전체", "국어", "수학"], queryParamKey: "s", queryParamValues: ["전체", "국어", "수학"])
+        let button2 = QueryListButton(title: "학년", menus: ["전체", "고1", "고2", "고3"], queryParamKey: "g", queryParamValues: ["전체", "10", "11", "12"])
+        let button3 = QueryListButton(title: "년도", menus: ["전체", "2021", "2020"], queryParamKey: "y", queryParamValues: ["전체", "2021", "2020"])
+        let buttons = CategoryQueryButtons(queryButtons: [button1, button2, button3])
         guard let jsonString = buttons.getJsonString() else { return }
         print(jsonString)
     }
