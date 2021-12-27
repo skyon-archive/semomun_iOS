@@ -52,7 +52,6 @@ class Network {
             guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 return
             }
-            print(String(data: data, encoding: .utf8))
             completion(data)
         }
         task.resume()

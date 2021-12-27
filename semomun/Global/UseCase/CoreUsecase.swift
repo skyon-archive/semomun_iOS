@@ -337,6 +337,6 @@ struct CoreUsecase {
         let context = CoreDataManager.shared.context
         let userCore = UserCoreData(context: context)
         userCore.setValues(userInfo: userInfo)
-        do { try context.save() } catch let error { print(error.localizedDescription) }
+        CoreDataManager.saveCoreData()
     }
 }
