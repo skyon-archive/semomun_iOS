@@ -39,6 +39,7 @@ class MainViewController: UIViewController {
         self.addCoreDataAlertObserver()
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
+        print(Bundle.main.infoDictionary?["API_ACCESS_KEY1"] as? String ?? "no_access_key")
     }
     
     override func viewWillAppear(_ animated: Bool) {
