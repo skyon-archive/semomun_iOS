@@ -19,18 +19,19 @@ struct LoginSchoolSearchView: View {
         VStack {
             ZStack {
                 Text("\(schoolType.rawValue) 찾기")
-                    .font(.system(size: 25, weight: .semibold))
+                    .font(.system(size: 20, weight: .semibold))
                 Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 25, weight: .semibold))
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.gray)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing)
             }
+            .padding(.bottom, 15)
             UnivFinderView(selected: .constant(""), schoolType: schoolType, delegate: delegate)
+                .padding(.horizontal, 20)
         }
-        .padding(.top, 20)
+        .padding(50)
         .background(
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(.white)
