@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1736,8 +1736,8 @@
                                             <action selector="back:" destination="Mls-re-g6S" eventType="touchUpInside" id="WHC-RD-hdX"/>
                                         </connections>
                                     </button>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CbS-5x-w4x">
-                                        <rect key="frame" x="20" y="129" width="728" height="643"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CbS-5x-w4x">
+                                        <rect key="frame" x="20" y="141" width="728" height="643"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ebu-0N-LVn">
                                             <size key="itemSize" width="130" height="205"/>
@@ -1808,8 +1808,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="frame" destination="Mzm-hI-RG6" id="wo7-Hd-mQB"/>
-                        <outlet property="preview" destination="CbS-5x-w4x" id="fhF-JU-EMj"/>
+                        <outlet property="frameView" destination="Mzm-hI-RG6" id="wo7-Hd-mQB"/>
+                        <outlet property="previews" destination="CbS-5x-w4x" id="fhF-JU-EMj"/>
                         <outletCollection property="selectButtons" destination="lKF-Rg-UbP" collectionClass="NSMutableArray" id="hfa-Hi-qNg"/>
                         <outletCollection property="selectButtons" destination="aeO-2a-nxB" collectionClass="NSMutableArray" id="fMT-ZU-H3r"/>
                         <outletCollection property="selectButtons" destination="KXG-fc-1G2" collectionClass="NSMutableArray" id="JBf-AF-oFH"/>

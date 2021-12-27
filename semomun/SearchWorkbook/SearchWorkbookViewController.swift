@@ -11,20 +11,20 @@ import Kingfisher
 class SearchWorkbookViewController: UIViewController {
     static let identifier = "SearchWorkbookViewController"
     
-    @IBOutlet weak var frame: UIView!
+    @IBOutlet weak var frameView: UIView!
     @IBOutlet var selectButtons: [UIButton]!
-    @IBOutlet weak var preview: UICollectionView!
+    @IBOutlet weak var previews: UICollectionView!
     
-    var manager: SearchWorkbookManager!
+    var manager: SearchWorkbookManager?
     
     lazy var loaderForPreview = self.makeLoaderWithoutPercentage()
     lazy var loaderForButton = self.makeLoaderWithoutPercentage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDelegate()
-        configureUI()
-        configureLoader()
+        self.configureDelegate()
+        self.configureUI()
+        self.configureLoader()
         self.addCoreDataAlertObserver()
         self.testPrint()
     }
@@ -39,7 +39,8 @@ class SearchWorkbookViewController: UIViewController {
     }
     
     func testPrint() {
-        NetworkUsecase.getQeuryButtons(category: self.manager.category) { queryListButtons in
+        guard let manager = self.manager else { return }
+        NetworkUsecase.getQeuryButtons(category: manager.category) { queryListButtons in
             guard let queryListButtons = queryListButtons else {
                 print("Error")
                 return
@@ -52,8 +53,8 @@ class SearchWorkbookViewController: UIViewController {
 // MARK: - Configure
 extension SearchWorkbookViewController {
     func configureDelegate() {
-        preview.delegate = self
-        preview.dataSource = self
+        previews.delegate = self
+        previews.dataSource = self
     }
     
     func configureUI() {
@@ -72,7 +73,7 @@ extension SearchWorkbookViewController {
     }
     
     func setRadiusOfFrame() {
-        frame.layer.cornerRadius = 30
+        frameView.layer.cornerRadius = 30
     }
     
     func setRadiusOfSelectButtons() {
@@ -93,7 +94,7 @@ extension SearchWorkbookViewController {
         let backgroundView = UIView()
         backgroundView.tag = 123
         backgroundView.backgroundColor = .gray.withAlphaComponent(0.8)
-        backgroundView.frame = self.frame.frame
+        backgroundView.frame = self.frameView.frame
         backgroundView.layer.cornerRadius = 30
         print(backgroundView)
         self.view.addSubview(backgroundView)
@@ -122,13 +123,14 @@ extension SearchWorkbookViewController {
 extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return manager.count
+        return manager?.count ?? 0
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchedPreviewCell.identifier, for: indexPath) as? SearchedPreviewCell else { return UICollectionViewCell() }
         // 문제번호 설정
+        guard let manager = self.manager else { return cell }
         let imageUrlString = manager.imageURL(at: indexPath.item)
         cell.showImage(url: imageUrlString)
         cell.title.text = manager.title(at: indexPath.item)
@@ -144,8 +146,8 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
 
 extension SearchWorkbookViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (preview.frame.width)/5
-        let height = preview.frame.height/3
+        let width = (previews.frame.width)/5
+        let height = previews.frame.height/3
         
         return CGSize(width: width, height: height)
     }
@@ -162,10 +164,10 @@ extension SearchWorkbookViewController {
                 let queryValue = Query.shared.queryOfItems[index][idx]
                 
                 if queryValue == "전체" {
-                    self.manager.queryDic.updateValue(nil, forKey: queryKey)
+                    self.manager?.queryDic.updateValue(nil, forKey: queryKey)
                     
                 } else {
-                    self.manager.queryDic.updateValue(queryValue, forKey: queryKey)
+                    self.manager?.queryDic.updateValue(queryValue, forKey: queryKey)
                 }
                 
                 DispatchQueue.global().async {
@@ -186,14 +188,15 @@ extension SearchWorkbookViewController {
     }
     
     func loadPreviewFromDB() {
-        manager.loadPreviews {
+        self.manager?.loadPreviews {
             DispatchQueue.main.async {
-                self.preview.reloadData()
+                self.previews.reloadData()
             }
         }
     }
     
     func showAlertToAddPreview(index: Int) {
+        guard let manager = self.manager else { return }
         let alert = UIAlertController(title: manager.title(at: index),
             message: "해당 시험을 추가하시겠습니까?",
             preferredStyle: UIAlertController.Style.alert)
@@ -210,14 +213,16 @@ extension SearchWorkbookViewController {
     }
     
     func savePreview(index: Int, workbook: WorkbookOfDB, sids: [Int]) {
+        guard let manager = self.manager else { return }
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-        let preview = self.manager.preview(at: index)
+        let preview = manager.preview(at: index)
         let baseURL = NetworkUsecase.URL.bookcovoerImageDirectory(manager.imageScale)
         
-        preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: self.manager.category)
+        preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: manager.category)
     }
     
     func saveSectionHeader(sections: [SectionOfDB], subject: String) {
+        guard let manager = self.manager else { return }
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
@@ -233,6 +238,7 @@ extension SearchWorkbookViewController {
     }
     
     func loadSidsFromDB(index: Int) {
+        guard let manager = self.manager else { return }
         NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
