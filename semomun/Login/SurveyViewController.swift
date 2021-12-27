@@ -20,6 +20,7 @@ class SurveyViewController: UIViewController {
     @IBOutlet weak var genderFrame: UIView!
     @IBOutlet var genders: [UIButton]!
     private var majorViewController: MajorViewController?
+    private var majorDetailViewController: MajorDetailViewController?
     var signUpInfo: UserInfo?
     
     override func viewDidLoad() {
@@ -93,6 +94,7 @@ extension SurveyViewController {
                 return
             }
             self?.majorViewController?.updateMajors(with: majors)
+            self?.majorDetailViewController?.updateMajors(with: majors)
         }
     }
     
@@ -127,6 +129,7 @@ extension SurveyViewController {
             destination.delegate = self
         case MajorDetailViewController.Identifier.segue:
             guard let destination = segue.destination as? MajorDetailViewController else { return }
+            self.majorDetailViewController = destination
             destination.delegate = self
         default: return
         }
