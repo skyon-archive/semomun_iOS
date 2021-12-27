@@ -32,14 +32,16 @@ final class MajorViewController: UIViewController {
 extension MajorViewController {
     private func configureManager() {
         self.manager = MajorManager()
-        manager?.fetch { [weak self] in
-            self?.majorCollectionView.reloadData()
-        }
     }
     
     private func configureDelegate() {
         self.majorCollectionView.delegate = self
         self.majorCollectionView.dataSource = self
+    }
+    
+    func updateMajors(with majors: [[String: [String]]]) {
+        self.manager?.updateItems(with: majors)
+        self.majorCollectionView.reloadData()
     }
 }
 
