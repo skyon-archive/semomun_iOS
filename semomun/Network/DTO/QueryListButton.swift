@@ -9,7 +9,7 @@ import Foundation
 
 struct CategoryQueryButtons: Codable, CustomStringConvertible {
     var description: String {
-        return ""
+        return "\(self.queryButtons.map { $0.title })"
     }
     
     var queryButtons: [QueryListButton]
@@ -22,11 +22,9 @@ struct CategoryQueryButtons: Codable, CustomStringConvertible {
     }
 }
 
-struct QueryListButton: Codable, CustomStringConvertible {
-    var description: String {
-        return "\(queryTitle), \(queryItems)"
-    }
-    
-    var queryTitle: String
-    var queryItems: [String]
+struct QueryListButton: Codable {
+    var title: String
+    var menus: [String]
+    var queryParamKey: String
+    var queryParamValues: [String]
 }

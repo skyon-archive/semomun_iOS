@@ -16,6 +16,7 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
+		8733159227799383004E4A98 /* 기출영역및모의고사.json in Resources */ = {isa = PBXBuildFile; fileRef = 8733159127799383004E4A98 /* 기출영역및모의고사.json */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
 		8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8742544A27798B0300D60264 /* schoolToken.xcconfig */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
@@ -117,6 +118,7 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8733159127799383004E4A98 /* 기출영역및모의고사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "기출영역및모의고사.json"; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8742544A27798B0300D60264 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
@@ -266,6 +268,14 @@
 			path = semomun;
 			sourceTree = "<group>";
 		};
+		873315902779934D004E4A98 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				8733159127799383004E4A98 /* 기출영역및모의고사.json */,
+			);
+			path = Dummy;
+			sourceTree = "<group>";
+		};
 		8742544927798AD200D60264 /* APIToken */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +324,7 @@
 		87C85E2A276F65B3001C9C4A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				873315902779934D004E4A98 /* Dummy */,
 				87C85EE8276F6E95001C9C4A /* Network.swift */,
 				87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */,
 				87C85EEC276F6EC9001C9C4A /* DTO */,
@@ -648,6 +659,7 @@
 				8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
+				8733159227799383004E4A98 /* 기출영역및모의고사.json in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
