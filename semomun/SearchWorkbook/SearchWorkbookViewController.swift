@@ -26,6 +26,7 @@ class SearchWorkbookViewController: UIViewController {
         configureUI()
         configureLoader()
         self.addCoreDataAlertObserver()
+        self.testPrint()
     }
     
     @IBAction func back(_ sender: Any) {
@@ -35,6 +36,14 @@ class SearchWorkbookViewController: UIViewController {
     @IBAction func showSubject(_ sender: UIButton) {
         let idx = Int(sender.tag)
         showAlertController(title: Query.shared.buttonTitles[idx], index: idx, data: Query.shared.popupButtons[idx])
+    }
+    
+    func testPrint() {
+        let button1 = QueryListButton(queryTitle: "과목", queryItems: ["국어", "수학"])
+        let button2 = QueryListButton(queryTitle: "학년", queryItems: ["고1", "고2", "고3"])
+        let buttons = CategoryQueryButtons(queryButtons: [button1, button2])
+        guard let jsonString = buttons.getJsonString() else { return }
+        print(jsonString)
     }
 }
 

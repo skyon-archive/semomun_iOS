@@ -1,0 +1,11 @@
+//
+//  schoolToken.xcconfig
+//  semomun
+//
+//  Created by Kang Minsang on 2021/12/27.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_ACCESS_KEY1 = 5432f1390b6511279c38c81aa2e0d364
