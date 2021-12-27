@@ -62,28 +62,6 @@ struct UnivRequester {
     }
 }
 
-struct FinderWithMagnifyingglass: View {
-    @Binding var search: String
-    let schoolType: UnivRequester.SchoolType
-    var body: some View {
-        HStack {
-            TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
-                .frame(maxWidth: .infinity)
-                .frame(height: 40)
-            Image(systemName: "magnifyingglass")
-                .font(.system(size: 20))
-                .foregroundColor(.gray)
-                .padding(.trailing, 5)
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(.gray.opacity(0.2))
-        )
-        .padding(.bottom)
-    }
-}
-
 struct UnivFinderView: View {
     @State private var search = ""
     @State private var filteredUnivList: [String] = []
@@ -100,10 +78,24 @@ struct UnivFinderView: View {
     
     var body: some View {
         VStack {
-            FinderWithMagnifyingglass(search: $search, schoolType: schoolType)
-                .onChange(of: search) { _ in
-                    filterList()
-                }
+            HStack {
+                TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 20))
+                    .foregroundColor(.gray)
+                    .padding(.trailing, 5)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(.gray.opacity(0.2))
+            )
+            .padding(.bottom)
+            .onChange(of: search) { _ in
+                filterList()
+            }
             ScrollView {
                 LazyVStack {
                     ForEach(filteredUnivList, id: \.self) { univ in
