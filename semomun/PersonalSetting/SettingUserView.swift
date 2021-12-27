@@ -20,6 +20,7 @@ struct SettingUserView: View {
     @State private var schoolName: String
     @State private var graduationStatus: String
     
+    @State private var schoolType: UnivRequester.SchoolType = .high
     @State private var showUnivSearch = false
     
     
@@ -44,11 +45,11 @@ struct SettingUserView: View {
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Image(systemName: "xmark")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.system(size: 25))
                     .foregroundColor(.gray)
             }
-            Text(showUnivSearch ? "학교 찾기" : "세부정보 수정하기")
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            Text(showUnivSearch ? "\(schoolType.rawValue) 찾기" : "세부정보 수정하기")
                 .font(.system(size: 20, weight: .semibold))
                 .padding(.bottom, 50)
                 
@@ -63,10 +64,9 @@ struct SettingUserView: View {
                             .font(.system(size: 24, weight: .semibold))
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 20)
                     }
-                    .padding(.bottom, 20)
-                    UnivFinderView(selected: $schoolName)
+                    .padding([.leading, .bottom], 20)
+                    UnivFinderView(selected: $schoolName, schoolType: schoolType)
                         .onChange(of: schoolName) { _ in
                             withAnimation { showUnivSearch = false }
                         }
@@ -81,11 +81,18 @@ struct SettingUserView: View {
                             Text("학교")
                                 .font(.system(size: 15, weight: .semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Button(action: {
-                                withAnimation {
-                                    showUnivSearch = true
+                            Menu {
+                                ForEach(UnivRequester.SchoolType.allCases, id: \.self) { schoolType in
+                                    Button(action: {
+                                        withAnimation {
+                                            self.schoolType = schoolType
+                                            showUnivSearch = true
+                                        }
+                                    }) {
+                                        Text(schoolType.rawValue)
+                                    }
                                 }
-                            }) {
+                            } label: {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
                                         .foregroundColor(Color(hex: "#EEEEEE"))
@@ -157,9 +164,6 @@ struct SettingUserView: View {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(.white)
         )
-        .onAppear {
-            UIApplication.shared.addTapGestureRecognizer()
-        }
     }
 }
 

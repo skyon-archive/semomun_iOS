@@ -23,6 +23,7 @@ class NetworkUsecase {
         static let checkUser: String = base + "/auth/login"
         static let categorys: String = base + "/login/info/category"
         static let majors: String = base + "/login/info/major"
+        static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }

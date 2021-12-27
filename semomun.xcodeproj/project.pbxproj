@@ -11,6 +11,7 @@
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		252AC362277893E2008AD5E4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC361277893E2008AD5E4 /* SettingView.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
+		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
@@ -119,6 +120,7 @@
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		252AC361277893E2008AD5E4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
+		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				87C85E51276F67D7001C9C4A /* CertificationViewController.swift */,
 				87C85E55276F67F8001C9C4A /* SurveyViewController.swift */,
 				87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */,
+				25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */,
 				87C85E59276F6836001C9C4A /* UseCase */,
 				87C85E5A276F683E001C9C4A /* CollecitonViews */,
 				87C85E5B276F6845001C9C4A /* CollectionViewManagers */,
@@ -694,6 +697,7 @@
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift in Sources */,
 				87C85E50276F67C5001C9C4A /* StartViewController.swift in Sources */,
+				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87C85EC5276F6D55001C9C4A /* SingleWithTextAnswer.swift in Sources */,
 				87C85E56276F67F8001C9C4A /* SurveyViewController.swift in Sources */,

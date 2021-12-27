@@ -9,26 +9,50 @@ import SwiftUI
 import Alamofire
 
 struct UnivRequester {
-    static let link =  "https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=5432f1390b6511279c38c81aa2e0d364&svcType=api&svcCode=SCHOOL&contentType=json&gubun=univ_list&thisPage=1&perPage=10000&searchSchulNm="
-    static func request(completion: @escaping ([String]) -> Void) {
-        guard let urlString = link.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
-            completion([])
-            return
+    
+    enum SchoolType: String, CaseIterable {
+        case elementary = "초등학교"
+        case middle = "중학교"
+        case high = "고등학교"
+        case univ = "대학교"
+        case special = "특수/기타 학교"
+        case alter = "대안학교"
+        var key: String {
+            switch self {
+            case .elementary: return "elem_list"
+            case .middle: return "midd_list"
+            case .high: return "high_list"
+            case .univ: return "univ_list"
+            case .special: return "seet_list"
+            case .alter: return "alte_list"
+            }
         }
-        AF.request(urlString).responseJSON { response in
-            let decoder = JSONDecoder()
-            guard let data = response.data else {
+    }
+    
+    static func request(type: SchoolType, completion: @escaping ([String]) -> Void) {
+        let param = [
+            "apiKey": "5432f1390b6511279c38c81aa2e0d364",
+            "svcType": "api",
+            "svcCode": "SCHOOL",
+            "contentType": "json",
+            "gubun": type.key,
+            "thisPage": "1",
+            "perPage": "20000"
+        ]
+        Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { data in
+            guard let data = data else {
                 completion([])
                 return
             }
             do {
+                let decoder = JSONDecoder()
                 let json = try decoder.decode(CareerNetJSON.self, from: data)
                 let ret = json.dataSearch.content.map(\.schoolName)
                 completion(Array(Set(ret)).sorted())
-                print("대학 정보 다운로드 완료")
-                return
+                print("학교 정보 다운로드 완료")
             } catch {
-                print(error.localizedDescription)
+                completion([])
+                print(error)
             }
         }
     }
@@ -36,11 +60,12 @@ struct UnivRequester {
 
 struct FinderWithMagnifyingglass: View {
     @Binding var search: String
+    let schoolType: UnivRequester.SchoolType
     var body: some View {
         HStack {
-            TextField("대학 이름을 검색하세요", text: $search)
+            TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
                 .frame(maxWidth: .infinity)
-                .frame(height: 44)
+                .frame(height: 40)
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 20))
                 .foregroundColor(.gray)
@@ -61,20 +86,27 @@ struct UnivFinderView: View {
     @Binding var selected: String
     @State private var univList: [String] = []
     
+    let schoolType: UnivRequester.SchoolType
+    
+    weak var delegate: SchoolSelectAction?
+    
     private func filterList() {
-        filteredUnivList = univList.filter { search == "" || $0.contains(search) }
+        filteredUnivList = univList.filter { $0.contains(search) }
     }
     
     var body: some View {
         VStack {
-            FinderWithMagnifyingglass(search: $search)
+            FinderWithMagnifyingglass(search: $search, schoolType: schoolType)
                 .onChange(of: search) { _ in
                     filterList()
                 }
             ScrollView {
                 LazyVStack {
                     ForEach(filteredUnivList, id: \.self) { univ in
-                        Button(action: { self.selected = univ }) {
+                        Button(action: {
+                            self.selected = univ
+                            delegate?.schoolSelected(univ)
+                        }) {
                             Text(univ)
                                 .font(.system(size: 16))
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -92,8 +124,7 @@ struct UnivFinderView: View {
         }
         .padding()
         .onAppear(perform: {
-            UIApplication.shared.addTapGestureRecognizer()
-            UnivRequester.request(completion: { downloaded in
+            UnivRequester.request(type: schoolType, completion: { downloaded in
                 self.univList = downloaded
                 filterList()
             })
@@ -101,29 +132,31 @@ struct UnivFinderView: View {
     }
 }
 
-extension UIApplication {
-    func addTapGestureRecognizer() {
-        guard let window = windows.first else { return }
-        let tapGesture = UITapGestureRecognizer(target: window, action: #selector(UIView.endEditing))
-        tapGesture.requiresExclusiveTouchType = false
-        tapGesture.cancelsTouchesInView = false
-        tapGesture.delegate = self
-        window.addGestureRecognizer(tapGesture)
-    }
-}
-
-extension UIApplication: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true // set to `false` if you don't want to detect tap during other gestures
-    }
-}
 
 struct CareerNetJSON: Codable {
     let dataSearch: DataSearch
 }
 
 struct DataSearch: Codable {
+    let content: [SchoolContent]
+}
+
+struct CareerNetJSONUniv: Codable {
+    let dataSearch: DataSearchUniv
+}
+
+struct DataSearchUniv: Codable {
     let content: [UnivContent]
+}
+
+struct SchoolContent: Codable {
+    let link: String
+    let adres: String
+    let schoolName: String
+    let region: String
+    let totalCount: String
+    let estType: String
+    let seq: String
 }
 
 struct UnivContent: Codable {
@@ -142,6 +175,10 @@ struct UnivContent: Codable {
 
 struct UnivFinderView_Previews: PreviewProvider {
     static var previews: some View {
-        UnivFinderView(selected: .constant(""))
+        UnivFinderView(selected: .constant(""), schoolType: .middle)
     }
+}
+
+protocol SchoolSelectAction: AnyObject {
+    func schoolSelected(_ univName: String)
 }
