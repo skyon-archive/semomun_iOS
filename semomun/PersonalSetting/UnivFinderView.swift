@@ -30,8 +30,12 @@ struct UnivRequester {
     }
     
     static func request(type: SchoolType, completion: @escaping ([String]) -> Void) {
+        guard let apiKey = Bundle.main.infoDictionary?["API_ACCESS_KEY1"] as? String else {
+            completion([])
+            return
+        }
         let param = [
-            "apiKey": "5432f1390b6511279c38c81aa2e0d364",
+            "apiKey": apiKey,
             "svcType": "api",
             "svcCode": "SCHOOL",
             "contentType": "json",
