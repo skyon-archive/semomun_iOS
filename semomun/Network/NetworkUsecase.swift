@@ -194,6 +194,8 @@ class NetworkUsecase {
         case "수능 및 모의고사":
             fileName = "수능및모의고사"
             break
+        case "LEET":
+            fileName = "LEET"
         default:
             return
         }
