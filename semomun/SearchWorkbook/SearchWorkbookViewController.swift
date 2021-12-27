@@ -43,8 +43,6 @@ class SearchWorkbookViewController: UIViewController {
         let button2 = QueryListButton(title: "학년", menus: ["전체", "고1", "고2", "고3"], queryParamKey: "g", queryParamValues: ["전체", "10", "11", "12"])
         let button3 = QueryListButton(title: "년도", menus: ["전체", "2021", "2020"], queryParamKey: "y", queryParamValues: ["전체", "2021", "2020"])
         let buttons = CategoryQueryButtons(queryButtons: [button1, button2, button3])
-        guard let jsonString = buttons.getJsonString() else { return }
-        print(jsonString)
     }
 }
 
