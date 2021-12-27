@@ -16,7 +16,6 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     private var queryButtons: [UIButton] = []
     private var queryDtos: [QueryListButton] = []
-    private var stackView: UIStackView?
     
     var manager: SearchWorkbookManager?
     

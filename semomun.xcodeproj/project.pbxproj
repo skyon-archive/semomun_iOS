@@ -73,7 +73,6 @@
 		87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */; };
 		87C85EA2276F6BF0001C9C4A /* SearchWorkbookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */; };
 		87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */; };
-		87C85EA7276F6C30001C9C4A /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA6276F6C30001C9C4A /* Query.swift */; };
 		87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */; };
 		87C85EAF276F6C9B001C9C4A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */; };
 		87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */; };
@@ -182,7 +181,6 @@
 		87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookManager.swift; sourceTree = "<group>"; };
 		87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewCell.swift; sourceTree = "<group>"; };
-		87C85EA6276F6C30001C9C4A /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
 		87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultViewController.swift; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 				87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */,
 				87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */,
 				87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */,
-				87C85EA5276F6C26001C9C4A /* Model */,
 			);
 			path = SearchWorkbook;
 			sourceTree = "<group>";
@@ -535,14 +532,6 @@
 				87C85E8F276F6B03001C9C4A /* PreviewManager.swift */,
 			);
 			path = PreviewManager;
-			sourceTree = "<group>";
-		};
-		87C85EA5276F6C26001C9C4A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				87C85EA6276F6C30001C9C4A /* Query.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		87C85EA8276F6C4F001C9C4A /* Cell */ = {
@@ -704,7 +693,6 @@
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
 				87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
-				87C85EA7276F6C30001C9C4A /* Query.swift in Sources */,
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
 				87C85E87276F6A7A001C9C4A /* SideMenuViewController.swift in Sources */,
 				87C85EC3276F6D44001C9C4A /* SingleWith5Answer.swift in Sources */,
