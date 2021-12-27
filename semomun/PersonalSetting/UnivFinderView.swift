@@ -60,6 +60,18 @@ struct UnivRequester {
             }
         }
     }
+    
+    private struct CareerNetJSON: Codable {
+        let dataSearch: DataSearch
+    }
+
+    private struct DataSearch: Codable {
+        let content: [SchoolContent]
+    }
+
+    private struct SchoolContent: Codable {
+        let schoolName: String
+    }
 }
 
 struct UnivFinderView: View {
@@ -126,47 +138,6 @@ struct UnivFinderView: View {
             })
         })
     }
-}
-
-
-struct CareerNetJSON: Codable {
-    let dataSearch: DataSearch
-}
-
-struct DataSearch: Codable {
-    let content: [SchoolContent]
-}
-
-struct CareerNetJSONUniv: Codable {
-    let dataSearch: DataSearchUniv
-}
-
-struct DataSearchUniv: Codable {
-    let content: [UnivContent]
-}
-
-struct SchoolContent: Codable {
-    let link: String
-    let adres: String
-    let schoolName: String
-    let region: String
-    let totalCount: String
-    let estType: String
-    let seq: String
-}
-
-struct UnivContent: Codable {
-    let campusName: String
-    let collegeinfourl: String
-    let schoolType: String
-    let link: String
-    let schoolGubun: String
-    let adres: String
-    let schoolName: String
-    let region: String
-    let totalCount: String
-    let estType: String
-    let seq: String
 }
 
 struct UnivFinderView_Previews: PreviewProvider {
