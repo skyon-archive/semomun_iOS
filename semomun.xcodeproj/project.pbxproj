@@ -18,6 +18,7 @@
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
 		8733159227799383004E4A98 /* 기출영역및모의고사.json in Resources */ = {isa = PBXBuildFile; fileRef = 8733159127799383004E4A98 /* 기출영역및모의고사.json */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
+		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
 		8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8742544A27798B0300D60264 /* schoolToken.xcconfig */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
@@ -121,6 +122,7 @@
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8733159127799383004E4A98 /* 기출영역및모의고사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "기출영역및모의고사.json"; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
+		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8742544A27798B0300D60264 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
 				8742544727795D3900D60264 /* QueryListButton.swift */,
 				8733159327799B77004E4A98 /* Categorys.swift */,
+				873315952779A181004E4A98 /* Majors.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				87C85ED7276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift in Sources */,
+				873315962779A181004E4A98 /* Majors.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
 				87C85EF4276F6EFE001C9C4A /* PageOfDB.swift in Sources */,

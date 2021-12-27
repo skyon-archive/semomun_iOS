@@ -19,12 +19,14 @@ class SurveyViewController: UIViewController {
     @IBOutlet weak var majorDetailView: UIView!
     @IBOutlet weak var genderFrame: UIView!
     @IBOutlet var genders: [UIButton]!
+    private var majorViewController: MajorViewController?
     var signUpInfo: UserInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureGengerUI()
         self.configureMajorDetailView()
+        self.configureMajors()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +86,16 @@ extension SurveyViewController {
         self.genderFrame.transform = CGAffineTransform.init(translationX: 0, y: -160)
     }
     
+    private func configureMajors() {
+        NetworkUsecase.getMajors { [weak self] majors in
+            guard let majors = majors else {
+                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
+                return
+            }
+            self?.majorViewController?.updateMajors(with: majors)
+        }
+    }
+    
     private func acticationMajorDetail(section index: Int) {
         NotificationCenter.default.post(name: NotificationName.selectMajor, object: nil, userInfo: [NotificationUserInfo.sectionKey: index])
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -111,6 +123,7 @@ extension SurveyViewController {
             destination.delegate = self
         case MajorViewController.Identifier.segue:
             guard let destination = segue.destination as? MajorViewController else { return }
+            self.majorViewController = destination
             destination.delegate = self
         case MajorDetailViewController.Identifier.segue:
             guard let destination = segue.destination as? MajorDetailViewController else { return }
