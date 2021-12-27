@@ -12,8 +12,7 @@ final class MajorManager {
     private(set) var selectedIndex: Int?
     
     func updateItems(with majors: [[String: [String]]]) {
-        print(majors)
-        self.items = ["문과 계열", "이과 계열", "예체능 계열"]
+        self.items = majors.compactMap { $0.keys.first }
     }
     
     var count: Int {
