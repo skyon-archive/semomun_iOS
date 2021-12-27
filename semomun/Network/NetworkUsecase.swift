@@ -22,6 +22,7 @@ class NetworkUsecase {
         static let explanation: String = images + "/explanation/"
         static let checkUser: String = base + "/auth/login"
         static let categorys: String = base + "/login/info/category"
+        static let majors: String = base + "/login/info/major"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
@@ -158,14 +159,31 @@ class NetworkUsecase {
     
     static func getCategorys(completion: @escaping([String]?) -> Void) {
         Network.get(url: URL.categorys) { data in
-            guard let data = data else { return }
-            print(String(data: data, encoding: .utf8))
+            guard let data = data else {
+                completion(nil)
+                return
+            }
             guard let categorysDto: Categorys = try? JSONDecoder().decode(Categorys.self, from: data) else {
                 print("Error: Decode")
                 completion(nil)
                 return
             }
             completion(categorysDto.category)
+        }
+    }
+    
+    static func getMajors(completion: @escaping([[String: [String]]]?) -> Void) {
+        Network.get(url: URL.majors) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            guard let majors: Majors = try? JSONDecoder().decode(Majors.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(majors.major)
         }
     }
 }
