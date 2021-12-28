@@ -42,15 +42,17 @@ struct SettingUserView: View {
     var body: some View {
         VStack {
             ZStack {
-                Button(action: {
-                    withAnimation {
-                        self.showUnivSearch = false
+                if self.showUnivSearch {
+                    Button(action: {
+                        withAnimation {
+                            self.showUnivSearch = false
+                        }
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                }) {
-                    Image(systemName: "arrow.left")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Text(showUnivSearch ? "\(schoolType.rawValue) 찾기" : "세부정보 수정하기")
                     .font(.system(size: 20, weight: .semibold))
