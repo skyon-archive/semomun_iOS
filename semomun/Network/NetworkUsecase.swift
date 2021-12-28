@@ -188,6 +188,35 @@ class NetworkUsecase {
         }
     }
     
+    static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
+        var fileName: String = "수능및모의고사"
+        switch category {
+        case "수능 및 모의고사":
+            fileName = "수능및모의고사"
+        case "LEET":
+            fileName = "LEET"
+        case "공인회계사":
+            fileName = "공인회계사"
+        case "공인중개사":
+            fileName = "공인중개사"
+        case "9급 공무원":
+            fileName = "9급공무원"
+        default:
+            return
+        }
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+              let data = try? Data(contentsOf: url) else {
+                  completion(nil)
+                  return
+              }
+        guard let buttonsDto: CategoryQueryButtons = try? JSONDecoder().decode(CategoryQueryButtons.self, from: data) else {
+            print("Error: Decode")
+            completion(nil)
+            return
+        }
+        completion(buttonsDto.queryButtons)
+    }
+    
     static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
         Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { data in
             guard let data = data else {
