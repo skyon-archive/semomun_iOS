@@ -11,7 +11,7 @@ struct LoginSchoolSearchView: View {
     
     weak var delegate: SchoolSelectAction?
     
-    let schoolType: UnivRequester.SchoolType
+    let schoolType: SchoolSearchUseCase.SchoolType
     
     @Environment(\.presentationMode) var presentationMode
     

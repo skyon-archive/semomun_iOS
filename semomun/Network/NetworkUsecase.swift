@@ -187,4 +187,21 @@ class NetworkUsecase {
             completion(majors.major)
         }
     }
+    
+    static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
+        Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { data in
+            guard let data = data else {
+                completion([])
+                return
+            }
+            
+            guard let json = try? JSONDecoder().decode(CareerNetJSON.self, from: data) else {
+                completion([])
+                return
+            }
+            print("학교 정보 다운로드 완료")
+            let schoolNames = json.dataSearch.content.map(\.schoolName)
+            completion(Array(Set(schoolNames)).sorted())
+        }
+    }
 }

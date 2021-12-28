@@ -93,7 +93,7 @@ extension PersonalInfoViewController {
     }
     
     private func configureSchoolMenuItems() {
-        let menuItems: [UIAction] = UnivRequester.SchoolType.allCases.map { schoolType in
+        let menuItems: [UIAction] = SchoolSearchUseCase.SchoolType.allCases.map { schoolType in
             UIAction(title: schoolType.rawValue, image: nil, handler: { [weak self] _ in
                 self?.schoolSearchView = UIHostingController(rootView: LoginSchoolSearchView(delegate: self, schoolType: schoolType))
                 self?.schoolSearchView?.view.backgroundColor = .clear
