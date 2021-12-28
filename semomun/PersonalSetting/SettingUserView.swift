@@ -20,7 +20,7 @@ struct SettingUserView: View {
     @State private var schoolName: String
     @State private var graduationStatus: String
     
-    @State private var schoolType: UnivRequester.SchoolType = .high
+    @State private var schoolType: SchoolSearchUseCase.SchoolType = .high
     @State private var showUnivSearch = false
     
     
@@ -82,7 +82,7 @@ struct SettingUserView: View {
                                 .font(.system(size: 15, weight: .semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Menu {
-                                ForEach(UnivRequester.SchoolType.allCases, id: \.self) { schoolType in
+                                ForEach(SchoolSearchUseCase.SchoolType.allCases, id: \.self) { schoolType in
                                     Button(action: {
                                         withAnimation {
                                             self.schoolType = schoolType
