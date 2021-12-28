@@ -20,7 +20,7 @@ struct SettingUserView: View {
     @State private var schoolName: String
     @State private var graduationStatus: String
     
-    @State private var schoolType: UnivRequester.SchoolType = .high
+    @State private var schoolType: SchoolSearchUseCase.SchoolType = .high
     @State private var showUnivSearch = false
     
     
@@ -41,32 +41,34 @@ struct SettingUserView: View {
     
     var body: some View {
         VStack {
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 25))
-                    .foregroundColor(.gray)
-            }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            Text(showUnivSearch ? "\(schoolType.rawValue) 찾기" : "세부정보 수정하기")
-                .font(.system(size: 20, weight: .semibold))
-                .padding(.bottom, 50)
-                
-            if showUnivSearch {
-                VStack {
+            ZStack {
+                if self.showUnivSearch {
                     Button(action: {
                         withAnimation {
                             self.showUnivSearch = false
                         }
                     }) {
                         Image(systemName: "arrow.left")
-                            .font(.system(size: 24, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding([.leading, .bottom], 20)
+                }
+                Text(showUnivSearch ? "\(schoolType.rawValue) 찾기" : "세부정보 수정하기")
+                    .font(.system(size: 20, weight: .semibold))
+                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.gray)
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .padding(.bottom, 15)
+                
+            if showUnivSearch {
+                VStack {
                     UnivFinderView(selected: $schoolName, schoolType: schoolType)
+                        .padding(.horizontal, 20)
                         .onChange(of: schoolName) { _ in
                             withAnimation { showUnivSearch = false }
                         }
@@ -82,7 +84,7 @@ struct SettingUserView: View {
                                 .font(.system(size: 15, weight: .semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Menu {
-                                ForEach(UnivRequester.SchoolType.allCases, id: \.self) { schoolType in
+                                ForEach(SchoolSearchUseCase.SchoolType.allCases, id: \.self) { schoolType in
                                     Button(action: {
                                         withAnimation {
                                             self.schoolType = schoolType
@@ -157,9 +159,7 @@ struct SettingUserView: View {
             }
             
         }
-        .padding(.horizontal, 50)
-        .padding(.vertical, 25)
-        .padding(.bottom, 30)
+        .padding(50)
         .background(
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(.white)

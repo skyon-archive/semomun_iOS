@@ -112,10 +112,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### SwiftPackageManager ###
-Packages
-xcuserdata
-*.xcodeproj
 
 ### Xcode ###
 # Xcode
@@ -124,10 +120,10 @@ xcuserdata
 *.xcuserstate
 
 ### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
+#*.xcodeproj/*
+#!*.xcodeproj/project.pbxproj
+#!*.xcodeproj/xcshareddata/
+#!*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 ### Access Key ###

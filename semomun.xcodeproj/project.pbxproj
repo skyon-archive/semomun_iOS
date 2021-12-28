@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
+		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		252AC362277893E2008AD5E4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC361277893E2008AD5E4 /* SettingView.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
+		25A353FF277AA91D0029BB55 /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25A353FE277AA91D0029BB55 /* schoolToken.xcconfig */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
@@ -119,10 +122,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
+		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		252AC361277893E2008AD5E4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
+		25A353FE277AA91D0029BB55 /* schoolToken.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,7 +141,6 @@
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
-		8742544A27798B0300D60264 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		874D3BDC2779F9E500072F8A /* LEET.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LEET.json; sourceTree = "<group>"; };
 		874D3BDE2779FAD500072F8A /* 공인회계사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "공인회계사.json"; sourceTree = "<group>"; };
@@ -244,6 +249,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25A353FD277AA91D0029BB55 /* APIToken */ = {
+			isa = PBXGroup;
+			children = (
+				25A353FE277AA91D0029BB55 /* schoolToken.xcconfig */,
+			);
+			path = APIToken;
+			sourceTree = "<group>";
+		};
 		871B6E44276EE48D008CEEBA = {
 			isa = PBXGroup;
 			children = (
@@ -298,18 +311,11 @@
 			path = Dummy;
 			sourceTree = "<group>";
 		};
-		8742544927798AD200D60264 /* APIToken */ = {
-			isa = PBXGroup;
-			children = (
-				8742544A27798B0300D60264 /* schoolToken.xcconfig */,
-			);
-			path = APIToken;
-			sourceTree = "<group>";
-		};
 		879B172C2772CC030042478F /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
 				87C85E91276F6B16001C9C4A /* CoreUsecase.swift */,
+				2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -329,7 +335,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				8742544927798AD200D60264 /* APIToken */,
+				25A353FD277AA91D0029BB55 /* APIToken */,
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -603,6 +609,7 @@
 				8742544727795D3900D60264 /* QueryListButton.swift */,
 				8733159327799B77004E4A98 /* Categorys.swift */,
 				873315952779A181004E4A98 /* Majors.swift */,
+				2502533C277AB30F0049F342 /* SchoolDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -678,6 +685,7 @@
 				8742544B27798B0300D60264 /* schoolToken.xcconfig in Resources */,
 				874D3BDD2779F9E500072F8A /* LEET.json in Resources */,
 				874D3BE32779FC5D00072F8A /* 9급공무원.json in Resources */,
+				25A353FF277AA91D0029BB55 /* schoolToken.xcconfig in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				874D3BE12779FB8A00072F8A /* 공인중개사.json in Resources */,
@@ -697,6 +705,7 @@
 				87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
+				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85EDD276F6E39001C9C4A /* Page.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
@@ -759,6 +768,7 @@
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */,
+				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
@@ -934,7 +944,7 @@
 		};
 		871B6E62276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8742544A27798B0300D60264 /* schoolToken.xcconfig */;
+			baseConfigurationReference = 25A353FE277AA91D0029BB55 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -970,7 +980,7 @@
 		};
 		871B6E63276EE48D008CEEBA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8742544A27798B0300D60264 /* schoolToken.xcconfig */;
+			baseConfigurationReference = 25A353FE277AA91D0029BB55 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
