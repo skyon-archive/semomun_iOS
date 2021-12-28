@@ -1466,6 +1466,218 @@
             </objects>
             <point key="canvasLocation" x="-541" y="1798"/>
         </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="kjP-AF-201">
+            <objects>
+                <viewController storyboardIdentifier="SettingViewController" id="hNe-xm-haK" customClass="SettingViewController" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sgk-SJ-XmY">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOH-MP-ph6">
+                                <rect key="frame" x="50" y="70" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMf-WA-Yym">
+                                <rect key="frame" x="50" y="188" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="버전" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgA-Wx-aSj">
+                                <rect key="frame" x="50" y="350" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2P-t9-bJK">
+                                <rect key="frame" x="192" y="348" width="142" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="B5T-Sa-C65"/>
+                                    <constraint firstAttribute="width" constant="83" id="e6i-I5-HyF"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="2.1.1">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="AppleSDGothicNeo-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEr-R8-cNj">
+                                <rect key="frame" x="50" y="162" width="668" height="1"/>
+                                <color key="backgroundColor" name="gray"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="2Ws-xW-3pl"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18O-36-zxN">
+                                <rect key="frame" x="50" y="324" width="668" height="1"/>
+                                <color key="backgroundColor" name="gray"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="qot-tf-AtJ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAS-8z-ePw">
+                                <rect key="frame" x="180" y="70" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="GYb-6g-oht"/>
+                                    <constraint firstAttribute="height" constant="21" id="ufQ-IZ-NCW"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="로그아웃">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name=".AppleSDGothicNeoI-Regular"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="userLogout:" destination="hNe-xm-haK" eventType="touchUpInside" id="BZ5-7j-6ar"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afj-be-1b2">
+                                <rect key="frame" x="180" y="116" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7Qk-ES-7k8"/>
+                                    <constraint firstAttribute="width" constant="142" id="aUw-CZ-9sz"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="탈퇴하기">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name="AppleMyungjo"/>
+                                                <font key="NSOriginalFont" size="17" name="Times-Roman"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="userWithdrawal:" destination="hNe-xm-haK" eventType="touchUpInside" id="dkw-1m-7vy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koO-J8-9ff">
+                                <rect key="frame" x="180" y="188" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="83" id="T9b-VW-Xp6"/>
+                                    <constraint firstAttribute="height" constant="21" id="U41-JN-YS9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="고객센터">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name="AppleMyungjo"/>
+                                                <font key="NSOriginalFont" size="17" name="Times-Roman"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="openCustomerService:" destination="hNe-xm-haK" eventType="touchUpInside" id="nKv-pz-iZL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KxM-Ym-hYf">
+                                <rect key="frame" x="180" y="234" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Gcr-Y9-uiw"/>
+                                    <constraint firstAttribute="width" constant="83" id="cdk-mT-b2P"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="이용약관">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name="AppleMyungjo"/>
+                                                <font key="NSOriginalFont" size="17" name="Times-Roman"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="openTermsAndCondition:" destination="hNe-xm-haK" eventType="touchUpInside" id="bhQ-Dg-xzP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzZ-CM-TLt">
+                                <rect key="frame" x="180" y="278" width="142" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="Rcs-CW-kfm"/>
+                                    <constraint firstAttribute="height" constant="21" id="kYl-kK-fCy"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="개인정보처리방침">
+                                            <attributes>
+                                                <font key="NSFont" size="17" name="AppleMyungjo"/>
+                                                <font key="NSOriginalFont" size="17" name="Times-Roman"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="openPersonalInformationPolicy:" destination="hNe-xm-haK" eventType="touchUpInside" id="FZ4-Co-23X"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Eha-ZG-stG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="D2P-t9-bJK" firstAttribute="leading" secondItem="hzZ-CM-TLt" secondAttribute="leading" constant="12" id="0fa-PK-0hX"/>
+                            <constraint firstItem="IAS-8z-ePw" firstAttribute="centerY" secondItem="dOH-MP-ph6" secondAttribute="centerY" id="1AB-D1-ecU"/>
+                            <constraint firstItem="KxM-Ym-hYf" firstAttribute="top" secondItem="koO-J8-9ff" secondAttribute="bottom" constant="25" id="2eT-Km-1FH"/>
+                            <constraint firstItem="IAS-8z-ePw" firstAttribute="leading" secondItem="dOH-MP-ph6" secondAttribute="trailing" constant="100" id="8lL-VD-MCR"/>
+                            <constraint firstItem="hzZ-CM-TLt" firstAttribute="leading" secondItem="KxM-Ym-hYf" secondAttribute="leading" id="9PM-TV-NfV"/>
+                            <constraint firstItem="18O-36-zxN" firstAttribute="centerX" secondItem="Sgk-SJ-XmY" secondAttribute="centerX" id="BxB-RV-CFU"/>
+                            <constraint firstItem="koO-J8-9ff" firstAttribute="leading" secondItem="Afj-be-1b2" secondAttribute="leading" id="DJZ-4o-adb"/>
+                            <constraint firstItem="JgA-Wx-aSj" firstAttribute="leading" secondItem="mMf-WA-Yym" secondAttribute="leading" id="FDR-fT-TjC"/>
+                            <constraint firstItem="uEr-R8-cNj" firstAttribute="centerX" secondItem="Sgk-SJ-XmY" secondAttribute="centerX" id="Gzp-6n-mns"/>
+                            <constraint firstItem="18O-36-zxN" firstAttribute="top" secondItem="hzZ-CM-TLt" secondAttribute="bottom" constant="25" id="HTW-Ri-E2c"/>
+                            <constraint firstItem="JgA-Wx-aSj" firstAttribute="top" secondItem="18O-36-zxN" secondAttribute="bottom" constant="25" id="QdS-en-De7"/>
+                            <constraint firstItem="dOH-MP-ph6" firstAttribute="leading" secondItem="Eha-ZG-stG" secondAttribute="leading" constant="50" id="Scd-pk-P85"/>
+                            <constraint firstItem="uEr-R8-cNj" firstAttribute="top" secondItem="Afj-be-1b2" secondAttribute="bottom" constant="25" id="Swe-sx-moM"/>
+                            <constraint firstItem="Afj-be-1b2" firstAttribute="leading" secondItem="IAS-8z-ePw" secondAttribute="leading" id="TWE-Dd-phW"/>
+                            <constraint firstItem="dOH-MP-ph6" firstAttribute="top" secondItem="Eha-ZG-stG" secondAttribute="top" constant="50" id="UJV-rf-h5c"/>
+                            <constraint firstItem="D2P-t9-bJK" firstAttribute="centerY" secondItem="JgA-Wx-aSj" secondAttribute="centerY" id="UYD-P1-isH"/>
+                            <constraint firstItem="Afj-be-1b2" firstAttribute="top" secondItem="IAS-8z-ePw" secondAttribute="bottom" constant="25" id="UxH-bK-CLP"/>
+                            <constraint firstItem="mMf-WA-Yym" firstAttribute="leading" secondItem="dOH-MP-ph6" secondAttribute="leading" id="XXu-D7-5w3"/>
+                            <constraint firstItem="18O-36-zxN" firstAttribute="leading" secondItem="Eha-ZG-stG" secondAttribute="leading" constant="50" id="clT-gF-owJ"/>
+                            <constraint firstItem="KxM-Ym-hYf" firstAttribute="leading" secondItem="koO-J8-9ff" secondAttribute="leading" id="jKz-bM-Rdw"/>
+                            <constraint firstItem="koO-J8-9ff" firstAttribute="centerY" secondItem="mMf-WA-Yym" secondAttribute="centerY" id="nnU-LA-FzD"/>
+                            <constraint firstItem="uEr-R8-cNj" firstAttribute="leading" secondItem="Eha-ZG-stG" secondAttribute="leading" constant="50" id="tdD-YK-Gm6"/>
+                            <constraint firstItem="mMf-WA-Yym" firstAttribute="top" secondItem="uEr-R8-cNj" secondAttribute="bottom" constant="25" id="xpS-JN-5gy"/>
+                            <constraint firstItem="hzZ-CM-TLt" firstAttribute="top" secondItem="KxM-Ym-hYf" secondAttribute="bottom" constant="23" id="ztA-Tq-OxO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="versionNum" destination="D2P-t9-bJK" id="W87-mS-Fgz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="txZ-oa-WJb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1274.21875" y="777.5390625"/>
+        </scene>
         <!--Solving View Controller-->
         <scene sceneID="TwZ-Ez-K5K">
             <objects>
@@ -3233,12 +3445,18 @@
         <namedColor name="ColorWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="gray">
+            <color red="0.9179999828338623" green="0.9179999828338623" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="gray_light">
             <color red="0.96899998188018799" green="0.96899998188018799" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mint">
             <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
