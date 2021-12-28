@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
+		2502534A277ADAFB0049F342 /* 공인중개사.json in Resources */ = {isa = PBXBuildFile; fileRef = 25025345277ADAFB0049F342 /* 공인중개사.json */; };
+		2502534B277ADAFB0049F342 /* 9급공무원.json in Resources */ = {isa = PBXBuildFile; fileRef = 25025346277ADAFB0049F342 /* 9급공무원.json */; };
+		2502534C277ADAFB0049F342 /* LEET.json in Resources */ = {isa = PBXBuildFile; fileRef = 25025347277ADAFB0049F342 /* LEET.json */; };
+		2502534D277ADAFB0049F342 /* 공인회계사.json in Resources */ = {isa = PBXBuildFile; fileRef = 25025348277ADAFB0049F342 /* 공인회계사.json */; };
+		2502534E277ADAFB0049F342 /* 수능및모의고사.json in Resources */ = {isa = PBXBuildFile; fileRef = 25025349277ADAFB0049F342 /* 수능및모의고사.json */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		252AC362277893E2008AD5E4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC361277893E2008AD5E4 /* SettingView.swift */; };
@@ -23,7 +28,6 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
-		8733159227799383004E4A98 /* 기출영역및모의고사.json in Resources */ = {isa = PBXBuildFile; fileRef = 8733159127799383004E4A98 /* 기출영역및모의고사.json */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
@@ -75,7 +79,6 @@
 		87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */; };
 		87C85EA2276F6BF0001C9C4A /* SearchWorkbookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */; };
 		87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */; };
-		87C85EA7276F6C30001C9C4A /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EA6276F6C30001C9C4A /* Query.swift */; };
 		87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */; };
 		87C85EAF276F6C9B001C9C4A /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */; };
 		87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */; };
@@ -120,6 +123,11 @@
 /* Begin PBXFileReference section */
 		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
+		25025345277ADAFB0049F342 /* 공인중개사.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "공인중개사.json"; sourceTree = "<group>"; };
+		25025346277ADAFB0049F342 /* 9급공무원.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "9급공무원.json"; sourceTree = "<group>"; };
+		25025347277ADAFB0049F342 /* LEET.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LEET.json; sourceTree = "<group>"; };
+		25025348277ADAFB0049F342 /* 공인회계사.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "공인회계사.json"; sourceTree = "<group>"; };
+		25025349277ADAFB0049F342 /* 수능및모의고사.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "수능및모의고사.json"; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		252AC361277893E2008AD5E4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -133,7 +141,6 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8733159127799383004E4A98 /* 기출영역및모의고사.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "기출영역및모의고사.json"; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
@@ -186,7 +193,6 @@
 		87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookViewController.swift; sourceTree = "<group>"; };
 		87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkbookManager.swift; sourceTree = "<group>"; };
 		87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreviewCell.swift; sourceTree = "<group>"; };
-		87C85EA6276F6C30001C9C4A /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		87C85EAC276F6C83001C9C4A /* SolvingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvingViewController.swift; sourceTree = "<group>"; };
 		87C85EAE276F6C9B001C9C4A /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		87C85EB0276F6CAE001C9C4A /* SectionResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultViewController.swift; sourceTree = "<group>"; };
@@ -295,7 +301,11 @@
 		873315902779934D004E4A98 /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
-				8733159127799383004E4A98 /* 기출영역및모의고사.json */,
+				25025346277ADAFB0049F342 /* 9급공무원.json */,
+				25025345277ADAFB0049F342 /* 공인중개사.json */,
+				25025348277ADAFB0049F342 /* 공인회계사.json */,
+				25025349277ADAFB0049F342 /* 수능및모의고사.json */,
+				25025347277ADAFB0049F342 /* LEET.json */,
 			);
 			path = Dummy;
 			sourceTree = "<group>";
@@ -397,7 +407,6 @@
 				87C85E9F276F6BD3001C9C4A /* SearchWorkbookViewController.swift */,
 				87C85EA1276F6BF0001C9C4A /* SearchWorkbookManager.swift */,
 				87C85EA3276F6C03001C9C4A /* SearchPreviewCell.swift */,
-				87C85EA5276F6C26001C9C4A /* Model */,
 			);
 			path = SearchWorkbook;
 			sourceTree = "<group>";
@@ -542,14 +551,6 @@
 			path = PreviewManager;
 			sourceTree = "<group>";
 		};
-		87C85EA5276F6C26001C9C4A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				87C85EA6276F6C30001C9C4A /* Query.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		87C85EA8276F6C4F001C9C4A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,10 +682,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A353FF277AA91D0029BB55 /* schoolToken.xcconfig in Resources */,
+				2502534D277ADAFB0049F342 /* 공인회계사.json in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
-				8733159227799383004E4A98 /* 기출영역및모의고사.json in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
+				2502534A277ADAFB0049F342 /* 공인중개사.json in Resources */,
+				2502534C277ADAFB0049F342 /* LEET.json in Resources */,
+				2502534E277ADAFB0049F342 /* 수능및모의고사.json in Resources */,
+				2502534B277ADAFB0049F342 /* 9급공무원.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,7 +716,6 @@
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
 				87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
-				87C85EA7276F6C30001C9C4A /* Query.swift in Sources */,
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
 				87C85E87276F6A7A001C9C4A /* SideMenuViewController.swift in Sources */,
 				87C85EC3276F6D44001C9C4A /* SingleWith5Answer.swift in Sources */,
