@@ -17,7 +17,6 @@
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
-		25B98806277AE37200EE6ED7 /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */; };
 		25B98808277AEC3500EE6ED7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B98807277AEC3500EE6ED7 /* SettingViewController.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
@@ -132,7 +131,7 @@
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
-		25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
+		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25B98807277AEC3500EE6ED7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,8 +327,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */,
-				8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */,
+				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -677,8 +675,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25B98806277AE37200EE6ED7 /* schoolToken.xcconfig in Resources */,
-				8752BEA8277ADD5B00A9382F /* schoolToken.xcconfig in Resources */,
 				2502534D277ADAFB0049F342 /* 공인회계사.json in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
@@ -940,8 +936,7 @@
 		};
 		871B6E62276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */;
-			baseConfigurationReference = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */;
+			baseConfigurationReference = 2583AC25277B1A8900619F03 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -977,8 +972,7 @@
 		};
 		871B6E63276EE48D008CEEBA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */;
-			baseConfigurationReference = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */;
+			baseConfigurationReference = 2583AC25277B1A8900619F03 /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
