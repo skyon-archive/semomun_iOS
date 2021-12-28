@@ -15,26 +15,30 @@ struct SettingUserView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var favoriteCategory: String
-    @State private var major: String
-    @State private var majorDetail: String
+    @State private var selectedMajor: String
+    @State private var selectedMajorDetail: String
     @State private var schoolName: String
     @State private var graduationStatus: String
     
     @State private var schoolType: SchoolSearchUseCase.SchoolType = .high
     @State private var showUnivSearch = false
     
+    @State private var majorsWithMajorDetails: [String: [String]] = [:]
+    @State private var majors: [String] = []
+    
+    var majorDetails: [String] {
+        return majorsWithMajorDetails[selectedMajor] ?? []
+    }
     
     let categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? ["예시 카테고리 1", "예시 카테고리 2", "예시 카테고리 3"]
-    let majors = ["문과 계열", "이과 계열", "예체능 계열"]
-    let majorDetails = ["공학", "자연", "의학", "생활과학", "기타"]
     let graduationStatuses = ["재학", "졸업"]
     
     init(delegate: ReloadUserData?) {
         self.delegate = delegate
         let userInfo = CoreUsecase.fetchUserInfo()
         self._favoriteCategory = State(initialValue: userInfo?.favoriteCategory ?? "수능 및 모의고사")
-        self._major = State(initialValue: userInfo?.major ?? "문과 계열")
-        self._majorDetail = State(initialValue: userInfo?.majorDetail ?? "공학")
+        self._selectedMajor = State(initialValue: userInfo?.major ?? "문과 계열")
+        self._selectedMajorDetail = State(initialValue: userInfo?.majorDetail ?? "공학")
         self._schoolName = State(initialValue: userInfo?.schoolName ?? "서울대학교")
         self._graduationStatus = State(initialValue: userInfo?.graduationStatus ?? "재학")
     }
@@ -76,8 +80,8 @@ struct SettingUserView: View {
             } else {
                 VStack(spacing: 50) {
                     SettingUserRow(title: "관심문제", options: categories, selected: $favoriteCategory)
-                    SettingUserRow(title: "계열", options: majors, selected: $major)
-                    SettingUserRow(title: "전공", options: majorDetails, selected: $majorDetail)
+                    SettingUserRow(title: "계열", options: majors, selected: $selectedMajor)
+                    SettingUserRow(title: "전공", options: majorDetails, selected: $selectedMajorDetail)
                     HStack(spacing: 20) {
                         VStack(spacing: 20) {
                             Text("학교")
@@ -136,8 +140,8 @@ struct SettingUserView: View {
                             let userInfo = CoreUsecase.fetchUserInfo()
                             userInfo?.favoriteCategory = self.favoriteCategory
                             userInfo?.schoolName = self.schoolName
-                            userInfo?.major = self.major
-                            userInfo?.majorDetail = self.majorDetail
+                            userInfo?.major = self.selectedMajor
+                            userInfo?.majorDetail = self.selectedMajorDetail
                             userInfo?.graduationStatus = self.graduationStatus
                             CoreDataManager.saveCoreData()
                             delegate?.loadData()
@@ -164,6 +168,20 @@ struct SettingUserView: View {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(.white)
         )
+        .onAppear {
+            NetworkUsecase.getMajors(completion: { downloaded in
+                guard let downloaded = downloaded else {
+                    print("전공 정보 다운로드 실패")
+                    return
+                }
+                self.majors = downloaded.compactMap { $0.keys.first }
+                self.majorsWithMajorDetails = downloaded.reduce(into: [:]) { result, next in
+                    if let key = next.keys.first {
+                        result[key] = next[key]
+                    }
+                }
+            })
+        }
     }
 }
 
