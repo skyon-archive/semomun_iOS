@@ -21,6 +21,10 @@ class SearchWorkbookViewController: UIViewController {
     
     lazy var loaderForPreview = self.makeLoaderWithoutPercentage()
     lazy var loaderForButton = self.makeLoaderWithoutPercentage()
+    let buttonIcon: UIImage? = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
+        return UIImage(systemName: "chevron.down", withConfiguration: largeConfig)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +63,17 @@ extension SearchWorkbookViewController {
         button.backgroundColor = .clear
         button.setTitle(buttonDto.title, for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.tintColor = .lightGray
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setImage(self.buttonIcon, for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.semanticContentAttribute = .forceLeftToRight
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 76, bottom: 0, right: -76)
         button.tag = idx
         button.addTarget(self, action: #selector(printFunc(_:)), for: .touchUpInside)
         
@@ -98,7 +113,6 @@ extension SearchWorkbookViewController {
     
     func configureUI() {
         self.setRadiusOfFrame()
-        self.setRadiusOfSelectButtons()
     }
     
     func configureLoader() {
@@ -113,14 +127,6 @@ extension SearchWorkbookViewController {
     
     func setRadiusOfFrame() {
         frameView.layer.cornerRadius = 30
-    }
-    
-    func setRadiusOfSelectButtons() {
-        queryButtons.forEach {
-            $0.layer.borderWidth = 2
-            $0.layer.borderColor = UIColor.lightGray.cgColor
-            $0.layer.cornerRadius = 10
-        }
     }
 }
 
