@@ -31,6 +31,7 @@
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
+		8752BEA8277ADD5B00A9382F /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
@@ -145,6 +146,7 @@
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
+		8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */,
+				8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */,
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -674,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25B98806277AE37200EE6ED7 /* schoolToken.xcconfig in Resources */,
+				8752BEA8277ADD5B00A9382F /* schoolToken.xcconfig in Resources */,
 				2502534D277ADAFB0049F342 /* 공인회계사.json in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
@@ -935,6 +939,7 @@
 		871B6E62276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */;
+			baseConfigurationReference = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -971,6 +976,7 @@
 		871B6E63276EE48D008CEEBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25B98805277AE37200EE6ED7 /* schoolToken.xcconfig */;
+			baseConfigurationReference = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
