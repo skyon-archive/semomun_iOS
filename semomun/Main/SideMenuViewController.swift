@@ -19,6 +19,7 @@ class SideMenuViewController: UIViewController {
     var delegate: SideMenuViewControllerDelegate?
     var defaultHighlightedCell: Int = 0
     var categorys: [String] = []
+    var currentIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,21 +41,19 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuCell", for: indexPath) as? SideMenuCell else { return UITableViewCell() }
-        cell.title.text = categorys[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier, for: indexPath) as? SideMenuCell else { return UITableViewCell() }
+        if let currentIndex = self.currentIndex, currentIndex == indexPath.row {
+            cell.configure(to: self.categorys[indexPath.row], isSelected: true)
+        } else {
+            cell.configure(to: self.categorys[indexPath.row], isSelected: false)
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.currentIndex = indexPath.row
         self.delegate?.selectCategory(to: self.categorys[indexPath.row])
-        self.sideMenuTableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-class SideMenuCell: UITableViewCell {
-    @IBOutlet var title: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+        self.sideMenuTableView.reloadData()
     }
 }
