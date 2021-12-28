@@ -31,7 +31,6 @@
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
-		8752BEA8277ADD5B00A9382F /* schoolToken.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
@@ -147,7 +146,6 @@
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
-		8752BEA7277ADD5B00A9382F /* schoolToken.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
