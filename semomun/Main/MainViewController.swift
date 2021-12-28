@@ -322,7 +322,6 @@ extension MainViewController: UserInfoPushable {
     
     func showSetting() {
         print("showSetting")
-        let settingView = UIHostingController(rootView: SettingView())
-        self.present(settingView, animated: true, completion: nil)
+        
     }
 }
