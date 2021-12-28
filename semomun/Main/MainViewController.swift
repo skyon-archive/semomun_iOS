@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
     var sideMenuShadowView: UIView!
     var revealSideMenuOnTop: Bool = true
     var isExpanded: Bool = false
-    var sideMenuRevealWidth: CGFloat = 260
+    var sideMenuRevealWidth: CGFloat = 329
     let paddingForRotation: CGFloat = 150
     private lazy var userInfoView = UserInfoToggleView()
     
@@ -40,7 +40,6 @@ class MainViewController: UIViewController {
         self.addCoreDataAlertObserver()
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
-        print(Bundle.main.infoDictionary?["API_ACCESS_KEY1"] as? String ?? "no_access_key")
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -118,6 +118,7 @@
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
+		87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB962D277AF640002203AA /* SideMenuCell.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -233,6 +234,7 @@
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
+		87DB962D277AF640002203AA /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -534,6 +536,7 @@
 			children = (
 				87C85E89276F6AA5001C9C4A /* CategoryCell.swift */,
 				87C85E8B276F6AB6001C9C4A /* PreviewCell.swift */,
+				87DB962D277AF640002203AA /* SideMenuCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
 				87C85E85276F6A6A001C9C4A /* MainViewController+Extension.swift in Sources */,
 				87C85E48276F6726001C9C4A /* UIView.swift in Sources */,
+				87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */,
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
 				87C85E52276F67D7001C9C4A /* CertificationViewController.swift in Sources */,
 				87C85E8A276F6AA5001C9C4A /* CategoryCell.swift in Sources */,
