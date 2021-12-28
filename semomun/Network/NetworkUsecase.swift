@@ -188,12 +188,11 @@ class NetworkUsecase {
         }
     }
     
-    static func getQeuryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
+    static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
         var fileName: String = "수능및모의고사"
         switch category {
         case "수능 및 모의고사":
             fileName = "수능및모의고사"
-            break
         case "LEET":
             fileName = "LEET"
         case "공인회계사":

@@ -41,7 +41,7 @@ class SearchWorkbookViewController: UIViewController {
 extension SearchWorkbookViewController {
     func fetchQueryButtons() {
         guard let manager = self.manager else { return }
-        NetworkUsecase.getQeuryButtons(category: manager.category) { [weak self] queryListButtons in
+        NetworkUsecase.getQueryButtons(category: manager.category) { [weak self] queryListButtons in
             guard let queryListButtons = queryListButtons else {
                 self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
                 return
@@ -50,7 +50,7 @@ extension SearchWorkbookViewController {
             for (idx, button) in queryListButtons.enumerated() {
                 self?.createQueryButton(with: button, idx: idx)
             }
-            self?.createStckView()
+            self?.createStackView()
         }
     }
     
@@ -77,7 +77,7 @@ extension SearchWorkbookViewController {
         self.showAlertController(title: self.queryDtos[idx].title, index: idx, data: self.queryDtos[idx].menus)
     }
     
-    func createStckView() {
+    func createStackView() {
         let stackView = UIStackView(arrangedSubviews: self.queryButtons)
         stackView.axis = .horizontal
         stackView.alignment = .center
