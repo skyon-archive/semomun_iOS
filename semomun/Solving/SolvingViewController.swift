@@ -48,6 +48,8 @@ class SolvingViewController: UIViewController {
         self.addChild(singleWith5Answer)
         self.addChild(singleWithTextAnswer)
         self.addChild(multipleWith5Answer)
+        self.addChild(singleWith4Answer)
+        self.addChild(multipleWithNoAnswer)
         
         self.configureManager()
         self.addCoreDataAlertObserver()
@@ -59,6 +61,8 @@ class SolvingViewController: UIViewController {
         self.singleWith5Answer = nil
         self.singleWithTextAnswer = nil
         self.multipleWith5Answer = nil
+        self.singleWith4Answer = nil
+        self.multipleWithNoAnswer = nil
     }
     
     @IBAction func back(_ sender: Any) {
@@ -211,10 +215,20 @@ extension SolvingViewController: LayoutDelegate {
     }
     
     func terminateSection(result: SectionResult, jsonString: String) {
-        // Backend post 하기 : 네트워크에 따른 분기처리, loader 필요, completion 이 필요
-        self.previewCore?.setValue(true, forKey: "terminated")
-        self.changeResultLabel()
-        self.showResultViewController(result: result)
+        let isConnected = true
+        if isConnected {
+            let param = ["submissions": jsonString, "token": KeychainItem.currentUserIdentifier]
+            NetworkUsecase.postSectionResult(param: param) { [weak self] success in
+                guard let _ = success else {
+                    // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
+                    print("Error: update submissions fail")
+                    return
+                }
+                self?.previewCore?.setValue(true, forKey: "terminated")
+                self?.changeResultLabel()
+                self?.showResultViewController(result: result)
+            }
+        }
     }
     
     func changeResultLabel() {
