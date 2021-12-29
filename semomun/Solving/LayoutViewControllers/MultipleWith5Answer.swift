@@ -8,13 +8,6 @@
 import UIKit
 import PencilKit
 
-protocol CollectionCellDelegate: AnyObject {
-    func updateStar(btName: String, to: Bool)
-    func nextPage()
-    func showExplanation(image: UIImage?)
-    func updateWrong(btName: String, to: Bool)
-}
-
 class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     static let identifier = "MultipleWith5Answer" // form == 1 && type == 5
     

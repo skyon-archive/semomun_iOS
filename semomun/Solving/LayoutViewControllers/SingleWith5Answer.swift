@@ -150,7 +150,6 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     }
 }
 
-
 extension SingleWith5Answer {
     func configureLoader() {
         self.view.addSubview(self.loader)

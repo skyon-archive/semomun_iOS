@@ -209,6 +209,9 @@ class SectionManager {
                 self.currentTime += 1
                 self.section?.setValue(self.currentTime, forKey: "time")
                 self.showTime()
+                if self.currentTime%10 == 0 {
+                    CoreDataManager.saveCoreData()
+                }
             }
             while self.isRunning {
                 runLoop.run(until: Date().addingTimeInterval(0.1))
