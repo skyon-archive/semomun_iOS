@@ -44,7 +44,7 @@ class CertificationViewController: UIViewController {
     @IBAction func sendPhone(_ sender: Any) {
         self.dismissKeyboard()
         if self.textStates[0] == false {
-            self.showAlertWithOK(title: "올바른 번호가 아닙니다", text: "11글자의 숫자를 입력해주시기 바랍니다")
+            self.showAlertWithOK(title: "올바른 번호가 아닙니다", text: "11글자의 숫자를 입력해주시기 바랍니다.")
             return
         }
         self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
@@ -63,7 +63,7 @@ class CertificationViewController: UIViewController {
     @IBAction func sendCertification(_ sender: Any) {
         self.dismissKeyboard()
         if self.textStates[1] == false {
-            self.showAlertWithOK(title: "올바른 인증번호가 아닙니다", text: "6글자의 인증번호를 입력해주시기 바랍니다")
+            self.showAlertWithOK(title: "올바른 인증번호가 아닙니다", text: "6글자의 인증번호를 입력해주시기 바랍니다.")
             return
         }
         self.usecase?.checkCertification(with: self.phone.text, completion: { [weak self] valid in

@@ -114,7 +114,7 @@ extension StartViewController {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Handle error.
+        print(error)
     }
     
     private func saveUserinKeychain(_ userIdentifier: String) {
@@ -129,12 +129,7 @@ extension StartViewController {
         NetworkUsecase.postCheckUser(userToken: idToken, userLoginMethod: .apple) { isUser in
             guard let isUser = isUser else {
                 print("nil error")
-//                self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
-//                    self?.showNextVC() // TODO: Network Error 표시 로직 필요
-//                }
-                self.showAlertOKWithClosure(title: "더미 인증 성공", text: "임시적인 팝업창") { [weak self] _ in
-                    self?.showNextVC() // TODO: Network Error 표시 로직 필요
-                }
+                self.showAlertWithOK(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.")
                 return
             }
             completion(isUser)
@@ -145,9 +140,7 @@ extension StartViewController {
         NetworkUsecase.postCheckUser(userToken: idToken, userLoginMethod: .google) { isUser in
             guard let isUser = isUser else {
                 print("nil error")
-                self.showAlertWithClosure(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.") { [weak self] _ in
-                    self?.showNextVC() // TODO: Network Error 표시 로직 필요
-                }
+                self.showAlertWithOK(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.")
                 return
             }
             completion(isUser)
@@ -163,7 +156,7 @@ extension StartViewController {
             CoreUsecase.createUserCoreData(userInfo: userInfo)
             UserDefaults.standard.setValue(userInfo.favoriteCategory, forKey: "currentCategory")
             UserDefaults.standard.setValue(true, forKey: "logined")
-            self?.showAlertWithClosure(title: "로그인 성공", text: "^^", completion: { [weak self] _ in
+            self?.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
                 self?.goMainVC()
             })
         }
