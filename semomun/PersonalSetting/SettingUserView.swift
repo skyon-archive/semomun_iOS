@@ -26,6 +26,13 @@ struct SettingUserView: View {
     @State private var majorsWithMajorDetails: [String: [String]] = [:]
     @State private var majors: [String] = []
     
+    @State private var presentAlert = false
+    @State private var activeAlert = ActiveAlert.success
+    
+    private enum ActiveAlert {
+        case success, fail
+    }
+    
     var majorDetails: [String] {
         return majorsWithMajorDetails[selectedMajor] ?? []
     }
@@ -164,6 +171,16 @@ struct SettingUserView: View {
         .onAppear {
             self.fetchMajors()
         }
+        .alert(isPresented: $presentAlert) {
+            switch activeAlert {
+            case .success:
+                return Alert(title: Text("정보 수정 완료"), message: nil, dismissButton: .default(Text("확인"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
+            case .fail:
+                return Alert(title: Text("정보 수정 실패"), message: Text("네트워크 확인 후 다시 시도해주세요."), dismissButton: .default(Text("확인")))
+            }
+        }
     }
     
     private func fetchMajors() {
@@ -192,18 +209,20 @@ struct SettingUserView: View {
         userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
         NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { status in
             guard let status = status else {
-                //TODO: Alert 창 띄우기 로직 구현
+                self.activeAlert = .fail
+                self.presentAlert = true
                 print("회원정보 업데이트 실패")
                 return
             }
             if status {
-                //TODO: Alert 창 띄우기 로직 구현
                 CoreDataManager.saveCoreData()
                 NotificationCenter.default.post(name: .updateCategory, object: nil)
                 self.delegate?.loadData()
-                self.presentationMode.wrappedValue.dismiss()
+                self.activeAlert = .success
+                self.presentAlert = true
             } else {
-                //TODO: Alert 창 띄우기 로직 구현
+                self.activeAlert = .fail
+                self.presentAlert = true
                 print("회원정보 업데이트 실패")
                 return
             }

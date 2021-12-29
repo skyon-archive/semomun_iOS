@@ -24,7 +24,7 @@ extension UIViewController {
                                       message: text,
                                       preferredStyle: UIAlertController.Style.alert)
         let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
-        let ok = UIAlertAction(title: "확인", style: .destructive, handler:  { _ in
+        let ok = UIAlertAction(title: "확인", style: .default, handler:  { _ in
             completion(true)
         })
         alert.addAction(cancel)
