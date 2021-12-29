@@ -241,4 +241,9 @@ extension NetworkUsecase {
         print(param)
         completion(true)
     }
+    
+    static func postSectionResult(param: [String: String], completion: @escaping(Bool?) -> Void) {
+        print(param)
+        completion(true)
+    }
 }
