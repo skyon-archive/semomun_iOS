@@ -18,7 +18,7 @@ class SideMenuViewController: UIViewController {
     
     var delegate: SideMenuViewControllerDelegate?
     var defaultHighlightedCell: Int = 0
-    var categorys: [String] = []
+    var categories: [String] = []
     var currentIndex: Int?
     
     override func viewDidLoad() {
@@ -36,12 +36,12 @@ extension SideMenuViewController {
         NetworkUsecase.getCategorys { [weak self] categorys in
             guard let categorys = categorys else {
                 self?.showAlertWithOK(title: "오프라인 모드", text: "저장되어 있는 문제집에 접근할 수 있습니다.")
-                self?.categorys = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
+                self?.categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
                 self?.configureIndex()
                 return
             }
             UserDefaults.standard.setValue(categorys, forKey: "categorys")
-            self?.categorys = categorys
+            self?.categories = categorys
             self?.configureIndex()
         }
     }
@@ -58,32 +58,27 @@ extension SideMenuViewController {
                   let category = UserDefaults.standard.value(forKey: "currentCategory") as? String,
                   let index = self.getIndex(from: category) else { return }
             self.currentIndex = index
-            self.delegate?.selectCategory(to: self.categorys[index])
+            self.delegate?.selectCategory(to: self.categories[index])
             self.sideMenuTableView.reloadData()
         }
     }
     
     private func getIndex(from target: String) -> Int? {
-        for (idx, category) in self.categorys.enumerated() {
-            if category == target {
-                return idx
-            }
-        }
-        return nil
+        return self.categories.firstIndex(of: target)
     }
 }
 
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categorys.count
+        return self.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier, for: indexPath) as? SideMenuCell else { return UITableViewCell() }
         if let currentIndex = self.currentIndex, currentIndex == indexPath.row {
-            cell.configure(to: self.categorys[indexPath.row], isSelected: true)
+            cell.configure(to: self.categories[indexPath.row], isSelected: true)
         } else {
-            cell.configure(to: self.categorys[indexPath.row], isSelected: false)
+            cell.configure(to: self.categories[indexPath.row], isSelected: false)
         }
         
         return cell
@@ -91,7 +86,7 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.currentIndex = indexPath.row
-        self.delegate?.selectCategory(to: self.categorys[indexPath.row])
+        self.delegate?.selectCategory(to: self.categories[indexPath.row])
         self.sideMenuTableView.reloadData()
     }
 }
