@@ -144,12 +144,8 @@ extension PersonalInfoViewController {
     }
     
     private func configureSignupInfo() {
-        let jsonEncoder = JSONEncoder()
-        guard let jsonData = try? jsonEncoder.encode(self.signUpInfo) else { return }
-        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-        let jsonSignupInfo: [String: String] = ["info" : jsonStringData,
-                                             "token": KeychainItem.currentUserIdentifier]
-        NetworkUsecase.postUserSignup(userInfo: jsonSignupInfo) { [weak self] success in
+        guard let userInfo = self.signUpInfo else { return }
+        NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] success in
             guard let success = success else {
                 print("nil data")
                 return

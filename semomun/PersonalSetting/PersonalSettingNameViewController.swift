@@ -32,7 +32,11 @@ class PersonalSettingNameViewController: UIViewController {
         }
         let userInfo = CoreUsecase.fetchUserInfo()
         userInfo?.setValue(newName, forKey: "name")
-        NetworkUsecase.updateName(to: newName, token: KeychainItem.currentUserIdentifier) { [weak self] status in
+        NetworkUsecase.postRename(to: newName, token: KeychainItem.currentUserIdentifier) { [weak self] status in
+            guard let status = status else {
+                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+                return
+            }
             if status {
                 CoreDataManager.saveCoreData()
                 self?.showAlertWithOK(title: "성공", text: "새로운 이름이 반영되었습니다.")

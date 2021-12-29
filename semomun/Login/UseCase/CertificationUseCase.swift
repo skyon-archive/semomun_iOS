@@ -71,7 +71,7 @@ class CertificationUseCase {
     
     func checkPhone(with phone: String?, completion: @escaping(Bool?) -> Void) {
         guard let phone = phone else { return }
-        NetworkUsecase.getCheckPhone(with: phone) { valid in
+        NetworkUsecase.postCheckPhone(with: phone) { valid in
             guard let valid = valid else {
                 print("nil error")
                 completion(nil)
@@ -83,7 +83,7 @@ class CertificationUseCase {
     
     func checkCertification(with certifi: String?, completion: @escaping(Bool?) -> Void) {
         guard let certifi = certifi else { return }
-        NetworkUsecase.getCheckCertification(with: certifi) { valid in
+        NetworkUsecase.postCheckCertification(with: certifi) { valid in
             guard let valid = valid else {
                 print("nil error")
                 completion(nil)
