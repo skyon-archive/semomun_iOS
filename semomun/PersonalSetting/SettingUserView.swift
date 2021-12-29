@@ -32,15 +32,16 @@ struct SettingUserView: View {
     
     let categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? ["예시 카테고리 1", "예시 카테고리 2", "예시 카테고리 3"]
     let graduationStatuses = ["재학", "졸업"]
+    private var userInfo: UserCoreData?
     
     init(delegate: ReloadUserData?) {
         self.delegate = delegate
-        let userInfo = CoreUsecase.fetchUserInfo()
-        self._favoriteCategory = State(initialValue: userInfo?.favoriteCategory ?? "수능 및 모의고사")
-        self._selectedMajor = State(initialValue: userInfo?.major ?? "문과 계열")
-        self._selectedMajorDetail = State(initialValue: userInfo?.majorDetail ?? "공학")
-        self._schoolName = State(initialValue: userInfo?.schoolName ?? "서울대학교")
-        self._graduationStatus = State(initialValue: userInfo?.graduationStatus ?? "재학")
+        self.userInfo = CoreUsecase.fetchUserInfo()
+        self._favoriteCategory = State(initialValue: self.userInfo?.favoriteCategory ?? "수능 및 모의고사")
+        self._selectedMajor = State(initialValue: self.userInfo?.major ?? "문과 계열")
+        self._selectedMajorDetail = State(initialValue: self.userInfo?.majorDetail ?? "공학")
+        self._schoolName = State(initialValue: self.userInfo?.schoolName ?? "서울대학교")
+        self._graduationStatus = State(initialValue: self.userInfo?.graduationStatus ?? "재학")
     }
     
     var body: some View {
@@ -137,17 +138,7 @@ struct SettingUserView: View {
                         }
                         .frame(width: 180)
                         Button(action: {
-                            let userInfo = CoreUsecase.fetchUserInfo()
-                            UserDefaults.standard.setValue(self.favoriteCategory, forKey: "currentCategory")
-                            userInfo?.favoriteCategory = self.favoriteCategory
-                            userInfo?.schoolName = self.schoolName
-                            userInfo?.major = self.selectedMajor
-                            userInfo?.majorDetail = self.selectedMajorDetail
-                            userInfo?.graduationStatus = self.graduationStatus
-                            CoreDataManager.saveCoreData()
-                            NotificationCenter.default.post(name: .updateCategory, object: nil)
-                            delegate?.loadData()
-                            presentationMode.wrappedValue.dismiss()
+                            self.updateUserInfo()
                         }) {
                             ZStack {
                                 Circle()
@@ -171,18 +162,51 @@ struct SettingUserView: View {
                 .foregroundColor(.white)
         )
         .onAppear {
-            NetworkUsecase.getMajors(completion: { downloaded in
-                guard let downloaded = downloaded else {
-                    print("전공 정보 다운로드 실패")
-                    return
+            self.fetchMajors()
+        }
+    }
+    
+    private func fetchMajors() {
+        NetworkUsecase.getMajors(completion: { downloaded in
+            guard let downloaded = downloaded else {
+                // TODO: Alert 창 띄우기 로직 구현
+                print("전공 정보 다운로드 실패")
+                return
+            }
+            self.majors = downloaded.compactMap { $0.keys.first }
+            self.majorsWithMajorDetails = downloaded.reduce(into: [:]) { result, next in
+                if let key = next.keys.first {
+                    result[key] = next[key]
                 }
-                self.majors = downloaded.compactMap { $0.keys.first }
-                self.majorsWithMajorDetails = downloaded.reduce(into: [:]) { result, next in
-                    if let key = next.keys.first {
-                        result[key] = next[key]
-                    }
-                }
-            })
+            }
+        })
+    }
+    
+    private func updateUserInfo() {
+        guard let userInfo = self.userInfo else { return }
+        UserDefaults.standard.setValue(self.favoriteCategory, forKey: "currentCategory")
+        userInfo.setValue(self.favoriteCategory, forKey: "favoriteCategory")
+        userInfo.setValue(self.schoolName, forKey: "schoolName")
+        userInfo.setValue(self.selectedMajor, forKey: "major")
+        userInfo.setValue(self.selectedMajorDetail, forKey: "majorDetail")
+        userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
+        NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { status in
+            guard let status = status else {
+                //TODO: Alert 창 띄우기 로직 구현
+                print("회원정보 업데이트 실패")
+                return
+            }
+            if status {
+                //TODO: Alert 창 띄우기 로직 구현
+                CoreDataManager.saveCoreData()
+                NotificationCenter.default.post(name: .updateCategory, object: nil)
+                self.delegate?.loadData()
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                //TODO: Alert 창 띄우기 로직 구현
+                print("회원정보 업데이트 실패")
+                return
+            }
         }
     }
 }

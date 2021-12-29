@@ -36,6 +36,17 @@ class NetworkUsecase {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
+    enum UserLoginMethod {
+        case google, apple
+        func getToken() -> String {
+            switch self {
+            case .apple:
+                return "token_apple"
+            case .google:
+                return "token_google"
+            }
+        }
+    }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
         Network.get(url: URL.preview, param: param) { data in
@@ -81,81 +92,6 @@ class NetworkUsecase {
         Network.get(url: url) { data in
             handler(data)
         }
-    }
-    
-    enum UserLoginMethod {
-        case google, apple
-        func getToken() -> String {
-            switch self {
-            case .apple:
-                return "token_apple"
-            case .google:
-                return "token_google"
-            }
-        }
-    }
-    
-    static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
-        let paramKey: String = userLoginMethod.getToken()
-        let param = [paramKey: userToken]
-        Network.post(url: URL.checkUser, param: param) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
-            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-                print("Error: Decode")
-                completion(nil)
-                return
-            }
-            completion(validate.check)
-        }
-    }
-    
-    static func postUserSignup(userInfo: [String: String], completion: @escaping(Bool?) -> Void) {
-        print(userInfo)
-//        Network.post(url: "TODO: signUp url 필요", param: param) { data in
-//            guard let data = data else {
-//                print("Error: no data")
-//                completion(nil)
-//                return
-//            }
-//            // TODO: 수신 객체 필요
-            completion(true)
-//        }
-    }
-    
-    static func getCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
-//        Network.get(url: "TODO: url", param: ["phone" : phone]) { data in
-//            guard let data = data else {
-//                print("Error: no data")
-//                completion(nil)
-//                return
-//            }
-//            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-//                print("Error: Decode")
-//                completion(nil)
-//                return
-//            }
-            completion(true)
-//        }
-    }
-    
-    static func getCheckCertification(with certifi: String, completion: @escaping(Bool?) -> Void) {
-//        Network.get(url: "TODO: url", param: ["certifi" : certifi]) { data in
-//            guard let data = data else {
-//                print("Error: no data")
-//                completion(nil)
-//                return
-//            }
-//            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-//                print("Error: Decode")
-//                completion(nil)
-//                return
-//            }
-            completion(true)
-//        }
     }
     
     static func getCategorys(completion: @escaping([String]?) -> Void) {
@@ -235,8 +171,59 @@ class NetworkUsecase {
     }
 }
 
+// MARK: - POST
 extension NetworkUsecase {
-    static func updateName(to: String, token: String, completion: @escaping(Bool)->Void) {
+    static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
+        let paramKey: String = userLoginMethod.getToken()
+        let param = [paramKey: userToken]
+        Network.post(url: URL.checkUser, param: param) { data in
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(validate.check)
+        }
+    }
+    
+    static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {
+        guard let jsonData = try? JSONEncoder().encode(userInfo) else {
+            print("Encode Error")
+            return
+        }
+        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
+        print(param)
+        completion(true)
+    }
+    
+    static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
+        completion(true)
+    }
+    
+    static func postCheckCertification(with certifi: String, completion: @escaping(Bool?) -> Void) {
+        completion(true)
+    }
+    
+    static func postRename(to: String, token: String, completion: @escaping(Bool?)->Void) {
+        completion(true)
+    }
+    
+    static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(Bool?) -> Void) {
+        let newUserInfo = UserInfo()
+        newUserInfo.setValues(userInfo: userInfo)
+        guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
+            print("Encode Error")
+            return
+        }
+        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
+        print(param)
         completion(true)
     }
 }
