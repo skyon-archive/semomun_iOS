@@ -9,5 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let seconds = Self.init(rawValue: "seconds")
-    static let updateCategory = Self.init(rawValue: "upsateCategory")
+    static let updateCategory = Self.init(rawValue: "updateCategory")
 }
