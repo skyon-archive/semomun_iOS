@@ -239,8 +239,8 @@ extension SingleWith4Answer {
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 25)
+            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[3].centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[3].trailingAnchor, constant: 25)
         ])
         
         self.timerView.configureTime(to: time)
