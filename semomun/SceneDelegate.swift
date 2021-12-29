@@ -24,14 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(named: "mint")
             self.window?.rootViewController = navigationController
-            NetworkUsecase.getCategorys { categorys in
-                guard let categorys = categorys else {
-                    self.window?.rootViewController = navigationController
-                    mainViewController.showAlertWithOK(title: "오프라인 모드", text: "저장되어 있는 문제집에 접근할 수 있습니다.")
-                    return
-                }
-                UserDefaults.standard.setValue(categorys, forKey: "categorys")
-            }
         } else {
             let navigationController = UINavigationController(rootViewController: startLoginViewController)
             navigationController.navigationBar.tintColor = UIColor(named: "mint")

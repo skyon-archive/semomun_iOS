@@ -169,26 +169,41 @@ class NetworkUsecase {
             completion(Array(Set(schoolNames)).sorted())
         }
     }
+    
+    static func getUserInfo(param: [String: String], completion: @escaping(UserInfo?) -> Void) {
+        guard let url = Bundle.main.url(forResource: "dummyUserInfo", withExtension: "json"),
+              let data = try? Data(contentsOf: url) else {
+                  completion(nil)
+                  return
+              }
+        guard let userInfo: UserInfo = try? JSONDecoder().decode(UserInfo.self, from: data) else {
+            print("Error: Decode")
+            completion(nil)
+            return
+        }
+        completion(userInfo)
+    }
 }
 
 // MARK: - POST
 extension NetworkUsecase {
     static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
-        let paramKey: String = userLoginMethod.getToken()
-        let param = [paramKey: userToken]
-        Network.post(url: URL.checkUser, param: param) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
-            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-                print("Error: Decode")
-                completion(nil)
-                return
-            }
-            completion(validate.check)
-        }
+//        let paramKey: String = userLoginMethod.getToken()
+//        let param = [paramKey: userToken]
+//        Network.post(url: URL.checkUser, param: param) { data in
+//            guard let data = data else {
+//                print("Error: no data")
+//                completion(nil)
+//                return
+//            }
+//            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
+//                print("Error: Decode")
+//                completion(nil)
+//                return
+//            }
+//            completion(validate.check)
+//        }
+        completion(true)
     }
     
     static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {

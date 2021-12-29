@@ -164,7 +164,7 @@ extension PersonalInfoViewController {
     
     private func configureUserDefaults() {
         guard let currentCategory = self.signUpInfo?.favoriteCategory else { return }
-        UserDefaults.standard.setValue(true, forKey: "logined")
         UserDefaults.standard.setValue(currentCategory, forKey: "currentCategory")
+        UserDefaults.standard.setValue(true, forKey: "logined")
     }
 }
