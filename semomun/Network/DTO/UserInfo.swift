@@ -65,4 +65,17 @@ class UserInfo: Codable, CustomStringConvertible {
     var isValidSurvay: Bool {
         return self.gender != nil && self.major != nil && self.majorDetail != nil
     }
+    
+    func setValues(userInfo: UserCoreData) {
+        self.name = userInfo.name
+        self.nickName = userInfo.nickName
+        self.phoneNumber = userInfo.phoneNumber
+        self.favoriteCategory = userInfo.favoriteCategory
+        self.major = userInfo.major
+        self.majorDetail = userInfo.majorDetail
+        self.gender = userInfo.gender
+        self.birthday = userInfo.birthday
+        self.schoolName = userInfo.schoolName
+        self.graduationStatus = userInfo.graduationStatus
+    }
 }
