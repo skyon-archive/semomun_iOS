@@ -35,7 +35,6 @@ final class SingleWithTextAnswerViewModel {
         let resultTime = time+1
         self.time = resultTime
         problem.setValue(resultTime, forKey: "time")
-        CoreDataManager.saveCoreData()
     }
     
     func updateSolved(input: String) {

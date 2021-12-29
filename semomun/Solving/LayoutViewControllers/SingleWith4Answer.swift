@@ -23,8 +23,8 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
-    var width: CGFloat!
-    var height: CGFloat!
+    private var width: CGFloat!
+    private var height: CGFloat!
     var image: UIImage!
     var viewModel: SingleWith4AnswerViewModel?
     
@@ -83,6 +83,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
         
+        CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
@@ -258,7 +259,7 @@ extension SingleWith4Answer {
             NSLayoutConstraint.activate([
                 self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
                 self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
-                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 20),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 100),
                 self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
             ])
         }
@@ -291,17 +292,17 @@ extension SingleWith4Answer {
     }
     
     func configureCanvasView() {
-        canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
-        canvasView.drawingPolicy = .pencilOnly
+        self.canvasView.isOpaque = false
+        self.canvasView.backgroundColor = .clear
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.drawingPolicy = .pencilOnly
         
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
+        self.canvasView.subviews[0].addSubview(imageView)
+        self.canvasView.subviews[0].sendSubviewToBack(imageView)
+        self.toolPicker.setVisible(true, forFirstResponder: canvasView)
+        self.toolPicker.addObserver(canvasView)
         
-        canvasView.delegate = self
+        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -317,23 +318,23 @@ extension SingleWith4Answer {
     }
     
     func configureImageView() {
-        width = canvasView.frame.width
+        self.width = canvasView.frame.width
         guard let mainImage = self.image else { return }
-        height = mainImage.size.height*(width/mainImage.size.width)
+        self.height = mainImage.size.height*(width/mainImage.size.width)
         
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            imageView.image = mainImage
+            self.imageView.image = mainImage
         } else {
             let worningImage = UIImage(named: "warningWithNoImage")!
-            imageView.image = worningImage
-            height = worningImage.size.height*(width/worningImage.size.width)
+            self.imageView.image = worningImage
+            self.height = worningImage.size.height*(width/worningImage.size.width)
         }
         
-        imageView.clipsToBounds = true
-        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        canvasHeight.constant = height
+        self.imageView.clipsToBounds = true
+        self.imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.imageHeight.constant = height
+        self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.canvasHeight.constant = height
     }
 }
 

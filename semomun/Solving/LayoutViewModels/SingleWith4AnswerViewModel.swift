@@ -22,12 +22,10 @@ final class SingleWith4AnswerViewModel {
     }
     
     func configureObserver() {
-        print("setting")
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
     }
     
     func cancelObserver() {
-        print("cancle")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -37,7 +35,6 @@ final class SingleWith4AnswerViewModel {
         let resultTime = time+1
         self.time = resultTime
         problem.setValue(resultTime, forKey: "time")
-        CoreDataManager.saveCoreData()
     }
 
     func updateSolved(input: String) {

@@ -47,7 +47,6 @@ final class MultipleWithNoAnswerViewModel {
         for (idx, problem) in problems.enumerated() {
             problem.setValue(baseTimes[idx] + perTime, forKey: "time")
         }
-        CoreDataManager.saveCoreData()
     }
     
     func updatePencilData(to: Data) {
