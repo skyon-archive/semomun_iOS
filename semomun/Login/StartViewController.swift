@@ -73,10 +73,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             
             self.tokenSignInWithApple(idToken: userIdentifier) { [weak self] isUser in
                 if isUser {
-                    print("isUser from apple")
-                    //TODO: 바로 홈화면으로 이동 로직 필요
-                    UserDefaults.standard.setValue(true, forKey: "logined")
-                    self?.goMainVC()
+                    self?.getUserInfo()
                 } else {
                     self?.saveUserinKeychain(userIdentifier)
                     self?.showNextVC()
@@ -101,10 +98,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             
             self.tokenSignInWithGoogle(idToken: idToken) { [weak self] isUser in
                 if isUser {
-                    print("isUser from google")
-                    //TODO: 바로 홈화면으로 이동 로직 필요
-                    UserDefaults.standard.setValue(true, forKey: "logined")
-                    self?.goMainVC()
+                    self?.getUserInfo()
                 } else {
                     self?.saveUserinKeychain(idToken)
                     self?.showNextVC()
@@ -157,6 +151,21 @@ extension StartViewController {
                 return
             }
             completion(isUser)
+        }
+    }
+    
+    private func getUserInfo() {
+        NetworkUsecase.getUserInfo(param: ["token": KeychainItem.currentUserIdentifier]) { [weak self] userInfo in
+            guard let userInfo = userInfo else {
+                self?.showAlertWithOK(title: "네트워크 통신 에러", text: "회원정보를 불러오는데 실패하였습니다.")
+                return
+            }
+            CoreUsecase.createUserCoreData(userInfo: userInfo)
+            UserDefaults.standard.setValue(userInfo.favoriteCategory, forKey: "currentCategory")
+            UserDefaults.standard.setValue(true, forKey: "logined")
+            self?.showAlertWithClosure(title: "로그인 성공", text: "^^", completion: { [weak self] _ in
+                self?.goMainVC()
+            })
         }
     }
 }
