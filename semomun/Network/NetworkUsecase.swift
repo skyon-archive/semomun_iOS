@@ -234,3 +234,9 @@ class NetworkUsecase {
         }
     }
 }
+
+extension NetworkUsecase {
+    static func updateName(to: String, token: String, completion: @escaping(Bool)->Void) {
+        completion(true)
+    }
+}
