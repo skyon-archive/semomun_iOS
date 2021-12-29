@@ -219,12 +219,12 @@ extension SolvingViewController: LayoutDelegate {
         if isConnected {
             let param = ["submissions": jsonString, "token": KeychainItem.currentUserIdentifier]
             NetworkUsecase.postSectionResult(param: param) { [weak self] success in
-                guard let _ = success else {
+                if success == nil {
                     // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
                     print("Error: update submissions fail")
-                    return
                 }
                 self?.previewCore?.setValue(true, forKey: "terminated")
+                CoreDataManager.saveCoreData()
                 self?.changeResultLabel()
                 self?.showResultViewController(result: result)
             }
