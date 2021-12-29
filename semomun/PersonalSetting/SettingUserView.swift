@@ -138,12 +138,14 @@ struct SettingUserView: View {
                         .frame(width: 180)
                         Button(action: {
                             let userInfo = CoreUsecase.fetchUserInfo()
+                            UserDefaults.standard.setValue(self.favoriteCategory, forKey: "currentCategory")
                             userInfo?.favoriteCategory = self.favoriteCategory
                             userInfo?.schoolName = self.schoolName
                             userInfo?.major = self.selectedMajor
                             userInfo?.majorDetail = self.selectedMajorDetail
                             userInfo?.graduationStatus = self.graduationStatus
                             CoreDataManager.saveCoreData()
+                            NotificationCenter.default.post(name: .updateCategory, object: nil)
                             delegate?.loadData()
                             presentationMode.wrappedValue.dismiss()
                         }) {
