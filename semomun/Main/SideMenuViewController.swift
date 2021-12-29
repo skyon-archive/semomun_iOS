@@ -35,7 +35,6 @@ extension SideMenuViewController {
     private func configureCategories() {
         NetworkUsecase.getCategorys { [weak self] categorys in
             guard let categorys = categorys else {
-                self?.showAlertWithOK(title: "오프라인 모드", text: "저장되어 있는 문제집에 접근할 수 있습니다.")
                 self?.categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
                 self?.configureIndex()
                 return

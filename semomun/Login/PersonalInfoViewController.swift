@@ -154,7 +154,7 @@ extension PersonalInfoViewController {
                 return
             }
             if success {
-                self?.showAlertOKWithClosure(title: "회원가입이 완료되었습니다.", text: "", completion: { [weak self] _ in
+                self?.showAlertOKWithClosure(title: "회원가입이 완료되었습니다", text: "", completion: { [weak self] _ in
                     CoreUsecase.createUserCoreData(userInfo: self?.signUpInfo)
                     self?.configureUserDefaults()
                     self?.goMainVC()
