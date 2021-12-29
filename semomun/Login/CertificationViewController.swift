@@ -23,6 +23,7 @@ class CertificationViewController: UIViewController {
     
     private var signUpInfo: UserInfo?
     private var usecase: CertificationUseCase?
+    private var textStates: [Bool] = [false, false]
     private var states: [Bool] = [false, false, false]
     
     override func viewDidLoad() {
@@ -42,6 +43,10 @@ class CertificationViewController: UIViewController {
     
     @IBAction func sendPhone(_ sender: Any) {
         self.dismissKeyboard()
+        if self.textStates[0] == false {
+            self.showAlertWithOK(title: "올바른 번호가 아닙니다", text: "11글자의 숫자를 입력해주시기 바랍니다")
+            return
+        }
         self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
             if let valid = valid {
                 if valid {
@@ -57,6 +62,10 @@ class CertificationViewController: UIViewController {
     }
     @IBAction func sendCertification(_ sender: Any) {
         self.dismissKeyboard()
+        if self.textStates[1] == false {
+            self.showAlertWithOK(title: "올바른 인증번호가 아닙니다", text: "6글자의 인증번호를 입력해주시기 바랍니다")
+            return
+        }
         self.usecase?.checkCertification(with: self.phone.text, completion: { [weak self] valid in
             if let valid = valid {
                 if valid {
@@ -81,7 +90,6 @@ class CertificationViewController: UIViewController {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
     }
-    
 }
 
 extension CertificationViewController: UITextFieldDelegate {
@@ -99,6 +107,7 @@ extension CertificationViewController: UITextFieldDelegate {
         self.validNameUI()
         self.validPhoneUI()
         self.validCertificationUI()
+        self.textStates = [false, false]
     }
     
     func validNameUI() {
@@ -107,11 +116,13 @@ extension CertificationViewController: UITextFieldDelegate {
     }
     
     func validPhoneUI() {
+        self.textStates[0] = true
         self.warningOfPhone.isHidden = true
         self.warningOfPhone2.isHidden = true
     }
     
     func validCertificationUI() {
+        self.textStates[1] = true
         self.warningOfCertification.isHidden = true
         self.warningOfCertification2.isHidden = true
     }
@@ -122,11 +133,13 @@ extension CertificationViewController: UITextFieldDelegate {
     }
     
     func invalidPhoneUI() {
+        self.textStates[0] = false
         self.warningOfPhone.isHidden = false
         self.warningOfPhone2.isHidden = false
     }
     
     func invalidCertificationUI() {
+        self.textStates[1] = false
         self.warningOfCertification.isHidden = false
         self.warningOfCertification2.isHidden = false
     }

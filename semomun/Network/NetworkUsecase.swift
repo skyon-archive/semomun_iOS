@@ -203,7 +203,7 @@ extension NetworkUsecase {
 //            }
 //            completion(validate.check)
 //        }
-        completion(true)
+        completion(false)
     }
     
     static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {

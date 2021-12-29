@@ -51,9 +51,10 @@ class PersonalInfoViewController: UIViewController {
 
 extension PersonalInfoViewController: SchoolSelectAction {
     func schoolSelected(_ name: String) {
-        self.signUpInfo?.schoolName = name
+        self.signUpInfo?.configureSchool(to: name)
         self.school.setTitle(name, for: .normal)
         self.school.setTitleColor(.black, for: .normal)
+        self.dismissKeyboard()
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
         self.states[1] = true
     }
@@ -108,18 +109,20 @@ extension PersonalInfoViewController {
     private func configureGraduationMenuItems() {
         var menuItems: [UIAction] = []
         menuItems.append(UIAction(title: "재학", image: nil, handler: { [weak self] _ in
-            self?.graduation.setTitle("재학", for: .normal)
-            self?.graduation.setTitleColor(.black, for: .normal)
-            self?.signUpInfo?.configureGraduation(to: "재학")
-            self?.states[2] = true
+            self?.updateGraduation(to: "재학")
         }))
         menuItems.append(UIAction(title: "졸업", image: nil, handler: { [weak self] _ in
-            self?.graduation.setTitle("졸업", for: .normal)
-            self?.graduation.setTitleColor(.black, for: .normal)
-            self?.signUpInfo?.configureGraduation(to: "졸업")
-            self?.states[2] = true
+            self?.updateGraduation(to: "졸업")
         }))
         self.graduationMenu = UIMenu(title: "재학/졸업 여부", image: nil, identifier: nil, options: [], children: menuItems)
+    }
+    
+    private func updateGraduation(to state: String) {
+        self.graduation.setTitle(state, for: .normal)
+        self.graduation.setTitleColor(.black, for: .normal)
+        self.signUpInfo?.configureGraduation(to: state)
+        self.dismissKeyboard()
+        self.states[2] = true
     }
     
     private func configureSchool() {
