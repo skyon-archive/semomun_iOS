@@ -257,14 +257,12 @@ class SectionManager {
         CoreDataManager.saveCoreData()
         self.delegate.reloadButtons()
         self.refreshPage()
-        self.changePage(at: currentIndex)
         
         if self.isTerminated {
             self.delegate.showResultViewController(result: result)
         } else {
             self.isTerminated = true
             section.setValue(true, forKey: "terminated")
-            CoreDataManager.saveCoreData()
             guard let jsonData = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
                 print("Encode Error")
                 return
