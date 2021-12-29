@@ -265,8 +265,10 @@ class SectionManager {
             self.isTerminated = true
             section.setValue(true, forKey: "terminated")
             CoreDataManager.saveCoreData()
-            let jsonEncoder = JSONEncoder()
-            guard let jsonData = try? jsonEncoder.encode(saveSectionUsecase.submissions) else { return }
+            guard let jsonData = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
+                print("Encode Error")
+                return
+            }
             guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
             self.delegate.terminateSection(result: result, jsonString: jsonStringData)
         }
