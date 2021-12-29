@@ -1,12 +1,10 @@
 {
     "queryButtons":[
         {
-        "menus":["전체","국어","한국사","영어"],
         "title":"과목",
         "queryParamKey":"s",
-        "queryParamValues":["전체","국어","한국사","영어"]},
+        "queryParamValues":["전체","국어","한국사","영어","행정직군","기술직군"]},
         {
-        "menus":["전체","2021","2020","2019"],
         "title":"년도",
         "queryParamKey":"y",
         "queryParamValues":["전체","2021","2020","2019"]

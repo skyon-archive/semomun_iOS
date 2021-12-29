@@ -17,7 +17,6 @@ struct CategoryQueryButtons: Codable, CustomStringConvertible {
 
 struct QueryListButton: Codable {
     let title: String
-    let menus: [String]
     let queryParamKey: String
     let queryParamValues: [String]
 }
