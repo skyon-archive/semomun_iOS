@@ -75,7 +75,7 @@ extension SearchWorkbookViewController {
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 76, bottom: 0, right: -76)
         button.tag = idx
-        button.addTarget(self, action: #selector(printFunc(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(selectQeuryButton(_:)), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -86,10 +86,10 @@ extension SearchWorkbookViewController {
         self.queryButtons.append(button)
     }
     
-    @objc func printFunc(_ sender: UIButton) {
+    @objc func selectQeuryButton(_ sender: UIButton) {
         let idx = sender.tag
         print(self.queryDtos[idx].title)
-        self.showAlertController(title: self.queryDtos[idx].title, index: idx, data: self.queryDtos[idx].menus)
+        self.showAlertController(title: self.queryDtos[idx].title, index: idx, data: self.queryDtos[idx].queryParamValues)
     }
     
     func createStackView() {

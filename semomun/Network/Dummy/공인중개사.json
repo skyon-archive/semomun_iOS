@@ -1,12 +1,10 @@
 {
     "queryButtons":[
         {
-        "menus":["전체","1차","2차 1교시","2차 2교시"],
         "title":"과목",
         "queryParamKey":"s",
-        "queryParamValues":["전체","1차","2차 1교시","2차 2교시"]},
+        "queryParamValues":["전체","1차시험","2차시험1교시","2차시험2교시"]},
         {
-        "menus":["전체","2021","2020","2019"],
         "title":"년도",
         "queryParamKey":"y",
         "queryParamValues":["전체","2021","2020","2019"]
