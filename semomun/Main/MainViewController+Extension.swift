@@ -51,13 +51,23 @@ extension MainViewController {
     
     func sideMenuState() {
         if !isExpanded {
-            self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in
-                self.isExpanded = true
-            }
-            // Animate Shadow (Fade In)
-            UIView.animate(withDuration: 0.5) { self.sideMenuShadowView.alpha = 0.3 }
+            self.showSideBar()
         }
         else {
+            self.hideSideBar()
+        }
+    }
+    
+    func showSideBar() {
+        self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in
+            self.isExpanded = true
+        }
+        // Animate Shadow (Fade In)
+        UIView.animate(withDuration: 0.5) { self.sideMenuShadowView.alpha = 0.3 }
+    }
+    
+    func hideSideBar() {
+        if self.isExpanded {
             self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? (-self.sideMenuRevealWidth - self.paddingForRotation) : 0) { _ in
                 self.isExpanded = false
             }

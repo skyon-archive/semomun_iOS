@@ -255,7 +255,7 @@ extension MainViewController: SideMenuViewControllerDelegate {
     func selectCategory(to category: String) {
         self.categoryLabel.text = category
         self.previewManager.updateCategory(to: category)
-        DispatchQueue.main.async { [weak self] in self?.sideMenuState() }
+        DispatchQueue.main.async { [weak self] in self?.hideSideBar() }
     }
 }
 
