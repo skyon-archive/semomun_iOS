@@ -25,9 +25,8 @@ final class MultipleWith5AnswerViewModel {
     
     func configureTimes() {
         guard let problems = self.problems else { return }
-        problems.forEach {
-            self.baseTimes.append($0.time)
-        }
+        let tempTimes = problems.map { $0.time }
+        self.baseTimes = tempTimes
     }
     
     func configureObserver() {
