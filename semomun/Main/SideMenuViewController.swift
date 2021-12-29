@@ -26,12 +26,40 @@ class SideMenuViewController: UIViewController {
         self.sideMenuTableView.delegate = self
         self.sideMenuTableView.dataSource = self
         self.configureCategorys()
+        self.configureIndex()
+        self.configureObserve()
     }
 }
 
 extension SideMenuViewController {
-    func configureCategorys() {
+    private func configureCategorys() {
         self.categorys = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
+    }
+    
+    private func configureIndex() {
+        guard let category = UserDefaults.standard.value(forKey: "currentCategory") as? String else { return }
+        self.currentIndex = self.getIndex(from: category)
+        self.sideMenuTableView.reloadData()
+    }
+    
+    private func configureObserve() {
+        NotificationCenter.default.addObserver(forName: .updateCategory, object: nil, queue: .main) { [weak self] _ in
+            guard let self = self,
+                  let category = UserDefaults.standard.value(forKey: "currentCategory") as? String,
+                  let index = self.getIndex(from: category) else { return }
+            self.currentIndex = index
+            self.delegate?.selectCategory(to: self.categorys[index])
+            self.sideMenuTableView.reloadData()
+        }
+    }
+    
+    private func getIndex(from target: String) -> Int? {
+        for (idx, category) in self.categorys.enumerated() {
+            if category == target {
+                return idx
+            }
+        }
+        return nil
     }
 }
 
