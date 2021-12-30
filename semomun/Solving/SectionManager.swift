@@ -245,6 +245,7 @@ class SectionManager {
     func terminateSection() {
         guard let section = self.section,
               let title = section.title else { return }
+        CoreDataManager.saveCoreData()
         // 채점 로직
         let saveSectionUsecase = SaveSectionUsecase(section: section)
         saveSectionUsecase.fetchPids()
