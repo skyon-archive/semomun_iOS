@@ -68,9 +68,9 @@ extension UIViewController {
     }
     
     func addCoreDataAlertObserver() {
-        NotificationCenter.default.addObserver(forName: CoreDataManager.saveErrorNotificationName, object: nil, queue: .main) { noti in
+        NotificationCenter.default.addObserver(forName: CoreDataManager.saveErrorNotificationName, object: nil, queue: .main) { [weak self] noti in
             guard let errorMessage = noti.userInfo?["errorMessage"] as? String else { return }
-            self.showAlertWithOK(title: "데이터 저장 실패", text: errorMessage)
+            self?.showAlertWithOK(title: "데이터 저장 실패", text: errorMessage)
         }
     }
 }

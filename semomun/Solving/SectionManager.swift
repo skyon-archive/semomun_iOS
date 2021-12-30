@@ -21,7 +21,7 @@ protocol LayoutDelegate: AnyObject {
 }
 
 class SectionManager {
-    weak var delegate: LayoutDelegate!
+    weak var delegate: LayoutDelegate?
     var section: Section_Core?
     var buttons: [String] = []
     var stars: [Bool] = []
@@ -67,8 +67,8 @@ class SectionManager {
                 self.currentIndex = idx
                 let pageData = PageData(vid: Int(lastPageId))
                 self.currentPage = pageData
-                self.delegate.reloadButtons()
-                self.delegate.changeVC(pageData: pageData)
+                self.delegate?.reloadButtons()
+                self.delegate?.changeVC(pageData: pageData)
         } else {
             changePage(at: 0)
         }
@@ -76,7 +76,7 @@ class SectionManager {
     
     func configureSendText() {
         if self.isTerminated {
-            self.delegate.changeResultLabel()
+            self.delegate?.changeResultLabel()
         }
     }
     
@@ -86,7 +86,7 @@ class SectionManager {
         let pageID = pageID(at: buttonTitle(at: index))
         
         if self.currentPage?.vid == pageID {
-            self.delegate.reloadButtons()
+            self.delegate?.reloadButtons()
             return
         }
         
@@ -97,15 +97,15 @@ class SectionManager {
         self.currentPage = pageData
         
         // 6. 변경된 PageData 반환
-        self.delegate.reloadButtons()
-        self.delegate.changeVC(pageData: pageData)
+        self.delegate?.reloadButtons()
+        self.delegate?.changeVC(pageData: pageData)
         
         self.section?.setValue(pageID, forKey: "lastPageId")
     }
     
     func refreshPage() {
         guard let currentPage = currentPage else { return }
-        self.delegate.changeVC(pageData: currentPage)
+        self.delegate?.changeVC(pageData: currentPage)
     }
     
     var count: Int {
@@ -137,7 +137,7 @@ class SectionManager {
         if let idx = self.buttons.firstIndex(of: title) {
             self.stars[idx] = to
             section.setValue(self.stars, forKey: "stars")
-            self.delegate.reloadButtons()
+            self.delegate?.reloadButtons()
         }
     }
     
@@ -148,7 +148,7 @@ class SectionManager {
             self.checks[idx] = true
             section.setValue(self.wrongs, forKey: "wrongs")
             section.setValue(self.checks, forKey: "checks")
-            self.delegate.reloadButtons()
+            self.delegate?.reloadButtons()
         }
     }
     
@@ -157,7 +157,7 @@ class SectionManager {
         var tempIndex = self.currentIndex
         while true {
             if tempIndex == self.buttons.count-1 {
-                self.delegate.showAlert(text: "마지막 페이지 입니다.")
+                self.delegate?.showAlert(text: "마지막 페이지 입니다.")
                 break
             }
             
@@ -175,7 +175,7 @@ class SectionManager {
         var tempIndex = self.currentIndex
         while true {
             if tempIndex == 0 {
-                self.delegate.showAlert(text: "첫 페이지 입니다.")
+                self.delegate?.showAlert(text: "첫 페이지 입니다.")
                 break
             }
             
@@ -190,12 +190,12 @@ class SectionManager {
     
     func showTitle() {
         guard let title = self.section?.title else { return }
-        self.delegate.showTitle(title: title)
+        self.delegate?.showTitle(title: title)
     }
     
     func showTime() {
         DispatchQueue.main.async {
-            self.delegate.showTime(time: self.currentTime)
+            self.delegate?.showTime(time: self.currentTime)
         }
     }
     
@@ -204,7 +204,8 @@ class SectionManager {
         if terminated { return } // 이미 종료된 문제집의 경우 시간 정지
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
                 NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 self.currentTime += 1
                 self.section?.setValue(self.currentTime, forKey: "time")
@@ -221,7 +222,7 @@ class SectionManager {
     
     func stopSection() {
         self.stopTimer()
-        self.delegate.saveComplete()
+        self.delegate?.saveComplete()
         CoreDataManager.saveCoreData()
     }
     
@@ -259,11 +260,11 @@ class SectionManager {
                                    wrongProblems: saveSectionUsecase.wrongProblems)
         // 반환
         CoreDataManager.saveCoreData()
-        self.delegate.reloadButtons()
+        self.delegate?.reloadButtons()
         self.refreshPage()
         
         if self.isTerminated {
-            self.delegate.showResultViewController(result: result)
+            self.delegate?.showResultViewController(result: result)
         } else {
             self.isTerminated = true
             section.setValue(true, forKey: "terminated")
@@ -272,7 +273,7 @@ class SectionManager {
                 return
             }
             guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-            self.delegate.terminateSection(result: result, jsonString: jsonStringData)
+            self.delegate?.terminateSection(result: result, jsonString: jsonStringData)
         }
     }
 }
