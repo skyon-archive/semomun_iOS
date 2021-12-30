@@ -40,12 +40,12 @@ class MainViewController: UIViewController {
         self.addCoreDataAlertObserver()
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
+        self.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        self.reloadData()
         self.userInfoView.configureUserName()
     }
     
@@ -89,11 +89,11 @@ extension MainViewController {
     }
     
     func configureObserve() {
-        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { notification in
+        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { [weak self] notification in
             guard let targetSubject = notification.userInfo?["subject"] as? String else { return }
-            self.previewManager.checkSubject(with: targetSubject)
-            self.previewManager.fetchPreviews()
-            self.reloadData()
+            self?.previewManager.checkSubject(with: targetSubject)
+            self?.previewManager.fetchPreviews()
+            self?.reloadData()
         }
     }
     
@@ -226,10 +226,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     return
                 }
                 
-                loading.terminate()
-                preview.setValue(true, forKey: "downloaded")
-                CoreDataManager.saveCoreData()
-                self.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    loading.terminate()
+                    preview.setValue(true, forKey: "downloaded")
+                    CoreDataManager.saveCoreData()
+                    self?.reloadData()
+                }
                 return
             }
         }
