@@ -40,12 +40,12 @@ class MainViewController: UIViewController {
         self.addCoreDataAlertObserver()
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
-        self.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        self.reloadData()
         self.userInfoView.configureUserName()
     }
     
