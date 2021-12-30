@@ -56,6 +56,7 @@ class SolvingViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        print("solving will disappear")
         super.viewWillDisappear(animated)
         self.view.subviews.forEach { $0.removeFromSuperview() }
         self.singleWith5Answer = nil
@@ -63,6 +64,10 @@ class SolvingViewController: UIViewController {
         self.multipleWith5Answer = nil
         self.singleWith4Answer = nil
         self.multipleWithNoAnswer = nil
+    }
+    
+    deinit {
+        print("solving deinit")
     }
     
     @IBAction func back(_ sender: Any) {
