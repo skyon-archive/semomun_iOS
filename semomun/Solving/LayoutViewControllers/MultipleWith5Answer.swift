@@ -19,8 +19,8 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
-    var width: CGFloat!
-    var height: CGFloat!
+    private var width: CGFloat!
+    private var height: CGFloat!
     var mainImage: UIImage?
     var subImages: [UIImage?]?
     var viewModel: MultipleWith5AnswerViewModel?
@@ -50,7 +50,7 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
-        self.collectionView.reloadData()
+        
         self.configureCanvasView()
         self.configureCanvasViewData()
     }
@@ -60,9 +60,10 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : didAppear")
         
         self.stopLoader()
-//        self.configureCanvasViewData()
+        self.configureCanvasViewData()
         self.configureMainImageView()
         self.viewModel?.configureObserver()
+        self.collectionView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,6 +158,7 @@ extension MultipleWith5Answer {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
+                canvasView.drawing = PKDrawing()
             }
         } else {
             canvasView.drawing = PKDrawing()
