@@ -138,15 +138,7 @@ extension SolvingViewController {
     }
     
     func getImages(problems: [Problem_Core]) -> [UIImage] {
-        var images: [UIImage] = []
-        problems.forEach {
-            guard let data = $0.contentImage else {
-                images.append(UIImage())
-                return
-            }
-            images.append(getImage(data: data))
-        }
-        return images
+        return problems.map { getImage(data: $0.contentImage) }
     }
 }
 
@@ -179,6 +171,7 @@ extension SolvingViewController: LayoutDelegate {
             singleWithTextAnswer.image = getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWith5Answer.identifier:
+            multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
             self.currentVC = multipleWith5Answer
             multipleWith5Answer.viewModel = MultipleWith5AnswerViewModel(delegate: self, pageData: pageData)
             multipleWith5Answer.mainImage = getImage(data: pageData.pageCore.materialImage)
