@@ -256,11 +256,14 @@ extension SingleWith4Answer {
             self.imageView.addSubview(self.resultImageView)
             self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
             
+            let autoLeading: CGFloat = 90*self.width/CGFloat(834)
+            let autoTop: CGFloat = -25*self.width/CGFloat(834)
+            let autoSize: CGFloat = 150*self.width/CGFloat(834)
             NSLayoutConstraint.activate([
-                self.resultImageView.widthAnchor.constraint(equalToConstant: 150),
-                self.resultImageView.heightAnchor.constraint(equalToConstant: 150),
-                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: 100),
-                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -25)
+                self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
+                self.resultImageView.heightAnchor.constraint(equalToConstant: autoSize),
+                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: autoLeading),
+                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: autoTop)
             ])
         }
     }
