@@ -87,7 +87,7 @@ class PreviewManager {
         var targetCoreDatas: [NSManagedObject] = []
         let targetPreview = self.previews[at]
         
-        if self.previews.count == 1 {
+        if self.previews.count == 1 && self.currentSubject != "전체" {
             self.subjects = self.subjects.filter { $0 != self.currentSubject }
             self.selectSubject(idx: 0)
         }
@@ -111,6 +111,9 @@ class PreviewManager {
         }
         CoreDataManager.saveCoreData()
         self.fetchPreviews()
+        if self.currentSubject == "전체" {
+            self.fetchSubjects()
+        }
         self.delegate?.reloadData()
     }
     
