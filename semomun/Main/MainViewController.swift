@@ -41,6 +41,7 @@ class MainViewController: UIViewController {
         self.addCoreDataAlertObserver()
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
+        self.configureSideBarViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +53,6 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configureSideBarViewController()
         self.configureShadowTapGesture()
         self.configureCollectionViewTapGesture()
     }
