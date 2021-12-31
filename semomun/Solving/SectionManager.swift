@@ -222,8 +222,8 @@ class SectionManager {
     
     func stopSection() {
         self.stopTimer()
-        self.delegate?.saveComplete()
         CoreDataManager.saveCoreData()
+        self.delegate?.saveComplete()
     }
     
     func stopTimer() {
