@@ -19,8 +19,8 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
-    private var width: CGFloat!
-    private var height: CGFloat!
+    var width: CGFloat!
+    var height: CGFloat!
     var mainImage: UIImage?
     var subImages: [UIImage?]?
     var viewModel: MultipleWith5AnswerViewModel?
@@ -50,7 +50,9 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
+        self.collectionView.reloadData()
         self.configureCanvasView()
+        self.configureCanvasViewData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,11 +60,9 @@ class MultipleWith5Answer: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("5다선지 좌우형 : didAppear")
         
         self.stopLoader()
-        self.configureCanvasViewData()
+//        self.configureCanvasViewData()
         self.configureMainImageView()
         self.viewModel?.configureObserver()
-        self.collectionView.reloadData()
-        self.collectionView.setContentOffset(CGPoint(x:0,y:0), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -154,7 +154,6 @@ extension MultipleWith5Answer {
     func configureCanvasViewData() {
         if let pkData = self.viewModel?.pageData.pageCore.drawing {
             do {
-                print("ok")
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
@@ -165,23 +164,23 @@ extension MultipleWith5Answer {
     }
     
     func configureMainImageView() {
-        self.width = canvasView.frame.width
+        width = canvasView.frame.width
         guard let mainImage = self.mainImage else { return }
-        self.height = mainImage.size.height*(width/mainImage.size.width)
+        height = mainImage.size.height*(width/mainImage.size.width)
         
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            self.imageView.image = mainImage
+            imageView.image = mainImage
         } else {
             let worningImage = UIImage(named: "warningWithNoImage")!
-            self.imageView.image = worningImage
-            self.height = worningImage.size.height*(width/worningImage.size.width)
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
         }
         
-        self.imageView.clipsToBounds = true
-        self.imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.imageHeight.constant = height
-        self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.canvasHeight.constant = height
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        canvasHeight.constant = height
     }
 }
 

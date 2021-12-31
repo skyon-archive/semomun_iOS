@@ -51,19 +51,9 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     
     override func prepareForReuse() {
         self.resultImageView.removeFromSuperview()
-        self.imageView.image = nil
-        self.answer.isHidden = false
         self.checkImageView.removeFromSuperview()
+        self.answer.isHidden = false
         self.timerView.removeFromSuperview()
-    }
-    
-    // MARK: - viewDidAppear
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?) {
-        self.configureProblem(problem)
-        self.configureCanvasView()
-        self.configureCanvasViewData()
-        self.configureUI(contentImage, superWidth)
-        self.toolPicker = toolPicker
     }
     
     deinit {
@@ -116,7 +106,13 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         checkNumbers.forEach { $0.layer.cornerRadius = 15 }
     }
     
-    
+    // MARK: - Configure Reuse
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?) {
+        self.configureProblem(problem)
+        self.configureUI(contentImage, superWidth)
+        self.toolPicker = toolPicker
+        self.configureCanvasView()
+    }
     
     func configureProblem(_ problem: Problem_Core?) {
         self.problem = problem
@@ -244,6 +240,8 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     func configureCanvasView() {
+        self.configureCanvasViewData()
+        
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
 //        canvasView.becomeFirstResponder()
