@@ -66,10 +66,10 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let email = appleIDCredential.email
-            print("User id is \(userIdentifier) \n Full Name is \(fullName) \n Email id is \(email)")
+            let userIdentifier = appleIDCredential.user // 유저별 상수값
+            let token = appleIDCredential.identityToken // 할때마다 생성되는 token 값 (변동있음)
+            print(userIdentifier)
+            print(String(data: token!, encoding: .utf8)!)
             
             self.tokenSignInWithApple(idToken: userIdentifier) { [weak self] isUser in
                 if isUser {
@@ -84,17 +84,13 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     }
     
     func authorizationGoggleController(user: GIDGoogleUser) {
-        let emailAddress = user.profile?.email
-        let fullName = user.profile?.name
-//            let givenName = user.profile?.givenName
-//            let familyName = user.profile?.familyName
-//            let profilePicUrl = user.profile?.imageURL(withDimension: 320)
-        
         user.authentication.do { authentication, error in
             guard error == nil else{return}
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
-            print("User id is \(idToken) \n Full Name is \(fullName!) \n Email id is \(emailAddress!)")
+            print(user.userID!) // 모든 사용자가 같은 값인듯
+            print(authentication.clientID) // 유저별 상수값
+            print(idToken) // 할때마다 생성되는 token 값 (변동있음)
             
             self.tokenSignInWithGoogle(idToken: idToken) { [weak self] isUser in
                 if isUser {
