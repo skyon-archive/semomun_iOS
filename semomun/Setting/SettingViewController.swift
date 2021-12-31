@@ -22,10 +22,10 @@ class SettingViewController: UIViewController {
         self.showAlertWithOK(title: "미지원 기능입니다", text: "업데이트로 반영될 예정입니다.")
     }
     
-    @IBAction func userWithdrawal(_ sender: Any) {
-    }
-    
     @IBAction func openCustomerService(_ sender: Any) {
+        if let url = URL(string: "http://pf.kakao.com/_JAxdGb") {
+            UIApplication.shared.open(url, options: [:])
+        }
     }
     
     @IBAction func openTermsAndCondition(_ sender: Any) {
