@@ -40,7 +40,7 @@ extension MainViewController {
         ])
     }
     
-    func configureTapGesture() {
+    func configureShadowTapGesture() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedShadowView))
         self.sideMenuShadowView.addGestureRecognizer(tapGesture)
     }

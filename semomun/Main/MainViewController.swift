@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
     var isExpanded: Bool = false
     var sideMenuRevealWidth: CGFloat = 329
     let paddingForRotation: CGFloat = 150
+    var isPopuped: Bool = false
     private lazy var userInfoView = UserInfoToggleView()
     
     override func viewDidLoad() {
@@ -52,7 +53,8 @@ class MainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureSideBarViewController()
-        self.configureTapGesture()
+        self.configureShadowTapGesture()
+        self.configureCollectionViewTapGesture()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,12 +64,11 @@ class MainViewController: UIViewController {
     
     @IBAction func showSidebar(_ sender: Any) {
         self.sideMenuState()
+        self.hideUserInfoView()
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
-        sender.isSelected.toggle()
-        print(sender)
-        if sender.isSelected {
+        if !self.isPopuped {
             self.showUserInfoView()
         } else {
             self.hideUserInfoView()
@@ -103,6 +104,18 @@ extension MainViewController {
             return
         }
         addImageData = addImage.pngData()
+    }
+    
+    func configureCollectionViewTapGesture() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        self.previews.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func tap(sender: UITapGestureRecognizer) {
+        self.hideUserInfoView()
+        if let indexPath = self.previews?.indexPathForItem(at: sender.location(in: self.previews)) {
+            self.didSelectItemAt(indexPath: indexPath)
+        }
     }
 }
 
@@ -183,6 +196,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.hideUserInfoView()
         // MARK: - category
         if collectionView == subjects {
             self.previewManager.selectSubject(idx: indexPath.item)
@@ -191,6 +205,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return
         }
         
+        self.didSelectItemAt(indexPath: indexPath)
+    }
+    
+    func didSelectItemAt(indexPath: IndexPath) {
         // MARK: - preview cell: searchPreview
         if indexPath.item == 0 {
             showSearchWorkbookViewController()
@@ -300,15 +318,18 @@ extension MainViewController {
             self?.userInfoView.alpha = 1
             self?.userInfoView.transform = CGAffineTransform.identity
         }
+        self.isPopuped = true
     }
     
     func hideUserInfoView() {
+        if !isPopuped { return }
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.userInfoView.alpha = 0
             self?.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         } completion: { [weak self] _ in
             self?.userInfoView.removeFromSuperview()
         }
+        self.isPopuped = false
     }
 }
 
