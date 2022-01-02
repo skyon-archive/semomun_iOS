@@ -71,11 +71,11 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             print(userIdentifier)
             print(String(data: token!, encoding: .utf8)!)
             
-            self.tokenSignInWithApple(idToken: userIdentifier) { [weak self] isUser in
+            self.tokenSignInWithApple(idToken: String(data: token!, encoding: .utf8)!) { [weak self] isUser in
+                self?.saveUserinKeychain(userIdentifier)
                 if isUser {
                     self?.getUserInfo()
                 } else {
-                    self?.saveUserinKeychain(userIdentifier)
                     self?.showNextVC()
                 }
             }
@@ -93,10 +93,10 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             print(idToken) // 할때마다 생성되는 token 값 (변동있음)
             
             self.tokenSignInWithGoogle(idToken: idToken) { [weak self] isUser in
+                self?.saveUserinKeychain(idToken)
                 if isUser {
                     self?.getUserInfo()
                 } else {
-                    self?.saveUserinKeychain(idToken)
                     self?.showNextVC()
                 }
             }
