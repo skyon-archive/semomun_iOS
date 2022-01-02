@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkUsecase {
     enum URL {
-        static let base: String = "http://www.saemomoon.com:8080"
+        static let base: String = "https://saemomoon.com"
         static let workbooks: String = base + "/workbooks/"
         static let sections: String = base + "/sections/"
         static let preview: String = workbooks + "preview"
@@ -188,22 +188,21 @@ class NetworkUsecase {
 // MARK: - POST
 extension NetworkUsecase {
     static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
-//        let paramKey: String = userLoginMethod.getToken()
-//        let param = [paramKey: userToken]
-//        Network.post(url: URL.checkUser, param: param) { data in
-//            guard let data = data else {
-//                print("Error: no data")
-//                completion(nil)
-//                return
-//            }
-//            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-//                print("Error: Decode")
-//                completion(nil)
-//                return
-//            }
-//            completion(validate.check)
-//        }
-        completion(false)
+        let paramKey: String = userLoginMethod.getToken()
+        let param = [paramKey: userToken]
+        Network.post(url: URL.checkUser, param: param) { data in
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(validate.check)
+        }
     }
     
     static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {
