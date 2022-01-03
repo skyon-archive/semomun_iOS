@@ -12,59 +12,65 @@ class PersonalSettingNameViewController: UIViewController {
     weak var delegate: ReloadUserData?
     
     @IBOutlet weak var frameView: UIView!
-    @IBOutlet weak var nameFrameView: UIView!
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var phoneField: UITextField!
+    private var userInfo: UserCoreData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        self.configureName(to: CoreUsecase.fetchUserInfo()?.name ?? "홍길동")
+        self.configureUserInfo()
+        self.configureName(to: self.userInfo?.name ?? "")
+        self.configurePhone(to: self.userInfo?.phoneNumber ?? "")
     }
     
     @IBAction func close(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func updateName(_ sender: Any) {
-        guard let newName = self.nameField.text else {
-            self.showAlertWithOK(title: "에러", text: "입력된 값을 확인해주시기 바랍니다.")
-            return
-        }
-        let userInfo = CoreUsecase.fetchUserInfo()
-        userInfo?.setValue(newName, forKey: "name")
-        NetworkUsecase.postRename(to: newName, token: KeychainItem.currentUserIdentifier) { [weak self] status in
+    @IBAction func updateUserInfo(_ sender: Any) {
+        self.dismissKeyboard()
+        guard let userInfo = self.userInfo,
+              let newName = self.nameField.text,
+              let newPhone = self.phoneField.text else {
+                  self.showAlertWithOK(title: "에러", text: "입력된 값을 확인해주시기 바랍니다.")
+                  return
+              }
+        
+        userInfo.setValue(newName, forKey: "name")
+        userInfo.setValue(newPhone, forKey: "phoneNumber")
+        NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { [weak self] status in
             guard let status = status else {
-                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+                self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 도해주세요.")
                 return
             }
             if status {
                 CoreDataManager.saveCoreData()
-                self?.showAlertWithOK(title: "이름 변경 완료", text: "")
+                self?.showAlertWithOK(title: "정보 수정 완료", text: "")
                 self?.delegate?.loadData()
             } else {
                 self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
             }
+            
         }
-        
     }
 }
 
 extension PersonalSettingNameViewController {
-    func configureUI() {
+    private func configureUI() {
         self.frameView.clipsToBounds = true
-        self.frameView.layer.cornerRadius = 25
-        self.setShadow(to: self.nameFrameView)
+        self.frameView.layer.cornerRadius = 16
     }
     
-    func setShadow(to view: UIView) {
-        view.layer.cornerRadius = 12
-        view.layer.shadowOffset = CGSize(width: 5, height: 5)
-        view.layer.shadowOpacity = 0.3
-        view.layer.shadowRadius = 8
-        view.layer.shadowColor = UIColor.lightGray.cgColor
+    private func configureUserInfo() {
+        self.userInfo = CoreUsecase.fetchUserInfo()
     }
     
-    func configureName(to name: String) {
+    private func configureName(to name: String) {
         self.nameField.text = name
+    }
+    
+    private func configurePhone(to phone: String) {
+        self.phoneField.text = phone
     }
 }
