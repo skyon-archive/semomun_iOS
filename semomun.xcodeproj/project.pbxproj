@@ -35,6 +35,7 @@
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
+		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
 		87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */; };
 		87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
@@ -156,6 +157,7 @@
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
+		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
@@ -334,6 +336,14 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		87B6F0BA2782BC7300E6FF8A /* SemomunColor */ = {
+			isa = PBXGroup;
+			children = (
+				87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */,
+			);
+			path = SemomunColor;
+			sourceTree = "<group>";
+		};
 		87C85E27276F6596001C9C4A /* PersonalSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +362,7 @@
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
+				87B6F0BA2782BC7300E6FF8A /* SemomunColor */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -818,6 +829,7 @@
 				87C85EF4276F6EFE001C9C4A /* PageOfDB.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerViewModel.swift in Sources */,
 				87C85EC7276F6D67001C9C4A /* MultipleWith5Answer.swift in Sources */,
+				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,

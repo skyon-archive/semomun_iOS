@@ -22,11 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if isLogined {
             let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: "mint")
+            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         } else {
             let navigationController = UINavigationController(rootViewController: startLoginViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: "mint")
+            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         }
 

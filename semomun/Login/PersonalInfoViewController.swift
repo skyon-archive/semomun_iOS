@@ -64,7 +64,7 @@ extension PersonalInfoViewController {
     private func goMainVC() {
         guard let mainViewController = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(named: "mint")
+        navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)

@@ -265,7 +265,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="1">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="sol_click:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="9x7-lI-ksl"/>
@@ -282,7 +282,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="2">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="sol_click:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="L2n-Kg-PSe"/>
@@ -299,7 +299,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="3">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="sol_click:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="Hrz-3N-XxU"/>
@@ -316,7 +316,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="4">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="sol_click:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="dRH-pv-RVW"/>
@@ -333,7 +333,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="5">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="sol_click:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="Ahw-s5-J9R"/>
@@ -351,7 +351,7 @@
                                                                         <constraint firstAttribute="height" constant="25" id="CfI-Uf-FkH"/>
                                                                         <constraint firstAttribute="width" constant="25" id="Cjf-LQ-Pua"/>
                                                                     </constraints>
-                                                                    <color key="tintColor" name="mint"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="star" catalog="system">
                                                                         <color key="titleColor" name="mint"/>
@@ -369,10 +369,10 @@
                                                                         <constraint firstAttribute="height" constant="25" id="aUy-6C-10Z"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="tintColor" name="mint"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="정답">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="showAnswer:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="Hhg-IK-3Y8"/>
@@ -385,9 +385,10 @@
                                                                         <constraint firstAttribute="width" constant="35" id="YqL-mE-rlI"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="해설">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="showExplanation:" destination="s9Z-0I-zC7" eventType="touchUpInside" id="lWE-tg-hOc"/>
@@ -400,11 +401,11 @@
                                                                         <constraint firstAttribute="height" constant="25" id="u4h-N0-aYB"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="tintColor" name="mint"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
                                                                     <connections>
@@ -513,7 +514,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세상의 모든 문제 만나러 가기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyt-UO-FkI">
                                         <rect key="frame" x="169.5" y="270" width="281" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                        <color key="textColor" name="mint"/>
+                                        <color key="textColor" name="mainColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ttn-qz-BYY">
@@ -572,7 +573,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세상의 모든 문제 만나러 가기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLR-pm-LxO">
                                         <rect key="frame" x="212" y="157.5" width="270" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                        <color key="textColor" name="mint"/>
+                                        <color key="textColor" name="mainColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-st-BY6">
@@ -655,7 +656,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4o-Wq-Hcs">
                                         <rect key="frame" x="527" y="404" width="147" height="70"/>
-                                        <color key="backgroundColor" name="mint"/>
+                                        <color key="backgroundColor" name="mainColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="FPj-jU-OVe"/>
                                             <constraint firstAttribute="width" constant="147" id="ZxC-yd-xLt"/>
@@ -710,7 +711,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IxH-RC-MmH">
                                         <rect key="frame" x="527" y="554" width="147" height="70"/>
-                                        <color key="backgroundColor" name="mint"/>
+                                        <color key="backgroundColor" name="mainColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="Ihv-sP-5Eu"/>
                                             <constraint firstAttribute="width" constant="147" id="yZu-ti-VKt"/>
@@ -841,7 +842,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JvX-a9-Uhb">
                                                     <rect key="frame" x="40" y="10.5" width="35" height="35"/>
-                                                    <color key="tintColor" name="mint"/>
+                                                    <color key="tintColor" name="mainColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="1js-O1-nxX"/>
                                                         <constraint firstAttribute="width" constant="35" id="WTo-mN-bqS"/>
@@ -991,7 +992,7 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQi-Xz-AOo">
                                                     <rect key="frame" x="10" y="37" width="50" height="3"/>
-                                                    <color key="backgroundColor" name="mint"/>
+                                                    <color key="backgroundColor" name="mainColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="3" id="5TK-2M-T84"/>
                                                         <constraint firstAttribute="width" constant="50" id="buy-Zw-tIA"/>
@@ -1123,12 +1124,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="672-0g-IlS">
                                 <rect key="frame" x="50" y="70" width="87" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" name="mint"/>
+                                <color key="textColor" name="mainColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYl-V9-Wb3">
                                 <rect key="frame" x="50" y="218.5" width="668" height="1"/>
-                                <color key="backgroundColor" name="mint"/>
+                                <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="c5k-KB-kz3"/>
                                 </constraints>
@@ -1136,7 +1137,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세부정보" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mwr-fP-vnR">
                                 <rect key="frame" x="50" y="244.5" width="87" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" name="mint"/>
+                                <color key="textColor" name="mainColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rg1-dC-SWS">
@@ -1362,7 +1363,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuA-t3-9Ud">
                                         <rect key="frame" x="206" y="314" width="120" height="50"/>
-                                        <color key="backgroundColor" name="mint"/>
+                                        <color key="backgroundColor" name="mainColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="oSw-IU-16e"/>
                                             <constraint firstAttribute="height" constant="50" id="y9K-BF-Eho"/>
@@ -1654,12 +1655,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1S9-7C-RtD">
                                 <rect key="frame" x="50" y="70" width="44" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" name="mint"/>
+                                <color key="textColor" name="mainColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcA-Zr-pVL">
                                 <rect key="frame" x="50" y="120.5" width="668" height="1"/>
-                                <color key="backgroundColor" name="mint"/>
+                                <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="OsW-co-Tw3"/>
                                 </constraints>
@@ -1667,12 +1668,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lkc-iZ-r0z">
                                 <rect key="frame" x="50" y="146.5" width="44" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" name="mint"/>
+                                <color key="textColor" name="mainColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rsj-Sv-SPC">
                                 <rect key="frame" x="50" y="287" width="668" height="1"/>
-                                <color key="backgroundColor" name="mint"/>
+                                <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="J1o-qI-e3O"/>
                                 </constraints>
@@ -1680,7 +1681,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="버전" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8U4-Cs-vQ5">
                                 <rect key="frame" x="50" y="313" width="44" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" name="mint"/>
+                                <color key="textColor" name="mainColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1736,7 +1737,7 @@
                                             <constraint firstAttribute="height" constant="35" id="YK6-7c-zuM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="tintColor" name="mint"/>
+                                        <color key="tintColor" name="mainColor"/>
                                         <state key="normal" title="이전으로" image="chevron.left" catalog="system">
                                             <color key="titleColor" name="mint"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="16"/>
@@ -1758,7 +1759,7 @@
                                             <constraint firstAttribute="width" constant="85" id="fBR-SG-E2y"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="tintColor" name="mint"/>
+                                        <color key="tintColor" name="mainColor"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="73" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="제출하기" image="chevron.right" catalog="system">
@@ -2113,7 +2114,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="1">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="zAP-2L-1bm" eventType="touchUpInside" id="xnn-nE-hMj"/>
@@ -2129,7 +2130,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="2">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="zAP-2L-1bm" eventType="touchUpInside" id="HXH-3t-5Sb"/>
@@ -2145,7 +2146,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="3">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="zAP-2L-1bm" eventType="touchUpInside" id="9qv-1Q-sRU"/>
@@ -2161,7 +2162,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="4">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="zAP-2L-1bm" eventType="touchUpInside" id="G3Q-dZ-klx"/>
@@ -2177,7 +2178,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="5">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="zAP-2L-1bm" eventType="touchUpInside" id="ANW-nN-m23"/>
@@ -2194,7 +2195,7 @@
                                                             <constraint firstAttribute="width" constant="31" id="JB7-L2-7CI"/>
                                                             <constraint firstAttribute="height" constant="31" id="otD-aO-PQ6"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="star" catalog="system"/>
                                                         <state key="selected" image="star.fill" catalog="system"/>
@@ -2209,10 +2210,10 @@
                                                             <constraint firstAttribute="width" constant="45" id="vhA-AI-8l5"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showAnswer:" destination="zAP-2L-1bm" eventType="touchUpInside" id="UDy-u3-gIC"/>
@@ -2224,9 +2225,10 @@
                                                             <constraint firstAttribute="height" constant="31" id="ssx-Mk-IzX"/>
                                                             <constraint firstAttribute="width" constant="45" id="z3N-RA-c3Y"/>
                                                         </constraints>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="해설">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showExplanation:" destination="zAP-2L-1bm" eventType="touchUpInside" id="eOM-6h-Srb"/>
@@ -2238,11 +2240,11 @@
                                                             <constraint firstAttribute="height" constant="31" id="MTG-jh-c3a"/>
                                                             <constraint firstAttribute="width" constant="55" id="esX-bZ-rQZ"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                         </state>
                                                         <connections>
@@ -2371,7 +2373,7 @@
                                                             <constraint firstAttribute="width" constant="31" id="NbJ-ob-TZ7"/>
                                                             <constraint firstAttribute="height" constant="31" id="nfc-XI-Flx"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="star" catalog="system"/>
                                                         <state key="selected" image="star.fill" catalog="system"/>
@@ -2386,10 +2388,10 @@
                                                             <constraint firstAttribute="height" constant="31" id="xd8-Vg-GEo"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showAnswer:" destination="Zqd-Ls-A1j" eventType="touchUpInside" id="WpS-Pe-K4W"/>
@@ -2401,9 +2403,10 @@
                                                             <constraint firstAttribute="width" constant="45" id="3Ju-ba-SUK"/>
                                                             <constraint firstAttribute="height" constant="31" id="MtD-72-7hO"/>
                                                         </constraints>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="해설">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showExplanation:" destination="Zqd-Ls-A1j" eventType="touchUpInside" id="G37-QC-tYE"/>
@@ -2415,11 +2418,11 @@
                                                             <constraint firstAttribute="height" constant="31" id="h9J-eq-67V"/>
                                                             <constraint firstAttribute="width" constant="55" id="odr-4j-P9I"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                         </state>
                                                         <connections>
@@ -2435,7 +2438,7 @@
                                                     <constraint firstAttribute="height" constant="35" id="2pc-yJ-Txd"/>
                                                     <constraint firstAttribute="width" constant="215" id="stc-0f-JcD"/>
                                                 </constraints>
-                                                <color key="textColor" name="mint"/>
+                                                <color key="textColor" name="mainColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
@@ -2753,7 +2756,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="1">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="E4k-lq-7FS" eventType="touchUpInside" id="lHy-5I-SXb"/>
@@ -2769,7 +2772,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="2">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="E4k-lq-7FS" eventType="touchUpInside" id="aLD-L3-jyj"/>
@@ -2785,7 +2788,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="3">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="E4k-lq-7FS" eventType="touchUpInside" id="QH5-Gh-sec"/>
@@ -2801,7 +2804,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="4">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="sol_click:" destination="E4k-lq-7FS" eventType="touchUpInside" id="g8F-Sd-7ek"/>
@@ -2818,7 +2821,7 @@
                                                             <constraint firstAttribute="height" constant="31" id="1ba-qr-OYr"/>
                                                             <constraint firstAttribute="width" constant="31" id="ICt-D4-167"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="star" catalog="system"/>
                                                         <state key="selected" image="star.fill" catalog="system"/>
@@ -2833,10 +2836,10 @@
                                                             <constraint firstAttribute="height" constant="31" id="jzg-fx-2rZ"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="정답">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showAnswer:" destination="E4k-lq-7FS" eventType="touchUpInside" id="gkb-WW-zWR"/>
@@ -2848,9 +2851,10 @@
                                                             <constraint firstAttribute="height" constant="31" id="30o-Ez-ko6"/>
                                                             <constraint firstAttribute="width" constant="45" id="shI-Z7-0rN"/>
                                                         </constraints>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="해설">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="showExplanation:" destination="E4k-lq-7FS" eventType="touchUpInside" id="oDS-FL-fU2"/>
@@ -2862,11 +2866,11 @@
                                                             <constraint firstAttribute="height" constant="31" id="Rm0-vd-2Dc"/>
                                                             <constraint firstAttribute="width" constant="55" id="eJr-M9-oPL"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="mint"/>
+                                                        <color key="tintColor" name="mainColor"/>
                                                         <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                            <color key="titleColor" name="mint"/>
+                                                            <color key="titleColor" name="mainColor"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                         </state>
                                                         <connections>
@@ -3361,10 +3365,10 @@
                                                                         <constraint firstAttribute="height" constant="25" id="C5t-Jf-hiQ"/>
                                                                         <constraint firstAttribute="width" constant="25" id="ZxN-q9-6Nk"/>
                                                                     </constraints>
-                                                                    <color key="tintColor" name="mint"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="star" catalog="system">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
                                                                     <state key="selected" image="star.fill" catalog="system"/>
@@ -3383,7 +3387,7 @@
                                                                     <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                                        <color key="titleColor" name="mint"/>
+                                                                        <color key="titleColor" name="mainColor"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
                                                                     </state>
                                                                     <connections>
@@ -3488,6 +3492,9 @@
         </namedColor>
         <namedColor name="gray_light">
             <color red="0.96899998188018799" green="0.96899998188018799" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="mainColor">
+            <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mint">
             <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
