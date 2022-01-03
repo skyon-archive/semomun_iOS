@@ -12,7 +12,6 @@ class NetworkUsecase {
         static let base: String = "https://saemomoon.com"
         static let workbooks: String = base + "/workbooks/"
         static let sections: String = base + "/sections/"
-        static let preview: String = workbooks + "preview"
         static let images: String = base + "/images"
         static let workbookImageURL: String = images + "/workbook"
         static let bookcoverImageURL: String = images + "/bookcover"
@@ -21,8 +20,9 @@ class NetworkUsecase {
         static let contentImage: String = images + "/content/"
         static let explanation: String = images + "/explanation/"
         static let checkUser: String = base + "/auth/login"
-        static let categorys: String = base + "/login/info/category"
+        static let categorys: String = base + "/info/category"
         static let majors: String = base + "/login/info/major"
+        static let register: String = base + "/register"
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
@@ -49,7 +49,7 @@ class NetworkUsecase {
     }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
-        Network.get(url: URL.preview, param: param) { data in
+        Network.get(url: URL.workbooks, param: param) { data in
             guard let data = data else { return }
             guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
                 print("Error: Decode")
@@ -212,8 +212,15 @@ extension NetworkUsecase {
         }
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        print(param)
-        completion(true)
+        Network.post(url: URL.register, param: param) { data in
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            print(String(data: data, encoding: .utf8))
+            completion(false)
+        }
     }
     
     static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {

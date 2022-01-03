@@ -16,7 +16,7 @@ class Network {
             case .success:
                 completion(response.data)
             case .failure(let error):
-                print("Error: \(error._code)")
+                print("Error: \(error._code)", error.localizedDescription)
                 completion(nil)
             }
         }.resume()

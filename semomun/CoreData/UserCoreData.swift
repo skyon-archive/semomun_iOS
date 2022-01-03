@@ -40,13 +40,13 @@ public class UserCoreData: NSManagedObject {
     func setValues(userInfo: UserInfo) {
         self.setValue(userInfo.name, forKey: "name")
         self.setValue(userInfo.nickName, forKey: "nickName")
-        self.setValue(userInfo.phoneNumber, forKey: "phoneNumber")
+        self.setValue(userInfo.phone, forKey: "phoneNumber")
         self.setValue(userInfo.favoriteCategory, forKey: "favoriteCategory")
         self.setValue(userInfo.major, forKey: "major")
         self.setValue(userInfo.majorDetail, forKey: "majorDetail")
         self.setValue(userInfo.gender, forKey: "gender")
         self.setValue(userInfo.birthday, forKey: "birthday")
-        self.setValue(userInfo.schoolName, forKey: "schoolName")
+        self.setValue(userInfo.school, forKey: "schoolName")
         self.setValue(userInfo.graduationStatus, forKey: "graduationStatus")
     }
     

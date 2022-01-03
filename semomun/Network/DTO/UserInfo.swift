@@ -9,17 +9,17 @@ import Foundation
 
 class UserInfo: Codable, CustomStringConvertible {
     var description: String {
-        return "User(\(self.name!), \(self.nickName!), \(self.phoneNumber!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.schoolName!), \(self.graduationStatus!)\n"
+        return "User(\(self.name!), \(self.nickName!), \(self.phone!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.school!), \(self.graduationStatus!)\n"
     }
     var name: String?
     var nickName: String?
-    var phoneNumber: String?
+    var phone: String?
     var favoriteCategory: String?
     var major: String?
     var majorDetail: String?
     var gender: String?
     var birthday: String?
-    var schoolName: String?
+    var school: String?
     var graduationStatus: String?
     
     func configureName(to name: String) {
@@ -31,7 +31,7 @@ class UserInfo: Codable, CustomStringConvertible {
     }
     
     func configurePhoneNumber(to phoneNumber: String) {
-        self.phoneNumber = phoneNumber
+        self.phone = phoneNumber
     }
     
     func configureGender(to gender: String) {
@@ -55,7 +55,7 @@ class UserInfo: Codable, CustomStringConvertible {
     }
     
     func configureSchool(to school: String) {
-        self.schoolName = school
+        self.school = school
     }
     
     func configureGraduation(to status: String) {
@@ -69,13 +69,13 @@ class UserInfo: Codable, CustomStringConvertible {
     func setValues(userInfo: UserCoreData) {
         self.name = userInfo.name
         self.nickName = userInfo.nickName
-        self.phoneNumber = userInfo.phoneNumber
+        self.phone = userInfo.phoneNumber
         self.favoriteCategory = userInfo.favoriteCategory
         self.major = userInfo.major
         self.majorDetail = userInfo.majorDetail
         self.gender = userInfo.gender
         self.birthday = userInfo.birthday
-        self.schoolName = userInfo.schoolName
+        self.school = userInfo.schoolName
         self.graduationStatus = userInfo.graduationStatus
     }
 }
