@@ -28,7 +28,7 @@ class SideMenuCell: UITableViewCell {
     func configure(to title: String, isSelected: Bool) {
         self.title.text = title
         if isSelected {
-            self.contentView.backgroundColor = UIColor(named: "colorSelected")
+            self.contentView.backgroundColor = UIColor(named: SemomunColor.selectCellColor)
         }
         self.configureDumyImageView(with: title)
     }
