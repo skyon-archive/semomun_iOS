@@ -215,8 +215,7 @@ extension SolvingViewController: LayoutDelegate {
     func terminateSection(result: SectionResult, jsonString: String) {
         let isConnected = true
         if isConnected {
-            let param = ["submissions": jsonString, "token": KeychainItem.currentUserIdentifier]
-            NetworkUsecase.postSectionResult(param: param) { [weak self] success in
+            NetworkUsecase.postSectionResult(submissions: jsonString) { [weak self] success in
                 if success == nil {
                     // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
                     print("Error: update submissions fail")
