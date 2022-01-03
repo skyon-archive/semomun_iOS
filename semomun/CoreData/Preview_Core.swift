@@ -56,11 +56,11 @@ public class Preview_Core: NSManagedObject{
             if imageData != nil {
                 self.setValue(imageData, forKey: "image")
             } else {
-                guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+                guard let warningImage = UIImage(named: SemomunImage.warning) else { return }
                 self.setValue(warningImage.pngData(), forKey: "image")
             }
         } else {
-            guard let warningImage = UIImage(named: "warningWithNoImage") else { return }
+            guard let warningImage = UIImage(named: SemomunImage.warning) else { return }
             self.setValue(warningImage.pngData(), forKey: "image")
         }
         print("savePreview complete")

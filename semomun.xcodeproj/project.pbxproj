@@ -36,6 +36,7 @@
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
+		87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */; };
 		87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */; };
 		87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
@@ -158,6 +159,7 @@
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
+		87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunImage.swift; sourceTree = "<group>"; };
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
@@ -344,6 +346,14 @@
 			path = SemomunColor;
 			sourceTree = "<group>";
 		};
+		87B6F0BD2782C3E300E6FF8A /* SemomunImage */ = {
+			isa = PBXGroup;
+			children = (
+				87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */,
+			);
+			path = SemomunImage;
+			sourceTree = "<group>";
+		};
 		87C85E27276F6596001C9C4A /* PersonalSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +373,7 @@
 				87C85E39276F66A3001C9C4A /* Extension */,
 				87C85E3A276F66AB001C9C4A /* View */,
 				87B6F0BA2782BC7300E6FF8A /* SemomunColor */,
+				87B6F0BD2782C3E300E6FF8A /* SemomunImage */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -842,6 +853,7 @@
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
 				87C85E67276F68FE001C9C4A /* MajorDetailViewController.swift in Sources */,
+				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
 				87C85E63276F68E1001C9C4A /* CategoryViewController.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
