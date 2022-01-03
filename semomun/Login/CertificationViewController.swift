@@ -10,6 +10,7 @@ import UIKit
 class CertificationViewController: UIViewController {
     static let identifier = "CertificationViewController"
 
+    @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var warningOfName: UIView!
     @IBOutlet weak var warningOfName2: UILabel!
     @IBOutlet weak var warningOfPhone: UIView!
@@ -34,6 +35,7 @@ class CertificationViewController: UIViewController {
         self.configureWarningUI()
         self.configureDelegate()
         self.configureTextFieldAction()
+        self.configureAddObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -182,6 +184,25 @@ extension CertificationViewController: UITextFieldDelegate {
         
         self.title = ""
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func configureAddObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ sender: Notification) {
+        if let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            if self.view.frame.width < 1024 {
+                self.frameView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight/3)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        self.frameView.transform = CGAffineTransform.identity
     }
 }
 
