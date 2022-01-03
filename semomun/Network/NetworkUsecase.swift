@@ -237,7 +237,8 @@ extension NetworkUsecase {
         completion(true)
     }
     
-    static func postSectionResult(param: [String: String], completion: @escaping(Bool?) -> Void) {
+    static func postSectionResult(submissions: String, completion: @escaping(Bool?) -> Void) {
+        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
         print(param)
         completion(true)
     }
