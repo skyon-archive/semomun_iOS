@@ -126,6 +126,7 @@
 		87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54A277EBEB000359BAE /* termsAndConditions.txt */; };
 		87E7A54D277EC1BB00359BAE /* SemomunInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A54C277EC1BB00359BAE /* SemomunInfoDTO.swift */; };
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
+		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -249,6 +250,7 @@
 		87E7A54A277EBEB000359BAE /* termsAndConditions.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = termsAndConditions.txt; sourceTree = "<group>"; };
 		87E7A54C277EC1BB00359BAE /* SemomunInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunInfoDTO.swift; sourceTree = "<group>"; };
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
+		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +370,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				87EB46942783452100052BCE /* Secure */,
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				879B172C2772CC030042478F /* UseCase */,
 				87C85E39276F66A3001C9C4A /* Extension */,
@@ -663,6 +666,14 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		87EB46942783452100052BCE /* Secure */ = {
+			isa = PBXGroup;
+			children = (
+				87EB46952783454700052BCE /* ScreenProtector.swift */,
+			);
+			path = Secure;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -808,6 +819,7 @@
 				87C85E65276F68F0001C9C4A /* MajorViewController.swift in Sources */,
 				87C85E58276F680D001C9C4A /* PersonalInfoViewController.swift in Sources */,
 				87C85ED9276F6E1F001C9C4A /* Preview.swift in Sources */,
+				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				87C85EDB276F6E2D001C9C4A /* Workbook.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85EE1276F6E53001C9C4A /* Report.swift in Sources */,
