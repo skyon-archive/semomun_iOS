@@ -49,6 +49,7 @@ class SearchWorkbookManager {
         NetworkUsecase.downloadPreviews(param: queryStringOfPreviews()) { searchPreview in
             let previews = searchPreview.workbooks
             self.loadedPreviews = previews.filter { !self.filter.contains($0.wid) }
+            print(self.loadedPreviews)
             completion()
         }
     }
