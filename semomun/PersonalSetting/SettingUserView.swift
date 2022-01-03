@@ -150,7 +150,7 @@ struct SettingUserView: View {
                             ZStack {
                                 Circle()
                                     .strokeBorder(Color.white, lineWidth: 2)
-                                    .background(Circle().foregroundColor(Color("mint")))
+                                    .background(Circle().foregroundColor(Color(SemomunColor.mainColor)))
                                     .frame(width: 60, height: 60)
                                     .shadow(color: .gray.opacity(0.5), radius: 4, y: 4)
                                 Text("저장")
@@ -258,7 +258,7 @@ struct SettingUserRow: View {
                     )
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .foregroundColor(option == selected ? Color("mint") : .clear)
+                            .foregroundColor(option == selected ? Color(SemomunColor.mainColor) : .clear)
                     )
                 }
             }

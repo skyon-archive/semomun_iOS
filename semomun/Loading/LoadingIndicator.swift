@@ -47,7 +47,7 @@ class LoadingIndicator: UIViewController {
     func setProgress() {
         self.loadingProgress.progressWidth = 15.0
         self.loadingProgress.trackColor = UIColor.darkGray
-        self.loadingProgress.progressColor = UIColor(named: "mint")!
+        self.loadingProgress.progressColor = UIColor(named: SemomunColor.mainColor)!
         self.statusLabel.text = "\(self.currentCount)/\(self.totalPageCount)"
         self.loadingProgress.setProgressWithAnimation(duration: 0.2, value: 0.0, from: 0)
     }

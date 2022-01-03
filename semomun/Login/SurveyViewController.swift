@@ -60,7 +60,7 @@ class SurveyViewController: UIViewController {
     
     private func didSelect(to button: UIButton) {
         button.borderColor = UIColor.clear
-        button.backgroundColor = UIColor(named: "mint")
+        button.backgroundColor = UIColor(named: SemomunColor.mainColor)
         button.setTitleColor(UIColor.white, for: .normal)
     }
     

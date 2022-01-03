@@ -53,7 +53,7 @@ class ProblemNameCell: UICollectionViewCell {
         }
         
         if isCheckd {
-            self.num.textColor = UIColor(named: "mint")
+            self.num.textColor = UIColor(named: SemomunColor.mainColor)
         }
     }
     
