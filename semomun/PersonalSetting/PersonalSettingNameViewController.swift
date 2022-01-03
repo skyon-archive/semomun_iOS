@@ -41,7 +41,7 @@ class PersonalSettingNameViewController: UIViewController {
         userInfo.setValue(newPhone, forKey: "phoneNumber")
         NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { [weak self] status in
             guard let status = status else {
-                self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 도해주세요.")
+                self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 시도해주세요.")
                 return
             }
             if status {

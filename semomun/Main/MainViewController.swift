@@ -99,7 +99,7 @@ extension MainViewController {
     }
     
     func configureAddImage() {
-        guard let addImage = UIImage(named: "addButton") else {
+        guard let addImage = UIImage(named: SemomunImage.addButton) else {
             print("Error: addImage not corrent")
             return
         }

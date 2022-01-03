@@ -3481,7 +3481,7 @@
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
