@@ -224,10 +224,6 @@ extension NetworkUsecase {
         completion(true)
     }
     
-    static func postRename(to: String, token: String, completion: @escaping(Bool?)->Void) {
-        completion(true)
-    }
-    
     static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(Bool?) -> Void) {
         let newUserInfo = UserInfo()
         newUserInfo.setValues(userInfo: userInfo)

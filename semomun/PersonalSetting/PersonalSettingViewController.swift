@@ -16,6 +16,7 @@ class PersonalSettingViewController: UIViewController {
     static let identifier = "PersonalSettingViewController"
 
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var favoriteCategory: UILabel!
     @IBOutlet weak var graduationStatus: UILabel!
     @IBOutlet weak var schoolName: UILabel!
@@ -26,7 +27,6 @@ class PersonalSettingViewController: UIViewController {
         super.viewDidLoad()
         self.title = "설정"
         self.loadData()
-        self.loadUserInfo()
     }
     
     @IBAction func showSettingUserVC(_ sender: Any) {
@@ -45,6 +45,7 @@ extension PersonalSettingViewController: ReloadUserData {
     func loadData() {
         let userInfo = CoreUsecase.fetchUserInfo()
         self.userName.text = userInfo?.name
+        self.phoneNumber.text = userInfo?.phoneNumber
         self.favoriteCategory.text = userInfo?.favoriteCategory
         self.graduationStatus.text = userInfo?.graduationStatus
         self.schoolName.text = userInfo?.schoolName
@@ -54,13 +55,6 @@ extension PersonalSettingViewController: ReloadUserData {
 }
 
 extension PersonalSettingViewController {
-    private func loadUserInfo() {
-        guard let userInfo = CoreUsecase.fetchUserInfo() else {
-            print("no userInfo error")
-            return
-        }
-        print(userInfo)
-    }
     private func showSettingNames() {
         guard let settingNameVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingNameViewController.identifier) as? PersonalSettingNameViewController else { return }
         settingNameVC.delegate = self
