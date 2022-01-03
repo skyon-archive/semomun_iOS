@@ -26,7 +26,7 @@ class PreviewCell: UICollectionViewCell {
     private lazy var statusImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.backgroundColor = .clear
-        imgView.tintColor = UIColor(named: "mint")
+        imgView.tintColor = UIColor(named: SemomunColor.mainColor)
         imgView.clipsToBounds = true
         return imgView
     }()

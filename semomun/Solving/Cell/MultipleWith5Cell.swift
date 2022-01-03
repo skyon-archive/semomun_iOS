@@ -150,12 +150,12 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         for bt in checkNumbers {
             bt.layer.cornerRadius = 15
             bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(named: "mint"), for: .normal)
+            bt.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
         }
         // 사용자 체크한 데이터 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: "mint")
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: SemomunColor.mainColor)
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         
@@ -225,7 +225,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: "mint"), for: .normal)
+            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
         }
     }
     
@@ -235,7 +235,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(named: "mint"), for: .normal)
+            self.explanation.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
         }
     }
     
