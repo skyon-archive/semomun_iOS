@@ -14,7 +14,7 @@ class ProblemNameCell: UICollectionViewCell {
     @IBOutlet weak var outerFrame: UIView!
     private lazy var triangleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "yellow")
+        view.backgroundColor = UIColor(named: SemomunColor.yellowColor)
         return view
     }()
     
@@ -44,7 +44,7 @@ class ProblemNameCell: UICollectionViewCell {
         
         if isTerminated {
             if isWrong {
-                self.outerFrame.backgroundColor = UIColor(named: "colorRed")
+                self.outerFrame.backgroundColor = UIColor(named: SemomunColor.redColor)
                 self.num.textColor = .white
             } else {
                 self.num.textColor = .black
@@ -74,20 +74,4 @@ class ProblemNameCell: UICollectionViewCell {
         ])
         self.triangleView.transform = CGAffineTransform(rotationAngle: .pi/4)
     }
-    
-//    private func setUpTriangle() {
-//        let heightWidth = triangleView.frame.size.width
-//        let path = CGMutablePath()
-//
-//        path.move(to: CGPoint(x: 0, y: 0))
-//        path.addLine(to: CGPoint(x:heightWidth, y: 0))
-//        path.addLine(to: CGPoint(x:heightWidth, y:heightWidth))
-//        path.addLine(to: CGPoint(x:0, y:0))
-//
-//        let shape = CAShapeLayer()
-//        shape.path = path
-//        shape.fillColor = UIColor.yellow.cgColor
-//
-//        triangleView.layer.insertSublayer(shape, at: 0)
-//    }
 }
