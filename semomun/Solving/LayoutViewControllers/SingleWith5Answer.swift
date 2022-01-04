@@ -258,7 +258,7 @@ extension SingleWith5Answer {
             self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
             
             let autoLeading: CGFloat = 65*self.width/CGFloat(834)
-            let autoTop: CGFloat = -25*self.width/CGFloat(834)
+            let autoTop: CGFloat = 0*self.width/CGFloat(834)
             let autoSize: CGFloat = 150*self.width/CGFloat(834)
             NSLayoutConstraint.activate([
                 self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
