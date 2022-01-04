@@ -19,7 +19,7 @@ class NetworkUsecase {
         static let materialImage: String = images + "/material/"
         static let contentImage: String = images + "/content/"
         static let explanation: String = images + "/explanation/"
-        static let checkUser: String = base + "/auth/login"
+        static let checkUser: String = base + "/register/check"
         static let categorys: String = base + "/info/category"
         static let queryButtons: String = base + "/info/buttons"
         static let majors: String = base + "/info/major"
@@ -176,9 +176,8 @@ class NetworkUsecase {
 
 // MARK: - POST
 extension NetworkUsecase {
-    static func postCheckUser(userToken: String, userLoginMethod: UserLoginMethod, completion: @escaping(Bool?) -> Void) {
-        let paramKey: String = userLoginMethod.getToken()
-        let param = [paramKey: userToken]
+    static func postCheckUser(userToken: String, completion: @escaping(Bool?) -> Void) {
+        let param = ["token": userToken]
         Network.post(url: URL.checkUser, param: param) { data in
             guard let data = data else {
                 print("Error: no data")
