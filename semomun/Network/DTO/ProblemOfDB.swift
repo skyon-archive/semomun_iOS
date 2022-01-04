@@ -23,5 +23,5 @@ struct ProblemOfDB: Codable, CustomStringConvertible {
     let attempt_corrent: Int? //문제에 정답이 제출된 총 횟수
     let rate: Int? //문제의 외부 정답률
     let elapsed_total: Int? //걸린 시간의 합
-    let score: Int?
+    let score: Double?
 }
