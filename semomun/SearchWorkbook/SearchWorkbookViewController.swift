@@ -50,11 +50,14 @@ extension SearchWorkbookViewController {
                 self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
                 return
             }
+            queryListButtons.forEach { $0.queryParamValues.insert("전체", at: 0)}
             self?.queryDtos = queryListButtons
-            for (idx, button) in queryListButtons.enumerated() {
-                self?.createQueryButton(with: button, idx: idx)
+            DispatchQueue.main.async {
+                for (idx, button) in queryListButtons.enumerated() {
+                    self?.createQueryButton(with: button, idx: idx)
+                }
+                self?.createStackView()
             }
-            self?.createStackView()
         }
     }
     

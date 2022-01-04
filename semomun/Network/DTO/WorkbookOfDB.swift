@@ -15,8 +15,8 @@ struct SearchWorkbook: Codable {
 struct WorkbookOfDB: Codable {
     var wid: Int //문제집 고유 번호
     var title: String
-    var year: Int //출판연도
-    var month: Int //출판 달
+    var year: String //출판연도
+    var month: String //출판 달
     var price: Int //가격(원)
     var detail: String //문제집 정보
     var image: String //문제집 표지 이미지
@@ -24,7 +24,7 @@ struct WorkbookOfDB: Codable {
     var publisher: String //문제집 출판사
     var category: String //문제집 유형
     var subject: String //문제집 주제
-    var grade: Int
+    var grade: String
     
     enum CodingKeys: String, CodingKey {
         case wid, title, year, month, price, detail

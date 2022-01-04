@@ -21,8 +21,11 @@ class NetworkUsecase {
         static let explanation: String = images + "/explanation/"
         static let checkUser: String = base + "/auth/login"
         static let categorys: String = base + "/info/category"
-        static let majors: String = base + "/login/info/major"
+        static let queryButtons: String = base + "/info/buttons"
+        static let majors: String = base + "/info/major"
         static let register: String = base + "/register"
+        static let postPhone: String = register + "/auth"
+        static let verifyPhone: String = register + "/verify"
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
@@ -125,32 +128,18 @@ class NetworkUsecase {
     }
     
     static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
-        var fileName: String = "수능및모의고사"
-        switch category {
-        case "수능 및 모의고사":
-            fileName = "수능및모의고사"
-        case "LEET":
-            fileName = "LEET"
-        case "공인회계사":
-            fileName = "공인회계사"
-        case "공인중개사":
-            fileName = "공인중개사"
-        case "9급 공무원":
-            fileName = "9급공무원"
-        default:
-            return
+        Network.get(url: URL.queryButtons, param: ["c": category]) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            guard let buttonsDto: CategoryQueryButtons = try? JSONDecoder().decode(CategoryQueryButtons.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            completion(buttonsDto.queryButtons)
         }
-        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
-                  completion(nil)
-                  return
-              }
-        guard let buttonsDto: CategoryQueryButtons = try? JSONDecoder().decode(CategoryQueryButtons.self, from: data) else {
-            print("Error: Decode")
-            completion(nil)
-            return
-        }
-        completion(buttonsDto.queryButtons)
     }
     
     static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
@@ -219,16 +208,32 @@ extension NetworkUsecase {
                 return
             }
             print(String(data: data, encoding: .utf8))
-            completion(false)
+            completion(true)
         }
     }
     
     static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
-        completion(true)
+        Network.post(url: URL.postPhone, param: ["phone" : phone]) { data in
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            print(String(data: data, encoding: .utf8))
+            completion(true)
+        }
     }
     
-    static func postCheckCertification(with certifi: String, completion: @escaping(Bool?) -> Void) {
-        completion(true)
+    static func postCheckCertification(with certifi: String, phone: String, completion: @escaping(Bool?) -> Void) {
+        Network.post(url: URL.verifyPhone, param: ["phone" : phone, "code": certifi]) { data in
+            guard let data = data else {
+                print("Error: no data")
+                completion(nil)
+                return
+            }
+            print(String(data: data, encoding: .utf8))
+            completion(true)
+        }
     }
     
     static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(Bool?) -> Void) {
