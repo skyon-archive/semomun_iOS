@@ -68,7 +68,7 @@ class CertificationViewController: UIViewController {
             self.showAlertWithOK(title: "올바른 인증번호가 아닙니다", text: "6글자의 인증번호를 입력해주시기 바랍니다.")
             return
         }
-        self.usecase?.checkCertification(with: self.phone.text, completion: { [weak self] valid in
+        self.usecase?.checkCertification(with: self.phone.text, phone: self.phone.text, completion: { [weak self] valid in
             if let valid = valid {
                 if valid {
                     self?.states[2] = true
