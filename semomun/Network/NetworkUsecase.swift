@@ -39,17 +39,6 @@ class NetworkUsecase {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
-    enum UserLoginMethod {
-        case google, apple
-        func getToken() -> String {
-            switch self {
-            case .apple:
-                return "token_apple"
-            case .google:
-                return "token_google"
-            }
-        }
-    }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
         Network.get(url: URL.workbooks, param: param) { data in
@@ -194,6 +183,7 @@ extension NetworkUsecase {
     }
     
     static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {
+        completion(true)
         guard let jsonData = try? JSONEncoder().encode(userInfo) else {
             print("Encode Error")
             return
@@ -212,6 +202,7 @@ extension NetworkUsecase {
     }
     
     static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
+        completion(true)
         Network.post(url: URL.postPhone, param: ["phone" : phone]) { data in
             guard let data = data else {
                 print("Error: no data")
@@ -224,6 +215,7 @@ extension NetworkUsecase {
     }
     
     static func postCheckCertification(with certifi: String, phone: String, completion: @escaping(Bool?) -> Void) {
+        completion(true)
         Network.post(url: URL.verifyPhone, param: ["phone" : phone, "code": certifi]) { data in
             guard let data = data else {
                 print("Error: no data")

@@ -119,7 +119,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     func configureUI(_ contentImage: UIImage?, _ superWidth: CGFloat) {
-        self.configureImage(contentImage)
+        self.configureImageView(contentImage)
         self.configureHeight(superWidth)
         self.configureCheckButtons()
         self.configureStar()
@@ -127,10 +127,14 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.configureExplanation()
     }
     
-    func configureImage(_ contentImage: UIImage?) {
+    func configureImageView(_ contentImage: UIImage?) {
         guard let contentImage = contentImage else { return }
-        self.contentImage = contentImage
-        self.imageView.image = contentImage
+        if contentImage.size.width > 0 && contentImage.size.height > 0 {
+            self.contentImage = contentImage
+        } else {
+            self.contentImage = UIImage(named: SemomunImage.warning)
+        }
+        self.imageView.image = self.contentImage
     }
     
     func configureHeight(_ superWidth: CGFloat) {
@@ -195,7 +199,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.resultImageView.widthAnchor.constraint(equalToConstant: 50),
             self.resultImageView.heightAnchor.constraint(equalToConstant: 50),
             self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
-            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 50)
+            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 85)
         ])
     }
     
