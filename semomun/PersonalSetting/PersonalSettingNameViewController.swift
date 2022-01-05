@@ -39,19 +39,20 @@ class PersonalSettingNameViewController: UIViewController {
         
         userInfo.setValue(newName, forKey: "name")
         userInfo.setValue(newPhone, forKey: "phoneNumber")
+        
         NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { [weak self] status in
-            guard let status = status else {
-                self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 시도해주세요.")
-                return
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    CoreDataManager.saveCoreData()
+                    self?.showAlertWithOK(title: "정보 수정 완료", text: "")
+                    self?.delegate?.loadData()
+                case .INSPECTION:
+                    self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+                default:
+                    self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 시도해주세요.")
+                }
             }
-            if status {
-                CoreDataManager.saveCoreData()
-                self?.showAlertWithOK(title: "정보 수정 완료", text: "")
-                self?.delegate?.loadData()
-            } else {
-                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
-            }
-            
         }
     }
 }

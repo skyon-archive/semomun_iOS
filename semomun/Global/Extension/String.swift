@@ -13,6 +13,11 @@ extension String {
         return String(format: "%05d", randomVal)
     }
     
+    static var randomPhoneNumber: String {
+        let randomVal = Int.random(in: 0...99999999)
+        return "010"+String(format: "%08d", randomVal)
+    }
+    
     var circledAnswer: String {
         switch self {
         case "1": return "⓵"

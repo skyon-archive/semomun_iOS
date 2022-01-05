@@ -26,7 +26,7 @@ class NetworkUsecase {
         static let register: String = base + "/register"
         static let postPhone: String = register + "/auth"
         static let verifyPhone: String = register + "/verify"
-        static let users: String = base + "/users"
+        static let users: String = base + "/users/"
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
@@ -49,8 +49,8 @@ class NetworkUsecase {
     }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
-        Network.get(url: URL.workbooks, param: param) { data in
-            guard let data = data else { return }
+        Network.getWithQeuryItems(url: URL.workbooks, param: param) { requestResult in
+            guard let data = requestResult.data else { return }
             guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
                 print("Error: Decode")
                 return
@@ -125,8 +125,8 @@ class NetworkUsecase {
     }
     
     static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
-        Network.get(url: URL.queryButtons, param: ["c": category]) { data in
-            guard let data = data else {
+        Network.getWithQeuryItems(url: URL.queryButtons, param: ["c": category]) { requestResult in
+            guard let data = requestResult.data else {
                 completion(nil)
                 return
             }
@@ -140,8 +140,8 @@ class NetworkUsecase {
     }
     
     static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
-        Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { data in
-            guard let data = data else {
+        Network.getWithQeuryItems(url: NetworkUsecase.URL.schoolApi, param: param) { requestResult in
+            guard let data = requestResult.data else {
                 completion([])
                 return
             }
@@ -157,21 +157,10 @@ class NetworkUsecase {
     }
     
     static func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
-//        guard let url = Bundle.main.url(forResource: "dummyUserInfo", withExtension: "json"),
-//              let data = try? Data(contentsOf: url) else {
-//                  completion(nil)
-//                  return
-//              }
-//        guard let userInfo: UserInfo = try? JSONDecoder().decode(UserInfo.self, from: data) else {
-//            print("Error: Decode")
-//            completion(nil)
-//            return
-//        }
-//        completion(userInfo)
+        let url = URL.users+"self"
+        let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
         
-        let url = URL.users + "/\(KeychainItem.currentUserIdentifier)"
-        
-        Network.get(url: url) { requestResult in
+        Network.getWithBody(url: url, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, nil)
@@ -180,13 +169,15 @@ class NetworkUsecase {
             if statusCode == 504 {
                 completion(.INSPECTION, nil)
                 return
-            } else if statusCode != 200 {
-                print("Error: \(statusCode)")
-                completion(.ERROR, nil)
-                return
             }
             guard let data = requestResult.data else {
                 print("Error: no data")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                print(String(data: data, encoding: .utf8))
                 completion(.ERROR, nil)
                 return
             }
@@ -250,10 +241,6 @@ extension NetworkUsecase {
                 print("server Error")
                 completion(.INSPECTION)
                 return
-            } else if statusCode != 200 {
-                print("Error: \(statusCode)")
-                completion(.ERROR)
-                return
             }
             guard let data = requestResult.data else {
                 print("Error: no data")
@@ -262,6 +249,11 @@ extension NetworkUsecase {
             }
             let uid = String(data: data, encoding: .utf8)!
             print(uid)
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                completion(.ERROR)
+                return
+            }
             completion(.SUCCESS)
         }
     }
@@ -274,7 +266,7 @@ extension NetworkUsecase {
         completion(true)
     }
     
-    static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(Bool?) -> Void) {
+    static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
         let newUserInfo = UserInfo()
         newUserInfo.setValues(userInfo: userInfo)
         guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
@@ -283,8 +275,24 @@ extension NetworkUsecase {
         }
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        print(param)
-        completion(true)
+        
+        Network.post(url: URL.users, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR)
+                return
+            }
+            if statusCode == 504 {
+                print("server Error")
+                completion(.INSPECTION)
+                return
+            } else if statusCode != 200 {
+                print("Error: \(statusCode)")
+                completion(.ERROR)
+                return
+            }
+            completion(.SUCCESS)
+        }
     }
     
     static func postSectionResult(submissions: String, completion: @escaping(Bool?) -> Void) {

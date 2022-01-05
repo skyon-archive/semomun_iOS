@@ -175,7 +175,7 @@ extension CertificationViewController: UITextFieldDelegate {
               let phoneNumber = self.phone.text else { return }
         
         self.signUpInfo?.configureName(to: name)
-        self.signUpInfo?.configurePhoneNumber(to: phoneNumber)
+        self.signUpInfo?.configurePhone(to: phoneNumber)
     }
     
     func nextVC() {

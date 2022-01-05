@@ -41,7 +41,6 @@ class PersonalInfoViewController: UIViewController {
     
     @IBAction func nextVC(_ sender: Any) {
         if self.isValidForSignUp {
-            self.signUpInfo?.configureNickname()
             self.goToNext()
         } else {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
