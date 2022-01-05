@@ -127,6 +127,7 @@
 		87E7A54D277EC1BB00359BAE /* SemomunInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A54C277EC1BB00359BAE /* SemomunInfoDTO.swift */; };
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
 		87EA7FF02784727500B6EFC3 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FEF2784727500B6EFC3 /* RequestResult.swift */; };
+		87EA7FF22785475000B6EFC3 /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */; };
 		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
 /* End PBXBuildFile section */
 
@@ -252,6 +253,7 @@
 		87E7A54C277EC1BB00359BAE /* SemomunInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunInfoDTO.swift; sourceTree = "<group>"; };
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
 		87EA7FEF2784727500B6EFC3 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
+		87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
 		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -420,6 +422,7 @@
 				87C85E55276F67F8001C9C4A /* SurveyViewController.swift */,
 				87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */,
 				25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */,
+				87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */,
 				87C85E59276F6836001C9C4A /* UseCase */,
 				87C85E5A276F683E001C9C4A /* CollecitonViews */,
 				87C85E5B276F6845001C9C4A /* CollectionViewManagers */,
@@ -808,6 +811,7 @@
 				8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				87C85EC9276F6D77001C9C4A /* SingleWith4Answer.swift in Sources */,
+				87EA7FF22785475000B6EFC3 /* ServiceInfoViewController.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
