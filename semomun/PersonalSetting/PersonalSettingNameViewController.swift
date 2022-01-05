@@ -40,7 +40,7 @@ class PersonalSettingNameViewController: UIViewController {
         userInfo.setValue(newName, forKey: "name")
         userInfo.setValue(newPhone, forKey: "phoneNumber")
         
-        NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { [weak self] status in
+        NetworkUsecase.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:

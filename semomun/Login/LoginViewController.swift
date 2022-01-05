@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     static let identifier = "LoginViewController"
     
     var signupInfo: UserInfo?
-    
+
     @IBOutlet weak var semomunTitle: UILabel!
     private let buttonWidth: CGFloat = 230
     private let buttonHeight: CGFloat = 43
@@ -77,11 +77,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user // 유저별 상수값
             let token = appleIDCredential.identityToken // 할때마다 생성되는 token 값 (변동있음)
             
             self.checkUser(idToken: String(data: token!, encoding: .utf8)!) { [weak self] isUser in
-                self?.saveUserinKeychain(userIdentifier)
+                self?.saveUserinKeychain(String(data: token!, encoding: .utf8)!)
                 self?.processLogin(with: isUser)
             }
         default: break
@@ -199,7 +198,7 @@ extension LoginViewController {
             return
         }
         
-        NetworkUsecase.postUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
+        NetworkUsecase.putUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -214,7 +213,6 @@ extension LoginViewController {
     }
     
     private func saveUserInfo(to userInfo: UserInfo?) {
-        print(userInfo?.uid)
         CoreUsecase.createUserCoreData(userInfo: userInfo)
         UserDefaults.standard.setValue(userInfo?.favoriteCategory, forKey: "currentCategory")
         UserDefaults.standard.setValue(true, forKey: "logined")
@@ -233,7 +231,7 @@ extension LoginViewController {
     
     private func saveUserinKeychain(_ userIdentifier: String) {
         do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").saveItem(userIdentifier)
+            try KeychainItem(service: "com.skyon.semomoonService", account: KeychainItem.Items.userItentifier).saveItem(userIdentifier)
         } catch {
             print("Unable to save userIdentifier to keychain.")
         }

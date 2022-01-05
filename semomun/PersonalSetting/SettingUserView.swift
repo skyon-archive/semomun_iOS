@@ -208,7 +208,7 @@ struct SettingUserView: View {
         userInfo.setValue(self.selectedMajorDetail, forKey: "majorDetail")
         userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
         
-        NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { status in
+        NetworkUsecase.putUserInfoUpdate(userInfo: userInfo) { status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:

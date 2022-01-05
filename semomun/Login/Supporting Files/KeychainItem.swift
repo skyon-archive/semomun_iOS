@@ -8,6 +8,11 @@
 import Foundation
 
 struct KeychainItem {
+    // MARK: Items
+    enum Items {
+        static let userItentifier = "userIdentifier"
+    }
+    
     // MARK: Types
     
     enum KeychainError: Error {
@@ -132,7 +137,7 @@ struct KeychainItem {
      */
     static var currentUserIdentifier: String {
         do {
-            let storedIdentifier = try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").readItem()
+            let storedIdentifier = try KeychainItem(service: "com.skyon.semomoonService", account: Items.userItentifier).readItem()
             return storedIdentifier
         } catch {
             return ""
@@ -141,7 +146,7 @@ struct KeychainItem {
     
     static func deleteUserIdentifierFromKeychain() {
         do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").deleteItem()
+            try KeychainItem(service: "com.skyon.semomoonService", account: Items.userItentifier).deleteItem()
         } catch {
             print("Unable to delete userIdentifier from keychain")
         }
