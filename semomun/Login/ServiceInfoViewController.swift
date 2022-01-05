@@ -20,12 +20,13 @@ class ServiceInfoViewController: UIViewController {
     @IBOutlet weak var accept: UIButton!
     @IBOutlet weak var checkButton: UIButton!
     weak var delegate: RegisgerServiceSelectable?
-    private var accepted: Bool = false
     var tag: Int?
+    var isSignin: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureText()
     }
     
     @IBAction func close(_ sender: Any) {
@@ -33,6 +34,7 @@ class ServiceInfoViewController: UIViewController {
     }
     
     @IBAction func toggleAccept(_ sender: Any) {
+        self.checkButton.isSelected.toggle()
     }
     
     @IBAction func showPersonalPolicy(_ sender: Any) {
@@ -45,11 +47,15 @@ class ServiceInfoViewController: UIViewController {
     
     @IBAction func acceptAll(_ sender: Any) {
         guard let tag = tag else { return }
-        self.dismiss(animated: true, completion: nil)
-        if tag == 0 {
-            delegate?.appleLogin()
+        if !self.checkButton.isSelected {
+            self.showAlertWithOK(title: "동의를 해주시기 바랍니다", text: "")
         } else {
-            delegate?.googleLogin()
+            self.dismiss(animated: true, completion: nil)
+            if tag == 0 {
+                delegate?.appleLogin()
+            } else {
+                delegate?.googleLogin()
+            }
         }
     }
 }
@@ -64,6 +70,12 @@ extension ServiceInfoViewController {
         self.innerFrameview.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
         self.accept.clipsToBounds = true
         self.accept.cornerRadius = 10
+    }
+    
+    private func configureText() {
+        if !self.isSignin {
+            self.accept.setTitle("로그인하기", for: .normal)
+        }
     }
     
     private func loadPersonalPolicy() {

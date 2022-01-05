@@ -35,10 +35,11 @@ extension UserCoreData : Identifiable {
 @objc(UserCoreData)
 public class UserCoreData: NSManagedObject {
     public override var description: String{
-        return "User(\(self.uid!), \(self.name!), \(self.nickName!), \(self.phoneNumber!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.schoolName!), \(self.graduationStatus!))"
+        return "User(\(self.uid), \(self.name), \(self.nickName), \(self.phoneNumber), \(self.favoriteCategory), \(self.major), \(self.majorDetail), \(self.gender), \(self.birthday), \(self.schoolName), \(self.graduationStatus))"
     }
     
     func setValues(userInfo: UserInfo) {
+        print("class: \(userInfo)")
         self.setValue(userInfo.name, forKey: "name")
         self.setValue(userInfo.nickName, forKey: "nickName")
         self.setValue(userInfo.phone, forKey: "phoneNumber")
