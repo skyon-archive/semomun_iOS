@@ -9,7 +9,7 @@ import UIKit
 import AuthenticationServices
 import GoogleSignIn
 
-class StartViewController: UIViewController {
+class LoginViewController: UIViewController {
     static let identifier = "StartViewController"
     
     @IBOutlet weak var semomunTitle: UILabel!
@@ -25,7 +25,7 @@ class StartViewController: UIViewController {
     }
 }
 
-extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         authorizationButton.addTarget(self, action: #selector(appleSignInButtonPressed), for: .touchUpInside)
@@ -104,7 +104,7 @@ extension StartViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     }
 }
 
-extension StartViewController {
+extension LoginViewController {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -144,8 +144,9 @@ extension StartViewController {
     }
     
     private func getUserInfo() {
-        NetworkUsecase.getUserInfo(param: ["token": KeychainItem.currentUserIdentifier]) { [weak self] userInfo in
-            guard let userInfo = userInfo else {
+        NetworkUsecase.getUserInfo() { [weak self] userInfo in
+            guard let userInfo = userInfo,
+                  let _ = userInfo.uid else {
                 self?.showAlertWithOK(title: "네트워크 통신 에러", text: "회원정보를 불러오는데 실패하였습니다.")
                 return
             }
@@ -159,7 +160,7 @@ extension StartViewController {
     }
 }
 
-extension StartViewController {
+extension LoginViewController {
     private func showNextVC() {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: CertificationViewController.identifier) else { return }
         self.title = ""
@@ -176,7 +177,7 @@ extension StartViewController {
     }
 }
 
-extension StartViewController {
+extension LoginViewController {
     private func configureLayoutAppleButton(with button: UIControl) {
         button.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(button)
