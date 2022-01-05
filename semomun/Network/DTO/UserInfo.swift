@@ -21,6 +21,8 @@ class UserInfo: Codable, CustomStringConvertible {
     var birthday: String?
     var school: String?
     var graduationStatus: String?
+    var uid: Int?
+    var profileImage: Data?
     
     func configureName(to name: String) {
         self.name = name

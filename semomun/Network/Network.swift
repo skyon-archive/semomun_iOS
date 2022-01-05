@@ -9,16 +9,12 @@ import Foundation
 import Alamofire
 
 class Network {
-    static func get(url: String, completion: @escaping (Data?) -> Void) {
+    static func get(url: String, completion: @escaping (RequestResult) -> Void) {
         print(url)
         AF.request(url, method: .get).responseJSON { response in
-            switch response.result {
-            case .success:
-                completion(response.data)
-            case .failure(let error):
-                print("Error: \(error._code)", error.localizedDescription)
-                completion(nil)
-            }
+            let result = RequestResult(statusCode: response.response?.statusCode, data: response.data)
+            print(response.response?.statusCode)
+            completion(result)
         }.resume()
     }
     
@@ -57,47 +53,12 @@ class Network {
         task.resume()
     }
 
-    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
+    static func post(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
         print(url, param)
         AF.request(url, method: .post, parameters: param).responseJSON { response in
-            switch response.result {
-            case .success:
-                completion(response.data)
-            case .failure(let error):
-                print("Error: \(error._code)", error.localizedDescription, url)
-                completion(nil)
-            }
+            let result = RequestResult(statusCode: response.response?.statusCode, data: response.data)
+            print(response.response?.statusCode)
+            completion(result)
         }.resume()
     }
-//
-//    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
-//        guard let authData = try? JSONEncoder().encode(["idToken" : idToken]) else {return}
-//        let url = URL(string: "https://yourbackend.example.com/tokensignin")!
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue(("application/json"), forHTTPHeaderField: "Content-Type")
-//
-//        let task = URLSession.shared.uploadTask(with: request, from: authData) {data, response, error in }
-//        task.resume()
-//    }
-    
-//    static func post(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
-//        guard let authData = try? JSONEncoder().encode(param) else { return }
-//        guard let url = URL(string: url) else { return }
-//        var request = URLRequest(url: url)
-//
-//        request.httpMethod = "POST"
-//        request.addValue(("application/json"), forHTTPHeaderField: "Content-Type")
-//        request.httpBody = authData
-//        print(request.httpBody)
-//
-//        let task = URLSession.shared.uploadTask(with: request, from: authData) { data, response, error in
-//            guard let _ = error else {
-//                print("url request error")
-//                return
-//            }
-//            completion(data)
-//        }
-//        task.resume()
-//    }
 }
