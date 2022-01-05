@@ -52,6 +52,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         guard let serviceInfoVC = self.storyboard?.instantiateViewController(withIdentifier: ServiceInfoViewController.identifier) as? ServiceInfoViewController else { return }
         serviceInfoVC.tag = sender.tag
         serviceInfoVC.delegate = self
+        serviceInfoVC.isSignin = self.signupInfo != nil ? true : false
         self.present(serviceInfoVC, animated: true, completion: nil)
     }
 
@@ -179,6 +180,9 @@ extension LoginViewController {
                         return
                     }
                     self?.signupInfo?.configureUid(to: uid)
+                    self?.signupInfo?.configureNickname(to: userInfo?.nickName)
+                    self?.signupInfo?.configureName(to: userInfo?.name)
+                    self?.signupInfo?.configurePhone(to: userInfo?.phone)
                     self?.updateUserInfo()
                 case .DECODEERROR:
                     self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
@@ -197,6 +201,7 @@ extension LoginViewController {
             self.showAlertWithOK(title: "CoreData 에러", text: "사용자 정보를 읽을 수 없습니다.")
             return
         }
+        print("Core: \(coreUserInfo)")
         
         NetworkUsecase.putUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
             DispatchQueue.main.async {

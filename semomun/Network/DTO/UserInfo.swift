@@ -9,7 +9,7 @@ import Foundation
 
 class UserInfo: Codable, CustomStringConvertible {
     var description: String {
-        return "User(\(self.name!), \(self.nickName!), \(self.phone!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.school!), \(self.graduationStatus!)\n"
+        return "User(\(self.uid), \(self.name!), \(self.nickName!), \(self.phone!), \(self.favoriteCategory!), \(self.major!), \(self.majorDetail!), \(self.gender!), \(self.birthday!), \(self.school!), \(self.graduationStatus!))"
     }
     var name: String?
     var nickName: String?
