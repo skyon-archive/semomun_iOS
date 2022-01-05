@@ -128,6 +128,7 @@
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
 		87EA7FF02784727500B6EFC3 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FEF2784727500B6EFC3 /* RequestResult.swift */; };
 		87EA7FF22785475000B6EFC3 /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */; };
+		87EA7FF427855FB100B6EFC3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FF327855FB100B6EFC3 /* StartViewController.swift */; };
 		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
 /* End PBXBuildFile section */
 
@@ -254,6 +255,7 @@
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
 		87EA7FEF2784727500B6EFC3 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
+		87EA7FF327855FB100B6EFC3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -388,6 +390,7 @@
 		87C85E29276F65AA001C9C4A /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E51276F67D7001C9C4A /* CertificationViewController.swift */,
 				87C85ED6276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift */,
 				87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */,
 			);
@@ -417,11 +420,11 @@
 		87C85E2C276F65D6001C9C4A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				87C85E4F276F67C5001C9C4A /* LoginViewController.swift */,
-				87C85E51276F67D7001C9C4A /* CertificationViewController.swift */,
+				87EA7FF327855FB100B6EFC3 /* StartViewController.swift */,
 				87C85E55276F67F8001C9C4A /* SurveyViewController.swift */,
 				87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */,
 				25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */,
+				87C85E4F276F67C5001C9C4A /* LoginViewController.swift */,
 				87EA7FF12785475000B6EFC3 /* ServiceInfoViewController.swift */,
 				87C85E59276F6836001C9C4A /* UseCase */,
 				87C85E5A276F683E001C9C4A /* CollecitonViews */,
@@ -869,6 +872,7 @@
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
 				87C85EDF276F6E47001C9C4A /* Problem.swift in Sources */,
+				87EA7FF427855FB100B6EFC3 /* StartViewController.swift in Sources */,
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
