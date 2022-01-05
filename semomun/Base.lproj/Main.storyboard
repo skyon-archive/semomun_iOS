@@ -504,7 +504,7 @@
         <!--Login View Controller-->
         <scene sceneID="9dC-5t-0U3">
             <objects>
-                <viewController storyboardIdentifier="StartViewController" id="t0L-o8-wBU" customClass="LoginViewController" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="t0L-o8-wBU" customClass="LoginViewController" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N0w-cJ-p24">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -983,36 +983,18 @@
                                     <constraint firstItem="TIh-2b-VAl" firstAttribute="centerX" secondItem="PE5-y3-vpw" secondAttribute="centerX" id="yy2-zT-lZq"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eog-yT-pl3">
-                                <rect key="frame" x="641" y="854" width="70" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="9ua-X3-gv1"/>
-                                    <constraint firstAttribute="width" constant="70" id="wp8-ea-Vs3"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="-1" minY="-2" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="arrow.right" catalog="system" backgroundImage="circleButton">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextVC:" destination="3kE-Fo-1PO" eventType="touchUpInside" id="QAp-02-hQ6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1fn-Ok-Flg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5q7-FF-X95" firstAttribute="top" secondItem="1fn-Ok-Flg" secondAttribute="top" constant="120" id="fGG-RD-bkS"/>
                             <constraint firstItem="5q7-FF-X95" firstAttribute="centerX" secondItem="1fn-Ok-Flg" secondAttribute="centerX" id="l4D-zY-sMs"/>
-                            <constraint firstItem="1fn-Ok-Flg" firstAttribute="bottom" secondItem="Eog-yT-pl3" secondAttribute="bottom" constant="100" id="tvi-hE-8sP"/>
-                            <constraint firstItem="Eog-yT-pl3" firstAttribute="trailing" secondItem="IxH-RC-MmH" secondAttribute="trailing" id="un8-la-2c0"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="certification" destination="hW1-1O-Ce6" id="sc8-aU-jgd"/>
                         <outlet property="frameView" destination="5q7-FF-X95" id="rzS-ig-ZUF"/>
                         <outlet property="name" destination="MSa-eQ-kbO" id="ejD-3Z-fPA"/>
-                        <outlet property="nextButton" destination="Eog-yT-pl3" id="Py6-GQ-i0y"/>
                         <outlet property="phone" destination="HPe-nF-kH4" id="8h7-SW-Nse"/>
                         <outlet property="warningOfCertification" destination="obF-1q-vBk" id="pnH-L1-h2q"/>
                         <outlet property="warningOfCertification2" destination="63F-aK-hTp" id="j0n-oZ-Yr0"/>
@@ -2894,19 +2876,19 @@
                                     <constraint firstItem="zJ7-D0-Q4Y" firstAttribute="leading" secondItem="zUH-NR-ATc" secondAttribute="leading" constant="5" id="qX0-c8-Zs3"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRf-mX-p0C">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-Fn-gpi">
                                 <rect key="frame" x="641" y="854" width="70" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="JH8-7w-Nkj"/>
-                                    <constraint firstAttribute="height" constant="70" id="y1S-y3-aFW"/>
+                                    <constraint firstAttribute="height" constant="70" id="ar9-PL-yd9"/>
+                                    <constraint firstAttribute="width" constant="70" id="k5Y-E6-NSP"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="-1" minY="-2" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="3"/>
                                 <state key="normal" image="arrow.right" catalog="system" backgroundImage="circleButton">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                 </state>
                                 <connections>
-                                    <action selector="nextVC:" destination="I59-GP-1QD" eventType="touchUpInside" id="fZU-O2-pF2"/>
+                                    <action selector="nextVC:" destination="I59-GP-1QD" eventType="touchUpInside" id="GT9-F6-XUO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2914,7 +2896,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TeY-dB-oTk" firstAttribute="centerX" secondItem="pyJ-xB-Nrt" secondAttribute="centerX" id="85G-cv-7iB"/>
-                            <constraint firstItem="eRf-mX-p0C" firstAttribute="trailing" secondItem="K7y-V7-Qxg" secondAttribute="trailing" id="Cwv-Gt-F6x"/>
+                            <constraint firstItem="pyJ-xB-Nrt" firstAttribute="bottom" secondItem="oRB-Fn-gpi" secondAttribute="bottom" constant="100" id="DHn-st-KVe"/>
                             <constraint firstItem="zJ7-D0-Q4Y" firstAttribute="leading" secondItem="K7y-V7-Qxg" secondAttribute="leading" id="LNb-v0-ZjG"/>
                             <constraint firstItem="Cm6-YK-M0R" firstAttribute="top" secondItem="tqw-co-XuD" secondAttribute="bottom" constant="10" id="MSK-BG-3K3"/>
                             <constraint firstItem="rhr-Ft-wpD" firstAttribute="top" secondItem="pyJ-xB-Nrt" secondAttribute="top" constant="80" id="PXM-Mc-biM"/>
@@ -2923,11 +2905,11 @@
                             <constraint firstItem="K7y-V7-Qxg" firstAttribute="leading" secondItem="iqN-Yb-AjN" secondAttribute="leading" id="cBn-LB-HRm"/>
                             <constraint firstItem="Cm6-YK-M0R" firstAttribute="centerX" secondItem="pyJ-xB-Nrt" secondAttribute="centerX" id="dEq-OC-NtU"/>
                             <constraint firstItem="Cm6-YK-M0R" firstAttribute="leading" secondItem="tqw-co-XuD" secondAttribute="leading" id="dph-1I-6oi"/>
+                            <constraint firstItem="oRB-Fn-gpi" firstAttribute="trailing" secondItem="K7y-V7-Qxg" secondAttribute="trailing" id="eYh-Yv-gGo"/>
                             <constraint firstItem="K7y-V7-Qxg" firstAttribute="top" secondItem="iqN-Yb-AjN" secondAttribute="bottom" constant="10" id="iKj-21-FHt"/>
                             <constraint firstItem="tqw-co-XuD" firstAttribute="top" secondItem="TeY-dB-oTk" secondAttribute="bottom" constant="80" id="kNt-WI-MaR"/>
                             <constraint firstItem="iqN-Yb-AjN" firstAttribute="top" secondItem="Cm6-YK-M0R" secondAttribute="bottom" constant="80" id="sBa-dy-vqg"/>
                             <constraint firstItem="zUH-NR-ATc" firstAttribute="top" secondItem="K7y-V7-Qxg" secondAttribute="bottom" constant="75" id="ugz-VF-bHO"/>
-                            <constraint firstItem="pyJ-xB-Nrt" firstAttribute="bottom" secondItem="eRf-mX-p0C" secondAttribute="bottom" constant="100" id="yA5-XJ-Bux"/>
                             <constraint firstItem="TeY-dB-oTk" firstAttribute="top" secondItem="rhr-Ft-wpD" secondAttribute="bottom" constant="10" id="zZW-iK-XmK"/>
                         </constraints>
                     </view>
@@ -3402,11 +3384,14 @@
                                     <constraint firstAttribute="height" constant="70" id="GoI-1s-erY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="titleEdgeInsets" minX="-1" minY="-2" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="시작" backgroundImage="circleButton"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="3"/>
+                                <state key="normal" image="arrow.right" catalog="system" backgroundImage="circleButton">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                </state>
                                 <connections>
-                                    <action selector="completeSignup:" destination="aaR-uy-UbX" eventType="touchUpInside" id="705-8G-6dX"/>
+                                    <action selector="nextVC:" destination="aaR-uy-UbX" eventType="touchUpInside" id="2ce-ky-3cz"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8C-5B-brN">
@@ -3686,10 +3671,10 @@
             </objects>
             <point key="canvasLocation" x="2853" y="789"/>
         </scene>
-        <!--View Controller-->
+        <!--Start View Controller-->
         <scene sceneID="Hk0-gh-z7z">
             <objects>
-                <viewController id="nDc-Fz-hIK" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartViewController" id="nDc-Fz-hIK" customClass="StartViewController" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ETs-0m-tO6">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3722,6 +3707,9 @@
                                         <state key="normal" title="시작하기">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="start:" destination="nDc-Fz-hIK" eventType="touchUpInside" id="pTY-vc-awf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -3757,6 +3745,9 @@
                                         <state key="normal" title="로그인" image="chevron.right" catalog="system">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="login:" destination="nDc-Fz-hIK" eventType="touchUpInside" id="bG7-zV-xYL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
