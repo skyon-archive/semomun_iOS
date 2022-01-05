@@ -266,7 +266,17 @@ extension NetworkUsecase {
         completion(true)
     }
     
-    static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
+    static func postSectionResult(submissions: String, completion: @escaping(Bool?) -> Void) {
+        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
+        print(param)
+        completion(true)
+    }
+}
+
+// MARK: - PUT
+extension NetworkUsecase {
+    static func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
+        guard let nickName = userInfo.nickName else { return }
         let newUserInfo = UserInfo()
         newUserInfo.setValues(userInfo: userInfo)
         guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
@@ -276,7 +286,7 @@ extension NetworkUsecase {
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
         
-        Network.post(url: URL.users, param: param) { requestResult in
+        Network.put(url: URL.users+"\(nickName)", param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR)
@@ -288,16 +298,13 @@ extension NetworkUsecase {
                 return
             } else if statusCode != 200 {
                 print("Error: \(statusCode)")
+                if let data = requestResult.data {
+                    print(String(data: data, encoding: .utf8))
+                }
                 completion(.ERROR)
                 return
             }
             completion(.SUCCESS)
         }
-    }
-    
-    static func postSectionResult(submissions: String, completion: @escaping(Bool?) -> Void) {
-        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
-        print(param)
-        completion(true)
     }
 }
