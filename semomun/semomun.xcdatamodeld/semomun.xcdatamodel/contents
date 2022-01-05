@@ -64,7 +64,7 @@
         <attribute name="nickName" optional="YES" attributeType="String"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String"/>
         <attribute name="schoolName" optional="YES" attributeType="String"/>
-        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="uid" optional="YES" attributeType="String"/>
         <attribute name="userImage" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>

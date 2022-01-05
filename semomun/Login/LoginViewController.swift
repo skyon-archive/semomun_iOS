@@ -103,19 +103,21 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
 }
 
 extension LoginViewController {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print(error)
-    }
-    
-    private func saveUserinKeychain(_ userIdentifier: String) {
-        do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").saveItem(userIdentifier)
-        } catch {
-            print("Unable to save userIdentifier to keychain.")
+    private func processLogin(with isUser: Bool) {
+        if !isUser {
+            if self.signupInfo == nil {
+                self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.")
+            }
+            self.signupInfo?.configureNickname(to: nil)
+            self.signupInfo?.configureName(to: nil)
+            self.signupInfo?.configurePhone(to: nil)
+            self.registerUser()
+        } else {
+            if self.signupInfo != nil {
+                self.getUserInfoByUser()
+            } else {
+                self.getUserInfo()
+            }
         }
     }
     
@@ -134,34 +136,87 @@ extension LoginViewController {
         }
     }
     
-    private func getUserInfo() {
-        NetworkUsecase.getUserInfo() { [weak self] userInfo in
-            guard let userInfo = userInfo,
-                  let _ = userInfo.uid else {
-                self?.showAlertWithOK(title: "네트워크 통신 에러", text: "회원정보를 불러오는데 실패하였습니다.")
-                return
+    private func registerUser() {
+        guard let userInfo = self.signupInfo else { return }
+        NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] status in
+            switch status {
+            case .SUCCESS:
+                self?.getUserInfo()
+            case .INSPECTION:
+                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+            default:
+                self?.showAlertWithOK(title: "회원가입 실패", text: "정보를 확인 후 다시 시도하시기 바랍니다.")
             }
-            CoreUsecase.createUserCoreData(userInfo: userInfo)
-            UserDefaults.standard.setValue(userInfo.favoriteCategory, forKey: "currentCategory")
-            UserDefaults.standard.setValue(true, forKey: "logined")
-            self?.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
-                self?.goMainVC()
-            })
         }
     }
     
-    private func processLogin(with isUser: Bool) {
-        if !isUser {
-            if self.signupInfo == nil {
-                self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.")
+    private func getUserInfo() {
+        NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
+            switch status {
+            case .SUCCESS:
+                self?.saveUserInfo(to: userInfo)
+                self?.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
+                    self?.goMainVC()
+                })
+            case .DECODEERROR:
+                self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+            case .INSPECTION:
+                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+            default:
+                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
             }
-            // POST /register
-        } else {
-            if self.signupInfo != nil {
-                // POST /user/self
-            } else {
-                self.getUserInfo()
+        }
+    }
+    
+    private func getUserInfoByUser() {
+        NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
+            switch status {
+            case .SUCCESS:
+                guard let uid = userInfo?.uid else {
+                    print("uid Error")
+                    self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "")
+                    return
+                }
+                self?.signupInfo?.configureUid(to: uid)
+                self?.updateUserInfo()
+            case .DECODEERROR:
+                self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+            case .INSPECTION:
+                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+            default:
+                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
             }
+        }
+    }
+    
+    private func saveUserInfo(to userInfo: UserInfo?) {
+        print(userInfo?.uid)
+        CoreUsecase.createUserCoreData(userInfo: userInfo)
+        UserDefaults.standard.setValue(userInfo?.favoriteCategory, forKey: "currentCategory")
+        UserDefaults.standard.setValue(true, forKey: "logined")
+        self.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
+            self?.goMainVC()
+        })
+    }
+    
+    private func updateUserInfo() {
+        // POST /user/self
+        self.saveUserInfo(to: self.signupInfo)
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error)
+    }
+    
+    private func saveUserinKeychain(_ userIdentifier: String) {
+        do {
+            try KeychainItem(service: "com.skyon.semomoonService", account: "userIdentifier").saveItem(userIdentifier)
+        } catch {
+            print("Unable to save userIdentifier to keychain.")
         }
     }
 }
