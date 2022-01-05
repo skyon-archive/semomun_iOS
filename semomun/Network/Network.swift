@@ -50,31 +50,19 @@ class Network {
         }
         task.resume()
     }
-    
-//    static func getWithBody(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
-//        print(url, param)
-//        guard let url = URL(string: url) else { return }
-//        let jsonData = try? JSONSerialization.data(withJSONObject: param)
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.httpBody = jsonData
-//
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let response = response as? HTTPURLResponse else {
-//                print("Error: response")
-//                let result = RequestResult(statusCode: 400, data: nil)
-//                completion(result)
-//                return
-//            }
-//            let result = RequestResult(statusCode: response.statusCode, data: data)
-//            completion(result)
-//        }
-//        task.resume()
-//    }
 
     static func post(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
         print(url, param)
         AF.request(url, method: .post, parameters: param).responseJSON { response in
+            let result = RequestResult(statusCode: response.response?.statusCode, data: response.data)
+            print(response.response?.statusCode)
+            completion(result)
+        }.resume()
+    }
+    
+    static func put(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
+        print(url, param)
+        AF.request(url, method: .put, parameters: param).responseJSON { response in
             let result = RequestResult(statusCode: response.response?.statusCode, data: response.data)
             print(response.response?.statusCode)
             completion(result)
