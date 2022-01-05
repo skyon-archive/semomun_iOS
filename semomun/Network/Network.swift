@@ -30,7 +30,7 @@ class Network {
         }.resume()
     }
     
-    static func get(url: String, param: [String: String], completion: @escaping(Data?) -> Void) {
+    static func getWithQeuryItems(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
         let queryItems = param.map { URLQueryItem(name: $0.key, value: $0.value ) }
         guard var components = URLComponents(string: url) else { return }
         components.queryItems = queryItems
@@ -39,16 +39,35 @@ class Network {
         
         let request = URLRequest(url: dbURL)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                completion(nil)
+            guard let response = response as? HTTPURLResponse else {
+                print("Error: response")
+                let result = RequestResult(statusCode: 400, data: nil)
+                completion(result)
                 return
             }
-            
-            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            let result = RequestResult(statusCode: response.statusCode, data: data)
+            completion(result)
+        }
+        task.resume()
+    }
+    
+    static func getWithBody(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void) {
+        print(url, param)
+        guard let url = URL(string: url) else { return }
+        let jsonData = try? JSONSerialization.data(withJSONObject: param)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let response = response as? HTTPURLResponse else {
+                print("Error: response")
+                let result = RequestResult(statusCode: 400, data: nil)
+                completion(result)
                 return
             }
-            completion(data)
+            let result = RequestResult(statusCode: response.statusCode, data: data)
+            completion(result)
         }
         task.resume()
     }

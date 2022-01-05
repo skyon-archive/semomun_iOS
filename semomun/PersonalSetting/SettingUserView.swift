@@ -207,24 +207,23 @@ struct SettingUserView: View {
         userInfo.setValue(self.selectedMajor, forKey: "major")
         userInfo.setValue(self.selectedMajorDetail, forKey: "majorDetail")
         userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
+        
         NetworkUsecase.postUserInfoUpdate(userInfo: userInfo) { status in
-            guard let status = status else {
-                self.activeAlert = .fail
-                self.presentAlert = true
-                print("회원정보 업데이트 실패")
-                return
-            }
-            if status {
-                CoreDataManager.saveCoreData()
-                NotificationCenter.default.post(name: .updateCategory, object: nil)
-                self.delegate?.loadData()
-                self.activeAlert = .success
-                self.presentAlert = true
-            } else {
-                self.activeAlert = .fail
-                self.presentAlert = true
-                print("회원정보 업데이트 실패")
-                return
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    CoreDataManager.saveCoreData()
+                    NotificationCenter.default.post(name: .updateCategory, object: nil)
+                    self.delegate?.loadData()
+                    self.activeAlert = .success
+                    self.presentAlert = true
+                case .INSPECTION: //TODO: 다른 메세지로 표시 필요
+                    self.activeAlert = .fail
+                    self.presentAlert = true
+                default:
+                    self.activeAlert = .fail
+                    self.presentAlert = true
+                }
             }
         }
     }

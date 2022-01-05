@@ -44,7 +44,7 @@ class UserInfo: Codable, CustomStringConvertible {
         if let phone = phone {
             self.phone = phone
         } else {
-            self.phone = "01000000000"
+            self.phone = String.randomPhoneNumber
         }
     }
     
