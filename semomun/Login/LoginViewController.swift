@@ -139,52 +139,76 @@ extension LoginViewController {
     private func registerUser() {
         guard let userInfo = self.signupInfo else { return }
         NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] status in
-            switch status {
-            case .SUCCESS:
-                self?.getUserInfo()
-            case .INSPECTION:
-                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
-            default:
-                self?.showAlertWithOK(title: "회원가입 실패", text: "정보를 확인 후 다시 시도하시기 바랍니다.")
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    self?.getUserInfo()
+                case .INSPECTION:
+                    self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+                default:
+                    self?.showAlertWithOK(title: "회원가입 실패", text: "정보를 확인 후 다시 시도하시기 바랍니다.")
+                }
             }
         }
     }
     
     private func getUserInfo() {
         NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
-            switch status {
-            case .SUCCESS:
-                self?.saveUserInfo(to: userInfo)
-                self?.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
-                    self?.goMainVC()
-                })
-            case .DECODEERROR:
-                self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
-            case .INSPECTION:
-                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
-            default:
-                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    self?.saveUserInfo(to: userInfo)
+                case .DECODEERROR:
+                    self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+                case .INSPECTION:
+                    self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+                default:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+                }
             }
         }
     }
     
     private func getUserInfoByUser() {
         NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
-            switch status {
-            case .SUCCESS:
-                guard let uid = userInfo?.uid else {
-                    print("uid Error")
-                    self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "")
-                    return
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    guard let uid = userInfo?.uid else {
+                        print("uid Error")
+                        self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "")
+                        return
+                    }
+                    self?.signupInfo?.configureUid(to: uid)
+                    self?.updateUserInfo()
+                case .DECODEERROR:
+                    self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+                case .INSPECTION:
+                    self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+                default:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
                 }
-                self?.signupInfo?.configureUid(to: uid)
-                self?.updateUserInfo()
-            case .DECODEERROR:
-                self?.showAlertWithOK(title: "유저 정보 수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
-            case .INSPECTION:
-                self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
-            default:
-                self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
+            }
+        }
+    }
+    
+    private func updateUserInfo() {
+        CoreUsecase.createUserCoreData(userInfo: self.signupInfo)
+        guard let coreUserInfo = CoreUsecase.fetchUserInfo() else {
+            self.showAlertWithOK(title: "CoreData 에러", text: "사용자 정보를 읽을 수 없습니다.")
+            return
+        }
+        
+        NetworkUsecase.postUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
+            DispatchQueue.main.async {
+                switch status {
+                case .SUCCESS:
+                    self?.saveUserInfo(to: self?.signupInfo)
+                case .INSPECTION:
+                    self?.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+                default:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "사용자 정보 업데이트에 실패하였습니다.")
+                }
             }
         }
     }
@@ -197,11 +221,6 @@ extension LoginViewController {
         self.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
             self?.goMainVC()
         })
-    }
-    
-    private func updateUserInfo() {
-        // POST /user/self
-        self.saveUserInfo(to: self.signupInfo)
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
