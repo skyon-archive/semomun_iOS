@@ -160,7 +160,7 @@ class NetworkUsecase {
         let url = URL.users+"self"
         let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
         
-        Network.getWithBody(url: url, param: param) { requestResult in
+        Network.getWithQeuryItems(url: url, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, nil)
