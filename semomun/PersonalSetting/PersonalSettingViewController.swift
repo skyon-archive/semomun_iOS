@@ -44,6 +44,7 @@ class PersonalSettingViewController: UIViewController {
 extension PersonalSettingViewController: ReloadUserData {
     func loadData() {
         let userInfo = CoreUsecase.fetchUserInfo()
+        print(userInfo)
         self.userName.text = userInfo?.name
         self.phoneNumber.text = userInfo?.phoneNumber
         self.favoriteCategory.text = userInfo?.favoriteCategory
