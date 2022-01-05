@@ -39,10 +39,10 @@ class PersonalInfoViewController: UIViewController {
         self.title = "회원가입"
     }
     
-    @IBAction func completeSignup(_ sender: Any) {
+    @IBAction func nextVC(_ sender: Any) {
         if self.isValidForSignUp {
             self.signUpInfo?.configureNickname()
-            self.configureSignupInfo()
+            self.goToNext()
         } else {
             self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
         }
@@ -146,28 +146,17 @@ extension PersonalInfoViewController {
         return self.states.allSatisfy({$0})
     }
     
-    private func configureSignupInfo() {
-        guard let userInfo = self.signUpInfo else { return }
-        NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] success in
-            guard let success = success else {
-                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도해주시기 바랍니다.")
-                return
-            }
-            if success {
-                self?.showAlertOKWithClosure(title: "회원가입이 완료되었습니다", text: "", completion: { [weak self] _ in
-                    CoreUsecase.createUserCoreData(userInfo: self?.signUpInfo)
-                    self?.configureUserDefaults()
-                    self?.goMainVC()
-                })
-            } else {
-                self?.showAlertWithOK(title: "회원가입 실패", text: "다시 시도해주시기 바랍니다.")
-            }
-        }
-    }
-    
     private func configureUserDefaults() {
         guard let currentCategory = self.signUpInfo?.favoriteCategory else { return }
         UserDefaults.standard.setValue(currentCategory, forKey: "currentCategory")
         UserDefaults.standard.setValue(true, forKey: "logined")
+    }
+    
+    private func goToNext() {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: LoginViewController.identifier) as? LoginViewController else { return }
+        nextVC.signupInfo = self.signUpInfo
+        
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

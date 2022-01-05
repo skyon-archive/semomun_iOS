@@ -40,6 +40,13 @@ class NetworkUsecase {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
+    enum NetworkStatus {
+        case SUCCESS //200
+        case FAIL
+        case ERROR
+        case INSPECTION //504
+        case DECODEERROR
+    }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
         Network.get(url: URL.workbooks, param: param) { data in
@@ -190,30 +197,32 @@ class NetworkUsecase {
 
 // MARK: - POST
 extension NetworkUsecase {
-    static func postCheckUser(userToken: String, completion: @escaping(Bool?) -> Void) {
-        completion(true)
+    static func postCheckUser(userToken: String, completion: @escaping(NetworkStatus,Bool) -> Void) {
         let param = ["token": userToken]
         Network.post(url: URL.checkUser, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
-                completion(nil)
+                completion(.ERROR, false)
                 return
             }
-            if statusCode != 200 {
-                completion(nil)
+            if statusCode == 504 {
+                completion(.INSPECTION, false)
+                return
+            } else if statusCode != 200 {
+                completion(.ERROR, false)
                 return
             }
             guard let data = requestResult.data else {
                 print("Error: no data")
-                completion(nil)
+                completion(.ERROR, false)
                 return
             }
             guard let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
                 print("Error: Decode")
-                completion(nil)
+                completion(.DECODEERROR, false)
                 return
             }
-            completion(validate.check)
+            completion(.SUCCESS, validate.check)
         }
     }
     
@@ -230,13 +239,14 @@ extension NetworkUsecase {
                 completion(nil)
                 return
             }
+            if let data = requestResult.data {
+                print(String(data: data, encoding: .utf8))
+            }
             if statusCode == 200 {
+                
                 completion(true)
                 return
             } else {
-                if let data = requestResult.data {
-                    print(String(data: data, encoding: .utf8))
-                }
                 completion(false)
                 return
             }

@@ -10,7 +10,9 @@ import AuthenticationServices
 import GoogleSignIn
 
 class LoginViewController: UIViewController {
-    static let identifier = "StartViewController"
+    static let identifier = "LoginViewController"
+    
+    var signupInfo: UserInfo?
     
     @IBOutlet weak var semomunTitle: UILabel!
     private let buttonWidth: CGFloat = 230
@@ -77,16 +79,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user // 유저별 상수값
             let token = appleIDCredential.identityToken // 할때마다 생성되는 token 값 (변동있음)
-            print(userIdentifier)
-            print(String(data: token!, encoding: .utf8)!)
             
-            self.tokenSignInWithApple(idToken: String(data: token!, encoding: .utf8)!) { [weak self] isUser in
+            self.checkUser(idToken: String(data: token!, encoding: .utf8)!) { [weak self] isUser in
                 self?.saveUserinKeychain(userIdentifier)
-                if isUser {
-                    self?.getUserInfo()
-                } else {
-                    self?.showNextVC()
-                }
+                self?.processLogin(with: isUser)
             }
         default: break
         }
@@ -97,17 +93,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             guard error == nil else{return}
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
-            print(user.userID!) // 모든 사용자가 같은 값인듯
-            print(authentication.clientID) // 유저별 상수값
-            print(idToken) // 할때마다 생성되는 token 값 (변동있음)
             
-            self.tokenSignInWithGoogle(idToken: idToken) { [weak self] isUser in
+            self.checkUser(idToken: idToken) { [weak self] isUser in
                 self?.saveUserinKeychain(idToken)
-                if isUser {
-                    self?.getUserInfo()
-                } else {
-                    self?.showNextVC()
-                }
+                self?.processLogin(with: isUser)
             }
         }
     }
@@ -130,25 +119,18 @@ extension LoginViewController {
         }
     }
     
-    func tokenSignInWithApple(idToken: String, completion: @escaping(Bool) -> Void) {
-        NetworkUsecase.postCheckUser(userToken: idToken) { isUser in
-            guard let isUser = isUser else {
-                print("nil error")
+    func checkUser(idToken: String, completion: @escaping(Bool) -> Void) {
+        NetworkUsecase.postCheckUser(userToken: idToken) { result, isUser in
+            switch result {
+            case .SUCCESS:
+                completion(isUser)
+            case .DECODEERROR:
+                self.showAlertWithOK(title: "수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+            case .INSPECTION:
+                self.showAlertWithOK(title: "서버 점검중", text: "추후 다시 시도하시기 바랍니다.")
+            default:
                 self.showAlertWithOK(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.")
-                return
             }
-            completion(isUser)
-        }
-    }
-    
-    func tokenSignInWithGoogle(idToken: String, completion: @escaping(Bool) -> Void) {
-        NetworkUsecase.postCheckUser(userToken: idToken) { isUser in
-            guard let isUser = isUser else {
-                print("nil error")
-                self.showAlertWithOK(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.")
-                return
-            }
-            completion(isUser)
         }
     }
     
@@ -165,6 +147,21 @@ extension LoginViewController {
             self?.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
                 self?.goMainVC()
             })
+        }
+    }
+    
+    private func processLogin(with isUser: Bool) {
+        if !isUser {
+            if self.signupInfo == nil {
+                self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.")
+            }
+            // POST /register
+        } else {
+            if self.signupInfo != nil {
+                // POST /user/self
+            } else {
+                self.getUserInfo()
+            }
         }
     }
 }
