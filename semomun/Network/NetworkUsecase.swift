@@ -26,6 +26,7 @@ class NetworkUsecase {
         static let register: String = base + "/register"
         static let postPhone: String = register + "/auth"
         static let verifyPhone: String = register + "/verify"
+        static let users: String = base + "/users"
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
@@ -52,15 +53,15 @@ class NetworkUsecase {
     }
     
     static func downloadImage(url: String, hander: @escaping(Data) -> ()) {
-        Network.get(url: url) { data in
-            guard let data = data else { return }
+        Network.get(url: url) { requestResult in
+            guard let data = requestResult.data else { return }
             hander(data)
         }
     }
     
     static func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
-        Network.get(url: URL.workbookDirectory(wid)) { data in
-            guard let data = data else { return }
+        Network.get(url: URL.workbookDirectory(wid)) { requestResult in
+            guard let data = requestResult.data else { return }
             guard let searchWorkbook: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) else {
                 print("Error: Decode")
                 return
@@ -70,8 +71,8 @@ class NetworkUsecase {
     }
     
     static func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
-        Network.get(url: URL.sectionDirectory(sid)) { data in
-            guard let data = data else { return }
+        Network.get(url: URL.sectionDirectory(sid)) { requestResult in
+            guard let data = requestResult.data else { return }
             guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {
                 print("Error: Decode")
                 return
@@ -81,14 +82,14 @@ class NetworkUsecase {
     }
     
     static func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
-        Network.get(url: url) { data in
-            handler(data)
+        Network.get(url: url) { requestResult in
+            handler(requestResult.data)
         }
     }
     
     static func getCategorys(completion: @escaping([String]?) -> Void) {
-        Network.get(url: URL.categorys) { data in
-            guard let data = data else {
+        Network.get(url: URL.categorys) { requestResult in
+            guard let data = requestResult.data else {
                 completion(nil)
                 return
             }
@@ -102,8 +103,8 @@ class NetworkUsecase {
     }
     
     static func getMajors(completion: @escaping([[String: [String]]]?) -> Void) {
-        Network.get(url: URL.majors) { data in
-            guard let data = data else {
+        Network.get(url: URL.majors) { requestResult in
+            guard let data = requestResult.data else {
                 completion(nil)
                 return
             }
@@ -148,7 +149,7 @@ class NetworkUsecase {
         }
     }
     
-    static func getUserInfo(param: [String: String], completion: @escaping(UserInfo?) -> Void) {
+    static func getUserInfo(completion: @escaping(UserInfo?) -> Void) {
         guard let url = Bundle.main.url(forResource: "dummyUserInfo", withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
                   completion(nil)
@@ -160,15 +161,49 @@ class NetworkUsecase {
             return
         }
         completion(userInfo)
+        
+//        let url = URL.users + "/\(KeychainItem.currentUserIdentifier)"
+//        Network.get(url: url) { requestResult in
+//            guard let statusCode = requestResult.statusCode else {
+//                print("Error: no statusCode")
+//                completion(nil)
+//                return
+//            }
+//            if statusCode != 200 {
+//                completion(nil)
+//                return
+//            }
+//            guard let data = requestResult.data else {
+//                print("Error: no data")
+//                completion(nil)
+//                return
+//            }
+//            guard let json = try? JSONDecoder().decode(UserInfo.self, from: data) else {
+//                print("Error: Decode")
+//                completion(nil)
+//                return
+//            }
+//            completion(json)
+//        }
     }
 }
 
 // MARK: - POST
 extension NetworkUsecase {
     static func postCheckUser(userToken: String, completion: @escaping(Bool?) -> Void) {
+        completion(true)
         let param = ["token": userToken]
-        Network.post(url: URL.checkUser, param: param) { data in
-            guard let data = data else {
+        Network.post(url: URL.checkUser, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(nil)
+                return
+            }
+            if statusCode != 200 {
+                completion(nil)
+                return
+            }
+            guard let data = requestResult.data else {
                 print("Error: no data")
                 completion(nil)
                 return
@@ -183,48 +218,37 @@ extension NetworkUsecase {
     }
     
     static func postUserSignup(userInfo: UserInfo, completion: @escaping(Bool?) -> Void) {
-        completion(true)
         guard let jsonData = try? JSONEncoder().encode(userInfo) else {
             print("Encode Error")
             return
         }
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        Network.post(url: URL.register, param: param) { data in
-            guard let data = data else {
-                print("Error: no data")
+        Network.post(url: URL.register, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
                 completion(nil)
                 return
             }
-            print(String(data: data, encoding: .utf8))
-            completion(true)
+            if statusCode == 200 {
+                completion(true)
+                return
+            } else {
+                if let data = requestResult.data {
+                    print(String(data: data, encoding: .utf8))
+                }
+                completion(false)
+                return
+            }
         }
     }
     
     static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
         completion(true)
-        Network.post(url: URL.postPhone, param: ["phone" : phone]) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
-            print(String(data: data, encoding: .utf8))
-            completion(true)
-        }
     }
     
     static func postCheckCertification(with certifi: String, phone: String, completion: @escaping(Bool?) -> Void) {
         completion(true)
-        Network.post(url: URL.verifyPhone, param: ["phone" : phone, "code": certifi]) { data in
-            guard let data = data else {
-                print("Error: no data")
-                completion(nil)
-                return
-            }
-            print(String(data: data, encoding: .utf8))
-            completion(true)
-        }
     }
     
     static func postUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(Bool?) -> Void) {

@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.screenProtecter.startPreventingRecording()
-        self.screenProtecter.startPreventingScreenshot()
+//        self.screenProtecter.startPreventingRecording()
+//        self.screenProtecter.startPreventingScreenshot()
         
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {

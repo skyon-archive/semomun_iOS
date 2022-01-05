@@ -150,7 +150,7 @@ extension PersonalInfoViewController {
         guard let userInfo = self.signUpInfo else { return }
         NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] success in
             guard let success = success else {
-                print("nil data")
+                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도해주시기 바랍니다.")
                 return
             }
             if success {
