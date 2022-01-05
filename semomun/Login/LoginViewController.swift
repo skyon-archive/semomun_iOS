@@ -28,8 +28,9 @@ class LoginViewController: UIViewController {
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        authorizationButton.addTarget(self, action: #selector(appleSignInButtonPressed), for: .touchUpInside)
+        authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         authorizationButton.cornerRadius = self.buttonRadius
+        authorizationButton.tag = 0
         
         self.configureLayoutAppleButton(with: authorizationButton)
     }
@@ -38,10 +39,18 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.style = .wide
         googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        googleSignInButton.addTarget(self, action: #selector(googleSignInButtonPressed), for: .touchUpInside)
+        googleSignInButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
+        googleSignInButton.tag = 1
         
         self.configureLayoutGooleButton(with: googleSignInButton)
+    }
+    
+    @objc func showServiceInfoView(_ sender: UIButton) {
+        guard let serviceInfoVC = self.storyboard?.instantiateViewController(withIdentifier: ServiceInfoViewController.identifier) as? ServiceInfoViewController else { return }
+        serviceInfoVC.tag = sender.tag
+        serviceInfoVC.delegate = self
+        self.present(serviceInfoVC, animated: true, completion: nil)
     }
 
     @objc func appleSignInButtonPressed() {
@@ -198,5 +207,15 @@ extension LoginViewController {
             button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 270),
             button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
         ])
+    }
+}
+
+extension LoginViewController: RegisgerServiceSelectable {
+    func appleLogin() {
+        self.appleSignInButtonPressed()
+    }
+    
+    func googleLogin() {
+        self.googleSignInButtonPressed()
     }
 }
