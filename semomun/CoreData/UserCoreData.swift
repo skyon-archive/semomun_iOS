@@ -25,7 +25,7 @@ extension UserCoreData {
     @NSManaged public var schoolName: String?
     @NSManaged public var graduationStatus: String?
     @NSManaged public var userImage: Data?
-    @NSManaged public var uid: Int64
+    @NSManaged public var uid: String?
 }
 
 extension UserCoreData : Identifiable {
@@ -49,7 +49,7 @@ public class UserCoreData: NSManagedObject {
         self.setValue(userInfo.birthday, forKey: "birthday")
         self.setValue(userInfo.school, forKey: "schoolName")
         self.setValue(userInfo.graduationStatus, forKey: "graduationStatus")
-        self.setValue(userInfo.uid!, forKey: "uid")
+        self.setValue(userInfo.uid, forKey: "uid")
     }
     
     func setUserImage(imageData: Data) {

@@ -21,19 +21,31 @@ class UserInfo: Codable, CustomStringConvertible {
     var birthday: String?
     var school: String?
     var graduationStatus: String?
-    var uid: Int?
+    var uid: String?
     var profileImage: Data?
     
-    func configureName(to name: String) {
-        self.name = name
+    func configureName(to name: String?) {
+        if let name = name {
+            self.name = name
+        } else {
+            self.name = self.nickName
+        }
     }
     
-    func configureNickname() {
-        self.nickName = "User" + String.randomUserNumber
+    func configureNickname(to nickName: String?) {
+        if let nickName = nickName {
+            self.nickName = nickName
+        } else {
+            self.nickName = "User" + String.randomUserNumber
+        }
     }
     
-    func configurePhoneNumber(to phoneNumber: String) {
-        self.phone = phoneNumber
+    func configurePhone(to phone: String?) {
+        if let phone = phone {
+            self.phone = phone
+        } else {
+            self.phone = "01000000000"
+        }
     }
     
     func configureGender(to gender: String) {
@@ -62,6 +74,10 @@ class UserInfo: Codable, CustomStringConvertible {
     
     func configureGraduation(to status: String) {
         self.graduationStatus = status
+    }
+    
+    func configureUid(to uid: String) {
+        self.uid = uid
     }
     
     var isValidSurvay: Bool {
