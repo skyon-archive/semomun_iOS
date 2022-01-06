@@ -36,15 +36,15 @@ class SideMenuCell: UITableViewCell {
     private func configureDumyImageView(with title: String) {
         var iconName: String = "none"
         switch title {
-        case "수능 및 모의고사":
+        case "수능모의고사":
             iconName = "suneung"
-        case "LEET":
+        case "법학적성시험":
             iconName = "LEET"
-        case "공인회계사":
+        case "공인회계사시험":
             iconName = "cpa"
-        case "공인중개사":
+        case "공인중개사시험":
             iconName = "lrea"
-        case "9급 공무원":
+        case "국가직9급공무원":
             iconName = "gosi"
         default:
             iconName = "none"
