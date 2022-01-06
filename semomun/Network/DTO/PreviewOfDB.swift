@@ -17,16 +17,11 @@ struct SearchPreview: Codable, CustomStringConvertible {
 }
 
 struct PreviewOfDB: Codable, CustomStringConvertible {
+    var description: String {
+        return "(\(wid), \(title), \(bookcover))"
+    }
+    
     var wid: Int
     var title: String
-    var image: String
-    
-    enum CodingKeys: String, CodingKey {
-        case wid, title
-        case image = "bookcover"
-    }
-    
-    var description: String {
-        return "(\(wid), \(title), \(image))"
-    }
+    var bookcover: String
 }
