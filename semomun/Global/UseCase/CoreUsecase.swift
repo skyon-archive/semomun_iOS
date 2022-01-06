@@ -311,9 +311,27 @@ struct CoreUsecase {
         return Array(Set(dumlicatedVids)).sorted(by: < )
     }
     
+    static func deleteAllCoreData() {
+        guard let allPreviews = CoreUsecase.fetchAllPreviews() else {
+            print("Error: fetch all preview")
+            return
+        }
+        
+        allPreviews.forEach { preview in
+            CoreUsecase.deletePreview(wid: Int(preview.wid))
+        }
+        guard let userInfo = CoreUsecase.fetchUserInfo() else {
+            print("Error: fetch userinfo")
+            return
+        }
+        CoreDataManager.shared.context.delete(userInfo)
+        CoreDataManager.saveCoreData()
+        print("userInfo delete complete")
+    }
+    
     static func deletePreview(wid: Int) {
         guard let targetPreview = CoreUsecase.fetchPreview(wid: wid) else {
-            print("fetch preview error")
+            print("Error: fetch preview")
             return
         }
         var targetCoreDatas: [NSManagedObject] = []
