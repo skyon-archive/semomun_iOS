@@ -33,11 +33,11 @@ class SearchWorkbookManager {
     }
     
     func imageURL(at: Int) -> String {
-        let url = NetworkUsecase.URL.bookcovoerImageDirectory(imageScale) + preview(at: at).image
+        let url = NetworkUsecase.URL.bookcovoerImageDirectory(imageScale) + preview(at: at).bookcover
         return url
     }
     
-    func queryStringOfPreviews() -> [String: String] {
+    private var queryStringOfPreviews: [String: String] {
         var queryItems: [String: String] = [:]
         self.queryDic.forEach {
             if($0.value != nil) { queryItems[$0.key] = $0.value }
@@ -46,10 +46,9 @@ class SearchWorkbookManager {
     }
     
     func loadPreviews(completion: @escaping ()->Void) {
-        NetworkUsecase.downloadPreviews(param: queryStringOfPreviews()) { searchPreview in
+        NetworkUsecase.downloadPreviews(param: self.queryStringOfPreviews) { searchPreview in
             let previews = searchPreview.workbooks
             self.loadedPreviews = previews.filter { !self.filter.contains($0.wid) }
-            print(self.loadedPreviews)
             completion()
         }
     }

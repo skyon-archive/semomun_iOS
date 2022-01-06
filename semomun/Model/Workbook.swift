@@ -14,7 +14,7 @@ class Workbook_Real {
     
     init(workBook: WorkbookOfDB) {
         self.workBook = workBook
-        self.url = URL(string: workBook.image)!
+        self.url = URL(string: workBook.bookcover)!
         self.imageData = Data()
         loadImage()
     }
@@ -28,7 +28,7 @@ class Workbook_Real {
     }
     
     func convertToPreview() -> PreviewOfDB {
-        let preview = PreviewOfDB(wid: workBook.wid, title: workBook.title, image: workBook.image)
+        let preview = PreviewOfDB(wid: workBook.wid, title: workBook.title, bookcover: workBook.bookcover)
         return preview
     }
 }
