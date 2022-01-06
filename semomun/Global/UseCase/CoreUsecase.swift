@@ -33,7 +33,7 @@ struct CoreUsecase {
             completion(nil)
             return
         }
-        guard let sectionHeader = loadSectionHeader(sid: sid) else {
+        guard let sectionHeader = fetchSectionHeader(sid: sid) else {
             completion(nil)
             return
         }
@@ -113,21 +113,6 @@ struct CoreUsecase {
             section.setValues(header: header, buttons: buttons, dict: dict)
             completion(section)
         }
-    }
-    
-    static func loadSectionHeader(sid: Int) -> SectionHeader_Core? {
-        let fetchRequest: NSFetchRequest<SectionHeader_Core> = SectionHeader_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "sid = %@", "\(sid)")
-        
-        if let sectionHeaders = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let sectionHeader = sectionHeaders.first else {
-                print("Error: not exist SectionHeader of \(sid)")
-                return nil
-            }
-            print("loaded: \(sectionHeader)")
-            return sectionHeader
-        }
-        return nil
     }
     
     static func createMockDataForMulty() {
@@ -219,6 +204,28 @@ struct CoreUsecase {
         print("MOCK SAVE COMPLETE")
     }
     
+    static func fetchSectionHeader(sid: Int) -> SectionHeader_Core? {
+        let fetchRequest: NSFetchRequest<SectionHeader_Core> = SectionHeader_Core.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "sid = %@", "\(sid)")
+        
+        if let sectionHeaders = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return sectionHeaders.first
+        } else {
+            print("Error: fetch sectionHeader")
+            return nil
+        }
+    }
+    
+    static func fetchAllPreviews() -> [Preview_Core]? {
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return previews
+        } else {
+            print("Error: fetch all previews")
+            return nil
+        }
+    }
+    
     static func fetchPreviews(subject: String, category: String) -> [Preview_Core]? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         var filters: [NSPredicate] = []
@@ -231,6 +238,7 @@ struct CoreUsecase {
         if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
             return previews
         } else {
+            print("Error: fetch previews")
             return nil
         }
     }
@@ -241,9 +249,9 @@ struct CoreUsecase {
         fetchRequest.predicate = filter
         
         if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let section = fetches.first else { return nil }
-            return section
+            return fetches.first
         } else {
+            print("Error: fetch preview")
             return nil
         }
     }
@@ -254,9 +262,9 @@ struct CoreUsecase {
         fetchRequest.predicate = filter
         
         if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let section = fetches.first else { return nil }
-            return section
+            return fetches.first
         } else {
+            print("Error: fetch section")
             return nil
         }
     }
@@ -267,9 +275,9 @@ struct CoreUsecase {
         fetchRequest.predicate = filter
         
         if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let section = fetches.first else { return nil }
-            return section
+            return fetches.first
         } else {
+            print("Error: fetch page")
             return nil
         }
     }
@@ -280,9 +288,9 @@ struct CoreUsecase {
         fetchRequest.predicate = filter
         
         if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let section = fetches.first else { return nil }
-            return section
+            return fetches.first
         } else {
+            print("Error: fetch problem")
             return nil
         }
     }
@@ -290,10 +298,10 @@ struct CoreUsecase {
     static func fetchUserInfo() -> UserCoreData? {
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
         
-        if let datas = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            guard let userInfo = datas.first else { return nil }
-            return userInfo
+        if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return fetches.first
         } else {
+            print("Error: fetch userInfo")
             return nil
         }
     }
@@ -308,22 +316,29 @@ struct CoreUsecase {
             print("fetch preview error")
             return
         }
+        var targetCoreDatas: [NSManagedObject] = []
+        targetCoreDatas.append(targetPreview)
         let targetSids = targetPreview.sids
+        
+        targetCoreDatas += targetSids.compactMap({ CoreUsecase.fetchSectionHeader(sid: $0) })
         targetSids.forEach { sid in
             CoreUsecase.deleteSection(sid: sid)
         }
-        CoreDataManager.shared.context.delete(targetPreview)
+        
+        targetCoreDatas.forEach { coreData in
+            CoreDataManager.shared.context.delete(coreData)
+        }
         CoreDataManager.saveCoreData()
+        print("sectionHeader delete complete")
         print("preview delete complete")
     }
     
     static func deleteSection(sid: Int) {
-        var targetCoreDatas: [NSManagedObject] = []
-        
         guard let targetSection = CoreUsecase.fetchSection(sid: sid) else {
             print("fetch section error")
             return
         }
+        var targetCoreDatas: [NSManagedObject] = []
         targetCoreDatas.append(targetSection)
         let targetVids = CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
         
