@@ -19,7 +19,9 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func userLogout(_ sender: Any) {
-        self.showAlertWithOK(title: "미지원 기능입니다", text: "업데이트로 반영될 예정입니다.")
+        self.showAlertWithClosure(title: "로그아웃 하시겠습니끼?", text: "") { [weak self] _ in
+            self?.logout()
+        }
     }
     
     @IBAction func openCustomerService(_ sender: Any) {
@@ -59,5 +61,27 @@ extension SettingViewController {
     private func popupTextViewController(title: String, text: String) {
         let vc = LongTextPopupViewController(title: title, text: text)
         present(vc, animated: true, completion: nil)
+    }
+    
+    private func logout() {
+        CoreUsecase.deleteAllCoreData()
+        KeychainItem.deleteUserIdentifierFromKeychain()
+        print("keychain delete complete")
+        let dictionary = UserDefaults.standard.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+        print("userDefaults delete complete")
+        
+        self.showAlertOKWithClosure(title: "로그아웃 되었습니다", text: "") { [weak self] _ in
+            self?.goToStartViewController()
+        }
+    }
+    
+    private func goToStartViewController() {
+        guard let startVC = self.storyboard?.instantiateViewController(withIdentifier: StartViewController.identifier) else { return }
+        let navigationController = UINavigationController(rootViewController: startVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
