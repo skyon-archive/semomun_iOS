@@ -27,7 +27,10 @@ class NetworkUsecase {
         static let postPhone: String = register + "/auth"
         static let verifyPhone: String = register + "/verify"
         static let users: String = base + "/users/"
+        
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
+        static let customerService: String = "http://pf.kakao.com/_JAxdGb"
+        static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
