@@ -23,7 +23,7 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func openCustomerService(_ sender: Any) {
-        if let url = URL(string: "http://pf.kakao.com/_JAxdGb") {
+        if let url = URL(string: NetworkUsecase.URL.customerService) {
             UIApplication.shared.open(url, options: [:])
         }
     }
@@ -32,7 +32,7 @@ class SettingViewController: UIViewController {
         guard let filepath = Bundle.main.path(forResource: "termsAndConditions", ofType: "txt") else { return }
         do {
             let text = try String(contentsOfFile: filepath)
-            self.popupTextViewController(title: "이용약관", text: text)
+            self.popupTextViewController(title: "서비스이용약관", text: text)
         } catch {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
         }
@@ -45,6 +45,12 @@ class SettingViewController: UIViewController {
             self.popupTextViewController(title: "개인정보 처리방침", text: text)
         } catch {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
+        }
+    }
+    
+    @IBAction func errorReport(_ sender: Any) {
+        if let url = URL(string: NetworkUsecase.URL.errorReport) {
+            UIApplication.shared.open(url, options: [:])
         }
     }
 }
