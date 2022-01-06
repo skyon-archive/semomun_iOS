@@ -84,33 +84,14 @@ class PreviewManager {
     }
     
     func delete(at: Int) {
-        var targetCoreDatas: [NSManagedObject] = []
-        let targetPreview = self.previews[at]
-        
         if self.previews.count == 1 && self.currentSubject != "전체" {
             self.subjects = self.subjects.filter { $0 != self.currentSubject }
             self.selectSubject(idx: 0)
         }
         
-        targetCoreDatas.append(targetPreview)
-        let targetSids = targetPreview.sids
-        
-        targetSids.compactMap({ CoreUsecase.fetchSection(sid: $0) }).forEach { targetSection in
-            targetCoreDatas.append(targetSection)
-            let targetVids = CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
-            
-            targetVids.compactMap({ CoreUsecase.fetchPage(vid: $0) }).forEach { targetPage in
-                targetCoreDatas.append(targetPage)
-                let targetProblems = targetPage.problems
-                targetCoreDatas += targetProblems.compactMap({CoreUsecase.fetchProblem(pid: $0)})
-            }
-        }
-        
-        targetCoreDatas.forEach { coreData in
-            CoreDataManager.shared.context.delete(coreData)
-        }
-        CoreDataManager.saveCoreData()
+        CoreUsecase.deletePreview(wid: Int(self.previews[at].wid))
         self.fetchPreviews()
+        
         if self.currentSubject == "전체" {
             self.fetchSubjects()
         }

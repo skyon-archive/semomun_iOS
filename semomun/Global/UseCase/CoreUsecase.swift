@@ -303,33 +303,41 @@ struct CoreUsecase {
         return Array(Set(dumlicatedVids)).sorted(by: < )
     }
     
+    static func deletePreview(wid: Int) {
+        guard let targetPreview = CoreUsecase.fetchPreview(wid: wid) else {
+            print("fetch preview error")
+            return
+        }
+        let targetSids = targetPreview.sids
+        targetSids.forEach { sid in
+            CoreUsecase.deleteSection(sid: sid)
+        }
+        CoreDataManager.shared.context.delete(targetPreview)
+        CoreDataManager.saveCoreData()
+        print("preview delete complete")
+    }
+    
     static func deleteSection(sid: Int) {
         var targetCoreDatas: [NSManagedObject] = []
-        var targetVids: [Int] = []
-        var targetPids: [Int] = []
         
-        if let targetSection = CoreUsecase.fetchSection(sid: sid) {
-            targetVids += CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
-            targetCoreDatas.append(targetSection)
+        guard let targetSection = CoreUsecase.fetchSection(sid: sid) else {
+            print("fetch section error")
+            return
         }
+        targetCoreDatas.append(targetSection)
+        let targetVids = CoreUsecase.vidsFromDictionary(dict: targetSection.dictionaryOfProblem)
         
-        targetVids.forEach { vid in
-            if let targetPage = CoreUsecase.fetchPage(vid: vid) {
-                targetPids += targetPage.problems
-                targetCoreDatas.append(targetPage)
-            }
-        }
-        
-        targetPids.forEach { pid in
-            if let targetProblem = CoreUsecase.fetchProblem(pid: pid) {
-                targetCoreDatas.append(targetProblem)
-            }
+        targetVids.compactMap({ CoreUsecase.fetchPage(vid: $0) }).forEach { targetPage in
+            targetCoreDatas.append(targetPage)
+            let targetProblems = targetPage.problems
+            targetCoreDatas += targetProblems.compactMap({ CoreUsecase.fetchProblem(pid: $0)} )
         }
         
         targetCoreDatas.forEach { coreData in
             CoreDataManager.shared.context.delete(coreData)
         }
         CoreDataManager.saveCoreData()
+        print("section delete complete")
     }
                          
     static func createUserCoreData(userInfo: UserInfo?) {
