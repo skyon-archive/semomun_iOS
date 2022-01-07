@@ -16,7 +16,7 @@ protocol LayoutDelegate: AnyObject {
     func showTime(time: Int64)
     func saveComplete()
     func showResultViewController(result: SectionResult)
-    func terminateSection(result: SectionResult, jsonString: String)
+    func terminateSection(result: SectionResult, sid: Int, jsonString: String)
     func changeResultLabel()
 }
 
@@ -273,7 +273,7 @@ class SectionManager {
                 return
             }
             guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-            self.delegate?.terminateSection(result: result, jsonString: jsonStringData)
+            self.delegate?.terminateSection(result: result, sid: Int(section.sid), jsonString: jsonStringData)
         }
     }
 }
