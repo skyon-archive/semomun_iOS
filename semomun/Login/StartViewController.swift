@@ -9,11 +9,18 @@ import UIKit
 
 class StartViewController: UIViewController {
     static let identifier = "StartViewController"
-
+    
+    @IBOutlet var loginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureLoginButton()
     }
-
+    
+    private func configureLoginButton() {
+        self.loginButton.cornerRadius = 5
+    }
+    
     @IBAction func start(_ sender: Any) {
         let signUpInfo = UserInfo()
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SurveyViewController.identifier) as? SurveyViewController else { return }

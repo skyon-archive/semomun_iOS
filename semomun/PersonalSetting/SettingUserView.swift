@@ -23,28 +23,28 @@ struct SettingUserView: View {
     @State private var schoolType: SchoolSearchUseCase.SchoolType = .high
     @State private var showUnivSearch = false
     
-    @State private var majorsWithMajorDetails: [String: [String]] = [:]
-    @State private var majors: [String] = []
+    @State private var majorsWithMajorDetails: [String: [String]] = ["문과 계열":["인문"]]
+    @State private var majors: [String] = ["문과 계열"]
     
     @State private var presentAlert = false
     @State private var activeAlert = ActiveAlert.success
     
     private enum ActiveAlert {
-        case success, fail
+        case success, fail, noNetwork
     }
     
     var majorDetails: [String] {
-        return majorsWithMajorDetails[selectedMajor] ?? []
+        return majorsWithMajorDetails[selectedMajor] ?? ["인문"]
     }
     
-    let categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? ["예시 카테고리 1", "예시 카테고리 2", "예시 카테고리 3"]
+    let categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? ["관심문제"]
     let graduationStatuses = ["재학", "졸업"]
     private var userInfo: UserCoreData?
     
     init(delegate: ReloadUserData?) {
         self.delegate = delegate
         self.userInfo = CoreUsecase.fetchUserInfo()
-        self._favoriteCategory = State(initialValue: self.userInfo?.favoriteCategory ?? "수능 및 모의고사")
+        self._favoriteCategory = State(initialValue: self.userInfo?.favoriteCategory ?? "수능모의고사")
         self._selectedMajor = State(initialValue: self.userInfo?.major ?? "문과 계열")
         self._selectedMajorDetail = State(initialValue: self.userInfo?.majorDetail ?? "공학")
         self._schoolName = State(initialValue: self.userInfo?.schoolName ?? "서울대학교")
@@ -179,6 +179,8 @@ struct SettingUserView: View {
                 }))
             case .fail:
                 return Alert(title: Text("정보 수정 실패"), message: Text("네트워크 확인 후 다시 시도해주세요."), dismissButton: .default(Text("확인")))
+            case .noNetwork:
+                return Alert(title: Text("네트워크 없음"), message: Text("네트워크 확인 후 다시 시도해주세요."), dismissButton: .default(Text("확인"), action: { self.presentationMode.wrappedValue.dismiss() }))
             }
         }
     }
@@ -186,7 +188,8 @@ struct SettingUserView: View {
     private func fetchMajors() {
         NetworkUsecase.getMajors(completion: { downloaded in
             guard let downloaded = downloaded else {
-                // TODO: Alert 창 띄우기 로직 구현
+                self.activeAlert = .noNetwork
+                self.presentAlert = true
                 print("전공 정보 다운로드 실패")
                 return
             }
