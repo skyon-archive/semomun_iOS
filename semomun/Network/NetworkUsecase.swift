@@ -37,6 +37,7 @@ class NetworkUsecase {
         static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
         static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
         static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
+        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submit" }
     }
     enum scale: String {
         case small = "/64x64/"
@@ -268,12 +269,6 @@ extension NetworkUsecase {
     static func postCheckCertification(with certifi: String, phone: String, completion: @escaping(Bool?) -> Void) {
         completion(true)
     }
-    
-    static func postSectionResult(submissions: String, completion: @escaping(Bool?) -> Void) {
-        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
-        print(param)
-        completion(true)
-    }
 }
 
 // MARK: - PUT
@@ -290,6 +285,30 @@ extension NetworkUsecase {
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
         
         Network.put(url: URL.users+"\(nickName)", param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR)
+                return
+            }
+            if statusCode == 504 {
+                print("server Error")
+                completion(.INSPECTION)
+                return
+            } else if statusCode != 200 {
+                print("Error: \(statusCode)")
+                if let data = requestResult.data {
+                    print(String(data: data, encoding: .utf8))
+                }
+                completion(.ERROR)
+                return
+            }
+            completion(.SUCCESS)
+        }
+    }
+    
+    static func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
+        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
+        Network.put(url: URL.sectionsSubmit(sid), param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR)

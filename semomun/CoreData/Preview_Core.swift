@@ -40,6 +40,7 @@ extension Preview_Core {
     @NSManaged public var largeCategory: String? // 대분류
     @NSManaged public var mediumCategory: String? // 중분류
     @NSManaged public var smallCategory: String? // 중분류
+    @NSManaged public var tags: [String]? // 중분류
 }
 
 @objc(Preview_Core)

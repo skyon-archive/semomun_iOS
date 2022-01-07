@@ -212,18 +212,23 @@ extension SolvingViewController: LayoutDelegate {
         self.present(sectionResultVC, animated: true, completion: nil)
     }
     
-    func terminateSection(result: SectionResult, jsonString: String) {
+    func terminateSection(result: SectionResult, sid: Int, jsonString: String) {
         let isConnected = true
         if isConnected {
-            NetworkUsecase.postSectionResult(submissions: jsonString) { [weak self] success in
-                if success == nil {
-                    // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
-                    print("Error: update submissions fail")
+            NetworkUsecase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
+                DispatchQueue.main.async {
+                    switch status {
+                    case .SUCCESS:
+                        print("post sections success")
+                    default:
+                        // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
+                        print("Error: update submissions fail")
+                    }
+                    self?.previewCore?.setValue(true, forKey: "terminated")
+                    CoreDataManager.saveCoreData()
+                    self?.changeResultLabel()
+                    self?.showResultViewController(result: result)
                 }
-                self?.previewCore?.setValue(true, forKey: "terminated")
-                CoreDataManager.saveCoreData()
-                self?.changeResultLabel()
-                self?.showResultViewController(result: result)
             }
         }
     }
