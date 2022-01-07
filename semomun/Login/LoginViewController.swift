@@ -38,45 +38,51 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
     
     func configureSignInGoogleButton() {
         let googleSignInButton = UIControl()
-        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
         googleSignInButton.backgroundColor = UIColor(red: 66/255, green: 133/255, blue: 244/255, alpha: 1)
         
         let buttonContent = UIView()
-        buttonContent.translatesAutoresizingMaskIntoConstraints = false
-        googleSignInButton.addSubview(buttonContent)
         buttonContent.layer.borderColor = UIColor.gray.cgColor
         buttonContent.layer.borderWidth = 1
         
+        let googleIconImg = UIImage(named: "googleLogo")!
+        let googleIcon = UIImageView(image: googleIconImg)
+        
         let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
         text.text = "Google로 로그인"
         text.textColor = UIColor.white
         text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        buttonContent.addSubview(text)
         
-        let googleIconImg = UIImage(named: "googleLogo")!
-        let googleIcon = UIImageView(image: googleIconImg)
-        googleIcon.translatesAutoresizingMaskIntoConstraints = false
-        buttonContent.addSubview(googleIcon)
+        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonContent.translatesAutoresizingMaskIntoConstraints = false
+        googleSignInButton.addSubview(buttonContent)
         
         NSLayoutConstraint.activate([
             buttonContent.centerXAnchor.constraint(equalTo: googleSignInButton.centerXAnchor),
             buttonContent.centerYAnchor.constraint(equalTo: googleSignInButton.centerYAnchor),
-            
-            text.leftAnchor.constraint(equalTo: googleIcon.rightAnchor, constant: 5),
-            text.centerYAnchor.constraint(equalTo: buttonContent.centerYAnchor),
+        ])
+        
+        googleIcon.translatesAutoresizingMaskIntoConstraints = false
+        buttonContent.addSubview(googleIcon)
+        
+        NSLayoutConstraint.activate([
             googleIcon.widthAnchor.constraint(equalToConstant: 20),
             googleIcon.heightAnchor.constraint(equalToConstant: 20),
             googleIcon.centerYAnchor.constraint(equalTo: buttonContent.centerYAnchor),
-            googleIcon.leftAnchor.constraint(equalTo: buttonContent.leftAnchor)
+            googleIcon.leadingAnchor.constraint(equalTo: buttonContent.leadingAnchor)
+        ])
+        
+        text.translatesAutoresizingMaskIntoConstraints = false
+        buttonContent.addSubview(text)
+        
+        NSLayoutConstraint.activate([
+            text.leadingAnchor.constraint(equalTo: googleIcon.trailingAnchor, constant: 5),
+            text.centerYAnchor.constraint(equalTo: buttonContent.centerYAnchor),
+            text.trailingAnchor.constraint(equalTo: buttonContent.trailingAnchor)
         ])
         
         googleSignInButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         googleSignInButton.tag = 1
-//        let googleSignInButton = GIDSignInButton()
-//        googleSignInButton.style = .wide
-//        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
         self.configureLayoutGooleButton(with: googleSignInButton)
     }
