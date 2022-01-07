@@ -1,0 +1,366 @@
+
+/* Class = "UILabel"; text = "계정"; ObjectID = "1S9-7C-RtD"; */
+"1S9-7C-RtD.text" = "계정";
+
+/* Class = "UILabel"; text = "재학/졸업"; ObjectID = "29K-tV-29v"; */
+"29K-tV-29v.text" = "재학/졸업";
+
+/* Class = "UILabel"; text = "계열"; ObjectID = "3f2-kR-bea"; */
+"3f2-kR-bea.text" = "계열";
+
+/* Class = "UILabel"; text = "서비스 이용약관"; ObjectID = "4fd-UK-AsI"; */
+"4fd-UK-AsI.text" = "서비스 이용약관";
+
+/* Class = "UILabel"; text = "인증번호가 올바르지 않습니다."; ObjectID = "63F-aK-hTp"; */
+"63F-aK-hTp.text" = "인증번호가 올바르지 않습니다.";
+
+/* Class = "UILabel"; text = "title"; ObjectID = "7Ro-cr-a1u"; */
+"7Ro-cr-a1u.text" = "title";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "7jh-G2-tZZ"; */
+"7jh-G2-tZZ.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "7pB-JE-1Oi"; */
+"7pB-JE-1Oi.normalTitle" = "Add";
+
+/* Class = "UILabel"; text = "[필수]"; ObjectID = "7tO-En-pOD"; */
+"7tO-En-pOD.text" = "[필수]";
+
+/* Class = "UILabel"; text = "공인중개사"; ObjectID = "8Qi-1F-MWy"; */
+"8Qi-1F-MWy.text" = "공인중개사";
+
+/* Class = "UILabel"; text = "버전"; ObjectID = "8U4-Cs-vQ5"; */
+"8U4-Cs-vQ5.text" = "버전";
+
+/* Class = "UILabel"; text = "휴대폰 번호"; ObjectID = "9P1-7Y-2uP"; */
+"9P1-7Y-2uP.text" = "휴대폰 번호";
+
+/* Class = "UIButton"; normalTitle = "로그인"; ObjectID = "9dA-4e-QeE"; */
+"9dA-4e-QeE.normalTitle" = "로그인";
+
+/* Class = "UILabel"; text = "제2외국어"; ObjectID = "Agf-1e-pOi"; */
+"Agf-1e-pOi.text" = "제2외국어";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "BrI-7I-g9G"; */
+"BrI-7I-g9G.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "걸린 시간"; ObjectID = "DKo-6I-AVu"; */
+"DKo-6I-AVu.text" = "걸린 시간";
+
+/* Class = "UILabel"; text = "점수"; ObjectID = "DtT-k6-gz6"; */
+"DtT-k6-gz6.text" = "점수";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "ELZ-7x-d06"; */
+"ELZ-7x-d06.normalTitle" = "1";
+
+/* Class = "UIButton"; configuration.title = "오류신고"; ObjectID = "EmU-TZ-UuW"; */
+"EmU-TZ-UuW.configuration.title" = "오류신고";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "EmU-TZ-UuW"; */
+"EmU-TZ-UuW.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "고3 2021년 7월 화법과 작문"; ObjectID = "F1R-lY-NjY"; */
+"F1R-lY-NjY.text" = "고3 2021년 7월 화법과 작문";
+
+/* Class = "UIButton"; normalTitle = "제출하기"; ObjectID = "FB5-YC-4xR"; */
+"FB5-YC-4xR.normalTitle" = "제출하기";
+
+/* Class = "UILabel"; text = "개인정보 처리 방침"; ObjectID = "G0o-xr-OEI"; */
+"G0o-xr-OEI.text" = "개인정보 처리 방침";
+
+/* Class = "UIButton"; normalTitle = "남"; ObjectID = "GbE-gn-yYO"; */
+"GbE-gn-yYO.normalTitle" = "남";
+
+/* Class = "UITextField"; placeholder = "전화번호를 입력해주세요."; ObjectID = "HPe-nF-kH4"; */
+"HPe-nF-kH4.placeholder" = "전화번호를 입력해주세요.";
+
+/* Class = "UIButton"; normalTitle = "정답"; ObjectID = "I6a-6i-vWS"; */
+"I6a-6i-vWS.normalTitle" = "정답";
+
+/* Class = "UIButton"; configuration.title = "로그아웃"; ObjectID = "IAS-8z-ePw"; */
+"IAS-8z-ePw.configuration.title" = "로그아웃";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IAS-8z-ePw"; */
+"IAS-8z-ePw.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "IJx-3A-iv9"; */
+"IJx-3A-iv9.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "Ibd-Jh-3tx"; */
+"Ibd-Jh-3tx.text" = "1";
+
+/* Class = "UIButton"; normalTitle = "인증하기"; ObjectID = "IxH-RC-MmH"; */
+"IxH-RC-MmH.normalTitle" = "인증하기";
+
+/* Class = "UIButton"; configuration.title = "서비스이용약관"; ObjectID = "KxM-Ym-hYf"; */
+"KxM-Ym-hYf.configuration.title" = "서비스이용약관";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "KxM-Ym-hYf"; */
+"KxM-Ym-hYf.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "세상의 모든 문제 만나러 가기"; ObjectID = "LQg-tr-HyA"; */
+"LQg-tr-HyA.text" = "세상의 모든 문제 만나러 가기";
+
+/* Class = "UILabel"; text = "지원"; ObjectID = "Lkc-iZ-r0z"; */
+"Lkc-iZ-r0z.text" = "지원";
+
+/* Class = "UIButton"; normalTitle = "학교를 입력하세요."; ObjectID = "LoP-5y-u9s"; */
+"LoP-5y-u9s.normalTitle" = "학교를 입력하세요.";
+
+/* Class = "UILabel"; text = "기출문제 추가하기"; ObjectID = "M0I-Rd-uTA"; */
+"M0I-Rd-uTA.text" = "기출문제 추가하기";
+
+/* Class = "UITextField"; placeholder = "이름을 입력해주세요"; ObjectID = "MSa-eQ-kbO"; */
+"MSa-eQ-kbO.placeholder" = "이름을 입력해주세요";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "Mgh-Mu-MfO"; */
+"Mgh-Mu-MfO.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면"; ObjectID = "N0f-5r-seQ"; */
+"N0f-5r-seQ.text" = "고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면";
+
+/* Class = "UIButton"; normalTitle = "해설"; ObjectID = "N4N-7V-mV6"; */
+"N4N-7V-mV6.normalTitle" = "해설";
+
+/* Class = "UIButton"; normalTitle = "정답"; ObjectID = "N6F-6G-4Kz"; */
+"N6F-6G-4Kz.normalTitle" = "정답";
+
+/* Class = "UILabel"; text = "수능 및 모의고사"; ObjectID = "Ngv-Qb-P0u"; */
+"Ngv-Qb-P0u.text" = "수능 및 모의고사";
+
+/* Class = "UILabel"; text = "재학/졸업"; ObjectID = "O5Z-i6-h7c"; */
+"O5Z-i6-h7c.text" = "재학/졸업";
+
+/* Class = "UILabel"; text = "문과 계열"; ObjectID = "PBF-vt-PNa"; */
+"PBF-vt-PNa.text" = "문과 계열";
+
+/* Class = "UIButton"; normalTitle = "재학/졸업 여부를 선택하세요."; ObjectID = "PHw-JU-9GY"; */
+"PHw-JU-9GY.normalTitle" = "재학/졸업 여부를 선택하세요.";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "QeO-Dx-BmW"; */
+"QeO-Dx-BmW.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "저장"; ObjectID = "QuA-t3-9Ud"; */
+"QuA-t3-9Ud.normalTitle" = "저장";
+
+/* Class = "UILabel"; text = "wid"; ObjectID = "SPy-BZ-OYf"; */
+"SPy-BZ-OYf.text" = "wid";
+
+/* Class = "UILabel"; text = "올바른 전화번호를 입력해주세요."; ObjectID = "TUl-tX-Mhm"; */
+"TUl-tX-Mhm.text" = "올바른 전화번호를 입력해주세요.";
+
+/* Class = "UILabel"; text = "관심 전공"; ObjectID = "TwT-8B-KWC"; */
+"TwT-8B-KWC.text" = "관심 전공";
+
+/* Class = "UILabel"; text = "인문"; ObjectID = "U2z-88-rzs"; */
+"U2z-88-rzs.text" = "인문";
+
+/* Class = "UILabel"; text = "인증번호"; ObjectID = "Uf5-Mu-UlD"; */
+"Uf5-Mu-UlD.text" = "인증번호";
+
+/* Class = "UILabel"; text = "학교"; ObjectID = "V47-ho-aCa"; */
+"V47-ho-aCa.text" = "학교";
+
+/* Class = "UILabel"; text = "이름"; ObjectID = "Vzc-KL-ofk"; */
+"Vzc-KL-ofk.text" = "이름";
+
+/* Class = "UIButton"; normalTitle = "인증 요청"; ObjectID = "W4o-Wq-Hcs"; */
+"W4o-Wq-Hcs.normalTitle" = "인증 요청";
+
+/* Class = "UIButton"; normalTitle = "다음"; ObjectID = "WB5-2t-dsK"; */
+"WB5-2t-dsK.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "이미 회원이신가요?"; ObjectID = "WgI-U4-5pC"; */
+"WgI-U4-5pC.text" = "이미 회원이신가요?";
+
+/* Class = "UILabel"; text = "이름 수정하기"; ObjectID = "Wvm-8c-JdD"; */
+"Wvm-8c-JdD.text" = "이름 수정하기";
+
+/* Class = "UIButton"; normalTitle = "정답"; ObjectID = "XT7-VM-56J"; */
+"XT7-VM-56J.normalTitle" = "정답";
+
+/* Class = "UILabel"; text = "생년월일"; ObjectID = "Xlk-PM-kNI"; */
+"Xlk-PM-kNI.text" = "생년월일";
+
+/* Class = "UILabel"; text = "totalTime"; ObjectID = "YNv-1h-Poo"; */
+"YNv-1h-Poo.text" = "totalTime";
+
+/* Class = "UILabel"; text = "틀린문제"; ObjectID = "YOr-H0-j6M"; */
+"YOr-H0-j6M.text" = "틀린문제";
+
+/* Class = "UIButton"; normalTitle = "회원가입하기"; ObjectID = "aK5-6X-tf4"; */
+"aK5-6X-tf4.normalTitle" = "회원가입하기";
+
+/* Class = "UIButton"; normalTitle = "전체 동의"; ObjectID = "bNe-Ar-FWF"; */
+"bNe-Ar-FWF.normalTitle" = "전체 동의";
+
+/* Class = "UIButton"; normalTitle = "다음"; ObjectID = "edg-Eh-uxR"; */
+"edg-Eh-uxR.normalTitle" = "다음";
+
+/* Class = "UITextField"; placeholder = "새로운 전화번호를 입력하세요"; ObjectID = "eg3-Qf-JIV"; */
+"eg3-Qf-JIV.placeholder" = "새로운 전화번호를 입력하세요";
+
+/* Class = "UITextField"; text = "01011112222"; ObjectID = "eg3-Qf-JIV"; */
+"eg3-Qf-JIV.text" = "01011112222";
+
+/* Class = "UITextField"; placeholder = "새로운 이름을 입력하세요"; ObjectID = "fQV-MU-w15"; */
+"fQV-MU-w15.placeholder" = "새로운 이름을 입력하세요";
+
+/* Class = "UITextField"; text = "홍길동"; ObjectID = "fQV-MU-w15"; */
+"fQV-MU-w15.text" = "홍길동";
+
+/* Class = "UILabel"; text = "공학"; ObjectID = "fdW-45-po6"; */
+"fdW-45-po6.text" = "공학";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "gVo-ED-6pp"; */
+"gVo-ED-6pp.normalTitle" = "2";
+
+/* Class = "UIButton"; normalTitle = "정답"; ObjectID = "gc6-VE-pdN"; */
+"gc6-VE-pdN.normalTitle" = "정답";
+
+/* Class = "UITextField"; placeholder = "인증번호를 입력해주세요."; ObjectID = "hW1-1O-Ce6"; */
+"hW1-1O-Ce6.placeholder" = "인증번호를 입력해주세요.";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "hg9-GM-zlT"; */
+"hg9-GM-zlT.normalTitle" = "4";
+
+/* Class = "UIButton"; configuration.title = "개인정보처리방침"; ObjectID = "hzZ-CM-TLt"; */
+"hzZ-CM-TLt.configuration.title" = "개인정보처리방침";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "hzZ-CM-TLt"; */
+"hzZ-CM-TLt.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "여"; ObjectID = "iHO-Kg-Tio"; */
+"iHO-Kg-Tio.normalTitle" = "여";
+
+/* Class = "UILabel"; text = "관심 전공"; ObjectID = "iqN-Yb-AjN"; */
+"iqN-Yb-AjN.text" = "관심 전공";
+
+/* Class = "UILabel"; text = "[필수]"; ObjectID = "kL0-QQ-p2M"; */
+"kL0-QQ-p2M.text" = "[필수]";
+
+/* Class = "UILabel"; text = "관심문제"; ObjectID = "klM-kN-40u"; */
+"klM-kN-40u.text" = "관심문제";
+
+/* Class = "UIButton"; configuration.title = "고객센터"; ObjectID = "koO-J8-9ff"; */
+"koO-J8-9ff.configuration.title" = "고객센터";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "koO-J8-9ff"; */
+"koO-J8-9ff.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "해설"; ObjectID = "lgT-pJ-mhd"; */
+"lgT-pJ-mhd.normalTitle" = "해설";
+
+/* Class = "UILabel"; text = "고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면 어떻게 보일까 궁금합니다"; ObjectID = "lne-rb-bvu"; */
+"lne-rb-bvu.text" = "고3 2021 7월 화법과 작문 입니다 3줄이 넘어가면 어떻게 보일까 궁금합니다";
+
+/* Class = "UILabel"; text = "수능 및 모의고사"; ObjectID = "ltH-l1-QFt"; */
+"ltH-l1-QFt.text" = "수능 및 모의고사";
+
+/* Class = "UIButton"; normalTitle = "이전으로"; ObjectID = "mUt-Y2-fpP"; */
+"mUt-Y2-fpP.normalTitle" = "이전으로";
+
+/* Class = "UILabel"; text = "세부정보"; ObjectID = "mwr-fP-vnR"; */
+"mwr-fP-vnR.text" = "세부정보";
+
+/* Class = "UIButton"; normalTitle = "다음"; ObjectID = "nVY-pC-Azv"; */
+"nVY-pC-Azv.normalTitle" = "다음";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "nbN-f8-aJS"; */
+"nbN-f8-aJS.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "이과 계열"; ObjectID = "odG-O3-Rdw"; */
+"odG-O3-Rdw.text" = "이과 계열";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "pSY-YA-R7v"; */
+"pSY-YA-R7v.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "123"; ObjectID = "q0F-Fz-Ugk"; */
+"q0F-Fz-Ugk.text" = "123";
+
+/* Class = "UILabel"; text = "세모문에서 가장 만나고 싶은 문제는?"; ObjectID = "rhr-Ft-wpD"; */
+"rhr-Ft-wpD.text" = "세모문에서 가장 만나고 싶은 문제는?";
+
+/* Class = "UILabel"; text = "totalScore"; ObjectID = "ros-IM-F9z"; */
+"ros-IM-F9z.text" = "totalScore";
+
+/* Class = "UIButton"; normalTitle = "다음"; ObjectID = "s00-je-ZVc"; */
+"s00-je-ZVc.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "서울대학교"; ObjectID = "s2Z-XC-dfP"; */
+"s2Z-XC-dfP.text" = "서울대학교";
+
+/* Class = "UILabel"; text = "학교"; ObjectID = "s58-tR-guB"; */
+"s58-tR-guB.text" = "학교";
+
+/* Class = "UIButton"; normalTitle = "해설"; ObjectID = "sSZ-hR-AES"; */
+"sSZ-hR-AES.normalTitle" = "해설";
+
+/* Class = "UIButton"; normalTitle = "해설"; ObjectID = "sXz-Df-0eM"; */
+"sXz-Df-0eM.normalTitle" = "해설";
+
+/* Class = "UILabel"; text = "정답과 해설"; ObjectID = "tFN-gq-9q5"; */
+"tFN-gq-9q5.text" = "정답과 해설";
+
+/* Class = "UILabel"; text = "전화번호"; ObjectID = "tRR-bu-xED"; */
+"tRR-bu-xED.text" = "전화번호";
+
+/* Class = "UILabel"; text = "졸업"; ObjectID = "tRZ-xz-mqY"; */
+"tRZ-xz-mqY.text" = "졸업";
+
+/* Class = "UILabel"; text = "계열"; ObjectID = "tqw-co-XuD"; */
+"tqw-co-XuD.text" = "계열";
+
+/* Class = "UIButton"; normalTitle = "시작하기"; ObjectID = "tre-sZ-CS1"; */
+"tre-sZ-CS1.normalTitle" = "시작하기";
+
+/* Class = "UILabel"; text = "이름"; ObjectID = "uDB-st-BY6"; */
+"uDB-st-BY6.text" = "이름";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "uef-EB-3iX"; */
+"uef-EB-3iX.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "세상의 모든 문제 만나러 가기"; ObjectID = "uyt-UO-FkI"; */
+"uyt-UO-FkI.text" = "세상의 모든 문제 만나러 가기";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "uzj-eO-Kjx"; */
+"uzj-eO-Kjx.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "34:02"; ObjectID = "ve3-NQ-qgp"; */
+"ve3-NQ-qgp.text" = "34:02";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "vwG-gI-MX3"; */
+"vwG-gI-MX3.normalTitle" = "2";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "wU6-Fe-TOk"; */
+"wU6-Fe-TOk.normalTitle" = "3";
+
+/* Class = "UITextField"; placeholder = "생년월일을 입력해주세요"; ObjectID = "wza-oJ-jDh"; */
+"wza-oJ-jDh.placeholder" = "생년월일을 입력해주세요";
+
+/* Class = "UILabel"; text = "-/-"; ObjectID = "x9O-Cl-NZC"; */
+"x9O-Cl-NZC.text" = "-/-";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "xTL-FV-HuA"; */
+"xTL-FV-HuA.title" = "Item";
+
+/* Class = "UILabel"; text = "세상의 모든 문제 만나러 가기"; ObjectID = "yLR-pm-LxO"; */
+"yLR-pm-LxO.text" = "세상의 모든 문제 만나러 가기";
+
+/* Class = "UIButton"; normalTitle = "세부정보 변경하기 >"; ObjectID = "yzj-rT-2TE"; */
+"yzj-rT-2TE.normalTitle" = "세부정보 변경하기 >";
+
+/* Class = "UIButton"; normalTitle = "다음"; ObjectID = "zIh-xF-y9G"; */
+"zIh-xF-y9G.normalTitle" = "다음";
+
+/* Class = "UILabel"; text = "성별"; ObjectID = "zJ7-D0-Q4Y"; */
+"zJ7-D0-Q4Y.text" = "성별";
+
+/* Class = "UILabel"; text = "올바른 이름을 입력해주세요."; ObjectID = "zef-8S-6UU"; */
+"zef-8S-6UU.text" = "올바른 이름을 입력해주세요.";
+
+/* Class = "UILabel"; text = "수능 및 모의고사"; ObjectID = "zuC-1L-OyA"; */
+"zuC-1L-OyA.text" = "수능 및 모의고사";
+
+/* Class = "UILabel"; text = "서비스 이용 약관"; ObjectID = "zzh-ys-XhT"; */
+"zzh-ys-XhT.text" = "서비스 이용 약관";

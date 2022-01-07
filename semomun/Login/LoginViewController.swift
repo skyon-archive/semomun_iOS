@@ -15,8 +15,8 @@ class LoginViewController: UIViewController {
     var signupInfo: UserInfo?
 
     @IBOutlet weak var semomunTitle: UILabel!
-    private let buttonWidth: CGFloat = 230
-    private let buttonHeight: CGFloat = 43
+    private let buttonWidth: CGFloat = 300
+    private let buttonHeight: CGFloat = 55
     private let buttonRadius: CGFloat = 8
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
     
@@ -33,17 +33,50 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         authorizationButton.cornerRadius = self.buttonRadius
         authorizationButton.tag = 0
-        
         self.configureLayoutAppleButton(with: authorizationButton)
     }
     
     func configureSignInGoogleButton() {
-        let googleSignInButton = GIDSignInButton()
-        googleSignInButton.style = .wide
-        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
+        let googleSignInButton = UIControl()
+        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
+        googleSignInButton.backgroundColor = UIColor(red: 66/255, green: 133/255, blue: 244/255, alpha: 1)
+        
+        let buttonContent = UIView()
+        buttonContent.translatesAutoresizingMaskIntoConstraints = false
+        googleSignInButton.addSubview(buttonContent)
+        buttonContent.layer.borderColor = UIColor.gray.cgColor
+        buttonContent.layer.borderWidth = 1
+        
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.text = "Google로 로그인"
+        text.textColor = UIColor.white
+        text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        buttonContent.addSubview(text)
+        
+        let googleIconImg = UIImage(named: "googleLogo")!
+        let googleIcon = UIImageView(image: googleIconImg)
+        googleIcon.translatesAutoresizingMaskIntoConstraints = false
+        buttonContent.addSubview(googleIcon)
+        
+        NSLayoutConstraint.activate([
+            buttonContent.centerXAnchor.constraint(equalTo: googleSignInButton.centerXAnchor),
+            buttonContent.centerYAnchor.constraint(equalTo: googleSignInButton.centerYAnchor),
+            
+            text.leftAnchor.constraint(equalTo: googleIcon.rightAnchor, constant: 5),
+            text.centerYAnchor.constraint(equalTo: buttonContent.centerYAnchor),
+            googleIcon.widthAnchor.constraint(equalToConstant: 20),
+            googleIcon.heightAnchor.constraint(equalToConstant: 20),
+            googleIcon.centerYAnchor.constraint(equalTo: buttonContent.centerYAnchor),
+            googleIcon.leftAnchor.constraint(equalTo: buttonContent.leftAnchor)
+        ])
+        
         googleSignInButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         googleSignInButton.tag = 1
+//        let googleSignInButton = GIDSignInButton()
+//        googleSignInButton.style = .wide
+//        googleSignInButton.colorScheme = GIDSignInButtonColorScheme.dark
         
         self.configureLayoutGooleButton(with: googleSignInButton)
     }
@@ -265,7 +298,7 @@ extension LoginViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(button)
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: self.buttonWidth-8),
+            button.widthAnchor.constraint(equalToConstant: self.buttonWidth),
             button.heightAnchor.constraint(equalToConstant: self.buttonHeight),
             button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 200),
             button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
@@ -278,7 +311,7 @@ extension LoginViewController {
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: self.buttonWidth),
             button.heightAnchor.constraint(equalToConstant: self.buttonHeight),
-            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 270),
+            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 280),
             button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
         ])
     }
