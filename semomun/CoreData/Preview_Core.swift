@@ -40,7 +40,7 @@ extension Preview_Core {
     @NSManaged public var largeCategory: String? // 대분류
     @NSManaged public var mediumCategory: String? // 중분류
     @NSManaged public var smallCategory: String? // 중분류
-    @NSManaged public var tags: [String]? // 중분류
+    @NSManaged public var tags: [String] // 중분류
 }
 
 @objc(Preview_Core)
@@ -69,6 +69,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(false, forKey: "isReproduction") // default
         let isNotFree = Double(workbook.price) != Double("0")
         self.setValue(isNotFree, forKey: "isNotFree") // default
+        self.setValue([], forKey: "tags") // default
         
         if let url = URL(string: baseURL + preview.bookcover) {
             let imageData = try? Data(contentsOf: url)
