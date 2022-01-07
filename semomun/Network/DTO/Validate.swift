@@ -9,8 +9,4 @@ import Foundation
 
 struct Validate: Codable {
     let check: Bool
-    
-    enum CodingKeys: String, CodingKey {
-        case check
-    }
 }
