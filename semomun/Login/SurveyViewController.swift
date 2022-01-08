@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SurveyViewController: UIViewController {
     static let identifier = "SurveyViewController"
@@ -17,17 +18,25 @@ class SurveyViewController: UIViewController {
     }
     @IBOutlet weak var majorDetailTitle: UILabel!
     @IBOutlet weak var majorDetailView: UIView!
-    @IBOutlet weak var genderFrame: UIView!
-    @IBOutlet var genders: [UIButton]!
+    @IBOutlet weak var schoolFrame: UIView!
+    @IBOutlet weak var school: UIButton!
+    @IBOutlet weak var graduation: UIButton!
     private var majorViewController: MajorViewController?
     private var majorDetailViewController: MajorDetailViewController?
+    private var schoolMenu: UIMenu?
+    private var graduationMenu: UIMenu?
+    private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     var signUpInfo: UserInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureGengerUI()
+        self.configureUI()
         self.configureMajorDetailView()
         self.configureMajors()
+        self.configureSchoolMenuItems()
+        self.configureGraduationMenuItems()
+        self.configureSchool()
+        self.configureGraduation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,22 +44,12 @@ class SurveyViewController: UIViewController {
         self.title = "회원가입"
     }
     
-    @IBAction func selectGender(_ sender: UIButton) {
-        guard let gender = sender.titleLabel?.text else { return }
-        switch gender {
-        case "남":
-            self.didSelect(to: genders[0])
-            self.diSelect(from: genders[1])
-        case "여":
-            self.didSelect(to: genders[1])
-            self.diSelect(from: genders[0])
-        default: return
-        }
-        self.signUpInfo?.configureGender(to: gender)
-    }
-    
     @IBAction func nextVC(_ sender: Any) {
         guard let signUpInfo = signUpInfo else { return }
+        // gender, birthday configure
+        signUpInfo.configureGender(to: "none")
+        signUpInfo.configureBirthday(to: "none")
+        
         if signUpInfo.isValidSurvay {
             self.nextVC()
         } else {
@@ -73,18 +72,17 @@ class SurveyViewController: UIViewController {
 
 //MARK: - Configure
 extension SurveyViewController {
-    private func configureGengerUI() {
-        genders.forEach { button in
-            button.layer.borderColor = UIColor.black.cgColor
-            button.layer.borderWidth = 1
-            button.layer.cornerRadius = 8
-        }
+    private func configureUI() {
+        self.school.clipsToBounds = true
+        self.school.layer.cornerRadius = 8
+        self.graduation.clipsToBounds = true
+        self.graduation.layer.cornerRadius = 8
     }
     
     private func configureMajorDetailView() {
         self.majorDetailTitle.alpha = 0
         self.majorDetailView.alpha = 0
-        self.genderFrame.transform = CGAffineTransform.init(translationX: 0, y: -160)
+        self.schoolFrame.transform = CGAffineTransform.init(translationX: 0, y: -160)
     }
     
     private func configureMajors() {
@@ -98,21 +96,38 @@ extension SurveyViewController {
         }
     }
     
-    private func acticationMajorDetail(section index: Int) {
-        NotificationCenter.default.post(name: NotificationName.selectMajor, object: nil, userInfo: [NotificationUserInfo.sectionKey: index])
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.majorDetailTitle.alpha = 1
-            self?.majorDetailView.alpha = 1
-            self?.genderFrame.transform = CGAffineTransform.identity
+    private func configureSchoolMenuItems() {
+        let menuItems: [UIAction] = SchoolSearchUseCase.SchoolType.allCases.map { schoolType in
+            UIAction(title: schoolType.rawValue, image: nil, handler: { [weak self] _ in
+                self?.schoolSearchView = UIHostingController(rootView: LoginSchoolSearchView(delegate: self, schoolType: schoolType))
+                self?.schoolSearchView?.view.backgroundColor = .clear
+                if let view = self?.schoolSearchView {
+                    self?.present(view, animated: true, completion: nil)
+                }
+            })
         }
+        self.schoolMenu = UIMenu(title: "학교 선택", image: nil, identifier: nil, options: [], children: menuItems)
     }
     
-    private func nextVC() {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: PersonalInfoViewController.identifier) as? PersonalInfoViewController else { return }
-        nextVC.signUpInfo = self.signUpInfo
-        
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
+    private func configureGraduationMenuItems() {
+        var menuItems: [UIAction] = []
+        menuItems.append(UIAction(title: "재학", image: nil, handler: { [weak self] _ in
+            self?.updateGraduation(to: "재학")
+        }))
+        menuItems.append(UIAction(title: "졸업", image: nil, handler: { [weak self] _ in
+            self?.updateGraduation(to: "졸업")
+        }))
+        self.graduationMenu = UIMenu(title: "재학/졸업 여부", image: nil, identifier: nil, options: [], children: menuItems)
+    }
+    
+    private func configureSchool() {
+        self.school.menu = self.schoolMenu
+        self.school.showsMenuAsPrimaryAction = true
+    }
+    
+    private func configureGraduation() {
+        self.graduation.menu = self.graduationMenu
+        self.graduation.showsMenuAsPrimaryAction = true
     }
 }
 
@@ -151,5 +166,42 @@ extension SurveyViewController: MajorSetable {
 extension SurveyViewController: MajorDetailSetable {
     func didSelectMajorDetail(to majorDetail: String) {
         self.signUpInfo?.configureMajorDetail(to: majorDetail)
+    }
+}
+
+extension SurveyViewController: SchoolSelectAction {
+    func schoolSelected(_ name: String) {
+        self.signUpInfo?.configureSchool(to: name)
+        self.school.setTitle(name, for: .normal)
+        self.school.setTitleColor(.black, for: .normal)
+        self.dismissKeyboard()
+        self.schoolSearchView?.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Logic
+extension SurveyViewController {
+    private func updateGraduation(to state: String) {
+        self.graduation.setTitle(state, for: .normal)
+        self.graduation.setTitleColor(.black, for: .normal)
+        self.signUpInfo?.configureGraduation(to: state)
+        self.dismissKeyboard()
+    }
+    
+    private func acticationMajorDetail(section index: Int) {
+        NotificationCenter.default.post(name: NotificationName.selectMajor, object: nil, userInfo: [NotificationUserInfo.sectionKey: index])
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.majorDetailTitle.alpha = 1
+            self?.majorDetailView.alpha = 1
+            self?.schoolFrame.transform = CGAffineTransform.identity
+        }
+    }
+    
+    private func nextVC() {
+        guard let nextVC = self.storyboard?.instantiateViewController(identifier: LoginViewController.identifier) as? LoginViewController else { return }
+        nextVC.signupInfo = self.signUpInfo
+        
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
