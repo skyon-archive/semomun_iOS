@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var userInfo: UIButton!
     
     private var addImageData: Data!
-    private var previewManager: PreviewManager!
+    private var previewManager: PreviewManager?
     
     // Sidebar ViewController Properties
     var sideMenuViewController: SideMenuViewController!
@@ -47,8 +47,8 @@ class MainViewController: UIViewController {
         self.configureCollectionView()
         self.configureObserve()
         self.addCoreDataAlertObserver()
-        self.previewManager.fetchPreviews()
-        self.previewManager.fetchSubjects()
+        self.previewManager?.fetchPreviews()
+        self.previewManager?.fetchSubjects()
         self.configureSideBarViewController()
         self.getVersion()
     }
@@ -96,7 +96,7 @@ extension MainViewController {
     func configureManager() {
         guard let networkUseCase = self.networkUseCase else { return }
         self.previewManager = PreviewManager(delegate: self, networkUseCase: networkUseCase)
-        self.categoryLabel.text = self.previewManager.currentCategory
+        self.categoryLabel.text = self.previewManager?.currentCategory
     }
     
     func configureCollectionView() {
@@ -108,8 +108,8 @@ extension MainViewController {
     func configureObserve() {
         NotificationCenter.default.addObserver(forName: .downloadPreview, object: nil, queue: .main) { [weak self] notification in
             guard let targetSubject = notification.userInfo?["subject"] as? String else { return }
-            self?.previewManager.checkSubject(with: targetSubject)
-            self?.previewManager.fetchPreviews()
+            self?.previewManager?.checkSubject(with: targetSubject)
+            self?.previewManager?.fetchPreviews()
             self?.reloadData()
             self?.checkEmptyImage()
         }
@@ -205,7 +205,7 @@ extension MainViewController {
             let touchPoint = longPressGestureRecognizer.location(in: previews)
             guard let indexPath = previews.indexPathForItem(at: touchPoint) else { return }
             if indexPath.item-1 >= 0 {
-                self.previewManager.showDeleteAlert(at: indexPath.item-1)
+                self.previewManager?.showDeleteAlert(at: indexPath.item-1)
             }
         }
     }
@@ -214,8 +214,9 @@ extension MainViewController {
 // MARK: - Logic
 extension MainViewController {
     func showSearchWorkbookViewController() {
+        guard let previewManager = self.previewManager else { return }
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
-        let category = self.previewManager.currentCategory
+        let category = previewManager.currentCategory
         guard let networkUseCase = self.networkUseCase else { return }
         nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category, networkUseCase: networkUseCase)
         self.present(nextVC, animated: true, completion: nil)
@@ -234,19 +235,20 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == subjects {
-            return self.previewManager.subjectsCount
+            return self.previewManager?.subjectsCount ?? 0
         } else {
-            return self.previewManager.previewsCount+1
+            return self.previewManager?.previewsCount ?? 0+1
         }
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let previewManager = self.previewManager else { return UICollectionViewCell() }
         if collectionView == subjects {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
             
-            cell.category.text = self.previewManager.subject(at: indexPath.item)
-            cell.underLine.alpha = (indexPath.item == self.previewManager.currentIndex) ? 1 : 0
+            cell.category.text = previewManager.subject(at: indexPath.item)
+            cell.underLine.alpha = (indexPath.item == previewManager.currentIndex) ? 1 : 0
             
             return cell
         }
@@ -259,7 +261,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return cell
             }
             else {
-                let preview = self.previewManager.preview(at: indexPath.item-1)
+                let preview = previewManager.preview(at: indexPath.item-1)
                 print("\(indexPath.item): \(preview)")
                 cell.configure(with: preview)
                 
@@ -273,8 +275,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.hideUserInfoView()
         // MARK: - category
         if collectionView == subjects {
-            self.previewManager.selectSubject(idx: indexPath.item)
-            self.previewManager.fetchPreviews()
+            self.previewManager?.selectSubject(idx: indexPath.item)
+            self.previewManager?.fetchPreviews()
             self.reloadData()
             return
         }
@@ -283,6 +285,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func didSelectItemAt(indexPath: IndexPath) {
+        guard let previewManager = self.previewManager else { return }
         // MARK: - preview cell: searchPreview
         if indexPath.item == 0 {
             showSearchWorkbookViewController()
@@ -291,12 +294,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // MARK: - preview cell: selectSectionView
         let index = indexPath.item-1
-        if self.previewManager.showSelectSectionView(index: index) {
+        if previewManager.showSelectSectionView(index: index) {
             print("goToSelectSectionViewController")
             return
         }
         
-        let preview = self.previewManager.preview(at: index)
+        let preview = previewManager.preview(at: index)
         guard let sid = preview.sids.first else { return }
         
         // MARK: - Section: form CoreData
@@ -349,7 +352,7 @@ extension MainViewController: SideMenuViewControllerDelegate {
     func selectCategory(to category: String) {
         self.emptyImageView.removeFromSuperview()
         self.categoryLabel.text = category
-        self.previewManager.updateCategory(to: category)
+        self.previewManager?.updateCategory(to: category)
         DispatchQueue.main.async { [weak self] in self?.hideSideBar() }
         self.checkEmptyImage()
     }
@@ -368,7 +371,7 @@ extension MainViewController: PreviewDatasource {
                                       preferredStyle: UIAlertController.Style.alert)
         let cancle = UIAlertAction(title: "취소", style: .default, handler: nil)
         let delete = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            self.previewManager.delete(at: idx)
+            self.previewManager?.delete(at: idx)
         })
         
         alert.addAction(cancle)
