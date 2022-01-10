@@ -31,6 +31,7 @@ class MainViewController: UIViewController {
     let paddingForRotation: CGFloat = 150
     var isPopuped: Bool = false
     private lazy var userInfoView = UserInfoToggleView()
+    private var networkUseCase: NetworkUsecase?
     private lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: SemomunImage.empty)
@@ -40,6 +41,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureNetwork()
         self.configureAddImage()
         self.configureManager()
         self.configureCollectionView()
@@ -86,8 +88,14 @@ class MainViewController: UIViewController {
 
 // MARK: - Configure MainViewController
 extension MainViewController {
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
+    }
+    
     func configureManager() {
-        self.previewManager = PreviewManager(delegate: self)
+        guard let networkUseCase = self.networkUseCase else { return }
+        self.previewManager = PreviewManager(delegate: self, networkUseCase: networkUseCase)
         self.categoryLabel.text = self.previewManager.currentCategory
     }
     
@@ -153,7 +161,7 @@ extension MainViewController {
     }
     
     private func getVersion() {
-        NetworkUsecase.getAppstoreVersion { status, versionDTO in
+        self.networkUseCase?.getAppstoreVersion { status, versionDTO in
             DispatchQueue.main.async { [weak self] in
                 switch status {
                 case .SUCCESS:
@@ -208,7 +216,8 @@ extension MainViewController {
     func showSearchWorkbookViewController() {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
         let category = self.previewManager.currentCategory
-        nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category)
+        guard let networkUseCase = self.networkUseCase else { return }
+        nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category, networkUseCase: networkUseCase)
         self.present(nextVC, animated: true, completion: nil)
     }
     
@@ -297,7 +306,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         // 여기에 else로 넣을까? return을 빼고
         // MARK: - Section: Download from DB
-        NetworkUsecase.downloadPages(sid: sid) { views in
+        self.networkUseCase?.downloadPages(sid: sid) { views in
             print("NETWORK RESULT")
             print(views)
             // save to coreData

@@ -16,6 +16,7 @@ class SearchWorkbookViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     private var queryButtons: [UIButton] = []
     private var queryDtos: [QueryListButton] = []
+    private var networkUseCase: NetworkUsecase?
     
     var manager: SearchWorkbookManager?
     
@@ -28,6 +29,7 @@ class SearchWorkbookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureNetwork()
         self.fetchQueryButtons()
         self.configureDelegate()
         self.configureUI()
@@ -43,9 +45,14 @@ class SearchWorkbookViewController: UIViewController {
 
 // MARK: - Configure
 extension SearchWorkbookViewController {
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
+    }
+    
     func fetchQueryButtons() {
         guard let manager = self.manager else { return }
-        NetworkUsecase.getQueryButtons(category: manager.category) { [weak self] queryListButtons in
+        self.networkUseCase?.getQueryButtons(category: manager.category) { [weak self] queryListButtons in
             guard let queryListButtons = queryListButtons else {
                 self?.showAlertWithOK(title: "네트워크 에러", text: "다시 시도하시기 바랍니다.")
                 return
@@ -276,7 +283,7 @@ extension SearchWorkbookViewController {
         guard let manager = self.manager else { return }
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         let preview = manager.preview(at: index)
-        let baseURL = NetworkUsecase.URL.bookcovoerImageDirectory(manager.imageScale)
+        let baseURL = NetworkURL.bookcovoerImageDirectory(manager.imageScale)
         
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: manager.category)
     }
@@ -286,7 +293,7 @@ extension SearchWorkbookViewController {
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
-            sectionHeader_core.setValues(section: $0, baseURL: NetworkUsecase.URL.sectionImageDirectory(manager.imageScale))
+            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectionImageDirectory(manager.imageScale))
         }
         CoreDataManager.saveCoreData()
         print("save complete")
@@ -299,7 +306,7 @@ extension SearchWorkbookViewController {
     
     func loadSidsFromDB(index: Int) {
         guard let manager = self.manager else { return }
-        NetworkUsecase.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
+        self.networkUseCase?.downloadWorkbook(wid: manager.preview(at: index).wid) { searchWorkbook in
             let workbook = searchWorkbook.workbook
             let sections = searchWorkbook.sections
             let sids: [Int] = sections.map(\.sid)

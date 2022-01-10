@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingUserView: View {
     
     weak var delegate: ReloadUserData?
+    private let networkUseCase: NetworkUsecase?
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -41,9 +42,10 @@ struct SettingUserView: View {
     let graduationStatuses = ["재학", "졸업"]
     private var userInfo: UserCoreData?
     
-    init(delegate: ReloadUserData?) {
+    init(delegate: ReloadUserData?, networkUseCase: NetworkUsecase?) {
         self.delegate = delegate
         self.userInfo = CoreUsecase.fetchUserInfo()
+        self.networkUseCase = networkUseCase
         self._favoriteCategory = State(initialValue: self.userInfo?.favoriteCategory ?? "수능모의고사")
         self._selectedMajor = State(initialValue: self.userInfo?.major ?? "문과 계열")
         self._selectedMajorDetail = State(initialValue: self.userInfo?.majorDetail ?? "공학")
@@ -186,7 +188,7 @@ struct SettingUserView: View {
     }
     
     private func fetchMajors() {
-        NetworkUsecase.getMajors(completion: { downloaded in
+        self.networkUseCase?.getMajors(completion: { downloaded in
             guard let downloaded = downloaded else {
                 self.activeAlert = .noNetwork
                 self.presentAlert = true
@@ -211,7 +213,7 @@ struct SettingUserView: View {
         userInfo.setValue(self.selectedMajorDetail, forKey: "majorDetail")
         userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
         
-        NetworkUsecase.putUserInfoUpdate(userInfo: userInfo) { status in
+        self.networkUseCase?.putUserInfoUpdate(userInfo: userInfo) { status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -270,7 +272,7 @@ struct SettingUserRow: View {
 
 struct SettingUserView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingUserView(delegate: nil)
+        SettingUserView(delegate: nil, networkUseCase: nil)
     }
 }
 

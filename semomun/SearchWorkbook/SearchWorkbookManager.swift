@@ -8,16 +8,18 @@
 import Foundation
 
 class SearchWorkbookManager {
-    let filter: [Int]
+    private let filter: [Int]
     var loadedPreviews: [PreviewOfDB] = []
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
-    var imageScale: NetworkUsecase.scale = .large
+    var imageScale: NetworkURL.scale = .large
     var category: String
     private(set) var selectedIndex: Int?
+    private let networkUseCase: NetworkUsecase
     
-    init(filter: [Preview_Core], category: String) {
+    init(filter: [Preview_Core], category: String, networkUseCase: NetworkUsecase) {
         self.filter = filter.map { Int($0.wid) }
         self.category = category
+        self.networkUseCase = networkUseCase
         self.queryDic["c"] = category
     }
     
@@ -38,7 +40,7 @@ class SearchWorkbookManager {
     }
     
     func imageURL(at: Int) -> String {
-        let url = NetworkUsecase.URL.bookcovoerImageDirectory(imageScale) + preview(at: at).bookcover
+        let url = NetworkURL.bookcovoerImageDirectory(imageScale) + preview(at: at).bookcover
         return url
     }
     
@@ -51,7 +53,7 @@ class SearchWorkbookManager {
     }
     
     func loadPreviews(completion: @escaping ()->Void) {
-        NetworkUsecase.downloadPreviews(param: self.queryStringOfPreviews) { searchPreview in
+        self.networkUseCase.downloadPreviews(param: self.queryStringOfPreviews) { searchPreview in
             let previews = searchPreview.workbooks
             self.loadedPreviews = previews.filter { !self.filter.contains($0.wid) }
             completion()

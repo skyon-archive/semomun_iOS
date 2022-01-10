@@ -45,7 +45,9 @@ extension SelectFavoriteViewController {
     }
     
     private func configureManager() {
-        self.manager = CategoryManager()
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
+        self.manager = CategoryManager(networkUseCase: networkUseCase)
         self.manager?.fetch { [weak self] in
             self?.categoryCollectionView.reloadData()
         }

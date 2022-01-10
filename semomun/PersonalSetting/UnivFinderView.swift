@@ -66,7 +66,10 @@ struct UnivFinderView: View {
         }
         .padding()
         .onAppear(perform: {
-            SchoolSearchUseCase.request(schoolKey: schoolType.key, completion: { downloaded in
+            let network = Network()
+            let networkUseCase = NetworkUsecase(network: network)
+            let schoolSearchUseCase = SchoolSearchUseCase(networkUseCase: networkUseCase)
+            schoolSearchUseCase.request(schoolKey: schoolType.key, completion: { downloaded in
                 self.univList = downloaded
                 filterList()
             })

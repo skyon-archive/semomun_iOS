@@ -49,18 +49,18 @@ class CertificationViewController: UIViewController {
             self.showAlertWithOK(title: "올바른 번호가 아닙니다", text: "11글자의 숫자를 입력해주시기 바랍니다.")
             return
         }
-        self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
-            if let valid = valid {
-                if valid {
-                    self?.states[1] = true
-                    self?.showAlertWithOK(title: "전송 완료", text: "인증번호를 확인해주시기 바랍니다.")
-                } else {
-                    self?.showAlertWithOK(title: "전송 실패", text: "다시 시도하시기 바랍니다.")
-                }
-            } else {
-                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
-            }
-        })
+//        self.usecase?.checkPhone(with: self.phone.text, completion: { [weak self] valid in
+//            if let valid = valid {
+//                if valid {
+//                    self?.states[1] = true
+//                    self?.showAlertWithOK(title: "전송 완료", text: "인증번호를 확인해주시기 바랍니다.")
+//                } else {
+//                    self?.showAlertWithOK(title: "전송 실패", text: "다시 시도하시기 바랍니다.")
+//                }
+//            } else {
+//                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
+//            }
+//        })
     }
     @IBAction func sendCertification(_ sender: Any) {
         self.dismissKeyboard()
@@ -68,18 +68,18 @@ class CertificationViewController: UIViewController {
             self.showAlertWithOK(title: "올바른 인증번호가 아닙니다", text: "6글자의 인증번호를 입력해주시기 바랍니다.")
             return
         }
-        self.usecase?.checkCertification(with: self.phone.text, phone: self.phone.text, completion: { [weak self] valid in
-            if let valid = valid {
-                if valid {
-                    self?.states[2] = true
-                    self?.showAlertWithOK(title: "인증 완료", text: "인증이 완료되었습니다.")
-                } else {
-                    self?.showAlertWithOK(title: "인증 실패", text: "다시 시도하시기 바랍니다.")
-                }
-            } else {
-                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
-            }
-        })
+//        self.usecase?.checkCertification(with: self.phone.text, phone: self.phone.text, completion: { [weak self] valid in
+//            if let valid = valid {
+//                if valid {
+//                    self?.states[2] = true
+//                    self?.showAlertWithOK(title: "인증 완료", text: "인증이 완료되었습니다.")
+//                } else {
+//                    self?.showAlertWithOK(title: "인증 실패", text: "다시 시도하시기 바랍니다.")
+//                }
+//            } else {
+//                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
+//            }
+//        })
     }
     
     @IBAction func nextVC(_ sender: Any) {

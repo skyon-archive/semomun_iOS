@@ -19,16 +19,23 @@ class LoginViewController: UIViewController {
     private let buttonHeight: CGFloat = 55
     private let buttonRadius: CGFloat = 8
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
+    private var networkUseCase: NetworkUsecase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureNetwork()
         self.configureSignInAppleButton()
         self.configureSignInGoogleButton()
+    }
+    
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
     }
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    func configureSignInAppleButton() {
+    private func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         authorizationButton.cornerRadius = self.buttonRadius
@@ -36,7 +43,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         self.configureLayoutAppleButton(with: authorizationButton)
     }
     
-    func configureSignInGoogleButton() {
+    private func configureSignInGoogleButton() {
         let googleSignInButton = UIControl()
         googleSignInButton.backgroundColor = UIColor(red: 66/255, green: 133/255, blue: 244/255, alpha: 1)
         
@@ -161,7 +168,7 @@ extension LoginViewController {
     }
     
     func checkUser(idToken: String, completion: @escaping(Bool) -> Void) {
-        NetworkUsecase.postCheckUser(userToken: idToken) { result, isUser in
+        self.networkUseCase?.postCheckUser(userToken: idToken) { result, isUser in
             switch result {
             case .SUCCESS:
                 completion(isUser)
@@ -177,7 +184,7 @@ extension LoginViewController {
     
     private func registerUser() {
         guard let userInfo = self.signupInfo else { return }
-        NetworkUsecase.postUserSignup(userInfo: userInfo) { [weak self] status in
+        self.networkUseCase?.postUserSignup(userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -192,7 +199,7 @@ extension LoginViewController {
     }
     
     private func getUserInfo() {
-        NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
+        self.networkUseCase?.getUserInfo() { [weak self] status, userInfo in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -209,7 +216,7 @@ extension LoginViewController {
     }
     
     private func getUserInfoByUser() {
-        NetworkUsecase.getUserInfo() { [weak self] status, userInfo in
+        self.networkUseCase?.getUserInfo() { [weak self] status, userInfo in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -242,7 +249,7 @@ extension LoginViewController {
         }
         print("Core: \(coreUserInfo)")
         
-        NetworkUsecase.putUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
+        self.networkUseCase?.putUserInfoUpdate(userInfo: coreUserInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:

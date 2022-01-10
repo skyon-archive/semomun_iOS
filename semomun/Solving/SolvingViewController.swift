@@ -214,8 +214,10 @@ extension SolvingViewController: LayoutDelegate {
     
     func terminateSection(result: SectionResult, sid: Int, jsonString: String) {
         let isConnected = true
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
         if isConnected {
-            NetworkUsecase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
+            networkUseCase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
                 DispatchQueue.main.async {
                     switch status {
                     case .SUCCESS:

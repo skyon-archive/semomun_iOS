@@ -8,6 +8,11 @@
 import Foundation
 
 struct SchoolSearchUseCase {
+    let networkUseCase: NetworkUsecase?
+    init(networkUseCase: NetworkUsecase) {
+        self.networkUseCase = networkUseCase
+    }
+    
     enum SchoolType: String, CaseIterable {
         case elementary = "초등학교"
         case middle = "중학교"
@@ -27,7 +32,7 @@ struct SchoolSearchUseCase {
         }
     }
     
-    static func request(schoolKey: String, completion: @escaping ([String]) -> Void) {
+    func request(schoolKey: String, completion: @escaping ([String]) -> Void) {
         guard let apiKey = Bundle.main.infoDictionary?["API_ACCESS_KEY1"] as? String else {
             completion([])
             return
@@ -41,6 +46,6 @@ struct SchoolSearchUseCase {
             "thisPage": "1",
             "perPage": "20000"
         ]
-        NetworkUsecase.getSchoolDTO(param: param, completion: completion)
+        self.networkUseCase?.getSchoolDTO(param: param, completion: completion)
     }
 }
