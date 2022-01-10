@@ -8,43 +8,11 @@
 import Foundation
 
 class NetworkUsecase {
-    enum URL {
-        static let base: String = "https://saemomoon.com"
-        static let workbooks: String = base + "/workbooks/"
-        static let sections: String = base + "/sections/"
-        static let images: String = base + "/images"
-        static let workbookImageURL: String = images + "/workbook"
-        static let bookcoverImageURL: String = images + "/bookcover"
-        static let sectionImageURL: String = images + "/section"
-        static let materialImage: String = images + "/material/"
-        static let contentImage: String = images + "/content/"
-        static let explanation: String = images + "/explanation/"
-        static let checkUser: String = base + "/register/check"
-        static let categorys: String = base + "/info/category"
-        static let queryButtons: String = base + "/info/buttons"
-        static let majors: String = base + "/info/major"
-        static let register: String = base + "/register"
-        static let postPhone: String = register + "/auth"
-        static let verifyPhone: String = register + "/verify"
-        static let users: String = base + "/users/"
-        
-        static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
-        static let customerService: String = "http://pf.kakao.com/_JAxdGb"
-        static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
-        static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709"
-        
-        static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
-        static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
-        static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
-        static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
-        static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }
+    let network: NetworkFetchable
+    init(network: NetworkFetchable) {
+        self.network = network
     }
-    enum scale: String {
-        case small = "/64x64/"
-        case normal = "/128x128/"
-        case large = "/256x256/"
-    }
+
     enum NetworkStatus {
         case SUCCESS //200
         case FAIL
@@ -53,8 +21,8 @@ class NetworkUsecase {
         case DECODEERROR
     }
     
-    static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
-        Network.get(url: URL.workbooks, param: param) { requestResult in
+    func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
+        self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
             guard let data = requestResult.data else { return }
             guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
                 print("Error: Decode")
@@ -64,15 +32,15 @@ class NetworkUsecase {
         }
     }
     
-    static func downloadImage(url: String, hander: @escaping(Data) -> ()) {
-        Network.get(url: url) { requestResult in
+    func downloadImage(url: String, hander: @escaping(Data) -> ()) {
+        self.network.get(url: url, param: nil) { requestResult in
             guard let data = requestResult.data else { return }
             hander(data)
         }
     }
     
-    static func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
-        Network.get(url: URL.workbookDirectory(wid)) { requestResult in
+    func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
+        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
             guard let data = requestResult.data else { return }
             guard let searchWorkbook: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) else {
                 print("Error: Decode")
@@ -82,8 +50,8 @@ class NetworkUsecase {
         }
     }
     
-    static func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
-        Network.get(url: URL.sectionDirectory(sid)) { requestResult in
+    func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
+        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
             guard let data = requestResult.data else { return }
             guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {
                 print("Error: Decode")
@@ -93,14 +61,14 @@ class NetworkUsecase {
         }
     }
     
-    static func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
-        Network.get(url: url) { requestResult in
+    func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
+        self.network.get(url: url, param: nil) { requestResult in
             handler(requestResult.data)
         }
     }
     
-    static func getCategorys(completion: @escaping([String]?) -> Void) {
-        Network.get(url: URL.categorys) { requestResult in
+    func getCategorys(completion: @escaping([String]?) -> Void) {
+        self.network.get(url: NetworkURL.categorys, param: nil) { requestResult in
             guard let data = requestResult.data else {
                 completion(nil)
                 return
@@ -114,8 +82,8 @@ class NetworkUsecase {
         }
     }
     
-    static func getMajors(completion: @escaping([[String: [String]]]?) -> Void) {
-        Network.get(url: URL.majors) { requestResult in
+    func getMajors(completion: @escaping([[String: [String]]]?) -> Void) {
+        self.network.get(url: NetworkURL.majors, param: nil) { requestResult in
             guard let data = requestResult.data else {
                 completion(nil)
                 return
@@ -129,8 +97,8 @@ class NetworkUsecase {
         }
     }
     
-    static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
-        Network.get(url: URL.queryButtons, param: ["c": category]) { requestResult in
+    func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
+        self.network.get(url: NetworkURL.queryButtons, param: ["c": category]) { requestResult in
             guard let data = requestResult.data else {
                 completion(nil)
                 return
@@ -144,8 +112,8 @@ class NetworkUsecase {
         }
     }
     
-    static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
-        Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { requestResult in
+    func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
+        self.network.get(url: NetworkURL.schoolApi, param: param) { requestResult in
             guard let data = requestResult.data else {
                 completion([])
                 return
@@ -161,11 +129,11 @@ class NetworkUsecase {
         }
     }
     
-    static func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
-        let url = URL.users+"self"
+    func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
+        let url = NetworkURL.users+"self"
         let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
         
-        Network.get(url: url, param: param) { requestResult in
+        self.network.get(url: url, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, nil)
@@ -195,8 +163,8 @@ class NetworkUsecase {
         }
     }
     
-    static func getAppstoreVersion(completion: @escaping(NetworkStatus, AppstoreVersion?) -> Void) {
-        Network.get(url: URL.appstoreVersion) { requestResult in
+    func getAppstoreVersion(completion: @escaping(NetworkStatus, AppstoreVersion?) -> Void) {
+        self.network.get(url: NetworkURL.appstoreVersion, param: nil) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, nil)
@@ -225,9 +193,9 @@ class NetworkUsecase {
 
 // MARK: - POST
 extension NetworkUsecase {
-    static func postCheckUser(userToken: String, completion: @escaping(NetworkStatus,Bool) -> Void) {
+    func postCheckUser(userToken: String, completion: @escaping(NetworkStatus,Bool) -> Void) {
         let param = ["token": userToken]
-        Network.post(url: URL.checkUser, param: param) { requestResult in
+        self.network.post(url: NetworkURL.checkUser, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, false)
@@ -255,7 +223,7 @@ extension NetworkUsecase {
         }
     }
     
-    static func postUserSignup(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void) {
+    func postUserSignup(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void) {
         guard let jsonData = try? JSONEncoder().encode(userInfo) else {
             print("Encode Error")
             return
@@ -263,7 +231,7 @@ extension NetworkUsecase {
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
         
-        Network.post(url: URL.register, param: param) { requestResult in
+        self.network.post(url: NetworkURL.register, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR)
@@ -289,19 +257,11 @@ extension NetworkUsecase {
             completion(.SUCCESS)
         }
     }
-    
-    static func postCheckPhone(with phone: String, completion: @escaping(Bool?) -> Void) {
-        completion(true)
-    }
-    
-    static func postCheckCertification(with certifi: String, phone: String, completion: @escaping(Bool?) -> Void) {
-        completion(true)
-    }
 }
 
 // MARK: - PUT
 extension NetworkUsecase {
-    static func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
+    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
         guard let nickName = userInfo.nickName else { return }
         let newUserInfo = UserInfo()
         newUserInfo.setValues(userInfo: userInfo)
@@ -312,7 +272,7 @@ extension NetworkUsecase {
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
         
-        Network.put(url: URL.users+"\(nickName)", param: param) { requestResult in
+        self.network.put(url: NetworkURL.users+"\(nickName)", param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR)
@@ -334,9 +294,9 @@ extension NetworkUsecase {
         }
     }
     
-    static func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
+    func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
         let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
-        Network.put(url: URL.sectionsSubmit(sid), param: param) { requestResult in
+        self.network.put(url: NetworkURL.sectionsSubmit(sid), param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR)

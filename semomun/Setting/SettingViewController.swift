@@ -37,7 +37,7 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func openCustomerService(_ sender: Any) {
-        if let url = URL(string: NetworkUsecase.URL.customerService) {
+        if let url = URL(string: NetworkURL.customerService) {
             UIApplication.shared.open(url, options: [:])
         }
     }
@@ -63,7 +63,7 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func errorReport(_ sender: Any) {
-        if let url = URL(string: NetworkUsecase.URL.errorReport) {
+        if let url = URL(string: NetworkURL.errorReport) {
             UIApplication.shared.open(url, options: [:])
         }
     }

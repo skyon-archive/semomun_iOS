@@ -56,7 +56,7 @@ public class Page_Core: NSManagedObject {
         
         let materialUrl: String?
         if let materialPath = page.material {
-            materialUrl = NetworkUsecase.URL.materialImage + materialPath
+            materialUrl = NetworkURL.materialImage + materialPath
         } else {
             materialUrl = nil
         }
@@ -72,7 +72,7 @@ public class Page_Core: NSManagedObject {
         }
         
         if let url = pageResult.url {
-            Network.get(url: url) { requestResult in
+            Network().get(url: url, param: nil) { requestResult in
                 print(requestResult.data ?? "no data")
                 if requestResult.data != nil {
                     self.setValue(requestResult.data, forKey: "materialImage")

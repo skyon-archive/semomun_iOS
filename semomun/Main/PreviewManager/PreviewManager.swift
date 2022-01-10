@@ -21,9 +21,11 @@ class PreviewManager {
     private(set) var currentCategory: String = "수능 및 모의고사"
     private(set) var previews: [Preview_Core] = []
     private(set) var currentIndex: Int = 0
+    private let networkUseCase: NetworkUsecase
     
-    init(delegate: PreviewDatasource) {
+    init(delegate: PreviewDatasource, networkUseCase: NetworkUsecase) {
         self.delegate = delegate
+        self.networkUseCase = networkUseCase
         self.configureCategory()
     }
     
