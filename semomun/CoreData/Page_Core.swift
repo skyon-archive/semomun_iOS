@@ -12,10 +12,10 @@ import UIKit
 
 struct PageResult {
     let vid: Int
-    let url: URL?
+    let url: String?
     let isImage: Bool
     
-    init(vid: Int, url: URL?, isImage: Bool) {
+    init(vid: Int, url: String?, isImage: Bool) {
         self.vid = vid
         self.url = url
         self.isImage = isImage
@@ -54,13 +54,13 @@ public class Page_Core: NSManagedObject {
         self.setValue(Int64(0), forKey: "time")
         print("Page: \(page.vid) save complete")
         
-        guard let materialPath = page.material else {
-            return PageResult(vid: page.vid, url: nil, isImage: false)
+        let materialUrl: String?
+        if let materialPath = page.material {
+            materialUrl = NetworkUsecase.URL.materialImage + materialPath
+        } else {
+            materialUrl = nil
         }
-        guard let url = URL(string: NetworkUsecase.URL.materialImage + materialPath) else {
-            return PageResult(vid: page.vid, url: nil, isImage: true)
-        }
-        return PageResult(vid: page.vid, url: url, isImage: true)
+        return PageResult(vid: page.vid, url: materialUrl, isImage: true)
     }
     
     func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
@@ -72,10 +72,10 @@ public class Page_Core: NSManagedObject {
         }
         
         if let url = pageResult.url {
-            Network.get(url: url) { materialImageData in
-                print(materialImageData)
-                if materialImageData != nil {
-                    self.setValue(materialImageData, forKey: "materialImage")
+            Network.get(url: url) { requestResult in
+                print(requestResult.data ?? "no data")
+                if requestResult.data != nil {
+                    self.setValue(requestResult.data, forKey: "materialImage")
                     print("Page: \(pageResult.vid) save Material")
                     completion()
                 } else {

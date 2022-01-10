@@ -13,11 +13,11 @@ import UIKit
 
 struct ProblemResult {
     let pid: Int
-    let contentUrl: URL?
-    let explanationUrl: URL?
+    let contentUrl: String?
+    let explanationUrl: String?
     var imageCount: Int = 0
     
-    init(pid: Int, contentUrl: URL?, explanationUrl: URL?) {
+    init(pid: Int, contentUrl: String?, explanationUrl: String?) {
         self.pid = pid
         self.contentUrl = contentUrl
         self.explanationUrl = explanationUrl
@@ -75,24 +75,23 @@ public class Problem_Core: NSManagedObject {
         }
         print("Problem: \(prob.pid) save complete")
         
-        var contentUrl: URL? = nil
-        if let url = URL(string: NetworkUsecase.URL.contentImage + prob.content) {
-            contentUrl = url
+        let contentUrl: String = NetworkUsecase.URL.contentImage + prob.content
+        let explanationUrl: String?
+        if let explanation = prob.explanation {
+            explanationUrl = NetworkUsecase.URL.explanation + explanation
+        } else {
+            explanationUrl = nil
         }
-        guard let explanation = prob.explanation,
-              let url = URL(string: NetworkUsecase.URL.explanation + explanation) else {
-                  return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: nil)
-              }
-        return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: url)
+        return ProblemResult(pid: prob.pid, contentUrl: contentUrl, explanationUrl: explanationUrl)
     }
     
     func fetchImages(problemResult: ProblemResult, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         if let contentURL = problemResult.contentUrl {
-            Network.get(url: contentURL) { contentData in
-                print(contentData)
-                if contentData != nil {
-                    self.setValue(contentData, forKey: "contentImage")
+            Network.get(url: contentURL) { requestResult in
+                print(requestResult.data ?? "no data")
+                if requestResult.data != nil {
+                    self.setValue(requestResult.data, forKey: "contentImage")
                     print("Problem: \(problemResult.pid) save contentImage")
                     completion()
                 } else {
@@ -111,10 +110,10 @@ public class Problem_Core: NSManagedObject {
         
         // MARK: - explanationImage
         if let explanationURL = problemResult.explanationUrl {
-            Network.get(url: explanationURL) { explanationData in
-                print(explanationData)
-                if explanationData != nil {
-                    self.setValue(explanationData, forKey: "explanationImage")
+            Network.get(url: explanationURL) { requestResult in
+                print(requestResult.data ?? "no data")
+                if requestResult.data != nil {
+                    self.setValue(requestResult.data, forKey: "explanationImage")
                     print("Problem: \(problemResult.pid) save explanationImage")
                     completion()
                 } else {

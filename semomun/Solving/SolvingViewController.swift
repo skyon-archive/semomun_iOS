@@ -203,7 +203,7 @@ extension SolvingViewController: LayoutDelegate {
     }
     
     func saveComplete() {
-        self.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     func showResultViewController(result: SectionResult) {
