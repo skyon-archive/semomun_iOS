@@ -54,7 +54,7 @@ class NetworkUsecase {
     }
     
     static func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
-        Network.getWithQeuryItems(url: URL.workbooks, param: param) { requestResult in
+        Network.get(url: URL.workbooks, param: param) { requestResult in
             guard let data = requestResult.data else { return }
             guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
                 print("Error: Decode")
@@ -130,7 +130,7 @@ class NetworkUsecase {
     }
     
     static func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
-        Network.getWithQeuryItems(url: URL.queryButtons, param: ["c": category]) { requestResult in
+        Network.get(url: URL.queryButtons, param: ["c": category]) { requestResult in
             guard let data = requestResult.data else {
                 completion(nil)
                 return
@@ -145,7 +145,7 @@ class NetworkUsecase {
     }
     
     static func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
-        Network.getWithQeuryItems(url: NetworkUsecase.URL.schoolApi, param: param) { requestResult in
+        Network.get(url: NetworkUsecase.URL.schoolApi, param: param) { requestResult in
             guard let data = requestResult.data else {
                 completion([])
                 return
@@ -165,7 +165,7 @@ class NetworkUsecase {
         let url = URL.users+"self"
         let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
         
-        Network.getWithQeuryItems(url: url, param: param) { requestResult in
+        Network.get(url: url, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
                 print("Error: no statusCode")
                 completion(.ERROR, nil)
