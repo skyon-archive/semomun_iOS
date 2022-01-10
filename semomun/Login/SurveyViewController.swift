@@ -86,7 +86,9 @@ extension SurveyViewController {
     }
     
     private func configureMajors() {
-        NetworkUsecase.getMajors { [weak self] majors in
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
+        networkUseCase.getMajors { [weak self] majors in
             guard let majors = majors else {
                 self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
                 return

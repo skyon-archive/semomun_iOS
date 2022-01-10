@@ -21,17 +21,27 @@ class PersonalSettingViewController: UIViewController {
     @IBOutlet weak var major: UILabel!
     @IBOutlet weak var majorDetail: UILabel!
     
+    private var networkUseCase: NetworkUsecase?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "설정"
+        self.configureNetwork()
         self.loadData()
     }
     
     @IBAction func showSettingUserVC(_ sender: Any) {
-        let view = SettingUserView(delegate: self)
+        let view = SettingUserView(delegate: self, networkUseCase: self.networkUseCase)
         let vc = UIHostingController(rootView: view)
         vc.view.backgroundColor = .clear
         self.present(vc, animated: true, completion: nil)
+    }
+}
+
+extension PersonalSettingViewController {
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
     }
 }
 

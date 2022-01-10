@@ -75,10 +75,10 @@ public class Problem_Core: NSManagedObject {
         }
         print("Problem: \(prob.pid) save complete")
         
-        let contentUrl: String = NetworkUsecase.URL.contentImage + prob.content
+        let contentUrl: String = NetworkURL.contentImage + prob.content
         let explanationUrl: String?
         if let explanation = prob.explanation {
-            explanationUrl = NetworkUsecase.URL.explanation + explanation
+            explanationUrl = NetworkURL.explanation + explanation
         } else {
             explanationUrl = nil
         }
@@ -88,7 +88,7 @@ public class Problem_Core: NSManagedObject {
     func fetchImages(problemResult: ProblemResult, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         if let contentURL = problemResult.contentUrl {
-            Network.get(url: contentURL) { requestResult in
+            Network().get(url: contentURL, param: nil) { requestResult in
                 print(requestResult.data ?? "no data")
                 if requestResult.data != nil {
                     self.setValue(requestResult.data, forKey: "contentImage")
@@ -110,7 +110,7 @@ public class Problem_Core: NSManagedObject {
         
         // MARK: - explanationImage
         if let explanationURL = problemResult.explanationUrl {
-            Network.get(url: explanationURL) { requestResult in
+            Network().get(url: explanationURL, param: nil) { requestResult in
                 print(requestResult.data ?? "no data")
                 if requestResult.data != nil {
                     self.setValue(requestResult.data, forKey: "explanationImage")

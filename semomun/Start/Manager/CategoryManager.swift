@@ -10,9 +10,13 @@ import Foundation
 final class CategoryManager {
     private var items: [String] = []
     private(set) var selectedIndex: Int?
+    let networkUseCase: NetworkUsecase
+    init(networkUseCase: NetworkUsecase) {
+        self.networkUseCase = networkUseCase
+    }
     
     func fetch(completion: @escaping(() -> Void)) {
-        NetworkUsecase.getCategorys { categorys in
+        self.networkUseCase.getCategorys { categorys in
             guard let categorys = categorys else {
                 print("no data")
                 return

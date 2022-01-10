@@ -31,7 +31,9 @@ final class CategoryViewController: UIViewController {
 //MARK: - Configure
 extension CategoryViewController {
     private func configureManager() {
-        self.manager = CategoryManager()
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
+        self.manager = CategoryManager(networkUseCase: networkUseCase)
         manager?.fetch { [weak self] in
             self?.categoryCollectionView.reloadData()
         }

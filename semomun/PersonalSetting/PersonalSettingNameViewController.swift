@@ -15,9 +15,11 @@ class PersonalSettingNameViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var phoneField: UITextField!
     private var userInfo: UserCoreData?
+    private var networkUsecase: NetworkUsecase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.networkUsecase = NetworkUsecase(network: Network())
         self.configureUI()
         self.configureUserInfo()
         self.configureName(to: self.userInfo?.name ?? "")
@@ -40,7 +42,7 @@ class PersonalSettingNameViewController: UIViewController {
         userInfo.setValue(newName, forKey: "name")
         userInfo.setValue(newPhone, forKey: "phoneNumber")
         
-        NetworkUsecase.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
+        self.networkUsecase?.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:

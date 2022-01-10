@@ -20,11 +20,13 @@ class SideMenuViewController: UIViewController {
     var defaultHighlightedCell: Int = 0
     var categories: [String] = []
     var currentIndex: Int?
+    private var networkUseCase: NetworkUsecase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sideMenuTableView.delegate = self
         self.sideMenuTableView.dataSource = self
+        self.configureNetwork()
         self.configureCategories()
         self.configureIndex()
         self.configureObserve()
@@ -32,8 +34,13 @@ class SideMenuViewController: UIViewController {
 }
 
 extension SideMenuViewController {
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
+    }
+    
     private func configureCategories() {
-        NetworkUsecase.getCategorys { [weak self] categorys in
+        self.networkUseCase?.getCategorys { [weak self] categorys in
             guard let categorys = categorys else {
                 self?.categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
                 self?.configureIndex()

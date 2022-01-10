@@ -68,29 +68,4 @@ class CertificationUseCase {
         states.forEach { result = result && $0 }
         return result
     }
-    
-    func checkPhone(with phone: String?, completion: @escaping(Bool?) -> Void) {
-        guard let phone = phone else { return }
-        NetworkUsecase.postCheckPhone(with: phone) { valid in
-            guard let valid = valid else {
-                print("nil error")
-                completion(nil)
-                return
-            }
-            completion(valid)
-        }
-    }
-    
-    func checkCertification(with certifi: String?, phone: String?, completion: @escaping(Bool?) -> Void) {
-        guard let certifi = certifi,
-              let phone = phone else { return }
-        NetworkUsecase.postCheckCertification(with: certifi, phone: phone) { valid in
-            guard let valid = valid else {
-                print("nil error")
-                completion(nil)
-                return
-            }
-            completion(valid)
-        }
-    }
 }
