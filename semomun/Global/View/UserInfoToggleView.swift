@@ -10,6 +10,7 @@ import UIKit
 protocol UserInfoPushable: AnyObject {
     func showUserSetting()
     func showSetting()
+    func showLoginViewController()
 }
 
 final class UserInfoToggleView: UIView {
@@ -17,6 +18,7 @@ final class UserInfoToggleView: UIView {
     private let shadowRadius: CGFloat = 15
     private let shadowOpacity: Float = 0.3
     private weak var delegate: UserInfoPushable?
+    private var isLogined: Bool = false
     
     let baseImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
@@ -45,7 +47,6 @@ final class UserInfoToggleView: UIView {
     }()
     private lazy var userSettingButton: UIButton = {
         let button = UIButton()
-        button.setTitle("개인정보 수정하기 >", for: .normal)
         button.setTitleColor(UIColor.lightGray, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         button.contentMode = .left
@@ -73,15 +74,29 @@ final class UserInfoToggleView: UIView {
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
-        self.configureUserName()
+        self.refresh()
     }
     
-    func configureUserName() {
+    func refresh() {
+        self.isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        if self.isLogined {
+            self.refreshUserInfo()
+        } else {
+            self.showLoginText()
+        }
+    }
+    
+    private func refreshUserInfo() {
         guard let userInfo = CoreUsecase.fetchUserInfo(), let name = userInfo.name else {
             self.configureName(to: "홍길동")
             return
         }
         self.configureName(to: name)
+    }
+    
+    private func showLoginText() {
+        self.configureName(to: "환영합니다!")
+        self.configureUserSettingButtonText(to: "로그인하기")
     }
     
     func configureDelegate(delegate: UserInfoPushable) {
@@ -127,11 +142,25 @@ final class UserInfoToggleView: UIView {
     func configureName(to name: String) {
         self.userNameLabel.text = name
     }
+    
+    func configureUserSettingButtonText(to text: String) {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor.lightGray,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        let attributeString = NSMutableAttributedString(string: text, attributes: attributes)
+        self.userSettingButton.setAttributedTitle(attributeString, for: .normal)
+    }
 }
 
 extension UserInfoToggleView {
     @objc func showUserSetting() {
-        self.delegate?.showUserSetting()
+        if self.isLogined {
+            self.delegate?.showUserSetting()
+        } else {
+            self.delegate?.showLoginViewController()
+        }
     }
     
     @objc func showSetting() {

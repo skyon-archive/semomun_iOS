@@ -135,9 +135,6 @@ extension SurveyViewController {
 extension SurveyViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case CategoryViewController.Identifier.segue:
-            guard let destination = segue.destination as? CategoryViewController else { return }
-            destination.delegate = self
         case MajorViewController.Identifier.segue:
             guard let destination = segue.destination as? MajorViewController else { return }
             self.majorViewController = destination
@@ -151,11 +148,6 @@ extension SurveyViewController {
     }
 }
 
-extension SurveyViewController: CategorySetable {
-    func didSelectCategory(to category: String) {
-        self.signUpInfo?.configureCategory(to: category)
-    }
-}
 extension SurveyViewController: MajorSetable {
     func didSelectMajor(section index: Int, to major: String) {
         self.acticationMajorDetail(section: index)

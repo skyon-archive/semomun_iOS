@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         self.reloadData()
-        self.userInfoView.configureUserName()
+        self.userInfoView.refresh()
     }
     
     override func viewDidAppear(_ animated: Bool) {

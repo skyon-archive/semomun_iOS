@@ -25,8 +25,10 @@ class StartLoginViewController: UIViewController {
     }
     
     @IBAction func signin(_ sender: Any) {
-        let signUpInfo = UserInfo()
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SurveyViewController.identifier) as? SurveyViewController else { return }
+        let signUpInfo = UserInfo()
+        let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String ?? "수능모의고사"
+        signUpInfo.configureCategory(to: category)
         nextVC.signUpInfo = signUpInfo
         
         self.title = ""
@@ -44,6 +46,7 @@ extension StartLoginViewController {
             button.clipsToBounds = true
             button.layer.cornerRadius = 5
         }
+        self.loginButtons[1].setTitle("회원가입", for: .normal)
         self.loginButtons[2].layer.borderWidth = 1
         self.loginButtons[2].layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
     }

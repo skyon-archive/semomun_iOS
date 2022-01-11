@@ -11,7 +11,7 @@ import CoreData
 extension UIViewController {
     
     func showLoginAlert() {
-        let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: "로그인 후 서비스를 이용하세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         let login = UIAlertAction(title: "로그인하기", style: .default) { [weak self] _ in
             self?.showLoginViewController()
