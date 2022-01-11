@@ -18,14 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
 
-        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
-
-        if isLogined {
-            let navigationController = UINavigationController(rootViewController: mainViewController)
+        let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
+        if isIntial {
+            let navigationController = UINavigationController(rootViewController: startViewController)
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         } else {
-            let navigationController = UINavigationController(rootViewController: startViewController)
+            let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         }
