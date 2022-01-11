@@ -23,7 +23,8 @@ class StartViewController: UIViewController {
 
 extension StartViewController {
     private func configureUI() {
-        self.startButton.cornerRadius = 5
+        self.startButton.clipsToBounds = true
+        self.startButton.cornerRadius = 10
     }
     
     private func goSelectFavoriteVC() {

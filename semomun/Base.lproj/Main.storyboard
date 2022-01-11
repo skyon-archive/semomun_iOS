@@ -3686,9 +3686,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세모문에서 가장 만나고 싶은 문제 선택 화면" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOq-5I-yhK">
-                                <rect key="frame" x="238.5" y="511.5" width="291" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세모문에서 가장 만나고 싶은 문제는?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOq-5I-yhK">
+                                <rect key="frame" x="168.5" y="220" width="431" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -3710,21 +3710,67 @@
                                     <action selector="start:" destination="g9Y-kw-TWf" eventType="touchUpInside" id="tLU-vB-0Ct"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="E2f-HX-Q01">
+                                <rect key="frame" x="100" y="336" width="568" height="360"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="360" id="4Lc-hF-AVB"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="ut7-rI-f2b">
+                                    <size key="itemSize" width="202" height="74"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FavoriteCategoryCell" id="UMl-Nx-v20" customClass="FavoriteCategoryCell" customModule="semomun" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="202" height="74"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Szf-Bh-zwd">
+                                            <rect key="frame" x="0.0" y="0.0" width="202" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수능모의고사" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6o-eW-oab">
+                                                    <rect key="frame" x="62" y="28" width="78" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="q6o-eW-oab" firstAttribute="centerY" secondItem="Szf-Bh-zwd" secondAttribute="centerY" id="WbB-qS-dih"/>
+                                                <constraint firstItem="q6o-eW-oab" firstAttribute="centerX" secondItem="Szf-Bh-zwd" secondAttribute="centerX" id="uIE-L6-iuc"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="202" height="74"/>
+                                        <connections>
+                                            <outlet property="title" destination="q6o-eW-oab" id="88k-ia-CK4"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NDx-9o-nEw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mOq-5I-yhK" firstAttribute="top" secondItem="NDx-9o-nEw" secondAttribute="top" constant="200" id="0Zt-Mg-n2L"/>
+                            <constraint firstItem="E2f-HX-Q01" firstAttribute="top" secondItem="mOq-5I-yhK" secondAttribute="bottom" constant="80" id="BEm-mu-FfC"/>
                             <constraint firstItem="XGN-WO-wKT" firstAttribute="centerX" secondItem="NDx-9o-nEw" secondAttribute="centerX" id="Mdr-qt-ZSF"/>
                             <constraint firstItem="mOq-5I-yhK" firstAttribute="centerX" secondItem="NDx-9o-nEw" secondAttribute="centerX" id="QrC-VA-66G"/>
                             <constraint firstItem="NDx-9o-nEw" firstAttribute="bottom" secondItem="XGN-WO-wKT" secondAttribute="bottom" constant="58" id="Uhv-NV-zpM"/>
-                            <constraint firstItem="mOq-5I-yhK" firstAttribute="centerY" secondItem="NDx-9o-nEw" secondAttribute="centerY" id="yHR-NE-ohA"/>
+                            <constraint firstItem="E2f-HX-Q01" firstAttribute="leading" secondItem="NDx-9o-nEw" secondAttribute="leading" constant="100" id="evf-uS-f6m"/>
+                            <constraint firstItem="E2f-HX-Q01" firstAttribute="centerX" secondItem="NDx-9o-nEw" secondAttribute="centerX" id="ony-1W-a2R"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="categoryCollectionView" destination="E2f-HX-Q01" id="U3u-Jx-eDp"/>
+                        <outlet property="startButton" destination="XGN-WO-wKT" id="QkG-d0-Znd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mxi-mD-mH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="VQb-qx-Rh3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="691" y="-2032"/>
+            <point key="canvasLocation" x="690.625" y="-2032.0312499999998"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VTB-oy-a6U">

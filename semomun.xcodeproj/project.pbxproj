@@ -304,6 +304,8 @@
 			children = (
 				8726CB0A278D1458004D9CC0 /* StartViewController.swift */,
 				8726CB0C278D156F004D9CC0 /* SelectFavoriteViewController.swift */,
+				8726CB11278DBCAD004D9CC0 /* Manager */,
+				8726CB12278DBCBB004D9CC0 /* Cell */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -314,6 +316,22 @@
 				8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		8726CB11278DBCAD004D9CC0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				87C85E68276F6910001C9C4A /* CategoryManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		8726CB12278DBCBB004D9CC0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		8766B1F4277C448300061CE6 /* MutipleCellDelegate */ = {
@@ -379,6 +397,7 @@
 		87C85E29276F65AA001C9C4A /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E62276F68E1001C9C4A /* CategoryViewController.swift */,
 				87C85E51276F67D7001C9C4A /* CertificationViewController.swift */,
 				87C85ED6276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift */,
 				87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */,
@@ -499,7 +518,6 @@
 		87C85E5A276F683E001C9C4A /* CollecitonViews */ = {
 			isa = PBXGroup;
 			children = (
-				87C85E62276F68E1001C9C4A /* CategoryViewController.swift */,
 				87C85E64276F68F0001C9C4A /* MajorViewController.swift */,
 				87C85E66276F68FE001C9C4A /* MajorDetailViewController.swift */,
 			);
@@ -509,7 +527,6 @@
 		87C85E5B276F6845001C9C4A /* CollectionViewManagers */ = {
 			isa = PBXGroup;
 			children = (
-				87C85E68276F6910001C9C4A /* CategoryManager.swift */,
 				87C85E6A276F691F001C9C4A /* MajorManager.swift */,
 				87C85E6C276F693A001C9C4A /* MajorDetailManager.swift */,
 			);
@@ -519,7 +536,6 @@
 		87C85E5C276F684C001C9C4A /* CollecitonCells */ = {
 			isa = PBXGroup;
 			children = (
-				87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */,
 				87C85E70276F6967001C9C4A /* MajorCell.swift */,
 				87C85E72276F6975001C9C4A /* MajorDetailCell.swift */,
 			);
