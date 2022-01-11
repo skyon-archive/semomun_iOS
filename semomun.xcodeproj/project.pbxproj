@@ -24,6 +24,7 @@
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
 		8726CB0B278D1458004D9CC0 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0A278D1458004D9CC0 /* StartViewController.swift */; };
 		8726CB0D278D156F004D9CC0 /* SelectFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0C278D156F004D9CC0 /* SelectFavoriteViewController.swift */; };
+		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
@@ -141,6 +142,7 @@
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8726CB0A278D1458004D9CC0 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		8726CB0C278D156F004D9CC0 /* SelectFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFavoriteViewController.swift; sourceTree = "<group>"; };
+		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
@@ -306,6 +308,14 @@
 			path = Start;
 			sourceTree = "<group>";
 		};
+		8726CB0E278D2040004D9CC0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		8766B1F4277C448300061CE6 /* MutipleCellDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
+				8726CB0E278D2040004D9CC0 /* Manager */,
 				87E151612787DBE20080D39A /* ViewController */,
 				87C85E3A276F66AB001C9C4A /* View */,
 				879B172C2772CC030042478F /* UseCase */,
@@ -821,6 +832,7 @@
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
 				87C85E67276F68FE001C9C4A /* MajorDetailViewController.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
+				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87C85E63276F68E1001C9C4A /* CategoryViewController.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,

@@ -24,8 +24,9 @@ class SelectFavoriteViewController: UIViewController {
 
 extension SelectFavoriteViewController {
     private func saveUserDefaults() {
-        UserDefaults.standard.setValue("수능모의고사", forKey: "currentCategory")
-        UserDefaults.standard.setValue(true, forKey: "logined")
+        UserDefaultsManager.set(to: "수능모의고사", forKey: UserDefaultsManager.Keys.currentCategory)
+        UserDefaultsManager.set(to: true, forKey: UserDefaultsManager.Keys.logined)
+        UserDefaultsManager.set(to: true, forKey: UserDefaultsManager.Keys.isInitial)
     }
     
     private func goMainVC() {
