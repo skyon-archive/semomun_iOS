@@ -28,6 +28,7 @@ class StartLoginViewController: UIViewController {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SurveyViewController.identifier) as? SurveyViewController else { return }
         let signUpInfo = UserInfo()
         let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String ?? "수능모의고사"
+        print(category)
         signUpInfo.configureCategory(to: category)
         nextVC.signUpInfo = signUpInfo
         

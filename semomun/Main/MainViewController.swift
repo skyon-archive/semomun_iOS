@@ -90,7 +90,7 @@ extension MainViewController {
     }
     
     func configureObserve() {
-        NotificationCenter.default.addObserver(forName: ShowDetailOfWorkbookViewController.refresh, object: nil, queue: .main) { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: .downloadPreview, object: nil, queue: .main) { [weak self] notification in
             guard let targetSubject = notification.userInfo?["subject"] as? String else { return }
             self?.previewManager.checkSubject(with: targetSubject)
             self?.previewManager.fetchPreviews()

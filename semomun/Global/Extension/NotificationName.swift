@@ -11,4 +11,5 @@ extension Notification.Name {
     static let seconds = Self.init(rawValue: "seconds")
     static let updateCategory = Self.init(rawValue: "updateCategory")
     static let logined = Self.init(rawValue: "logined")
+    static let downloadPreview = Self.init(rawValue: "downloadPreview")
 }

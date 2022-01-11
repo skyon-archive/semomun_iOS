@@ -290,7 +290,7 @@ extension SearchWorkbookViewController {
         }
         CoreDataManager.saveCoreData()
         print("save complete")
-        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self, userInfo: ["subject" : subject])
+        NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : subject])
         DispatchQueue.main.async {
             self.stopPreviewLoader()
             self.dismiss(animated: true, completion: nil)

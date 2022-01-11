@@ -9,8 +9,7 @@ import UIKit
 import CoreData
 
 class ShowDetailOfWorkbookViewController: UIViewController {
-    static let refresh = Notification.Name("refresh")
-    
+
     @IBOutlet weak var testImage: UIImageView!
     @IBOutlet weak var wid: UILabel!
     var selectedPreview: PreviewOfDB!
