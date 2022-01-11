@@ -31,6 +31,12 @@ class MainViewController: UIViewController {
     let paddingForRotation: CGFloat = 150
     var isPopuped: Bool = false
     private lazy var userInfoView = UserInfoToggleView()
+    private lazy var emptyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: SemomunImage.empty)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +61,7 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         self.configureShadowTapGesture()
         self.configureCollectionViewTapGesture()
+        self.checkEmptyImage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,6 +102,7 @@ extension MainViewController {
             self?.previewManager.checkSubject(with: targetSubject)
             self?.previewManager.fetchPreviews()
             self?.reloadData()
+            self?.checkEmptyImage()
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
             self?.userInfoView.refresh()
@@ -119,6 +127,28 @@ extension MainViewController {
         if let indexPath = self.previews?.indexPathForItem(at: sender.location(in: self.previews)) {
             self.didSelectItemAt(indexPath: indexPath)
         }
+    }
+    
+    private func checkEmptyImage() {
+        guard let count = self.previewManager?.previewsCount else { return }
+        self.emptyImageView.removeFromSuperview()
+        if count == 0 {
+            DispatchQueue.main.async { [weak self] in
+                self?.createEmptyImage()
+            }
+        }
+    }
+    
+    private func createEmptyImage() {
+        guard let targetCell = self.previews.cellForItem(at: IndexPath(item: 0, section: 0)) as? PreviewCell else { return }
+        self.view.insertSubview(self.emptyImageView, at: 4)
+        self.emptyImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.emptyImageView.widthAnchor.constraint(equalToConstant: 428),
+            self.emptyImageView.heightAnchor.constraint(equalToConstant: 299),
+            self.emptyImageView.leadingAnchor.constraint(equalTo: targetCell.imageView.centerXAnchor),
+            self.emptyImageView.topAnchor.constraint(equalTo: targetCell.imageView.bottomAnchor)
+        ])
     }
 }
 
@@ -276,9 +306,11 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Protocol: SideMenuViewControllerDelegate
 extension MainViewController: SideMenuViewControllerDelegate {
     func selectCategory(to category: String) {
+        self.emptyImageView.removeFromSuperview()
         self.categoryLabel.text = category
         self.previewManager.updateCategory(to: category)
         DispatchQueue.main.async { [weak self] in self?.hideSideBar() }
+        self.checkEmptyImage()
     }
 }
 
