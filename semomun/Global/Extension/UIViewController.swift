@@ -24,8 +24,10 @@ extension UIViewController {
     
     func showLoginViewController() {
         guard let startLoginVC = self.storyboard?.instantiateViewController(withIdentifier: StartLoginViewController.identifier) else { return }
-        startLoginVC.modalPresentationStyle = .fullScreen
-        self.present(startLoginVC, animated: true, completion: nil)
+        let navigationVC = UINavigationController(rootViewController: startLoginVC)
+        navigationVC.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        navigationVC.modalPresentationStyle = .fullScreen
+        self.present(navigationVC, animated: true, completion: nil)
     }
     
     func showAlertWithOK(title: String, text: String) {
