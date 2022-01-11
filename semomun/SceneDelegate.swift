@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let startLoginViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+        let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
         let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
 
         let isLogined = UserDefaults.standard.value(forKey: "logined") as? Bool ?? false
@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         } else {
-            let navigationController = UINavigationController(rootViewController: startLoginViewController)
+            let navigationController = UINavigationController(rootViewController: startViewController)
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         }

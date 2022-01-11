@@ -7,8 +7,8 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
-    static let identifier = "StartViewController"
+class StartLoginViewController: UIViewController {
+    static let identifier = "StartLoginViewController"
     
     @IBOutlet var loginButton: UIButton!
     
