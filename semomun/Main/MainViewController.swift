@@ -96,6 +96,9 @@ extension MainViewController {
             self?.previewManager.fetchPreviews()
             self?.reloadData()
         }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
+            self?.userInfoView.refresh()
+        }
     }
     
     func configureAddImage() {

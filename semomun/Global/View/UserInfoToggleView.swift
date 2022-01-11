@@ -88,10 +88,12 @@ final class UserInfoToggleView: UIView {
     
     private func refreshUserInfo() {
         guard let userInfo = CoreUsecase.fetchUserInfo(), let name = userInfo.name else {
-            self.configureName(to: "홍길동")
+            self.configureName(to: "환영합니다!")
+            self.configureUserSettingButtonText(to: "로그인하기")
             return
         }
         self.configureName(to: name)
+        self.configureUserSettingButtonText(to: "개인정보 수정하기 >")
     }
     
     private func showLoginText() {

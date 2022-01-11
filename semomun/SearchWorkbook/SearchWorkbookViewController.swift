@@ -32,6 +32,7 @@ class SearchWorkbookViewController: UIViewController {
         self.configureDelegate()
         self.configureUI()
         self.configureLoader()
+        self.configureObserve()
         self.addCoreDataAlertObserver()
     }
     
@@ -125,6 +126,12 @@ extension SearchWorkbookViewController {
             self.loaderForPreview.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.loaderForPreview.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+    }
+    
+    private func configureObserve() {
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
+            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+        }
     }
     
     func setRadiusOfFrame() {

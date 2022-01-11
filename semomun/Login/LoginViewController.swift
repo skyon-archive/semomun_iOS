@@ -258,10 +258,11 @@ extension LoginViewController {
     
     private func saveUserInfo(to userInfo: UserInfo?) {
         CoreUsecase.createUserCoreData(userInfo: userInfo)
-        UserDefaults.standard.setValue(userInfo?.favoriteCategory, forKey: "currentCategory")
-        UserDefaults.standard.setValue(true, forKey: "logined")
+        UserDefaultsManager.set(to: userInfo?.favoriteCategory, forKey: UserDefaultsManager.Keys.currentCategory)
+        UserDefaultsManager.set(to: true, forKey: UserDefaultsManager.Keys.logined)
         self.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
-            self?.goMainVC()
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: .logined, object: nil)
         })
     }
     
