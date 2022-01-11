@@ -1875,6 +1875,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="IAS-8z-ePw" id="5lt-2y-0UE"/>
                         <outlet property="versionNum" destination="D2P-t9-bJK" id="W87-mS-Fgz"/>
                     </connections>
                 </viewController>

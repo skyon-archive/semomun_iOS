@@ -10,17 +10,29 @@ import UIKit
 class SettingViewController: UIViewController {
     static let identifier = "SettingViewController"
     
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var versionNum: UILabel!
+    private var isLogined: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "설정"
+        self.configureLogin()
         self.versionNum.text =  Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureLogin()
+    }
+    
     @IBAction func userLogout(_ sender: Any) {
-        self.showAlertWithClosure(title: "로그아웃 하시겠습니끼?", text: "") { [weak self] _ in
-            self?.logout()
+        if self.isLogined {
+            self.showAlertWithClosure(title: "로그아웃 하시겠습니끼?", text: "") { [weak self] _ in
+                self?.logout()
+            }
+        } else {
+            self.showLoginViewController()
         }
     }
     
@@ -58,6 +70,21 @@ class SettingViewController: UIViewController {
 }
 
 extension SettingViewController {
+    private func configureLogin() {
+        self.isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 17),
+            .foregroundColor: UIColor.black,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        if !self.isLogined {
+            let attributeString = NSMutableAttributedString(string: "로그인", attributes: attributes)
+            self.loginButton.setAttributedTitle(attributeString, for: .normal)
+        } else {
+            let attributeString = NSMutableAttributedString(string: "로그아웃", attributes: attributes)
+            self.loginButton.setAttributedTitle(attributeString, for: .normal)
+        }
+    }
     private func popupTextViewController(title: String, text: String) {
         let vc = LongTextPopupViewController(title: title, text: text)
         present(vc, animated: true, completion: nil)
@@ -79,7 +106,7 @@ extension SettingViewController {
     }
     
     private func goToStartViewController() {
-        guard let startVC = self.storyboard?.instantiateViewController(withIdentifier: StartLoginViewController.identifier) else { return }
+        guard let startVC = self.storyboard?.instantiateViewController(withIdentifier: StartViewController.identifier) else { return }
         let navigationController = UINavigationController(rootViewController: startVC)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
