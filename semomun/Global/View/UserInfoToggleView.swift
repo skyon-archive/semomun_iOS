@@ -17,14 +17,16 @@ final class UserInfoToggleView: UIView {
     private let radius: CGFloat = 12
     private let shadowRadius: CGFloat = 15
     private let shadowOpacity: Float = 0.3
+    private let userImageButtonSize: CGFloat = 50
+    
     private weak var delegate: UserInfoPushable?
     private var isLogined: Bool = false
     
-    let baseImage: UIImage? = {
+    private let baseImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .large)
         return UIImage(systemName: "person.fill", withConfiguration: largeConfig)
     }()
-    let settingImage: UIImage? = {
+    private let settingImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .small)
         return UIImage(systemName: "gearshape", withConfiguration: largeConfig)
     }()
@@ -32,7 +34,7 @@ final class UserInfoToggleView: UIView {
         let button = UIButton()
         button.setImage(self.baseImage, for: .normal)
         button.tintColor = UIColor.darkGray
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = userImageButtonSize/2
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.darkGray.cgColor
         button.clipsToBounds = true
@@ -77,6 +79,10 @@ final class UserInfoToggleView: UIView {
         self.refresh()
     }
     
+    func configureDelegate(delegate: UserInfoPushable) {
+        self.delegate = delegate
+    }
+    
     func refresh() {
         self.isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
         if self.isLogined {
@@ -87,13 +93,13 @@ final class UserInfoToggleView: UIView {
     }
     
     private func refreshUserInfo() {
-        guard let userInfo = CoreUsecase.fetchUserInfo(), let name = userInfo.name else {
+        if let userInfo = CoreUsecase.fetchUserInfo(), let name = userInfo.name {
+            self.configureName(to: name)
+            self.configureUserSettingButtonText(to: "개인정보 수정하기 >")
+        } else {
             self.configureName(to: "환영합니다!")
             self.configureUserSettingButtonText(to: "로그인하기")
-            return
         }
-        self.configureName(to: name)
-        self.configureUserSettingButtonText(to: "개인정보 수정하기 >")
     }
     
     private func showLoginText() {
@@ -101,8 +107,18 @@ final class UserInfoToggleView: UIView {
         self.configureUserSettingButtonText(to: "로그인하기")
     }
     
-    func configureDelegate(delegate: UserInfoPushable) {
-        self.delegate = delegate
+    private func configureName(to name: String) {
+        self.userNameLabel.text = name
+    }
+    
+    private func configureUserSettingButtonText(to text: String) {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor.lightGray,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        let attributeString = NSMutableAttributedString(string: text, attributes: attributes)
+        self.userSettingButton.setAttributedTitle(attributeString, for: .normal)
     }
     
     private func configureLayout() {
@@ -117,8 +133,8 @@ final class UserInfoToggleView: UIView {
         self.clipsToBounds = false
         
         NSLayoutConstraint.activate([
-            self.userImageButton.widthAnchor.constraint(equalToConstant: 50),
-            self.userImageButton.heightAnchor.constraint(equalToConstant: 50),
+            self.userImageButton.widthAnchor.constraint(equalToConstant: userImageButtonSize),
+            self.userImageButton.heightAnchor.constraint(equalToConstant: userImageButtonSize),
             self.userImageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             self.userImageButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
         ])
@@ -139,20 +155,6 @@ final class UserInfoToggleView: UIView {
             self.settingButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             self.settingButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
         ])
-    }
-    
-    func configureName(to name: String) {
-        self.userNameLabel.text = name
-    }
-    
-    func configureUserSettingButtonText(to text: String) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 12),
-            .foregroundColor: UIColor.lightGray,
-            .underlineStyle: NSUnderlineStyle.single.rawValue
-        ]
-        let attributeString = NSMutableAttributedString(string: text, attributes: attributes)
-        self.userSettingButton.setAttributedTitle(attributeString, for: .normal)
     }
 }
 
