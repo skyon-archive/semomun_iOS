@@ -21,6 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.screenProtecter.startPreventingRecording()
 //        self.screenProtecter.startPreventingScreenshot()
         FirebaseApp.configure()
+        if let userInfo = CoreUsecase.fetchUserInfo(),
+           let uid = userInfo.uid {
+            Analytics.logEvent("launch", parameters: [
+                AnalyticsParameterItemID: "\(uid)",
+            ])
+        } else {
+            Analytics.logEvent("launch", parameters: [
+                AnalyticsParameterItemID: "not logined",
+            ])
+        }
         
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
