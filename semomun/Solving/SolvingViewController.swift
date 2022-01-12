@@ -79,7 +79,7 @@ class SolvingViewController: UIViewController {
             self.manager.terminateSection()
             return
         }
-        self.showAlertWithClosure(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] _ in
+        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] in
             self?.manager.terminateSection()
         }
     }

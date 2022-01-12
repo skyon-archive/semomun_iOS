@@ -28,7 +28,7 @@ class SettingViewController: UIViewController {
     
     @IBAction func userLogout(_ sender: Any) {
         if self.isLogined {
-            self.showAlertWithClosure(title: "로그아웃 하시겠습니끼?", text: "") { [weak self] _ in
+            self.showAlertWithCancelAndOK(title: "로그아웃 하시겠습니끼?", text: "") { [weak self] in
                 self?.logout()
             }
         } else {
@@ -100,7 +100,7 @@ extension SettingViewController {
         }
         print("userDefaults delete complete")
         
-        self.showAlertOKWithClosure(title: "로그아웃 되었습니다", text: "") { [weak self] _ in
+        self.showAlertWithOK(title: "로그아웃 되었습니다", text: "") { [weak self] in
             self?.goToStartViewController()
         }
     }
