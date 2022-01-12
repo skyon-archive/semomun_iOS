@@ -10,6 +10,26 @@ import CoreData
 
 extension UIViewController {
     
+    func showLoginAlert() {
+        let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        let login = UIAlertAction(title: "로그인하기", style: .default) { [weak self] _ in
+            self?.showLoginViewController()
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(login)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showLoginViewController() {
+        guard let startLoginVC = self.storyboard?.instantiateViewController(withIdentifier: StartLoginViewController.identifier) else { return }
+        let navigationVC = UINavigationController(rootViewController: startLoginVC)
+        navigationVC.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        navigationVC.modalPresentationStyle = .fullScreen
+        self.present(navigationVC, animated: true, completion: nil)
+    }
+    
     func showAlertWithOK(title: String, text: String) {
         let alert = UIAlertController(title: title,
                                       message: text,

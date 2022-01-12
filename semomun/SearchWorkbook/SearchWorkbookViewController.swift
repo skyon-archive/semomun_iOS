@@ -32,8 +32,8 @@ class SearchWorkbookViewController: UIViewController {
         self.configureDelegate()
         self.configureUI()
         self.configureLoader()
+        self.configureObserve()
         self.addCoreDataAlertObserver()
-        
     }
     
     @IBAction func back(_ sender: Any) {
@@ -128,6 +128,12 @@ extension SearchWorkbookViewController {
         ])
     }
     
+    private func configureObserve() {
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
+            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+        }
+    }
+    
     func setRadiusOfFrame() {
         frameView.layer.cornerRadius = 30
     }
@@ -188,7 +194,13 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showAlertToAddPreview(index: indexPath.row)
+        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        if isLogined == false {
+            self.manager?.select(to: indexPath.item) // 로그인 절차 이후 문제집 다운로드가 이어지기 위한 문제집 index 저장
+            self.showLoginAlert()
+        } else {
+            self.showAlertToAddPreview(index: indexPath.item)
+        }
     }
 }
 
@@ -278,7 +290,7 @@ extension SearchWorkbookViewController {
         }
         CoreDataManager.saveCoreData()
         print("save complete")
-        NotificationCenter.default.post(name: ShowDetailOfWorkbookViewController.refresh, object: self, userInfo: ["subject" : subject])
+        NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : subject])
         DispatchQueue.main.async {
             self.stopPreviewLoader()
             self.dismiss(animated: true, completion: nil)

@@ -31,13 +31,14 @@ class NetworkUsecase {
         static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
         static let customerService: String = "http://pf.kakao.com/_JAxdGb"
         static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
+        static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709"
         
         static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
         static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
         static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
         static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
         static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submit" }
+        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }
     }
     enum scale: String {
         case small = "/64x64/"
@@ -191,6 +192,33 @@ class NetworkUsecase {
                 return
             }
             completion(.SUCCESS, userInfo)
+        }
+    }
+    
+    static func getAppstoreVersion(completion: @escaping(NetworkStatus, AppstoreVersion?) -> Void) {
+        Network.get(url: URL.appstoreVersion) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR, nil)
+                return
+            }
+            guard let data = requestResult.data else {
+                print("no data")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                print(String(data: data, encoding: .utf8)!)
+                completion(.ERROR, nil)
+                return
+            }
+            guard let appstoreVersion: AppstoreVersion = try? JSONDecoder().decode(AppstoreVersion.self, from: data) else {
+                print("Decode Error")
+                completion(.DECODEERROR, nil)
+                return
+            }
+            completion(.SUCCESS, appstoreVersion)
         }
     }
 }

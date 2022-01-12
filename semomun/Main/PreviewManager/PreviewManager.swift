@@ -28,8 +28,9 @@ class PreviewManager {
     }
     
     private func configureCategory() {
-        guard let category = UserDefaults.standard.string(forKey: "currentCategory") else { return }
+        guard let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String else { return }
         self.currentCategory = category
+        print(category)
     }
     
     func updateCategory(to category: String) {

@@ -13,11 +13,16 @@ class SearchWorkbookManager {
     var queryDic: [String: String?] = ["s": nil, "g": nil, "y": nil, "m": nil]
     var imageScale: NetworkUsecase.scale = .large
     var category: String
+    private(set) var selectedIndex: Int?
     
     init(filter: [Preview_Core], category: String) {
         self.filter = filter.map { Int($0.wid) }
         self.category = category
         self.queryDic["c"] = category
+    }
+    
+    func select(to index: Int) {
+        self.selectedIndex = index
     }
     
     var count: Int {

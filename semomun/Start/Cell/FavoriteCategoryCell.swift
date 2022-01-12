@@ -14,7 +14,7 @@ class FavoriteCategoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor.black.cgColor
+        self.contentView.layer.borderColor = UIColor.lightGray.cgColor
         self.contentView.layer.cornerRadius = 8
         self.contentView.backgroundColor = UIColor.white
         self.title.textColor = UIColor.black
@@ -37,7 +37,7 @@ class FavoriteCategoryCell: UICollectionViewCell {
     }
     
     func diSelected() {
-        self.contentView.layer.borderColor = UIColor.black.cgColor
+        self.contentView.layer.borderColor = UIColor.lightGray.cgColor
         self.contentView.backgroundColor = UIColor.white
         self.title.textColor = UIColor.black
     }
