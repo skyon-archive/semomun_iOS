@@ -25,7 +25,7 @@ struct CoreUsecase {
         return nil
     }
     
-    static func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
+    static func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping(Section_Core?) -> Void) {
         let context = CoreDataManager.shared.context
         let sectionOfCore = Section_Core(context: context)
         
