@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol loadingDelegate: AnyObject {
+protocol LoadingDelegate: AnyObject {
     func setCount(count: Int)
     func updateProgress()
     func terminate()
@@ -53,7 +53,7 @@ class LoadingIndicator: UIViewController {
     }
 }
 
-extension LoadingIndicator: loadingDelegate {
+extension LoadingIndicator: LoadingDelegate {
     func setCount(count: Int) {
         self.totalPageCount = count
         self.setProgress()

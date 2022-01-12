@@ -61,11 +61,11 @@ extension UIViewController {
         return loader
     }
     
-    func startLoading(count: Int = 0) -> loadingDelegate {
+    func startLoading(count: Int = 0) -> LoadingDelegate {
         let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
         loadingIndicator.totalPageCount = count
         self.present(loadingIndicator, animated: true, completion: nil)
-        return loadingIndicator as loadingDelegate
+        return loadingIndicator as LoadingDelegate
     }
     
     func hideKeyboard() {
