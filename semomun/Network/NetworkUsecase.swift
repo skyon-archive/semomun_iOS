@@ -38,7 +38,7 @@ class NetworkUsecase {
         static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
         static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
         static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submit" }
+        static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }
     }
     enum scale: String {
         case small = "/64x64/"
