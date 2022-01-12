@@ -80,14 +80,14 @@ struct CoreUsecase {
         var currentCount: Int = 0
         
         DispatchQueue.main.async {
-            loading.setCount(count: loadingCount)
+            loading.setCount(to: loadingCount)
         }
         
         DispatchQueue.global().async {
             for (idx, problem) in problemCores.enumerated() {
                 problem.fetchImages(problemResult: problemResults[idx]) {
                     DispatchQueue.main.async {
-                        loading.updateProgress()
+                        loading.oneProgressDone()
                         currentCount += 1
                         terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
                     }
@@ -97,7 +97,7 @@ struct CoreUsecase {
                 page.setMaterial(pageResult: pageResults[idx]) {
                     DispatchQueue.main.async {
                         if pageResults[idx].isImage {
-                            loading.updateProgress()
+                            loading.oneProgressDone()
                         }
                         currentCount += 1
                         terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)

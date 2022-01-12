@@ -8,12 +8,12 @@
 import UIKit
 
 protocol LoadingDelegate: AnyObject {
-    func setCount(count: Int)
-    func updateProgress()
+    func setCount(to: Int)
+    func oneProgressDone()
     func terminate()
 }
 
-class LoadingIndicator: UIViewController {
+final class LoadingIndicator: UIViewController {
     static let identifier = "LoadingIndicator"
     static let update = Notification.Name("update")
     static let terminate = Notification.Name("terminate")
@@ -31,35 +31,35 @@ class LoadingIndicator: UIViewController {
         self.setProgress()
     }
     
-    func configureUI() {
+    private func configureUI() {
         self.isModalInPresentation = true
     }
     
-    func configureObserve() {
-        NotificationCenter.default.addObserver(forName: Self.update, object: nil, queue: .main) { _ in
-            self.updateProgress()
-        }
-        NotificationCenter.default.addObserver(forName: Self.terminate, object: nil, queue: .main) { _ in
-            self.terminate()
-        }
-    }
-    
-    func setProgress() {
+    private func setProgress() {
         self.loadingProgress.progressWidth = 15.0
         self.loadingProgress.trackColor = UIColor.darkGray
         self.loadingProgress.progressColor = UIColor(named: SemomunColor.mainColor)!
         self.statusLabel.text = "\(self.currentCount)/\(self.totalPageCount)"
         self.loadingProgress.setProgressWithAnimation(duration: 0.2, value: 0.0, from: 0)
     }
+    
+    func configureObserve() {
+        NotificationCenter.default.addObserver(forName: Self.update, object: nil, queue: .main) { _ in
+            self.oneProgressDone()
+        }
+        NotificationCenter.default.addObserver(forName: Self.terminate, object: nil, queue: .main) { _ in
+            self.terminate()
+        }
+    }
 }
 
 extension LoadingIndicator: LoadingDelegate {
-    func setCount(count: Int) {
-        self.totalPageCount = count
+    func setCount(to: Int) {
+        self.totalPageCount = to
         self.setProgress()
     }
     
-    func updateProgress() {
+    func oneProgressDone() {
         self.currentCount += 1
         let newPersent = Float(currentCount)/Float(totalPageCount)
         self.statusLabel.text = "\(self.currentCount)/\(self.totalPageCount)"
