@@ -30,34 +30,25 @@ extension UIViewController {
         self.present(navigationVC, animated: true, completion: nil)
     }
     
-    func showAlertWithOK(title: String, text: String) {
-        let alert = UIAlertController(title: title,
-                                      message: text,
-                                      preferredStyle: UIAlertController.Style.alert)
-        let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(ok)
-        present(alert,animated: true,completion: nil)
-    }
-    
-    func showAlertWithClosure(title: String, text: String, completion: @escaping(Bool) -> Void) {
+    func showAlertWithCancelAndOK(title: String, text: String, completion: @escaping () -> Void) {
         let alert = UIAlertController(title: title,
                                       message: text,
                                       preferredStyle: UIAlertController.Style.alert)
         let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
         let ok = UIAlertAction(title: "확인", style: .destructive, handler:  { _ in
-            completion(true)
+            completion()
         })
         alert.addAction(cancel)
         alert.addAction(ok)
         present(alert,animated: true,completion: nil)
     }
     
-    func showAlertOKWithClosure(title: String, text: String, completion: @escaping(Bool) -> Void) {
+    func showAlertWithOK(title: String, text: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title,
                                       message: text,
                                       preferredStyle: UIAlertController.Style.alert)
         let ok = UIAlertAction(title: "확인", style: .default, handler:  { _ in
-            completion(true)
+            completion?()
         })
         alert.addAction(ok)
         present(alert,animated: true,completion: nil)

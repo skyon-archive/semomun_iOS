@@ -266,7 +266,7 @@ extension LoginViewController {
     private func saveUserInfo(to userInfo: UserInfo?) {
         CoreUsecase.createUserCoreData(userInfo: userInfo)
         UserDefaultsManager.set(to: true, forKey: UserDefaultsManager.Keys.logined)
-        self.showAlertOKWithClosure(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] _ in
+        self.showAlertWithOK(title: "로그인 성공", text: "로그인에 성공하였습니다.", completion: { [weak self] in
             self?.presentingViewController?.dismiss(animated: true, completion: nil)
             NotificationCenter.default.post(name: .logined, object: nil)
         })
