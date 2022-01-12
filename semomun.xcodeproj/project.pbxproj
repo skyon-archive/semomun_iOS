@@ -113,6 +113,7 @@
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
+		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB962D277AF640002203AA /* SideMenuCell.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -233,6 +234,7 @@
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EF7276F6F21001C9C4A /* CoreGraphics+Z.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Z.swift"; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
+		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87DB962D277AF640002203AA /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				2502533C277AB30F0049F342 /* SchoolDTO.swift */,
 				87EA7FEF2784727500B6EFC3 /* RequestResult.swift */,
 				87C85E80276F69E9001C9C4A /* Validate.swift */,
+				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 				8726CB0B278D1458004D9CC0 /* StartViewController.swift in Sources */,
 				87C85E85276F6A6A001C9C4A /* MainViewController+Extension.swift in Sources */,
 				87C85E48276F6726001C9C4A /* UIView.swift in Sources */,
+				87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */,
 				87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */,
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
 				87C85E52276F67D7001C9C4A /* CertificationViewController.swift in Sources */,

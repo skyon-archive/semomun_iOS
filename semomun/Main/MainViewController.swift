@@ -48,6 +48,7 @@ class MainViewController: UIViewController {
         self.previewManager.fetchPreviews()
         self.previewManager.fetchSubjects()
         self.configureSideBarViewController()
+        self.getVersion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +150,37 @@ extension MainViewController {
             self.emptyImageView.leadingAnchor.constraint(equalTo: targetCell.imageView.centerXAnchor),
             self.emptyImageView.topAnchor.constraint(equalTo: targetCell.imageView.bottomAnchor)
         ])
+    }
+    
+    private func getVersion() {
+        NetworkUsecase.getAppstoreVersion { status, versionDTO in
+            DispatchQueue.main.async { [weak self] in
+                switch status {
+                case .SUCCESS:
+                    print("get version success")
+                    guard let versionDTO = versionDTO else { return }
+                    if !versionDTO.results.isEmpty, let version = versionDTO.results.first?.version {
+                        self?.checkVersion(with: version)
+                    }
+                    print("version is empty list")
+                case .ERROR:
+                    self?.showAlertWithOK(title: "네트워크 비정상", text: "")
+                default:
+                    return
+                }
+            }
+        }
+    }
+    
+    private func checkVersion(with appstoreVersion: String) {
+        guard let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+            print("Error: can't read version")
+            return
+        }
+        print(version, appstoreVersion)
+        if version != appstoreVersion {
+            self.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(appstoreVersion)를 다운받아주세요")
+        }
     }
 }
 
