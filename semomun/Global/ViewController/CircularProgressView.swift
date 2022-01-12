@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CircularProgressView: UIView {
+final class CircularProgressView: UIView {
 
-    fileprivate var progressLayer = CAShapeLayer()
-    fileprivate var trackLayer = CAShapeLayer()
+    private var progressLayer = CAShapeLayer()
+    private var trackLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +22,7 @@ class CircularProgressView: UIView {
         super.init(coder: aDecoder)
         createCircularPath()
     }
+    
     var progressColor = UIColor.white {
         didSet {
             progressLayer.strokeColor = progressColor.cgColor
@@ -41,7 +42,17 @@ class CircularProgressView: UIView {
         }
     }
     
-    func createCircularPath() {
+    func setProgressWithAnimation(duration: TimeInterval, value: Float, from: Float) {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = duration
+        animation.fromValue = from
+        animation.toValue = value
+//        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTiming)
+        progressLayer.strokeEnd = CGFloat(value)
+        progressLayer.add(animation, forKey: "animateprogress")
+    }
+    
+    private func createCircularPath() {
         self.backgroundColor = UIColor.clear
         self.layer.cornerRadius = self.frame.size.width/2
         
@@ -61,15 +72,5 @@ class CircularProgressView: UIView {
         progressLayer.lineCap = .round
         layer.addSublayer(progressLayer)
          
-    }
-    
-    func setProgressWithAnimation(duration: TimeInterval, value: Float, from: Float) {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = duration
-        animation.fromValue = from
-        animation.toValue = value
-//        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTiming)
-        progressLayer.strokeEnd = CGFloat(value)
-        progressLayer.add(animation, forKey: "animateprogress")
     }
 }
