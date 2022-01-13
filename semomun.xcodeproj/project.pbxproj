@@ -37,6 +37,8 @@
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
 		87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941C278FD58700E0A7B1 /* MainUseCase.swift */; };
+		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
+		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
 		87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */; };
@@ -161,6 +163,8 @@
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		87A9941C278FD58700E0A7B1 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
+		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
+		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
 		87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunImage.swift; sourceTree = "<group>"; };
@@ -439,9 +443,11 @@
 		87C85E2A276F65B3001C9C4A /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				87C85EE8276F6E95001C9C4A /* Network.swift */,
 				874600D5278C06E5001EB091 /* NetworkURL.swift */,
+				87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */,
+				87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */,
 				87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */,
+				87C85EE8276F6E95001C9C4A /* Network.swift */,
 				87C85EEC276F6EC9001C9C4A /* DTO */,
 			);
 			path = Network;
@@ -789,6 +795,7 @@
 				87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerViewModel.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
+				87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				8726CB0D278D156F004D9CC0 /* SelectFavoriteViewController.swift in Sources */,
 				87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */,
@@ -834,6 +841,7 @@
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
+				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87C85EAF276F6C9B001C9C4A /* ExplanationViewController.swift in Sources */,
 				87C85E3E276F66CC001C9C4A /* UIButton.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
