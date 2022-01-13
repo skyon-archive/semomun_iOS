@@ -21,6 +21,7 @@ class PreviewManager {
     private(set) var currentCategory: String = "수능 및 모의고사"
     private(set) var previews: [Preview_Core] = []
     private(set) var currentIndex: Int = 0
+    private(set) var selectedPreviewIndex: Int?
     
     init(delegate: PreviewDatasource) {
         self.delegate = delegate
@@ -106,5 +107,9 @@ class PreviewManager {
     func checkSubject(with category: String) {
         if self.subjects.contains(category) { return }
         self.subjects.append(category)
+    }
+    
+    func selectPreview(to index: Int) {
+        self.selectedPreviewIndex = index
     }
 }
