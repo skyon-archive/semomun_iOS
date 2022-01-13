@@ -234,10 +234,11 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let previewManager = self.previewManager else { return 0 }
         if collectionView == subjects {
-            return self.previewManager?.subjectsCount ?? 0
+            return previewManager.subjectsCount
         } else {
-            return self.previewManager?.previewsCount ?? 0+1
+            return previewManager.previewsCount+1
         }
     }
     
