@@ -54,7 +54,7 @@ class MainViewModel {
         self.selectedSid = sid
     }
     
-    func savePages(loading: loadingDelegate) {
+    func savePages(loading: LoadingDelegate) {
         guard let sid = self.selectedSid else { return }
         self.useCase.savePages(sid: sid, pages: self.downloadedPages, loading: loading) { section in
             loading.terminate()
