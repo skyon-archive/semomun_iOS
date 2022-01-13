@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Combine
 
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
@@ -25,10 +26,11 @@ class MainViewController: UIViewController {
     let sideMenuRevealWidth: CGFloat = 329
     let paddingForRotation: CGFloat = 150
     // MainViewController Properties
+    private var isUserInfoPopuped: Bool = false
+    private var cancellables: Set<AnyCancellable> = []
     private var previewManager: PreviewManager?
     private var viewModel: MainViewModel?
-    private var networkUseCase: NetworkUsecase?
-    private var isUserInfoPopuped: Bool = false
+    // Views
     private lazy var userInfoView = UserInfoToggleView()
     private lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
@@ -39,16 +41,16 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureNetwork()
         self.configureManager()
         self.configureViewModel()
+        self.bindAll()
         self.configureCollectionView()
         self.configureObserve()
         self.addCoreDataAlertObserver()
         self.previewManager?.fetchPreviews()
         self.previewManager?.fetchSubjects()
         self.configureSideBarViewController()
-        self.getVersion()
+        self.viewModel?.getVersion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,9 +88,64 @@ class MainViewController: UIViewController {
 
 // MARK: - Configure MainViewController
 extension MainViewController {
-    private func configureNetwork() {
-        let network = Network()
-        self.networkUseCase = NetworkUsecase(network: network)
+    private func bindAll() {
+        self.bindVersion()
+        self.bindNetworkError()
+        self.bindLoader()
+        self.bindDownloadSection()
+    }
+    
+    private func bindVersion() {
+        self.viewModel?.$updateToVersion
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] version in
+                guard let version = version else { return }
+                self?.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(version)를 다운받아주세요")
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindNetworkError() {
+        self.viewModel?.$networkWarning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning, text: "")
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindLoader() {
+        self.viewModel?.$createLoading
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] create in
+                if create {
+                    guard let loader = self?.startLoading() else { return }
+                    self?.viewModel?.savePages(loading: loader)
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindDownloadSection() {
+        self.viewModel?.$downloadedSection
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] downloaded in
+                if !downloaded {
+                    self?.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
+                    return
+                }
+                guard let targetIndex = self?.previewManager?.selectedPreviewIndex,
+                      let preview = self?.previewManager?.preview(at: targetIndex) else { return }
+                preview.setValue(true, forKey: "downloaded")
+                CoreDataManager.saveCoreData()
+                self?.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
     
     private func configureManager() {
@@ -155,37 +212,6 @@ extension MainViewController {
             self.emptyImageView.topAnchor.constraint(equalTo: targetCell.imageView.bottomAnchor)
         ])
     }
-    
-    private func getVersion() {
-        self.networkUseCase?.getAppstoreVersion { status, versionDTO in
-            DispatchQueue.main.async { [weak self] in
-                switch status {
-                case .SUCCESS:
-                    print("get version success")
-                    guard let versionDTO = versionDTO else { return }
-                    if !versionDTO.results.isEmpty, let version = versionDTO.results.first?.version {
-                        self?.checkVersion(with: version)
-                    }
-                    print("version is empty list")
-                case .ERROR:
-                    self?.showAlertWithOK(title: "네트워크 비정상", text: "")
-                default:
-                    return
-                }
-            }
-        }
-    }
-    
-    private func checkVersion(with appstoreVersion: String) {
-        guard let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
-            print("Error: can't read version")
-            return
-        }
-        print(version, appstoreVersion)
-        if version != appstoreVersion {
-            self.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(appstoreVersion)를 다운받아주세요")
-        }
-    }
 }
 
 // MARK: - CollectionView LongPress Action
@@ -213,7 +239,8 @@ extension MainViewController {
         guard let previewManager = self.previewManager else { return }
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
         let category = previewManager.currentCategory
-        guard let networkUseCase = self.networkUseCase else { return }
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
         nextVC.manager = SearchWorkbookManager(filter: previewManager.previews, category: category, networkUseCase: networkUseCase)
         self.present(nextVC, animated: true, completion: nil)
     }
@@ -306,29 +333,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.showSolvingVC(section: section, preview: preview)
             return
         }
-        // 여기에 else로 넣을까? return을 빼고
+        
         // MARK: - Section: Download from DB
-        self.networkUseCase?.getPages(sid: sid) { views in
-            print("NETWORK RESULT")
-            print(views)
-            // save to coreData
-            let loading = self.startLoading()
-            CoreUsecase.savePages(sid: sid, pages: views, loading: loading) { section in
-                if section == nil {
-                    loading.terminate()
-                    self.showAlertWithOK(title: "서버 데이터 오류", text: "문제집 데이터가 올바르지 않습니다.")
-                    return
-                }
-                
-                DispatchQueue.main.async { [weak self] in
-                    loading.terminate()
-                    preview.setValue(true, forKey: "downloaded")
-                    CoreDataManager.saveCoreData()
-                    self?.reloadData()
-                }
-                return
-            }
-        }
+        self.previewManager?.selectPreview(to: index)
+        self.viewModel?.selectSection(to: sid)
+        self.viewModel?.getPages(sid: sid)
     }
 }
 
