@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     let paddingForRotation: CGFloat = 150
     // MainViewController Properties
     private var previewManager: PreviewManager?
+    private var viewModel: MainViewModel?
     private var networkUseCase: NetworkUsecase?
     private var isUserInfoPopuped: Bool = false
     private lazy var userInfoView = UserInfoToggleView()
@@ -40,6 +41,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.configureNetwork()
         self.configureManager()
+        self.configureViewModel()
         self.configureCollectionView()
         self.configureObserve()
         self.addCoreDataAlertObserver()
@@ -93,6 +95,13 @@ extension MainViewController {
         guard let networkUseCase = self.networkUseCase else { return }
         self.previewManager = PreviewManager(delegate: self, networkUseCase: networkUseCase)
         self.categoryLabel.text = self.previewManager?.currentCategory
+    }
+    
+    private func configureViewModel() {
+        let network = Network()
+        let networkUseCase = NetworkUsecase(network: network)
+        let useCase = MainUseCase(networkUseCase: networkUseCase)
+        self.viewModel = MainViewModel(useCase: useCase)
     }
     
     private func configureCollectionView() {
