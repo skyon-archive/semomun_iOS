@@ -8,12 +8,6 @@
 import Foundation
 import Alamofire
 
-protocol NetworkFetchable {
-    func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void)
-    func post(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void)
-    func put(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void)
-}
-
 struct Network: NetworkFetchable {
     func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void) {
         print(url)
