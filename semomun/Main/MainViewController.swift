@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import SwiftUI
 
 class MainViewController: UIViewController {
     static let identifier = "MainViewController"
@@ -18,20 +17,18 @@ class MainViewController: UIViewController {
     @IBOutlet weak var previews: UICollectionView!
     @IBOutlet weak var userInfo: UIButton!
     
-    private var addImageData: Data!
-    private var previewManager: PreviewManager?
-    
     // Sidebar ViewController Properties
     var sideMenuViewController: SideMenuViewController!
     var sideMenuTrailingConstraint: NSLayoutConstraint!
     var sideMenuShadowView: UIView!
-    var revealSideMenuOnTop: Bool = true
     var isExpanded: Bool = false
-    var sideMenuRevealWidth: CGFloat = 329
+    let sideMenuRevealWidth: CGFloat = 329
     let paddingForRotation: CGFloat = 150
-    var isPopuped: Bool = false
-    private lazy var userInfoView = UserInfoToggleView()
+    // MainViewController Properties
+    private var previewManager: PreviewManager?
     private var networkUseCase: NetworkUsecase?
+    private var isUserInfoPopuped: Bool = false
+    private lazy var userInfoView = UserInfoToggleView()
     private lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: SemomunImage.empty)
@@ -42,7 +39,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNetwork()
-        self.configureAddImage()
         self.configureManager()
         self.configureCollectionView()
         self.configureObserve()
@@ -78,7 +74,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func userInfo(_ sender: UIButton) {
-        if !self.isPopuped {
+        if !self.isUserInfoPopuped {
             self.showUserInfoView()
         } else {
             self.hideUserInfoView()
@@ -93,19 +89,19 @@ extension MainViewController {
         self.networkUseCase = NetworkUsecase(network: network)
     }
     
-    func configureManager() {
+    private func configureManager() {
         guard let networkUseCase = self.networkUseCase else { return }
         self.previewManager = PreviewManager(delegate: self, networkUseCase: networkUseCase)
         self.categoryLabel.text = self.previewManager?.currentCategory
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         self.subjects.delegate = self
         self.previews.delegate = self
         self.addLongpressGesture(target: self.previews)
     }
     
-    func configureObserve() {
+    private func configureObserve() {
         NotificationCenter.default.addObserver(forName: .downloadPreview, object: nil, queue: .main) { [weak self] notification in
             guard let targetSubject = notification.userInfo?["subject"] as? String else { return }
             self?.previewManager?.checkSubject(with: targetSubject)
@@ -118,15 +114,7 @@ extension MainViewController {
         }
     }
     
-    func configureAddImage() {
-        guard let addImage = UIImage(named: SemomunImage.addButton) else {
-            print("Error: addImage not corrent")
-            return
-        }
-        addImageData = addImage.pngData()
-    }
-    
-    func configureCollectionViewTapGesture() {
+    private func configureCollectionViewTapGesture() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.previews.addGestureRecognizer(tapGesture)
     }
@@ -194,7 +182,7 @@ extension MainViewController {
 
 // MARK: - CollectionView LongPress Action
 extension MainViewController {
-    func addLongpressGesture(target: UIView) {
+    private func addLongpressGesture(target: UIView) {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
         target.addGestureRecognizer(longPressRecognizer)
         longPressRecognizer.minimumPressDuration = 0.7
@@ -213,7 +201,7 @@ extension MainViewController {
 
 // MARK: - Logic
 extension MainViewController {
-    func showSearchWorkbookViewController() {
+    private func showSearchWorkbookViewController() {
         guard let previewManager = self.previewManager else { return }
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SearchWorkbookViewController.identifier) as? SearchWorkbookViewController else { return }
         let category = previewManager.currentCategory
@@ -222,7 +210,7 @@ extension MainViewController {
         self.present(nextVC, animated: true, completion: nil)
     }
     
-    func showSolvingVC(section: Section_Core, preview: Preview_Core) {
+    private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
         guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
@@ -257,7 +245,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             
             if indexPath.item == 0 {
-                cell.configureAddCell(image: UIImage(data: self.addImageData))
+                if let addImageData = UIImage(named: SemomunImage.addButton)?.pngData() {
+                    cell.configureAddCell(image: UIImage(data: addImageData))
+                }
                 
                 return cell
             }
@@ -398,18 +388,18 @@ extension MainViewController {
             self?.userInfoView.alpha = 1
             self?.userInfoView.transform = CGAffineTransform.identity
         }
-        self.isPopuped = true
+        self.isUserInfoPopuped = true
     }
     
     func hideUserInfoView() {
-        if !isPopuped { return }
+        if !isUserInfoPopuped { return }
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.userInfoView.alpha = 0
             self?.userInfoView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         } completion: { [weak self] _ in
             self?.userInfoView.removeFromSuperview()
         }
-        self.isPopuped = false
+        self.isUserInfoPopuped = false
     }
 }
 
