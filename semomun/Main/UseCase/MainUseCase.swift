@@ -7,13 +7,13 @@
 
 import Foundation
 
+typealias MainFetchables = (PagesFetchable & VersionFetchable)
 protocol MainLogic {
-    
 }
 
 class MainUseCase: MainLogic {
-    let networkUseCase: NetworkUsecase
-    init(networkUseCase: NetworkUsecase) {
+    let networkUseCase: MainFetchables
+    init(networkUseCase: MainFetchables) {
         self.networkUseCase = networkUseCase
     }
 }

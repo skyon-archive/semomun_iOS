@@ -7,18 +7,10 @@
 
 import Foundation
 
-class NetworkUsecase {
+class NetworkUsecase: networkFetchables {
     let network: NetworkFetchable
     init(network: NetworkFetchable) {
         self.network = network
-    }
-
-    enum NetworkStatus {
-        case SUCCESS //200
-        case FAIL
-        case ERROR
-        case INSPECTION //504
-        case DECODEERROR
     }
     
     func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
@@ -50,7 +42,7 @@ class NetworkUsecase {
         }
     }
     
-    func downloadPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
+    func getPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
         self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
             guard let data = requestResult.data else { return }
             guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {

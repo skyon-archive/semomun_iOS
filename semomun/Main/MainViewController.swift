@@ -92,8 +92,7 @@ extension MainViewController {
     }
     
     private func configureManager() {
-        guard let networkUseCase = self.networkUseCase else { return }
-        self.previewManager = PreviewManager(delegate: self, networkUseCase: networkUseCase)
+        self.previewManager = PreviewManager(delegate: self)
         self.categoryLabel.text = self.previewManager?.currentCategory
     }
     
@@ -309,7 +308,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         // 여기에 else로 넣을까? return을 빼고
         // MARK: - Section: Download from DB
-        self.networkUseCase?.downloadPages(sid: sid) { views in
+        self.networkUseCase?.getPages(sid: sid) { views in
             print("NETWORK RESULT")
             print(views)
             // save to coreData
