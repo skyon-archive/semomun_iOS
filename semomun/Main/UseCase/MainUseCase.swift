@@ -13,7 +13,7 @@ protocol MainLogic {
     func getVersion (completion: @escaping ((NetworkStatus, AppstoreVersion?) -> Void))
     func getPages(sid: Int, completion: @escaping (([PageOfDB]) -> Void))
     func updateVersion(with appstoreVersion: String) -> Bool
-    func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void)
+    func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping(Section_Core?) -> Void)
 }
 
 class MainUseCase: MainLogic {
@@ -43,7 +43,7 @@ class MainUseCase: MainLogic {
         return version != appstoreVersion
     }
     
-    func savePages(sid: Int, pages: [PageOfDB], loading: loadingDelegate, completion: @escaping(Section_Core?) -> Void) {
+    func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping(Section_Core?) -> Void) {
         CoreUsecase.savePages(sid: sid, pages: pages, loading: loading) { section in
             completion(section)
         }
