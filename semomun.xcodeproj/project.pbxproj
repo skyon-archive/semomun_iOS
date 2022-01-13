@@ -35,6 +35,8 @@
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
+		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
+		87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941C278FD58700E0A7B1 /* MainUseCase.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
 		87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */; };
@@ -157,6 +159,8 @@
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
+		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		87A9941C278FD58700E0A7B1 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
 		87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunImage.swift; sourceTree = "<group>"; };
@@ -361,6 +365,22 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		87A99418278FD55500E0A7B1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				87A9941A278FD57500E0A7B1 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		87A99419278FD56000E0A7B1 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				87A9941C278FD58700E0A7B1 /* MainUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		87B6F0BA2782BC7300E6FF8A /* SemomunColor */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +470,8 @@
 				87C85E84276F6A6A001C9C4A /* MainViewController+Extension.swift */,
 				87C85E86276F6A7A001C9C4A /* SideMenuViewController.swift */,
 				87C85E8D276F6ACB001C9C4A /* Manager */,
+				87A99418278FD55500E0A7B1 /* ViewModel */,
+				87A99419278FD56000E0A7B1 /* UseCase */,
 				87C85E88276F6A8E001C9C4A /* Cell */,
 			);
 			path = Main;
@@ -769,6 +791,7 @@
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				8726CB0D278D156F004D9CC0 /* SelectFavoriteViewController.swift in Sources */,
+				87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerViewModel.swift in Sources */,
@@ -835,6 +858,7 @@
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
+				87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */,
 				87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
