@@ -449,8 +449,8 @@
 				87C85E82276F6A54001C9C4A /* MainViewController.swift */,
 				87C85E84276F6A6A001C9C4A /* MainViewController+Extension.swift */,
 				87C85E86276F6A7A001C9C4A /* SideMenuViewController.swift */,
+				87C85E8D276F6ACB001C9C4A /* Manager */,
 				87C85E88276F6A8E001C9C4A /* Cell */,
-				87C85E8D276F6ACB001C9C4A /* PreviewManager */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -564,12 +564,12 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		87C85E8D276F6ACB001C9C4A /* PreviewManager */ = {
+		87C85E8D276F6ACB001C9C4A /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				87C85E8F276F6B03001C9C4A /* PreviewManager.swift */,
 			);
-			path = PreviewManager;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		87C85EA8276F6C4F001C9C4A /* Cell */ = {
@@ -1024,7 +1024,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1061,7 +1060,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;

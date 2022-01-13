@@ -29,10 +29,8 @@ extension MainViewController {
         // MARK:- setting sidebar autolayout
         self.sideMenuViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
-        if self.revealSideMenuOnTop {
-            self.sideMenuTrailingConstraint = self.sideMenuViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -self.sideMenuRevealWidth - self.paddingForRotation)
-            self.sideMenuTrailingConstraint.isActive = true
-        }
+        self.sideMenuTrailingConstraint = self.sideMenuViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -self.sideMenuRevealWidth - self.paddingForRotation)
+        self.sideMenuTrailingConstraint.isActive = true
         NSLayoutConstraint.activate([
             self.sideMenuViewController.view.widthAnchor.constraint(equalToConstant: self.sideMenuRevealWidth),
             self.sideMenuViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -59,7 +57,7 @@ extension MainViewController {
     }
     
     func showSideBar() {
-        self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? 0 : self.sideMenuRevealWidth) { _ in
+        self.animateSideMenu(targetPosition: 0) { _ in
             self.isExpanded = true
         }
         // Animate Shadow (Fade In)
@@ -68,7 +66,7 @@ extension MainViewController {
     
     func hideSideBar() {
         if self.isExpanded {
-            self.animateSideMenu(targetPosition: self.revealSideMenuOnTop ? (-self.sideMenuRevealWidth - self.paddingForRotation) : 0) { _ in
+            self.animateSideMenu(targetPosition: (-self.sideMenuRevealWidth - self.paddingForRotation)) { _ in
                 self.isExpanded = false
             }
             // Animate Shadow (Fade Out)
@@ -78,13 +76,8 @@ extension MainViewController {
     
     func animateSideMenu(targetPosition: CGFloat, completion: @escaping (Bool) -> ()) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .layoutSubviews, animations: {
-            if self.revealSideMenuOnTop {
-                self.sideMenuTrailingConstraint.constant = targetPosition
-                self.view.layoutIfNeeded()
-            }
-            else {
-                self.view.subviews[1].frame.origin.x = targetPosition
-            }
+            self.sideMenuTrailingConstraint.constant = targetPosition
+            self.view.layoutIfNeeded()
         }, completion: completion)
     }
 }
