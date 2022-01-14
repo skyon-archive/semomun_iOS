@@ -19,7 +19,7 @@ enum NetworkURL {
     static let images: String = base + "/images"
     static let workbookImageURL: String = images + "/workbook"
     static let bookcoverImageURL: String = images + "/bookcover"
-    static let sectionImageURL: String = images + "/section"
+    static let sectioncoverImageURL: String = images + "/sectioncover"
     static let materialImage: String = images + "/material/"
     static let contentImage: String = images + "/content/"
     static let explanation: String = images + "/explanation/"
@@ -38,7 +38,7 @@ enum NetworkURL {
     
     static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
     static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
-    static var sectionImageDirectory: (scale) -> String = { sectionImageURL + $0.rawValue }
+    static var sectioncoverImageDirectory: (scale) -> String = { sectioncoverImageURL + $0.rawValue }
     static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
     static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }
