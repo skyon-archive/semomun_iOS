@@ -3812,9 +3812,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0Y-fy-17d">
-                                <rect key="frame" x="682" y="58" width="42" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0Y-fy-17d">
+                                <rect key="frame" x="709.5" y="64" width="17.5" height="22"/>
                                 <color key="tintColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="xmark" catalog="system"/>
@@ -3997,6 +3996,8 @@
                             <constraint firstItem="kcU-MX-fHz" firstAttribute="top" secondItem="uPr-Ld-3bI" secondAttribute="bottom" constant="24" id="npJ-GL-R5C"/>
                             <constraint firstItem="zNg-fS-4Bu" firstAttribute="top" secondItem="jIc-Yb-ODk" secondAttribute="bottom" constant="32" id="pJ6-zm-g1x"/>
                             <constraint firstItem="zNg-fS-4Bu" firstAttribute="leading" secondItem="nbB-9z-6g5" secondAttribute="leading" id="qQN-y3-Sr3"/>
+                            <constraint firstItem="f0Y-fy-17d" firstAttribute="top" secondItem="nbB-9z-6g5" secondAttribute="top" constant="44" id="snC-fy-nR8"/>
+                            <constraint firstItem="nbB-9z-6g5" firstAttribute="trailing" secondItem="f0Y-fy-17d" secondAttribute="trailing" constant="41" id="xAb-tG-zDQ"/>
                             <constraint firstItem="Quc-g6-Jyq" firstAttribute="leading" secondItem="jIc-Yb-ODk" secondAttribute="trailing" constant="28" id="yEq-Vm-0hT"/>
                             <constraint firstItem="uPr-Ld-3bI" firstAttribute="top" secondItem="zNg-fS-4Bu" secondAttribute="bottom" constant="40" id="zoY-Sx-qeZ"/>
                         </constraints>
