@@ -11,7 +11,9 @@
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
+		2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560E1E727914D11003BDAC0 /* SectionCell.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
+		259C001027914191005D432B /* WorkbookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailViewController.swift */; };
 		25B98808277AEC3500EE6ED7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B98807277AEC3500EE6ED7 /* SettingViewController.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
@@ -138,8 +140,10 @@
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2560E1E727914D11003BDAC0 /* SectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
+		259C000F27914191005D432B /* WorkbookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailViewController.swift; sourceTree = "<group>"; };
 		25B98807277AEC3500EE6ED7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,6 +277,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2560E1E627914D03003BDAC0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2560E1E727914D11003BDAC0 /* SectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		259C000E27914171005D432B /* WorkbookDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2560E1E627914D03003BDAC0 /* Cell */,
+				259C000F27914191005D432B /* WorkbookDetailViewController.swift */,
+			);
+			path = WorkbookDetail;
+			sourceTree = "<group>";
+		};
 		871B6E44276EE48D008CEEBA = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +318,7 @@
 				8726CB09278D1447004D9CC0 /* Start */,
 				87C85E2C276F65D6001C9C4A /* Login */,
 				87C85E2D276F65E1001C9C4A /* Main */,
+				259C000E27914171005D432B /* WorkbookDetail */,
 				87C85E27276F6596001C9C4A /* PersonalSetting */,
 				87E7A547277EBCF100359BAE /* Setting */,
 				87C85E2E276F65EC001C9C4A /* SearchWorkbook */,
@@ -809,6 +831,7 @@
 				87C85EC5276F6D55001C9C4A /* SingleWithTextAnswer.swift in Sources */,
 				87C85E56276F67F8001C9C4A /* SurveyViewController.swift in Sources */,
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
+				259C001027914191005D432B /* WorkbookDetailViewController.swift in Sources */,
 				87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
@@ -821,6 +844,7 @@
 				87C85E90276F6B03001C9C4A /* PreviewManager.swift in Sources */,
 				87C85EAD276F6C83001C9C4A /* SolvingViewController.swift in Sources */,
 				257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */,
+				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
@@ -1056,7 +1080,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -1075,7 +1099,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1092,7 +1116,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -1111,7 +1135,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
