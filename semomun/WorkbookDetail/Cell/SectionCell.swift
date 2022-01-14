@@ -12,6 +12,7 @@ final class SectionCell: UITableViewCell {
     
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    private var index: Int?
     
     override class func awakeFromNib() {
         super.awakeFromNib()
@@ -22,6 +23,12 @@ final class SectionCell: UITableViewCell {
         self.nameLabel.text = ""
     }
     
+    @IBAction func download(_ sender: Any) {
+        
+    }
+}
+
+extension SectionCell {
     func configureCell(title: String) {
         self.nameLabel.text = title
     }
