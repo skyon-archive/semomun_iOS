@@ -272,6 +272,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
             
             cell.category.text = previewManager.subject(at: indexPath.item)
+            cell.category.sizeToFit()
             cell.underLine.alpha = (indexPath.item == previewManager.currentIndex) ? 1 : 0
             
             return cell
@@ -350,7 +351,18 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: height)
         }
         else {
-            return CGSize(width: 70, height: 40)
+            if let subjectText = self.previewManager?.subject(at: indexPath.item) {
+                let count = subjectText.count
+                if count < 6 {
+                    return CGSize(width: 80, height: 40)
+                } else if count < 10 {
+                    return CGSize(width: 120, height: 40)
+                } else {
+                    return CGSize(width: 160, height: 40)
+                }
+            } else {
+                return CGSize(width: 80, height: 40)
+            }
         }
     }
 }

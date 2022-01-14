@@ -1183,9 +1183,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제2외국어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agf-1e-pOi">
-                                                    <rect key="frame" x="0.5" y="14" width="69" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제2외국어" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agf-1e-pOi">
+                                                    <rect key="frame" x="0.0" y="17" width="70" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1202,6 +1202,7 @@
                                                 <constraint firstItem="AQi-Xz-AOo" firstAttribute="centerX" secondItem="9jY-oq-Px3" secondAttribute="centerX" id="5tJ-fW-aMw"/>
                                                 <constraint firstItem="Agf-1e-pOi" firstAttribute="centerX" secondItem="9jY-oq-Px3" secondAttribute="centerX" id="K2U-6P-uK8"/>
                                                 <constraint firstAttribute="bottom" secondItem="AQi-Xz-AOo" secondAttribute="bottom" id="boG-Nk-kIP"/>
+                                                <constraint firstItem="Agf-1e-pOi" firstAttribute="leading" secondItem="9jY-oq-Px3" secondAttribute="leading" id="f0z-TU-x12"/>
                                                 <constraint firstAttribute="bottom" secondItem="Agf-1e-pOi" secondAttribute="bottom" constant="5" id="zJg-7Z-tJs"/>
                                             </constraints>
                                         </collectionViewCellContentView>
