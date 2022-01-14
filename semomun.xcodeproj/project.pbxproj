@@ -14,6 +14,8 @@
 		2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560E1E727914D11003BDAC0 /* SectionCell.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailViewController.swift */; };
+		25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookViewModel.swift */; };
+		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
 		25B98808277AEC3500EE6ED7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B98807277AEC3500EE6ED7 /* SettingViewController.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
@@ -144,6 +146,8 @@
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailViewController.swift; sourceTree = "<group>"; };
+		25A9B2B3279158020087E774 /* WorkbookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookViewModel.swift; sourceTree = "<group>"; };
+		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
 		25B98807277AEC3500EE6ED7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,10 +292,28 @@
 		259C000E27914171005D432B /* WorkbookDetail */ = {
 			isa = PBXGroup;
 			children = (
-				2560E1E627914D03003BDAC0 /* Cell */,
 				259C000F27914191005D432B /* WorkbookDetailViewController.swift */,
+				25A9B2B2279157F60087E774 /* ViewModel */,
+				2560E1E627914D03003BDAC0 /* Cell */,
+				25A9B2B5279164A50087E774 /* Model */,
 			);
 			path = WorkbookDetail;
+			sourceTree = "<group>";
+		};
+		25A9B2B2279157F60087E774 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				25A9B2B3279158020087E774 /* WorkbookViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		25A9B2B5279164A50087E774 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				25A9B2B6279164B80087E774 /* WorkbookInfo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		871B6E44276EE48D008CEEBA = {
@@ -887,6 +909,7 @@
 				87C85EB1276F6CAE001C9C4A /* SectionResultViewController.swift in Sources */,
 				87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */,
 				87EA7FF02784727500B6EFC3 /* RequestResult.swift in Sources */,
+				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
@@ -912,6 +935,7 @@
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
+				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				250D82432772C43400AF1A46 /* String.swift in Sources */,
 				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,

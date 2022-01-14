@@ -313,39 +313,37 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func didSelectItemAt(indexPath: IndexPath) {
         guard let previewManager = self.previewManager else { return }
-        guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+        // MARK: - preview cell: searchPreview
+        if indexPath.item == 0 {
+            showSearchWorkbookViewController()
+            return
+        }
+        
+        // MARK: - preview cell: selectSectionView
         let index = indexPath.item-1
         let preview = previewManager.preview(at: index)
-        workbookDetailViewController.previewCore = preview
-        self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
         
-//        guard let previewManager = self.previewManager else { return }
-//        // MARK: - preview cell: searchPreview
-//        if indexPath.item == 0 {
-//            showSearchWorkbookViewController()
-//            return
-//        }
-//
-//        // MARK: - preview cell: selectSectionView
-//        let index = indexPath.item-1
-//        if previewManager.showSelectSectionView(index: index) {
-//            print("goToSelectSectionViewController")
-//            return
-//        }
-//
-//        let preview = previewManager.preview(at: index)
-//        guard let sid = preview.sids.first else { return }
-//
-//        // MARK: - Section: form CoreData
-//        if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
-//            self.showSolvingVC(section: section, preview: preview)
-//            return
-//        }
-//
-//        // MARK: - Section: Download from DB
-//        self.previewManager?.selectPreview(to: index)
-//        self.viewModel?.selectSection(to: sid)
-//        self.viewModel?.getPages(sid: sid)
+        //        if previewManager.showSelectSectionView(index: index) {
+        print("go to workbookDetailViewController")
+        guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+        let viewModel = WorkbookViewModel(previewCore: preview)
+        workbookDetailViewController.configureViewModel(to: viewModel)
+        self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
+        return
+        //        }
+
+        guard let sid = preview.sids.first else { return }
+
+        // MARK: - Section: form CoreData
+        if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
+            self.showSolvingVC(section: section, preview: preview)
+            return
+        }
+
+        // MARK: - Section: Download from DB
+        self.previewManager?.selectPreview(to: index)
+        self.viewModel?.selectSection(to: sid)
+        self.viewModel?.getPages(sid: sid)
     }
 }
 

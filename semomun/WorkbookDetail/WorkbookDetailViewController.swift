@@ -6,11 +6,11 @@
 //
 
 import Foundation
+import Combine
 import UIKit
 
 final class WorkbookDetailViewController: UIViewController {
     static let identifier = "WorkbookDetailViewController"
-    var previewCore: Preview_Core?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -22,11 +22,20 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var sectionListTableView: UITableView!
     
     private var dummyTitles: [String] = []
+    private var viewModel: WorkbookViewModel?
+    private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
-        self.configureBookInfo()
-        self.configureDummy()
+        super.viewDidLoad()
         self.configureTableViewDelegate()
+        self.bindAll()
+        self.viewModel?.configureWorkbookInfo()
+    }
+}
+
+extension WorkbookDetailViewController {
+    func configureViewModel(to viewModel: WorkbookViewModel) {
+        self.viewModel = viewModel
     }
     
     private func configureTableViewDelegate() {
@@ -34,33 +43,30 @@ final class WorkbookDetailViewController: UIViewController {
         self.sectionListTableView.dataSource = self
     }
     
-    private func configureBookInfo() {
-        self.titleLabel.text = self.previewCore?.title ?? ""
-        self.authorLabel.text = "저자 정보 없음"
-        self.publisherLabel.text = self.previewCore?.publisher ?? "출판사 정보 없음"
-        self.releaseDateLabel.text = makeReleaseDateStr() ?? "출간일 정보 없음"
-        if let imageData = previewCore?.image {
-            DispatchQueue.main.async { [weak self] in
-                self?.bookCoverImageView.image = UIImage(data: imageData)
-            }
-        }
+    private func bindAll() {
+        self.bindWorkbookInfo()
     }
     
-    private func makeReleaseDateStr() -> String? {
-        if let year = self.previewCore?.year {
-            if let month = self.previewCore?.month {
-                return "\(year)년 \(month)월"
-            } else {
-                return "\(year)년"
-            }
+    private func bindWorkbookInfo() {
+        self.viewModel?.$workbookInfo
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookInfo in
+                guard let workbookInfo = workbookInfo else { return }
+                self?.configureBookInfo(workbookInfo: workbookInfo)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func configureBookInfo(workbookInfo: WorkbookInfo) {
+        self.titleLabel.text = workbookInfo.title
+        self.authorLabel.text = workbookInfo.author
+        self.publisherLabel.text = workbookInfo.publisher
+        self.releaseDateLabel.text = workbookInfo.releaseDate
+        if let imageData = workbookInfo.image {
+            self.bookCoverImageView.image = UIImage(data: imageData)
         } else {
-            return nil
-        }
-    }
-    
-    private func configureDummy() {
-        (1...10).forEach { _ in
-            self.dummyTitles.append("hello, hi")
+            self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
         }
     }
 }
@@ -77,6 +83,4 @@ extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelega
         
         return cell
     }
-    
-    
 }
