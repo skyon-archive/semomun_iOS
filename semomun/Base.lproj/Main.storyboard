@@ -3411,7 +3411,7 @@
                                                                         <constraint firstAttribute="height" constant="25" id="bMB-Ds-Cg0"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="tintColor" name="mint"/>
+                                                                    <color key="tintColor" name="mainColor"/>
                                                                     <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="다음" image="chevron.right" catalog="system">
@@ -3845,16 +3845,16 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="eEx-9L-II9"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sda-go-LiQ" userLabel="innerView">
-                                <rect key="frame" x="632" y="40" width="116" height="51"/>
+                                <rect key="frame" x="644" y="40" width="104" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xb4-Z4-Czu">
-                                        <rect key="frame" x="10" y="10" width="96" height="31"/>
+                                        <rect key="frame" x="12" y="14.5" width="80" height="25"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bao-az-llH">
-                                                <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="31" id="eHX-TZ-1Ym"/>
-                                                    <constraint firstAttribute="width" constant="31" id="gEu-sN-FNN"/>
+                                                    <constraint firstAttribute="height" constant="25" id="eHX-TZ-1Ym"/>
+                                                    <constraint firstAttribute="width" constant="25" id="gEu-sN-FNN"/>
                                                 </constraints>
                                                 <color key="tintColor" name="mainColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -3865,14 +3865,14 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-fX-OYB">
-                                                <rect key="frame" x="41" y="0.0" width="55" height="31"/>
+                                                <rect key="frame" x="35" y="0.0" width="45" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="31" id="UdP-7q-tun"/>
-                                                    <constraint firstAttribute="width" constant="55" id="xiB-6u-tLc"/>
+                                                    <constraint firstAttribute="height" constant="25" id="UdP-7q-tun"/>
+                                                    <constraint firstAttribute="width" constant="45" id="xiB-6u-tLc"/>
                                                 </constraints>
                                                 <color key="tintColor" name="mainColor"/>
-                                                <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                     <color key="titleColor" name="mainColor"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
@@ -3886,8 +3886,8 @@
                                 </subviews>
                                 <color key="backgroundColor" name="gray_light"/>
                                 <constraints>
-                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="top" secondItem="Sda-go-LiQ" secondAttribute="top" constant="10" id="0AQ-hg-loR"/>
-                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="leading" secondItem="Sda-go-LiQ" secondAttribute="leading" constant="10" id="3Lk-ub-afq"/>
+                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="top" secondItem="Sda-go-LiQ" secondAttribute="top" constant="14.5" id="0AQ-hg-loR"/>
+                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="leading" secondItem="Sda-go-LiQ" secondAttribute="leading" constant="12" id="3Lk-ub-afq"/>
                                     <constraint firstItem="xb4-Z4-Czu" firstAttribute="centerY" secondItem="Sda-go-LiQ" secondAttribute="centerY" id="leI-w1-EUk"/>
                                     <constraint firstItem="xb4-Z4-Czu" firstAttribute="centerX" secondItem="Sda-go-LiQ" secondAttribute="centerX" id="nrW-cs-goh"/>
                                 </constraints>

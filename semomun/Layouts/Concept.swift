@@ -158,7 +158,7 @@ extension Concept {
     
     func configureUI() {
         self.configureStar()
-        self.innerView.layer.cornerRadius = 10
+        self.innerView.layer.cornerRadius = 25
     }
     
     func configureTimerView() {
