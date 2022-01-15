@@ -215,7 +215,9 @@ extension MultipleWithNoAnswer: UICollectionViewDelegateFlowLayout{
         // imageView 높이값 가져오기
         guard let contentImage = subImages?[indexPath.row] else {
             return CGSize(width: width, height: 300) }
-        
+//        if contentImage.size.width == 0 || contentImage.size.height == 0 {
+//            contentImage = UIImage(named: SemomunImage.warning)!
+//        }
         let imgHeight: CGFloat = contentImage.size.height * (collectionView.frame.width/contentImage.size.width)
         
         let height: CGFloat = solveInputFrameHeight + imgHeight

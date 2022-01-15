@@ -190,14 +190,23 @@ struct CoreUsecase {
         let pageOfCore10 = Page_Core(context: context)
         pageOfCore10.setMocks(vid: -15, form: 1, type: 0, pids: [-151, -262], mateImgName: "material1")
         
+        // Concept
+        let problemOfCore18 = Problem_Core(context: context)
+        problemOfCore18.setMocks(pid: 132, type: -1, btName: "개1", imgName: "mock1")
+        let pageOfCore11 = Page_Core(context: context)
+        pageOfCore11.setMocks(vid: 133, form: 0, type: -1, pids: [132], mateImgName: nil)
+        
+        // Single No Answer
+        
+        
         //Section
         let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "개1"]
         let dict = ["1": -12, "2": -23, "3": -34, "4": -45, "5": -56,
                     "6": -13, "7": -13, "8": -13, "9": -13,
                     "10": -24, "11": -24, "12": -24, "13": -24,
                     "14": -14, "15": -25,
-                    "16": -15, "17": -15]
+                    "16": -15, "17": -15, "개1": 133]
         sectionCore.setMocks(sid: -3, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }

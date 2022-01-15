@@ -30,6 +30,8 @@ class SolvingViewController: UIViewController {
     private var multipleWith5Answer: MultipleWith5Answer!
     private var singleWith4Answer: SingleWith4Answer!
     private var multipleWithNoAnswer: MultipleWithNoAnswer!
+    private var concept: Concept!
+    
     private var currentVC: UIViewController!
     private var manager: SectionManager!
     var sectionCore: Section_Core?
@@ -44,12 +46,14 @@ class SolvingViewController: UIViewController {
         multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
         singleWith4Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith4Answer.identifier) as? SingleWith4Answer
         multipleWithNoAnswer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWithNoAnswer.identifier) as? MultipleWithNoAnswer
+        concept = self.storyboard?.instantiateViewController(withIdentifier: Concept.identifier) as? Concept
         
         self.addChild(singleWith5Answer)
         self.addChild(singleWithTextAnswer)
         self.addChild(multipleWith5Answer)
         self.addChild(singleWith4Answer)
         self.addChild(multipleWithNoAnswer)
+        self.addChild(concept)
         
         self.configureManager()
         self.addCoreDataAlertObserver()
@@ -64,6 +68,7 @@ class SolvingViewController: UIViewController {
         self.multipleWith5Answer = nil
         self.singleWith4Answer = nil
         self.multipleWithNoAnswer = nil
+        self.concept = nil
     }
     
     deinit {
@@ -187,6 +192,11 @@ extension SolvingViewController: LayoutDelegate {
             multipleWithNoAnswer.viewModel = MultipleWithNoAnswerViewModel(delegate: self, pageData: pageData)
             multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
+            
+        case Concept.identifier:
+            self.currentVC = concept
+            concept.image = getImage(data: pageData.problems[0].contentImage)
+            concept.viewModel = ConceptViewModel(delegate: self, pageData: pageData)
             
         default:
             break
