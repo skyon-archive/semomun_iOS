@@ -288,12 +288,12 @@ extension SearchWorkbookViewController {
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: manager.category)
     }
     
-    func saveSectionHeader(sections: [SectionOfDB], subject: String) {
+    func saveSectionHeader(sections: [SectionOfDB], subject: String, wid: Int) {
         guard let manager = self.manager else { return }
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
-            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectioncoverImageDirectory(manager.imageScale))
+            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectioncoverImageDirectory(manager.imageScale), wid: wid)
         }
         CoreDataManager.saveCoreData()
         print("save complete")
@@ -313,7 +313,7 @@ extension SearchWorkbookViewController {
             
             DispatchQueue.global().async {
                 self.savePreview(index: index, workbook: workbook, sids: sids)
-                self.saveSectionHeader(sections: sections, subject: workbook.subject)
+                self.saveSectionHeader(sections: sections, subject: workbook.subject, wid: workbook.wid)
             }
         }
     }

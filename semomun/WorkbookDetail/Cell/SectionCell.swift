@@ -75,6 +75,7 @@ extension SectionCell {
 
 extension SectionCell {
     private func showSection() {
+        print("show Section")
         guard let sid = self.sectionHeader?.sid else { return }
         NotificationCenter.default.post(name: .showSection, object: nil, userInfo: ["sid" : Int(sid)])
     }

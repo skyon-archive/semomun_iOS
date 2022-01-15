@@ -216,6 +216,18 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchSectionHeaders(wid: Int) -> [SectionHeader_Core]? {
+        let fetchRequest: NSFetchRequest<SectionHeader_Core> = SectionHeader_Core.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "wid = %@", "\(wid)")
+        
+        if let sectionHeaders = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return sectionHeaders
+        } else {
+            print("Error: fetch sectionHeaders")
+            return nil
+        }
+    }
+    
     static func fetchAllPreviews() -> [Preview_Core]? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
