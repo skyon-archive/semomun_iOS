@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class WorkbookViewModel {
-    private var previewCore: Preview_Core
+    private(set) var previewCore: Preview_Core
     @Published private(set) var workbookInfo: WorkbookInfo?
     @Published private(set) var warning: String?
     @Published private(set) var sectionHeaders: [SectionHeader_Core]?
