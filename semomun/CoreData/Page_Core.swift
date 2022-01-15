@@ -93,10 +93,11 @@ public class Page_Core: NSManagedObject {
         }
     }
     
-    func getLayout(form: Int, type: Int) -> String {
+    private func getLayout(form: Int, type: Int) -> String {
         if form == 0 {
             switch type {
             case -1: return Concept.identifier
+            case 0: return SingleWithNoAnswer.identifier
             case 1: return SingleWithTextAnswer.identifier
             case 4: return SingleWith4Answer.identifier
             case 5: return SingleWith5Answer.identifier

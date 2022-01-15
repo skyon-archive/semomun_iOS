@@ -74,7 +74,9 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillDisappear(animated)
         print("답없는 좌우형 : willDisapplear")
         
+        CoreDataManager.saveCoreData() // 
         self.viewModel?.cancelObserver()
+        
         self.imageView.image = nil
     }
     
@@ -85,7 +87,7 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
-        print("5다선지 좌우형 : willMove")
+        print("답없는 좌우형 : willMove")
     }
     
     deinit {
