@@ -28,6 +28,7 @@ final class WorkbookDetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureTableViewDelegate()
         self.bindAll()
+        self.configureAddObserver()
         self.viewModel?.configureWorkbookInfo()
         self.viewModel?.fetchSectionHeaders()
     }
@@ -47,6 +48,17 @@ extension WorkbookDetailViewController {
         self.bindWarning()
         self.bindWorkbookInfo()
         self.bindSectionHeaders()
+    }
+    
+    private func configureAddObserver() {
+        NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] notification in
+            guard let sid = notification.userInfo?["sid"] as? Int else { return }
+            guard let preview = self?.viewModel?.previewCore else { return }
+            if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
+                self?.showSolvingVC(section: section, preview: preview)
+                return
+            }
+        }
     }
     
     private func bindWarning() {
@@ -97,6 +109,14 @@ extension WorkbookDetailViewController {
     private func configureSectionNumber() {
         guard let sectionCount = self.viewModel?.count else { return }
         self.sectionNumberLabel.text = "총 \(sectionCount)단원"
+    }
+    
+    private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
+        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        solvingVC.modalPresentationStyle = .fullScreen
+        solvingVC.sectionCore = section
+        solvingVC.previewCore = preview
+        self.present(solvingVC, animated: true, completion: nil)
     }
 }
 
