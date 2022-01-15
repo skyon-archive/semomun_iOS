@@ -91,7 +91,7 @@ extension SectionCell {
                     self?.downloadButton.setTitle("다운실패", for: .normal)
                     return
                 }
-                self?.sectionHeader?.setValue(true, forKey: "")
+                self?.sectionHeader?.setValue(true, forKey: "downloaded")
                 CoreDataManager.saveCoreData()
                 self?.terminate()
             }

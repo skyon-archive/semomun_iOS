@@ -21,7 +21,6 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var sectionListTableView: UITableView!
     
-    private var dummyTitles: [String] = []
     private var viewModel: WorkbookViewModel?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -30,6 +29,7 @@ final class WorkbookDetailViewController: UIViewController {
         self.configureTableViewDelegate()
         self.bindAll()
         self.viewModel?.configureWorkbookInfo()
+        self.viewModel?.fetchSectionHeaders()
     }
 }
 
@@ -44,7 +44,20 @@ extension WorkbookDetailViewController {
     }
     
     private func bindAll() {
+        self.bindWarning()
         self.bindWorkbookInfo()
+        self.bindSectionHeaders()
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning, text: "", completion: nil)
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindWorkbookInfo() {
@@ -54,6 +67,17 @@ extension WorkbookDetailViewController {
             .sink(receiveValue: { [weak self] workbookInfo in
                 guard let workbookInfo = workbookInfo else { return }
                 self?.configureBookInfo(workbookInfo: workbookInfo)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindSectionHeaders() {
+        self.viewModel?.$sectionHeaders
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.configureSectionNumber()
+                self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -69,17 +93,23 @@ extension WorkbookDetailViewController {
             self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
         }
     }
+    
+    private func configureSectionNumber() {
+        guard let sectionCount = self.viewModel?.count else { return }
+        self.sectionNumberLabel.text = "총 \(sectionCount)단원"
+    }
 }
 
 extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dummyTitles.count
+        return self.viewModel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionCell.identifier, for: indexPath) as? SectionCell else {
             return UITableViewCell() }
-        cell.configureCell(title: self.dummyTitles[indexPath.row])
+        guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
+        cell.configureCell(sectionHeader: sectionHeader)
         
         return cell
     }
