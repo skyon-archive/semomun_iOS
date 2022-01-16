@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Kingfisher
 import Combine
 import UIKit
 
@@ -100,10 +101,16 @@ extension WorkbookDetailViewController {
         self.authorLabel.text = workbookInfo.author
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
-        if let imageData = workbookInfo.image {
-            self.bookCoverImageView.image = UIImage(data: imageData)
+        if self.isCoreData {
+            if let imageData = workbookInfo.image {
+                self.bookCoverImageView.image = UIImage(data: imageData)
+            } else {
+                self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
+            }
         } else {
-            self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
+            guard let bookcoverURL = workbookInfo.imageURL,
+                  let url = URL(string: NetworkURL.bookcovoerImageDirectory(.large) + bookcoverURL) else { return }
+            self.bookCoverImageView.kf.setImage(with: url)
         }
     }
     
