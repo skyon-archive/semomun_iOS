@@ -93,6 +93,7 @@ extension WorkbookDetailViewController {
             self.viewModel?.fetchSectionHeaders()
         } else {
             self.viewModel?.configureWorkbookInfo(isCoreData: false)
+            self.viewModel?.fetchSectionDTOs()
         }
     }
     
@@ -115,7 +116,7 @@ extension WorkbookDetailViewController {
     }
     
     private func configureSectionNumber() {
-        guard let sectionCount = self.viewModel?.count else { return }
+        guard let sectionCount = self.viewModel?.count(isCoreData: self.isCoreData) else { return }
         self.sectionNumberLabel.text = "총 \(sectionCount)단원"
     }
     
@@ -134,6 +135,7 @@ extension WorkbookDetailViewController {
         self.bindWarning()
         self.bindWorkbookInfo()
         self.bindSectionHeaders()
+        self.bindSectionDTOs()
     }
     
     private func bindWarning() {
@@ -168,12 +170,23 @@ extension WorkbookDetailViewController {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindSectionDTOs() {
+        self.viewModel?.$sectionDTOs
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.configureSectionNumber()
+                self?.sectionListTableView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - TableView
 extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.count ?? 0
+        return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -184,7 +197,8 @@ extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelega
             guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
             cell.configureCell(sectionHeader: sectionHeader)
         } else {
-//            cell.configureCell(sectionDTO: <#T##SectionOfDB#>)
+            guard let sectionDTO = self.viewModel?.sectionDTO(idx: indexPath.row) else { return cell }
+            cell.configureCell(sectionDTO: sectionDTO)
         }
         
         return cell
