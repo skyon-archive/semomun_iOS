@@ -40,11 +40,24 @@ final class WorkbookViewModel {
         self.sectionHeaders = sectionHeaders
     }
     
-    var count: Int {
-        return self.sectionHeaders?.count ?? 0
+    func fetchSectionDTOs() {
+        guard let workbookDTO = self.workbookDTO else { return }
+        self.sectionDTOs = workbookDTO.sections
+    }
+    
+    func count(isCoreData: Bool) -> Int {
+        if isCoreData {
+            return self.sectionHeaders?.count ?? 0
+        } else {
+            return self.sectionDTOs?.count ?? 0
+        }
     }
     
     func sectionHeader(idx: Int) -> SectionHeader_Core? {
         return self.sectionHeaders?[idx]
+    }
+    
+    func sectionDTO(idx: Int) -> SectionOfDB? {
+        return self.sectionDTOs?[idx]
     }
 }
