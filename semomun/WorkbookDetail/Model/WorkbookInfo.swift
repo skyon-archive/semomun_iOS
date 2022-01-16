@@ -23,6 +23,15 @@ struct WorkbookInfo {
         self.configureReleaseDate(previewCore: previewCore)
     }
     
+    init(workbookDTO: WorkbookOfDB) {
+        self.title = workbookDTO.title
+        self.author = "저자 정보 없음"
+        self.publisher = workbookDTO.publisher
+        self.image = nil
+        self.releaseDate = ""
+        self.configureReleaseData(workbookDTO: workbookDTO)
+    }
+    
     private mutating func configureReleaseDate(previewCore: Preview_Core) {
         if let year = previewCore.year {
             if let month = previewCore.month {
@@ -33,5 +42,9 @@ struct WorkbookInfo {
         } else {
             self.releaseDate = ""
         }
+    }
+    
+    private mutating func configureReleaseData(workbookDTO: WorkbookOfDB) {
+        self.releaseDate = "\(workbookDTO.year)년 \(workbookDTO.month)월"
     }
 }
