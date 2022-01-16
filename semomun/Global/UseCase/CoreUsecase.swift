@@ -192,25 +192,25 @@ struct CoreUsecase {
         
         // Concept
         let problemOfCore18 = Problem_Core(context: context)
-        problemOfCore18.setMocks(pid: 132, type: -1, btName: "개1", imgName: "mock3")
+        problemOfCore18.setMocks(pid: 132, type: -1, btName: "개", imgName: "mock3")
         let pageOfCore11 = Page_Core(context: context)
         pageOfCore11.setMocks(vid: -124, form: 0, type: -1, pids: [132], mateImgName: nil)
         
         // Single No Answer
         let problemOfCore19 = Problem_Core(context: context)
-        problemOfCore19.setMocks(pid: 134, type: 0, btName: "개2", imgName: "mock4", expName: "exp1")
+        problemOfCore19.setMocks(pid: 134, type: 0, btName: "18", imgName: "mock4", expName: "exp1")
         let pageOfCore12 = Page_Core(context: context)
         pageOfCore12.setMocks(vid: -123, form: 0, type: 0, pids: [134], mateImgName: nil)
         
         
         //Section
         let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "개1", "개2"]
+        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "개", "18"]
         let dict = ["1": -12, "2": -23, "3": -34, "4": -45, "5": -56,
                     "6": -13, "7": -13, "8": -13, "9": -13,
                     "10": -24, "11": -24, "12": -24, "13": -24,
                     "14": -14, "15": -25,
-                    "16": -15, "17": -15, "개1": -124, "개2": -123]
+                    "16": -15, "17": -15, "개": -124, "18": -123]
         sectionCore.setMocks(sid: -3, buttons: buttons, dict: dict)
         
         do { try context.save() } catch let error { print(error.localizedDescription) }
