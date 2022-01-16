@@ -328,6 +328,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
         let viewModel = WorkbookViewModel(previewCore: preview)
         workbookDetailViewController.configureViewModel(to: viewModel)
+        workbookDetailViewController.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
         return
         //        }

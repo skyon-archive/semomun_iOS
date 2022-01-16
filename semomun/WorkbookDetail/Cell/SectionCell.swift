@@ -12,6 +12,7 @@ final class SectionCell: UITableViewCell {
     
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabelLeading: NSLayoutConstraint!
     private var downloaded: Bool = false
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
@@ -28,6 +29,8 @@ final class SectionCell: UITableViewCell {
         self.nameLabel.text = ""
         self.downloaded = false
         self.configureNoneWhite()
+        self.nameLabelLeading.constant = 117
+        self.downloadButton.isHidden = false
         self.downloadButton.setTitle("다운로드", for: .normal)
     }
     
@@ -41,10 +44,13 @@ final class SectionCell: UITableViewCell {
 }
 
 extension SectionCell {
-    func configureCell(title: String) {
-        self.nameLabel.text = title
+    // MARK: - Configure from Search
+    func configureCell(sectionDTO: SectionOfDB) {
+        self.downloadButton.isHidden = true
+        self.nameLabelLeading.constant = 0
+        self.nameLabel.text = sectionDTO.title
     }
-    
+    // MARK: - Configure from CoreData
     func configureCell(sectionHeader: SectionHeader_Core) {
         self.sectionHeader = sectionHeader
         self.nameLabel.text = sectionHeader.title
