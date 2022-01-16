@@ -28,6 +28,7 @@ final class WorkbookDetailViewController: UIViewController {
     private var isCoreData: Bool = false
     private var viewModel: WorkbookViewModel?
     private var cancellables: Set<AnyCancellable> = []
+    private lazy var loader = self.makeLoaderWithoutPercentage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,10 @@ final class WorkbookDetailViewController: UIViewController {
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
-        
+        guard let workbookInfo = self.viewModel?.workbookInfo else { return }
+        self.showAlertWithCancelAndOK(title: workbookInfo.title, text: "해당 시험을 추가하시겠습니까?") { [weak self] in
+            self?.viewModel?.saveWorkbook()
+        }
     }
     
     @IBAction func close(_ sender: Any) {
@@ -57,15 +61,30 @@ extension WorkbookDetailViewController {
     }
     
     private func configureUI() {
-        self.workbookInfoView.layer.shadowOpacity = 0.35
-        self.workbookInfoView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.workbookInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.workbookInfoView.layer.shadowRadius = 7
+        self.configureShadow()
+        self.configureLoader()
         
         if self.isCoreData {
             self.addWorkbookButton.isHidden = true
             self.closeButton.isHidden = true
         }
+    }
+    
+    private func configureShadow() {
+        self.workbookInfoView.layer.shadowOpacity = 0.35
+        self.workbookInfoView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.workbookInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.workbookInfoView.layer.shadowRadius = 7
+    }
+    
+    private func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        self.loader.layer.zPosition = CGFloat.greatestFiniteMagnitude
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
     }
     
     private func configureTableViewDelegate() {
@@ -127,6 +146,27 @@ extension WorkbookDetailViewController {
         solvingVC.previewCore = preview
         self.present(solvingVC, animated: true, completion: nil)
     }
+    
+    private func startLoader() {
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        let backgroundView = UIView()
+        backgroundView.tag = 123
+        backgroundView.backgroundColor = .gray.withAlphaComponent(0.8)
+        backgroundView.frame = self.view.frame
+        self.view.addSubview(backgroundView)
+    }
+    
+    private func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+        self.view.isUserInteractionEnabled = true
+        if let backgroundView = self.view.viewWithTag(123) {
+            backgroundView.removeFromSuperview()
+        }
+    }
 }
 
 // MARK: - Binding
@@ -136,6 +176,7 @@ extension WorkbookDetailViewController {
         self.bindWorkbookInfo()
         self.bindSectionHeaders()
         self.bindSectionDTOs()
+        self.bindLoader()
     }
     
     private func bindWarning() {
@@ -178,6 +219,21 @@ extension WorkbookDetailViewController {
             .sink(receiveValue: { [weak self] _ in
                 self?.configureSectionNumber()
                 self?.sectionListTableView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindLoader() {
+        self.viewModel?.$showLoader
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] showLoader in
+                if showLoader {
+                    self?.startLoader()
+                } else {
+                    self?.stopLoader()
+                    self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
             })
             .store(in: &self.cancellables)
     }

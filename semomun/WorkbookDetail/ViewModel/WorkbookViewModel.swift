@@ -15,6 +15,7 @@ final class WorkbookViewModel {
     @Published private(set) var warning: String?
     @Published private(set) var sectionHeaders: [SectionHeader_Core]?
     @Published private(set) var sectionDTOs: [SectionOfDB]?
+    @Published private(set) var showLoader: Bool = false
     
     init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil) {
         self.previewCore = previewCore
@@ -59,5 +60,26 @@ final class WorkbookViewModel {
     
     func sectionDTO(idx: Int) -> SectionOfDB? {
         return self.sectionDTOs?[idx]
+    }
+    
+    func saveWorkbook() {
+        self.showLoader = true
+        guard let searchWorkbook = self.workbookDTO else { return }
+        let wid = searchWorkbook.workbook.wid
+        DispatchQueue.global().async { [weak self] in
+            // MARK: - Save Preview
+            let preview_core = Preview_Core(context: CoreDataManager.shared.context)
+            preview_core.setValues(searchWorkbook: searchWorkbook)
+            // MARK: - Save Sections
+            searchWorkbook.sections.forEach { section in
+                let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
+                sectionHeader_core.setValues(section: section, baseURL: NetworkURL.sectioncoverImageDirectory(.large), wid: wid)
+            }
+            
+            CoreDataManager.saveCoreData()
+            print("save complete")
+            self?.showLoader = false
+            NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : searchWorkbook.workbook.subject])
+        }
     }
 }
