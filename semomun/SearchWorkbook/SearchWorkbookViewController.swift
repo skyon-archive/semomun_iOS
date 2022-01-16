@@ -206,7 +206,9 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
             self.manager?.select(to: indexPath.item) // 로그인 절차 이후 문제집 다운로드가 이어지기 위한 문제집 index 저장
             self.showLoginAlert()
         } else {
-            self.showAlertToAddPreview(index: indexPath.item)
+            // TODO: WorkbookDetailVC 띄울지 말지 로직이 필요
+//            self.showAlertToAddPreview(index: indexPath.item)
+            self.showWorkbookDetailVC(index: indexPath.item)
         }
     }
 }
@@ -252,6 +254,18 @@ extension SearchWorkbookViewController {
         }
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func showWorkbookDetailVC(index: Int) {
+        guard let wid = self.manager?.preview(at: index).wid else { return }
+        self.networkUseCase?.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+            guard let workbookVC = self?.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+            let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+            workbookVC.configureViewModel(to: viewModel)
+            workbookVC.configureIsCoreData(to: false)
+            
+            self?.present(workbookVC, animated: true, completion: nil)
+        }
     }
     
     func loadPreviewFromDB() {

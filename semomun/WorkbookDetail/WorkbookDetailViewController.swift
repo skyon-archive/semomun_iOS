@@ -19,6 +19,7 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var addWorkbookButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
     
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var sectionListTableView: UITableView!
@@ -39,6 +40,10 @@ final class WorkbookDetailViewController: UIViewController {
     @IBAction func addWorkbook(_ sender: Any) {
         
     }
+    
+    @IBAction func close(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension WorkbookDetailViewController {
@@ -58,6 +63,7 @@ extension WorkbookDetailViewController {
         
         if self.isCoreData {
             self.addWorkbookButton.isHidden = true
+            self.closeButton.isHidden = true
         }
     }
     
@@ -82,10 +88,10 @@ extension WorkbookDetailViewController {
     
     private func fetchWorkbook() {
         if self.isCoreData {
-            self.viewModel?.configureWorkbookInfo()
+            self.viewModel?.configureWorkbookInfo(isCoreData: true)
             self.viewModel?.fetchSectionHeaders()
         } else {
-            
+            self.viewModel?.configureWorkbookInfo(isCoreData: false)
         }
     }
     
