@@ -12,25 +12,32 @@ import UIKit
 final class WorkbookDetailViewController: UIViewController {
     static let identifier = "WorkbookDetailViewController"
     
+    @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var bookCoverImageView: UIImageView!
+    @IBOutlet weak var addWorkbookButton: UIButton!
     
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var sectionListTableView: UITableView!
     
+    private var isCoreData: Bool = false
     private var viewModel: WorkbookViewModel?
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureUI()
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureAddObserver()
-        self.viewModel?.configureWorkbookInfo()
-        self.viewModel?.fetchSectionHeaders()
+        self.fetchWorkbook()
+    }
+    
+    @IBAction func addWorkbook(_ sender: Any) {
+        
     }
 }
 
@@ -39,15 +46,24 @@ extension WorkbookDetailViewController {
         self.viewModel = viewModel
     }
     
+    func configureIsCoreData(to: Bool) {
+        self.isCoreData = to
+    }
+    
+    private func configureUI() {
+        self.workbookInfoView.layer.shadowOpacity = 0.35
+        self.workbookInfoView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.workbookInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.workbookInfoView.layer.shadowRadius = 7
+        
+        if self.isCoreData {
+            self.addWorkbookButton.isHidden = true
+        }
+    }
+    
     private func configureTableViewDelegate() {
         self.sectionListTableView.delegate = self
         self.sectionListTableView.dataSource = self
-    }
-    
-    private func bindAll() {
-        self.bindWarning()
-        self.bindWorkbookInfo()
-        self.bindSectionHeaders()
     }
     
     private func configureAddObserver() {
@@ -62,6 +78,49 @@ extension WorkbookDetailViewController {
         NotificationCenter.default.addObserver(forName: .downloadSectionFail, object: nil, queue: .main) { [weak self] notification in
             self?.showAlertWithOK(title: "다운로드에 실패하였습니다", text: "네트워크 확인 후 다시 시도해주세요", completion: nil)
         }
+    }
+    
+    private func fetchWorkbook() {
+        if self.isCoreData {
+            self.viewModel?.configureWorkbookInfo()
+            self.viewModel?.fetchSectionHeaders()
+        } else {
+            
+        }
+    }
+    
+    private func configureBookInfo(workbookInfo: WorkbookInfo) {
+        self.titleLabel.text = workbookInfo.title
+        self.authorLabel.text = workbookInfo.author
+        self.publisherLabel.text = workbookInfo.publisher
+        self.releaseDateLabel.text = workbookInfo.releaseDate
+        if let imageData = workbookInfo.image {
+            self.bookCoverImageView.image = UIImage(data: imageData)
+        } else {
+            self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
+        }
+    }
+    
+    private func configureSectionNumber() {
+        guard let sectionCount = self.viewModel?.count else { return }
+        self.sectionNumberLabel.text = "총 \(sectionCount)단원"
+    }
+    
+    private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
+        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        solvingVC.modalPresentationStyle = .fullScreen
+        solvingVC.sectionCore = section
+        solvingVC.previewCore = preview
+        self.present(solvingVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Binding
+extension WorkbookDetailViewController {
+    private func bindAll() {
+        self.bindWarning()
+        self.bindWorkbookInfo()
+        self.bindSectionHeaders()
     }
     
     private func bindWarning() {
@@ -96,33 +155,9 @@ extension WorkbookDetailViewController {
             })
             .store(in: &self.cancellables)
     }
-    
-    private func configureBookInfo(workbookInfo: WorkbookInfo) {
-        self.titleLabel.text = workbookInfo.title
-        self.authorLabel.text = workbookInfo.author
-        self.publisherLabel.text = workbookInfo.publisher
-        self.releaseDateLabel.text = workbookInfo.releaseDate
-        if let imageData = workbookInfo.image {
-            self.bookCoverImageView.image = UIImage(data: imageData)
-        } else {
-            self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
-        }
-    }
-    
-    private func configureSectionNumber() {
-        guard let sectionCount = self.viewModel?.count else { return }
-        self.sectionNumberLabel.text = "총 \(sectionCount)단원"
-    }
-    
-    private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
-        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
-        solvingVC.modalPresentationStyle = .fullScreen
-        solvingVC.sectionCore = section
-        solvingVC.previewCore = preview
-        self.present(solvingVC, animated: true, completion: nil)
-    }
 }
 
+// MARK: - TableView
 extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel?.count ?? 0
@@ -131,8 +166,13 @@ extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SectionCell.identifier, for: indexPath) as? SectionCell else {
             return UITableViewCell() }
-        guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
-        cell.configureCell(sectionHeader: sectionHeader)
+        
+        if self.isCoreData {
+            guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
+            cell.configureCell(sectionHeader: sectionHeader)
+        } else {
+//            cell.configureCell(sectionDTO: <#T##SectionOfDB#>)
+        }
         
         return cell
     }
