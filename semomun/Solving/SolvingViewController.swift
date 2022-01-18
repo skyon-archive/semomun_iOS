@@ -35,6 +35,7 @@ class SolvingViewController: UIViewController {
     
     private var currentVC: UIViewController!
     private var manager: SectionManager!
+    var sectionHeaderCore: SectionHeader_Core?
     var sectionCore: Section_Core?
     var previewCore: Preview_Core?
     
@@ -246,6 +247,7 @@ extension SolvingViewController: LayoutDelegate {
                         print("Error: update submissions fail")
                     }
                     self?.previewCore?.setValue(true, forKey: "terminated")
+                    self?.sectionHeaderCore?.setValue(true, forKey: "terminated")
                     CoreDataManager.saveCoreData()
                     self?.changeResultLabel()
                     self?.showResultViewController(result: result)
