@@ -22,6 +22,7 @@ extension SectionHeader_Core {
     @NSManaged public var image: Data?
     @NSManaged public var cutoff: String?
     @NSManaged public var downloaded: Bool
+    @NSManaged public var terminated: Bool
 }
 
 @objc(SectionHeader_Core)
@@ -37,6 +38,7 @@ public class SectionHeader_Core: NSManagedObject {
         self.setValue(section.detail, forKey: "detail")
         self.setValue(section.cutoff, forKey: "cutoff")
         self.setValue(false, forKey: "downloaded")
+        self.setValue(false, forKey: "terminated")
         self.setValue(nil, forKey: "image")
 //        if let url = URL(string: baseURL + section.image) {
 //            let imageData = try? Data(contentsOf: url)

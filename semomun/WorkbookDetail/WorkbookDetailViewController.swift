@@ -13,6 +13,7 @@ import UIKit
 final class WorkbookDetailViewController: UIViewController {
     static let identifier = "WorkbookDetailViewController"
     
+    @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -39,6 +40,10 @@ final class WorkbookDetailViewController: UIViewController {
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureAddObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.fetchWorkbook()
     }
     
@@ -64,10 +69,13 @@ extension WorkbookDetailViewController {
     }
     
     private func configureUI() {
+        self.frameView.clipsToBounds = true
+        self.frameView.layer.cornerRadius = 10
         self.configureShadow()
         self.configureLoader()
         
         if self.isCoreData {
+            self.view.backgroundColor = .white
             self.addWorkbookButton.isHidden = true
             self.closeButton.isHidden = true
         }
@@ -109,8 +117,9 @@ extension WorkbookDetailViewController {
         NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] notification in
             guard let sid = notification.userInfo?["sid"] as? Int else { return }
             guard let preview = self?.viewModel?.previewCore else { return }
+            guard let sectionHeader = self?.viewModel?.sectionHeaders?.first(where: { Int($0.sid) == sid }) else { return }
             if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
-                self?.showSolvingVC(section: section, preview: preview)
+                self?.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
                 return
             }
         }
@@ -152,11 +161,12 @@ extension WorkbookDetailViewController {
         self.sectionNumberLabel.text = "총 \(sectionCount)단원"
     }
     
-    private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
+    private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
         guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
         solvingVC.previewCore = preview
+        solvingVC.sectionHeaderCore = sectionHeader
         self.present(solvingVC, animated: true, completion: nil)
     }
     
