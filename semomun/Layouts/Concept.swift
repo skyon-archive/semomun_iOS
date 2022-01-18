@@ -1,20 +1,18 @@
 //
-//  SingleWith4Answer.swift
+//  Concept.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2021/12/19.
+//  Created by SEONG YEOL YI on 2021/01/15.
 //
 
 import UIKit
 import PencilKit
 
-class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "SingleWith4Answer" // form == 0 && type == 4
+class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
+    static let identifier = "Concept"
     
-    @IBOutlet var checkNumbers: [UIButton]!
+    
     @IBOutlet weak var star: UIButton!
-    @IBOutlet weak var answer: UIButton!
-    @IBOutlet weak var explanation: UIButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -23,10 +21,12 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var innerView: UIView!
+    
     private var width: CGFloat!
     private var height: CGFloat!
     var image: UIImage!
-    var viewModel: SingleWith4AnswerViewModel?
+    var viewModel: ConceptViewModel?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -54,7 +54,6 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
-        
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
@@ -62,7 +61,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("4다선지 willAppear")
+        print("개념 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
@@ -70,7 +69,7 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("4다선지 didAppear")
+        print("개념 didAppear")
         
         self.stopLoader()
         self.configureCanvasViewData()
@@ -81,39 +80,28 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("4다선지 willDisappear")
+        print("개념 willDisappear")
         
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
-        self.answer.isHidden = false
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("4다선지 : disappear")
+        print("개념 : disappear")
     }
     
     deinit {
         guard let canvasView = self.canvasView else { return }
         toolPicker.setVisible(false, forFirstResponder: canvasView)
         toolPicker.removeObserver(canvasView)
-        print("4다선지 deinit")
+        print("개념 deinit")
     }
     
-    // 객관식 1~4 클릭 부분
-    @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.viewModel?.problem else { return }
-        if problem.terminated { return }
-        
-        let input: Int = sender.tag
-        self.viewModel?.updateSolved(input: "\(input)")
-        
-        self.configureCheckButtons()
-    }
     
     @IBAction func toggleStar(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
@@ -124,32 +112,13 @@ class SingleWith4Answer: UIViewController, PKToolPickerObserver, PKCanvasViewDel
         self.viewModel?.updateStar(btName: pName, to: status)
     }
     
-    @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer else { return }
-        
-        self.answer.isSelected.toggle()
-        if self.answer.isSelected {
-            self.answer.setTitle(answer.circledAnswer, for: .normal)
-        } else {
-            self.answer.setTitle("정답", for: .normal)
-        }
-    }
-    
-    @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-        
-        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
-        let explanationImage = UIImage(data: imageData)
-        explanationVC.explanationImage = explanationImage
-        self.present(explanationVC, animated: true, completion: nil)
-    }
-    
     @IBAction func nextProblem(_ sender: Any) {
         self.viewModel?.delegate?.nextPage()
     }
 }
 
-extension SingleWith4Answer {
+extension Concept {
+    
     func configureLoader() {
         self.view.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
@@ -188,50 +157,8 @@ extension SingleWith4Answer {
     }
     
     func configureUI() {
-        self.configureCheckButtons()
         self.configureStar()
-        self.configureAnswer()
-        self.configureExplanation()
-    }
-    
-    func configureCheckButtons() {
-        guard let problem = self.viewModel?.problem else { return }
-        
-        // 일단 모든 버튼 표시 구현
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
-            bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
-        }
-        // 사용자 체크한 데이터 표시
-        if let solved = problem.solved {
-            guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: SemomunColor.mainColor)
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
-        }
-        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if let answer = self.viewModel?.answer,
-           problem.terminated == true {
-            self.answer.isHidden = true
-            if answer != "복수",
-               let targetIndex = Int(answer) {
-                self.createCheckImage(to: targetIndex-1)
-                self.configureTimerView()
-            }   
-        }
-    }
-    
-    func createCheckImage(to index: Int) {
-        self.checkImageView.image = UIImage(named: "check")
-        self.view.addSubview(self.checkImageView)
-        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
-        ])
+        self.innerView.layer.cornerRadius = 25
     }
     
     func configureTimerView() {
@@ -240,10 +167,10 @@ extension SingleWith4Answer {
         self.view.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[3].centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[3].trailingAnchor, constant: 25)
-        ])
+//        NSLayoutConstraint.activate([
+//            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[3].centerYAnchor),
+//            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[3].trailingAnchor, constant: 25)
+//        ])
         
         self.timerView.configureTime(to: time)
     }
@@ -271,28 +198,6 @@ extension SingleWith4Answer {
     
     func configureStar() {
         self.star.isSelected = self.viewModel?.problem?.star ?? false
-    }
-    
-    func configureAnswer() {
-        self.answer.setTitle("정답", for: .normal)
-        self.answer.isSelected = false
-        if self.viewModel?.problem?.answer == nil {
-            self.answer.isUserInteractionEnabled = false
-            self.answer.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
-        }
-    }
-    
-    func configureExplanation() {
-        if self.viewModel?.problem?.explanationImage == nil {
-            self.explanation.isUserInteractionEnabled = false
-            self.explanation.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
-        }
     }
     
     func configureCanvasView() {
@@ -342,7 +247,7 @@ extension SingleWith4Answer {
     }
 }
 
-extension SingleWith4Answer {
+extension Concept {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)
