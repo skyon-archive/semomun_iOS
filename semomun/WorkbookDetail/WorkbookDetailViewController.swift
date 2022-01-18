@@ -23,6 +23,7 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     
     @IBOutlet weak var sectionNumberLabel: UILabel!
+    @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
     
     private var isCoreData: Bool = false
@@ -33,6 +34,7 @@ final class WorkbookDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureTags()
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureAddObserver()
@@ -85,6 +87,11 @@ extension WorkbookDetailViewController {
             self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
+    }
+    
+    private func configureTags() {
+        self.workbookTagsCollectionView.delegate = self
+        self.workbookTagsCollectionView.dataSource = self
     }
     
     private func configureTableViewDelegate() {
@@ -236,6 +243,28 @@ extension WorkbookDetailViewController {
                 }
             })
             .store(in: &self.cancellables)
+    }
+}
+
+// MARK: - CollectionView
+extension WorkbookDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
+        guard let tag = self.viewModel?.tag(idx: indexPath.item) else { return  cell }
+        cell.configure(tag: tag)
+        
+        return cell
+    }
+}
+
+extension WorkbookDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let tag = self.viewModel?.tag(idx: indexPath.item) else { return CGSize(width: 100, height: 30) }
+        return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
     }
 }
 

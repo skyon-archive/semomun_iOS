@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 final class WorkbookViewModel {
+    private let tags: [String] = ["공무원", "수학", "전기기사", "수험서", "공무원", "수학", "전기기사", "수험서", "공무원", "수학", "전기기사", "수험서"]
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: SearchWorkbook?
     @Published private(set) var workbookInfo: WorkbookInfo?
@@ -60,6 +61,10 @@ final class WorkbookViewModel {
     
     func sectionDTO(idx: Int) -> SectionOfDB? {
         return self.sectionDTOs?[idx]
+    }
+    
+    func tag(idx: Int) -> String {
+        return self.tags[idx]
     }
     
     func saveWorkbook() {
