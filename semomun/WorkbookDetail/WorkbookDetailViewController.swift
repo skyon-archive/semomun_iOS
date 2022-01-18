@@ -18,6 +18,7 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var bookCoverImageViewFrameView: UIView!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var addWorkbookButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
@@ -73,6 +74,11 @@ extension WorkbookDetailViewController {
     }
     
     private func configureShadow() {
+        self.bookCoverImageViewFrameView.layer.shadowOpacity = 0.25
+        self.bookCoverImageViewFrameView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.bookCoverImageViewFrameView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        self.bookCoverImageViewFrameView.layer.shadowRadius = 5
+        
         self.workbookInfoView.layer.shadowOpacity = 0.35
         self.workbookInfoView.layer.shadowColor = UIColor.lightGray.cgColor
         self.workbookInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
