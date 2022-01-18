@@ -11,8 +11,9 @@ final class SectionCell: UITableViewCell {
     static let identifier = "SectionCell"
     
     @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var sectionNumber: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var nameLabelLeading: NSLayoutConstraint!
+    @IBOutlet weak var numberLeading: NSLayoutConstraint!
     private var downloaded: Bool = false
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
@@ -28,8 +29,8 @@ final class SectionCell: UITableViewCell {
         super.prepareForReuse()
         self.nameLabel.text = ""
         self.downloaded = false
-        self.configureNoneWhite()
-        self.nameLabelLeading.constant = 117
+        self.configureWhite()
+        self.numberLeading.constant = 114
         self.downloadButton.isHidden = false
         self.downloadButton.setTitle("다운로드", for: .normal)
     }
@@ -45,13 +46,15 @@ final class SectionCell: UITableViewCell {
 
 extension SectionCell {
     // MARK: - Configure from Search
-    func configureCell(sectionDTO: SectionOfDB) {
+    func configureCell(sectionDTO: SectionOfDB, idx: Int) {
+        self.sectionNumber.text = String(format: "%02d", idx)
         self.downloadButton.isHidden = true
-        self.nameLabelLeading.constant = 0
+        self.numberLeading.constant = 0
         self.nameLabel.text = sectionDTO.title
     }
     // MARK: - Configure from CoreData
-    func configureCell(sectionHeader: SectionHeader_Core) {
+    func configureCell(sectionHeader: SectionHeader_Core, idx: Int) {
+        self.sectionNumber.text = String(format: "%02d", idx)
         self.sectionHeader = sectionHeader
         self.nameLabel.text = sectionHeader.title
         self.downloaded = sectionHeader.downloaded
@@ -60,10 +63,10 @@ extension SectionCell {
     
     private func configureButton() {
         if self.downloaded {
-            self.configureWhite()
+            self.configureNoneWhite()
             self.downloadButton.setTitle("문제풀기", for: .normal)
         } else {
-            self.configureNoneWhite()
+            self.configureWhite()
             self.downloadButton.setTitle("다운로드", for: .normal)
         }
     }
@@ -130,5 +133,6 @@ extension SectionCell: LoadingDelegate {
     func terminate() {
         self.downloaded = true
         self.downloadButton.setTitle("문제풀기", for: .normal)
+        self.configureNoneWhite()
     }
 }

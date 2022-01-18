@@ -286,10 +286,10 @@ extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelega
         
         if self.isCoreData {
             guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
-            cell.configureCell(sectionHeader: sectionHeader)
+            cell.configureCell(sectionHeader: sectionHeader, idx: indexPath.row)
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTO(idx: indexPath.row) else { return cell }
-            cell.configureCell(sectionDTO: sectionDTO)
+            cell.configureCell(sectionDTO: sectionDTO, idx: indexPath.row)
         }
         
         return cell
