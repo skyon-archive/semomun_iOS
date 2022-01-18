@@ -37,7 +37,7 @@ enum NetworkURL {
     static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709"
     
     static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
-    static var bookcovoerImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
+    static var bookcoverImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
     static var sectioncoverImageDirectory: (scale) -> String = { sectioncoverImageURL + $0.rawValue }
     static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static var sectionDirectory: (Int) -> String = { sections + "\($0)" }

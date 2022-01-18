@@ -106,7 +106,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(isNotFree, forKey: "isNotFree")
         self.setValue([], forKey: "tags")
         
-        if let url = URL(string: NetworkURL.bookcovoerImageDirectory(.large) + workbook.bookcover) {
+        if let url = URL(string: NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover) {
             let imageData = try? Data(contentsOf: url)
             if imageData != nil {
                 self.setValue(imageData, forKey: "image")

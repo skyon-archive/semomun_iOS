@@ -106,8 +106,8 @@ extension SectionCell {
     
     private func showPersent() {
         // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
-        let persent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
-        self.downloadButton.setTitle("\(persent)%", for: .normal)
+        let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
+        self.downloadButton.setTitle("\(percent)%", for: .normal)
     }
 }
 

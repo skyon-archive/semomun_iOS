@@ -304,7 +304,7 @@ extension SearchWorkbookViewController {
         guard let manager = self.manager else { return }
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         let preview = manager.preview(at: index)
-        let baseURL = NetworkURL.bookcovoerImageDirectory(manager.imageScale)
+        let baseURL = NetworkURL.bookcoverImageDirectory(manager.imageScale)
         
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: manager.category)
     }

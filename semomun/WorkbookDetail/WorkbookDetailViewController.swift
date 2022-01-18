@@ -129,7 +129,7 @@ extension WorkbookDetailViewController {
             }
         } else {
             guard let bookcoverURL = workbookInfo.imageURL,
-                  let url = URL(string: NetworkURL.bookcovoerImageDirectory(.large) + bookcoverURL) else { return }
+                  let url = URL(string: NetworkURL.bookcoverImageDirectory(.large) + bookcoverURL) else { return }
             self.bookCoverImageView.kf.setImage(with: url)
         }
     }
