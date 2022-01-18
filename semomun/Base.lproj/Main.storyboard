@@ -1122,22 +1122,23 @@
                                             <action selector="userInfo:" destination="Qn4-hO-2tA" eventType="touchUpInside" id="Z2l-DZ-TR8"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu" translatesAutoresizingMaskIntoConstraints="NO" id="0aM-Ab-gKz">
-                                        <rect key="frame" x="16" y="13.5" width="24" height="25"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu" translatesAutoresizingMaskIntoConstraints="NO" id="0aM-Ab-gKz">
+                                        <rect key="frame" x="16" y="11" width="30" height="30"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="nqM-tF-H3K"/>
+                                            <constraint firstAttribute="width" secondItem="0aM-Ab-gKz" secondAttribute="height" multiplier="1:1" id="jAF-VH-i3t"/>
+                                            <constraint firstAttribute="height" constant="30" id="nqM-tF-H3K"/>
                                         </constraints>
-                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="19"/>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수능 및 모의고사" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltH-l1-QFt">
-                                        <rect key="frame" x="45" y="14" width="130" height="24"/>
+                                        <rect key="frame" x="56" y="14" width="130" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bb4-Jn-fL7">
-                                        <rect key="frame" x="25" y="8" width="170" height="36"/>
+                                        <rect key="frame" x="31" y="8" width="180" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1151,11 +1152,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Bb4-Jn-fL7" firstAttribute="width" secondItem="ltH-l1-QFt" secondAttribute="width" constant="40" id="0yA-Wx-bra"/>
+                                    <constraint firstItem="Bb4-Jn-fL7" firstAttribute="width" secondItem="ltH-l1-QFt" secondAttribute="width" constant="50" id="0yA-Wx-bra"/>
                                     <constraint firstItem="0aM-Ab-gKz" firstAttribute="centerY" secondItem="Bb4-Jn-fL7" secondAttribute="centerY" id="4da-XX-ePd"/>
                                     <constraint firstItem="Bar-9g-0es" firstAttribute="centerY" secondItem="Rrz-KB-ahD" secondAttribute="centerY" id="6Hf-zN-T3f"/>
                                     <constraint firstItem="Bb4-Jn-fL7" firstAttribute="centerY" secondItem="Rrz-KB-ahD" secondAttribute="centerY" id="6fI-Hy-qSC"/>
-                                    <constraint firstItem="ltH-l1-QFt" firstAttribute="leading" secondItem="0aM-Ab-gKz" secondAttribute="trailing" constant="5" id="9G0-MD-hpJ"/>
+                                    <constraint firstItem="ltH-l1-QFt" firstAttribute="leading" secondItem="0aM-Ab-gKz" secondAttribute="trailing" constant="10" id="9G0-MD-hpJ"/>
                                     <constraint firstItem="ltH-l1-QFt" firstAttribute="centerY" secondItem="Bb4-Jn-fL7" secondAttribute="centerY" id="ASn-gv-16l"/>
                                     <constraint firstAttribute="trailing" secondItem="Bar-9g-0es" secondAttribute="trailing" constant="20" id="Au9-Jj-cwS"/>
                                     <constraint firstAttribute="height" constant="52" id="RtH-Tn-gDd"/>
@@ -4322,16 +4323,18 @@ next line</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ki-3L-NQF">
-                                                    <rect key="frame" x="0.0" y="7.5" width="75" height="29"/>
-                                                    <color key="backgroundColor" name="mainColor"/>
+                                                    <rect key="frame" x="0.0" y="6" width="82" height="32"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="5Uv-tB-Yf5"/>
-                                                        <constraint firstAttribute="height" constant="29" id="kuK-Vc-3be"/>
+                                                        <constraint firstAttribute="width" constant="82" id="5Uv-tB-Yf5"/>
+                                                        <constraint firstAttribute="height" constant="32" id="kuK-Vc-3be"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="tintColor" name="mainColor"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="다운로드"/>
+                                                    <state key="normal" title="다운로드">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
@@ -4342,24 +4345,36 @@ next line</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDc-cP-ODa">
-                                                    <rect key="frame" x="117" y="13" width="96" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <rect key="frame" x="154" y="12.5" width="102" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWm-wM-ubY">
+                                                    <rect key="frame" x="114" y="11.5" width="30" height="21.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="Vp3-Xj-rmX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" name="mainColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JDc-cP-ODa" firstAttribute="leading" secondItem="3ki-3L-NQF" secondAttribute="trailing" constant="42" id="3f0-7n-Bhu"/>
-                                                <constraint firstItem="JDc-cP-ODa" firstAttribute="leading" secondItem="Gzu-YY-Y7w" secondAttribute="leading" constant="117" id="M0H-X4-xee"/>
+                                                <constraint firstItem="JDc-cP-ODa" firstAttribute="leading" secondItem="FWm-wM-ubY" secondAttribute="trailing" constant="10" id="Dwa-6z-15N"/>
+                                                <constraint firstItem="FWm-wM-ubY" firstAttribute="leading" secondItem="Gzu-YY-Y7w" secondAttribute="leading" constant="114" id="JTA-1j-rTY"/>
                                                 <constraint firstItem="3ki-3L-NQF" firstAttribute="centerY" secondItem="Gzu-YY-Y7w" secondAttribute="centerY" id="c8R-n4-wCg"/>
                                                 <constraint firstItem="3ki-3L-NQF" firstAttribute="leading" secondItem="Gzu-YY-Y7w" secondAttribute="leading" id="git-0Q-q9M"/>
+                                                <constraint firstItem="FWm-wM-ubY" firstAttribute="leading" secondItem="3ki-3L-NQF" secondAttribute="trailing" constant="32" id="mtv-yu-Z5r"/>
                                                 <constraint firstItem="JDc-cP-ODa" firstAttribute="centerY" secondItem="3ki-3L-NQF" secondAttribute="centerY" id="ntY-2x-Sma"/>
+                                                <constraint firstItem="FWm-wM-ubY" firstAttribute="centerY" secondItem="Gzu-YY-Y7w" secondAttribute="centerY" id="tki-z1-HZn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="downloadButton" destination="3ki-3L-NQF" id="RCY-Tu-uKn"/>
                                             <outlet property="nameLabel" destination="JDc-cP-ODa" id="iJn-vL-eKY"/>
-                                            <outlet property="nameLabelLeading" destination="M0H-X4-xee" id="4pu-s1-3Sa"/>
+                                            <outlet property="numberLeading" destination="JTA-1j-rTY" id="daG-tA-zs0"/>
+                                            <outlet property="sectionNumber" destination="FWm-wM-ubY" id="YMX-vv-5P3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -4412,7 +4427,7 @@ next line</string>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
-        <image name="menu" width="24" height="24"/>
+        <image name="menu" width="256" height="256"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
