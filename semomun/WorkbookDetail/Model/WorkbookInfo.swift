@@ -32,7 +32,7 @@ struct WorkbookInfo {
         self.image = nil
         self.imageURL = workbookDTO.bookcover
         self.releaseDate = ""
-        self.configureReleaseData(workbookDTO: workbookDTO)
+        self.configureReleaseDate(workbookDTO: workbookDTO)
     }
     
     private mutating func configureReleaseDate(previewCore: Preview_Core) {
@@ -47,7 +47,7 @@ struct WorkbookInfo {
         }
     }
     
-    private mutating func configureReleaseData(workbookDTO: WorkbookOfDB) {
+    private mutating func configureReleaseDate(workbookDTO: WorkbookOfDB) {
         self.releaseDate = "\(workbookDTO.year)년 \(workbookDTO.month)월"
     }
 }
