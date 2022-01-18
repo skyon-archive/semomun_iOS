@@ -58,7 +58,7 @@ class MainViewModel {
         guard let sid = self.selectedSid else { return }
         self.useCase.savePages(sid: sid, pages: self.downloadedPages, loading: loading) { section in
             loading.terminate()
-            self.downloadedSection = true
+            self.downloadedSection = (section != nil)
         }
     }
 }

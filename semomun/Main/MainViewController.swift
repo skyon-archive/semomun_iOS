@@ -321,20 +321,26 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // MARK: - preview cell: selectSectionView
         let index = indexPath.item-1
-        if previewManager.showSelectSectionView(index: index) {
-            print("goToSelectSectionViewController")
-            return
-        }
-        
         let preview = previewManager.preview(at: index)
-        guard let sid = preview.sids.first else { return }
         
+        //        if previewManager.showSelectSectionView(index: index) {
+        print("go to workbookDetailViewController")
+        guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+        let viewModel = WorkbookViewModel(previewCore: preview)
+        workbookDetailViewController.configureViewModel(to: viewModel)
+        workbookDetailViewController.configureIsCoreData(to: true)
+        self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
+        return
+        //        }
+
+        guard let sid = preview.sids.first else { return }
+
         // MARK: - Section: form CoreData
         if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
             self.showSolvingVC(section: section, preview: preview)
             return
         }
-        
+
         // MARK: - Section: Download from DB
         self.previewManager?.selectPreview(to: index)
         self.viewModel?.selectSection(to: sid)

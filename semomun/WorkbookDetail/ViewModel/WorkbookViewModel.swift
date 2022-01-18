@@ -1,0 +1,85 @@
+//
+//  WorkbookViewModel.swift
+//  semomun
+//
+//  Created by SEONG YEOL YI on 2022/01/14.
+//
+
+import Foundation
+import Combine
+
+final class WorkbookViewModel {
+    private(set) var previewCore: Preview_Core?
+    private(set) var workbookDTO: SearchWorkbook?
+    @Published private(set) var workbookInfo: WorkbookInfo?
+    @Published private(set) var warning: String?
+    @Published private(set) var sectionHeaders: [SectionHeader_Core]?
+    @Published private(set) var sectionDTOs: [SectionOfDB]?
+    @Published private(set) var showLoader: Bool = false
+    
+    init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil) {
+        self.previewCore = previewCore
+        self.workbookDTO = workbookDTO
+    }
+    
+    func configureWorkbookInfo(isCoreData: Bool) {
+        if isCoreData {
+            guard let previewCore = self.previewCore else { return }
+            self.workbookInfo = WorkbookInfo(previewCore: previewCore)
+        } else {
+            guard let workbookDTO = self.workbookDTO else { return }
+            self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO.workbook)
+        }
+    }
+    
+    func fetchSectionHeaders() {
+        guard let previewCore = self.previewCore,
+              let sectionHeaders = CoreUsecase.fetchSectionHeaders(wid: Int(previewCore.wid)) else {
+            self.warning = "문제집 정보 로딩 실패"
+            return
+        }
+        self.sectionHeaders = sectionHeaders
+    }
+    
+    func fetchSectionDTOs() {
+        guard let workbookDTO = self.workbookDTO else { return }
+        self.sectionDTOs = workbookDTO.sections
+    }
+    
+    func count(isCoreData: Bool) -> Int {
+        if isCoreData {
+            return self.sectionHeaders?.count ?? 0
+        } else {
+            return self.sectionDTOs?.count ?? 0
+        }
+    }
+    
+    func sectionHeader(idx: Int) -> SectionHeader_Core? {
+        return self.sectionHeaders?[idx]
+    }
+    
+    func sectionDTO(idx: Int) -> SectionOfDB? {
+        return self.sectionDTOs?[idx]
+    }
+    
+    func saveWorkbook() {
+        self.showLoader = true
+        guard let searchWorkbook = self.workbookDTO else { return }
+        let wid = searchWorkbook.workbook.wid
+        DispatchQueue.global().async { [weak self] in
+            // MARK: - Save Preview
+            let preview_core = Preview_Core(context: CoreDataManager.shared.context)
+            preview_core.setValues(searchWorkbook: searchWorkbook)
+            // MARK: - Save Sections
+            searchWorkbook.sections.forEach { section in
+                let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
+                sectionHeader_core.setValues(section: section, baseURL: NetworkURL.sectioncoverImageDirectory(.large), wid: wid)
+            }
+            
+            CoreDataManager.saveCoreData()
+            print("save complete")
+            self?.showLoader = false
+            NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : searchWorkbook.workbook.subject])
+        }
+    }
+}
