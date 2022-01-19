@@ -11,25 +11,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        self.window = UIWindow(windowScene: windowScene)
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//
-//        let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
-//        if isIntial {
-//            let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
-//            let navigationController = UINavigationController(rootViewController: startViewController)
-//            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
-//            self.window?.rootViewController = navigationController
-//        } else {
-//            let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
-//            let navigationController = UINavigationController(rootViewController: mainViewController)
-//            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
-//            self.window?.rootViewController = navigationController
-//        }
-//
-//        self.window?.makeKeyAndVisible()
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: windowScene)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
+        if isIntial {
+            let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+            let navigationController = UINavigationController(rootViewController: startViewController)
+            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+            self.window?.rootViewController = navigationController
+        } else {
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
+            let navigationController = UINavigationController(rootViewController: mainViewController)
+            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+            self.window?.rootViewController = navigationController
+        }
+
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

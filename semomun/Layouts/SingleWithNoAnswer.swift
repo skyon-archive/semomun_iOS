@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import PencilKit
 
-class SingleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
+class SingleWithNoAnswer: UIViewController, PKToolPickerObserver {
     static let identifier = "SingleWithNoAnswer" // form == 0 && type == 0
     
     @IBOutlet weak var star: UIButton!
@@ -240,7 +240,7 @@ extension SingleWithNoAnswer {
     }
 }
 
-extension SingleWithNoAnswer {
+extension SingleWithNoAnswer: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)

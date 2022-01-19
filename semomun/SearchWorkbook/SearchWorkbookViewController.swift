@@ -137,7 +137,8 @@ extension SearchWorkbookViewController {
     
     private func configureObserve() {
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
-            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+//            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+            self?.fetchSearchWorkbook(index: self?.manager?.selectedIndex ?? 0)
         }
     }
     
@@ -257,12 +258,7 @@ extension SearchWorkbookViewController {
     private func fetchSearchWorkbook(index: Int) {
         guard let wid = self.manager?.preview(at: index).wid else { return }
         self.networkUseCase?.downloadWorkbook(wid: wid, handler: { [weak self] searchWorkbook in
-            if searchWorkbook.sections.count > 1 {
-                self?.showWorkbookDetailVC(searchWorkbook: searchWorkbook)
-            } else {
-                self?.showWorkbookDetailVC(searchWorkbook: searchWorkbook) // 임시 코드
-//                self?.showAlertToAddPreview(index: index)
-            }
+            self?.showWorkbookDetailVC(searchWorkbook: searchWorkbook)
         })
     }
     

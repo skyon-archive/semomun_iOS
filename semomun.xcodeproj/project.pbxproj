@@ -558,7 +558,6 @@
 				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
 				87C85EA8276F6C4F001C9C4A /* Cell */,
 				87C85EA9276F6C55001C9C4A /* Models */,
-				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
 			);
 			path = Solving;
 			sourceTree = "<group>";
@@ -686,6 +685,7 @@
 				25738C6B27928FB5002A6676 /* Concept.swift */,
 				87C85EAB276F6C62001C9C4A /* LayoutViewModels */,
 				87E151622787DD160080D39A /* Cell */,
+				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";

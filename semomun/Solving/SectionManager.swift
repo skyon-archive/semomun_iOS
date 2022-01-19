@@ -133,6 +133,16 @@ final class SectionManager {
         }
     }
     
+    func updateCheck(title: String) {
+        if let idx = self.buttons.firstIndex(of: title) {
+            var checks = self.section.checks
+            checks[idx] = true
+            self.section.setValue(checks, forKey: "checks")
+            CoreDataManager.saveCoreData()
+            self.delegate?.reloadButtons()
+        }
+    }
+    
     func updateWrong(title: String, to: Bool) {
         if let idx = self.buttons.firstIndex(of: title) {
             var wrongs = self.section.wrongs
