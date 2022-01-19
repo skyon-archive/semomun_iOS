@@ -3846,40 +3846,38 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="eEx-9L-II9"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sda-go-LiQ" userLabel="innerView">
-                                <rect key="frame" x="702" y="30" width="98" height="54"/>
+                                <rect key="frame" x="680" y="30" width="120" height="55"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xb4-Z4-Czu">
-                                        <rect key="frame" x="12" y="14.5" width="74" height="25"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xb4-Z4-Czu">
+                                        <rect key="frame" x="12" y="12" width="96" height="31"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bao-az-llH">
-                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="eHX-TZ-1Ym"/>
-                                                    <constraint firstAttribute="width" constant="25" id="gEu-sN-FNN"/>
+                                                    <constraint firstAttribute="height" constant="31" id="eHX-TZ-1Ym"/>
+                                                    <constraint firstAttribute="width" constant="31" id="gEu-sN-FNN"/>
                                                 </constraints>
                                                 <color key="tintColor" name="mainColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="star" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
-                                                </state>
+                                                <state key="normal" image="star" catalog="system"/>
                                                 <state key="selected" image="star.fill" catalog="system"/>
                                                 <connections>
                                                     <action selector="toggleStar:" destination="g1W-sG-DMM" eventType="touchUpInside" id="f1D-RK-eUv"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NB1-fX-OYB">
-                                                <rect key="frame" x="29" y="0.0" width="45" height="25"/>
+                                                <rect key="frame" x="41" y="0.0" width="55" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="UdP-7q-tun"/>
-                                                    <constraint firstAttribute="width" constant="45" id="xiB-6u-tLc"/>
+                                                    <constraint firstAttribute="height" constant="31" id="UdP-7q-tun"/>
+                                                    <constraint firstAttribute="width" constant="55" id="xiB-6u-tLc"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="tintColor" name="mainColor"/>
-                                                <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                     <color key="titleColor" name="mainColor"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="14"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="nextProblem:" destination="g1W-sG-DMM" eventType="touchUpInside" id="EGD-Tp-3Cb"/>
@@ -3890,7 +3888,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="gray_light"/>
                                 <constraints>
-                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="top" secondItem="Sda-go-LiQ" secondAttribute="top" constant="14.5" id="0AQ-hg-loR"/>
+                                    <constraint firstItem="xb4-Z4-Czu" firstAttribute="top" secondItem="Sda-go-LiQ" secondAttribute="top" constant="12" id="0AQ-hg-loR"/>
                                     <constraint firstItem="xb4-Z4-Czu" firstAttribute="leading" secondItem="Sda-go-LiQ" secondAttribute="leading" constant="12" id="3Lk-ub-afq"/>
                                     <constraint firstItem="xb4-Z4-Czu" firstAttribute="centerY" secondItem="Sda-go-LiQ" secondAttribute="centerY" id="leI-w1-EUk"/>
                                     <constraint firstItem="xb4-Z4-Czu" firstAttribute="centerX" secondItem="Sda-go-LiQ" secondAttribute="centerX" id="nrW-cs-goh"/>
@@ -3920,7 +3918,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MRv-1O-9yP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3487" y="788"/>
+            <point key="canvasLocation" x="2193" y="1464"/>
         </scene>
         <!--Single With No Answer-->
         <scene sceneID="1Vo-VO-Jvo">
@@ -3976,16 +3974,24 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="ifn-9V-cUq"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEb-s4-Ze1" userLabel="innerView">
-                                <rect key="frame" x="631" y="40" width="159" height="54"/>
+                                <rect key="frame" x="545" y="30" width="255" height="55"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kmV-64-ftV">
-                                        <rect key="frame" x="12" y="14.5" width="135" height="25"/>
+                                        <rect key="frame" x="12" y="12" width="231" height="31"/>
                                         <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2t7-EU-ojS">
-                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JZ-vx-eNW">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="31"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="r4k-Px-n9j"/>
-                                                    <constraint firstAttribute="width" constant="25" id="zJ7-eB-UJO"/>
+                                                    <constraint firstAttribute="height" constant="31" id="pTr-iV-7MN"/>
+                                                    <constraint firstAttribute="width" constant="70" id="vPk-EP-XIH"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2t7-EU-ojS">
+                                                <rect key="frame" x="80" y="0.0" width="31" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="r4k-Px-n9j"/>
+                                                    <constraint firstAttribute="width" constant="31" id="zJ7-eB-UJO"/>
                                                 </constraints>
                                                 <color key="tintColor" name="mainColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -3996,9 +4002,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycr-HU-dh3">
-                                                <rect key="frame" x="35" y="0.0" width="45" height="25"/>
+                                                <rect key="frame" x="121" y="0.0" width="45" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="EWz-US-nyj"/>
+                                                    <constraint firstAttribute="height" constant="31" id="EWz-US-nyj"/>
                                                     <constraint firstAttribute="width" constant="45" id="t96-jI-leA"/>
                                                 </constraints>
                                                 <color key="tintColor" name="mainColor"/>
@@ -4011,14 +4017,15 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-sh-egj">
-                                                <rect key="frame" x="90" y="0.0" width="45" height="25"/>
+                                                <rect key="frame" x="176" y="0.0" width="55" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="0Nr-lL-ccZ"/>
-                                                    <constraint firstAttribute="height" constant="25" id="VZH-HJ-XhU"/>
+                                                    <constraint firstAttribute="width" constant="55" id="0Nr-lL-ccZ"/>
+                                                    <constraint firstAttribute="height" constant="31" id="VZH-HJ-XhU"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="tintColor" name="mainColor"/>
-                                                <inset key="titleEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="32" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="다음" image="chevron.right" catalog="system">
                                                     <color key="titleColor" name="mainColor"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
@@ -4032,7 +4039,7 @@
                                 </subviews>
                                 <color key="backgroundColor" name="gray_light"/>
                                 <constraints>
-                                    <constraint firstItem="kmV-64-ftV" firstAttribute="top" secondItem="JEb-s4-Ze1" secondAttribute="top" constant="14.5" id="4Ri-uP-LWB"/>
+                                    <constraint firstItem="kmV-64-ftV" firstAttribute="top" secondItem="JEb-s4-Ze1" secondAttribute="top" constant="12" id="4Ri-uP-LWB"/>
                                     <constraint firstItem="kmV-64-ftV" firstAttribute="centerY" secondItem="JEb-s4-Ze1" secondAttribute="centerY" id="A2f-xA-JA1"/>
                                     <constraint firstItem="kmV-64-ftV" firstAttribute="leading" secondItem="JEb-s4-Ze1" secondAttribute="leading" constant="12" id="DYF-46-MGm"/>
                                     <constraint firstItem="kmV-64-ftV" firstAttribute="centerX" secondItem="JEb-s4-Ze1" secondAttribute="centerX" id="wck-NI-PcQ"/>
@@ -4044,10 +4051,10 @@
                         <constraints>
                             <constraint firstItem="VME-ND-TP8" firstAttribute="bottom" secondItem="gKb-YI-9Uz" secondAttribute="bottom" id="GOf-l6-osI"/>
                             <constraint firstItem="VME-ND-TP8" firstAttribute="trailing" secondItem="gKb-YI-9Uz" secondAttribute="trailing" id="HlB-ZW-1z5"/>
-                            <constraint firstItem="VME-ND-TP8" firstAttribute="trailing" secondItem="JEb-s4-Ze1" secondAttribute="trailing" constant="20" id="MY9-qJ-Zhv"/>
+                            <constraint firstItem="VME-ND-TP8" firstAttribute="trailing" secondItem="JEb-s4-Ze1" secondAttribute="trailing" constant="10" id="MY9-qJ-Zhv"/>
                             <constraint firstItem="gKb-YI-9Uz" firstAttribute="top" secondItem="VME-ND-TP8" secondAttribute="top" id="Uii-2Z-Hym"/>
                             <constraint firstItem="gKb-YI-9Uz" firstAttribute="leading" secondItem="VME-ND-TP8" secondAttribute="leading" id="bsV-vD-dTq"/>
-                            <constraint firstItem="JEb-s4-Ze1" firstAttribute="top" secondItem="VME-ND-TP8" secondAttribute="top" constant="20" id="fd5-1W-Pwz"/>
+                            <constraint firstItem="JEb-s4-Ze1" firstAttribute="top" secondItem="VME-ND-TP8" secondAttribute="top" constant="10" id="fd5-1W-Pwz"/>
                         </constraints>
                     </view>
                     <connections>
@@ -4059,11 +4066,12 @@
                         <outlet property="innerView" destination="JEb-s4-Ze1" id="BOG-wC-rxi"/>
                         <outlet property="scrollView" destination="gKb-YI-9Uz" id="OAh-ac-H7o"/>
                         <outlet property="star" destination="2t7-EU-ojS" id="1HK-h5-fu6"/>
+                        <outlet property="timerFrameView" destination="1JZ-vx-eNW" id="ohS-tZ-EZq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPI-Rp-V5Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2840" y="1464"/>
+            <point key="canvasLocation" x="2840" y="1463.8888888888889"/>
         </scene>
         <!--Workbook Detail View Controller-->
         <scene sceneID="yNO-T4-LOC">
