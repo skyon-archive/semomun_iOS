@@ -85,7 +85,7 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
-        if manager.isTerminated {
+        if self.manager.section.terminated {
             self.manager.terminateSection()
             return
         }
@@ -103,7 +103,11 @@ extension SolvingViewController {
     }
     
     func configureManager() {
-        self.manager = SectionManager(delegate: self, section: self.sectionCore)
+        if let sectionCore = self.sectionCore {
+            self.manager = SectionManager(delegate: self, section: sectionCore)
+        } else {
+            self.manager = SectionManager(delegate: self, section: Section_Core(context: CoreDataManager.shared.context), isTest: true)
+        }
     }
 }
 
@@ -119,7 +123,7 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let num = self.manager.buttonTitle(at: indexPath.item)
         let isStar = self.manager.isStar(at: indexPath.item)
-        let isTerminated = self.manager.isTerminated
+        let isTerminated = self.manager.section.terminated
         let isWrong = self.manager.isWrong(at: indexPath.item)
         let isCheckd = self.manager.isCheckd(at: indexPath.item)
         let isSelect = indexPath.item == self.manager.currentIndex
@@ -236,7 +240,7 @@ extension SolvingViewController: LayoutDelegate {
         let isConnected = true
         let network = Network()
         let networkUseCase = NetworkUsecase(network: network)
-        if isConnected {
+        if isConnected && sid >= 0 {
             networkUseCase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
                 DispatchQueue.main.async {
                     switch status {
@@ -253,6 +257,12 @@ extension SolvingViewController: LayoutDelegate {
                     self?.showResultViewController(result: result)
                 }
             }
+        } else { // Dummy는 put 안하도록
+            self.previewCore?.setValue(true, forKey: "terminated")
+            self.sectionHeaderCore?.setValue(true, forKey: "terminated")
+            CoreDataManager.saveCoreData()
+            self.changeResultLabel()
+            self.showResultViewController(result: result)
         }
     }
     
