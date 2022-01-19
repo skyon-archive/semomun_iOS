@@ -44,6 +44,8 @@ final class SingleWithNoAnswerViewModel {
     
     func updatePencilData(to: Data) {
         self.problem?.setValue(to, forKey: "drawing")
+        guard let pName = self.problem?.pName else { return }
+        self.delegate?.updateCheck(btName: pName)
     }
 }
 

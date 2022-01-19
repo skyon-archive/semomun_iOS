@@ -323,15 +323,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let index = indexPath.item-1
         let preview = previewManager.preview(at: index)
         
-        //        if previewManager.showSelectSectionView(index: index) {
-        print("go to workbookDetailViewController")
-        guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
-        let viewModel = WorkbookViewModel(previewCore: preview)
-        workbookDetailViewController.configureViewModel(to: viewModel)
-        workbookDetailViewController.configureIsCoreData(to: true)
-        self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
-        return
-        //        }
+        if previewManager.showSelectSectionView(index: index) {
+            print("go to workbookDetailViewController")
+            guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+            let viewModel = WorkbookViewModel(previewCore: preview)
+            workbookDetailViewController.configureViewModel(to: viewModel)
+            workbookDetailViewController.configureIsCoreData(to: true)
+            self.navigationController?.pushViewController(workbookDetailViewController, animated: true)
+            return
+        }
 
         guard let sid = preview.sids.first else { return }
 

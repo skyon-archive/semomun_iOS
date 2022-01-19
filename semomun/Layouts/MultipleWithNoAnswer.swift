@@ -8,11 +8,6 @@
 import UIKit
 import PencilKit
 
-protocol CollectionCellWithNoAnswerDelegate: AnyObject {
-    func updateStar(btName: String, to: Bool)
-    func nextPage()
-}
-
 class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWithNoAnswer" // form == 1 && type == 0
 
@@ -238,6 +233,10 @@ extension MultipleWithNoAnswer {
 extension MultipleWithNoAnswer: CollectionCellWithNoAnswerDelegate {
     func updateStar(btName: String, to: Bool) {
         self.viewModel?.delegate?.updateStar(btName: btName, to: to)
+    }
+    
+    func updateCheck(btName: String) {
+        self.viewModel?.delegate?.updateCheck(btName: btName)
     }
     
     func nextPage() {
