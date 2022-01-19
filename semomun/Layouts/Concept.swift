@@ -9,18 +9,14 @@ import UIKit
 import PencilKit
 
 class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "Concept"
-    
+    static let identifier = "Concept" // form == 0 && type == -1
     
     @IBOutlet weak var star: UIButton!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var innerView: UIView!
     
     private var width: CGFloat!
@@ -32,28 +28,16 @@ class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         let toolPicker = PKToolPicker()
         return toolPicker
     }()
-    lazy var resultImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
     }()
-    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
@@ -74,7 +58,6 @@ class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.stopLoader()
         self.configureCanvasViewData()
         self.configureImageView()
-        self.showResultImage()
         self.viewModel?.configureObserver()
     }
     
@@ -84,10 +67,7 @@ class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
-        self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
-        self.checkImageView.removeFromSuperview()
-        self.timerView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -118,7 +98,6 @@ class Concept: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
 }
 
 extension Concept {
-    
     func configureLoader() {
         self.view.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
@@ -158,42 +137,7 @@ extension Concept {
     
     func configureUI() {
         self.configureStar()
-        self.innerView.layer.cornerRadius = 25
-    }
-    
-    func configureTimerView() {
-        guard let time = self.viewModel?.time else { return }
-        
-        self.view.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        NSLayoutConstraint.activate([
-//            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[3].centerYAnchor),
-//            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[3].trailingAnchor, constant: 25)
-//        ])
-        
-        self.timerView.configureTime(to: time)
-    }
-    
-    func showResultImage() {
-        guard let problem = self.viewModel?.problem else { return }
-        if problem.terminated && problem.answer != nil {
-            let imageName: String = problem.correct ? "correct" : "wrong"
-            self.resultImageView.image = UIImage(named: imageName)
-            
-            self.imageView.addSubview(self.resultImageView)
-            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
-            
-            let autoLeading: CGFloat = 90*self.width/CGFloat(834)
-            let autoTop: CGFloat = 0*self.width/CGFloat(834)
-            let autoSize: CGFloat = 150*self.width/CGFloat(834)
-            NSLayoutConstraint.activate([
-                self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
-                self.resultImageView.heightAnchor.constraint(equalToConstant: autoSize),
-                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: autoLeading),
-                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: autoTop)
-            ])
-        }
+        self.innerView.layer.cornerRadius = 27
     }
     
     func configureStar() {
