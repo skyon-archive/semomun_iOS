@@ -10,18 +10,16 @@ import UIKit
 import PencilKit
 
 class SingleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    static let identifier = "SingleWithNoAnswer"
+    static let identifier = "SingleWithNoAnswer" // form == 0 && type == 0
     
     @IBOutlet weak var star: UIButton!
     @IBOutlet weak var explanation: UIButton!
-    
+    @IBOutlet weak var timerFrameView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var innerView: UIView!
     
     private var width: CGFloat!
@@ -32,18 +30,6 @@ class SingleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDe
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
         return toolPicker
-    }()
-    lazy var resultImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }()
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
@@ -76,7 +62,6 @@ class SingleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDe
         self.stopLoader()
         self.configureCanvasViewData()
         self.configureImageView()
-        self.showResultImage()
         self.viewModel?.configureObserver()
     }
     
@@ -86,9 +71,7 @@ class SingleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDe
         
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
-        self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
-        self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
     }
     
@@ -166,48 +149,34 @@ extension SingleWithNoAnswer {
     }
     
     func configureUI() {
-        self.configureInnerViewRadius()
         self.configureStar()
+        self.configureInnerViewRadius()
         self.configureExplanation()
+        self.configureTimerView()
     }
     
     private func configureInnerViewRadius() {
-        self.innerView.layer.cornerRadius = 25
+        self.innerView.layer.cornerRadius = 27.5
     }
     
     func configureTimerView() {
-        guard let time = self.viewModel?.time else { return }
-        
-        self.view.addSubview(self.timerView)
+        guard let viewModel = self.viewModel,
+              let problem = viewModel.problem,
+              let time = viewModel.time else { return }
+        guard problem.terminated == true else {
+            self.timerFrameView.isHidden = true
+            return
+        }
+        self.timerFrameView.isHidden = false
+        self.timerFrameView.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
-//        NSLayoutConstraint.activate([
-//            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[3].centerYAnchor),
-//            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[3].trailingAnchor, constant: 25)
-//        ])
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.timerFrameView.centerYAnchor),
+            self.timerView.centerXAnchor.constraint(equalTo: self.timerFrameView.centerXAnchor)
+        ])
         
         self.timerView.configureTime(to: time)
-    }
-    
-    func showResultImage() {
-        guard let problem = self.viewModel?.problem else { return }
-        if problem.terminated && problem.answer != nil {
-            let imageName: String = problem.correct ? "correct" : "wrong"
-            self.resultImageView.image = UIImage(named: imageName)
-            
-            self.imageView.addSubview(self.resultImageView)
-            self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
-            
-            let autoLeading: CGFloat = 90*self.width/CGFloat(834)
-            let autoTop: CGFloat = 0*self.width/CGFloat(834)
-            let autoSize: CGFloat = 150*self.width/CGFloat(834)
-            NSLayoutConstraint.activate([
-                self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
-                self.resultImageView.heightAnchor.constraint(equalToConstant: autoSize),
-                self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: autoLeading),
-                self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: autoTop)
-            ])
-        }
     }
     
     func configureStar() {

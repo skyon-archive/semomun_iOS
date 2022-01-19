@@ -137,7 +137,7 @@ extension Concept {
     
     func configureUI() {
         self.configureStar()
-        self.innerView.layer.cornerRadius = 27
+        self.innerView.layer.cornerRadius = 27.5
     }
     
     func configureStar() {
