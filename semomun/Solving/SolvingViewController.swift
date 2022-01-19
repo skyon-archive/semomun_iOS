@@ -200,13 +200,13 @@ extension SolvingViewController: LayoutDelegate {
             
         case Concept.identifier:
             self.currentVC = concept
-            concept.image = getImage(data: pageData.problems[0].contentImage)
             concept.viewModel = ConceptViewModel(delegate: self, pageData: pageData)
+            concept.image = getImage(data: pageData.problems[0].contentImage)
         
         case SingleWithNoAnswer.identifier:
             self.currentVC = singleWithNoAnswer
-            singleWithNoAnswer.image = getImage(data: pageData.problems[0].contentImage)
             singleWithNoAnswer.viewModel = SingleWithNoAnswerViewModel(delegate: self, pageData: pageData)
+            singleWithNoAnswer.image = getImage(data: pageData.problems[0].contentImage)
         
         default:
             break
