@@ -18,6 +18,13 @@ extension String {
         return "010"+String(format: "%08d", randomVal)
     }
     
+    static var nowTime: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = Locale.current
+        return formatter.string(from: Date())
+    }
+    
     var circledAnswer: String {
         switch self {
         case "1": return "⓵"

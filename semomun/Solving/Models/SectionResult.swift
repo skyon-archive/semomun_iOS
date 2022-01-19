@@ -14,11 +14,11 @@ struct SectionResult {
     let totalTime: Int64
     let wrongProblems: [String]
     
-    init(title: String, perfectScore: Double, totalScore: Double, totalTime: Int64, wrongProblems: [String]) {
+    init(title: String, totalTime: Int64, sectionUsecase: SaveSectionUsecase) {
         self.title = title
-        self.perfectScore = perfectScore
-        self.totalScore = totalScore
         self.totalTime = totalTime
-        self.wrongProblems = wrongProblems
+        self.perfectScore = sectionUsecase.perfectScore
+        self.totalScore = sectionUsecase.totalScore
+        self.wrongProblems = sectionUsecase.wrongProblems
     }
 }

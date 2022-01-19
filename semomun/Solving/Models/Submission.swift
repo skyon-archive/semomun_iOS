@@ -18,7 +18,7 @@ struct Submission: Codable {
     init(problem: Problem_Core) {
         self.pid = Int(problem.pid)
         self.elapsed = Int(problem.time)
-        self.recent_time = Self.nowTime(at: Date())
+        self.recent_time = String.nowTime
         self.user_answer = problem.solved
         if let _ = problem.answer {
             self.correct = problem.correct == true ? 1 : 0
@@ -26,12 +26,5 @@ struct Submission: Codable {
             self.correct = nil
         }
         self.note = problem.drawing
-    }
-    
-    static func nowTime(at: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        formatter.locale = Locale.current
-        return formatter.string(from: at)
     }
 }
