@@ -18,6 +18,7 @@ final class SectionCell: UITableViewCell {
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
+    private var downloading: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,13 +35,15 @@ final class SectionCell: UITableViewCell {
         self.numberLeading.constant = 114
         self.downloadButton.isHidden = false
         self.downloadButton.setTitle("다운로드", for: .normal)
+        self.downloading = false
     }
     
     @IBAction func download(_ sender: Any) {
         guard let downloaded = self.sectionHeader?.downloaded else { return }
         if downloaded {
             self.showSection()
-        } else {
+        } else if downloading == false {
+            self.downloading = true
             self.downloadSection()
         }
     }

@@ -94,9 +94,10 @@ public class Page_Core: NSManagedObject {
     }
     
     private func getLayout(form: Int, type: Int) -> String {
+        print("VC FORM: from=\(form) && type=\(type)")
         if form == 0 {
             switch type {
-            case -1: return Concept.identifier
+//            case -1: return Concept.identifier
             case 0: return SingleWithNoAnswer.identifier
             case 1: return SingleWithTextAnswer.identifier
             case 4: return SingleWith4Answer.identifier
@@ -110,6 +111,9 @@ public class Page_Core: NSManagedObject {
             case 5: return MultipleWith5Answer.identifier
             default: return MultipleWith5Answer.identifier
             }
+        }
+        else if form == -1 {
+            return Concept.identifier
         }
         return SingleWith5Answer.identifier
     }

@@ -4082,7 +4082,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apt-QR-9Hu" userLabel="frameView">
-                                <rect key="frame" x="0.0" y="0.0" width="810" height="1100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="810" height="1080"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWw-LQ-SVv">
                                         <rect key="frame" x="-5" y="-5" width="820" height="427"/>
@@ -4326,7 +4326,7 @@ next line</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kcU-MX-fHz">
-                                        <rect key="frame" x="95" y="493" width="620" height="587"/>
+                                        <rect key="frame" x="95" y="493" width="620" height="567"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionCell" id="zm8-Ui-JUZ" customClass="SectionCell" customModule="semomun" customModuleProvider="target">
@@ -4426,9 +4426,9 @@ next line</string>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="apt-QR-9Hu" firstAttribute="trailing" secondItem="nbB-9z-6g5" secondAttribute="trailing" id="0qU-ta-QxD"/>
-                            <constraint firstItem="apt-QR-9Hu" firstAttribute="top" secondItem="yHy-dg-JH7" secondAttribute="top" priority="750" id="NFX-OB-0WP"/>
+                            <constraint firstItem="apt-QR-9Hu" firstAttribute="top" secondItem="yHy-dg-JH7" secondAttribute="top" id="NFX-OB-0WP"/>
                             <constraint firstItem="nbB-9z-6g5" firstAttribute="leading" secondItem="apt-QR-9Hu" secondAttribute="leading" id="RdQ-ja-94t"/>
-                            <constraint firstItem="apt-QR-9Hu" firstAttribute="centerY" secondItem="nbB-9z-6g5" secondAttribute="centerY" id="zY6-BY-qNh"/>
+                            <constraint firstItem="apt-QR-9Hu" firstAttribute="bottom" secondItem="nbB-9z-6g5" secondAttribute="bottom" id="sUz-GX-uaE"/>
                         </constraints>
                     </view>
                     <connections>
