@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 final class PageData {
     let vid: Int
@@ -33,6 +34,9 @@ final class PageData {
         for pid in self.pageCore.problems {
             if let problemCore = CoreUsecase.fetchProblem(pid: pid) {
                 self.problems.append(problemCore)
+            } else {
+                let problem = Problem_Core(context: CoreDataManager.shared.context)
+                problem.setValue(UIImage(named: SemomunImage.warning)!.pngData, forKey: "contentImage")
             }
         }
     }

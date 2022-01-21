@@ -43,12 +43,21 @@ struct CoreUsecase {
         
         var pageResults: [PageResult] = []
         var problemResults: [ProblemResult] = []
+        var Gcount: Int = 0
+        var Ycount: Int = 0
         
         print("----------save start----------")
         
         pages.forEach { page in
             page.problems.forEach { problem in
                 let problemCore = Problem_Core(context: context)
+                if problem.icon_name == "개" {
+                    Gcount += 1
+                    problem.icon_name += "\(Gcount)"
+                } else if problem.icon_name == "예" {
+                    Ycount += 1
+                    problem.icon_name += "\(Ycount)"
+                }
                 let problemResult = problemCore.setValues(prob: problem)
                 problemCores.append(problemCore)
                 problemResults.append(problemResult)
@@ -74,9 +83,10 @@ struct CoreUsecase {
                 result[problem.icon_name] = page.vid
             }
         }
+        print(problemNameToPage)
         
         let pageImageCount = pageResults.filter(\.isImage).count
-        let problemImageCount = problemResults.reduce(0) { $0 + $1.imageCount }
+        let problemImageCount = problemResults.count*2
         let totalCount: Int = problemImageCount + pageResults.count
         let loadingCount: Int = problemImageCount + pageImageCount
         var currentCount: Int = 0
@@ -114,9 +124,11 @@ struct CoreUsecase {
     }
     
     static private func terminateDownload(currentCount: Int, totalCount: Int, section: Section_Core, header: SectionHeader_Core, buttons: [String], dict: [String: Int], completion: ((Section_Core?) -> Void)) {
+        print("\(currentCount)/\(totalCount)")
         if currentCount == totalCount {
             print("----------download end----------")
             section.setValues(header: header, buttons: buttons, dict: dict)
+            CoreDataManager.saveCoreData()
             completion(section)
         }
     }

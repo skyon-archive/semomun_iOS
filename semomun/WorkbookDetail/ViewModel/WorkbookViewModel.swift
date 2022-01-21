@@ -39,7 +39,7 @@ final class WorkbookViewModel {
             self.warning = "문제집 정보 로딩 실패"
             return
         }
-        self.sectionHeaders = sectionHeaders
+        self.sectionHeaders = sectionHeaders.sorted(by: { $0.sid < $1.sid })
     }
     
     func fetchSectionDTOs() {
