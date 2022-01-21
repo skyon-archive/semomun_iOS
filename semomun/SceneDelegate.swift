@@ -14,19 +14,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
         let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
         if isIntial {
-            let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)
+            let storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
+            let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
             let navigationController = UINavigationController(rootViewController: startViewController)
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         } else {
-            let mainViewController = storyboard.instantiateViewController(withIdentifier: MainViewController.identifier)
-            let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
-            self.window?.rootViewController = navigationController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let mainViewController = storyboard.instantiateInitialViewController()  else { return }
+            self.window?.rootViewController = mainViewController
         }
 
         self.window?.makeKeyAndVisible()

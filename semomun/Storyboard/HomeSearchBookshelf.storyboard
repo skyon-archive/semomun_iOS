@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--하이하이-->
+        <!--홈-->
         <scene sceneID="o0J-hJ-FYM">
             <objects>
                 <viewController storyboardIdentifier="HomeVC" id="bAq-Pq-D0s" customClass="HomeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HomeVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8X-3v-ScD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HomeVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gun-vk-xxx">
                                 <rect key="frame" x="335" y="552.5" width="164" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
@@ -27,18 +27,18 @@
                         <viewLayoutGuide key="safeArea" id="v6m-4Z-gTz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="j8X-3v-ScD" firstAttribute="centerX" secondItem="v6m-4Z-gTz" secondAttribute="centerX" id="U3h-I3-6wJ"/>
-                            <constraint firstItem="j8X-3v-ScD" firstAttribute="centerY" secondItem="v6m-4Z-gTz" secondAttribute="centerY" id="ccH-zX-vzh"/>
+                            <constraint firstItem="gun-vk-xxx" firstAttribute="centerX" secondItem="v6m-4Z-gTz" secondAttribute="centerX" id="2Xc-vl-0mr"/>
+                            <constraint firstItem="gun-vk-xxx" firstAttribute="centerY" secondItem="v6m-4Z-gTz" secondAttribute="centerY" id="ZDU-vu-1rH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="하이하이" id="z8b-ib-pbg"/>
+                    <tabBarItem key="tabBarItem" title="홈" id="z8b-ib-pbg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVL-Cv-bpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="40"/>
+            <point key="canvasLocation" x="131.65467625899282" y="39.698492462311556"/>
         </scene>
-        <!--SearchVC-->
+        <!--검색-->
         <scene sceneID="ff4-A3-eWd">
             <objects>
                 <viewController storyboardIdentifier="SearchVC" id="2BD-WC-27W" customClass="SearchVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -46,8 +46,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SearchVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIy-s5-eiw">
-                                <rect key="frame" x="324.5" y="575" width="185" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SearchVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkn-SQ-bAh">
+                                <rect key="frame" x="324.5" y="552.5" width="185" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -56,16 +56,18 @@
                         <viewLayoutGuide key="safeArea" id="B5k-Gr-cV1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="eIy-s5-eiw" firstAttribute="centerY" secondItem="B5k-Gr-cV1" secondAttribute="centerY" id="ARG-3v-80d"/>
-                            <constraint firstItem="eIy-s5-eiw" firstAttribute="centerX" secondItem="B5k-Gr-cV1" secondAttribute="centerX" id="Ea4-0v-u2L"/>
+                            <constraint firstItem="qkn-SQ-bAh" firstAttribute="centerX" secondItem="B5k-Gr-cV1" secondAttribute="centerX" id="C0C-sK-oTc"/>
+                            <constraint firstItem="qkn-SQ-bAh" firstAttribute="centerY" secondItem="B5k-Gr-cV1" secondAttribute="centerY" id="rOh-23-BIq"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="검색" id="VTk-2B-Q9k"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tco-6X-cTQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="829" y="40"/>
         </scene>
-        <!--BookshelfVC-->
+        <!--내 책장-->
         <scene sceneID="gh7-kP-Slv">
             <objects>
                 <viewController storyboardIdentifier="BookshelfVC" id="Zyx-OH-eto" customClass="BookshelfVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -73,8 +75,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BookshelfVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZ7-RD-iU9">
-                                <rect key="frame" x="296" y="575" width="242" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BookshelfVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBa-cT-Lhp">
+                                <rect key="frame" x="296" y="552.5" width="242" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -83,10 +85,12 @@
                         <viewLayoutGuide key="safeArea" id="zlU-Vk-Rc3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vZ7-RD-iU9" firstAttribute="centerY" secondItem="zlU-Vk-Rc3" secondAttribute="centerY" id="XIR-iA-SQl"/>
-                            <constraint firstItem="vZ7-RD-iU9" firstAttribute="centerX" secondItem="zlU-Vk-Rc3" secondAttribute="centerX" id="d2D-UK-t0I"/>
+                            <constraint firstItem="rBa-cT-Lhp" firstAttribute="centerX" secondItem="zlU-Vk-Rc3" secondAttribute="centerX" id="ceQ-M9-h9D"/>
+                            <constraint firstItem="rBa-cT-Lhp" firstAttribute="centerY" secondItem="zlU-Vk-Rc3" secondAttribute="centerY" id="oq3-Ko-TMy"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="내 책장" id="9CP-UO-49J"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-2R-Guu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WorkbookDetailVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3K6-IX-jda">
-                                <rect key="frame" x="240" y="575" width="354" height="48"/>
+                                <rect key="frame" x="240" y="552.5" width="354" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -114,6 +118,7 @@
                             <constraint firstItem="3K6-IX-jda" firstAttribute="centerY" secondItem="yoA-4Y-A8P" secondAttribute="centerY" id="i0M-he-H1i"/>
                         </constraints>
                     </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDW-wc-F7d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
