@@ -9,20 +9,142 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="s0d-6b-0kx">
+        <!--하이하이-->
+        <scene sceneID="o0J-hJ-FYM">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                <viewController storyboardIdentifier="HomeVC" id="bAq-Pq-D0s" customClass="HomeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b07-Ii-4L3">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HomeVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8X-3v-ScD">
+                                <rect key="frame" x="335" y="552.5" width="164" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="v6m-4Z-gTz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="j8X-3v-ScD" firstAttribute="centerX" secondItem="v6m-4Z-gTz" secondAttribute="centerX" id="U3h-I3-6wJ"/>
+                            <constraint firstItem="j8X-3v-ScD" firstAttribute="centerY" secondItem="v6m-4Z-gTz" secondAttribute="centerY" id="ccH-zX-vzh"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="하이하이" id="z8b-ib-pbg"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hVL-Cv-bpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="40"/>
+        </scene>
+        <!--SearchVC-->
+        <scene sceneID="ff4-A3-eWd">
+            <objects>
+                <viewController storyboardIdentifier="SearchVC" id="2BD-WC-27W" customClass="SearchVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="je3-NU-COH">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SearchVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIy-s5-eiw">
+                                <rect key="frame" x="324.5" y="575" width="185" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="B5k-Gr-cV1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eIy-s5-eiw" firstAttribute="centerY" secondItem="B5k-Gr-cV1" secondAttribute="centerY" id="ARG-3v-80d"/>
+                            <constraint firstItem="eIy-s5-eiw" firstAttribute="centerX" secondItem="B5k-Gr-cV1" secondAttribute="centerX" id="Ea4-0v-u2L"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tco-6X-cTQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="829" y="40"/>
+        </scene>
+        <!--BookshelfVC-->
+        <scene sceneID="gh7-kP-Slv">
+            <objects>
+                <viewController storyboardIdentifier="BookshelfVC" id="Zyx-OH-eto" customClass="BookshelfVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f7J-IN-WMU">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BookshelfVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZ7-RD-iU9">
+                                <rect key="frame" x="296" y="575" width="242" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zlU-Vk-Rc3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vZ7-RD-iU9" firstAttribute="centerY" secondItem="zlU-Vk-Rc3" secondAttribute="centerY" id="XIR-iA-SQl"/>
+                            <constraint firstItem="vZ7-RD-iU9" firstAttribute="centerX" secondItem="zlU-Vk-Rc3" secondAttribute="centerX" id="d2D-UK-t0I"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-2R-Guu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1534" y="40"/>
+        </scene>
+        <!--Workbook DetailVC-->
+        <scene sceneID="skC-tp-odr">
+            <objects>
+                <viewController storyboardIdentifier="WorkbookDetailVC" id="lLn-wl-FgN" customClass="WorkbookDetailVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hAz-pw-XpS">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WorkbookDetailVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3K6-IX-jda">
+                                <rect key="frame" x="240" y="575" width="354" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yoA-4Y-A8P"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3K6-IX-jda" firstAttribute="centerX" secondItem="yoA-4Y-A8P" secondAttribute="centerX" id="TjS-PE-NmD"/>
+                            <constraint firstItem="3K6-IX-jda" firstAttribute="centerY" secondItem="yoA-4Y-A8P" secondAttribute="centerY" id="i0M-he-H1i"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lDW-wc-F7d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="726"/>
+        </scene>
+        <!--Purchase PopupVC-->
+        <scene sceneID="Z8Z-vt-1RG">
+            <objects>
+                <viewController storyboardIdentifier="PurchasePopupVC" id="egq-vo-ok0" customClass="PurchasePopupVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4kk-kU-cv4">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PurchasePopupVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZn-Sc-Vk4">
+                                <rect key="frame" x="243.5" y="575" width="347" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gIW-xQ-skc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UZn-Sc-Vk4" firstAttribute="centerX" secondItem="gIW-xQ-skc" secondAttribute="centerX" id="Fzj-Tl-Iax"/>
+                            <constraint firstItem="UZn-Sc-Vk4" firstAttribute="centerY" secondItem="gIW-xQ-skc" secondAttribute="centerY" id="wXU-Dd-oHz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HcL-H8-EQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1534" y="726"/>
         </scene>
     </scenes>
     <resources>
