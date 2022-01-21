@@ -1670,6 +1670,66 @@
             </objects>
             <point key="canvasLocation" x="-541" y="1798"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="SeS-1D-F36">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8pI-YR-9Cl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tabBarController id="4wD-lK-ELH" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OSY-6I-UMO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="zVL-kD-oUC" kind="relationship" relationship="viewControllers" id="PoZ-Ao-3ce"/>
+                        <segue destination="VzD-ug-sh1" kind="relationship" relationship="viewControllers" id="SMf-ea-yI6"/>
+                        <segue destination="6wI-TF-t2l" kind="relationship" relationship="viewControllers" id="J3p-tj-kIv"/>
+                        <segue destination="b6I-dt-urs" kind="relationship" relationship="viewControllers" id="Xhq-Fa-HOq"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-275" y="3339"/>
+        </scene>
+        <!--SearchVC-->
+        <scene sceneID="01t-Je-imf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="SearchVC" id="VzD-ug-sh1" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="검색" id="5Jb-M3-t4L"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ShG-Md-SuJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-367" y="3725"/>
+        </scene>
+        <!--BookshelfVC-->
+        <scene sceneID="rNB-Kc-jif">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="BookshelfVC" id="6wI-TF-t2l" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="내 책장" id="0JK-Rn-rB1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tkc-u2-jRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-187" y="3725"/>
+        </scene>
+        <!--ProfileVC-->
+        <scene sceneID="T0X-Ra-yfa">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileVC" id="b6I-dt-urs" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="마이" id="Phw-VG-FCa"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pG2-sA-dPy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-9" y="3725"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="N94-ID-KWe">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="zVL-kD-oUC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="홈" id="HHO-hq-gWp"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UsP-CM-w9W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-544" y="3725"/>
+        </scene>
         <!--Setting View Controller-->
         <scene sceneID="kjP-AF-201">
             <objects>
