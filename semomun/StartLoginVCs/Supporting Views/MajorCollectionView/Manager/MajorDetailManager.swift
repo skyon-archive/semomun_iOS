@@ -20,8 +20,8 @@ final class MajorDetailManager {
     
     init(delegate: MajorDetailObserveable) {
         self.delegate = delegate
-        NotificationCenter.default.addObserver(forName: SurveyViewController.NotificationName.selectMajor, object: nil, queue: .main) { [weak self] notification in
-            guard let section = notification.userInfo?[SurveyViewController.NotificationUserInfo.sectionKey] as? Int else { return }
+        NotificationCenter.default.addObserver(forName: LoginSignupVC.NotificationName.selectMajor, object: nil, queue: .main) { [weak self] notification in
+            guard let section = notification.userInfo?[LoginSignupVC.NotificationUserInfo.sectionKey] as? Int else { return }
             self?.currentSection = section
             self?.selectedSection = nil
             self?.selectedIndex = nil

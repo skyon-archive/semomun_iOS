@@ -106,7 +106,7 @@ extension SettingViewController {
     }
     
     private func goToStartViewController() {
-        guard let startVC = self.storyboard?.instantiateViewController(withIdentifier: StartViewController.identifier) else { return }
+        guard let startVC = self.storyboard?.instantiateViewController(withIdentifier: StartVC.identifier) else { return }
         let navigationController = UINavigationController(rootViewController: startVC)
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
