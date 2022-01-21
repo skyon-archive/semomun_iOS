@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ProfileVC-->
+        <!--프로필-->
         <scene sceneID="eNM-s0-iM9">
             <objects>
                 <viewController storyboardIdentifier="ProfileVC" id="C3N-K5-Uhc" customClass="ProfileVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProfileVC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgq-SO-ldh">
-                                <rect key="frame" x="330" y="575" width="174" height="48"/>
+                                <rect key="frame" x="330" y="552.5" width="174" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -31,6 +31,8 @@
                             <constraint firstItem="pgq-SO-ldh" firstAttribute="centerX" secondItem="TAC-R5-80x" secondAttribute="centerX" id="lmS-rD-GLD"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="프로필" id="SqW-G1-Yw3"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxF-MK-qmb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

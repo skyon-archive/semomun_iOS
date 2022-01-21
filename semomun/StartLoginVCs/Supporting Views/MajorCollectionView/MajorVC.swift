@@ -1,25 +1,25 @@
 //
-//  MajorDetailViewController.swift
+//  MajorVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2021/12/11.
+//  Created by SEONG YEOL YI on 2022/01/21.
 //
 
 import UIKit
 
-protocol MajorDetailSetable: AnyObject {
-    func didSelectMajorDetail(to: String)
+protocol MajorSetable: AnyObject {
+    func didSelectMajor(section: Int, to: String)
 }
 
-final class MajorDetailViewController: UIViewController {
+final class MajorVC: UIViewController {
     enum Identifier {
-        static let controller = "MajorDetailViewController"
-        static let segue = "MajorDetailSegue"
+        static let controller = "MajorVC"
+        static let segue = "MajorSegue"
     }
-    weak var delegate: MajorDetailSetable?
+    weak var delegate: MajorSetable?
     @IBOutlet weak var majorCollectionView: UICollectionView!
     
-    var manager: MajorDetailManager?
+    var manager: MajorManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +29,9 @@ final class MajorDetailViewController: UIViewController {
 }
 
 //MARK: - Configure
-extension MajorDetailViewController {
+extension MajorVC {
     private func configureManager() {
-        self.manager = MajorDetailManager(delegate: self)
+        self.manager = MajorManager()
     }
     
     private func configureDelegate() {
@@ -46,29 +46,28 @@ extension MajorDetailViewController {
 }
 
 //MARK: - CollectionView
-extension MajorDetailViewController: UICollectionViewDelegate {
+extension MajorVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.manager?.selected(section: indexPath.section, to: indexPath.item, completion: { [weak self] major in
-            self?.delegate?.didSelectMajorDetail(to: major)
+        self.manager?.selected(to: indexPath.item, completion: { [weak self] major in
+            self?.delegate?.didSelectMajor(section: indexPath.item, to: major)
             self?.majorCollectionView.reloadData()
         })
     }
 }
 
-extension MajorDetailViewController: UICollectionViewDataSource {
+extension MajorVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.manager?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorDetailCell.identifier, for: indexPath) as? MajorDetailCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCell.identifier, for: indexPath) as? MajorCell else { return UICollectionViewCell() }
         guard let manager = self.manager else { return cell }
         let title = manager.item(at: indexPath.item)
         cell.configure(title: title)
         
-        if let selectedSection = manager.selectedSection,
-           let selected = manager.selectedIndex {
-            if indexPath.section == selectedSection && indexPath.item == selected {
+        if let selected = manager.selectedIndex {
+            if indexPath.item == selected {
                 cell.didSelected()
             }
         }
@@ -77,19 +76,13 @@ extension MajorDetailViewController: UICollectionViewDataSource {
     }
 }
 
-extension MajorDetailViewController: UICollectionViewDelegateFlowLayout {
+extension MajorVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalInset: CGFloat = 15
-        let rowCount: Int = 5
+        let rowCount: Int = 3
         let cellWidth = (self.majorCollectionView.frame.width-(CGFloat(rowCount-1)*horizontalInset))/CGFloat(rowCount)
         let cellHeight: CGFloat = 55
         
         return CGSize(width: cellWidth, height: cellHeight)
-    }
-}
-
-extension MajorDetailViewController: MajorDetailObserveable {
-    func reload() {
-        self.majorCollectionView.reloadData()
     }
 }
