@@ -16,7 +16,6 @@ final class WorkbookDetailViewController: UIViewController {
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var bookCoverImageViewFrameView: UIView!
@@ -140,7 +139,6 @@ extension WorkbookDetailViewController {
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
         self.titleLabel.text = workbookInfo.title
-        self.authorLabel.text = "박상신"
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         if self.isCoreData {
@@ -265,7 +263,7 @@ extension WorkbookDetailViewController {
 // MARK: - CollectionView
 extension WorkbookDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

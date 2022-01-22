@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class WorkbookViewModel {
-    private let tags: [String] = ["공무원", "수학", "전기기사", "수험서", "공무원", "수학", "전기기사", "수험서", "공무원", "수학", "전기기사", "수험서"]
+    private let tags: [String] = []
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: SearchWorkbook?
     @Published private(set) var workbookInfo: WorkbookInfo?

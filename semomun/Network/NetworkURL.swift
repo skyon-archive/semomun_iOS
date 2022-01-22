@@ -35,7 +35,7 @@ enum NetworkURL {
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
     static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
-    static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709"
+    static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709&country=kr"
     
     static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
     static var bookcoverImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
