@@ -1,5 +1,5 @@
 //
-//  ConceptViewModel.swift
+//  SingleWithNoAnswerViewModel.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/01/15.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ConceptViewModel {
+final class SingleWithNoAnswerVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData
@@ -44,6 +44,8 @@ final class ConceptViewModel {
     
     func updatePencilData(to: Data) {
         self.problem?.setValue(to, forKey: "drawing")
+        guard let pName = self.problem?.pName else { return }
+        self.delegate?.updateCheck(btName: pName)
     }
 }
 
