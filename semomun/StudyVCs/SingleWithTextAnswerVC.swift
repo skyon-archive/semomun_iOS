@@ -1,17 +1,19 @@
 //
-//  SingleWith5Answer.swift
+//  SingleWithTextVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2021/12/19.
+//  Created by Kang Minsang on 2022/01/21.
 //
 
 import UIKit
 import PencilKit
 
-final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
-    static let identifier = "SingleWith5Answer" // form == 0 && type == 5
+class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
+    static let identifier = "SingleWithTextAnswerVC" // form == 0 && type == 1
+    static let storyboardName = "Study"
 
-    @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet weak var solveFrameView: UIView!
+    @IBOutlet weak var solveInput: UITextField!
     @IBOutlet weak var star: UIButton!
     @IBOutlet weak var answer: UIButton!
     @IBOutlet weak var explanation: UIButton!
@@ -23,10 +25,10 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
-    private var width: CGFloat!
-    private var height: CGFloat!
+    var width: CGFloat!
+    var height: CGFloat!
     var image: UIImage?
-    var viewModel: SingleWith5AnswerViewModel?
+    var viewModel: SingleWithTextAnswerVM?
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -38,18 +40,19 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
     }()
-    private lazy var timerView = ProblemTimerView()
+    private lazy var answerResultView: ProblemTextResultView = {
+        let resultView = ProblemTextResultView()
+        resultView.layer.borderWidth = 1
+        resultView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        resultView.layer.cornerRadius = 12
+        resultView.clipsToBounds = true
+        return resultView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +65,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("5다선지 willAppear")
+        print("객관식 willAppear")
         
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
@@ -71,7 +74,7 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("5다선지 didAppear")
+        print("객관식 didAppear")
         
         self.stopLoader()
         self.configureCanvasViewData()
@@ -82,40 +85,35 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("5다선지 willDisappear")
+        print("객관식 willDisappear")
         
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
+        self.solveInput.isHidden = false
         self.answer.isHidden = false
-        self.checkImageView.removeFromSuperview()
-        self.timerView.removeFromSuperview()
+        self.answerResultView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("5다선지 : disappear")
+        print("객관식 : disappear")
     }
     
     deinit {
         guard let canvasView = self.canvasView else { return }
         toolPicker.setVisible(false, forFirstResponder: canvasView)
         toolPicker.removeObserver(canvasView)
-        print("5다선지 deinit")
+        print("객관식 deinit")
     }
     
-    // 객관식 1~5 클릭 부분
-    @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.viewModel?.problem else { return }
-        if problem.terminated { return }
-        
-        let input: Int = sender.tag
+    // 주관식 입력 부분
+    @IBAction func solveInputChanged(_ sender: UITextField) {
+        guard let input = sender.text else { return }
         self.viewModel?.updateSolved(input: "\(input)")
-        
-        self.configureCheckButtons()
     }
-    
+
     @IBAction func toggleStar(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
               let pName = problem.pName else { return }
@@ -124,22 +122,21 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
         let status = self.star.isSelected
         self.viewModel?.updateStar(btName: pName, to: status)
     }
-    
+
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer else { return }
-        
+        guard let answer = self.viewModel?.problem?.answer else { return }
         self.answer.isSelected.toggle()
         if self.answer.isSelected {
-            self.answer.setTitle(answer.circledAnswer, for: .normal)
+            self.answer.setTitle(answer, for: .normal)
         } else {
             self.answer.setTitle("정답", for: .normal)
         }
     }
-    
+
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage else { return }
         
-        guard let explanationVC = self.storyboard?.instantiateViewController(withIdentifier: ExplanationViewController.identifier) as? ExplanationViewController else { return }
+        guard let explanationVC = UIStoryboard(name: ExplanationVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ExplanationVC.identifier) as? ExplanationVC else { return }
         let explanationImage = UIImage(data: imageData)
         explanationVC.explanationImage = explanationImage
         self.present(explanationVC, animated: true, completion: nil)
@@ -150,7 +147,8 @@ final class SingleWith5Answer: UIViewController, PKToolPickerObserver {
     }
 }
 
-extension SingleWith5Answer {
+
+extension SingleWithTextAnswerVC {
     func configureLoader() {
         self.view.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
@@ -189,64 +187,67 @@ extension SingleWith5Answer {
     }
     
     func configureUI() {
-        self.configureCheckButtons()
+        self.configureCheckInput()
         self.configureStar()
         self.configureAnswer()
         self.configureExplanation()
+        self.configureResultView()
     }
     
-    func configureCheckButtons() {
+    func configureCheckInput() {
+        solveInput.layer.cornerRadius = 17.5
+        solveInput.clipsToBounds = true
+        solveInput.layer.borderWidth = 1
+        solveInput.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        
+        if let solved = self.viewModel?.problem?.solved {
+            solveInput.text = solved
+        } else {
+            solveInput.text = ""
+        }
+    }
+    
+    func configureStar() {
+        self.star.isSelected = self.viewModel?.problem?.star ?? false
+    }
+    
+    func configureAnswer() {
         guard let problem = self.viewModel?.problem else { return }
+        self.answer.setTitle("정답", for: .normal)
+        self.answer.isSelected = false
+        if problem.answer == nil {
+            self.answer.isUserInteractionEnabled = false
+            self.answer.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answer.isUserInteractionEnabled = true
+            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+        }
+    }
+    
+    func configureResultView() {
+        guard let problem = self.viewModel?.problem,
+              let time = self.viewModel?.time else { return }
         
-        // 일단 모든 버튼 표시 구현
-        for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
-            bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
-        }
-        // 사용자 체크한 데이터 표시
-        if let solved = problem.solved {
-            guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: SemomunColor.mainColor)
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
-        }
-        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if let answer = self.viewModel?.answer,
-           problem.terminated == true {
+        if let answer = problem.answer, problem.terminated == true {
+            self.solveInput.isHidden = true
             self.answer.isHidden = true
-            if answer != "복수",
-               let targetIndex = Int(answer) {
-                self.createCheckImage(to: targetIndex-1)
-                self.configureTimerView()
+            self.view.addSubview(self.answerResultView)
+            self.answerResultView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.answerResultView.heightAnchor.constraint(equalToConstant: 40),
+                self.answerResultView.centerYAnchor.constraint(equalTo: self.solveFrameView.centerYAnchor),
+                self.answerResultView.leadingAnchor.constraint(equalTo: self.solveFrameView.leadingAnchor)
+            ])
+            
+            if let solved = problem.solved {
+                self.answerResultView.configureSolvedAnswer(to: solved)
+            } else {
+                self.answerResultView.configureSolvedAnswer(to: "미기입")
             }
+            self.answerResultView.configureAnswer(to: answer)
+            self.answerResultView.configureTime(to: time)
         }
-    }
-    
-    func createCheckImage(to index: Int) {
-        self.checkImageView.image = UIImage(named: "check")
-        self.view.addSubview(self.checkImageView)
-        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
-        ])
-    }
-    
-    func configureTimerView() {
-        guard let time = self.viewModel?.time else { return }
-        
-        self.view.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 25)
-        ])
-        
-        self.timerView.configureTime(to: time)
     }
     
     func showResultImage() {
@@ -270,22 +271,6 @@ extension SingleWith5Answer {
         }
     }
     
-    func configureStar() {
-        self.star.isSelected = self.viewModel?.problem?.star ?? false
-    }
-    
-    func configureAnswer() {
-        self.answer.setTitle("정답", for: .normal)
-        self.answer.isSelected = false
-        if self.viewModel?.problem?.answer == nil {
-            self.answer.isUserInteractionEnabled = false
-            self.answer.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
-        }
-    }
-    
     func configureExplanation() {
         if self.viewModel?.problem?.explanationImage == nil {
             self.explanation.isUserInteractionEnabled = false
@@ -297,55 +282,53 @@ extension SingleWith5Answer {
     }
     
     func configureCanvasView() {
-        self.canvasView.isOpaque = false
-        self.canvasView.backgroundColor = .clear
-        self.canvasView.becomeFirstResponder()
-        self.canvasView.drawingPolicy = .pencilOnly
+        canvasView.isOpaque = false
+        canvasView.backgroundColor = .clear
+        canvasView.becomeFirstResponder()
+        canvasView.drawingPolicy = .pencilOnly
         
-        self.canvasView.subviews[0].addSubview(imageView)
-        self.canvasView.subviews[0].sendSubviewToBack(imageView)
-        self.toolPicker.setVisible(true, forFirstResponder: canvasView)
-        self.toolPicker.addObserver(canvasView)
+        canvasView.subviews[0].addSubview(imageView)
+        canvasView.subviews[0].sendSubviewToBack(imageView)
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
         
-        self.canvasView.delegate = self
+        canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
         if let pkData = self.viewModel?.problem?.drawing {
             do {
-                try self.canvasView.drawing = PKDrawing.init(data: pkData)
+                try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
                 print("Error loading drawing object")
             }
         } else {
-            self.canvasView.drawing = PKDrawing()
+            canvasView.drawing = PKDrawing()
         }
     }
     
     func configureImageView() {
-        self.width = canvasView.frame.width
+        width = canvasView.frame.width
         guard let mainImage = self.image else { return }
-        self.height = mainImage.size.height*(width/mainImage.size.width)
+        height = mainImage.size.height*(width/mainImage.size.width)
         
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            self.imageView.image = mainImage
+            imageView.image = mainImage
         } else {
             let worningImage = UIImage(named: SemomunImage.warning)!
-            self.imageView.image = worningImage
-            self.height = worningImage.size.height*(width/worningImage.size.width)
+            imageView.image = worningImage
+            height = worningImage.size.height*(width/worningImage.size.width)
         }
         
-        self.imageView.clipsToBounds = true
-        self.imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.imageHeight.constant = height
-        self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.canvasHeight.constant = height
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        imageHeight.constant = height
+        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        canvasHeight.constant = height
     }
 }
 
-
-
-extension SingleWith5Answer: PKCanvasViewDelegate {
+extension SingleWithTextAnswerVC {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)

@@ -10,8 +10,10 @@ import Kingfisher
 import Combine
 import UIKit
 
-final class WorkbookDetailViewController: UIViewController {
-    static let identifier = "WorkbookDetailViewController"
+final class WorkbookDetailVC: UIViewController {
+    
+    static let identifier = "WorkbookDetailVC"
+    static let storyboardName = "HomeSearchBookshelf"
     
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var workbookInfoView: UIView!
@@ -58,7 +60,7 @@ final class WorkbookDetailViewController: UIViewController {
     }
 }
 
-extension WorkbookDetailViewController {
+extension WorkbookDetailVC {
     func configureViewModel(to viewModel: WorkbookViewModel) {
         self.viewModel = viewModel
     }
@@ -160,7 +162,7 @@ extension WorkbookDetailViewController {
     }
     
     private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
-        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
         solvingVC.previewCore = preview
@@ -191,7 +193,7 @@ extension WorkbookDetailViewController {
 }
 
 // MARK: - Binding
-extension WorkbookDetailViewController {
+extension WorkbookDetailVC {
     private func bindAll() {
         self.bindWarning()
         self.bindWorkbookInfo()
@@ -261,7 +263,7 @@ extension WorkbookDetailViewController {
 }
 
 // MARK: - CollectionView
-extension WorkbookDetailViewController: UICollectionViewDataSource {
+extension WorkbookDetailVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0
     }
@@ -275,7 +277,7 @@ extension WorkbookDetailViewController: UICollectionViewDataSource {
     }
 }
 
-extension WorkbookDetailViewController: UICollectionViewDelegateFlowLayout {
+extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let tag = self.viewModel?.tag(idx: indexPath.item) else { return CGSize(width: 100, height: 30) }
         return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
@@ -283,7 +285,7 @@ extension WorkbookDetailViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - TableView
-extension WorkbookDetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
     }

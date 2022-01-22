@@ -255,7 +255,7 @@ extension MainViewController {
     }
     
     private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
-        guard let solvingVC = self.storyboard?.instantiateViewController(withIdentifier: SolvingViewController.identifier) as? SolvingViewController else { return }
+        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
         solvingVC.previewCore = preview
@@ -334,7 +334,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if previewManager.showSelectSectionView(index: index) {
             print("go to workbookDetailViewController")
-            guard let workbookDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+            guard let workbookDetailViewController = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
             let viewModel = WorkbookViewModel(previewCore: preview)
             workbookDetailViewController.configureViewModel(to: viewModel)
             workbookDetailViewController.configureIsCoreData(to: true)
@@ -452,7 +452,7 @@ extension MainViewController: UserInfoPushable {
         let backItem = UIBarButtonItem()
         backItem.title = "뒤로가기"
         self.navigationItem.backBarButtonItem = backItem
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: PersonalSettingViewController.identifier) else { return }
+        let nextVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PersonalSettingViewController.identifier) 
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -460,7 +460,7 @@ extension MainViewController: UserInfoPushable {
         let backItem = UIBarButtonItem()
         backItem.title = "뒤로가기"
         self.navigationItem.backBarButtonItem = backItem
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SettingViewController.identifier) else { return }
+        let nextVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: SettingViewController.identifier)
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
