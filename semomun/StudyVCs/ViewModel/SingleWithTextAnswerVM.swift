@@ -1,13 +1,13 @@
 //
-//  SingleWithNoAnswerViewModel.swift
+//  SingleWithTextAnswerViewModel.swift
 //  semomun
 //
-//  Created by SEONG YEOL YI on 2022/01/15.
+//  Created by Kang Minsang on 2021/12/19.
 //
 
 import Foundation
 
-final class SingleWithNoAnswerViewModel {
+final class SingleWithTextAnswerVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData
@@ -37,6 +37,19 @@ final class SingleWithNoAnswerViewModel {
         problem.setValue(resultTime, forKey: "time")
     }
     
+    func updateSolved(input: String) {
+        guard let problem = self.problem,
+              let pName = problem.pName else { return }
+        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+            let correct = input == answer
+            problem.setValue(correct, forKey: "correct")
+            CoreDataManager.saveCoreData()
+            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
+        }
+    }
+    
     func updateStar(btName pName: String, to status: Bool) {
         self.problem?.setValue(status, forKey: "star")
         self.delegate?.updateStar(btName: pName, to: status)
@@ -44,8 +57,5 @@ final class SingleWithNoAnswerViewModel {
     
     func updatePencilData(to: Data) {
         self.problem?.setValue(to, forKey: "drawing")
-        guard let pName = self.problem?.pName else { return }
-        self.delegate?.updateCheck(btName: pName)
     }
 }
-

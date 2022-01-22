@@ -1,5 +1,5 @@
 //
-//  SingleWithTextAnswerViewModel.swift
+//  SingleWith5AnswerViewModel.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SingleWithTextAnswerViewModel {
+final class SingleWith5AnswerVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData
@@ -43,10 +43,27 @@ final class SingleWithTextAnswerViewModel {
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
-            let correct = input == answer
+            let correct = self.isCorrect(input: input, answer: answer)
             problem.setValue(correct, forKey: "correct")
-            CoreDataManager.saveCoreData()
             self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
+        }
+    }
+    
+    private func isCorrect(input: String, answer: String) -> Bool {
+        if answer.contains("|") {
+            let answers = answer.split(separator: "|").map { String($0) }
+            return answers.contains(input)
+        } else {
+            return input == answer
+        }
+    }
+    
+    var answer: String? {
+        guard let answer = self.problem?.answer else { return  nil }
+        if answer.contains("|") {
+            return "복수"
+        } else {
+            return answer
         }
     }
     
