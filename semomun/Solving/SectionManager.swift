@@ -210,13 +210,13 @@ final class SectionManager {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
-                NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 self.currentTime += 1
                 self.section.setValue(self.currentTime, forKey: "time")
                 self.showTime()
                 if self.currentTime%10 == 0 {
                     CoreDataManager.saveCoreData()
                 }
+                NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
             }
             while self.isRunning {
                 runLoop.run(until: Date().addingTimeInterval(0.1))
