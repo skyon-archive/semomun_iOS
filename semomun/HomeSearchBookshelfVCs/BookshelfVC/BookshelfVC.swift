@@ -8,15 +8,14 @@
 import UIKit
 
 class BookshelfVC: UIViewController {
-
     static let identifier = "BookshelfVC"
     static let storyboardName = "HomeSearchBookshelf"
     
-    private var previews: [Preview_Core] = []
+    @IBOutlet weak var navigationTitleView: UIView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setShadow(with: navigationTitleView)
     }
-    
 }

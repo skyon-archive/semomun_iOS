@@ -24,9 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-            let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
-            self.window?.rootViewController = navigationController
+            self.window?.rootViewController = mainViewController
         }
 
         self.window?.makeKeyAndVisible()

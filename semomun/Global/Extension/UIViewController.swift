@@ -85,4 +85,14 @@ extension UIViewController {
             self?.showAlertWithOK(title: "데이터 저장 실패", text: errorMessage)
         }
     }
+    
+    func setShadow(with view: UIView) {
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowColor = UIColor.lightGray.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowRadius = 5
+    }
+
 }
+
+

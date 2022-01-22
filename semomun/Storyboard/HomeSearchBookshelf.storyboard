@@ -18,7 +18,7 @@
             </objects>
             <point key="canvasLocation" x="85" y="432"/>
         </scene>
-        <!--홈-->
+        <!--HomeVC-->
         <scene sceneID="o0J-hJ-FYM">
             <objects>
                 <viewController storyboardIdentifier="HomeVC" id="bAq-Pq-D0s" customClass="HomeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIA-vN-2kE">
-                                <rect key="frame" x="0.0" y="24" width="834" height="1105"/>
+                                <rect key="frame" x="0.0" y="74" width="834" height="1055"/>
                                 <connections>
                                     <segue destination="RjK-4v-Zzg" kind="embed" id="sPB-gE-g31"/>
                                 </connections>
@@ -42,12 +42,12 @@
                             <constraint firstItem="lIA-vN-2kE" firstAttribute="top" secondItem="v6m-4Z-gTz" secondAttribute="top" id="SF1-ka-fEi"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="홈" id="z8b-ib-pbg"/>
+                    <navigationItem key="navigationItem" id="M9k-rE-0hB"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVL-Cv-bpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.65467625899282" y="39.698492462311556"/>
+            <point key="canvasLocation" x="829" y="40"/>
         </scene>
         <!--검색-->
         <scene sceneID="ff4-A3-eWd">
@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tco-6X-cTQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829" y="40"/>
+            <point key="canvasLocation" x="1582.7338129496404" y="39.698492462311556"/>
         </scene>
         <!--내 책장-->
         <scene sceneID="gh7-kP-Slv">
@@ -93,20 +93,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WX2-IL-AaG">
+                                <rect key="frame" x="5" y="4" width="824" height="110"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="책장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="int-kT-68l">
+                                        <rect key="frame" x="55" y="44.5" width="52" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="int-kT-68l" firstAttribute="leading" secondItem="WX2-IL-AaG" secondAttribute="leading" constant="55" id="HDM-uU-dvs"/>
+                                    <constraint firstItem="int-kT-68l" firstAttribute="centerY" secondItem="WX2-IL-AaG" secondAttribute="centerY" constant="7.5" id="ai2-jW-4BE"/>
+                                    <constraint firstAttribute="height" constant="110" id="rVY-cw-Oe0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zlU-Vk-Rc3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="WX2-IL-AaG" firstAttribute="trailing" secondItem="zlU-Vk-Rc3" secondAttribute="trailing" constant="-5" id="4bX-8t-Iks"/>
+                            <constraint firstItem="WX2-IL-AaG" firstAttribute="top" secondItem="zlU-Vk-Rc3" secondAttribute="top" constant="-20" id="UtV-QK-8TW"/>
                             <constraint firstItem="rBa-cT-Lhp" firstAttribute="centerX" secondItem="zlU-Vk-Rc3" secondAttribute="centerX" id="ceQ-M9-h9D"/>
                             <constraint firstItem="rBa-cT-Lhp" firstAttribute="centerY" secondItem="zlU-Vk-Rc3" secondAttribute="centerY" id="oq3-Ko-TMy"/>
+                            <constraint firstItem="zlU-Vk-Rc3" firstAttribute="leading" secondItem="WX2-IL-AaG" secondAttribute="leading" constant="-5" id="pmc-1E-NU6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="내 책장" id="9CP-UO-49J"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="navigationTitleView" destination="WX2-IL-AaG" id="zWW-Py-hfN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-2R-Guu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1534" y="40"/>
+            <point key="canvasLocation" x="2287.7697841726622" y="39.698492462311556"/>
         </scene>
         <!--Workbook DetailVC-->
         <scene sceneID="skC-tp-odr">
@@ -512,9 +535,34 @@ next line</string>
             </objects>
             <point key="canvasLocation" x="1534" y="726"/>
         </scene>
+        <!--홈-->
+        <scene sceneID="LOc-Ob-hx1">
+            <objects>
+                <navigationController storyboardIdentifier="Home" automaticallyAdjustsScrollViewInsets="NO" id="3FD-iz-eE9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" id="55E-sf-0qD">
+                        <color key="badgeColor" name="mainColor"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z6i-Mx-osZ">
+                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="mainColor"/>
+                        <color key="barTintColor" name="mainColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bAq-Pq-D0s" kind="relationship" relationship="rootViewController" id="Fia-yW-4lc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PjL-du-6Df" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="-620"/>
+        </scene>
     </scenes>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="house" catalog="system" width="128" height="106"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="grayLineColor">
             <color red="0.58039215686274515" green="0.58431372549019611" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
