@@ -97,25 +97,25 @@ public class Page_Core: NSManagedObject {
         print("VC FORM: from=\(form) && type=\(type)")
         if form == 0 {
             switch type {
-            case -1: return Concept.identifier
-            case 0: return SingleWithNoAnswer.identifier
-            case 1: return SingleWithTextAnswer.identifier
-            case 4: return SingleWith4Answer.identifier
-            case 5: return SingleWith5Answer.identifier
-            default: return SingleWith5Answer.identifier
+            case -1: return ConceptVC.identifier
+            case 0: return SingleWithNoAnswerVC.identifier
+            case 1: return SingleWithTextAnswerVC.identifier
+            case 4: return SingleWith4AnswerVC.identifier
+            case 5: return SingleWith5AnswerVC.identifier
+            default: return SingleWith5AnswerVC.identifier
             }
         }
         else if form == 1 {
             switch type {
-            case 0: return MultipleWithNoAnswer.identifier
-            case 5: return MultipleWith5Answer.identifier
-            default: return MultipleWith5Answer.identifier
+            case 0: return MultipleWithNoAnswerVC.identifier
+            case 5: return MultipleWith5AnswerVC.identifier
+            default: return MultipleWith5AnswerVC.identifier
             }
         }
 //        else if form == -1 {
 //            return Concept.identifier
 //        }
-        return SingleWith5Answer.identifier
+        return SingleWith5AnswerVC.identifier
     }
     
     func setMocks(vid: Int, form: Int, type: Int, pids: [Int], mateImgName: String?) {

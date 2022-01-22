@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SingleWith4AnswerViewModel {
+final class SingleWith4AnswerVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData

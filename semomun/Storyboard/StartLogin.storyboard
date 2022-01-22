@@ -826,7 +826,7 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="circleButton" width="87.5" height="90"/>
+        <image name="circleButton" width="128" height="128"/>
         <image name="logo" width="256" height="220"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="mainColor">
