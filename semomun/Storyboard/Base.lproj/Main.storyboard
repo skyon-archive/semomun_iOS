@@ -911,10 +911,10 @@
             </objects>
             <point key="canvasLocation" x="-9" y="3725"/>
         </scene>
-        <!--HomeVC-->
+        <!--Home-->
         <scene sceneID="N94-ID-KWe">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="zVL-kD-oUC" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="Home" id="zVL-kD-oUC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="홈" id="HHO-hq-gWp"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsP-CM-w9W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
