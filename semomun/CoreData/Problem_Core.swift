@@ -97,14 +97,14 @@ public class Problem_Core: NSManagedObject {
                 } else {
                     guard let warningImage = UIImage(named: SemomunImage.warning) else { return }
                     self.setValue(warningImage.pngData(), forKey: "contentImage")
-                    print("Problem: \(problemResult.pid) save contentImage")
+                    print("Problem: \(problemResult.pid) save contentImage fail")
                     completion()
                 }
             }
         } else {
             guard let warningImage = UIImage(named: SemomunImage.warning) else { return }
             self.setValue(warningImage.pngData(), forKey: "contentImage")
-            print("Problem: \(problemResult.pid) save contentImage")
+            print("Problem: \(problemResult.pid) save contentImage fail")
             completion()
         }
         

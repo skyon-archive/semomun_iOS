@@ -20,27 +20,22 @@ protocol LayoutDelegate: AnyObject {
     func changeResultLabel()
 }
 
-class SectionManager {
-    weak var delegate: LayoutDelegate?
-    var section: Section_Core?
-    var buttons: [String] = []
-    var stars: [Bool] = []
-    var wrongs: [Bool] = []
-    var checks: [Bool] = []
-    var isTerminated: Bool = true
-    var dictionanry: [String: Int] = [:]
-    var currentTime: Int64 = 0
-    var currentIndex: Int = 0
-    var currentPage: PageData?
-    
-    var timer: Timer!
-    var isRunning: Bool = true
+final class SectionManager {
+    private weak var delegate: LayoutDelegate?
+    private(set) var section: Section_Core
+    private(set) var currentIndex: Int = 0
+    private var buttons: [String] = []
+    private var dictionanry: [String: Int] = [:]
+    private var currentTime: Int64 = 0
+    private var currentPage: PageData?
+    private var timer: Timer!
+    private var isRunning: Bool = true
     
     // 1. Section 로딩
-    init(delegate: LayoutDelegate, section: Section_Core?) {
+    init(delegate: LayoutDelegate, section: Section_Core, isTest: Bool = false) {
         self.delegate = delegate
         self.section = section
-        if section == nil {
+        if isTest {
             self.configureMock()
         }
         self.configureSection()
@@ -52,20 +47,16 @@ class SectionManager {
     }
     
     private func configureSection() {
-        guard let section = self.section else { return }
-        self.buttons = section.buttons
-        self.stars = section.stars
-        self.wrongs = section.wrongs
-        self.checks = section.checks
-        self.isTerminated = section.terminated
-        self.dictionanry = section.dictionaryOfProblem
-        self.currentTime = section.time
+        self.buttons = self.section.buttons
+        self.dictionanry = self.section.dictionaryOfProblem
+        self.currentTime = self.section.time
     }
     
     private func configureStartPage() {
-        if let lastPageId = self.section?.lastPageId, let key = dictionanry.first(where: {$0.value == lastPageId})?.key, let idx = buttons.firstIndex(of: key) {
+        let lastPageId = self.section.lastPageId
+        if let key = dictionanry.first(where: {$0.value == lastPageId})?.key, let idx = buttons.firstIndex(of: key) {
                 self.currentIndex = idx
-                let pageData = PageData(vid: Int(lastPageId))
+            let pageData = PageData(vid: Int(lastPageId))
                 self.currentPage = pageData
                 self.delegate?.reloadButtons()
                 self.delegate?.changeVC(pageData: pageData)
@@ -74,8 +65,8 @@ class SectionManager {
         }
     }
     
-    func configureSendText() {
-        if self.isTerminated {
+    private func configureSendText() {
+        if self.section.terminated {
             self.delegate?.changeResultLabel()
         }
     }
@@ -100,10 +91,10 @@ class SectionManager {
         self.delegate?.reloadButtons()
         self.delegate?.changeVC(pageData: pageData)
         
-        self.section?.setValue(pageID, forKey: "lastPageId")
+        self.section.setValue(pageID, forKey: "lastPageId")
     }
     
-    func refreshPage() {
+    private func refreshPage() {
         guard let currentPage = currentPage else { return }
         self.delegate?.changeVC(pageData: currentPage)
     }
@@ -117,15 +108,15 @@ class SectionManager {
     }
     
     func isStar(at: Int) -> Bool {
-        return self.stars[at]
+        return self.section.stars[at]
     }
     
     func isWrong(at: Int) -> Bool {
-        return self.wrongs[at] && self.section?.terminated ?? false
+        return self.section.wrongs[at] && self.section.terminated
     }
     
     func isCheckd(at: Int) -> Bool {
-        return self.checks[at]
+        return self.section.checks[at]
     }
     
     func pageID(at: String) -> Int {
@@ -133,21 +124,34 @@ class SectionManager {
     }
     
     func updateStar(title: String, to: Bool) {
-        guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
-            self.stars[idx] = to
-            section.setValue(self.stars, forKey: "stars")
+            var stars = self.section.stars
+            stars[idx] = to
+            self.section.setValue(stars, forKey: "stars")
+            CoreDataManager.saveCoreData()
+            self.delegate?.reloadButtons()
+        }
+    }
+    
+    func updateCheck(title: String) {
+        if let idx = self.buttons.firstIndex(of: title) {
+            var checks = self.section.checks
+            checks[idx] = true
+            self.section.setValue(checks, forKey: "checks")
+            CoreDataManager.saveCoreData()
             self.delegate?.reloadButtons()
         }
     }
     
     func updateWrong(title: String, to: Bool) {
-        guard let section = self.section else { return }
         if let idx = self.buttons.firstIndex(of: title) {
-            self.wrongs[idx] = to
-            self.checks[idx] = true
-            section.setValue(self.wrongs, forKey: "wrongs")
-            section.setValue(self.checks, forKey: "checks")
+            var wrongs = self.section.wrongs
+            var checks = self.section.checks
+            wrongs[idx] = to
+            checks[idx] = true
+            self.section.setValue(wrongs, forKey: "wrongs")
+            self.section.setValue(checks, forKey: "checks")
+            CoreDataManager.saveCoreData()
             self.delegate?.reloadButtons()
         }
     }
@@ -188,27 +192,27 @@ class SectionManager {
         }
     }
     
-    func showTitle() {
-        guard let title = self.section?.title else { return }
+    private func showTitle() {
+        guard let title = self.section.title else { return }
         self.delegate?.showTitle(title: title)
     }
     
-    func showTime() {
+    private func showTime() {
         DispatchQueue.main.async {
             self.delegate?.showTime(time: self.currentTime)
         }
     }
     
-    func startTimer() {
-        guard let terminated = self.section?.terminated else { return }
-        if terminated { return } // 이미 종료된 문제집의 경우 시간 정지
+    private func startTimer() {
+        if self.section.terminated { return } // 이미 종료된 문제집의 경우 시간 정지
+        
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
                 NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 self.currentTime += 1
-                self.section?.setValue(self.currentTime, forKey: "time")
+                self.section.setValue(self.currentTime, forKey: "time")
                 self.showTime()
                 if self.currentTime%10 == 0 {
                     CoreDataManager.saveCoreData()
@@ -227,47 +231,39 @@ class SectionManager {
     }
     
     func stopTimer() {
-        guard let section = self.section else { return }
-        if section.terminated { return }
+        if self.section.terminated { return }
         
         self.isRunning = false
         self.timer.invalidate()
     }
     
     func configureMock() {
-        if let section = CoreUsecase.sectionOfCoreData(sid: -3) {
+        if let section = CoreUsecase.sectionOfCoreData(sid: -1) {
             self.section = section
-        } else {
-            CoreUsecase.createMockDataForMulty()
-            self.section = CoreUsecase.sectionOfCoreData(sid: -3)
+            return
         }
+        CoreUsecase.createMockDataForMulty()
+        guard let section = CoreUsecase.sectionOfCoreData(sid: -1) else { return }
+        self.section = section
     }
     
     func terminateSection() {
-        guard let section = self.section,
-              let title = section.title else { return }
+        guard let title = self.section.title else { return }
         CoreDataManager.saveCoreData()
         // 채점 로직
         let saveSectionUsecase = SaveSectionUsecase(section: section)
-        saveSectionUsecase.fetchPids()
-        saveSectionUsecase.calculateSectionResult()
-        // 결과
+        self.section.setValue(saveSectionUsecase.wrongs, forKey: "wrongs")
+        // 저장 및 UI 반영
         self.stopTimer()
-        let result = SectionResult(title: title,
-                                   perfectScore: saveSectionUsecase.perfactScore,
-                                   totalScore: saveSectionUsecase.totalScore,
-                                   totalTime: section.time,
-                                   wrongProblems: saveSectionUsecase.wrongProblems)
-        // 반환
+        let result = SectionResult(title: title, totalTime: section.time, sectionUsecase: saveSectionUsecase)
         CoreDataManager.saveCoreData()
         self.delegate?.reloadButtons()
         self.refreshPage()
-        
-        if self.isTerminated {
+        // 결과창 표시
+        if self.section.terminated {
             self.delegate?.showResultViewController(result: result)
         } else {
-            self.isTerminated = true
-            section.setValue(true, forKey: "terminated")
+            self.section.setValue(true, forKey: "terminated")
             guard let jsonData = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
                 print("Encode Error")
                 return

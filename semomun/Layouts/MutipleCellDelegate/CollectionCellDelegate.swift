@@ -13,3 +13,9 @@ protocol CollectionCellDelegate: AnyObject {
     func showExplanation(image: UIImage?)
     func updateWrong(btName: String, to: Bool)
 }
+
+protocol CollectionCellWithNoAnswerDelegate: AnyObject {
+    func updateStar(btName: String, to: Bool)
+    func updateCheck(btName: String)
+    func nextPage()
+}

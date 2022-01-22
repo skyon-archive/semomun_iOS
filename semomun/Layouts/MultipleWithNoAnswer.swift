@@ -8,11 +8,6 @@
 import UIKit
 import PencilKit
 
-protocol CollectionCellWithNoAnswerDelegate: AnyObject {
-    func updateStar(btName: String, to: Bool)
-    func nextPage()
-}
-
 class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWithNoAnswer" // form == 1 && type == 0
 
@@ -74,7 +69,9 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
         super.viewWillDisappear(animated)
         print("답없는 좌우형 : willDisapplear")
         
+        CoreDataManager.saveCoreData() // 
         self.viewModel?.cancelObserver()
+        
         self.imageView.image = nil
     }
     
@@ -85,7 +82,7 @@ class MultipleWithNoAnswer: UIViewController, PKToolPickerObserver, PKCanvasView
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
-        print("5다선지 좌우형 : willMove")
+        print("답없는 좌우형 : willMove")
     }
     
     deinit {
@@ -213,9 +210,11 @@ extension MultipleWithNoAnswer: UICollectionViewDelegateFlowLayout{
         let width: CGFloat = collectionView.frame.width
         let solveInputFrameHeight: CGFloat = 64
         // imageView 높이값 가져오기
-        guard let contentImage = subImages?[indexPath.row] else {
+        guard var contentImage = subImages?[indexPath.row] else {
             return CGSize(width: width, height: 300) }
-        
+        if contentImage.size.width == 0 || contentImage.size.height == 0 {
+            contentImage = UIImage(named: SemomunImage.warning)!
+        }
         let imgHeight: CGFloat = contentImage.size.height * (collectionView.frame.width/contentImage.size.width)
         
         let height: CGFloat = solveInputFrameHeight + imgHeight
@@ -234,6 +233,10 @@ extension MultipleWithNoAnswer {
 extension MultipleWithNoAnswer: CollectionCellWithNoAnswerDelegate {
     func updateStar(btName: String, to: Bool) {
         self.viewModel?.delegate?.updateStar(btName: btName, to: to)
+    }
+    
+    func updateCheck(btName: String) {
+        self.viewModel?.delegate?.updateCheck(btName: btName)
     }
     
     func nextPage() {

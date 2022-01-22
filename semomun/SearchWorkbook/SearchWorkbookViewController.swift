@@ -137,7 +137,8 @@ extension SearchWorkbookViewController {
     
     private func configureObserve() {
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
-            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+//            self?.showAlertToAddPreview(index: self?.manager?.selectedIndex ?? 0)
+            self?.fetchSearchWorkbook(index: self?.manager?.selectedIndex ?? 0)
         }
     }
     
@@ -206,7 +207,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
             self.manager?.select(to: indexPath.item) // 로그인 절차 이후 문제집 다운로드가 이어지기 위한 문제집 index 저장
             self.showLoginAlert()
         } else {
-            self.showAlertToAddPreview(index: indexPath.item)
+            self.fetchSearchWorkbook(index: indexPath.item)
         }
     }
 }
@@ -254,6 +255,22 @@ extension SearchWorkbookViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    private func fetchSearchWorkbook(index: Int) {
+        guard let wid = self.manager?.preview(at: index).wid else { return }
+        self.networkUseCase?.downloadWorkbook(wid: wid, handler: { [weak self] searchWorkbook in
+            self?.showWorkbookDetailVC(searchWorkbook: searchWorkbook)
+        })
+    }
+    
+    private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
+        guard let workbookVC = self.storyboard?.instantiateViewController(withIdentifier: WorkbookDetailViewController.identifier) as? WorkbookDetailViewController else { return }
+        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+        workbookVC.configureViewModel(to: viewModel)
+        workbookVC.configureIsCoreData(to: false)
+        
+        self.present(workbookVC, animated: true, completion: nil)
+    }
+    
     func loadPreviewFromDB() {
         self.manager?.loadPreviews {
             DispatchQueue.main.async {
@@ -283,17 +300,17 @@ extension SearchWorkbookViewController {
         guard let manager = self.manager else { return }
         let preview_core = Preview_Core(context: CoreDataManager.shared.context)
         let preview = manager.preview(at: index)
-        let baseURL = NetworkURL.bookcovoerImageDirectory(manager.imageScale)
+        let baseURL = NetworkURL.bookcoverImageDirectory(manager.imageScale)
         
         preview_core.setValues(preview: preview, workbook: workbook, sids: sids, baseURL: baseURL, category: manager.category)
     }
     
-    func saveSectionHeader(sections: [SectionOfDB], subject: String) {
+    func saveSectionHeader(sections: [SectionOfDB], subject: String, wid: Int) {
         guard let manager = self.manager else { return }
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
         sections.forEach {
-            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectionImageDirectory(manager.imageScale))
+            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectioncoverImageDirectory(manager.imageScale), wid: wid)
         }
         CoreDataManager.saveCoreData()
         print("save complete")
@@ -313,7 +330,7 @@ extension SearchWorkbookViewController {
             
             DispatchQueue.global().async {
                 self.savePreview(index: index, workbook: workbook, sids: sids)
-                self.saveSectionHeader(sections: sections, subject: workbook.subject)
+                self.saveSectionHeader(sections: sections, subject: workbook.subject, wid: workbook.wid)
             }
         }
     }

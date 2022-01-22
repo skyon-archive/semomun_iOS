@@ -60,7 +60,7 @@ public class Page_Core: NSManagedObject {
         } else {
             materialUrl = nil
         }
-        return PageResult(vid: page.vid, url: materialUrl, isImage: true)
+        return PageResult(vid: page.vid, url: materialUrl, isImage: materialUrl != nil)
     }
     
     func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
@@ -70,7 +70,7 @@ public class Page_Core: NSManagedObject {
             completion()
             return
         }
-        
+        print("sdfsdfdsfksafhsakfhkdhf")
         if let url = pageResult.url {
             Network().get(url: url, param: nil) { requestResult in
                 print(requestResult.data ?? "no data")
@@ -93,9 +93,12 @@ public class Page_Core: NSManagedObject {
         }
     }
     
-    func getLayout(form: Int, type: Int) -> String {
+    private func getLayout(form: Int, type: Int) -> String {
+        print("VC FORM: from=\(form) && type=\(type)")
         if form == 0 {
             switch type {
+            case -1: return Concept.identifier
+            case 0: return SingleWithNoAnswer.identifier
             case 1: return SingleWithTextAnswer.identifier
             case 4: return SingleWith4Answer.identifier
             case 5: return SingleWith5Answer.identifier
@@ -109,6 +112,9 @@ public class Page_Core: NSManagedObject {
             default: return MultipleWith5Answer.identifier
             }
         }
+//        else if form == -1 {
+//            return Concept.identifier
+//        }
         return SingleWith5Answer.identifier
     }
     

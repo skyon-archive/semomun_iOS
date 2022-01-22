@@ -126,6 +126,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
 extension MultipleWithNoCell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-//        CoreDataManager.saveCoreData()
+        guard let pName = self.problem?.pName else { return }
+        self.delegate?.updateCheck(btName: pName)
     }
 }

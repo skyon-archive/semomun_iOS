@@ -10,6 +10,7 @@ import PencilKit
 
 protocol PageDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
+    func updateCheck(btName: String)
     func updateWrong(btName: String, to: Bool)
     func nextPage()
     func beforePage()
@@ -30,8 +31,12 @@ class SolvingViewController: UIViewController {
     private var multipleWith5Answer: MultipleWith5Answer!
     private var singleWith4Answer: SingleWith4Answer!
     private var multipleWithNoAnswer: MultipleWithNoAnswer!
+    private var concept: Concept!
+    private var singleWithNoAnswer: SingleWithNoAnswer!
+    
     private var currentVC: UIViewController!
     private var manager: SectionManager!
+    var sectionHeaderCore: SectionHeader_Core?
     var sectionCore: Section_Core?
     var previewCore: Preview_Core?
     
@@ -44,12 +49,16 @@ class SolvingViewController: UIViewController {
         multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5Answer.identifier) as? MultipleWith5Answer
         singleWith4Answer = self.storyboard?.instantiateViewController(withIdentifier: SingleWith4Answer.identifier) as? SingleWith4Answer
         multipleWithNoAnswer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWithNoAnswer.identifier) as? MultipleWithNoAnswer
+        concept = self.storyboard?.instantiateViewController(withIdentifier: Concept.identifier) as? Concept
+        singleWithNoAnswer = self.storyboard?.instantiateViewController(withIdentifier: SingleWithNoAnswer.identifier) as? SingleWithNoAnswer
         
         self.addChild(singleWith5Answer)
         self.addChild(singleWithTextAnswer)
         self.addChild(multipleWith5Answer)
         self.addChild(singleWith4Answer)
         self.addChild(multipleWithNoAnswer)
+        self.addChild(concept)
+        self.addChild(singleWithNoAnswer)
         
         self.configureManager()
         self.addCoreDataAlertObserver()
@@ -64,6 +73,8 @@ class SolvingViewController: UIViewController {
         self.multipleWith5Answer = nil
         self.singleWith4Answer = nil
         self.multipleWithNoAnswer = nil
+        self.concept = nil
+        self.singleWithNoAnswer = nil
     }
     
     deinit {
@@ -75,7 +86,7 @@ class SolvingViewController: UIViewController {
     }
     
     @IBAction func finish(_ sender: Any) {
-        if manager.isTerminated {
+        if self.manager.section.terminated {
             self.manager.terminateSection()
             return
         }
@@ -93,7 +104,11 @@ extension SolvingViewController {
     }
     
     func configureManager() {
-        self.manager = SectionManager(delegate: self, section: self.sectionCore)
+        if let sectionCore = self.sectionCore {
+            self.manager = SectionManager(delegate: self, section: sectionCore)
+        } else {
+            self.manager = SectionManager(delegate: self, section: Section_Core(context: CoreDataManager.shared.context), isTest: true)
+        }
     }
 }
 
@@ -109,7 +124,7 @@ extension SolvingViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let num = self.manager.buttonTitle(at: indexPath.item)
         let isStar = self.manager.isStar(at: indexPath.item)
-        let isTerminated = self.manager.isTerminated
+        let isTerminated = self.manager.section.terminated
         let isWrong = self.manager.isWrong(at: indexPath.item)
         let isCheckd = self.manager.isCheckd(at: indexPath.item)
         let isSelect = indexPath.item == self.manager.currentIndex
@@ -158,7 +173,7 @@ extension SolvingViewController: LayoutDelegate {
             currentVC.removeFromParent() // parentVC로 부터 관계 삭제
             currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
         }
-        
+
         switch pageData.layoutType {
         case SingleWith5Answer.identifier:
             self.currentVC = singleWith5Answer
@@ -188,6 +203,16 @@ extension SolvingViewController: LayoutDelegate {
             multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
             
+        case Concept.identifier:
+            self.currentVC = concept
+            concept.viewModel = ConceptViewModel(delegate: self, pageData: pageData)
+            concept.image = getImage(data: pageData.problems[0].contentImage)
+        
+        case SingleWithNoAnswer.identifier:
+            self.currentVC = singleWithNoAnswer
+            singleWithNoAnswer.viewModel = SingleWithNoAnswerViewModel(delegate: self, pageData: pageData)
+            singleWithNoAnswer.image = getImage(data: pageData.problems[0].contentImage)
+        
         default:
             break
         }
@@ -216,7 +241,7 @@ extension SolvingViewController: LayoutDelegate {
         let isConnected = true
         let network = Network()
         let networkUseCase = NetworkUsecase(network: network)
-        if isConnected {
+        if isConnected && sid >= 0 {
             networkUseCase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
                 DispatchQueue.main.async {
                     switch status {
@@ -227,11 +252,18 @@ extension SolvingViewController: LayoutDelegate {
                         print("Error: update submissions fail")
                     }
                     self?.previewCore?.setValue(true, forKey: "terminated")
+                    self?.sectionHeaderCore?.setValue(true, forKey: "terminated")
                     CoreDataManager.saveCoreData()
                     self?.changeResultLabel()
                     self?.showResultViewController(result: result)
                 }
             }
+        } else { // Dummy는 put 안하도록
+            self.previewCore?.setValue(true, forKey: "terminated")
+            self.sectionHeaderCore?.setValue(true, forKey: "terminated")
+            CoreDataManager.saveCoreData()
+            self.changeResultLabel()
+            self.showResultViewController(result: result)
         }
     }
     
@@ -243,6 +275,10 @@ extension SolvingViewController: LayoutDelegate {
 extension SolvingViewController: PageDelegate {
     func updateStar(btName: String, to: Bool) {
         self.manager.updateStar(title: btName, to: to)
+    }
+    
+    func updateCheck(btName: String) {
+        self.manager.updateCheck(title: btName)
     }
     
     func updateWrong(btName: String, to: Bool) {

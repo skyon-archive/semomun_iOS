@@ -13,9 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
-        
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
+
         let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
         if isIntial {
             let startViewController = storyboard.instantiateViewController(withIdentifier: StartViewController.identifier)

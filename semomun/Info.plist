@@ -23,6 +23,13 @@
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>13.125.241.70</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>www.saemomoon.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

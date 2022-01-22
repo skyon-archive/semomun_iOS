@@ -18,7 +18,7 @@ class PreviewManager {
     
     private var subjects: [String] = ["전체"]
     private var currentSubject: String = "전체"
-    private(set) var currentCategory: String = "수능 및 모의고사"
+    private(set) var currentCategory: String = "수능모의고사"
     private(set) var previews: [Preview_Core] = []
     private(set) var currentIndex: Int = 0
     private(set) var selectedPreviewIndex: Int?

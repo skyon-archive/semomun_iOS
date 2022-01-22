@@ -83,4 +83,39 @@ public class Preview_Core: NSManagedObject{
         }
         print("savePreview complete")
     }
+    
+    func setValues(searchWorkbook: SearchWorkbook) {
+        let workbook = searchWorkbook.workbook
+        self.setValue(Int64(workbook.wid), forKey: "wid")
+        self.setValue(workbook.title, forKey: "title")
+        self.setValue(workbook.subject, forKey: "subject")
+        self.setValue(searchWorkbook.sections.map(\.sid), forKey: "sids")
+        self.setValue(false, forKey: "terminated")
+        self.setValue(false, forKey: "downloaded")
+        self.setValue(workbook.category, forKey: "category")
+        self.setValue(workbook.year, forKey: "year")
+        self.setValue(workbook.month, forKey: "month")
+        self.setValue(Double(workbook.price), forKey: "price")
+        self.setValue(workbook.detail, forKey: "detail")
+        self.setValue(workbook.publisher, forKey: "publisher")
+        self.setValue(workbook.grade, forKey: "grade")
+        
+        self.setValue(false, forKey: "isHide")
+        self.setValue(false, forKey: "isReproduction")
+        let isNotFree = Double(workbook.price) != Double("0")
+        self.setValue(isNotFree, forKey: "isNotFree")
+        self.setValue([], forKey: "tags")
+        
+        if let url = URL(string: NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover) {
+            let imageData = try? Data(contentsOf: url)
+            if imageData != nil {
+                self.setValue(imageData, forKey: "image")
+            } else {
+                self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+            }
+        } else {
+            self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+        }
+        print("savePreview complete")
+    }
 }
