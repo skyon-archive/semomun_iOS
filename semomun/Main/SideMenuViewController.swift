@@ -43,11 +43,13 @@ extension SideMenuViewController {
         self.networkUseCase?.getCategorys { [weak self] categorys in
             guard let categorys = categorys else {
                 self?.categories = UserDefaults.standard.value(forKey: "categorys") as? [String] ?? []
+                self?.categories.append("자격증")
                 self?.configureIndex()
                 return
             }
             UserDefaults.standard.setValue(categorys, forKey: "categorys")
             self?.categories = categorys
+            self?.categories.append("자격증")
             self?.configureIndex()
         }
     }

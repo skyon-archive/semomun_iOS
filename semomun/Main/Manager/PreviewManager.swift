@@ -18,7 +18,7 @@ class PreviewManager {
     
     private var subjects: [String] = ["전체"]
     private var currentSubject: String = "전체"
-    private(set) var currentCategory: String = "자격증"
+    private(set) var currentCategory: String = "수능모의고사"
     private(set) var previews: [Preview_Core] = []
     private(set) var currentIndex: Int = 0
     private(set) var selectedPreviewIndex: Int?
@@ -30,12 +30,12 @@ class PreviewManager {
     
     private func configureCategory() {
         guard let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String else { return }
-        self.currentCategory = "자격증"
+        self.currentCategory = category
         print(category)
     }
     
     func updateCategory(to category: String) {
-        self.currentCategory = "자격증"
+        self.currentCategory = category
         self.selectSubject(idx: 0)
         self.fetchPreviews()
         self.fetchSubjects()

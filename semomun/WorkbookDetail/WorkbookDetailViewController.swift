@@ -140,7 +140,7 @@ extension WorkbookDetailViewController {
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
         self.titleLabel.text = workbookInfo.title
-        self.authorLabel.text = workbookInfo.author
+        self.authorLabel.text = "박상신"
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         if self.isCoreData {
