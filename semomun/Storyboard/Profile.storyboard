@@ -23,16 +23,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Tw-ngC">
+                                <rect key="frame" x="-5" y="4" width="844" height="110"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu4-tq-aPw">
+                                        <rect key="frame" x="55" y="44.5" width="78" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="Pfu-Tw-ngC" secondAttribute="leading" constant="55" id="RXu-4T-RB1"/>
+                                    <constraint firstAttribute="height" constant="110" id="Yk0-SG-2EA"/>
+                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="centerY" secondItem="Pfu-Tw-ngC" secondAttribute="centerY" constant="7.5" id="aSU-7O-sUA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TAC-R5-80x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="top" secondItem="TAC-R5-80x" secondAttribute="top" constant="-20" id="9Vo-W6-x9N"/>
                             <constraint firstItem="pgq-SO-ldh" firstAttribute="centerY" secondItem="TAC-R5-80x" secondAttribute="centerY" id="RME-MC-176"/>
                             <constraint firstItem="pgq-SO-ldh" firstAttribute="centerX" secondItem="TAC-R5-80x" secondAttribute="centerX" id="lmS-rD-GLD"/>
+                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="-5" id="rb8-Ms-MmX"/>
+                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Pfu-Tw-ngC" secondAttribute="trailing" constant="-5" id="uMv-tI-BqY"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="프로필" id="SqW-G1-Yw3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="navigationTitleView" destination="Pfu-Tw-ngC" id="EgF-ze-rkU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxF-MK-qmb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
