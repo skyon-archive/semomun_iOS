@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MultipleWith5AnswerViewModel {
+final class MultipleWith5AnswerVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData

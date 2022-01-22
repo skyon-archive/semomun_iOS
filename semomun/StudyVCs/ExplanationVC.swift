@@ -8,22 +8,35 @@
 import UIKit
 
 class ExplanationVC: UIViewController {
+    static let identifier = "ExplanationVC"
+    static let storyboardName = "Study"
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var explanationImageView: UIImageView!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    
+    var explanationImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.scrollView.setContentOffset(.zero, animated: true)
+        self.configureImageView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
-    */
-
 }
+
+extension ExplanationVC {
+    func configureImageView() {
+        guard let image = self.explanationImage else { return }
+        let width = scrollView.frame.width
+        let height = image.size.height*(width/image.size.width)
+        
+        self.explanationImageView.image = image
+        self.explanationImageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        self.imageHeight.constant = height
+    }
+}
+
