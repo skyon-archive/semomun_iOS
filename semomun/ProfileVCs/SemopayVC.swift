@@ -8,11 +8,17 @@
 import UIKit
 
 class SemopayVC: UIViewController {
+    static let storyboardName = "Profile"
+    static let identifier = "SemopayVC"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
 
