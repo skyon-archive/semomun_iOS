@@ -14,4 +14,5 @@ enum SemomunColor {
     static let selectCellColor = "selectCellColor"
     static let grayLineColor = "grayLineColor"
     static let grayTextColor = "grayTextColor"
+    static let grayTitleLineColor = "grayTitleLineColor"
 }
