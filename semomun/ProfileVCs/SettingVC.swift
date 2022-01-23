@@ -1,16 +1,16 @@
 //
-//  WaitingChargeVC.swift
+//  SettingVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/01/21.
+//  Created by SEONG YEOL YI on 2022/01/23.
 //
 
 import UIKit
 
-class WaitingChargeVC: UIViewController {
+class SettingVC: UIViewController {
     static let storyboardName = "Profile"
-    static let identifier = "WaitingChargeVC"
-    
+    static let identifier = "SettingVC"
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +20,7 @@ class WaitingChargeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    
     /*
     // MARK: - Navigation
 
