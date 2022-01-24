@@ -12,8 +12,7 @@ final class StartSettingVC: UIViewController {
     static let identifier = "StartSettingVC"
     static let storyboardName = "StartLogin"
     
-    @IBOutlet weak var mediumTags: UICollectionView!
-    @IBOutlet weak var smallTags: UICollectionView!
+    @IBOutlet weak var tags: UICollectionView!
     
     private var viewModel: StartSettingVM?
     private var cancellables: Set<AnyCancellable> = []
@@ -46,59 +45,25 @@ extension StartSettingVC {
     }
     
     private func configureCollectionView() {
-        self.mediumTags.delegate = self
-        self.mediumTags.dataSource = self
-        self.smallTags.delegate = self
-        self.smallTags.dataSource = self
+        self.tags.delegate = self
+        self.tags.dataSource = self
     }
 }
 
 // MARK: - Binding
 extension StartSettingVC {
     private func bindAll() {
-        self.bindMediumTags()
-        self.bindSmallTags()
-        self.bindCurrentMediumIndex()
-        self.bindCurrentSmallIndex()
+        self.bindTags()
         self.bindError()
+        self.bindWarning()
     }
     
-    private func bindMediumTags() {
-        self.viewModel?.$mediumTags
+    private func bindTags() {
+        self.viewModel?.$tags
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.mediumTags.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindSmallTags() {
-        self.viewModel?.$smallTags
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.smallTags.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindCurrentMediumIndex() {
-        self.viewModel?.$currentMediumIndex
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.mediumTags.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindCurrentSmallIndex() {
-        self.viewModel?.$currentSmallIndex
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.smallTags.reloadData()
+                self?.tags.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -110,6 +75,17 @@ extension StartSettingVC {
             .sink(receiveValue: { [weak self] error in
                 guard let error = error else { return }
                 self?.showAlertWithOK(title: "네트워크 에러", text: error)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning, text: "")
             })
             .store(in: &self.cancellables)
     }
@@ -132,52 +108,25 @@ extension StartSettingVC {
 //MARK: - CollectionView
 extension StartSettingVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.mediumTags {
-            self.viewModel?.selectMedium(to: indexPath.item)
-        } else {
-            self.viewModel?.selectSmall(to: indexPath.item)
-        }
+        self.viewModel?.select(to: indexPath.item)
+        self.tags.reloadItems(at: [indexPath])
     }
 }
 
 extension StartSettingVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.mediumTags {
-            return self.viewModel?.mediumTags.count ?? 0
-        } else {
-            return self.viewModel?.smallTagsCount ?? 0
-        }
+        return self.viewModel?.tags.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StartTagCell.identifier, for: indexPath) as? StartTagCell else { return UICollectionViewCell() }
         guard let viewModel = self.viewModel else { return cell }
         
-        if collectionView == self.mediumTags {
-            cell.configure(title: viewModel.mediumTag(index: indexPath.item))
-            if viewModel.selectedMediumTag != nil && indexPath.item == viewModel.currentMediumIndex {
-                cell.didSelect()
-            }
-        } else {
-            cell.configure(title: viewModel.smallTag(index: indexPath.item))
-            if let currentSmallIndex = viewModel.currentSmallIndex,
-               indexPath.item == currentSmallIndex {
-                cell.didSelect()
-            }
+        cell.configure(title: viewModel.tag(index: indexPath.item))
+        if viewModel.selectedIndexes.contains(indexPath.item) {
+            cell.didSelect()
         }
         
         return cell
     }
 }
-
-//extension StartSettingVC: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let horizontalInset: CGFloat = 24
-//        let rowCount: Int = 3
-//        let cellWidth = (self.mediumTags.frame.width-(CGFloat(rowCount-1)*horizontalInset))/CGFloat(rowCount)
-//        let cellHeight: CGFloat = 60
-//
-//        return CGSize(width: cellWidth, height: cellHeight)
-//    }
-//}
