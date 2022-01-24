@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartTagCell: UICollectionViewCell {
+final class StartTagCell: UICollectionViewCell {
     static let identifier = "StartTagCell"
     @IBOutlet weak var title: UILabel!
     
