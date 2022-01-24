@@ -23,7 +23,9 @@ final class HomeVC: UIViewController {
         super.viewDidLoad()
         self.setShadow(with: navigationTitleView)
         self.configureViewModel()
+        self.configureCollectionView()
         self.bindAll()
+        self.viewModel?.fetchBestSellers()
         self.viewModel?.fetchTags()
     }
     
@@ -38,6 +40,11 @@ extension HomeVC {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
+    }
+    
+    private func configureCollectionView() {
+//        self.bestSellers.delegate = self
+        self.bestSellers.dataSource = self
     }
     
     private func configureTags(with tags: [String]) {
@@ -79,7 +86,18 @@ extension HomeVC {
 // MARK: - Binding
 extension HomeVC {
     private func bindAll() {
+        self.bindBestSellers()
         self.bindTags()
+    }
+    
+    private func bindBestSellers() {
+        self.viewModel?.$bestSellers
+            .receive(on: DispatchQueue.main)
+//            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.bestSellers.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindTags() {
@@ -90,5 +108,29 @@ extension HomeVC {
                 self?.configureTags(with: tags)
             })
             .store(in: &self.cancellables)
+    }
+}
+
+// MARK: - CollectionView
+extension HomeVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.bestSellers {
+            return self.viewModel?.bestSellers.count ?? 0
+        } else { return 0 }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.bannerAds {
+            return UICollectionViewCell()
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWorkbookCell.identifier, for: indexPath) as? HomeWorkbookCell else { return UICollectionViewCell() }
+            guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
+            
+            if collectionView == self.bestSellers {
+                cell.configure(with: preview)
+            }
+            
+            return cell
+        }
     }
 }

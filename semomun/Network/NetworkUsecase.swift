@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkUsecase: networkFetchables {
+class NetworkUsecase {
     let network: NetworkFetchable
     init(network: NetworkFetchable) {
         self.network = network
@@ -39,17 +39,6 @@ class NetworkUsecase: networkFetchables {
                 return
             }
             handler(searchWorkbook)
-        }
-    }
-    
-    func getPages(sid: Int, hander: @escaping([PageOfDB]) -> ()) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
-            guard let data = requestResult.data else { return }
-            guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {
-                print("Error: Decode")
-                return
-            }
-            hander(pageOfDBs)
         }
     }
     
@@ -152,33 +141,6 @@ class NetworkUsecase: networkFetchables {
                 return
             }
             completion(.SUCCESS, userInfo)
-        }
-    }
-    
-    func getAppstoreVersion(completion: @escaping(NetworkStatus, AppstoreVersion?) -> Void) {
-        self.network.get(url: NetworkURL.appstoreVersion, param: nil) { requestResult in
-            guard let statusCode = requestResult.statusCode else {
-                print("Error: no statusCode")
-                completion(.ERROR, nil)
-                return
-            }
-            guard let data = requestResult.data else {
-                print("no data")
-                completion(.ERROR, nil)
-                return
-            }
-            if statusCode != 200 {
-                print("Error: \(statusCode)")
-                print(String(data: data, encoding: .utf8)!)
-                completion(.ERROR, nil)
-                return
-            }
-            guard let appstoreVersion: AppstoreVersion = try? JSONDecoder().decode(AppstoreVersion.self, from: data) else {
-                print("Decode Error")
-                completion(.DECODEERROR, nil)
-                return
-            }
-            completion(.SUCCESS, appstoreVersion)
         }
     }
 }
@@ -307,6 +269,73 @@ extension NetworkUsecase {
                 return
             }
             completion(.SUCCESS)
+        }
+    }
+}
+
+extension NetworkUsecase: PagesFetchable {
+    func getPages(sid: Int, hander: @escaping ([PageOfDB]) -> Void) {
+        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
+            guard let data = requestResult.data else { return }
+            guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {
+                print("Error: Decode")
+                return
+            }
+            hander(pageOfDBs)
+        }
+    }
+}
+
+extension NetworkUsecase: VersionFetchable {
+    func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void) {
+        self.network.get(url: NetworkURL.appstoreVersion, param: nil) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR, nil)
+                return
+            }
+            guard let data = requestResult.data else {
+                print("no data")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                print(String(data: data, encoding: .utf8)!)
+                completion(.ERROR, nil)
+                return
+            }
+            guard let appstoreVersion: AppstoreVersion = try? JSONDecoder().decode(AppstoreVersion.self, from: data) else {
+                print("Decode Error")
+                completion(.DECODEERROR, nil)
+                return
+            }
+            completion(.SUCCESS, appstoreVersion)
+        }
+    }
+}
+
+extension NetworkUsecase: BestSellersFetchable {
+    func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+        let param = ["c": "수능모의고사"]
+        self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode,
+                  let data = requestResult.data else {
+                print("Error: no requestResult")
+                completion(.ERROR, [])
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode), \(String(data: data, encoding: .utf8)!)")
+                completion(.ERROR, [])
+                return
+            }
+            guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
+                print("Error: Decode")
+                completion(.DECODEERROR, [])
+                return
+            }
+            completion(.SUCCESS, searchPreview.workbooks)
         }
     }
 }
