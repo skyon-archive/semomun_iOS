@@ -17,8 +17,11 @@ protocol NetworkFetchable {
 }
 // NetworkUseCase
 protocol PagesFetchable {
-    func getPages(sid: Int, hander: @escaping([PageOfDB]) -> ())
+    func getPages(sid: Int, hander: @escaping ([PageOfDB]) -> Void)
 }
 protocol VersionFetchable {
-    func getAppstoreVersion(completion: @escaping(NetworkStatus, AppstoreVersion?) -> Void)
+    func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
+}
+protocol BestSellersFetchable {
+    func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
