@@ -12,6 +12,7 @@ struct UserDefaultsManager {
         static let currentCategory = "currentCategory"
         static let logined = "logined"
         static let isInitial = "isInitial"
+        static let favoriteTags = "favoriteTags"
     }
     
     static func set<T>(to: T, forKey: String) {

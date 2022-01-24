@@ -47,6 +47,7 @@ extension StartSettingVC {
     private func configureCollectionView() {
         self.tags.delegate = self
         self.tags.dataSource = self
+        self.tags.collectionViewLayout = TagsLayout()
     }
 }
 
@@ -56,6 +57,7 @@ extension StartSettingVC {
         self.bindTags()
         self.bindError()
         self.bindWarning()
+        self.bindSelectedTags()
     }
     
     private func bindTags() {
@@ -89,19 +91,22 @@ extension StartSettingVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindSelectedTags() {
+        self.viewModel?.$selectedTags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.tags.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - Logic
 extension StartSettingVC {
     private func goMainVC() {
-        guard let mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() else {
-            return 
-        }
-        let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
-        
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
+        NotificationCenter.default.post(name: .goToMain, object: nil)
     }
 }
 
@@ -109,7 +114,6 @@ extension StartSettingVC {
 extension StartSettingVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.select(to: indexPath.item)
-        self.tags.reloadItems(at: [indexPath])
     }
 }
 

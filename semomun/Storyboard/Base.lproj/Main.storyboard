@@ -869,6 +869,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="mainColor"/>
+                        <color key="barTintColor" name="mainColor"/>
+                        <color key="selectedImageTintColor" name="mainColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="zVL-kD-oUC" kind="relationship" relationship="viewControllers" id="PoZ-Ao-3ce"/>
@@ -911,10 +914,10 @@
             </objects>
             <point key="canvasLocation" x="-9" y="3725"/>
         </scene>
-        <!--Home-->
+        <!--HomeVC-->
         <scene sceneID="N94-ID-KWe">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="Home" id="zVL-kD-oUC" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="zVL-kD-oUC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="홈" id="HHO-hq-gWp"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsP-CM-w9W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

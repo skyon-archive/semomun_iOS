@@ -13,7 +13,7 @@ final class StartSettingVM {
     @Published private(set) var tags: [String] = []
     @Published private(set) var error: String?
     @Published private(set) var warning: String?
-    private(set) var selectedTags: [String] = []
+    @Published private(set) var selectedTags: [String] = []
     private(set) var selectedIndexes: [Int] = []
     
     init(networkUsecase: NetworkUsecase) {
@@ -47,7 +47,8 @@ final class StartSettingVM {
     }
     
     func saveUserDefaults() {
-        // TODO: 중분류, 소분류를 저장해야 하는지 의논 후 구조 생성할 예정
+        UserDefaultsManager.set(to: self.selectedTags, forKey: UserDefaultsManager.Keys.favoriteTags)
+        UserDefaultsManager.set(to: false, forKey: UserDefaultsManager.Keys.isInitial)
     }
     
     var isSelectFinished: Bool {
