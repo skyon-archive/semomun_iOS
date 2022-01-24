@@ -25,6 +25,7 @@ final class HomeVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
+        self.viewModel?.fetchAds()
         self.viewModel?.fetchBestSellers()
         self.viewModel?.fetchTags()
     }
@@ -43,7 +44,7 @@ extension HomeVC {
     }
     
     private func configureCollectionView() {
-//        self.bestSellers.delegate = self
+        self.bannerAds.dataSource = self
         self.bestSellers.dataSource = self
     }
     
@@ -86,14 +87,25 @@ extension HomeVC {
 // MARK: - Binding
 extension HomeVC {
     private func bindAll() {
+        self.bindAds()
         self.bindBestSellers()
         self.bindTags()
+    }
+    
+    private func bindAds() {
+        self.viewModel?.$ads
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.bannerAds.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindBestSellers() {
         self.viewModel?.$bestSellers
             .receive(on: DispatchQueue.main)
-//            .dropFirst()
+            .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.bestSellers.reloadData()
             })
@@ -114,14 +126,21 @@ extension HomeVC {
 // MARK: - CollectionView
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.bestSellers {
+        if collectionView == self.bannerAds {
+            return self.viewModel?.ads.count ?? 0
+        } else if collectionView == self.bestSellers {
             return self.viewModel?.bestSellers.count ?? 0
         } else { return 0 }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.bannerAds {
-            return UICollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
+            guard let testAd = self.viewModel?.testAd(index: indexPath.item) else { return cell }
+            
+            cell.configureTest(url: testAd)
+            
+            return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWorkbookCell.identifier, for: indexPath) as? HomeWorkbookCell else { return UICollectionViewCell() }
             guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
