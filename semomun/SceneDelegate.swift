@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
             let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+            navigationController.isNavigationBarHidden = true
             self.window?.rootViewController = navigationController
         }
         
@@ -40,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
         navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
         navigationController.view.addSubview(snapshot)
