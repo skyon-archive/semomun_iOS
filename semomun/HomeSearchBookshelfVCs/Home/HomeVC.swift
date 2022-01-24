@@ -42,6 +42,9 @@ extension HomeVC {
     
     private func configureTags(with tags: [String]) {
         self.tagsStackView.translatesAutoresizingMaskIntoConstraints = false
+        let superWidth = self.view.frame.width
+        var widthSum: CGFloat = 0
+        
         tags.forEach { tag in
             let tagView = UIView()
             tagView.layer.borderWidth = 1
@@ -64,7 +67,11 @@ extension HomeVC {
                 tagLabel.leadingAnchor.constraint(equalTo: tagView.leadingAnchor, constant: 10)
             ])
             
-            self.tagsStackView.addArrangedSubview(tagView)
+            let width = "#\(tag)".size(withAttributes: [.font: UIFont.systemFont(ofSize: 12, weight: .regular)]).width+20+8
+            if superWidth - 200 > widthSum + width {
+                self.tagsStackView.addArrangedSubview(tagView)
+                widthSum += width+8
+            }
         }
     }
 }
