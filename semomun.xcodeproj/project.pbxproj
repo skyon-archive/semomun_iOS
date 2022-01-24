@@ -153,6 +153,7 @@
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
 		87EA7FF02784727500B6EFC3 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA7FEF2784727500B6EFC3 /* RequestResult.swift */; };
 		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
+		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -304,6 +305,7 @@
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
 		87EA7FEF2784727500B6EFC3 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
+		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -475,6 +477,9 @@
 		8716F335279CEA1C00B7C8DD /* NewNewGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E39276F66A3001C9C4A /* Extension */,
+				8726CB0E278D2040004D9CC0 /* Manager */,
+				87F58267279E653100A2BD15 /* CollectionViewFlowLayout */,
 				87B6F0BA2782BC7300E6FF8A /* SemomunColor */,
 				87B6F0BD2782C3E300E6FF8A /* SemomunImage */,
 			);
@@ -624,12 +629,10 @@
 			isa = PBXGroup;
 			children = (
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
-				8726CB0E278D2040004D9CC0 /* Manager */,
 				87E151612787DBE20080D39A /* ViewController */,
 				87C85E3A276F66AB001C9C4A /* View */,
 				879B172C2772CC030042478F /* UseCase */,
 				87EB46942783452100052BCE /* Secure */,
-				87C85E39276F66A3001C9C4A /* Extension */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -859,6 +862,14 @@
 			path = Secure;
 			sourceTree = "<group>";
 		};
+		87F58267279E653100A2BD15 /* CollectionViewFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				87F58268279E654E00A2BD15 /* TagsLayout.swift */,
+			);
+			path = CollectionViewFlowLayout;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1031,6 +1042,7 @@
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
+				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,
