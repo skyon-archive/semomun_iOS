@@ -17,6 +17,7 @@ struct UserDefaultsManager {
     
     static func set<T>(to: T, forKey: String) {
         UserDefaults.standard.setValue(to, forKey: forKey)
+        print("save \(forKey) complete")
     }
     
     static func get(forKey: String) -> Any? {
