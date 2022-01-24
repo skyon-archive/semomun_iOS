@@ -17,6 +17,7 @@ class MajorCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         configureUI(major: "", isSelected: false)
     }
     
