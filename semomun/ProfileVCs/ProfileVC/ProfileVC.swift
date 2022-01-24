@@ -18,6 +18,7 @@ class ProfileVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
         self.name.text = userInfo.name

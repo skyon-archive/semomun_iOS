@@ -12,6 +12,7 @@
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560E1E727914D11003BDAC0 /* SectionCell.swift */; };
+		256A3748279DA80800455655 /* SettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* SettingTableVC.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
@@ -172,6 +173,7 @@
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2560E1E727914D11003BDAC0 /* SectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
+		256A3747279DA80800455655 /* SettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableVC.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		256A3746279DA7EC00455655 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				25D1BDDF279D46A700807196 /* SettingVC.swift */,
+				256A3747279DA80800455655 /* SettingTableVC.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		259C000E27914171005D432B /* WorkbookDetailVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,13 +493,13 @@
 		8716E947279A602800B33A5E /* ProfileVCs */ = {
 			isa = PBXGroup;
 			children = (
+				256A3746279DA7EC00455655 /* Setting */,
 				25D1BDE1279D741600807196 /* ChangeUserinfo */,
 				25D1BDDC279D3A3300807196 /* ProfileVC */,
 				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
 				8716E94E279A61A700B33A5E /* LongTextVC.swift */,
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
-				25D1BDDF279D46A700807196 /* SettingVC.swift */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";
@@ -1124,6 +1135,7 @@
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,
+				256A3748279DA80800455655 /* SettingTableVC.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
