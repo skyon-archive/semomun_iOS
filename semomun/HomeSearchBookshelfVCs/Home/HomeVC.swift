@@ -45,6 +45,8 @@ extension HomeVC {
         self.bannerAds.dataSource = self
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
+        self.workbooksWithRecent.dataSource = self
+        self.workbooksWithNewest.dataSource = self
     }
     
     private func configureTags(with tags: [String]) {
@@ -89,7 +91,8 @@ extension HomeVC {
         self.bindTags()
         self.bindAds()
         self.bindBestSellers()
-        
+        self.bindRecent()
+        self.bindNewest()
     }
     
     private func bindTags() {
@@ -130,19 +133,44 @@ extension HomeVC {
             .store(in: &self.cancellables)
     }
     
+    private func bindRecent() {
+        self.viewModel?.$workbooksWithRecent
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.workbooksWithRecent.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
     
+    private func bindNewest() {
+        self.viewModel?.$workbooksWithNewest
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.workbooksWithNewest.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - CollectionView
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.bannerAds {
+        switch collectionView {
+        case self.bannerAds:
             return self.viewModel?.ads.count ?? 0
-        } else if collectionView == self.bestSellers {
+        case self.bestSellers:
             return self.viewModel?.bestSellers.count ?? 0
-        } else if collectionView == self.workbooksWithTags {
+        case self.workbooksWithTags:
             return self.viewModel?.workbooksWithTags.count ?? 0
-        } else { return 0 }
+        case self.workbooksWithRecent:
+            return self.viewModel?.workbooksWithRecent.count ?? 0
+        case self.workbooksWithNewest:
+            return self.viewModel?.workbooksWithNewest.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -155,13 +183,21 @@ extension HomeVC: UICollectionViewDataSource {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWorkbookCell.identifier, for: indexPath) as? HomeWorkbookCell else { return UICollectionViewCell() }
-            
-            if collectionView == self.bestSellers {
+            switch collectionView {
+            case self.bestSellers:
                 guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
                 cell.configure(with: preview)
-            } else if collectionView == self.workbooksWithTags {
+            case self.workbooksWithTags:
                 guard let preview = self.viewModel?.workbookWithTags(index: indexPath.item) else { return cell }
                 cell.configure(with: preview)
+            case self.workbooksWithRecent:
+                guard let preview = self.viewModel?.workbookWithRecent(index: indexPath.item) else { return cell }
+                cell.configure(with: preview)
+            case self.workbooksWithNewest:
+                guard let preview = self.viewModel?.workbookWithNewest(index: indexPath.item) else { return cell }
+                cell.configure(with: preview)
+            default:
+                return cell
             }
             
             return cell
