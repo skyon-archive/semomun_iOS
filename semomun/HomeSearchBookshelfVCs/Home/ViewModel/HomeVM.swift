@@ -27,6 +27,8 @@ final class HomeVM {
         self.fetchTags()
         self.fetchAds()
         self.fetchBestSellers()
+        self.fetchWorkbooksWithRecent()
+        self.fetchWorkbooksWithNewest()
     }
     
     private func fetchTags() {
@@ -43,7 +45,8 @@ final class HomeVM {
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
-                self?.bestSellers = Array(workbooks.prefix(upTo: 10))
+                let count = min(10, workbooks.count)
+                self?.bestSellers = Array(workbooks.prefix(upTo: count))
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -56,7 +59,36 @@ final class HomeVM {
         self.networkUsecase.getWorkbooks(tags: self.tags) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
-                self?.workbooksWithTags = Array(workbooks.prefix(upTo: 10))
+                let count = min(10, workbooks.count)
+                self?.workbooksWithTags = Array(workbooks.prefix(upTo: count))
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+            }
+        }
+    }
+    
+    private func fetchWorkbooksWithRecent() {
+        self.networkUsecase.getWorkbooksWithRecent { [weak self] status, workbooks in
+            switch status {
+            case .SUCCESS:
+                let count = min(10, workbooks.count)
+                self?.workbooksWithRecent = Array(workbooks.prefix(upTo: count))
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+            }
+        }
+    }
+    
+    private func fetchWorkbooksWithNewest() {
+        self.networkUsecase.getWorkbooksWithNewest { [weak self] status, workbooks in
+            switch status {
+            case .SUCCESS:
+                let count = min(10, workbooks.count)
+                self?.workbooksWithNewest = Array(workbooks.prefix(upTo: count))
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -71,6 +103,14 @@ final class HomeVM {
     
     func workbookWithTags(index: Int) -> PreviewOfDB {
         return self.workbooksWithTags[index]
+    }
+    
+    func workbookWithRecent(index: Int) -> PreviewOfDB {
+        return self.workbooksWithRecent[index]
+    }
+    
+    func workbookWithNewest(index: Int) -> PreviewOfDB {
+        return self.workbooksWithNewest[index]
     }
     
     func testAd(index: Int) -> String {
