@@ -25,9 +25,7 @@ final class HomeVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
-        self.viewModel?.fetchAds()
-        self.viewModel?.fetchBestSellers()
-        self.viewModel?.fetchTags()
+        self.viewModel?.fetchAll()
     }
     
     @IBAction func appendTags(_ sender: Any) {
@@ -46,6 +44,7 @@ extension HomeVC {
     private func configureCollectionView() {
         self.bannerAds.dataSource = self
         self.bestSellers.dataSource = self
+        self.workbooksWithTags.dataSource = self
     }
     
     private func configureTags(with tags: [String]) {
@@ -87,9 +86,28 @@ extension HomeVC {
 // MARK: - Binding
 extension HomeVC {
     private func bindAll() {
+        self.bindTags()
         self.bindAds()
         self.bindBestSellers()
-        self.bindTags()
+        
+    }
+    
+    private func bindTags() {
+        self.viewModel?.$tags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] tags in
+                self?.configureTags(with: tags)
+            })
+            .store(in: &self.cancellables)
+        
+        self.viewModel?.$workbooksWithTags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.workbooksWithTags.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindAds() {
@@ -112,15 +130,7 @@ extension HomeVC {
             .store(in: &self.cancellables)
     }
     
-    private func bindTags() {
-        self.viewModel?.$tags
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] tags in
-                self?.configureTags(with: tags)
-            })
-            .store(in: &self.cancellables)
-    }
+    
 }
 
 // MARK: - CollectionView
@@ -130,6 +140,8 @@ extension HomeVC: UICollectionViewDataSource {
             return self.viewModel?.ads.count ?? 0
         } else if collectionView == self.bestSellers {
             return self.viewModel?.bestSellers.count ?? 0
+        } else if collectionView == self.workbooksWithTags {
+            return self.viewModel?.workbooksWithTags.count ?? 0
         } else { return 0 }
     }
     
@@ -143,9 +155,12 @@ extension HomeVC: UICollectionViewDataSource {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWorkbookCell.identifier, for: indexPath) as? HomeWorkbookCell else { return UICollectionViewCell() }
-            guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
             
             if collectionView == self.bestSellers {
+                guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
+                cell.configure(with: preview)
+            } else if collectionView == self.workbooksWithTags {
+                guard let preview = self.viewModel?.workbookWithTags(index: indexPath.item) else { return cell }
                 cell.configure(with: preview)
             }
             

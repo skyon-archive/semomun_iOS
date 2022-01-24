@@ -25,3 +25,12 @@ protocol VersionFetchable {
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
+protocol WorkbooksWithTagsFetchable {
+    func getWorkbooks(tags: [String], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
+protocol WorkbooksWithRecentFetchable {
+    func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
+protocol WorkbooksWithNewestFetchable {
+    func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
