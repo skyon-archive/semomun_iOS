@@ -85,10 +85,6 @@ extension SettingViewController {
             self.loginButton.setAttributedTitle(attributeString, for: .normal)
         }
     }
-    private func popupTextViewController(title: String, text: String) {
-        let vc = LongTextPopupViewController(title: title, text: text)
-        present(vc, animated: true, completion: nil)
-    }
     
     private func logout() {
         CoreUsecase.deleteAllCoreData()
