@@ -19,15 +19,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
             let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
             let navigationController = UINavigationController(rootViewController: startViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
             self.window?.rootViewController = navigationController
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-            self.window?.rootViewController = mainViewController
+            let navigationController = UINavigationController(rootViewController: mainViewController)
+            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+            self.window?.rootViewController = navigationController
+        }
+        
+        NotificationCenter.default.addObserver(forName: .goToMain, object: nil, queue: .main) { [weak self] _ in
+            self?.changeRootViewController()
         }
 
         self.window?.makeKeyAndVisible()
+    }
+    
+    func changeRootViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        
+        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
+        navigationController.view.addSubview(snapshot)
+        
+        self.window?.rootViewController = navigationController
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview()
+        })
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
