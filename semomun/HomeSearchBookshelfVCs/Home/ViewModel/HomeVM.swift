@@ -49,4 +49,8 @@ final class HomeVM {
     func bestSeller(index: Int) -> PreviewOfDB {
         return self.bestSellers[index]
     }
+    
+    func testAd(index: Int) -> String {
+        return self.ads[index]
+    }
 }
