@@ -36,7 +36,7 @@ class StartTagCell: UICollectionViewCell {
     
     func deSelect() {
         self.contentView.backgroundColor = .white
-        self.title.textColor = UIColor(named: SemomunColor.mainColor)
+        self.title.textColor = .lightGray
         self.title.font = UIFont.systemFont(ofSize: 15, weight: .regular)
     }
 }
