@@ -98,10 +98,5 @@ extension LoginServicePopupVC {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
         }
     }
-    
-    private func popupTextViewController(title: String, text: String) {
-        let vc = LongTextPopupViewController(title: title, text: text)
-        present(vc, animated: true, completion: nil)
-    }
 }
 
