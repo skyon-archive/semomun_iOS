@@ -7,23 +7,42 @@
 
 import UIKit
 
-class LongTextVC: UIViewController {
-
+final class LongTextVC: UIViewController {
+    static let storyboardName = "Profile"
+    static let identifier = "LongTextVC"
+    
+    private var navigationBarTitle: String?
+    private var text: String?
+    
+    
+    @IBOutlet weak var frame: UIView!
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.frame.layer.cornerRadius = 15
 
-        // Do any additional setup after loading the view.
+        // shadow
+        self.frame.layer.shadowColor = UIColor.gray.cgColor
+        self.frame.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.frame.layer.shadowOpacity = 0.4
+        self.frame.layer.shadowRadius = 4
+        
+        self.textView.layer.cornerRadius = 15
+        self.textView.textContainerInset = UIEdgeInsets(top: 29, left: 103, bottom: 29, right: 103)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.textView.text = self.text
+        self.navigationItem.title = self.navigationBarTitle
     }
-    */
+}
 
+extension LongTextVC {
+    func configureUI(title: String, text: String) {
+        self.navigationBarTitle = title
+        self.text = text
+    }
 }
