@@ -98,6 +98,9 @@
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 태그" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfm-wx-PRN">
                                                 <rect key="frame" x="32" y="511" width="67" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="67" id="eNG-Zf-Tjw"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -137,8 +140,11 @@
                                                 <state key="normal" image="plus" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="medium"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="appendTags:" destination="bAq-Pq-D0s" eventType="touchUpInside" id="mxU-iy-53R"/>
+                                                </connections>
                                             </button>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTx-r1-fS9">
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yTx-r1-fS9">
                                                 <rect key="frame" x="127" y="507" width="635" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="cD2-aR-tjE"/>
@@ -229,7 +235,7 @@
                                             <constraint firstItem="M66-s7-lzJ" firstAttribute="leading" secondItem="Ndm-lR-RtZ" secondAttribute="leading" id="cPO-S6-dJQ"/>
                                             <constraint firstItem="mfm-wx-PRN" firstAttribute="top" secondItem="Kkd-Ts-nYU" secondAttribute="bottom" constant="40" id="dIK-Fu-Edt"/>
                                             <constraint firstItem="JNx-BT-eY2" firstAttribute="top" secondItem="Ndm-lR-RtZ" secondAttribute="top" constant="7" id="f28-Ms-diD"/>
-                                            <constraint firstItem="pck-C1-4Z8" firstAttribute="leading" secondItem="yTx-r1-fS9" secondAttribute="trailing" constant="16" id="kPf-Xr-3Nc"/>
+                                            <constraint firstItem="pck-C1-4Z8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yTx-r1-fS9" secondAttribute="trailing" constant="16" id="kPf-Xr-3Nc"/>
                                             <constraint firstItem="RJe-kD-aOx" firstAttribute="leading" secondItem="Ndm-lR-RtZ" secondAttribute="leading" id="kSB-dT-5fM"/>
                                             <constraint firstAttribute="trailing" secondItem="RJe-kD-aOx" secondAttribute="trailing" id="lqW-Mz-TAD"/>
                                             <constraint firstItem="aiU-wR-I4J" firstAttribute="top" secondItem="9A6-aE-AoH" secondAttribute="bottom" constant="12" id="nAS-xF-NGo"/>
@@ -270,7 +276,13 @@
                     <navigationItem key="navigationItem" id="M9k-rE-0hB"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="bannerAds" destination="JNx-BT-eY2" id="ysP-V9-Sds"/>
+                        <outlet property="bestSellers" destination="Kkd-Ts-nYU" id="fVW-Rl-wCf"/>
                         <outlet property="navigationTitleView" destination="kxf-gW-fhA" id="WT2-C1-OKb"/>
+                        <outlet property="tagsStackView" destination="yTx-r1-fS9" id="K5C-R6-qeG"/>
+                        <outlet property="workbooksWithNewest" destination="RJe-kD-aOx" id="XCV-wc-CgW"/>
+                        <outlet property="workbooksWithRecent" destination="aiU-wR-I4J" id="SLz-dq-veB"/>
+                        <outlet property="workbooksWithTags" destination="M66-s7-lzJ" id="4Gy-vj-M1v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVL-Cv-bpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
