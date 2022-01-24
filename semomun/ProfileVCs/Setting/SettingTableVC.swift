@@ -8,12 +8,15 @@
 import UIKit
 
 class SettingTableVC: UITableViewController {
-    @IBOutlet weak var versionNum: UILabel!
+    static let storyboardName = "Profile"
+    static let identifier = "SettingTableVC"
+    
+    @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 109, bottom: 0, trailing: 109)
-        self.versionNum.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 알 수 없음"
+        self.versionLabel.text =  Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -58,7 +61,13 @@ extension SettingTableVC {
                 self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
             }
         case (1, 3):
-            break
+            guard let filepath = Bundle.main.path(forResource: "receiveMarketingInfo", ofType: "txt") else { return }
+            do {
+                let text = try String(contentsOfFile: filepath)
+                self.popupTextViewController(title: "마케팅 정보 수신", text: text, marketingInfo: true)
+            } catch {
+                self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
+            }
         default:
             break
         }
@@ -66,11 +75,11 @@ extension SettingTableVC {
     }
 }
 
-extension SettingTableVC {
-    private func popupTextViewController(title: String, text: String) {
+extension UIViewController {
+    func popupTextViewController(title: String, text: String, marketingInfo: Bool = false) {
         let storyboard = UIStoryboard(name: LongTextVC.storyboardName, bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: LongTextVC.identifier) as? LongTextVC else { return }
-        vc.configureUI(title: title, text: text)
+        vc.configureUI(title: title, text: text, marketingInfo: marketingInfo)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
