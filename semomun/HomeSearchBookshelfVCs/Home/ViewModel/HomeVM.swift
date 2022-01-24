@@ -23,21 +23,40 @@ final class HomeVM {
         self.networkUsecase = networkUsecase
     }
     
-    func fetchTags() {
-        guard let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] else { return }
-        self.tags = tags
+    func fetchAll() {
+        self.fetchTags()
+        self.fetchAds()
+        self.fetchBestSellers()
     }
     
-    func fetchAds() {
+    private func fetchTags() {
+        guard let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] else { return }
+        self.tags = tags
+        self.fetchWorkbooksWithTags()
+    }
+    
+    private func fetchAds() {
         self.ads = Array(repeating: "https://forms.gle/suXByYKEied6RcSd8", count: 5)
     }
     
-    func fetchBestSellers() {
+    private func fetchBestSellers() {
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
-                print(Array(workbooks.prefix(upTo: 10)))
                 self?.bestSellers = Array(workbooks.prefix(upTo: 10))
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+            }
+        }
+    }
+    
+    private func fetchWorkbooksWithTags() {
+        self.networkUsecase.getWorkbooks(tags: self.tags) { [weak self] status, workbooks in
+            switch status {
+            case .SUCCESS:
+                self?.workbooksWithTags = Array(workbooks.prefix(upTo: 10))
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -48,6 +67,10 @@ final class HomeVM {
     
     func bestSeller(index: Int) -> PreviewOfDB {
         return self.bestSellers[index]
+    }
+    
+    func workbookWithTags(index: Int) -> PreviewOfDB {
+        return self.workbooksWithTags[index]
     }
     
     func testAd(index: Int) -> String {
