@@ -144,7 +144,7 @@
                                                     <action selector="appendTags:" destination="bAq-Pq-D0s" eventType="touchUpInside" id="mxU-iy-53R"/>
                                                 </connections>
                                             </button>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yTx-r1-fS9">
+                                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yTx-r1-fS9">
                                                 <rect key="frame" x="127" y="507" width="635" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="cD2-aR-tjE"/>
