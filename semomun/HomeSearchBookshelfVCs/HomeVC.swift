@@ -9,7 +9,10 @@ import UIKit
 
 class HomeVC: UIViewController {
 
+    @IBOutlet weak var navigationTitleView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setShadow(with: navigationTitleView)
     }
 }
