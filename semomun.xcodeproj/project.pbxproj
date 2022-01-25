@@ -85,6 +85,8 @@
 		87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */; };
 		87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458558279EA86600E331F1 /* HomeAdCell.swift */; };
 		8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */; };
+		8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */; };
+		8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */; };
 		874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874600D5278C06E5001EB091 /* NetworkURL.swift */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
@@ -252,6 +254,8 @@
 		87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorkbookCell.swift; sourceTree = "<group>"; };
 		87458558279EA86600E331F1 /* HomeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdCell.swift; sourceTree = "<group>"; };
 		8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneWorkbookLabel.swift; sourceTree = "<group>"; };
+		8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVC.swift; sourceTree = "<group>"; };
+		8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVM.swift; sourceTree = "<group>"; };
 		874600D5278C06E5001EB091 /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
@@ -503,10 +507,10 @@
 			isa = PBXGroup;
 			children = (
 				87F5826A279E84A700A2BD15 /* Home */,
+				8745855C279FB84700E331F1 /* Search */,
 				259C000E27914171005D432B /* WorkbookDetailVC */,
+				8745855D279FB85B00E331F1 /* Purchase */,
 				25E6FF1C279AA6ED00FEDCC1 /* BookshelfVC */,
-				8716E932279A5F5D00B33A5E /* SearchVC.swift */,
-				8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */,
 			);
 			path = HomeSearchBookshelfVCs;
 			sourceTree = "<group>";
@@ -653,6 +657,40 @@
 				87458558279EA86600E331F1 /* HomeAdCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		8745855C279FB84700E331F1 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8716E932279A5F5D00B33A5E /* SearchVC.swift */,
+				8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */,
+				8745856027A000BA00E331F1 /* Cell */,
+				8745856127A000C300E331F1 /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		8745855D279FB85B00E331F1 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */,
+			);
+			path = Purchase;
+			sourceTree = "<group>";
+		};
+		8745856027A000BA00E331F1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		8745856127A000C300E331F1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8766B1F4277C448300061CE6 /* MutipleCellDelegate */ = {
@@ -1090,6 +1128,7 @@
 				25E6FF18279A9B7E00FEDCC1 /* MajorVC.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
+				8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */,
 				8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */,
 				87E7A54D277EC1BB00359BAE /* SemomunInfoDTO.swift in Sources */,
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
@@ -1170,6 +1209,7 @@
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,
 				256A3748279DA80800455655 /* SettingTableVC.swift in Sources */,
+				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
