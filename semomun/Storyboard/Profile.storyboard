@@ -1029,9 +1029,9 @@
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-4b-zkM">
                                 <rect key="frame" x="20" y="44" width="794" height="1110"/>
-                                <color key="backgroundColor" name="defaultBackground"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" name="defaultText"/>
+                                <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1079,37 +1079,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9X-Q0-mB4">
-                                <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VM-6g-eJm">
-                                        <rect key="frame" x="0.0" y="20" width="834" height="1110"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bH7-dP-Qeu">
-                                                <rect key="frame" x="380.5" y="452.5" width="73" height="31"/>
-                                                <color key="tintColor" name="grayTextColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="취소하기">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" name="defaultBackground"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" name="tableViewBackground"/>
-                                <constraints>
-                                    <constraint firstItem="9VM-6g-eJm" firstAttribute="centerY" secondItem="a9X-Q0-mB4" secondAttribute="centerY" id="OSZ-bM-NEb"/>
-                                    <constraint firstItem="9VM-6g-eJm" firstAttribute="top" secondItem="a9X-Q0-mB4" secondAttribute="top" constant="20" id="QRM-NS-FmF"/>
-                                    <constraint firstItem="9VM-6g-eJm" firstAttribute="centerX" secondItem="a9X-Q0-mB4" secondAttribute="centerX" id="Zuf-gq-FQm"/>
-                                    <constraint firstItem="9VM-6g-eJm" firstAttribute="leading" secondItem="a9X-Q0-mB4" secondAttribute="leading" id="kQh-Bh-fOX"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세모문 웹페이지에서 세모 페이 충전을 마치면" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-dx-6eR">
-                                <rect key="frame" x="257.5" y="312" width="319" height="21.5"/>
-                                <color key="tintColor" name="defaultText"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="defaultText"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-dx-6eR">
+                                <rect key="frame" x="257.5" y="356" width="319" height="53"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="세모문 웹페이지에서 세모 페이 충전을 마치면 아래 [충전완료]를 눌러주세요">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hty-DP-Oo9">
@@ -1229,7 +1208,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BKs-wu-pzt">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="회원탈퇴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BKs-wu-pzt">
                                                     <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -72,7 +72,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d3i-YA-IdH" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="SG0-XK-hxK"/>
                             <constraint firstItem="d3i-YA-IdH" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="yAL-5C-bDE"/>
@@ -176,7 +176,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vii-fi-KQ9"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rRm-6l-Yxd" firstAttribute="centerX" secondItem="vii-fi-KQ9" secondAttribute="centerX" id="KKK-7s-Ad8"/>
                             <constraint firstItem="rRm-6l-Yxd" firstAttribute="centerY" secondItem="vii-fi-KQ9" secondAttribute="centerY" constant="-40" id="Tlx-k8-hHn"/>
@@ -203,7 +203,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="원하는 분야 5개를 선택해 주세요" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dmn-D3-Z6N">
                                 <rect key="frame" x="100" y="144" width="231.5" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시작하기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EP-O7-OW7">
@@ -242,7 +242,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZlQ-9K-na5">
                                 <rect key="frame" x="100" y="189.5" width="634" height="744.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="obx-Tl-Uoo">
                                     <size key="itemSize" width="128" height="38"/>
                                     <size key="estimatedItemSize" width="128" height="38"/>
@@ -280,7 +280,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eKA-Vw-UxN"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZlQ-9K-na5" firstAttribute="leading" secondItem="Dmn-D3-Z6N" secondAttribute="leading" id="0om-HU-tXc"/>
                             <constraint firstItem="Dmn-D3-Z6N" firstAttribute="leading" secondItem="eKA-Vw-UxN" secondAttribute="leading" constant="100" id="2bw-Fr-Hky"/>
