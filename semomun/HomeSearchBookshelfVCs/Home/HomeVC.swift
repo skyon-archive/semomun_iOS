@@ -16,6 +16,8 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var workbooksWithRecent: UICollectionView!
     @IBOutlet weak var workbooksWithNewest: UICollectionView!
     @IBOutlet weak var tagsStackView: UIStackView!
+    @IBOutlet weak var recentHeight: NSLayoutConstraint!
+    @IBOutlet weak var newestHeight: NSLayoutConstraint!
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -25,7 +27,7 @@ final class HomeVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
-        self.viewModel?.fetchAll()
+        self.fetch()
     }
     
     @IBAction func appendTags(_ sender: Any) {
@@ -82,6 +84,36 @@ extension HomeVC {
                 widthSum += width+8
             }
         }
+    }
+    
+    private func fetch() {
+        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        if isLogined {
+            self.viewModel?.fetchAll()
+        } else {
+            self.viewModel?.fetchSome()
+            self.configureLoginTextView()
+        }
+    }
+    
+    private func configureLoginTextView() {
+        self.recentHeight.constant = 72
+        self.newestHeight.constant = 72
+        
+        let label = NoneWorkbookLabel()
+        label.text = "아직 푼 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
+        self.workbooksWithRecent.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: self.workbooksWithRecent.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 32)
+        ])
+        let label2 = NoneWorkbookLabel()
+        label2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
+        self.workbooksWithNewest.addSubview(label2)
+        NSLayoutConstraint.activate([
+            label2.centerYAnchor.constraint(equalTo: self.workbooksWithNewest.centerYAnchor),
+            label2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 32)
+        ])
     }
 }
 
