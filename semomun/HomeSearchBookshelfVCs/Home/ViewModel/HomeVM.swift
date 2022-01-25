@@ -24,15 +24,19 @@ final class HomeVM {
     }
     
     func fetchAll() {
-        self.fetchTags()
-        self.fetchAds()
-        self.fetchBestSellers()
+        self.fetchSome()
         self.fetchWorkbooksWithRecent()
         self.fetchWorkbooksWithNewest()
     }
     
+    func fetchSome() {
+        self.fetchTags()
+        self.fetchAds()
+        self.fetchBestSellers()
+    }
+    
     private func fetchTags() {
-        guard let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] else { return }
+        let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] ?? ["수능"]
         self.tags = tags
         self.fetchWorkbooksWithTags()
     }

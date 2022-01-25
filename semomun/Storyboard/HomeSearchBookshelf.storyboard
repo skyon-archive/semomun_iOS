@@ -22,8 +22,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxf-gW-fhA">
                                 <rect key="frame" x="-5" y="4" width="844" height="110"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-NH-YEZ">
-                                        <rect key="frame" x="37" y="44.5" width="90" height="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-NH-YEZ">
+                                        <rect key="frame" x="37" y="44.5" width="26" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -453,6 +453,8 @@
                         <outlet property="bannerAds" destination="JNx-BT-eY2" id="ysP-V9-Sds"/>
                         <outlet property="bestSellers" destination="Kkd-Ts-nYU" id="fVW-Rl-wCf"/>
                         <outlet property="navigationTitleView" destination="kxf-gW-fhA" id="WT2-C1-OKb"/>
+                        <outlet property="newestHeight" destination="w4C-c7-qoo" id="wKP-B4-uYw"/>
+                        <outlet property="recentHeight" destination="BQw-CJ-YSp" id="lLG-Vj-er0"/>
                         <outlet property="tagsStackView" destination="yTx-r1-fS9" id="K5C-R6-qeG"/>
                         <outlet property="workbooksWithNewest" destination="RJe-kD-aOx" id="XCV-wc-CgW"/>
                         <outlet property="workbooksWithRecent" destination="aiU-wR-I4J" id="SLz-dq-veB"/>
