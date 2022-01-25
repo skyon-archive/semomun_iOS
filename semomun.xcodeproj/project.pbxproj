@@ -73,6 +73,7 @@
 		87458554279E86B100E331F1 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458553279E86B100E331F1 /* HomeVM.swift */; };
 		87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */; };
 		87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458558279EA86600E331F1 /* HomeAdCell.swift */; };
+		8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */; };
 		874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874600D5278C06E5001EB091 /* NetworkURL.swift */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
@@ -228,6 +229,7 @@
 		87458553279E86B100E331F1 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorkbookCell.swift; sourceTree = "<group>"; };
 		87458558279EA86600E331F1 /* HomeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdCell.swift; sourceTree = "<group>"; };
+		8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneWorkbookLabel.swift; sourceTree = "<group>"; };
 		874600D5278C06E5001EB091 /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 		8716F335279CEA1C00B7C8DD /* NewNewGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				87C85E3A276F66AB001C9C4A /* View */,
 				87C85E39276F66A3001C9C4A /* Extension */,
 				8726CB0E278D2040004D9CC0 /* Manager */,
 				87F58267279E653100A2BD15 /* CollectionViewFlowLayout */,
@@ -653,7 +656,6 @@
 			children = (
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				87E151612787DBE20080D39A /* ViewController */,
-				87C85E3A276F66AB001C9C4A /* View */,
 				879B172C2772CC030042478F /* UseCase */,
 				87EB46942783452100052BCE /* Secure */,
 			);
@@ -754,6 +756,7 @@
 				87C85E49276F676C001C9C4A /* UserInfoToggleView.swift */,
 				8755ABD527731E7600752745 /* ProblemTimerView.swift */,
 				87AD6CED2774196C00996937 /* ProblemTextResultView.swift */,
+				8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1113,6 +1116,7 @@
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
+				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
