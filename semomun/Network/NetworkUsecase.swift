@@ -417,7 +417,14 @@ extension NetworkUsecase: WorkbooksWithNewestFetchable {
 
 extension NetworkUsecase: PopularTagsFetchable {
     func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void) {
-        let dumyTags = ["국가 기술 자격","수학의 정석","기업 적성검사","해커스어학연구소","취업/상식","좋은책신사고","국가직 7급 공무원","국사편찬위원회","쎈","교육청","대한상공회의소","수능","국사편찬위원회"]
-        completion(.SUCCESS, dumyTags+dumyTags)
+        let dummyTags = ["국가 기술 자격","수학의 정석","기업 적성검사","해커스어학연구소","취업/상식","좋은책신사고","국가직 7급 공무원","국사편찬위원회","쎈","교육청","대한상공회의소","수능","국사편찬위원회"]
+        completion(.SUCCESS, dummyTags+dummyTags)
+    }
+}
+
+extension NetworkUsecase: SearchTagsFetchable {
+    func getTagsFromSearch(text: String, complection: @escaping (NetworkStatus, [String]) -> Void) {
+        let dummyTags = ["수능","수학","수학1","수학2","수리논술","수학가형","수학나형","수리"]
+        complection(.SUCCESS, dummyTags)
     }
 }

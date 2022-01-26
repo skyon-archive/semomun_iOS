@@ -105,5 +105,6 @@ extension SearchFavoriteTagsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let tag = self.viewModel?.tag(index: indexPath.item) else { return }
         self.delegate?.appendTag(name: tag)
+        self.delegate?.changeToSearchTagsFromTextVC()
     }
 }
