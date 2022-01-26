@@ -10,8 +10,8 @@ import Alamofire
 
 struct Network: NetworkFetchable {
     func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void) {
-        print(url, param)
         let param = param != nil ? param : [:]
+        print(url, param)
         AF.request(url, method: .get, parameters: param)
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
