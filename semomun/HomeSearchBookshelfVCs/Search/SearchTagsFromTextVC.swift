@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class SearchTagsFromTextVC: UIViewController {
+final class SearchTagsFromTextVC: UIViewController {
     static let identifier = "SearchTagsFromTextVC"
     static let storyboardName = "HomeSearchBookshelf"
     
