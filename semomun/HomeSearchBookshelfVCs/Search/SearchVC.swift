@@ -9,11 +9,9 @@ import UIKit
 import Combine
 
 protocol SearchControlable: AnyObject {
-    func hiddenRemoveTextBT()
-    func hiddenSearchBT()
-    func hiddenCancelSearchBT()
     func appendTag(name: String)
     func changeToSearchFavoriteTagsVC()
+    func changeToSearchTagsFromTextVC()
 }
 
 class SearchVC: UIViewController {
@@ -32,9 +30,16 @@ class SearchVC: UIViewController {
     private var viewModel: SearchVM?
     private var cancellables: Set<AnyCancellable> = []
     private var currentChildVC: UIViewController?
+    private var isSearchTagsFromTextVC: Bool = false
     private lazy var searchFavoriteTagsVC: UIViewController = {
         let storyboard = UIStoryboard(name: SearchFavoriteTagsVC.storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchFavoriteTagsVC.identifier) as? SearchFavoriteTagsVC else { return UIViewController() }
+        viewController.configureDelegate(delegate: self)
+        return viewController
+    }()
+    private lazy var searchTagsFromTextVC: UIViewController = {
+        let storyboard = UIStoryboard(name: SearchTagsFromTextVC.storyboardName, bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC else { return UIViewController() }
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
@@ -51,7 +56,11 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func removeText(_ sender: Any) {
-        
+        self.searchTextField.text = ""
+        self.hiddenRemoveTextBT()
+        if self.viewModel?.tags.isEmpty ?? true {
+            self.hiddenSearchBT()
+        }
     }
     
     @IBAction func search(_ sender: Any) {
@@ -146,16 +155,20 @@ extension SearchVC: UICollectionViewDelegate {
 // MARK: - Logic
 extension SearchVC {
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let count = textField.text?.count else { return }
-        if count == 0 {
+        guard let text = textField.text else { return }
+        if text.count == 0 {
             self.hiddenSearchBT()
             self.hiddenRemoveTextBT()
         } else {
-            // change SecondVC
+            if !self.isSearchTagsFromTextVC {
+                print("change")
+                self.changeToSearchTagsFromTextVC()
+            }
             self.showRemoveTextBT()
             self.showSearchBT()
             self.showCancelSearchBT()
         }
+        NotificationCenter.default.post(name: .fetchTagsFromSearch, object: nil, userInfo: ["text" : text])
     }
     
     private func removeChildVC() {
@@ -172,38 +185,50 @@ extension SearchVC {
     }
 }
 
-// MARK: - Delegate
-extension SearchVC: SearchControlable {
-    func hiddenRemoveTextBT() {
+// MARK: - ConfigureUI {
+extension SearchVC {
+    private func hiddenRemoveTextBT() {
         self.removeTextBT.isHidden = true
     }
     
-    func hiddenSearchBT() {
+    private func hiddenSearchBT() {
         self.searchBT.isHidden = true
     }
     
-    func hiddenCancelSearchBT() {
+    private func hiddenCancelSearchBT() {
         self.cancelSearchBT.isHidden = true
     }
     
-    func showRemoveTextBT() {
+    private func showRemoveTextBT() {
         self.removeTextBT.isHidden = false
     }
     
-    func showSearchBT() {
+    private func showSearchBT() {
         self.searchBT.isHidden = false
     }
     
-    func showCancelSearchBT() {
+    private func showCancelSearchBT() {
         self.cancelSearchBT.isHidden = false
     }
-    
+}
+
+// MARK: - Delegate
+extension SearchVC: SearchControlable {
     func appendTag(name: String) {
         self.viewModel?.append(tag: name)
+        self.searchTextField.text = ""
+        self.hiddenRemoveTextBT()
     }
     
     func changeToSearchFavoriteTagsVC() {
         self.removeChildVC()
         self.changeChildVC(to: self.searchFavoriteTagsVC)
+        self.isSearchTagsFromTextVC = false
+    }
+    
+    func changeToSearchTagsFromTextVC() {
+        self.removeChildVC()
+        self.changeChildVC(to: self.searchTagsFromTextVC)
+        self.isSearchTagsFromTextVC = true
     }
 }
