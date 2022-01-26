@@ -17,6 +17,7 @@
 		2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627729279EE6C7006F9370 /* MainThemeSwitch.swift */; };
 		2562772E27A16C56006F9370 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* Purchase.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
+		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		256A3748279DA80800455655 /* SettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* SettingTableVC.swift */; };
 		256A3752279EC8C400455655 /* LogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3751279EC8C400455655 /* LogoutCell.swift */; };
 		256A3754279ECC7B00455655 /* BeforeLoginSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* BeforeLoginSettingTableVC.swift */; };
@@ -198,6 +199,7 @@
 		25627729279EE6C7006F9370 /* MainThemeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThemeSwitch.swift; sourceTree = "<group>"; };
 		2562772D27A16C56006F9370 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
+		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* SettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableVC.swift; sourceTree = "<group>"; };
 		256A3751279EC8C400455655 /* LogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCell.swift; sourceTree = "<group>"; };
 		256A3753279ECC7B00455655 /* BeforeLoginSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeLoginSettingTableVC.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				25D1BDE1279D741600807196 /* ChangeUserinfo */,
 				25D1BDDC279D3A3300807196 /* ProfileVC */,
 				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
+				2562773127A19E51006F9370 /* SemopayCell.swift */,
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
 				2562772F27A17E00006F9370 /* MyPurchaseCell.swift */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
@@ -1208,6 +1211,7 @@
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
 				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
+				2562773227A19E52006F9370 /* SemopayCell.swift in Sources */,
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
 				8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */,
