@@ -37,3 +37,6 @@ protocol WorkbooksWithNewestFetchable {
 protocol PopularTagsFetchable {
     func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void)
 }
+protocol SearchTagsFetchable {
+    func getTagsFromSearch(text: String, complection: @escaping (NetworkStatus, [String]) -> Void)
+}
