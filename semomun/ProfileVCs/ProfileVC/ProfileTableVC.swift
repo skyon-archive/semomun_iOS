@@ -35,9 +35,9 @@ extension ProfileTableVC {
         case (0, 0):
             return
         case (1, 0):
-            nextVC = storyboard.instantiateViewController(withIdentifier: SemopayVC.identifier)
-        case (1, 1):
             nextVC = storyboard.instantiateViewController(withIdentifier: MyPurchasesVC.identifier)
+        case (1, 1):
+            nextVC = storyboard.instantiateViewController(withIdentifier: SemopayVC.identifier)
         case (2, 0):
             nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
         default:
