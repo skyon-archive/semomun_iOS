@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol SearchControlable: AnyObject {
     func hiddenRemoveTextBT()
@@ -28,6 +29,8 @@ class SearchVC: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tagList: UICollectionView!
     
+    private var viewModel: SearchVM?
+    private var cancellables: Set<AnyCancellable> = []
     private var currentChildVC: UIViewController?
     private lazy var searchFavoriteTagsVC: UIViewController = {
         let storyboard = UIStoryboard(name: SearchFavoriteTagsVC.storyboardName, bundle: nil)
@@ -40,6 +43,8 @@ class SearchVC: UIViewController {
         super.viewDidLoad()
         self.setShadow(with: searchView)
         self.configureUI()
+        self.configureViewModel()
+        self.bindAll()
         self.configureCollectionView()
         self.configureTextFieldAction()
         self.changeToSearchFavoriteTagsVC()
@@ -58,7 +63,7 @@ class SearchVC: UIViewController {
         self.searchTextField.text = ""
         self.hiddenSearchBT()
         self.hiddenRemoveTextBT()
-        // tag 리스트 삭제
+        self.viewModel?.removeAll()
         self.hiddenCancelSearchBT()
         self.dismissKeyboard()
     }
@@ -80,9 +85,13 @@ extension SearchVC {
         self.searchInnerView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
     }
     
+    private func configureViewModel() {
+        self.viewModel = SearchVM()
+    }
+    
     private func configureCollectionView() {
-//        self.tagList.delegate = self
-//        self.tagList.dataSource = self
+        self.tagList.delegate = self
+        self.tagList.dataSource = self
     }
     
     private func configureTextFieldAction() {
@@ -90,20 +99,49 @@ extension SearchVC {
     }
 }
 
+// MARK: - Binding
+extension SearchVC {
+    private func bindAll() {
+        self.bindTags()
+    }
+    
+    private func bindTags() {
+        self.viewModel?.$tags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] tags in
+                self?.tagList.reloadData()
+                if tags.count > 0 {
+                    self?.showSearchBT()
+                    self?.showCancelSearchBT()
+                } else if tags.count == 0 {
+                    self?.hiddenSearchBT()
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+}
+
 // MARK: - CollectionView
-//extension SearchVC: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//    }
-//}
-//
-//extension SearchVC: UICollectionViewDelegate {
-//
-//}
+extension SearchVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel?.tags.count ?? 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallTagCell.identifier, for: indexPath) as? SmallTagCell else { return UICollectionViewCell() }
+        guard let tag = self.viewModel?.tag(index: indexPath.item) else { return cell }
+        cell.configure(tag: tag)
+        
+        return cell
+    }
+}
+
+extension SearchVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel?.removeTag(index: indexPath.item)
+    }
+}
 
 // MARK: - Logic
 extension SearchVC {
@@ -161,7 +199,7 @@ extension SearchVC: SearchControlable {
     }
     
     func appendTag(name: String) {
-        print(name)
+        self.viewModel?.append(tag: name)
     }
     
     func changeToSearchFavoriteTagsVC() {

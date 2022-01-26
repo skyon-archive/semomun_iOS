@@ -89,6 +89,8 @@
 		8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */; };
 		874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874600D5278C06E5001EB091 /* NetworkURL.swift */; };
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
+		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
+		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
@@ -259,6 +261,8 @@
 		8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVM.swift; sourceTree = "<group>"; };
 		874600D5278C06E5001EB091 /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
+		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
+		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -684,6 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
+				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 		8745856127A000C300E331F1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				87599FF427A10E1D00E27042 /* SearchVM.swift */,
 				8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */,
 			);
 			path = ViewModel;
@@ -1119,6 +1125,7 @@
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
 				8716E95E279A626A00B33A5E /* SingleWith5AnswerVC.swift in Sources */,
 				87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */,
+				87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */,
@@ -1159,6 +1166,7 @@
 				256A3752279EC8C400455655 /* LogoutCell.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
+				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
 				8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */,
