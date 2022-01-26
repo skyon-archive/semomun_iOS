@@ -43,6 +43,10 @@ class SearchVC: UIViewController {
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
+    private lazy var searchResultVC: UIViewController = {
+        let storyboard = UIStoryboard(name: SearchResultVC.storyboardName, bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: SearchResultVC.identifier)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +68,10 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func search(_ sender: Any) {
-        
+        self.removeChildVC()
+        self.changeChildVC(to: self.searchResultVC)
+        self.isSearchTagsFromTextVC = false
+        self.dismissKeyboard()
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
