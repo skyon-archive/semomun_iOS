@@ -283,14 +283,14 @@
                                 <color key="backgroundColor" name="lightGrayBackgroundColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="67" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xBl-3w-uh0">
-                                <rect key="frame" x="0.0" y="124" width="834" height="1050"/>
+                                <rect key="frame" x="33" y="124" width="768" height="1050"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SemopayCell" id="FzQ-2X-jSr" customClass="SemopayCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="49.5" width="802" height="67"/>
+                                        <rect key="frame" x="16" y="49.5" width="736" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FzQ-2X-jSr" id="Xhc-5Y-ena">
-                                            <rect key="frame" x="0.0" y="0.0" width="802" height="67"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="736" height="67"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022.02.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF7-NA-miv">
@@ -306,7 +306,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-10,000원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tQ-q9-MAh">
-                                                    <rect key="frame" x="664" y="25" width="63" height="17"/>
+                                                    <rect key="frame" x="598" y="25" width="63" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -379,7 +379,7 @@
                             <constraint firstItem="QaV-X2-sNV" firstAttribute="top" secondItem="krg-Lw-caO" secondAttribute="top" id="nmg-SJ-SxC"/>
                             <constraint firstItem="QaV-X2-sNV" firstAttribute="centerY" secondItem="krg-Lw-caO" secondAttribute="centerY" id="uy9-m7-Lir"/>
                             <constraint firstItem="QaV-X2-sNV" firstAttribute="centerX" secondItem="krg-Lw-caO" secondAttribute="centerX" id="wtZ-Sl-7ih"/>
-                            <constraint firstItem="xBl-3w-uh0" firstAttribute="leading" secondItem="krg-Lw-caO" secondAttribute="leading" id="zfk-Nq-GYg"/>
+                            <constraint firstItem="xBl-3w-uh0" firstAttribute="leading" secondItem="krg-Lw-caO" secondAttribute="leading" constant="33" id="zfk-Nq-GYg"/>
                         </constraints>
                     </view>
                     <connections>
