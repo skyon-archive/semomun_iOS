@@ -665,7 +665,7 @@
                         <outlet property="removeTextBT" destination="jAJ-hl-JAT" id="P4w-VU-Vry"/>
                         <outlet property="searchBT" destination="HWY-XN-FV0" id="YMo-g3-d3q"/>
                         <outlet property="searchInnerView" destination="LQ2-YD-FGr" id="s2h-la-CE0"/>
-                        <outlet property="searchTextField" destination="xeS-LG-pER" id="KxG-Cz-Sw3"/>
+                        <outlet property="searchTextField" destination="xeS-LG-pER" id="S7C-hs-ldS"/>
                         <outlet property="searchView" destination="F6w-gQ-FSf" id="kJx-4O-Z7g"/>
                         <outlet property="tagList" destination="cYf-1g-pWY" id="AB0-ew-Z5r"/>
                     </connections>
