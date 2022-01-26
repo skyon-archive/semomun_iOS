@@ -555,22 +555,22 @@
                                             <action selector="cancelSearch:" destination="2BD-WC-27W" eventType="touchUpInside" id="qWk-NT-6vT"/>
                                         </connections>
                                     </button>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cYf-1g-pWY">
-                                        <rect key="frame" x="120" y="194" width="594" height="29"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cYf-1g-pWY">
+                                        <rect key="frame" x="120" y="190" width="594" height="30"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="29" id="FUq-Bd-yh6"/>
+                                            <constraint firstAttribute="height" constant="30" id="FUq-Bd-yh6"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Qu-wu-iTb">
                                             <size key="itemSize" width="128" height="29"/>
-                                            <size key="estimatedItemSize" width="128" height="29"/>
+                                            <size key="estimatedItemSize" width="128" height="30"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="caP-nr-M5j">
-                                                <rect key="frame" x="0.0" y="0.0" width="107" height="29"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SmallTagCell" id="caP-nr-M5j" customClass="SmallTagCell" customModule="semomun" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.5" width="107" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hh6-4y-5Gx">
                                                     <rect key="frame" x="0.0" y="0.0" width="107" height="29"/>
@@ -599,6 +599,9 @@
                                                         <constraint firstItem="AAe-CF-iHq" firstAttribute="leading" secondItem="SQP-v9-Vhf" secondAttribute="trailing" constant="4" id="zlm-fI-AsC"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="title" destination="SQP-v9-Vhf" id="Sj8-hD-N50"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
@@ -607,14 +610,14 @@
                                 <constraints>
                                     <constraint firstItem="iDI-Md-b5T" firstAttribute="height" secondItem="LQ2-YD-FGr" secondAttribute="height" id="D9L-fK-8YW"/>
                                     <constraint firstAttribute="height" constant="228" id="DcI-bW-cg7"/>
-                                    <constraint firstAttribute="bottom" secondItem="LQ2-YD-FGr" secondAttribute="bottom" constant="46" id="I95-Jr-U4w"/>
                                     <constraint firstItem="LQ2-YD-FGr" firstAttribute="centerX" secondItem="F6w-gQ-FSf" secondAttribute="centerX" id="MMK-sB-gR9"/>
                                     <constraint firstItem="cYf-1g-pWY" firstAttribute="trailing" secondItem="LQ2-YD-FGr" secondAttribute="trailing" id="Qi2-sz-fRl"/>
                                     <constraint firstItem="LQ2-YD-FGr" firstAttribute="leading" secondItem="F6w-gQ-FSf" secondAttribute="leading" constant="120" id="i7b-0g-YIk"/>
                                     <constraint firstItem="iDI-Md-b5T" firstAttribute="centerY" secondItem="LQ2-YD-FGr" secondAttribute="centerY" id="ifG-0y-MPW"/>
-                                    <constraint firstItem="cYf-1g-pWY" firstAttribute="top" secondItem="LQ2-YD-FGr" secondAttribute="bottom" constant="12" id="p5B-Pt-6hD"/>
+                                    <constraint firstItem="cYf-1g-pWY" firstAttribute="top" secondItem="LQ2-YD-FGr" secondAttribute="bottom" constant="8" id="p5B-Pt-6hD"/>
                                     <constraint firstItem="iDI-Md-b5T" firstAttribute="leading" secondItem="LQ2-YD-FGr" secondAttribute="trailing" constant="5" id="rTa-I9-4iJ"/>
                                     <constraint firstItem="cYf-1g-pWY" firstAttribute="leading" secondItem="LQ2-YD-FGr" secondAttribute="leading" id="rbI-dz-Ggd"/>
+                                    <constraint firstAttribute="bottom" secondItem="cYf-1g-pWY" secondAttribute="bottom" constant="8" id="ulc-Gp-zau"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPD-Dk-Y6f" userLabel="titleView">
