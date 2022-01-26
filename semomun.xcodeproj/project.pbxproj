@@ -66,6 +66,9 @@
 		8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */; };
 		8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F338279D001400B7C8DD /* StartSettingVM.swift */; };
 		8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F33B279D302C00B7C8DD /* StartTagCell.swift */; };
+		87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */; };
+		87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */; };
+		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
@@ -240,6 +243,9 @@
 		8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerVC.swift; sourceTree = "<group>"; };
 		8716F338279D001400B7C8DD /* StartSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVM.swift; sourceTree = "<group>"; };
 		8716F33B279D302C00B7C8DD /* StartTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTagCell.swift; sourceTree = "<group>"; };
+		87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTagCell.swift; sourceTree = "<group>"; };
+		87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVC.swift; sourceTree = "<group>"; };
+		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -670,8 +676,9 @@
 			children = (
 				8716E932279A5F5D00B33A5E /* SearchVC.swift */,
 				8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */,
-				8745856027A000BA00E331F1 /* Cell */,
+				87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */,
 				8745856127A000C300E331F1 /* ViewModel */,
+				8745856027A000BA00E331F1 /* Cell */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -689,6 +696,7 @@
 			children = (
 				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
 				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
+				87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -698,6 +706,7 @@
 			children = (
 				87599FF427A10E1D00E27042 /* SearchVM.swift */,
 				8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */,
+				87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1214,12 +1223,14 @@
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,
+				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
 				87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */,
 				87EA7FF02784727500B6EFC3 /* RequestResult.swift in Sources */,
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,
 				256A3748279DA80800455655 /* SettingTableVC.swift in Sources */,
+				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
@@ -1239,6 +1250,7 @@
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
+				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
 				87C85ED7276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				25DFE610279A897F0057714B /* CategoryManager.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
