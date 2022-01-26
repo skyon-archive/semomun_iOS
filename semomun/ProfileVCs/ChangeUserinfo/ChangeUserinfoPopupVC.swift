@@ -13,6 +13,10 @@ class ChangeUserinfoPopupVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "ChangeUserinfoPopupVC"
     
+    private enum PhoneAuthState {
+        case confirmed, waiting
+    }
+    
     private var majorsFromNetwork: [[String: [String]]] = []
     private var majors: [String] {
         majorsFromNetwork.compactMap { $0.keys.first }
@@ -35,8 +39,14 @@ class ChangeUserinfoPopupVC: UIViewController {
     private let networkUseCase = NetworkUsecase(network: Network())
     
     @IBOutlet weak var bodyFrame: UIView!
+    
     @IBOutlet weak var nicknameFrame: UIView!
     @IBOutlet weak var nickname: UITextField!
+    
+    
+    @IBOutlet weak var phoneNumTF: UITextField!
+    @IBOutlet weak var phoneNumFrame: UIView!
+    @IBOutlet weak var authPhoneNumButton: UIButton!
     
     @IBOutlet weak var majorCollectionView: UICollectionView!
     @IBOutlet weak var majorDetailCollectionView: UICollectionView!
@@ -48,9 +58,20 @@ class ChangeUserinfoPopupVC: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "계정 정보 변경하기"
         bodyFrame.layer.cornerRadius = 15
+        
+        self.bodyFrame.layer.shadowColor = UIColor.gray.cgColor
+        self.bodyFrame.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.bodyFrame.layer.shadowOpacity = 0.4
+        self.bodyFrame.layer.shadowRadius = 4
+        
         nicknameFrame.layer.borderWidth = 1.5
         nicknameFrame.layer.borderColor = UIColor(named: "mainColor")?.cgColor
         nicknameFrame.layer.cornerRadius = 5
+        
+        phoneNumFrame.layer.borderWidth = 1.5
+        phoneNumFrame.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        phoneNumFrame.layer.cornerRadius = 5
+        
         networkUseCase.getMajors { fetched in
             self.majorsFromNetwork = fetched ?? []
             if let userInfo = CoreUsecase.fetchUserInfo() {
@@ -98,7 +119,7 @@ class ChangeUserinfoPopupVC: UIViewController {
     
     @IBAction func submit(_ sender: Any) {
         guard majorDetails.contains(selectedDetailMajor) else {
-            showAlertWithOK(title: "상세 계열을 선택해주세요.", text: "")
+            showAlertWithOK(title: "전공을 선택해주세요.", text: "")
             return
         }
         guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
