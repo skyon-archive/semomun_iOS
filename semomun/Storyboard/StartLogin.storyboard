@@ -243,7 +243,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZlQ-9K-na5">
                                 <rect key="frame" x="100" y="189.5" width="634" height="744.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="obx-Tl-Uoo">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="18" minimumInteritemSpacing="8" id="obx-Tl-Uoo">
                                     <size key="itemSize" width="128" height="38"/>
                                     <size key="estimatedItemSize" width="128" height="38"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
