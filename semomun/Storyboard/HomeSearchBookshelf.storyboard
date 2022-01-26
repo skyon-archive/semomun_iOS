@@ -878,6 +878,33 @@
             </objects>
             <point key="canvasLocation" x="1534" y="738"/>
         </scene>
+        <!--Search ResultVC-->
+        <scene sceneID="pZB-fi-8IJ">
+            <objects>
+                <viewController storyboardIdentifier="SearchResultVC" id="YDa-1a-nQb" customClass="SearchResultVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HGt-hU-jKq">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문제집 결과창" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mg-BT-NOe">
+                                <rect key="frame" x="309" y="575" width="216" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IyP-F8-VS0"/>
+                        <color key="backgroundColor" name="lightGrayBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6mg-BT-NOe" firstAttribute="centerX" secondItem="IyP-F8-VS0" secondAttribute="centerX" id="DLY-vL-3NY"/>
+                            <constraint firstItem="6mg-BT-NOe" firstAttribute="centerY" secondItem="IyP-F8-VS0" secondAttribute="centerY" id="Frm-ae-3nX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A0x-wd-6hb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2245" y="738"/>
+        </scene>
         <!--Workbook DetailVC-->
         <scene sceneID="skC-tp-odr">
             <objects>
