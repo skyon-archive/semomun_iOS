@@ -23,7 +23,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchInnerView: UIView!
     @IBOutlet weak var removeTextBT: UIView!
     @IBOutlet weak var cancelSearchBT: UIView!
-    @IBOutlet weak var searchTextField: UIView!
+    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchBT: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tagList: UICollectionView!
@@ -41,6 +41,7 @@ class SearchVC: UIViewController {
         self.setShadow(with: searchView)
         self.configureUI()
         self.configureCollectionView()
+        self.configureTextFieldAction()
         self.changeToSearchFavoriteTagsVC()
     }
     
@@ -53,7 +54,13 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
-        
+        self.changeToSearchFavoriteTagsVC()
+        self.searchTextField.text = ""
+        self.hiddenSearchBT()
+        self.hiddenRemoveTextBT()
+        // tag 리스트 삭제
+        self.hiddenCancelSearchBT()
+        self.dismissKeyboard()
     }
 }
 
@@ -77,6 +84,10 @@ extension SearchVC {
 //        self.tagList.delegate = self
 //        self.tagList.dataSource = self
     }
+    
+    private func configureTextFieldAction() {
+        self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
 }
 
 // MARK: - CollectionView
@@ -96,6 +107,19 @@ extension SearchVC {
 
 // MARK: - Logic
 extension SearchVC {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let count = textField.text?.count else { return }
+        if count == 0 {
+            self.hiddenSearchBT()
+            self.hiddenRemoveTextBT()
+        } else {
+            // change SecondVC
+            self.showRemoveTextBT()
+            self.showSearchBT()
+            self.showCancelSearchBT()
+        }
+    }
+    
     private func removeChildVC() {
         self.currentChildVC?.willMove(toParent: nil)
         self.currentChildVC?.view.removeFromSuperview()
@@ -122,6 +146,18 @@ extension SearchVC: SearchControlable {
     
     func hiddenCancelSearchBT() {
         self.cancelSearchBT.isHidden = true
+    }
+    
+    func showRemoveTextBT() {
+        self.removeTextBT.isHidden = false
+    }
+    
+    func showSearchBT() {
+        self.searchBT.isHidden = false
+    }
+    
+    func showCancelSearchBT() {
+        self.cancelSearchBT.isHidden = false
     }
     
     func appendTag(name: String) {
