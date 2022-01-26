@@ -11,6 +11,8 @@ protocol SearchControlable: AnyObject {
     func hiddenRemoveTextBT()
     func hiddenSearchBT()
     func hiddenCancelSearchBT()
+    func appendTag(name: String)
+    func changeToSearchFavoriteTagsVC()
 }
 
 class SearchVC: UIViewController {
@@ -26,11 +28,20 @@ class SearchVC: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tagList: UICollectionView!
     
+    private var currentChildVC: UIViewController?
+    private lazy var searchFavoriteTagsVC: UIViewController = {
+        let storyboard = UIStoryboard(name: SearchFavoriteTagsVC.storyboardName, bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchFavoriteTagsVC.identifier) as? SearchFavoriteTagsVC else { return UIViewController() }
+        viewController.configureDelegate(delegate: self)
+        return viewController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setShadow(with: searchView)
         self.configureUI()
         self.configureCollectionView()
+        self.changeToSearchFavoriteTagsVC()
     }
     
     @IBAction func removeText(_ sender: Any) {
@@ -83,6 +94,22 @@ extension SearchVC {
 //
 //}
 
+// MARK: - Logic
+extension SearchVC {
+    private func removeChildVC() {
+        self.currentChildVC?.willMove(toParent: nil)
+        self.currentChildVC?.view.removeFromSuperview()
+        self.currentChildVC?.removeFromParent()
+    }
+    
+    private func changeChildVC(to targetVC: UIViewController) {
+        targetVC.view.frame = self.containerView.bounds
+        self.containerView.addSubview(targetVC.view)
+        self.addChild(targetVC)
+        targetVC.didMove(toParent: self)
+    }
+}
+
 // MARK: - Delegate
 extension SearchVC: SearchControlable {
     func hiddenRemoveTextBT() {
@@ -95,5 +122,14 @@ extension SearchVC: SearchControlable {
     
     func hiddenCancelSearchBT() {
         self.cancelSearchBT.isHidden = true
+    }
+    
+    func appendTag(name: String) {
+        print(name)
+    }
+    
+    func changeToSearchFavoriteTagsVC() {
+        self.removeChildVC()
+        self.changeChildVC(to: self.searchFavoriteTagsVC)
     }
 }

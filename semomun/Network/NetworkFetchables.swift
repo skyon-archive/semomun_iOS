@@ -34,3 +34,6 @@ protocol WorkbooksWithRecentFetchable {
 protocol WorkbooksWithNewestFetchable {
     func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
+protocol PopularTagsFetchable {
+    func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void)
+}
