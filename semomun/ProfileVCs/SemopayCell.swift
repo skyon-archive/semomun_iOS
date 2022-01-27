@@ -18,3 +18,5 @@ final class SemopayCell: UITableViewCell {
         super.prepareForReuse()
     }
 }
+
+
