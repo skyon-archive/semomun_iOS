@@ -428,3 +428,28 @@ extension NetworkUsecase: SearchTagsFetchable {
         complection(.SUCCESS, dummyTags)
     }
 }
+
+extension NetworkUsecase: SearchFetchable {
+    func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+        let param = ["c": "수능모의고사"]
+        self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode,
+                  let data = requestResult.data else {
+                print("Error: no requestResult")
+                completion(.ERROR, [])
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode), \(String(data: data, encoding: .utf8)!)")
+                completion(.ERROR, [])
+                return
+            }
+            guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
+                print("Error: Decode")
+                completion(.DECODEERROR, [])
+                return
+            }
+            completion(.SUCCESS, searchPreview.workbooks)
+        }
+    }
+}

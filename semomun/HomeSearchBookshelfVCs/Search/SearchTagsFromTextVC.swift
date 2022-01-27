@@ -61,6 +61,7 @@ extension SearchTagsFromTextVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
+                self?.tags.setContentOffset(.zero, animated: true)
                 self?.tags.reloadData()
             })
             .store(in: &self.cancellables)
