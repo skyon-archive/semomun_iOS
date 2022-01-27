@@ -40,3 +40,6 @@ protocol PopularTagsFetchable {
 protocol SearchTagsFetchable {
     func getTagsFromSearch(text: String, complection: @escaping (NetworkStatus, [String]) -> Void)
 }
+protocol SearchFetchable {
+    func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
