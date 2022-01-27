@@ -870,7 +870,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="mainColor"/>
-                        <color key="barTintColor" name="mainColor"/>
                         <color key="selectedImageTintColor" name="mainColor"/>
                     </tabBar>
                     <connections>

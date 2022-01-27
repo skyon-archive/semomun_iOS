@@ -104,6 +104,8 @@
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
 		87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */; };
+		87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC269D27A2374A00F3418D /* SearchResultCell.swift */; };
+		87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC269F27A2387300F3418D /* SearchResultVM.swift */; };
 		87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */; };
 		87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
@@ -280,6 +282,8 @@
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
 		87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunImage.swift; sourceTree = "<group>"; };
+		87BC269D27A2374A00F3418D /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		87BC269F27A2387300F3418D /* SearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVM.swift; sourceTree = "<group>"; };
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
 				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
 				87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */,
+				87BC269D27A2374A00F3418D /* SearchResultCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -710,6 +715,7 @@
 				87599FF427A10E1D00E27042 /* SearchVM.swift */,
 				8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */,
 				87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */,
+				87BC269F27A2387300F3418D /* SearchResultVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1151,6 +1157,7 @@
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
 				8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */,
+				87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */,
 				8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */,
 				87E7A54D277EC1BB00359BAE /* SemomunInfoDTO.swift in Sources */,
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
@@ -1283,6 +1290,7 @@
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
+				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87C85E63276F68E1001C9C4A /* CategoryViewController.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */,
