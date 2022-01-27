@@ -7,13 +7,12 @@
 
 import UIKit
 
-class MyPurchasesVC: UIViewController {
+final class MyPurchasesVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "MyPurchasesVC"
     
-    @IBOutlet weak var tb: UITableView!
+    @IBOutlet weak var purchaseList: UITableView!
     @IBOutlet var dateRangeSelectors: [UIButton]!
-    @IBOutlet weak var selectorBg: UIView!
     
     private var selectedRange: DateRange = .all {
         willSet {
@@ -50,9 +49,7 @@ class MyPurchasesVC: UIViewController {
         
         self.selectedRange = .all
         
-        self.tb.dataSource = self
-        
-        self.tb.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        self.purchaseList.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
