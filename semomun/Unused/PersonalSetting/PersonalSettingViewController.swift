@@ -31,10 +31,10 @@ class PersonalSettingViewController: UIViewController {
     }
     
     @IBAction func showSettingUserVC(_ sender: Any) {
-        let view = SettingUserView(delegate: self, networkUseCase: self.networkUseCase)
-        let vc = UIHostingController(rootView: view)
-        vc.view.backgroundColor = .clear
-        self.present(vc, animated: true, completion: nil)
+//        let view = SettingUserView(delegate: self, networkUseCase: self.networkUseCase)
+//        let vc = UIHostingController(rootView: view)
+//        vc.view.backgroundColor = .clear
+//        self.present(vc, animated: true, completion: nil)
     }
 }
 
