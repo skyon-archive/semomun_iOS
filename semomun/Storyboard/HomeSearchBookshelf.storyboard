@@ -918,9 +918,6 @@ Title</string>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#국가 기술 자격" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHJ-r9-8zh">
                                                     <rect key="frame" x="20" y="7.5" width="89" height="17"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="17" id="uf4-qY-gHy"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="mainColor"/>
                                                     <nil key="highlightedColor"/>
