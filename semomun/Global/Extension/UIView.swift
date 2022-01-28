@@ -15,4 +15,24 @@ extension UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
     }
+    
+    enum ShadowDirection {
+        case center, bottom, top, diagnal
+    }
+    
+    func addShadow(direction: ShadowDirection = .center) {
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowRadius = 5
+        switch direction {
+        case .center:
+            self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        case .bottom:
+            self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        case .top:
+            self.layer.shadowOffset = CGSize(width: 0, height: -3)
+        case .diagnal:
+            self.layer.shadowOffset = CGSize(width: 1.7, height: 1.7)
+        }
+    }
 }

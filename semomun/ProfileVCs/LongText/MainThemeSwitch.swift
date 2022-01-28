@@ -17,15 +17,22 @@ final class MainThemeSwitch: UIControl {
     private let thumbColor = UIColor.white
     
     private var isAnimating = false
-    private var isOn = false
+    private var isOn = false {
+        didSet {
+            self.action?(self.isOn)
+        }
+    }
     private var onPoint = CGPoint.zero
     private var offPoint = CGPoint.zero
     
-    func setupUI() {
+    private var action: ((Bool) -> ())?
+    
+    func setup(_ action: @escaping (Bool) -> ()) {
         self.thumbView.backgroundColor = self.thumbColor
         self.thumbView.isUserInteractionEnabled = false
         self.addSubview(self.thumbView)
-        self.addTarget(self, action: #selector(animate), for: .touchUpInside)
+        self.addAction(UIAction { _ in self.animate(); }, for: .touchUpInside)
+        self.action = action
     }
     
     override func layoutSubviews() {
