@@ -395,10 +395,10 @@
             </objects>
             <point key="canvasLocation" x="906" y="-649"/>
         </scene>
-        <!--Change Userinfo PopupVC-->
+        <!--Change User InfoVC-->
         <scene sceneID="JcT-ob-CO5">
             <objects>
-                <viewController storyboardIdentifier="ChangeUserinfoPopupVC" id="hNW-4C-a0k" customClass="ChangeUserinfoPopupVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangeUserInfoVC" id="hNW-4C-a0k" customClass="ChangeUserInfoVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yPI-vo-JXg">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -839,7 +839,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eu-lz-xKS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="238" y="-649"/>
+            <point key="canvasLocation" x="237.41007194244605" y="-649.2462311557789"/>
         </scene>
         <!--SettingVC-->
         <scene sceneID="EUZ-z0-HaO">
@@ -1182,7 +1182,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="세모문">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1195,7 +1195,7 @@
                                     </fragment>
                                     <fragment content="웹페이지에서">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1208,7 +1208,7 @@
                                     </fragment>
                                     <fragment content="세모">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1221,7 +1221,7 @@
                                     </fragment>
                                     <fragment content="페이">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1234,7 +1234,7 @@
                                     </fragment>
                                     <fragment content="충전을">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1247,7 +1247,7 @@
                                     </fragment>
                                     <fragment content="마치면">
                                         <attributes>
-                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>

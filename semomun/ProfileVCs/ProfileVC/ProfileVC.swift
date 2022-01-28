@@ -43,8 +43,8 @@ final class ProfileVC: UIViewController {
     }
 
     @IBAction func openChangeAccountInfoView(_ sender: Any) {
-        let storyboard = UIStoryboard(name: ChangeUserinfoPopupVC.storyboardName, bundle: nil)
-        let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoPopupVC.identifier)
+        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier)
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
