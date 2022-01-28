@@ -1178,11 +1178,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-dx-6eR">
-                                <rect key="frame" x="257.5" y="312" width="319" height="53"/>
+                                <rect key="frame" x="257.5" y="312" width="319" height="21.5"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="세모문 웹페이지에서 세모 페이 충전을 마치면 아래 [충전완료]를 눌러주세요">
+                                    <fragment content="세모문">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
                                         <attributes>
                                             <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="웹페이지에서">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="세모">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="페이">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="충전을">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="마치면">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -1190,7 +1256,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hty-DP-Oo9">
-                                <rect key="frame" x="345" y="457" width="144" height="49"/>
+                                <rect key="frame" x="345" y="425.5" width="144" height="49"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="Za7-x6-Zdg"/>
@@ -1212,7 +1278,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아래 [충전완료]를 눌러주세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajn-sl-0Sw">
-                                <rect key="frame" x="312.5" y="376" width="209" height="22"/>
+                                <rect key="frame" x="312.5" y="344.5" width="209" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" name="defaultText"/>
                                 <nil key="highlightedColor"/>
@@ -1223,15 +1289,10 @@
                         <constraints>
                             <constraint firstItem="fqL-dx-6eR" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="1qa-FZ-H2F"/>
                             <constraint firstAttribute="centerX" secondItem="hty-DP-Oo9" secondAttribute="centerX" id="9lW-FX-RMn"/>
-                            <constraint firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="HIo-e1-uls"/>
-                            <constraint firstAttribute="leading" secondItem="qHj-37-TCU" secondAttribute="leading" id="IDb-fn-zxd"/>
                             <constraint firstItem="Ajn-sl-0Sw" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="OSG-kb-z5L"/>
                             <constraint firstItem="hty-DP-Oo9" firstAttribute="top" secondItem="Ajn-sl-0Sw" secondAttribute="bottom" constant="59" id="XwU-1h-Ywm"/>
                             <constraint firstItem="fqL-dx-6eR" firstAttribute="top" secondItem="skV-iA-sd6" secondAttribute="top" constant="312" id="e7O-Wa-kPv"/>
-                            <constraint firstAttribute="top" secondItem="hty-DP-Oo9" secondAttribute="bottom" constant="22" id="fCi-cc-GhM"/>
                             <constraint firstItem="Ajn-sl-0Sw" firstAttribute="top" secondItem="fqL-dx-6eR" secondAttribute="bottom" constant="11" id="kuN-dG-PU1"/>
-                            <constraint firstAttribute="top" secondItem="qHj-37-TCU" secondAttribute="top" id="m22-7n-CQF"/>
-                            <constraint firstAttribute="centerY" secondItem="qHj-37-TCU" secondAttribute="centerY" id="tol-d9-V0C"/>
                             <constraint firstItem="hty-DP-Oo9" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="zOf-Kw-Mr7"/>
                         </constraints>
                     </view>
@@ -1240,10 +1301,10 @@
             </objects>
             <point key="canvasLocation" x="906" y="40"/>
         </scene>
-        <!--Setting TableVC-->
+        <!--Logined Setting TableVC-->
         <scene sceneID="8zh-2I-q9o">
             <objects>
-                <tableViewController storyboardIdentifier="SettingTableVC" id="Wm5-k5-Oa4" customClass="SettingTableVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LoginedSettingTableVC" id="Wm5-k5-Oa4" customClass="LoginedSettingTableVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="jfl-ej-cOu">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1434,10 +1495,10 @@
             </objects>
             <point key="canvasLocation" x="-605" y="40"/>
         </scene>
-        <!--Before Login Setting TableVC-->
+        <!--Unlogined Setting TableVC-->
         <scene sceneID="OLH-zQ-TZv">
             <objects>
-                <tableViewController storyboardIdentifier="BeforeLoginSettingTableVC" id="WrR-Hh-1KK" customClass="BeforeLoginSettingTableVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UnloginedSettingTableVC" id="WrR-Hh-1KK" customClass="UnloginedSettingTableVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="JLy-aI-9hZ">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
