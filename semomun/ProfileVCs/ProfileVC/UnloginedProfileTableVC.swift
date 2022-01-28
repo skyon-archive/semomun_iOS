@@ -1,5 +1,5 @@
 //
-//  BeforeLoginProfileTableVC.swift
+//  UnloginedProfileTableVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/01/24.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class BeforeLoginProfileTableVC: UITableViewController {
+final class UnloginedProfileTableVC: UITableViewController {
     static let storyboardName = "Profile"
-    static let identifier = "BeforeLoginProfileTableVC"
+    static let identifier = "UnloginedProfileTableVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 109, bottom: 0, trailing: 109)
+        self.setHorizontalMargin(to: 109)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,13 +21,13 @@ final class BeforeLoginProfileTableVC: UITableViewController {
     }
 }
 
-extension BeforeLoginProfileTableVC {
+extension UnloginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0, indexPath.row == 0 {
-            let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
+        if (indexPath.section, indexPath.row) == (0, 0) {
+            let storyboard = UIStoryboard(name: SettingVC.storyboardName, bundle: nil)
             let nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
             self.navigationController?.pushViewController(nextVC, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }
