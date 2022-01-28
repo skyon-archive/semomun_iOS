@@ -11,6 +11,11 @@ import Combine
 class BookshelfVC: UIViewController {
     static let identifier = "BookshelfVC"
     static let storyboardName = "HomeSearchBookshelf"
+    enum SortOrder: String {
+        case purchase = "최근 구매일 순"
+        case recent = "최근 읽은 순"
+        case alphabet = "제목 가나다 순"
+    }
     
     @IBOutlet weak var navigationTitleView: UIView!
     @IBOutlet weak var bookCountLabel: UILabel!
@@ -42,6 +47,25 @@ extension BookshelfVC {
         self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor
         self.sortSelector.clipsToBounds = true
         self.sortSelector.cornerRadius = 3
+        self.configureMenu()
+    }
+    
+    private func configureMenu() {
+        let purchaseAction = UIAction(title: SortOrder.purchase.rawValue, image: nil) { [weak self] _ in
+            self?.sort(to: .purchase)
+        }
+        let recentAction = UIAction(title: SortOrder.recent.rawValue, image: nil) { [weak self] _ in
+            self?.sort(to: .recent)
+        }
+        let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
+            self?.sort(to: .alphabet)
+        }
+        self.sortSelector.menu = UIMenu(title: "정렬 순서", image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.sortSelector.showsMenuAsPrimaryAction = true
+    }
+    
+    private func sort(to order: SortOrder) {
+        self.sortSelector.setTitle(order.rawValue, for: .normal)
     }
     
     private func spinAnimation() {
