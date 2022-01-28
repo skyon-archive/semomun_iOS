@@ -7,6 +7,12 @@
 
 import Foundation
 
-struct Majors: Codable {
+struct MajorFetched: Codable {
     let major: [[String: [String]]]
 }
+
+struct Major {
+    let name: String
+    let details: [String]
+}
+

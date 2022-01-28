@@ -29,8 +29,8 @@ final class MajorDetailManager {
         }
     }
     
-    func updateItems(with majors: [[String: [String]]]) {
-        self.items = majors.compactMap { Array($0.values).first}
+    func updateItems(with majors: [Major]) {
+        self.items = majors.map(\.details)
     }
     
     var count: Int {
