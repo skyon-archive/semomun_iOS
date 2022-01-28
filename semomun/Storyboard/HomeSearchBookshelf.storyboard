@@ -786,22 +786,39 @@ Title</string>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.12" translatesAutoresizingMaskIntoConstraints="NO" id="bmT-35-UUD">
+                                                                    <rect key="frame" x="149" y="139.5" width="139" height="4"/>
+                                                                    <color key="tintColor" name="mainColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="139" id="aaW-Va-YQD"/>
+                                                                    </constraints>
+                                                                </progressView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p46-MF-xCg">
+                                                                    <rect key="frame" x="298" y="134" width="24" height="15"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="q8F-H0-R1M" firstAttribute="top" secondItem="UOp-wJ-NuM" secondAttribute="top" constant="24" id="4bB-oC-jo9"/>
+                                                                <constraint firstItem="p46-MF-xCg" firstAttribute="bottom" secondItem="q8F-H0-R1M" secondAttribute="bottom" id="7oI-4g-y7v"/>
                                                                 <constraint firstItem="5v6-nV-G4R" firstAttribute="top" secondItem="gMx-fe-6QI" secondAttribute="bottom" constant="4" id="8cu-xU-WDz"/>
                                                                 <constraint firstAttribute="trailing" secondItem="gMx-fe-6QI" secondAttribute="trailing" constant="21" id="ASs-GH-kAE"/>
+                                                                <constraint firstItem="p46-MF-xCg" firstAttribute="leading" secondItem="bmT-35-UUD" secondAttribute="trailing" constant="10" id="D1H-Ul-XmO"/>
                                                                 <constraint firstAttribute="bottom" secondItem="q8F-H0-R1M" secondAttribute="bottom" constant="28" id="J1H-gw-VRY"/>
                                                                 <constraint firstItem="gMx-fe-6QI" firstAttribute="top" secondItem="q8F-H0-R1M" secondAttribute="top" id="Kos-n7-QFy"/>
+                                                                <constraint firstItem="bmT-35-UUD" firstAttribute="leading" secondItem="gMx-fe-6QI" secondAttribute="leading" id="VJI-U7-HOF"/>
                                                                 <constraint firstItem="5v6-nV-G4R" firstAttribute="leading" secondItem="gMx-fe-6QI" secondAttribute="leading" id="XLR-6h-A3t"/>
                                                                 <constraint firstItem="q8F-H0-R1M" firstAttribute="leading" secondItem="UOp-wJ-NuM" secondAttribute="leading" constant="37" id="fC9-xb-DZi"/>
                                                                 <constraint firstItem="5v6-nV-G4R" firstAttribute="trailing" secondItem="gMx-fe-6QI" secondAttribute="trailing" id="gtD-X7-BMu"/>
+                                                                <constraint firstItem="p46-MF-xCg" firstAttribute="centerY" secondItem="bmT-35-UUD" secondAttribute="centerY" id="vKy-9j-8e9"/>
                                                                 <constraint firstItem="gMx-fe-6QI" firstAttribute="leading" secondItem="q8F-H0-R1M" secondAttribute="trailing" constant="12" id="wMZ-W0-1Pu"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="UOp-wJ-NuM" secondAttribute="trailing" constant="-5" id="7UR-qv-WOY"/>
                                                         <constraint firstItem="UOp-wJ-NuM" firstAttribute="top" secondItem="nGd-3p-olY" secondAttribute="top" constant="-5" id="P3X-ee-WOP"/>
@@ -812,6 +829,9 @@ Title</string>
                                                 <connections>
                                                     <outlet property="authorAndPublisher" destination="5v6-nV-G4R" id="8hn-bZ-4NO"/>
                                                     <outlet property="bookcover" destination="q8F-H0-R1M" id="C6l-pZ-xkO"/>
+                                                    <outlet property="frameView" destination="UOp-wJ-NuM" id="GX1-Iq-EU4"/>
+                                                    <outlet property="progressPersentLabel" destination="p46-MF-xCg" id="Wdj-cS-BxA"/>
+                                                    <outlet property="progressView" destination="bmT-35-UUD" id="jMD-vh-ebl"/>
                                                     <outlet property="title" destination="gMx-fe-6QI" id="7pK-lB-Vaw"/>
                                                 </connections>
                                             </collectionViewCell>
