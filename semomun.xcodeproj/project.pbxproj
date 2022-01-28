@@ -101,11 +101,13 @@
 		87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941C278FD58700E0A7B1 /* MainUseCase.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
+		87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221D27A39FF900B48F9D /* BookshelfCell.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */; };
 		87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */; };
 		87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC269D27A2374A00F3418D /* SearchResultCell.swift */; };
 		87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC269F27A2387300F3418D /* SearchResultVM.swift */; };
+		87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC26A227A2976500F3418D /* BookshelfVM.swift */; };
 		87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */; };
 		87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
@@ -279,11 +281,13 @@
 		87A9941C278FD58700E0A7B1 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
+		87AC221D27A39FF900B48F9D /* BookshelfCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCell.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87B6F0BB2782BC8900E6FF8A /* SemomunColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunColor.swift; sourceTree = "<group>"; };
 		87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunImage.swift; sourceTree = "<group>"; };
 		87BC269D27A2374A00F3418D /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		87BC269F27A2387300F3418D /* SearchResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVM.swift; sourceTree = "<group>"; };
+		87BC26A227A2976500F3418D /* BookshelfVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVM.swift; sourceTree = "<group>"; };
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
@@ -505,6 +509,8 @@
 			isa = PBXGroup;
 			children = (
 				8716E934279A5F7300B33A5E /* BookshelfVC.swift */,
+				87BC26A127A2975800F3418D /* ViewModel */,
+				87AC221C27A39FE900B48F9D /* Cell */,
 			);
 			path = BookshelfVC;
 			sourceTree = "<group>";
@@ -753,6 +759,14 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		87AC221C27A39FE900B48F9D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				87AC221D27A39FF900B48F9D /* BookshelfCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		87B6F0BA2782BC7300E6FF8A /* SemomunColor */ = {
 			isa = PBXGroup;
 			children = (
@@ -767,6 +781,14 @@
 				87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */,
 			);
 			path = SemomunImage;
+			sourceTree = "<group>";
+		};
+		87BC26A127A2975800F3418D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		87C85E27276F6596001C9C4A /* PersonalSetting */ = {
@@ -1244,6 +1266,7 @@
 				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
+				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
 				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */,
@@ -1285,6 +1308,7 @@
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
+				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
