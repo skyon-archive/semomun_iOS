@@ -1,5 +1,5 @@
 //
-//  ProfileTableVC.swift
+//  LoginedProfileTableVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/01/23.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class ProfileTableVC: UITableViewController {
+final class LoginedProfileTableVC: UITableViewController {
     static let storyboardName = "Profile"
-    static let identifier = "ProfileTableVC"
+    static let identifier = "LoginedProfileTableVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 109, bottom: 0, trailing: 109)
+        self.setHorizontalMargin(to: 109)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,13 +27,11 @@ final class ProfileTableVC: UITableViewController {
     }
 }
 
-extension ProfileTableVC {
+extension LoginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nextVC: UIViewController
-        let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            return
         case (1, 0):
             nextVC = storyboard.instantiateViewController(withIdentifier: MyPurchasesVC.identifier)
         case (1, 1):

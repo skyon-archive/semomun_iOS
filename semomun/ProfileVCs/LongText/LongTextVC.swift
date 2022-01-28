@@ -13,55 +13,56 @@ final class LongTextVC: UIViewController {
     
     private var navigationBarTitle: String?
     private var text: String?
-    private var activateToggle = false
+    private var isViewForMarketingAccept = false
     
-    
-    @IBOutlet weak var frame: UIView!
+    @IBOutlet weak var textViewBackground: UIView!
     @IBOutlet weak var textView: UITextView!
-    
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var labelAboutMarketingAccept: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.frame.layer.cornerRadius = 15
-
-        self.frame.layer.shadowColor = UIColor.gray.cgColor
-        self.frame.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.frame.layer.shadowOpacity = 0.4
-        self.frame.layer.shadowRadius = 4
-        
-        self.textView.layer.cornerRadius = 15
+        self.configureBackgroundUI()
         self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
-        
-        if activateToggle {
-            self.label.isHidden = false
-            let toggle = MainThemeSwitch() // 여기서의 frame값은 무시됨. 
-            toggle.translatesAutoresizingMaskIntoConstraints = false
-            toggle.setupUI()
-            self.view.addSubview(toggle)
-            NSLayoutConstraint.activate([
-                toggle.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 12),
-                toggle.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-                toggle.widthAnchor.constraint(equalToConstant: 50),
-                toggle.heightAnchor.constraint(equalToConstant: 25),
-            ])
-            self.view.bringSubviewToFront(label)
-            self.view.bringSubviewToFront(toggle)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.textView.text = self.text
         self.navigationItem.title = self.navigationBarTitle
+        if self.isViewForMarketingAccept {
+            self.addViewsForMarketingAccept()
+        }
     }
 }
 
 extension LongTextVC {
-    func configureUI(title: String, text: String, marketingInfo: Bool = false) {
-        self.navigationBarTitle = title
+    func configureUI(navigationBarTitle: String, text: String, marketingInfo: Bool = false) {
+        self.navigationBarTitle = navigationBarTitle
         self.text = text
-        self.activateToggle = marketingInfo
+        self.isViewForMarketingAccept = marketingInfo
     }
+    
+    private func configureBackgroundUI() {
+        self.textViewBackground.layer.cornerRadius = 15
+        self.textViewBackground.addShadow()
+    }
+    
+    private func addViewsForMarketingAccept() {
+        // 라벨 설정
+        self.labelAboutMarketingAccept.isHidden = false
+        self.view.bringSubviewToFront(labelAboutMarketingAccept)
+        // 토글 설정
+        let toggle = MainThemeSwitch()
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        toggle.setup {_ in }
+        self.view.addSubview(toggle)
+        NSLayoutConstraint.activate([
+            toggle.leadingAnchor.constraint(equalTo: labelAboutMarketingAccept.trailingAnchor, constant: 12),
+            toggle.centerYAnchor.constraint(equalTo: labelAboutMarketingAccept.centerYAnchor),
+            toggle.widthAnchor.constraint(equalToConstant: 50),
+            toggle.heightAnchor.constraint(equalToConstant: 25),
+        ])
+        self.view.bringSubviewToFront(toggle)
+    }
+    
 }
