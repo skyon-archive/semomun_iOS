@@ -17,18 +17,12 @@ class ChangeUserinfoPopupVC: UIViewController {
         case confirmed, waiting
     }
     
-    private var majorsFromNetwork: [[String: [String]]] = []
+    private var majorsFromNetwork: [Major] = []
     private var majors: [String] {
-        majorsFromNetwork.compactMap { $0.keys.first }
+        return majorsFromNetwork.map(\.name)
     }
     private var majorDetails: [String] {
-        var ret: [String] = []
-        majorsFromNetwork.forEach {
-            if let unwrapped = $0[selectedMajor] {
-                ret = unwrapped
-            }
-        }
-        return ret
+        return majorsFromNetwork.first(where: { $0.name == selectedMajor })?.details ?? []
     }
     private var selectedMajor = ""
     private var selectedDetailMajor = ""
