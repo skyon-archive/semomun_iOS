@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension UITableViewController {
+extension UITableView {
     func setHorizontalMargin(to margin: CGFloat) {
-        self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: margin, bottom: 0, trailing: margin)
+        self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: margin, bottom: 0, trailing: margin)
     }
 }

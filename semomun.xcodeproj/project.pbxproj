@@ -18,9 +18,9 @@
 		2562772E27A16C56006F9370 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* Purchase.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
-		256A3748279DA80800455655 /* SettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* SettingTableVC.swift */; };
+		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
 		256A3752279EC8C400455655 /* LogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3751279EC8C400455655 /* LogoutCell.swift */; };
-		256A3754279ECC7B00455655 /* BeforeLoginSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* BeforeLoginSettingTableVC.swift */; };
+		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257B8E3F27774DB100C1C856 /* SettingUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8E3E27774DB100C1C856 /* SettingUserView.swift */; };
@@ -201,9 +201,9 @@
 		2562772D27A16C56006F9370 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
-		256A3747279DA80800455655 /* SettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableVC.swift; sourceTree = "<group>"; };
+		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256A3751279EC8C400455655 /* LogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCell.swift; sourceTree = "<group>"; };
-		256A3753279ECC7B00455655 /* BeforeLoginSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeLoginSettingTableVC.swift; sourceTree = "<group>"; };
+		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257B8E3E27774DB100C1C856 /* SettingUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserView.swift; sourceTree = "<group>"; };
@@ -399,6 +399,7 @@
 			children = (
 				8716E94E279A61A700B33A5E /* LongTextVC.swift */,
 				25627729279EE6C7006F9370 /* MainThemeSwitch.swift */,
+				2593970127A3E18800BD5BD3 /* Resources */,
 			);
 			path = LongText;
 			sourceTree = "<group>";
@@ -408,11 +409,8 @@
 			children = (
 				256A3749279EB77D00455655 /* Cell */,
 				25D1BDDF279D46A700807196 /* SettingVC.swift */,
-				256A3747279DA80800455655 /* SettingTableVC.swift */,
-				256A3753279ECC7B00455655 /* BeforeLoginSettingTableVC.swift */,
-				87E7A54A277EBEB000359BAE /* termsAndConditions.txt */,
-				87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */,
-				25627726279EDE92006F9370 /* receiveMarketingInfo.txt */,
+				256A3747279DA80800455655 /* LoginedSettingTableVC.swift */,
+				256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -423,6 +421,24 @@
 				256A3751279EC8C400455655 /* LogoutCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		2593970127A3E18800BD5BD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87E7A54A277EBEB000359BAE /* termsAndConditions.txt */,
+				87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */,
+				25627726279EDE92006F9370 /* receiveMarketingInfo.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2593970227A3E19900BD5BD3 /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				25627728279EE6AC006F9370 /* LongText */,
+			);
+			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
 		259C000E27914171005D432B /* WorkbookDetailVC */ = {
@@ -562,15 +578,15 @@
 		8716E947279A602800B33A5E /* ProfileVCs */ = {
 			isa = PBXGroup;
 			children = (
-				25627728279EE6AC006F9370 /* LongText */,
+				25D1BDDC279D3A3300807196 /* ProfileVC */,
 				256A3746279DA7EC00455655 /* Setting */,
 				25D1BDE1279D741600807196 /* ChangeUserinfo */,
-				25D1BDDC279D3A3300807196 /* ProfileVC */,
 				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
 				2562773127A19E51006F9370 /* SemopayCell.swift */,
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
 				2562772F27A17E00006F9370 /* MyPurchaseCell.swift */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
+				2593970227A3E19900BD5BD3 /* Supporting Views */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";
@@ -1270,7 +1286,7 @@
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,
-				256A3748279DA80800455655 /* SettingTableVC.swift in Sources */,
+				256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */,
 				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
@@ -1287,7 +1303,7 @@
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
-				256A3754279ECC7B00455655 /* BeforeLoginSettingTableVC.swift in Sources */,
+				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
