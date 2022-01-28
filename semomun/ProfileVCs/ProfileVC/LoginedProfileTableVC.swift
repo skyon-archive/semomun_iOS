@@ -13,7 +13,7 @@ final class LoginedProfileTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setHorizontalMargin(to: 109)
+        self.tableView.setHorizontalMargin(to: 109)
     }
     
     override func viewWillAppear(_ animated: Bool) {
