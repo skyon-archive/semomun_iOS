@@ -79,7 +79,7 @@ extension UIViewController {
     func popupTextViewController(title: String, text: String, marketingInfo: Bool = false) {
         let storyboard = UIStoryboard(name: LongTextVC.storyboardName, bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: LongTextVC.identifier) as? LongTextVC else { return }
-        vc.configureUI(title: title, text: text, marketingInfo: marketingInfo)
+        vc.configureUI(navigationBarTitle: title, text: text, marketingInfo: marketingInfo)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

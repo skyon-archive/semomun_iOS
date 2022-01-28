@@ -7,39 +7,42 @@
 
 import UIKit
 
-class ProfileVC: UIViewController {
+final class ProfileVC: UIViewController {
     
     @IBOutlet weak var navigationTitleView: UIView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
-    
     @IBOutlet weak var changeUserInfoButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
-    
+    /// 유저 닉네임과 프로필 사진간 수평 거리
     @IBOutlet weak var nameToCircleLeading: NSLayoutConstraint!
-    
     @IBOutlet weak var containerView: UIView!
     
     private var isLogin = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
     
+    private lazy var tableViewBeforeLogin: UIViewController = {
+        let storyboard = UIStoryboard(name: UnloginedProfileTableVC.storyboardName, bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier)
+    }()
+    
+    private lazy var tableViewAfterLogin: UIViewController = {
+        let storyboard = UIStoryboard(name: LoginedProfileTableVC.storyboardName, bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureTableView()
+        self.configureUI()
+        self.configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        let isLoginNow = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
-        if self.isLogin != isLoginNow {
-            self.isLogin = isLoginNow
-            configureUI()
-            configureTableView()
-        }
+        self.updateIfLoginStatusChanged()
     }
 
-    @IBAction func changeAccountInfo(_ sender: Any) {
+    @IBAction func openChangeAccountInfoView(_ sender: Any) {
         let storyboard = UIStoryboard(name: ChangeUserinfoPopupVC.storyboardName, bundle: nil)
         let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoPopupVC.identifier)
         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -53,15 +56,6 @@ class ProfileVC: UIViewController {
         navigationVC.modalPresentationStyle = .fullScreen
         self.present(navigationVC, animated: true)
     }
-    
-    private lazy var tableViewAfterLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: ProfileTableVC.storyboardName, bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: ProfileTableVC.identifier)
-    }()
-    private lazy var tableViewBeforeLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: BeforeLoginProfileTableVC.storyboardName, bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: BeforeLoginProfileTableVC.identifier)
-    }()
 }
 
 extension ProfileVC {
@@ -78,21 +72,26 @@ extension ProfileVC {
         target.didMove(toParent: self)
     }
     
-    func configureUI() {
+    private func configureUI() {
+        self.nameToCircleLeading.constant = isLogin ? 60 : 0
+        self.changeUserInfoButton.isHidden = !isLogin
+        self.loginButton.isHidden = isLogin
+        self.profileImage.isHidden = !isLogin
         if isLogin {
             guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
             self.name.text = userInfo.name
-            self.nameToCircleLeading.constant = 60
-            self.changeUserInfoButton.isHidden = false
-            self.loginButton.isHidden = true
-            self.profileImage.isHidden = false
         } else {
             self.name.text = "로그인이 필요합니다"
-            self.nameToCircleLeading.constant = 0
             self.name.frame = self.name.frame.offsetBy(dx: -41, dy: 0)
-            self.changeUserInfoButton.isHidden = true
-            self.loginButton.isHidden = false
-            self.profileImage.isHidden = true
+        }
+    }
+    
+    private func updateIfLoginStatusChanged() {
+        guard let isLoginNow = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool else { return }
+        if self.isLogin != isLoginNow {
+            self.isLogin = isLoginNow
+            self.configureUI()
+            self.configureTableView()
         }
     }
 }

@@ -26,7 +26,7 @@ class SemopayVC: UIViewController {
         
         self.payChargeList.dataSource = self
         self.payChargeList.delegate = self
-        
+        self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -33)
         self.payChargeList.clipsToBounds = false
     }
     
@@ -44,9 +44,9 @@ extension SemopayVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 100
+            return 20
         } else {
-            return 50
+            return 10
         }
     }
     
@@ -60,12 +60,13 @@ extension SemopayVC: UITableViewDataSource {
 
         cell.layer.shadowColor = UIColor.darkGray.withAlphaComponent(0.7).cgColor
         cell.layer.shadowOpacity = 0.2
-        cell.layer.shadowRadius = 2.5
+        cell.layer.shadowRadius = 2.7
         cell.layer.shadowOffset = CGSize(width: 0, height: 2)
         cell.layer.cornerRadius = 10
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.contentView.bounds, cornerRadius: cornerRadius).cgPath
         
         cell.contentView.layer.mask = nil
-        cell.contentView.layer.sublayers = nil
+        cell.contentView.layer.sublayers?.removeAll(where: { $0.name == "Divider"})
 
         if numberOfRowsInSection == 1 {
         // 맨 위이자 맨 아래
@@ -78,6 +79,7 @@ extension SemopayVC: UITableViewDataSource {
             cell.contentView.layer.mask = maskLayer
 
             let border = CALayer()
+            border.name = "Divider"
             border.backgroundColor = dividerColor.cgColor
             border.frame = CGRect(x: dividerMargin, y: cell.contentView.frame.size.height - dividerHeight, width: cell.contentView.frame.size.width - 2*dividerMargin, height: dividerHeight)
             cell.contentView.layer.addSublayer(border)
@@ -103,7 +105,11 @@ extension SemopayVC: UITableViewDataSource {
             let border = CALayer()
             border.backgroundColor = dividerColor.cgColor
             border.frame = CGRect(x: dividerMargin, y: cell.contentView.frame.size.height - dividerHeight, width: cell.contentView.frame.size.width - 2*dividerMargin, height: dividerHeight)
+            border.name = "Divider"
+            
             cell.contentView.layer.addSublayer(border)
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowPath = UIBezierPath(rect: cell.contentView.bounds).cgPath
             
             let layer = CALayer()
             layer.frame = .init(-5, 0, cell.layer.frame.width+10, cell.layer.frame.height)
