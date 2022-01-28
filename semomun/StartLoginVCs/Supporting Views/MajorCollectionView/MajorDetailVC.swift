@@ -39,7 +39,7 @@ extension MajorDetailVC {
         self.majorCollectionView.dataSource = self
     }
     
-    func updateMajors(with majors: [[String: [String]]]) {
+    func updateMajors(with majors: [Major]) {
         self.manager?.updateItems(with: majors)
         self.majorCollectionView.reloadData()
     }

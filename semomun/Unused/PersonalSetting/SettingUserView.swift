@@ -195,12 +195,8 @@ struct SettingUserView: View {
                 print("전공 정보 다운로드 실패")
                 return
             }
-            self.majors = downloaded.compactMap { $0.keys.first }
-            self.majorsWithMajorDetails = downloaded.reduce(into: [:]) { result, next in
-                if let key = next.keys.first {
-                    result[key] = next[key]
-                }
-            }
+//            self.majors = downloaded.map(\.name)
+//            self.majorsWithMajorDetails = downloaded
         })
     }
     

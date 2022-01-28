@@ -63,18 +63,24 @@ class NetworkUsecase {
         }
     }
     
-    func getMajors(completion: @escaping([[String: [String]]]?) -> Void) {
+    func getMajors(completion: @escaping([Major]?) -> Void) {
         self.network.get(url: NetworkURL.majors, param: nil) { requestResult in
             guard let data = requestResult.data else {
                 completion(nil)
                 return
             }
-            guard let majors: Majors = try? JSONDecoder().decode(Majors.self, from: data) else {
+            guard let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
                 print("Error: Decode")
                 completion(nil)
                 return
             }
-            completion(majors.major)
+            let wrapped = majors.major
+            let unwrapped: [Major] = wrapped.compactMap { majorFetched in
+                guard let majorName = majorFetched.keys.first, let majorDetails = majorFetched[majorName] else { return nil }
+                let major = Major(name: majorName, details: majorDetails)
+                return major
+            }
+            completion(unwrapped)
         }
     }
     

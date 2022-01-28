@@ -11,8 +11,8 @@ final class MajorManager {
     private var items: [String] = []
     private(set) var selectedIndex: Int?
     
-    func updateItems(with majors: [[String: [String]]]) {
-        self.items = majors.compactMap { $0.keys.first }
+    func updateItems(with majors: [Major]) {
+        self.items = majors.map(\.name)
     }
     
     var count: Int {
