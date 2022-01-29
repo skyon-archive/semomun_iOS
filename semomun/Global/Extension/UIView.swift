@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+@IBDesignable
 
 extension UIView {
     static let shadowLayerName = "ShadowLayer"
