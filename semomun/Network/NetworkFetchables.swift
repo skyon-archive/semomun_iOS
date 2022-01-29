@@ -52,3 +52,10 @@ protocol MajorFetchable {
 protocol UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void)
 }
+protocol NicknameCheckable {
+    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> ())
+}
+protocol PhonenumVerifiable {
+    func requestVertification(of phonenum: String)
+    func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void)
+}
