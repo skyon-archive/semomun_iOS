@@ -5,26 +5,24 @@
 //  Created by SEONG YEOL YI on 2022/01/14.
 //
 
-import Foundation
-import Kingfisher
-import Combine
 import UIKit
+import Combine
+import Kingfisher
 
 final class WorkbookDetailVC: UIViewController {
-    
     static let identifier = "WorkbookDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
     
-    @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var fileSizeLabel: UILabel!
+    @IBOutlet weak var isbnLabel: UILabel!
     @IBOutlet weak var bookCoverImageViewFrameView: UIView!
     @IBOutlet weak var bookCoverImageView: UIImageView!
-    @IBOutlet weak var addWorkbookButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!
-    
+    @IBOutlet weak var purchaseWorkbookButton: UIButton!
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
@@ -45,7 +43,13 @@ final class WorkbookDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
         self.fetchWorkbook()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
@@ -53,10 +57,6 @@ final class WorkbookDetailVC: UIViewController {
         self.showAlertWithCancelAndOK(title: workbookInfo.title, text: "해당 시험을 추가하시겠습니까?") { [weak self] in
             self?.viewModel?.saveWorkbook()
         }
-    }
-    
-    @IBAction func close(_ sender: Any) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -70,15 +70,11 @@ extension WorkbookDetailVC {
     }
     
     private func configureUI() {
-        self.frameView.clipsToBounds = true
-        self.frameView.layer.cornerRadius = 10
         self.configureShadow()
         self.configureLoader()
         
         if self.isCoreData {
-            self.view.backgroundColor = .white
-            self.addWorkbookButton.isHidden = true
-            self.closeButton.isHidden = true
+            self.purchaseWorkbookButton.isHidden = true
         }
     }
     
@@ -141,6 +137,7 @@ extension WorkbookDetailVC {
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
         self.titleLabel.text = workbookInfo.title
+        self.authorLabel.text = workbookInfo.author
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         if self.isCoreData {
