@@ -46,3 +46,9 @@ protocol SearchFetchable {
 protocol BookshelfFetchable {
     func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)
 }
+protocol MajorFetchable {
+    func getMajors(completion: @escaping([Major]?) -> Void)
+}
+protocol UserInfoSendable {
+    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void)
+}
