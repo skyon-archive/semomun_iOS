@@ -21,6 +21,9 @@ class WaitingChargeVC: UIViewController {
     }
     
     @IBAction func chargeComplete(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func cancel(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
