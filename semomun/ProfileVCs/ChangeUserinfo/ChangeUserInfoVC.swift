@@ -7,24 +7,16 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class ChangeUserInfoVC: UIViewController {
 
     static let storyboardName = "Profile"
     static let identifier = "ChangeUserInfoVC"
     
-    private var majorsFromNetwork: [Major] = []
-    private var majors: [String] {
-        return majorsFromNetwork.map(\.name)
-    }
-    private var majorDetails: [String] {
-        return majorsFromNetwork.first(where: { $0.name == selectedMajor })?.details ?? []
-    }
-    private var selectedMajor = ""
-    private var selectedDetailMajor = ""
+    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
-    
-    private let networkUseCase = NetworkUsecase(network: Network())
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet weak var bodyFrame: UIView!
     
@@ -43,18 +35,10 @@ class ChangeUserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "계정 정보 변경하기"
-        self.configureBodyFrameUI()
-        self.configureRoundedMintBorder(of: nicknameFrame)
-        self.configureRoundedMintBorder(of: phoneNumFrame)
+        self.configureUI()
         self.configureTableViewDelegate()
-        networkUseCase.getMajors { fetched in
-            self.majorsFromNetwork = fetched ?? []
-            self.configureUserInfoFromDB()
-            self.majorCollectionView.reloadData()
-            self.majorDetailCollectionView.reloadData()
-        }
-        self.configureButtonMenus()
+        self.configureTextFieldDelegate()
+        self.bindAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,25 +47,19 @@ class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-        guard self.checkIfSubmitAvailable() else { return }
-        guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
-        self.saveUserInfoToDB(userInfo: userInfo)
-        self.sendUserInfoToNetwork(userInfo: userInfo)
-    }
-    
-}
-
-extension ChangeUserInfoVC {
-    private var selectedSchoolName: String {
-        return self.schoolFinder.titleLabel?.text ?? ""
-    }
-    private var selectedGraduationStatus: String {
-        return self.graduationStatusSelector.titleLabel?.text ?? ""
+        self.viewModel.submitUserInfo()
     }
 }
 
-// MARK: Configure
+// MARK: Configure UI
 extension ChangeUserInfoVC {
+    private func configureUI() {
+        self.navigationItem.title = "계정 정보 변경하기"
+        self.configureBodyFrameUI()
+        self.configureRoundedMintBorder(of: nicknameFrame)
+        self.configureRoundedMintBorder(of: phoneNumFrame)
+        self.configureButtonMenus()
+    }
     private func configureBodyFrameUI() {
         self.bodyFrame.layer.cornerRadius = 15
         self.bodyFrame.addShadow(direction: .top)
@@ -91,19 +69,28 @@ extension ChangeUserInfoVC {
         view.layer.borderColor = UIColor(named: "mainColor")?.cgColor
         view.layer.cornerRadius = 5
     }
-    private func configureUserInfoFromDB() {
-        guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
-        self.nickname.text = userInfo.nickName
-        self.selectedMajor = userInfo.major ?? "문과 계열"
-        self.selectedDetailMajor = userInfo.majorDetail ?? "인문"
-        self.schoolFinder.setTitle(userInfo.schoolName, for: .normal)
-        self.graduationStatusSelector.setTitle(userInfo.graduationStatus, for: .normal)
-    }
+}
+
+// MARK: Configure delegate
+extension ChangeUserInfoVC {
     private func configureTableViewDelegate() {
         self.majorCollectionView.dataSource = self
         self.majorCollectionView.delegate = self
         self.majorDetailCollectionView.dataSource = self
         self.majorDetailCollectionView.delegate = self
+    }
+    private func configureTextFieldDelegate() {
+        self.nickname.delegate = self
+        self.phoneNumTF.delegate = self
+    }
+}
+
+// MARK: Configure Menus
+extension ChangeUserInfoVC {
+    enum GraduationStatus: String, CaseIterable {
+        case attending = "재학"
+        case graduated = "졸업"
+        
     }
     private func configureButtonMenus() {
         self.configureSchoolButtonMenu()
@@ -123,77 +110,150 @@ extension ChangeUserInfoVC {
         self.schoolFinder.showsMenuAsPrimaryAction = true
     }
     private func configureSchoolStatusMenu() {
-        let graduationMenuItems = ["재학", "졸업"].map { graduationStat in UIAction(title: graduationStat, image: nil) { [weak self] _ in
-            self?.graduationStatusSelector.setTitle(graduationStat, for: .normal)
-        }}
+        let graduationMenuItems: [UIAction] = GraduationStatus.allCases.map { status in
+            let description = status.rawValue
+            return UIAction(title: description, image: nil) { [weak self] _ in
+                self?.viewModel.graduationStatus = description
+            }
+        }
         self.graduationStatusSelector.menu = UIMenu(title: "대학 / 졸업 선택", options: [], children: graduationMenuItems)
         self.graduationStatusSelector.showsMenuAsPrimaryAction = true
     }
 }
 
+// MARK: Bind
 extension ChangeUserInfoVC {
-    private func checkIfSubmitAvailable() -> Bool {
-        guard majorDetails.contains(selectedDetailMajor) else {
-            showAlertWithOK(title: "전공을 선택해주세요.", text: "")
-            return false
-        }
-        return true
+    private func bindAll() {
+        self.bindMajor()
+        self.bindMajorDetail()
+        self.bindNickname()
+        self.bindPhoneNum()
+        self.bindSchoolName()
+        self.bindGraduationStatus()
+        self.bindAlert()
     }
-    private func saveUserInfoToDB(userInfo: UserCoreData) {
-        userInfo.setValue(self.selectedSchoolName, forKey: "schoolName")
-        userInfo.setValue(self.selectedMajor, forKey: "major")
-        userInfo.setValue(self.selectedDetailMajor, forKey: "majorDetail")
-        userInfo.setValue(self.selectedGraduationStatus, forKey: "graduationStatus")
+    private func bindMajor() {
+        self.viewModel.$majors
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+        self.viewModel.$selectedMajor
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
     }
-    private func sendUserInfoToNetwork(userInfo: UserCoreData) {
-        self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
-            DispatchQueue.main.async {
+    private func bindMajorDetail() {
+        self.viewModel.$majorDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorDetailCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+        self.viewModel.$selectedMajorDetail
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorDetailCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindNickname() {
+        self.viewModel.$nickname
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] nickname in
+                self?.nickname.text = nickname
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindPhoneNum() {
+        self.viewModel.$phonenum
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] phone in
+                self?.phoneNumTF.text = phone
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindSchoolName() {
+        self.viewModel.$schoolName
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] schoolName in
+                self?.schoolFinder.setTitle(schoolName, for: .normal)
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindGraduationStatus() {
+        self.viewModel.$graduationStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                self?.graduationStatusSelector.setTitle(status, for: .normal)
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindAlert() {
+        self.viewModel.$alertStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
                 switch status {
-                case .SUCCESS:
-                    CoreDataManager.saveCoreData()
-                    self?.navigationController?.popViewController(animated: true)
-                case .INSPECTION:
-                    self?.showAlertWithOK(title: "일시적인 문제가 발생했습니다", text: "잠시 후 다시 시도해주세요.")
-                default:
-                    self?.showAlertWithOK(title: "정보 수정 실패", text: "네트워크 확인 후 다시 시도해주세요.")
+                case .incompleteData:
+                    self?.showAlertWithOK(title: "정보가 모두 입력되지 않았습니다", text: "") {
+                        self?.viewModel.clearAlert()
+                    }
+                case .networkError:
+                    self?.showAlertWithOK(title: "네트워크가 연결되어있지 않습니다", text: "") {
+                        self?.viewModel.clearAlert()
+                    }
+                case .coreDataFetchError:
+                    self?.showAlertWithOK(title: "일시적인 문제가 발생했습니다", text: "") {
+                        self?.viewModel.clearAlert()
+                    }
+                case .success:
+                    self?.showAlertWithOK(title: "저장이 완료되었습니다", text: "") {
+                        self?.viewModel.clearAlert()
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                case .none:
+                    break
                 }
             }
-        }
+            .store(in: &self.cancellables)
     }
 }
 
+// MARK: UICollectionView
 extension ChangeUserInfoVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MajorCollectionViewCell, let selectedMajorOrMajorDetailName = cell.majorName.text else { return }
         if collectionView == majorCollectionView {
-            self.selectedMajor = majors[indexPath.item]
+            self.viewModel.selectMajor(named: selectedMajorOrMajorDetailName)
         } else {
-            self.selectedDetailMajor = majorDetails[indexPath.item]
+            self.viewModel.selectedMajorDetail = selectedMajorOrMajorDetailName
         }
-        self.majorCollectionView.reloadData()
-        self.majorDetailCollectionView.reloadData()
     }
 }
 
 extension ChangeUserInfoVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == majorCollectionView {
-            return majors.count
-        } else {
-            return majorDetails.count
-        }
+        return collectionView == majorCollectionView ? self.viewModel.majors?.count ?? 0 : self.viewModel.majorDetails?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
-            let majorName = majors[indexPath.item]
-            let isSelected = majorName == selectedMajor
-            cell.configureUI(major: majorName, isSelected: isSelected)
+            guard let majorName = self.viewModel.majors?[indexPath.item] else { return cell }
+            if majorName == self.viewModel.selectedMajor {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+            }
+            cell.configureText(major: majorName)
             return cell
         } else {
-            let majorDetailName = majorDetails[indexPath.item]
-            let isSelected = majorDetailName == selectedDetailMajor
-            cell.configureUI(major: majorDetailName, isSelected: isSelected)
+            guard let majorDetailName = self.viewModel.majorDetails?[indexPath.item] else { return cell }
+            if majorDetailName == self.viewModel.selectedMajorDetail {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+            }
+            cell.configureText(major: majorDetailName)
             return cell
         }
     }
@@ -201,18 +261,25 @@ extension ChangeUserInfoVC: UICollectionViewDataSource {
 
 extension ChangeUserInfoVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == majorCollectionView {
-            return CGSize(133, 39)
-        } else {
-            return CGSize(68, 39)
+        return collectionView == majorCollectionView ? CGSize(133, 39) : CGSize(68, 39)
+    }
+}
+
+extension ChangeUserInfoVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == nickname {
+            self.viewModel.nickname = textField.text
+        } else if textField == phoneNumTF {
+            self.viewModel.phonenum = textField.text
         }
     }
 }
 
+// MARK: 학교 팝업 관련
 extension ChangeUserInfoVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
         self.dismissKeyboard()
-        self.schoolFinder.setTitle(name, for: .normal)
+        self.viewModel.schoolName = name
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
     }
 }
