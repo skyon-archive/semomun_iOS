@@ -10,12 +10,21 @@ import Combine
 
 final class SearchVM {
     private let networkUsecase: NetworkUsecase
+    private let searchQueue = OperationQueue()
     private(set) var selectedWid: Int?
     @Published private(set) var tags: [String] = []
     @Published private(set) var workbook: SearchWorkbook?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
+        self.configureObservation()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .searchWorkbook, object: nil, queue: self.searchQueue) { [weak self] notification in
+            guard let wid = notification.userInfo?["wid"] as? Int else { return }
+            self?.fetchWorkbook(wid: wid)
+        }
     }
     
     func tag(index: Int) -> String {
