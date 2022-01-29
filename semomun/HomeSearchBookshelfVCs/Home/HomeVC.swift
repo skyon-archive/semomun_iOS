@@ -261,7 +261,6 @@ extension HomeVC: UICollectionViewDelegate {
         default:
             return
         }
-        
     }
     
     private func searchWorkbook(wid: Int) {
