@@ -49,6 +49,10 @@ extension HomeVC {
         self.workbooksWithTags.dataSource = self
         self.workbooksWithRecent.dataSource = self
         self.workbooksWithNewest.dataSource = self
+        self.bestSellers.delegate = self
+        self.workbooksWithTags.delegate = self
+        self.workbooksWithRecent.delegate = self
+        self.workbooksWithNewest.delegate = self
     }
     
     private func configureTags(with tags: [String]) {
@@ -105,14 +109,14 @@ extension HomeVC {
         self.workbooksWithRecent.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: self.workbooksWithRecent.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 32)
+            label.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 50)
         ])
         let label2 = NoneWorkbookLabel()
         label2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
         self.workbooksWithNewest.addSubview(label2)
         NSLayoutConstraint.activate([
             label2.centerYAnchor.constraint(equalTo: self.workbooksWithNewest.centerYAnchor),
-            label2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 32)
+            label2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 50)
         ])
     }
 }
@@ -234,5 +238,34 @@ extension HomeVC: UICollectionViewDataSource {
             
             return cell
         }
+    }
+}
+
+extension HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case self.bannerAds:
+            return
+        case self.bestSellers:
+            guard let wid = self.viewModel?.bestSellers[indexPath.item].wid else { return }
+            self.searchWorkbook(wid: wid)
+        case self.workbooksWithTags:
+            guard let wid = self.viewModel?.workbooksWithTags[indexPath.item].wid else { return }
+            self.searchWorkbook(wid: wid)
+        case self.workbooksWithRecent:
+            guard let wid = self.viewModel?.workbooksWithRecent[indexPath.item].wid else { return }
+            self.searchWorkbook(wid: wid)
+        case self.workbooksWithNewest:
+            guard let wid = self.viewModel?.workbooksWithNewest[indexPath.item].wid else { return }
+            self.searchWorkbook(wid: wid)
+        default:
+            return
+        }
+        
+    }
+    
+    private func searchWorkbook(wid: Int) {
+        self.tabBarController?.selectedIndex = 1
+        NotificationCenter.default.post(name: .searchWorkbook, object: nil, userInfo: ["wid" : wid])
     }
 }

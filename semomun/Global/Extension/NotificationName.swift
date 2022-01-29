@@ -16,4 +16,5 @@ extension Notification.Name {
     static let downloadSectionFail = Self.init(rawValue: "downloadSectionFail")
     static let goToMain = Self.init(rawValue: "goToMain")
     static let fetchTagsFromSearch = Self.init(rawValue: "fetchTagsFromSearch")
+    static let searchWorkbook = Self.init(rawValue: "searchWorkbook")
 }
