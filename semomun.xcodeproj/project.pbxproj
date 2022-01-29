@@ -423,14 +423,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		257AC7E327A4F827005E91EC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		2593970127A3E18800BD5BD3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,9 +481,9 @@
 		25D1BDE1279D741600807196 /* ChangeUserinfo */ = {
 			isa = PBXGroup;
 			children = (
-				257AC7E327A4F827005E91EC /* ViewModel */,
 				25D1BDE2279D742F00807196 /* Cell */,
 				8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */,
+				257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */,
 			);
 			path = ChangeUserinfo;
 			sourceTree = "<group>";

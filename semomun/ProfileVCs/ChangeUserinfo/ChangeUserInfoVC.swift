@@ -17,15 +17,40 @@ class ChangeUserInfoVC: UIViewController {
     private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
+    private var isAuthPhoneTFShown = false {
+        didSet {
+            if self.isAuthPhoneTFShown {
+                self.changePhoneNumButton.setTitle("취소", for: .normal)
+                self.additionalPhoneNumFrame.isHidden = false
+                self.additionalTF.placeholder = "변경할 전화번호를 입력해주세요."
+                self.additionalTF.becomeFirstResponder()
+                self.additionalTF.text = nil
+                self.requestAgainButton.isHidden = true
+            } else {
+                self.viewModel.cancelPhoneAuth()
+                self.changePhoneNumButton.setTitle("변경", for: .normal)
+                self.additionalPhoneNumFrame.isHidden = true
+                self.additionalTF.resignFirstResponder()
+            }
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
     
     @IBOutlet weak var bodyFrame: UIView!
     
     @IBOutlet weak var nicknameFrame: UIView!
     @IBOutlet weak var nickname: UITextField!
     
-    @IBOutlet weak var phoneNumTF: UITextField!
     @IBOutlet weak var phoneNumFrame: UIView!
+    @IBOutlet weak var phoneNumTF: UITextField!
+    @IBOutlet weak var changePhoneNumButton: UIButton!
+    
+    @IBOutlet weak var additionalPhoneNumFrame: UIView!
+    @IBOutlet weak var additionalTF: UITextField!
     @IBOutlet weak var authPhoneNumButton: UIButton!
+    @IBOutlet weak var requestAgainButton: UIButton!
     
     @IBOutlet weak var majorCollectionView: UICollectionView!
     @IBOutlet weak var majorDetailCollectionView: UICollectionView!
@@ -46,6 +71,29 @@ class ChangeUserInfoVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    @IBAction func changePhoneNum(_ sender: Any) {
+        self.isAuthPhoneTFShown.toggle()
+    }
+    
+    @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
+        if sender.titleLabel?.text == "인증확인" {
+            //인증확인
+            guard let authStr = self.additionalTF.text, let authNum = Int(authStr) else {
+                self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
+                return
+            }
+            self.viewModel.confirmAuthNumber(with: authNum)
+        } else {
+            //인증요청
+            guard let newPhoneStr = self.additionalTF.text else { return }
+            self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
+        }
+    }
+    
+    @IBAction func requestAuthAgain(_ sender: Any) {
+        self.viewModel.requestPhoneAuthAgain()
+    }
+    
     @IBAction func submit(_ sender: Any) {
         self.viewModel.submitUserInfo()
     }
@@ -58,7 +106,10 @@ extension ChangeUserInfoVC {
         self.configureBodyFrameUI()
         self.configureRoundedMintBorder(of: nicknameFrame)
         self.configureRoundedMintBorder(of: phoneNumFrame)
+        self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
         self.configureButtonMenus()
+        self.additionalPhoneNumFrame.isHidden = true
+        self.requestAgainButton.isHidden = true
     }
     private func configureBodyFrameUI() {
         self.bodyFrame.layer.cornerRadius = 15
@@ -68,6 +119,18 @@ extension ChangeUserInfoVC {
         view.layer.borderWidth = 1.5
         view.layer.borderColor = UIColor(named: "mainColor")?.cgColor
         view.layer.cornerRadius = 5
+    }
+    private func configureButtonUI(button: UIButton, isFilled: Bool) {
+        guard let mainColor = UIColor(named: "mainColor") else { return }
+        if isFilled {
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = mainColor
+            button.borderColor = .white
+        } else {
+            button.setTitleColor(mainColor, for: .normal)
+            button.backgroundColor = .white
+            button.borderColor = mainColor
+        }
     }
 }
 
@@ -81,7 +144,6 @@ extension ChangeUserInfoVC {
     }
     private func configureTextFieldDelegate() {
         self.nickname.delegate = self
-        self.phoneNumTF.delegate = self
     }
 }
 
@@ -131,6 +193,7 @@ extension ChangeUserInfoVC {
         self.bindSchoolName()
         self.bindGraduationStatus()
         self.bindAlert()
+        self.bindPhoneAuth()
     }
     private func bindMajor() {
         self.viewModel.$majors
@@ -198,24 +261,49 @@ extension ChangeUserInfoVC {
             .sink { [weak self] status in
                 switch status {
                 case .incompleteData:
-                    self?.showAlertWithOK(title: "정보가 모두 입력되지 않았습니다", text: "") {
-                        self?.viewModel.clearAlert()
-                    }
+                    self?.showAlertWithOK(title: "정보가 모두 입력되지 않았습니다", text: "")
                 case .networkError:
-                    self?.showAlertWithOK(title: "네트워크가 연결되어있지 않습니다", text: "") {
-                        self?.viewModel.clearAlert()
-                    }
+                    self?.showAlertWithOK(title: "네트워크가 연결되어있지 않습니다", text: "")
                 case .coreDataFetchError:
-                    self?.showAlertWithOK(title: "일시적인 문제가 발생했습니다", text: "") {
-                        self?.viewModel.clearAlert()
-                    }
-                case .success:
+                    self?.showAlertWithOK(title: "일시적인 문제가 발생했습니다", text: "")
+                case .saveSuccess:
                     self?.showAlertWithOK(title: "저장이 완료되었습니다", text: "") {
-                        self?.viewModel.clearAlert()
                         self?.navigationController?.popViewController(animated: true)
                     }
                 case .none:
                     break
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindPhoneAuth() {
+        self.viewModel.$phoneAuthStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .authComplete:
+                    self?.isAuthPhoneTFShown = false
+                    guard let button = self?.changePhoneNumButton else { break }
+                    self?.configureButtonUI(button: button, isFilled: false)
+                    button.setTitle("인증완료", for: .normal)
+                    button.isEnabled = false
+                    self?.showAlertWithOK(title: "인증완료", text: "")
+                case .waitingForAuth:
+                    self?.showAlertWithOK(title: "인증번호 전송됨", text: "")
+                    self?.requestAgainButton.isHidden = false
+                    self?.authPhoneNumButton.setTitle("인증확인", for: .normal)
+                    self?.additionalTF.text = nil
+                    self?.additionalTF.placeholder = "인증번호를 입력해주세요."
+                    guard let button = self?.authPhoneNumButton else { break }
+                    self?.configureButtonUI(button: button, isFilled: false)
+                case .none:
+                    self?.authPhoneNumButton.setTitle("인증요청", for: .normal)
+                    guard let button = self?.authPhoneNumButton else { break }
+                    self?.configureButtonUI(button: button, isFilled: true)
+                case .wrongAuthNumber:
+                    self?.showAlertWithOK(title: "잘못된 인증 번호", text: "")
+                case .invaildPhoneNum:
+                    self?.showAlertWithOK(title: "잘못된 전화번호", text: "")
                 }
             }
             .store(in: &self.cancellables)
@@ -269,7 +357,7 @@ extension ChangeUserInfoVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == nickname {
             self.viewModel.nickname = textField.text
-        } else if textField == phoneNumTF {
+        } else if textField == additionalPhoneNumFrame {
             self.viewModel.phonenum = textField.text
         }
     }
