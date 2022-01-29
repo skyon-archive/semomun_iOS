@@ -356,6 +356,9 @@
                                                 <real key="value" value="3"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="charge:" destination="TPQ-Vw-Fyx" eventType="touchUpInside" id="iWx-ZU-m9l"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1259,6 +1262,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKK-2e-4eg">
+                                <rect key="frame" x="0.0" y="24" width="834" height="20"/>
+                                <color key="backgroundColor" name="grayBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="uVq-oF-f8J"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-dx-6eR">
                                 <rect key="frame" x="257.5" y="312" width="319" height="21.5"/>
                                 <attributedString key="attributedText">
@@ -1365,14 +1375,30 @@
                                 <color key="textColor" name="defaultText"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGV-sk-4ZV">
+                                <rect key="frame" x="380.5" y="496.5" width="73" height="31"/>
+                                <color key="tintColor" name="grayTextColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="취소하기">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cancel:" destination="D8Z-6o-fNU" eventType="touchUpInside" id="O0f-jh-NKN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qHj-37-TCU"/>
                         <color key="backgroundColor" name="defaultBackground"/>
                         <constraints>
                             <constraint firstItem="fqL-dx-6eR" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="1qa-FZ-H2F"/>
+                            <constraint firstItem="vGV-sk-4ZV" firstAttribute="centerX" secondItem="hty-DP-Oo9" secondAttribute="centerX" id="9RB-T8-hsi"/>
+                            <constraint firstItem="VKK-2e-4eg" firstAttribute="leading" secondItem="qHj-37-TCU" secondAttribute="leading" id="9dz-ed-RR7"/>
                             <constraint firstAttribute="centerX" secondItem="hty-DP-Oo9" secondAttribute="centerX" id="9lW-FX-RMn"/>
+                            <constraint firstItem="VKK-2e-4eg" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="HsX-fk-EzY"/>
+                            <constraint firstItem="VKK-2e-4eg" firstAttribute="top" secondItem="qHj-37-TCU" secondAttribute="top" id="Kvm-KR-FIw"/>
                             <constraint firstItem="Ajn-sl-0Sw" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="OSG-kb-z5L"/>
                             <constraint firstItem="hty-DP-Oo9" firstAttribute="top" secondItem="Ajn-sl-0Sw" secondAttribute="bottom" constant="59" id="XwU-1h-Ywm"/>
+                            <constraint firstItem="vGV-sk-4ZV" firstAttribute="top" secondItem="hty-DP-Oo9" secondAttribute="bottom" constant="22" id="amg-AT-K8v"/>
                             <constraint firstItem="fqL-dx-6eR" firstAttribute="top" secondItem="skV-iA-sd6" secondAttribute="top" constant="312" id="e7O-Wa-kPv"/>
                             <constraint firstItem="Ajn-sl-0Sw" firstAttribute="top" secondItem="fqL-dx-6eR" secondAttribute="bottom" constant="11" id="kuN-dG-PU1"/>
                             <constraint firstItem="hty-DP-Oo9" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="zOf-Kw-Mr7"/>
