@@ -63,27 +63,6 @@ class NetworkUsecase {
         }
     }
     
-    func getMajors(completion: @escaping([Major]?) -> Void) {
-        self.network.get(url: NetworkURL.majors, param: nil) { requestResult in
-            guard let data = requestResult.data else {
-                completion(nil)
-                return
-            }
-            guard let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
-                print("Error: Decode")
-                completion(nil)
-                return
-            }
-            let wrapped = majors.major
-            let unwrapped: [Major] = wrapped.compactMap { majorFetched in
-                guard let majorName = majorFetched.keys.first, let majorDetails = majorFetched[majorName] else { return nil }
-                let major = Major(name: majorName, details: majorDetails)
-                return major
-            }
-            completion(unwrapped)
-        }
-    }
-    
     func getQueryButtons(category: String, completion: @escaping([QueryListButton]?) -> Void) {
         self.network.get(url: NetworkURL.queryButtons, param: ["c": category]) { requestResult in
             guard let data = requestResult.data else {
@@ -115,7 +94,6 @@ class NetworkUsecase {
             completion(Array(Set(schoolNames)).sorted())
         }
     }
-    
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
         let url = NetworkURL.users+"self"
         let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
@@ -221,39 +199,6 @@ extension NetworkUsecase {
 
 // MARK: - PUT
 extension NetworkUsecase {
-    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
-        guard let nickName = userInfo.nickName else { return }
-        let newUserInfo = UserInfo()
-        newUserInfo.setValues(userInfo: userInfo)
-        guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
-            print("Encode Error")
-            return
-        }
-        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        
-        self.network.put(url: NetworkURL.users+"\(nickName)", param: param) { requestResult in
-            guard let statusCode = requestResult.statusCode else {
-                print("Error: no statusCode")
-                completion(.ERROR)
-                return
-            }
-            if statusCode == 504 {
-                print("server Error")
-                completion(.INSPECTION)
-                return
-            } else if statusCode != 200 {
-                print("Error: \(statusCode)")
-                if let data = requestResult.data {
-                    print(String(data: data, encoding: .utf8))
-                }
-                completion(.ERROR)
-                return
-            }
-            completion(.SUCCESS)
-        }
-    }
-    
     func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
         let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
         self.network.put(url: NetworkURL.sectionsSubmit(sid), param: param) { requestResult in
@@ -277,6 +222,7 @@ extension NetworkUsecase {
             completion(.SUCCESS)
         }
     }
+    
 }
 
 extension NetworkUsecase: PagesFetchable {
@@ -470,5 +416,63 @@ extension NetworkUsecase: BookshelfFetchable {
         let book6 = TestBook("자이스토리 전국연합 모의고사 고1영어 [12회]", "신수진, 윤승남, 이아영 등", "수경출판사")
         let testBooks = [book1, book2, book3, book4, book5, book6]
         completion(.SUCCESS, testBooks+testBooks)
+    }
+}
+
+extension NetworkUsecase: MajorFetchable {
+    func getMajors(completion: @escaping([Major]?) -> Void) {
+        self.network.get(url: NetworkURL.majors, param: nil) { requestResult in
+            guard let data = requestResult.data else {
+                completion(nil)
+                return
+            }
+            guard let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
+                print("Error: Decode")
+                completion(nil)
+                return
+            }
+            let wrapped = majors.major
+            let unwrapped: [Major] = wrapped.compactMap { majorFetched in
+                guard let majorName = majorFetched.keys.first, let majorDetails = majorFetched[majorName] else { return nil }
+                let major = Major(name: majorName, details: majorDetails)
+                return major
+            }
+            completion(unwrapped)
+        }
+    }
+}
+
+extension NetworkUsecase: UserInfoSendable {
+    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
+        guard let nickName = userInfo.nickName else { return }
+        let newUserInfo = UserInfo()
+        newUserInfo.setValues(userInfo: userInfo)
+        guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
+            print("Encode Error")
+            return
+        }
+        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
+        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
+        
+        self.network.put(url: NetworkURL.users+"\(nickName)", param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR)
+                return
+            }
+            if statusCode == 504 {
+                print("server Error")
+                completion(.INSPECTION)
+                return
+            } else if statusCode != 200 {
+                print("Error: \(statusCode)")
+                if let data = requestResult.data {
+                    print(String(data: data, encoding: .utf8))
+                }
+                completion(.ERROR)
+                return
+            }
+            completion(.SUCCESS)
+        }
     }
 }
