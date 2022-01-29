@@ -21,7 +21,6 @@ final class SearchTagsFromTextVM {
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .fetchTagsFromSearch, object: nil, queue: self.searchQueue) { [weak self] notification in
-            print("search")
             guard let text = notification.userInfo?["text"] as? String else { return }
             
             self?.fetchTags(text: text)
