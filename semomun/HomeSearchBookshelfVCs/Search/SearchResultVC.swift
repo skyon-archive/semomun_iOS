@@ -14,6 +14,7 @@ final class SearchResultVC: UIViewController {
     
     @IBOutlet weak var searchResults: UICollectionView!
     
+    private weak var delegate: SearchControlable?
     private var viewModel: SearchResultVM?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -27,6 +28,10 @@ final class SearchResultVC: UIViewController {
 
 // MARK: - Configure
 extension SearchResultVC {
+    func configureDelegate(delegate: SearchControlable) {
+        self.delegate = delegate
+    }
+    
     func fetch(tags: [String], text: String) {
         self.searchResults.setContentOffset(.zero, animated: true)
         self.viewModel?.fetchSearchResults(tags: tags, text: text)
@@ -91,8 +96,7 @@ extension SearchResultVC: UICollectionViewDataSource {
 extension SearchResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let target = self.viewModel?.preview(index: indexPath.item) else { return }
-        print(target)
-        // 화면전환 로직 필요
+        self.delegate?.showWorkbookDetail(wid: target.wid)
     }
 }
 

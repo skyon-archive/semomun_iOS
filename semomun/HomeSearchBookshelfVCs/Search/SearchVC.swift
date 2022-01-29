@@ -12,6 +12,7 @@ protocol SearchControlable: AnyObject {
     func appendTag(name: String)
     func changeToSearchFavoriteTagsVC()
     func changeToSearchTagsFromTextVC()
+    func showWorkbookDetail(wid: Int)
 }
 
 class SearchVC: UIViewController {
@@ -46,6 +47,7 @@ class SearchVC: UIViewController {
     private lazy var searchResultVC: SearchResultVC = {
         let storyboard = UIStoryboard(name: SearchResultVC.storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchResultVC.identifier) as? SearchResultVC else { return SearchResultVC() }
+        viewController.configureDelegate(delegate: self)
         return viewController
     }()
     
@@ -105,7 +107,9 @@ extension SearchVC {
     }
     
     private func configureViewModel() {
-        self.viewModel = SearchVM()
+        let network = Network()
+        let networkUsecase = NetworkUsecase(network: network)
+        self.viewModel = SearchVM(networkUsecase: networkUsecase)
     }
     
     private func configureCollectionView() {
@@ -122,6 +126,7 @@ extension SearchVC {
 extension SearchVC {
     private func bindAll() {
         self.bindTags()
+        self.bindWorkbook()
     }
     
     private func bindTags() {
@@ -136,6 +141,17 @@ extension SearchVC {
                 } else if tags.count == 0 {
                     self?.hiddenSearchBT()
                 }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbook() {
+        self.viewModel?.$workbook
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbook in
+                guard let workbook = workbook else { return }
+                self?.showWorkbookDetailVC(searchWorkbook: workbook)
             })
             .store(in: &self.cancellables)
     }
@@ -199,6 +215,15 @@ extension SearchVC {
               let text = self.searchTextField.text else { return }
         self.searchResultVC.fetch(tags: tags, text: text)
     }
+    
+    private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: false)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
 }
 
 // MARK: - ConfigureUI {
@@ -246,5 +271,16 @@ extension SearchVC: SearchControlable {
         self.removeChildVC()
         self.changeChildVC(to: self.searchTagsFromTextVC)
         self.isSearchTagsFromTextVC = true
+    }
+    
+    func showWorkbookDetail(wid: Int) {
+        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        if isLogined == false {
+            self.viewModel?.selectWorkbook(to: wid)
+            // 로그인 창 띄우기
+        } else {
+            // if 1.0 사용자인 경우 -> 추가정보 필요창 띄우기
+            self.viewModel?.fetchWorkbook(wid: wid)
+        }
     }
 }
