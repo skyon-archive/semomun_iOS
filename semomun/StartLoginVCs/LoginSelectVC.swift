@@ -39,7 +39,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     private func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
-        authorizationButton.cornerRadius = self.buttonRadius
+        authorizationButton.layer.cornerRadius = self.buttonRadius
         authorizationButton.tag = 0
         self.configureLayoutAppleButton(with: authorizationButton)
     }
