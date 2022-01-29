@@ -53,9 +53,12 @@ protocol UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void)
 }
 protocol NicknameCheckable {
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> ())
+    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void)
 }
 protocol PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ())
     func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void)
+}
+protocol PurchaseListFetchable {
+    func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
 }
