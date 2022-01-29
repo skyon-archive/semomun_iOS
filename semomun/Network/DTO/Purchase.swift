@@ -10,5 +10,5 @@ import Foundation
 struct Purchase {
     let wid: String
     let date: Date
-    let cost: Double
+    let cost: Double // 가격이 중간에 변동될 수도 있을듯
 }
