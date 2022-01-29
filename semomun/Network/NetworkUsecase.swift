@@ -476,3 +476,23 @@ extension NetworkUsecase: UserInfoSendable {
         }
     }
 }
+
+extension NetworkUsecase: NicknameCheckable {
+    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void) {
+        if nickname == "홍길동" {
+            completion((.SUCCESS, false))
+        } else {
+            completion((.SUCCESS, true))
+        }
+    }
+}
+
+extension NetworkUsecase: PhonenumVerifiable {
+    func requestVertification(of phonenum: String) {
+        
+    }
+    
+    func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void) {
+        completion(authNum == 1234)
+    }
+}

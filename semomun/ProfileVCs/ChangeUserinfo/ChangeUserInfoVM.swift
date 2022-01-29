@@ -8,29 +8,29 @@
 import Foundation
 import Combine
 
-typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable)
-
+typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable)
 
 final class ChangeUserInfoVM {
     
     enum ChangeUserInfoAlert {
-        case incompleteData, networkError, coreDataFetchError, saveSuccess
+        case incompleteData, networkError, coreDataFetchError, saveSuccess, majorDetailNotSelected
     }
     
     enum PhoneAuthStatus {
-        case waitingForAuth, authComplete, wrongAuthNumber, invaildPhoneNum
+        case authNumSent, authComplete, wrongAuthNumber, invaildPhoneNum
     }
     
     @Published private(set) var alertStatus: ChangeUserInfoAlert? = nil
     @Published private(set) var phoneAuthStatus: PhoneAuthStatus?
-    @Published var nickname: String?
-    @Published var phonenum: String?
+    @Published private(set) var nickname: String?
+    @Published private(set) var phonenum: String?
+    @Published private(set) var majors: [String]?
+    @Published private(set) var majorDetails: [String]?
     @Published var schoolName: String?
     @Published var graduationStatus: String?
-    @Published private(set) var majors: [String]?
-    @Published var majorDetails: [String]?
-    @Published var selectedMajor: String?
-    @Published var selectedMajorDetail: String?
+    
+    private(set) var selectedMajor: String?
+    private(set) var selectedMajorDetail: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
     private var majorWithDetail: [String: [String]] = [:]
@@ -42,9 +42,26 @@ final class ChangeUserInfoVM {
         self.fetchMajorInfo()
     }
     
-    func selectMajor(named majorName: String) {
+    func changeNicknameIfAvailable(nickname: String, completion: @escaping (Bool) -> ()) {
+        self.networkUseCase.checkRedundancy(ofNickname: nickname) { _, isAvailable in
+            if isAvailable {
+                self.nickname = nickname
+            }
+            completion(isAvailable)
+        }
+    }
+    
+    func selectMajor(at index: Int) {
+        guard self.majors?.indices.contains(index) == true else { return }
+        guard let majorName = majors?[index] else { return }
         self.selectedMajor = majorName
-        self.majorDetails = majorWithDetail[self.selectedMajor ?? ""] ?? []
+        self.majorDetails = majorWithDetail[majorName] ?? []
+    }
+    
+    func selectMajorDetail(at index: Int) {
+        guard self.majorDetails?.indices.contains(index) == true else { return }
+        guard let majorDetailName = majorDetails?[index] else { return }
+        self.selectedMajorDetail = majorDetailName
     }
     
     func submitUserInfo() {
@@ -61,23 +78,28 @@ final class ChangeUserInfoVM {
             self.phoneAuthStatus = .invaildPhoneNum
             return
         }
-        self.phoneAuthStatus = .waitingForAuth
+        self.networkUseCase.requestVertification(of: phoneNum)
+        self.phoneAuthStatus = .authNumSent
         self.waitingForAuthPhoneNum = phoneNum
     }
     
     func requestPhoneAuthAgain() {
-        self.phoneAuthStatus = .waitingForAuth
+        guard let waitingForAuthPhoneNum = waitingForAuthPhoneNum else {
+            return
+        }
+        self.networkUseCase.requestVertification(of: waitingForAuthPhoneNum)
+        self.phoneAuthStatus = .authNumSent
     }
     
     func confirmAuthNumber(with authNumber: Int) {
-        guard let waitingForAuthPhoneNum = self.waitingForAuthPhoneNum else {
-            return
-        }
-        if authNumber == 1234 {
-            self.phoneAuthStatus = .authComplete
-            self.phonenum = waitingForAuthPhoneNum
-        } else {
-            self.phoneAuthStatus = .wrongAuthNumber
+        self.networkUseCase.checkValidity(of: authNumber) { confirmed in
+            if confirmed {
+                self.phoneAuthStatus = .authComplete
+                self.phonenum = self.waitingForAuthPhoneNum
+                self.waitingForAuthPhoneNum = nil
+            } else {
+                self.phoneAuthStatus = .wrongAuthNumber
+            }
         }
     }
     
@@ -90,7 +112,7 @@ final class ChangeUserInfoVM {
 // MARK: Private functions
 extension ChangeUserInfoVM {
     private func fetchMajorInfo() {
-        networkUseCase.getMajors { [weak self] majorFetched in
+        self.networkUseCase.getMajors { [weak self] majorFetched in
             guard let majorFetched = majorFetched else {
                 self?.alertStatus = .networkError
                 return
@@ -122,6 +144,7 @@ extension ChangeUserInfoVM {
         }
         guard let selectedMajor = self.selectedMajor, let selectedMajorDetail = self.selectedMajorDetail else { return false }
         guard self.majorWithDetail[selectedMajor]?.contains(selectedMajorDetail) == true else {
+            self.alertStatus = .majorDetailNotSelected
             return false
         }
         return true
@@ -141,6 +164,7 @@ extension ChangeUserInfoVM {
     private func sendUserInfoToNetwork(userInfo: UserCoreData) {
         guard self.checkIfSubmitAvailable() else { return }
         self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { status in
+            print(status)
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:

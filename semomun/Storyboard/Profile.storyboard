@@ -458,6 +458,9 @@
                                                                         <real key="value" value="3"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="checkNickname:" destination="hNW-4C-a0k" eventType="touchUpInside" id="cfy-jX-yqf"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" name="defaultBackground"/>
@@ -496,10 +499,9 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GiK-AA-g65">
                                                                 <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="010-1234-5678" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h1D-8f-JIN">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h1D-8f-JIN">
                                                                         <rect key="frame" x="10" y="14.5" width="400" height="21"/>
                                                                         <color key="backgroundColor" name="defaultBackground"/>
-                                                                        <color key="textColor" name="grayTextColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits" textContentType="tel"/>
                                                                     </textField>
@@ -760,7 +762,7 @@
                                                                 <command title="Item 2" id="LWZ-Ya-bzs"/>
                                                             </children>
                                                         </menu>
-                                                        <state key="normal" title="학교 이름">
+                                                        <state key="normal">
                                                             <color key="titleColor" name="defaultText"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
@@ -816,7 +818,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" title="재학">
+                                                        <state key="normal">
                                                             <color key="titleColor" name="defaultText"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
