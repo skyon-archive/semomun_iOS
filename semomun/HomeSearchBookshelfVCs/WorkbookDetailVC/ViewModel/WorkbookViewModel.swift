@@ -9,6 +9,9 @@ import Foundation
 import Combine
 
 final class WorkbookViewModel {
+    enum PopupType {
+        case login, updateUserinfo, chargeMoney, purchase
+    }
     private let tags: [String] = []
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: SearchWorkbook?
@@ -17,6 +20,7 @@ final class WorkbookViewModel {
     @Published private(set) var sectionHeaders: [SectionHeader_Core]?
     @Published private(set) var sectionDTOs: [SectionOfDB]?
     @Published private(set) var showLoader: Bool = false
+    @Published private(set) var popupType: PopupType?
     
     init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil) {
         self.previewCore = previewCore
@@ -85,6 +89,17 @@ final class WorkbookViewModel {
             print("save complete")
             self?.showLoader = false
             NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : searchWorkbook.workbook.subject])
+        }
+    }
+    
+    func switchPurchase() {
+        let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        if !logined {
+            self.popupType = .login
+        } else {
+            // if 1.0사용자 -> .updateUserinfo
+            // else if 금액부족 -> .charge
+            self.popupType = .purchase
         }
     }
 }
