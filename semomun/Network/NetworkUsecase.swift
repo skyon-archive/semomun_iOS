@@ -496,3 +496,15 @@ extension NetworkUsecase: PhonenumVerifiable {
         completion(authNum == 1234)
     }
 }
+
+extension NetworkUsecase: PurchaseListFetchable {
+    func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
+        completion((.SUCCESS, [
+            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 10000),
+            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 20000),
+            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 30000),
+            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 40000),
+            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 50000),
+        ]))
+    }
+}
