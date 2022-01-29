@@ -12,20 +12,26 @@ class MajorCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var majorName: UILabel!
     
+    override var isSelected: Bool {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor(named: "mainColor")!.cgColor
+        self.layer.cornerRadius = 5
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        configureUI(major: "", isSelected: false)
+        self.majorName.text = ""
     }
     
-    func configureUI(major: String, isSelected: Bool) {
-        self.majorName.text = major
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(named: "mainColor")!.cgColor
-        self.layer.cornerRadius = 5
+    override func layoutSubviews() {
+        super.layoutSubviews()
         if isSelected {
             self.backgroundColor = UIColor(named: "mainColor")
             self.majorName.textColor = .white
@@ -33,5 +39,9 @@ class MajorCollectionViewCell: UICollectionViewCell {
             self.backgroundColor = .white
             self.majorName.textColor = UIColor(named: "mainColor")!
         }
+    }
+    
+    func configureText(major: String) {
+        self.majorName.text = major
     }
 }
