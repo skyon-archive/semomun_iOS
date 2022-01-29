@@ -46,7 +46,7 @@ extension BookshelfVC {
         self.sortSelector.layer.borderWidth = 1
         self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor
         self.sortSelector.clipsToBounds = true
-        self.sortSelector.cornerRadius = 3
+        self.sortSelector.layer.cornerRadius = 3
         self.configureMenu()
     }
     

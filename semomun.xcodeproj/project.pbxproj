@@ -117,7 +117,6 @@
 		87C85E36276F6656001C9C4A /* PersonalSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */; };
 		87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
-		87C85E3E276F66CC001C9C4A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3D276F66CC001C9C4A /* UIButton.swift */; };
 		87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3F276F66DF001C9C4A /* UIViewController.swift */; };
 		87C85E42276F66F8001C9C4A /* Int64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E41276F66F8001C9C4A /* Int64.swift */; };
 		87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E43276F6708001C9C4A /* UICollectionViewCell.swift */; };
@@ -303,7 +302,6 @@
 		87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingViewController.swift; sourceTree = "<group>"; };
 		87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalSettingNameViewController.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
-		87C85E3D276F66CC001C9C4A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		87C85E3F276F66DF001C9C4A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		87C85E41276F66F8001C9C4A /* Int64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int64.swift; sourceTree = "<group>"; };
 		87C85E43276F6708001C9C4A /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
@@ -947,7 +945,6 @@
 			isa = PBXGroup;
 			children = (
 				87C85E3B276F66BC001C9C4A /* PKDrawing.swift */,
-				87C85E3D276F66CC001C9C4A /* UIButton.swift */,
 				87C85E3F276F66DF001C9C4A /* UIViewController.swift */,
 				87C85E41276F66F8001C9C4A /* Int64.swift */,
 				87C85E43276F6708001C9C4A /* UICollectionViewCell.swift */,
@@ -1283,7 +1280,6 @@
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
-				87C85E3E276F66CC001C9C4A /* UIButton.swift in Sources */,
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				87C85E6D276F693A001C9C4A /* MajorDetailManager.swift in Sources */,
