@@ -275,13 +275,6 @@ extension SearchVC: SearchControlable {
     }
     
     func showWorkbookDetail(wid: Int) {
-        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
-        if isLogined == false {
-            self.viewModel?.selectWorkbook(to: wid)
-            // 로그인 창 띄우기
-        } else {
-            // if 1.0 사용자인 경우 -> 추가정보 필요창 띄우기
-            self.viewModel?.fetchWorkbook(wid: wid)
-        }
+        self.viewModel?.fetchWorkbook(wid: wid)
     }
 }

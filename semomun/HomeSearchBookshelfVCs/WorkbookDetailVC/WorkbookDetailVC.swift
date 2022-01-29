@@ -53,10 +53,7 @@ final class WorkbookDetailVC: UIViewController {
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
-        guard let workbookInfo = self.viewModel?.workbookInfo else { return }
-        self.showAlertWithCancelAndOK(title: workbookInfo.title, text: "해당 시험을 추가하시겠습니까?") { [weak self] in
-            self?.viewModel?.saveWorkbook()
-        }
+        self.viewModel?.switchPurchase()
     }
 }
 
@@ -187,6 +184,19 @@ extension WorkbookDetailVC {
             backgroundView.removeFromSuperview()
         }
     }
+    
+    private func showPopupVC(type: WorkbookViewModel.PopupType) {
+        switch type {
+        case .login, .updateUserinfo:
+            let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
+            guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
+            popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
+            self.present(popupVC, animated: true, completion: nil)
+        case .chargeMoney, .purchase:
+//            let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
+            print("none")
+        }
+    }
 }
 
 // MARK: - Binding
@@ -197,6 +207,7 @@ extension WorkbookDetailVC {
         self.bindSectionHeaders()
         self.bindSectionDTOs()
         self.bindLoader()
+        self.bindPopupType()
     }
     
     private func bindWarning() {
@@ -254,6 +265,17 @@ extension WorkbookDetailVC {
                     self?.stopLoader()
                     self?.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPopupType() {
+        self.viewModel?.$popupType
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] type in
+                guard let type = type else { return }
+                self?.showPopupVC(type: type)
             })
             .store(in: &self.cancellables)
     }

@@ -1716,6 +1716,9 @@ next line</string>
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="action:" destination="iYp-br-t3n" eventType="touchUpInside" id="NiA-de-xTK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fN-Nm-cHH">
                                         <rect key="frame" x="522" y="10" width="40" height="40"/>
@@ -1728,6 +1731,9 @@ next line</string>
                                         <state key="normal" image="xmark" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="semibold"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="iYp-br-t3n" eventType="touchUpInside" id="3D1-WG-BlG"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1757,6 +1763,11 @@ next line</string>
                             <constraint firstItem="LQf-DO-aGG" firstAttribute="centerY" secondItem="HR3-zE-Arq" secondAttribute="centerY" id="keI-zp-dZ1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textLabel" destination="5Hy-yV-LI1" id="82z-20-4eQ"/>
+                        <outlet property="titleLabel" destination="Jg9-21-rQy" id="kvd-uv-i79"/>
+                        <outlet property="warningBT" destination="9Su-xn-mMO" id="Y9U-LO-9UU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBU-Cj-Qb7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -70,7 +70,7 @@ extension LoginServicePopupVC {
         self.innerFrameview.layer.borderWidth = 1
         self.innerFrameview.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
         self.accept.clipsToBounds = true
-        self.accept.cornerRadius = 10
+        self.accept.layer.cornerRadius = 10
     }
     
     private func configureText() {
