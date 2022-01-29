@@ -13,11 +13,16 @@ typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable)
 
 final class ChangeUserInfoVM {
     
-    enum ChangeUserInfoAlert: Error {
-        case incompleteData, networkError, coreDataFetchError, success
+    enum ChangeUserInfoAlert {
+        case incompleteData, networkError, coreDataFetchError, saveSuccess
+    }
+    
+    enum PhoneAuthStatus {
+        case waitingForAuth, authComplete, wrongAuthNumber, invaildPhoneNum
     }
     
     @Published private(set) var alertStatus: ChangeUserInfoAlert? = nil
+    @Published private(set) var phoneAuthStatus: PhoneAuthStatus?
     @Published var nickname: String?
     @Published var phonenum: String?
     @Published var schoolName: String?
@@ -29,6 +34,7 @@ final class ChangeUserInfoVM {
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
     private var majorWithDetail: [String: [String]] = [:]
+    private var waitingForAuthPhoneNum: String?
     
     init(networkUseCase: ChangeUserInfoNetworkUseCase) {
         self.networkUseCase = networkUseCase
@@ -49,8 +55,35 @@ final class ChangeUserInfoVM {
         self.saveUserInfoToDB(userInfo: userInfo)
         self.sendUserInfoToNetwork(userInfo: userInfo)
     }
-    func clearAlert() {
-        self.alertStatus = nil
+    
+    func requestPhoneAuth(withPhoneNumber phoneNum: String) {
+        guard phoneNum.count == 11 else {
+            self.phoneAuthStatus = .invaildPhoneNum
+            return
+        }
+        self.phoneAuthStatus = .waitingForAuth
+        self.waitingForAuthPhoneNum = phoneNum
+    }
+    
+    func requestPhoneAuthAgain() {
+        self.phoneAuthStatus = .waitingForAuth
+    }
+    
+    func confirmAuthNumber(with authNumber: Int) {
+        guard let waitingForAuthPhoneNum = self.waitingForAuthPhoneNum else {
+            return
+        }
+        if authNumber == 1234 {
+            self.phoneAuthStatus = .authComplete
+            self.phonenum = waitingForAuthPhoneNum
+        } else {
+            self.phoneAuthStatus = .wrongAuthNumber
+        }
+    }
+    
+    func cancelPhoneAuth() {
+        self.phoneAuthStatus = nil
+        self.waitingForAuthPhoneNum = nil
     }
 }
 
@@ -111,7 +144,7 @@ extension ChangeUserInfoVM {
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
-                    self.alertStatus = .success // Error Handling 등 활용해서 보다 명확한 위치로 바꿀 수도 있을듯..
+                    self.alertStatus = .saveSuccess // Error Handling 등 활용해서 보다 명확한 위치로 바꿀 수도 있을듯..
                 default:
                     self.alertStatus = .networkError
                 }
