@@ -103,7 +103,8 @@ extension SearchResultVC: UICollectionViewDelegate {
 extension SearchResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalTerm: CGFloat = 20
-        let superWidth = self.searchResults.frame.width
+        let horizontalMargin: CGFloat = 40
+        let superWidth = self.searchResults.frame.width - 2*horizontalMargin
         let textHeight: CGFloat = 34
         let textHeightTerm: CGFloat = 5
         
