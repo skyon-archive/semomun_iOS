@@ -1039,17 +1039,17 @@ Title</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Anq-Ep-Vnx">
-                                <rect key="frame" x="40" y="39" width="754" height="1135"/>
+                                <rect key="frame" x="0.0" y="39" width="834" height="1135"/>
                                 <color key="backgroundColor" name="lightGrayBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="32" minimumInteritemSpacing="20" id="sH5-Ah-8sn">
                                     <size key="itemSize" width="155" height="253"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="40" minY="0.0" maxX="40" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="0uK-RQ-jrh" customClass="SearchResultCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="155" height="253"/>
+                                        <rect key="frame" x="40" y="0.0" width="155" height="253"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uBP-Dr-Ngk">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="253"/>
@@ -1097,7 +1097,7 @@ Label</string>
                             <constraint firstItem="Anq-Ep-Vnx" firstAttribute="top" secondItem="IyP-F8-VS0" secondAttribute="top" constant="15" id="KQa-yM-RpW"/>
                             <constraint firstItem="Anq-Ep-Vnx" firstAttribute="centerX" secondItem="IyP-F8-VS0" secondAttribute="centerX" id="Lzt-IA-o53"/>
                             <constraint firstItem="IyP-F8-VS0" firstAttribute="bottom" secondItem="Anq-Ep-Vnx" secondAttribute="bottom" id="kh6-xa-i6R"/>
-                            <constraint firstItem="Anq-Ep-Vnx" firstAttribute="leading" secondItem="IyP-F8-VS0" secondAttribute="leading" constant="40" id="lzg-eu-UTm"/>
+                            <constraint firstItem="Anq-Ep-Vnx" firstAttribute="leading" secondItem="IyP-F8-VS0" secondAttribute="leading" id="lzg-eu-UTm"/>
                         </constraints>
                     </view>
                     <connections>
