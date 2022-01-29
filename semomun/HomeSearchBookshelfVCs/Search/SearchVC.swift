@@ -77,6 +77,7 @@ class SearchVC: UIViewController {
         self.isSearchTagsFromTextVC = false
         self.dismissKeyboard()
         self.hiddenSearchBT()
+        self.hiddenRemoveTextBT()
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
