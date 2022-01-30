@@ -17,6 +17,7 @@ class SemopayVC: UIViewController {
     
     @IBOutlet weak var headerFrame: UIView!
     @IBOutlet weak var payChargeList: UITableView!
+    @IBOutlet weak var remainingSemopay: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +53,21 @@ class SemopayVC: UIViewController {
 extension SemopayVC {
     private func bindAll() {
         self.bindPurchaseList()
+        self.bindRemainingSemopay()
     }
     private func bindPurchaseList() {
         self.viewModel.$purchaseOfEachMonth
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.payChargeList.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    private func bindRemainingSemopay() {
+        self.viewModel.$remainingSemopay
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] remainingSemopay in
+                self?.remainingSemopay.text = "\(remainingSemopay)원"
             })
             .store(in: &self.cancellables)
     }
