@@ -78,29 +78,16 @@ extension SemopayVC: UITableViewDataSource {
         cell.configureCell(using: purchase)
         
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
-        cell.addShadow(direction: .bottom)
-        self.removeBorderAndMask(in: cell)
         
         if numberOfRowsInSection == 1 {
-        // 맨 위이자 맨 아래
-            self.makeCornerRadius(in: cell, at: .all)
+            cell.configureCellUI(at: .oneAndOnly)
         } else if indexPath.row == 0 {
-        // 맨 위
-            self.makeCornerRadius(in: cell, at: .top)
-            self.addBottomDivider(in: cell)
-            self.clipShadow(in: cell, at: .bottom)
+            cell.configureCellUI(at: .top)
         } else if indexPath.row == numberOfRowsInSection - 1 {
-        // 맨 아래
-            self.makeCornerRadius(in: cell, at: .bottom)
-            self.clipShadow(in: cell, at: .top)
+            cell.configureCellUI(at: .bottom)
         } else {
-        // 중간
-            self.addBottomDivider(in: cell)
-            self.clipShadow(in: cell, at: .both)
-            cell.layer.shadowOffset = CGSize()
+            cell.configureCellUI(at: .middle)
         }
-        cell.contentView.clipsToBounds = false
-        cell.clipsToBounds = false
         return cell
     }
 }
@@ -147,62 +134,4 @@ extension SemopayVC {
     }
 }
 
-// MARK: 그림자를 위한 함수들
-extension SemopayVC {
-    private enum ShadowClipDirection {
-        case top, bottom, both
-    }
-    
-    private enum CornerRadiusDirection {
-        case top, bottom, all
-    }
-    
-    private func removeBorderAndMask(in cell: UITableViewCell) {
-        cell.contentView.layer.mask = nil
-        cell.contentView.layer.sublayers?.removeAll(where: { $0.name == "Divider"})
-    }
-    
-    private func addBottomDivider(in cell: UITableViewCell) {
-        guard let dividerColor = UIColor(named: "grayLineColor") else { return }
-        let dividerHeight: CGFloat = 0.25
-        let dividerMargin: CGFloat = 39
-        let border = CALayer()
-        border.name = "Divider"
-        border.backgroundColor = dividerColor.cgColor
-        border.frame = CGRect(x: dividerMargin, y: cell.contentView.frame.size.height - dividerHeight, width: cell.contentView.frame.size.width - 2*dividerMargin, height: dividerHeight)
-        cell.contentView.layer.addSublayer(border)
-    }
-    
-    private func clipShadow(in cell: UITableViewCell, at direction: ShadowClipDirection) {
-        let shadowRadius: CGFloat = 10
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.white.cgColor
-        switch direction {
-        case .top:
-            layer.frame = .init(-shadowRadius, 0, cell.layer.frame.width+2*shadowRadius, cell.layer.frame.height+shadowRadius)
-        case .bottom:
-            layer.frame = .init(-shadowRadius, -shadowRadius, cell.layer.frame.width+2*shadowRadius, cell.layer.frame.height+shadowRadius)
-        case .both:
-            layer.frame = .init(-shadowRadius, 0, cell.layer.frame.width+2*shadowRadius, cell.layer.frame.height)
-        }
-        cell.layer.mask = layer
-    }
-    
-    private func makeCornerRadius(in cell: UITableViewCell, at direction: CornerRadiusDirection) {
-        let cornerRadius: CGFloat = 10
-        switch direction {
-        case .top:
-            let path = UIBezierPath(roundedRect: cell.contentView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height:  cornerRadius))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            cell.contentView.layer.mask = maskLayer
-        case .bottom:
-            let path = UIBezierPath(roundedRect: cell.contentView.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: cornerRadius, height:  cornerRadius))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            cell.contentView.layer.mask = maskLayer
-        case .all:
-            cell.contentView.layer.cornerRadius = cornerRadius
-        }
-    }
-}
+
