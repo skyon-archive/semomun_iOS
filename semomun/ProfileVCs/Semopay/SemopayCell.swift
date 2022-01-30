@@ -11,8 +11,10 @@ final class SemopayCell: UITableViewCell {
     static let identifier = "SemopayCell"
     static let dividerSublayerName = "SemopayDivider"
     
+    private let networkUsecase: WorkbookFetchable = NetworkUsecase(network: Network())
+    
     @IBOutlet private weak var date: UILabel!
-    @IBOutlet private weak var workbookName: UILabel!
+    @IBOutlet private weak var historyTitle: UILabel!
     @IBOutlet private weak var cost: UILabel!
     
     override func awakeFromNib() {
@@ -30,9 +32,20 @@ final class SemopayCell: UITableViewCell {
 }
 
 extension SemopayCell {
-    func configureCell(using purchase: Purchase) {
+    func configureCell(using purchase: SemopayHistory) {
+        self.setTitle(using: purchase.wid)
         self.setCost(to: purchase.cost)
         self.setDate(using: purchase.date)
+    }
+    
+    private func setTitle(using wid: Int?) {
+        if let wid = wid {
+            self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+                self?.historyTitle.text = searchWorkbook.workbook.title
+            }
+        } else {
+            self.historyTitle.text = "세모페이 충전"
+        }
     }
     
     private func setDate(using date: Date) {
@@ -58,7 +71,6 @@ extension SemopayCell {
         let costAttribute = [
             NSAttributedString.Key.foregroundColor: costColor,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)]
-        
         attrString.addAttributes(costAttribute, range: costRange)
         
         self.cost.attributedText = attrString
