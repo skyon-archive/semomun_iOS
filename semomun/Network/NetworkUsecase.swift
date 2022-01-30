@@ -499,12 +499,14 @@ extension NetworkUsecase: PhonenumVerifiable {
 
 extension NetworkUsecase: PurchaseListFetchable {
     func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
-        completion((.SUCCESS, [
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 10000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 20000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 30000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 40000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 50000),
-        ]))
+        let makeRandomPastDate: () -> Date = {
+            let randomTimeInterval = Double.random(in: -10000000...0)
+            return Date().addingTimeInterval(randomTimeInterval)
+        }
+        let makeRandomCost: () -> Double = {
+            return Double(Int.random(in: -99...99) * 1000)
+        }
+        let testData = Array(1...20).map { _ in Purchase(wid: "", date: makeRandomPastDate(), cost: makeRandomCost()) }.sorted(by: { $0.date > $1.date }) // 정렬은 프론트에서? 백에서?
+        completion((.SUCCESS, testData))
     }
 }

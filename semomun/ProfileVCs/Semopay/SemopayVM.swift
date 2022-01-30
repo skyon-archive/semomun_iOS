@@ -11,9 +11,7 @@ import Combine
 typealias SemopayNetworkUsecase = PurchaseListFetchable
 
 class SemopayVM {
-    @Published private(set) var purchaseList: [Purchase] = []
-    
-    
+    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [Purchase])] = []
     
     private let networkUsecase: SemopayNetworkUsecase
     
@@ -21,8 +19,21 @@ class SemopayVM {
         self.networkUsecase = NetworkUsecase(network: Network())
         self.networkUsecase.getPurchaseList { status, result in
             if status == .SUCCESS {
-                self.purchaseList = result
+                var resultGroupedByYearMonth: [String: [Purchase]] = [:]
+                result.forEach { purchase in
+                    let yearMonthText = self.makeYearMonthText(using: purchase.date)
+                    resultGroupedByYearMonth[yearMonthText, default: []].append(purchase)
+                }
+                self.purchaseOfEachMonth = resultGroupedByYearMonth.sorted(by: { $0.key > $1.key}).map { ($0.key, $0.value) }
             }
         }
+    }
+}
+
+extension SemopayVM {
+    private func makeYearMonthText(using date: Date) -> String {
+        let calendarDate = Calendar.current.dateComponents([.year, .month], from: date)
+        guard let year = calendarDate.year, let month = calendarDate.month else { return "20xx.xx" }
+        return String(format: "%d-%02d", year, month)
     }
 }
