@@ -43,9 +43,11 @@ extension SemopayCell {
     func configureNetworkUsecase(_ networkUsecase: SemopayCellNetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
-    
-    func configureCellUI(row: Int, numberOfRowsInSection: Int) {
-        if numberOfRowsInSection == 1 {
+}
+
+extension SemopayCell {
+        func configureCellUI(row: Int, numberOfRowsInSection: Int) {
+            if numberOfRowsInSection == 1 {
             self.makeCornerRadius(at: .all)
         } else if row == 0 {
             self.makeCornerRadius(at: .top)

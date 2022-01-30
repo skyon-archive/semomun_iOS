@@ -499,7 +499,7 @@ extension NetworkUsecase: SemopayHistoryFetchable {
             let wids = searchPreview.workbooks.map(\.wid)
             let testData: [SemopayHistory] = Array(1...20).map { _ in
                 let cost = makeRandomCost()
-                let wid = cost > 0 ? nil : wids.randomElement()
+                let wid = cost < 0 ? nil : wids.randomElement()
                 return SemopayHistory(wid: wid, date: makeRandomPastDate(), cost: cost)
             }.sorted(by: { $0.date > $1.date })
             // 정렬은 프론트에서? 백에서?
