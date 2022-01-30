@@ -40,12 +40,8 @@ class MainUseCase: MainLogic {
             return false
         }
         print(version, appstoreVersion)
-        guard var transedVersion = Int(version.split(separator: ".").map { String($0) }.reduce("", +)) else { return false }
-        guard var transedAppstoreVersion = Int(appstoreVersion.split(separator: ".").map { String($0) }.reduce("", +)) else { return false }
-        if transedVersion < 100 { transedVersion *= 10 }
-        if transedAppstoreVersion < 100 { transedAppstoreVersion *= 10 }
         
-        return transedVersion < transedAppstoreVersion
+        return version.transedVersion < appstoreVersion.transedVersion
     }
     
     func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping(Section_Core?) -> Void) {

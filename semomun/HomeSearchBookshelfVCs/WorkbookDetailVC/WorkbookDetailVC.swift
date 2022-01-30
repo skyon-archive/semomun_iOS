@@ -189,6 +189,7 @@ extension WorkbookDetailVC {
     }
     
     private func showPopupVC(type: WorkbookViewModel.PopupType) {
+        print(type)
         switch type {
         case .login, .updateUserinfo:
             let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
