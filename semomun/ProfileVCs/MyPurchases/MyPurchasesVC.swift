@@ -88,6 +88,3 @@ extension MyPurchasesVC: UITableViewDataSource {
         return cell
     }
 }
-
-extension MyPurchaseCell: UITableViewDelegate {
-}

@@ -30,18 +30,7 @@ class NetworkUsecase {
             hander(data)
         }
     }
-    
-    func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
-        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
-            guard let data = requestResult.data else { return }
-            guard let searchWorkbook: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) else {
-                print("Error: Decode")
-                return
-            }
-            handler(searchWorkbook)
-        }
-    }
-    
+
     func downloadImageData(url: String, handler: @escaping(Data?) -> Void) {
         self.network.get(url: url, param: nil) { requestResult in
             handler(requestResult.data)
@@ -497,8 +486,8 @@ extension NetworkUsecase: PhonenumVerifiable {
     }
 }
 
-extension NetworkUsecase: PurchaseListFetchable {
-    func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
+extension NetworkUsecase: SemopayHistoryFetchable {
+    func getSemopayHistory(completion: @escaping ((NetworkStatus, [SemopayHistory])) -> Void) {
         let makeRandomPastDate: () -> Date = {
             let randomTimeInterval = Double.random(in: -10000000...0)
             return Date().addingTimeInterval(randomTimeInterval)
@@ -506,7 +495,34 @@ extension NetworkUsecase: PurchaseListFetchable {
         let makeRandomCost: () -> Double = {
             return Double(Int.random(in: -99...99) * 1000)
         }
-        let testData = Array(1...20).map { _ in Purchase(wid: "", date: makeRandomPastDate(), cost: makeRandomCost()) }.sorted(by: { $0.date > $1.date }) // 정렬은 프론트에서? 백에서?
-        completion((.SUCCESS, testData))
+        NetworkUsecase(network: Network()).downloadPreviews(param: [:]) { searchPreview in
+            let wids = searchPreview.workbooks.map(\.wid)
+            let testData: [SemopayHistory] = Array(1...20).map { _ in
+                let cost = makeRandomCost()
+                let wid = cost < 0 ? nil : wids.randomElement()
+                return SemopayHistory(wid: wid, date: makeRandomPastDate(), cost: cost)
+            }.sorted(by: { $0.date > $1.date })
+            // 정렬은 프론트에서? 백에서?
+            completion((.SUCCESS, testData))
+        }
+    }
+}
+
+extension NetworkUsecase: PurchaseListFetchable {
+    func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
+        
+    }
+}
+
+extension NetworkUsecase: WorkbookFetchable {
+    func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
+        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
+            guard let data = requestResult.data else { return }
+            guard let searchWorkbook: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) else {
+                print("Error: Decode")
+                return
+            }
+            handler(searchWorkbook)
+        }
     }
 }

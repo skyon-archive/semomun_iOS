@@ -328,7 +328,7 @@
                                         <connections>
                                             <outlet property="cost" destination="9tQ-q9-MAh" id="FKd-K0-xB3"/>
                                             <outlet property="date" destination="JF7-NA-miv" id="Usj-Nu-GD3"/>
-                                            <outlet property="workbookName" destination="dav-ib-NnE" id="u72-51-LJE"/>
+                                            <outlet property="historyTitle" destination="dav-ib-NnE" id="u72-51-LJE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -8,18 +8,18 @@
 import Foundation
 import Combine
 
-typealias SemopayNetworkUsecase = PurchaseListFetchable
+typealias SemopayNetworkUsecase = SemopayHistoryFetchable
 
 class SemopayVM {
-    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [Purchase])] = []
+    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [SemopayHistory])] = []
     
     private let networkUsecase: SemopayNetworkUsecase
     
     init() {
         self.networkUsecase = NetworkUsecase(network: Network())
-        self.networkUsecase.getPurchaseList { status, result in
+        self.networkUsecase.getSemopayHistory { status, result in
             if status == .SUCCESS {
-                var resultGroupedByYearMonth: [String: [Purchase]] = [:]
+                var resultGroupedByYearMonth: [String: [SemopayHistory]] = [:]
                 result.forEach { purchase in
                     let yearMonthText = self.makeYearMonthText(using: purchase.date)
                     resultGroupedByYearMonth[yearMonthText, default: []].append(purchase)
