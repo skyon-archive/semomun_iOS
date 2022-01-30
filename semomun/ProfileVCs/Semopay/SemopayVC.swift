@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class SemopayVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "SemopayVC"
+    
+    private let viewModel = SemopayVM()
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet weak var headerFrame: UIView!
     @IBOutlet weak var payChargeList: UITableView!
@@ -40,25 +44,38 @@ class SemopayVC: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
+}
+
+// MARK: Binding
+extension SemopayVC {
+    private func bindAll() {
+        self.bindPurchaseList()
+    }
+    private func bindPurchaseList() {
+        self.viewModel.$purchaseOfEachMonth
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.payChargeList.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 extension SemopayVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.viewModel.purchaseOfEachMonth.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 20
-        } else {
-            return 10
-        }
+        return self.viewModel.purchaseOfEachMonth[section].content.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
+        
+        let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
+        cell.configureCell(using: purchase)
         
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
         cell.addShadow(direction: .bottom)
@@ -93,7 +110,8 @@ extension SemopayVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeight = self.tableView(tableView, heightForHeaderInSection: section)
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: sectionHeight))
-        guard let label = makeSectionLabel(text: "2022/02") else { return nil }
+        let sectionText = self.viewModel.purchaseOfEachMonth[section].section
+        guard let label = makeSectionLabel(text: sectionText) else { return nil }
         let labelHeight: CGFloat = 28
         let labelWidth: CGFloat = 113
         let xPos = (headerView.frame.width - labelWidth) / 2
@@ -114,10 +132,11 @@ extension SemopayVC {
     private func makeSectionLabel(text: String) -> UILabel? {
         guard let mainColor = UIColor(named: "mainColor") else { return nil }
         guard let backgroundColor = UIColor(named: "tableViewBackground") else { return nil }
+        
         let label = UILabel()
         label.backgroundColor = backgroundColor
         label.clipsToBounds = true
-        label.text = "2022.02"
+        label.text = text
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = mainColor
         label.textAlignment = .center
