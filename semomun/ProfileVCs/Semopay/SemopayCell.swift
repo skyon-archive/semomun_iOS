@@ -60,7 +60,7 @@ extension SemopayCell {
     
     private func setCost(to cost: Double) {
         guard let red = UIColor(named: "costRed"), let blue = UIColor(named: "costBlue") else { return }
-        let costToString = String(Int(cost)) + "원"
+        let costToString = Int(cost).withCommaAndSign() + "원"
         let attrString = NSMutableAttributedString(string: costToString)
         
         let costRange = NSRange(location: 0, length: costToString.count-1)
