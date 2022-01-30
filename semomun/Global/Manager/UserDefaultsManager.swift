@@ -13,6 +13,7 @@ struct UserDefaultsManager {
         static let logined = "logined"
         static let isInitial = "isInitial"
         static let favoriteTags = "favoriteTags"
+        static let userVersion = "userVersion"
     }
     
     static func set<T>(to: T, forKey: String) {
