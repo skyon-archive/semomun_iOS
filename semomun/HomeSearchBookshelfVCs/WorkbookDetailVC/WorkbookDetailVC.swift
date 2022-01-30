@@ -120,6 +120,9 @@ extension WorkbookDetailVC {
         NotificationCenter.default.addObserver(forName: .downloadSectionFail, object: nil, queue: .main) { [weak self] notification in
             self?.showAlertWithOK(title: "다운로드에 실패하였습니다", text: "네트워크 확인 후 다시 시도해주세요", completion: nil)
         }
+        NotificationCenter.default.addObserver(forName: .goToLogin, object: nil, queue: .main) { [weak self] _ in
+            self?.showLoginVC()
+        }
     }
     
     private func fetchWorkbook() {
