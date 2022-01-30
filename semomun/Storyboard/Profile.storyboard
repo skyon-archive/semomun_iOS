@@ -325,6 +325,11 @@
                                             <constraint firstItem="JF7-NA-miv" firstAttribute="leading" secondItem="FzQ-2X-jSr" secondAttribute="leading" constant="75" id="4Ml-3a-pyv"/>
                                             <constraint firstItem="JF7-NA-miv" firstAttribute="centerY" secondItem="FzQ-2X-jSr" secondAttribute="centerY" id="jQS-AJ-s9U"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="cost" destination="9tQ-q9-MAh" id="FKd-K0-xB3"/>
+                                            <outlet property="date" destination="JF7-NA-miv" id="Usj-Nu-GD3"/>
+                                            <outlet property="workbookName" destination="dav-ib-NnE" id="u72-51-LJE"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
