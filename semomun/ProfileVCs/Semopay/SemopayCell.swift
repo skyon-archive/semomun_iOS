@@ -42,14 +42,22 @@ extension SemopayCell {
     }
     
     private func setCost(to cost: Double) {
+        guard let red = UIColor(named: "costRed"), let blue = UIColor(named: "costBlue") else { return }
         let costToString = String(Int(cost)) + "원"
         let attrString = NSMutableAttributedString(string: costToString)
         
         let costRange = NSRange(location: 0, length: costToString.count-1)
         // let wonRange = NSRange(location: costToString.count-1, length: 1)
         
-        let costColor: UIColor = cost < 0 ? .red : .blue
-        let costAttribute = [NSAttributedString.Key.foregroundColor: costColor]
+        let costColor: UIColor
+        switch cost {
+        case ..<0: costColor = red
+        case 0: costColor = .lightGray
+        default: costColor = blue
+        }
+        let costAttribute = [
+            NSAttributedString.Key.foregroundColor: costColor,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)]
         
         attrString.addAttributes(costAttribute, range: costRange)
         
