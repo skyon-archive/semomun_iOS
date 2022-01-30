@@ -32,6 +32,8 @@ class SemopayVC: UIViewController {
         self.payChargeList.delegate = self
         self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -33)
         self.payChargeList.clipsToBounds = false
+        
+        self.bindAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
