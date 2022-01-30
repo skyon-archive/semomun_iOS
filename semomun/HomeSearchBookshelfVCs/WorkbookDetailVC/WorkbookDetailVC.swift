@@ -123,6 +123,9 @@ extension WorkbookDetailVC {
         NotificationCenter.default.addObserver(forName: .goToLogin, object: nil, queue: .main) { [weak self] _ in
             self?.showLoginVC()
         }
+        NotificationCenter.default.addObserver(forName: .goToUpdateUserinfo, object: nil, queue: .main) { [weak self] _ in
+            self?.showChangeUserinfoVC()
+        }
     }
     
     private func fetchWorkbook() {
@@ -158,15 +161,6 @@ extension WorkbookDetailVC {
         self.sectionNumberLabel.text = "총 \(sectionCount)단원"
     }
     
-    private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
-        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
-        solvingVC.modalPresentationStyle = .fullScreen
-        solvingVC.sectionCore = section
-        solvingVC.previewCore = preview
-        solvingVC.sectionHeaderCore = sectionHeader
-        self.present(solvingVC, animated: true, completion: nil)
-    }
-    
     private func startLoader() {
         self.loader.isHidden = false
         self.loader.startAnimating()
@@ -187,6 +181,18 @@ extension WorkbookDetailVC {
             backgroundView.removeFromSuperview()
         }
     }
+}
+
+// MARK: - Show VC
+extension WorkbookDetailVC {
+    private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
+        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+        solvingVC.modalPresentationStyle = .fullScreen
+        solvingVC.sectionCore = section
+        solvingVC.previewCore = preview
+        solvingVC.sectionHeaderCore = sectionHeader
+        self.present(solvingVC, animated: true, completion: nil)
+    }
     
     private func showPopupVC(type: WorkbookViewModel.PopupType) {
         print(type)
@@ -200,6 +206,12 @@ extension WorkbookDetailVC {
 //            let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
             print("none")
         }
+    }
+    
+    private func showChangeUserinfoVC() {
+        let storyboard = UIStoryboard(name: ChangeUserinfoPopupVC.storyboardName, bundle: nil)
+        let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoPopupVC.identifier)
+        self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
     }
 }
 
