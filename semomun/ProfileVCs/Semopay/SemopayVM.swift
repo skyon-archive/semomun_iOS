@@ -40,6 +40,6 @@ extension SemopayVM {
     private func makeYearMonthText(using date: Date) -> String {
         let calendarDate = Calendar.current.dateComponents([.year, .month], from: date)
         guard let year = calendarDate.year, let month = calendarDate.month else { return "20xx.xx" }
-        return String(format: "%d-%02d", year, month)
+        return String(format: "%d. %02d", year, month)
     }
 }
