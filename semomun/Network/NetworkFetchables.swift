@@ -68,3 +68,6 @@ protocol PurchaseListFetchable {
 protocol WorkbookFetchable {
     func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) 
 }
+protocol RemainingSemopayFetchable {
+    func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void)
+}
