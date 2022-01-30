@@ -32,7 +32,7 @@ class SettingViewController: UIViewController {
                 self?.logout()
             }
         } else {
-            self.showLoginViewController()
+            self.showLoginVC()
         }
     }
     
