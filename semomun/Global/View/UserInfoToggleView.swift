@@ -10,7 +10,7 @@ import UIKit
 protocol UserInfoPushable: AnyObject {
     func showUserSetting()
     func showSetting()
-    func showLoginViewController()
+    func showLoginVC()
 }
 
 final class UserInfoToggleView: UIView {
@@ -163,7 +163,7 @@ extension UserInfoToggleView {
         if self.isLogined {
             self.delegate?.showUserSetting()
         } else {
-            self.delegate?.showLoginViewController()
+            self.delegate?.showLoginVC()
         }
     }
     
