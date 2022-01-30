@@ -35,4 +35,10 @@ extension String {
         default: return self
         }
     }
+    
+    var transedVersion: Int {
+        var transedVersion = Int(self.split(separator: ".").map { String($0) }.reduce("", +)) ?? 0
+        if transedVersion < 100 { transedVersion *= 10 }
+        return transedVersion
+    }
 }

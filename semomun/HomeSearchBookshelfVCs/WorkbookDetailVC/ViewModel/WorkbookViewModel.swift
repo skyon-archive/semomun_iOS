@@ -94,12 +94,19 @@ final class WorkbookViewModel {
     
     func switchPurchase() {
         let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        let userVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.userVersion) as? String ?? "1.1.1"
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
+        
         if !logined {
             self.popupType = .login
         } else {
-            // if 1.0사용자 -> .updateUserinfo
+            if userVersion.transedVersion < version.transedVersion {
+                self.popupType = .updateUserinfo
+            }
             // else if 금액부족 -> .charge
-            self.popupType = .purchase
+            else {
+                self.popupType = .purchase
+            }
         }
     }
 }
