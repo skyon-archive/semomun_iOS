@@ -397,6 +397,7 @@
                     <connections>
                         <outlet property="headerFrame" destination="90k-P3-SyH" id="yD8-Dl-Kn8"/>
                         <outlet property="payChargeList" destination="xBl-3w-uh0" id="IFR-xs-xZm"/>
+                        <outlet property="remainingSemopay" destination="3AZ-8F-ZO0" id="Kjx-Jx-Cbh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wde-f0-k74" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
