@@ -40,8 +40,12 @@ extension SemopayCell {
     
     private func setTitle(using wid: Int?) {
         if let wid = wid {
-            self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
-                self?.historyTitle.text = searchWorkbook.workbook.title
+            if let preview = CoreUsecase.fetchPreview(wid: wid) {
+                self.historyTitle.text = preview.title
+            } else {
+                self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+                    self?.historyTitle.text = searchWorkbook.workbook.title
+                }
             }
         } else {
             self.historyTitle.text = "세모페이 충전"
