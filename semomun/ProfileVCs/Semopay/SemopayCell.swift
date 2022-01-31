@@ -7,10 +7,12 @@
 
 import UIKit
 
+typealias SemopayCellNetworkUsecase = WorkbookFetchable
+
 final class SemopayCell: UITableViewCell {
     static let identifier = "SemopayCell"
     
-    private let networkUsecase: WorkbookFetchable = NetworkUsecase(network: Network())
+    private var networkUsecase: SemopayCellNetworkUsecase = NetworkUsecase(network: Network())
     
     @IBOutlet private weak var date: UILabel!
     @IBOutlet private weak var historyTitle: UILabel!
@@ -48,15 +50,15 @@ extension SemopayCell {
             self.makeCornerRadius(at: .all)
         case .top:
             self.makeCornerRadius(at: .top)
-            self.addBottomDivider()
             self.clipShadow(at: .bottom)
+            self.addBottomDivider()
         case .bottom:
             self.makeCornerRadius(at: .bottom)
             self.clipShadow(at: .top)
         case .middle:
-            self.addBottomDivider()
             self.clipShadow(at: .both)
             self.changeShadowOffset(to: CGSize())
+            self.addBottomDivider()
         }
     }
 }
@@ -67,7 +69,7 @@ extension SemopayCell {
             if let preview = CoreUsecase.fetchPreview(wid: wid) {
                 self.historyTitle.text = preview.title
             } else {
-                self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+                self.networkUsecase?.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
                     self?.historyTitle.text = searchWorkbook.workbook.title
                 }
             }
