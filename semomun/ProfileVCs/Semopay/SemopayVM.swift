@@ -16,8 +16,8 @@ class SemopayVM {
     
     private let networkUsecase: SemopayNetworkUsecase
     
-    init() {
-        self.networkUsecase = NetworkUsecase(network: Network())
+    init(networkUsecase: SemopayNetworkUsecase) {
+        self.networkUsecase = networkUsecase
         self.networkUsecase.getSemopayHistory { status, result in
             if status == .SUCCESS {
                 var resultGroupedByYearMonth: [String: [SemopayHistory]] = [:]
