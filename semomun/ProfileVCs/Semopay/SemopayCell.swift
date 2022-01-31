@@ -26,9 +26,9 @@ final class SemopayCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.contentView.layer.cornerRadius = 0
-        self.contentView.layer.mask = nil
+        self.removeCornerRadius()
         self.removeBottomDivider()
+        self.undoClipShadow()
     }
 }
 
@@ -69,7 +69,7 @@ extension SemopayCell {
             if let preview = CoreUsecase.fetchPreview(wid: wid) {
                 self.historyTitle.text = preview.title
             } else {
-                self.networkUsecase?.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+                self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
                     self?.historyTitle.text = searchWorkbook.workbook.title
                 }
             }
@@ -130,38 +130,6 @@ extension SemopayCell {
         self.contentView.layer.sublayers?.removeAll(where: { $0.name == Self.dividerSublayerName})
     }
 }
- 
-// MARK: Shadow configure
-extension SemopayCell {
-    private enum ShadowClipDirection {
-        case top, bottom, both
-    }
-    
-    private func clipShadow(at direction: ShadowClipDirection) {
-        let shadowRadius: CGFloat = 10
-        let cellLayerHeight = self.layer.frame.height
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.white.cgColor
-        // 왼쪽부분 그림자는 항상 남음
-        let x = -shadowRadius
-        // 마찬가지로 좌우 그림자는 항상 남으므로 셀의 너비 + 양쪽 그림자의 넓이
-        let w = self.layer.frame.width+2*shadowRadius
-        let y, h: CGFloat
-        switch direction {
-        case .top:
-            y = 0
-            h = cellLayerHeight+shadowRadius
-        case .bottom:
-            y = -shadowRadius
-            h = cellLayerHeight+shadowRadius
-        case .both:
-            y = 0
-            h = cellLayerHeight
-        }
-        layer.frame = CGRect(x, y, w, h)
-        self.layer.mask = layer
-    }
-}
 
 // MARK: Corner radius configure
 extension SemopayCell {
@@ -185,5 +153,10 @@ extension SemopayCell {
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         self.contentView.layer.mask = maskLayer
+    }
+    
+    private func removeCornerRadius() {
+        self.contentView.layer.mask = nil
+        self.contentView.layer.cornerRadius = 0
     }
 }

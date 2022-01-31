@@ -21,13 +21,9 @@ class SemopayVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "페이 충전 내역"
-        
-        self.headerFrame.layer.shadowColor = UIColor.darkGray.withAlphaComponent(0.7).cgColor
-        self.headerFrame.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.headerFrame.layer.shadowOpacity = 0.2
-        self.headerFrame.layer.shadowRadius = 2.5
+        self.headerFrame.addShadow(direction: .bottom)
+        self.headerFrame.clipShadow(at: .top)
         
         self.payChargeList.dataSource = self
         self.payChargeList.delegate = self
@@ -74,7 +70,6 @@ extension SemopayVC {
 }
 
 extension SemopayVC: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.purchaseOfEachMonth.count
     }
@@ -105,7 +100,6 @@ extension SemopayVC: UITableViewDataSource {
 }
 
 extension SemopayVC: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeight = self.tableView(tableView, heightForHeaderInSection: section)
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: sectionHeight))
@@ -124,7 +118,6 @@ extension SemopayVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 72
     }
-    
 }
 
 extension SemopayVC {
