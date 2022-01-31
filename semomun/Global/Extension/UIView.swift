@@ -22,13 +22,13 @@ extension UIView {
         case center, bottom, top, diagnal
     }
     
+    /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewWillLayoutSubviews등에서 호출해야합니다.
     func addShadow(direction: ShadowDirection = .center, offset: CGSize? = nil, shouldRasterize: Bool = false) {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.shadowOpacity = 0.3
         shadowLayer.frame = self.layer.bounds
         shadowLayer.cornerRadius = self.layer.cornerRadius
-        // print(self.layer.bounds)
         shadowLayer.shadowColor = UIColor.lightGray.cgColor
         shadowLayer.shadowRadius = 5
         shadowLayer.backgroundColor = self.backgroundColor?.cgColor
@@ -65,7 +65,7 @@ extension UIView {
     
     func clipShadow(at direction: ShadowClipDirection) {
         guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
-        let shadowRadius: CGFloat = shadowLayer.shadowRadius * 2
+        let shadowRadius: CGFloat = shadowLayer.shadowRadius * 2 // 왜 곱하기 2를 해야 될까🤔
         let shadowLayerHeight = shadowLayer.frame.height
         let layer = CALayer()
         layer.backgroundColor = UIColor.white.cgColor
