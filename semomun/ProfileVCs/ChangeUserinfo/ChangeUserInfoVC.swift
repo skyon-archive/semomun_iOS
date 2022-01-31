@@ -55,17 +55,19 @@ class ChangeUserInfoVC: UIViewController {
         super.viewDidLoad()
         self.configureTableViewDelegate()
         self.bindAll()
+        self.configureUI()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.configureUI()
+        self.configureSubView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
     @IBAction func checkNickname(_ sender: Any) {
         guard let nickname = self.nickname.text else {
             self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
@@ -113,16 +115,15 @@ class ChangeUserInfoVC: UIViewController {
 extension ChangeUserInfoVC {
     private func configureUI() {
         self.navigationItem.title = "계정 정보 변경하기"
-        self.configureBodyFrameUI()
         self.configureRoundedMintBorder(of: nicknameFrame)
         self.configureRoundedMintBorder(of: phoneNumFrame)
         self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
         self.configureButtonMenus()
         self.additionalPhoneNumFrame.isHidden = true
         self.requestAgainButton.isHidden = true
-    }
-    private func configureBodyFrameUI() {
         self.bodyFrame.layer.cornerRadius = 15
+    }
+    private func configureSubView() {
         self.bodyFrame.addShadow(direction: .top)
     }
     private func configureRoundedMintBorder(of view: UIView) {
