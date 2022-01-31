@@ -53,9 +53,13 @@ class ChangeUserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureUI()
         self.configureTableViewDelegate()
         self.bindAll()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
