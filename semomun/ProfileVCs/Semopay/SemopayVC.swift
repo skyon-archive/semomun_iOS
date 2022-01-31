@@ -12,7 +12,7 @@ class SemopayVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "SemopayVC"
     
-    private let viewModel = SemopayVM()
+    private let viewModel = SemopayVM(networkUsecase: NetworkUsecase(network: Network()))
     private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet weak var headerFrame: UIView!
