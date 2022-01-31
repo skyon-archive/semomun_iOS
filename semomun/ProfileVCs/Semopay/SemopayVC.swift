@@ -21,15 +21,9 @@ class SemopayVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "페이 충전 내역"
-        self.headerFrame.addShadow(direction: .bottom)
-        self.headerFrame.clipShadow(at: .top)
-        
-        self.payChargeList.dataSource = self
-        self.payChargeList.delegate = self
-        self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -33)
-        self.payChargeList.clipsToBounds = false
-        
+        self.configureHeaderUI()
+        self.configureDelegates()
+        self.configureTableView()
         self.bindAll()
     }
     
@@ -42,6 +36,22 @@ class SemopayVC: UIViewController {
         let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SemopayVC {
+    private func configureHeaderUI() {
+        self.navigationItem.title = "페이 충전 내역"
+        self.headerFrame.addShadow(direction: .bottom)
+        self.headerFrame.clipShadow(at: .top)
+    }
+    private func configureDelegates() {
+        self.payChargeList.dataSource = self
+        self.payChargeList.delegate = self
+    }
+    private func configureTableView() {
+        self.payChargeList.clipsToBounds = false
+        self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -33)
     }
 }
 
@@ -80,12 +90,11 @@ extension SemopayVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
-        
+        // Configuring cell using data
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
         cell.configureCell(using: purchase)
-        
+        // Configuring cell on specific position
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
-        
         if numberOfRowsInSection == 1 {
             cell.configureCellUI(at: .oneAndOnly)
         } else if indexPath.row == 0 {
@@ -124,7 +133,6 @@ extension SemopayVC {
     private func makeSectionLabel(text: String) -> UILabel? {
         guard let mainColor = UIColor(named: "mainColor") else { return nil }
         guard let backgroundColor = UIColor(named: "tableViewBackground") else { return nil }
-        
         let label = UILabel()
         label.backgroundColor = backgroundColor
         label.clipsToBounds = true
