@@ -510,16 +510,11 @@ extension NetworkUsecase: SemopayHistoryFetchable {
 
 extension NetworkUsecase: PurchaseListFetchable {
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
-        NetworkUsecase(network: Network()).downloadPreviews(param: [:]) { searchPreview in
-            let wids = searchPreview.workbooks.map(\.wid)
-            let purchases: [Purchase] = Array(1...20).map { _ in
-                let wid = wids.randomElement() ?? 0
-                let date = Date().addingTimeInterval(-864000 * Double.random(in: 1...50))
-                let cost = Double.random(in: 1...99) * 1000
-                return Purchase(wid: wid, date: date, cost: cost)
-            }.sorted(by: { $0.date > $1.date })
-            completion((.SUCCESS, purchases))
-        }
+        guard startDate <= endDate else { return }
+        let wids = Array(30...79)
+        let dates = Array(1...50).map { Date(timeIntervalSinceNow: -86400 * 5 * Double($0)) }
+        let purchases = Array(0..<50).map { Purchase(wid: wids[$0], date: dates[$0], cost: Double.random(in: 1...99) * 1000)}
+        completion((.SUCCESS, purchases))
     }
 }
 

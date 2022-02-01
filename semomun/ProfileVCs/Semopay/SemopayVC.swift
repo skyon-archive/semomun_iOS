@@ -107,13 +107,9 @@ extension SemopayVC: UITableViewDelegate {
         let sectionHeight = self.tableView(tableView, heightForHeaderInSection: section)
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: sectionHeight))
         let sectionText = self.viewModel.purchaseOfEachMonth[section].section
-        guard let label = makeSectionLabel(text: sectionText) else { return nil }
-        let labelHeight: CGFloat = 28
-        let labelWidth: CGFloat = 113
-        let xPos = (headerView.frame.width - labelWidth) / 2
+        let label = SectionDateLabel(text: sectionText, filled: false)
         let labelBottomMargin: CGFloat = 12
-        let yPos = headerView.frame.height - labelBottomMargin - labelHeight
-        label.frame = CGRect.init(x: xPos, y: yPos, width: labelWidth, height: labelHeight)
+        label.center = CGPoint(headerView.frame.midX, headerView.frame.maxY - labelBottomMargin - label.frame.height / 2)
         headerView.addSubview(label)
         return headerView
     }
@@ -122,23 +118,3 @@ extension SemopayVC: UITableViewDelegate {
         return 72
     }
 }
-
-extension SemopayVC {
-    private func makeSectionLabel(text: String) -> UILabel? {
-        guard let mainColor = UIColor(named: "mainColor") else { return nil }
-        guard let backgroundColor = UIColor(named: "tableViewBackground") else { return nil }
-        let label = UILabel()
-        label.backgroundColor = backgroundColor
-        label.clipsToBounds = true
-        label.text = text
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = mainColor
-        label.textAlignment = .center
-        label.layer.borderColor = mainColor.cgColor
-        label.layer.borderWidth = 1
-        label.layer.cornerRadius = 14
-        return label
-    }
-}
-
-
