@@ -7,8 +7,9 @@
 
 import Foundation
 
+/// 하나의 구매 내역을 표현
 struct Purchase {
-    let wid: String
+    let wid: Int
     let date: Date
     let cost: Double
 }
