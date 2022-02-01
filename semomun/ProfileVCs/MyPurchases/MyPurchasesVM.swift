@@ -11,26 +11,60 @@ import Combine
 typealias MyPurchasesNetworkUsecase = PurchaseListFetchable
 
 final class MyPurchasesVM {
-    let networkUsecase: MyPurchasesNetworkUsecase
+    private let networkUsecase: MyPurchasesNetworkUsecase
+    
     
     enum MyPurchasesAlert {
-        case networkFail
+        case networkFailonStart
     }
     
-    @Published private(set) var purchaseListToShow: [Purchase] = []
+    enum PurchaseShowRange {
+        case all
+        case month(Int)
+    }
+    
+    @Published private(set) var purchaseListToShow: [(section: String, contents: [Purchase])] = []
     @Published private(set) var alert: MyPurchasesAlert? = nil
     
-    init(networkUsecase: MyPurchasesNetworkUsecase) {
+    private var startDate = Date(timeIntervalSince1970: 0)
+    private var endDate: Date {
+        return Date()
+    }
+    
+    init(networkUsecase: MyPurchasesNetworkUsecase, monthRange: Int = 3) {
         self.networkUsecase = networkUsecase
     }
     
     func configurePublished() {
-        self.networkUsecase.getPurchaseList(from: Date(), to: Date()) { status, result in
+        self.fetchData()
+    }
+    
+    func showLatestData(range: PurchaseShowRange) {
+        switch range {
+        case .all:
+            self.startDate = Date(timeIntervalSince1970: 0)
+        case .month(let monthRange):
+            self.startDate = self.addMonth(to: startDate, n: monthRange) ?? self.startDate
+        }
+        self.fetchData()
+    }
+    
+    private func fetchData() {
+        self.networkUsecase.getPurchaseList(from: self.startDate, to: self.endDate) { status, result in
             if status == .SUCCESS {
-                self.purchaseListToShow = result
+                let purchaseListDividedByMonth: [String: [Purchase]] = result.reduce(into: [:]) { result, next in
+                    let sectionText = next.date.yearMonthText
+                    result[sectionText, default: []].append(next)
+                }
+                self.purchaseListToShow = purchaseListDividedByMonth.sorted(by: { $0.key > $1.key }).map { ($0.key, $0.value) }
             } else {
-                self.alert = .networkFail
+                self.alert = .networkFailonStart
             }
         }
+    }
+    
+    private func addMonth(to date: Date, n: Int) -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .month, value: n, to: date)
     }
 }
