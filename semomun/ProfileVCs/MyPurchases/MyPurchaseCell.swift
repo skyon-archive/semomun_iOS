@@ -28,6 +28,8 @@ final class MyPurchaseCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureBasicUI()
+        self.clipsToBounds = false
+        self.contentView.clipsToBounds = false
     }
     
     override func prepareForReuse() {
@@ -42,7 +44,8 @@ final class MyPurchaseCell: UITableViewCell {
         let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: purchase.date)
         guard let year = dateComp.year, let month = dateComp.month, let day = dateComp.day else { return }
         self.date.text = String(format: "%d.%02d.%02d", year, month, day)
-        self.cost.text = Int(purchase.cost).withComma() + "원"
+        guard let costStr = Int(purchase.cost).withComma else { return }
+        self.cost.text = costStr + "원"
         self.networkUsecase.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
             self.title.text = searchWorkbook.workbook.title
             let urlString = NetworkURL.bookcoverImageDirectory(.large) + searchWorkbook.workbook.bookcover

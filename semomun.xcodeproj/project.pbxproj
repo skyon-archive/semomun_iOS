@@ -27,6 +27,8 @@
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257AC2CF27A9306F00008DD9 /* MyPurchasesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */; };
+		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
+		257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */; };
 		257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
@@ -215,6 +217,8 @@
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesVM.swift; sourceTree = "<group>"; };
+		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDateLabel.swift; sourceTree = "<group>"; };
 		257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVM.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
@@ -468,6 +472,7 @@
 			children = (
 				25627728279EE6AC006F9370 /* LongText */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
+				257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -959,6 +964,7 @@
 				25978AF627A3D346007CBD57 /* UITableView.swift */,
 				2502CECC27A6E3500072A037 /* Int.swift */,
 				870BEB7E27AACED10020A6AC /* UINavigationController.swift */,
+				257AC2D027A9592400008DD9 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1334,6 +1340,7 @@
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */,
+				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
@@ -1368,6 +1375,7 @@
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
 				87C85E38276F6688001C9C4A /* PersonalSettingNameViewController.swift in Sources */,
+				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
