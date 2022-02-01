@@ -10,7 +10,7 @@ import Combine
 
 final class WorkbookViewModel {
     enum PopupType {
-        case login, updateUserinfo, chargeMoney, purchase
+        case login, updateUserinfo, purchase
     }
     private let tags: [String] = []
     private(set) var previewCore: Preview_Core?
@@ -102,9 +102,7 @@ final class WorkbookViewModel {
         } else {
             if userVersion.transedVersion < version.transedVersion {
                 self.popupType = .updateUserinfo
-            }
-            // else if 금액부족 -> .charge
-            else {
+            } else {
                 self.popupType = .purchase
             }
         }
