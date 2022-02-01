@@ -1548,6 +1548,9 @@ next line</string>
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="action:" destination="egq-vo-ok0" eventType="touchUpInside" id="xeI-5Y-bry"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfz-q1-dJ6">
                                         <rect key="frame" x="522" y="10" width="40" height="40"/>
@@ -1560,6 +1563,9 @@ next line</string>
                                         <state key="normal" image="xmark" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="semibold"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="egq-vo-ok0" eventType="touchUpInside" id="auY-By-vbn"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세모페이 잔액이 부족하여 책을 구매할 수 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlz-Gy-cGn">
                                         <rect key="frame" x="116.5" y="256.5" width="339" height="20.5"/>
@@ -1671,6 +1677,15 @@ next line</string>
                             <constraint firstItem="Aes-b6-Enu" firstAttribute="centerX" secondItem="gIW-xQ-skc" secondAttribute="centerX" id="FuC-JL-WlM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="afterMoneyLabel" destination="m3X-qP-nDD" id="h7Q-EE-byr"/>
+                        <outlet property="currentMoneyLabel" destination="hr7-ar-yUq" id="6Jq-Z2-ckV"/>
+                        <outlet property="moneyStatusLabel" destination="1Cr-sx-UR3" id="FRa-pA-Lad"/>
+                        <outlet property="priceLabel" destination="fvj-R4-YNx" id="zg2-kt-HOz"/>
+                        <outlet property="purchaseBT" destination="MHY-Yf-hov" id="X8b-Kz-AgU"/>
+                        <outlet property="titleLabel" destination="tQf-rY-fZy" id="Onp-78-D7W"/>
+                        <outlet property="warningLabel" destination="rlz-Gy-cGn" id="6T8-44-L3X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HcL-H8-EQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
