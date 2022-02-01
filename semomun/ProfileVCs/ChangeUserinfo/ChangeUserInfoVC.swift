@@ -272,29 +272,12 @@ extension ChangeUserInfoVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
-<<<<<<< HEAD
                 case .withoutPopVC(let message):
                     self?.showAlertWithOK(title: message.rawValue, text: "")
                 case .withPopVC(let message):
                     self?.showAlertWithOK(title: message.rawValue, text: "") {
                         self?.navigationController?.popViewController(animated: true)
                     }
-=======
-                case .incompleteData:
-                    self?.showAlertWithOK(title: "정보가 모두 입력되지 않았습니다", text: "")
-                case .networkError:
-                    self?.showAlertWithOK(title: "네트워크가 연결되어있지 않습니다", text: "") {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                case .coreDataFetchError:
-                    self?.showAlertWithOK(title: "일시적인 문제가 발생했습니다", text: "")
-                case .saveSuccess:
-                    self?.showAlertWithOK(title: "저장이 완료되었습니다", text: "") {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                case .majorDetailNotSelected:
-                    self?.showAlertWithOK(title: "전공을 선택해주세요", text: "")
->>>>>>> 8684b31 ([Feat] MyPurchase 관련 VM 및 NetworkUsecase 추가)
                 case .none:
                     break
                 }
