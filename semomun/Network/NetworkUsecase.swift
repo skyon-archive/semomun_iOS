@@ -508,6 +508,21 @@ extension NetworkUsecase: SemopayHistoryFetchable {
     }
 }
 
+extension NetworkUsecase: PurchaseListFetchable {
+    func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
+        NetworkUsecase(network: Network()).downloadPreviews(param: [:]) { searchPreview in
+            let wids = searchPreview.workbooks.map(\.wid)
+            let purchases: [Purchase] = Array(1...20).map { _ in
+                let wid = wids.randomElement() ?? 0
+                let date = Date().addingTimeInterval(-864000 * Double.random(in: 1...50))
+                let cost = Double.random(in: 1...99) * 1000
+                return Purchase(wid: wid, date: date, cost: cost)
+            }.sorted(by: { $0.date > $1.date })
+            completion((.SUCCESS, purchases))
+        }
+    }
+}
+
 extension NetworkUsecase: WorkbookFetchable {
     func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
         self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
@@ -524,17 +539,5 @@ extension NetworkUsecase: WorkbookFetchable {
 extension NetworkUsecase: RemainingSemopayFetchable {
     func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void) {
         completion((.SUCCESS, 1000000))
-    }
-}
-
-extension NetworkUsecase: PurchaseListFetchable {
-    func getPurchaseList(completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
-        completion((.SUCCESS, [
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 10000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 20000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 30000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 40000),
-            .init(wid: "", date: Date().addingTimeInterval(Double.random(in: -10000...0)), cost: 50000),
-        ]))
     }
 }
