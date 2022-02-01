@@ -126,6 +126,12 @@ extension WorkbookDetailVC {
         NotificationCenter.default.addObserver(forName: .goToUpdateUserinfo, object: nil, queue: .main) { [weak self] _ in
             self?.showChangeUserinfoVC()
         }
+        NotificationCenter.default.addObserver(forName: .goToCharge, object: nil, queue: .main) { [weak self] _ in
+            self?.showChargeVC()
+        }
+        NotificationCenter.default.addObserver(forName: .purchaseComplete, object: nil, queue: .main) { [weak self] _ in
+            self?.viewModel?.saveWorkbook()
+        }
     }
     
     private func fetchWorkbook() {
@@ -165,21 +171,12 @@ extension WorkbookDetailVC {
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.view.isUserInteractionEnabled = false
-        
-        let backgroundView = UIView()
-        backgroundView.tag = 123
-        backgroundView.backgroundColor = .gray.withAlphaComponent(0.8)
-        backgroundView.frame = self.view.frame
-        self.view.addSubview(backgroundView)
     }
     
     private func stopLoader() {
         self.loader.isHidden = true
         self.loader.stopAnimating()
         self.view.isUserInteractionEnabled = true
-        if let backgroundView = self.view.viewWithTag(123) {
-            backgroundView.removeFromSuperview()
-        }
     }
 }
 
@@ -195,16 +192,19 @@ extension WorkbookDetailVC {
     }
     
     private func showPopupVC(type: WorkbookViewModel.PopupType) {
-        print(type)
         switch type {
         case .login, .updateUserinfo:
             let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
             guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
             popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
             self.present(popupVC, animated: true, completion: nil)
-        case .chargeMoney, .purchase:
-//            let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
-            print("none")
+        case .purchase:
+            let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
+            guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }
+            guard let info = self.viewModel?.workbookDTO?.workbook else { return }
+            popupVC.configureInfo(info: info)
+            popupVC.configureCurrentMoney(money: 2000) // 임시코드
+            self.present(popupVC, animated: true, completion: nil)
         }
     }
     
@@ -212,6 +212,12 @@ extension WorkbookDetailVC {
         let storyboard = UIStoryboard(name: ChangeUserinfoPopupVC.storyboardName, bundle: nil)
         let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoPopupVC.identifier)
         self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
+    }
+    
+    private func showChargeVC() {
+        let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
+        let waitingChargeVC = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
+        self.navigationController?.pushViewController(waitingChargeVC, animated: true)
     }
 }
 
@@ -279,7 +285,7 @@ extension WorkbookDetailVC {
                     self?.startLoader()
                 } else {
                     self?.stopLoader()
-                    self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    // Refresh 로직 필요
                 }
             })
             .store(in: &self.cancellables)
