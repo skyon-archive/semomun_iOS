@@ -6,13 +6,20 @@
 //
 
 import UIKit
+import Combine
+import Kingfisher
 
+private typealias MyPurchaseCellNetworkUsecase = WorkbookFetchable
+
+/// - Note: 만약 이대로 cell에서(혹은 셀 내의 ViewModel 등에서) 네트워크에 접근해야된다면 prefetch를 사용해보는 것도 방법일듯. [참고]( https://youbidan-project.tistory.com/148)
 final class MyPurchaseCell: UITableViewCell {
     
     static let storyboardName = "Profile"
     static let identifier = "MyPurchaseCell"
     
-    @IBOutlet weak var bg: UIView!
+    private let networkUsecase: MyPurchaseCellNetworkUsecase = NetworkUsecase(network: Network())
+    
+    @IBOutlet weak var background: UIView!
     @IBOutlet weak var workbookImage: UIImageView!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var title: UILabel!
@@ -23,23 +30,32 @@ final class MyPurchaseCell: UITableViewCell {
         self.configureBasicUI()
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        self.workbookImage.image = nil
-//        self.date.text = nil
-//        self.title.text = nil
-//        self.cost.text = nil
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.workbookImage.image = nil
+        self.date.text = nil
+        self.title.text = nil
+        self.cost.text = nil
+    }
+    
+    func configure(using purchase: Purchase) {
+        let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: purchase.date)
+        guard let year = dateComp.year, let month = dateComp.month, let day = dateComp.day else { return }
+        self.date.text = String(format: "%d.%02d.%02d", year, month, day)
+        self.cost.text = Int(purchase.cost).withComma() + "원"
+        self.networkUsecase.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
+            self.title.text = searchWorkbook.workbook.title
+            let urlString = NetworkURL.bookcoverImageDirectory(.large) + searchWorkbook.workbook.bookcover
+            guard let url = URL(string: urlString) else { return }
+            self.workbookImage.kf.setImage(with: url)
+        }
+    }
 }
 
 extension MyPurchaseCell {
     private func configureBasicUI() {
-        self.bg.layer.cornerRadius = 10
-        
-        self.bg.layer.shadowColor = UIColor.darkGray.withAlphaComponent(0.7).cgColor
-        self.bg.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.bg.layer.shadowOpacity = 0.2
-        self.bg.layer.shadowRadius = 2.5
+        self.background.layer.cornerRadius = 10
+        self.background.addShadow(direction: .bottom)
     }
 }
 
