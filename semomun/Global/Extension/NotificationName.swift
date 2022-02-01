@@ -19,4 +19,6 @@ extension Notification.Name {
     static let searchWorkbook = Self.init(rawValue: "searchWorkbook")
     static let goToLogin = Self.init(rawValue: "goToLogin")
     static let goToUpdateUserinfo = Self.init(rawValue: "goToUpdateUserinfo")
+    static let goToCharge = Self.init(rawValue: "goToCharge")
+    static let purchaseComplete = Self.init(rawValue: "purchaseComplete")
 }
