@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 final class PurchasePopupVC: UIViewController {
     static let identifier = "PurchasePopupVC"
@@ -24,11 +25,13 @@ final class PurchasePopupVC: UIViewController {
     private var info: WorkbookOfDB?
     private var currentMoney: Int?
     private var type: Status?
+    private var context = LAContext()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureType()
         self.configureUI()
+        self.configureAuthentication()
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -39,10 +42,7 @@ final class PurchasePopupVC: UIViewController {
         guard let type = self.type else { return }
         switch type {
         case .purchase:
-            // 생체인식 popup 필요
-            self.presentingViewController?.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: .purchaseComplete, object: nil)
-            })
+            self.authentication()
         case .charge:
             self.presentingViewController?.dismiss(animated: true, completion: {
                 NotificationCenter.default.post(name: .goToCharge, object: nil)
@@ -58,6 +58,10 @@ extension PurchasePopupVC {
     
     func configureCurrentMoney(money: Int) {
         self.currentMoney = money
+    }
+    
+    private func configureAuthentication() {
+        self.context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
     }
     
     private func configureType() {
@@ -97,5 +101,40 @@ extension PurchasePopupVC {
     
     private func configureActionTitle(to title: String) {
         self.purchaseBT.setTitle(title, for: .normal)
+    }
+}
+
+extension PurchasePopupVC {
+    private func authentication() {
+        self.context = LAContext()
+        self.context.localizedCancelTitle = "취소"
+        var error: NSError?
+        
+        if self.context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            var reason: String = ""
+            switch self.context.biometryType {
+            case .faceID:
+                reason = "결제를 진행하기 위해서 Face ID로 인증해주세요."
+            case .touchID:
+                reason = "결제를 진행하기 위해서 Touch ID로 인증해주세요."
+            case .none:
+                reason = "결제를 진행하기 위해서 비밀번호로 인증해주세요."
+            default:
+                break
+            }
+            self.context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [weak self] success, error in
+                if success {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.presentingViewController?.dismiss(animated: true, completion: {
+                            NotificationCenter.default.post(name: .purchaseComplete, object: nil)
+                        })
+                    }
+                } else {
+                    print(error?.localizedDescription ?? "Faild to authenticate")
+                }
+            }
+        } else {
+            print(error?.localizedDescription ?? "Faild to authenticate")
+        }
     }
 }
