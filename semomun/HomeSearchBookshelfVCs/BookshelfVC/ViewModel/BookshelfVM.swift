@@ -12,11 +12,21 @@ typealias TestBook = (title: String, author: String, publisher: String)
 
 final class BookshelfVM {
     private let networkUsecse: NetworkUsecase
+    private let refreshQueue = OperationQueue()
     @Published private(set) var testBooks: [TestBook] = []
     @Published private(set) var warning: (String, String)?
     
     init(networkUsecse: NetworkUsecase) {
         self.networkUsecse = networkUsecse
+        self.configureObservation()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: self.refreshQueue) { [weak self] notification in
+            guard let wid = notification.userInfo?["wid"] as? Int else { return }
+            // coreData fetch -> wid: WorkbookDetailVC 전환 로직 필요
+            print(wid)
+        }
     }
     
     func fetchBooks() {

@@ -39,6 +39,7 @@
 		25DFE610279A897F0057714B /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFE60F279A897F0057714B /* CategoryManager.swift */; };
 		25E6FF18279A9B7E00FEDCC1 /* MajorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6FF17279A9B7E00FEDCC1 /* MajorVC.swift */; };
 		25E6FF1A279A9BE500FEDCC1 /* MajorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6FF19279A9BE400FEDCC1 /* MajorDetailVC.swift */; };
+		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
 		8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92B279A5D9E00B33A5E /* Profile.storyboard */; };
@@ -226,6 +227,7 @@
 		25DFE60F279A897F0057714B /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		25E6FF17279A9B7E00FEDCC1 /* MajorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorVC.swift; sourceTree = "<group>"; };
 		25E6FF19279A9BE400FEDCC1 /* MajorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailVC.swift; sourceTree = "<group>"; };
+		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
 		8716E92B279A5D9E00B33A5E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 				250D82422772C43400AF1A46 /* String.swift */,
 				25978AF627A3D346007CBD57 /* UITableView.swift */,
 				2502CECC27A6E3500072A037 /* Int.swift */,
+				870BEB7E27AACED10020A6AC /* UINavigationController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1351,6 +1354,7 @@
 				2562772E27A16C56006F9370 /* SemopayHistory.swift in Sources */,
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
+				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */,
