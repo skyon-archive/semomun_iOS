@@ -488,8 +488,8 @@ extension NetworkUsecase: NicknameCheckable {
 }
 
 extension NetworkUsecase: PhonenumVerifiable {
-    func requestVertification(of phonenum: String) {
-        
+    func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
+        completion(.SUCCESS)
     }
     
     func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void) {
