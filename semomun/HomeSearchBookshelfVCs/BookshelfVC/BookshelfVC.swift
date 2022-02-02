@@ -33,6 +33,7 @@ class BookshelfVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
+        self.viewModel?.fetchBooks()
     }
     
     @IBAction func refresh(_ sender: Any) {

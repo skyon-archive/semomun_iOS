@@ -88,7 +88,6 @@ final class WorkbookViewModel {
             CoreDataManager.saveCoreData()
             print("save complete")
             self?.showLoader = false
-            NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : searchWorkbook.workbook.subject])
         }
     }
     

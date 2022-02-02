@@ -60,6 +60,7 @@ class SearchVC: UIViewController {
         self.configureCollectionView()
         self.configureTextFieldAction()
         self.changeToSearchFavoriteTagsVC()
+        self.configureAddObserver()
     }
     
     @IBAction func removeText(_ sender: Any) {
@@ -120,6 +121,12 @@ extension SearchVC {
     
     private func configureTextFieldAction() {
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    private func configureAddObserver() {
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] notification in
+            self?.tabBarController?.selectedIndex = 2
+        }
     }
 }
 
