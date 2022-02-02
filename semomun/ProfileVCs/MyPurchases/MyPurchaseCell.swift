@@ -41,9 +41,7 @@ final class MyPurchaseCell: UITableViewCell {
     }
     
     func configure(using purchase: Purchase) {
-        let dateComp = Calendar.current.dateComponents([.year, .month, .day], from: purchase.date)
-        guard let year = dateComp.year, let month = dateComp.month, let day = dateComp.day else { return }
-        self.date.text = String(format: "%d.%02d.%02d", year, month, day)
+        self.date.text = purchase.date.yearMonthDayText
         guard let costStr = Int(purchase.cost).withComma else { return }
         self.cost.text = costStr + "원"
         self.networkUsecase.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
