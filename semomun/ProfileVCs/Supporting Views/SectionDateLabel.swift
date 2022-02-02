@@ -10,8 +10,8 @@ import UIKit
 class SectionDateLabel: UILabel {
     convenience init(text: String, filled: Bool) {
         self.init(frame: CGRect(0, 0, 113, 28))
-        guard let mainColor = UIColor(named: "mainColor") else { return }
-        guard let backgroundColor = UIColor(named: "tableViewBackground") else { return }
+        guard let mainColor = UIColor(named: SemomunColor.mainColor) else { return }
+        guard let backgroundColor = UIColor(named: SemomunColor.tableViewBackground) else { return }
         self.text = text
         self.backgroundColor = filled ? mainColor : backgroundColor
         self.clipsToBounds = true
