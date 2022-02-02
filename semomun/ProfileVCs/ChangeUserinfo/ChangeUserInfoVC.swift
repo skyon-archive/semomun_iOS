@@ -21,17 +21,9 @@ class ChangeUserInfoVC: UIViewController {
     private var isAuthPhoneTFShown = false {
         didSet {
             if self.isAuthPhoneTFShown {
-                self.changePhoneNumButton.setTitle("취소", for: .normal)
-                self.additionalPhoneNumFrame.isHidden = false
-                self.additionalTF.placeholder = "변경할 전화번호를 입력해주세요."
-                self.additionalTF.becomeFirstResponder()
-                self.additionalTF.text = nil
-                self.requestAgainButton.isHidden = true
+                self.prepareToShowPhoneNumFrame()
             } else {
-                self.viewModel.cancelPhoneAuth()
-                self.changePhoneNumButton.setTitle("변경", for: .normal)
-                self.additionalPhoneNumFrame.isHidden = true
-                self.additionalTF.resignFirstResponder()
+                self.prepareToHidePhoneNumFrame()
             }
             UIView.animate(withDuration: 0.25) { [weak self] in
                 self?.view.layoutIfNeeded()
@@ -131,11 +123,11 @@ extension ChangeUserInfoVC {
     }
     private func configureRoundedMintBorder(of view: UIView) {
         view.layer.borderWidth = 1.5
-        view.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        view.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
         view.layer.cornerRadius = 5
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        guard let mainColor = UIColor(named: "mainColor") else { return }
+        let mainColor = UIColor(named: SemomunColor.mainColor)
         if isFilled {
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = mainColor
@@ -145,6 +137,20 @@ extension ChangeUserInfoVC {
             button.backgroundColor = .white
             button.borderColor = mainColor
         }
+    }
+    private func prepareToShowPhoneNumFrame() {
+        self.changePhoneNumButton.setTitle("취소", for: .normal)
+        self.additionalPhoneNumFrame.isHidden = false
+        self.additionalTF.placeholder = "변경할 전화번호를 입력해주세요."
+        self.additionalTF.becomeFirstResponder()
+        self.additionalTF.text = nil
+        self.requestAgainButton.isHidden = true
+    }
+    private func prepareToHidePhoneNumFrame() {
+        self.viewModel.cancelPhoneAuth()
+        self.changePhoneNumButton.setTitle("변경", for: .normal)
+        self.additionalPhoneNumFrame.isHidden = true
+        self.additionalTF.resignFirstResponder()
     }
 }
 
@@ -258,25 +264,15 @@ extension ChangeUserInfoVC {
         self.viewModel.$alertStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
-                var alertMessage: String?
                 switch status {
-                case .incompleteData:
-                    alertMessage = "정보가 모두 입력되지 않았습니다"
-                case .networkError:
-                    alertMessage = "네트워크가 연결되어있지 않습니다"
-                case .coreDataFetchError:
-                    alertMessage = "일시적인 문제가 발생했습니다"
-                case .saveSuccess:
-                    self?.showAlertWithOK(title: "저장이 완료되었습니다", text: "") {
+                case .withoutPopVC(let message):
+                    self?.showAlertWithOK(title: message.rawValue, text: "")
+                case .withPopVC(let message):
+                    self?.showAlertWithOK(title: message.rawValue, text: "") {
                         self?.navigationController?.popViewController(animated: true)
                     }
-                case .majorDetailNotSelected:
-                    alertMessage = "전공을 선택해주세요"
                 case .none:
                     break
-                }
-                if let alertMessage = alertMessage {
-                    self?.showAlertWithOK(title: alertMessage, text: "")
                 }
             }
             .store(in: &self.cancellables)
@@ -331,7 +327,11 @@ extension ChangeUserInfoVC: UICollectionViewDelegate {
 
 extension ChangeUserInfoVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == majorCollectionView ? self.viewModel.majors?.count ?? 0 : self.viewModel.majorDetails?.count ?? 0
+        if collectionView == majorCollectionView {
+            return self.viewModel.majors?.count ?? 0
+        } else {
+            return self.viewModel.majorDetails?.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
