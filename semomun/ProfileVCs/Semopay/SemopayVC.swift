@@ -93,8 +93,8 @@ extension SemopayVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
         // Configuring cell using data
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
-        cell.configureCell(using: purchase)
         cell.configureNetworkUsecase(NetworkUsecase(network: Network()))
+        cell.configureCell(using: purchase)
         // Configuring cell on specific position
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
         cell.configureCellUI(row: indexPath.row, numberOfRowsInSection: numberOfRowsInSection)
