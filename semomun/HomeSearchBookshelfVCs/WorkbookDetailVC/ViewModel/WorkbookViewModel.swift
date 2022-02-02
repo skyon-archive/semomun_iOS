@@ -75,7 +75,7 @@ final class WorkbookViewModel {
         self.showLoader = true
         guard let searchWorkbook = self.workbookDTO else { return }
         let wid = searchWorkbook.workbook.wid
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             // MARK: - Save Preview
             let preview_core = Preview_Core(context: CoreDataManager.shared.context)
             preview_core.setValues(searchWorkbook: searchWorkbook)
