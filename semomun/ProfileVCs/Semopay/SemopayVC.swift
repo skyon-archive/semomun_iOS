@@ -73,7 +73,8 @@ extension SemopayVC {
         self.viewModel.$remainingSemopay
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] remainingSemopay in
-                self?.remainingSemopay.text = remainingSemopay.withComma() + "원"
+                guard let costStr = remainingSemopay.withComma else { return }
+                self?.remainingSemopay.text = costStr + "원"
             })
             .store(in: &self.cancellables)
     }
@@ -93,17 +94,10 @@ extension SemopayVC: UITableViewDataSource {
         // Configuring cell using data
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
         cell.configureCell(using: purchase)
+        cell.configureNetworkUsecase(NetworkUsecase(network: Network()))
         // Configuring cell on specific position
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
-        if numberOfRowsInSection == 1 {
-            cell.configureCellUI(at: .oneAndOnly)
-        } else if indexPath.row == 0 {
-            cell.configureCellUI(at: .top)
-        } else if indexPath.row == numberOfRowsInSection - 1 {
-            cell.configureCellUI(at: .bottom)
-        } else {
-            cell.configureCellUI(at: .middle)
-        }
+        cell.configureCellUI(row: indexPath.row, numberOfRowsInSection: numberOfRowsInSection)
         return cell
     }
 }

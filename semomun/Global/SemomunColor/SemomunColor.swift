@@ -16,4 +16,6 @@ enum SemomunColor {
     static let grayTextColor = "grayTextColor"
     static let grayTitleLineColor = "grayTitleLineColor"
     static let lightGrayBackgroundColor = "lightGrayBackgroundColor"
+    static let costRed = "costRed"
+    static let costBlue = "costBlue"
 }
