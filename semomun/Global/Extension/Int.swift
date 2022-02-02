@@ -8,15 +8,15 @@
 import Foundation
 
 extension Int {
-    func withComma() -> String {
+    var withComma: String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value:self))!
+        return numberFormatter.string(from: NSNumber(value:self))
     }
-    func withCommaAndSign() -> String {
+    var withCommaAndSign: String? {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.positivePrefix = numberFormatter.plusSign
-        return numberFormatter.string(from: NSNumber(value:self))!
+        return numberFormatter.string(from: NSNumber(value:self))
     }
 }

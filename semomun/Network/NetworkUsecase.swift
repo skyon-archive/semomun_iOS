@@ -495,7 +495,7 @@ extension NetworkUsecase: SemopayHistoryFetchable {
         let makeRandomCost: () -> Double = {
             return Double(Int.random(in: -99...99) * 1000)
         }
-        NetworkUsecase(network: Network()).downloadPreviews(param: [:]) { searchPreview in
+        self.downloadPreviews(param: [:]) { searchPreview in
             let wids = searchPreview.workbooks.map(\.wid)
             let testData: [SemopayHistory] = Array(1...20).map { _ in
                 let cost = makeRandomCost()
