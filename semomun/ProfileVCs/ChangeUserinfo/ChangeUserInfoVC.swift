@@ -67,12 +67,12 @@ class ChangeUserInfoVC: UIViewController {
             self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
             return
         }
-        self.viewModel.changeNicknameIfAvailable(nickname: nickname) { isSuccess in
+        self.viewModel.changeNicknameIfAvailable(nickname: nickname) {[weak self] isSuccess in
             if isSuccess {
-                self.nickname.resignFirstResponder()
-                self.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
+                self?.nickname.resignFirstResponder()
+                self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
             } else {
-                self.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
+                self?.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
             }
         }
     }
