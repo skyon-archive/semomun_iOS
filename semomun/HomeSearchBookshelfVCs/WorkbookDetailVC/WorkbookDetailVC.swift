@@ -151,7 +151,7 @@ extension WorkbookDetailVC {
         self.releaseDateLabel.text = workbookInfo.releaseDate
         self.fileSizeLabel.text = workbookInfo.fileSize
         self.isbnLabel.text = workbookInfo.isbn
-        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price)원 결제하기", for: .normal)
+        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma ?? "0")원 결제하기", for: .normal)
         
         if self.isCoreData {
             if let imageData = workbookInfo.image {
@@ -213,8 +213,8 @@ extension WorkbookDetailVC {
     }
     
     private func showChangeUserinfoVC() {
-        let storyboard = UIStoryboard(name: ChangeUserinfoPopupVC.storyboardName, bundle: nil)
-        let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoPopupVC.identifier)
+        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
+        let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier)
         self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
     }
     
