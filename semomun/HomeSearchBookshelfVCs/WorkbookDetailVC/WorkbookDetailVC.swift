@@ -149,6 +149,10 @@ extension WorkbookDetailVC {
         self.authorLabel.text = workbookInfo.author
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
+        self.fileSizeLabel.text = workbookInfo.fileSize
+        self.isbnLabel.text = workbookInfo.isbn
+        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price)원 결제하기", for: .normal)
+        
         if self.isCoreData {
             if let imageData = workbookInfo.image {
                 self.bookCoverImageView.image = UIImage(data: imageData)
@@ -285,7 +289,10 @@ extension WorkbookDetailVC {
                     self?.startLoader()
                 } else {
                     self?.stopLoader()
-                    // Refresh 로직 필요
+                    guard let wid = self?.viewModel?.workbookDTO?.workbook.wid else { return }
+                    self?.navigationController?.popViewController(animated: true) {
+                        NotificationCenter.default.post(name: .refreshBookshelf, object: nil, userInfo: ["wid" : wid])
+                    }
                 }
             })
             .store(in: &self.cancellables)
