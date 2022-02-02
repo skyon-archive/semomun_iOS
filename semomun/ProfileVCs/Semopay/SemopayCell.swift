@@ -81,9 +81,7 @@ extension SemopayCell {
     }
     
     private func setDate(using date: Date) {
-        let calendarDate = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        guard let year = calendarDate.year, let month = calendarDate.month, let day = calendarDate.day else { return }
-        self.date.text = String(format: "%d.%02d.%02d", year, month, day)
+        self.date.text = date.yearMonthDayText
     }
     
     private func setCost(to cost: Double) {
