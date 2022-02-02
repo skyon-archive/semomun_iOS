@@ -12,7 +12,7 @@ typealias SemopayCellNetworkUsecase = WorkbookFetchable
 final class SemopayCell: UITableViewCell {
     static let identifier = "SemopayCell"
     
-    private var networkUsecase: SemopayCellNetworkUsecase = NetworkUsecase(network: Network())
+    private var networkUsecase: SemopayCellNetworkUsecase?
     
     @IBOutlet private weak var date: UILabel!
     @IBOutlet private weak var historyTitle: UILabel!
@@ -40,22 +40,21 @@ extension SemopayCell {
         self.setDate(using: purchase.date)
     }
     
-    enum CellPosition {
-        case oneAndOnly, top, bottom, middle
+    func configureNetworkUsecase(_ networkUsecase: SemopayCellNetworkUsecase) {
+        self.networkUsecase = networkUsecase
     }
     
-    func configureCellUI(at position: CellPosition) {
-        switch position {
-        case .oneAndOnly:
+    func configureCellUI(row: Int, numberOfRowsInSection: Int) {
+        if numberOfRowsInSection == 1 {
             self.makeCornerRadius(at: .all)
-        case .top:
+        } else if row == 0 {
             self.makeCornerRadius(at: .top)
             self.clipShadow(at: .bottom)
             self.addBottomDivider()
-        case .bottom:
+        } else if row == numberOfRowsInSection - 1 {
             self.makeCornerRadius(at: .bottom)
             self.clipShadow(at: .top)
-        case .middle:
+        } else {
             self.clipShadow(at: .both)
             self.changeShadowOffset(to: CGSize())
             self.addBottomDivider()
@@ -66,10 +65,11 @@ extension SemopayCell {
 extension SemopayCell {
     private func setTitle(using wid: Int?) {
         if let wid = wid {
+            // TODO: 네트워크로만 연결 가능하게 하기.
             if let preview = CoreUsecase.fetchPreview(wid: wid) {
                 self.historyTitle.text = preview.title
             } else {
-                self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+                self.networkUsecase?.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
                     self?.historyTitle.text = searchWorkbook.workbook.title
                 }
             }
@@ -85,7 +85,8 @@ extension SemopayCell {
     }
     
     private func setCost(to cost: Double) {
-        let costStr = Int(cost).withCommaAndSign() + "원"
+        guard var costStr = Int(cost).withCommaAndSign else { return }
+        costStr += "원"
         let attrString = NSMutableAttributedString(string: costStr)
         let costRange = NSRange(location: 0, length: costStr.count-1)
         let costAttribute = [
@@ -96,13 +97,15 @@ extension SemopayCell {
     }
     
     private func color(of cost: Double) -> UIColor {
-        guard let red = UIColor(named: "costRed"), let blue = UIColor(named: "costBlue") else {
+        guard let red = UIColor(named: SemomunColor.costRed), let blue = UIColor(named: SemomunColor.costBlue) else {
             return .lightGray
         }
-        switch cost {
-        case ..<0: return red
-        case 0: return .lightGray
-        default: return blue
+        if cost.isZero {
+            return .lightGray
+        } else if cost.isLess(than: 0) {
+            return red
+        } else {
+            return blue
         }
     }
 }
@@ -111,7 +114,7 @@ extension SemopayCell {
 extension SemopayCell {
     static let dividerSublayerName = "SemopayDivider"
     private func addBottomDivider() {
-        guard let dividerColor = UIColor(named: "grayLineColor") else { return }
+        guard let dividerColor = UIColor(named: SemomunColor.grayLineColor) else { return }
         let dividerHeight: CGFloat = 0.25
         let dividerMargin: CGFloat = 39
         let dividerWidth = self.contentView.frame.size.width - 2 * dividerMargin
