@@ -17,11 +17,7 @@ final class MainThemeSwitch: UIControl {
     private let thumbColor = UIColor.white
     
     private var isAnimating = false
-    private var isOn = false {
-        didSet {
-            self.action?(self.isOn)
-        }
-    }
+    private var isOn = false
     private var onPoint = CGPoint.zero
     private var offPoint = CGPoint.zero
     
@@ -31,7 +27,7 @@ final class MainThemeSwitch: UIControl {
         self.thumbView.backgroundColor = self.thumbColor
         self.thumbView.isUserInteractionEnabled = false
         self.addSubview(self.thumbView)
-        self.addAction(UIAction { _ in self.animate(); }, for: .touchUpInside)
+        self.addAction(UIAction { _ in self.toggle(); }, for: .touchUpInside)
         self.action = action
     }
     
@@ -51,10 +47,9 @@ final class MainThemeSwitch: UIControl {
         self.thumbView.layer.cornerRadius = thumbSize.width / 2
     }
     
-    @objc private func animate() {
+    func toggleButton() {
         self.isOn.toggle()
         self.isAnimating = true
-        
         UIView.animate(withDuration: self.animationDuration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: [], animations: {
             self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
             self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
@@ -62,5 +57,10 @@ final class MainThemeSwitch: UIControl {
             self.isAnimating = false
             self.sendActions(for: .valueChanged)
         }
+    }
+    
+    @objc private func toggle() {
+        self.toggleButton()
+        self.action?(self.isOn)
     }
 }

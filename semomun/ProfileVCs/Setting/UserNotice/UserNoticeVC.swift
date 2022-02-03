@@ -106,12 +106,15 @@ extension UserNoticeVC: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserNoticeCell.identifier) as? UserNoticeCell else { return UITableViewCell() }
-        cell.configure(using: self.noticeFetched[indexPath.row])
+        let notice = self.noticeFetched[indexPath.row]
+        cell.configure(using: notice)
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UserNoticeContentVC()
-        vc.configureContent(using: self.noticeFetched[indexPath.row])
+        let notice = self.noticeFetched[indexPath.row]
+        vc.configureContent(using: notice)
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
