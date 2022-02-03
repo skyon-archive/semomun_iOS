@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UnloginedSettingTableVC: UITableViewController {
+final class UnloginedSettingTableVC: UITableViewController {
     static let storyboardName = "Profile"
     static let identifier = "UnloginedSettingTableVC"
     

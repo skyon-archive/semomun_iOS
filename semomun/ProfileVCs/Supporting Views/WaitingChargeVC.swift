@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WaitingChargeVC: UIViewController {
+final class WaitingChargeVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "WaitingChargeVC"
     
