@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class SemopayVC: UIViewController {
+final class SemopayVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "SemopayVC"
     

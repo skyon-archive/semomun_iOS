@@ -10,7 +10,7 @@ import Combine
 
 typealias SemopayNetworkUsecase = (SemopayHistoryFetchable & RemainingSemopayFetchable & SemopayCellNetworkUsecase)
 
-class SemopayVM {
+final class SemopayVM {
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [SemopayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
     
