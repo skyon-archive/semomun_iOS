@@ -148,7 +148,7 @@ extension BookshelfVC: UICollectionViewDelegate {
         if (count%2 == 1) && (indexPath.item+1 == count+1) { return } // 전체수가 홀수이면서 마지막 cell 일 경우 클릭액션 제거
         
         guard let book = self.viewModel?.books[indexPath.item] else { return }
-        // TODO: WorkbookDetailVC 전환 로직 필요
+        self.showWorkbookDetailVC(book: book)
     }
 }
 
@@ -157,5 +157,16 @@ extension BookshelfVC: UICollectionViewDelegateFlowLayout {
         let width = (self.books.frame.width)/2
         let height: CGFloat = 182
         return CGSize(width: width, height: height)
+    }
+}
+
+extension BookshelfVC {
+    private func showWorkbookDetailVC(book: Preview_Core) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookViewModel(previewCore: book)
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: true)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
     }
 }
