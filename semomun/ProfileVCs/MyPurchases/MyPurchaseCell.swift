@@ -19,45 +19,45 @@ final class MyPurchaseCell: UITableViewCell {
     
     private var networkUsecase: MyPurchaseCellNetworkUsecase?
     
-    @IBOutlet weak var background: UIView!
+    @IBOutlet weak var backgroundFrameView: UIView!
     @IBOutlet weak var workbookImage: UIImageView!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var cost: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var costLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureBasicUI()
-        self.clipsToBounds = false
-        self.contentView.clipsToBounds = false
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.workbookImage.image = nil
-        self.date.text = nil
-        self.title.text = nil
-        self.cost.text = nil
+        self.dateLabel.text = nil
+        self.titleLabel.text = nil
+        self.costLabel.text = nil
     }
     
     func configure(purchase: Purchase, networkUsecase: MyPurchaseCellNetworkUsecase) {
         self.networkUsecase = networkUsecase
-        self.date.text = purchase.date.yearMonthDayText
-        guard let costStr = Int(purchase.cost).withComma else { return }
-        self.cost.text = costStr + "원"
-        self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
-            self.title.text = searchWorkbook.workbook.title
+        self.dateLabel.text = purchase.date.yearMonthDayText
+        let costStr = Int(purchase.cost).withComma ?? "0"
+        self.costLabel.text = costStr + "원"
+        self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { [weak self] searchWorkbook in
+            self?.titleLabel.text = searchWorkbook.workbook.title
             let urlString = NetworkURL.bookcoverImageDirectory(.large) + searchWorkbook.workbook.bookcover
             guard let url = URL(string: urlString) else { return }
-            self.workbookImage.kf.setImage(with: url)
+            self?.workbookImage.kf.setImage(with: url)
         }
     }
 }
 
 extension MyPurchaseCell {
     private func configureBasicUI() {
-        self.background.layer.cornerRadius = 10
-        self.background.addShadow(direction: .bottom)
+        self.backgroundFrameView.layer.cornerRadius = 10
+        self.backgroundFrameView.addShadow(direction: .bottom)
+        self.clipsToBounds = false
+        self.contentView.clipsToBounds = false
     }
 }
 

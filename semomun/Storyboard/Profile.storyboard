@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -84,11 +84,11 @@
                                         <rect key="frame" x="20" y="126" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mrG-qX-GfT" id="cNs-Wn-fcF">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="구매 내역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vX0-tR-Y9Y">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -102,11 +102,11 @@
                                         <rect key="frame" x="20" y="169.5" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PO3-xI-c7x" id="onq-ka-ZST">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="페이 충전 내역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6r7-br-28u">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -124,11 +124,11 @@
                                         <rect key="frame" x="20" y="263" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xvz-IK-7E8" id="X16-4V-uQH">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tMW-eC-HZP">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1047,10 +1047,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="background" destination="qga-ey-rAe" id="hie-TD-h1k"/>
-                                            <outlet property="cost" destination="D3f-Tg-kIb" id="4eq-92-Fuh"/>
-                                            <outlet property="date" destination="O3i-mB-Pnk" id="Jlh-h0-bsx"/>
-                                            <outlet property="title" destination="bqb-h1-w1t" id="4Yi-Vj-NFB"/>
+                                            <outlet property="backgroundFrameView" destination="qga-ey-rAe" id="hie-TD-h1k"/>
+                                            <outlet property="costLabel" destination="D3f-Tg-kIb" id="4eq-92-Fuh"/>
+                                            <outlet property="dateLabel" destination="O3i-mB-Pnk" id="Jlh-h0-bsx"/>
+                                            <outlet property="titleLabel" destination="bqb-h1-w1t" id="4Yi-Vj-NFB"/>
                                             <outlet property="workbookImage" destination="4Wv-6R-WWm" id="wh8-g1-cJT"/>
                                         </connections>
                                     </tableViewCell>
@@ -1356,11 +1356,11 @@
                                         <rect key="frame" x="20" y="93" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2qK-pd-hI2" id="cMY-JU-CPX">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="회원탈퇴" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BKs-wu-pzt">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1403,11 +1403,11 @@
                                         <rect key="frame" x="20" y="230" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xDw-t8-XLA" id="UCo-5u-Dlr">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="이용약관" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U1v-7b-vYM">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1421,11 +1421,11 @@
                                         <rect key="frame" x="20" y="273.5" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B6b-O2-4eD" id="qaI-e9-aY3">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="개인 정보 처리 방침" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cke-Zl-eJy">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1439,11 +1439,11 @@
                                         <rect key="frame" x="20" y="317" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BCa-Lq-cYH" id="AWe-dm-dTm">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="마케팅 수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yjw-jh-8cM">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1457,11 +1457,11 @@
                                         <rect key="frame" x="20" y="360.5" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fvj-3j-bxu" id="PGB-9e-Bdq">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="전자금융거래 이용약관" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OCo-6U-xzZ">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1528,11 +1528,11 @@
                                         <rect key="frame" x="20" y="93" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yMh-L1-Not" id="Tfg-yZ-YPT">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="이용약관" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LCx-6o-2ef">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1546,11 +1546,11 @@
                                         <rect key="frame" x="20" y="136.5" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bja-kw-Sdn" id="a64-6n-vRV">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="개인 정보 처리 방침" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t9W-3e-XoC">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="defaultText"/>
@@ -1601,11 +1601,11 @@
                                         <rect key="frame" x="20" y="49.5" width="794" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aHi-oK-6VZ" id="oEw-3X-DSa">
-                                            <rect key="frame" x="0.0" y="0.0" width="768.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="769.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eoC-NR-NUE">
-                                                    <rect key="frame" x="16" y="0.0" width="744.5" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="745.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
