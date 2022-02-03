@@ -123,13 +123,20 @@ extension BookshelfVC {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.books.count ?? 0
+        let count = self.viewModel?.books.count ?? 0
+        return count%2 == 1 ? count+1 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
-        guard let book = self.viewModel?.books[indexPath.item] else { return cell }
-        cell.configure(with: book)
+        let count = self.viewModel?.books.count ?? 0
+        let isShadowCell: Bool = count%2 == 1 && indexPath.item+1 == count+1 // 전체수가 홀수이면서 마지막 cell일 경우
+        if isShadowCell {
+            cell.configureShadow()
+        } else {
+            guard let book = self.viewModel?.books[indexPath.item] else { return cell }
+            cell.configure(with: book)
+        }
         
         return cell
     }
@@ -137,6 +144,9 @@ extension BookshelfVC: UICollectionViewDataSource {
 
 extension BookshelfVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let count = self.viewModel?.books.count ?? 0
+        if (count%2 == 1) && (indexPath.item+1 == count+1) { return } // 전체수가 홀수이면서 마지막 cell 일 경우 클릭액션 제거
+        
         guard let book = self.viewModel?.books[indexPath.item] else { return }
         // TODO: WorkbookDetailVC 전환 로직 필요
     }
