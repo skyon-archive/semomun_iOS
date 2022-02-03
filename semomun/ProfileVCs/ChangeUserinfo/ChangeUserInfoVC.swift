@@ -55,7 +55,6 @@ final class ChangeUserInfoVC: UIViewController {
         super.viewDidLoad()
         self.configureTableViewDelegate()
         self.bindAll()
-        self.viewModel.configurePublished()
         self.configureUI()
     }
     
