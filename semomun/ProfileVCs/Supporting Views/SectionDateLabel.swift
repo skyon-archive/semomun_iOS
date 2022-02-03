@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SectionDateLabelFrame: UIView {
+final class SectionDateLabelFrame: UIView {
     convenience init(text: String, filled: Bool) {
         self.init()
         self.commonInit(text: text, filled: filled)
