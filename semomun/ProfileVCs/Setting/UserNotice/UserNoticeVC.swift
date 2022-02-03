@@ -10,36 +10,33 @@ import UIKit
 typealias UserNoticeNetworkUsecase = UserNoticeFetchable
 
 final class UserNoticeVC: UIViewController {
-    private let noticeList = UITableView()
-    private let backgroundFrame = UIView()
+    private let noticeTableView = UITableView()
+    private var noticeFetched: [UserNotice] = []
+    private let backgroundShadowView = UIView()
     private let networkUsecase: UserNoticeNetworkUsecase? = NetworkUsecase(network: Network())
-    private var notices: [UserNotice] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureUI()
+        self.configureTableView()
+        self.getData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.backgroundShadowView.addShadow(direction: .top)
+    }
+}
+
+// MARK: Confiure layout
+extension UserNoticeVC {
+    private func configureUI() {
         self.navigationItem.title = "공지사항"
         self.navigationItem.backButtonTitle = "목록"
         self.view.backgroundColor = .white
         self.configureBackgroundLayout()
         self.configureTableViewLayout()
-        self.configureTableView()
-        self.networkUsecase?.getUserNotices { [weak self] status, userNotices in
-            if status == .SUCCESS {
-                self?.notices = userNotices
-            } else {
-                self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크 연결을 확인해주세요") {
-                    self?.navigationController?.popViewController(animated: true)
-                }
-            }
-        }
     }
     
-    override func viewDidLayoutSubviews() {
-        self.backgroundFrame.addShadow(direction: .top)
-    }
-}
-
-extension UserNoticeVC {
     private func configureBackgroundLayout() {
         self.configureBackgroundColorView()
         self.configureBackgroundShadowView()
@@ -59,49 +56,62 @@ extension UserNoticeVC {
     }
     
     private func configureBackgroundShadowView() {
-        self.backgroundFrame.backgroundColor = .white
-        self.backgroundFrame.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.backgroundFrame)
+        self.backgroundShadowView.backgroundColor = .white
+        self.backgroundShadowView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.backgroundShadowView)
         NSLayoutConstraint.activate([
-            self.backgroundFrame.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.backgroundFrame.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.backgroundFrame.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            self.backgroundFrame.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            self.backgroundShadowView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            self.backgroundShadowView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.backgroundShadowView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.backgroundShadowView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
         ])
     }
     
     private func configureTableViewLayout() {
-        self.view.addSubview(noticeList)
-        self.noticeList.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(noticeTableView)
+        self.noticeTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.noticeList.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.noticeList.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            self.noticeList.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            self.noticeList.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 25)
+            self.noticeTableView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 25)
         ])
     }
 }
 
+
 extension UserNoticeVC {
     private func configureTableView() {
-        self.noticeList.register(UserNoticeCell.self, forCellReuseIdentifier: UserNoticeCell.identifier)
-        self.noticeList.dataSource = self
-        self.noticeList.delegate = self
+        self.noticeTableView.register(UserNoticeCell.self, forCellReuseIdentifier: UserNoticeCell.identifier)
+        self.noticeTableView.dataSource = self
+        self.noticeTableView.delegate = self
+    }
+    private func getData() {
+        self.networkUsecase?.getUserNotices { [weak self] status, userNotices in
+            if status == .SUCCESS {
+                self?.noticeFetched = userNotices
+                self?.noticeTableView.reloadData()
+            } else {
+                self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크 연결을 확인해주세요") {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
     }
 }
 
 extension UserNoticeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.notices.count
+        return self.noticeFetched.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserNoticeCell.identifier) as? UserNoticeCell else { return UITableViewCell() }
-        cell.configure(using: self.notices[indexPath.row])
+        cell.configure(using: self.noticeFetched[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UserNoticeContentVC()
-        vc.configureContent(using: self.notices[indexPath.row])
+        vc.configureContent(using: self.noticeFetched[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
