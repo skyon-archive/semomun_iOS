@@ -33,12 +33,13 @@ class BookshelfVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
-        self.viewModel?.fetchBooks()
+        self.viewModel?.fetchBooksFromCoredata()
+        self.viewModel?.fetchBooksFromNetwork()
     }
     
     @IBAction func refresh(_ sender: Any) {
         self.spinAnimation()
-        self.viewModel?.fetchBooks()
+        self.viewModel?.fetchBooksFromNetwork()
     }
 }
 
@@ -93,12 +94,12 @@ extension BookshelfVC {
 
 extension BookshelfVC {
     private func bindAll() {
-        self.bindTestBooks()
+        self.bindBooks()
         self.bindWarning()
     }
     
-    private func bindTestBooks() {
-        self.viewModel?.$testBooks
+    private func bindBooks() {
+        self.viewModel?.$books
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] books in
@@ -122,13 +123,13 @@ extension BookshelfVC {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.testBooks.count ?? 0
+        return self.viewModel?.books.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
-        guard let book = self.viewModel?.testBooks[indexPath.item] else { return cell }
-        cell.configureTest(with: book)
+        guard let book = self.viewModel?.books[indexPath.item] else { return cell }
+        cell.configure(with: book)
         
         return cell
     }
@@ -136,8 +137,8 @@ extension BookshelfVC: UICollectionViewDataSource {
 
 extension BookshelfVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let book = self.viewModel?.testBooks[indexPath.item] else { return }
-        print(book)
+        guard let book = self.viewModel?.books[indexPath.item] else { return }
+        // TODO: WorkbookDetailVC 전환 로직 필요
     }
 }
 

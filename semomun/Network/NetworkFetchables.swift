@@ -43,9 +43,9 @@ protocol SearchTagsFetchable {
 protocol SearchFetchable {
     func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
-protocol BookshelfFetchable {
-    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)
-}
+//protocol BookshelfFetchable {
+//    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)
+//}
 protocol MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void)
 }
