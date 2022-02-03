@@ -12,7 +12,7 @@ struct Network: NetworkFetchable {
     func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void) {
         print(url, param)
         let param = param != nil ? param : [:]
-        AF.request(url, method: .get, parameters: param)
+        AF.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
@@ -20,7 +20,7 @@ struct Network: NetworkFetchable {
     
     func post(url: String, param: [String: String], completion: @escaping (RequestResult) -> Void) {
         print(url, param)
-        AF.request(url, method: .post, parameters: param)
+        AF.request(url, method: .post, parameters: param)  { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
@@ -28,7 +28,7 @@ struct Network: NetworkFetchable {
     
     func put(url: String, param: [String: String], completion: @escaping (RequestResult) -> Void) {
         print(url, param)
-        AF.request(url, method: .put, parameters: param)
+        AF.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
