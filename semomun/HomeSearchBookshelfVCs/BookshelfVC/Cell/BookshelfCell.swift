@@ -33,10 +33,14 @@ class BookshelfCell: UICollectionViewCell {
         self.frameView.layer.shadowRadius = 5
     }
     
-    func configureTest(with book: TestBook) {
-        self.bookcover.image = UIImage(named: SemomunImage.dummy_bookcover)
+    func configure(with book: Preview_Core) {
         self.title.text = book.title
-        self.authorAndPublisher.text = "\(book.author) | \(book.publisher)"
+        if let imageData = book.image {
+            DispatchQueue.main.async { [weak self] in
+                self?.bookcover.image = UIImage(data: imageData)
+            }
+        }
+        self.authorAndPublisher.text = "\("저자 없음") | \(book.publisher ?? "출판사 없음")"
         let percent = Int.random(in: (0...100))
         self.progressView.setProgress(Float(percent)/Float(100), animated: true)
         self.progressPersentLabel.text = "\(percent)%"

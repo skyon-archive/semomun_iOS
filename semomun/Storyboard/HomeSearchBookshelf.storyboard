@@ -765,7 +765,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOp-wJ-NuM" userLabel="frameView">
                                                             <rect key="frame" x="-5" y="-5" width="435" height="177"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q8F-H0-R1M">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q8F-H0-R1M">
                                                                     <rect key="frame" x="37" y="24" width="100" height="125"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="100" id="5RJ-MV-tJk"/>
