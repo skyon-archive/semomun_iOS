@@ -17,14 +17,6 @@ final class SearchVM {
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
-        self.configureObservation()
-    }
-    
-    private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .searchWorkbook, object: nil, queue: self.searchQueue) { [weak self] notification in
-            guard let wid = notification.userInfo?["wid"] as? Int else { return }
-            self?.fetchWorkbook(wid: wid)
-        }
     }
     
     func tag(index: Int) -> String {
