@@ -15,6 +15,7 @@ class UserNoticeCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         return label
     }()
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -32,7 +33,14 @@ class UserNoticeCell: UITableViewCell {
         self.commonInit()
     }
     
-    func commonInit() {
+    func configure(using userNotice: UserNotice) {
+        self.titleLabel.text = userNotice.title
+        self.dateLabel.text = userNotice.date.yearMonthDayText
+    }
+}
+
+extension UserNoticeCell {
+    private func commonInit() {
         self.accessoryType = .disclosureIndicator
 
         self.contentView.addSubview(titleLabel)
@@ -48,10 +56,5 @@ class UserNoticeCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
-    }
-    
-    func configure(using userNotice: UserNotice) {
-        self.titleLabel.text = userNotice.title
-        self.dateLabel.text = userNotice.date.yearMonthDayText
     }
 }
