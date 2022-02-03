@@ -114,7 +114,7 @@ extension SemopayCell {
 extension SemopayCell {
     static let dividerSublayerName = "SemopayDivider"
     private func addBottomDivider() {
-        guard let dividerColor = UIColor(named: SemomunColor.grayLineColor) else { return }
+        guard let dividerColor = UIColor(named: SemomunColor.divider) else { return }
         let dividerHeight: CGFloat = 0.25
         let dividerMargin: CGFloat = 39
         let dividerWidth = self.contentView.frame.size.width - 2 * dividerMargin
