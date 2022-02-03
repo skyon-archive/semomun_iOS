@@ -7,26 +7,43 @@
 
 import UIKit
 
-class SectionDateLabel: UILabel {
+class SectionDateLabelFrame: UIView {
     convenience init(text: String, filled: Bool) {
-        self.init(frame: CGRect(0, 0, 113, 28))
-        guard let mainColor = UIColor(named: SemomunColor.mainColor) else { return }
-        guard let backgroundColor = UIColor(named: SemomunColor.tableViewBackground) else { return }
-        self.text = text
-        self.backgroundColor = filled ? mainColor : backgroundColor
-        self.clipsToBounds = true
-        self.font = .systemFont(ofSize: 14, weight: .medium)
-        self.textColor = filled ? .white : mainColor
-        self.textAlignment = .center
-        self.layer.borderColor = mainColor.cgColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 14
+        self.init()
+        self.commonInit(text: text, filled: filled)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.commonInit()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.commonInit()
+    }
+    
+    func commonInit(text: String = "", filled: Bool = false) {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            label.widthAnchor.constraint(equalToConstant: 113),
+            label.heightAnchor.constraint(equalToConstant: 28)
+        ])
+        
+        label.text = text
+        label.clipsToBounds = true
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textAlignment = .center
+        label.layer.borderWidth = 1
+        label.layer.cornerRadius = 14
+        
+        guard let mainColor = UIColor(named: SemomunColor.mainColor) else { return }
+        guard let backgroundColor = UIColor(named: SemomunColor.tableViewBackground) else { return }
+        label.textColor = filled ? .white : mainColor
+        label.layer.borderColor = mainColor.cgColor
+        label.backgroundColor = filled ? mainColor : backgroundColor
     }
 }

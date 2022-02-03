@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 
-typealias SemopayNetworkUsecase = (SemopayHistoryFetchable & RemainingSemopayFetchable)
+typealias SemopayNetworkUsecase = (SemopayHistoryFetchable & RemainingSemopayFetchable & SemopayCellNetworkUsecase)
 
 class SemopayVM {
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [SemopayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
     
-    private let networkUsecase: SemopayNetworkUsecase
+    let networkUsecase: SemopayNetworkUsecase
     
     init(networkUsecase: SemopayNetworkUsecase) {
         self.networkUsecase = networkUsecase
