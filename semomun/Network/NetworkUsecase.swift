@@ -395,18 +395,18 @@ extension NetworkUsecase: SearchFetchable {
     }
 }
 
-extension NetworkUsecase: BookshelfFetchable {
-    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void) {
-        let book1 = TestBook("수능형 공무원 모의고사", "권규호", "권규호언어연구실")
-        let book2 = TestBook("마더텅 수능 기출 전국연합 학력평가 20분 미니 모의고사 24회 고1 영어 영역", "마더텅 편집부", "마더텅")
-        let book3 = TestBook("해커스 토익 실전 1000제 READING 1 문제집", "해커스 어학연구소", "해커스어학연구소")
-        let book4 = TestBook("2021 수능 영어 기출문제 단어∙숙어∙관용표현 완전정리", "우슬초", "이페이지")
-        let book5 = TestBook("수능영어 기출변형 모의고사 1000제 : 기출문제의 치밀한 분석과 응용", "이광희, 서성원", "한국문화사")
-        let book6 = TestBook("자이스토리 전국연합 모의고사 고1영어 [12회]", "신수진, 윤승남, 이아영 등", "수경출판사")
-        let testBooks = [book1, book2, book3, book4, book5, book6]
-        completion(.SUCCESS, testBooks+testBooks)
-    }
-}
+//extension NetworkUsecase: BookshelfFetchable {
+//    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void) {
+//        let book1 = TestBook("수능형 공무원 모의고사", "권규호", "권규호언어연구실")
+//        let book2 = TestBook("마더텅 수능 기출 전국연합 학력평가 20분 미니 모의고사 24회 고1 영어 영역", "마더텅 편집부", "마더텅")
+//        let book3 = TestBook("해커스 토익 실전 1000제 READING 1 문제집", "해커스 어학연구소", "해커스어학연구소")
+//        let book4 = TestBook("2021 수능 영어 기출문제 단어∙숙어∙관용표현 완전정리", "우슬초", "이페이지")
+//        let book5 = TestBook("수능영어 기출변형 모의고사 1000제 : 기출문제의 치밀한 분석과 응용", "이광희, 서성원", "한국문화사")
+//        let book6 = TestBook("자이스토리 전국연합 모의고사 고1영어 [12회]", "신수진, 윤승남, 이아영 등", "수경출판사")
+//        let testBooks = [book1, book2, book3, book4, book5, book6]
+//        completion(.SUCCESS, testBooks+testBooks)
+//    }
+//}
 
 extension NetworkUsecase: MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void) {

@@ -183,6 +183,16 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchPreviews() -> [Preview_Core]? {
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return previews
+        } else {
+            print("Error: fetch previews")
+            return nil
+        }
+    }
+    
     static func fetchPreview(wid: Int) -> Preview_Core? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         let filter = NSPredicate(format: "wid = %@", "\(wid)")
