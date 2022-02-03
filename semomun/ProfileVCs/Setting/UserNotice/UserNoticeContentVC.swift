@@ -10,17 +10,7 @@ import UIKit
 
 final class UserNoticeContentVC: UIViewController {
     private let backgroundFrame = UIView()
-    private let textViewAttribute: [NSAttributedString.Key : Any] = {
-        let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = 1
-        let attributes = [
-            NSAttributedString.Key.paragraphStyle: style,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .regular)
-        ]
-        return attributes
-    }()
     private let contentTextView = UITextView()
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -37,14 +27,21 @@ final class UserNoticeContentVC: UIViewController {
         view.backgroundColor = UIColor(named: SemomunColor.divider)
         return view
     }()
+    private let textViewAttribute: [NSAttributedString.Key : Any] = {
+        let style = NSMutableParagraphStyle()
+        style.lineHeightMultiple = 1
+        let attributes = [
+            NSAttributedString.Key.paragraphStyle: style,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .regular)
+        ]
+        return attributes
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "공지사항"
-        self.configureBackgroundLayout()
-        self.configureHeaderLayout()
-        self.configureTextViewLayout()
+        self.configureLayout()
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,7 +56,14 @@ final class UserNoticeContentVC: UIViewController {
     }
 }
 
+// MARK: Configure layout
 extension UserNoticeContentVC {
+    private func configureLayout() {
+        self.configureBackgroundLayout()
+        self.configureHeaderLayout()
+        self.configureTextViewLayout()
+    }
+    
     private func configureBackgroundLayout() {
         self.configureBackgroundColorView()
         self.configureBackgroundShadowView()
