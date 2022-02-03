@@ -20,10 +20,8 @@ final class BookshelfVM {
     }
     
     private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: self.refreshQueue) { [weak self] notification in
-            guard let wid = notification.userInfo?["wid"] as? Int else { return }
-            // coreData fetch -> wid: WorkbookDetailVC 전환 로직 필요
-            print(wid)
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: self.refreshQueue) { [weak self] _ in
+            self?.fetchBooksFromCoredata()
         }
     }
     
