@@ -74,3 +74,6 @@ protocol RemainingSemopayFetchable {
 protocol UserNoticeFetchable {
     func getUserNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void)
 }
+protocol MarketingConsentSendable {
+    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void) 
+}
