@@ -40,8 +40,7 @@ class MainUseCase: MainLogic {
             return false
         }
         print(version, appstoreVersion)
-        
-        return version.transedVersion < appstoreVersion.transedVersion
+        return version.compare(appstoreVersion, options: .numeric) == .orderedAscending
     }
     
     func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping(Section_Core?) -> Void) {

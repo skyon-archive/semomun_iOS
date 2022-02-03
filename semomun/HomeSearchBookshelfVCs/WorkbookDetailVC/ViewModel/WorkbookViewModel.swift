@@ -99,7 +99,7 @@ final class WorkbookViewModel {
         if !logined {
             self.popupType = .login
         } else {
-            if userVersion.transedVersion < version.transedVersion {
+            if userVersion.compare(version, options: .numeric) == .orderedAscending {
                 self.popupType = .updateUserinfo
             } else {
                 self.popupType = .purchase
