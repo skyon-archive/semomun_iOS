@@ -27,7 +27,11 @@ final class MainThemeSwitch: UIControl {
         self.thumbView.backgroundColor = self.thumbColor
         self.thumbView.isUserInteractionEnabled = false
         self.addSubview(self.thumbView)
-        self.addAction(UIAction { _ in self.toggle(); }, for: .touchUpInside)
+        let buttonAction = UIAction { _ in
+            self.toggleButton()
+            self.action?(self.isOn)
+        }
+        self.addAction(buttonAction, for: .touchUpInside)
         self.action = action
     }
     
@@ -50,17 +54,13 @@ final class MainThemeSwitch: UIControl {
     func toggleButton() {
         self.isOn.toggle()
         self.isAnimating = true
-        UIView.animate(withDuration: self.animationDuration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: [], animations: {
-            self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
-            self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
+        UIView.animate(withDuration: self.animationDuration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: [], animations: { [weak self] in
+            guard let isOn = self?.isOn, let thumbViewXPos = isOn ? self?.onPoint.x : self?.offPoint.x else { return }
+            self?.thumbView.frame.origin.x = thumbViewXPos
+            self?.backgroundColor = isOn ? self?.onTintColor : self?.offTintColor
         }) { _ in
             self.isAnimating = false
             self.sendActions(for: .valueChanged)
         }
-    }
-    
-    @objc private func toggle() {
-        self.toggleButton()
-        self.action?(self.isOn)
     }
 }
