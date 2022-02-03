@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserNoticeCell: UITableViewCell {
+final class UserNoticeCell: UITableViewCell {
     static let identifier = "UserNoticeCell"
     
     private let titleLabel: UILabel = {
