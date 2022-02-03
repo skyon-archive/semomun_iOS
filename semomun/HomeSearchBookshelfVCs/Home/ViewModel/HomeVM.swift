@@ -18,6 +18,7 @@ final class HomeVM {
     @Published private(set) var tags: [String] = []
     @Published private(set) var error: String?
     @Published private(set) var warning: (String, String)?
+    @Published private(set) var workbookDTO: SearchWorkbook?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -119,5 +120,11 @@ final class HomeVM {
     
     func testAd(index: Int) -> String {
         return self.ads[index]
+    }
+    
+    func fetchWorkbook(wid: Int) {
+        self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
+            self?.workbookDTO = searchWorkbook
+        }
     }
 }

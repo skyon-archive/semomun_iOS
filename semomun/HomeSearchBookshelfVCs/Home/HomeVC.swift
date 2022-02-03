@@ -28,6 +28,7 @@ final class HomeVC: UIViewController {
         self.configureCollectionView()
         self.bindAll()
         self.fetch()
+        self.configureAddObserver()
     }
     
     @IBAction func appendTags(_ sender: Any) {
@@ -119,6 +120,12 @@ extension HomeVC {
             label2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 50)
         ])
     }
+    
+    private func configureAddObserver() {
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] _ in
+            self?.tabBarController?.selectedIndex = 2
+        }
+    }
 }
 
 // MARK: - Binding
@@ -129,6 +136,7 @@ extension HomeVC {
         self.bindBestSellers()
         self.bindRecent()
         self.bindNewest()
+        self.bindWorkbookDTO()
     }
     
     private func bindTags() {
@@ -185,6 +193,17 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.workbooksWithNewest.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbookDTO() {
+        self.viewModel?.$workbookDTO
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookDTO in
+                guard let workbookDTO = workbookDTO else { return }
+                self?.showWorkbookDetailVC(searchWorkbook: workbookDTO)
             })
             .store(in: &self.cancellables)
     }
@@ -264,7 +283,22 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     private func searchWorkbook(wid: Int) {
-        self.tabBarController?.selectedIndex = 1
-        NotificationCenter.default.post(name: .searchWorkbook, object: nil, userInfo: ["wid" : wid])
+        guard let books = CoreUsecase.fetchPreviews() else { return }
+        let isCoredata = books.map { Int($0.wid) }.contains(wid)
+        
+        if isCoredata {
+            // coredata 정보로 WorkbookDetailVC 표시
+        } else {
+            self.viewModel?.fetchWorkbook(wid: wid)
+        }
+    }
+    
+    private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: false)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
     }
 }
