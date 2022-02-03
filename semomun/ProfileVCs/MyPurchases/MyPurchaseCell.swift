@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import Kingfisher
 
-private typealias MyPurchaseCellNetworkUsecase = WorkbookFetchable
+typealias MyPurchaseCellNetworkUsecase = WorkbookFetchable
 
 /// - Note: 만약 이대로 cell에서(혹은 셀 내의 ViewModel 등에서) 네트워크에 접근해야된다면 prefetch를 사용해보는 것도 방법일듯. [참고]( https://youbidan-project.tistory.com/148)
 final class MyPurchaseCell: UITableViewCell {
@@ -17,7 +17,7 @@ final class MyPurchaseCell: UITableViewCell {
     static let storyboardName = "Profile"
     static let identifier = "MyPurchaseCell"
     
-    private let networkUsecase: MyPurchaseCellNetworkUsecase = NetworkUsecase(network: Network())
+    private var networkUsecase: MyPurchaseCellNetworkUsecase?
     
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var workbookImage: UIImageView!
@@ -40,11 +40,12 @@ final class MyPurchaseCell: UITableViewCell {
         self.cost.text = nil
     }
     
-    func configure(using purchase: Purchase) {
+    func configure(purchase: Purchase, networkUsecase: MyPurchaseCellNetworkUsecase) {
+        self.networkUsecase = networkUsecase
         self.date.text = purchase.date.yearMonthDayText
         guard let costStr = Int(purchase.cost).withComma else { return }
         self.cost.text = costStr + "원"
-        self.networkUsecase.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
+        self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { searchWorkbook in
             self.title.text = searchWorkbook.workbook.title
             let urlString = NetworkURL.bookcoverImageDirectory(.large) + searchWorkbook.workbook.bookcover
             guard let url = URL(string: urlString) else { return }
