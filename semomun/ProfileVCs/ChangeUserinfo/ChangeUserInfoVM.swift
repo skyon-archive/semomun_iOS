@@ -47,9 +47,6 @@ final class ChangeUserInfoVM {
     
     init(networkUseCase: ChangeUserInfoNetworkUseCase) {
         self.networkUseCase = networkUseCase
-    }
-    
-    func configurePublished() {
         self.getUserInfo()
         self.fetchMajorInfo()
     }
