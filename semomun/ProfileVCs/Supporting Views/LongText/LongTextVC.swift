@@ -58,9 +58,13 @@ extension LongTextVC {
         toggle.translatesAutoresizingMaskIntoConstraints = false
         toggle.setup { [weak self] isOn in
             self?.networkUsecase.postMarketingConsent(isConsent: isOn) { status in
-                
+                if status != .SUCCESS {
+                    self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크를 확인해주세요")
+                    toggle.toggleButton()
+                }
             }
         }
+        
         self.view.addSubview(toggle)
         NSLayoutConstraint.activate([
             toggle.leadingAnchor.constraint(equalTo: labelAboutMarketingAccept.trailingAnchor, constant: 12),
