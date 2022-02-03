@@ -34,21 +34,24 @@ class UserNoticeCell: UITableViewCell {
     
     func commonInit() {
         self.accessoryType = .disclosureIndicator
-        
+
         self.contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "테스트"
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 107),
+            titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 75),
             titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 27),
         ])
         
         self.contentView.addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.text = Date().yearMonthDayText
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
+    }
+    
+    func configure(using userNotice: UserNotice) {
+        self.titleLabel.text = userNotice.title
+        self.dateLabel.text = userNotice.date.yearMonthDayText
     }
 }

@@ -536,3 +536,23 @@ extension NetworkUsecase: RemainingSemopayFetchable {
         completion((.SUCCESS, 1000000))
     }
 }
+
+extension NetworkUsecase: UserNoticeFetchable {
+    func getUserNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void) {
+        
+        let sample = UserNotice(title: "[공지] 앱 업데이트 안내", date: Date(), content: """
+안녕하세요. 세모문입니다.
+
+세모페이에서 이용 가능한 결제사가 추가될 예정으로 안내드립니다.
+
+- 추가 일시 : 2022년 2월 1일 오전 10시
+
+- 추가 내용 : 세모페이에서 카카오뱅크, NH투자증권, SBI저축은행 등록 및 결제 가능
+
+앞으로도 더 나은 서비스를 위해 노력하는 세모문이 되겠습니다.
+
+감사합니다.
+""")
+        completion((.SUCCESS, Array(repeating: sample, count: 10)))
+    }
+}

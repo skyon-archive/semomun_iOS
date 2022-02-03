@@ -13,6 +13,7 @@ class WaitingChargeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.titleView?.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {

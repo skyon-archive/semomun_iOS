@@ -71,3 +71,6 @@ protocol WorkbookFetchable {
 protocol RemainingSemopayFetchable {
     func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void)
 }
+protocol UserNoticeFetchable {
+    func getUserNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void)
+}
