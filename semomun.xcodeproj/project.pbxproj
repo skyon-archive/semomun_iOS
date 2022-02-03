@@ -16,6 +16,8 @@
 		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
+		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
+		255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637B27ABC057000991AB /* UserNoticeContentVC.swift */; };
 		2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560E1E727914D11003BDAC0 /* SectionCell.swift */; };
 		25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */; };
 		25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25627726279EDE92006F9370 /* receiveMarketingInfo.txt */; };
@@ -24,7 +26,6 @@
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
-		256A3752279EC8C400455655 /* LogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3751279EC8C400455655 /* LogoutCell.swift */; };
 		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
@@ -208,6 +209,8 @@
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		255D637527ABB03F000991AB /* UserNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeVC.swift; sourceTree = "<group>"; };
 		255D637727ABB332000991AB /* UserNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeCell.swift; sourceTree = "<group>"; };
+		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
+		255D637B27ABC057000991AB /* UserNoticeContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeContentVC.swift; sourceTree = "<group>"; };
 		2560E1E727914D11003BDAC0 /* SectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25627726279EDE92006F9370 /* receiveMarketingInfo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = receiveMarketingInfo.txt; sourceTree = "<group>"; };
@@ -216,7 +219,6 @@
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
-		256A3751279EC8C400455655 /* LogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCell.swift; sourceTree = "<group>"; };
 		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
@@ -413,6 +415,16 @@
 			path = MyPurchases;
 			sourceTree = "<group>";
 		};
+		255D637D27ABC24D000991AB /* UserNotice */ = {
+			isa = PBXGroup;
+			children = (
+				255D637527ABB03F000991AB /* UserNoticeVC.swift */,
+				255D637B27ABC057000991AB /* UserNoticeContentVC.swift */,
+				255D637727ABB332000991AB /* UserNoticeCell.swift */,
+			);
+			path = UserNotice;
+			sourceTree = "<group>";
+		};
 		2560E1E627914D03003BDAC0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,22 +447,12 @@
 		256A3746279DA7EC00455655 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				256A3749279EB77D00455655 /* Cell */,
+				255D637D27ABC24D000991AB /* UserNotice */,
 				25D1BDDF279D46A700807196 /* SettingVC.swift */,
 				256A3747279DA80800455655 /* LoginedSettingTableVC.swift */,
 				256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */,
-				255D637527ABB03F000991AB /* UserNoticeVC.swift */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		256A3749279EB77D00455655 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				256A3751279EC8C400455655 /* LogoutCell.swift */,
-				255D637727ABB332000991AB /* UserNoticeCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		257AC7E627A5834A005E91EC /* Semopay */ = {
@@ -1072,6 +1074,7 @@
 				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
 				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
 				2502CECA27A6D8030072A037 /* Purchase.swift */,
+				255D637927ABBF46000991AB /* UserNotice.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1271,7 +1274,6 @@
 				8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */,
 				2502CECB27A6D8030072A037 /* Purchase.swift in Sources */,
 				87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */,
-				256A3752279EC8C400455655 /* LogoutCell.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				87C85E4A276F676C001C9C4A /* UserInfoToggleView.swift in Sources */,
 				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
@@ -1324,6 +1326,7 @@
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
+				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
 				8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
@@ -1372,6 +1375,7 @@
 				2562772E27A16C56006F9370 /* SemopayHistory.swift in Sources */,
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
+				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
