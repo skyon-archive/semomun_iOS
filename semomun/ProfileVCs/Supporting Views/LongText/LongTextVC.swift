@@ -15,6 +15,8 @@ final class LongTextVC: UIViewController {
     private var text: String?
     private var isViewForMarketingAccept = false
     
+    private let networkUsecase: MarketingConsentSendable = NetworkUsecase(network: Network())
+    
     @IBOutlet weak var textViewBackground: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var labelAboutMarketingAccept: UILabel!
@@ -54,7 +56,11 @@ extension LongTextVC {
         // 토글 설정
         let toggle = MainThemeSwitch()
         toggle.translatesAutoresizingMaskIntoConstraints = false
-        toggle.setup {_ in }
+        toggle.setup { [weak self] isOn in
+            self?.networkUsecase.postMarketingConsent(isConsent: isOn) { status in
+                
+            }
+        }
         self.view.addSubview(toggle)
         NSLayoutConstraint.activate([
             toggle.leadingAnchor.constraint(equalTo: labelAboutMarketingAccept.trailingAnchor, constant: 12),
