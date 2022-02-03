@@ -287,7 +287,8 @@ extension HomeVC: UICollectionViewDelegate {
         let isCoredata = books.map { Int($0.wid) }.contains(wid)
         
         if isCoredata {
-            // coredata 정보로 WorkbookDetailVC 표시
+            guard let book = CoreUsecase.fetchPreview(wid: wid) else { return }
+            self.showWorkbookDetailVC(book: book)
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
         }
@@ -299,6 +300,15 @@ extension HomeVC: UICollectionViewDelegate {
         let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
+    
+    private func showWorkbookDetailVC(book: Preview_Core) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookViewModel(previewCore: book)
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
     }
 }
