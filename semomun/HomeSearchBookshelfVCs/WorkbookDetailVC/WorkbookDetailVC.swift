@@ -289,9 +289,8 @@ extension WorkbookDetailVC {
                     self?.startLoader()
                 } else {
                     self?.stopLoader()
-                    guard let wid = self?.viewModel?.workbookDTO?.workbook.wid else { return }
                     self?.navigationController?.popViewController(animated: true) {
-                        NotificationCenter.default.post(name: .refreshBookshelf, object: nil, userInfo: ["wid" : wid])
+                        NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
                     }
                 }
             })
