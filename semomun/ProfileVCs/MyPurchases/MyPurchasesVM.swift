@@ -8,11 +8,10 @@
 import Foundation
 import Combine
 
-typealias MyPurchasesNetworkUsecase = PurchaseListFetchable
+typealias MyPurchasesNetworkUsecase = PurchaseListFetchable & MyPurchaseCellNetworkUsecase
 
 final class MyPurchasesVM {
-    private let networkUsecase: MyPurchasesNetworkUsecase
-    
+    let networkUsecase: MyPurchasesNetworkUsecase
     
     enum MyPurchasesAlert {
         case networkFailonStart

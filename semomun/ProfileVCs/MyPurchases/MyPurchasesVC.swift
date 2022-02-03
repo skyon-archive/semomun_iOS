@@ -16,6 +16,7 @@ final class MyPurchasesVC: UIViewController {
     private var selectedButtonIndex = 0
     private var cancellables: Set<AnyCancellable> = []
     
+    
     @IBOutlet weak var purchaseList: UITableView!
     
     override func viewDidLoad() {
@@ -85,7 +86,8 @@ extension MyPurchasesVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPurchaseCell.identifier) as? MyPurchaseCell else { return UITableViewCell() }
         let purchase = self.viewModel.purchaseListToShow[indexPath.section].contents[indexPath.row]
-        cell.configure(using: purchase)
+        cell.configure(purchase: purchase, networkUsecase: self.viewModel.networkUsecase)
+        
         return cell
     }
 }
