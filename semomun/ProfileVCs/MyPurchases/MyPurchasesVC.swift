@@ -67,6 +67,7 @@ extension MyPurchasesVC {
 // MARK: Configure
 extension MyPurchasesVC {
     private func configureHeaderUI() {
+        self.navigationItem.titleView?.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "구매내역"
     }

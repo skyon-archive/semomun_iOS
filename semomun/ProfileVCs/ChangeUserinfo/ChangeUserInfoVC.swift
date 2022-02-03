@@ -53,6 +53,7 @@ final class ChangeUserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.titleView?.backgroundColor = .white
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureUI()
