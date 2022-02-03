@@ -19,11 +19,12 @@ class BookshelfCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.resetUI()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.bookcover.image = UIImage(systemName: SemomunImage.loadingBookcover)
+        self.resetUI()
     }
     
     private func configureUI() {
@@ -31,6 +32,15 @@ class BookshelfCell: UICollectionViewCell {
         self.frameView.layer.shadowColor = UIColor.lightGray.cgColor
         self.frameView.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.frameView.layer.shadowRadius = 5
+    }
+    
+    private func resetUI() {
+        self.bookcover.image = nil
+        self.title.text = ""
+        self.authorAndPublisher.text = ""
+        self.progressPersentLabel.text = ""
+        self.progressView.isHidden = false
+        self.progressPersentLabel.text = ""
     }
     
     func configure(with book: Preview_Core) {
@@ -44,5 +54,9 @@ class BookshelfCell: UICollectionViewCell {
         let percent = Int.random(in: (0...100))
         self.progressView.setProgress(Float(percent)/Float(100), animated: true)
         self.progressPersentLabel.text = "\(percent)%"
+    }
+    
+    func configureShadow() {
+        self.progressView.isHidden = true
     }
 }
