@@ -556,3 +556,10 @@ extension NetworkUsecase: UserNoticeFetchable {
         completion((.SUCCESS, Array(repeating: sample, count: 10)))
     }
 }
+
+extension NetworkUsecase: MarketingConsentSendable {
+    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)  {
+        print("마케팅 수신 동의: \(isConsent)")
+        completion(.SUCCESS)
+    }
+}
