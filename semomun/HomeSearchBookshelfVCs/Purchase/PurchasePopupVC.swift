@@ -93,10 +93,10 @@ extension PurchasePopupVC {
     }
     
     private func configureMoneyUI(currentMoney: Int, info: WorkbookOfDB) {
-        self.priceLabel.text = "\(info.price)원"
-        self.currentMoneyLabel.text = "\(currentMoney)원"
-        let afterMoney = (currentMoney - info.price).magnitude
-        self.afterMoneyLabel.text = "\(afterMoney)원"
+        self.priceLabel.text = "\(info.price.withComma ?? "0")원"
+        self.currentMoneyLabel.text = "\(currentMoney.withComma ?? "0")원"
+        let afterMoney = Int((currentMoney - info.price).magnitude)
+        self.afterMoneyLabel.text = "\(afterMoney.withComma ?? "0")원"
     }
     
     private func configureActionTitle(to title: String) {
