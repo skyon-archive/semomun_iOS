@@ -560,6 +560,6 @@ extension NetworkUsecase: UserNoticeFetchable {
 extension NetworkUsecase: MarketingConsentSendable {
     func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)  {
         print("마케팅 수신 동의 \(isConsent)로 post 시도")
-        completion(.FAIL)
+        completion(.SUCCESS)
     }
 }
