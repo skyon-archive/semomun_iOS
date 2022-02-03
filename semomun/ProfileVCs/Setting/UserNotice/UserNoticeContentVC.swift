@@ -14,6 +14,7 @@ final class UserNoticeContentVC: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.textColor = UIColor.black
         return label
     }()
     private let dateLabel: UILabel = {

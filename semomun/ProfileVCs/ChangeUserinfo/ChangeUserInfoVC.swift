@@ -53,7 +53,6 @@ final class ChangeUserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.titleView?.backgroundColor = .white
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureUI()
@@ -117,6 +116,7 @@ final class ChangeUserInfoVC: UIViewController {
 extension ChangeUserInfoVC {
     private func configureUI() {
         self.navigationItem.title = "계정 정보 변경하기"
+        self.navigationItem.titleView?.backgroundColor = .white
         self.configureRoundedMintBorder(of: nicknameFrame)
         self.configureRoundedMintBorder(of: phoneNumFrame)
         self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
