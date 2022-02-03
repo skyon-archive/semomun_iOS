@@ -93,7 +93,7 @@ extension SemopayVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
         // Configuring cell using data
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
-        cell.configureNetworkUsecase(NetworkUsecase(network: Network()))
+        cell.configureNetworkUsecase(self.viewModel.networkUsecase)
         cell.configureCell(using: purchase)
         // Configuring cell on specific position
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
@@ -104,14 +104,8 @@ extension SemopayVC: UITableViewDataSource {
 
 extension SemopayVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeight = self.tableView(tableView, heightForHeaderInSection: section)
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: sectionHeight))
         let sectionText = self.viewModel.purchaseOfEachMonth[section].section
-        let label = SectionDateLabel(text: sectionText, filled: false)
-        let labelBottomMargin: CGFloat = 12
-        label.center = CGPoint(headerView.frame.midX, headerView.frame.maxY - labelBottomMargin - label.frame.height / 2)
-        headerView.addSubview(label)
-        return headerView
+        return SectionDateLabelFrame(text: sectionText, filled: false)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

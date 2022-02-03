@@ -30,7 +30,7 @@ final class MyPurchasesVM {
         return Date()
     }
     
-    init(networkUsecase: MyPurchasesNetworkUsecase, monthRange: Int = 3) {
+    init(networkUsecase: MyPurchasesNetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
     
@@ -49,15 +49,15 @@ final class MyPurchasesVM {
     }
     
     private func fetchData() {
-        self.networkUsecase.getPurchaseList(from: self.startDate, to: self.endDate) { status, result in
+        self.networkUsecase.getPurchaseList(from: self.startDate, to: self.endDate) { [weak self] status, result in
             if status == .SUCCESS {
                 let purchaseListDividedByMonth: [String: [Purchase]] = result.reduce(into: [:]) { result, next in
                     let sectionText = next.date.yearMonthText
                     result[sectionText, default: []].append(next)
                 }
-                self.purchaseListToShow = purchaseListDividedByMonth.sorted(by: { $0.key > $1.key }).map { ($0.key, $0.value) }
+                self?.purchaseListToShow = purchaseListDividedByMonth.sorted(by: { $0.key > $1.key }).map { ($0.key, $0.value) }
             } else {
-                self.alert = .networkFailonStart
+                self?.alert = .networkFailonStart
             }
         }
     }

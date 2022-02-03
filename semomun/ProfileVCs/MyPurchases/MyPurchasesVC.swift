@@ -13,9 +13,7 @@ final class MyPurchasesVC: UIViewController {
     static let identifier = "MyPurchasesVC"
     
     private let viewModel = MyPurchasesVM(networkUsecase: NetworkUsecase(network: Network()))
-    private var selectedButtonIndex = 0
     private var cancellables: Set<AnyCancellable> = []
-    
     
     @IBOutlet weak var purchaseList: UITableView!
     
@@ -94,14 +92,8 @@ extension MyPurchasesVC: UITableViewDataSource {
 
 extension MyPurchasesVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeight = self.tableView(tableView, heightForHeaderInSection: section)
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: sectionHeight))
         let sectionText = self.viewModel.purchaseListToShow[section].section
-        let label = SectionDateLabel(text: sectionText, filled: true)
-        let labelBottomMargin: CGFloat = 12
-        label.center = CGPoint(headerView.frame.midX, headerView.frame.maxY - labelBottomMargin - label.frame.height / 2)
-        headerView.addSubview(label)
-        return headerView
+        return SectionDateLabelFrame(text: sectionText, filled: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
