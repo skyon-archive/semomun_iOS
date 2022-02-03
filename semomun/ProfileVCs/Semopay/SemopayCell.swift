@@ -48,19 +48,19 @@ extension SemopayCell {
 extension SemopayCell {
         func configureCellUI(row: Int, numberOfRowsInSection: Int) {
             if numberOfRowsInSection == 1 {
-            self.makeCornerRadius(at: .all)
-        } else if row == 0 {
-            self.makeCornerRadius(at: .top)
-            self.clipShadow(at: .bottom)
-            self.addBottomDivider()
-        } else if row == numberOfRowsInSection - 1 {
-            self.makeCornerRadius(at: .bottom)
-            self.clipShadow(at: .top)
-        } else {
-            self.clipShadow(at: .both)
-            self.changeShadowOffset(to: CGSize())
-            self.addBottomDivider()
-        }
+                self.makeCornerRadius(at: .all)
+            } else if row == 0 {
+                self.makeCornerRadius(at: .top)
+                self.clipShadow(at: .bottom)
+                self.addBottomDivider()
+            } else if row == numberOfRowsInSection - 1 {
+                self.makeCornerRadius(at: .bottom)
+                self.clipShadow(at: .top)
+            } else {
+                self.clipShadow(at: .both)
+                self.changeShadowOffset(to: CGSize())
+                self.addBottomDivider()
+            }
     }
 }
 
@@ -85,7 +85,7 @@ extension SemopayCell {
     }
     
     private func setCost(to cost: Double) {
-        guard var costStr = Int(cost).withCommaAndSign else { return }
+        var costStr = Int(cost).withCommaAndSign ?? "0"
         costStr += "원"
         let attrString = NSMutableAttributedString(string: costStr)
         let costRange = NSRange(location: 0, length: costStr.count-1)
