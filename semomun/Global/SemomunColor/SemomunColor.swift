@@ -7,17 +7,17 @@
 
 import Foundation
 
-enum SemomunColor {
-    static let mainColor = "mainColor"
-    static let redColor = "redColor"
-    static let yellowColor = "yellowColor"
-    static let selectCellColor = "selectCellColor"
-    static let grayLineColor = "grayLineColor"
-    static let grayTextColor = "grayTextColor"
-    static let grayTitleLineColor = "grayTitleLineColor"
-    static let lightGrayBackgroundColor = "lightGrayBackgroundColor"
-    static let costRed = "costRed"
-    static let costBlue = "costBlue"
-    static let tableViewBackground = "tableViewBackground"
-    static let divider = "divider"
+enum SemomunColor: String {
+    case mainColor = "mainColor"
+    case redColor = "redColor"
+    case yellowColor = "yellowColor"
+    case selectCellColor = "selectCellColor"
+    case grayLineColor = "grayLineColor"
+    case grayTextColor = "grayTextColor"
+    case grayTitleLineColor = "grayTitleLineColor"
+    case lightGrayBackgroundColor = "lightGrayBackgroundColor"
+    case costRed = "costRed"
+    case costBlue = "costBlue"
+    case tableViewBackground = "tableViewBackground"
+    case divider = "divider"
 }

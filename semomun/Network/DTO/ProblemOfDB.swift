@@ -9,7 +9,7 @@ import Foundation
 
 class ProblemOfDB: Codable, CustomStringConvertible {
     var description: String {
-        return "Problem(\(pid), type: \(type), \(!content.isEmpty), \(answer ?? "none"), \(self.rate)"
+        return "Problem(\(pid), type: \(type), \(!content.isEmpty), \(answer ?? "none"), \(optional: self.rate)"
     }
     
     let pid: Int //문제 고유의 번호

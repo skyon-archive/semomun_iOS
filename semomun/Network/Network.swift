@@ -11,7 +11,7 @@ import Alamofire
 struct Network: NetworkFetchable {
     func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void) {
         let param = param != nil ? param : [:]
-        print(url, param)
+        print("\(url), \(optional: param)")
         AF.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)

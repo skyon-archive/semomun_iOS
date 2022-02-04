@@ -32,7 +32,7 @@ class MajorCell: UICollectionViewCell {
     
     func didSelected() {
         self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.backgroundColor = UIColor(named: SemomunColor.mainColor)
+        self.contentView.backgroundColor = UIColor(.mainColor)
         self.title.textColor = UIColor.white
     }
     

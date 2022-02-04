@@ -130,11 +130,11 @@ extension ChangeUserInfoVC {
     }
     private func configureRoundedMintBorder(of view: UIView) {
         view.layer.borderWidth = 1.5
-        view.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        view.layer.borderColor = UIColor(.mainColor)?.cgColor
         view.layer.cornerRadius = 5
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        let mainColor = UIColor(named: SemomunColor.mainColor)
+        let mainColor = UIColor(.mainColor)
         if isFilled {
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = mainColor

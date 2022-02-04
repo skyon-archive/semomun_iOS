@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProblemTextResultView: UIView {
-    private let color = UIColor(named: SemomunColor.mainColor)
+    private let color = UIColor(.mainColor)
     
     private lazy var solvedAnswerLabel: UILabel = {
         let label = UILabel()

@@ -50,6 +50,6 @@ extension LoginStartVC {
         }
         self.loginButtons[1].setTitle("회원가입", for: .normal)
         self.loginButtons[2].layer.borderWidth = 1
-        self.loginButtons[2].layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        self.loginButtons[2].layer.borderColor = UIColor(.mainColor)?.cgColor
     }
 }

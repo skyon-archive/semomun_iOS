@@ -20,7 +20,7 @@ final class UserNoticeCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(named: SemomunColor.grayTextColor)
+        label.textColor = UIColor(.grayTextColor)
         return label
     }()
     

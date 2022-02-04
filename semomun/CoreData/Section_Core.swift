@@ -33,7 +33,7 @@ extension Section_Core : Identifiable {
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
     public override var description: String{
-        return "Section(\(self.sid), \(self.title), \(self.buttons), \(self.stars), \(self.dictionaryOfProblem))\n"
+        return "Section(\(self.sid), \(optional: self.title), \(self.buttons), \(self.stars), \(self.dictionaryOfProblem))\n"
     }
     
     func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {

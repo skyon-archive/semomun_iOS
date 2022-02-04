@@ -68,7 +68,7 @@ extension LoginServicePopupVC {
         self.innerFrameview.clipsToBounds = true
         self.innerFrameview.layer.cornerRadius = 34
         self.innerFrameview.layer.borderWidth = 1
-        self.innerFrameview.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        self.innerFrameview.layer.borderColor = UIColor(.mainColor)?.cgColor
         self.accept.clipsToBounds = true
         self.accept.layer.cornerRadius = 10
     }
