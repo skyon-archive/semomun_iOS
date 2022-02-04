@@ -11,67 +11,57 @@ class ProblemNameCell: UICollectionViewCell {
     static let identifier = "ProblemNameCell"
     
     @IBOutlet weak var num: UILabel!
-    @IBOutlet weak var outerFrame: UIView!
-    private lazy var triangleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(.yellowColor)
-        return view
-    }()
+    @IBOutlet weak var checkImageView: UIImageView!
     
     override func awakeFromNib() {
-        self.outerFrame.layer.cornerRadius = 5
-        self.outerFrame.clipsToBounds = true
-        self.outerFrame.translatesAutoresizingMaskIntoConstraints = false
-        self.configureTriangleView()
+        super.awakeFromNib()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.outerFrame.backgroundColor = .white
-        self.num.textColor = .black
+        self.contentView.backgroundColor = .white
+        self.num.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        self.num.textColor = UIColor(.grayDefaultColor)
         self.num.text = ""
-        self.outerFrame.transform = CGAffineTransform.identity
+        self.checkImageView.isHidden = true
     }
     
-    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isCheckd: Bool) {
+    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isCheckd: Bool, isCurrent: Bool) {
         self.num.text = num
         
         if isStar {
-            self.triangleView.isHidden = false
-        } else {
-            self.triangleView.isHidden = true
+            self.checkImageView.isHidden = false
         }
         
         if isTerminated {
+            self.contentView.layer.borderColor = UIColor.clear.cgColor
             if isWrong {
-                self.outerFrame.backgroundColor = UIColor(.redColor)
+                self.contentView.backgroundColor = UIColor(.redWrongColor)
                 self.num.textColor = .white
             } else {
-                self.num.textColor = .black
+                self.contentView.backgroundColor = UIColor(.lightMainColor)
+                self.num.textColor = UIColor(.darkMainColor)
+            }
+            if isCurrent {
+                self.num.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             }
             return
         }
         
         if isCheckd {
             self.num.textColor = UIColor(.mainColor)
+            self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
+        } else {
+            self.num.textColor = UIColor(.grayDefaultColor)
+            self.contentView.layer.borderColor = UIColor(.grayDefaultColor)?.cgColor
         }
-    }
-    
-    func configureSize(isSelect: Bool) {
-        if isSelect {
-            self.outerFrame.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        
+        if isCurrent {
+            self.num.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            if !isCheckd {
+                self.num.textColor = .black
+                self.contentView.layer.borderColor = UIColor.black.cgColor
+            }
         }
-    }
-    
-    private func configureTriangleView() {
-        self.triangleView.translatesAutoresizingMaskIntoConstraints = false
-        self.outerFrame.addSubview(self.triangleView)
-        NSLayoutConstraint.activate([
-            self.triangleView.widthAnchor.constraint(equalToConstant: 18),
-            self.triangleView.heightAnchor.constraint(equalToConstant: 18),
-            self.triangleView.centerXAnchor.constraint(equalTo: self.outerFrame.trailingAnchor),
-            self.triangleView.centerYAnchor.constraint(equalTo: self.outerFrame.topAnchor)
-        ])
-        self.triangleView.transform = CGAffineTransform(rotationAngle: .pi/4)
     }
 }
