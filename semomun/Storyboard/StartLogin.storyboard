@@ -768,7 +768,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="changePhoneNum:" destination="trf-IE-zPd" eventType="touchUpInside" id="V4d-E7-VUn"/>
+                                                                            <action selector="requestAuth:" destination="trf-IE-zPd" eventType="touchUpInside" id="T6M-zC-izF"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -834,7 +834,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <action selector="requestOrConfirmAuth:" destination="trf-IE-zPd" eventType="touchUpInside" id="pd6-4A-MCI"/>
+                                                                    <action selector="confirmAuth:" destination="trf-IE-zPd" eventType="touchUpInside" id="qU9-lW-8hO"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBB-kI-ngg">
