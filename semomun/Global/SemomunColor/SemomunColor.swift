@@ -20,4 +20,8 @@ enum SemomunColor: String {
     case costBlue = "costBlue"
     case tableViewBackground = "tableViewBackground"
     case divider = "divider"
+    case grayDefaultColor = "grayDefaultColor"
+    case redWrongColor = "redWrongColor"
+    case darkMainColor = "darkMainColor"
+    case lightMainColor = "lightMainColor"
 }
