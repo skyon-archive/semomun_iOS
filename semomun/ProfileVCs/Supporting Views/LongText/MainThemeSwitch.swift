@@ -27,7 +27,8 @@ final class MainThemeSwitch: UIControl {
         self.thumbView.backgroundColor = self.thumbColor
         self.thumbView.isUserInteractionEnabled = false
         self.addSubview(self.thumbView)
-        let buttonAction = UIAction { _ in
+        let buttonAction = UIAction { [weak self] _ in
+            guard let self = self else { return }
             self.toggleButton()
             self.action?(self.isOn)
         }
