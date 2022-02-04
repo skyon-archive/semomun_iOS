@@ -17,19 +17,6 @@ class LoginSignupVC: UIViewController {
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     
-    private var isAuthPhoneTFShown = false {
-        didSet {
-            if self.isAuthPhoneTFShown {
-                self.prepareToShowPhoneNumFrame()
-            } else {
-                self.prepareToHidePhoneNumFrame()
-            }
-            UIView.animate(withDuration: 0.25) { [weak self] in
-                self?.view.layoutIfNeeded()
-            }
-        }
-    }
-    
     @IBOutlet weak var bodyFrame: UIView!
     
     @IBOutlet weak var nicknameFrame: UIView!
@@ -84,7 +71,7 @@ class LoginSignupVC: UIViewController {
     }
     
     @IBAction func changePhoneNum(_ sender: Any) {
-        self.isAuthPhoneTFShown.toggle()
+        
     }
     
     @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
@@ -120,7 +107,6 @@ extension LoginSignupVC {
         self.configureRoundedMintBorder(of: phoneNumFrame)
         self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
         self.configureButtonMenus()
-        self.additionalPhoneNumFrame.isHidden = true
         self.requestAgainButton.isHidden = true
         self.bodyFrame.layer.cornerRadius = 15
     }
@@ -143,20 +129,6 @@ extension LoginSignupVC {
             button.backgroundColor = .white
             button.borderColor = mainColor
         }
-    }
-    private func prepareToShowPhoneNumFrame() {
-        self.changePhoneNumButton.setTitle("취소", for: .normal)
-        self.additionalPhoneNumFrame.isHidden = false
-        self.additionalTF.placeholder = "변경할 전화번호를 입력해주세요."
-        self.additionalTF.becomeFirstResponder()
-        self.additionalTF.text = nil
-        self.requestAgainButton.isHidden = true
-    }
-    private func prepareToHidePhoneNumFrame() {
-        self.viewModel.cancelPhoneAuth()
-        self.changePhoneNumButton.setTitle("변경", for: .normal)
-        self.additionalPhoneNumFrame.isHidden = true
-        self.additionalTF.resignFirstResponder()
     }
 }
 
@@ -262,7 +234,7 @@ extension LoginSignupVC {
         self.viewModel.$phonenum
             .receive(on: DispatchQueue.main)
             .sink { [weak self] phone in
-                self?.phoneNumTF.placeholder = phone
+                // self?.phoneNumTF.placeholder = phone
             }
             .store(in: &self.cancellables)
     }
@@ -289,7 +261,6 @@ extension LoginSignupVC {
             .sink { [weak self] status in
                 switch status {
                 case .authComplete:
-                    self?.isAuthPhoneTFShown = false
                     guard let button = self?.changePhoneNumButton else { break }
                     self?.configureButtonUI(button: button, isFilled: false)
                     button.setTitle("인증완료", for: .normal)
