@@ -97,7 +97,7 @@ extension SemopayCell {
     }
     
     private func color(of cost: Double) -> UIColor {
-        guard let red = UIColor(named: SemomunColor.costRed), let blue = UIColor(named: SemomunColor.costBlue) else {
+        guard let red = UIColor(.costRed), let blue = UIColor(.costBlue) else {
             return .lightGray
         }
         if cost.isZero {
@@ -114,7 +114,7 @@ extension SemopayCell {
 extension SemopayCell {
     static let dividerSublayerName = "SemopayDivider"
     private func addBottomDivider() {
-        let dividerColor = UIColor(named: SemomunColor.divider)
+        let dividerColor = UIColor(.divider)
         let dividerHeight: CGFloat = 0.25
         let dividerMargin: CGFloat = 39
         let dividerWidth = self.contentView.frame.size.width - 2 * dividerMargin

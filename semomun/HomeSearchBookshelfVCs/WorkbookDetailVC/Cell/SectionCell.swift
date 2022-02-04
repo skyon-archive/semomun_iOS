@@ -23,7 +23,7 @@ final class SectionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.downloadButton.borderWidth = 1
-        self.downloadButton.borderColor = UIColor(named: SemomunColor.mainColor)
+        self.downloadButton.borderColor = UIColor(.mainColor)
         self.terminatedImageView.isHidden = true
     }
     
@@ -87,7 +87,7 @@ extension SectionCell {
     }
     
     private func configureNoneWhite() {
-        self.downloadButton.backgroundColor = UIColor(named: SemomunColor.mainColor)
+        self.downloadButton.backgroundColor = UIColor(.mainColor)
         self.downloadButton.setTitleColor(.white, for: .normal)
     }
 }

@@ -202,12 +202,12 @@ extension SingleWith4AnswerVC {
         for bt in checkNumbers {
             bt.layer.cornerRadius = 17.5
             bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            bt.setTitleColor(UIColor(.mainColor), for: .normal)
         }
         // 사용자 체크한 데이터 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(named: SemomunColor.mainColor)
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.mainColor)
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
@@ -282,7 +282,7 @@ extension SingleWith4AnswerVC {
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            self.answer.setTitleColor(UIColor(.mainColor), for: .normal)
         }
     }
     
@@ -292,7 +292,7 @@ extension SingleWith4AnswerVC {
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
         }
     }
     

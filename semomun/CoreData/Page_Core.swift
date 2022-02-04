@@ -43,7 +43,7 @@ extension Page_Core : Identifiable {
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
     public override var description: String{
-        return "Page(\(self.vid), \(self.problems), \(self.materialImage))\n"
+        return "Page(\(self.vid), \(self.problems), \(optional: self.materialImage))\n"
     }
     
     func setValues(page: PageOfDB, pids: [Int], type: Int) -> PageResult {

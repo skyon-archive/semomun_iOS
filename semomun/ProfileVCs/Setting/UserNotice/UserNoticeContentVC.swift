@@ -20,12 +20,12 @@ final class UserNoticeContentVC: UIViewController {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(named: SemomunColor.grayTextColor)
+        label.textColor = UIColor(.grayTextColor)
         return label
     }()
     private let divider: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: SemomunColor.divider)
+        view.backgroundColor = UIColor(.divider)
         return view
     }()
     private let textViewAttribute: [NSAttributedString.Key : Any] = {
@@ -72,7 +72,7 @@ extension UserNoticeContentVC {
     
     private func configureBackgroundColorView() {
         let backgroundColorView = UIView()
-        backgroundColorView.backgroundColor = UIColor(named: SemomunColor.lightGrayBackgroundColor)
+        backgroundColorView.backgroundColor = UIColor(.lightGrayBackgroundColor)
         backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(backgroundColorView)
         NSLayoutConstraint.activate([

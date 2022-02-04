@@ -104,7 +104,7 @@ class NetworkUsecase {
             }
             if statusCode != 200 {
                 print("Error: \(statusCode)")
-                print(String(data: data, encoding: .utf8))
+                print("\(optional: String(data: data, encoding: .utf8))")
                 completion(.ERROR, nil)
                 return
             }
@@ -203,7 +203,7 @@ extension NetworkUsecase {
             } else if statusCode != 200 {
                 print("Error: \(statusCode)")
                 if let data = requestResult.data {
-                    print(String(data: data, encoding: .utf8))
+                    print("\(optional: String(data: data, encoding: .utf8))")
                 }
                 completion(.ERROR)
                 return
@@ -456,7 +456,7 @@ extension NetworkUsecase: UserInfoSendable {
             } else if statusCode != 200 {
                 print("Error: \(statusCode)")
                 if let data = requestResult.data {
-                    print(String(data: data, encoding: .utf8))
+                    print("\(optional: String(data: data, encoding: .utf8))")
                 }
                 completion(.ERROR)
                 return

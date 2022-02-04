@@ -48,7 +48,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
     private lazy var answerResultView: ProblemTextResultView = {
         let resultView = ProblemTextResultView()
         resultView.layer.borderWidth = 1
-        resultView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        resultView.layer.borderColor = UIColor(.mainColor)?.cgColor
         resultView.layer.cornerRadius = 12
         resultView.clipsToBounds = true
         return resultView
@@ -198,7 +198,7 @@ extension SingleWithTextAnswerVC {
         solveInput.layer.cornerRadius = 17.5
         solveInput.clipsToBounds = true
         solveInput.layer.borderWidth = 1
-        solveInput.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        solveInput.layer.borderColor = UIColor(.mainColor)?.cgColor
         
         if let solved = self.viewModel?.problem?.solved {
             solveInput.text = solved
@@ -220,7 +220,7 @@ extension SingleWithTextAnswerVC {
             self.answer.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            self.answer.setTitleColor(UIColor(.mainColor), for: .normal)
         }
     }
     
@@ -277,7 +277,7 @@ extension SingleWithTextAnswerVC {
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
         }
     }
     
