@@ -20,12 +20,15 @@ class StudyVC: UIViewController {
     static let identifier = "StudyVC"
     static let storyboardName = "Study"
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var sectionTitle: UILabel!
     @IBOutlet weak var sectionTime: UILabel!
     @IBOutlet weak var bottomFrame: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var solvingFrameView: UIView!
     @IBOutlet weak var showResultVC: UIButton!
+    @IBOutlet weak var leftFrameView: UIView!
+    @IBOutlet weak var rightFrameView: UIView!
     
     private var singleWith5Answer: SingleWith5AnswerVC!
     private var singleWithTextAnswer: SingleWithTextAnswerVC!
@@ -64,6 +67,8 @@ class StudyVC: UIViewController {
         
         self.configureManager()
         self.addCoreDataAlertObserver()
+        self.setShadow(with: self.headerView)
+        self.setShadow(with: self.bottomFrame)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,6 +101,14 @@ class StudyVC: UIViewController {
             self?.manager.terminateSection()
         }
     }
+    
+    @IBAction func beforePage(_ sender: Any) {
+        self.manager.changeBeforePage()
+    }
+    
+    @IBAction func nextPage(_ sender: Any) {
+        self.manager.changeNextPage()
+    }
 }
 
 // MARK: - Configure
@@ -117,6 +130,7 @@ extension StudyVC {
             self.manager = SectionManager(delegate: self, section: Section_Core(context: CoreDataManager.shared.context), isTest: true)
         }
     }
+    
 }
 
 extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -134,10 +148,9 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let isTerminated = self.manager.section.terminated
         let isWrong = self.manager.isWrong(at: indexPath.item)
         let isCheckd = self.manager.isCheckd(at: indexPath.item)
-        let isSelect = indexPath.item == self.manager.currentIndex
+        let isCurrent = indexPath.item == self.manager.currentIndex
         
-        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd)
-        cell.configureSize(isSelect: isSelect)
+        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd, isCurrent: isCurrent)
         
         return cell
     }
@@ -150,8 +163,15 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension StudyVC {
     func showVC() {
-        currentVC.view.frame = self.solvingFrameView.bounds
-        self.solvingFrameView.addSubview(currentVC.view)
+        self.currentVC.view.frame = self.solvingFrameView.bounds
+        self.solvingFrameView.addSubview(self.currentVC.view)
+        self.currentVC.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.currentVC.view.leadingAnchor.constraint(equalTo: self.solvingFrameView.leadingAnchor),
+            self.currentVC.view.topAnchor.constraint(equalTo: self.solvingFrameView.topAnchor),
+            self.currentVC.view.trailingAnchor.constraint(equalTo: self.solvingFrameView.trailingAnchor),
+            self.currentVC.view.bottomAnchor.constraint(equalTo: self.solvingFrameView.bottomAnchor)
+        ])
     }
     
     func getImage(data: Data?) -> UIImage {
