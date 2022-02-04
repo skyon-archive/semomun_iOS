@@ -10,6 +10,7 @@ import AuthenticationServices
 import GoogleSignIn
 
 class LoginSelectVC: UIViewController {
+    
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"
     
@@ -21,6 +22,7 @@ class LoginSelectVC: UIViewController {
     private let buttonRadius: CGFloat = 10
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
     private var networkUseCase: NetworkUsecase?
+    private var showPopup = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +31,17 @@ class LoginSelectVC: UIViewController {
         self.configureSignInGoogleButton()
     }
     
-    private func configureNetwork() {
-        let network = Network()
-        self.networkUseCase = NetworkUsecase(network: network)
+    func configurePopup(isNeeded: Bool) {
+        self.showPopup = isNeeded
     }
 }
 
 extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    private func configureNetwork() {
+        let network = Network()
+        self.networkUseCase = NetworkUsecase(network: network)
+    }
+    
     private func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
@@ -96,11 +102,20 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     }
     
     @objc func showServiceInfoView(_ sender: UIButton) {
-        guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
-        serviceInfoVC.tag = sender.tag
-        serviceInfoVC.delegate = self
-        serviceInfoVC.isSignin = self.signupInfo != nil ? true : false
-        self.present(serviceInfoVC, animated: true, completion: nil)
+        guard let viewControllers = self.navigationController?.viewControllers else { return }
+        guard let parent = viewControllers.count > 1 ? viewControllers[viewControllers.count - 2] : nil else { return }
+        if parent is LoginStartVC {
+            if sender.tag == 0 {
+                self.appleLogin()
+            } else {
+                self.googleLogin()
+            }
+        } else {
+            guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
+            serviceInfoVC.tag = sender.tag
+            serviceInfoVC.delegate = self
+            self.present(serviceInfoVC, animated: true, completion: nil)
+        }
     }
 
     @objc func appleSignInButtonPressed() {
@@ -287,23 +302,6 @@ extension LoginSelectVC {
         } catch {
             print("Unable to save userIdentifier to keychain.")
         }
-    }
-}
-
-extension LoginSelectVC {
-    private func showNextVC() {
-        guard let nextVC = self.storyboard?.instantiateViewController(identifier: CertificationViewController.identifier) else { return }
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    private func goMainVC() {
-        guard let mainViewController = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
-        let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(.mainColor)
-        
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true, completion: nil)
     }
 }
 

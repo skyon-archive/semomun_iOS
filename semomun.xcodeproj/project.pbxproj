@@ -46,8 +46,6 @@
 		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		25DFE610279A897F0057714B /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFE60F279A897F0057714B /* CategoryManager.swift */; };
-		25E6FF18279A9B7E00FEDCC1 /* MajorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6FF17279A9B7E00FEDCC1 /* MajorVC.swift */; };
-		25E6FF1A279A9BE500FEDCC1 /* MajorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6FF19279A9BE400FEDCC1 /* MajorDetailVC.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
@@ -141,11 +139,7 @@
 		87C85E58276F680D001C9C4A /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */; };
 		87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E60276F68CE001C9C4A /* CertificationUseCase.swift */; };
 		87C85E63276F68E1001C9C4A /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E62276F68E1001C9C4A /* CategoryViewController.swift */; };
-		87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E6A276F691F001C9C4A /* MajorManager.swift */; };
-		87C85E6D276F693A001C9C4A /* MajorDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E6C276F693A001C9C4A /* MajorDetailManager.swift */; };
 		87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */; };
-		87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E70276F6967001C9C4A /* MajorCell.swift */; };
-		87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E72276F6975001C9C4A /* MajorDetailCell.swift */; };
 		87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7C276F69BD001C9C4A /* KeychainItem.swift */; };
 		87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E7E276F69CD001C9C4A /* UserInfo.swift */; };
 		87C85E81276F69E9001C9C4A /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E80276F69E9001C9C4A /* Validate.swift */; };
@@ -245,8 +239,6 @@
 		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		25DFE60F279A897F0057714B /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
-		25E6FF17279A9B7E00FEDCC1 /* MajorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorVC.swift; sourceTree = "<group>"; };
-		25E6FF19279A9BE400FEDCC1 /* MajorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailVC.swift; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
@@ -338,11 +330,7 @@
 		87C85E57276F680D001C9C4A /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		87C85E60276F68CE001C9C4A /* CertificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationUseCase.swift; sourceTree = "<group>"; };
 		87C85E62276F68E1001C9C4A /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		87C85E6A276F691F001C9C4A /* MajorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorManager.swift; sourceTree = "<group>"; };
-		87C85E6C276F693A001C9C4A /* MajorDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailManager.swift; sourceTree = "<group>"; };
 		87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCategoryCell.swift; sourceTree = "<group>"; };
-		87C85E70276F6967001C9C4A /* MajorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCell.swift; sourceTree = "<group>"; };
-		87C85E72276F6975001C9C4A /* MajorDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorDetailCell.swift; sourceTree = "<group>"; };
 		87C85E7C276F69BD001C9C4A /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		87C85E7E276F69CD001C9C4A /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		87C85E80276F69E9001C9C4A /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
@@ -563,21 +551,8 @@
 			children = (
 				87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */,
 				25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */,
-				25E6FF1B279AA00700FEDCC1 /* MajorCollectionView */,
 			);
 			path = "Supporting Views";
-			sourceTree = "<group>";
-		};
-		25E6FF1B279AA00700FEDCC1 /* MajorCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				25E6FF17279A9B7E00FEDCC1 /* MajorVC.swift */,
-				25E6FF19279A9BE400FEDCC1 /* MajorDetailVC.swift */,
-				87C85E70276F6967001C9C4A /* MajorCell.swift */,
-				87C85E72276F6975001C9C4A /* MajorDetailCell.swift */,
-				87C85E5B276F6845001C9C4A /* Manager */,
-			);
-			path = MajorCollectionView;
 			sourceTree = "<group>";
 		};
 		25E6FF1C279AA6ED00FEDCC1 /* BookshelfVC */ = {
@@ -1026,15 +1001,6 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		87C85E5B276F6845001C9C4A /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				87C85E6A276F691F001C9C4A /* MajorManager.swift */,
-				87C85E6C276F693A001C9C4A /* MajorDetailManager.swift */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
 		87C85E88276F6A8E001C9C4A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1258,7 +1224,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87C85E71276F6967001C9C4A /* MajorCell.swift in Sources */,
 				8716E95A279A624A00B33A5E /* SectionResultVC.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
@@ -1275,7 +1240,6 @@
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,
-				25E6FF18279A9B7E00FEDCC1 /* MajorVC.swift in Sources */,
 				257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
@@ -1285,7 +1249,6 @@
 				87E7A54D277EC1BB00359BAE /* SemomunInfoDTO.swift in Sources */,
 				87C85E83276F6A54001C9C4A /* MainViewController.swift in Sources */,
 				259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */,
-				87C85E73276F6975001C9C4A /* MajorDetailCell.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
 				8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */,
@@ -1334,7 +1297,6 @@
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
-				87C85E6D276F693A001C9C4A /* MajorDetailManager.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
 				87C85EA2276F6BF0001C9C4A /* SearchWorkbookManager.swift in Sources */,
 				8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */,
@@ -1351,7 +1313,6 @@
 				87C85E58276F680D001C9C4A /* PersonalInfoViewController.swift in Sources */,
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
-				25E6FF1A279A9BE500FEDCC1 /* MajorDetailVC.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
@@ -1381,7 +1342,6 @@
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
-				87C85E6B276F691F001C9C4A /* MajorManager.swift in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
