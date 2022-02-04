@@ -70,23 +70,17 @@ class LoginSignupVC: UIViewController {
         }
     }
     
-    @IBAction func changePhoneNum(_ sender: Any) {
-        
+    @IBAction func requestAuth(_ sender: Any) {
+        guard let newPhoneStr = self.phoneNumTF.text else { return }
+        self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
     }
     
-    @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
-        if sender.titleLabel?.text == "인증확인" {
-            //인증확인
-            guard let authStr = self.additionalTF.text, let authNum = Int(authStr) else {
-                self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
-                return
-            }
-            self.viewModel.confirmAuthNumber(with: authNum)
-        } else {
-            //인증요청
-            guard let newPhoneStr = self.additionalTF.text else { return }
-            self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
+    @IBAction func confirmAuth(_ sender: UIButton) {
+        guard let authStr = self.additionalTF.text, let authNum = Int(authStr) else {
+            self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
+            return
         }
+        self.viewModel.confirmAuthNumber(with: authNum)
     }
     
     @IBAction func requestAuthAgain(_ sender: Any) {

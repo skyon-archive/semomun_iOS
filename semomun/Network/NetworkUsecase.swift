@@ -469,9 +469,9 @@ extension NetworkUsecase: UserInfoSendable {
 extension NetworkUsecase: NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void) {
         if nickname == "홍길동" {
-            completion((.SUCCESS, false))
-        } else {
             completion((.SUCCESS, true))
+        } else {
+            completion((.SUCCESS, false))
         }
     }
 }
