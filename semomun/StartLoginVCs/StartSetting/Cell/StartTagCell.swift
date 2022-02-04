@@ -14,7 +14,7 @@ final class StartTagCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
         self.contentView.layer.cornerRadius = 5
     }
     
@@ -29,7 +29,7 @@ final class StartTagCell: UICollectionViewCell {
     }
     
     func didSelect() {
-        self.contentView.backgroundColor = UIColor(named: SemomunColor.mainColor)
+        self.contentView.backgroundColor = UIColor(.mainColor)
         self.title.textColor = UIColor.white
         self.title.font = UIFont.systemFont(ofSize: 15, weight: .bold)
     }

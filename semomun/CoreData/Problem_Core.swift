@@ -53,7 +53,7 @@ extension Problem_Core : Identifiable {
 @objc(Problem_Core)
 public class Problem_Core: NSManagedObject {
     public override var description: String{
-        return "Problem(\(self.pid), \(self.pName), \(self.contentImage), \(self.explanationImage), \(self.star)\n"
+        return "Problem(\(self.pid), \(optional: self.pName), \(optional: self.contentImage), \(optional: self.explanationImage), \(self.star)\n"
     }
     
     func setValues(prob: ProblemOfDB) -> ProblemResult {

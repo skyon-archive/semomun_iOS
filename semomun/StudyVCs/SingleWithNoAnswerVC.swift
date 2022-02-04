@@ -190,7 +190,7 @@ extension SingleWithNoAnswerVC {
             self.explanation.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(named: SemomunColor.mainColor), for: .normal)
+            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
         }
     }
     

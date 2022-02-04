@@ -44,7 +44,7 @@ extension UserNoticeVC {
     
     private func configureBackgroundColorView() {
         let backgroundColorView = UIView()
-        backgroundColorView.backgroundColor = UIColor(named: SemomunColor.lightGrayBackgroundColor)
+        backgroundColorView.backgroundColor = UIColor(.lightGrayBackgroundColor)
         backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(backgroundColorView)
         NSLayoutConstraint.activate([

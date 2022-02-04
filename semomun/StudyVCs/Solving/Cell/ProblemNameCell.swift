@@ -14,7 +14,7 @@ class ProblemNameCell: UICollectionViewCell {
     @IBOutlet weak var outerFrame: UIView!
     private lazy var triangleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: SemomunColor.yellowColor)
+        view.backgroundColor = UIColor(.yellowColor)
         return view
     }()
     
@@ -44,7 +44,7 @@ class ProblemNameCell: UICollectionViewCell {
         
         if isTerminated {
             if isWrong {
-                self.outerFrame.backgroundColor = UIColor(named: SemomunColor.redColor)
+                self.outerFrame.backgroundColor = UIColor(.redColor)
                 self.num.textColor = .white
             } else {
                 self.num.textColor = .black
@@ -53,7 +53,7 @@ class ProblemNameCell: UICollectionViewCell {
         }
         
         if isCheckd {
-            self.num.textColor = UIColor(named: SemomunColor.mainColor)
+            self.num.textColor = UIColor(.mainColor)
         }
     }
     
