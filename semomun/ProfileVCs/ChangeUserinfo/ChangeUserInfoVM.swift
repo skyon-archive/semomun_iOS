@@ -160,6 +160,8 @@ extension ChangeUserInfoVM {
             self?.majors = majorFetched.map(\.name)
             if let selectedMajor = self?.selectedMajor, let majorDetails = self?.majorWithDetail[selectedMajor] {
                 self?.majorDetails = majorDetails
+            } else if let major = self?.majors?.first {
+                self?.majorDetails = self?.majorWithDetail[major]
             }
         }
     }
