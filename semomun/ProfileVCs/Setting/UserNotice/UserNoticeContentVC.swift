@@ -79,7 +79,7 @@ extension UserNoticeContentVC {
             backgroundColorView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             backgroundColorView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             backgroundColorView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundColorView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            backgroundColorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
     
@@ -90,7 +90,7 @@ extension UserNoticeContentVC {
         NSLayoutConstraint.activate([
             self.backgroundFrame.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             self.backgroundFrame.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.backgroundFrame.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.backgroundFrame.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.backgroundFrame.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
         ])
     }
@@ -126,7 +126,7 @@ extension UserNoticeContentVC {
         NSLayoutConstraint.activate([
             self.contentTextView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             self.contentTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 107),
-            self.contentTextView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.contentTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.contentTextView.topAnchor.constraint(equalTo: self.divider.bottomAnchor, constant: 37)
         ])
     }
