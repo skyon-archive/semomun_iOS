@@ -55,7 +55,7 @@ final class MyPurchaseCell: UITableViewCell {
 extension MyPurchaseCell {
     private func configureBasicUI() {
         self.backgroundFrameView.layer.cornerRadius = 10
-        self.backgroundFrameView.addShadow(direction: .bottom)
+        self.backgroundFrameView.addAccessibleShadow(direction: .bottom)
         self.clipsToBounds = false
         self.contentView.clipsToBounds = false
     }

@@ -47,7 +47,7 @@ final class UserNoticeContentVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.backgroundFrame.addShadow(direction: .top)
+        self.backgroundFrame.addAccessibleShadow(direction: .top)
     }
     
     func configureContent(using userNotice: UserNotice) {
