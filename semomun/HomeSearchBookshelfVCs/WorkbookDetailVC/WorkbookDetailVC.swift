@@ -192,6 +192,7 @@ extension WorkbookDetailVC {
         solvingVC.sectionCore = section
         solvingVC.previewCore = preview
         solvingVC.sectionHeaderCore = sectionHeader
+        print(section, preview, sectionHeader)
         self.present(solvingVC, animated: true, completion: nil)
     }
     
