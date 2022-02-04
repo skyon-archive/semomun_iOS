@@ -36,11 +36,11 @@ class BookshelfCell: UICollectionViewCell {
     
     private func resetUI() {
         self.bookcover.image = nil
-        self.title.text = ""
-        self.authorAndPublisher.text = ""
-        self.progressPersentLabel.text = ""
+        self.title.text = nil
+        self.authorAndPublisher.text = nil
+        self.progressPersentLabel.text = nil
         self.progressView.isHidden = false
-        self.progressPersentLabel.text = ""
+        self.progressPersentLabel.text = nil
     }
     
     func configure(with book: Preview_Core) {
