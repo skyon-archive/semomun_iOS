@@ -43,8 +43,8 @@ extension SemopayVC {
     private func configureHeaderUI() {
         self.navigationItem.titleView?.backgroundColor = .white
         self.navigationItem.title = "페이 충전 내역"
-        self.headerFrame.addShadow(direction: .bottom)
-        self.headerFrame.clipShadow(at: .top)
+        self.headerFrame.addAccessibleShadow(direction: .bottom)
+        self.headerFrame.clipAccessibleShadow(at: .top)
     }
     private func configureDelegates() {
         self.payChargeList.dataSource = self
