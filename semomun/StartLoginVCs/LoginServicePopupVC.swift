@@ -22,12 +22,10 @@ class LoginServicePopupVC: UIViewController {
     @IBOutlet weak var checkButton: UIButton!
     weak var delegate: RegisgerServiceSelectable?
     var tag: Int?
-    var isSignin: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        self.configureText()
     }
     
     @IBAction func close(_ sender: Any) {
@@ -71,12 +69,6 @@ extension LoginServicePopupVC {
         self.innerFrameview.layer.borderColor = UIColor(.mainColor)?.cgColor
         self.accept.clipsToBounds = true
         self.accept.layer.cornerRadius = 10
-    }
-    
-    private func configureText() {
-        if !self.isSignin {
-            self.accept.setTitle("로그인하기", for: .normal)
-        }
     }
     
     private func loadPersonalPolicy() {
