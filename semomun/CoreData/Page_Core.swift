@@ -112,9 +112,6 @@ public class Page_Core: NSManagedObject {
             default: return MultipleWith5AnswerVC.identifier
             }
         }
-//        else if form == -1 {
-//            return Concept.identifier
-//        }
         return SingleWith5AnswerVC.identifier
     }
     
