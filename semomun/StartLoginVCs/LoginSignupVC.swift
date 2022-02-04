@@ -6,101 +6,181 @@
 //
 
 import UIKit
+import Combine
 import SwiftUI
 
 class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     
-    enum NotificationName {
-        static let selectMajor = Notification.Name.init(rawValue: "selectMajor")
-    }
-    enum NotificationUserInfo {
-        static let sectionKey = "sectionKey"
-    }
-    @IBOutlet weak var majorDetailTitle: UILabel!
-    @IBOutlet weak var majorDetailView: UIView!
-    @IBOutlet weak var schoolFrame: UIView!
-    @IBOutlet weak var school: UIButton!
-    @IBOutlet weak var graduation: UIButton!
-    private var majorViewController: MajorVC?
-    private var majorDetailViewController: MajorDetailVC?
-    private var schoolMenu: UIMenu?
-    private var graduationMenu: UIMenu?
+    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
-    var signUpInfo: UserInfo?
+    private var cancellables: Set<AnyCancellable> = []
+    
+    private var isAuthPhoneTFShown = false {
+        didSet {
+            if self.isAuthPhoneTFShown {
+                self.prepareToShowPhoneNumFrame()
+            } else {
+                self.prepareToHidePhoneNumFrame()
+            }
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    @IBOutlet weak var bodyFrame: UIView!
+    
+    @IBOutlet weak var nicknameFrame: UIView!
+    @IBOutlet weak var nickname: UITextField!
+    
+    @IBOutlet weak var phoneNumFrame: UIView!
+    @IBOutlet weak var phoneNumTF: UITextField!
+    @IBOutlet weak var changePhoneNumButton: UIButton!
+    
+    @IBOutlet weak var additionalPhoneNumFrame: UIView!
+    @IBOutlet weak var additionalTF: UITextField!
+    @IBOutlet weak var authPhoneNumButton: UIButton!
+    @IBOutlet weak var requestAgainButton: UIButton!
+    
+    @IBOutlet weak var majorCollectionView: UICollectionView!
+    @IBOutlet weak var majorDetailCollectionView: UICollectionView!
+    
+    @IBOutlet weak var schoolFinder: UIButton!
+    @IBOutlet weak var graduationStatusSelector: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureTableViewDelegate()
+        self.bindAll()
         self.configureUI()
-        self.configureMajorDetailView()
-        self.configureMajors()
-        self.configureSchoolMenuItems()
-        self.configureGraduationMenuItems()
-        self.configureSchool()
-        self.configureGraduation()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.configureSubView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "회원가입"
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        UserDefaultsManager.set(to: "2.0", forKey: UserDefaultsManager.Keys.userVersion)
     }
     
-    @IBAction func nextVC(_ sender: Any) {
-        guard let signUpInfo = signUpInfo else { return }
-        // gender, birthday configure
-        signUpInfo.configureGender(to: "none")
-        signUpInfo.configureBirthday(to: "none")
-        
-        if signUpInfo.isValidSurvay {
-            self.nextVC()
-        } else {
-            self.showAlertWithOK(title: "정보가 부족합니다", text: "정보를 모두 기입해주시기 바랍니다.")
+    @IBAction func checkNickname(_ sender: Any) {
+        guard let nickname = self.nickname.text else {
+            self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
+            return
+        }
+        self.viewModel.changeNicknameIfAvailable(nickname: nickname) {[weak self] isSuccess in
+            if isSuccess {
+                self?.nickname.resignFirstResponder()
+                self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
+            } else {
+                self?.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
+            }
         }
     }
     
-    private func didSelect(to button: UIButton) {
-        button.borderColor = UIColor.clear
-        button.backgroundColor = UIColor(.mainColor)
-        button.setTitleColor(UIColor.white, for: .normal)
+    @IBAction func changePhoneNum(_ sender: Any) {
+        self.isAuthPhoneTFShown.toggle()
     }
     
-    private func diSelect(from button: UIButton) {
-        button.borderColor = UIColor.black
-        button.backgroundColor = UIColor.white
-        button.setTitleColor(UIColor.black, for: .normal)
+    @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
+        if sender.titleLabel?.text == "인증확인" {
+            //인증확인
+            guard let authStr = self.additionalTF.text, let authNum = Int(authStr) else {
+                self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
+                return
+            }
+            self.viewModel.confirmAuthNumber(with: authNum)
+        } else {
+            //인증요청
+            guard let newPhoneStr = self.additionalTF.text else { return }
+            self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
+        }
+    }
+    
+    @IBAction func requestAuthAgain(_ sender: Any) {
+        self.viewModel.requestPhoneAuthAgain()
+    }
+    
+    @IBAction func submit(_ sender: Any) {
+        self.viewModel.submitUserInfo()
     }
 }
 
-//MARK: - Configure
+// MARK: Configure UI
 extension LoginSignupVC {
     private func configureUI() {
-        self.school.clipsToBounds = true
-        self.school.layer.cornerRadius = 8
-        self.graduation.clipsToBounds = true
-        self.graduation.layer.cornerRadius = 8
+        self.navigationItem.title = "계정 정보 변경하기"
+        self.navigationItem.titleView?.backgroundColor = .white
+        self.configureRoundedMintBorder(of: nicknameFrame)
+        self.configureRoundedMintBorder(of: phoneNumFrame)
+        self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
+        self.configureButtonMenus()
+        self.additionalPhoneNumFrame.isHidden = true
+        self.requestAgainButton.isHidden = true
+        self.bodyFrame.layer.cornerRadius = 15
     }
-    
-    private func configureMajorDetailView() {
-        self.majorDetailTitle.alpha = 0
-        self.majorDetailView.alpha = 0
-        self.schoolFrame.transform = CGAffineTransform.init(translationX: 0, y: -160)
+    private func configureSubView() {
+        self.bodyFrame.addAccessibleShadow(direction: .top)
     }
-    
-    private func configureMajors() {
-        let network = Network()
-        let networkUseCase = NetworkUsecase(network: network)
-        networkUseCase.getMajors { [weak self] majors in
-            guard let majors = majors else {
-                self?.showAlertWithOK(title: "네트워크 오류", text: "다시 시도하시기 바랍니다.")
-                return
-            }
-            self?.majorViewController?.updateMajors(with: majors)
-            self?.majorDetailViewController?.updateMajors(with: majors)
+    private func configureRoundedMintBorder(of view: UIView) {
+        view.layer.borderWidth = 1.5
+        view.layer.borderColor = UIColor(.mainColor)?.cgColor
+        view.layer.cornerRadius = 5
+    }
+    private func configureButtonUI(button: UIButton, isFilled: Bool) {
+        let mainColor = UIColor(.mainColor)
+        if isFilled {
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = mainColor
+            button.borderColor = .white
+        } else {
+            button.setTitleColor(mainColor, for: .normal)
+            button.backgroundColor = .white
+            button.borderColor = mainColor
         }
     }
-    
-    private func configureSchoolMenuItems() {
+    private func prepareToShowPhoneNumFrame() {
+        self.changePhoneNumButton.setTitle("취소", for: .normal)
+        self.additionalPhoneNumFrame.isHidden = false
+        self.additionalTF.placeholder = "변경할 전화번호를 입력해주세요."
+        self.additionalTF.becomeFirstResponder()
+        self.additionalTF.text = nil
+        self.requestAgainButton.isHidden = true
+    }
+    private func prepareToHidePhoneNumFrame() {
+        self.viewModel.cancelPhoneAuth()
+        self.changePhoneNumButton.setTitle("변경", for: .normal)
+        self.additionalPhoneNumFrame.isHidden = true
+        self.additionalTF.resignFirstResponder()
+    }
+}
+
+// MARK: Configure delegate
+extension LoginSignupVC {
+    private func configureTableViewDelegate() {
+        self.majorCollectionView.dataSource = self
+        self.majorCollectionView.delegate = self
+        self.majorDetailCollectionView.dataSource = self
+        self.majorDetailCollectionView.delegate = self
+    }
+}
+
+// MARK: Configure Menus
+extension LoginSignupVC {
+    enum GraduationStatus: String, CaseIterable {
+        case attending = "재학"
+        case graduated = "졸업"
+    }
+    private func configureButtonMenus() {
+        self.configureSchoolButtonMenu()
+        self.configureSchoolStatusMenu()
+    }
+    private func configureSchoolButtonMenu() {
         let menuItems: [UIAction] = SchoolSearchUseCase.SchoolType.allCases.map { schoolType in
             UIAction(title: schoolType.rawValue, image: nil, handler: { [weak self] _ in
                 self?.schoolSearchView = UIHostingController(rootView: LoginSchoolSearchView(delegate: self, schoolType: schoolType))
@@ -110,95 +190,189 @@ extension LoginSignupVC {
                 }
             })
         }
-        self.schoolMenu = UIMenu(title: "학교 선택", image: nil, identifier: nil, options: [], children: menuItems)
+        self.schoolFinder.menu = UIMenu(title: "학교 선택", image: nil, identifier: nil, options: [], children: menuItems)
+        self.schoolFinder.showsMenuAsPrimaryAction = true
     }
-    
-    private func configureGraduationMenuItems() {
-        var menuItems: [UIAction] = []
-        menuItems.append(UIAction(title: "재학", image: nil, handler: { [weak self] _ in
-            self?.updateGraduation(to: "재학")
-        }))
-        menuItems.append(UIAction(title: "졸업", image: nil, handler: { [weak self] _ in
-            self?.updateGraduation(to: "졸업")
-        }))
-        self.graduationMenu = UIMenu(title: "재학/졸업 여부", image: nil, identifier: nil, options: [], children: menuItems)
-    }
-    
-    private func configureSchool() {
-        self.school.menu = self.schoolMenu
-        self.school.showsMenuAsPrimaryAction = true
-    }
-    
-    private func configureGraduation() {
-        self.graduation.menu = self.graduationMenu
-        self.graduation.showsMenuAsPrimaryAction = true
+    private func configureSchoolStatusMenu() {
+        let graduationMenuItems: [UIAction] = GraduationStatus.allCases.map { status in
+            let description = status.rawValue
+            return UIAction(title: description, image: nil) { [weak self] _ in
+                self?.viewModel.graduationStatus = description
+                self?.graduationStatusSelector.setTitle(description, for: .normal)
+            }
+        }
+        self.graduationStatusSelector.menu = UIMenu(title: "대학 / 졸업 선택", options: [], children: graduationMenuItems)
+        self.graduationStatusSelector.showsMenuAsPrimaryAction = true
     }
 }
 
-//MARK: - Connection CollectionViews
+// MARK: Bind
 extension LoginSignupVC {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case MajorVC.Identifier.segue:
-            guard let destination = segue.destination as? MajorVC else { return }
-            self.majorViewController = destination
-            destination.delegate = self
-        case MajorDetailVC.Identifier.segue:
-            guard let destination = segue.destination as? MajorDetailVC else { return }
-            self.majorDetailViewController = destination
-            destination.delegate = self
-        default: return
+    private func bindAll() {
+        self.bindNickname()
+        self.bindMajor()
+        self.bindMajorDetail()
+        self.bindPhoneNum()
+        self.bindSchoolName()
+        self.bindGraduationStatus()
+        self.bindAlert()
+        self.bindPhoneAuth()
+    }
+    private func bindNickname() {
+        self.viewModel.$nickname
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] nickname in
+                self?.nickname.text = nickname
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindMajor() {
+        self.viewModel.$majors
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindMajorDetail() {
+        self.viewModel.$majorDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.majorDetailCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindSchoolName() {
+        self.viewModel.$schoolName
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] schoolName in
+                self?.schoolFinder.setTitle(schoolName, for: .normal)
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindGraduationStatus() {
+        self.viewModel.$graduationStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                self?.graduationStatusSelector.setTitle(status, for: .normal)
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindPhoneNum() {
+        self.viewModel.$phonenum
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] phone in
+                self?.phoneNumTF.placeholder = phone
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindAlert() {
+        self.viewModel.$alertStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .withoutPopVC(let message):
+                    self?.showAlertWithOK(title: message.rawValue, text: "")
+                case .withPopVC(let message):
+                    self?.showAlertWithOK(title: message.rawValue, text: "") {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                case .none:
+                    break
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindPhoneAuth() {
+        self.viewModel.$phoneAuthStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .authComplete:
+                    self?.isAuthPhoneTFShown = false
+                    guard let button = self?.changePhoneNumButton else { break }
+                    self?.configureButtonUI(button: button, isFilled: false)
+                    button.setTitle("인증완료", for: .normal)
+                    button.isEnabled = false
+                    self?.showAlertWithOK(title: "인증 완료", text: "")
+                case .authNumSent:
+                    self?.showAlertWithOK(title: "인증번호 전송됨", text: "")
+                    self?.changeAdditionalTFForAuthNum()
+                case .none:
+                    self?.authPhoneNumButton.setTitle("인증요청", for: .normal)
+                    guard let button = self?.authPhoneNumButton else { break }
+                    self?.configureButtonUI(button: button, isFilled: true)
+                case .wrongAuthNumber:
+                    self?.showAlertWithOK(title: "잘못된 인증 번호", text: "")
+                case .invaildPhoneNum:
+                    self?.showAlertWithOK(title: "잘못된 전화번호", text: "")
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+    private func changeAdditionalTFForAuthNum() {
+        self.requestAgainButton.isHidden = false
+        self.authPhoneNumButton.setTitle("인증확인", for: .normal)
+        self.additionalTF.text = nil
+        self.additionalTF.placeholder = "인증번호를 입력해주세요."
+        self.configureButtonUI(button: self.authPhoneNumButton, isFilled: false)
+    }
+}
+
+// MARK: UICollectionView
+extension LoginSignupVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == majorCollectionView {
+            self.viewModel.selectMajor(at: indexPath.item)
+        } else {
+            self.viewModel.selectMajorDetail(at: indexPath.item)
+        }
+        collectionView.reloadData()
+    }
+}
+
+extension LoginSignupVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == majorCollectionView {
+            return self.viewModel.majors?.count ?? 0
+        } else {
+            return self.viewModel.majorDetails?.count ?? 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
+        if collectionView == majorCollectionView {
+            guard let majorName = self.viewModel.majors?[indexPath.item] else { return cell }
+            if majorName == self.viewModel.selectedMajor {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+            }
+            cell.configureText(major: majorName)
+            return cell
+        } else {
+            guard let majorDetailName = self.viewModel.majorDetails?[indexPath.item] else { return cell }
+            if majorDetailName == self.viewModel.selectedMajorDetail {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+            }
+            cell.configureText(major: majorDetailName)
+            return cell
         }
     }
 }
 
-extension LoginSignupVC: MajorSetable {
-    func didSelectMajor(section index: Int, to major: String) {
-        self.acticationMajorDetail(section: index)
-        self.signUpInfo?.configureMajor(to: major)
-        self.signUpInfo?.configureMajorDetail(to: nil)
-    }
-}
-extension LoginSignupVC: MajorDetailSetable {
-    func didSelectMajorDetail(to majorDetail: String) {
-        self.signUpInfo?.configureMajorDetail(to: majorDetail)
+extension LoginSignupVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView == majorCollectionView ? CGSize(133, 39) : CGSize(68, 39)
     }
 }
 
+// MARK: 학교 팝업 관련
 extension LoginSignupVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
-        self.signUpInfo?.configureSchool(to: name)
-        self.school.setTitle(name, for: .normal)
-        self.school.setTitleColor(.black, for: .normal)
         self.dismissKeyboard()
+        self.viewModel.schoolName = name
+        self.schoolFinder.setTitle(name, for: .normal)
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - Logic
-extension LoginSignupVC {
-    private func updateGraduation(to state: String) {
-        self.graduation.setTitle(state, for: .normal)
-        self.graduation.setTitleColor(.black, for: .normal)
-        self.signUpInfo?.configureGraduation(to: state)
-        self.dismissKeyboard()
-    }
-    
-    private func acticationMajorDetail(section index: Int) {
-        NotificationCenter.default.post(name: NotificationName.selectMajor, object: nil, userInfo: [NotificationUserInfo.sectionKey: index])
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.majorDetailTitle.alpha = 1
-            self?.majorDetailView.alpha = 1
-            self?.schoolFrame.transform = CGAffineTransform.identity
-        }
-    }
-    
-    private func nextVC() {
-        guard let nextVC = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(identifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        nextVC.signupInfo = self.signUpInfo
-        
-        self.title = ""
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 

@@ -180,9 +180,6 @@ extension CertificationViewController: UITextFieldDelegate {
     
     func nextVC() {
         guard let nextVC = self.storyboard?.instantiateViewController(identifier: LoginSignupVC.identifier) as? LoginSignupVC else { return }
-        nextVC.signUpInfo = self.signUpInfo
-        
-        self.title = ""
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
