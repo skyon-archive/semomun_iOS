@@ -16,9 +16,9 @@ class LoginSelectVC: UIViewController {
     var signupInfo: UserInfo?
 
     @IBOutlet weak var semomunTitle: UILabel!
-    private let buttonWidth: CGFloat = 300
-    private let buttonHeight: CGFloat = 55
-    private let buttonRadius: CGFloat = 8
+    private let buttonWidth: CGFloat = 345
+    private let buttonHeight: CGFloat = 54
+    private let buttonRadius: CGFloat = 10
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
     private var networkUseCase: NetworkUsecase?
     
@@ -46,7 +46,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     private func configureSignInGoogleButton() {
         let googleSignInButton = UIControl()
-        googleSignInButton.backgroundColor = UIColor(red: 66/255, green: 133/255, blue: 244/255, alpha: 1)
+        googleSignInButton.backgroundColor = .white
         
         let buttonContent = UIView()
         buttonContent.layer.borderColor = UIColor.gray.cgColor
@@ -57,7 +57,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         
         let text = UILabel()
         text.text = "Google로 로그인"
-        text.textColor = UIColor.white
+        text.textColor = UIColor(.grayTextColor)
         text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
@@ -317,6 +317,7 @@ extension LoginSelectVC {
             button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 200),
             button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
         ])
+        button.addShadow(direction: .bottom)
     }
     
     private func configureLayoutGooleButton(with button: UIControl) {
@@ -328,6 +329,7 @@ extension LoginSelectVC {
             button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: 280),
             button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
         ])
+        button.addShadow(direction: .bottom)
     }
 }
 

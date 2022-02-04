@@ -20,7 +20,7 @@ final class SemopayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.addShadow(direction: .bottom, shouldRasterize: true)
+        self.addAccessibleShadow(direction: .bottom)
         self.clipsToBounds = false
     }
     
@@ -28,7 +28,7 @@ final class SemopayCell: UITableViewCell {
         super.prepareForReuse()
         self.removeCornerRadius()
         self.removeBottomDivider()
-        self.undoClipShadow()
+        self.removeClipOfAccessibleShadow()
     }
 }
 
@@ -51,13 +51,13 @@ extension SemopayCell {
                 self.makeCornerRadius(at: .all)
             } else if row == 0 {
                 self.makeCornerRadius(at: .top)
-                self.clipShadow(at: .bottom)
+                self.clipAccessibleShadow(at: .bottom)
                 self.addBottomDivider()
             } else if row == numberOfRowsInSection - 1 {
                 self.makeCornerRadius(at: .bottom)
-                self.clipShadow(at: .top)
+                self.clipAccessibleShadow(at: .top)
             } else {
-                self.clipShadow(at: .both)
+                self.clipAccessibleShadow(at: .both)
                 self.changeShadowOffset(to: CGSize())
                 self.addBottomDivider()
             }

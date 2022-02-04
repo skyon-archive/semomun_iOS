@@ -63,9 +63,13 @@ extension UIView {
     enum ShadowDirection {
         case center, bottom, top, diagnal, right, left
     }
+    func addShadow(direction: CALayer.ShadowDirection = .center) {
+        self.layer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor)
+    }
     
-    /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewWillLayoutSubviews등에서 호출해야합니다.
-    func addShadow(direction: ShadowDirection = .center, offset: CGSize? = nil, shouldRasterize: Bool = false) {
+    /// - Note: Rasterize가 적용된 그림자가 추가됩니다.
+    /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewDidLayoutSubview등에서 호출해야합니다.
+    func addAccessibleShadow(direction: CALayer.ShadowDirection = .center) {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.shadowOpacity = 0.25
@@ -77,24 +81,7 @@ extension UIView {
         shadowLayer.shadowPath = UIBezierPath(roundedRect: self.layer.bounds, cornerRadius: self.layer.cornerRadius).cgPath
         shadowLayer.shouldRasterize = shouldRasterize
         
-        if let offset = offset {
-            shadowLayer.shadowOffset = offset
-        } else {
-            switch direction {
-            case .center:
-                shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
-            case .bottom:
-                shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
-            case .top:
-                shadowLayer.shadowOffset = CGSize(width: 0, height: -2)
-            case .diagnal:
-                shadowLayer.shadowOffset = CGSize(width: 1.4, height: 1.4)
-            case .right:
-                shadowLayer.shadowOffset = CGSize(width: -2, height:5)
-            case .left:
-                shadowLayer.shadowOffset = CGSize(width: 2, height: 5)
-            }
-        }
+        shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, bounds: self.layer.bounds, shouldRasterize: true)
         self.layer.insertSublayer(shadowLayer, at: 0)
     }
     
@@ -109,12 +96,10 @@ extension UIView {
         case top, bottom, both
     }
     
-    func clipShadow(at direction: ShadowClipDirection) {
+    func clipAccessibleShadow(at direction: ShadowClipDirection) {
         guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
         let shadowRadius: CGFloat = shadowLayer.shadowRadius * 2 // 왜 곱하기 2를 해야 될까🤔
         let shadowLayerHeight = shadowLayer.frame.height
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.white.cgColor
         // 왼쪽부분 그림자는 항상 남음
         let x = -shadowRadius
         // 마찬가지로 좌우 그림자는 항상 남으므로 셀의 너비 + 양쪽 그림자의 넓이
@@ -131,11 +116,10 @@ extension UIView {
             y = 0
             h = shadowLayerHeight
         }
-        layer.frame = CGRect(x, y, w, h)
-        shadowLayer.mask = layer
+        shadowLayer.clipLayer(rect: CGRect(x, y, w, h))
     }
     
-    func undoClipShadow() {
+    func removeClipOfAccessibleShadow() {
         guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
         shadowLayer.mask = nil
     }

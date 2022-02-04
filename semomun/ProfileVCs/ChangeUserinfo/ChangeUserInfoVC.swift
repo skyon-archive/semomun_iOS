@@ -126,7 +126,7 @@ extension ChangeUserInfoVC {
         self.bodyFrame.layer.cornerRadius = 15
     }
     private func configureSubView() {
-        self.bodyFrame.addShadow(direction: .top)
+        self.bodyFrame.addAccessibleShadow(direction: .top)
     }
     private func configureRoundedMintBorder(of view: UIView) {
         view.layer.borderWidth = 1.5
