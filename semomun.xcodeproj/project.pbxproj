@@ -1552,11 +1552,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "세모문";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "결제 보안을 위하여 생채인증이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1571,7 +1572,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1589,11 +1589,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "세모문";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "결제 보안을 위하여 생채인증이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1608,7 +1609,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
