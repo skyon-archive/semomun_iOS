@@ -23,7 +23,7 @@ final class UserNoticeVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        self.backgroundShadowView.addShadow(direction: .top)
+        self.backgroundShadowView.addAccessibleShadow(direction: .top)
     }
 }
 

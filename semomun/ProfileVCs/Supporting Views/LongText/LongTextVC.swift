@@ -46,7 +46,7 @@ extension LongTextVC {
     
     private func configureBackgroundUI() {
         self.textViewBackground.layer.cornerRadius = 15
-        self.textViewBackground.addShadow()
+        self.textViewBackground.addAccessibleShadow()
     }
     
     private func addViewsForMarketingAccept() {
