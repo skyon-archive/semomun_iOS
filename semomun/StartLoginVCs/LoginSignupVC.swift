@@ -61,7 +61,7 @@ class LoginSignupVC: UIViewController {
     
     private func didSelect(to button: UIButton) {
         button.borderColor = UIColor.clear
-        button.backgroundColor = UIColor(named: SemomunColor.mainColor)
+        button.backgroundColor = UIColor(.mainColor)
         button.setTitleColor(UIColor.white, for: .normal)
     }
     

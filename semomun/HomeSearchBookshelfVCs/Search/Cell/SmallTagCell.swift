@@ -14,7 +14,7 @@ class SmallTagCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
         self.contentView.clipsToBounds = true
         self.contentView.layer.cornerRadius = 15
     }

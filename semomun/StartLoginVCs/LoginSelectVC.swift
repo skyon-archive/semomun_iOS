@@ -300,7 +300,7 @@ extension LoginSelectVC {
     private func goMainVC() {
         guard let mainViewController = self.storyboard?.instantiateViewController(identifier: MainViewController.identifier) else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        navigationController.navigationBar.tintColor = UIColor(.mainColor)
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)

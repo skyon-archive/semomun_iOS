@@ -28,7 +28,7 @@ extension SectionHeader_Core {
 @objc(SectionHeader_Core)
 public class SectionHeader_Core: NSManagedObject {
     public override var description: String {
-        return "SectionHeader(\(self.sid), \(self.title), \(self.image))"
+        return "SectionHeader(\(self.sid), \(optional: self.title), \(optional: self.image))"
     }
     // functions to replace the custom initialization methods
     func setValues(section: SectionOfDB, baseURL: String, wid: Int) {

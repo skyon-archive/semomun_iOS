@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
             let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+            navigationController.navigationBar.tintColor = UIColor(.mainColor)
             navigationController.isNavigationBarHidden = true
             self.window?.rootViewController = navigationController
         }
@@ -40,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(named: SemomunColor.mainColor)
+        navigationController.navigationBar.tintColor = UIColor(.mainColor)
         navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!

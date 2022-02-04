@@ -105,7 +105,7 @@ extension SearchVC {
         self.searchInnerView.clipsToBounds = true
         self.searchInnerView.layer.borderWidth = 2
         self.searchInnerView.layer.cornerRadius = 10
-        self.searchInnerView.layer.borderColor = UIColor(named: SemomunColor.mainColor)?.cgColor
+        self.searchInnerView.layer.borderColor = UIColor(.mainColor)?.cgColor
     }
     
     private func configureViewModel() {
