@@ -48,6 +48,11 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         loader.color = UIColor.gray
         return loader
     }()
+    private lazy var explanationView: ExplanationView = {
+        let explanationView = ExplanationView()
+        explanationView.alpha = 0
+        return explanationView
+    }()
     private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
@@ -90,6 +95,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.answerBT.isHidden = false
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
+        self.explanationView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,11 +132,23 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-        
-        guard let explanationVC = UIStoryboard(name: ExplanationVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ExplanationVC.identifier) as? ExplanationVC else { return }
         let explanationImage = UIImage(data: imageData)
-        explanationVC.explanationImage = explanationImage
-        self.present(explanationVC, animated: true, completion: nil)
+        
+        self.explanationView.configureDelegate(to: self)
+        self.explanationView.configureImage(to: explanationImage)
+        self.view.addSubview(self.explanationView)
+        self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.explanationView.heightAnchor.constraint(equalToConstant: self.view.frame.height/2),
+            self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.setShadow(with: self.explanationView)
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 1
+        }
     }
     
     @IBAction func showAnswer(_ sender: Any) {
@@ -341,5 +359,15 @@ extension SingleWith5AnswerVC: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)
+    }
+}
+
+extension SingleWith5AnswerVC: ExplanationRemover {
+    func closeExplanation() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
+        }
     }
 }
