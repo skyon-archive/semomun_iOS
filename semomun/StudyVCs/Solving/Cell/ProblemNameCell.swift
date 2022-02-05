@@ -15,10 +15,15 @@ class ProblemNameCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.resetUI()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.resetUI()
+    }
+    
+    private func resetUI() {
         self.contentView.backgroundColor = .white
         self.num.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         self.num.textColor = UIColor(.grayDefaultColor)

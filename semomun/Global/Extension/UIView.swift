@@ -61,7 +61,7 @@ extension UIView {
     }
     
     enum ShadowDirection {
-        case center, bottom, top, diagnal
+        case center, bottom, top, diagnal, right, left
     }
     
     /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewWillLayoutSubviews등에서 호출해야합니다.
@@ -89,6 +89,10 @@ extension UIView {
                 shadowLayer.shadowOffset = CGSize(width: 0, height: -2)
             case .diagnal:
                 shadowLayer.shadowOffset = CGSize(width: 1.4, height: 1.4)
+            case .right:
+                shadowLayer.shadowOffset = CGSize(width: -2, height:5)
+            case.left:
+                shadowLayer.shadowOffset = CGSize(width: 2, height: 5)
             }
         }
         self.layer.insertSublayer(shadowLayer, at: 0)

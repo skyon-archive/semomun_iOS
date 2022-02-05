@@ -67,8 +67,11 @@ class StudyVC: UIViewController {
         
         self.configureManager()
         self.addCoreDataAlertObserver()
-        self.setShadow(with: self.headerView)
-        self.setShadow(with: self.bottomFrame)
+//        self.setShadow(with: self.headerView)
+//        self.setShadow(with: self.bottomFrame)
+        self.solvingFrameView.addShadow(direction: .center)
+        self.leftFrameView.addShadow(direction: .right)
+        self.rightFrameView.addShadow(direction: .left)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
