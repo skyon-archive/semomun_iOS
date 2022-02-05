@@ -114,7 +114,9 @@ extension StudyVC {
     }
     
     private func configureShadow() {
-        self.childFrameView.addShadow(direction: .center)
+//        self.childFrameView.addShadow(direction: .center)
+        self.headerFrameView.addShadow(direction: .center)
+        self.bottomFrameView.addShadow(direction: .center)
         self.beforeFrameView.addShadow(direction: .right)
         self.nextFrameView.addShadow(direction: .left)
     }
@@ -193,7 +195,7 @@ extension StudyVC: LayoutDelegate {
     }
     
     func showTime(time: Int64) {
-        self.timeLabel.text = time.toTimeString()
+        self.timeLabel.text = time.toTimeString
     }
     
     func changeVC(pageData: PageData) {

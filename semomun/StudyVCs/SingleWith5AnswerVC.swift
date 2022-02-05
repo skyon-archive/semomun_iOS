@@ -12,15 +12,13 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     static let identifier = "SingleWith5AnswerVC" // form == 0 && type == 5
     static let storyboardName = "Study"
 
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
+    @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet weak var star: UIButton!
-    @IBOutlet weak var answer: UIButton!
-    @IBOutlet weak var explanation: UIButton!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
@@ -89,7 +87,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.viewModel?.cancelObserver()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
-        self.answer.isHidden = false
+        self.answerBT.isHidden = false
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
     }
@@ -117,24 +115,13 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.configureCheckButtons()
     }
     
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
               let pName = problem.pName else { return }
         
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
         self.viewModel?.updateStar(btName: pName, to: status)
-    }
-    
-    @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer else { return }
-        
-        self.answer.isSelected.toggle()
-        if self.answer.isSelected {
-            self.answer.setTitle(answer.circledAnswer, for: .normal)
-        } else {
-            self.answer.setTitle("정답", for: .normal)
-        }
     }
     
     @IBAction func showExplanation(_ sender: Any) {
@@ -146,8 +133,15 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.present(explanationVC, animated: true, completion: nil)
     }
     
-    @IBAction func nextProblem(_ sender: Any) {
-        self.viewModel?.delegate?.nextPage()
+    @IBAction func showAnswer(_ sender: Any) {
+        guard let answer = self.viewModel?.answer else { return }
+        
+        self.answerBT.isSelected.toggle()
+        if self.answerBT.isSelected {
+            self.answerBT.setTitle(answer.circledAnswer, for: .normal)
+        } else {
+            self.answerBT.setTitle("정답", for: .normal)
+        }
     }
 }
 
@@ -201,20 +195,19 @@ extension SingleWith5AnswerVC {
         
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
-            bt.layer.cornerRadius = 17.5
             bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(.mainColor), for: .normal)
+            bt.setTitleColor(UIColor(.darkMainColor), for: .normal)
         }
         // 사용자 체크한 데이터 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.mainColor)
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.darkMainColor)
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = self.viewModel?.answer,
            problem.terminated == true {
-            self.answer.isHidden = true
+            self.answerBT.isHidden = true
             if answer != "복수",
                let targetIndex = Int(answer) {
                 self.createCheckImage(to: targetIndex-1)
@@ -243,8 +236,8 @@ extension SingleWith5AnswerVC {
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 25)
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
         ])
         
         self.timerView.configureTime(to: time)
@@ -272,28 +265,26 @@ extension SingleWith5AnswerVC {
     }
     
     func configureStar() {
-        self.star.isSelected = self.viewModel?.problem?.star ?? false
+        self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureAnswer() {
-        self.answer.setTitle("정답", for: .normal)
-        self.answer.isSelected = false
+        self.answerBT.setTitle("정답", for: .normal)
+        self.answerBT.isSelected = false
+        self.answerBT.isUserInteractionEnabled = true
+        self.answerBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.answer == nil {
-            self.answer.isUserInteractionEnabled = false
-            self.answer.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.answerBT.isUserInteractionEnabled = false
+            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
     func configureExplanation() {
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
-            self.explanation.isUserInteractionEnabled = false
-            self.explanation.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
