@@ -45,7 +45,7 @@ class SectionResultVC: UIViewController {
         guard let result = self.result else { return }
         self.titleLabel.text = result.title
         self.totalScoreLabel.text = "\(result.totalScore) / \(result.perfectScore)"
-        self.totalTimeLabel.text = result.totalTime.toTimeString()
+        self.totalTimeLabel.text = result.totalTime.toTimeString
         self.configureWrongProblems(to: result.wrongProblems)
     }
     
