@@ -115,7 +115,7 @@ final class SectionManager {
         return self.section.wrongs[at] && self.section.terminated
     }
     
-    func isCheckd(at: Int) -> Bool {
+    func isChecked(at: Int) -> Bool {
         return self.section.checks[at]
     }
     
