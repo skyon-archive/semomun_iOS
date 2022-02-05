@@ -110,6 +110,7 @@
 		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
 		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
+		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
 		87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941C278FD58700E0A7B1 /* MainUseCase.swift */; };
@@ -304,6 +305,7 @@
 		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
+		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		87A9941C278FD58700E0A7B1 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
@@ -640,6 +642,7 @@
 		8716E954279A621A00B33A5E /* StudyVCs */ = {
 			isa = PBXGroup;
 			children = (
+				878766CA27AED255003B975E /* View */,
 				8716E955279A623500B33A5E /* StudyVC.swift */,
 				8716E957279A623F00B33A5E /* ExplanationVC.swift */,
 				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
@@ -800,6 +803,23 @@
 				8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */,
 			);
 			path = MutipleCellDelegate;
+			sourceTree = "<group>";
+		};
+		878766CA27AED255003B975E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8755ABD527731E7600752745 /* ProblemTimerView.swift */,
+				878766CC27AED2E7003B975E /* ExplanationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		878766CB27AED290003B975E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		879B172C2772CC030042478F /* UseCase */ = {
@@ -987,9 +1007,7 @@
 			isa = PBXGroup;
 			children = (
 				87C85E49276F676C001C9C4A /* UserInfoToggleView.swift */,
-				8755ABD527731E7600752745 /* ProblemTimerView.swift */,
 				87AD6CED2774196C00996937 /* ProblemTextResultView.swift */,
-				8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1136,6 +1154,7 @@
 				8716E930279A5F4D00B33A5E /* HomeVC.swift */,
 				87458552279E86A100E331F1 /* ViewModel */,
 				87458555279E86C300E331F1 /* Cell */,
+				878766CB27AED290003B975E /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1371,6 +1390,7 @@
 				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
 				87C85ED7276F6E10001C9C4A /* ShowDetailOfWorkbookViewController.swift in Sources */,
 				25DFE610279A897F0057714B /* CategoryManager.swift in Sources */,
+				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
