@@ -209,6 +209,7 @@ final class SectionManager {
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
                 guard let self = self else { return }
                 self.currentTime += 1
                 self.section.setValue(self.currentTime, forKey: "time")
@@ -216,7 +217,6 @@ final class SectionManager {
                 if self.currentTime%10 == 0 {
                     CoreDataManager.saveCoreData()
                 }
-                NotificationCenter.default.post(name: .seconds, object: nil) //1초당 push
             }
             while self.isRunning {
                 runLoop.run(until: Date().addingTimeInterval(0.1))
