@@ -107,13 +107,13 @@
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="0.0" id="71K-xF-Ivk">
                                             <size key="itemSize" width="37" height="32"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="headerReferenceSize" width="10" height="0.0"/>
+                                            <size key="footerReferenceSize" width="10" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProblemNameCell" id="1Qj-vm-72B" customClass="ProblemNameCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.5" width="37" height="32"/>
+                                                <rect key="frame" x="10" y="0.5" width="37" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xFY-Y8-4fZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="37" height="32"/>
@@ -161,6 +161,14 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pat-Kj-Zpr">
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="33"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionReusableView>
+                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="99v-Nt-yQm">
+                                            <rect key="frame" x="47" y="0.0" width="10" height="33"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionReusableView>
                                     </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1T-K7-k44">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
