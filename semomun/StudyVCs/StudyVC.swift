@@ -135,10 +135,10 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let isStar = manager.isStar(at: indexPath.item)
         let isTerminated = manager.section.terminated
         let isWrong = manager.isWrong(at: indexPath.item)
-        let isCheckd = manager.isCheckd(at: indexPath.item)
+        let isChecked = manager.isChecked(at: indexPath.item)
         let isCurrent = indexPath.item == manager.currentIndex
         
-        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd, isCurrent: isCurrent)
+        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isChecked: isChecked, isCurrent: isCurrent)
         
         return cell
     }
@@ -175,8 +175,11 @@ extension StudyVC {
     }
     
     private func getImage(data: Data?) -> UIImage {
-        guard let data = data else { return UIImage() }
-        return UIImage(data: data) ?? UIImage()
+        if let data = data, let image = UIImage(data: data) {
+            return image
+        } else {
+            return UIImage()
+        }
     }
     
     private func getImages(problems: [Problem_Core]) -> [UIImage] {
