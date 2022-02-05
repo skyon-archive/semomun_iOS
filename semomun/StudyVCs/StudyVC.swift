@@ -16,75 +16,58 @@ protocol PageDelegate: AnyObject {
     func beforePage()
 }
 
-class StudyVC: UIViewController {
+final class StudyVC: UIViewController {
     static let identifier = "StudyVC"
     static let storyboardName = "Study"
     
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var sectionTitle: UILabel!
-    @IBOutlet weak var sectionTime: UILabel!
-    @IBOutlet weak var bottomFrame: UIView!
+    @IBOutlet weak var headerFrameView: UIView!
+    @IBOutlet weak var bottomFrameView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var solvingFrameView: UIView!
-    @IBOutlet weak var showResultVC: UIButton!
-    @IBOutlet weak var leftFrameView: UIView!
-    @IBOutlet weak var rightFrameView: UIView!
+    @IBOutlet weak var childFrameView: UIView!
+    @IBOutlet weak var resultBT: UIButton!
+    @IBOutlet weak var beforeFrameView: UIView!
+    @IBOutlet weak var nextFrameView: UIView!
     
-    private var singleWith5Answer: SingleWith5AnswerVC!
-    private var singleWithTextAnswer: SingleWithTextAnswerVC!
-    private var multipleWith5Answer: MultipleWith5AnswerVC!
-    private var singleWith4Answer: SingleWith4AnswerVC!
-    private var multipleWithNoAnswer: MultipleWithNoAnswerVC!
-    private var concept: ConceptVC!
-    private var singleWithNoAnswer: SingleWithNoAnswerVC!
-    
-    private var currentVC: UIViewController!
-    private var manager: SectionManager!
     var sectionHeaderCore: SectionHeader_Core?
     var sectionCore: Section_Core?
     var previewCore: Preview_Core?
+    private var currentVC: UIViewController?
+    private var manager: SectionManager?
+    private lazy var singleWith5Answer: SingleWith5AnswerVC = {
+        return UIStoryboard(name: SingleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith5AnswerVC.identifier) as? SingleWith5AnswerVC ?? SingleWith5AnswerVC()
+    }()
+    private lazy var singleWithTextAnswer: SingleWithTextAnswerVC = {
+        return UIStoryboard(name: SingleWithTextAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithTextAnswerVC.identifier) as? SingleWithTextAnswerVC ?? SingleWithTextAnswerVC()
+    }()
+    private lazy var multipleWith5Answer: MultipleWith5AnswerVC = {
+        return UIStoryboard(name: MultipleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWith5AnswerVC.identifier) as? MultipleWith5AnswerVC ?? MultipleWith5AnswerVC()
+    }()
+    private lazy var singleWith4Answer: SingleWith4AnswerVC = {
+        return UIStoryboard(name: SingleWith4AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith4AnswerVC.identifier) as? SingleWith4AnswerVC ?? SingleWith4AnswerVC()
+    }()
+    private lazy var multipleWithNoAnswer: MultipleWithNoAnswerVC = {
+        return UIStoryboard(name: MultipleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWithNoAnswerVC.identifier) as? MultipleWithNoAnswerVC ?? MultipleWithNoAnswerVC()
+    }()
+    private lazy var concept: ConceptVC = {
+        return UIStoryboard(name: ConceptVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ConceptVC.identifier) as? ConceptVC ?? ConceptVC()
+    }()
+    private lazy var singleWithNoAnswer: SingleWithNoAnswerVC = {
+        return UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC ?? SingleWithNoAnswerVC()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureUI()
         self.configureCollectionView()
-        
-        singleWith5Answer = UIStoryboard(name: SingleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith5AnswerVC.identifier) as? SingleWith5AnswerVC
-        singleWithTextAnswer = UIStoryboard(name: SingleWithTextAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithTextAnswerVC.identifier) as? SingleWithTextAnswerVC
-        multipleWith5Answer = UIStoryboard(name: MultipleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWith5AnswerVC.identifier) as? MultipleWith5AnswerVC
-        singleWith4Answer = UIStoryboard(name: SingleWith4AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith4AnswerVC.identifier) as? SingleWith4AnswerVC
-        multipleWithNoAnswer = UIStoryboard(name: MultipleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWithNoAnswerVC.identifier) as? MultipleWithNoAnswerVC
-        concept = UIStoryboard(name: ConceptVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ConceptVC.identifier) as? ConceptVC
-        singleWithNoAnswer = UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC
-        
-        self.addChild(singleWith5Answer)
-        self.addChild(singleWithTextAnswer)
-        self.addChild(multipleWith5Answer)
-        self.addChild(singleWith4Answer)
-        self.addChild(multipleWithNoAnswer)
-        self.addChild(concept)
-        self.addChild(singleWithNoAnswer)
-        
         self.configureManager()
         self.addCoreDataAlertObserver()
-//        self.setShadow(with: self.headerView)
-//        self.setShadow(with: self.bottomFrame)
-        self.solvingFrameView.addShadow(direction: .center)
-        self.leftFrameView.addShadow(direction: .right)
-        self.rightFrameView.addShadow(direction: .left)
+        self.configureShadow()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("solving will disappear")
         super.viewWillDisappear(animated)
         self.view.subviews.forEach { $0.removeFromSuperview() }
-        self.singleWith5Answer = nil
-        self.singleWithTextAnswer = nil
-        self.multipleWith5Answer = nil
-        self.singleWith4Answer = nil
-        self.multipleWithNoAnswer = nil
-        self.concept = nil
-        self.singleWithNoAnswer = nil
     }
     
     deinit {
@@ -92,41 +75,37 @@ class StudyVC: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        self.manager.stopSection()
+        self.manager?.stopSection()
     }
     
     @IBAction func finish(_ sender: Any) {
-        if self.manager.section.terminated {
-            self.manager.terminateSection()
+        guard let manager = self.manager else { return }
+        if manager.section.terminated {
+            manager.terminateSection()
             return
         }
-        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") { [weak self] in
-            self?.manager.terminateSection()
+        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") {
+            manager.terminateSection()
         }
     }
     
     @IBAction func beforePage(_ sender: Any) {
-        self.manager.changeBeforePage()
+        self.manager?.changeBeforePage()
     }
     
     @IBAction func nextPage(_ sender: Any) {
-        self.manager.changeNextPage()
+        self.manager?.changeNextPage()
     }
 }
 
 // MARK: - Configure
 extension StudyVC {
-    func configureUI() {
-        bottomFrame.layer.cornerRadius = 30
-        bottomFrame.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    }
-    
     private func configureCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
     
-    func configureManager() {
+    private func configureManager() {
         if let sectionCore = self.sectionCore {
             self.manager = SectionManager(delegate: self, section: sectionCore)
         } else {
@@ -134,24 +113,30 @@ extension StudyVC {
         }
     }
     
+    private func configureShadow() {
+        self.childFrameView.addShadow(direction: .center)
+        self.beforeFrameView.addShadow(direction: .right)
+        self.nextFrameView.addShadow(direction: .left)
+    }
 }
 
 extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.manager.count
+        return self.manager?.count ?? 0
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
+        guard let manager = self.manager else { return cell }
         
-        let num = self.manager.buttonTitle(at: indexPath.item)
-        let isStar = self.manager.isStar(at: indexPath.item)
-        let isTerminated = self.manager.section.terminated
-        let isWrong = self.manager.isWrong(at: indexPath.item)
-        let isCheckd = self.manager.isCheckd(at: indexPath.item)
-        let isCurrent = indexPath.item == self.manager.currentIndex
+        let num = manager.buttonTitle(at: indexPath.item)
+        let isStar = manager.isStar(at: indexPath.item)
+        let isTerminated = manager.section.terminated
+        let isWrong = manager.isWrong(at: indexPath.item)
+        let isCheckd = manager.isCheckd(at: indexPath.item)
+        let isCurrent = indexPath.item == manager.currentIndex
         
         cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCheckd: isCheckd, isCurrent: isCurrent)
         
@@ -160,49 +145,56 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.manager.changePage(at: indexPath.item)
+        self.manager?.changePage(at: indexPath.item)
     }
 }
 
 extension StudyVC {
-    func showVC() {
-        self.currentVC.view.frame = self.solvingFrameView.bounds
-        self.solvingFrameView.addSubview(self.currentVC.view)
-        self.currentVC.view.translatesAutoresizingMaskIntoConstraints = false
+    private func showVC(to targetVC: UIViewController?) {
+        guard let targetVC = targetVC else { return }
+
+        targetVC.view.frame = self.childFrameView.bounds
+        self.childFrameView.addSubview(targetVC.view)
+        self.addChild(targetVC)
+        targetVC.didMove(toParent: self)
+        
+        targetVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.currentVC.view.leadingAnchor.constraint(equalTo: self.solvingFrameView.leadingAnchor),
-            self.currentVC.view.topAnchor.constraint(equalTo: self.solvingFrameView.topAnchor),
-            self.currentVC.view.trailingAnchor.constraint(equalTo: self.solvingFrameView.trailingAnchor),
-            self.currentVC.view.bottomAnchor.constraint(equalTo: self.solvingFrameView.bottomAnchor)
+            targetVC.view.leadingAnchor.constraint(equalTo: self.childFrameView.leadingAnchor),
+            targetVC.view.topAnchor.constraint(equalTo: self.childFrameView.topAnchor),
+            targetVC.view.trailingAnchor.constraint(equalTo: self.childFrameView.trailingAnchor),
+            targetVC.view.bottomAnchor.constraint(equalTo: self.childFrameView.bottomAnchor)
         ])
     }
     
-    func getImage(data: Data?) -> UIImage {
+    private func removeCurrentVC() {
+        self.currentVC?.willMove(toParent: nil)
+        self.currentVC?.view.removeFromSuperview()
+        self.currentVC?.removeFromParent()
+        for child in self.childFrameView.subviews { child.removeFromSuperview() }
+    }
+    
+    private func getImage(data: Data?) -> UIImage {
         guard let data = data else { return UIImage() }
         return UIImage(data: data) ?? UIImage()
     }
     
-    func getImages(problems: [Problem_Core]) -> [UIImage] {
+    private func getImages(problems: [Problem_Core]) -> [UIImage] {
         return problems.map { getImage(data: $0.contentImage) }
     }
 }
 
 extension StudyVC: LayoutDelegate {
     func showTitle(title: String) {
-        self.sectionTitle.text = title
+        self.titleLabel.text = title
     }
     
     func showTime(time: Int64) {
-        self.sectionTime.text = time.toTimeString()
+        self.timeLabel.text = time.toTimeString()
     }
     
     func changeVC(pageData: PageData) {
-        if let _ = currentVC {
-            for child in self.solvingFrameView.subviews { child.removeFromSuperview() }
-            currentVC.willMove(toParent: nil) // 제거되기 직전에 호출
-            currentVC.removeFromParent() // parentVC로 부터 관계 삭제
-            currentVC.view.removeFromSuperview() // parentVC.view.addsubView()와 반대 기능
-        }
+        self.removeCurrentVC()
 
         switch pageData.layoutType {
         case SingleWith5AnswerVC.identifier:
@@ -216,7 +208,7 @@ extension StudyVC: LayoutDelegate {
             singleWithTextAnswer.image = getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWith5AnswerVC.identifier:
-            multipleWith5Answer = self.storyboard?.instantiateViewController(withIdentifier: MultipleWith5AnswerVC.identifier) as? MultipleWith5AnswerVC
+            multipleWith5Answer = UIStoryboard(name: MultipleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWith5AnswerVC.identifier) as? MultipleWith5AnswerVC ?? MultipleWith5AnswerVC()
             self.currentVC = multipleWith5Answer
             multipleWith5Answer.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData)
             multipleWith5Answer.mainImage = getImage(data: pageData.pageCore.materialImage)
@@ -228,7 +220,7 @@ extension StudyVC: LayoutDelegate {
             singleWith4Answer.image = getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWithNoAnswerVC.identifier:
-            self.currentVC = multipleWithNoAnswer
+            self.currentVC = UIStoryboard(name: MultipleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWithNoAnswerVC.identifier) as? MultipleWithNoAnswerVC ?? MultipleWithNoAnswerVC()
             multipleWithNoAnswer.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
             multipleWithNoAnswer.mainImage = getImage(data: pageData.pageCore.materialImage)
             multipleWithNoAnswer.subImages = getImages(problems: pageData.problems)
@@ -246,7 +238,7 @@ extension StudyVC: LayoutDelegate {
         default:
             break
         }
-        self.showVC()
+        self.showVC(to: self.currentVC)
     }
     
     func reloadButtons() {
@@ -298,28 +290,28 @@ extension StudyVC: LayoutDelegate {
     }
     
     func changeResultLabel() {
-        self.showResultVC.setTitle("결과보기", for: .normal)
+        self.resultBT.setTitle("결과보기", for: .normal)
     }
 }
 
 extension StudyVC: PageDelegate {
     func updateStar(btName: String, to: Bool) {
-        self.manager.updateStar(title: btName, to: to)
+        self.manager?.updateStar(title: btName, to: to)
     }
     
     func updateCheck(btName: String) {
-        self.manager.updateCheck(title: btName)
+        self.manager?.updateCheck(title: btName)
     }
     
     func updateWrong(btName: String, to: Bool) {
-        self.manager.updateWrong(title: btName, to: to)
+        self.manager?.updateWrong(title: btName, to: to)
     }
     
     func nextPage() {
-        self.manager.changeNextPage()
+        self.manager?.changeNextPage()
     }
     
     func beforePage() {
-        self.manager.changeBeforePage()
+        self.manager?.changeBeforePage()
     }
 }
