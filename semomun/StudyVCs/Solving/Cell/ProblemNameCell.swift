@@ -31,7 +31,7 @@ class ProblemNameCell: UICollectionViewCell {
         self.checkImageView.isHidden = true
     }
     
-    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isCheckd: Bool, isCurrent: Bool) {
+    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isChecked: Bool, isCurrent: Bool) {
         self.num.text = num
         
         if isStar {
@@ -53,7 +53,7 @@ class ProblemNameCell: UICollectionViewCell {
             return
         }
         
-        if isCheckd {
+        if isChecked {
             self.num.textColor = UIColor(.mainColor)
             self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
         } else {
@@ -63,7 +63,7 @@ class ProblemNameCell: UICollectionViewCell {
         
         if isCurrent {
             self.num.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-            if !isCheckd {
+            if !isChecked {
                 self.num.textColor = .black
                 self.contentView.layer.borderColor = UIColor.black.cgColor
             }
