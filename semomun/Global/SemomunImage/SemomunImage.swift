@@ -14,4 +14,5 @@ enum SemomunImage {
     static let dummy_bookcover = "dummy_bookcover"
     static let loadingBookcover = "text.book.closed"
     static let dummy_ad = "dummy_ad"
+    static let clock = "clock"
 }

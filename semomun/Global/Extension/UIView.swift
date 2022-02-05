@@ -68,11 +68,11 @@ extension UIView {
     func addShadow(direction: ShadowDirection = .center, offset: CGSize? = nil, shouldRasterize: Bool = false) {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
-        shadowLayer.shadowOpacity = 0.3
+        shadowLayer.shadowOpacity = 0.25
         shadowLayer.frame = self.layer.bounds
         shadowLayer.cornerRadius = self.layer.cornerRadius
         shadowLayer.shadowColor = UIColor.lightGray.cgColor
-        shadowLayer.shadowRadius = 5
+        shadowLayer.shadowRadius = 4.5
         shadowLayer.backgroundColor = self.backgroundColor?.cgColor
         shadowLayer.shadowPath = UIBezierPath(roundedRect: self.layer.bounds, cornerRadius: self.layer.cornerRadius).cgPath
         shadowLayer.shouldRasterize = shouldRasterize
@@ -91,7 +91,7 @@ extension UIView {
                 shadowLayer.shadowOffset = CGSize(width: 1.4, height: 1.4)
             case .right:
                 shadowLayer.shadowOffset = CGSize(width: -2, height:5)
-            case.left:
+            case .left:
                 shadowLayer.shadowOffset = CGSize(width: 2, height: 5)
             }
         }
