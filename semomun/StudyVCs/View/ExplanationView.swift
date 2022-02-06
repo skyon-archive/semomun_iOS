@@ -13,6 +13,8 @@ protocol ExplanationRemover: AnyObject {
 
 final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemover?
+    private var imageViewHeightConstraint: NSLayoutConstraint?
+    private lazy var imageviewHeight: CGFloat = (self.frame.height/2)-40
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
         return UIImage(systemName: SemomunImage.xmark, withConfiguration: largeConfig)
@@ -25,6 +27,7 @@ final class ExplanationView: UIView {
     private lazy var explanationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     private lazy var closeButton: UIButton = {
@@ -64,11 +67,26 @@ final class ExplanationView: UIView {
             self.scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -100),
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        
+        self.scrollView.addSubview(self.explanationImageView)
+        NSLayoutConstraint.activate([
+            self.explanationImageView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
+            self.explanationImageView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
+            self.explanationImageView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
+            self.explanationImageView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
+            self.explanationImageView.widthAnchor.constraint(equalTo: self.scrollView.frameLayoutGuide.widthAnchor)
+        ])
+        
+        self.imageViewHeightConstraint = self.explanationImageView.heightAnchor.constraint(equalToConstant: self.imageviewHeight)
+        self.imageViewHeightConstraint?.isActive = false
     }
     
     func configureImage(to image: UIImage?) {
-//        guard let image = image else { return }
-//        self.explanationImageView.image = image
+        self.layoutIfNeeded()
+        guard let image = image else { return }
+        let width = self.scrollView.frame.width
+        let height = image.size.height*(width/image.size.width)
+        self.imageViewHeightConstraint?.constant = height
+        self.explanationImageView.image = image
     }
-
 }
