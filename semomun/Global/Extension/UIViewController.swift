@@ -86,10 +86,10 @@ extension UIViewController {
     }
     
     func setShadow(with view: UIView) {
-        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOpacity = 0.25
         view.layer.shadowColor = UIColor.lightGray.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 5
+        view.layer.shadowRadius = 4.5
     }
     
     func popupLongTextVC(title: String, txtResourceName: String, marketingInfo: Bool = false) {

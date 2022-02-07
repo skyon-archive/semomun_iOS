@@ -24,12 +24,18 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021년 7월 화법과 작문" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWD-M2-vDE">
                                         <rect key="frame" x="147" y="45" width="550" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="CYa-5k-7Ko"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34:02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccW-Cv-1sE">
                                         <rect key="frame" x="404" y="80" width="36.5" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="eac-ik-AdE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
