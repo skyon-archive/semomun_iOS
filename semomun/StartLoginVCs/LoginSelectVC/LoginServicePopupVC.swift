@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol RegisgerServiceSelectable: AnyObject {
-    func appleLogin()
-    func googleLogin()
-}
-
 class LoginServicePopupVC: UIViewController {
     static let identifier = "LoginServicePopupVC"
     static let storyboardName = "StartLogin"
@@ -20,7 +15,7 @@ class LoginServicePopupVC: UIViewController {
     @IBOutlet weak var innerFrameview: UIView!
     @IBOutlet weak var accept: UIButton!
     @IBOutlet weak var checkButton: UIButton!
-    weak var delegate: RegisgerServiceSelectable?
+    private var action: (() -> ())?
     var tag: Int?
     
     override func viewDidLoad() {
@@ -45,21 +40,21 @@ class LoginServicePopupVC: UIViewController {
     }
     
     @IBAction func acceptAll(_ sender: Any) {
-        guard let tag = tag else { return }
         if !self.checkButton.isSelected {
             self.showAlertWithOK(title: "동의를 해주시기 바랍니다", text: "")
         } else {
-            self.dismiss(animated: true, completion: nil)
-            if tag == 0 {
-                delegate?.appleLogin()
-            } else {
-                delegate?.googleLogin()
+            self.dismiss(animated: true) {
+                self.action?()
             }
         }
     }
 }
 
 extension LoginServicePopupVC {
+    func configureConfirmAction(_ action: @escaping () -> Void) {
+        self.action = action
+    }
+    
     private func configureUI() {
         self.frameView.clipsToBounds = true
         self.frameView.layer.cornerRadius = 44
@@ -72,23 +67,10 @@ extension LoginServicePopupVC {
     }
     
     private func loadPersonalPolicy() {
-        guard let filepath = Bundle.main.path(forResource: "personalInformationProcessingPolicy", ofType: "txt") else { return }
-        do {
-            let text = try String(contentsOfFile: filepath)
-            self.popupLongTextVC(title: "개인정보 처리방침", text: text)
-        } catch {
-            self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
-        }
+        self.popupLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
     }
     
     private func loadTermsAndCondition() {
-        guard let filepath = Bundle.main.path(forResource: "termsAndConditions", ofType: "txt") else { return }
-        do {
-            let text = try String(contentsOfFile: filepath)
-            self.popupLongTextVC(title: "서비스이용약관", text: text)
-        } catch {
-            self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
-        }
+        self.popupLongTextVC(title: "서비스이용약관", txtResourceName: "termsAndConditions")
     }
 }
-
