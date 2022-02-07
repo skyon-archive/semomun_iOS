@@ -21,6 +21,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -102,6 +103,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
+        self.scrollViewBottomConstraint.constant = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -146,15 +148,17 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
             self.explanationView.configureImage(to: explanationImage)
             self.view.addSubview(self.explanationView)
             self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+            let height = self.view.frame.height/2
             
             NSLayoutConstraint.activate([
-                self.explanationView.heightAnchor.constraint(equalToConstant: self.view.frame.height/2),
+                self.explanationView.heightAnchor.constraint(equalToConstant: height),
                 self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
                 self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
                 self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ])
             self.setShadow(with: self.explanationView)
             UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.scrollViewBottomConstraint.constant = height
                 self?.explanationView.alpha = 1
             }
         } else {
@@ -388,6 +392,7 @@ extension SingleWith5AnswerVC: ExplanationRemover {
     func closeExplanation() {
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 0
+            self?.scrollViewBottomConstraint.constant = 0
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
         }
