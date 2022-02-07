@@ -286,17 +286,17 @@
             <objects>
                 <viewController storyboardIdentifier="ExplanationVC" id="eH0-p5-fwg" customClass="ExplanationVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Yr-zK-xKv">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정답과 해설" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPq-Ll-mtR">
-                                <rect key="frame" x="371.5" y="74" width="91.5" height="24"/>
+                                <rect key="frame" x="371.5" y="70" width="91.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5M-G2-JHz">
-                                <rect key="frame" x="734" y="56" width="60" height="60"/>
+                                <rect key="frame" x="734" y="52" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="0St-RM-YdG"/>
                                     <constraint firstAttribute="height" constant="60" id="4Vl-ER-zSb"/>
@@ -311,7 +311,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5c-ZL-Rzc">
-                                <rect key="frame" x="40" y="128" width="754" height="996"/>
+                                <rect key="frame" x="40" y="124" width="754" height="938"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQN-kH-8p1" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="754" height="300"/>
@@ -558,7 +558,7 @@
                                                 <color key="tintColor" name="darkMainColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
-                                                <state key="selected" image="bookmark.fill" catalog="system">
+                                                <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
                                                 <connections>
@@ -2041,8 +2041,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bookmark" width="60" height="60"/>
+        <image name="bookmark" width="48" height="48"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
+        <image name="bookmarkFill" width="96" height="96"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>

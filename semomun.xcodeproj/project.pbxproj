@@ -110,6 +110,7 @@
 		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
 		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
+		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
@@ -305,6 +306,7 @@
 		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
+		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -810,6 +812,7 @@
 			children = (
 				8755ABD527731E7600752745 /* ProblemTimerView.swift */,
 				878766CC27AED2E7003B975E /* ExplanationView.swift */,
+				877CCB0127B0C26B006F82C9 /* AnswerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1402,6 +1405,7 @@
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				2562772E27A16C56006F9370 /* SemopayHistory.swift in Sources */,
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
+				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				87C85EA4276F6C03001C9C4A /* SearchPreviewCell.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
