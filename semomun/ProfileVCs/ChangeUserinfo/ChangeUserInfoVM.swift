@@ -49,8 +49,21 @@ final class ChangeUserInfoVM {
     init(networkUseCase: ChangeUserInfoNetworkUseCase, isSignup: Bool) {
         self.networkUseCase = networkUseCase
         self.isSignup = isSignup
-        self.getUserInfo()
+        if isSignup == false {
+            self.getUserInfo()
+        }
         self.fetchMajorInfo()
+    }
+    
+    func makeUserInfo() -> UserInfo {
+        let userInfo = UserInfo()
+        userInfo.nickName = self.nickname
+        userInfo.phone = self.phonenum
+        userInfo.major = self.selectedMajor
+        userInfo.majorDetail = self.selectedMajorDetail
+        userInfo.school = self.schoolName
+        userInfo.graduationStatus = self.graduationStatus
+        return userInfo
     }
     
     func changeNicknameIfAvailable(nickname: String, completion: @escaping (Bool) -> ()) {
