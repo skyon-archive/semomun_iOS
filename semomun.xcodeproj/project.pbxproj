@@ -811,6 +811,7 @@
 			isa = PBXGroup;
 			children = (
 				8755ABD527731E7600752745 /* ProblemTimerView.swift */,
+				87AD6CED2774196C00996937 /* ProblemTextResultView.swift */,
 				878766CC27AED2E7003B975E /* ExplanationView.swift */,
 				877CCB0127B0C26B006F82C9 /* AnswerView.swift */,
 			);
@@ -1010,7 +1011,6 @@
 			isa = PBXGroup;
 			children = (
 				87C85E49276F676C001C9C4A /* UserInfoToggleView.swift */,
-				87AD6CED2774196C00996937 /* ProblemTextResultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

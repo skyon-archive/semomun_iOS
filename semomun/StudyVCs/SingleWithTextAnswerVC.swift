@@ -12,21 +12,19 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
     static let identifier = "SingleWithTextAnswerVC" // form == 0 && type == 1
     static let storyboardName = "Study"
 
-    @IBOutlet weak var solveFrameView: UIView!
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
+    @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var solveInput: UITextField!
-    @IBOutlet weak var star: UIButton!
-    @IBOutlet weak var answer: UIButton!
-    @IBOutlet weak var explanation: UIButton!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
-    var width: CGFloat!
-    var height: CGFloat!
+    private var width: CGFloat!
+    private var height: CGFloat!
     var image: UIImage?
     var viewModel: SingleWithTextAnswerVM?
     
@@ -45,14 +43,18 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         loader.color = UIColor.gray
         return loader
     }()
-    private lazy var answerResultView: ProblemTextResultView = {
-        let resultView = ProblemTextResultView()
-        resultView.layer.borderWidth = 1
-        resultView.layer.borderColor = UIColor(.mainColor)?.cgColor
-        resultView.layer.cornerRadius = 12
-        resultView.clipsToBounds = true
-        return resultView
+    private lazy var explanationView: ExplanationView = {
+        let explanationView = ExplanationView()
+        explanationView.alpha = 0
+        return explanationView
     }()
+    private lazy var answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
+    private lazy var timerView = ProblemTimerView()
+    private lazy var answerResultView = ProblemTextResultView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +94,12 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.solveInput.isHidden = false
-        self.answer.isHidden = false
+        self.answerBT.isHidden = false
         self.answerResultView.removeFromSuperview()
+        self.timerView.removeFromSuperview()
+        self.explanationView.removeFromSuperview()
+        self.answerView.removeFromSuperview()
+        self.scrollViewBottomConstraint.constant = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -114,36 +120,64 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.viewModel?.updateSolved(input: "\(input)")
     }
 
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
               let pName = problem.pName else { return }
         
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
         self.viewModel?.updateStar(btName: pName, to: status)
+    }
+    
+    @IBAction func showExplanation(_ sender: Any) {
+        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+        let explanationImage = UIImage(data: imageData)
+        self.explanationBT.isSelected.toggle()
+        
+        if self.explanationBT.isSelected {
+            self.explanationView.configureDelegate(to: self)
+            self.explanationView.configureImage(to: explanationImage)
+            self.view.addSubview(self.explanationView)
+            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+            let height = self.view.frame.height/2
+            
+            NSLayoutConstraint.activate([
+                self.explanationView.heightAnchor.constraint(equalToConstant: height),
+                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+            self.setShadow(with: self.explanationView)
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.scrollViewBottomConstraint.constant = height
+                self?.explanationView.alpha = 1
+            }
+        } else {
+            self.closeExplanation()
+        }
     }
 
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.viewModel?.problem?.answer else { return }
-        self.answer.isSelected.toggle()
-        if self.answer.isSelected {
-            self.answer.setTitle(answer, for: .normal)
-        } else {
-            self.answer.setTitle("정답", for: .normal)
-        }
-    }
-
-    @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+        self.answerView.removeFromSuperview()
         
-        guard let explanationVC = UIStoryboard(name: ExplanationVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ExplanationVC.identifier) as? ExplanationVC else { return }
-        let explanationImage = UIImage(data: imageData)
-        explanationVC.explanationImage = explanationImage
-        self.present(explanationVC, animated: true, completion: nil)
-    }
-    
-    @IBAction func nextProblem(_ sender: Any) {
-        self.viewModel?.delegate?.nextPage()
+        self.answerView.configureAnswer(to: answer.circledAnswer)
+        self.view.addSubview(self.answerView)
+        self.answerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.answerView.widthAnchor.constraint(equalToConstant: 146),
+            self.answerView.heightAnchor.constraint(equalToConstant: 61),
+            self.answerView.centerXAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor,constant: 5)
+        ])
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.answerView.alpha = 1
+        } completion: { [weak self] _ in
+            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
+                self?.answerView.alpha = 0
+            }
+        }
     }
 }
 
@@ -191,63 +225,54 @@ extension SingleWithTextAnswerVC {
         self.configureStar()
         self.configureAnswer()
         self.configureExplanation()
-        self.configureResultView()
     }
     
     func configureCheckInput() {
-        solveInput.layer.cornerRadius = 17.5
-        solveInput.clipsToBounds = true
-        solveInput.layer.borderWidth = 1
-        solveInput.layer.borderColor = UIColor(.mainColor)?.cgColor
-        
         if let solved = self.viewModel?.problem?.solved {
             solveInput.text = solved
         } else {
             solveInput.text = ""
         }
-    }
-    
-    func configureStar() {
-        self.star.isSelected = self.viewModel?.problem?.star ?? false
-    }
-    
-    func configureAnswer() {
-        guard let problem = self.viewModel?.problem else { return }
-        self.answer.setTitle("정답", for: .normal)
-        self.answer.isSelected = false
-        if problem.answer == nil {
-            self.answer.isUserInteractionEnabled = false
-            self.answer.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(.mainColor), for: .normal)
-        }
-    }
-    
-    func configureResultView() {
-        guard let problem = self.viewModel?.problem,
-              let time = self.viewModel?.time else { return }
         
-        if let answer = problem.answer, problem.terminated == true {
-            self.solveInput.isHidden = true
-            self.answer.isHidden = true
-            self.view.addSubview(self.answerResultView)
-            self.answerResultView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                self.answerResultView.heightAnchor.constraint(equalToConstant: 40),
-                self.answerResultView.centerYAnchor.constraint(equalTo: self.solveFrameView.centerYAnchor),
-                self.answerResultView.leadingAnchor.constraint(equalTo: self.solveFrameView.leadingAnchor)
-            ])
-            
-            if let solved = problem.solved {
-                self.answerResultView.configureSolvedAnswer(to: solved)
-            } else {
-                self.answerResultView.configureSolvedAnswer(to: "미기입")
-            }
-            self.answerResultView.configureAnswer(to: answer)
-            self.answerResultView.configureTime(to: time)
+        if let answer = self.viewModel?.problem?.answer,
+           self.viewModel?.problem?.terminated == true {
+            self.answerBT.isHidden = true
+            self.configureTimerView()
+            self.configureResultView(answer: answer)
         }
+    }
+    
+    func configureTimerView() {
+        guard let time = self.viewModel?.time else { return }
+        
+        self.view.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+        ])
+        
+        self.timerView.configureTime(to: time)
+    }
+    
+    func configureResultView(answer: String) {
+        self.solveInput.isHidden = true
+        self.view.addSubview(self.answerResultView)
+        self.answerResultView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.answerResultView.heightAnchor.constraint(equalToConstant: 32),
+            self.answerResultView.centerYAnchor.constraint(equalTo: self.solveInput.centerYAnchor),
+            self.answerResultView.trailingAnchor.constraint(equalTo: self.solveInput.trailingAnchor)
+        ])
+        
+        if let solved = self.viewModel?.problem?.solved {
+            self.answerResultView.configureSolvedAnswer(to: solved)
+        } else {
+            self.answerResultView.configureSolvedAnswer(to: "미기입")
+        }
+        self.answerResultView.configureAnswer(to: answer)
     }
     
     func showResultImage() {
@@ -271,13 +296,26 @@ extension SingleWithTextAnswerVC {
         }
     }
     
+    func configureStar() {
+        self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
+    }
+    
+    func configureAnswer() {
+        self.answerBT.isUserInteractionEnabled = true
+        self.answerBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
+        if self.viewModel?.problem?.answer == nil {
+            self.answerBT.isUserInteractionEnabled = false
+            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
+        }
+    }
+    
     func configureExplanation() {
+        self.explanationBT.isSelected = false
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
-            self.explanation.isUserInteractionEnabled = false
-            self.explanation.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
@@ -332,5 +370,16 @@ extension SingleWithTextAnswerVC {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data)
+    }
+}
+
+extension SingleWithTextAnswerVC: ExplanationRemover {
+    func closeExplanation() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+            self?.scrollViewBottomConstraint.constant = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
+        }
     }
 }

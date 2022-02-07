@@ -8,23 +8,20 @@
 import UIKit
 
 final class ProblemTextResultView: UIView {
-    private let color = UIColor(.mainColor)
-    
     private lazy var solvedAnswerLabel: UILabel = {
         let label = UILabel()
-        label.textColor = self.color
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.contentMode = .left
         return label
     }()
     private lazy var answerLabel: UILabel = {
         let label = UILabel()
-        label.textColor = self.color
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.contentMode = .left
         return label
     }()
-    private lazy var timeView = ProblemTimerView()
     
     convenience init() {
         self.init(frame: CGRect())
@@ -32,8 +29,12 @@ final class ProblemTextResultView: UIView {
     }
     
     private func configureLayout() {
-        self.addSubviews(self.solvedAnswerLabel, self.answerLabel, self.timeView)
-        self.backgroundColor = UIColor.clear
+        self.addSubviews(self.solvedAnswerLabel, self.answerLabel)
+        self.backgroundColor = .white
+        self.borderWidth = 1
+        self.borderColor = UIColor(.darkMainColor)
+        self.layer.cornerRadius = 5
+        self.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             self.solvedAnswerLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -44,14 +45,8 @@ final class ProblemTextResultView: UIView {
         NSLayoutConstraint.activate([
             self.answerLabel.heightAnchor.constraint(equalToConstant: 20),
             self.answerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.answerLabel.leadingAnchor.constraint(equalTo: self.solvedAnswerLabel.trailingAnchor, constant: 20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            self.timeView.heightAnchor.constraint(equalToConstant: 20),
-            self.timeView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.timeView.leadingAnchor.constraint(equalTo: self.answerLabel.trailingAnchor, constant: 20),
-            self.timeView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+            self.answerLabel.leadingAnchor.constraint(equalTo: self.solvedAnswerLabel.trailingAnchor, constant: 20),
+            self.answerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
         ])
     }
     
@@ -61,9 +56,5 @@ final class ProblemTextResultView: UIView {
     
     func configureAnswer(to answer: String) {
         self.answerLabel.text = "정답: \(answer)"
-    }
-    
-    func configureTime(to time: Int64) {
-        self.timeView.configureTime(to: time)
     }
 }
