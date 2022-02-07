@@ -53,6 +53,11 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         explanationView.alpha = 0
         return explanationView
     }()
+    private lazy var answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
     private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
@@ -96,6 +101,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
+        self.answerView.removeFromSuperview()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -153,12 +159,24 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.viewModel?.answer else { return }
+        self.answerView.removeFromSuperview()
         
-        self.answerBT.isSelected.toggle()
-        if self.answerBT.isSelected {
-            self.answerBT.setTitle(answer.circledAnswer, for: .normal)
-        } else {
-            self.answerBT.setTitle("정답", for: .normal)
+        self.answerView.configureAnswer(to: answer.circledAnswer)
+        self.view.addSubview(self.answerView)
+        self.answerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.answerView.widthAnchor.constraint(equalToConstant: 146),
+            self.answerView.heightAnchor.constraint(equalToConstant: 61),
+            self.answerView.centerXAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor,constant: 5)
+        ])
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.answerView.alpha = 1
+        } completion: { [weak self] _ in
+            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
+                self?.answerView.alpha = 0
+            }
         }
     }
 }
