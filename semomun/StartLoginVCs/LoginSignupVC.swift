@@ -13,7 +13,7 @@ class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     
-    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
+    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -264,7 +264,7 @@ extension LoginSignupVC {
                     self?.showAlertWithOK(title: "인증번호 전송됨", text: "")
                     self?.changeAdditionalTFForAuthNum()
                 case .none:
-                    self?.authPhoneNumButton.setTitle("인증요청", for: .normal)
+                    self?.authPhoneNumButton.setTitle("인증확인", for: .normal)
                     guard let button = self?.authPhoneNumButton else { break }
                     self?.configureButtonUI(button: button, isFilled: true)
                 case .wrongAuthNumber:
