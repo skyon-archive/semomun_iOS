@@ -183,19 +183,13 @@ extension LoginSelectVC {
     }
 }
 
-extension LoginSelectVC: RegisgerServiceSelectable {
-    func appleLogin() {
-        self.appleSignInButtonPressed()
-    }
-    
-    func googleLogin() {
-        self.googleSignInButtonPressed()
-    }
-}
-
 extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
+    }
+    
+    private enum LoginMethod {
+        case apple, google
     }
     
     private func configureNetwork() {
@@ -205,7 +199,12 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     private func configureSignInAppleButton() {
         let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
+        
+        let action = UIAction { [weak self] _ in
+            self?.signInButtonAction(loginMethod: .apple)
+        }
+        authorizationButton.addAction(action, for: .touchUpInside)
+        
         authorizationButton.layer.cornerRadius = self.buttonRadius
         authorizationButton.tag = 0
         self.configureLayoutAppleButton(with: authorizationButton)
@@ -255,31 +254,43 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
             text.trailingAnchor.constraint(equalTo: buttonContent.trailingAnchor)
         ])
         
-        googleSignInButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
+        let action = UIAction { [weak self] _ in
+            self?.signInButtonAction(loginMethod: .google)
+        }
+        googleSignInButton.addAction(action, for: .touchUpInside)
+        
         googleSignInButton.layer.cornerRadius = self.buttonRadius
         googleSignInButton.tag = 1
         
         self.configureLayoutGooleButton(with: googleSignInButton)
     }
     
-    @objc private func showServiceInfoView(_ sender: UIButton) {
-        guard let viewControllers = self.navigationController?.viewControllers else { return }
-        guard let parent = viewControllers.count > 1 ? viewControllers[viewControllers.count - 2] : nil else { return }
-        if parent is LoginStartVC {
-            if sender.tag == 0 {
-                self.appleLogin()
-            } else {
-                self.googleLogin()
-            }
+    private func signInButtonAction(loginMethod: LoginMethod) {
+        if self.showPopup {
+            self.showServiceInfoView(loginMethod: loginMethod)
         } else {
-            guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
-            serviceInfoVC.tag = sender.tag
-            serviceInfoVC.delegate = self
-            self.present(serviceInfoVC, animated: true, completion: nil)
+            self.performLogin(loginMethod: loginMethod)
+        }
+    }
+    
+    private func showServiceInfoView(loginMethod: LoginMethod) {
+        guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
+        serviceInfoVC.configureConfirmAction { [weak self] in
+            self?.performLogin(loginMethod: loginMethod)
+        }
+        self.present(serviceInfoVC, animated: true, completion: nil)
+    }
+    
+    private func performLogin(loginMethod: LoginMethod) {
+        switch loginMethod {
+        case .apple:
+            self.appleSignInButtonPressed()
+        case .google:
+            self.googleSignInButtonPressed()
         }
     }
 
-    @objc private func appleSignInButtonPressed() {
+    private func appleSignInButtonPressed() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -290,7 +301,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         authorizationController.performRequests()
     }
     
-    @objc private func googleSignInButtonPressed() {
+    private func googleSignInButtonPressed() {
         GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
             guard error == nil else { return }
             guard let user = user else { return }
