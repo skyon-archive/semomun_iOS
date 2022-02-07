@@ -1780,8 +1780,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhH-XY-3OI" userLabel="topView">
+                                <rect key="frame" x="0.0" y="20" width="834" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Blu-IC-hNX">
+                                        <rect key="frame" x="100" y="14" width="32" height="32"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2c-cc-QWU">
+                                                <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="AIp-Lz-kGo"/>
+                                                    <constraint firstAttribute="width" constant="32" id="nv2-ui-p7o"/>
+                                                </constraints>
+                                                <color key="tintColor" name="darkMainColor"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="bookmark"/>
+                                                <state key="selected" image="bookmarkFill">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleBookmark:" destination="kdM-wi-V0h" eventType="touchUpInside" id="ZkV-Mt-Aq1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="centerY" secondItem="vhH-XY-3OI" secondAttribute="centerY" id="4uO-Cn-Qx3"/>
+                                    <constraint firstAttribute="height" constant="60" id="6cC-zk-YQV"/>
+                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" constant="100" id="c0u-wa-XT1"/>
+                                </constraints>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHZ-OR-WbG">
-                                <rect key="frame" x="0.0" y="20" width="834" height="1092"/>
+                                <rect key="frame" x="0.0" y="80" width="834" height="1032"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5l-rJ-eP7" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
@@ -1825,75 +1857,27 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="MpH-69-lOy"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="W6x-NF-hGa"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wER-z8-kPL" userLabel="innerView">
-                                <rect key="frame" x="704" y="30" width="120" height="55"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YRk-Oq-FI7">
-                                        <rect key="frame" x="12" y="12" width="96" height="31"/>
-                                        <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3b-r8-8po">
-                                                <rect key="frame" x="0.0" y="0.0" width="31" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="31" id="3eg-96-r4r"/>
-                                                    <constraint firstAttribute="height" constant="31" id="e1I-ST-FDs"/>
-                                                </constraints>
-                                                <color key="tintColor" name="mainColor"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="star" catalog="system"/>
-                                                <state key="selected" image="star.fill" catalog="system"/>
-                                                <connections>
-                                                    <action selector="toggleStar:" destination="kdM-wi-V0h" eventType="touchUpInside" id="2Dm-Wi-hVa"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJQ-Ax-Cgf">
-                                                <rect key="frame" x="41" y="0.0" width="55" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="31" id="AgZ-rj-1bA"/>
-                                                    <constraint firstAttribute="width" constant="55" id="nuZ-RA-KTl"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="tintColor" name="mainColor"/>
-                                                <inset key="titleEdgeInsets" minX="-28" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="다음" image="chevron.right" catalog="system">
-                                                    <color key="titleColor" name="mainColor"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="nextProblem:" destination="kdM-wi-V0h" eventType="touchUpInside" id="Y2i-zx-OAr"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="gray_light"/>
-                                <constraints>
-                                    <constraint firstItem="YRk-Oq-FI7" firstAttribute="leading" secondItem="wER-z8-kPL" secondAttribute="leading" constant="12" id="989-xJ-Bom"/>
-                                    <constraint firstItem="YRk-Oq-FI7" firstAttribute="centerX" secondItem="wER-z8-kPL" secondAttribute="centerX" id="ZRY-7i-EzS"/>
-                                    <constraint firstItem="YRk-Oq-FI7" firstAttribute="centerY" secondItem="wER-z8-kPL" secondAttribute="centerY" id="eoY-cN-1jQ"/>
-                                    <constraint firstItem="YRk-Oq-FI7" firstAttribute="top" secondItem="wER-z8-kPL" secondAttribute="top" constant="12" id="kTF-T2-hT4"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="N5S-Yf-jeA"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="trailing" secondItem="vhH-XY-3OI" secondAttribute="trailing" id="08F-59-GjV"/>
+                            <constraint firstItem="LHZ-OR-WbG" firstAttribute="top" secondItem="vhH-XY-3OI" secondAttribute="bottom" id="6Vl-kI-JkY"/>
                             <constraint firstItem="LHZ-OR-WbG" firstAttribute="leading" secondItem="N5S-Yf-jeA" secondAttribute="leading" id="H4G-4b-bhS"/>
-                            <constraint firstItem="wER-z8-kPL" firstAttribute="top" secondItem="N5S-Yf-jeA" secondAttribute="top" constant="10" id="UpH-Xj-TNn"/>
-                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="trailing" secondItem="wER-z8-kPL" secondAttribute="trailing" constant="10" id="f64-ZS-EIn"/>
                             <constraint firstItem="N5S-Yf-jeA" firstAttribute="trailing" secondItem="LHZ-OR-WbG" secondAttribute="trailing" id="nEs-Qn-s9m"/>
-                            <constraint firstItem="LHZ-OR-WbG" firstAttribute="top" secondItem="N5S-Yf-jeA" secondAttribute="top" id="q7X-ZS-8xz"/>
+                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="top" secondItem="vhH-XY-3OI" secondAttribute="top" id="nhn-6W-w5R"/>
+                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" id="pUc-MH-BHN"/>
                             <constraint firstItem="N5S-Yf-jeA" firstAttribute="bottom" secondItem="LHZ-OR-WbG" secondAttribute="bottom" id="wxp-Lj-SnP"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bookmarkBT" destination="M2c-cc-QWU" id="Hn0-2O-J92"/>
                         <outlet property="canvasHeight" destination="GXf-kO-719" id="GMy-QG-pcY"/>
                         <outlet property="canvasView" destination="fRN-U2-iAe" id="sMC-by-B9I"/>
                         <outlet property="imageHeight" destination="GA0-vR-qGJ" id="bZE-Jq-S4b"/>
                         <outlet property="imageView" destination="jNO-ua-1RU" id="O3d-UD-s88"/>
-                        <outlet property="innerView" destination="wER-z8-kPL" id="5Wg-IN-3ju"/>
                         <outlet property="scrollView" destination="LHZ-OR-WbG" id="Y1l-EL-faH"/>
-                        <outlet property="star" destination="e3b-r8-8po" id="FWY-B0-bpp"/>
+                        <outlet property="scrollViewBottomConstraint" destination="wxp-Lj-SnP" id="sCX-Ih-KhW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Igk-iZ-am9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

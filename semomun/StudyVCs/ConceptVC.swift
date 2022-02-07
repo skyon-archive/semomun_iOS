@@ -12,13 +12,13 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "ConceptVC" // form == 0 && type == -1
     static let storyboardName = "Study"
     
-    @IBOutlet weak var star: UIButton!
+    @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    @IBOutlet weak var innerView: UIView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -34,6 +34,7 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         loader.color = UIColor.gray
         return loader
     }()
+    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,8 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.imageView.image = nil
+        self.timerView.removeFromSuperview()
+        self.scrollViewBottomConstraint.constant = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -84,17 +87,13 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     }
     
     
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
               let pName = problem.pName else { return }
         
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
         self.viewModel?.updateStar(btName: pName, to: status)
-    }
-    
-    @IBAction func nextProblem(_ sender: Any) {
-        self.viewModel?.delegate?.nextPage()
     }
 }
 
@@ -138,11 +137,28 @@ extension ConceptVC {
     
     func configureUI() {
         self.configureStar()
-        self.innerView.layer.cornerRadius = 27.5
+        self.configureTimerView()
+    }
+    
+    func configureTimerView() {
+        guard let problem = self.viewModel?.problem,
+              let time = self.viewModel?.time else { return }
+        
+        if problem.terminated {
+            self.view.addSubview(self.timerView)
+            self.timerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
+                self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 15)
+            ])
+            
+            self.timerView.configureTime(to: time)
+        }
     }
     
     func configureStar() {
-        self.star.isSelected = self.viewModel?.problem?.star ?? false
+        self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureCanvasView() {
