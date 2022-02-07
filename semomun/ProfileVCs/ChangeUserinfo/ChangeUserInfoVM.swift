@@ -42,11 +42,13 @@ final class ChangeUserInfoVM {
     private(set) var selectedMajorDetail: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
+    private let isSignup: Bool
     private var majorWithDetail: [String: [String]] = [:]
     private var waitingForAuthPhoneNum: String?
     
-    init(networkUseCase: ChangeUserInfoNetworkUseCase) {
+    init(networkUseCase: ChangeUserInfoNetworkUseCase, isSignup: Bool) {
         self.networkUseCase = networkUseCase
+        self.isSignup = isSignup
         self.getUserInfo()
         self.fetchMajorInfo()
     }
@@ -139,13 +141,18 @@ final class ChangeUserInfoVM {
 // MARK: Private functions
 extension ChangeUserInfoVM {
     private func getUserInfo() {
-             guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
-             self.nickname = userInfo.nickName
-             self.phonenum = userInfo.phoneNumber
-             self.selectedMajor = userInfo.major
-             self.selectedMajorDetail = userInfo.majorDetail
-             self.schoolName = userInfo.schoolName
-             self.graduationStatus = userInfo.graduationStatus
+        if self.isSignup == false {
+            guard let userInfo = CoreUsecase.fetchUserInfo() else {
+                self.alertStatus = .withoutPopVC(.coreDataFetchError)
+                return
+            }
+            self.nickname = userInfo.nickName
+            self.phonenum = userInfo.phoneNumber
+            self.selectedMajor = userInfo.major
+            self.selectedMajorDetail = userInfo.majorDetail
+            self.schoolName = userInfo.schoolName
+            self.graduationStatus = userInfo.graduationStatus
+        }
     }
     
     private func fetchMajorInfo() {
@@ -181,6 +188,7 @@ extension ChangeUserInfoVM {
     
     private func saveUserInfoToDB(userInfo: UserCoreData) {
         guard self.checkIfSubmitAvailable() else { return }
+        
         userInfo.setValue(self.nickname, forKey: "nickName")
         userInfo.setValue(self.phonenum, forKey: "phoneNumber")
         userInfo.setValue(self.selectedMajor, forKey: "major")

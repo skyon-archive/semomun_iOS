@@ -14,7 +14,7 @@ final class ChangeUserInfoVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "ChangeUserInfoVC"
     
-    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
+    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: false)
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -74,7 +74,7 @@ final class ChangeUserInfoVC: UIViewController {
             self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
             return
         }
-        self.viewModel.changeNicknameIfAvailable(nickname: nickname) {[weak self] isSuccess in
+        self.viewModel.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
             if isSuccess {
                 self?.nickname.resignFirstResponder()
                 self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
