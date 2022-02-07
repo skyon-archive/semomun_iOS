@@ -139,21 +139,26 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage else { return }
         let explanationImage = UIImage(data: imageData)
+        self.explanationBT.isSelected.toggle()
         
-        self.explanationView.configureDelegate(to: self)
-        self.explanationView.configureImage(to: explanationImage)
-        self.view.addSubview(self.explanationView)
-        self.explanationView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.explanationView.heightAnchor.constraint(equalToConstant: self.view.frame.height/2),
-            self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-        self.setShadow(with: self.explanationView)
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.explanationView.alpha = 1
+        if self.explanationBT.isSelected {
+            self.explanationView.configureDelegate(to: self)
+            self.explanationView.configureImage(to: explanationImage)
+            self.view.addSubview(self.explanationView)
+            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.explanationView.heightAnchor.constraint(equalToConstant: self.view.frame.height/2),
+                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+            self.setShadow(with: self.explanationView)
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.explanationView.alpha = 1
+            }
+        } else {
+            self.closeExplanation()
         }
     }
     
@@ -305,8 +310,6 @@ extension SingleWith5AnswerVC {
     }
     
     func configureAnswer() {
-        self.answerBT.setTitle("정답", for: .normal)
-        self.answerBT.isSelected = false
         self.answerBT.isUserInteractionEnabled = true
         self.answerBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.answer == nil {
@@ -316,6 +319,7 @@ extension SingleWith5AnswerVC {
     }
     
     func configureExplanation() {
+        self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
         self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
