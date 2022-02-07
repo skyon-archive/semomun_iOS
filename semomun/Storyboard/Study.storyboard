@@ -807,6 +807,7 @@
                         <outlet property="imageHeight" destination="gAd-pe-cRA" id="k4d-3I-AiJ"/>
                         <outlet property="imageView" destination="sfj-yB-CqH" id="S6t-4f-fgb"/>
                         <outlet property="scrollView" destination="9ng-qp-Wa8" id="Txh-Qe-qZj"/>
+                        <outlet property="scrollViewBottomConstraint" destination="dCY-fX-Rvq" id="g8j-aH-tbT"/>
                         <outletCollection property="checkNumbers" destination="0Xn-UP-56W" collectionClass="NSMutableArray" id="Ilc-G5-vee"/>
                         <outletCollection property="checkNumbers" destination="lIe-aQ-2yR" collectionClass="NSMutableArray" id="qNV-BL-RNK"/>
                         <outletCollection property="checkNumbers" destination="wDh-sl-x0z" collectionClass="NSMutableArray" id="42E-RE-dLS"/>
@@ -2043,7 +2044,7 @@
     <resources>
         <image name="bookmark" width="48" height="48"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
-        <image name="bookmarkFill" width="96" height="96"/>
+        <image name="bookmarkFill" width="48" height="48"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
