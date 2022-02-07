@@ -594,9 +594,9 @@
 			children = (
 				8716E93B279A5FDE00B33A5E /* StartVC.swift */,
 				8716F336279CFFE100B7C8DD /* StartSetting */,
+				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				8716E93F279A5FF600B33A5E /* LoginStartVC.swift */,
 				8716E941279A600200B33A5E /* LoginSignupVC.swift */,
-				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 				25E6FF16279A9B7000FEDCC1 /* Supporting Views */,
 				25DFE60E279A896B0057714B /* Manager */,

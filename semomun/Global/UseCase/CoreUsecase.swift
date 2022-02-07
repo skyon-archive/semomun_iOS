@@ -323,8 +323,7 @@ struct CoreUsecase {
         print("section delete complete")
     }
                          
-    static func createUserCoreData(userInfo: UserInfo?) {
-        guard let userInfo = userInfo else { return }
+    static func createUserCoreData(userInfo: UserInfo) {
         let context = CoreDataManager.shared.context
         let userCore = UserCoreData(context: context)
         userCore.setValues(userInfo: userInfo)
