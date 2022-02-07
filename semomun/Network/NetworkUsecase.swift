@@ -308,7 +308,7 @@ extension NetworkUsecase: WorkbooksWithTagsFetchable {
 
 extension NetworkUsecase: WorkbooksWithRecentFetchable {
     func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        let param = ["c": "공인회계사시험"]
+        let param = ["c": "자격증"]
         self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode,
                   let data = requestResult.data else {
