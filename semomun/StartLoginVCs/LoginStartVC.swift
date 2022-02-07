@@ -23,9 +23,6 @@ class LoginStartVC: UIViewController {
     
     @IBAction func signin(_ sender: Any) {
         guard let nextVC = UIStoryboard(name: LoginSignupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSignupVC.identifier) as? LoginSignupVC else { return }
-//        let signUpInfo = UserInfo()
-//        let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String ?? "수능모의고사"
-//        signUpInfo.configureCategory(to: category)
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
