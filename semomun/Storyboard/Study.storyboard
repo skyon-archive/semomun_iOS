@@ -176,7 +176,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionReusableView>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1T-K7-k44">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WDO-kT-Efl">
+                                        <rect key="frame" x="0.0" y="0.0" width="96" height="70"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5B7-tA-Lhl">
+                                        <rect key="frame" x="738" y="0.0" width="96" height="70"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1T-K7-k44" userLabel="before">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-MO-aUY">
@@ -204,7 +212,7 @@
                                             <constraint firstItem="WgA-MO-aUY" firstAttribute="centerX" secondItem="C1T-K7-k44" secondAttribute="centerX" id="hir-mq-g0C"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-SV-Yoq">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-SV-Yoq" userLabel="next">
                                         <rect key="frame" x="738" y="0.0" width="96" height="80"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0W-LN-Xkr">
@@ -235,16 +243,24 @@
                                 </subviews>
                                 <color key="backgroundColor" name="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="WDO-kT-Efl" firstAttribute="centerX" secondItem="C1T-K7-k44" secondAttribute="centerX" id="4iO-xx-cBg"/>
                                     <constraint firstItem="9oo-cB-ao2" firstAttribute="leading" secondItem="C1T-K7-k44" secondAttribute="trailing" id="7gt-fR-2kT"/>
                                     <constraint firstItem="C1T-K7-k44" firstAttribute="leading" secondItem="xai-eR-Gl1" secondAttribute="leading" id="9rA-0g-s4B"/>
                                     <constraint firstItem="9oo-cB-ao2" firstAttribute="centerX" secondItem="xai-eR-Gl1" secondAttribute="centerX" id="ELN-lG-Ypj"/>
                                     <constraint firstItem="C1T-K7-k44" firstAttribute="top" secondItem="xai-eR-Gl1" secondAttribute="top" id="EdW-In-EIl"/>
                                     <constraint firstAttribute="bottom" secondItem="SwX-SV-Yoq" secondAttribute="bottom" id="Ev7-Ve-Osp"/>
+                                    <constraint firstItem="5B7-tA-Lhl" firstAttribute="centerX" secondItem="SwX-SV-Yoq" secondAttribute="centerX" id="P2W-Zf-FnC"/>
+                                    <constraint firstItem="5B7-tA-Lhl" firstAttribute="top" secondItem="SwX-SV-Yoq" secondAttribute="top" id="QKf-aC-6Za"/>
+                                    <constraint firstItem="WDO-kT-Efl" firstAttribute="height" secondItem="C1T-K7-k44" secondAttribute="height" constant="-10" id="SgH-rv-UcS"/>
                                     <constraint firstItem="F0W-LN-Xkr" firstAttribute="centerY" secondItem="9oo-cB-ao2" secondAttribute="centerY" id="XUb-mE-M5u"/>
                                     <constraint firstItem="SwX-SV-Yoq" firstAttribute="top" secondItem="xai-eR-Gl1" secondAttribute="top" id="fDp-7r-VLT"/>
+                                    <constraint firstItem="5B7-tA-Lhl" firstAttribute="height" secondItem="SwX-SV-Yoq" secondAttribute="height" constant="-10" id="gGe-TU-Mcf"/>
+                                    <constraint firstItem="WDO-kT-Efl" firstAttribute="width" secondItem="C1T-K7-k44" secondAttribute="width" id="h23-ux-yKF"/>
+                                    <constraint firstItem="5B7-tA-Lhl" firstAttribute="width" secondItem="SwX-SV-Yoq" secondAttribute="width" id="how-i2-f0J"/>
                                     <constraint firstAttribute="trailing" secondItem="SwX-SV-Yoq" secondAttribute="trailing" id="kjz-s5-tZW"/>
                                     <constraint firstItem="WgA-MO-aUY" firstAttribute="centerY" secondItem="9oo-cB-ao2" secondAttribute="centerY" id="pYs-MD-Htf"/>
                                     <constraint firstItem="9oo-cB-ao2" firstAttribute="top" secondItem="xai-eR-Gl1" secondAttribute="top" constant="23.5" id="sKb-40-BWa"/>
+                                    <constraint firstItem="WDO-kT-Efl" firstAttribute="top" secondItem="C1T-K7-k44" secondAttribute="top" id="zZx-bh-Sbx"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U60-qb-wc3" userLabel="Solving Frame View">
@@ -272,12 +288,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="beforeFrameView" destination="C1T-K7-k44" id="qmK-ye-bcy"/>
+                        <outlet property="beforeFrameView" destination="WDO-kT-Efl" id="kF8-uq-F2G"/>
                         <outlet property="bottomFrameView" destination="xai-eR-Gl1" id="8sr-ug-XxM"/>
                         <outlet property="childFrameView" destination="U60-qb-wc3" id="bXM-lf-6ua"/>
                         <outlet property="collectionView" destination="9oo-cB-ao2" id="BxE-66-QLZ"/>
                         <outlet property="headerFrameView" destination="Lfx-R9-ZZe" id="hfH-Q5-2dL"/>
-                        <outlet property="nextFrameView" destination="SwX-SV-Yoq" id="LEu-WP-tXo"/>
+                        <outlet property="nextFrameView" destination="5B7-tA-Lhl" id="XXh-jj-2fi"/>
                         <outlet property="resultBT" destination="Lu8-2Q-Z3p" id="xZk-pt-EgV"/>
                         <outlet property="timeLabel" destination="ccW-Cv-1sE" id="dlk-ob-9mP"/>
                         <outlet property="titleLabel" destination="uWD-M2-vDE" id="CcO-kZ-nhN"/>
