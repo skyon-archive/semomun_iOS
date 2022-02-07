@@ -60,9 +60,6 @@ extension UIView {
         }
     }
     
-    enum ShadowDirection {
-        case center, bottom, top, diagnal, right, left
-    }
     func addShadow(direction: CALayer.ShadowDirection = .center) {
         self.layer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor)
     }
@@ -72,15 +69,6 @@ extension UIView {
     func addAccessibleShadow(direction: CALayer.ShadowDirection = .center) {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
-        shadowLayer.shadowOpacity = 0.25
-        shadowLayer.frame = self.layer.bounds
-        shadowLayer.cornerRadius = self.layer.cornerRadius
-        shadowLayer.shadowColor = UIColor.lightGray.cgColor
-        shadowLayer.shadowRadius = 4.5
-        shadowLayer.backgroundColor = self.backgroundColor?.cgColor
-        shadowLayer.shadowPath = UIBezierPath(roundedRect: self.layer.bounds, cornerRadius: self.layer.cornerRadius).cgPath
-        shadowLayer.shouldRasterize = shouldRasterize
-        
         shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, bounds: self.layer.bounds, shouldRasterize: true)
         self.layer.insertSublayer(shadowLayer, at: 0)
     }

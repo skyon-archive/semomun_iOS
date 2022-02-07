@@ -16,7 +16,7 @@ extension CALayer {
     }
     
     enum ShadowDirection {
-        case center, bottom, top, diagnal
+        case center, bottom, top, diagnal, right, left
     }
     
     func configureShadow(direction: ShadowDirection, cornerRadius: CGFloat, backgroundColor: CGColor?, bounds: CGRect? = nil, shouldRasterize: Bool = false) {
@@ -36,17 +36,17 @@ extension CALayer {
     private func getShadowOffset(of shadowDirection: ShadowDirection) -> CGSize {
         switch shadowDirection {
         case .center:
-            shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+            return CGSize(width: 0, height: 0)
         case .bottom:
-            shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
+            return CGSize(width: 0, height: 2)
         case .top:
-            shadowLayer.shadowOffset = CGSize(width: 0, height: -2)
+            return CGSize(width: 0, height: -2)
         case .diagnal:
-            shadowLayer.shadowOffset = CGSize(width: 1.4, height: 1.4)
+            return CGSize(width: 1.4, height: 1.4)
         case .right:
-            shadowLayer.shadowOffset = CGSize(width: -2, height:5)
+            return CGSize(width: -2, height:5)
         case .left:
-            shadowLayer.shadowOffset = CGSize(width: 2, height: 5)
+            return CGSize(width: 2, height: 5)
         }
     }
 }
