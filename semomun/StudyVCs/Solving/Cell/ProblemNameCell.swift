@@ -48,7 +48,7 @@ class ProblemNameCell: UICollectionViewCell {
                 self.num.textColor = UIColor(.darkMainColor)
             }
             if isCurrent {
-                self.num.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+                self.num.font = UIFont.systemFont(ofSize: 18, weight: .black)
             }
             return
         }
@@ -62,7 +62,7 @@ class ProblemNameCell: UICollectionViewCell {
         }
         
         if isCurrent {
-            self.num.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            self.num.font = UIFont.systemFont(ofSize: 18, weight: .black)
             if !isChecked {
                 self.num.textColor = .black
                 self.contentView.layer.borderColor = UIColor.black.cgColor
