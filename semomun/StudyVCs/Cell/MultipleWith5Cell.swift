@@ -11,18 +11,14 @@ import PencilKit
 class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWith5Cell"
     
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
+    @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet weak var star: UIButton!
-    @IBOutlet weak var answer: UIButton!
-    @IBOutlet weak var explanation: UIButton!
-    
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var solvInputFrame: UIView!
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -41,19 +37,21 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    private lazy var answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
     private lazy var timerView = ProblemTimerView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.configureBaseUI()
+        self.configureUI()
         print("\(Self.identifier) awakeFromNib")
     }
     
     override func prepareForReuse() {
-        self.resultImageView.removeFromSuperview()
-        self.checkImageView.removeFromSuperview()
-        self.answer.isHidden = false
-        self.timerView.removeFromSuperview()
+        self.configureUI()
     }
     
     deinit {
@@ -73,22 +71,14 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.configureCheckButtons()
     }
     
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let pName = self.problem?.pName else { return }
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
+        
         self.problem?.setValue(status, forKey: "star")
         self.delegate?.updateStar(btName: pName, to: status)
-    }
-    
-    @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
-        self.answer.isSelected.toggle()
-        if self.answer.isSelected {
-            self.answer.setTitle(answer.circledAnswer, for: .normal)
-        } else {
-            self.answer.setTitle("정답", for: .normal)
-        }
     }
     
     @IBAction func showExplanation(_ sender: Any) {
@@ -96,14 +86,36 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.delegate?.showExplanation(image: UIImage(data: imageData))
     }
     
-    @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
+    @IBAction func showAnswer(_ sender: Any) {
+        guard let answer = self.problem?.answer else { return }
+        self.answerView.removeFromSuperview()
+        
+        self.answerView.configureAnswer(to: answer.circledAnswer)
+        self.contentView.addSubview(self.answerView)
+        self.answerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.answerView.widthAnchor.constraint(equalToConstant: 146),
+            self.answerView.heightAnchor.constraint(equalToConstant: 61),
+            self.answerView.centerXAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor,constant: 5)
+        ])
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.answerView.alpha = 1
+        } completion: { [weak self] _ in
+            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
+                self?.answerView.alpha = 0
+            }
+        }
     }
     
-    // MARK: - Configure
-    func configureBaseUI() {
-        solvInputFrame.layer.cornerRadius = 27
-        checkNumbers.forEach { $0.layer.cornerRadius = 15 }
+    // MARK: Configure
+    private func configureUI() {
+        self.resultImageView.removeFromSuperview()
+        self.checkImageView.removeFromSuperview()
+        self.answerBT.isHidden = false
+        self.timerView.removeFromSuperview()
+        self.answerView.removeFromSuperview()
     }
     
     // MARK: - Configure Reuse
@@ -152,21 +164,20 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         
         // 일단 모든 버튼 표시 구현
         for bt in checkNumbers {
-            bt.layer.cornerRadius = 15
             bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(.mainColor), for: .normal)
+            bt.setTitleColor(UIColor(.darkMainColor), for: .normal)
         }
         // 사용자 체크한 데이터 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.mainColor)
+            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.darkMainColor)
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = problem.answer,
            problem.terminated == true {
-            self.answer.isHidden = true
+            self.answerBT.isHidden = true
             guard let targetIndex = Int(answer) else { return }
             // 체크 이미지 표시
             self.showResultImage(to: problem.correct)
@@ -188,6 +199,20 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         ])
     }
     
+    func configureTimerView() {
+        guard let time = self.problem?.time else { return }
+        
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 10)
+        ])
+        
+        self.timerView.configureTime(to: time)
+    }
+    
     func showResultImage(to: Bool) {
         let imageName: String = to ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
@@ -199,47 +224,30 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.resultImageView.widthAnchor.constraint(equalToConstant: 50),
             self.resultImageView.heightAnchor.constraint(equalToConstant: 50),
             self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
-            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 85)
+            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 70)
         ])
-    }
-    
-    func configureTimerView() {
-        guard let time = self.problem?.time else { return }
-        
-        self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.checkNumbers[4].centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.checkNumbers[4].trailingAnchor, constant: 15)
-        ])
-        
-        self.timerView.configureTime(to: time)
     }
     
     func configureStar() {
-        self.star.isSelected = self.problem?.star ?? false
+        self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
     
     func configureAnswer() {
-        self.answer.setTitle("정답", for: .normal)
-        self.answer.isSelected = false
+        self.answerBT.isUserInteractionEnabled = true
+        self.answerBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.problem?.answer == nil {
-            self.answer.isUserInteractionEnabled = false
-            self.answer.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answer.isUserInteractionEnabled = true
-            self.answer.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.answerBT.isUserInteractionEnabled = false
+            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
     func configureExplanation() {
+        self.explanationBT.isSelected = false
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.problem?.explanationImage == nil {
-            self.explanation.isUserInteractionEnabled = false
-            self.explanation.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
@@ -286,6 +294,5 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-//        CoreDataManager.saveCoreData()
     }
 }
