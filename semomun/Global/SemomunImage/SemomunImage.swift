@@ -16,4 +16,5 @@ enum SemomunImage {
     static let dummy_ad = "dummy_ad"
     static let clock = "clock"
     static let xmark = "xmark"
+    static let answerImage = "answerImage"
 }
