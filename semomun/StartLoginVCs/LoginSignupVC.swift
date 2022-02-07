@@ -88,7 +88,15 @@ class LoginSignupVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-        self.viewModel.submitUserInfo()
+        let userInfo = self.viewModel.makeUserInfo()
+        if userInfo.isValidSurvay {
+            guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
+            vc.configurePopup(isNeeded: true)
+            vc.configureSignupInfo(userInfo)
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
+        }
     }
 }
 
@@ -175,22 +183,10 @@ extension LoginSignupVC {
 // MARK: Bind
 extension LoginSignupVC {
     private func bindAll() {
-        self.bindNickname()
         self.bindMajor()
         self.bindMajorDetail()
-        self.bindPhoneNum()
-        self.bindSchoolName()
-        self.bindGraduationStatus()
         self.bindAlert()
         self.bindPhoneAuth()
-    }
-    private func bindNickname() {
-        self.viewModel.$nickname
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] nickname in
-                self?.nickname.text = nickname
-            }
-            .store(in: &self.cancellables)
     }
     private func bindMajor() {
         self.viewModel.$majors
@@ -205,30 +201,6 @@ extension LoginSignupVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.majorDetailCollectionView.reloadData()
-            }
-            .store(in: &self.cancellables)
-    }
-    private func bindSchoolName() {
-        self.viewModel.$schoolName
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] schoolName in
-                self?.schoolFinder.setTitle(schoolName, for: .normal)
-            }
-            .store(in: &self.cancellables)
-    }
-    private func bindGraduationStatus() {
-        self.viewModel.$graduationStatus
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                self?.graduationStatusSelector.setTitle(status, for: .normal)
-            }
-            .store(in: &self.cancellables)
-    }
-    private func bindPhoneNum() {
-        self.viewModel.$phonenum
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] phone in
-                // self?.phoneNumTF.placeholder = phone
             }
             .store(in: &self.cancellables)
     }

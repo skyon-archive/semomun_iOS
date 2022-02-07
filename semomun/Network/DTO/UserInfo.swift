@@ -81,7 +81,9 @@ class UserInfo: Codable, CustomStringConvertible {
     }
     
     var isValidSurvay: Bool {
-        return self.major != nil && self.majorDetail != nil && self.school != nil && self.graduationStatus != nil
+        return [self.nickName, self.phone, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
+            $0 != nil && $0 != ""
+        }
     }
     
     func setValues(userInfo: UserCoreData) {
