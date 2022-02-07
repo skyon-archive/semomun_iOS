@@ -569,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
+				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 			);
 			path = LoginSelectVC;
 			sourceTree = "<group>";
@@ -605,7 +606,6 @@
 				25FC119227B16BD800B88F70 /* LoginSelectVC */,
 				8716E93F279A5FF600B33A5E /* LoginStartVC.swift */,
 				8716E941279A600200B33A5E /* LoginSignupVC.swift */,
-				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 				25E6FF16279A9B7000FEDCC1 /* Supporting Views */,
 				25DFE60E279A896B0057714B /* Manager */,
 				87C85E59276F6836001C9C4A /* UseCase */,
