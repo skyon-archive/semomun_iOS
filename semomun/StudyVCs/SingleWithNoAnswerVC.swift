@@ -13,15 +13,14 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
     static let identifier = "SingleWithNoAnswerVC" // form == 0 && type == 0
     static let storyboardName = "Study"
     
-    @IBOutlet weak var star: UIButton!
-    @IBOutlet weak var explanation: UIButton!
-    @IBOutlet weak var timerFrameView: UIView!
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    @IBOutlet weak var innerView: UIView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -36,6 +35,11 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
+    }()
+    private lazy var explanationView: ExplanationView = {
+        let explanationView = ExplanationView()
+        explanationView.alpha = 0
+        return explanationView
     }()
     private lazy var timerView = ProblemTimerView()
     
@@ -74,6 +78,8 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         self.viewModel?.cancelObserver()
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
+        self.explanationView.removeFromSuperview()
+        self.scrollViewBottomConstraint.constant = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -88,26 +94,41 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         print("답없는 단일형 deinit")
     }
     
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let problem = self.viewModel?.problem,
               let pName = problem.pName else { return }
         
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
         self.viewModel?.updateStar(btName: pName, to: status)
     }
     
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-        
-        guard let explanationVC = UIStoryboard(name: ExplanationVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ExplanationVC.identifier) as? ExplanationVC else { return }
         let explanationImage = UIImage(data: imageData)
-        explanationVC.explanationImage = explanationImage
-        self.present(explanationVC, animated: true, completion: nil)
-    }
-    
-    @IBAction func nextProblem(_ sender: Any) {
-        self.viewModel?.delegate?.nextPage()
+        self.explanationBT.isSelected.toggle()
+        
+        if self.explanationBT.isSelected {
+            self.explanationView.configureDelegate(to: self)
+            self.explanationView.configureImage(to: explanationImage)
+            self.view.addSubview(self.explanationView)
+            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+            let height = self.view.frame.height/2
+            
+            NSLayoutConstraint.activate([
+                self.explanationView.heightAnchor.constraint(equalToConstant: height),
+                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+            self.setShadow(with: self.explanationView)
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.scrollViewBottomConstraint.constant = height
+                self?.explanationView.alpha = 1
+            }
+        } else {
+            self.closeExplanation()
+        }
     }
 }
 
@@ -151,46 +172,38 @@ extension SingleWithNoAnswerVC {
     
     func configureUI() {
         self.configureStar()
-        self.configureInnerViewRadius()
         self.configureExplanation()
         self.configureTimerView()
     }
     
-    private func configureInnerViewRadius() {
-        self.innerView.layer.cornerRadius = 27.5
-    }
-    
     func configureTimerView() {
-        guard let viewModel = self.viewModel,
-              let problem = viewModel.problem,
-              let time = viewModel.time else { return }
-        guard problem.terminated == true else {
-            self.timerFrameView.isHidden = true
-            return
+        guard let problem = self.viewModel?.problem,
+              let time = self.viewModel?.time else { return }
+        
+        if problem.terminated {
+            self.view.addSubview(self.timerView)
+            self.timerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+                self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+            ])
+            
+            self.timerView.configureTime(to: time)
         }
-        self.timerFrameView.isHidden = false
-        self.timerFrameView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.timerFrameView.centerYAnchor),
-            self.timerView.centerXAnchor.constraint(equalTo: self.timerFrameView.centerXAnchor)
-        ])
-        
-        self.timerView.configureTime(to: time)
     }
     
     func configureStar() {
-        self.star.isSelected = self.viewModel?.problem?.star ?? false
+        self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     func configureExplanation() {
+        self.explanationBT.isSelected = false
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
-            self.explanation.isUserInteractionEnabled = false
-            self.explanation.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanation.isUserInteractionEnabled = true
-            self.explanation.setTitleColor(UIColor(.mainColor), for: .normal)
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
     
@@ -248,3 +261,13 @@ extension SingleWithNoAnswerVC: PKCanvasViewDelegate {
     }
 }
 
+extension SingleWithNoAnswerVC: ExplanationRemover {
+    func closeExplanation() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+            self?.scrollViewBottomConstraint.constant = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
+        }
+    }
+}
