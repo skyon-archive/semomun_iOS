@@ -163,7 +163,9 @@ extension LoginSelectVC {
             self.getExistingUserInfoAndExit()
         case (false, false):
             // 회원가입 정보가 없는데 로그인을 시도하는 상태
-            self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.")
+            self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
