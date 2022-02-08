@@ -16,5 +16,5 @@ protocol CollectionCellDelegate: AnyObject {
 protocol CollectionCellWithNoAnswerDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
     func updateCheck(btName: String)
-    func nextPage()
+    func showExplanation(image: UIImage?, pid: Int)
 }
