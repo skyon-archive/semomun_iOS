@@ -17,4 +17,6 @@ enum SemomunImage {
     static let clock = "clock"
     static let xmark = "xmark"
     static let answerImage = "answerImage"
+    static let circleCheckmark = "checkmark.circle"
+    static let circleCheckmarkFilled = "checkmark.circle.fill"
 }

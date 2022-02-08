@@ -59,11 +59,11 @@ extension LoginedSettingTableVC {
         case (0, 1):
             self.navigationController?.pushViewController(UserNoticeVC(), animated: true)
         case (1, 1):
-            self.popupLongTextVC(title: "서비스이용약관", txtResourceName: "termsAndConditions")
+            self.showLongTextVC(title: "서비스이용약관", txtResourceName: "termsAndConditions")
         case (1, 2):
-            self.popupLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
+            self.showLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
         case (1, 3):
-            self.popupLongTextVC(title: "마케팅 정보 수신", txtResourceName: "receiveMarketingInfo", marketingInfo: true)
+            self.showLongTextVC(title: "마케팅 정보 수신", txtResourceName: "receiveMarketingInfo", marketingInfo: true)
         default:
             break
         }
