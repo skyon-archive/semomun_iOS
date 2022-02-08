@@ -89,8 +89,7 @@ class LoginSignupVC: UIViewController {
     
     @IBAction func submit(_ sender: Any) {
         let userInfo = self.viewModel.makeUserInfo()
-//        if userInfo.isValidSurvay {
-        if true {
+        if userInfo.isValidSurvay {
             guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
             vc.configurePopup(isNeeded: true)
             vc.configureSignupInfo(userInfo)
