@@ -106,7 +106,7 @@ class LoginSignupVC: UIViewController {
 // MARK: Configure UI
 extension LoginSignupVC {
     private func configureUI() {
-        self.navigationItem.title = "계정 정보 변경하기"
+        self.navigationItem.title = "회원가입"
         self.navigationItem.titleView?.backgroundColor = .white
         self.configureRoundedMintBorder(of: nicknameFrame)
         self.configureRoundedMintBorder(of: phoneNumFrame)
