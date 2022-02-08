@@ -47,8 +47,8 @@ class SectionResultVC: UIViewController {
     private func configureData() {
         guard let result = self.result else { return }
         self.titleLabel.text = result.title
-        self.scoreLabel.text = "\(result.totalScore)점"
-        self.totalScoreLabel.text = "\(result.totalScore) / \(result.perfectScore)점"
+        self.scoreLabel.text = "\(result.totalScore.removeDot)점"
+        self.totalScoreLabel.text = "\(result.totalScore.removeDot) / \(result.perfectScore.removeDot)점"
         self.totalTimeLabel.text = result.totalTime.toTimeString
         self.configureWrongProblems(to: result.wrongProblems)
         self.setProgress(total: result.perfectScore, to: result.totalScore)
@@ -70,13 +70,17 @@ class SectionResultVC: UIViewController {
 
 extension SectionResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.wrongs.count
+        return self.wrongs.count == 0 ? 1 : self.wrongs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WrongProblemCell.identifier, for: indexPath) as? WrongProblemCell else { return UICollectionViewCell() }
         
-        cell.configure(to: self.wrongs[indexPath.item])
+        if self.wrongs.count == 0 {
+            cell.configure(to: "없음")
+        } else {
+            cell.configure(to: self.wrongs[indexPath.item])
+        }
         return cell
     }
 }
