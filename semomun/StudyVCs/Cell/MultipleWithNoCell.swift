@@ -11,26 +11,29 @@ import PencilKit
 class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasViewDelegate {
     static let identifier = "MultipleWithNoCell"
     
-    @IBOutlet weak var star: UIButton!
-    
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var solvInputFrame: UIView!
+    @IBOutlet weak var shadowView: UIView!
     
     var contentImage: UIImage?
     var problem: Problem_Core?
     weak var delegate: CollectionCellWithNoAnswerDelegate?
     
     var toolPicker: PKToolPicker?
+    private lazy var timerView = ProblemTimerView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.configureBaseUI()
+        self.configureUI()
         print("\(Self.identifier) awakeFromNib")
+    }
+    
+    override func prepareForReuse() {
+        self.configureUI()
     }
     
     deinit {
@@ -39,21 +42,26 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
         toolPicker?.removeObserver(canvasView)
     }
     
-    @IBAction func toggleStar(_ sender: Any) {
+    @IBAction func toggleBookmark(_ sender: Any) {
         guard let pName = self.problem?.pName else { return }
-        self.star.isSelected.toggle()
-        let status = self.star.isSelected
+        
+        self.bookmarkBT.isSelected.toggle()
+        let status = self.bookmarkBT.isSelected
+        
         self.problem?.setValue(status, forKey: "star")
         self.delegate?.updateStar(btName: pName, to: status)
     }
     
-    @IBAction func nextProblem(_ sender: Any) {
-        self.delegate?.nextPage()
+    @IBAction func showExplanation(_ sender: Any) {
+        guard let imageData = self.problem?.explanationImage,
+              let pid = self.problem?.pid else { return }
+        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
     // MARK: - Configure
-    func configureBaseUI() {
-        solvInputFrame.layer.cornerRadius = 27
+    func configureUI() {
+        self.timerView.removeFromSuperview()
+        self.shadowView.addShadow(direction: .top)
     }
     
     // MARK: - Configure Reuse
@@ -69,15 +77,21 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     }
     
     func configureUI(_ contentImage: UIImage?, _ superWidth: CGFloat) {
-        self.configureImage(contentImage)
+        self.configureImageView(contentImage)
         self.configureHeight(superWidth)
         self.configureStar()
+        self.configureExplanation()
+        self.configureTimerView()
     }
     
-    func configureImage(_ contentImage: UIImage?) {
+    func configureImageView(_ contentImage: UIImage?) {
         guard let contentImage = contentImage else { return }
-        self.contentImage = contentImage
-        self.imageView.image = contentImage
+        if contentImage.size.width > 0 && contentImage.size.height > 0 {
+            self.contentImage = contentImage
+        } else {
+            self.contentImage = UIImage(named: SemomunImage.warning)
+        }
+        self.imageView.image = self.contentImage
     }
     
     func configureHeight(_ superWidth: CGFloat) {
@@ -90,8 +104,33 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
         canvasHeight.constant = height
     }
     
+    func configureTimerView() {
+        guard self.problem?.terminated == true,
+              let time = self.problem?.time else { return }
+        
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
+        
+        self.timerView.configureTime(to: time)
+    }
+    
     func configureStar() {
-        self.star.isSelected = self.problem?.star ?? false
+        self.bookmarkBT.isSelected = self.problem?.star ?? false
+    }
+    
+    func configureExplanation() {
+        self.explanationBT.isSelected = false
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
+        if self.problem?.explanationImage == nil {
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        }
     }
     
     func configureCanvasView() {
