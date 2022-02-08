@@ -15,13 +15,15 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
-    var width: CGFloat!
-    var height: CGFloat!
+    private var width: CGFloat!
+    private var height: CGFloat!
+    private var explanationId: Int? // Cell 에서 받은 explanation 의 pid 저장
     var mainImage: UIImage?
     var subImages: [UIImage?]?
     var viewModel: MultipleWith5AnswerVM?
@@ -34,6 +36,11 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
+    }()
+    private lazy var explanationView: ExplanationView = {
+        let explanationView = ExplanationView()
+        explanationView.alpha = 0
+        return explanationView
     }()
     
     override func viewDidLoad() {
@@ -61,7 +68,6 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         print("5다선지 좌우형 : didAppear")
         
         self.stopLoader()
-//        self.configureCanvasViewData()
         self.configureMainImageView()
         self.viewModel?.configureObserver()
     }
@@ -73,6 +79,9 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         CoreDataManager.saveCoreData()
         self.viewModel?.cancelObserver()
         self.imageView.image = nil
+        self.explanationView.removeFromSuperview()
+        self.scrollViewBottomConstraint.constant = 0
+        self.collectionViewBottomConstraint.constant = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -236,17 +245,52 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
         self.viewModel?.delegate?.updateStar(btName: btName, to: to)
     }
     
-    func nextPage() {
-        self.viewModel?.delegate?.nextPage()
-    }
-    
-    func showExplanation(image: UIImage?) {
-        guard let explanationVC = UIStoryboard(name: ExplanationVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ExplanationVC.identifier) as? ExplanationVC else { return }
-        explanationVC.explanationImage = image
-        self.present(explanationVC, animated: true, completion: nil)
+    func showExplanation(image: UIImage?, pid: Int) {
+        if let explanationId = self.explanationId {
+            if explanationId == pid {
+                self.explanationId = nil
+                self.closeExplanation()
+            } else {
+                self.explanationId = pid
+                self.explanationView.configureImage(to: image)
+            }
+        } else {
+            self.explanationId = pid
+            
+            self.explanationView.configureDelegate(to: self)
+            self.explanationView.configureImage(to: image)
+            self.view.addSubview(self.explanationView)
+            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+            let height = self.view.frame.height/2
+            
+            NSLayoutConstraint.activate([
+                self.explanationView.heightAnchor.constraint(equalToConstant: height),
+                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+            self.setShadow(with: self.explanationView)
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.scrollViewBottomConstraint.constant = height
+                self?.collectionViewBottomConstraint.constant = height
+                self?.explanationView.alpha = 1
+            }
+        }
     }
     
     func updateWrong(btName: String, to: Bool) {
         self.viewModel?.delegate?.updateWrong(btName: btName, to: to)
+    }
+}
+
+extension MultipleWith5AnswerVC: ExplanationRemover {
+    func closeExplanation() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+            self?.scrollViewBottomConstraint.constant = 0
+            self?.collectionViewBottomConstraint.constant = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
+        }
     }
 }
