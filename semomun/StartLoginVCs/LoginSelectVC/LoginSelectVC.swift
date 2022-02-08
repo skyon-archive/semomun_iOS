@@ -240,7 +240,7 @@ extension LoginSelectVC {
     }
 }
 
-// MARK: AS Protocols
+// MARK: AuthenticationServices Protocols
 extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
@@ -261,7 +261,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     func authorizationGoogleController(user: GIDGoogleUser) {
         user.authentication.do { authentication, error in
-            guard error == nil else{return}
+            guard error == nil else { return }
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
             
