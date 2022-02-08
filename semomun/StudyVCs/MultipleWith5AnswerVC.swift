@@ -218,7 +218,7 @@ extension MultipleWith5AnswerVC: UICollectionViewDelegate, UICollectionViewDataS
 extension MultipleWith5AnswerVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.frame.width
-        let solveInputFrameHeight: CGFloat = 64
+        let solveInputFrameHeight: CGFloat = 6 + 50
         // imageView 높이값 가져오기
         guard var contentImage = subImages?[indexPath.row] else {
             return CGSize(width: width, height: 300) }
