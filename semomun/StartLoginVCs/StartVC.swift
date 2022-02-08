@@ -24,7 +24,6 @@ final class StartVC: UIViewController {
 extension StartVC {
     private func goStartSettingVC() {
         let nextVC = UIStoryboard(name: StartSettingVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
-        
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
