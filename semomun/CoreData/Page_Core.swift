@@ -65,7 +65,7 @@ public class Page_Core: NSManagedObject {
     
     func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
         if !pageResult.isImage {
-            self.setValue(nil, forKey: "materialImage")
+//            self.setValue(nil, forKey: "materialImage")
             print("Page: \(pageResult.vid) save Material")
             completion()
             return
