@@ -68,7 +68,6 @@ extension PurchasePopupVC {
         guard let info = self.info,
               let currentMoney = self.currentMoney else { return }
         self.type = (currentMoney - info.price) >= 0 ? .purchase : .charge
-//        self.type = .charge
     }
     
     private func configureUI() {
@@ -134,7 +133,19 @@ extension PurchasePopupVC {
                 }
             }
         } else {
-            print(error?.localizedDescription ?? "Faild to authenticate")
+            DispatchQueue.main.async { [weak self] in
+                let error = error?.localizedDescription ?? "Faild to authenticate"
+                print(error)
+                switch error {
+                case "암호가 설정되지 않음", // Korean
+                    "Passcode is not set.": // English
+                    self?.presentingViewController?.dismiss(animated: true, completion: {
+                        NotificationCenter.default.post(name: .purchaseComplete, object: nil)
+                    })
+                default:
+                    self?.showAlertWithOK(title: error, text: "")
+                }
+            }
         }
     }
 }
