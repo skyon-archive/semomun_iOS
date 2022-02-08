@@ -20,4 +20,5 @@ enum SemomunImage {
     static let circleCheckmark = "checkmark.circle"
     static let circleCheckmarkFilled = "checkmark.circle.fill"
     static let googleLogo = "googleLogo"
+    static let exclamationmarkTriangle = "exclamationmark.triangle"
 }

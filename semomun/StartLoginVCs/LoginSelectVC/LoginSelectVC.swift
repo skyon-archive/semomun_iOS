@@ -109,7 +109,7 @@ extension LoginSelectVC {
         self.configureSignInButtonLayout(signInWithGoogleButton, verticalSpaceToSemomunTitle: 280)
     }
     
-    private func configureSignInButtonLayout(_ button: UIControl, verticalSpaceToSemomunTitle: CGFloat) {
+    private func configureSignInButtonLayout(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
         button.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(button)
         NSLayoutConstraint.activate([
