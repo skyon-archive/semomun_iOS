@@ -47,11 +47,11 @@ extension UIViewController {
         let alert = UIAlertController(title: title,
                                       message: text,
                                       preferredStyle: UIAlertController.Style.alert)
-        let ok = UIAlertAction(title: "확인", style: .default, handler:  { _ in
+        let ok = UIAlertAction(title: "확인", style: .default) { _ in
             completion?()
-        })
+        }
         alert.addAction(ok)
-        present(alert,animated: true,completion: nil)
+        self.present(alert, animated: true)
     }
     
     func makeLoaderWithoutPercentage(_ tag: Int = 123) -> UIActivityIndicatorView {

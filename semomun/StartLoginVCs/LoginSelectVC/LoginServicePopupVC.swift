@@ -8,6 +8,8 @@
 import UIKit
 import SwiftUI
 
+typealias LoginServicePopupNetworkUsecase = MarketingConsentSendable
+
 class LoginServicePopupVC: UIViewController {
     static let identifier = "LoginServicePopupVC"
     static let storyboardName = "StartLogin"
@@ -17,6 +19,7 @@ class LoginServicePopupVC: UIViewController {
     
     private lazy var isChecked = [Bool](repeating: false, count: checkButtons.count)
     private var action: (() -> ())?
+    private let networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +75,19 @@ class LoginServicePopupVC: UIViewController {
     }
     
     @IBAction func continueRegister(_ sender: Any) {
-        
+        if isChecked[0], isChecked[1] {
+            self.networkUsecase?.postMarketingConsent(isConsent: isChecked[1]) { status in
+                switch status {
+                case .SUCCESS:
+                    self.dismiss(animated: true)
+                    self.action?()
+                default:
+                    self.showAlertWithOK(title: "네트워크 오류", text: "네트워크 연결 확인 후 다시 시도해주세요.")
+                }
+            }
+        } else {
+            self.showAlertWithOK(title: "필수 항목에 동의가 필요합니다.", text: "")
+        }
     }
 }
 
