@@ -19,55 +19,13 @@ class LoginServicePopupVC: UIViewController {
     
     private lazy var isChecked = [Bool](repeating: false, count: checkButtons.count)
     private var action: (() -> ())?
+    
     private let networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.checkButtons[0..<3].forEach { button in
-            let action = UIAction { [weak self] _ in
-                self?.isChecked[button.tag].toggle()
-                self?.configureButtonUI(button)
-            }
-            button.addAction(action, for: .touchUpInside)
-        }
-        guard let agreeAllButton = self.checkButtons.last else { return }
-        let action = UIAction { [weak self] _ in
-            guard let self = self else { return }
-            guard let agreeAllButtonState = self.isChecked.last else { return }
-            self.isChecked = [Bool](repeating: !agreeAllButtonState, count: self.isChecked.count)
-            self.checkButtons.forEach {
-                self.configureButtonUI($0)
-            }
-        }
-        agreeAllButton.addAction(action, for: .touchUpInside)
-        
-        let longTextButtonSource: [(title: String, txtResourceName: String)] = [
-        ("개인정보 처리방침", "personalInformationProcessingPolicy"),
-        ("서비스이용약관", "termsAndConditions"),
-        ("마케팅 정보 수신", "receiveMarketingInfo")
-        ]
-        self.longTextButtons.forEach { button in
-            let action = UIAction { [weak self] _ in
-                let source = longTextButtonSource[button.tag]
-                self?.showLongTextVC(title: source.title, txtResourceName: source.txtResourceName, isPopup: true)
-            }
-            button.addAction(action, for: .touchUpInside)
-        }
-    }
-    
-    private func configureButtonUI(_ button: UIButton) {
-        guard let check = UIImage(systemName: SemomunImage.circleCheckmark), let checkFilled = UIImage(systemName: SemomunImage.circleCheckmarkFilled) else { return }
-        if self.isChecked[button.tag] {
-            button.setImage(checkFilled, for: .normal)
-            button.tintColor = UIColor(.mainColor)
-        } else {
-            button.setImage(check, for: .normal)
-            button.tintColor = UIColor(.grayDefaultColor)
-        }
+        self.configureCheckButtons()
+        self.configureLongTextButtons()
     }
     
     @IBAction func closeWindow(_ sender: Any) {
@@ -75,8 +33,10 @@ class LoginServicePopupVC: UIViewController {
     }
     
     @IBAction func continueRegister(_ sender: Any) {
-        if isChecked[0], isChecked[1] {
-            self.networkUsecase?.postMarketingConsent(isConsent: isChecked[1]) { status in
+        let canSubmit = isChecked[0] && isChecked[1]
+        if canSubmit {
+            let marketingAgreed = isChecked[1]
+            self.networkUsecase?.postMarketingConsent(isConsent: marketingAgreed) { status in
                 switch status {
                 case .SUCCESS:
                     self.dismiss(animated: true)
@@ -91,8 +51,65 @@ class LoginServicePopupVC: UIViewController {
     }
 }
 
+// MARK: Public configure
 extension LoginServicePopupVC {
     func configureConfirmAction(_ action: @escaping () -> Void) {
         self.action = action
+    }
+}
+
+// MARK: Private configures
+extension LoginServicePopupVC {
+    private func configureCheckButtons() {
+        self.configureNormalButtons()
+        self.configureAgreeAllButton()
+    }
+    
+    private func configureNormalButtons() {
+        self.checkButtons[0..<3].forEach { button in
+            let action = UIAction { [weak self] _ in
+                self?.isChecked[button.tag].toggle()
+                self?.configureButtonUI(button)
+            }
+            button.addAction(action, for: .touchUpInside)
+        }
+    }
+    
+    private func configureAgreeAllButton() {
+        guard let agreeAllButton = self.checkButtons.last else { return }
+        let action = UIAction { [weak self] _ in
+            guard let self = self else { return }
+            guard let agreeAllButtonState = self.isChecked.last else { return }
+            self.isChecked = self.isChecked.map { _ in !agreeAllButtonState }
+            self.checkButtons.forEach {
+                self.configureButtonUI($0)
+            }
+        }
+        agreeAllButton.addAction(action, for: .touchUpInside)
+    }
+    
+    private func configureButtonUI(_ button: UIButton) {
+        guard let check = UIImage(systemName: SemomunImage.circleCheckmark), let checkFilled = UIImage(systemName: SemomunImage.circleCheckmarkFilled) else { return }
+        if self.isChecked[button.tag] {
+            button.setImage(checkFilled, for: .normal)
+            button.tintColor = UIColor(.mainColor)
+        } else {
+            button.setImage(check, for: .normal)
+            button.tintColor = UIColor(.grayDefaultColor)
+        }
+    }
+    
+    private func configureLongTextButtons() {
+        let longTextButtonSource: [(title: String, txtResourceName: String)] = [
+        ("개인정보 처리방침", "personalInformationProcessingPolicy"),
+        ("서비스이용약관", "termsAndConditions"),
+        ("마케팅 정보 수신", "receiveMarketingInfo")]
+        self.longTextButtons.forEach { button in
+            let action = UIAction { [weak self] _ in
+                let source = longTextButtonSource[button.tag]
+                self?.showLongTextVC(title: source.title, txtResourceName: source.txtResourceName, isPopup: true)
+            }
+            button.addAction(action, for: .touchUpInside)
+        }
     }
 }
