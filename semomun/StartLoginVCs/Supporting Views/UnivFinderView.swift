@@ -26,33 +26,34 @@ struct UnivFinderView: View {
         VStack {
             HStack {
                 TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
+                    .font(.system(size: 16, weight: .regular))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 40)
+                    .offset(x: 20)
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 20))
-                    .foregroundColor(.gray)
-                    .padding(.trailing, 5)
+                    .foregroundColor(.black)
+                    .padding(.trailing, 20)
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.gray.opacity(0.2))
-            )
-            .padding(.bottom)
+            .frame(height: 50)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color(UIColor(.mainColor) ?? .gray), lineWidth: 2)
+                )
             .onChange(of: search) { _ in
                 filterList()
             }
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 0) {
                     ForEach(filteredUnivList, id: \.self) { univ in
                         Button(action: {
                             self.selected = univ
-                            delegate?.schoolSelected(univ)
+                            self.delegate?.schoolSelected(univ)
                         }) {
                             Text(univ)
-                                .font(.system(size: 16))
+                                .font(.system(size: 14, weight: .regular))
+                                .frame(height: 40)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.vertical, 3)
+                                .padding(.leading, 20)
                         }
                         .accentColor(.black)
                         Rectangle()
@@ -62,9 +63,9 @@ struct UnivFinderView: View {
                     }
                 }
             }
+            .padding(.top, 10)
             .frame(maxHeight: 500)
         }
-        .padding()
         .onAppear(perform: {
             let network = Network()
             let networkUseCase = NetworkUsecase(network: network)

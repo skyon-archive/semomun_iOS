@@ -16,24 +16,25 @@ struct LoginSchoolSearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack {
-            ZStack {
-                Text("\(schoolType.rawValue) 찾기")
-                    .font(.system(size: 20, weight: .semibold))
-                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.gray)
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
+        VStack(spacing: 0) {
+            Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                Image(systemName: SemomunImage.xmark)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color(UIColor(.grayDefaultColor) ?? .gray))
             }
-            .padding(.bottom, 15)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.trailing, 27)
+            .padding(.top, 27)
+            Text("\(schoolType.rawValue) 찾기")
+                .font(.system(size: 20, weight: .semibold))
+                .padding(.top, 5)
+                .padding(.bottom, 27)
             UnivFinderView(selected: .constant(""), schoolType: schoolType, delegate: delegate)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 40)
         }
-        .padding(50)
+        .frame(width: 572, height: 643)
         .background(
-            RoundedRectangle(cornerRadius: 30)
+            RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.white)
         )
     }
