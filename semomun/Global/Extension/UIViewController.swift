@@ -92,21 +92,26 @@ extension UIViewController {
         view.layer.shadowRadius = 4.5
     }
     
-    func popupLongTextVC(title: String, txtResourceName: String, marketingInfo: Bool = false) {
+    func showLongTextVC(title: String, txtResourceName: String, marketingInfo: Bool = false, isPopup: Bool = false) {
         guard let filepath = Bundle.main.path(forResource: txtResourceName, ofType: "txt") else { return }
         do {
             let text = try String(contentsOfFile: filepath)
-            self.popupLongTextVC(title: title, text: text, marketingInfo: marketingInfo)
+            self.showLongTextVC(title: title, text: text, marketingInfo: marketingInfo, isPopup: isPopup)
         } catch {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
         }
     }
     
-    func popupLongTextVC(title: String, text: String, marketingInfo: Bool = false) {
+    func showLongTextVC(title: String, text: String, marketingInfo: Bool = false, isPopup: Bool = false) {
         let storyboard = UIStoryboard(name: LongTextVC.storyboardName, bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: LongTextVC.identifier) as? LongTextVC else { return }
         vc.configureUI(navigationBarTitle: title, text: text, marketingInfo: marketingInfo)
-        self.navigationController?.pushViewController(vc, animated: true)
+        if isPopup {
+            let navigationView = UINavigationController(rootViewController: vc)
+            self.present(navigationView, animated: true)
+        } else {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
 }

@@ -46,7 +46,7 @@ class SettingViewController: UIViewController {
         guard let filepath = Bundle.main.path(forResource: "termsAndConditions", ofType: "txt") else { return }
         do {
             let text = try String(contentsOfFile: filepath)
-            self.popupLongTextVC(title: "서비스이용약관", text: text)
+            self.showLongTextVC(title: "서비스이용약관", text: text)
         } catch {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
         }
@@ -56,7 +56,7 @@ class SettingViewController: UIViewController {
         guard let filepath = Bundle.main.path(forResource: "personalInformationProcessingPolicy", ofType: "txt") else { return }
         do {
             let text = try String(contentsOfFile: filepath)
-            self.popupLongTextVC(title: "개인정보 처리방침", text: text)
+            self.showLongTextVC(title: "개인정보 처리방침", text: text)
         } catch {
             self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
         }
