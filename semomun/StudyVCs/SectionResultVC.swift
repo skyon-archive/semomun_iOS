@@ -13,6 +13,8 @@ class SectionResultVC: UIViewController {
     
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var totalScoreLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var wrongProblems: UICollectionView!
@@ -37,23 +39,32 @@ class SectionResultVC: UIViewController {
     }
     
     private func configureUI() {
-        self.frameView.clipsToBounds = true
-        self.frameView.layer.cornerRadius = 25
+        self.progressView.progressWidth = 30
+        self.progressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
+        self.progressView.progressColor = UIColor(.mainColor) ?? .black
     }
     
     private func configureData() {
         guard let result = self.result else { return }
         self.titleLabel.text = result.title
-        self.totalScoreLabel.text = "\(result.totalScore) / \(result.perfectScore)"
+        self.scoreLabel.text = "\(result.totalScore)점"
+        self.totalScoreLabel.text = "\(result.totalScore) / \(result.perfectScore)점"
         self.totalTimeLabel.text = result.totalTime.toTimeString
         self.configureWrongProblems(to: result.wrongProblems)
+        self.setProgress(total: result.perfectScore, to: result.totalScore)
     }
     
     private func configureWrongProblems(to problems: [String]) {
-        let cellHeight: Int = 25
-        self.wrongsHight.constant = CGFloat(cellHeight*(1+problems.count/6))
+        let cellHeight: CGFloat = 25
+        let verticalTerm: CGFloat = 5
+        self.wrongsHight.constant = cellHeight+(cellHeight+verticalTerm)*CGFloat(problems.count/6)
         self.wrongs = problems
         self.wrongProblems.reloadData()
+    }
+    
+    private func setProgress(total: Double, to: Double) {
+        let persent = Float(to/total)
+        self.progressView.setProgressWithAnimation(duration: 0.5, value: persent, from: 0)
     }
 }
 
