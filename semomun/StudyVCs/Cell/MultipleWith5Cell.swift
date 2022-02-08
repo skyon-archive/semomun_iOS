@@ -82,8 +82,9 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage else { return }
-        self.delegate?.showExplanation(image: UIImage(data: imageData))
+        guard let imageData = self.problem?.explanationImage,
+              let pid = self.problem?.pid else { return }
+        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
     @IBAction func showAnswer(_ sender: Any) {
@@ -207,7 +208,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 10)
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
         
         self.timerView.configureTime(to: time)

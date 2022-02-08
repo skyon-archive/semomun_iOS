@@ -1340,8 +1340,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifu-gL-VYd" userLabel="topView">
                                                     <rect key="frame" x="0.0" y="0.0" width="406" height="50"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-sp-2Ng">
-                                                            <rect key="frame" x="10" y="10" width="120" height="30"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-sp-2Ng">
+                                                            <rect key="frame" x="10" y="10" width="122" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dH-IU-QTI">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -1360,9 +1360,9 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ujT-pk-1CQ">
-                                                                    <rect key="frame" x="35" y="0.0" width="40" height="30"/>
+                                                                    <rect key="frame" x="33" y="0.0" width="43" height="30"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="40" id="gzP-jk-V0e"/>
+                                                                        <constraint firstAttribute="width" constant="43" id="gzP-jk-V0e"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1374,9 +1374,9 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ge4-du-HtI">
-                                                                    <rect key="frame" x="80" y="0.0" width="40" height="30"/>
+                                                                    <rect key="frame" x="79" y="0.0" width="43" height="30"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="40" id="1uE-z0-oxP"/>
+                                                                        <constraint firstAttribute="width" constant="43" id="1uE-z0-oxP"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1599,9 +1599,11 @@
                         <outlet property="canvasHeight" destination="mUe-V6-Tbz" id="Cct-7a-jdO"/>
                         <outlet property="canvasView" destination="0xw-6o-Wsf" id="0dK-9g-4Le"/>
                         <outlet property="collectionView" destination="u0K-5G-vsS" id="ZDq-LU-Iif"/>
+                        <outlet property="collectionViewBottomConstraint" destination="87J-eU-ZQN" id="Jx9-Ng-a0p"/>
                         <outlet property="imageHeight" destination="1jJ-04-mJU" id="QJr-cC-wJp"/>
                         <outlet property="imageView" destination="hCb-w4-a0t" id="q10-45-zwc"/>
                         <outlet property="scrollView" destination="ihJ-Ns-SQH" id="y6q-BY-9jV"/>
+                        <outlet property="scrollViewBottomConstraint" destination="GcS-uq-NJB" id="C5V-3W-hlp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea3-BT-Jis" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
