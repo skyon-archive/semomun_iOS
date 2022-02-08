@@ -24,9 +24,9 @@ extension UnloginedSettingTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 1):
-            self.popupLongTextVC(title: "서비스이용약관", txtResourceName: "termsAndConditions")
+            self.showLongTextVC(title: "서비스이용약관", txtResourceName: "termsAndConditions")
         case (0, 2):
-            self.popupLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
+            self.showLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
         default:
             break
         }

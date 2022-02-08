@@ -146,7 +146,7 @@ extension LoginSelectVC {
     }
 }
 
-// MARK: 로그인 상황별 분기처리
+// MARK: 로그인 시도 후 상황별 분기처리
 extension LoginSelectVC {
     private func processLogin(isExistingUser: Bool) {
         switch (self.signupInfoWritten, isExistingUser) {
@@ -222,19 +222,19 @@ extension LoginSelectVC {
         if self.showPopup {
             self.showServiceInfoView(loginMethod: loginMethod)
         } else {
-            self.performLogin(loginMethod: loginMethod)
+            self.performActualLogin(loginMethod: loginMethod)
         }
     }
     
     private func showServiceInfoView(loginMethod: LoginMethod) {
         guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
         serviceInfoVC.configureConfirmAction { [weak self] in
-            self?.performLogin(loginMethod: loginMethod)
+            self?.performActualLogin(loginMethod: loginMethod)
         }
         self.present(serviceInfoVC, animated: true, completion: nil)
     }
     
-    private func performLogin(loginMethod: LoginMethod) {
+    private func performActualLogin(loginMethod: LoginMethod) {
         switch loginMethod {
         case .apple:
             self.appleSignInButtonPressed()
