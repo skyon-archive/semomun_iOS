@@ -13,7 +13,7 @@
 		2502CECB27A6D8030072A037 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECA27A6D8030072A037 /* Purchase.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
-		252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
+		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
@@ -551,6 +551,7 @@
 			children = (
 				87C85E6E276F6957001C9C4A /* FavoriteCategoryCell.swift */,
 				25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */,
+				252AC35F27787145008AD5E4 /* UnivFinderView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -872,7 +873,6 @@
 			children = (
 				87C85E35276F6656001C9C4A /* PersonalSettingViewController.swift */,
 				87C85E37276F6688001C9C4A /* PersonalSettingNameViewController.swift */,
-				252AC35F27787145008AD5E4 /* UnivFinderView.swift */,
 			);
 			path = PersonalSetting;
 			sourceTree = "<group>";
@@ -1244,6 +1244,7 @@
 				2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
+				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
@@ -1352,7 +1353,6 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
-				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
