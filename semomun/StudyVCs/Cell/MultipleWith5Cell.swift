@@ -19,6 +19,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var shadowView: UIView!
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -117,6 +118,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.answerBT.isHidden = false
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
+        self.shadowView.addShadow(direction: .top)
     }
     
     // MARK: - Configure Reuse

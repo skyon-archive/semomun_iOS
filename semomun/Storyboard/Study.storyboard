@@ -1337,8 +1337,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="406" height="221"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQg-dP-f1N" userLabel="shadowView">
+                                                    <rect key="frame" x="7.5" y="7" width="391" height="50"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifu-gL-VYd" userLabel="topView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="406" height="50"/>
+                                                    <rect key="frame" x="0.0" y="6" width="406" height="50"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-sp-2Ng">
                                                             <rect key="frame" x="10" y="10" width="122" height="30"/>
@@ -1535,7 +1539,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="osy-jO-pRN" customClass="PKCanvasView">
-                                                    <rect key="frame" x="0.0" y="50" width="406" height="150"/>
+                                                    <rect key="frame" x="0.0" y="56" width="406" height="150"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qvO-bd-HuS">
                                                             <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
@@ -1556,10 +1560,14 @@
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="WQg-dP-f1N" firstAttribute="height" secondItem="ifu-gL-VYd" secondAttribute="height" id="7ak-Ak-uKT"/>
                                             <constraint firstItem="osy-jO-pRN" firstAttribute="leading" secondItem="Y2J-Wm-Lov" secondAttribute="leading" id="DNp-p4-UrC"/>
                                             <constraint firstItem="osy-jO-pRN" firstAttribute="top" secondItem="ifu-gL-VYd" secondAttribute="bottom" id="JLb-eI-zLH"/>
-                                            <constraint firstItem="ifu-gL-VYd" firstAttribute="top" secondItem="Y2J-Wm-Lov" secondAttribute="top" id="cVX-qQ-XA7"/>
+                                            <constraint firstItem="WQg-dP-f1N" firstAttribute="centerX" secondItem="ifu-gL-VYd" secondAttribute="centerX" id="SZV-jf-VKa"/>
+                                            <constraint firstItem="ifu-gL-VYd" firstAttribute="top" secondItem="WQg-dP-f1N" secondAttribute="top" constant="-1" id="TiO-ns-GHL"/>
+                                            <constraint firstItem="ifu-gL-VYd" firstAttribute="top" secondItem="Y2J-Wm-Lov" secondAttribute="top" constant="6" id="cVX-qQ-XA7"/>
                                             <constraint firstAttribute="trailing" secondItem="osy-jO-pRN" secondAttribute="trailing" id="jbS-LX-Zqg"/>
+                                            <constraint firstItem="WQg-dP-f1N" firstAttribute="width" secondItem="ifu-gL-VYd" secondAttribute="width" constant="-15" id="tOi-8U-BfD"/>
                                             <constraint firstAttribute="trailing" secondItem="ifu-gL-VYd" secondAttribute="trailing" id="waw-va-Mtg"/>
                                             <constraint firstItem="ifu-gL-VYd" firstAttribute="leading" secondItem="Y2J-Wm-Lov" secondAttribute="leading" id="xeF-X0-CBf"/>
                                         </constraints>
@@ -1572,6 +1580,7 @@
                                             <outlet property="explanationBT" destination="ujT-pk-1CQ" id="pb4-dg-BZ0"/>
                                             <outlet property="imageHeight" destination="c7l-A4-rTn" id="mIv-xV-2UU"/>
                                             <outlet property="imageView" destination="qvO-bd-HuS" id="48G-qx-ndW"/>
+                                            <outlet property="shadowView" destination="WQg-dP-f1N" id="1jG-Qd-B5z"/>
                                             <outletCollection property="checkNumbers" destination="7nv-6e-dbl" collectionClass="NSMutableArray" id="nHp-4N-7ie"/>
                                             <outletCollection property="checkNumbers" destination="9J0-5R-bz7" collectionClass="NSMutableArray" id="qIh-0k-QXf"/>
                                             <outletCollection property="checkNumbers" destination="L73-pp-DrS" collectionClass="NSMutableArray" id="6Ec-cV-Z9L"/>
