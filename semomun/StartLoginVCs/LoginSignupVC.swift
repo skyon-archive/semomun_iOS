@@ -14,6 +14,7 @@ class LoginSignupVC: UIViewController {
     static let storyboardName = "StartLogin"
     
     private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
+    private let warningViewTag = 100
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -61,11 +62,13 @@ class LoginSignupVC: UIViewController {
             return
         }
         self.viewModel.changeNicknameIfAvailable(nickname: nickname) {[weak self] isSuccess in
+            guard let nicknameFrame = self?.nicknameFrame else { return }
             if isSuccess {
                 self?.nickname.resignFirstResponder()
                 self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
+                self?.configureFrame(nicknameFrame)
             } else {
-                self?.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
+                self?.configureFrame(nicknameFrame, warningMessage: "사용할 수 없는 닉네임입니다.")
             }
         }
     }
@@ -131,6 +134,45 @@ extension LoginSignupVC {
             button.backgroundColor = .white
             button.borderColor = mainColor
         }
+    }
+    private func configureFrame(_ frame: UIView, warningMessage: String? = nil) {
+        if let message = warningMessage {
+            guard frame.viewWithTag(warningViewTag) == nil else { return }
+            frame.borderColor = .red
+            let warningView = makeWarningView(withMessage: message)
+            warningView.translatesAutoresizingMaskIntoConstraints = false
+            frame.addSubview(warningView)
+            NSLayoutConstraint.activate([
+                warningView.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
+                warningView.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 10) // 왜 상수가 필요한가...
+            ])
+        } else {
+            frame.borderColor = UIColor(.mainColor)
+            frame.viewWithTag(warningViewTag)?.removeFromSuperview()
+        }
+    }
+    private func makeWarningView(withMessage message: String) -> UIView {
+        let view = UIView()
+        view.tag = warningViewTag
+        let warningImage = UIImage(systemName: SemomunImage.exclamationmarkTriangle)
+        let warningImageView = UIImageView(image: warningImage)
+        warningImageView.tintColor = .red
+        warningImageView.translatesAutoresizingMaskIntoConstraints = false
+        let textLabel = UILabel()
+        textLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        textLabel.text = message
+        textLabel.textColor = .red
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubviews(warningImageView, textLabel)
+        NSLayoutConstraint.activate([
+            warningImageView.widthAnchor.constraint(equalToConstant: 17),
+            warningImageView.heightAnchor.constraint(equalToConstant: 17),
+            warningImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            warningImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: warningImageView.trailingAnchor, constant: 5)
+        ])
+        return view
     }
 }
 
