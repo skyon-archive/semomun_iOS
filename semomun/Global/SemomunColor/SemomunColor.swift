@@ -11,6 +11,7 @@ enum SemomunColor: String {
     case mainColor = "mainColor"
     case redColor = "redColor"
     case yellowColor = "yellowColor"
+    case greenColor = "greenColor"
     case selectCellColor = "selectCellColor"
     case grayLineColor = "grayLineColor"
     case grayTextColor = "grayTextColor"
