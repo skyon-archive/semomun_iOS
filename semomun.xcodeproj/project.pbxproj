@@ -13,6 +13,7 @@
 		2502CECB27A6D8030072A037 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECA27A6D8030072A037 /* Purchase.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
+		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
@@ -203,6 +204,7 @@
 		2502CECA27A6D8030072A037 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredFrameLabel.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -413,6 +415,15 @@
 			path = MyPurchases;
 			sourceTree = "<group>";
 		};
+		251DC46F27B3B6FA00F1CE27 /* LoginSignup */ = {
+			isa = PBXGroup;
+			children = (
+				8716E941279A600200B33A5E /* LoginSignupVC.swift */,
+				251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */,
+			);
+			path = LoginSignup;
+			sourceTree = "<group>";
+		};
 		255D637D27ABC24D000991AB /* UserNotice */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,8 +616,8 @@
 				8716E93B279A5FDE00B33A5E /* StartVC.swift */,
 				8716F336279CFFE100B7C8DD /* StartSetting */,
 				25FC119227B16BD800B88F70 /* LoginSelectVC */,
+				251DC46F27B3B6FA00F1CE27 /* LoginSignup */,
 				8716E93F279A5FF600B33A5E /* LoginStartVC.swift */,
-				8716E941279A600200B33A5E /* LoginSignupVC.swift */,
 				25E6FF16279A9B7000FEDCC1 /* Supporting Views */,
 				25DFE60E279A896B0057714B /* Manager */,
 				87C85E59276F6836001C9C4A /* UseCase */,
@@ -1347,6 +1358,7 @@
 				87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */,
 				87C85EF8276F6F21001C9C4A /* CoreGraphics+Z.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
+				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
