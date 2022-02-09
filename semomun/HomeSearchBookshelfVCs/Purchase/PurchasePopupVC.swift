@@ -134,16 +134,14 @@ extension PurchasePopupVC {
             }
         } else {
             DispatchQueue.main.async { [weak self] in
-                let error = error?.localizedDescription ?? "Faild to authenticate"
-                print(error)
-                switch error {
-                case "암호가 설정되지 않음", // Korean
-                    "Passcode is not set.": // English
+                guard let error = error as? LAError else { return }
+                switch error.code {
+                case .passcodeNotSet:
                     self?.presentingViewController?.dismiss(animated: true, completion: {
                         NotificationCenter.default.post(name: .purchaseComplete, object: nil)
                     })
                 default:
-                    self?.showAlertWithOK(title: error, text: "")
+                    self?.showAlertWithOK(title: error.localizedDescription, text: "")
                 }
             }
         }
