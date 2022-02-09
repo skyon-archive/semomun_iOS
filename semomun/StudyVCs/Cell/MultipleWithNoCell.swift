@@ -33,6 +33,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.configureUI()
     }
     

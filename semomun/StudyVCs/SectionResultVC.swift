@@ -47,8 +47,8 @@ class SectionResultVC: UIViewController {
     private func configureData() {
         guard let result = self.result else { return }
         self.titleLabel.text = result.title
-        self.scoreLabel.text = "\(result.totalScore.removeDot)점"
-        self.totalScoreLabel.text = "\(result.totalScore.removeDot) / \(result.perfectScore.removeDot)점"
+        self.scoreLabel.text = "\(result.totalScore.removeDecimalPoint)점"
+        self.totalScoreLabel.text = "\(result.totalScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
         self.totalTimeLabel.text = result.totalTime.toTimeString
         self.configureWrongProblems(to: result.wrongProblems)
         self.setProgress(total: result.perfectScore, to: result.totalScore)

@@ -135,23 +135,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.explanationBT.isSelected.toggle()
         
         if self.explanationBT.isSelected {
-            self.explanationView.configureDelegate(to: self)
-            self.explanationView.configureImage(to: explanationImage)
-            self.view.addSubview(self.explanationView)
-            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
-            let height = self.view.frame.height/2
-            
-            NSLayoutConstraint.activate([
-                self.explanationView.heightAnchor.constraint(equalToConstant: height),
-                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            ])
-            self.setShadow(with: self.explanationView)
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.scrollViewBottomConstraint.constant = height
-                self?.explanationView.alpha = 1
-            }
+            self.showExplanation(to: explanationImage)
         } else {
             self.closeExplanation()
         }
@@ -363,6 +347,26 @@ extension SingleWithTextAnswerVC {
         imageHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         canvasHeight.constant = height
+    }
+    
+    private func showExplanation(to image: UIImage?) {
+        self.explanationView.configureDelegate(to: self)
+        self.explanationView.configureImage(to: image)
+        self.view.addSubview(self.explanationView)
+        self.explanationView.translatesAutoresizingMaskIntoConstraints = false
+        let height = self.view.frame.height/2
+        
+        NSLayoutConstraint.activate([
+            self.explanationView.heightAnchor.constraint(equalToConstant: height),
+            self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.setShadow(with: self.explanationView)
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.scrollViewBottomConstraint.constant = height
+            self?.explanationView.alpha = 1
+        }
     }
 }
 
