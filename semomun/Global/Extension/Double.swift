@@ -8,11 +8,11 @@
 import Foundation
 
 extension Double {
-    var removeDot: String {
-        if "\(self)" == "\(Int(self)).0" {
-            return "\(Int(self))"
+    var removeDecimalPoint: String {
+        if self.truncatingRemainder(dividingBy: 1).isZero {
+            return String(Int(self))
         } else {
-            return "\(self)"
+            return String(self)
         }
     }
 }

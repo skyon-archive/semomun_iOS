@@ -248,7 +248,6 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
     func showExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
-                self.explanationId = nil
                 self.closeExplanation()
             } else {
                 self.explanationId = pid
@@ -285,6 +284,7 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
 
 extension MultipleWith5AnswerVC: ExplanationRemover {
     func closeExplanation() {
+        self.explanationId = nil
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 0
             self?.scrollViewBottomConstraint.constant = 0
