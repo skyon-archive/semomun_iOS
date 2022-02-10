@@ -106,7 +106,7 @@ extension UIViewController {
     func showLongTextVC(title: String, text: String, marketingInfo: Bool = false, isPopup: Bool = false) {
         let storyboard = UIStoryboard(name: LongTextVC.storyboardName, bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: LongTextVC.identifier) as? LongTextVC else { return }
-        vc.configureUI(navigationBarTitle: title, text: text, marketingInfo: marketingInfo)
+        vc.configureUI(navigationBarTitle: title, text: text, isPopup: isPopup, marketingInfo: marketingInfo)
         if isPopup {
             let navigationView = UINavigationController(rootViewController: vc)
             self.present(navigationView, animated: true)

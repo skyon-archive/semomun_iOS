@@ -9,7 +9,7 @@ import UIKit
 import AuthenticationServices
 import GoogleSignIn
 
-class LoginSelectVC: UIViewController {
+final class LoginSelectVC: UIViewController {
     
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"

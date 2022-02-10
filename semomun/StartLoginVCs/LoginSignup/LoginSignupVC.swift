@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SwiftUI
 
-class LoginSignupVC: UIViewController {
+final class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     

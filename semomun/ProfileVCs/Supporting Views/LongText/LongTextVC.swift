@@ -11,42 +11,52 @@ final class LongTextVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "LongTextVC"
     
-    private var navigationBarTitle: String?
-    private var text: String?
-    private var isViewForMarketingAccept = false
-    
     private let networkUsecase: MarketingConsentSendable = NetworkUsecase(network: Network())
     
     @IBOutlet weak var textViewBackground: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var labelAboutMarketingAccept: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.configureBackgroundUI()
-        self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.textView.text = self.text
-        self.navigationItem.title = self.navigationBarTitle
-        if self.isViewForMarketingAccept {
-            self.addViewsForMarketingAccept()
-        }
-    }
+    @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
 }
 
 extension LongTextVC {
-    func configureUI(navigationBarTitle: String, text: String, marketingInfo: Bool = false) {
-        self.navigationBarTitle = navigationBarTitle
-        self.text = text
-        self.isViewForMarketingAccept = marketingInfo
+    func configureUI(navigationBarTitle: String, text: String, isPopup: Bool, marketingInfo: Bool = false) {
+        self.loadViewIfNeeded()
+        self.configureBasicUI(navigationBarTitle: navigationBarTitle, text: text)
+        if isPopup {
+            self.configureUIForPopup()
+        } else {
+            self.textViewBackground.addShadow(direction: .top)
+        }
+        if marketingInfo {
+            self.addViewsForMarketingAccept()
+        }
     }
     
-    private func configureBackgroundUI() {
-        self.textViewBackground.layer.cornerRadius = 15
-        self.textViewBackground.addShadow(direction: .top)
+    private func configureBasicUI(navigationBarTitle: String, text: String) {
+        self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
+        self.isModalInPresentation = true
+        self.textView.text = text
+        self.navigationItem.title = navigationBarTitle
+    }
+    
+    private func configureUIForPopup() {
+        self.textViewBackground.isHidden = true
+        self.textViewLeadingConstraint.constant = 0
+        self.textViewTopConstraint.constant = 0
+        // 우측 상단 닫기 버튼 생성
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
+        let closeImage = UIImage(systemName: SemomunImage.xmark, withConfiguration: imageConfig)
+        let closePopupButton = UIBarButtonItem(image: closeImage, style: .done, target: self, action: #selector(closePopup))
+        closePopupButton.tintColor = .black
+        self.navigationItem.rightBarButtonItem = closePopupButton
+    }
+    
+    @objc private func closePopup() {
+        self.dismiss(animated: true)
     }
     
     private func addViewsForMarketingAccept() {
