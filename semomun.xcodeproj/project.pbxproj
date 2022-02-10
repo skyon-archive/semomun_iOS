@@ -111,8 +111,8 @@
 		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
 		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
+		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
-		8786E43727B39E9700335E21 /* ReportProblemErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786E43627B39E9700335E21 /* ReportProblemErrorView.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
@@ -305,8 +305,8 @@
 		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
+		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
-		8786E43627B39E9700335E21 /* ReportProblemErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorView.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -648,6 +648,7 @@
 				878766CA27AED255003B975E /* View */,
 				8716E955279A623500B33A5E /* StudyVC.swift */,
 				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
+				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
 				8716E95B279A625B00B33A5E /* ConceptVC.swift */,
 				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
 				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
@@ -814,7 +815,6 @@
 				87AD6CED2774196C00996937 /* ProblemTextResultView.swift */,
 				878766CC27AED2E7003B975E /* ExplanationView.swift */,
 				877CCB0127B0C26B006F82C9 /* AnswerView.swift */,
-				8786E43627B39E9700335E21 /* ReportProblemErrorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1371,13 +1371,14 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
+				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
+				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				875862A327B274D50035FF22 /* Double.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
-				8786E43727B39E9700335E21 /* ReportProblemErrorView.swift in Sources */,
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
 				2502CEC827A593750072A037 /* SemopayVM.swift in Sources */,
 				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
