@@ -43,11 +43,8 @@ extension LoginedSettingTableVC {
     }
     
     private func showLogoutedAlert() {
-        self.showAlertWithOK(title: "로그아웃 되었습니다", text: "") { [weak self] in
-            let startVC = UIStoryboard(name: StartVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartVC.identifier)
-            let navigationController = UINavigationController(rootViewController: startVC)
-            navigationController.modalPresentationStyle = .fullScreen
-            self?.present(navigationController, animated: true)
+        self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "") {
+            NotificationCenter.default.post(name: .logout, object: nil)
         }
     }
 }
