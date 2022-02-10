@@ -770,6 +770,17 @@
                                                             <constraint firstItem="tYT-My-FxV" firstAttribute="leading" secondItem="67U-D7-oil" secondAttribute="leading" constant="10" id="Z80-Ve-qYo"/>
                                                             <constraint firstAttribute="height" constant="50" id="hDc-bE-uQK"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="mainColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" name="defaultBackground"/>
@@ -839,6 +850,17 @@
                                                                     <constraint firstAttribute="trailing" secondItem="hQ2-CL-svV" secondAttribute="trailing" constant="10" id="b5P-6V-sfm"/>
                                                                     <constraint firstItem="hQ2-CL-svV" firstAttribute="centerY" secondItem="Rw5-HS-gjb" secondAttribute="centerY" id="rMT-n7-4Yw"/>
                                                                 </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" name="mainColor"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1.5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" name="defaultBackground"/>
@@ -936,6 +958,17 @@
                                                             <constraint firstItem="QBB-kI-ngg" firstAttribute="centerY" secondItem="YyW-m0-yYo" secondAttribute="centerY" id="rEs-pK-LO1"/>
                                                             <constraint firstAttribute="height" constant="50" id="uUZ-eO-Xcn"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="mainColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
