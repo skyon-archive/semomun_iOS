@@ -113,17 +113,9 @@ extension LoginSignupVC {
     private func configureUI() {
         self.navigationItem.title = "회원가입"
         self.navigationItem.titleView?.backgroundColor = .white
-        self.configureRoundedMintBorder(of: nicknameFrame)
-        self.configureRoundedMintBorder(of: phonenumFrame)
-        self.configureRoundedMintBorder(of: authNumFrame)
         self.configureButtonMenus()
         self.bodyFrame.layer.cornerRadius = 15
         self.bodyFrame.addShadow(direction: .top)
-    }
-    private func configureRoundedMintBorder(of view: UIView) {
-        view.layer.borderWidth = 1.5
-        view.layer.borderColor = UIColor(.mainColor)?.cgColor
-        view.layer.cornerRadius = 5
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
         let mainColor = UIColor(.mainColor)
