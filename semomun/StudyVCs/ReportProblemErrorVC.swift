@@ -1,18 +1,17 @@
 //
-//  ReportProblemErrorView.swift
+//  ReportProblemErrorVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/02/09.
+//  Created by Kang Minsang on 2022/02/10.
 //
 
 import UIKit
 
 protocol ReportRemover: AnyObject {
-    func closeReportView()
     func reportError(pid: Int, text: String)
 }
 
-final class ReportProblemErrorView: UIView {
+final class ReportProblemErrorVC: UIViewController {
     private weak var delegate: ReportRemover?
     private var pageData: PageData
     private var buttons: [UIButton]
@@ -22,6 +21,13 @@ final class ReportProblemErrorView: UIView {
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
         return UIImage(systemName: SemomunImage.xmark, withConfiguration: largeConfig)
+    }()
+    private lazy var frameView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        return view
     }()
     private lazy var centerTitleLabel: UILabel = {
         let label = UILabel()
@@ -38,7 +44,7 @@ final class ReportProblemErrorView: UIView {
         button.setImage(self.xmarkImage, for: .normal)
         button.tintColor = .black
         button.addAction(UIAction(handler: { [weak self] _ in
-            self?.delegate?.closeReportView()
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
         }), for: .touchUpInside)
         return button
     }()
@@ -133,39 +139,48 @@ final class ReportProblemErrorView: UIView {
         self.pageData = pageData
         self.buttons = []
         self.checkboxes = []
-        super.init(frame: CGRect())
+        super.init(nibName: nil, bundle: nil)
         
         self.configureTitle(to: title)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.configureStackView()
         self.configureLayout()
     }
     
     private func configureLayout() {
-        self.addSubviews(self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView)
-        self.backgroundColor = .white
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 10
+        self.view.addSubviews(self.frameView, self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView)
+        self.view.backgroundColor = .clear
         
         NSLayoutConstraint.activate([
-            self.centerTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.centerTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 50)
+            self.frameView.widthAnchor.constraint(equalToConstant: 572),
+            self.frameView.heightAnchor.constraint(equalToConstant: 600),
+            self.frameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.frameView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.centerTitleLabel.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
+            self.centerTitleLabel.topAnchor.constraint(equalTo: self.frameView.topAnchor, constant: 50)
         ])
         
         NSLayoutConstraint.activate([
             self.closeButton.widthAnchor.constraint(equalToConstant: 50),
             self.closeButton.heightAnchor.constraint(equalToConstant: 50),
-            self.closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
+            self.closeButton.topAnchor.constraint(equalTo: self.frameView.topAnchor, constant: 10),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.frameView.trailingAnchor, constant: -15)
         ])
         
         NSLayoutConstraint.activate([
-            self.titleFrameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.titleFrameView.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
             self.titleFrameView.topAnchor.constraint(equalTo: self.centerTitleLabel.bottomAnchor, constant: 40)
         ])
         
         NSLayoutConstraint.activate([
             self.problemsFrameView.heightAnchor.constraint(equalToConstant: 38),
-            self.problemsFrameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.problemsFrameView.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
             self.problemsFrameView.topAnchor.constraint(equalTo: self.titleFrameView.bottomAnchor, constant: 24)
         ])
     }
@@ -218,4 +233,3 @@ final class ReportProblemErrorView: UIView {
         }
     }
 }
-
