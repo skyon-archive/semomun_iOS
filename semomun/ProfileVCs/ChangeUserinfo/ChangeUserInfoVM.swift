@@ -100,8 +100,15 @@ final class ChangeUserInfoVM {
             self.alertStatus = .withoutPopVC(.coreDataFetchError)
             return
         }
-        self.saveUserInfoToDB(userInfo: userInfo)
-        self.sendUserInfoToNetwork(userInfo: userInfo)
+        self.sendUserInfoToNetwork(userInfo: userInfo) { [weak self] isSuccess in
+            if isSuccess {
+                self?.saveUserInfoToDB(userInfo: userInfo)
+                self?.updateVersionIfDataUpdateSucceed()
+                self?.alertStatus = .withPopVC(.saveSuccess)
+            } else {
+                self?.alertStatus = .withoutPopVC(.networkError)
+            }
+        }
     }
     
     func requestPhoneAuth(withPhoneNumber phoneNum: String) {
@@ -190,7 +197,8 @@ extension ChangeUserInfoVM {
             self.alertStatus = .withoutPopVC(.incomplateData)
             return false
         }
-        guard let selectedMajor = self.selectedMajor, let selectedMajorDetail = self.selectedMajorDetail else { return false }
+        guard let selectedMajor = self.selectedMajor,
+                let selectedMajorDetail = self.selectedMajorDetail else { return false }
         guard self.majorWithDetail[selectedMajor]?.contains(selectedMajorDetail) == true else {
             self.alertStatus = .withoutPopVC(.majorDetailNotSelected)
             return false
@@ -210,15 +218,21 @@ extension ChangeUserInfoVM {
         CoreDataManager.saveCoreData()
     }
     
-    private func sendUserInfoToNetwork(userInfo: UserCoreData) {
+    private func sendUserInfoToNetwork(userInfo: UserCoreData, completion: @escaping (Bool) -> Void) {
         guard self.checkIfSubmitAvailable() else { return }
-        self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
+        self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { status in
             switch status {
             case .SUCCESS:
-                self?.alertStatus = .withPopVC(.saveSuccess)
+                completion(true)
             default:
-                self?.alertStatus = .withoutPopVC(.networkError)
+                completion(false)
             }
         }
+    }
+    
+    private func updateVersionIfDataUpdateSucceed() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
+        UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.userVersion)
+        print("userVersion 업데이트 완료")
     }
 }

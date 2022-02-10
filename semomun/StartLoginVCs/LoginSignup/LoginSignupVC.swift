@@ -49,7 +49,6 @@ final class LoginSignupVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        UserDefaultsManager.set(to: "2.0", forKey: UserDefaultsManager.Keys.userVersion)
     }
     
     @IBAction func checkNickname(_ sender: Any) {
