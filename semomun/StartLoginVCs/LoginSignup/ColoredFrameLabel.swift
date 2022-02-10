@@ -8,38 +8,20 @@
 import UIKit
 
 final class ColoredFrameLabel: UIView {
-    private static let tag = 100
+
+    private let imageView = UIImageView()
+    private let textLabel = UILabel()
     
     enum Content {
         case success(String), warning(String)
     }
     
-    init(withMessage message: String, type: Content) {
+    init() {
         super.init(frame: CGRect())
-        self.tag = Self.tag
-        
-        let imageSystemName: String
-        let tintColor: UIColor
-        if case .success = type {
-            imageSystemName = SemomunImage.circleCheckmark
-            tintColor = UIColor(.greenColor) ?? .green
-        } else {
-            imageSystemName = SemomunImage.exclamationmarkTriangle
-            tintColor = UIColor(.redColor) ?? .red
-        }
-        
-        let image = UIImage(systemName: imageSystemName)
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = tintColor
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let textLabel = UILabel()
         textLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        textLabel.text = message
-        textLabel.textColor = tintColor
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubviews(imageView, textLabel)
-        
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 17),
             imageView.heightAnchor.constraint(equalToConstant: 17),
@@ -54,19 +36,29 @@ final class ColoredFrameLabel: UIView {
         return nil
     }
     
-    func attach(to frame: UIView) {
-        if let frameLabel = frame.viewWithTag(Self.tag) {
-            frameLabel.removeFromSuperview()
+    func configure(type: Content) {
+        self.isHidden = false
+        
+        let imageSystemName: String
+        let message: String
+        let tintColor: UIColor
+        
+        switch type {
+        case .success(let string):
+            imageSystemName = SemomunImage.circleCheckmark
+            tintColor = UIColor(.greenColor) ?? .green
+            message = string
+        case .warning(let string):
+            imageSystemName = SemomunImage.exclamationmarkTriangle
+            tintColor = UIColor(.redColor) ?? .red
+            message = string
         }
-        self.translatesAutoresizingMaskIntoConstraints = false
-        frame.addSubview(self)
-        NSLayoutConstraint.activate([
-            self.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
-            self.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 10) // 왜 상수가 필요한가...
-        ])
-    }
-    
-    static func remove(from frame: UIView) {
-        frame.viewWithTag(Self.tag)?.removeFromSuperview()
+        
+        let image = UIImage(systemName: imageSystemName)
+        self.imageView.image = image
+        imageView.tintColor = tintColor
+        
+        textLabel.text = message
+        textLabel.textColor = tintColor
     }
 }
