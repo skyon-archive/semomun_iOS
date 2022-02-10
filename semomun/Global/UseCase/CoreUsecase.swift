@@ -328,6 +328,9 @@ struct CoreUsecase {
         let userCore = UserCoreData(context: context)
         userCore.setValues(userInfo: userInfo)
         CoreDataManager.saveCoreData()
+        
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
+        UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.userVersion)
     }
 }
 
