@@ -20,7 +20,7 @@ class LoginServicePopupVC: UIViewController {
     private lazy var isChecked = [Bool](repeating: false, count: checkButtons.count)
     private var action: (() -> ())?
     
-    private let networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
+    private var networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class LoginServicePopupVC: UIViewController {
     @IBAction func continueRegister(_ sender: Any) {
         let canSubmit = isChecked[0] && isChecked[1]
         if canSubmit {
-            let marketingAgreed = isChecked[1]
+            let marketingAgreed = isChecked[2]
             self.networkUsecase?.postMarketingConsent(isConsent: marketingAgreed) { status in
                 switch status {
                 case .SUCCESS:
