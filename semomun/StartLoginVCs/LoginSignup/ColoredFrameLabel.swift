@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColoredFrameLabel: UIView {
+final class ColoredFrameLabel: UIView {
     private static let tag = 100
     
     enum Content {
