@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginStartVC: UIViewController {
+final class LoginStartVC: UIViewController {
     static let identifier = "LoginStartVC"
     static let storyboardName = "StartLogin"
     
