@@ -56,6 +56,7 @@ final class StudyVC: UIViewController {
     private lazy var singleWithNoAnswer: SingleWithNoAnswerVC = {
         return UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC ?? SingleWithNoAnswerVC()
     }()
+    private var reportView: ReportProblemErrorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +99,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func reportError(_ sender: Any) {
-        
+        self.showReportView()
     }
 }
 
@@ -189,6 +190,21 @@ extension StudyVC {
     
     private func getImages(problems: [Problem_Core]) -> [UIImage] {
         return problems.map { getImage(data: $0.contentImage) }
+    }
+    
+    private func showReportView() {
+        guard let pageData = self.manager?.currentPage else { return }
+        guard let title = self.sectionCore?.title else { return }
+        let reportView = ReportProblemErrorView(delegate: self, pageData: pageData, title: title)
+        reportView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(reportView)
+        NSLayoutConstraint.activate([
+            reportView.widthAnchor.constraint(equalToConstant: 572),
+            reportView.heightAnchor.constraint(equalToConstant: 600),
+            reportView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            reportView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+        self.reportView = reportView
     }
 }
 
@@ -322,5 +338,15 @@ extension StudyVC: PageDelegate {
     
     func beforePage() {
         self.manager?.changeBeforePage()
+    }
+}
+
+extension StudyVC: ReportRemover {
+    func closeReportView() {
+        self.reportView?.removeFromSuperview()
+    }
+    
+    func reportError(pid: Int, text: String) {
+        print(pid, text)
     }
 }
