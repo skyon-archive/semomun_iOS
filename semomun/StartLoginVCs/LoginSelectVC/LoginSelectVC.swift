@@ -185,10 +185,19 @@ extension LoginSelectVC {
     private func processLogin(isExistingUser: Bool) {
         switch (self.signupInfoConfigured, isExistingUser) {
         case (true, true): // 이미 가입한 계정으로 회원가입을 또 시도하는 상태
-            self.showAlertWithOK(title: "이미 존재하는 계정입니다", text: "다른 계정으로 시도해주시기 바랍니다.")
+            let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
+            let alertActions = [
+                UIAlertAction(title: "취소", style: .cancel),
+                UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
+                    guard let signupInfo = self?.signupInfo else { return }
+                    self?.registerUser(with: signupInfo)
+                }
+            ]
+            alertActions.forEach { alertController.addAction($0) }
+            self.present(alertController, animated: true)
         case (true, false): // 회원가입을 정상적으로 진행하는 상태
             guard let signupInfo = self.signupInfo else { return } // signupInfoWritten의 정의에 따라 항상 unwrapping 가능
-            self.registerNewUser(with: signupInfo)
+            self.registerUser(with: signupInfo)
         case (false, true): // 로그인을 정상적으로 진행하는 상태
             self.fetchUserInfoAndDismiss()
         case (false, false): // 회원가입 정보가 없는데 로그인을 시도하는 상태
@@ -198,7 +207,7 @@ extension LoginSelectVC {
         }
     }
     
-    private func registerNewUser(with userInfo: UserInfo) {
+    private func registerUser(with userInfo: UserInfo) {
         self.networkUseCase?.postUserSignup(userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
