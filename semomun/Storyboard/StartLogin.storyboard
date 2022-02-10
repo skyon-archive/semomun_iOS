@@ -1197,6 +1197,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="submit:" destination="trf-IE-zPd" eventType="touchUpInside" id="IgQ-Jv-GZs"/>
+                                            <action selector="submitBypass:" destination="trf-IE-zPd" eventType="touchUpOutside" id="ilL-fp-e83"/>
                                         </connections>
                                     </button>
                                 </subviews>

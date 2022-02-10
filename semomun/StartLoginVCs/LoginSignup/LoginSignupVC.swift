@@ -95,6 +95,17 @@ class LoginSignupVC: UIViewController {
             self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
         }
     }
+    
+    @IBAction func submitBypass(_ sender: Any) {
+        #if DEBUG
+        let userInfo = self.viewModel.makeUserInfo()
+        guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
+        vc.configurePopup(isNeeded: true)
+        vc.configureSignupInfo(userInfo)
+        self.navigationController?.pushViewController(vc, animated: true)
+        #endif
+    }
+    
 }
 
 // MARK: Configure UI
