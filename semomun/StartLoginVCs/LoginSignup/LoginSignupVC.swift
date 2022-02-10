@@ -16,6 +16,7 @@ final class LoginSignupVC: UIViewController {
     private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
+    private var coloredFrameLabels: [ColoredFrameLabel] = []
     
     @IBOutlet weak var bodyFrame: UIView!
     
@@ -53,16 +54,15 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func checkNickname(_ sender: Any) {
         guard let nickname = self.nickname.text, nickname != "" else {
-            self.addColoredFrame(to: nicknameFrame, type: .warning("닉네임을 입력해주세요."))
+            self.coloredFrameLabels[0].configure(type: .warning("닉네임을 입력해주세요."))
             return
         }
         self.viewModel.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
-            guard let nicknameFrame = self?.nicknameFrame else { return }
             if isSuccess {
                 self?.nickname.resignFirstResponder()
-                self?.addColoredFrame(to: nicknameFrame, type: .success("사용가능한 닉네임입니다."))
+                self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
             } else {
-                self?.addColoredFrame(to: nicknameFrame, type: .warning("사용할 수 없는 닉네임입니다."))
+                self?.coloredFrameLabels[0].configure(type: .success("사용할 수 없는 닉네임입니다."))
             }
         }
     }
@@ -74,7 +74,7 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func confirmAuth(_ sender: UIButton) {
         guard let authStr = self.authNumTextField.text, let authNum = Int(authStr) else {
-            self.addColoredFrame(to: self.authNumFrame, type: .warning("인증번호를 입력해주세요."))
+            self.coloredFrameLabels[2].configure(type: .warning("인증번호를 입력해주세요."))
             return
         }
         self.viewModel.confirmAuthNumber(with: authNum)
@@ -116,6 +116,25 @@ extension LoginSignupVC {
         self.configureButtonMenus()
         self.bodyFrame.layer.cornerRadius = 15
         self.bodyFrame.addShadow(direction: .top)
+        self.configureColoredFrameLabels()
+    }
+    private func configureColoredFrameLabels() {
+        self.coloredFrameLabels = (0..<3).map { _ in
+            let label = ColoredFrameLabel()
+            label.isHidden = true
+            return label
+        }
+        self.addFrameLabel(self.coloredFrameLabels[0], to: self.nicknameFrame)
+        self.addFrameLabel(self.coloredFrameLabels[1], to: self.phonenumFrame)
+        self.addFrameLabel(self.coloredFrameLabels[2], to: self.authNumFrame)
+    }
+    private func addFrameLabel(_ label: ColoredFrameLabel, to frame: UIView) {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        frame.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
+            label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 10) // 왜 상수가 필요한가...
+        ])
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
         let mainColor = UIColor(.mainColor)
@@ -126,26 +145,6 @@ extension LoginSignupVC {
             button.setTitleColor(mainColor, for: .normal)
             button.backgroundColor = .white
         }
-    }
-}
-
-// MARK: 성공/실패 메시지 관련 UI configure
-extension LoginSignupVC {
-    private func addColoredFrame(to frame: UIView, type: ColoredFrameLabel.Content) {
-        switch type {
-        case .success(let message):
-            frame.borderColor = UIColor(.mainColor)
-            let successView = ColoredFrameLabel(withMessage: message, type: type)
-            successView.attach(to: frame)
-        case .warning(let message):
-            frame.borderColor = UIColor(.redColor)
-            let warningView = ColoredFrameLabel(withMessage: message, type: type)
-            warningView.attach(to: frame)
-        }
-    }
-    private func removeColoredFrame(from frame: UIView) {
-        frame.borderColor = UIColor(.mainColor)
-        ColoredFrameLabel.remove(from: frame)
     }
 }
 
@@ -245,13 +244,9 @@ extension LoginSignupVC {
                 case .authNumSent:
                     self?.configureUIForAuthSent()
                 case .wrongAuthNumber:
-                    if let additionalPhoneNumFrame = self?.authNumFrame {
-                        self?.addColoredFrame(to: additionalPhoneNumFrame, type: .warning("잘못된 인증 번호입니다."))
-                    }
+                    self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
                 case .invaildPhoneNum:
-                    if let phoneNumFrame = self?.phonenumFrame {
-                        self?.addColoredFrame(to: phoneNumFrame, type: .warning("올바른 전화번호를 입력해주세요."))
-                    }
+                    self?.coloredFrameLabels[1].configure(type: .warning("올바른 전화번호를 입력해주세요."))
                 case .none:
                     break
                 }
@@ -262,7 +257,7 @@ extension LoginSignupVC {
 
 extension LoginSignupVC {
     private func configureUIForAuthSent() {
-        self.removeColoredFrame(from: self.phonenumFrame)
+        self.coloredFrameLabels[1].isHidden = true
         self.showAlertWithOK(title: "인증번호가 전송되었습니다.", text: "")
         
         self.phonenumTextField.isEnabled = false
@@ -279,7 +274,7 @@ extension LoginSignupVC {
         self.authNumTextField.isEnabled = false
         self.verifyAuthNumButton.isEnabled = false
         
-        self.addColoredFrame(to: self.authNumFrame, type: .success("인증이 완료되었습니다."))
+        self.coloredFrameLabels[2].configure(type: .success("인증이 완료되었습니다."))
     }
 }
 
