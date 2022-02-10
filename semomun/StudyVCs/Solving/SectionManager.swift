@@ -24,10 +24,10 @@ final class SectionManager {
     private weak var delegate: LayoutDelegate?
     private(set) var section: Section_Core
     private(set) var currentIndex: Int = 0
+    private(set) var currentPage: PageData?
     private var buttons: [String] = []
     private var dictionanry: [String: Int] = [:]
     private var currentTime: Int64 = 0
-    private var currentPage: PageData?
     private var timer: Timer!
     private var isRunning: Bool = true
     

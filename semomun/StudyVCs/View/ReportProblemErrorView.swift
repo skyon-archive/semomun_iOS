@@ -77,25 +77,6 @@ final class ReportProblemErrorView: UIView {
         label.contentMode = .left
         return label
     }()
-    private lazy var titleFrameView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubviews(self.leftTitle1, self.titleLabel)
-        NSLayoutConstraint.activate([
-            self.leftTitle1.widthAnchor.constraint(equalToConstant: 63),
-            self.leftTitle1.heightAnchor.constraint(equalToConstant: 23),
-            self.leftTitle1.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.leftTitle1.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            self.titleLabel.widthAnchor.constraint(equalToConstant: 320),
-            self.titleLabel.heightAnchor.constraint(equalToConstant: 23),
-            self.titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leftTitle1.trailingAnchor, constant: 12),
-            self.titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        return view
-    }()
     private lazy var problemsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .fill
@@ -103,22 +84,94 @@ final class ReportProblemErrorView: UIView {
         stackView.spacing = 17
         return stackView
     }()
+    private lazy var titleFrameView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubviews(self.leftTitle1, self.titleLabel)
+        NSLayoutConstraint.activate([
+            self.leftTitle1.widthAnchor.constraint(equalToConstant: 63),
+            self.leftTitle1.heightAnchor.constraint(equalToConstant: 23),
+            self.leftTitle1.topAnchor.constraint(equalTo: view.topAnchor),
+            self.leftTitle1.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            self.titleLabel.widthAnchor.constraint(equalToConstant: 320),
+            self.titleLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            self.titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leftTitle1.trailingAnchor, constant: 12),
+            self.titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        return view
+    }()
+    private lazy var problemsFrameView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubviews(self.leftTitle2, self.problemsStackView)
+        NSLayoutConstraint.activate([
+            self.leftTitle2.widthAnchor.constraint(equalToConstant: 63),
+            self.leftTitle2.heightAnchor.constraint(equalToConstant: 23),
+            self.leftTitle2.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.leftTitle2.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            self.problemsStackView.heightAnchor.constraint(equalToConstant: 38),
+            self.problemsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.problemsStackView.leadingAnchor.constraint(equalTo: self.leftTitle2.trailingAnchor, constant: 12)
+        ])
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 63+12+320)
+        ])
+        return view
+    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(pageData: PageData) {
+    init(delegate: ReportRemover, pageData: PageData, title: String) {
+        self.delegate = delegate
         self.pageData = pageData
         self.buttons = []
         self.checkboxes = []
         super.init(frame: CGRect())
+        
+        self.configureTitle(to: title)
         self.configureStackView()
         self.configureLayout()
     }
     
     private func configureLayout() {
-        self.addSubviews(self.centerTitleLabel, self.closeButton)
+        self.addSubviews(self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView)
+        self.backgroundColor = .white
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 10
+        
+        NSLayoutConstraint.activate([
+            self.centerTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.centerTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.closeButton.widthAnchor.constraint(equalToConstant: 50),
+            self.closeButton.heightAnchor.constraint(equalToConstant: 50),
+            self.closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.titleFrameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.titleFrameView.topAnchor.constraint(equalTo: self.centerTitleLabel.bottomAnchor, constant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.problemsFrameView.heightAnchor.constraint(equalToConstant: 38),
+            self.problemsFrameView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.problemsFrameView.topAnchor.constraint(equalTo: self.titleFrameView.bottomAnchor, constant: 24)
+        ])
+    }
+    
+    private func configureTitle(to title: String) {
+        self.titleLabel.text = title
     }
     
     private func configureStackView() {
