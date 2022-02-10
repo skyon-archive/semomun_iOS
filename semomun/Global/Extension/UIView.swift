@@ -16,7 +16,6 @@ extension UIView {
     {
         set (radius) {
             self.layer.cornerRadius = radius
-            self.layer.masksToBounds = radius > 0
         }
 
         get {

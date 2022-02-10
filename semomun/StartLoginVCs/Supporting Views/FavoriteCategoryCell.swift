@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteCategoryCell: UICollectionViewCell {
+final class FavoriteCategoryCell: UICollectionViewCell {
     static let identifier = "FavoriteCategoryCell"
     @IBOutlet weak var title: UILabel!
     
