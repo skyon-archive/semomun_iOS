@@ -23,7 +23,7 @@
                                 <rect key="frame" x="-5" y="-5" width="844" height="106"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021년 7월 화법과 작문" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWD-M2-vDE">
-                                        <rect key="frame" x="147" y="45" width="550" height="22"/>
+                                        <rect key="frame" x="320" y="45" width="204.5" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="CYa-5k-7Ko"/>
                                         </constraints>
@@ -88,6 +88,18 @@
                                             <action selector="back:" destination="PAM-8C-mmn" eventType="touchUpInside" id="3EQ-8c-4CS"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeC-X8-abm">
+                                        <rect key="frame" x="534.5" y="45" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="AXY-RJ-aen"/>
+                                            <constraint firstAttribute="width" secondItem="UeC-X8-abm" secondAttribute="height" multiplier="1:1" id="TEH-LK-BAZ"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="report"/>
+                                        <connections>
+                                            <action selector="reportError:" destination="PAM-8C-mmn" eventType="touchUpInside" id="Zt4-YV-gqm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="gray_light"/>
                                 <constraints>
@@ -96,10 +108,12 @@
                                     <constraint firstAttribute="bottom" secondItem="ccW-Cv-1sE" secondAttribute="bottom" constant="10" id="GZF-SL-YOa"/>
                                     <constraint firstItem="Lu8-2Q-Z3p" firstAttribute="centerY" secondItem="uWD-M2-vDE" secondAttribute="centerY" id="NVQ-Eg-u27"/>
                                     <constraint firstItem="uWD-M2-vDE" firstAttribute="centerX" secondItem="Lfx-R9-ZZe" secondAttribute="centerX" id="RBt-J1-Jfe"/>
-                                    <constraint firstItem="uWD-M2-vDE" firstAttribute="leading" secondItem="1aT-4m-aFH" secondAttribute="trailing" constant="10" id="ZB7-ZM-ICi"/>
+                                    <constraint firstItem="UeC-X8-abm" firstAttribute="centerY" secondItem="uWD-M2-vDE" secondAttribute="centerY" id="lGN-FH-eIK"/>
                                     <constraint firstItem="ccW-Cv-1sE" firstAttribute="centerX" secondItem="uWD-M2-vDE" secondAttribute="centerX" id="rTX-4K-SRc"/>
+                                    <constraint firstItem="uWD-M2-vDE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1aT-4m-aFH" secondAttribute="trailing" constant="42" id="svk-pK-cE9"/>
                                     <constraint firstItem="1aT-4m-aFH" firstAttribute="leading" secondItem="Lfx-R9-ZZe" secondAttribute="leading" constant="45" id="ugd-Xo-NTm"/>
                                     <constraint firstItem="ccW-Cv-1sE" firstAttribute="top" secondItem="uWD-M2-vDE" secondAttribute="bottom" constant="13" id="xFb-36-B2U"/>
+                                    <constraint firstItem="UeC-X8-abm" firstAttribute="leading" secondItem="uWD-M2-vDE" secondAttribute="trailing" constant="10" id="zHK-Qx-K6u"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xai-eR-Gl1" userLabel="Bottom Frame">
@@ -2001,6 +2015,7 @@
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="report" width="48" height="48"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="darkMainColor">
             <color red="0.23921568627450981" green="0.4392156862745098" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
