@@ -68,8 +68,13 @@ extension LoginServicePopupVC {
     private func configureNormalButtons() {
         self.checkButtons[0..<3].forEach { button in
             let action = UIAction { [weak self] _ in
-                self?.isChecked[button.tag].toggle()
-                self?.configureButtonUI(button)
+                guard let self = self else { return }
+                self.isChecked[button.tag].toggle()
+                self.configureButtonUI(button)
+                let agreeAllButtonStatus = self.isChecked[0..<3].allSatisfy({$0})
+                self.isChecked[3] = agreeAllButtonStatus
+                let agreeAllButton = self.checkButtons[3]
+                self.configureButtonUI(agreeAllButton)
             }
             button.addAction(action, for: .touchUpInside)
         }
