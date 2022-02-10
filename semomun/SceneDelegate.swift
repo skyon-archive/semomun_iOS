@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -32,14 +32,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NotificationCenter.default.addObserver(forName: .goToMain, object: nil, queue: .main) { [weak self] _ in
             self?.changeRootViewController()
         }
+        NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .main) { [weak self] _ in
+            self?.showStartVC()
+        }
 
         self.window?.makeKeyAndVisible()
     }
     
-    func changeRootViewController() {
+    private func changeRootViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
+        navigationController.navigationBar.tintColor = UIColor(.mainColor)
+        navigationController.isNavigationBarHidden = true
+        
+        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
+        navigationController.view.addSubview(snapshot)
+        
+        self.window?.rootViewController = navigationController
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview()
+        })
+    }
+    
+    private func showStartVC() {
+        let storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
+        let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
+        let navigationController = UINavigationController(rootViewController: startViewController)
         navigationController.navigationBar.tintColor = UIColor(.mainColor)
         navigationController.isNavigationBarHidden = true
         
