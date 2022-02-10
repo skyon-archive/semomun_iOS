@@ -25,4 +25,5 @@ enum SemomunColor: String {
     case redWrongColor = "redWrongColor"
     case darkMainColor = "darkMainColor"
     case lightMainColor = "lightMainColor"
+    case textColor = "textColor"
 }
