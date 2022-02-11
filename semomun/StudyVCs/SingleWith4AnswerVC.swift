@@ -349,7 +349,7 @@ extension SingleWith4AnswerVC {
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
             self.imageView.image = mainImage
         } else {
-            let worningImage = UIImage(.warning)!
+            let worningImage = UIImage(.warning)
             self.imageView.image = worningImage
             self.height = worningImage.size.height*(width/worningImage.size.width)
         }

@@ -181,7 +181,7 @@ extension MultipleWithNoAnswerVC {
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
             imageView.image = mainImage
         } else {
-            let worningImage = UIImage(.warning)!
+            let worningImage = UIImage(.warning)
             imageView.image = worningImage
             height = worningImage.size.height*(width/worningImage.size.width)
         }
@@ -222,7 +222,7 @@ extension MultipleWithNoAnswerVC: UICollectionViewDelegateFlowLayout{
         guard var contentImage = subImages?[indexPath.row] else {
             return CGSize(width: width, height: 300) }
         if contentImage.size.width == 0 || contentImage.size.height == 0 {
-            contentImage = UIImage(.warning)!
+            contentImage = UIImage(.warning)
         }
         let imgHeight: CGFloat = contentImage.size.height * (collectionView.frame.width/contentImage.size.width)
         

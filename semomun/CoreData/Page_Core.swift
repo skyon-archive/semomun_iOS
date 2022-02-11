@@ -79,14 +79,14 @@ public class Page_Core: NSManagedObject {
                     print("Page: \(pageResult.vid) save Material")
                     completion()
                 } else {
-                    guard let warningImage = UIImage(.warning) else { return }
+                    let warningImage = UIImage(.warning)
                     self.setValue(warningImage.pngData(), forKey: "materialImage")
                     print("Page: \(pageResult.vid) save Material")
                     completion()
                 }
             }
         } else {
-            guard let warningImage = UIImage(.warning) else { return }
+            let warningImage = UIImage(.warning) 
             self.setValue(warningImage.pngData(), forKey: "materialImage")
             print("Page: \(pageResult.vid) save Material")
             completion()

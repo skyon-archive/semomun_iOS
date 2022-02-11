@@ -12,7 +12,7 @@ enum SemomunImage: ImageName {
     case warning = "/warning"
     case empty = "/empty"
     case dummy_bookcover = "/dummy_bookcover"
-    case loadingBookcover = "/text.book.closed"
+    case loadingBookcover = "text.book.closed"
     case dummy_ad = "/dummy_ad"
     case clock = "/clock"
     case xmark = "xmark"

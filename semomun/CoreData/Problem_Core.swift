@@ -95,14 +95,14 @@ public class Problem_Core: NSManagedObject {
                     print("Problem: \(problemResult.pid) save contentImage")
                     completion()
                 } else {
-                    guard let warningImage = UIImage(.warning) else { return }
+                    let warningImage = UIImage(.warning)
                     self.setValue(warningImage.pngData(), forKey: "contentImage")
                     print("Problem: \(problemResult.pid) save contentImage fail")
                     completion()
                 }
             }
         } else {
-            guard let warningImage = UIImage(.warning) else { return }
+            let warningImage = UIImage(.warning) 
             self.setValue(warningImage.pngData(), forKey: "contentImage")
             print("Problem: \(problemResult.pid) save contentImage fail")
             completion()
@@ -117,7 +117,7 @@ public class Problem_Core: NSManagedObject {
                     print("Problem: \(problemResult.pid) save explanationImage")
                     completion()
                 } else {
-                    guard let warningImage = UIImage(.warning) else { return }
+                    let warningImage = UIImage(.warning)
                     self.setValue(warningImage.pngData(), forKey: "explanationImage")
                     print("Problem: \(problemResult.pid) save explanationImage")
                     completion()
