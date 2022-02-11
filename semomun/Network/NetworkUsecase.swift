@@ -563,3 +563,10 @@ extension NetworkUsecase: MarketingConsentSendable {
         completion(.SUCCESS)
     }
 }
+
+extension NetworkUsecase: ErrorReportable {
+    func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void) {
+        print(pid, text)
+        completion(.SUCCESS)
+    }
+}

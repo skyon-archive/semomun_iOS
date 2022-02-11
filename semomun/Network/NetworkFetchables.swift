@@ -77,3 +77,6 @@ protocol UserNoticeFetchable {
 protocol MarketingConsentSendable {
     func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void) 
 }
+protocol ErrorReportable {
+    func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
+}

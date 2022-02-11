@@ -194,7 +194,7 @@ extension StudyVC {
     private func showReportView() {
         guard let pageData = self.manager?.currentPage else { return }
         guard let title = self.sectionCore?.title else { return }
-        let reportVC = ReportProblemErrorVC(delegate: self, pageData: pageData, title: title)
+        let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
         
         self.present(reportVC, animated: true, completion: nil)
     }
@@ -330,11 +330,5 @@ extension StudyVC: PageDelegate {
     
     func beforePage() {
         self.manager?.changeBeforePage()
-    }
-}
-
-extension StudyVC: ReportRemover {
-    func reportError(pid: Int, text: String) {
-        print(pid, text)
     }
 }
