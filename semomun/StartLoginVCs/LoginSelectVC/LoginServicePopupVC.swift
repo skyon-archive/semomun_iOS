@@ -94,7 +94,8 @@ extension LoginServicePopupVC {
     }
     
     private func configureButtonUI(_ button: UIButton) {
-        guard let check = UIImage(.circleCheckmark), let checkFilled = UIImage(.circleCheckmarkFilled) else { return }
+        let check = UIImage(.circleCheckmark)
+        let checkFilled = UIImage(.circleCheckmarkFilled) 
         if self.isChecked[button.tag] {
             button.setImage(checkFilled, for: .normal)
             button.tintColor = UIColor(.mainColor)

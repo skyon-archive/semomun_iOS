@@ -8,12 +8,12 @@
 import UIKit
 
 extension UIImage {
-    convenience init?(_ semomunImage: SemomunImage, withConfiguration configuration: UIImage.SymbolConfiguration? = nil) {
+    convenience init(_ semomunImage: SemomunImage, withConfiguration configuration: UIImage.SymbolConfiguration? = nil) {
         let imageName = semomunImage.rawValue
         if imageName.isSFSymbol {
-            self.init(systemName: imageName.name, withConfiguration: configuration)
+            self.init(systemName: imageName.name, withConfiguration: configuration)!
         } else {
-            self.init(named: imageName.name)
+            self.init(named: imageName.name)!
         }
     }
 }

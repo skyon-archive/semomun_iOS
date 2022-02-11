@@ -337,7 +337,7 @@ extension SingleWithTextAnswerVC {
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
             imageView.image = mainImage
         } else {
-            let worningImage = UIImage(.warning)!
+            let worningImage = UIImage(.warning)
             imageView.image = worningImage
             height = worningImage.size.height*(width/worningImage.size.width)
         }
