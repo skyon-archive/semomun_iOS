@@ -7,12 +7,7 @@
 
 import UIKit
 
-protocol ReportRemover: AnyObject {
-    func reportError(pid: Int, text: String)
-}
-
 final class ReportProblemErrorVC: UIViewController {
-    private weak var delegate: ReportRemover?
     private var pageData: PageData
     private var buttons: [UIButton]
     private var checkboxes: [UIButton]
@@ -34,6 +29,8 @@ final class ReportProblemErrorVC: UIViewController {
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(.mainColor)?.cgColor
         return view
     }()
     private lazy var centerTitleLabel: UILabel = {
@@ -146,8 +143,7 @@ final class ReportProblemErrorVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(delegate: ReportRemover, pageData: PageData, title: String) {
-        self.delegate = delegate
+    init(pageData: PageData, title: String) {
         self.pageData = pageData
         self.buttons = []
         self.checkboxes = []
@@ -302,15 +298,40 @@ final class ReportProblemErrorVC: UIViewController {
     
     private func prepareReport() {
         guard let pid = self.selectedPid,
-              let idx = self.selectedCheckbox else { return }
+              let idx = self.selectedCheckbox else {
+                  self.showErrorAlert()
+                  return
+              }
         let text: String
         if idx < self.errors.count {
             text = self.errors[idx]
         } else {
-            // TODO: TextView.text 값 접근 로직 필요
-            text = "기타에서 적은 내용"
+            guard let userText = self.userInputTextView.text,
+                  userText != "" else  {
+                self.showErrorAlert()
+                return
+            }
+            text = userText
         }
-        self.delegate?.reportError(pid: pid, text: text)
+        self.report(pid: pid, text: text)
+    }
+    
+    private func showErrorAlert() {
+        self.showAlertWithOK(title: "정보를 채워주세요", text: "문제번호와 오류내용을 기입해주세요")
+    }
+    
+    private func report(pid: Int, text: String) {
+        let network = Network()
+        let networkUsecase = NetworkUsecase(network: network)
+        networkUsecase.postProblemError(pid: pid, text: text) { [weak self] status in
+            switch status {
+            case .SUCCESS:
+                print("SUCCESS: post error")
+            default:
+                print("ERROR: post error")
+            }
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
