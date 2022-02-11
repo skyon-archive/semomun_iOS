@@ -187,7 +187,7 @@ extension LoginSelectVC {
         case (true, true): // 이미 가입한 계정으로 회원가입을 또 시도하는 상태
             let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
             let alertActions = [
-                UIAlertAction(title: "취소", style: .cancel),
+                UIAlertAction(title: "취소", style: .default),
                 UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
                     guard let signupInfo = self?.signupInfo else { return }
                     self?.registerUser(with: signupInfo)
