@@ -61,7 +61,7 @@ final class LoginSignupVC: UIViewController {
                 self?.nickname.resignFirstResponder()
                 self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
             } else {
-                self?.coloredFrameLabels[0].configure(type: .success("사용할 수 없는 닉네임입니다."))
+                self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
             }
         }
     }
@@ -132,7 +132,7 @@ extension LoginSignupVC {
         frame.addSubview(label)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
-            label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 10) // 왜 상수가 필요한가...
+            label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 3)
         ])
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
