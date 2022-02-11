@@ -43,9 +43,7 @@ final class HomeVM {
     }
     
     private func fetchAds() {
-        for i in 1...5 {
-            self.ads.append(("banner\(i)", "https://forms.gle/suXByYKEied6RcSd8"))
-        }
+        self.ads = (1...5).map { ("banner\($0)", "https://forms.gle/suXByYKEied6RcSd8")}
     }
     
     private func fetchBestSellers() {

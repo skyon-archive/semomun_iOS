@@ -15,11 +15,11 @@ final class ReportProblemErrorVC: UIViewController {
     private var selectedCheckbox: Int?
     private var selectedText: String?
     private var errors: [String] = ["단순오탈자 혹은 한글 맞춤법 위배", "수식 오류"]
-    private let xmarkImage: UIImage? = {
+    private let xmarkImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
         return UIImage(.xmark, withConfiguration: largeConfig)
     }()
-    private let circleImage: UIImage? = {
+    private let circleImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .medium, scale: .default)
         return UIImage(.circle, withConfiguration: largeConfig)
     }()
@@ -158,6 +158,20 @@ final class ReportProblemErrorVC: UIViewController {
         self.configureLayout()
     }
     
+    private func configureStackView() {
+        self.pageData.problems.forEach { problem in
+            let button = self.problemButton()
+            button.setTitle(problem.pName, for: .normal)
+            button.tag = Int(problem.pid)
+            button.addAction(UIAction(handler: { [weak self] _ in
+                self?.selectedPid = Int(problem.pid)
+                self?.refreshButtons()
+            }), for: .touchUpInside)
+            self.buttons.append(button)
+            self.problemsStackView.addArrangedSubview(button)
+        }
+    }
+    
     private func configureLayout() {
         self.view.addSubview(self.frameView)
         self.view.backgroundColor = .clear
@@ -213,20 +227,6 @@ final class ReportProblemErrorVC: UIViewController {
     
     private func configureTitle(to title: String) {
         self.titleLabel.text = title
-    }
-    
-    private func configureStackView() {
-        self.pageData.problems.forEach { problem in
-            let button = self.problemButton()
-            button.setTitle(problem.pName, for: .normal)
-            button.tag = Int(problem.pid)
-            button.addAction(UIAction(handler: { [weak self] _ in
-                self?.selectedPid = Int(problem.pid)
-                self?.refreshButtons()
-            }), for: .touchUpInside)
-            self.buttons.append(button)
-            self.problemsStackView.addArrangedSubview(button)
-        }
     }
     
     private func configureErrorTitles() {
