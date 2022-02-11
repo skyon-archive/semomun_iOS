@@ -17,13 +17,20 @@ final class ReportProblemErrorVC: UIViewController {
     private var buttons: [UIButton]
     private var checkboxes: [UIButton]
     private var selectedPid: Int?
-    
+    private var selectedCheckbox: Int?
+    private var selectedText: String?
+    private var errors: [String] = ["단순오탈자 혹은 한글 맞춤법 위배", "수식 오류"]
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(systemName: SemomunImage.xmark, withConfiguration: largeConfig)
+        return UIImage(.xmark, withConfiguration: largeConfig)
+    }()
+    private let circleImage: UIImage? = {
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .medium, scale: .default)
+        return UIImage(.circle, withConfiguration: largeConfig)
     }()
     private lazy var frameView: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
@@ -48,31 +55,8 @@ final class ReportProblemErrorVC: UIViewController {
         }), for: .touchUpInside)
         return button
     }()
-    private lazy var leftTitle1: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = UIColor(.textColor)
-        label.contentMode = .left
-        label.text = "제목"
-        return label
-    }()
-    private lazy var leftTitle2: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = UIColor(.textColor)
-        label.contentMode = .left
-        label.text = "문제 번호"
-        return label
-    }()
-    private lazy var leftTitle3: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = UIColor(.textColor)
-        label.contentMode = .left
-        label.text = "오류 내용"
+    private lazy var errorTitleLabel: UILabel = {
+        let label = self.leftLabel(title: "오류 내용")
         return label
     }()
     private lazy var titleLabel: UILabel = {
@@ -93,18 +77,19 @@ final class ReportProblemErrorVC: UIViewController {
     private lazy var titleFrameView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubviews(self.leftTitle1, self.titleLabel)
+        let leftLabel = self.leftLabel(title: "제목")
+        view.addSubviews(leftLabel, self.titleLabel)
         NSLayoutConstraint.activate([
-            self.leftTitle1.widthAnchor.constraint(equalToConstant: 63),
-            self.leftTitle1.heightAnchor.constraint(equalToConstant: 23),
-            self.leftTitle1.topAnchor.constraint(equalTo: view.topAnchor),
-            self.leftTitle1.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            leftLabel.widthAnchor.constraint(equalToConstant: 63),
+            leftLabel.heightAnchor.constraint(equalToConstant: 23),
+            leftLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            leftLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         NSLayoutConstraint.activate([
             self.titleLabel.widthAnchor.constraint(equalToConstant: 320),
             self.titleLabel.topAnchor.constraint(equalTo: view.topAnchor),
             self.titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leftTitle1.trailingAnchor, constant: 12),
+            self.titleLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: 12),
             self.titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         return view
@@ -112,20 +97,21 @@ final class ReportProblemErrorVC: UIViewController {
     private lazy var problemsFrameView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubviews(self.leftTitle2, self.problemsStackView)
+        let leftLabel = self.leftLabel(title: "문제 번호")
+        view.addSubviews(leftLabel, self.problemsStackView)
         NSLayoutConstraint.activate([
-            self.leftTitle2.widthAnchor.constraint(equalToConstant: 63),
-            self.leftTitle2.heightAnchor.constraint(equalToConstant: 23),
-            self.leftTitle2.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.leftTitle2.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            leftLabel.widthAnchor.constraint(equalToConstant: 63),
+            leftLabel.heightAnchor.constraint(equalToConstant: 23),
+            leftLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            leftLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         NSLayoutConstraint.activate([
             self.problemsStackView.heightAnchor.constraint(equalToConstant: 38),
             self.problemsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.problemsStackView.leadingAnchor.constraint(equalTo: self.leftTitle2.trailingAnchor, constant: 12)
+            self.problemsStackView.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: 12)
         ])
         NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 63+12+320)
+            view.widthAnchor.constraint(equalToConstant: 395)
         ])
         return view
     }()
@@ -151,7 +137,7 @@ final class ReportProblemErrorVC: UIViewController {
     }
     
     private func configureLayout() {
-        self.view.addSubviews(self.frameView, self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView)
+        self.view.addSubview(self.frameView)
         self.view.backgroundColor = .clear
         
         NSLayoutConstraint.activate([
@@ -161,6 +147,8 @@ final class ReportProblemErrorVC: UIViewController {
             self.frameView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
         
+        self.frameView.addSubviews(self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView, self.errorTitleLabel)
+
         NSLayoutConstraint.activate([
             self.centerTitleLabel.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
             self.centerTitleLabel.topAnchor.constraint(equalTo: self.frameView.topAnchor, constant: 50)
@@ -172,17 +160,25 @@ final class ReportProblemErrorVC: UIViewController {
             self.closeButton.topAnchor.constraint(equalTo: self.frameView.topAnchor, constant: 10),
             self.closeButton.trailingAnchor.constraint(equalTo: self.frameView.trailingAnchor, constant: -15)
         ])
-        
+
         NSLayoutConstraint.activate([
             self.titleFrameView.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
             self.titleFrameView.topAnchor.constraint(equalTo: self.centerTitleLabel.bottomAnchor, constant: 40)
         ])
-        
+
         NSLayoutConstraint.activate([
             self.problemsFrameView.heightAnchor.constraint(equalToConstant: 38),
             self.problemsFrameView.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
             self.problemsFrameView.topAnchor.constraint(equalTo: self.titleFrameView.bottomAnchor, constant: 24)
         ])
+
+        NSLayoutConstraint.activate([
+            self.errorTitleLabel.leadingAnchor.constraint(equalTo: self.problemsFrameView.leadingAnchor),
+            self.errorTitleLabel.topAnchor.constraint(equalTo: self.problemsFrameView.bottomAnchor, constant: 32)
+        ])
+        
+        self.view.layoutIfNeeded()
+        self.configureErrorTitles()
     }
     
     private func configureTitle(to title: String) {
@@ -203,6 +199,68 @@ final class ReportProblemErrorVC: UIViewController {
         }
     }
     
+    private func configureErrorTitles() {
+        for (idx, error) in self.errors.enumerated() {
+            let checkButton = self.checkboxButton(tag: idx)
+            let errorLabel = self.errorLabel(title: error)
+            self.frameView.addSubviews(checkButton, errorLabel)
+            self.checkboxes.append(checkButton)
+            
+            if idx == 0 {
+                checkButton.centerYAnchor.constraint(equalTo: self.errorTitleLabel.centerYAnchor).isActive = true
+            } else {
+                checkButton.topAnchor.constraint(equalTo: self.checkboxes[idx-1].bottomAnchor, constant: 14).isActive = true
+            }
+            
+            NSLayoutConstraint.activate([
+                checkButton.leadingAnchor.constraint(equalTo: self.errorTitleLabel.trailingAnchor, constant: 15),
+                errorLabel.centerYAnchor.constraint(equalTo: self.checkboxes[idx].centerYAnchor),
+                errorLabel.leadingAnchor.constraint(equalTo: self.checkboxes[idx].trailingAnchor, constant: 13)
+            ])
+        }
+    }
+    
+    private func refreshButtons() {
+        guard let selectedPid = self.selectedPid else { return }
+        self.buttons.forEach { button in
+            if button.tag == selectedPid {
+                button.backgroundColor = UIColor(.mainColor)
+                button.setTitleColor(.white, for: .normal)
+            } else {
+                button.backgroundColor = .white
+                button.setTitleColor(.black, for: .normal)
+            }
+        }
+    }
+    
+    private func refreshCheckboxes() {
+        guard let selectedCheckbox = selectedCheckbox else { return }
+        print(selectedCheckbox)
+        self.checkboxes.forEach { button in
+            if button.tag == selectedCheckbox {
+                button.backgroundColor = UIColor(.mainColor)
+            } else {
+                button.backgroundColor = .white
+            }
+        }
+    }
+}
+
+extension ReportProblemErrorVC {
+    private func leftLabel(title: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = UIColor(.textColor)
+        label.contentMode = .left
+        label.text = title
+        NSLayoutConstraint.activate([
+            label.widthAnchor.constraint(equalToConstant: 63),
+            label.heightAnchor.constraint(equalToConstant: 23),
+        ])
+        return label
+    }
+    
     private func problemButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -220,16 +278,38 @@ final class ReportProblemErrorVC: UIViewController {
         return button
     }
     
-    private func refreshButtons() {
-        guard let selectedPid = self.selectedPid else { return }
-        self.buttons.forEach { button in
-            if button.tag == selectedPid {
-                button.backgroundColor = UIColor(.mainColor)
-                button.setTitleColor(.white, for: .normal)
-            } else {
-                button.backgroundColor = .white
-                button.setTitleColor(.black, for: .normal)
-            }
-        }
+    private func checkboxButton(tag: Int) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(self.circleImage, for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .white
+        button.clipsToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(.mainColor)?.cgColor
+        button.layer.cornerRadius = 23/2
+        button.tag = tag
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.selectedCheckbox = tag
+            self?.refreshCheckboxes()
+        }), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 23),
+            button.heightAnchor.constraint(equalToConstant: 23)
+        ])
+        return button
+    }
+    
+    private func errorLabel(title: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .black
+        label.contentMode = .left
+        label.text = title
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalToConstant: 23)
+        ])
+        return label
     }
 }
