@@ -13,6 +13,7 @@ enum NetworkURL {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
+    static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
     static let base: String = "https://saemomoon.com"
 //    static let base: String = "http://13.125.241.70:8080"
     static let workbooks: String = base + "/workbooks/"

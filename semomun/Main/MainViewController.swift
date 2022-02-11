@@ -101,7 +101,16 @@ extension MainViewController {
             .dropFirst()
             .sink(receiveValue: { [weak self] version in
                 guard let version = version else { return }
-                self?.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(version)를 다운받아주세요")
+                self?.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(version)를 다운받아주세요") {
+                    if let url = URL(string: NetworkURL.appstore),
+                       UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:])
+                        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            exit(0)
+                        }
+                    }
+                }
             })
             .store(in: &self.cancellables)
     }
