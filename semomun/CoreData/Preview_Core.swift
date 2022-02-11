@@ -76,10 +76,10 @@ public class Preview_Core: NSManagedObject{
             if imageData != nil {
                 self.setValue(imageData, forKey: "image")
             } else {
-                self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+                self.setValue(UIImage(.warning)!.pngData(), forKey: "image")
             }
         } else {
-            self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+            self.setValue(UIImage(.warning)!.pngData(), forKey: "image")
         }
         print("savePreview complete")
     }
@@ -111,10 +111,10 @@ public class Preview_Core: NSManagedObject{
             if imageData != nil {
                 self.setValue(imageData, forKey: "image")
             } else {
-                self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+                self.setValue(UIImage(.warning)!.pngData(), forKey: "image")
             }
         } else {
-            self.setValue(UIImage(named: SemomunImage.warning)!.pngData(), forKey: "image")
+            self.setValue(UIImage(.warning)!.pngData(), forKey: "image")
         }
         print("savePreview complete")
     }

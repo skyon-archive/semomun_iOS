@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
     private lazy var userInfoView = UserInfoToggleView()
     private lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: SemomunImage.empty)
+        imageView.image = UIImage(.empty)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -290,7 +290,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             
             if indexPath.item == 0 {
-                if let addImageData = UIImage(named: SemomunImage.addButton)?.pngData() {
+                if let addImageData = UIImage(.addButton)?.pngData() {
                     cell.configureAddCell(image: UIImage(data: addImageData))
                 }
                 
