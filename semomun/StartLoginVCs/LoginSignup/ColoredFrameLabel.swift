@@ -25,10 +25,12 @@ final class ColoredFrameLabel: UIView {
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 17),
             imageView.heightAnchor.constraint(equalToConstant: 17),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5)
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
+            textLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
     }
     
