@@ -231,9 +231,9 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.bannerAds {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
-            guard let testAd = self.viewModel?.testAd(index: indexPath.item) else { return cell }
+            guard let testAd = self.viewModel?.ads[indexPath.item] else { return cell }
             
-            cell.configureTest(url: testAd)
+            cell.configureTest(imageURL: testAd.0, url: testAd.1)
             
             return cell
         } else {
