@@ -115,6 +115,18 @@ final class ReportProblemErrorVC: UIViewController {
         ])
         return view
     }()
+    private lazy var userInputTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.clipsToBounds = true
+        textView.layer.cornerRadius = 3
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor(.mainColor)?.cgColor
+        textView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        textView.textColor = .black
+        textView.textAlignment = .left
+        return textView
+    }()
     private lazy var reportErrorButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -193,6 +205,7 @@ final class ReportProblemErrorVC: UIViewController {
         
         self.view.layoutIfNeeded()
         self.configureErrorTitles()
+        self.configureUserError()
         
         NSLayoutConstraint.activate([
             self.reportErrorButton.widthAnchor.constraint(equalToConstant: 115),
@@ -239,6 +252,27 @@ final class ReportProblemErrorVC: UIViewController {
                 errorLabel.leadingAnchor.constraint(equalTo: self.checkboxes[idx].trailingAnchor, constant: 13)
             ])
         }
+    }
+    
+    private func configureUserError() {
+        let userInputCheckButton = self.checkboxButton(tag: self.errors.count)
+        let errorLabel = self.errorLabel(title: "기타")
+        self.frameView.addSubviews(userInputCheckButton, errorLabel, self.userInputTextView)
+        self.checkboxes.append(userInputCheckButton)
+        
+        NSLayoutConstraint.activate([
+            userInputCheckButton.topAnchor.constraint(equalTo: self.checkboxes[self.errors.count-1].bottomAnchor, constant: 14),
+            userInputCheckButton.leadingAnchor.constraint(equalTo: self.errorTitleLabel.trailingAnchor, constant: 15),
+            errorLabel.centerYAnchor.constraint(equalTo: self.checkboxes[self.errors.count].centerYAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: self.checkboxes[self.errors.count].trailingAnchor, constant: 13)
+        ])
+        
+        NSLayoutConstraint.activate([
+            self.userInputTextView.widthAnchor.constraint(equalToConstant: 222),
+            self.userInputTextView.heightAnchor.constraint(equalToConstant: 120),
+            self.userInputTextView.leadingAnchor.constraint(equalTo: errorLabel.trailingAnchor, constant: 12),
+            self.userInputTextView.topAnchor.constraint(equalTo: errorLabel.topAnchor)
+        ])
     }
     
     private func refreshButtons() {
