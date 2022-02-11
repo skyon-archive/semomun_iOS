@@ -63,6 +63,7 @@ extension UIViewController {
     
     func startLoading(count: Int = 0) -> LoadingDelegate {
         let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
+        loadingIndicator.loadViewIfNeeded()
         loadingIndicator.totalPageCount = count
         self.present(loadingIndicator, animated: true, completion: nil)
         return loadingIndicator as LoadingDelegate
