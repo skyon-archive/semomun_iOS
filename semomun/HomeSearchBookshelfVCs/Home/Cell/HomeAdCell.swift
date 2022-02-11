@@ -28,8 +28,8 @@ class HomeAdCell: UICollectionViewCell {
         }
     }
     
-    func configureTest(url: String) {
+    func configureTest(imageURL: String, url: String) {
         self.addUrl = url
-        self.imageView.image = UIImage(.dummy_ad)
+        self.imageView.image = UIImage(named: imageURL) // 수정 필요
     }
 }
