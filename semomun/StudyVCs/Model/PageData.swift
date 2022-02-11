@@ -45,7 +45,7 @@ final class PageData {
                 self.problems.append(problemCore)
             } else {
                 let problem = Problem_Core(context: CoreDataManager.shared.context)
-                problem.setValue(UIImage(.warning)!.pngData, forKey: "contentImage")
+                problem.setValue(UIImage(.warning).pngData, forKey: "contentImage")
             }
         }
     }

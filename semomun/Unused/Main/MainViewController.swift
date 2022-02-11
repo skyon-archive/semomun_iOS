@@ -281,7 +281,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else { return UICollectionViewCell() }
             
             if indexPath.item == 0 {
-                if let addImageData = UIImage(.addButton)?.pngData() {
+                if let addImageData = UIImage(.addButton).pngData() {
                     cell.configureAddCell(image: UIImage(data: addImageData))
                 }
                 
