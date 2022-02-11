@@ -115,6 +115,20 @@ final class ReportProblemErrorVC: UIViewController {
         ])
         return view
     }()
+    private lazy var reportErrorButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(.mainColor)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 5
+        button.setTitle("보내기", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.setTitleColor(.white, for: .normal)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.prepareReport()
+        }), for: .touchUpInside)
+        return button
+    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -147,7 +161,7 @@ final class ReportProblemErrorVC: UIViewController {
             self.frameView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
         
-        self.frameView.addSubviews(self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView, self.errorTitleLabel)
+        self.frameView.addSubviews(self.centerTitleLabel, self.closeButton, self.titleFrameView, self.problemsFrameView, self.errorTitleLabel, self.reportErrorButton)
 
         NSLayoutConstraint.activate([
             self.centerTitleLabel.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
@@ -179,6 +193,13 @@ final class ReportProblemErrorVC: UIViewController {
         
         self.view.layoutIfNeeded()
         self.configureErrorTitles()
+        
+        NSLayoutConstraint.activate([
+            self.reportErrorButton.widthAnchor.constraint(equalToConstant: 115),
+            self.reportErrorButton.heightAnchor.constraint(equalToConstant: 43),
+            self.reportErrorButton.centerXAnchor.constraint(equalTo: self.frameView.centerXAnchor),
+            self.reportErrorButton.bottomAnchor.constraint(equalTo: self.frameView.bottomAnchor, constant: -67)
+        ])
     }
     
     private func configureTitle(to title: String) {
@@ -243,6 +264,19 @@ final class ReportProblemErrorVC: UIViewController {
                 button.backgroundColor = .white
             }
         }
+    }
+    
+    private func prepareReport() {
+        guard let pid = self.selectedPid,
+              let idx = self.selectedCheckbox else { return }
+        let text: String
+        if idx < self.errors.count {
+            text = self.errors[idx]
+        } else {
+            // TODO: TextView.text 값 접근 로직 필요
+            text = "기타에서 적은 내용"
+        }
+        self.delegate?.reportError(pid: pid, text: text)
     }
 }
 
