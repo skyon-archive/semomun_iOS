@@ -18,7 +18,7 @@ class HomeAdCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.imageView.image = UIImage(systemName: SemomunImage.loadingBookcover)
+        self.imageView.image = UIImage(.loadingBookcover)
     }
     
     @IBAction func showAd(_ sender: Any) {
@@ -30,6 +30,6 @@ class HomeAdCell: UICollectionViewCell {
     
     func configureTest(url: String) {
         self.addUrl = url
-        self.imageView.image = UIImage(named: SemomunImage.dummy_ad)
+        self.imageView.image = UIImage(.dummy_ad)
     }
 }

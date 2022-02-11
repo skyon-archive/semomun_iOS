@@ -12,7 +12,7 @@ final class AnswerView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: SemomunImage.answerImage)
+        imageView.image = UIImage(.answerImage)
         return imageView
     }()
     private lazy var answerLabel: UILabel = {

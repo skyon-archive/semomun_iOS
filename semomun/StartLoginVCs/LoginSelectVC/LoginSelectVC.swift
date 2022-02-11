@@ -76,7 +76,7 @@ extension LoginSelectVC {
         ])
         
         // Google 로고
-        let googleIconImg = UIImage(named: SemomunImage.googleLogo) ?? UIImage()
+        let googleIconImg = UIImage(.googleLogo) ?? UIImage()
         let googleIcon = UIImageView(image: googleIconImg)
         googleIcon.translatesAutoresizingMaskIntoConstraints = false
         buttonContentContainer.addSubview(googleIcon)
