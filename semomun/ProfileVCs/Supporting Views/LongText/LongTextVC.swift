@@ -49,7 +49,7 @@ extension LongTextVC {
         self.textViewTopConstraint.constant = 0
         // 우측 상단 닫기 버튼 생성
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
-        let closeImage = UIImage(systemName: SemomunImage.xmark, withConfiguration: imageConfig)
+        let closeImage = UIImage(.xmark, withConfiguration: imageConfig)
         let closePopupButton = UIBarButtonItem(image: closeImage, style: .done, target: self, action: #selector(closePopup))
         closePopupButton.tintColor = .black
         self.navigationItem.rightBarButtonItem = closePopupButton

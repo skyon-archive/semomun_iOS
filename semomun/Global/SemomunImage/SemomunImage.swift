@@ -7,18 +7,34 @@
 
 import Foundation
 
-enum SemomunImage {
-    static let addButton = "addButton"
-    static let warning = "warning"
-    static let empty = "empty"
-    static let dummy_bookcover = "dummy_bookcover"
-    static let loadingBookcover = "text.book.closed"
-    static let dummy_ad = "dummy_ad"
-    static let clock = "clock"
-    static let xmark = "xmark"
-    static let answerImage = "answerImage"
-    static let circleCheckmark = "checkmark.circle"
-    static let circleCheckmarkFilled = "checkmark.circle.fill"
-    static let googleLogo = "googleLogo"
-    static let exclamationmarkTriangle = "exclamationmark.triangle"
+enum SemomunImage: ImageName {
+    case addButton = "/addButton"
+    case warning = "/warning"
+    case empty = "/empty"
+    case dummy_bookcover = "/dummy_bookcover"
+    case loadingBookcover = "/text.book.closed"
+    case dummy_ad = "/dummy_ad"
+    case clock = "/clock"
+    case xmark = "xmark"
+    case answerImage = "/answerImage"
+    case circleCheckmark = "checkmark.circle"
+    case circleCheckmarkFilled = "checkmark.circle.fill"
+    case googleLogo = "/googleLogo"
+    case exclamationmarkTriangle = "exclamationmark.triangle"
+}
+
+struct ImageName: Equatable, ExpressibleByStringLiteral {
+    let isSFSymbol: Bool
+    let name: String
+    
+    init(stringLiteral value: String) {
+        if value.hasPrefix("/") {
+            self.isSFSymbol = false
+            self.name = String(value.dropFirst())
+        } else {
+            self.isSFSymbol = true
+            self.name = value
+        }
+    }
+    
 }

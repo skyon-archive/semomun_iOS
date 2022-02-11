@@ -19,7 +19,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.bookcover.image = UIImage(systemName: SemomunImage.loadingBookcover)
+        self.bookcover.image = UIImage(.loadingBookcover)
     }
     
     func configure(with preview: PreviewOfDB) {

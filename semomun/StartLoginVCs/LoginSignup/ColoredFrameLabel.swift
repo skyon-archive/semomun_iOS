@@ -41,22 +41,22 @@ final class ColoredFrameLabel: UIView {
     func configure(type: Content) {
         self.isHidden = false
         
-        let imageSystemName: String
+        let imageSystemName: SemomunImage
         let message: String
         let tintColor: UIColor
         
         switch type {
         case .success(let string):
-            imageSystemName = SemomunImage.circleCheckmark
+            imageSystemName = .circleCheckmark
             tintColor = UIColor(.greenColor) ?? .green
             message = string
         case .warning(let string):
-            imageSystemName = SemomunImage.exclamationmarkTriangle
+            imageSystemName = .exclamationmarkTriangle
             tintColor = UIColor(.redColor) ?? .red
             message = string
         }
         
-        let image = UIImage(systemName: imageSystemName)
+        let image = UIImage(imageSystemName)
         self.imageView.image = image
         imageView.tintColor = tintColor
         

@@ -17,7 +17,7 @@ final class ExplanationView: UIView {
     private lazy var imageviewHeight: CGFloat = (self.frame.height/2)-40
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(systemName: SemomunImage.xmark, withConfiguration: largeConfig)
+        return UIImage(.xmark, withConfiguration: largeConfig)
     }()
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
