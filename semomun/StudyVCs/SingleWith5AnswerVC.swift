@@ -22,6 +22,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentView: UIView!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -68,6 +69,10 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
+        
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 2.0
+        scrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +82,10 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
+        scrollView.zoomScale = 1.0
+//        scrollView.gestureRecognizers?.forEach {
+//            $0.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -191,11 +200,13 @@ extension SingleWith5AnswerVC {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
         rightSwipeGesture.direction = .right
         rightSwipeGesture.numberOfTouchesRequired = 1
+        rightSwipeGesture.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         self.view.addGestureRecognizer(rightSwipeGesture)
         
         let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
         leftSwipeGesture.direction = .left
         leftSwipeGesture.numberOfTouchesRequired = 1
+        leftSwipeGesture.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
     
@@ -400,5 +411,14 @@ extension SingleWith5AnswerVC: ExplanationRemover {
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
         }
+    }
+}
+
+extension SingleWith5AnswerVC: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.contentView
+    }
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        print(self.canvasView.bounds)
     }
 }

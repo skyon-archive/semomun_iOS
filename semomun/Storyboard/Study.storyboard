@@ -780,6 +780,7 @@
                         <outlet property="bookmarkBT" destination="tVE-Nz-856" id="B15-5U-nfJ"/>
                         <outlet property="canvasHeight" destination="Sf8-4E-9gl" id="V0o-q3-eP9"/>
                         <outlet property="canvasView" destination="Tmy-R1-dS3" id="26L-ga-iTf"/>
+                        <outlet property="contentView" destination="ZVP-gF-zw6" id="dQA-O5-Pga"/>
                         <outlet property="explanationBT" destination="4OU-Jd-AIJ" id="vDv-WD-ivq"/>
                         <outlet property="imageHeight" destination="gAd-pe-cRA" id="k4d-3I-AiJ"/>
                         <outlet property="imageView" destination="sfj-yB-CqH" id="S6t-4f-fgb"/>
