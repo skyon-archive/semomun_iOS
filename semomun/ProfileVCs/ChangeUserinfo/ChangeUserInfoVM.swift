@@ -102,7 +102,7 @@ final class ChangeUserInfoVM {
         }
         self.sendUserInfoToNetwork(userInfo: userInfo) { [weak self] isSuccess in
             if isSuccess {
-                self?.saveUserInfoToDB(userInfo: userInfo)
+                self?.saveUserInfoToCoreData(userInfo: userInfo)
                 self?.updateVersionIfDataUpdateSucceed()
                 self?.alertStatus = .withPopVC(.saveSuccess)
             } else {
@@ -206,7 +206,7 @@ extension ChangeUserInfoVM {
         return true
     }
     
-    private func saveUserInfoToDB(userInfo: UserCoreData) {
+    private func saveUserInfoToCoreData(userInfo: UserCoreData) {
         guard self.checkIfSubmitAvailable() else { return }
         
         userInfo.setValue(self.nickname, forKey: "nickName")
