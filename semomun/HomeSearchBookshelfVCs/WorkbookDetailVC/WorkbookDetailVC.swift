@@ -157,7 +157,7 @@ extension WorkbookDetailVC {
             if let imageData = workbookInfo.image {
                 self.bookCoverImageView.image = UIImage(data: imageData)
             } else {
-                self.bookCoverImageView.image = UIImage(named: SemomunImage.warning)
+                self.bookCoverImageView.image = UIImage(.warning)
             }
         } else {
             guard let bookcoverURL = workbookInfo.imageURL,

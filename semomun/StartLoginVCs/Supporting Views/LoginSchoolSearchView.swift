@@ -18,7 +18,7 @@ struct LoginSchoolSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                Image(systemName: SemomunImage.xmark)
+                Image(systemName: SemomunImage.xmark.rawValue.name)
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(Color(UIColor(.grayDefaultColor) ?? .gray))
             }

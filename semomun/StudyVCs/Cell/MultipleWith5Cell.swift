@@ -147,7 +147,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         if contentImage.size.width > 0 && contentImage.size.height > 0 {
             self.contentImage = contentImage
         } else {
-            self.contentImage = UIImage(named: SemomunImage.warning)
+            self.contentImage = UIImage(.warning)
         }
         self.imageView.image = self.contentImage
     }
