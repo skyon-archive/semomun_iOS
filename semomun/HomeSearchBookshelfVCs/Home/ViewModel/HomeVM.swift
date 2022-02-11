@@ -10,7 +10,7 @@ import Combine
 
 final class HomeVM {
     private let networkUsecase: NetworkUsecase
-    @Published private(set) var ads: [String] = [] // DTO로 타입이 변경될 부분
+    @Published private(set) var ads: [(String, String)] = [] // DTO로 타입이 변경될 부분
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
     @Published private(set) var workbooksWithRecent: [PreviewOfDB] = []
@@ -43,7 +43,9 @@ final class HomeVM {
     }
     
     private func fetchAds() {
-        self.ads = Array(repeating: "https://forms.gle/suXByYKEied6RcSd8", count: 5)
+        for i in 1...5 {
+            self.ads.append(("banner\(i)", "https://forms.gle/suXByYKEied6RcSd8"))
+        }
     }
     
     private func fetchBestSellers() {
@@ -116,10 +118,6 @@ final class HomeVM {
     
     func workbookWithNewest(index: Int) -> PreviewOfDB {
         return self.workbooksWithNewest[index]
-    }
-    
-    func testAd(index: Int) -> String {
-        return self.ads[index]
     }
     
     func fetchWorkbook(wid: Int) {
