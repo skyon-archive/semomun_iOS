@@ -20,9 +20,6 @@ final class LoginedSettingTableVC: UITableViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
-        CoreUsecase.deleteAllCoreData()
-        self.deleteKeychain()
-        self.deleteUserDefaults()
         self.showLogoutedAlert()
     }
 }
@@ -44,12 +41,15 @@ extension LoginedSettingTableVC {
     
     private func showLogoutedAlert() {
         self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "") {
+            CoreUsecase.deleteAllCoreData()
+            self.deleteKeychain()
+            self.deleteUserDefaults()
             NotificationCenter.default.post(name: .logout, object: nil)
         }
     }
 }
 
-// MARK: - TableView 선택 
+// MARK: - TableView 선택
 extension LoginedSettingTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
