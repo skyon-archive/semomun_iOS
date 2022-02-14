@@ -187,6 +187,7 @@
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB962D277AF640002203AA /* SideMenuCell.swift */; };
+		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -381,6 +382,7 @@
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87DB962D277AF640002203AA /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
+		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -1149,6 +1151,7 @@
 			isa = PBXGroup;
 			children = (
 				8716E930279A5F4D00B33A5E /* HomeVC.swift */,
+				87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */,
 				87458552279E86A100E331F1 /* ViewModel */,
 				87458555279E86C300E331F1 /* Cell */,
 				878766CB27AED290003B975E /* View */,
@@ -1340,6 +1343,7 @@
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
+				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
@@ -1371,7 +1375,6 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
-				252AC36027787145008AD5E4 /* UnivFinderView.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
@@ -1597,8 +1600,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
-				MARKETING_VERSION = 1.1.2;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1636,8 +1637,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
-				MARKETING_VERSION = 1.1.2;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
