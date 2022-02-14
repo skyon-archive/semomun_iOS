@@ -20,6 +20,8 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var newestHeight: NSLayoutConstraint!
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
+    private lazy var noLoginedLabel1 = NoneWorkbookLabel()
+    private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +97,10 @@ extension HomeVC {
     private func fetch() {
         let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
         if isLogined {
+            self.noLoginedLabel1.removeFromSuperview()
+            self.noLoginedLabel2.removeFromSuperview()
+            self.recentHeight.constant = 232
+            self.newestHeight.constant = 232
             self.viewModel?.fetchAll()
         } else {
             self.viewModel?.fetchSome()
@@ -106,25 +112,27 @@ extension HomeVC {
         self.recentHeight.constant = 72
         self.newestHeight.constant = 72
         
-        let label = NoneWorkbookLabel()
-        label.text = "아직 푼 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.workbooksWithRecent.addSubview(label)
+        self.noLoginedLabel1.text = "아직 푼 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
+        self.workbooksWithRecent.addSubview(self.noLoginedLabel1)
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: self.workbooksWithRecent.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 50)
+            self.noLoginedLabel1.centerYAnchor.constraint(equalTo: self.workbooksWithRecent.centerYAnchor),
+            self.noLoginedLabel1.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 50)
         ])
-        let label2 = NoneWorkbookLabel()
-        label2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.workbooksWithNewest.addSubview(label2)
+        
+        self.noLoginedLabel2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
+        self.workbooksWithNewest.addSubview(self.noLoginedLabel2)
         NSLayoutConstraint.activate([
-            label2.centerYAnchor.constraint(equalTo: self.workbooksWithNewest.centerYAnchor),
-            label2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 50)
+            self.noLoginedLabel2.centerYAnchor.constraint(equalTo: self.workbooksWithNewest.centerYAnchor),
+            self.noLoginedLabel2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 50)
         ])
     }
     
     private func configureAddObserver() {
         NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
+        }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
+            self?.fetch()
         }
     }
 }
