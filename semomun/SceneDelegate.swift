@@ -14,8 +14,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
 
-        let isIntial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true
-        if isIntial {
+        let isInitial = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.isInitial) as? Bool ?? true // 앱 최초로딩 여부
+        let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] ?? [] // 2.0 기반 생긴 데이터
+        if isInitial || tags.isEmpty {
             let storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
             let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
             let navigationController = UINavigationController(rootViewController: startViewController)
