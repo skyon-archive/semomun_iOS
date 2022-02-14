@@ -96,11 +96,11 @@ extension BookshelfVC {
         let coreVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.coreVersion) as? String ?? String.pastVersion
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
-        if logined && coreVersion.compare(version, options: .numeric) == .orderedAscending {
+        if logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
             print("migration start")
             self.showLoader()
             CoreUsecase.migration { [weak self] status in
-                UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 version update
+                UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 현재 version 저장
                 self?.fetch()
                 self?.removeLoader()
                 print("migration success")
