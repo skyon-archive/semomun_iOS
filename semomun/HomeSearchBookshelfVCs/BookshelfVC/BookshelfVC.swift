@@ -33,8 +33,7 @@ class BookshelfVC: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
-        self.viewModel?.fetchBooksFromCoredata()
-        self.viewModel?.fetchBooksFromNetwork()
+        self.checkMigration()
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -89,6 +88,30 @@ extension BookshelfVC {
     private func configureCollectionView() {
         self.books.dataSource = self
         self.books.delegate = self
+    }
+    
+    private func checkMigration() {
+        let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        let coreVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.coreVersion) as? String ?? String.pastVersion
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
+        // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
+        if logined && coreVersion.compare(version, options: .numeric) == .orderedAscending {
+            print("migration start")
+            // loading indicator 표시
+            CoreUsecase.migration { [weak self] status in
+                UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 version update
+                self?.fetch()
+                // loading indicator 제거
+                print("migration success")
+            }
+        } else {
+            self.fetch()
+        }
+    }
+    
+    private func fetch() {
+        self.viewModel?.fetchBooksFromCoredata()
+        self.viewModel?.fetchBooksFromNetwork()
     }
 }
 

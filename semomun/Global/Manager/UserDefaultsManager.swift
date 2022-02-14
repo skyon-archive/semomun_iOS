@@ -14,6 +14,7 @@ struct UserDefaultsManager {
         static let isInitial = "isInitial"
         static let favoriteTags = "favoriteTags"
         static let userVersion = "userVersion"
+        static let coreVersion = "coreVersion"
     }
     
     static func set<T>(to: T, forKey: String) {
