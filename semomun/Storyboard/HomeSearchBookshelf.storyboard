@@ -1606,7 +1606,7 @@ next line</string>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RGO-Zk-dlK">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SmallTagCell" id="RGO-Zk-dlK" customClass="SmallTagCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="107" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="WtC-ef-Tau">
@@ -1630,6 +1630,7 @@ next line</string>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="WRc-j5-ns8" firstAttribute="leading" secondItem="WtC-ef-Tau" secondAttribute="leading" constant="15" id="5km-rh-hVE"/>
+                                                        <constraint firstItem="WRc-j5-ns8" firstAttribute="top" secondItem="WtC-ef-Tau" secondAttribute="top" constant="7.5" id="Epf-cS-lBJ"/>
                                                         <constraint firstItem="WRc-j5-ns8" firstAttribute="centerY" secondItem="WtC-ef-Tau" secondAttribute="centerY" id="Jb7-Co-Ck1"/>
                                                         <constraint firstItem="zvd-K3-tA8" firstAttribute="centerY" secondItem="WtC-ef-Tau" secondAttribute="centerY" id="UD7-s1-jhQ"/>
                                                         <constraint firstItem="zvd-K3-tA8" firstAttribute="width" secondItem="zvd-K3-tA8" secondAttribute="height" multiplier="1:1" id="hrv-5F-wVt"/>
@@ -1637,6 +1638,9 @@ next line</string>
                                                         <constraint firstItem="zvd-K3-tA8" firstAttribute="leading" secondItem="WRc-j5-ns8" secondAttribute="trailing" constant="4" id="yvU-od-Hme"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="title" destination="WRc-j5-ns8" id="Smw-Yb-C10"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>

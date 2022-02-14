@@ -188,6 +188,7 @@
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87DB962E277AF640002203AA /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB962D277AF640002203AA /* SideMenuCell.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
+		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -383,6 +384,7 @@
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87DB962D277AF640002203AA /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
+		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 			isa = PBXGroup;
 			children = (
 				87458553279E86B100E331F1 /* HomeVM.swift */,
+				87DC940E27BA2257008F6105 /* SearchTagVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1317,6 +1320,7 @@
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				257AC2CF27A9306F00008DD9 /* MyPurchasesVM.swift in Sources */,
 				8716E93C279A5FDE00B33A5E /* StartVC.swift in Sources */,
+				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
 				8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
