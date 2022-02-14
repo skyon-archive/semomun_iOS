@@ -193,10 +193,12 @@ extension ChangeUserInfoVM {
     }
     
     private func checkIfSubmitAvailable() -> Bool {
+        // TODO: 현재 1.0 회원의 경우 nickName, phoneNum이 랜덤값으로 있기는 한 상태이기에 CoreData 상에서 제거하는 로직이 필요, 또는 Random 값인지 판별하기 위한 로직이 필요
         guard [self.nickname, self.phonenum, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" }) else {
             self.alertStatus = .withoutPopVC(.incomplateData)
             return false
         }
+        // MARK: 아래 코드는 필요한가?
         guard let selectedMajor = self.selectedMajor,
                 let selectedMajorDetail = self.selectedMajorDetail else { return false }
         guard self.majorWithDetail[selectedMajor]?.contains(selectedMajorDetail) == true else {
@@ -231,7 +233,8 @@ extension ChangeUserInfoVM {
     }
     
     private func updateVersionIfDataUpdateSucceed() {
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
+        // TODO: 1.0 랜덤데이터가 사라졌다는 가정하에
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
         UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.userVersion)
         print("userVersion 업데이트 완료")
     }
