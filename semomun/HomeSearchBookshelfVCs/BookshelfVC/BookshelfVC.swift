@@ -25,6 +25,7 @@ class BookshelfVC: UIViewController {
     
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
+    private lazy var loadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,11 +98,11 @@ extension BookshelfVC {
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
         if logined && coreVersion.compare(version, options: .numeric) == .orderedAscending {
             print("migration start")
-            // loading indicator 표시
+            self.showLoader()
             CoreUsecase.migration { [weak self] status in
                 UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 version update
                 self?.fetch()
-                // loading indicator 제거
+                self?.removeLoader()
                 print("migration success")
             }
         } else {
@@ -112,6 +113,23 @@ extension BookshelfVC {
     private func fetch() {
         self.viewModel?.fetchBooksFromCoredata()
         self.viewModel?.fetchBooksFromNetwork()
+    }
+    
+    private func showLoader() {
+        self.view.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.loadingView.start()
+    }
+    
+    private func removeLoader() {
+        self.loadingView.stop()
+        self.loadingView.removeFromSuperview()
     }
 }
 
