@@ -78,6 +78,7 @@ final class ChangeUserInfoVC: UIViewController {
                 self?.nickname.resignFirstResponder()
                 self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
             } else {
+                // MARK: 아래276번째 라인이 실행된 후 실행되는가?
                 self?.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
             }
         }

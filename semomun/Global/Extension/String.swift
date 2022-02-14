@@ -35,4 +35,12 @@ extension String {
         default: return self
         }
     }
+    
+    static var pastVersion: String {
+        return "1.1.3"
+    }
+    
+    static var currentVersion: String {
+        return "2.0"
+    }
 }
