@@ -22,4 +22,5 @@ extension Notification.Name {
     static let purchaseComplete = Self.init(rawValue: "purchaseComplete")
     static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
     static let logout = Self.init(rawValue: "logout")
+    static let refreshFavoriteTags = Self.init(rawValue: "refreshFavoriteTags")
 }

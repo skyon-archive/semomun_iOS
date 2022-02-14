@@ -12,7 +12,7 @@ final class SearchTagVM {
     private let networkUsecase: NetworkUsecase
     @Published private(set) var tags: [String] = []
     @Published private(set) var searchResultTags: [String] = []
-    @Published private(set) var warning: (String, String)?
+    @Published private(set) var warning: (title: String, text: String)?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -39,9 +39,25 @@ final class SearchTagVM {
     
     func removeTag(index: Int) {
         self.tags.remove(at: index)
+        self.saveTags()
     }
     
     func removeAll() {
         self.searchResultTags = []
+    }
+    
+    func appendTag(to tag: String) {
+        if self.tags.count >= 5 {
+            self.warning = ("5개 이하만 선택해주세요", "")
+            return
+        }
+        self.tags.append(tag)
+        self.removeAll()
+        self.saveTags()
+    }
+    
+    private func saveTags() {
+        UserDefaultsManager.set(to: self.tags, forKey: UserDefaultsManager.Keys.favoriteTags)
+        NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
 }
