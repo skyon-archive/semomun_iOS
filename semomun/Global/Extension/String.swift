@@ -43,4 +43,8 @@ extension String {
     static var currentVersion: String {
         return "2.0"
     }
+    
+    static var latestCoreVersion: String {
+        return "2.0"
+    }
 }
