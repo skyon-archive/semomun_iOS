@@ -1549,35 +1549,29 @@ next line</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTd-32-jpP">
                                         <rect key="frame" x="40" y="99" width="492" height="46"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfY-yy-cna">
-                                                <rect key="frame" x="452" y="5.5" width="35" height="35"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="EfY-yy-cna" secondAttribute="height" multiplier="1:1" id="5Y6-5B-73a"/>
-                                                    <constraint firstAttribute="width" constant="35" id="nL3-qT-bAt"/>
-                                                </constraints>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="magnifyingglass" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="medium"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="searchTag:" destination="Tza-Db-nnm" eventType="touchUpInside" id="kBL-gT-m23"/>
-                                                </connections>
-                                            </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SeQ-zF-pbJ">
-                                                <rect key="frame" x="15" y="12.5" width="432" height="21"/>
+                                                <rect key="frame" x="15" y="12.5" width="434" height="21"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o1E-Lc-AkY">
+                                                <rect key="frame" x="454" y="11.5" width="28" height="23"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="o1E-Lc-AkY" secondAttribute="height" multiplier="1:1" id="X9C-MT-4tT"/>
+                                                    <constraint firstAttribute="width" constant="28" id="aru-zt-miw"/>
+                                                </constraints>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="small"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="EfY-yy-cna" secondAttribute="trailing" constant="5" id="AoH-Jl-iPG"/>
-                                            <constraint firstItem="EfY-yy-cna" firstAttribute="leading" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" constant="5" id="L6I-Ub-vdP"/>
-                                            <constraint firstItem="EfY-yy-cna" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="PA3-Ej-pH4"/>
+                                            <constraint firstItem="o1E-Lc-AkY" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="7yn-yD-n2S"/>
                                             <constraint firstAttribute="height" constant="46" id="SKw-Qt-QPg"/>
+                                            <constraint firstAttribute="trailing" secondItem="o1E-Lc-AkY" secondAttribute="trailing" constant="10" id="URK-7y-HHC"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="leading" secondItem="kTd-32-jpP" secondAttribute="leading" constant="15" id="Umz-Gt-2PC"/>
+                                            <constraint firstItem="o1E-Lc-AkY" firstAttribute="leading" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" constant="5" id="asB-Qj-6Bg"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="beY-gS-bdE"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -1648,7 +1642,7 @@ next line</string>
                                         <rect key="frame" x="40" y="207" width="492" height="406"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="klI-rb-4nz">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44.5" width="492" height="43.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
@@ -1668,6 +1662,9 @@ next line</string>
                                                         <constraint firstItem="nC9-NK-POX" firstAttribute="leading" secondItem="slk-XO-dTA" secondAttribute="leading" constant="15" id="gBI-se-bMW"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="title" destination="nC9-NK-POX" id="etk-CB-QYJ"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -1713,7 +1710,7 @@ next line</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LY9-8E-2TH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829" y="2123"/>
+            <point key="canvasLocation" x="828.77697841726626" y="2122.6130653266332"/>
         </scene>
         <!--Purchase PopupVC-->
         <scene sceneID="Z8Z-vt-1RG">
