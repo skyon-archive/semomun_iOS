@@ -1514,10 +1514,10 @@ next line</string>
             </objects>
             <point key="canvasLocation" x="829" y="1435"/>
         </scene>
-        <!--View Controller-->
+        <!--Search TagVC-->
         <scene sceneID="mlG-m5-3Al">
             <objects>
-                <viewController id="Tza-Db-nnm" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchTagVC" id="Tza-Db-nnm" customClass="SearchTagVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Hp-3l-CJ0">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1536,6 +1536,9 @@ next line</string>
                                         <state key="normal" image="xmark" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="semibold"/>
                                         </state>
+                                        <connections>
+                                            <action selector="close:" destination="Tza-Db-nnm" eventType="touchUpInside" id="s09-N7-82U"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 태그" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ4-eu-4Vi">
                                         <rect key="frame" x="252.5" y="50" width="67" height="22"/>
@@ -1557,15 +1560,18 @@ next line</string>
                                                 <state key="normal" image="magnifyingglass" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="medium"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="searchTag:" destination="Tza-Db-nnm" eventType="touchUpInside" id="kBL-gT-m23"/>
+                                                </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SeQ-zF-pbJ">
-                                                <rect key="frame" x="15" y="6" width="432" height="34"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SeQ-zF-pbJ">
+                                                <rect key="frame" x="15" y="12.5" width="432" height="21"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" name="mainColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="EfY-yy-cna" secondAttribute="trailing" constant="5" id="AoH-Jl-iPG"/>
                                             <constraint firstItem="EfY-yy-cna" firstAttribute="leading" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" constant="5" id="L6I-Ub-vdP"/>
@@ -1574,6 +1580,17 @@ next line</string>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="leading" secondItem="kTd-32-jpP" secondAttribute="leading" constant="15" id="Umz-Gt-2PC"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="beY-gS-bdE"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" name="mainColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jus-n3-bfj">
                                         <rect key="frame" x="40" y="157" width="492" height="30"/>
@@ -1684,6 +1701,11 @@ next line</string>
                             <constraint firstItem="Gpp-Tr-qd4" firstAttribute="centerY" secondItem="kVc-FF-dEm" secondAttribute="centerY" id="fQM-av-epI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchTagResults" destination="duc-Gb-r0X" id="r6J-Qu-3KT"/>
+                        <outlet property="searchTextField" destination="SeQ-zF-pbJ" id="dMy-63-7f8"/>
+                        <outlet property="selectedTags" destination="Jus-n3-bfj" id="Gk0-EC-kmo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LY9-8E-2TH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

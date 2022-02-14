@@ -32,7 +32,7 @@ final class HomeVC: UIViewController {
     }
     
     @IBAction func appendTags(_ sender: Any) {
-        
+        self.showSearchTagVC()
     }
 }
 
@@ -310,5 +310,12 @@ extension HomeVC: UICollectionViewDelegate {
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
+    
+    private func showSearchTagVC() {
+        let storyboard = UIStoryboard(name: SearchTagVC.storyboardName, bundle: nil)
+        guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
+        
+        self.present(searchTagVC, animated: true, completion: nil)
     }
 }
