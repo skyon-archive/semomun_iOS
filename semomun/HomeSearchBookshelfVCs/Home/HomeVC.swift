@@ -57,6 +57,7 @@ extension HomeVC {
     }
     
     private func configureTags(with tags: [String]) {
+        self.tagsStackView.subviews.forEach { $0.removeFromSuperview() }
         self.tagsStackView.translatesAutoresizingMaskIntoConstraints = false
         let superWidth = self.view.frame.width
         var widthSum: CGFloat = 0
