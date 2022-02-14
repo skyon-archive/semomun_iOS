@@ -190,6 +190,7 @@
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
+		87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941227BA6D93008F6105 /* LoadingView.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -387,6 +388,7 @@
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
+		87DC941227BA6D93008F6105 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -1022,6 +1024,7 @@
 			isa = PBXGroup;
 			children = (
 				87C85E49276F676C001C9C4A /* UserInfoToggleView.swift */,
+				87DC941227BA6D93008F6105 /* LoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
+				87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
