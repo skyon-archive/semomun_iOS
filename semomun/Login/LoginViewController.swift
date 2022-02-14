@@ -36,7 +36,12 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     private func configureSignInAppleButton() {
-        let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        let authorizationButton: ASAuthorizationAppleIDButton
+        if self.signupInfo == nil {
+            authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        } else {
+            authorizationButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black)
+        }
         authorizationButton.addTarget(self, action: #selector(showServiceInfoView(_:)), for: .touchUpInside)
         authorizationButton.cornerRadius = self.buttonRadius
         authorizationButton.tag = 0
@@ -55,7 +60,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         let googleIcon = UIImageView(image: googleIconImg)
         
         let text = UILabel()
-        text.text = "Google로 로그인"
+        text.text = self.signupInfo == nil ? "Google로 로그인" : "Google로 등록"
         text.textColor = UIColor.white
         text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
@@ -152,7 +157,9 @@ extension LoginViewController {
     private func processLogin(with isUser: Bool) {
         if !isUser {
             if self.signupInfo == nil {
-                self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.")
+                self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") { [weak self] in
+                    self?.goToSignup()
+                }
             }
             self.signupInfo?.configureNickname(to: nil)
             self.signupInfo?.configureName(to: nil)
@@ -337,5 +344,19 @@ extension LoginViewController: RegisgerServiceSelectable {
     
     func googleLogin() {
         self.googleSignInButtonPressed()
+    }
+}
+
+extension LoginViewController {
+    private func goToSignup() {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: SurveyViewController.identifier) as? SurveyViewController else { return }
+        let signUpInfo = UserInfo()
+        let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String ?? "수능모의고사"
+        print(category)
+        signUpInfo.configureCategory(to: category)
+        nextVC.signUpInfo = signUpInfo
+        
+        self.title = ""
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
