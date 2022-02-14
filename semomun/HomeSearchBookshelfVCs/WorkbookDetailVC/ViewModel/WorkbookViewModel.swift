@@ -93,7 +93,7 @@ final class WorkbookViewModel {
     
     func switchPurchase() {
         let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
-        let userVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.userVersion) as? String ?? "1.1.1"
+        let userVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.userVersion) as? String ?? "1.1.3"
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2.0"
         
         if !logined {
