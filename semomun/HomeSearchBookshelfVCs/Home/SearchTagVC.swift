@@ -22,16 +22,13 @@ final class SearchTagVC: UIViewController {
         super.viewDidLoad()
         self.configureCollectionView()
         self.configureTableView()
+        self.configureTextField()
         self.configureViewModel()
         self.bindAll()
     }
     
     @IBAction func close(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func searchTag(_ sender: Any) {
-        
     }
 }
 
@@ -43,7 +40,14 @@ extension SearchTagVC {
     }
     
     private func configureTableView() {
-        
+        self.searchTagResults.cellLayoutMarginsFollowReadableWidth = false
+        self.searchTagResults.separatorInset.left = 0
+        self.searchTagResults.dataSource = self
+        self.searchTagResults.delegate = self
+    }
+    
+    private func configureTextField() {
+        self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func configureViewModel() {
@@ -51,11 +55,21 @@ extension SearchTagVC {
         let networkUsecase = NetworkUsecase(network: network)
         self.viewModel = SearchTagVM(networkUsecase: networkUsecase)
     }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else {return }
+        if text.count == 0 {
+            self.viewModel?.removeAll()
+        } else {
+            self.viewModel?.searchTags(text: text)
+        }
+    }
 }
 
 extension SearchTagVC {
     private func bindAll() {
         self.bindTags()
+        self.bindSearchResults()
     }
     
     private func bindTags() {
@@ -64,6 +78,16 @@ extension SearchTagVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.selectedTags.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindSearchResults() {
+        self.viewModel?.$searchResultTags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.searchTagResults.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -87,4 +111,22 @@ extension SearchTagVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.removeTag(index: indexPath.item)
     }
+}
+
+extension SearchTagVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel?.searchResultTags.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
+        guard let tag = self.viewModel?.searchResultTags[indexPath.item] else { return cell }
+        cell.configure(tag: tag)
+        
+        return cell
+    }
+}
+
+extension SearchTagVC: UITableViewDelegate {
+
 }
