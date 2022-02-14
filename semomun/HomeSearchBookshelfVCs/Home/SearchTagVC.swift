@@ -70,6 +70,7 @@ extension SearchTagVC {
     private func bindAll() {
         self.bindTags()
         self.bindSearchResults()
+        self.bindWarning()
     }
     
     private func bindTags() {
@@ -88,6 +89,17 @@ extension SearchTagVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.searchTagResults.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning.title, text: warning.text, completion: nil)
             })
             .store(in: &self.cancellables)
     }
@@ -128,5 +140,9 @@ extension SearchTagVC: UITableViewDataSource {
 }
 
 extension SearchTagVC: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tag = self.viewModel?.searchResultTags[indexPath.item] else { return }
+        self.viewModel?.appendTag(to: tag)
+        self.searchTextField.text = ""
+    }
 }

@@ -22,6 +22,13 @@ final class HomeVM {
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
+        self.configureObservation()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .main) { [weak self] _ in
+            self?.fetchTags()
+        }
     }
     
     func fetchAll() {
@@ -39,6 +46,7 @@ final class HomeVM {
     private func fetchTags() {
         let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] ?? ["수능"]
         self.tags = tags
+        print(tags)
         self.fetchWorkbooksWithTags()
     }
     
