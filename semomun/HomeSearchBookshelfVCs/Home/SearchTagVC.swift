@@ -34,7 +34,6 @@ final class SearchTagVC: UIViewController {
 
 extension SearchTagVC {
     private func configureCollectionView() {
-        self.selectedTags.collectionViewLayout = TagsLayout()
         self.selectedTags.dataSource = self
         self.selectedTags.delegate = self
     }
