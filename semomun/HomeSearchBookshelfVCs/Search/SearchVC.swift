@@ -82,6 +82,7 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
+        self.searchResultVC.removeAll()
         self.changeToSearchFavoriteTagsVC()
         self.searchTextField.text = ""
         self.hiddenSearchBT()
