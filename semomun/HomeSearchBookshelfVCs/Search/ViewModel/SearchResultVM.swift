@@ -34,4 +34,8 @@ final class SearchResultVM {
     func preview(index: Int) -> PreviewOfDB {
         return self.searchResults[index]
     }
+    
+    func removeAll() {
+        self.searchResults = []
+    }
 }
