@@ -69,10 +69,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
-        
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 2.0
-        scrollView.delegate = self
+        self.configureScrollView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,10 +79,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
-        scrollView.zoomScale = 1.0
-//        scrollView.gestureRecognizers?.forEach {
-//            $0.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
-//        }
+        self.scrollView.zoomScale = 1.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -200,13 +194,11 @@ extension SingleWith5AnswerVC {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
         rightSwipeGesture.direction = .right
         rightSwipeGesture.numberOfTouchesRequired = 1
-        rightSwipeGesture.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         self.view.addGestureRecognizer(rightSwipeGesture)
         
         let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
         leftSwipeGesture.direction = .left
         leftSwipeGesture.numberOfTouchesRequired = 1
-        leftSwipeGesture.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
     
@@ -216,6 +208,12 @@ extension SingleWith5AnswerVC {
     
     @objc func leftDragged() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.delegate = self
     }
     
     func stopLoader() {
@@ -417,8 +415,5 @@ extension SingleWith5AnswerVC: ExplanationRemover {
 extension SingleWith5AnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
-    }
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        print(self.canvasView.bounds)
     }
 }
