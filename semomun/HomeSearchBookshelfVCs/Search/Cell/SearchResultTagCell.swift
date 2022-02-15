@@ -13,7 +13,6 @@ class SearchResultTagCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
     }
 
     override func prepareForReuse() {

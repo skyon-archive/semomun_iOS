@@ -9,12 +9,14 @@ import Foundation
 import Combine
 
 final class SearchTagVM {
-    private let networkUsecase: NetworkUsecase
-    @Published private(set) var tags: [String] = []
+    private let networkUsecase: SearchTagsFetchable
     @Published private(set) var searchResultTags: [String] = []
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var tags: [String] = [] {
+        didSet { self.saveTags() }
+    }
     
-    init(networkUsecase: NetworkUsecase) {
+    init(networkUsecase: SearchTagsFetchable) {
         self.networkUsecase = networkUsecase
         self.fetchTags()
     }
@@ -39,7 +41,6 @@ final class SearchTagVM {
     
     func removeTag(index: Int) {
         self.tags.remove(at: index)
-        self.saveTags()
     }
     
     func removeAll() {
@@ -47,13 +48,13 @@ final class SearchTagVM {
     }
     
     func appendTag(to tag: String) {
-        if self.tags.count >= 5 {
+        guard self.tags.count < 5 else {
             self.warning = ("5개 이하만 선택해주세요", "")
             return
         }
         self.tags.append(tag)
         self.removeAll()
-        self.saveTags()
+       
     }
     
     private func saveTags() {
