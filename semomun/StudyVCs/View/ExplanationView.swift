@@ -13,6 +13,7 @@ protocol ExplanationRemover: AnyObject {
 
 final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemover?
+    private var contentViewHeightConstraint: NSLayoutConstraint?
     private var imageViewHeightConstraint: NSLayoutConstraint?
     private lazy var imageviewHeight: CGFloat = (self.frame.height/2)-40
     private let xmarkImage: UIImage? = {
@@ -23,6 +24,11 @@ final class ExplanationView: UIView {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
+    }()
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     private lazy var explanationImageView: UIImageView = {
         let imageView = UIImageView()
@@ -68,17 +74,28 @@ final class ExplanationView: UIView {
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
-        self.scrollView.addSubview(self.explanationImageView)
+        self.scrollView.addSubview(self.contentView)
         NSLayoutConstraint.activate([
-            self.explanationImageView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
-            self.explanationImageView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
-            self.explanationImageView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
-            self.explanationImageView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
-            self.explanationImageView.widthAnchor.constraint(equalTo: self.scrollView.frameLayoutGuide.widthAnchor)
+            self.contentView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
+            self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
+            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.frameLayoutGuide.widthAnchor)
+        ])
+        
+        self.contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalToConstant: self.imageviewHeight)
+        self.contentViewHeightConstraint?.isActive = true
+        
+        
+        self.contentView.addSubview(self.explanationImageView)
+        NSLayoutConstraint.activate([
+            self.explanationImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.explanationImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.explanationImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
         ])
         
         self.imageViewHeightConstraint = self.explanationImageView.heightAnchor.constraint(equalToConstant: self.imageviewHeight)
-        self.imageViewHeightConstraint?.isActive = false
+        self.imageViewHeightConstraint?.isActive = true
     }
     
     func configureImage(to image: UIImage?) {
@@ -87,6 +104,8 @@ final class ExplanationView: UIView {
         let width = self.scrollView.frame.width
         let height = image.size.height*(width/image.size.width)
         self.imageViewHeightConstraint?.constant = height
+        self.contentViewHeightConstraint?.constant = height
         self.explanationImageView.image = image
+        self.scrollView.setContentOffset(.zero, animated: false)
     }
 }
