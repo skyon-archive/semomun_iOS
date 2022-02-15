@@ -21,13 +21,15 @@ extension CoreUsecase {
             guard let sectionHeaders = CoreUsecase.fetchSectionHeaders(wid: Int(preview.wid)) else { continue }
             let sectionCount = sectionHeaders.count
             sectionHeaders.forEach { sectionHeader in
-                // update sectionHeader: downloaded
-                if sectionCount == 1 && preview.downloaded {
-                    sectionHeader.setValue(true, forKey: "downloaded")
-                }
-                // update sectionHeader: terminated
-                if sectionCount == 1 && preview.terminated {
-                    sectionHeader.setValue(true, forKey: "terminated")
+                if sectionCount == 1 {
+                    // update sectionHeader: downloaded
+                    if preview.downloaded {
+                        sectionHeader.setValue(true, forKey: "downloaded")
+                    }
+                    // update sectionHeader: terminated
+                    if preview.terminated {
+                        sectionHeader.setValue(true, forKey: "terminated")
+                    }
                 }
             }
         }

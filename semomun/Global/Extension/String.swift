@@ -35,16 +35,9 @@ extension String {
         default: return self
         }
     }
+    static let pastVersion: String = "1.1.3"
     
-    static var pastVersion: String {
-        return "1.1.3"
-    }
+    static let currentVersion: String = "2.0"
     
-    static var currentVersion: String {
-        return "2.0"
-    }
-    
-    static var latestCoreVersion: String {
-        return "2.0"
-    }
+    static let latestCoreVersion: String = "2.0"
 }
