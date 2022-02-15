@@ -364,7 +364,6 @@ extension SingleWith5AnswerVC {
     
     private func showExplanation(to image: UIImage?) {
         self.explanationView.configureDelegate(to: self)
-        self.explanationView.configureImage(to: image)
         self.view.addSubview(self.explanationView)
         self.explanationView.translatesAutoresizingMaskIntoConstraints = false
         let height = self.view.frame.height/2
@@ -375,6 +374,7 @@ extension SingleWith5AnswerVC {
             self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+        self.explanationView.configureImage(to: image)
         self.setShadow(with: self.explanationView)
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.scrollViewBottomConstraint.constant = height

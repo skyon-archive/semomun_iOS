@@ -66,6 +66,8 @@ final class PageData {
             return ConceptVC.identifier
         case PastLayout.SingleWithNoAnswer:
             return SingleWithNoAnswerVC.identifier
+        case PastLayout.SingleWithTextAnswer:
+            return SingleWithTextAnswerVC.identifier
         case PastLayout.SingleWith4Answer:
             return SingleWith4AnswerVC.identifier
         case PastLayout.SingleWith5Answer:
