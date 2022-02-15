@@ -360,6 +360,11 @@ extension NetworkUsecase: PopularTagsFetchable {
     func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void) {
         let dummyTags = ["국가 기술 자격","수학의 정석","기업 적성검사","해커스어학연구소","취업/상식","좋은책신사고","국가직 7급 공무원","국사편찬위원회","쎈","교육청","대한상공회의소","수능","국사편찬위원회"]
         completion(.SUCCESS, dummyTags+dummyTags)
+        self.getCategorys { categorys in
+            guard var categorys = categorys else { return }
+            categorys.append("자격증")
+            completion(.SUCCESS, categorys+dummyTags+dummyTags)
+        }
     }
 }
 
@@ -372,25 +377,42 @@ extension NetworkUsecase: SearchTagsFetchable {
 
 extension NetworkUsecase: SearchFetchable {
     func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        let param = ["c": "수능모의고사"]
-        self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
-            guard let statusCode = requestResult.statusCode,
-                  let data = requestResult.data else {
-                print("Error: no requestResult")
+        var category: String = "수능모의고사"
+        self.getCategorys { categorys in
+            guard var categorys = categorys else {
                 completion(.ERROR, [])
                 return
             }
-            if statusCode != 200 {
-                print("Error: \(statusCode), \(String(data: data, encoding: .utf8)!)")
-                completion(.ERROR, [])
-                return
+            categorys.append("자격증")
+            if let firstTag = tags.first,
+               categorys.contains(firstTag) {
+                category = firstTag
             }
-            guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
-                print("Error: Decode")
-                completion(.DECODEERROR, [])
-                return
+            
+            func testSearch() {
+                let param = ["c": category]
+                self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
+                    guard let statusCode = requestResult.statusCode,
+                          let data = requestResult.data else {
+                        print("Error: no requestResult")
+                        completion(.ERROR, [])
+                        return
+                    }
+                    if statusCode != 200 {
+                        print("Error: \(statusCode), \(String(data: data, encoding: .utf8)!)")
+                        completion(.ERROR, [])
+                        return
+                    }
+                    guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
+                        print("Error: Decode")
+                        completion(.DECODEERROR, [])
+                        return
+                    }
+                    completion(.SUCCESS, searchPreview.workbooks)
+                }
             }
-            completion(.SUCCESS, searchPreview.workbooks)
+            
+            testSearch()
         }
     }
 }

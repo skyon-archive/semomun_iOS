@@ -37,6 +37,10 @@ extension SearchResultVC {
         self.viewModel?.fetchSearchResults(tags: tags, text: text)
     }
     
+    func removeAll() {
+        self.viewModel?.removeAll()
+    }
+    
     private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
