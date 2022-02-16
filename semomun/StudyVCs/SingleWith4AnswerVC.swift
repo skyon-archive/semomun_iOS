@@ -22,6 +22,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentView: UIView!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -68,6 +69,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
+        self.configureScrollView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +79,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
+        self.canvasView.zoomScale = 1.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -204,6 +207,12 @@ extension SingleWith4AnswerVC {
     
     @objc func leftDragged() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.delegate = self
     }
     
     func stopLoader() {
@@ -397,5 +406,11 @@ extension SingleWith4AnswerVC: ExplanationRemover {
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
         }
+    }
+}
+
+extension SingleWith4AnswerVC: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.contentView
     }
 }

@@ -1039,6 +1039,7 @@
                         <outlet property="bookmarkBT" destination="3FI-3H-91O" id="QY1-TH-3FS"/>
                         <outlet property="canvasHeight" destination="hQZ-5L-L0g" id="kHP-Uz-G5E"/>
                         <outlet property="canvasView" destination="Lt0-Su-5pH" id="0bj-a6-Pgk"/>
+                        <outlet property="contentView" destination="4hO-iZ-wEC" id="XZ0-os-si1"/>
                         <outlet property="explanationBT" destination="cyz-7w-gwf" id="I2d-w7-PLR"/>
                         <outlet property="imageHeight" destination="dsB-gK-pSf" id="Y1f-pK-6rZ"/>
                         <outlet property="imageView" destination="KdM-7e-fgM" id="2cw-8U-vAk"/>
@@ -1211,6 +1212,7 @@
                         <outlet property="bookmarkBT" destination="lQ7-8b-HuO" id="G3z-4A-G9x"/>
                         <outlet property="canvasHeight" destination="9xm-eF-Qtc" id="qng-s7-j0P"/>
                         <outlet property="canvasView" destination="Q7f-jV-qVX" id="0bh-uk-Yra"/>
+                        <outlet property="contentView" destination="eVu-bH-QvD" id="40z-sv-G01"/>
                         <outlet property="explanationBT" destination="XNC-vK-v3y" id="Nhl-EZ-K0i"/>
                         <outlet property="imageHeight" destination="3U8-Dv-Yk4" id="Ukw-ta-8Mh"/>
                         <outlet property="imageView" destination="lqz-a2-AUZ" id="iPX-yh-oFE"/>
@@ -1565,6 +1567,7 @@
                         <outlet property="canvasView" destination="0xw-6o-Wsf" id="0dK-9g-4Le"/>
                         <outlet property="collectionView" destination="u0K-5G-vsS" id="ZDq-LU-Iif"/>
                         <outlet property="collectionViewBottomConstraint" destination="87J-eU-ZQN" id="Jx9-Ng-a0p"/>
+                        <outlet property="contentView" destination="xRA-pd-HHL" id="gN1-rU-8jn"/>
                         <outlet property="imageHeight" destination="1jJ-04-mJU" id="QJr-cC-wJp"/>
                         <outlet property="imageView" destination="hCb-w4-a0t" id="q10-45-zwc"/>
                         <outlet property="scrollView" destination="ihJ-Ns-SQH" id="y6q-BY-9jV"/>
@@ -1760,6 +1763,7 @@
                         <outlet property="canvasView" destination="QjJ-eL-lcZ" id="mAe-zl-OBe"/>
                         <outlet property="collectionView" destination="XRs-jU-BMT" id="cYt-li-tYm"/>
                         <outlet property="collectionViewBottomConstraint" destination="Pm7-fx-obD" id="7eC-Oe-8f5"/>
+                        <outlet property="contentView" destination="1vU-6c-Rld" id="mqR-k1-gki"/>
                         <outlet property="imageHeight" destination="c2k-UL-gkb" id="0Hw-sa-hDG"/>
                         <outlet property="imageView" destination="qsh-wh-bXO" id="ge7-pJ-51h"/>
                         <outlet property="scrollView" destination="WHa-pp-e9H" id="89L-Pu-gjn"/>
@@ -1872,6 +1876,7 @@
                         <outlet property="bookmarkBT" destination="M2c-cc-QWU" id="Hn0-2O-J92"/>
                         <outlet property="canvasHeight" destination="GXf-kO-719" id="GMy-QG-pcY"/>
                         <outlet property="canvasView" destination="fRN-U2-iAe" id="sMC-by-B9I"/>
+                        <outlet property="contentView" destination="q5l-rJ-eP7" id="sNW-dv-pG3"/>
                         <outlet property="imageHeight" destination="GA0-vR-qGJ" id="bZE-Jq-S4b"/>
                         <outlet property="imageView" destination="jNO-ua-1RU" id="O3d-UD-s88"/>
                         <outlet property="scrollView" destination="LHZ-OR-WbG" id="Y1l-EL-faH"/>
@@ -1998,6 +2003,7 @@
                         <outlet property="bookmarkBT" destination="ORO-rw-fQa" id="HoL-lQ-Bad"/>
                         <outlet property="canvasHeight" destination="cW3-7S-Cbj" id="pF1-Xz-pEb"/>
                         <outlet property="canvasView" destination="8mX-D2-R0K" id="Vcf-kM-b16"/>
+                        <outlet property="contentView" destination="o9I-2p-r4q" id="HDO-Mn-sao"/>
                         <outlet property="explanationBT" destination="Aaf-7O-6FA" id="Uhj-gP-H03"/>
                         <outlet property="imageHeight" destination="roh-fN-0M9" id="fRZ-dg-eib"/>
                         <outlet property="imageView" destination="uj6-kZ-Gzx" id="8aa-wA-hH3"/>
