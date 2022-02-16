@@ -20,6 +20,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentView: UIView!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -51,6 +52,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         self.configureLoader()
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
+        self.configureScrollView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +63,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         self.collectionView.reloadData()
         self.configureCanvasView()
         self.configureCanvasViewData()
+        self.canvasView.zoomScale = 1.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,6 +142,12 @@ extension MultipleWith5AnswerVC {
     
     @objc func leftDragged() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.delegate = self
     }
     
     func stopLoader() {
@@ -292,5 +301,11 @@ extension MultipleWith5AnswerVC: ExplanationRemover {
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
         }
+    }
+}
+
+extension MultipleWith5AnswerVC: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.contentView
     }
 }
