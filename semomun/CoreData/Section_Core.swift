@@ -9,6 +9,42 @@
 import Foundation
 import CoreData
 
+public class ButtonData: NSObject, NSCoding {
+    public func encode(with coder: NSCoder) {
+        coder.encode(pName, forKey: "pName")
+        coder.encode(pid, forKey: "pid")
+        coder.encode(vid, forKey: "vid")
+        coder.encode(wrong, forKey: "wrong")
+        coder.encode(check, forKey: "check")
+        coder.encode(terminated, forKey: "terminated")
+    }
+    
+    public required init?(coder: NSCoder) {
+        self.pName = coder.decodeObject(forKey: "pName") as! String
+        self.pid = coder.decodeInteger(forKey: "pid")
+        self.vid = coder.decodeInteger(forKey: "vid")
+        self.wrong = coder.decodeBool(forKey: "wrong")
+        self.check = coder.decodeBool(forKey: "check")
+        self.terminated = coder.decodeBool(forKey: "terminated")
+    }
+    
+    let pName: String
+    let pid: Int // 혹시 추가정보를 반영하기 위해 접근가능하도록 key값을 저장하는 역할
+    var vid: Int
+    var wrong: Bool
+    var check: Bool
+    var terminated: Bool
+    
+    init(problem: Problem_Core, vid: Int) {
+        self.pName = problem.pName ?? "1"
+        self.pid = Int(problem.pid)
+        self.vid = vid
+        self.wrong = problem.correct
+        self.check = problem.solved != nil
+                self.terminated = problem.terminated
+    }
+}
+
 extension Section_Core {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section_Core> {
@@ -25,6 +61,7 @@ extension Section_Core {
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
     @NSManaged public var checks: [Bool] //푼 문제인지 여부
+    @NSManaged public var buttonDatas: [ButtonData] //하단 버튼내용들
 }
 
 extension Section_Core : Identifiable {
@@ -33,7 +70,7 @@ extension Section_Core : Identifiable {
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
     public override var description: String{
-        return "Section(\(self.sid), \(optional: self.title), \(self.buttons), \(self.stars), \(self.wrongs), \(self.dictionaryOfProblem))\n"
+        return "Section(\(self.sid), \(self.buttons), \(self.stars), \(self.wrongs), \(self.dictionaryOfProblem), \(self.buttonDatas))"
     }
     
     func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {
