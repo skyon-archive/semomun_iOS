@@ -156,16 +156,6 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchAllPreviews() -> [Preview_Core]? {
-        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
-        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            return previews
-        } else {
-            print("Error: fetch all previews")
-            return nil
-        }
-    }
-    
     static func fetchPreviews(subject: String, category: String) -> [Preview_Core]? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         var filters: [NSPredicate] = []
@@ -219,6 +209,16 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchSections() -> [Section_Core]? {
+        let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
+        if let sections = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return sections
+        } else {
+            print("Error: fetch all sections")
+            return nil
+        }
+    }
+    
     static func fetchPage(vid: Int) -> Page_Core? {
         let fetchRequest: NSFetchRequest<Page_Core> = Page_Core.fetchRequest()
         let filter = NSPredicate(format: "vid = %@", "\(vid)")
@@ -262,7 +262,7 @@ struct CoreUsecase {
     }
     
     static func deleteAllCoreData() {
-        guard let allPreviews = CoreUsecase.fetchAllPreviews() else {
+        guard let allPreviews = CoreUsecase.fetchPreviews() else {
             print("Error: fetch all preview")
             return
         }
