@@ -33,6 +33,43 @@ extension CoreUsecase {
                 }
             }
         }
+        print("PREVIEW MIGRATION SUCCESS")
+        CoreDataManager.saveCoreData()
+        // fetch all sections
+        guard let sections = CoreUsecase.fetchSections() else {
+            completion(false)
+            return
+        }
+        // sections.forEach
+        for section in sections {
+            // get vids
+            let vids = NSOrderedSet(array:
+                                        section.buttons.map { section.dictionaryOfProblem[$0, default: 0] })
+                .map { $0 as? Int ?? 0 }
+            // get problems
+            let problems =  vids.map() { vid in
+                CoreUsecase.fetchPage(vid: vid)
+            }.compactMap({$0}).map() { page in
+                page.problems.map() { pid in
+                    CoreUsecase.fetchProblem(pid: pid)
+                }.compactMap({$0})
+            }.reduce([], +)
+            // tupples.forEach
+            var buttonDatas: [ButtonData] = []
+            for pName in section.buttons {
+                // find problem: pName -> Problem
+                guard let vid = section.dictionaryOfProblem[pName] else { continue }
+                guard let problem = problems.first(where: { $0.pName == pName } ) else {
+                    print("ERROR: CAN'T FIND PROBLEM: \(pName)")
+                    continue
+                }
+                // append ButtonData
+                buttonDatas.append(ButtonData(problem: problem, vid: vid))
+            }
+            // save ButtonData
+            section.setValue(buttonDatas, forKey: "buttonDatas")
+        }
+        print("SECTION MIGRATION SUCCESS")
         CoreDataManager.saveCoreData()
         completion(true)
     }
