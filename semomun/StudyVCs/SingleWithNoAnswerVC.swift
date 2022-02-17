@@ -61,7 +61,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         self.scrollView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
-        self.canvasView.zoomScale = 1.0
+        self.scrollView.zoomScale = 1.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
