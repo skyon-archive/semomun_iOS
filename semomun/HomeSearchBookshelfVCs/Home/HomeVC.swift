@@ -47,6 +47,7 @@ extension HomeVC {
     }
     
     private func configureCollectionView() {
+        self.bannerAds.delegate = self
         self.bannerAds.dataSource = self
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
@@ -223,7 +224,7 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.bannerAds:
-            return self.viewModel?.ads.count ?? 0
+            return (self.viewModel?.ads.count ?? 0) * 2
         case self.bestSellers:
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
@@ -240,7 +241,8 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.bannerAds {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
-            guard let testAd = self.viewModel?.ads[indexPath.item] else { return cell }
+            guard let count = self.viewModel?.ads.count else { return cell }
+            guard let testAd = self.viewModel?.ads[indexPath.item % count] else { return cell }
             
             cell.configureTest(imageURL: testAd.0, url: testAd.1)
             
@@ -326,5 +328,23 @@ extension HomeVC: UICollectionViewDelegate {
         guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
         
         self.present(searchTagVC, animated: true, completion: nil)
+    }
+}
+
+extension HomeVC {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard scrollView == bannerAds else {
+            return
+        }
+        targetContentOffset.pointee = scrollView.contentOffset
+        let visibleCellIndexes = self.bannerAds.indexPathsForVisibleItems.sorted()
+        guard var firstVisibleCellIndex = visibleCellIndexes.first else { return }
+        let firstVisibleCell = self.bannerAds.cellForItem(at: firstVisibleCellIndex)!
+
+        let position = self.bannerAds.contentOffset.x - firstVisibleCell.frame.origin.x
+        if position > firstVisibleCell.frame.size.width / 4 {
+            firstVisibleCellIndex.row += 1
+        }
+        bannerAds.scrollToItem(at: firstVisibleCellIndex, at: .left, animated: true)
     }
 }
