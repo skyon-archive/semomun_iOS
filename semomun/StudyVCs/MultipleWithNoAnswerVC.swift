@@ -63,7 +63,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.collectionView.reloadData()
         self.configureCanvasView()
         self.configureCanvasViewData()
-        self.canvasView.zoomScale = 1.0
+        self.scrollView.zoomScale = 1.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
