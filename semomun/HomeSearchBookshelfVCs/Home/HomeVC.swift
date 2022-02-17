@@ -20,6 +20,8 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var newestHeight: NSLayoutConstraint!
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
+    private var bannerAdsLastPos: CGFloat = 0
+    private var adBannerScrolling = false
     private lazy var noLoginedLabel1 = NoneWorkbookLabel()
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     
@@ -338,13 +340,33 @@ extension HomeVC {
         }
         targetContentOffset.pointee = scrollView.contentOffset
         let visibleCellIndexes = self.bannerAds.indexPathsForVisibleItems.sorted()
-        guard var firstVisibleCellIndex = visibleCellIndexes.first else { return }
-        let firstVisibleCell = self.bannerAds.cellForItem(at: firstVisibleCellIndex)!
-
-        let position = self.bannerAds.contentOffset.x - firstVisibleCell.frame.origin.x
-        if position > firstVisibleCell.frame.size.width / 4 {
-            firstVisibleCellIndex.row += 1
+        guard visibleCellIndexes.count > 0 else { return }
+        var middleCellIndex = visibleCellIndexes[visibleCellIndexes.count/2]
+        let middleCell = self.bannerAds.cellForItem(at: middleCellIndex)!
+        let position = self.bannerAds.contentOffset.x - middleCell.frame.origin.x
+        print(position)
+        if position > 0 {
+            middleCellIndex.item += 1
+        } else {
+            middleCellIndex.item -= 1
         }
-        bannerAds.scrollToItem(at: firstVisibleCellIndex, at: .left, animated: true)
+
+        bannerAds.scrollToItem(at: middleCellIndex, at: .centeredHorizontally, animated: true)
+        self.bannerAdsLastPos = position
+    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        let visibleCellIndexesAfterPaging = self.bannerAds.indexPathsForVisibleItems.sorted()
+        guard let lastVisibleCellIndex = visibleCellIndexesAfterPaging.last,
+        let firstVisibleCellIndex = visibleCellIndexesAfterPaging.first else { return }
+        let bannerAdsSize = self.collectionView(self.bannerAds, numberOfItemsInSection: 0)
+        if lastVisibleCellIndex.item == bannerAdsSize - 1 {
+            guard let adSize = self.viewModel?.ads.count else { return }
+            let previousSameItemIndex = firstVisibleCellIndex.item % adSize
+            self.bannerAds.scrollToItem(at: IndexPath(item: previousSameItemIndex, section: 0), at: .left, animated: false)
+        } else if firstVisibleCellIndex.item == 0 {
+            guard let adSize = self.viewModel?.ads.count else { return }
+            let previousSameItemIndex = adSize
+            self.bannerAds.scrollToItem(at: IndexPath(item: previousSameItemIndex, section: 0), at: .left, animated: false)
+        }
     }
 }
