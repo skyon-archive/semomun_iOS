@@ -20,6 +20,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -48,6 +49,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.configureScrollView()
         print("\(Self.identifier) awakeFromNib")
     }
     
@@ -119,6 +121,12 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.shadowView.addShadow(direction: .top)
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.delegate = self
     }
     
     // MARK: - Configure Reuse
@@ -297,5 +305,11 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+    }
+}
+
+extension MultipleWith5Cell: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.canvasView
     }
 }
