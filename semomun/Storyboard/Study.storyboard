@@ -1715,38 +1715,54 @@
                                                         <constraint firstItem="87q-Cf-BYQ" firstAttribute="leading" secondItem="pLh-7L-KWa" secondAttribute="leading" constant="10" id="l11-CZ-66J"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-T5-gad" customClass="PKCanvasView">
-                                                    <rect key="frame" x="0.0" y="56" width="406" height="150"/>
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJV-13-j5I">
+                                                    <rect key="frame" x="0.0" y="56" width="406" height="165"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-CL-d0I">
-                                                            <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-T5-gad" customClass="PKCanvasView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="406" height="165"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-CL-d0I">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="406" height="150"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="150" id="WfI-Ji-Di9"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="150" id="WfI-Ji-Di9"/>
+                                                                <constraint firstItem="fLE-CL-d0I" firstAttribute="top" secondItem="BFs-T5-gad" secondAttribute="top" id="Udm-e4-Rex"/>
+                                                                <constraint firstItem="fLE-CL-d0I" firstAttribute="leading" secondItem="BFs-T5-gad" secondAttribute="leading" id="d80-dO-bzQ"/>
+                                                                <constraint firstAttribute="height" constant="150" id="mBO-e1-J9W"/>
+                                                                <constraint firstItem="fLE-CL-d0I" firstAttribute="centerX" secondItem="BFs-T5-gad" secondAttribute="centerX" id="mBo-MB-NMA"/>
                                                             </constraints>
-                                                        </imageView>
+                                                        </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="fLE-CL-d0I" firstAttribute="top" secondItem="BFs-T5-gad" secondAttribute="top" id="Udm-e4-Rex"/>
-                                                        <constraint firstItem="fLE-CL-d0I" firstAttribute="leading" secondItem="BFs-T5-gad" secondAttribute="leading" id="d80-dO-bzQ"/>
-                                                        <constraint firstAttribute="height" constant="150" id="mBO-e1-J9W"/>
-                                                        <constraint firstItem="fLE-CL-d0I" firstAttribute="centerX" secondItem="BFs-T5-gad" secondAttribute="centerX" id="mBo-MB-NMA"/>
+                                                        <constraint firstItem="2jS-pd-3np" firstAttribute="leading" secondItem="BFs-T5-gad" secondAttribute="leading" id="2bI-QS-hvC"/>
+                                                        <constraint firstItem="BFs-T5-gad" firstAttribute="centerX" secondItem="2jS-pd-3np" secondAttribute="centerX" id="DVQ-y8-GM6"/>
+                                                        <constraint firstItem="BFs-T5-gad" firstAttribute="height" secondItem="dcx-00-UxE" secondAttribute="height" id="MMx-64-lhr"/>
+                                                        <constraint firstItem="BFs-T5-gad" firstAttribute="top" secondItem="2jS-pd-3np" secondAttribute="top" id="b99-Jx-3c9"/>
+                                                        <constraint firstItem="BFs-T5-gad" firstAttribute="centerY" secondItem="2jS-pd-3np" secondAttribute="centerY" id="ddk-nS-npN"/>
+                                                        <constraint firstItem="BFs-T5-gad" firstAttribute="width" secondItem="dcx-00-UxE" secondAttribute="width" id="g4d-ql-g5o"/>
                                                     </constraints>
-                                                </view>
+                                                    <viewLayoutGuide key="contentLayoutGuide" id="2jS-pd-3np"/>
+                                                    <viewLayoutGuide key="frameLayoutGuide" id="dcx-00-UxE"/>
+                                                </scrollView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="BFs-T5-gad" firstAttribute="leading" secondItem="a7R-cH-lv0" secondAttribute="leading" id="4Dh-pV-yxl"/>
-                                            <constraint firstAttribute="trailing" secondItem="BFs-T5-gad" secondAttribute="trailing" id="HZO-1r-gqx"/>
                                             <constraint firstItem="kX7-hi-5qj" firstAttribute="height" secondItem="pLh-7L-KWa" secondAttribute="height" id="L33-1f-nX7"/>
                                             <constraint firstItem="kX7-hi-5qj" firstAttribute="top" secondItem="pLh-7L-KWa" secondAttribute="topMargin" constant="-1" id="Op7-vv-ObZ"/>
-                                            <constraint firstItem="BFs-T5-gad" firstAttribute="top" secondItem="pLh-7L-KWa" secondAttribute="bottom" id="cPo-t1-GMV"/>
                                             <constraint firstAttribute="trailing" secondItem="pLh-7L-KWa" secondAttribute="trailing" id="ffs-iv-Wx9"/>
                                             <constraint firstItem="pLh-7L-KWa" firstAttribute="leading" secondItem="a7R-cH-lv0" secondAttribute="leading" id="lLj-Qd-Dqg"/>
                                             <constraint firstItem="kX7-hi-5qj" firstAttribute="centerX" secondItem="pLh-7L-KWa" secondAttribute="centerX" id="osJ-pH-FgV"/>
                                             <constraint firstItem="kX7-hi-5qj" firstAttribute="width" secondItem="pLh-7L-KWa" secondAttribute="width" constant="-15" id="qZ4-is-2mb"/>
+                                            <constraint firstItem="KJV-13-j5I" firstAttribute="top" secondItem="pLh-7L-KWa" secondAttribute="bottom" id="slp-7D-scp"/>
                                             <constraint firstItem="pLh-7L-KWa" firstAttribute="top" secondItem="a7R-cH-lv0" secondAttribute="top" constant="6" id="tbg-gW-RdP"/>
+                                            <constraint firstItem="KJV-13-j5I" firstAttribute="leading" secondItem="a7R-cH-lv0" secondAttribute="leading" id="wpk-NC-Cgi"/>
+                                            <constraint firstAttribute="bottom" secondItem="KJV-13-j5I" secondAttribute="bottom" id="x0p-Pb-CjA"/>
+                                            <constraint firstAttribute="trailing" secondItem="KJV-13-j5I" secondAttribute="trailing" id="z9x-TG-oaO"/>
                                         </constraints>
                                         <size key="customSize" width="406" height="221"/>
                                         <connections>
@@ -1756,6 +1772,7 @@
                                             <outlet property="explanationBT" destination="Gci-lo-PrW" id="ymq-OA-9bi"/>
                                             <outlet property="imageHeight" destination="WfI-Ji-Di9" id="17s-al-a8a"/>
                                             <outlet property="imageView" destination="fLE-CL-d0I" id="BUy-5X-tZe"/>
+                                            <outlet property="scrollView" destination="KJV-13-j5I" id="O3S-Hc-Y5o"/>
                                             <outlet property="shadowView" destination="kX7-hi-5qj" id="Pmg-IA-v7l"/>
                                         </connections>
                                     </collectionViewCell>
