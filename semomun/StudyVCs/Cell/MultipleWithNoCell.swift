@@ -18,6 +18,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -63,6 +64,12 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     func configureUI() {
         self.timerView.removeFromSuperview()
         self.shadowView.addShadow(direction: .top)
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.delegate = self
     }
     
     // MARK: - Configure Reuse
@@ -168,5 +175,11 @@ extension MultipleWithNoCell {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
         guard let pName = self.problem?.pName else { return }
         self.delegate?.updateCheck(btName: pName)
+    }
+}
+
+extension MultipleWithNoCell: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.canvasView
     }
 }
