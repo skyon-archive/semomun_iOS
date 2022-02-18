@@ -20,8 +20,8 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var newestHeight: NSLayoutConstraint!
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
-    private var bannerAdsFlowLayout = BannerAdsFlowLayout()
     private var bannerAdsAutoScrollTimer: Timer?
+    private let bannerAdsAutoScrollInterval: TimeInterval = 3
     private lazy var noLoginedLabel1 = NoneWorkbookLabel()
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     
@@ -33,24 +33,6 @@ final class HomeVC: UIViewController {
         self.bindAll()
         self.fetch()
         self.configureAddObserver()
-        self.bannerAds.decelerationRate = .fast
-        self.bannerAdsFlowLayout.bannerAdsAutoScrollStoppable = self
-    }
-    
-    func startBannerAdsAutoScroll() {
-        self.bannerAdsAutoScrollTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
-            guard let bannerAds = self?.bannerAds else { return }
-            let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
-            var middleIndex = visibleItemIndexes[visibleItemIndexes.count/2]
-            middleIndex.item += 1
-            let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
-            guard let lastIndex = visibleItemIndexes.last else { return }
-            if lastIndex.item == bannerAdsDataCount - 1 {
-                self?.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
-                return
-            }
-            self?.bannerAds.scrollToItem(at: middleIndex, at: .centeredHorizontally, animated: true)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,9 +56,7 @@ extension HomeVC {
     }
     
     private func configureCollectionView() {
-        self.bannerAds.delegate = self
-        self.bannerAds.dataSource = self
-        self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
+        self.configureBannerAds()
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
         self.workbooksWithRecent.dataSource = self
@@ -85,6 +65,14 @@ extension HomeVC {
         self.workbooksWithTags.delegate = self
         self.workbooksWithRecent.delegate = self
         self.workbooksWithNewest.delegate = self
+    }
+    
+    private func configureBannerAds() {
+        self.bannerAds.delegate = self
+        self.bannerAds.dataSource = self
+        let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
+        self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
+        self.bannerAds.decelerationRate = .fast
     }
     
     private func configureTags(with tags: [String]) {
@@ -252,7 +240,7 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.bannerAds:
-            return (self.viewModel?.ads.count ?? 0) * 3
+            return (self.viewModel?.ads.count ?? 0) * 500
         case self.bestSellers:
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
@@ -363,92 +351,29 @@ extension HomeVC {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.startBannerAdsAutoScroll()
     }
+    /// Note: Cell의 개수가 화면을 가득 채움을 가정
+    private func startBannerAdsAutoScroll() {
+        self.bannerAdsAutoScrollTimer = Timer.scheduledTimer(withTimeInterval: self.bannerAdsAutoScrollInterval, repeats: true) { [weak self] _ in
+            guard let bannerAds = self?.bannerAds else { return }
+            let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
+            guard bannerAdsDataCount != 0 else { return }
+            let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
+            
+            // 더 이상 넘길 수 없는 경우 체크
+            let lastVisibleItemIndex = visibleItemIndexes.last!.item
+            if lastVisibleItemIndex == bannerAdsDataCount - 1 {
+                self?.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
+                return
+            }
+            
+            let nextIndex = visibleItemIndexes[visibleItemIndexes.count/2 + 1]
+            self?.bannerAds.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: true)
+        }
+    }
 }
 
 extension HomeVC: BannerAdsAutoScrollStoppable {
     func stopAutoScroll() {
         self.bannerAdsAutoScrollTimer?.invalidate()
-    }
-}
-
-protocol BannerAdsAutoScrollStoppable: AnyObject {
-    func stopAutoScroll()
-}
-
-class BannerAdsFlowLayout: UICollectionViewLayout {
-    weak var bannerAdsAutoScrollStoppable: BannerAdsAutoScrollStoppable?
-    private var cache: [UICollectionViewLayoutAttributes] = []
-    private(set) var targetOffset: CGFloat = 0
-    private var itemCount: CGFloat {
-        guard let collectionView = collectionView else { return 0 }
-        return CGFloat(collectionView.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0)
-    }
-    
-    override func prepare() {
-        guard cache.isEmpty else { return }
-        self.cache = (0..<Int(itemCount)).map { itemIndex in
-            let indexPath = IndexPath(item: itemIndex, section: 0)
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            let itemSize = CGSize(320, 200)
-            let itemXPos = (itemSize.width + CGFloat(10)) * CGFloat(itemIndex)
-            let itemOrigin = CGPoint(itemXPos, 0)
-            attributes.frame = CGRect(origin: itemOrigin, size: itemSize)
-            return attributes
-        }
-    }
-    
-    override var collectionViewContentSize: CGSize {
-        return CGSize((320+10)*itemCount, 200)
-    }
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return self.cache.filter { $0.frame.intersects(rect) }
-    }
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.cache[indexPath.item]
-    }
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return false
-    }
-    
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        print("NoVelo")
-        return CGPoint()
-    }
-    
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let collectionView = self.collectionView else { return proposedContentOffset }
-        
-        bannerAdsAutoScrollStoppable?.stopAutoScroll()
-        
-        let visibleCellIndexesUnordered = collectionView.indexPathsForVisibleItems
-        guard visibleCellIndexesUnordered.isEmpty == false else { return proposedContentOffset }
-        
-        let bannerViewMiddleOffset = collectionView.contentOffset.x + collectionView.frame.width / 2
-        let middleMostCell = visibleCellIndexesUnordered
-            .compactMap {
-                collectionView.cellForItem(at: $0)
-            }.max(by: { firstCell, secondCell in
-                let firstCellOffset = firstCell.frame.origin.x + firstCell.frame.size.width / 2
-                let secondCellOffset = secondCell.frame.origin.x + secondCell.frame.size.width / 2
-                return abs(firstCellOffset - bannerViewMiddleOffset) > abs(secondCellOffset - bannerViewMiddleOffset)
-            })!
-        
-        var middleCellXPos = middleMostCell.frame.origin.x
-        
-        // 진행방향 반대면 flickering
-        let tempNextOffset = CGPoint(x: middleMostCell.frame.origin.x + middleMostCell.frame.width / 2 - collectionView.frame.width / 2, y: collectionView.contentOffset.y)
-        if velocity.x > 0 && tempNextOffset.x < collectionView.contentOffset.x {
-            middleCellXPos += 330
-        } else if velocity.x < 0 && collectionView.contentOffset.x < tempNextOffset.x {
-            middleCellXPos -= 330
-        }
-        
-        // 자연스러운 스크롤
-        middleCellXPos += CGFloat(Int(velocity.x / 2.5)) * 330
-        
-        let nextOffset = CGPoint(x: middleCellXPos + 320 / 2 - collectionView.frame.width / 2, y: collectionView.contentOffset.y)
-        print(nextOffset)
-        self.targetOffset = nextOffset.x
-        return nextOffset
     }
 }
