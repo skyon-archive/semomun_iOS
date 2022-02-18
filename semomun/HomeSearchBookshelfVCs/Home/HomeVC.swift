@@ -42,6 +42,11 @@ final class HomeVC: UIViewController {
         self.startBannerAdsAutoScroll()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.stopBannerAdsAutoScroll()
+    }
+    
     @IBAction func appendTags(_ sender: Any) {
         self.showSearchTagVC()
     }
@@ -353,6 +358,7 @@ extension HomeVC {
     }
     /// Note: Cell의 개수가 화면을 가득 채움을 가정
     private func startBannerAdsAutoScroll() {
+        guard self.bannerAdsAutoScrollTimer == nil else { return }
         self.bannerAdsAutoScrollTimer = Timer.scheduledTimer(withTimeInterval: self.bannerAdsAutoScrollInterval, repeats: true) { [weak self] _ in
             guard let bannerAds = self?.bannerAds else { return }
             let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
@@ -373,7 +379,7 @@ extension HomeVC {
 }
 
 extension HomeVC: BannerAdsAutoScrollStoppable {
-    func stopAutoScroll() {
+    func stopBannerAdsAutoScroll() {
         self.bannerAdsAutoScrollTimer?.invalidate()
     }
 }
