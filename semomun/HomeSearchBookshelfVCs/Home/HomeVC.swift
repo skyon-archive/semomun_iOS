@@ -441,7 +441,7 @@ class BannerAdsFlowLayout: UICollectionViewLayout {
         }
         
         // 자연스러운 스크롤
-        middleMostCellIndex.item += Int(velocity.x / 2.5)
+//        middleMostCellIndex.item += Int(velocity.x / 2.5)
         
         guard let finalMiddleMostCell = collectionView.cellForItem(at: middleMostCellIndex) else {
             return proposedContentOffset
