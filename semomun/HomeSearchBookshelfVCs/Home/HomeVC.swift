@@ -381,5 +381,6 @@ extension HomeVC {
 extension HomeVC: BannerAdsAutoScrollStoppable {
     func stopBannerAdsAutoScroll() {
         self.bannerAdsAutoScrollTimer?.invalidate()
+        self.bannerAdsAutoScrollTimer = nil
     }
 }
