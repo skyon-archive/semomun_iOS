@@ -21,6 +21,7 @@ final class HomeVC: UIViewController {
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
     private var bannerAdsFlowLayout = BannerAdsFlowLayout()
+    private var bannerAdsAutoScrollTimer: Timer?
     private lazy var noLoginedLabel1 = NoneWorkbookLabel()
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     
@@ -33,12 +34,30 @@ final class HomeVC: UIViewController {
         self.fetch()
         self.configureAddObserver()
         self.bannerAds.decelerationRate = .fast
+        self.bannerAdsFlowLayout.bannerAdsAutoScrollStoppable = self
+    }
+    
+    func startBannerAdsAutoScroll() {
+        self.bannerAdsAutoScrollTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+            guard let bannerAds = self?.bannerAds else { return }
+            let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
+            var middleIndex = visibleItemIndexes[visibleItemIndexes.count/2]
+            middleIndex.item += 1
+            let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
+            guard let lastIndex = visibleItemIndexes.last else { return }
+            if lastIndex.item == bannerAdsDataCount - 1 {
+                self?.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
+                return
+            }
+            self?.bannerAds.scrollToItem(at: middleIndex, at: .centeredHorizontally, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let startIndex = self.collectionView(self.bannerAds, numberOfItemsInSection: 0)
         self.bannerAds.scrollToItem(at: IndexPath(item: startIndex/2, section: 0), at: .centeredHorizontally, animated: false)
+        self.startBannerAdsAutoScroll()
     }
     
     @IBAction func appendTags(_ sender: Any) {
@@ -233,7 +252,7 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.bannerAds:
-            return (self.viewModel?.ads.count ?? 0) * 500
+            return (self.viewModel?.ads.count ?? 0) * 3
         case self.bestSellers:
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
@@ -340,7 +359,24 @@ extension HomeVC: UICollectionViewDelegate {
     }
 }
 
+extension HomeVC {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.startBannerAdsAutoScroll()
+    }
+}
+
+extension HomeVC: BannerAdsAutoScrollStoppable {
+    func stopAutoScroll() {
+        self.bannerAdsAutoScrollTimer?.invalidate()
+    }
+}
+
+protocol BannerAdsAutoScrollStoppable: AnyObject {
+    func stopAutoScroll()
+}
+
 class BannerAdsFlowLayout: UICollectionViewLayout {
+    weak var bannerAdsAutoScrollStoppable: BannerAdsAutoScrollStoppable?
     private var cache: [UICollectionViewLayoutAttributes] = []
     private(set) var targetOffset: CGFloat = 0
     private var itemCount: CGFloat {
@@ -381,6 +417,8 @@ class BannerAdsFlowLayout: UICollectionViewLayout {
     
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let collectionView = self.collectionView else { return proposedContentOffset }
+        
+        bannerAdsAutoScrollStoppable?.stopAutoScroll()
         
         let visibleCellIndexesUnordered = collectionView.indexPathsForVisibleItems
         guard visibleCellIndexesUnordered.isEmpty == false else { return proposedContentOffset }
