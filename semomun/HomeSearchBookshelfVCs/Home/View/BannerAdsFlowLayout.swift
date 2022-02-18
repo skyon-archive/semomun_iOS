@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BannerAdsAutoScrollStoppable: AnyObject {
-    func stopAutoScroll()
+    func stopBannerAdsAutoScroll()
 }
 
 class BannerAdsFlowLayout: UICollectionViewLayout {
@@ -58,7 +58,7 @@ class BannerAdsFlowLayout: UICollectionViewLayout {
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let collectionView = self.collectionView else { return proposedContentOffset }
         
-        self.bannerAdsAutoScrollStoppable?.stopAutoScroll()
+        self.bannerAdsAutoScrollStoppable?.stopBannerAdsAutoScroll()
         
         let visibleCellIndexesUnordered = collectionView.indexPathsForVisibleItems
         guard visibleCellIndexesUnordered.isEmpty == false else { return proposedContentOffset }
