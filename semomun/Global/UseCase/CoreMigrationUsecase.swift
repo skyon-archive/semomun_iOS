@@ -42,7 +42,6 @@ extension CoreUsecase {
                     }
                 }
             }
-            print("finish preview")
         }
         print("PREVIEW MIGRATION SUCCESS")
         return true
@@ -55,10 +54,8 @@ extension CoreUsecase {
         for section in sections {
             // get pages
             let pageCores = CoreUsecase.getPageCores(pNames: section.buttons, dictionary: section.dictionaryOfProblem)
-            print("finish pages")
             // get problems
             let problemCores = CoreUsecase.getProblemCores(pageCores: pageCores)
-            print("finish problems")
             // pNames.forEach
             for (idx, pName) in section.buttons.enumerated() {
                 // find page from dictionary[pName]
@@ -76,9 +73,7 @@ extension CoreUsecase {
                 problem.setValue(idx, forKey: "orderIndex")
                 problem.pageCore = page
                 problem.sectionCore = section
-                print("finish problem: \(pName)")
             }
-            print("finish section")
         }
         print("SECTION MIGRATION SUCCESS")
         return true
