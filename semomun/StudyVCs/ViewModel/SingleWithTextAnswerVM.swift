@@ -38,21 +38,19 @@ final class SingleWithTextAnswerVM {
     }
     
     func updateSolved(input: String) {
-        guard let problem = self.problem,
-              let pName = problem.pName else { return }
+        guard let problem = self.problem else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
-            CoreDataManager.saveCoreData()
-            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
+        self.delegate?.reload()
     }
     
-    func updateStar(btName pName: String, to status: Bool) {
+    func updateStar(to status: Bool) {
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.delegate?.reload()
     }
     
     func updatePencilData(to: Data) {

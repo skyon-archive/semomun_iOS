@@ -45,13 +45,11 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
-        guard let pName = self.problem?.pName else { return }
-        
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
         
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.delegate?.reload()
     }
     
     @IBAction func showExplanation(_ sender: Any) {
@@ -173,8 +171,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
 extension MultipleWithNoCell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        guard let pName = self.problem?.pName else { return }
-        self.delegate?.updateCheck(btName: pName)
+        self.delegate?.reload()
     }
 }
 
