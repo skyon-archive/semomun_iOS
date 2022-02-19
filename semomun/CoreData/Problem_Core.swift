@@ -50,6 +50,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var point: Double //문제 배점
+    @NSManaged public var orderIndex: Int64 //section 내 정렬을 위한 고유순서값
     @NSManaged public var sectionCore: Section_Core? //relation으로 인해 생긴 SectionCore
     @NSManaged public var pageCore: Page_Core? //relation으로 인해 생긴 PageCore
     

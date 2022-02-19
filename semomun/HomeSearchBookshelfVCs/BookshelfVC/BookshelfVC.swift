@@ -26,6 +26,7 @@ class BookshelfVC: UIViewController {
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loadingView = LoadingView()
+    private var isMigration: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,13 @@ class BookshelfVC: UIViewController {
         self.configureCollectionView()
         self.bindAll()
         self.checkMigration()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.isMigration {
+            self.startMigration()
+        }
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -94,19 +102,27 @@ extension BookshelfVC {
     private func checkMigration() {
         let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
         let coreVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.coreVersion) as? String ?? String.pastVersion
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
         if logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
             print("migration start")
             self.showLoader()
+            self.isMigration = true
+        } else {
+            self.fetch()
+        }
+    }
+    
+    private func startMigration() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
+        DispatchQueue.main.async { [weak self] in
             CoreUsecase.migration { [weak self] status in
                 UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 현재 version 저장
                 self?.fetch()
+                CoreDataManager.saveCoreData()
                 self?.removeLoader()
+                self?.isMigration = false
                 print("migration success")
             }
-        } else {
-            self.fetch()
         }
     }
     
