@@ -10,11 +10,23 @@ import CoreData
 
 extension CoreUsecase {
     static func migration(completion: @escaping(Bool) -> Void) {
-        // fetch all previews
-        guard let previews = CoreUsecase.fetchPreviews() else {
+        if CoreUsecase.updateSectionHeaders() == false {
             completion(false)
             return
         }
+        CoreDataManager.saveCoreData()
+        
+        if CoreUsecase.updateSections() == false {
+            completion(false)
+            return
+        }
+        CoreDataManager.saveCoreData()
+        completion(true)
+    }
+    
+    static func updateSectionHeaders() -> Bool {
+        // fetch all previews
+        guard let previews = CoreUsecase.fetchPreviews() else { return false }
         // previews.forEach
         for preview in previews {
             // fetch sectionHeaders
@@ -34,12 +46,12 @@ extension CoreUsecase {
             }
         }
         print("PREVIEW MIGRATION SUCCESS")
-        CoreDataManager.saveCoreData()
+        return true
+    }
+    
+    static func updateSections() -> Bool {
         // fetch all sections
-        guard let sections = CoreUsecase.fetchSections() else {
-            completion(false)
-            return
-        }
+        guard let sections = CoreUsecase.fetchSections() else { return false }
         // sections.forEach
         for section in sections {
             // get vids
@@ -57,7 +69,6 @@ extension CoreUsecase {
             
         }
         print("SECTION MIGRATION SUCCESS")
-        CoreDataManager.saveCoreData()
-        completion(true)
+        return true
     }
 }
