@@ -72,7 +72,6 @@ final class SectionManager {
         
         let pageData = PageData(page: page)
         self.currentPage = pageData
-        self.delegate?.changeVC(pageData: pageData)
         self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
     }
     
