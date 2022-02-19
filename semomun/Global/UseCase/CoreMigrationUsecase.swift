@@ -14,13 +14,11 @@ extension CoreUsecase {
             completion(false)
             return
         }
-        CoreDataManager.saveCoreData()
         
         if CoreUsecase.updateSections() == false {
             completion(false)
             return
         }
-        CoreDataManager.saveCoreData()
         completion(true)
     }
     
@@ -44,6 +42,7 @@ extension CoreUsecase {
                     }
                 }
             }
+            print("finish preview")
         }
         print("PREVIEW MIGRATION SUCCESS")
         return true
@@ -54,21 +53,45 @@ extension CoreUsecase {
         guard let sections = CoreUsecase.fetchSections() else { return false }
         // sections.forEach
         for section in sections {
-            // get vids
-            let vids = NSOrderedSet(array:
-                                        section.buttons.map { section.dictionaryOfProblem[$0, default: 0] })
-                .map { $0 as? Int ?? 0 }
+            // get pages
+            let pageCores = CoreUsecase.getPageCores(pNames: section.buttons, dictionary: section.dictionaryOfProblem)
+            print("finish pages")
             // get problems
-            let problems =  vids.map() { vid in
-                CoreUsecase.fetchPage(vid: vid)
-            }.compactMap({$0}).map() { page in
-                page.problems.map() { pid in
-                    CoreUsecase.fetchProblem(pid: pid)
-                }.compactMap({$0})
-            }.reduce([], +)
-            
+            let problemCores = CoreUsecase.getProblemCores(pageCores: pageCores)
+            print("finish problems")
+            // pNames.forEach
+            for (idx, pName) in section.buttons.enumerated() {
+                // find page from dictionary[pName]
+                guard let page = pageCores.first(where: { $0.vid == section.dictionaryOfProblem[pName] ?? 0 }) else {
+                    print("ERROR: CAN'T FIND PAGE: \(section.dictionaryOfProblem[pName] ?? 0)")
+                    continue
+                }
+                // find problem from pName
+                guard let problem = problemCores.first(where: { $0.pName == pName }) else {
+                    print("ERROR: CAN'T FIND PROBLEM: \(pName)")
+                    continue
+                }
+                
+                // update Problem
+                problem.setValue(idx, forKey: "orderIndex")
+                problem.pageCore = page
+                problem.sectionCore = section
+                print("finish problem: \(pName)")
+            }
+            print("finish section")
         }
         print("SECTION MIGRATION SUCCESS")
         return true
+    }
+    
+    static func getPageCores(pNames: [String], dictionary: [String: Int]) -> [Page_Core] {
+        let vids = NSOrderedSet(array: pNames.map { dictionary[$0, default: 0] }).map { $0 as? Int ?? 0 }
+        let pageCores = vids.map { vid in CoreUsecase.fetchPage(vid: vid) }.compactMap { $0 }
+        return pageCores
+    }
+    
+    static func getProblemCores(pageCores: [Page_Core]) -> [Problem_Core] {
+        let problemCores = pageCores.map { page in page.problems.map { pid in CoreUsecase.fetchProblem(pid: pid) }.compactMap { $0 } }.reduce([], +)
+        return problemCores
     }
 }
