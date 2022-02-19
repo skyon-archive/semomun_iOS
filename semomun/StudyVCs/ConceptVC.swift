@@ -91,12 +91,9 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     
     
     @IBAction func toggleBookmark(_ sender: Any) {
-        guard let problem = self.viewModel?.problem,
-              let pName = problem.pName else { return }
-        
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
-        self.viewModel?.updateStar(btName: pName, to: status)
+        self.viewModel?.updateStar(to: status)
     }
 }
 

@@ -75,13 +75,11 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
-        guard let pName = self.problem?.pName else { return }
-        
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
         
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.delegate?.reload()
     }
     
     @IBAction func showExplanation(_ sender: Any) {
@@ -291,14 +289,13 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     func updateSolved(problem: Problem_Core, input: String) {
-        guard let pName = problem.pName else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
-            self.delegate?.updateWrong(btName: pName, to: !correct) // 하단 표시 데이터 업데이트
         }
+        self.delegate?.reload()
     }
 }
 

@@ -10,9 +10,7 @@ import PencilKit
 import Combine
 
 protocol PageDelegate: AnyObject {
-    func updateStar(btName: String, to: Bool)
-    func updateCheck(btName: String)
-    func updateWrong(btName: String, to: Bool)
+    func reload()
     func nextPage()
     func beforePage()
 }
@@ -307,16 +305,9 @@ extension StudyVC: LayoutDelegate {
 }
 
 extension StudyVC: PageDelegate {
-    func updateStar(btName: String, to: Bool) {
-        self.manager?.updateStar(title: btName, to: to)
-    }
-    
-    func updateCheck(btName: String) {
-        self.manager?.updateCheck(title: btName)
-    }
-    
-    func updateWrong(btName: String, to: Bool) {
-        self.manager?.updateWrong(title: btName, to: to)
+    func reload() {
+        CoreDataManager.saveCoreData()
+        self.reloadButtons()
     }
     
     func nextPage() {
