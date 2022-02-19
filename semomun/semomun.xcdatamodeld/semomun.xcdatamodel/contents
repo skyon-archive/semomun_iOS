@@ -7,6 +7,7 @@
         <attribute name="problems" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="vid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="problemCores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Problem_Core" inverseName="pageCore" inverseEntity="Problem_Core"/>
     </entity>
     <entity name="Preview_Core" representedClassName="Preview_Core" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -48,9 +49,10 @@
         <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="pageCore" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page_Core" inverseName="problemCores" inverseEntity="Page_Core"/>
+        <relationship name="sectionCore" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section_Core" inverseName="problemCores" inverseEntity="Section_Core"/>
     </entity>
     <entity name="Section_Core" representedClassName="Section_Core" syncable="YES">
-        <attribute name="buttonDatas" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="buttons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="checks" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="dictionaryOfProblem" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -61,6 +63,7 @@
         <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="wrongs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <relationship name="problemCores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Problem_Core" inverseName="sectionCore" inverseEntity="Problem_Core"/>
     </entity>
     <entity name="SectionHeader_Core" representedClassName="SectionHeader_Core" syncable="YES">
         <attribute name="cutoff" optional="YES" attributeType="String"/>
@@ -87,10 +90,10 @@
         <attribute name="userImage" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>
-        <element name="Page_Core" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="Page_Core" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Preview_Core" positionX="-54" positionY="36" width="128" height="374"/>
-        <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="239"/>
-        <element name="Section_Core" positionX="-18" positionY="153" width="128" height="14"/>
+        <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="269"/>
+        <element name="Section_Core" positionX="-18" positionY="153" width="128" height="194"/>
         <element name="SectionHeader_Core" positionX="0" positionY="171" width="128" height="149"/>
         <element name="UserCoreData" positionX="-18" positionY="144" width="128" height="209"/>
     </elements>

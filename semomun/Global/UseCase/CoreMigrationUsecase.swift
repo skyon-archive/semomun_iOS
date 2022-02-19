@@ -54,20 +54,7 @@ extension CoreUsecase {
                     CoreUsecase.fetchProblem(pid: pid)
                 }.compactMap({$0})
             }.reduce([], +)
-            // tupples.forEach
-            var buttonDatas: [ButtonData] = []
-            for pName in section.buttons {
-                // find problem: pName -> Problem
-                guard let vid = section.dictionaryOfProblem[pName] else { continue }
-                guard let problem = problems.first(where: { $0.pName == pName } ) else {
-                    print("ERROR: CAN'T FIND PROBLEM: \(pName)")
-                    continue
-                }
-                // append ButtonData
-                buttonDatas.append(ButtonData(problem: problem, vid: vid))
-            }
-            // save ButtonData
-            section.setValue(buttonDatas, forKey: "buttonDatas")
+            
         }
         print("SECTION MIGRATION SUCCESS")
         CoreDataManager.saveCoreData()
