@@ -26,7 +26,12 @@ struct ProblemResult {
     }
 }
 
-extension Problem_Core {
+@objc(Problem_Core)
+public class Problem_Core: NSManagedObject {
+    public override var description: String{
+        return "Problem(\(self.pid), \(optional: self.pName), \(optional: self.contentImage), \(optional: self.explanationImage), \(self.star)\n"
+    }
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Problem_Core> {
         return NSFetchRequest<Problem_Core>(entityName: "Problem_Core")
     }
@@ -45,16 +50,8 @@ extension Problem_Core {
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var point: Double //문제 배점
-}
-
-extension Problem_Core : Identifiable {
-}
-
-@objc(Problem_Core)
-public class Problem_Core: NSManagedObject {
-    public override var description: String{
-        return "Problem(\(self.pid), \(optional: self.pName), \(optional: self.contentImage), \(optional: self.explanationImage), \(self.star)\n"
-    }
+    @NSManaged public var sectionCore: Section_Core? //relation으로 인해 생긴 SectionCore
+    @NSManaged public var pageCore: Page_Core? //relation으로 인해 생긴 PageCore
     
     func setValues(prob: ProblemOfDB) -> ProblemResult {
         self.setValue(Int64(prob.pid), forKey: "pid")
