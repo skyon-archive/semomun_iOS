@@ -20,34 +20,19 @@ final class PageData {
         case MultipleWith5Answer
     }
     let vid: Int
-    var layoutType: String!
-    var pageCore: Page_Core!
-    var problems: [Problem_Core] = []
+    let pageCore: Page_Core
+    private(set) var problems: [Problem_Core]!
+    private(set) var layoutType: String!
     
-    init(vid: Int) {
-        self.vid = vid
-        self.fetchPageCore()
-        self.configureProblems()
-    }
-    
-    // 4. pageCore 로딩
-    private func fetchPageCore() {
-        if let pageData = CoreUsecase.fetchPage(vid: self.vid) {
-            self.pageCore = pageData
-            self.layoutType = self.layoutType(from: pageData.layoutType)
+    init(page: Page_Core) {
+        self.pageCore = page
+        self.vid = Int(page.vid)
+        guard let problems = page.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
+            print("error: fetch problems")
+            return
         }
-    }
-    
-    // 5. page : problems 모두 로딩
-    private func configureProblems() {
-        for pid in self.pageCore.problems {
-            if let problemCore = CoreUsecase.fetchProblem(pid: pid) {
-                self.problems.append(problemCore)
-            } else {
-                let problem = Problem_Core(context: CoreDataManager.shared.context)
-                problem.setValue(UIImage(.warning).pngData, forKey: "contentImage")
-            }
-        }
+        self.problems = problems
+        self.layoutType = self.layoutType(from: page.layoutType)
     }
     
     private func layoutType(from type: String) -> String {
