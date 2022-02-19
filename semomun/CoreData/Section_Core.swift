@@ -29,7 +29,7 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
     @NSManaged public var checks: [Bool] //푼 문제인지 여부
-    @NSManaged public var problemCores: NSOrderedSet? //relation으로 생긴 ProblemCore들
+    @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
     
     func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {
         self.setValue(header.sid, forKey: "sid")

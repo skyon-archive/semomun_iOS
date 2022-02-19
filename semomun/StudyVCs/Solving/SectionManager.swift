@@ -39,6 +39,7 @@ final class SectionManager {
             self.configureMock()
         }
         self.configureSection()
+        self.configureSection_test()
         self.configureSendText()
         self.showTitle()
         self.showTime()
@@ -50,6 +51,16 @@ final class SectionManager {
         self.buttons = self.section.buttons
         self.dictionanry = self.section.dictionaryOfProblem
         self.currentTime = self.section.time
+    }
+    
+    private func configureSection_test() {
+        guard let problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
+            print("error: problems")
+            return
+        }
+        let stars = problems.map { $0.star }
+        print(section.stars)
+        print(stars)
     }
     
     private func configureStartPage() {

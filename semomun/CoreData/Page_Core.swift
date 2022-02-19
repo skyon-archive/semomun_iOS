@@ -38,7 +38,7 @@ public class Page_Core: NSManagedObject {
     @NSManaged public var problems: [Int] //Problem: pid 값들
     @NSManaged public var drawing: Data? //Pencil 데이터
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
-    @NSManaged public var problemCores: NSOrderedSet? //relation으로 인해 생긴 problemCore들
+    @NSManaged public var problemCores: [Problem_Core]? //relation으로 인해 생긴 problemCore들
     
     func setValues(page: PageOfDB, pids: [Int], type: Int) -> PageResult {
         self.setValue(Int64(page.vid), forKey: "vid")
