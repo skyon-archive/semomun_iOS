@@ -249,12 +249,8 @@ extension MultipleWithNoAnswerVC {
 }
 
 extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
-    func updateStar(btName: String, to: Bool) {
-        self.viewModel?.delegate?.updateStar(btName: btName, to: to)
-    }
-    
-    func updateCheck(btName: String) {
-        self.viewModel?.delegate?.updateCheck(btName: btName)
+    func reload() {
+        self.viewModel?.delegate?.reload()
     }
     
     func showExplanation(image: UIImage?, pid: Int) {

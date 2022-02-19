@@ -250,8 +250,8 @@ extension MultipleWith5AnswerVC {
 }
 
 extension MultipleWith5AnswerVC: CollectionCellDelegate {
-    func updateStar(btName: String, to: Bool) {
-        self.viewModel?.delegate?.updateStar(btName: btName, to: to)
+    func reload() {
+        self.viewModel?.delegate?.reload()
     }
     
     func showExplanation(image: UIImage?, pid: Int) {
@@ -284,10 +284,6 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
                 self?.explanationView.alpha = 1
             }
         }
-    }
-    
-    func updateWrong(btName: String, to: Bool) {
-        self.viewModel?.delegate?.updateWrong(btName: btName, to: to)
     }
 }
 

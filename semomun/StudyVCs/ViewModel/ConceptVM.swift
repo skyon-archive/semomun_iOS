@@ -37,9 +37,9 @@ final class ConceptVM {
         problem.setValue(resultTime, forKey: "time")
     }
     
-    func updateStar(btName pName: String, to status: Bool) {
+    func updateStar(to status: Bool) {
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.updateStar(btName: pName, to: status)
+        self.delegate?.reload()
     }
     
     func updatePencilData(to: Data) {

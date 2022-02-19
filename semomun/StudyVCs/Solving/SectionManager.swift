@@ -98,21 +98,6 @@ final class SectionManager {
         return self.problems[at].solved != nil
     }
     
-    func updateStar(title: String, to: Bool) {
-        CoreDataManager.saveCoreData()
-        self.delegate?.reloadButtons()
-    }
-    
-    func updateCheck(title: String) {
-        CoreDataManager.saveCoreData()
-        self.delegate?.reloadButtons()
-    }
-    
-    func updateWrong(title: String, to: Bool) {
-        CoreDataManager.saveCoreData()
-        self.delegate?.reloadButtons()
-    }
-    
     func changeNextPage() {
         let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex
