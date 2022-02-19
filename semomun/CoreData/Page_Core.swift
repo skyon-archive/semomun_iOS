@@ -22,8 +22,12 @@ struct PageResult {
     }
 }
 
-extension Page_Core {
-
+@objc(Page_Core)
+public class Page_Core: NSManagedObject {
+    public override var description: String{
+        return "Page(\(self.vid), \(self.problems), \(optional: self.materialImage))\n"
+    }
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Page_Core> {
         return NSFetchRequest<Page_Core>(entityName: "Page_Core")
     }
@@ -34,17 +38,7 @@ extension Page_Core {
     @NSManaged public var problems: [Int] //Problem: pid 값들
     @NSManaged public var drawing: Data? //Pencil 데이터
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
-}
-
-extension Page_Core : Identifiable {
-
-}
-
-@objc(Page_Core)
-public class Page_Core: NSManagedObject {
-    public override var description: String{
-        return "Page(\(self.vid), \(self.problems), \(optional: self.materialImage))\n"
-    }
+    @NSManaged public var problemCores: NSOrderedSet? //relation으로 인해 생긴 problemCore들
     
     func setValues(page: PageOfDB, pids: [Int], type: Int) -> PageResult {
         self.setValue(Int64(page.vid), forKey: "vid")
@@ -129,4 +123,37 @@ public class Page_Core: NSManagedObject {
         }
         print("MOCK Page: \(vid) save complete")
     }
+}
+
+// MARK: Generated accessors for problemCores
+extension Page_Core {
+    @objc(insertObject:inProblemCoresAtIndex:)
+    @NSManaged public func insertIntoProblemCores(_ value: Problem_Core, at idx: Int)
+
+    @objc(removeObjectFromProblemCoresAtIndex:)
+    @NSManaged public func removeFromProblemCores(at idx: Int)
+
+    @objc(insertProblemCores:atIndexes:)
+    @NSManaged public func insertIntoProblemCores(_ values: [Problem_Core], at indexes: NSIndexSet)
+
+    @objc(removeProblemCoresAtIndexes:)
+    @NSManaged public func removeFromProblemCores(at indexes: NSIndexSet)
+
+    @objc(replaceObjectInProblemCoresAtIndex:withObject:)
+    @NSManaged public func replaceProblemCores(at idx: Int, with value: Problem_Core)
+
+    @objc(replaceProblemCoresAtIndexes:withProblemCores:)
+    @NSManaged public func replaceProblemCores(at indexes: NSIndexSet, with values: [Problem_Core])
+
+    @objc(addProblemCoresObject:)
+    @NSManaged public func addToProblemCores(_ value: Problem_Core)
+
+    @objc(removeProblemCoresObject:)
+    @NSManaged public func removeFromProblemCores(_ value: Problem_Core)
+
+    @objc(addProblemCores:)
+    @NSManaged public func addToProblemCores(_ values: NSOrderedSet)
+
+    @objc(removeProblemCores:)
+    @NSManaged public func removeFromProblemCores(_ values: NSOrderedSet)
 }

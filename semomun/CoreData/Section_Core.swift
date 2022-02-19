@@ -9,44 +9,12 @@
 import Foundation
 import CoreData
 
-public class ButtonData: NSObject, NSCoding {
-    public func encode(with coder: NSCoder) {
-        coder.encode(pName, forKey: "pName")
-        coder.encode(pid, forKey: "pid")
-        coder.encode(vid, forKey: "vid")
-        coder.encode(wrong, forKey: "wrong")
-        coder.encode(check, forKey: "check")
-        coder.encode(terminated, forKey: "terminated")
+@objc(Section_Core)
+public class Section_Core: NSManagedObject {
+    public override var description: String{
+        return "Section(\(self.sid), \(self.buttons), \(self.stars), \(self.wrongs), \(self.dictionaryOfProblem))"
     }
     
-    public required init?(coder: NSCoder) {
-        self.pName = coder.decodeObject(forKey: "pName") as! String
-        self.pid = coder.decodeInteger(forKey: "pid")
-        self.vid = coder.decodeInteger(forKey: "vid")
-        self.wrong = coder.decodeBool(forKey: "wrong")
-        self.check = coder.decodeBool(forKey: "check")
-        self.terminated = coder.decodeBool(forKey: "terminated")
-    }
-    
-    let pName: String
-    let pid: Int // 혹시 추가정보를 반영하기 위해 접근가능하도록 key값을 저장하는 역할
-    var vid: Int
-    var wrong: Bool
-    var check: Bool
-    var terminated: Bool
-    
-    init(problem: Problem_Core, vid: Int) {
-        self.pName = problem.pName ?? "1"
-        self.pid = Int(problem.pid)
-        self.vid = vid
-        self.wrong = problem.correct
-        self.check = problem.solved != nil
-                self.terminated = problem.terminated
-    }
-}
-
-extension Section_Core {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section_Core> {
         return NSFetchRequest<Section_Core>(entityName: "Section_Core")
     }
@@ -61,17 +29,7 @@ extension Section_Core {
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
     @NSManaged public var checks: [Bool] //푼 문제인지 여부
-    @NSManaged public var buttonDatas: [ButtonData] //하단 버튼내용들
-}
-
-extension Section_Core : Identifiable {
-}
-
-@objc(Section_Core)
-public class Section_Core: NSManagedObject {
-    public override var description: String{
-        return "Section(\(self.sid), \(self.buttons), \(self.stars), \(self.wrongs), \(self.dictionaryOfProblem), \(self.buttonDatas))"
-    }
+    @NSManaged public var problemCores: NSOrderedSet? //relation으로 생긴 ProblemCore들
     
     func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {
         self.setValue(header.sid, forKey: "sid")
@@ -105,4 +63,37 @@ public class Section_Core: NSManagedObject {
         self.setValue(checks, forKey: "checks")
         print("MOCK Section: \(sid) save complete")
     }
+}
+
+// MARK: Generated accessors for problemCores
+extension Section_Core {
+    @objc(insertObject:inProblemCoresAtIndex:)
+    @NSManaged public func insertIntoProblemCores(_ value: Problem_Core, at idx: Int)
+
+    @objc(removeObjectFromProblemCoresAtIndex:)
+    @NSManaged public func removeFromProblemCores(at idx: Int)
+
+    @objc(insertProblemCores:atIndexes:)
+    @NSManaged public func insertIntoProblemCores(_ values: [Problem_Core], at indexes: NSIndexSet)
+
+    @objc(removeProblemCoresAtIndexes:)
+    @NSManaged public func removeFromProblemCores(at indexes: NSIndexSet)
+
+    @objc(replaceObjectInProblemCoresAtIndex:withObject:)
+    @NSManaged public func replaceProblemCores(at idx: Int, with value: Problem_Core)
+
+    @objc(replaceProblemCoresAtIndexes:withProblemCores:)
+    @NSManaged public func replaceProblemCores(at indexes: NSIndexSet, with values: [Problem_Core])
+
+    @objc(addProblemCoresObject:)
+    @NSManaged public func addToProblemCores(_ value: Problem_Core)
+
+    @objc(removeProblemCoresObject:)
+    @NSManaged public func removeFromProblemCores(_ value: Problem_Core)
+
+    @objc(addProblemCores:)
+    @NSManaged public func addToProblemCores(_ values: NSOrderedSet)
+
+    @objc(removeProblemCores:)
+    @NSManaged public func removeFromProblemCores(_ values: NSOrderedSet)
 }
