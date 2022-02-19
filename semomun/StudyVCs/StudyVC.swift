@@ -7,6 +7,7 @@
 
 import UIKit
 import PencilKit
+import Combine
 
 protocol PageDelegate: AnyObject {
     func updateStar(btName: String, to: Bool)
@@ -35,6 +36,7 @@ final class StudyVC: UIViewController {
     var previewCore: Preview_Core?
     private var currentVC: UIViewController?
     private var manager: SectionManager?
+    private var cancellables: Set<AnyCancellable> = []
     private lazy var singleWith5Answer: SingleWith5AnswerVC = {
         return UIStoryboard(name: SingleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith5AnswerVC.identifier) as? SingleWith5AnswerVC ?? SingleWith5AnswerVC()
     }()
@@ -61,6 +63,7 @@ final class StudyVC: UIViewController {
         super.viewDidLoad()
         self.configureCollectionView()
         self.configureManager()
+        self.bindAll()
         self.addCoreDataAlertObserver()
         self.configureShadow()
     }
@@ -128,7 +131,7 @@ extension StudyVC {
 extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.manager?.count ?? 0
+        return self.manager?.problems.count ?? 0
     }
     
     // 문제버튼 생성
@@ -136,7 +139,7 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
         guard let manager = self.manager else { return cell }
         
-        let num = manager.buttonTitle(at: indexPath.item)
+        let num = manager.title(at: indexPath.item)
         let isStar = manager.isStar(at: indexPath.item)
         let isTerminated = manager.section.terminated
         let isWrong = manager.isWrong(at: indexPath.item)
@@ -201,14 +204,6 @@ extension StudyVC {
 }
 
 extension StudyVC: LayoutDelegate {
-    func showTitle(title: String) {
-        self.titleLabel.text = title
-    }
-    
-    func showTime(time: Int64) {
-        self.timeLabel.text = time.toTimeString
-    }
-    
     func changeVC(pageData: PageData) {
         self.removeCurrentVC()
 
@@ -330,5 +325,44 @@ extension StudyVC: PageDelegate {
     
     func beforePage() {
         self.manager?.changeBeforePage()
+    }
+}
+
+extension StudyVC {
+    private func bindAll() {
+        self.bindTitle()
+        self.bindTime()
+        self.bindPage()
+    }
+    
+    private func bindTitle() {
+        self.manager?.$sectionTitle
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] title in
+                self?.titleLabel.text = title
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindTime() {
+        self.manager?.$currentTime
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] time in
+                self?.timeLabel.text = time.toTimeString
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPage() {
+        self.manager?.$currentPage
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] pageData in
+                guard let pageData = pageData else { return }
+                self?.changeVC(pageData: pageData)
+                self?.reloadButtons()
+            })
+            .store(in: &self.cancellables)
     }
 }

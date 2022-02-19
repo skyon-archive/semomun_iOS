@@ -7,13 +7,12 @@
 
 import UIKit
 import CoreData
+import Combine
 
 protocol LayoutDelegate: AnyObject {
     func changeVC(pageData: PageData)
     func reloadButtons()
     func showAlert(text: String)
-    func showTitle(title: String)
-    func showTime(time: Int64)
     func saveComplete()
     func showResultViewController(result: SectionResult)
     func terminateSection(result: SectionResult, sid: Int, jsonString: String)
@@ -21,88 +20,60 @@ protocol LayoutDelegate: AnyObject {
 }
 
 final class SectionManager {
-    private weak var delegate: LayoutDelegate?
+    @Published private(set) var sectionTitle: String = "title"
+    @Published private(set) var currentTime: Int64 = 0
+    @Published private(set) var currentPage: PageData?
+    private(set) var problems: [Problem_Core] = []
     private(set) var section: Section_Core
     private(set) var currentIndex: Int = 0
-    private(set) var currentPage: PageData?
-    private var buttons: [String] = []
-    private var dictionanry: [String: Int] = [:]
-    private var currentTime: Int64 = 0
+    private weak var delegate: LayoutDelegate?
     private var timer: Timer!
     private var isRunning: Bool = true
     
-    // 1. Section 로딩
     init(delegate: LayoutDelegate, section: Section_Core, isTest: Bool = false) {
         self.delegate = delegate
         self.section = section
         if isTest {
             self.configureMock()
         }
-        self.configureSection()
-        self.configureSection_test()
-        self.configureSendText()
-        self.showTitle()
-        self.showTime()
+        self.configure()
         self.configureStartPage()
         self.startTimer()
     }
     
-    private func configureSection() {
-        self.buttons = self.section.buttons
-        self.dictionanry = self.section.dictionaryOfProblem
+    private func configure() {
+        self.sectionTitle = self.section.title ?? "title"
         self.currentTime = self.section.time
-    }
-    
-    private func configureSection_test() {
         guard let problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
-            print("error: problems")
+            print("error: fetch problems")
             return
         }
-        let stars = problems.map { $0.star }
-        print(section.stars)
-        print(stars)
-    }
-    
-    private func configureStartPage() {
-        let lastPageId = self.section.lastPageId
-        if let key = dictionanry.first(where: {$0.value == lastPageId})?.key, let idx = buttons.firstIndex(of: key) {
-                self.currentIndex = idx
-            let pageData = PageData(vid: Int(lastPageId))
-                self.currentPage = pageData
-                self.delegate?.reloadButtons()
-                self.delegate?.changeVC(pageData: pageData)
-        } else {
-            changePage(at: 0)
-        }
-    }
-    
-    private func configureSendText() {
+        self.problems = problems
+        
         if self.section.terminated {
             self.delegate?.changeResultLabel()
         }
     }
     
+    private func configureStartPage() {
+        let lastPageId = Int(self.section.lastPageId) // TODO: lastIndex로 수정 예정
+        let lastIndex = lastPageId < self.problems.count ? lastPageId : 0 // TODO: lastIndex 기준 임시로직, 사라질 예정
+        self.changePage(at: lastIndex)
+    }
+    
     func changePage(at index: Int) {
+        guard let page = self.problems[index].pageCore else { return }
         self.currentIndex = index
-        // 2. vid 구하기
-        let pageID = pageID(at: buttonTitle(at: index))
         
-        if self.currentPage?.vid == pageID {
+        if self.currentPage?.vid == Int(page.vid) {
             self.delegate?.reloadButtons()
             return
         }
         
-        // 3. pageData 생성 -> 내부서 5까지 구현
-        // 현재는 생성로직, 추후 cache 필요
-        self.currentPage = nil
-        let pageData = PageData(vid: pageID)
+        let pageData = PageData(page: page)
         self.currentPage = pageData
-        
-        // 6. 변경된 PageData 반환
-        self.delegate?.reloadButtons()
         self.delegate?.changeVC(pageData: pageData)
-        
-        self.section.setValue(pageID, forKey: "lastPageId")
+        self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
     }
     
     private func refreshPage() {
@@ -110,74 +81,49 @@ final class SectionManager {
         self.delegate?.changeVC(pageData: currentPage)
     }
     
-    var count: Int {
-        return self.buttons.count
-    }
-    
-    func buttonTitle(at: Int) -> String {
-        return self.buttons[at]
+    func title(at: Int) -> String {
+        return self.problems[at].pName ?? "-"
     }
     
     func isStar(at: Int) -> Bool {
-        return self.section.stars[at]
+        return self.problems[at].star
     }
     
     func isWrong(at: Int) -> Bool {
-        return self.section.wrongs[at] && self.section.terminated
+        let problem = self.problems[at]
+        return problem.correct == false && problem.terminated
     }
     
     func isChecked(at: Int) -> Bool {
-        return self.section.checks[at]
-    }
-    
-    func pageID(at: String) -> Int {
-        return self.dictionanry[at, default: 0]
+        return self.problems[at].solved != nil
     }
     
     func updateStar(title: String, to: Bool) {
-        if let idx = self.buttons.firstIndex(of: title) {
-            var stars = self.section.stars
-            stars[idx] = to
-            self.section.setValue(stars, forKey: "stars")
-            CoreDataManager.saveCoreData()
-            self.delegate?.reloadButtons()
-        }
+        CoreDataManager.saveCoreData()
+        self.delegate?.reloadButtons()
     }
     
     func updateCheck(title: String) {
-        if let idx = self.buttons.firstIndex(of: title) {
-            var checks = self.section.checks
-            checks[idx] = true
-            self.section.setValue(checks, forKey: "checks")
-            CoreDataManager.saveCoreData()
-            self.delegate?.reloadButtons()
-        }
+        CoreDataManager.saveCoreData()
+        self.delegate?.reloadButtons()
     }
     
     func updateWrong(title: String, to: Bool) {
-        if let idx = self.buttons.firstIndex(of: title) {
-            var wrongs = self.section.wrongs
-            var checks = self.section.checks
-            wrongs[idx] = to
-            checks[idx] = true
-            self.section.setValue(wrongs, forKey: "wrongs")
-            self.section.setValue(checks, forKey: "checks")
-            CoreDataManager.saveCoreData()
-            self.delegate?.reloadButtons()
-        }
+        CoreDataManager.saveCoreData()
+        self.delegate?.reloadButtons()
     }
     
     func changeNextPage() {
         let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex
         while true {
-            if tempIndex == self.buttons.count-1 {
+            if tempIndex == self.problems.count-1 {
                 self.delegate?.showAlert(text: "마지막 페이지 입니다.")
                 break
             }
             
             tempIndex += 1
-            let nextVid = self.pageID(at: buttonTitle(at: tempIndex))
+            let nextVid = Int(self.problems[tempIndex].pageCore?.vid ?? 0)
             if nextVid != currentVid {
                 self.changePage(at: tempIndex)
                 break
@@ -195,22 +141,11 @@ final class SectionManager {
             }
             
             tempIndex -= 1
-            let beforeVid = self.pageID(at: buttonTitle(at: tempIndex))
+            let beforeVid = Int(self.problems[tempIndex].pageCore?.vid ?? 0)
             if beforeVid != currentVid {
                 self.changePage(at: tempIndex)
                 break
             }
-        }
-    }
-    
-    private func showTitle() {
-        guard let title = self.section.title else { return }
-        self.delegate?.showTitle(title: title)
-    }
-    
-    private func showTime() {
-        DispatchQueue.main.async {
-            self.delegate?.showTime(time: self.currentTime)
         }
     }
     
@@ -224,7 +159,7 @@ final class SectionManager {
                 guard let self = self else { return }
                 self.currentTime += 1
                 self.section.setValue(self.currentTime, forKey: "time")
-                self.showTime()
+                
                 if self.currentTime%10 == 0 {
                     CoreDataManager.saveCoreData()
                 }
