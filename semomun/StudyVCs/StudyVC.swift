@@ -329,7 +329,6 @@ extension StudyVC {
     private func bindTitle() {
         self.manager?.$sectionTitle
             .receive(on: DispatchQueue.main)
-            .dropFirst()
             .sink(receiveValue: { [weak self] title in
                 self?.titleLabel.text = title
             })
@@ -348,7 +347,6 @@ extension StudyVC {
     private func bindPage() {
         self.manager?.$currentPage
             .receive(on: DispatchQueue.main)
-            .dropFirst()
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }
                 self?.changeVC(pageData: pageData)
