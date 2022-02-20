@@ -7,10 +7,8 @@
 
 import Foundation
 
-/// - Note: 사용자의 input값과 answer 타입이 같음을 가정.
-///
-/// pageData.pageCore.time를 어떻게 사용하는지 확인 필요
-class PageVM<Answer: Equatable> {
+/// - Note: pageData.pageCore.time를 어떻게 사용하는지 확인 필요
+class PageVM {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData
@@ -34,12 +32,12 @@ class PageVM<Answer: Equatable> {
         }
     }
     
-    func answer(of problem: Problem_Core? = nil) -> Answer? {
+    func answer(of problem: Problem_Core? = nil) -> String? {
         assertionFailure("override가 필요한 함수입니다.")
         return nil
     }
     
-    func isCorrect(input: Answer, answer: Answer) -> Bool {
+    func isCorrect(input: String, answer: String) -> Bool {
         assertionFailure("override가 필요한 함수입니다.")
         return false
     }
@@ -61,7 +59,7 @@ class PageVM<Answer: Equatable> {
         }
     }
     
-    func updateSolved(withAnswer input: Answer, problem: Problem_Core? = nil) {
+    func updateSolved(withAnswer input: String, problem: Problem_Core? = nil) {
         guard let problem = problem ?? problems.first else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         
