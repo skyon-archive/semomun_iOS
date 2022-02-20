@@ -26,111 +26,97 @@ struct CoreUsecase {
     }
     
     static func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping (Section_Core?) -> Void) {
+        guard let sectionHeader = Self.fetchSectionHeader(sid: sid), pages.isEmpty else {
+            completion(nil)
+            return
+        }
+        
         let context = CoreDataManager.shared.context
-        let sectionOfCore = Section_Core(context: context)
-        
-        if pages.isEmpty {
-            completion(nil)
-            return
-        }
-        guard let sectionHeader = Self.fetchSectionHeader(sid: sid) else {
-            completion(nil)
-            return
-        }
-        
+        let sectionCore = Section_Core(context: context)
         var pageCores: [Page_Core] = []
         var problemCores: [Problem_Core] = []
         
         var pageResults: [PageResult] = []
         var problemResults: [ProblemResult] = []
-        var Gcount: Int = 0
-        var Ycount: Int = 0
+        var problemIndex: Int = 0
         
         print("----------save start----------")
         
         pages.forEach { page in
             page.problems.forEach { problem in
-                let problemCore = Problem_Core(context: context)
-                if problem.icon_name == "개" {
-                    Gcount += 1
-                    problem.icon_name += "\(Gcount)"
-                } else if problem.icon_name == "예" {
-                    Ycount += 1
-                    problem.icon_name += "\(Ycount)"
-                }
-                let problemResult = problemCore.setValues(prob: problem)
+                let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
+                let pageCore = pageData.page
+                pageCores.append(pageCore)
+                pageResults.append(pageData.result)
+                
+                let problemData = CoreUsecase.createProblem(context: context, problem: problem, section: sectionCore, page: pageCore, index: problemIndex)
+                let problemCore = problemData.problem
                 problemCores.append(problemCore)
-                problemResults.append(problemResult)
+                problemResults.append(problemData.result)
+                problemIndex += 1
             }
-            
-            let pageCore = Page_Core(context: context)
-            let problemIds = page.problems.map(\.pid)
-            let pageLayoutType: Int = page.problems.last?.type ?? 5
-            let pageResult = pageCore.setValues(page: page, pids: problemIds, type: pageLayoutType)
-            
-            pageCores.append(pageCore)
-            pageResults.append(pageResult)
         }
         
         print("----------save end----------")
         
-        let problemNames: [String] = pages.reduce(into: []) { result, page in
-            let iconNames = page.problems.map(\.icon_name)
-            result += iconNames
-        }
-        let problemNameToPage: [String: Int] = pages.reduce(into: [:]) { result, page in
-            page.problems.forEach { problem in
-                result[problem.icon_name] = page.vid
-            }
-        }
-        print(problemNameToPage)
-        
-        let pageImageCount = pageResults.filter(\.isImage).count
-        let problemImageCount = problemResults.count*2
-        let totalCount: Int = problemImageCount + pageResults.count
-        let loadingCount: Int = problemImageCount + pageImageCount
+        let pageImageCount = pageResults.filter(\.isImage).count // 지문이미지 수
+        let problemImageCount = problemResults.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
+        let loadingCount: Int = pageImageCount + problemImageCount
         var currentCount: Int = 0
-        
-        DispatchQueue.main.async {
-            loading.setCount(to: loadingCount)
-        }
+        loading.setCount(to: loadingCount)
         
         DispatchQueue.global().async {
             for idx in 0..<problemCores.count {
-                let problem = problemCores[idx]
+                let problemCore = problemCores[idx]
                 let problemResult = problemResults[idx]
-                problem.fetchImages(problemResult: problemResult) {
-                    DispatchQueue.main.async {
-                        loading.oneProgressDone()
-                        currentCount += 1
-                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
+                
+                problemCore.fetchImages(problemResult: problemResult) {
+                    loading.oneProgressDone()
+                    currentCount += 1
+                    print("\(currentCount)/\(loadingCount)")
+                    
+                    if currentCount == loadingCount {
+                        Self.terminateDownload(section: sectionCore, header: sectionHeader, completion: completion)
                     }
                 }
             }
+            
             for idx in 0..<pageCores.count {
                 let pageCore = pageCores[idx]
                 let pageResult = pageResults[idx]
+                
                 pageCore.setMaterial(pageResult: pageResult) {
-                    DispatchQueue.main.async {
-                        if pageResults[idx].isImage {
-                            loading.oneProgressDone()
-                        }
-                        currentCount += 1
-                        terminateDownload(currentCount: currentCount, totalCount: totalCount, section: sectionOfCore, header: sectionHeader, buttons: problemNames, dict: problemNameToPage, completion: completion)
+                    loading.oneProgressDone()
+                    currentCount += 1
+                    print("\(currentCount)/\(loadingCount)")
+                    
+                    if currentCount == loadingCount {
+                        Self.terminateDownload(section: sectionCore, header: sectionHeader, completion: completion)
                     }
                 }
             }
         }
     }
     
-    static private func terminateDownload(currentCount: Int, totalCount: Int, section: Section_Core, header: SectionHeader_Core, buttons: [String], dict: [String: Int], completion: ((Section_Core?) -> Void)) {
-        print("\(currentCount)/\(totalCount)")
-        if currentCount == totalCount {
-            print("----------download end----------")
-            section.setValues(header: header, buttons: buttons, dict: dict)
-            CoreDataManager.saveCoreData()
-            completion(section)
-        }
+    static private func createPage(context: NSManagedObjectContext, page: PageOfDB, type: Int) -> (page: Page_Core, result: PageResult) {
+        let pageCore = Page_Core(context: context)
+        let pageResult = pageCore.setValues(page: page, type: type)
+        return (page: pageCore, result: pageResult)
+    }
+    
+    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemResult) {
+        let problemCore = Problem_Core(context: context)
+        let problemResult = problemCore.setValues(prob: problem, index: index)
+        problemCore.sectionCore = section
+        problemCore.pageCore = page
+        return (problem: problemCore, result: problemResult)
+    }
+    
+    static private func terminateDownload(section: Section_Core, header: SectionHeader_Core, completion: ((Section_Core?) -> Void)) {
+        print("----------download end----------")
+        section.setValues(header: header)
+        CoreDataManager.saveCoreData()
+        completion(section)
     }
     
     static func fetchSectionHeader(sid: Int) -> SectionHeader_Core? {
