@@ -81,12 +81,16 @@ extension CoreUsecase {
     
     static func getPageCores(pNames: [String], dictionary: [String: Int]) -> [Page_Core] {
         let vids = NSOrderedSet(array: pNames.map { dictionary[$0, default: 0] }).map { $0 as? Int ?? 0 }
-        let pageCores = vids.map { vid in CoreUsecase.fetchPage(vid: vid) }.compactMap { $0 }
+        let pageCores = vids.compactMap { vid in CoreUsecase.fetchPage(vid: vid) }
         return pageCores
     }
     
     static func getProblemCores(pageCores: [Page_Core]) -> [Problem_Core] {
-        let problemCores = pageCores.map { page in page.problems.map { pid in CoreUsecase.fetchProblem(pid: pid) }.compactMap { $0 } }.reduce([], +)
+        let problemCores = pageCores.flatMap { page in
+            page.problems.compactMap { pid in
+                CoreUsecase.fetchProblem(pid: pid)
+            }
+        }
         return problemCores
     }
 }
