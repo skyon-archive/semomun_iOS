@@ -85,7 +85,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.configureCanvasViewData()
         self.configureImageView()
         self.showResultImage()
-        self.viewModel?.configureObserver()
+        self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -93,7 +93,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         print("객관식 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.cancelObserver()
+        self.viewModel?.stopTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.solveInput.isHidden = false
@@ -120,7 +120,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
     // 주관식 입력 부분
     @IBAction func solveInputChanged(_ sender: UITextField) {
         guard let input = sender.text else { return }
-        self.viewModel?.updateSolved(input: "\(input)")
+        self.viewModel?.updateSolved(withSelectedAnswer: "\(input)")
     }
 
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -233,7 +233,7 @@ extension SingleWithTextAnswerVC {
     }
     
     func configureTimerView() {
-        guard let time = self.viewModel?.time else { return }
+        guard let time = self.viewModel?.timeSpentOnPage else { return }
         
         self.view.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
