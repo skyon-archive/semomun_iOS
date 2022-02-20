@@ -54,7 +54,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var sectionCore: Section_Core? //relation으로 인해 생긴 SectionCore
     @NSManaged public var pageCore: Page_Core? //relation으로 인해 생긴 PageCore
     
-    func setValues(prob: ProblemOfDB) -> ProblemResult {
+    func setValues(prob: ProblemOfDB, index: Int) -> ProblemResult {
         self.setValue(Int64(prob.pid), forKey: "pid")
         self.setValue(prob.icon_name, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")
@@ -66,6 +66,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(false, forKey: "terminated")
+        self.setValue(Int64(index), forKey: "orderIndex")
         if let point = prob.score {
             self.setValue(Double(point), forKey: "point")
         } else {

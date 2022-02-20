@@ -118,9 +118,12 @@ extension SectionCell {
     }
     
     private func showPersent() {
-        // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
-        let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
-        self.downloadButton.setTitle("\(percent)%", for: .normal)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
+            let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
+            self.downloadButton.setTitle("\(percent)%", for: .normal)
+        }
     }
 }
 
@@ -141,7 +144,9 @@ extension SectionCell: LoadingDelegate {
     }
     
     func terminate() {
-        self.downloadButton.setTitle("문제풀기", for: .normal)
-        self.configureNoneWhite()
+        DispatchQueue.main.async { [weak self] in
+            self?.downloadButton.setTitle("문제풀기", for: .normal)
+            self?.configureNoneWhite()
+        }
     }
 }
