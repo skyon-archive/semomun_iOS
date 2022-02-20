@@ -63,8 +63,8 @@ class SectionResultVC: UIViewController {
     }
     
     private func setProgress(total: Double, to: Double) {
-        let persent = Float(to/total)
-        self.progressView.setProgressWithAnimation(duration: 0.5, value: persent, from: 0)
+        let percent = Float(to/total)
+        self.progressView.setProgressWithAnimation(duration: 0.5, value: percent, from: 0)
     }
 }
 

@@ -23,7 +23,7 @@ final class LoadingIndicator: UIViewController {
     
     var totalPageCount: Int = 0
     var currentCount: Int = 0
-    var currentPersent: Float = 0
+    var currentPercent: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +61,10 @@ extension LoadingIndicator: LoadingDelegate {
     
     func oneProgressDone() {
         self.currentCount += 1
-        let newPersent = Float(currentCount)/Float(totalPageCount)
+        let newPercent = Float(currentCount)/Float(totalPageCount)
         self.statusLabel.text = "\(self.currentCount)/\(self.totalPageCount)"
-        self.loadingProgress.setProgressWithAnimation(duration: 0.2, value: newPersent, from: currentPersent)
-        self.currentPersent = newPersent
+        self.loadingProgress.setProgressWithAnimation(duration: 0.2, value: newPercent, from: currentPercent)
+        self.currentPercent = newPercent
         
         if self.currentCount >= self.totalPageCount {
             self.terminate()

@@ -830,7 +830,7 @@ Title</string>
                                                     <outlet property="authorAndPublisher" destination="5v6-nV-G4R" id="8hn-bZ-4NO"/>
                                                     <outlet property="bookcover" destination="q8F-H0-R1M" id="C6l-pZ-xkO"/>
                                                     <outlet property="frameView" destination="UOp-wJ-NuM" id="GX1-Iq-EU4"/>
-                                                    <outlet property="progressPersentLabel" destination="p46-MF-xCg" id="Wdj-cS-BxA"/>
+                                                    <outlet property="progressPercentLabel" destination="p46-MF-xCg" id="Wdj-cS-BxA"/>
                                                     <outlet property="progressView" destination="bmT-35-UUD" id="jMD-vh-ebl"/>
                                                     <outlet property="title" destination="gMx-fe-6QI" id="7pK-lB-Vaw"/>
                                                 </connections>
