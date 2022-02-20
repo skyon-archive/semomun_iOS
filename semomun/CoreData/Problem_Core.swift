@@ -13,16 +13,15 @@ import UIKit
 
 struct ProblemResult {
     let pid: Int
-    let contentUrl: String?
+    let contentUrl: String
     let explanationUrl: String?
-    var imageCount: Int = 0
+    let imageCount: Int
     
-    init(pid: Int, contentUrl: String?, explanationUrl: String?) {
+    init(pid: Int, contentUrl: String, explanationUrl: String?) {
         self.pid = pid
         self.contentUrl = contentUrl
         self.explanationUrl = explanationUrl
-        if self.contentUrl != nil { self.imageCount += 1 }
-        if self.explanationUrl != nil { self.imageCount += 1 }
+        self.imageCount = explanationUrl == nil ? 1 : 2
     }
 }
 
@@ -86,25 +85,18 @@ public class Problem_Core: NSManagedObject {
     
     func fetchImages(problemResult: ProblemResult, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
-        if let contentURL = problemResult.contentUrl {
-            Network().get(url: contentURL, param: nil) { requestResult in
-                print(requestResult.data ?? "no data")
-                if requestResult.data != nil {
-                    self.setValue(requestResult.data, forKey: "contentImage")
-                    print("Problem: \(problemResult.pid) save contentImage")
-                    completion()
-                } else {
-                    let warningImage = UIImage(.warning)
-                    self.setValue(warningImage.pngData(), forKey: "contentImage")
-                    print("Problem: \(problemResult.pid) save contentImage fail")
-                    completion()
-                }
+        Network().get(url: problemResult.contentUrl, param: nil) { requestResult in
+            print(requestResult.data ?? "no data")
+            if requestResult.data != nil {
+                self.setValue(requestResult.data, forKey: "contentImage")
+                print("Problem: \(problemResult.pid) save contentImage")
+                completion()
+            } else {
+                let warningImage = UIImage(.warning)
+                self.setValue(warningImage.pngData(), forKey: "contentImage")
+                print("Problem: \(problemResult.pid) save contentImage fail")
+                completion()
             }
-        } else {
-            let warningImage = UIImage(.warning) 
-            self.setValue(warningImage.pngData(), forKey: "contentImage")
-            print("Problem: \(problemResult.pid) save contentImage fail")
-            completion()
         }
         
         // MARK: - explanationImage
@@ -122,11 +114,7 @@ public class Problem_Core: NSManagedObject {
                     completion()
                 }
             }
-        } else {
-            self.setValue(nil, forKey: "explanationImage")
-            print("Problem: \(problemResult.pid) save Images")
-            completion()
-        }
+        } else { return }
     }
     
     func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {

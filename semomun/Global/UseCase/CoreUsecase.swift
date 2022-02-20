@@ -26,7 +26,7 @@ struct CoreUsecase {
     }
     
     static func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping (Section_Core?) -> Void) {
-        guard let sectionHeader = Self.fetchSectionHeader(sid: sid), pages.isEmpty else {
+        guard let sectionHeader = Self.fetchSectionHeader(sid: sid), pages.isEmpty == false else {
             completion(nil)
             return
         }
