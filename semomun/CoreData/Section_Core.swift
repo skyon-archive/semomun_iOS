@@ -22,29 +22,22 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var sid: Int64 //식별 고유값
     @NSManaged public var title: String? //섹션 제목
     @NSManaged public var time: Int64 //누적 시간
-    @NSManaged public var buttons: [String] //하단 버튼내용들
-    @NSManaged public var stars: [Bool] //하단 버튼 스타표시여부
-    @NSManaged public var dictionaryOfProblem: [String: Int] //버튼 - vid 간 관계
-    @NSManaged public var lastPageId: Int64 //마지막 화면 id
+    @NSManaged public var lastPageId: Int64 //TODO: lastIndex 수정 예정
     @NSManaged public var terminated: Bool //채점여부
-    @NSManaged public var wrongs: [Bool] //채점 이후 문제별 틀림여부
-    @NSManaged public var checks: [Bool] //푼 문제인지 여부
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
     
-    func setValues(header: SectionHeader_Core, buttons: [String], dict: [String: Int]) {
+    @NSManaged public var dictionaryOfProblem: [String: Int] //Deprecated(1.1.3)
+    @NSManaged public var buttons: [String] //Deprecated(1.1.3)
+    @NSManaged public var stars: [Bool] //Deprecated(1.1.3)
+    @NSManaged public var wrongs: [Bool] //Deprecated(1.1.3)
+    @NSManaged public var checks: [Bool] //Deprecated(1.1.3)
+    
+    func setValues(header: SectionHeader_Core) {
         self.setValue(header.sid, forKey: "sid")
         self.setValue(header.title, forKey: "title")
         self.setValue(0, forKey: "time")
-        self.setValue(buttons, forKey: "buttons")
-        let stars = Array(repeating: false, count: buttons.count)
-        let wrongs = Array(repeating: true, count: buttons.count)
-        let checks = Array(repeating: false, count: buttons.count)
-        self.setValue(stars, forKey: "stars")
-        self.setValue(wrongs, forKey: "wrongs")
-        self.setValue(dict, forKey: "dictionaryOfProblem")
-        self.setValue(dict[buttons[0]], forKey: "lastPageId")
+        self.setValue(0, forKey: "lastPageId") // TODO: lastIndex 수정 예정
         self.setValue(false, forKey: "terminated")
-        self.setValue(checks, forKey: "checks")
         print("Section: \(header.sid) save complete")
     }
     

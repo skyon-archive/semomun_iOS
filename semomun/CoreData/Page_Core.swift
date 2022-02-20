@@ -35,15 +35,15 @@ public class Page_Core: NSManagedObject {
     @NSManaged public var vid: Int64 //뷰어의 고유 번호
     @NSManaged public var materialImage: Data? //좌측 이미지
     @NSManaged public var layoutType: String //뷰컨트롤러 타입
-    @NSManaged public var problems: [Int] //Problem: pid 값들
     @NSManaged public var drawing: Data? //Pencil 데이터
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 인해 생긴 problemCore들
     
-    func setValues(page: PageOfDB, pids: [Int], type: Int) -> PageResult {
+    @NSManaged public var problems: [Int] //Deprecated(1.1.3)
+    
+    func setValues(page: PageOfDB, type: Int) -> PageResult {
         self.setValue(Int64(page.vid), forKey: "vid")
         self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
-        self.setValue(pids, forKey: "problems")
         self.setValue(nil, forKey: "drawing")
         self.setValue(Int64(0), forKey: "time")
         print("Page: \(page.vid) save complete")
@@ -64,7 +64,7 @@ public class Page_Core: NSManagedObject {
             completion()
             return
         }
-        print("sdfsdfdsfksafhsakfhkdhf")
+        
         if let url = pageResult.url {
             Network().get(url: url, param: nil) { requestResult in
                 print(requestResult.data ?? "no data")
