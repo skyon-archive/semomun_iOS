@@ -117,7 +117,7 @@ extension SectionCell {
         }
     }
     
-    private func showPersent() {
+    private func showPercent() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
@@ -132,12 +132,12 @@ extension SectionCell: LoadingDelegate {
         self.totalCount = count
         self.currentCount = 0
         self.configureWhite()
-        self.showPersent()
+        self.showPercent()
     }
     
     func oneProgressDone() {
         self.currentCount += 1
-        self.showPersent()
+        self.showPercent()
         if self.currentCount >= self.totalCount {
             self.terminate()
         }

@@ -14,7 +14,7 @@ class BookshelfCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var authorAndPublisher: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var progressPersentLabel: UILabel!
+    @IBOutlet weak var progressPercentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,9 +38,9 @@ class BookshelfCell: UICollectionViewCell {
         self.bookcover.image = nil
         self.title.text = nil
         self.authorAndPublisher.text = nil
-        self.progressPersentLabel.text = nil
+        self.progressPercentLabel.text = nil
         self.progressView.isHidden = false
-        self.progressPersentLabel.text = nil
+        self.progressPercentLabel.text = nil
     }
     
     func configure(with book: Preview_Core) {
@@ -53,7 +53,7 @@ class BookshelfCell: UICollectionViewCell {
         self.authorAndPublisher.text = "\("저자 없음") | \(book.publisher ?? "출판사 없음")"
         let percent = Int.random(in: (0...100))
         self.progressView.setProgress(Float(percent)/Float(100), animated: true)
-        self.progressPersentLabel.text = "\(percent)%"
+        self.progressPercentLabel.text = "\(percent)%"
     }
     
     func configureShadow() {
