@@ -127,7 +127,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         if problem.terminated { return }
         
         let input: Int = sender.tag
-        self.viewModel?.updateSolved(withAnswer: "\(input)")
+        self.viewModel?.updateSolved(withSelectedAnswer: "\(input)")
         
         self.configureCheckButtons()
     }
