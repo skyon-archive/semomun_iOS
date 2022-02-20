@@ -114,7 +114,14 @@ extension BookshelfVC {
     
     private func startMigration() {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        CoreUsecase.migration { [weak self] status in
+        CoreUsecase.migration { [weak self] didMigrationSuccess in
+            guard didMigrationSuccess else {
+                self?.removeLoader()
+                self?.isMigration = false
+                print("migration fail")
+                return
+            }
+            
             UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 현재 version 저장
             self?.fetch()
             CoreDataManager.saveCoreData()
