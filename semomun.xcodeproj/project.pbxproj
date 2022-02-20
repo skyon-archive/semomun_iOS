@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250194C927C25AD8003B8C6B /* PageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250194C827C25AD8003B8C6B /* PageVM.swift */; };
 		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		2502CEC827A593750072A037 /* SemopayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* SemopayVM.swift */; };
@@ -204,6 +205,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		250194C827C25AD8003B8C6B /* PageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVM.swift; sourceTree = "<group>"; };
 		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		2502CEC727A593750072A037 /* SemopayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayVM.swift; sourceTree = "<group>"; };
@@ -1077,6 +1079,7 @@
 		87C85EAB276F6C62001C9C4A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				250194C827C25AD8003B8C6B /* PageVM.swift */,
 				87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerVM.swift */,
 				87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift */,
 				87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift */,
@@ -1312,6 +1315,7 @@
 				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
 				2562773227A19E52006F9370 /* SemopayCell.swift in Sources */,
 				87C85E44276F6708001C9C4A /* UICollectionViewCell.swift in Sources */,
+				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
 				8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */,
 				8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */,
