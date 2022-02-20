@@ -32,11 +32,13 @@ class PageVM {
         }
     }
     
+    /// 사용자에게 보여주기 위한 answer값을 반환
     func answer(of problem: Problem_Core? = nil) -> String? {
         assertionFailure("override가 필요한 함수입니다.")
         return nil
     }
     
+    /// Problem_Core에 있는 answer 값이 입력됨
     func isCorrect(input: String, answer: String) -> Bool {
         assertionFailure("override가 필요한 함수입니다.")
         return false
@@ -59,12 +61,12 @@ class PageVM {
         }
     }
     
-    func updateSolved(withAnswer input: String, problem: Problem_Core? = nil) {
+    func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {
         guard let problem = problem ?? problems.first else { return }
-        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
+        problem.setValue(selectedAnswer, forKey: "solved") // 사용자 입력 값 저장
         
-        if let answer = self.answer(of: problem) {
-            let correct = self.isCorrect(input: input, answer: answer)
+        if let answer = problem.answer {
+            let correct = self.isCorrect(input: selectedAnswer, answer: answer)
             problem.setValue(correct, forKey: "correct")
         }
         self.delegate?.reload()
