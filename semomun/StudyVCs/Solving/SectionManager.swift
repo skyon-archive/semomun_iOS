@@ -80,21 +80,21 @@ final class SectionManager {
         self.delegate?.changeVC(pageData: currentPage)
     }
     
-    func title(at: Int) -> String {
-        return self.problems[at].pName ?? "-"
+    func title(at index: Int) -> String {
+        return self.problems[index].pName ?? "-"
     }
     
-    func isStar(at: Int) -> Bool {
-        return self.problems[at].star
+    func isStar(at index: Int) -> Bool {
+        return self.problems[index].star
     }
     
-    func isWrong(at: Int) -> Bool {
-        let problem = self.problems[at]
+    func isWrong(at index: Int) -> Bool {
+        let problem = self.problems[index]
         return problem.correct == false && problem.terminated
     }
     
-    func isChecked(at: Int) -> Bool {
-        return self.problems[at].solved != nil
+    func isChecked(at index: Int) -> Bool {
+        return self.problems[index].solved != nil
     }
     
     func changeNextPage() {
