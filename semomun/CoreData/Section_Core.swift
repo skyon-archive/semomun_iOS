@@ -26,10 +26,15 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
     
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var dictionaryOfProblem: [String: Int] //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var buttons: [String] //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var stars: [Bool] //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var wrongs: [Bool] //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var checks: [Bool] //Deprecated(1.1.3)
     
     func setValues(header: SectionHeader_Core) {

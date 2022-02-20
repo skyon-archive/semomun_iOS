@@ -39,6 +39,7 @@ public class Page_Core: NSManagedObject {
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 인해 생긴 problemCore들
     
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var problems: [Int] //Deprecated(1.1.3)
     
     func setValues(page: PageOfDB, type: Int) -> PageResult {
