@@ -10,13 +10,18 @@ import Foundation
 /// - Note: 사용자의 input값과 answer 타입이 같음을 가정.
 ///
 /// pageData.pageCore.time를 어떻게 사용하는지 확인 필요
-final class PageVM<Answer: Equatable> {
+class PageVM<Answer: Equatable> {
     weak var delegate: PageDelegate?
     
     private(set) var pageData: PageData
     private(set) var problems: [Problem_Core]
     private(set) var timeSpentOnPage: Int64 = 0
     private let timeSpentPerProblems: [Int64]
+    
+    // 문제가 하나인 VC의 편의성을 위함
+    var problem: Problem_Core? {
+        return problems.first
+    }
     
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
@@ -29,7 +34,7 @@ final class PageVM<Answer: Equatable> {
         }
     }
     
-    func answer(of problem: Problem_Core) -> Answer? {
+    func answer(of problem: Problem_Core? = nil) -> Answer? {
         assertionFailure("override가 필요한 함수입니다.")
         return nil
     }
@@ -51,13 +56,15 @@ final class PageVM<Answer: Equatable> {
         self.timeSpentOnPage += 1
         let perTime = Int64(ceil(Double(self.timeSpentOnPage)/Double(problems.count)))
         for (idx, problem) in problems.enumerated() {
-            problem.setValue(self.timeSpentPerProblems[idx] + perTime, forKey: "time")
+            let time = self.timeSpentPerProblems[idx] + perTime
+            problem.setValue(time, forKey: "time")
         }
     }
     
     func updateSolved(withAnswer input: Answer, problem: Problem_Core? = nil) {
         guard let problem = problem ?? problems.first else { return }
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
+        
         if let answer = self.answer(of: problem) {
             let correct = self.isCorrect(input: input, answer: answer)
             problem.setValue(correct, forKey: "correct")
