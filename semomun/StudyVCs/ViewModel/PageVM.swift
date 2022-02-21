@@ -11,15 +11,20 @@ import Foundation
 class PageVM {
     weak var delegate: PageDelegate?
     
-    private(set) var pageData: PageData
     private(set) var problems: [Problem_Core]
     private(set) var timeSpentOnPage: Int64 = 0
+    
+    private let pageData: PageData
     private let timeSpentPerProblems: [Int64]
     
     /// - Note: 문제가 하나인 VC를 위한 편의 프로퍼티
     var problem: Problem_Core? {
-        assert(problems.count == 1, "문제수가 하나인 페이지에서 사용하는 프로퍼티입니다.")
+        assert(problems.count == 1, "문제수가 하나인 페이지에서 사용되는 프로퍼티입니다.")
         return problems.first
+    }
+    
+    var pageDrawingData: Data? {
+        return pageData.pageCore.drawing
     }
     
     init(delegate: PageDelegate, pageData: PageData) {
