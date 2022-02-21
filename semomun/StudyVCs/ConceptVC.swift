@@ -71,7 +71,7 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         print("개념 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.stopTimeRecord()
+        self.viewModel?.endTimeRecord()
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
