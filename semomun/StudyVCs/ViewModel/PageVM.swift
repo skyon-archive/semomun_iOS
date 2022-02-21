@@ -71,7 +71,7 @@ class PageVM {
     }
     
     func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {
-        guard let problem = problem ?? problems.first else { return }
+        guard let problem = problem ?? self.problem else { return }
         problem.setValue(selectedAnswer, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
@@ -82,13 +82,13 @@ class PageVM {
     }
     
     func updateStar(to status: Bool, problem: Problem_Core? = nil) {
-        guard let problem = problem ?? problems.first else { return }
+        guard let problem = problem ?? self.problem else { return }
         problem.setValue(status, forKey: "star")
         self.delegate?.reload()
     }
     
     func updatePencilData(to data: Data, problem: Problem_Core? = nil) {
-        guard let problem = problem ?? problems.first else { return }
+        guard let problem = problem ?? self.problem else { return }
         problem.setValue(data, forKey: "drawing")
     }
     
