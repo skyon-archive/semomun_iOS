@@ -7,6 +7,4 @@
 
 import Foundation
 
-final class MultipleWithNoAnswerVM: PageVM {
-    
-}
+final class MultipleWithNoAnswerVM: PageVM { }
