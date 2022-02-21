@@ -16,8 +16,9 @@ class PageVM {
     private(set) var timeSpentOnPage: Int64 = 0
     private let timeSpentPerProblems: [Int64]
     
-    // 문제가 하나인 VC의 편의성을 위함
+    // 페이지에 문제가 단 하나일 경우 그 문제의 Problem_Core를 반환
     var problem: Problem_Core? {
+        assert(problems.count == 1, "문제수가 하나인 페이지에서 사용하는 프로퍼티입니다.")
         return problems.first
     }
     
