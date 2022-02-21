@@ -80,7 +80,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         print("답없는 좌우형 : willDisapplear")
         
         CoreDataManager.saveCoreData() //
-        self.viewModel?.stopTimeRecord()
+        self.viewModel?.endTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0

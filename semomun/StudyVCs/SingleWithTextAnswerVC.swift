@@ -93,7 +93,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         print("객관식 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.stopTimeRecord()
+        self.viewModel?.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.solveInput.isHidden = false
