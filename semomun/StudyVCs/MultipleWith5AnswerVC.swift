@@ -72,7 +72,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         
         self.stopLoader()
         self.configureMainImageView()
-        self.viewModel?.configureObserver()
+        self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,7 +80,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         print("5다선지 좌우형 : willDisapplear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.cancelObserver()
+        self.viewModel?.stopTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
@@ -207,14 +207,14 @@ extension MultipleWith5AnswerVC {
 // MARK: - Configure MultipleWith5Cell
 extension MultipleWith5AnswerVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.count ?? 0
+        return self.viewModel?.problems.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
-        let problem = self.viewModel?.problem(at: indexPath.item)
+        let problem = self.viewModel?.problems[indexPath.item]
         let superWidth = self.collectionView.frame.width
         
         cell.delegate = self
