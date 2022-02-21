@@ -68,7 +68,7 @@ class PageVM {
         guard let problem = problem ?? problems.first else { return }
         problem.setValue(selectedAnswer, forKey: "solved") // 사용자 입력 값 저장
         
-        if let answer = problem.answer {
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
             let correct = self.isCorrect(input: selectedAnswer, answer: answer)
             problem.setValue(correct, forKey: "correct")
         }
