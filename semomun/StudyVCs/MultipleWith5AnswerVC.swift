@@ -171,7 +171,7 @@ extension MultipleWith5AnswerVC {
     }
     
     func configureCanvasViewData() {
-        if let pkData = self.viewModel?.pageDrawingData {
+        if let pkData = self.viewModel?.pagePencilData {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {

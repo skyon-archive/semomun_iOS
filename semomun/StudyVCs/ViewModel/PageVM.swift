@@ -23,7 +23,7 @@ class PageVM {
         return problems.first
     }
     
-    var pageDrawingData: Data? {
+    var pagePencilData: Data? {
         return pageData.pageCore.drawing
     }
     
@@ -62,7 +62,8 @@ class PageVM {
     
     @objc func updateTime() {
         self.timeSpentOnPage += 1
-        let perTime = Int64(ceil(Double(self.timeSpentOnPage)/Double(problems.count)))
+        let timeSpentPerProblems = Double(self.timeSpentOnPage) / Double(self.problems.count)
+        let perTime = Int64(ceil(timeSpentPerProblems))
         for (idx, problem) in problems.enumerated() {
             let time = self.timeSpentPerProblems[idx] + perTime
             problem.setValue(time, forKey: "time")
@@ -89,6 +90,10 @@ class PageVM {
     func updatePencilData(to data: Data, problem: Problem_Core? = nil) {
         guard let problem = problem ?? problems.first else { return }
         problem.setValue(data, forKey: "drawing")
+    }
+    
+    func updatePagePencilData(to data: Data) {
+//        self.pageData.pageCore.setValue(data, forKey: "drawing")
     }
 }
 
