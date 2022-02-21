@@ -72,7 +72,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         
         self.stopLoader()
         self.configureMainImageView()
-        self.viewModel?.configureObserver()
+        self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,7 +80,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         print("답없는 좌우형 : willDisapplear")
         
         CoreDataManager.saveCoreData() //
-        self.viewModel?.cancelObserver()
+        self.viewModel?.stopTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
@@ -206,14 +206,14 @@ extension MultipleWithNoAnswerVC {
 // MARK: - Configure MultipleWithNoCell
 extension MultipleWithNoAnswerVC: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.count ?? 0
+        return self.viewModel?.problems.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
-        let problem = self.viewModel?.problem(at: indexPath.item)
+        let problem = self.viewModel?.problems[indexPath.item]
         let superWidth = self.collectionView.frame.width
         
         cell.delegate = self

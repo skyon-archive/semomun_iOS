@@ -16,7 +16,7 @@ class PageVM {
     private(set) var timeSpentOnPage: Int64 = 0
     private let timeSpentPerProblems: [Int64]
     
-    /// 페이지에 문제가 단 하나일 경우 그 문제의 Problem_Core를 반환
+    /// - Note: 문제가 하나인 VC를 위한 편의 프로퍼티
     var problem: Problem_Core? {
         assert(problems.count == 1, "문제수가 하나인 페이지에서 사용하는 프로퍼티입니다.")
         return problems.first
@@ -33,7 +33,7 @@ class PageVM {
         }
     }
     
-    /// 사용자에게 보여주기 위한 answer값을 반환
+    /// - Returns: 사용자에게 보여주기 위한 answer값
     func answer(of problem: Problem_Core? = nil) -> String? {
         assertionFailure("override가 필요한 함수입니다.")
         return nil
@@ -41,7 +41,7 @@ class PageVM {
     
     /// - Parameters:
     ///   - input: VC에서 전달받은 사용자가 선택한 정답 값
-    ///   - answer: Problem_Core의 answer 값
+    ///   - answer: 정답 여부를 판별하고 싶은 Problem_Core의 answer 프로퍼티 값
     func isCorrect(input: String, answer: String) -> Bool {
         assertionFailure("override가 필요한 함수입니다.")
         return false
