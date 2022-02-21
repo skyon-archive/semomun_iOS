@@ -14,6 +14,8 @@ class PageVM {
     private(set) var problems: [Problem_Core]
     private(set) var timeSpentOnPage: Int64 = 0
     
+    private var isTimeRecording = false
+    
     private let pageData: PageData
     private let timeSpentPerProblems: [Int64]
     
@@ -53,11 +55,17 @@ class PageVM {
     }
     
     func startTimeRecord() {
+        guard self.isTimeRecording == false else {
+            assertionFailure("타이머가 중복 실행되려고합니다.")
+            return
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
+        self.isTimeRecording = true
     }
     
     func endTimeRecord() {
         NotificationCenter.default.removeObserver(self)
+        self.isTimeRecording = false
     }
     
     @objc func updateTime() {
