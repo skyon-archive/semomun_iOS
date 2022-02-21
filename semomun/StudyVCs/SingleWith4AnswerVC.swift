@@ -89,7 +89,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.configureCanvasViewData()
         self.configureImageView()
         self.showResultImage()
-        self.viewModel?.configureObserver()
+        self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,7 +97,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         print("4다선지 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.cancelObserver()
+        self.viewModel?.stopTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.answerBT.isHidden = false
@@ -126,18 +126,15 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         if problem.terminated { return }
         
         let input: Int = sender.tag
-        self.viewModel?.updateSolved(input: "\(input)")
+        self.viewModel?.updateSolved(withSelectedAnswer: "\(input)")
         
         self.configureCheckButtons()
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
-        guard let problem = self.viewModel?.problem,
-              let pName = problem.pName else { return }
-        
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
-        self.viewModel?.updateStar(btName: pName, to: status)
+        self.viewModel?.updateStar(to: status)
     }
     
     @IBAction func showExplanation(_ sender: Any) {
@@ -153,7 +150,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer else { return }
+        guard let answer = self.viewModel?.answer() else { return }
         self.answerView.removeFromSuperview()
         
         self.answerView.configureAnswer(to: answer.circledAnswer)
@@ -242,7 +239,7 @@ extension SingleWith4AnswerVC {
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if let answer = self.viewModel?.answer,
+        if let answer = self.viewModel?.answer(),
            problem.terminated == true {
             self.answerBT.isHidden = true
             if answer != "복수",
@@ -267,7 +264,7 @@ extension SingleWith4AnswerVC {
     }
     
     func configureTimerView() {
-        guard let time = self.viewModel?.time else { return }
+        guard let time = self.viewModel?.timeSpentOnPage else { return }
         
         self.view.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
