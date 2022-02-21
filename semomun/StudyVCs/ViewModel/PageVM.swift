@@ -51,7 +51,7 @@ class PageVM {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
     }
     
-    func stopTimeRecord() {
+    func endTimeRecord() {
         NotificationCenter.default.removeObserver(self)
     }
     

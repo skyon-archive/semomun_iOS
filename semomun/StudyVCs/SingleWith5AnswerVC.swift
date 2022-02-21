@@ -98,7 +98,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         print("5다선지 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.stopTimeRecord()
+        self.viewModel?.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.answerBT.isHidden = false
