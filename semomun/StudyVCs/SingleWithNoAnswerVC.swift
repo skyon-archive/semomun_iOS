@@ -70,7 +70,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         self.stopLoader()
         self.configureCanvasViewData()
         self.configureImageView()
-        self.viewModel?.configureObserver()
+        self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,7 +78,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         print("답없는 단일형 willDisappear")
         
         CoreDataManager.saveCoreData()
-        self.viewModel?.cancelObserver()
+        self.viewModel?.stopTimeRecord()
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
@@ -168,7 +168,7 @@ extension SingleWithNoAnswerVC {
     
     func configureTimerView() {
         guard let problem = self.viewModel?.problem,
-              let time = self.viewModel?.time else { return }
+              let time = self.viewModel?.timeSpentOnPage else { return }
         
         if problem.terminated {
             self.view.addSubview(self.timerView)
