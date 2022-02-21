@@ -7,6 +7,4 @@
 
 import Foundation
 
-final class MultipleWith5AnswerVM: PageVM {
-    
-}
+final class MultipleWith5AnswerVM: PageVM { }
