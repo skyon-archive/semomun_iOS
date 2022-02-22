@@ -19,7 +19,7 @@ class SaveSectionUsecase {
     
     init(section: Section_Core) {
         self.section = section
-        self.section.problemCores?.forEach { problemCore in
+        self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex} ).forEach { problemCore in
             self.calculateProblem(problemCore)
         }
     }
