@@ -43,12 +43,12 @@ struct CoreUsecase {
         print("----------save start----------")
         
         pages.forEach { page in
+            let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
+            let pageCore = pageData.page
+            pageCores.append(pageCore)
+            pageResults.append(pageData.result)
+            
             page.problems.forEach { problem in
-                let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
-                let pageCore = pageData.page
-                pageCores.append(pageCore)
-                pageResults.append(pageData.result)
-                
                 let problemData = CoreUsecase.createProblem(context: context, problem: problem, section: sectionCore, page: pageCore, index: problemIndex)
                 let problemCore = problemData.problem
                 problemCores.append(problemCore)
@@ -107,8 +107,8 @@ struct CoreUsecase {
     static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemResult) {
         let problemCore = Problem_Core(context: context)
         let problemResult = problemCore.setValues(prob: problem, index: index)
-        problemCore.sectionCore = section
         problemCore.pageCore = page
+        problemCore.sectionCore = section
         return (problem: problemCore, result: problemResult)
     }
     
