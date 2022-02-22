@@ -12,9 +12,7 @@ final class SearchTagVM {
     private let networkUsecase: SearchTagsFetchable
     @Published private(set) var searchResultTags: [String] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var tags: [String] = [] {
-        didSet { self.saveTags() }
-    }
+    @Published private(set) var tags: [String] = []
     
     init(networkUsecase: SearchTagsFetchable) {
         self.networkUsecase = networkUsecase
@@ -41,10 +39,7 @@ final class SearchTagVM {
     
     func removeTag(index: Int) {
         self.tags.remove(at: index)
-    }
-    
-    func removeAll() {
-        self.searchResultTags = []
+        self.saveTags()
     }
     
     func appendTag(to tag: String) {
@@ -54,7 +49,11 @@ final class SearchTagVM {
         }
         self.tags.append(tag)
         self.removeAll()
-       
+        self.saveTags()
+    }
+    
+    func removeAll() {
+        self.searchResultTags = []
     }
     
     private func saveTags() {
