@@ -45,7 +45,7 @@ class ProblemNameCell: UICollectionViewCell {
                 self.num.textColor = .white
             } else {
                 self.contentView.backgroundColor = UIColor(.lightMainColor)
-                self.num.textColor = UIColor(.darkMainColor)
+                self.num.textColor = UIColor(.deepMint)
             }
             if isCurrent {
                 self.num.font = UIFont.systemFont(ofSize: 18, weight: .black)

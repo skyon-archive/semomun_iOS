@@ -23,7 +23,7 @@ enum SemomunColor: String {
     case divider = "divider"
     case grayDefaultColor = "grayDefaultColor"
     case redWrongColor = "redWrongColor"
-    case darkMainColor = "darkMainColor"
+    case deepMint = "deepMint"
     case lightMainColor = "lightMainColor"
     case textColor = "textColor"
 }

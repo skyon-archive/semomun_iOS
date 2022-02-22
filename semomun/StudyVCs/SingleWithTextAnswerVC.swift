@@ -292,7 +292,7 @@ extension SingleWithTextAnswerVC {
     
     func configureAnswer() {
         self.answerBT.isUserInteractionEnabled = true
-        self.answerBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
+        self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.viewModel?.problem?.answer == nil {
             self.answerBT.isUserInteractionEnabled = false
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
@@ -302,7 +302,7 @@ extension SingleWithTextAnswerVC {
     func configureExplanation() {
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
+        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
