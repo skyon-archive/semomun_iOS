@@ -32,7 +32,7 @@ final class ProblemTextResultView: UIView {
         self.addSubviews(self.solvedAnswerLabel, self.answerLabel)
         self.backgroundColor = .white
         self.borderWidth = 1
-        self.borderColor = UIColor(.darkMainColor)
+        self.borderColor = UIColor(.deepMint)
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
         

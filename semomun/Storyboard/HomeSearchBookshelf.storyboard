@@ -579,12 +579,12 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#수학의정석" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQP-v9-Vhf">
                                                             <rect key="frame" x="15" y="7" width="60" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" name="mainColor"/>
+                                                            <color key="textColor" name="deepMint"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AAe-CF-iHq">
                                                             <rect key="frame" x="79" y="8.5" width="16" height="11.5"/>
-                                                            <color key="tintColor" name="mainColor"/>
+                                                            <color key="tintColor" name="deepMint"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="AAe-CF-iHq" secondAttribute="height" multiplier="1:1" id="RbO-vw-PHf"/>
                                                                 <constraint firstAttribute="width" constant="16" id="W3t-9h-dGL"/>
@@ -919,7 +919,7 @@ Title</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#국가 기술 자격" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHJ-r9-8zh">
                                                     <rect key="frame" x="20" y="7.5" width="89" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="mainColor"/>
+                                                    <color key="textColor" name="deepMint"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1610,12 +1610,12 @@ next line</string>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#수학의정석" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRc-j5-ns8">
                                                             <rect key="frame" x="15" y="7.5" width="60" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" name="mainColor"/>
+                                                            <color key="textColor" name="deepMint"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zvd-K3-tA8">
                                                             <rect key="frame" x="79" y="9" width="16" height="11.5"/>
-                                                            <color key="tintColor" name="mainColor"/>
+                                                            <color key="tintColor" name="deepMint"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="16" id="8ju-HG-bkC"/>
                                                                 <constraint firstAttribute="width" secondItem="zvd-K3-tA8" secondAttribute="height" multiplier="1:1" id="NTC-WV-mIt"/>
@@ -1996,6 +1996,9 @@ next line</string>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="deepMint">
+            <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="grayLineColor">
             <color red="0.58039215686274515" green="0.58431372549019611" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -2006,7 +2009,7 @@ next line</string>
             <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mainColor">
-            <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.011764705882352941" green="0.81568627450980391" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="redColor">
             <color red="0.86699998378753662" green="0.016000000759959221" blue="0.016000000759959221" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

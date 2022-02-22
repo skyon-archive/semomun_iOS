@@ -69,10 +69,10 @@ extension HomeVC {
             tagView.layer.borderWidth = 1
             tagView.layer.cornerRadius = 15
             tagView.clipsToBounds = true
-            tagView.layer.borderColor = UIColor(.mainColor)?.cgColor
+            tagView.layer.borderColor = UIColor(.deepMint)?.cgColor
             let tagLabel = UILabel()
             tagLabel.backgroundColor = .clear
-            tagLabel.textColor = UIColor(.mainColor)
+            tagLabel.textColor = UIColor(.deepMint)
             tagLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
             tagLabel.text = "#\(tag)"
             
