@@ -132,7 +132,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     func configureExplanation() {
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.darkMainColor), for: .normal)
+        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
