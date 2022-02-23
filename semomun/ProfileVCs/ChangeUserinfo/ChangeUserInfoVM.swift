@@ -37,6 +37,7 @@ final class ChangeUserInfoVM {
     @Published private(set) var majorDetails: [String]?
     @Published var schoolName: String?
     @Published var graduationStatus: String?
+    @Published var configureUIForNicknamePhoneRequest = false
     
     private(set) var selectedMajor: String?
     private(set) var selectedMajorDetail: String?
@@ -104,7 +105,6 @@ final class ChangeUserInfoVM {
         self.sendUserInfoToNetwork(userInfo: userInfo) { [weak self] isSuccess in
             if isSuccess {
                 self?.saveUserInfoToCoreData(userInfo: userInfo)
-                self?.updateVersionIfDataUpdateSucceed()
                 self?.alertStatus = .withPopVC(.saveSuccess)
             } else {
                 self?.alertStatus = .withoutPopVC(.networkError)
@@ -177,6 +177,14 @@ extension ChangeUserInfoVM {
             self.selectedMajorDetail = userInfo.majorDetail
             self.schoolName = userInfo.schoolName
             self.graduationStatus = userInfo.graduationStatus
+            self.configureUIForNicknamePhoneRequestIfNeeded(userInfo)
+        }
+    }
+    
+    private func configureUIForNicknamePhoneRequestIfNeeded(_ userCoreData: UserCoreData) {
+        if userCoreData.phoneNumber == nil {
+            self.phonenum = ""
+            self.configureUIForNicknamePhoneRequest = true
         }
     }
     
@@ -230,12 +238,5 @@ extension ChangeUserInfoVM {
                 completion(false)
             }
         }
-    }
-    
-    private func updateVersionIfDataUpdateSucceed() {
-        // TODO: 1.0 랜덤데이터가 사라졌다는 가정하에
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        UserDefaultsManager.set(to: version, forKey: .userVersion)
-        print("userVersion 업데이트 완료")
     }
 }

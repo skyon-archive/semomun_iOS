@@ -44,7 +44,9 @@ final class ProfileVC: UIViewController {
 
     @IBAction func openChangeAccountInfoView(_ sender: Any) {
         let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
-        let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier)
+        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
+        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: false)
+        nextVC.configureVM(viewModel)
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
