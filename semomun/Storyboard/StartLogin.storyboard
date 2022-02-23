@@ -444,10 +444,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LP7-Ft-pqb">
-                                <rect key="frame" x="86" y="384" width="572" height="369"/>
+                                <rect key="frame" x="143" y="383" width="458" height="371"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TyA-4P-3DN">
-                                        <rect key="frame" x="512" y="17" width="40" height="40"/>
+                                        <rect key="frame" x="398" y="17" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="J5z-eS-nch"/>
                                             <constraint firstAttribute="height" constant="40" id="rrC-5e-AYk"/>
@@ -464,13 +464,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 이용약관" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tr6-d5-k96">
-                                        <rect key="frame" x="229.5" y="48" width="113.5" height="21.5"/>
+                                        <rect key="frame" x="172.5" y="48" width="113.5" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGT-MR-3su">
-                                        <rect key="frame" x="221.5" y="291" width="129" height="43"/>
+                                        <rect key="frame" x="164.5" y="300" width="129" height="43"/>
                                         <color key="backgroundColor" name="mainColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="129" id="88c-7B-Uyf"/>
@@ -489,7 +489,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="V3p-w2-crO">
-                                        <rect key="frame" x="146" y="103.5" width="280" height="155"/>
+                                        <rect key="frame" x="89" y="103.5" width="280" height="155"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZT-xh-zIu">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="22"/>
@@ -646,11 +646,11 @@
                                             <constraint firstAttribute="width" constant="280" id="8h9-MP-0VF"/>
                                         </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOw-qb-r1I">
-                                        <rect key="frame" x="75.5" y="220.5" width="421" height="1"/>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOw-qb-r1I">
+                                        <rect key="frame" x="59" y="220.5" width="340" height="1"/>
                                         <color key="backgroundColor" name="divider"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="421" id="DKm-K9-ztM"/>
+                                            <constraint firstAttribute="width" constant="340" id="DKm-K9-ztM"/>
                                             <constraint firstAttribute="height" constant="1" id="jc6-tZ-qHQ"/>
                                         </constraints>
                                     </view>
@@ -658,13 +658,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="V3p-w2-crO" firstAttribute="top" secondItem="Tr6-d5-k96" secondAttribute="bottom" constant="34" id="3cX-uf-0Cd"/>
-                                    <constraint firstAttribute="height" constant="369" id="9aZ-bP-BX4"/>
-                                    <constraint firstAttribute="width" constant="572" id="Ags-Ll-FF9"/>
+                                    <constraint firstAttribute="height" constant="371" id="9aZ-bP-BX4"/>
+                                    <constraint firstAttribute="width" constant="458" id="Ags-Ll-FF9"/>
                                     <constraint firstAttribute="trailing" secondItem="TyA-4P-3DN" secondAttribute="trailing" constant="20" id="CTp-9R-z8L"/>
                                     <constraint firstItem="Tr6-d5-k96" firstAttribute="centerX" secondItem="LP7-Ft-pqb" secondAttribute="centerX" id="Mbt-BT-Vzl"/>
                                     <constraint firstItem="TyA-4P-3DN" firstAttribute="top" secondItem="LP7-Ft-pqb" secondAttribute="top" constant="17" id="WBi-Nc-XYX"/>
                                     <constraint firstItem="UOw-qb-r1I" firstAttribute="centerX" secondItem="LP7-Ft-pqb" secondAttribute="centerX" id="Wjq-s8-3DN"/>
-                                    <constraint firstAttribute="bottom" secondItem="CGT-MR-3su" secondAttribute="bottom" constant="35" id="gwH-jZ-7ND"/>
+                                    <constraint firstAttribute="bottom" secondItem="CGT-MR-3su" secondAttribute="bottom" constant="28" id="gwH-jZ-7ND"/>
                                     <constraint firstItem="V3p-w2-crO" firstAttribute="centerX" secondItem="Tr6-d5-k96" secondAttribute="centerX" id="iMb-Cq-ICT"/>
                                     <constraint firstItem="CGT-MR-3su" firstAttribute="centerX" secondItem="LP7-Ft-pqb" secondAttribute="centerX" id="jk1-wt-hbb"/>
                                     <constraint firstItem="UOw-qb-r1I" firstAttribute="top" secondItem="gtb-hu-DRd" secondAttribute="bottom" constant="25" id="kmB-3e-cSx"/>
@@ -674,11 +674,8 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" name="mainColor"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -719,33 +716,47 @@
                                         <rect key="frame" x="0.0" y="0.0" width="744" height="1109"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRb-yo-48M" userLabel="contentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="744" height="1110.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="744" height="1141.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lyj-UQ-FvG">
-                                                        <rect key="frame" x="32" y="20" width="680" height="1070.5"/>
+                                                        <rect key="frame" x="100" y="20" width="544" height="1101.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="rMO-vt-AlB">
-                                                                <rect key="frame" x="281.5" y="24" width="117" height="95"/>
+                                                                <rect key="frame" x="206" y="35" width="132" height="107"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="117" id="WGK-Wr-3Fq"/>
-                                                                    <constraint firstAttribute="height" constant="95" id="ggq-kF-OdI"/>
+                                                                    <constraint firstAttribute="width" constant="132" id="WGK-Wr-3Fq"/>
+                                                                    <constraint firstAttribute="height" constant="107" id="ggq-kF-OdI"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세상의 모든 문제를 만나러 오신 것을" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpo-N8-TCq">
-                                                                <rect key="frame" x="226.5" y="131" width="227" height="19.5"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                                <color key="textColor" name="mainColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpo-N8-TCq">
+                                                                <rect key="frame" x="212.5" y="154" width="119.5" height="19.5"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="세상의 모든 문제">
+                                                                        <attributes>
+                                                                            <color key="NSColor" name="mainColor"/>
+                                                                            <font key="NSFont" size="16" name="AppleSDGothicNeo-Bold"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="에">
+                                                                        <attributes>
+                                                                            <color key="NSColor" name="mainColor"/>
+                                                                            <font key="NSFont" size="16" name=".AppleSDGothicNeoI-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="환영합니다!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veP-uo-7Jn">
-                                                                <rect key="frame" x="302.5" y="158.5" width="75" height="19.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오신 것을 환영합니다!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veP-uo-7Jn">
+                                                                <rect key="frame" x="203" y="173.5" width="138" height="19.5"/>
                                                                 <color key="tintColor" name="mainColor"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <color key="textColor" name="mainColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Dpv-3N-Mmd">
-                                                                <rect key="frame" x="130" y="194" width="420" height="768"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Dpv-3N-Mmd">
+                                                                <rect key="frame" x="62" y="213" width="420" height="780"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFV-Fi-Qoz">
                                                                         <rect key="frame" x="0.0" y="0.0" width="420" height="90"/>
@@ -760,7 +771,7 @@
                                                                                 <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 입력해주세요." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KBB-eu-BQ0">
-                                                                                        <rect key="frame" x="10" y="14.5" width="301" height="21"/>
+                                                                                        <rect key="frame" x="12" y="14.5" width="297" height="21"/>
                                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                                         <color key="textColor" name="defaultText"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -768,7 +779,7 @@
                                                                                     </textField>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5BT-4V-f5B">
                                                                                         <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                        <color key="backgroundColor" name="mainColor"/>
+                                                                                        <color key="backgroundColor" name="deepMint"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="84" id="3iF-Qr-tRn"/>
                                                                                             <constraint firstAttribute="height" constant="30" id="jMG-6f-9pT"/>
@@ -799,8 +810,8 @@
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <constraints>
-                                                                                    <constraint firstItem="KBB-eu-BQ0" firstAttribute="leading" secondItem="y3h-FH-cZN" secondAttribute="leading" constant="10" id="AgV-cP-z62"/>
-                                                                                    <constraint firstItem="5BT-4V-f5B" firstAttribute="leading" secondItem="KBB-eu-BQ0" secondAttribute="trailing" constant="10" id="EWl-kc-ZZV"/>
+                                                                                    <constraint firstItem="KBB-eu-BQ0" firstAttribute="leading" secondItem="y3h-FH-cZN" secondAttribute="leading" constant="12" id="AgV-cP-z62"/>
+                                                                                    <constraint firstItem="5BT-4V-f5B" firstAttribute="leading" secondItem="KBB-eu-BQ0" secondAttribute="trailing" constant="12" id="EWl-kc-ZZV"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="5BT-4V-f5B" secondAttribute="trailing" constant="15" id="TRN-n0-Tr8"/>
                                                                                     <constraint firstItem="5BT-4V-f5B" firstAttribute="centerY" secondItem="y3h-FH-cZN" secondAttribute="centerY" id="liE-Wf-sn3"/>
                                                                                     <constraint firstItem="KBB-eu-BQ0" firstAttribute="centerY" secondItem="y3h-FH-cZN" secondAttribute="centerY" id="st2-y9-I6c"/>
@@ -811,7 +822,7 @@
                                                                                         <real key="value" value="5"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1.5"/>
@@ -830,7 +841,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="E0M-ME-AKr">
-                                                                        <rect key="frame" x="0.0" y="113" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="115" width="420" height="90"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Zm-2T-Rtw">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="420" height="90"/>
@@ -845,14 +856,14 @@
                                                                                         <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                                         <subviews>
                                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="전화번호를 입력해주세요." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hZu-1p-3dC">
-                                                                                                <rect key="frame" x="10" y="14.5" width="301" height="21"/>
+                                                                                                <rect key="frame" x="12" y="14.5" width="297" height="21"/>
                                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                                                <textInputTraits key="textInputTraits" textContentType="tel"/>
+                                                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                                                                             </textField>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5t-jv-Krs">
                                                                                                 <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="84" id="VFE-eO-d44"/>
                                                                                                     <constraint firstAttribute="height" constant="30" id="j8R-ic-uzb"/>
@@ -866,7 +877,7 @@
                                                                                                         <real key="value" value="3"/>
                                                                                                     </userDefinedRuntimeAttribute>
                                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                                        <color key="value" name="mainColor"/>
+                                                                                                        <color key="value" name="deepMint"/>
                                                                                                     </userDefinedRuntimeAttribute>
                                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                                         <real key="value" value="1"/>
@@ -879,8 +890,8 @@
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                                         <constraints>
-                                                                                            <constraint firstItem="hZu-1p-3dC" firstAttribute="leading" secondItem="HEd-1x-bQ7" secondAttribute="leading" constant="10" id="1zn-fL-e7I"/>
-                                                                                            <constraint firstItem="T5t-jv-Krs" firstAttribute="leading" secondItem="hZu-1p-3dC" secondAttribute="trailing" constant="10" id="4VY-pz-rZm"/>
+                                                                                            <constraint firstItem="hZu-1p-3dC" firstAttribute="leading" secondItem="HEd-1x-bQ7" secondAttribute="leading" constant="12" id="1zn-fL-e7I"/>
+                                                                                            <constraint firstItem="T5t-jv-Krs" firstAttribute="leading" secondItem="hZu-1p-3dC" secondAttribute="trailing" constant="12" id="4VY-pz-rZm"/>
                                                                                             <constraint firstAttribute="height" constant="50" id="BhH-OQ-qZ6"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="T5t-jv-Krs" secondAttribute="trailing" constant="15" id="SR9-Ci-0AZ"/>
                                                                                             <constraint firstItem="hZu-1p-3dC" firstAttribute="centerY" secondItem="HEd-1x-bQ7" secondAttribute="centerY" id="Xqd-68-fEP"/>
@@ -891,7 +902,7 @@
                                                                                                 <real key="value" value="5"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                                <color key="value" name="mainColor"/>
+                                                                                                <color key="value" name="deepMint"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                                 <real key="value" value="1.5"/>
@@ -912,7 +923,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LoJ-59-fCw">
-                                                                        <rect key="frame" x="0.0" y="226" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="230" width="420" height="90"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인증번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t25-Ex-D5L" userLabel="인증번호">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="55.5" height="19.5"/>
@@ -924,7 +935,7 @@
                                                                                 <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="인증번호를 입력해주세요." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="I5M-KT-yWf">
-                                                                                        <rect key="frame" x="10" y="14.5" width="209" height="21"/>
+                                                                                        <rect key="frame" x="12" y="14.5" width="205" height="21"/>
                                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                                         <color key="textColor" name="defaultText"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -932,7 +943,7 @@
                                                                                     </textField>
                                                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uJ-54-InD">
                                                                                         <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                        <color key="backgroundColor" name="mainColor"/>
+                                                                                        <color key="backgroundColor" name="deepMint"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="30" id="Ei6-a4-ezH"/>
                                                                                             <constraint firstAttribute="width" constant="84" id="aeQ-vr-4X0"/>
@@ -949,7 +960,7 @@
                                                                                                 <real key="value" value="1"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                                <color key="value" name="mainColor"/>
+                                                                                                <color key="value" name="deepMint"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                         <connections>
@@ -964,7 +975,7 @@
                                                                                             <constraint firstAttribute="height" constant="30" id="Naf-r9-m8y"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                                                        <color key="tintColor" name="mainColor"/>
+                                                                                        <color key="tintColor" name="deepMint"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <state key="normal" title="재요청"/>
                                                                                         <userDefinedRuntimeAttributes>
@@ -975,7 +986,7 @@
                                                                                                 <real key="value" value="1"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                                <color key="value" name="mainColor"/>
+                                                                                                <color key="value" name="deepMint"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                         <connections>
@@ -985,8 +996,8 @@
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <constraints>
-                                                                                    <constraint firstItem="mGL-iX-xxF" firstAttribute="leading" secondItem="I5M-KT-yWf" secondAttribute="trailing" constant="10" id="0Kt-P6-PHe"/>
-                                                                                    <constraint firstItem="I5M-KT-yWf" firstAttribute="leading" secondItem="xf8-RL-re4" secondAttribute="leading" constant="10" id="Dge-o2-lUF"/>
+                                                                                    <constraint firstItem="mGL-iX-xxF" firstAttribute="leading" secondItem="I5M-KT-yWf" secondAttribute="trailing" constant="12" id="0Kt-P6-PHe"/>
+                                                                                    <constraint firstItem="I5M-KT-yWf" firstAttribute="leading" secondItem="xf8-RL-re4" secondAttribute="leading" constant="12" id="Dge-o2-lUF"/>
                                                                                     <constraint firstItem="I5M-KT-yWf" firstAttribute="centerY" secondItem="xf8-RL-re4" secondAttribute="centerY" id="E3d-oD-uDK"/>
                                                                                     <constraint firstAttribute="height" constant="50" id="QSL-eR-ILJ"/>
                                                                                     <constraint firstItem="1uJ-54-InD" firstAttribute="leading" secondItem="mGL-iX-xxF" secondAttribute="trailing" constant="8" id="bIA-6w-ALX"/>
@@ -999,7 +1010,7 @@
                                                                                         <real key="value" value="5"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1.5"/>
@@ -1018,7 +1029,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8R-Ub-dQj">
-                                                                        <rect key="frame" x="0.0" y="339" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="345" width="420" height="90"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계열" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUp-18-ceh">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="28" height="19.5"/>
@@ -1055,7 +1066,7 @@
                                                                                                 </label>
                                                                                             </subviews>
                                                                                         </view>
-                                                                                        <color key="backgroundColor" name="mainColor"/>
+                                                                                        <color key="backgroundColor" name="deepMint"/>
                                                                                         <size key="customSize" width="133" height="39"/>
                                                                                         <connections>
                                                                                             <outlet property="majorName" destination="stc-WQ-xek" id="sZQ-t9-5FL"/>
@@ -1075,7 +1086,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X1x-C5-l60">
-                                                                        <rect key="frame" x="0.0" y="452" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="460" width="420" height="90"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전공" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5oF-PC-Rb5">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="28" height="19.5"/>
@@ -1112,7 +1123,7 @@
                                                                                                 </label>
                                                                                             </subviews>
                                                                                         </collectionViewCellContentView>
-                                                                                        <color key="backgroundColor" name="mainColor"/>
+                                                                                        <color key="backgroundColor" name="deepMint"/>
                                                                                         <size key="customSize" width="68" height="39"/>
                                                                                         <connections>
                                                                                             <outlet property="majorName" destination="aBV-d3-dq2" id="qxj-82-Tiu"/>
@@ -1132,7 +1143,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXD-tA-TKz">
-                                                                        <rect key="frame" x="0.0" y="565" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="575" width="420" height="90"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학교" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4I-ox-D2j">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="28" height="19.5"/>
@@ -1145,7 +1156,7 @@
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="50" id="IWf-Ao-W0g"/>
                                                                                 </constraints>
-                                                                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                                <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                                 <menu key="menu" id="J9L-c8-vFC">
                                                                                     <children>
                                                                                         <command title="Item 1" id="MmK-T0-viI"/>
@@ -1160,7 +1171,7 @@
                                                                                         <real key="value" value="5"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1"/>
@@ -1169,7 +1180,7 @@
                                                                             </button>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tYJ-QR-syg">
                                                                                 <rect key="frame" x="384" y="44" width="26" height="24.5"/>
-                                                                                <color key="tintColor" name="mainColor"/>
+                                                                                <color key="tintColor" name="deepMint"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="26" id="AEd-d2-DNR"/>
                                                                                     <constraint firstAttribute="height" constant="26" id="sbJ-eL-H3I"/>
@@ -1190,7 +1201,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFH-ky-dAW">
-                                                                        <rect key="frame" x="0.0" y="678" width="420" height="90"/>
+                                                                        <rect key="frame" x="0.0" y="690" width="420" height="90"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="재학 / 졸업" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O42-D9-mwQ">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="68.5" height="19.5"/>
@@ -1206,7 +1217,7 @@
                                                                                     <constraint firstAttribute="width" constant="197" id="P8k-Qh-Pg1"/>
                                                                                 </constraints>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                                <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <state key="normal">
                                                                                     <color key="titleColor" name="defaultText"/>
@@ -1216,7 +1227,7 @@
                                                                                         <real key="value" value="5"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1"/>
@@ -1224,12 +1235,13 @@
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </button>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jSc-JH-rwo">
-                                                                                <rect key="frame" x="162" y="49" width="25" height="15.5"/>
-                                                                                <color key="tintColor" name="grayTextColor"/>
+                                                                                <rect key="frame" x="162" y="48.5" width="25" height="16.5"/>
+                                                                                <color key="tintColor" name="deepMint"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="25" id="Riz-qG-5qF"/>
                                                                                     <constraint firstAttribute="width" constant="25" id="SbW-x3-dhr"/>
                                                                                 </constraints>
+                                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="medium"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                         <color key="backgroundColor" name="defaultBackground"/>
@@ -1250,7 +1262,7 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gx0-Tf-OVs">
-                                                                <rect key="frame" x="275.5" y="1003.5" width="129" height="43"/>
+                                                                <rect key="frame" x="207.5" y="1034.5" width="129" height="43"/>
                                                                 <color key="backgroundColor" name="mainColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="129" id="PjH-VG-eRt"/>
@@ -1278,11 +1290,11 @@
                                                             <constraint firstAttribute="bottom" secondItem="gx0-Tf-OVs" secondAttribute="bottom" constant="24" id="MTl-jV-zf2"/>
                                                             <constraint firstItem="gx0-Tf-OVs" firstAttribute="top" secondItem="ZpT-xx-V6k" secondAttribute="bottom" constant="50" id="N60-s7-f77"/>
                                                             <constraint firstItem="gx0-Tf-OVs" firstAttribute="centerX" secondItem="Lyj-UQ-FvG" secondAttribute="centerX" id="WN5-xq-p9U"/>
-                                                            <constraint firstItem="rMO-vt-AlB" firstAttribute="top" secondItem="Lyj-UQ-FvG" secondAttribute="top" constant="24" id="c1t-q9-F9M"/>
+                                                            <constraint firstItem="rMO-vt-AlB" firstAttribute="top" secondItem="Lyj-UQ-FvG" secondAttribute="top" constant="35" id="c1t-q9-F9M"/>
                                                             <constraint firstItem="veP-uo-7Jn" firstAttribute="centerX" secondItem="Tpo-N8-TCq" secondAttribute="centerX" id="dC1-1U-Icd"/>
-                                                            <constraint firstItem="veP-uo-7Jn" firstAttribute="bottom" secondItem="Dpv-3N-Mmd" secondAttribute="top" constant="-16" id="e4K-iM-L2U"/>
+                                                            <constraint firstItem="Dpv-3N-Mmd" firstAttribute="top" secondItem="veP-uo-7Jn" secondAttribute="bottom" constant="20" id="e4K-iM-L2U"/>
                                                             <constraint firstItem="Dpv-3N-Mmd" firstAttribute="centerX" secondItem="Lyj-UQ-FvG" secondAttribute="centerX" id="n1i-Fo-7h2"/>
-                                                            <constraint firstItem="veP-uo-7Jn" firstAttribute="top" secondItem="Tpo-N8-TCq" secondAttribute="bottom" constant="8" symbolic="YES" id="vbm-zD-Lki"/>
+                                                            <constraint firstItem="veP-uo-7Jn" firstAttribute="top" secondItem="Tpo-N8-TCq" secondAttribute="bottom" id="vbm-zD-Lki"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1291,7 +1303,7 @@
                                                     <constraint firstItem="Lyj-UQ-FvG" firstAttribute="top" secondItem="JRb-yo-48M" secondAttribute="top" constant="20" id="3kr-rA-rCq"/>
                                                     <constraint firstItem="Lyj-UQ-FvG" firstAttribute="centerX" secondItem="JRb-yo-48M" secondAttribute="centerX" id="8p7-Se-TeV"/>
                                                     <constraint firstAttribute="bottom" secondItem="Lyj-UQ-FvG" secondAttribute="bottom" constant="20" id="H6e-PP-dVl"/>
-                                                    <constraint firstItem="Lyj-UQ-FvG" firstAttribute="leading" secondItem="JRb-yo-48M" secondAttribute="leading" constant="32" id="Wia-PC-aJA"/>
+                                                    <constraint firstItem="Lyj-UQ-FvG" firstAttribute="leading" secondItem="JRb-yo-48M" secondAttribute="leading" constant="100" id="Wia-PC-aJA"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
