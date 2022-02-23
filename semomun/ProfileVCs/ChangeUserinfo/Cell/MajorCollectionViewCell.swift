@@ -21,7 +21,7 @@ class MajorCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(.mainColor)?.cgColor
+        self.layer.borderColor = UIColor(.deepMint)?.cgColor
         self.layer.cornerRadius = 5
     }
     
@@ -33,11 +33,11 @@ class MajorCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         if isSelected {
-            self.backgroundColor = UIColor(.mainColor)
+            self.backgroundColor = UIColor(.deepMint)
             self.majorName.textColor = .white
         } else {
             self.backgroundColor = .white
-            self.majorName.textColor = UIColor(.mainColor)
+            self.majorName.textColor = UIColor(.deepMint)
         }
     }
     
