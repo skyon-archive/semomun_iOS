@@ -162,16 +162,22 @@ final class ChangeUserInfoVM {
 // MARK: Private functions
 extension ChangeUserInfoVM {
     private func getUserInfo() {
-        guard let userInfo = CoreUsecase.fetchUserInfo() else {
-            self.alertStatus = .withoutPopVC(.coreDataFetchError)
-            return
+        SyncUsecase.syncUserDataFromDB { succeed in
+            guard succeed else {
+                self.alertStatus = .withPopVC(.networkError)
+                return
+            }
+            guard let userInfo = CoreUsecase.fetchUserInfo() else {
+                self.alertStatus = .withoutPopVC(.coreDataFetchError)
+                return
+            }
+            self.nickname = userInfo.nickName
+            self.phonenum = userInfo.phoneNumber
+            self.selectedMajor = userInfo.major
+            self.selectedMajorDetail = userInfo.majorDetail
+            self.schoolName = userInfo.schoolName
+            self.graduationStatus = userInfo.graduationStatus
         }
-        self.nickname = userInfo.nickName
-        self.phonenum = userInfo.phoneNumber
-        self.selectedMajor = userInfo.major
-        self.selectedMajorDetail = userInfo.majorDetail
-        self.schoolName = userInfo.schoolName
-        self.graduationStatus = userInfo.graduationStatus
     }
     
     private func fetchMajorInfo() {
@@ -185,7 +191,7 @@ extension ChangeUserInfoVM {
             }
             self?.majors = majorFetched.map(\.name)
             if let selectedMajor = self?.selectedMajor,
-                let majorDetails = self?.majorWithDetail[selectedMajor] {
+               let majorDetails = self?.majorWithDetail[selectedMajor] {
                 self?.majorDetails = majorDetails
             } else if let major = self?.majors?.first {
                 self?.majorDetails = self?.majorWithDetail[major]

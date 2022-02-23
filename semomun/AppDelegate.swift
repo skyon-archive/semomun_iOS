@@ -38,6 +38,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
               // Show the app's signed-in state.
             }
           }
+        
+        SyncUsecase.syncUserDataFromDB { status in
+            if status {
+                print("유저 정보 동기화 성공")
+            } else {
+                print("유저 정보 동기화 실패")
+            }
+        }
         return true
     }
     
