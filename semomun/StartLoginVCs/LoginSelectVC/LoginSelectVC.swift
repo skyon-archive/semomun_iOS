@@ -16,7 +16,7 @@ final class LoginSelectVC: UIViewController {
 
     @IBOutlet weak var semomunTitle: UILabel!
     
-    private let buttonWidth: CGFloat = 345
+    private let buttonWidth: CGFloat = 309
     private let buttonHeight: CGFloat = 54
     private let buttonRadius: CGFloat = 10
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
@@ -52,13 +52,18 @@ extension LoginSelectVC {
     }
     
     private func configureSignInWithAppleButton() {
-        let authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        let authorizationButton: ASAuthorizationAppleIDButton
+        if self.signupInfoConfigured {
+            authorizationButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black)
+        } else {
+            authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        }
         authorizationButton.layer.cornerRadius = self.buttonRadius
         let action = UIAction { [weak self] _ in
             self?.signInButtonAction(loginMethod: .apple)
         }
         authorizationButton.addAction(action, for: .touchUpInside)
-        self.configureSignInButtonLayout(authorizationButton, verticalSpaceToSemomunTitle: 200)
+        self.configureSignInButtonLayout(authorizationButton, verticalSpaceToSemomunTitle: 73)
     }
     
     private func configureSignInWithGoogleButton() {
@@ -89,7 +94,7 @@ extension LoginSelectVC {
         
         // Google로 로그인 라벨
         let text = UILabel()
-        text.text = "Google로 로그인"
+        text.text = self.signupInfoConfigured ? "Google로 등록" : "Google로 로그인"
         text.textColor = UIColor(.grayTextColor)
         text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +111,7 @@ extension LoginSelectVC {
         }
         signInWithGoogleButton.addAction(action, for: .touchUpInside)
         
-        self.configureSignInButtonLayout(signInWithGoogleButton, verticalSpaceToSemomunTitle: 280)
+        self.configureSignInButtonLayout(signInWithGoogleButton, verticalSpaceToSemomunTitle: 145)
     }
     
     private func configureSignInButtonLayout(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
