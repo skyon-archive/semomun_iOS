@@ -116,6 +116,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        self.saveContext()
+    }
 
 }
 
