@@ -13,6 +13,7 @@ final class SelectProblemsVM {
     @Published private(set) var problems: [Problem_Core] = []
     @Published private(set) var scoringQueue: [Int] = []
     private(set) var uploadQueue: [Int] = []
+    private(set) var scoreableTotalCount: Int = 0
     private let section: Section_Core
     
     init(section: Section_Core) {
@@ -21,6 +22,7 @@ final class SelectProblemsVM {
         self.configureProblems()
         self.configureScoringQueue()
         self.configureUploadQueue()
+        self.configureScoreableTotalCount()
     }
     
     private func configureTitle() {
@@ -37,6 +39,10 @@ final class SelectProblemsVM {
     
     private func configureUploadQueue() {
         
+    }
+    
+    private func configureScoreableTotalCount() {
+        self.scoreableTotalCount = self.problems.filter { !$0.terminated }.count
     }
     
     func isChecked(at index: Int) -> Bool {
@@ -63,6 +69,6 @@ final class SelectProblemsVM {
     }
     
     private func configureAllPids() {
-        
+        self.scoringQueue = self.problems.filter { !$0.terminated }.map { Int($0.pid) }
     }
 }
