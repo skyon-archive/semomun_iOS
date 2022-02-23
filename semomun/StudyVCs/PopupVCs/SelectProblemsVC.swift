@@ -78,10 +78,18 @@ extension SelectProblemsVC {
             .sink(receiveValue: { [weak self] scoringQueue in
                 self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
                 self?.problems.reloadData()
+                
                 if scoringQueue.count == 0 {
                     self?.preventScoring()
                 } else {
                     self?.activeScoring()
+                }
+                
+                guard let totalCount = self?.viewModel?.scoreableTotalCount else { return }
+                if scoringQueue.count == totalCount {
+                    self?.allSelectIndicator.isSelected = true
+                } else {
+                    self?.allSelectIndicator.isSelected = false
                 }
             })
             .store(in: &self.cancellables)
