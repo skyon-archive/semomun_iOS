@@ -13,7 +13,6 @@ struct UserDefaultsManager {
         case logined = "logined"
         case isInitial = "isInitial"
         case favoriteTags = "favoriteTags"
-        case userVersion = "userVersion"
         case coreVersion = "coreVersion"
     }
     
