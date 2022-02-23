@@ -317,10 +317,10 @@
             </objects>
             <point key="canvasLocation" x="131.65467625899282" y="39.928057553956833"/>
         </scene>
-        <!--Select ProblemVC-->
+        <!--Select ProblemsVC-->
         <scene sceneID="nhX-72-9ab">
             <objects>
-                <viewController storyboardIdentifier="SelectProblemVC" id="e5E-2x-iBx" customClass="SelectProblemVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectProblemsVC" id="e5E-2x-iBx" customClass="SelectProblemsVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dgi-Tc-5k8">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,6 +345,9 @@
                                         <state key="normal" image="xmark" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="medium"/>
                                         </state>
+                                        <connections>
+                                            <action selector="close:" destination="e5E-2x-iBx" eventType="touchUpInside" id="7ud-MN-7Ty"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Db1-dO-jEJ">
                                         <rect key="frame" x="49" y="121" width="452" height="94.5"/>
@@ -421,10 +424,10 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-GQ-CHi">
-                                        <rect key="frame" x="439" y="224" width="15" height="15"/>
+                                        <rect key="frame" x="424" y="220.5" width="18" height="18"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="Fga-fh-eK8"/>
-                                            <constraint firstAttribute="height" constant="15" id="RfY-uZ-ACd"/>
+                                            <constraint firstAttribute="width" constant="18" id="Fga-fh-eK8"/>
+                                            <constraint firstAttribute="height" constant="18" id="RfY-uZ-ACd"/>
                                         </constraints>
                                         <color key="tintColor" name="deepMint"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -432,15 +435,18 @@
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0P-62-9wQ">
-                                        <rect key="frame" x="436" y="217.5" width="65" height="28"/>
+                                        <rect key="frame" x="421" y="213.5" width="80" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="65" id="aMv-Nc-RAl"/>
+                                            <constraint firstAttribute="width" constant="80" id="aMv-Nc-RAl"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="전체선택">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="selectAllProblems:" destination="e5E-2x-iBx" eventType="touchUpInside" id="yh6-Y6-LyK"/>
+                                        </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2pT-vH-PIF">
                                         <rect key="frame" x="49" y="255.5" width="452" height="176"/>
@@ -503,6 +509,11 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="채점하기"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -513,7 +524,7 @@
                                     <constraint firstItem="Db1-dO-jEJ" firstAttribute="top" secondItem="R0X-XK-MJ9" secondAttribute="bottom" constant="45" id="D7W-o5-95N"/>
                                     <constraint firstAttribute="bottom" secondItem="uEa-gr-sTV" secondAttribute="bottom" constant="33" id="EuZ-aJ-SaY"/>
                                     <constraint firstItem="R0X-XK-MJ9" firstAttribute="top" secondItem="tX0-2P-Hmq" secondAttribute="top" constant="52" id="KCQ-ap-Vcd"/>
-                                    <constraint firstItem="DJl-GQ-CHi" firstAttribute="centerX" secondItem="a0P-62-9wQ" secondAttribute="centerX" constant="-22" id="NIP-CX-vPG"/>
+                                    <constraint firstItem="DJl-GQ-CHi" firstAttribute="centerX" secondItem="a0P-62-9wQ" secondAttribute="centerX" constant="-28" id="NIP-CX-vPG"/>
                                     <constraint firstItem="2pT-vH-PIF" firstAttribute="top" secondItem="a0P-62-9wQ" secondAttribute="bottom" constant="10" id="Qe0-kU-nOe"/>
                                     <constraint firstItem="Db1-dO-jEJ" firstAttribute="centerX" secondItem="tX0-2P-Hmq" secondAttribute="centerX" id="TLr-fL-2zz"/>
                                     <constraint firstItem="bDZ-wU-uVJ" firstAttribute="top" secondItem="tX0-2P-Hmq" secondAttribute="top" constant="20" id="UeB-Nq-7Bc"/>

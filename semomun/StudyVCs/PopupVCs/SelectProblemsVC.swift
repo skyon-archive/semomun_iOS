@@ -1,5 +1,5 @@
 //
-//  SelectProblemVC.swift
+//  SelectProblemsVC.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/02/23.
@@ -8,8 +8,8 @@
 import UIKit
 import Combine
 
-class SelectProblemVC: UIViewController {
-    static let identifier = "SelectProblemVC"
+class SelectProblemsVC: UIViewController {
+    static let identifier = "SelectProblemsVC"
     static let storyboardName = "Study"
 
     @IBOutlet weak var sectionTitleLabel: UILabel!
@@ -18,16 +18,17 @@ class SelectProblemVC: UIViewController {
     @IBOutlet weak var allSelectIndicator: UIButton!
     @IBOutlet weak var problems: UICollectionView!
     @IBOutlet weak var startScoringBT: UIButton!
-    private var viewModel: SelectProblemVM?
+    private var viewModel: SelectProblemsVM?
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.isModalInPresentation = true
         self.configureCollectionView()
         self.bindAll()
     }
     
-    func configureViewModel(viewModel: SelectProblemVM) {
+    func configureViewModel(viewModel: SelectProblemsVM) {
         self.viewModel = viewModel
     }
     
@@ -35,9 +36,18 @@ class SelectProblemVC: UIViewController {
         self.problems.delegate = self
         self.problems.dataSource = self
     }
+    
+    @IBAction func selectAllProblems(_ sender: Any) {
+        self.allSelectIndicator.isSelected.toggle()
+        self.viewModel?.selectAll(to: self.allSelectIndicator.isSelected)
+    }
+    
+    @IBAction func close(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
 }
 
-extension SelectProblemVC {
+extension SelectProblemsVC {
     private func bindAll() {
         self.bindTitle()
         self.bindProblems()
@@ -68,12 +78,29 @@ extension SelectProblemVC {
             .sink(receiveValue: { [weak self] scoringQueue in
                 self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
                 self?.problems.reloadData()
+                if scoringQueue.count == 0 {
+                    self?.preventScoring()
+                } else {
+                    self?.activeScoring()
+                }
             })
             .store(in: &self.cancellables)
     }
 }
 
-extension SelectProblemVC: UICollectionViewDataSource {
+extension SelectProblemsVC {
+    private func preventScoring() {
+        self.startScoringBT.isUserInteractionEnabled = false
+        self.startScoringBT.alpha = 0.5
+    }
+    
+    private func activeScoring() {
+        self.startScoringBT.isUserInteractionEnabled = true
+        self.startScoringBT.alpha = 1
+    }
+}
+
+extension SelectProblemsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
     }
@@ -88,7 +115,7 @@ extension SelectProblemVC: UICollectionViewDataSource {
     }
 }
 
-extension SelectProblemVC: UICollectionViewDelegate {
+extension SelectProblemsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.toggle(at: indexPath.item)
     }

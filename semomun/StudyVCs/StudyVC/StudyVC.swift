@@ -85,9 +85,10 @@ final class StudyVC: UIViewController {
             manager.terminateSection()
             return
         }
-        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") {
-            manager.terminateSection()
-        }
+//        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") {
+//            manager.terminateSection()
+//        }
+        self.showSelectProblemsVC()
     }
     
     @IBAction func beforePage(_ sender: Any) {
@@ -198,6 +199,16 @@ extension StudyVC {
         let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
         
         self.present(reportVC, animated: true, completion: nil)
+    }
+    
+    private func showSelectProblemsVC() {
+        guard let section = self.manager?.section else { return }
+        let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
+        guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
+        let viewModel = SelectProblemsVM(section: section)
+        selectProblemsVC.configureViewModel(viewModel: viewModel)
+        
+        self.present(selectProblemsVC, animated: true, completion: nil)
     }
 }
 
