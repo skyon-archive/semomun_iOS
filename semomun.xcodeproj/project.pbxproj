@@ -117,6 +117,7 @@
 		8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
+		8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781442B27C6044E00C31104 /* ProblemSelectCell.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemVC.swift */; };
@@ -320,6 +321,7 @@
 		8766B1F5277C44A600061CE6 /* CollectionCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDelegate.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		8781442B27C6044E00C31104 /* ProblemSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemSelectCell.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemVC.swift; sourceTree = "<group>"; };
@@ -879,9 +881,10 @@
 			isa = PBXGroup;
 			children = (
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
-				87A1C35827C5E646009043BE /* SelectProblemVC.swift */,
 				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
 				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
+				87A1C35827C5E646009043BE /* SelectProblemVC.swift */,
+				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
 			);
 			path = PopupVCs;
 			sourceTree = "<group>";
@@ -1319,6 +1322,7 @@
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
 				87C85EA0276F6BD3001C9C4A /* SearchWorkbookViewController.swift in Sources */,
+				8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */,
 				25B98808277AEC3500EE6ED7 /* SettingViewController.swift in Sources */,
 				87C85E90276F6B03001C9C4A /* PreviewManager.swift in Sources */,
 				8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */,
