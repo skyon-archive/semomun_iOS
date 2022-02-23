@@ -93,13 +93,13 @@ final class WorkbookViewModel {
     
     func switchPurchase() {
         let logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
-        let userVersion = UserDefaultsManager.get(forKey: .userVersion) as? String ?? String.pastVersion
         
         if !logined {
             self.popupType = .login
         } else {
             // MARK: App의 version 값으로 비교시 2.1, 2.2 업데이트마다 띄워지게 되므로 분기점을 따로 저장하는 식으로 수정
-            if userVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
+            let userCoreData = CoreUsecase.fetchUserInfo()
+            if userCoreData?.phoneNumber == nil {
                 self.popupType = .updateUserinfo
             } else {
                 self.popupType = .purchase

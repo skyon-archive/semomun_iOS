@@ -251,7 +251,6 @@ extension LoginSelectVC {
         
         if self.signupInfoConfigured { // 회원가입시: UserVersion, CoreVersion 반영
             let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-            UserDefaultsManager.set(to: version, forKey: .userVersion)
             UserDefaultsManager.set(to: version, forKey: .coreVersion)
         }
         

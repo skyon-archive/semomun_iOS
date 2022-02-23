@@ -14,7 +14,7 @@ final class ChangeUserInfoVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "ChangeUserInfoVC"
     
-    private let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: false)
+    private var viewModel: ChangeUserInfoVM?
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -24,9 +24,6 @@ final class ChangeUserInfoVC: UIViewController {
                 self.prepareToShowPhoneNumFrame()
             } else {
                 self.prepareToHidePhoneNumFrame()
-            }
-            UIView.animate(withDuration: 0.25) { [weak self] in
-                self?.view.layoutIfNeeded()
             }
         }
     }
@@ -58,11 +55,6 @@ final class ChangeUserInfoVC: UIViewController {
         self.configureUI()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.configureSubView()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -73,7 +65,7 @@ final class ChangeUserInfoVC: UIViewController {
             self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
             return
         }
-        self.viewModel.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
+        self.viewModel?.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
             if isSuccess {
                 self?.nickname.resignFirstResponder()
                 self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
@@ -86,6 +78,9 @@ final class ChangeUserInfoVC: UIViewController {
     
     @IBAction func changePhoneNum(_ sender: Any) {
         self.isAuthPhoneTFShown.toggle()
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
     }
     
     @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
@@ -95,20 +90,26 @@ final class ChangeUserInfoVC: UIViewController {
                 self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
                 return
             }
-            self.viewModel.confirmAuthNumber(with: authNum)
+            self.viewModel?.confirmAuthNumber(with: authNum)
         } else {
             //인증요청
             guard let newPhoneStr = self.additionalTF.text else { return }
-            self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
+            self.viewModel?.requestPhoneAuth(withPhoneNumber: newPhoneStr)
         }
     }
     
     @IBAction func requestAuthAgain(_ sender: Any) {
-        self.viewModel.requestPhoneAuthAgain()
+        self.viewModel?.requestPhoneAuthAgain()
     }
     
     @IBAction func submit(_ sender: Any) {
-        self.viewModel.submitUserInfo()
+        self.viewModel?.submitUserInfo()
+    }
+}
+
+extension ChangeUserInfoVC {
+    func configureVM(_ viewModel: ChangeUserInfoVM) {
+        self.viewModel = viewModel
     }
 }
 
@@ -124,9 +125,7 @@ extension ChangeUserInfoVC {
         self.additionalPhoneNumFrame.isHidden = true
         self.requestAgainButton.isHidden = true
         self.bodyFrame.layer.cornerRadius = 15
-    }
-    private func configureSubView() {
-        self.bodyFrame.addAccessibleShadow(direction: .top)
+        self.bodyFrame.addShadow(direction: .top)
     }
     private func configureRoundedMintBorder(of view: UIView) {
         view.layer.borderWidth = 1.5
@@ -154,7 +153,7 @@ extension ChangeUserInfoVC {
         self.requestAgainButton.isHidden = true
     }
     private func prepareToHidePhoneNumFrame() {
-        self.viewModel.cancelPhoneAuth()
+        self.viewModel?.cancelPhoneAuth()
         self.changePhoneNumButton.setTitle("변경", for: .normal)
         self.additionalPhoneNumFrame.isHidden = true
         self.additionalTF.resignFirstResponder()
@@ -198,7 +197,7 @@ extension ChangeUserInfoVC {
         let graduationMenuItems: [UIAction] = GraduationStatus.allCases.map { status in
             let description = status.rawValue
             return UIAction(title: description, image: nil) { [weak self] _ in
-                self?.viewModel.graduationStatus = description
+                self?.viewModel?.graduationStatus = description
                 self?.graduationStatusSelector.setTitle(description, for: .normal)
             }
         }
@@ -218,9 +217,10 @@ extension ChangeUserInfoVC {
         self.bindGraduationStatus()
         self.bindAlert()
         self.bindPhoneAuth()
+        self.bindConfigureUIForNicknamePhoneRequest()
     }
     private func bindNickname() {
-        self.viewModel.$nickname
+        self.viewModel?.$nickname
             .receive(on: DispatchQueue.main)
             .sink { [weak self] nickname in
                 self?.nickname.text = nickname
@@ -228,7 +228,7 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindMajor() {
-        self.viewModel.$majors
+        self.viewModel?.$majors
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.majorCollectionView.reloadData()
@@ -236,7 +236,7 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindMajorDetail() {
-        self.viewModel.$majorDetails
+        self.viewModel?.$majorDetails
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.majorDetailCollectionView.reloadData()
@@ -244,7 +244,7 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindSchoolName() {
-        self.viewModel.$schoolName
+        self.viewModel?.$schoolName
             .receive(on: DispatchQueue.main)
             .sink { [weak self] schoolName in
                 self?.schoolFinder.setTitle(schoolName, for: .normal)
@@ -252,7 +252,7 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindGraduationStatus() {
-        self.viewModel.$graduationStatus
+        self.viewModel?.$graduationStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 self?.graduationStatusSelector.setTitle(status, for: .normal)
@@ -260,15 +260,16 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindPhoneNum() {
-        self.viewModel.$phonenum
+        self.viewModel?.$phonenum
             .receive(on: DispatchQueue.main)
             .sink { [weak self] phone in
+                guard let phone = phone else { return }
                 self?.phoneNumTF.placeholder = phone
             }
             .store(in: &self.cancellables)
     }
     private func bindAlert() {
-        self.viewModel.$alertStatus
+        self.viewModel?.$alertStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
@@ -285,7 +286,7 @@ extension ChangeUserInfoVC {
             .store(in: &self.cancellables)
     }
     private func bindPhoneAuth() {
-        self.viewModel.$phoneAuthStatus
+        self.viewModel?.$phoneAuthStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
@@ -311,6 +312,16 @@ extension ChangeUserInfoVC {
             }
             .store(in: &self.cancellables)
     }
+    private func bindConfigureUIForNicknamePhoneRequest() {
+        self.viewModel?.$configureUIForNicknamePhoneRequest
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard status else { return }
+                self?.nickname.placeholder = "닉네임을 입력하세요"
+                self?.phoneNumTF.placeholder = "전화번호 정보 없음"
+            }
+            .store(in: &self.cancellables)
+    }
     private func changeAdditionalTFForAuthNum() {
         self.requestAgainButton.isHidden = false
         self.authPhoneNumButton.setTitle("인증확인", for: .normal)
@@ -324,9 +335,9 @@ extension ChangeUserInfoVC {
 extension ChangeUserInfoVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == majorCollectionView {
-            self.viewModel.selectMajor(at: indexPath.item)
+            self.viewModel?.selectMajor(at: indexPath.item)
         } else {
-            self.viewModel.selectMajorDetail(at: indexPath.item)
+            self.viewModel?.selectMajorDetail(at: indexPath.item)
         }
         collectionView.reloadData()
     }
@@ -335,24 +346,24 @@ extension ChangeUserInfoVC: UICollectionViewDelegate {
 extension ChangeUserInfoVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == majorCollectionView {
-            return self.viewModel.majors?.count ?? 0
+            return self.viewModel?.majors?.count ?? 0
         } else {
-            return self.viewModel.majorDetails?.count ?? 0
+            return self.viewModel?.majorDetails?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
-            guard let majorName = self.viewModel.majors?[indexPath.item] else { return cell }
-            if majorName == self.viewModel.selectedMajor {
+            guard let majorName = self.viewModel?.majors?[indexPath.item] else { return cell }
+            if majorName == self.viewModel?.selectedMajor {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorName)
             return cell
         } else {
-            guard let majorDetailName = self.viewModel.majorDetails?[indexPath.item] else { return cell }
-            if majorDetailName == self.viewModel.selectedMajorDetail {
+            guard let majorDetailName = self.viewModel?.majorDetails?[indexPath.item] else { return cell }
+            if majorDetailName == self.viewModel?.selectedMajorDetail {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorDetailName)
@@ -371,7 +382,7 @@ extension ChangeUserInfoVC: UICollectionViewDelegateFlowLayout {
 extension ChangeUserInfoVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
         self.dismissKeyboard()
-        self.viewModel.schoolName = name
+        self.viewModel?.schoolName = name
         self.schoolFinder.setTitle(name, for: .normal)
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
     }
