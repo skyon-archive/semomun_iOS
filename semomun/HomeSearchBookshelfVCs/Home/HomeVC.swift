@@ -366,22 +366,26 @@ extension HomeVC {
     /// Note: Cell의 개수가 화면을 가득 채움을 가정
     private func startBannerAdsAutoScroll() {
         guard self.bannerAdsAutoScrollTimer == nil else { return }
-        self.bannerAdsAutoScrollTimer = Timer.scheduledTimer(withTimeInterval: self.bannerAdsAutoScrollInterval, repeats: true) { [weak self] _ in
-            guard let bannerAds = self?.bannerAds else { return }
-            let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
-            guard bannerAdsDataCount != 0 else { return }
-            let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
-            
-            // 더 이상 넘길 수 없는 경우 체크
-            let lastVisibleItemIndex = visibleItemIndexes.last!.item
-            if lastVisibleItemIndex == bannerAdsDataCount - 1 {
-                self?.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
-                return
-            }
-            
-            let nextIndex = visibleItemIndexes[visibleItemIndexes.count/2 + 1]
-            self?.bannerAds.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: true)
+        self.bannerAdsAutoScrollTimer = Timer(timeInterval: self.bannerAdsAutoScrollInterval, repeats: true) { [weak self] _ in
+            self?.scrollOneItemInBannerAds()
         }
+        RunLoop.current.add(self.bannerAdsAutoScrollTimer!, forMode: .common)
+    }
+    private func scrollOneItemInBannerAds() {
+        guard let bannerAds = self.bannerAds else { return }
+        let bannerAdsDataCount = bannerAds.dataSource?.collectionView(bannerAds, numberOfItemsInSection: 0) ?? 0
+        guard bannerAdsDataCount != 0 else { return }
+        let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
+        
+        // 더 이상 넘길 수 없는 경우 체크
+        let lastVisibleItemIndex = visibleItemIndexes.last!.item
+        if lastVisibleItemIndex == bannerAdsDataCount - 1 {
+            self.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
+            return
+        }
+        
+        let nextIndex = visibleItemIndexes[visibleItemIndexes.count/2 + 1]
+        self.bannerAds.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: true)
     }
 }
 
