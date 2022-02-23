@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class SelectProblemVM {
+final class SelectProblemsVM {
     @Published private(set) var title: String = ""
     @Published private(set) var problems: [Problem_Core] = []
     @Published private(set) var scoringQueue: [Int] = []
@@ -17,9 +17,14 @@ final class SelectProblemVM {
     
     init(section: Section_Core) {
         self.section = section
+        self.configureTitle()
         self.configureProblems()
         self.configureScoringQueue()
         self.configureUploadQueue()
+    }
+    
+    private func configureTitle() {
+        self.title = self.section.title ?? ""
     }
     
     private func configureProblems() {
@@ -47,5 +52,17 @@ final class SelectProblemVM {
             let newPid = Int(self.problems[index].pid)
             self.scoringQueue.append(newPid)
         }
+    }
+    
+    func selectAll(to allSelect: Bool) {
+        if allSelect {
+            self.configureAllPids()
+        } else {
+            self.scoringQueue = []
+        }
+    }
+    
+    private func configureAllPids() {
+        
     }
 }
