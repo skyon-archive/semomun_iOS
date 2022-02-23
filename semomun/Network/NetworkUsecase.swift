@@ -83,39 +83,6 @@ class NetworkUsecase {
             completion(Array(Set(schoolNames)).sorted())
         }
     }
-    func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
-        let url = NetworkURL.users+"self"
-        let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
-        
-        self.network.get(url: url, param: param) { requestResult in
-            guard let statusCode = requestResult.statusCode else {
-                print("Error: no statusCode")
-                completion(.ERROR, nil)
-                return
-            }
-            if statusCode == 504 {
-                completion(.INSPECTION, nil)
-                return
-            }
-            guard let data = requestResult.data else {
-                print("Error: no data")
-                completion(.ERROR, nil)
-                return
-            }
-            if statusCode != 200 {
-                print("Error: \(statusCode)")
-                print("\(optional: String(data: data, encoding: .utf8))")
-                completion(.ERROR, nil)
-                return
-            }
-            guard let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) else {
-                print("Error: Decode")
-                completion(.DECODEERROR, nil)
-                return
-            }
-            completion(.SUCCESS, userInfo)
-        }
-    }
 }
 
 // MARK: - POST
@@ -544,5 +511,41 @@ extension NetworkUsecase: ErrorReportable {
     func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void) {
         print(pid, text)
         completion(.SUCCESS)
+    }
+}
+
+extension NetworkUsecase: UserInfoFetchable {
+    func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
+        let url = NetworkURL.users+"self"
+        let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
+        
+        self.network.get(url: url, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode == 504 {
+                completion(.INSPECTION, nil)
+                return
+            }
+            guard let data = requestResult.data else {
+                print("Error: no data")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                print("\(optional: String(data: data, encoding: .utf8))")
+                completion(.ERROR, nil)
+                return
+            }
+            guard let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) else {
+                print("Error: Decode")
+                completion(.DECODEERROR, nil)
+                return
+            }
+            completion(.SUCCESS, userInfo)
+        }
     }
 }

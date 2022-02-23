@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		250194C927C25AD8003B8C6B /* PageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250194C827C25AD8003B8C6B /* PageVM.swift */; };
+		2502001127C613A80075744A /* SyncUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502001027C613A80075744A /* SyncUsecase.swift */; };
 		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		2502CEC827A593750072A037 /* SemopayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* SemopayVM.swift */; };
@@ -208,6 +209,7 @@
 
 /* Begin PBXFileReference section */
 		250194C827C25AD8003B8C6B /* PageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVM.swift; sourceTree = "<group>"; };
+		2502001027C613A80075744A /* SyncUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsecase.swift; sourceTree = "<group>"; };
 		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		2502CEC727A593750072A037 /* SemopayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayVM.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				87C85E91276F6B16001C9C4A /* CoreUsecase.swift */,
 				87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */,
 				2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */,
+				2502001027C613A80075744A /* SyncUsecase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1354,6 +1357,7 @@
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
+				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,

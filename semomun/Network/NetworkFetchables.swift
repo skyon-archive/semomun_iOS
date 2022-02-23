@@ -22,6 +22,7 @@ protocol PagesFetchable {
 protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
 }
+
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
@@ -79,4 +80,7 @@ protocol MarketingConsentSendable {
 }
 protocol ErrorReportable {
     func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
+}
+protocol UserInfoFetchable {
+    func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
 }
