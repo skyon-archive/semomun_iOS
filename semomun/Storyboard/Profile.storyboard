@@ -161,10 +161,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Tw-ngC">
-                                <rect key="frame" x="-5" y="4" width="844" height="110"/>
+                                <rect key="frame" x="0.0" y="4" width="834" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu4-tq-aPw">
-                                        <rect key="frame" x="55" y="44.5" width="78" height="36"/>
+                                        <rect key="frame" x="28" y="44.5" width="78" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" name="defaultText"/>
                                         <nil key="highlightedColor"/>
@@ -172,7 +172,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="Pfu-Tw-ngC" secondAttribute="leading" constant="55" id="RXu-4T-RB1"/>
+                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="Pfu-Tw-ngC" secondAttribute="leading" constant="28" id="RXu-4T-RB1"/>
                                     <constraint firstAttribute="height" constant="110" id="Yk0-SG-2EA"/>
                                     <constraint firstItem="eu4-tq-aPw" firstAttribute="centerY" secondItem="Pfu-Tw-ngC" secondAttribute="centerY" constant="7.5" id="aSU-7O-sUA"/>
                                 </constraints>
@@ -210,19 +210,25 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngq-F7-SIo">
-                                <rect key="frame" x="666.5" y="148" width="60.5" height="31"/>
-                                <color key="tintColor" name="mainColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="로그인"/>
+                                <rect key="frame" x="651" y="148.5" width="76" height="30"/>
+                                <color key="backgroundColor" name="mainColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="Kb3-vo-yOc"/>
+                                    <constraint firstAttribute="height" constant="30" id="u49-Ky-CtH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="로그인"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" name="mainColor"/>
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -244,9 +250,9 @@
                             <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="ngq-F7-SIo" secondAttribute="trailing" constant="107" id="awn-YT-UIk"/>
                             <constraint firstItem="vEK-xF-hYe" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="o6Q-PM-f63"/>
                             <constraint firstItem="ZA0-7P-slR" firstAttribute="leading" secondItem="Ati-UW-kvw" secondAttribute="leading" id="rQq-Pn-YVw"/>
-                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="-5" id="rb8-Ms-MmX"/>
+                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" id="rb8-Ms-MmX"/>
                             <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="ZA0-7P-slR" secondAttribute="bottom" constant="0.25" id="s2F-KJ-rpC"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Pfu-Tw-ngC" secondAttribute="trailing" constant="-5" id="uMv-tI-BqY"/>
+                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Pfu-Tw-ngC" secondAttribute="trailing" id="uMv-tI-BqY"/>
                             <constraint firstItem="WHv-VQ-Ze5" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="uTV-NG-QAe"/>
                             <constraint firstItem="ngq-F7-SIo" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="wbi-en-Mzq"/>
                             <constraint firstItem="ZA0-7P-slR" firstAttribute="width" secondItem="Ati-UW-kvw" secondAttribute="width" id="xvC-kE-RFA"/>
@@ -1587,7 +1593,7 @@
                         <color key="sectionIndexColor" name="defaultText"/>
                         <color key="sectionIndexBackgroundColor" name="defaultBackground"/>
                         <sections>
-                            <tableViewSection headerTitle="설정" id="oWE-TK-dGi">
+                            <tableViewSection headerTitle="일반" id="oWE-TK-dGi">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="eoC-NR-NUE" rowHeight="54" style="IBUITableViewCellStyleDefault" id="aHi-oK-6VZ">
                                         <rect key="frame" x="20" y="49.5" width="794" height="54"/>
@@ -1644,7 +1650,7 @@
             <color red="0.44313725490196076" green="0.44313725490196076" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mainColor">
-            <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="rowBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
