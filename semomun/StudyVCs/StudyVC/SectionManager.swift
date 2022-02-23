@@ -133,6 +133,25 @@ final class SectionManager {
         }
     }
     
+    func addScoring(pid: Int) {
+        var scoringQueue = self.section.scoringQueue ?? []
+        if scoringQueue.contains(pid) { return }
+        
+        scoringQueue.append(pid)
+        self.section.setValue(scoringQueue, forKey: "scoringQueue")
+        CoreDataManager.saveCoreData()
+        self.addUpload(pid: pid)
+    }
+    
+    func addUpload(pid: Int) {
+        var uploadQueue = self.section.uploadQueue ?? []
+        if uploadQueue.contains(pid) { return }
+        
+        uploadQueue.append(pid)
+        self.section.setValue(uploadQueue, forKey: "uploadQueue")
+        CoreDataManager.saveCoreData()
+    }
+    
     private func startTimer() {
         if self.section.terminated { return } // 이미 종료된 문제집의 경우 시간 정지
         
