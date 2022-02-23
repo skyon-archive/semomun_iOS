@@ -34,11 +34,11 @@ final class SelectProblemsVM {
     }
     
     private func configureScoringQueue() {
-        
+        self.scoringQueue = self.section.scoringQueue ?? []
     }
     
     private func configureUploadQueue() {
-        
+        self.uploadQueue = self.section.uploadQueue ?? []
     }
     
     private func configureScoreableTotalCount() {
