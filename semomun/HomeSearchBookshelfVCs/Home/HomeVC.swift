@@ -360,9 +360,10 @@ extension HomeVC: UICollectionViewDelegate {
 }
 
 extension HomeVC {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.startBannerAdsAutoScroll()
     }
+    
     /// Note: Cell의 개수가 화면을 가득 채움을 가정
     private func startBannerAdsAutoScroll() {
         guard self.bannerAdsAutoScrollTimer == nil else { return }
