@@ -25,6 +25,8 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var lastPageId: Int64 //TODO: lastIndex 수정 예정
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
+    @NSManaged public var scoringQueue: [Int]? //부분채점시 표시될 pid들
+    @NSManaged public var uploadQueue: [Int]? //채점시 DB상에 upload 될 pid들
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var dictionaryOfProblem: [String: Int] //Deprecated(1.1.3)
