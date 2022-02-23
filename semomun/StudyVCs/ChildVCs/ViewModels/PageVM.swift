@@ -86,7 +86,7 @@ class PageVM {
             let correct = self.isCorrect(input: selectedAnswer, answer: answer)
             problem.setValue(correct, forKey: "correct")
         }
-        self.delegate?.reload()
+        self.delegate?.addScoring(pid: Int(problem.pid))
     }
     
     func updateStar(to status: Bool, problem: Problem_Core? = nil) {
@@ -98,6 +98,7 @@ class PageVM {
     func updatePencilData(to data: Data, problem: Problem_Core? = nil) {
         guard let problem = problem ?? self.problem else { return }
         problem.setValue(data, forKey: "drawing")
+//        self.delegate?.addUpload(pid: Int(problem.pid))
     }
     
     func updatePagePencilData(to data: Data) {

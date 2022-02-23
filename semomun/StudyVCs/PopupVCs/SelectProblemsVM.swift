@@ -39,6 +39,7 @@ final class SelectProblemsVM {
     
     private func configureUploadQueue() {
         self.uploadQueue = self.section.uploadQueue ?? []
+        print("upload: \(self.uploadQueue)")
     }
     
     private func configureScoreableTotalCount() {

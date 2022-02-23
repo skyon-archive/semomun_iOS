@@ -13,6 +13,8 @@ protocol PageDelegate: AnyObject {
     func reload()
     func nextPage()
     func beforePage()
+    func addScoring(pid: Int)
+    func addUpload(pid: Int)
 }
 
 final class StudyVC: UIViewController {
@@ -327,6 +329,15 @@ extension StudyVC: PageDelegate {
     
     func beforePage() {
         self.manager?.changeBeforePage()
+    }
+    
+    func addScoring(pid: Int) {
+        self.manager?.addScoring(pid: pid)
+        self.reloadButtons()
+    }
+    
+    func addUpload(pid: Int) {
+        self.manager?.addUpload(pid: pid)
     }
 }
 
