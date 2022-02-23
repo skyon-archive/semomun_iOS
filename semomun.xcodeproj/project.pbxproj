@@ -116,6 +116,7 @@
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
+		87A1C35927C5E646009043BE /* SelectProblemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemVC.swift */; };
 		87A9941B278FD57500E0A7B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941A278FD57500E0A7B1 /* MainViewModel.swift */; };
 		87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941C278FD58700E0A7B1 /* MainUseCase.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
@@ -315,6 +316,7 @@
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
+		87A1C35827C5E646009043BE /* SelectProblemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemVC.swift; sourceTree = "<group>"; };
 		87A9941A278FD57500E0A7B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		87A9941C278FD58700E0A7B1 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
@@ -655,22 +657,9 @@
 		8716E954279A621A00B33A5E /* StudyVCs */ = {
 			isa = PBXGroup;
 			children = (
-				878766CA27AED255003B975E /* View */,
-				8716E955279A623500B33A5E /* StudyVC.swift */,
-				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
-				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
-				8716E95B279A625B00B33A5E /* ConceptVC.swift */,
-				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
-				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
-				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
-				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
-				8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */,
-				8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */,
-				87C85E2F276F65F4001C9C4A /* Solving */,
-				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
-				87E151622787DD160080D39A /* Cell */,
-				87C85EA9276F6C55001C9C4A /* Model */,
-				87C85EAB276F6C62001C9C4A /* ViewModel */,
+				87A1C35B27C5E6B2009043BE /* StudyVC */,
+				87A1C35A27C5E675009043BE /* ChildVCs */,
+				87A1C35C27C5E6D0009043BE /* PopupVCs */,
 			);
 			path = StudyVCs;
 			sourceTree = "<group>";
@@ -848,6 +837,47 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		87A1C35A27C5E675009043BE /* ChildVCs */ = {
+			isa = PBXGroup;
+			children = (
+				8716E95B279A625B00B33A5E /* ConceptVC.swift */,
+				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
+				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
+				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
+				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
+				8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */,
+				8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */,
+				878766CA27AED255003B975E /* View */,
+				87C85EAB276F6C62001C9C4A /* ViewModels */,
+				87E151622787DD160080D39A /* Cell */,
+				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
+			);
+			path = ChildVCs;
+			sourceTree = "<group>";
+		};
+		87A1C35B27C5E6B2009043BE /* StudyVC */ = {
+			isa = PBXGroup;
+			children = (
+				8716E955279A623500B33A5E /* StudyVC.swift */,
+				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
+				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
+				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
+				87C85EA9276F6C55001C9C4A /* Model */,
+			);
+			path = StudyVC;
+			sourceTree = "<group>";
+		};
+		87A1C35C27C5E6D0009043BE /* PopupVCs */ = {
+			isa = PBXGroup;
+			children = (
+				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
+				87A1C35827C5E646009043BE /* SelectProblemVC.swift */,
+				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
+				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
+			);
+			path = PopupVCs;
+			sourceTree = "<group>";
+		};
 		87A99418278FD55500E0A7B1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -975,16 +1005,6 @@
 			path = SearchWorkbook;
 			sourceTree = "<group>";
 		};
-		87C85E2F276F65F4001C9C4A /* Solving */ = {
-			isa = PBXGroup;
-			children = (
-				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
-				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
-				87C85EA8276F6C4F001C9C4A /* Cell */,
-			);
-			path = Solving;
-			sourceTree = "<group>";
-		};
 		87C85E33276F6613001C9C4A /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,15 +1077,6 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		87C85EA8276F6C4F001C9C4A /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
-				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		87C85EA9276F6C55001C9C4A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1076,7 +1087,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		87C85EAB276F6C62001C9C4A /* ViewModel */ = {
+		87C85EAB276F6C62001C9C4A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				250194C827C25AD8003B8C6B /* PageVM.swift */,
@@ -1088,7 +1099,7 @@
 				25738C6D27929C97002A6676 /* ConceptVM.swift */,
 				25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		87C85EEC276F6EC9001C9C4A /* DTO */ = {
@@ -1274,6 +1285,7 @@
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				87A9941D278FD58700E0A7B1 /* MainUseCase.swift in Sources */,
 				2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */,
+				87A1C35927C5E646009043BE /* SelectProblemVC.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
