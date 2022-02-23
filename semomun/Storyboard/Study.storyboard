@@ -538,6 +538,14 @@
                             <constraint firstItem="tX0-2P-Hmq" firstAttribute="centerX" secondItem="OVY-Ye-ZIj" secondAttribute="centerX" id="yDW-rk-J5g"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="allSelectIndicator" destination="DJl-GQ-CHi" id="yIH-EA-2WT"/>
+                        <outlet property="checkingProblemsCountLabel" destination="dSi-za-KCc" id="HVp-bM-5og"/>
+                        <outlet property="problems" destination="2pT-vH-PIF" id="qTB-xX-6sg"/>
+                        <outlet property="sectionTitleLabel" destination="6nZ-eK-bUW" id="aU3-Yj-Tdf"/>
+                        <outlet property="startScoringBT" destination="uEa-gr-sTV" id="DA2-S6-YzO"/>
+                        <outlet property="totalProblemsCountLabel" destination="w4T-gB-HAI" id="90C-UO-6VG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BdK-Vg-i0u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
