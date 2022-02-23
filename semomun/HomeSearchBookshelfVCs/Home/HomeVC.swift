@@ -33,12 +33,11 @@ final class HomeVC: UIViewController {
         self.bindAll()
         self.fetch()
         self.configureAddObserver()
+        self.configureBannerAds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let startIndex = self.collectionView(self.bannerAds, numberOfItemsInSection: 0)
-        self.bannerAds.scrollToItem(at: IndexPath(item: startIndex/2, section: 0), at: .centeredHorizontally, animated: false)
         self.startBannerAdsAutoScroll()
     }
     
@@ -78,6 +77,14 @@ extension HomeVC {
         let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
         self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
         self.bannerAds.decelerationRate = .fast
+        self.configureBannerAdsStartIndex()
+    }
+    
+    private func configureBannerAdsStartIndex() {
+        guard let adDataNum = self.viewModel?.ads.count, adDataNum > 0 else { return }
+        let adRepeatTime = self.collectionView(self.bannerAds, numberOfItemsInSection: 0) / adDataNum
+        let startIndex = adDataNum * (adRepeatTime / 2)
+        self.bannerAds.scrollToItem(at: IndexPath(item: startIndex, section: 0), at: .centeredHorizontally, animated: false)
     }
     
     private func configureTags(with tags: [String]) {
