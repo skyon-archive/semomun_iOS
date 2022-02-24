@@ -98,10 +98,7 @@ final class ChangeUserInfoVM {
     }
     
     func submitUserInfo() {
-        guard let userInfo = CoreUsecase.fetchUserInfo() else {
-            self.alertStatus = .withoutPopVC(.coreDataFetchError)
-            return
-        }
+        let userInfo = self.makeUserInfo()
         self.sendUserInfoToNetwork(userInfo: userInfo) { [weak self] isSuccess in
             if isSuccess {
                 self?.saveUserInfoToCoreData(userInfo: userInfo)
@@ -216,19 +213,19 @@ extension ChangeUserInfoVM {
         return true
     }
     
-    private func saveUserInfoToCoreData(userInfo: UserCoreData) {
+    private func saveUserInfoToCoreData(userInfo: UserInfo) {
         guard self.checkIfSubmitAvailable() else { return }
-        
-        userInfo.setValue(self.nickname, forKey: "nickName")
-        userInfo.setValue(self.phonenum, forKey: "phoneNumber")
-        userInfo.setValue(self.selectedMajor, forKey: "major")
-        userInfo.setValue(self.selectedMajorDetail, forKey: "majorDetail")
-        userInfo.setValue(self.schoolName, forKey: "schoolName")
-        userInfo.setValue(self.graduationStatus, forKey: "graduationStatus")
+        guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
+        userCoreData.setValue(self.nickname, forKey: "nickName")
+        userCoreData.setValue(self.phonenum, forKey: "phoneNumber")
+        userCoreData.setValue(self.selectedMajor, forKey: "major")
+        userCoreData.setValue(self.selectedMajorDetail, forKey: "majorDetail")
+        userCoreData.setValue(self.schoolName, forKey: "schoolName")
+        userCoreData.setValue(self.graduationStatus, forKey: "graduationStatus")
         CoreDataManager.saveCoreData()
     }
     
-    private func sendUserInfoToNetwork(userInfo: UserCoreData, completion: @escaping (Bool) -> Void) {
+    private func sendUserInfoToNetwork(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
         guard self.checkIfSubmitAvailable() else { return }
         self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { status in
             switch status {
