@@ -137,6 +137,7 @@ extension ChangeUserInfoVC {
         self.changePhoneNumButton.setTitle("변경", for: .normal)
         self.additionalPhoneNumFrame.isHidden = true
         self.additionalTF.resignFirstResponder()
+        self.coloredFrameLabels[1].isHidden = true
     }
 }
 
