@@ -55,6 +55,7 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.configureUI()
         self.configureCanvasView()
         self.scrollView.zoomScale = 1.0
+        self.checkScoring()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,6 +76,7 @@ class ConceptVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -177,8 +179,6 @@ extension ConceptVC {
         self.canvasView.subviews[0].sendSubviewToBack(imageView)
         self.toolPicker.setVisible(true, forFirstResponder: canvasView)
         self.toolPicker.addObserver(canvasView)
-        
-        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -191,6 +191,7 @@ extension ConceptVC {
         } else {
             self.canvasView.drawing = PKDrawing()
         }
+        self.canvasView.delegate = self
     }
     
     func configureImageView() {
@@ -211,6 +212,15 @@ extension ConceptVC {
         self.imageHeight.constant = height
         self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
         self.canvasHeight.constant = height
+    }
+    
+    private func checkScoring() {
+        guard let problem = self.viewModel?.problem else { return }
+        let terminated = problem.terminated
+              
+        if terminated == false {
+            self.viewModel?.delegate?.addScoring(pid: Int(problem.pid))
+        }
     }
 }
 
