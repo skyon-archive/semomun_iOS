@@ -49,6 +49,9 @@ final class ChangeUserInfoVC: UIViewController {
     @IBOutlet weak var schoolFinder: UIButton!
     @IBOutlet weak var graduationStatusSelector: UIButton!
     
+    @IBOutlet weak var additionalTextFieldTrailingConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureDelegate()
@@ -131,6 +134,7 @@ extension ChangeUserInfoVC {
         self.additionalTF.becomeFirstResponder()
         self.additionalTF.text = nil
         self.requestAgainButton.isHidden = true
+        self.additionalTextFieldTrailingConstraint.constant = 12
     }
     private func prepareToHidePhoneNumFrame() {
         self.viewModel?.cancelPhoneAuth()
@@ -334,6 +338,7 @@ extension ChangeUserInfoVC {
     }
     private func changeAdditionalTFForAuthNum() {
         self.requestAgainButton.isHidden = false
+        self.additionalTextFieldTrailingConstraint.constant = 12 + self.requestAgainButton.frame.width
         self.authPhoneNumButton.setTitle("인증확인", for: .normal)
         self.additionalTF.text = nil
         self.additionalTF.placeholder = "인증번호를 입력해주세요."

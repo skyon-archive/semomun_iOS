@@ -452,7 +452,7 @@
                                                                         <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="홍길동" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Pgh-oO-QIA">
-                                                                                <rect key="frame" x="12" y="14.5" width="398" height="21"/>
+                                                                                <rect key="frame" x="12" y="14.5" width="297" height="21"/>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <color key="textColor" name="defaultText"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -492,9 +492,9 @@
                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="9pp-Wo-Rjt"/>
+                                                                            <constraint firstItem="l7G-ce-hl9" firstAttribute="leading" secondItem="Pgh-oO-QIA" secondAttribute="trailing" constant="12" id="At9-UQ-pfZ"/>
                                                                             <constraint firstAttribute="trailing" secondItem="l7G-ce-hl9" secondAttribute="trailing" constant="15" id="KIO-sX-oH4"/>
                                                                             <constraint firstItem="l7G-ce-hl9" firstAttribute="centerY" secondItem="Dpq-cb-9tB" secondAttribute="centerY" id="QKH-bc-sh5"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="Pgh-oO-QIA" secondAttribute="trailing" constant="10" id="fYf-zv-Z1L"/>
                                                                             <constraint firstItem="Pgh-oO-QIA" firstAttribute="centerY" secondItem="Dpq-cb-9tB" secondAttribute="centerY" id="qd2-88-ZWH"/>
                                                                             <constraint firstItem="Pgh-oO-QIA" firstAttribute="leading" secondItem="Dpq-cb-9tB" secondAttribute="leading" constant="12" id="uaZ-db-dT7"/>
                                                                         </constraints>
@@ -537,7 +537,7 @@
                                                                                 <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h1D-8f-JIN">
-                                                                                        <rect key="frame" x="12" y="14.5" width="398" height="21"/>
+                                                                                        <rect key="frame" x="12" y="14.5" width="297" height="21"/>
                                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                         <textInputTraits key="textInputTraits" textContentType="tel"/>
@@ -571,12 +571,12 @@
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <constraints>
+                                                                                    <constraint firstItem="aeN-rb-eS7" firstAttribute="leading" secondItem="h1D-8f-JIN" secondAttribute="trailing" constant="12" id="Fjj-Rt-OPX"/>
                                                                                     <constraint firstItem="aeN-rb-eS7" firstAttribute="centerY" secondItem="GiK-AA-g65" secondAttribute="centerY" id="GAd-nR-54V"/>
                                                                                     <constraint firstItem="h1D-8f-JIN" firstAttribute="leading" secondItem="GiK-AA-g65" secondAttribute="leading" constant="12" id="VxO-og-IzD"/>
                                                                                     <constraint firstItem="h1D-8f-JIN" firstAttribute="centerY" secondItem="GiK-AA-g65" secondAttribute="centerY" id="amj-X0-ftX"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="aeN-rb-eS7" secondAttribute="trailing" constant="15" id="e5W-65-Ulm"/>
                                                                                     <constraint firstAttribute="height" constant="50" id="rTt-Le-1pI"/>
-                                                                                    <constraint firstAttribute="trailing" secondItem="h1D-8f-JIN" secondAttribute="trailing" constant="10" id="sMY-OA-naM"/>
                                                                                 </constraints>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -605,7 +605,7 @@
                                                                         <rect key="frame" x="0.0" y="90" width="420" height="50"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-r7-8TJ">
-                                                                                <rect key="frame" x="12" y="14.5" width="398" height="21"/>
+                                                                                <rect key="frame" x="12" y="14.5" width="297" height="21"/>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <color key="textColor" name="defaultText"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -669,9 +669,9 @@
                                                                             <constraint firstItem="wGN-r7-8TJ" firstAttribute="centerY" secondItem="HnX-jY-rKz" secondAttribute="centerY" id="8DG-pW-Thg"/>
                                                                             <constraint firstItem="kec-Te-Gau" firstAttribute="centerY" secondItem="TZG-Bc-tmm" secondAttribute="centerY" id="A2c-qg-x9D"/>
                                                                             <constraint firstItem="TZG-Bc-tmm" firstAttribute="leading" secondItem="kec-Te-Gau" secondAttribute="trailing" constant="8" id="C5A-4A-mT2"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="wGN-r7-8TJ" secondAttribute="trailing" constant="10" id="H9a-jt-uZH"/>
                                                                             <constraint firstItem="wGN-r7-8TJ" firstAttribute="leading" secondItem="HnX-jY-rKz" secondAttribute="leading" constant="12" id="NtN-ny-ieU"/>
                                                                             <constraint firstItem="TZG-Bc-tmm" firstAttribute="centerY" secondItem="HnX-jY-rKz" secondAttribute="centerY" id="Osd-gg-D0M"/>
+                                                                            <constraint firstItem="TZG-Bc-tmm" firstAttribute="leading" secondItem="wGN-r7-8TJ" secondAttribute="trailing" constant="12" id="bOg-5Z-y3J"/>
                                                                             <constraint firstAttribute="height" constant="50" id="ePL-bd-uhS"/>
                                                                             <constraint firstAttribute="trailing" secondItem="TZG-Bc-tmm" secondAttribute="trailing" constant="15" id="owc-rq-joC"/>
                                                                         </constraints>
@@ -987,6 +987,7 @@
                     <connections>
                         <outlet property="additionalPhoneNumFrame" destination="HnX-jY-rKz" id="X51-4A-sJl"/>
                         <outlet property="additionalTF" destination="wGN-r7-8TJ" id="rEQ-IH-fa3"/>
+                        <outlet property="additionalTextFieldTrailingConstraint" destination="bOg-5Z-y3J" id="N0Z-d2-quc"/>
                         <outlet property="authPhoneNumButton" destination="TZG-Bc-tmm" id="hUG-Vp-IfK"/>
                         <outlet property="bodyFrame" destination="qYd-hY-XQm" id="lAT-0O-vmq"/>
                         <outlet property="changePhoneNumButton" destination="aeN-rb-eS7" id="cZk-ix-z6w"/>
