@@ -303,7 +303,6 @@ extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
         let data = self.canvasView.drawing.dataRepresentation()
-        print("update data: \(data)")
         problem.setValue(data, forKey: "drawing")
         self.delegate?.addUpload(pid: Int(problem.pid))
     }
