@@ -357,13 +357,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-5v-db3">
-                                        <rect key="frame" x="654" y="34.5" width="73" height="31"/>
+                                        <rect key="frame" x="678" y="35.5" width="49" height="29"/>
                                         <color key="backgroundColor" name="mainColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="tintColor" name="whiteColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="충전하기">
-                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="14"/>
-                                        </buttonConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="충전하기"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="3"/>
@@ -455,7 +454,7 @@
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
-                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7G-ce-hl9">
+                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7G-ce-hl9">
                                                                                 <rect key="frame" x="321" y="10" width="84" height="30"/>
                                                                                 <color key="backgroundColor" name="deepMint"/>
                                                                                 <constraints>
@@ -463,8 +462,8 @@
                                                                                     <constraint firstAttribute="width" constant="84" id="qJl-sT-L1r"/>
                                                                                 </constraints>
                                                                                 <color key="tintColor" name="whiteColor"/>
-                                                                                <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="Button">
                                                                                     <attributedString key="attributedTitle">
                                                                                         <fragment content="중복확인">
                                                                                             <attributes>
@@ -474,8 +473,8 @@
                                                                                             </attributes>
                                                                                         </fragment>
                                                                                     </attributedString>
-                                                                                    <color key="baseForegroundColor" name="whiteColor"/>
-                                                                                </buttonConfiguration>
+                                                                                    <color key="titleColor" name="whiteColor"/>
+                                                                                </state>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                         <real key="value" value="3"/>
@@ -926,8 +925,8 @@
                                                             <constraint firstAttribute="height" constant="43" id="lsd-NB-jkT"/>
                                                         </constraints>
                                                         <color key="tintColor" name="whiteColor"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="저장하기"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="저장하기"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="5"/>
@@ -1316,8 +1315,8 @@
                                     <constraint firstAttribute="height" constant="49" id="aWd-BQ-Yw3"/>
                                 </constraints>
                                 <color key="tintColor" name="whiteColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="충전완료"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="충전완료"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
@@ -1337,12 +1336,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGV-sk-4ZV">
-                                <rect key="frame" x="380.5" y="496.5" width="73" height="31"/>
+                                <rect key="frame" x="392.5" y="496.5" width="49" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="tintColor" name="grayTextColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="취소하기">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="취소하기"/>
                                 <connections>
                                     <action selector="cancel:" destination="D8Z-6o-fNU" eventType="touchUpInside" id="O0f-jh-NKN"/>
                                 </connections>
@@ -1396,15 +1394,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-WT-xvB">
-                                                    <rect key="frame" x="705.5" y="11" width="72.5" height="32"/>
+                                                    <rect key="frame" x="729" y="11" width="49" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="hJV-yu-tOt"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                     <color key="tintColor" name="mainColor"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="로그아웃">
-                                                        <fontDescription key="titleFontDescription" type="system" weight="light" pointSize="14"/>
-                                                    </buttonConfiguration>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="로그아웃"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>

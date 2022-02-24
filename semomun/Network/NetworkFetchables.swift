@@ -50,7 +50,7 @@ protocol MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void)
 }
 protocol UserInfoSendable {
-    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void)
+    func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void)
 }
 protocol NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void)
