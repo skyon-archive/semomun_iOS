@@ -13,7 +13,7 @@ final class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     
-    private var viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
+    private var viewModel: ChangeUserInfoVM? = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     private var coloredFrameLabels: [ColoredFrameLabel] = []
@@ -56,7 +56,7 @@ final class LoginSignupVC: UIViewController {
             self.coloredFrameLabels[0].configure(type: .warning("닉네임을 입력해주세요."))
             return
         }
-        self.viewModel.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
+        self.viewModel?.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
             if isSuccess {
                 self?.nickname.resignFirstResponder()
                 self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
@@ -68,7 +68,7 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func requestAuth(_ sender: Any) {
         guard let newPhoneStr = self.phonenumTextField.text else { return }
-        self.viewModel.requestPhoneAuth(withPhoneNumber: newPhoneStr)
+        self.viewModel?.requestPhoneAuth(withPhoneNumber: newPhoneStr)
     }
     
     @IBAction func confirmAuth(_ sender: UIButton) {
@@ -76,15 +76,15 @@ final class LoginSignupVC: UIViewController {
             self.coloredFrameLabels[2].configure(type: .warning("인증번호를 입력해주세요."))
             return
         }
-        self.viewModel.confirmAuthNumber(with: authNum)
+        self.viewModel?.confirmAuthNumber(with: authNum)
     }
     
     @IBAction func requestAuthAgain(_ sender: Any) {
-        self.viewModel.requestPhoneAuthAgain()
+        self.viewModel?.requestPhoneAuthAgain()
     }
     
     @IBAction func submit(_ sender: Any) {
-        let userInfo = self.viewModel.makeUserInfo()
+        guard let userInfo = self.viewModel?.makeUserInfo() else { return }
         if userInfo.isValidSurvay {
             guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
             vc.configurePopup(isNeeded: true)
@@ -97,7 +97,7 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func submitBypass(_ sender: Any) {
         #if DEBUG
-        let userInfo = self.viewModel.makeUserInfo()
+        guard let userInfo = self.viewModel?.makeUserInfo() else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.configurePopup(isNeeded: true)
         vc.configureSignupInfo(userInfo)
@@ -183,7 +183,7 @@ extension LoginSignupVC {
     private func configureSchoolStatusMenu() {
         let graduationMenuItems: [UIAction] = ["재학", "졸업"].map { status in
             return UIAction(title: status, image: nil) { [weak self] _ in
-                self?.viewModel.graduationStatus = status
+                self?.viewModel?.graduationStatus = status
                 self?.graduationStatusSelector.setTitle(status, for: .normal)
             }
         }
@@ -201,7 +201,7 @@ extension LoginSignupVC {
         self.bindPhoneAuth()
     }
     private func bindMajor() {
-        self.viewModel.$majors
+        self.viewModel?.$majors
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.majorCollectionView.reloadData()
@@ -209,7 +209,7 @@ extension LoginSignupVC {
             .store(in: &self.cancellables)
     }
     private func bindMajorDetail() {
-        self.viewModel.$majorDetails
+        self.viewModel?.$majorDetails
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.majorDetailCollectionView.reloadData()
@@ -217,7 +217,7 @@ extension LoginSignupVC {
             .store(in: &self.cancellables)
     }
     private func bindAlert() {
-        self.viewModel.$alertStatus
+        self.viewModel?.$alertStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
@@ -234,7 +234,7 @@ extension LoginSignupVC {
             .store(in: &self.cancellables)
     }
     private func bindPhoneAuth() {
-        self.viewModel.$phoneAuthStatus
+        self.viewModel?.$phoneAuthStatus
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
@@ -281,9 +281,9 @@ extension LoginSignupVC {
 extension LoginSignupVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == majorCollectionView {
-            self.viewModel.selectMajor(at: indexPath.item)
+            self.viewModel?.selectMajor(at: indexPath.item)
         } else {
-            self.viewModel.selectMajorDetail(at: indexPath.item)
+            self.viewModel?.selectMajorDetail(at: indexPath.item)
         }
         collectionView.reloadData()
     }
@@ -292,24 +292,24 @@ extension LoginSignupVC: UICollectionViewDelegate {
 extension LoginSignupVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == majorCollectionView {
-            return self.viewModel.majors?.count ?? 0
+            return self.viewModel?.majors?.count ?? 0
         } else {
-            return self.viewModel.majorDetails?.count ?? 0
+            return self.viewModel?.majorDetails?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
-            guard let majorName = self.viewModel.majors?[indexPath.item] else { return cell }
-            if majorName == self.viewModel.selectedMajor {
+            guard let majorName = self.viewModel?.majors?[indexPath.item] else { return cell }
+            if majorName == self.viewModel?.selectedMajor {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorName)
             return cell
         } else {
-            guard let majorDetailName = self.viewModel.majorDetails?[indexPath.item] else { return cell }
-            if majorDetailName == self.viewModel.selectedMajorDetail {
+            guard let majorDetailName = self.viewModel?.majorDetails?[indexPath.item] else { return cell }
+            if majorDetailName == self.viewModel?.selectedMajorDetail {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorDetailName)
@@ -328,7 +328,7 @@ extension LoginSignupVC: UICollectionViewDelegateFlowLayout {
 extension LoginSignupVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
         self.dismissKeyboard()
-        self.viewModel.schoolName = name
+        self.viewModel?.schoolName = name
         self.schoolFinder.setTitle(name, for: .normal)
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
     }
