@@ -69,6 +69,20 @@ final class SelectProblemsVM {
         }
     }
     
+    func startScoring() {
+        if self.section.terminated {
+            // 전체 문제에 대한 통계 계산
+            // uploadQueue DB 보내기
+        } else {
+            // scoringQueue 에 대한 통계 계산
+            // uploadQueue DB 보내기
+            
+            // if scoringQueue.count == self.totalCount
+            // -> section.terminated = true
+            // NotificationCenter.defaults.post(name: .sectionTerminate)
+        }
+    }
+    
     private func configureAllPids() {
         self.scoringQueue = self.problems.filter { !$0.terminated }.map { Int($0.pid) }
     }
