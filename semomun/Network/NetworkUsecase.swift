@@ -422,8 +422,8 @@ extension NetworkUsecase: PhonenumVerifiable {
         completion(.SUCCESS)
     }
     
-    func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void) {
-        completion(authNum == 1234)
+    func checkValidity(of authNum: String, completion: @escaping (Bool) -> Void) {
+        completion(authNum == "1234")
     }
 }
 
