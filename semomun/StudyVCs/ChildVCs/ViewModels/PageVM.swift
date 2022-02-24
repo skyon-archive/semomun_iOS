@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PencilKit
 
 /// - Note: pageData.pageCore.time를 어떻게 사용하는지 확인 필요
 class PageVM {
@@ -96,9 +97,10 @@ class PageVM {
     }
     
     func updatePencilData(to data: Data, problem: Problem_Core? = nil) {
+        print("update data: \(data)")
         guard let problem = problem ?? self.problem else { return }
         problem.setValue(data, forKey: "drawing")
-//        self.delegate?.addUpload(pid: Int(problem.pid))
+        self.delegate?.addUpload(pid: Int(problem.pid))
     }
     
     func updatePagePencilData(to data: Data) {
