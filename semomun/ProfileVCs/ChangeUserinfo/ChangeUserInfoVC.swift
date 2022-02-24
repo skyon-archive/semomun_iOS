@@ -125,15 +125,15 @@ extension ChangeUserInfoVC {
         self.bodyFrame.addShadow(direction: .top)
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        let mainColor = UIColor(.mainColor)
+        let buttonColor = UIColor(.deepMint)
         if isFilled {
             button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = mainColor
+            button.backgroundColor = buttonColor
             button.borderColor = .white
         } else {
-            button.setTitleColor(mainColor, for: .normal)
+            button.setTitleColor(buttonColor, for: .normal)
             button.backgroundColor = .white
-            button.borderColor = mainColor
+            button.borderColor = buttonColor
         }
     }
     private func prepareToShowPhoneNumFrame() {
