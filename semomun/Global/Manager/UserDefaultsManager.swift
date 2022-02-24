@@ -8,21 +8,21 @@
 import Foundation
 
 struct UserDefaultsManager {
-    enum Keys {
-        static let currentCategory = "currentCategory"
-        static let logined = "logined"
-        static let isInitial = "isInitial"
-        static let favoriteTags = "favoriteTags"
-        static let userVersion = "userVersion"
-        static let coreVersion = "coreVersion"
+    enum Keys: String {
+        case currentCategory = "currentCategory"
+        case logined = "logined"
+        case isInitial = "isInitial"
+        case favoriteTags = "favoriteTags"
+        case userVersion = "userVersion"
+        case coreVersion = "coreVersion"
     }
     
-    static func set<T>(to: T, forKey: String) {
-        UserDefaults.standard.setValue(to, forKey: forKey)
-        print("save \(forKey) complete")
+    static func set<T>(to: T, forKey: Self.Keys) {
+        UserDefaults.standard.setValue(to, forKey: forKey.rawValue)
+        print("UserDefaultManager: save \(forKey) complete")
     }
     
-    static func get(forKey: String) -> Any? {
-        return UserDefaults.standard.object(forKey: forKey)
+    static func get(forKey: Self.Keys) -> Any? {
+        return UserDefaults.standard.object(forKey: forKey.rawValue)
     }
 }
