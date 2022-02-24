@@ -26,7 +26,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6jg-cZ-eT7" secondAttribute="trailing" id="6gf-fO-cqR"/>
                             <constraint firstItem="6jg-cZ-eT7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6ug-Xi-ZyO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6jg-cZ-eT7" secondAttribute="bottom" id="Fjw-u2-wm2"/>
+                            <constraint firstAttribute="bottom" secondItem="6jg-cZ-eT7" secondAttribute="bottom" id="Fjw-u2-wm2"/>
                             <constraint firstItem="6jg-cZ-eT7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="SlV-VW-S7h"/>
                         </constraints>
                     </view>
@@ -39,7 +39,7 @@
     <resources>
         <image name="launch2" width="834" height="1194"/>
         <namedColor name="mainColor">
-            <color red="0.44299998879432678" green="0.69800001382827759" blue="0.68999999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>
