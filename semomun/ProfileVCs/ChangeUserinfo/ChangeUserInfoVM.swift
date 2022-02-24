@@ -11,7 +11,6 @@ import Combine
 typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable)
 
 final class ChangeUserInfoVM {
-    
     enum ChangeUserInfoAlert {
         case withPopVC(AlertMessage)
         case withoutPopVC(AlertMessage)
@@ -24,79 +23,76 @@ final class ChangeUserInfoVM {
         }
     }
     
-    enum PhoneAuthStatus {
-        case authNumSent, authComplete, wrongAuthNumber, invaildPhoneNum
+    enum ChangeNicknameStatus {
+        case success
+        case fail
     }
     
-    @Published private(set) var alertStatus: ChangeUserInfoAlert? = nil
+    enum PhoneAuthStatus {
+        case authNumSent
+        case authComplete
+        case wrongAuthNumber
+        case invaildPhoneNum
+    }
+    
+    @Published private(set) var alertStatus: ChangeUserInfoAlert?
+    @Published private(set) var changeNicknameStatus: ChangeNicknameStatus?
     @Published private(set) var phoneAuthStatus: PhoneAuthStatus?
     
     @Published private(set) var nickname: String?
     @Published private(set) var phonenum: String?
-    @Published private(set) var majors: [String]?
-    @Published private(set) var majorDetails: [String]?
+    @Published private(set) var majors: [String] = []
+    @Published private(set) var majorDetails: [String] = []
     @Published var schoolName: String?
     @Published var graduationStatus: String?
     @Published var configureUIForNicknamePhoneRequest = false
     
+    private var majorWithDetail: [String: [String]] = [:]
     private(set) var selectedMajor: String?
     private(set) var selectedMajorDetail: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
     private let isSignup: Bool
-    private var majorWithDetail: [String: [String]] = [:]
-    private var waitingForAuthPhoneNum: String?
+    private var tempPhoneNum: String?
     
     init(networkUseCase: ChangeUserInfoNetworkUseCase, isSignup: Bool) {
         self.networkUseCase = networkUseCase
         self.isSignup = isSignup
-        if isSignup == false {
+        if isSignup {
+            self.fetchMajorInfo()
+        } else {
             self.getUserInfo { [weak self] in
                 self?.fetchMajorInfo()
             }
-        } else {
-            self.fetchMajorInfo()
         }
     }
     
-    func makeUserInfo() -> UserInfo {
-        let userInfo = UserInfo()
-        userInfo.nickName = self.nickname
-        userInfo.phone = self.phonenum
-        userInfo.major = self.selectedMajor
-        userInfo.majorDetail = self.selectedMajorDetail
-        userInfo.school = self.schoolName
-        userInfo.graduationStatus = self.graduationStatus
-        return userInfo
-    }
-    
-    func changeNicknameIfAvailable(nickname: String, completion: @escaping (Bool) -> ()) {
+    func changeNicknameIfAvailable(nickname: String) {
         self.networkUseCase.checkRedundancy(ofNickname: nickname) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
                     self?.nickname = nickname
-                    completion(true)
+                    self?.changeNicknameStatus = .success
                 } else {
-                    completion(false)
+                    self?.changeNicknameStatus = .fail
                 }
             } else {
                 self?.alertStatus = .withoutPopVC(.networkError)
-                completion(false)
             }
         }
     }
     
     func selectMajor(at index: Int) {
-        guard self.majors?.indices.contains(index) == true else { return }
-        guard let majorName = majors?[index] else { return }
+        guard let majorName = self.majors[safe: index] else { return }
         self.selectedMajor = majorName
-        self.majorDetails = majorWithDetail[majorName] ?? []
+        if let majorDetails = self.majorWithDetail[majorName] {
+            self.majorDetails = majorDetails
+        }
         self.selectedMajorDetail = nil
     }
     
     func selectMajorDetail(at index: Int) {
-        guard self.majorDetails?.indices.contains(index) == true else { return }
-        guard let majorDetailName = majorDetails?[index] else { return }
+        guard let majorDetailName = self.majorDetails[safe: index] else { return }
         self.selectedMajorDetail = majorDetailName
     }
     
@@ -112,6 +108,20 @@ final class ChangeUserInfoVM {
         }
     }
     
+    func makeUserInfo() -> UserInfo {
+        let userInfo = UserInfo()
+        userInfo.nickName = self.nickname
+        userInfo.phone = self.phonenum
+        userInfo.major = self.selectedMajor
+        userInfo.majorDetail = self.selectedMajorDetail
+        userInfo.school = self.schoolName
+        userInfo.graduationStatus = self.graduationStatus
+        return userInfo
+    }
+}
+
+// 전화 인증 관련 메소드
+extension ChangeUserInfoVM {
     func requestPhoneAuth(withPhoneNumber phoneNum: String) {
         guard phoneNum.count == 11 else {
             self.phoneAuthStatus = .invaildPhoneNum
@@ -120,18 +130,17 @@ final class ChangeUserInfoVM {
         self.networkUseCase.requestVertification(of: phoneNum) { [weak self] status in
             if status == .SUCCESS {
                 self?.phoneAuthStatus = .authNumSent
-                self?.waitingForAuthPhoneNum = phoneNum
+                self?.tempPhoneNum = phoneNum
             } else {
                 self?.alertStatus = .withoutPopVC(.networkError)
             }
         }
     }
     
+    /// 재인증 요청
     func requestPhoneAuthAgain() {
-        guard let waitingForAuthPhoneNum = waitingForAuthPhoneNum else {
-            return
-        }
-        self.networkUseCase.requestVertification(of: waitingForAuthPhoneNum) { [weak self] status in
+        guard let tempPhoneNum = tempPhoneNum else { return }
+        self.networkUseCase.requestVertification(of: tempPhoneNum) { [weak self] status in
             if status == .SUCCESS {
                 self?.phoneAuthStatus = .authNumSent
             } else {
@@ -141,21 +150,22 @@ final class ChangeUserInfoVM {
         self.phoneAuthStatus = .authNumSent
     }
     
-    func confirmAuthNumber(with authNumber: Int) {
+    func confirmAuthNumber(with authNumber: String) {
         self.networkUseCase.checkValidity(of: authNumber) {[weak self] confirmed in
             if confirmed {
                 self?.phoneAuthStatus = .authComplete
-                self?.phonenum = self?.waitingForAuthPhoneNum
-                self?.waitingForAuthPhoneNum = nil
+                self?.phonenum = self?.tempPhoneNum
+                self?.tempPhoneNum = nil
             } else {
                 self?.phoneAuthStatus = .wrongAuthNumber
             }
         }
     }
     
+    /// 인증 취소
     func cancelPhoneAuth() {
         self.phoneAuthStatus = nil
-        self.waitingForAuthPhoneNum = nil
+        self.tempPhoneNum = nil
     }
 }
 
@@ -197,38 +207,23 @@ extension ChangeUserInfoVM {
                 self?.alertStatus = .withoutPopVC(.networkError)
                 return
             }
-            self?.majorWithDetail = majorFetched.reduce(into: [:]) { result, next in
-                result[next.name] = next.details
-            }
             self?.majors = majorFetched.map(\.name)
+            self?.majorWithDetail = majorFetched.reduce(into: [:]) { majorWithDetail, major in
+                majorWithDetail[major.name] = major.details
+            }
             if let selectedMajor = self?.selectedMajor,
                let majorDetails = self?.majorWithDetail[selectedMajor] {
                 self?.majorDetails = majorDetails
-            } else if let major = self?.majors?.first {
-                self?.majorDetails = self?.majorWithDetail[major]
             }
         }
     }
     
     private func checkIfSubmitAvailable() -> Bool {
-        // TODO: 현재 1.0 회원의 경우 nickName, phoneNum이 랜덤값으로 있기는 한 상태이기에 CoreData 상에서 제거하는 로직이 필요, 또는 Random 값인지 판별하기 위한 로직이 필요
         guard [self.nickname, self.phonenum, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" }) else {
             self.alertStatus = .withoutPopVC(.incomplateData)
             return false
         }
         return true
-    }
-    
-    private func saveUserInfoToCoreData(userInfo: UserInfo) {
-        guard self.checkIfSubmitAvailable() else { return }
-        guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
-        userCoreData.setValue(self.nickname, forKey: "nickName")
-        userCoreData.setValue(self.phonenum, forKey: "phoneNumber")
-        userCoreData.setValue(self.selectedMajor, forKey: "major")
-        userCoreData.setValue(self.selectedMajorDetail, forKey: "majorDetail")
-        userCoreData.setValue(self.schoolName, forKey: "schoolName")
-        userCoreData.setValue(self.graduationStatus, forKey: "graduationStatus")
-        CoreDataManager.saveCoreData()
     }
     
     private func sendUserInfoToNetwork(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
@@ -241,5 +236,17 @@ extension ChangeUserInfoVM {
                 completion(false)
             }
         }
+    }
+    
+    private func saveUserInfoToCoreData(userInfo: UserInfo) {
+        guard self.checkIfSubmitAvailable() else { return }
+        guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
+        userCoreData.setValue(self.nickname, forKey: "nickName")
+        userCoreData.setValue(self.phonenum, forKey: "phoneNumber")
+        userCoreData.setValue(self.selectedMajor, forKey: "major")
+        userCoreData.setValue(self.selectedMajorDetail, forKey: "majorDetail")
+        userCoreData.setValue(self.schoolName, forKey: "schoolName")
+        userCoreData.setValue(self.graduationStatus, forKey: "graduationStatus")
+        CoreDataManager.saveCoreData()
     }
 }
