@@ -431,10 +431,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="938"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYd-hY-XQm">
-                                                <rect key="frame" x="131" y="40" width="572" height="898"/>
+                                                <rect key="frame" x="100" y="40" width="634" height="898"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="bKT-Si-5ak">
-                                                        <rect key="frame" x="76" y="55" width="420" height="710"/>
+                                                        <rect key="frame" x="107" y="55" width="420" height="710"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFb-YB-HPY">
                                                                 <rect key="frame" x="0.0" y="0.0" width="420" height="90"/>
@@ -449,15 +449,15 @@
                                                                         <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="홍길동" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Pgh-oO-QIA">
-                                                                                <rect key="frame" x="10" y="14.5" width="400" height="21"/>
+                                                                                <rect key="frame" x="12" y="14.5" width="398" height="21"/>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <color key="textColor" name="defaultText"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7G-ce-hl9">
+                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7G-ce-hl9">
                                                                                 <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="VTA-ma-d2H"/>
                                                                                     <constraint firstAttribute="width" constant="84" id="qJl-sT-L1r"/>
@@ -493,11 +493,11 @@
                                                                             <constraint firstItem="l7G-ce-hl9" firstAttribute="centerY" secondItem="Dpq-cb-9tB" secondAttribute="centerY" id="QKH-bc-sh5"/>
                                                                             <constraint firstAttribute="trailing" secondItem="Pgh-oO-QIA" secondAttribute="trailing" constant="10" id="fYf-zv-Z1L"/>
                                                                             <constraint firstItem="Pgh-oO-QIA" firstAttribute="centerY" secondItem="Dpq-cb-9tB" secondAttribute="centerY" id="qd2-88-ZWH"/>
-                                                                            <constraint firstItem="Pgh-oO-QIA" firstAttribute="leading" secondItem="Dpq-cb-9tB" secondAttribute="leading" constant="10" id="uaZ-db-dT7"/>
+                                                                            <constraint firstItem="Pgh-oO-QIA" firstAttribute="leading" secondItem="Dpq-cb-9tB" secondAttribute="leading" constant="12" id="uaZ-db-dT7"/>
                                                                         </constraints>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                <color key="value" name="mainColor"/>
+                                                                                <color key="value" name="deepMint"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                 <real key="value" value="5"/>
@@ -534,14 +534,14 @@
                                                                                 <rect key="frame" x="0.0" y="31.5" width="420" height="50"/>
                                                                                 <subviews>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h1D-8f-JIN">
-                                                                                        <rect key="frame" x="10" y="14.5" width="400" height="21"/>
+                                                                                        <rect key="frame" x="12" y="14.5" width="398" height="21"/>
                                                                                         <color key="backgroundColor" name="defaultBackground"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                         <textInputTraits key="textInputTraits" textContentType="tel"/>
                                                                                     </textField>
-                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeN-rb-eS7">
+                                                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeN-rb-eS7">
                                                                                         <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                        <color key="backgroundColor" name="mainColor"/>
+                                                                                        <color key="backgroundColor" name="deepMint"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="84" id="pv8-ks-uai"/>
                                                                                             <constraint firstAttribute="height" constant="30" id="xbh-nH-WFH"/>
@@ -555,7 +555,7 @@
                                                                                                 <real key="value" value="3"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                                <color key="value" name="mainColor"/>
+                                                                                                <color key="value" name="deepMint"/>
                                                                                             </userDefinedRuntimeAttribute>
                                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                                 <real key="value" value="1"/>
@@ -569,7 +569,7 @@
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="aeN-rb-eS7" firstAttribute="centerY" secondItem="GiK-AA-g65" secondAttribute="centerY" id="GAd-nR-54V"/>
-                                                                                    <constraint firstItem="h1D-8f-JIN" firstAttribute="leading" secondItem="GiK-AA-g65" secondAttribute="leading" constant="10" id="VxO-og-IzD"/>
+                                                                                    <constraint firstItem="h1D-8f-JIN" firstAttribute="leading" secondItem="GiK-AA-g65" secondAttribute="leading" constant="12" id="VxO-og-IzD"/>
                                                                                     <constraint firstItem="h1D-8f-JIN" firstAttribute="centerY" secondItem="GiK-AA-g65" secondAttribute="centerY" id="amj-X0-ftX"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="aeN-rb-eS7" secondAttribute="trailing" constant="15" id="e5W-65-Ulm"/>
                                                                                     <constraint firstAttribute="height" constant="50" id="rTt-Le-1pI"/>
@@ -580,7 +580,7 @@
                                                                                         <real key="value" value="5"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1.5"/>
@@ -602,15 +602,15 @@
                                                                         <rect key="frame" x="0.0" y="90" width="420" height="50"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-r7-8TJ">
-                                                                                <rect key="frame" x="10" y="14.5" width="400" height="21"/>
+                                                                                <rect key="frame" x="12" y="14.5" width="398" height="21"/>
                                                                                 <color key="backgroundColor" name="defaultBackground"/>
                                                                                 <color key="textColor" name="defaultText"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                                                             </textField>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZG-Bc-tmm">
+                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZG-Bc-tmm">
                                                                                 <rect key="frame" x="321" y="10" width="84" height="30"/>
-                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="8ca-E5-rJr"/>
                                                                                     <constraint firstAttribute="width" constant="84" id="Y1h-br-kHR"/>
@@ -626,14 +626,17 @@
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                         <real key="value" value="1"/>
                                                                                     </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="deepMint"/>
+                                                                                    </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
                                                                                 <connections>
                                                                                     <action selector="requestOrConfirmAuth:" destination="hNW-4C-a0k" eventType="touchUpInside" id="Bws-HY-DMg"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kec-Te-Gau">
+                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kec-Te-Gau">
                                                                                 <rect key="frame" x="229" y="10" width="84" height="30"/>
-                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="84" id="Ida-5V-RXX"/>
                                                                                     <constraint firstAttribute="height" constant="30" id="LvT-OU-bgU"/>
@@ -650,7 +653,7 @@
                                                                                         <real key="value" value="1"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                        <color key="value" name="mainColor"/>
+                                                                                        <color key="value" name="deepMint"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
                                                                                 <connections>
@@ -664,7 +667,7 @@
                                                                             <constraint firstItem="kec-Te-Gau" firstAttribute="centerY" secondItem="TZG-Bc-tmm" secondAttribute="centerY" id="A2c-qg-x9D"/>
                                                                             <constraint firstItem="TZG-Bc-tmm" firstAttribute="leading" secondItem="kec-Te-Gau" secondAttribute="trailing" constant="8" id="C5A-4A-mT2"/>
                                                                             <constraint firstAttribute="trailing" secondItem="wGN-r7-8TJ" secondAttribute="trailing" constant="10" id="H9a-jt-uZH"/>
-                                                                            <constraint firstItem="wGN-r7-8TJ" firstAttribute="leading" secondItem="HnX-jY-rKz" secondAttribute="leading" constant="10" id="NtN-ny-ieU"/>
+                                                                            <constraint firstItem="wGN-r7-8TJ" firstAttribute="leading" secondItem="HnX-jY-rKz" secondAttribute="leading" constant="12" id="NtN-ny-ieU"/>
                                                                             <constraint firstItem="TZG-Bc-tmm" firstAttribute="centerY" secondItem="HnX-jY-rKz" secondAttribute="centerY" id="Osd-gg-D0M"/>
                                                                             <constraint firstAttribute="height" constant="50" id="ePL-bd-uhS"/>
                                                                             <constraint firstAttribute="trailing" secondItem="TZG-Bc-tmm" secondAttribute="trailing" constant="15" id="owc-rq-joC"/>
@@ -674,7 +677,7 @@
                                                                                 <real key="value" value="5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                <color key="value" name="mainColor"/>
+                                                                                <color key="value" name="deepMint"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                 <real key="value" value="1.5"/>
@@ -721,7 +724,7 @@
                                                                                         </label>
                                                                                     </subviews>
                                                                                 </view>
-                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                 <size key="customSize" width="133" height="39"/>
                                                                                 <connections>
                                                                                     <outlet property="majorName" destination="p7O-nk-lrE" id="mlo-Lc-ocC"/>
@@ -778,7 +781,7 @@
                                                                                         </label>
                                                                                     </subviews>
                                                                                 </collectionViewCellContentView>
-                                                                                <color key="backgroundColor" name="mainColor"/>
+                                                                                <color key="backgroundColor" name="deepMint"/>
                                                                                 <size key="customSize" width="68" height="39"/>
                                                                                 <connections>
                                                                                     <outlet property="majorName" destination="1WR-3b-4If" id="2VN-5Y-M8X"/>
@@ -811,7 +814,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="15M-qf-4Jw"/>
                                                                         </constraints>
-                                                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                        <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                         <menu key="menu" id="yYq-Y6-vQ4">
                                                                             <children>
                                                                                 <command title="Item 1" id="11t-6b-Aqm"/>
@@ -826,7 +829,7 @@
                                                                                 <real key="value" value="5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                <color key="value" name="mainColor"/>
+                                                                                <color key="value" name="deepMint"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                 <real key="value" value="1"/>
@@ -835,7 +838,7 @@
                                                                     </button>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dLg-SD-EA5">
                                                                         <rect key="frame" x="384" y="44" width="26" height="24.5"/>
-                                                                        <color key="tintColor" name="mainColor"/>
+                                                                        <color key="tintColor" name="deepMint"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="26" id="C7I-HR-b9G"/>
                                                                             <constraint firstAttribute="height" constant="26" id="azE-2J-gST"/>
@@ -872,7 +875,7 @@
                                                                             <constraint firstAttribute="height" constant="50" id="N34-1X-I3O"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                        <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <state key="normal">
                                                                             <color key="titleColor" name="defaultText"/>
@@ -882,7 +885,7 @@
                                                                                 <real key="value" value="5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                <color key="value" name="mainColor"/>
+                                                                                <color key="value" name="deepMint"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                                 <real key="value" value="1"/>
@@ -891,7 +894,7 @@
                                                                     </button>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Dn-xw-oME">
                                                                         <rect key="frame" x="162" y="49" width="25" height="15.5"/>
-                                                                        <color key="tintColor" name="grayTextColor"/>
+                                                                        <color key="tintColor" name="deepMint"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="GQc-eq-vHv"/>
                                                                             <constraint firstAttribute="width" constant="25" id="syF-zv-5ah"/>
@@ -916,7 +919,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tsi-EM-p5U">
-                                                        <rect key="frame" x="221.5" y="825" width="129" height="43"/>
+                                                        <rect key="frame" x="252.5" y="825" width="129" height="43"/>
                                                         <color key="backgroundColor" name="mainColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="129" id="PgE-zb-nji"/>
@@ -942,12 +945,12 @@
                                                     <constraint firstItem="Tsi-EM-p5U" firstAttribute="centerX" secondItem="qYd-hY-XQm" secondAttribute="centerX" id="TWT-zX-ujn"/>
                                                     <constraint firstItem="Tsi-EM-p5U" firstAttribute="top" secondItem="bKT-Si-5ak" secondAttribute="bottom" constant="60" id="ZFw-Ku-Qec"/>
                                                     <constraint firstItem="bKT-Si-5ak" firstAttribute="top" secondItem="qYd-hY-XQm" secondAttribute="top" constant="55" id="lGy-Uq-T8s"/>
-                                                    <constraint firstAttribute="width" priority="750" constant="572" id="ww9-E5-3ej"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="qYd-hY-XQm" firstAttribute="leading" secondItem="3q9-Xi-wlz" secondAttribute="leading" constant="100" id="Djp-pM-l83"/>
                                             <constraint firstAttribute="bottom" secondItem="qYd-hY-XQm" secondAttribute="bottom" id="XPo-JY-Hqx"/>
                                             <constraint firstItem="qYd-hY-XQm" firstAttribute="top" secondItem="3q9-Xi-wlz" secondAttribute="top" constant="40" id="udJ-pK-eEX"/>
                                             <constraint firstItem="qYd-hY-XQm" firstAttribute="centerX" secondItem="3q9-Xi-wlz" secondAttribute="centerX" id="zdT-73-Bnu"/>
@@ -1693,6 +1696,9 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="personCircle" width="41" height="41"/>
         <image name="tabBarPerson" width="32" height="32"/>
+        <namedColor name="deepMint">
+            <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="defaultBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
