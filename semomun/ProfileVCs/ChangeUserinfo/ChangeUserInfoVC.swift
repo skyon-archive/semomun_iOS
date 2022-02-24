@@ -317,7 +317,6 @@ extension ChangeUserInfoVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 guard status else { return }
-                self?.nickname.placeholder = "닉네임을 입력하세요"
                 self?.phoneNumTF.placeholder = "전화번호 정보 없음"
             }
             .store(in: &self.cancellables)
