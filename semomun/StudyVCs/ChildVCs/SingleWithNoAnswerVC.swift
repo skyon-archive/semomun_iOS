@@ -62,6 +62,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         self.configureUI()
         self.configureCanvasView()
         self.scrollView.zoomScale = 1.0
+        self.checkScoring()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +84,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -207,8 +209,6 @@ extension SingleWithNoAnswerVC {
         self.canvasView.subviews[0].sendSubviewToBack(imageView)
         self.toolPicker.setVisible(true, forFirstResponder: canvasView)
         self.toolPicker.addObserver(canvasView)
-        
-        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -221,6 +221,7 @@ extension SingleWithNoAnswerVC {
         } else {
             self.canvasView.drawing = PKDrawing()
         }
+        self.canvasView.delegate = self
     }
     
     func configureImageView() {
@@ -260,6 +261,15 @@ extension SingleWithNoAnswerVC {
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.scrollViewBottomConstraint.constant = height
             self?.explanationView.alpha = 1
+        }
+    }
+    
+    private func checkScoring() {
+        guard let problem = self.viewModel?.problem else { return }
+        let terminated = problem.terminated
+              
+        if terminated == false {
+            self.viewModel?.delegate?.addScoring(pid: Int(problem.pid))
         }
     }
 }
