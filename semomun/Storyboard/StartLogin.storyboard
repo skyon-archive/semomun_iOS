@@ -503,10 +503,9 @@
                                                         </constraints>
                                                         <color key="tintColor" name="grayDefaultColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" title="" image="checkmark.circle" catalog="system"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system" title="">
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
-                                                        </buttonConfiguration>
+                                                        <state key="normal" title="" image="checkmark.circle" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
+                                                        </state>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보 처리 방침 (필수)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46R-xX-jFT" userLabel="개인정보 처리 방침 (필수)">
                                                         <rect key="frame" x="48" y="2" width="153" height="18"/>
@@ -544,8 +543,8 @@
                                                             <constraint firstAttribute="width" constant="40" id="pwc-V6-JP9"/>
                                                         </constraints>
                                                         <color key="tintColor" name="grayDefaultColor"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system" title=""/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="" image="checkmark.circle" catalog="system"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 이용 약관 (필수)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-O4-QOo" userLabel="개인정보 처리 방침 (필수)">
                                                         <rect key="frame" x="48" y="2" width="140" height="18"/>
@@ -585,7 +584,6 @@
                                                         <color key="tintColor" name="grayDefaultColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="" image="checkmark.circle" catalog="system"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마케팅 정보 수신 (선택)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4c-sn-UAv" userLabel="개인정보 처리 방침 (필수)">
                                                         <rect key="frame" x="48" y="2" width="140" height="18"/>
@@ -623,7 +621,8 @@
                                                             <constraint firstAttribute="height" constant="30" id="BUU-nR-gg6"/>
                                                         </constraints>
                                                         <color key="tintColor" name="grayDefaultColor"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="checkmark.circle" catalog="system"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전체 동의" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3G-1j-Xe8" userLabel="개인정보 처리 방침 (필수)">
                                                         <rect key="frame" x="48" y="26" width="56" height="18"/>
@@ -1269,8 +1268,8 @@
                                                                     <constraint firstAttribute="height" constant="43" id="UjD-4a-42X"/>
                                                                 </constraints>
                                                                 <color key="tintColor" name="whiteColor"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="회원가입"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                         <real key="value" value="5"/>
