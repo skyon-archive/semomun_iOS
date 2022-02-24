@@ -45,6 +45,10 @@ class SelectProblemsVC: UIViewController {
     @IBAction func close(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func startScoring(_ sender: Any) {
+        self.viewModel?.startScoring()
+    }
 }
 
 extension SelectProblemsVC {

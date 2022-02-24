@@ -81,16 +81,13 @@ final class StudyVC: UIViewController {
         self.manager?.stopSection()
     }
     
-    @IBAction func finish(_ sender: Any) {
-        guard let manager = self.manager else { return }
-        if manager.section.terminated {
-            manager.terminateSection()
-            return
+    @IBAction func scoringSection(_ sender: Any) {
+        guard let terminated = self.manager?.section.terminated else { return }
+        if terminated {
+//            self.showResultViewController(result: <#T##SectionResult#>)
+        } else {
+            self.showSelectProblemsVC()
         }
-//        self.showAlertWithCancelAndOK(title: "제출하시겠습니까?", text: "타이머가 정지되며 채점이 이루어집니다.") {
-//            manager.terminateSection()
-//        }
-        self.showSelectProblemsVC()
     }
     
     @IBAction func beforePage(_ sender: Any) {
