@@ -357,8 +357,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-5v-db3">
-                                        <rect key="frame" x="678" y="35.5" width="49" height="29"/>
+                                        <rect key="frame" x="643" y="35" width="84" height="30"/>
                                         <color key="backgroundColor" name="mainColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="84" id="Eou-9R-uxE"/>
+                                            <constraint firstAttribute="height" constant="30" id="sjf-b0-ryE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="tintColor" name="whiteColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1314,6 +1318,7 @@
                                     <constraint firstAttribute="width" constant="144" id="Za7-x6-Zdg"/>
                                     <constraint firstAttribute="height" constant="49" id="aWd-BQ-Yw3"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <color key="tintColor" name="whiteColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="충전완료"/>
@@ -1394,14 +1399,17 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-WT-xvB">
-                                                    <rect key="frame" x="729" y="11" width="49" height="32"/>
+                                                    <rect key="frame" x="705" y="11" width="73" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="hJV-yu-tOt"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                     <color key="tintColor" name="mainColor"/>
+                                                    <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="로그아웃"/>
+                                                    <state key="normal" title="로그아웃">
+                                                        <color key="titleColor" name="mainColor"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
@@ -1542,7 +1550,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ob6-Vc-sHu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-605" y="40"/>
+            <point key="canvasLocation" x="-605.03597122302165" y="39.698492462311556"/>
         </scene>
         <!--Unlogined Setting TableVC-->
         <scene sceneID="OLH-zQ-TZv">
