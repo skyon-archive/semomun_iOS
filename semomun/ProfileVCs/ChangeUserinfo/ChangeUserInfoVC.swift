@@ -118,19 +118,11 @@ extension ChangeUserInfoVC {
     private func configureUI() {
         self.navigationItem.title = "계정 정보 변경하기"
         self.navigationItem.titleView?.backgroundColor = .white
-        self.configureRoundedMintBorder(of: nicknameFrame)
-        self.configureRoundedMintBorder(of: phoneNumFrame)
-        self.configureRoundedMintBorder(of: additionalPhoneNumFrame)
         self.configureButtonMenus()
         self.additionalPhoneNumFrame.isHidden = true
         self.requestAgainButton.isHidden = true
         self.bodyFrame.layer.cornerRadius = 15
         self.bodyFrame.addShadow(direction: .top)
-    }
-    private func configureRoundedMintBorder(of view: UIView) {
-        view.layer.borderWidth = 1.5
-        view.layer.borderColor = UIColor(.mainColor)?.cgColor
-        view.layer.cornerRadius = 5
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
         let mainColor = UIColor(.mainColor)
