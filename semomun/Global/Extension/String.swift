@@ -40,6 +40,4 @@ extension String {
     static let currentVersion: String = "2.0"
     
     static let latestCoreVersion: String = "2.0"
-    
-    static let latestUserVersion: String = "2.0"
 }
