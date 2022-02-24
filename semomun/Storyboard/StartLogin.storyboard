@@ -687,13 +687,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="registerButton" destination="CGT-MR-3su" id="p2H-FG-KZA"/>
                         <outletCollection property="checkButtons" destination="u6o-uW-fgl" collectionClass="NSMutableArray" id="J4T-E5-4Oz"/>
                         <outletCollection property="checkButtons" destination="0Hx-pr-RUm" collectionClass="NSMutableArray" id="gSG-4H-gtM"/>
                         <outletCollection property="checkButtons" destination="zNK-4v-n4t" collectionClass="NSMutableArray" id="4OI-W6-7fX"/>
-                        <outletCollection property="checkButtons" destination="okA-nc-q4V" collectionClass="NSMutableArray" id="dG0-2P-gc9"/>
                         <outletCollection property="longTextButtons" destination="UNH-2m-TQR" collectionClass="NSMutableArray" id="epA-of-KY8"/>
                         <outletCollection property="longTextButtons" destination="rwG-Ap-C7y" collectionClass="NSMutableArray" id="S5Z-DG-B0i"/>
                         <outletCollection property="longTextButtons" destination="RQ8-qh-Nea" collectionClass="NSMutableArray" id="Ycs-Ln-YAI"/>
+                        <outletCollection property="checkButtons" destination="okA-nc-q4V" collectionClass="NSMutableArray" id="7We-rZ-Kiq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NHv-32-sn4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
