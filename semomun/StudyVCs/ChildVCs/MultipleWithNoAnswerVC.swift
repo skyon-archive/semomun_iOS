@@ -284,6 +284,14 @@ extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
             }
         }
     }
+    
+    func addScoring(pid: Int) {
+        self.viewModel?.delegate?.addScoring(pid: pid)
+    }
+    
+    func addUpload(pid: Int) {
+        self.viewModel?.delegate?.addUpload(pid: pid)
+    }
 }
 
 extension MultipleWithNoAnswerVC: ExplanationRemover {

@@ -10,9 +10,13 @@ import UIKit
 protocol CollectionCellDelegate: AnyObject {
     func reload()
     func showExplanation(image: UIImage?, pid: Int)
+    func addScoring(pid: Int)
+    func addUpload(pid: Int)
 }
 
 protocol CollectionCellWithNoAnswerDelegate: AnyObject {
     func reload()
     func showExplanation(image: UIImage?, pid: Int)
+    func addScoring(pid: Int)
+    func addUpload(pid: Int)
 }
