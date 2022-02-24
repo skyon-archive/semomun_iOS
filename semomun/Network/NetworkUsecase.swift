@@ -375,11 +375,9 @@ extension NetworkUsecase: MajorFetchable {
 }
 
 extension NetworkUsecase: UserInfoSendable {
-    func putUserInfoUpdate(userInfo: UserCoreData, completion: @escaping(NetworkStatus) -> Void) {
+    func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void) {
         guard let nickName = userInfo.nickName else { return }
-        let newUserInfo = UserInfo()
-        newUserInfo.setValues(userInfo: userInfo)
-        guard let jsonData = try? JSONEncoder().encode(newUserInfo) else {
+        guard let jsonData = try? JSONEncoder().encode(userInfo) else {
             print("Encode Error")
             return
         }
