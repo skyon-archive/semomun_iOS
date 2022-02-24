@@ -79,7 +79,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         super.viewWillDisappear(animated)
         print("답없는 좌우형 : willDisapplear")
         
-        CoreDataManager.saveCoreData() //
+        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()

@@ -106,6 +106,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -331,8 +332,6 @@ extension SingleWith4AnswerVC {
         self.canvasView.subviews[0].sendSubviewToBack(imageView)
         self.toolPicker.setVisible(true, forFirstResponder: canvasView)
         self.toolPicker.addObserver(canvasView)
-        
-        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -345,6 +344,7 @@ extension SingleWith4AnswerVC {
         } else {
             self.canvasView.drawing = PKDrawing()
         }
+        self.canvasView.delegate = self
     }
     
     func configureImageView() {

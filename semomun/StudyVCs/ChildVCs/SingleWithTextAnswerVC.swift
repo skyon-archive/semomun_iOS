@@ -103,6 +103,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -319,8 +320,6 @@ extension SingleWithTextAnswerVC {
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
-        
-        canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -333,6 +332,7 @@ extension SingleWithTextAnswerVC {
         } else {
             canvasView.drawing = PKDrawing()
         }
+        canvasView.delegate = self
     }
     
     func configureImageView() {
