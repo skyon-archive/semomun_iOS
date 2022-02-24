@@ -202,7 +202,7 @@ extension SearchWorkbookViewController: UICollectionViewDelegate, UICollectionVi
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         if isLogined == false {
             self.manager?.select(to: indexPath.item) // 로그인 절차 이후 문제집 다운로드가 이어지기 위한 문제집 index 저장
             self.showLoginAlert()

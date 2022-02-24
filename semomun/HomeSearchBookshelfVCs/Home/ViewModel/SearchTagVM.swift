@@ -20,7 +20,7 @@ final class SearchTagVM {
     }
     
     private func fetchTags() {
-        let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] ?? ["수능"]
+        let tags = UserDefaultsManager.get(forKey: .favoriteTags) as? [String] ?? ["수능"]
         self.tags = tags
     }
     
@@ -57,7 +57,7 @@ final class SearchTagVM {
     }
     
     private func saveTags() {
-        UserDefaultsManager.set(to: self.tags, forKey: UserDefaultsManager.Keys.favoriteTags)
+        UserDefaultsManager.set(to: self.tags, forKey: .favoriteTags)
         NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
 }

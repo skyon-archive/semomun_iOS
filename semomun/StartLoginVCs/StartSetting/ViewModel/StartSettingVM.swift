@@ -47,8 +47,8 @@ final class StartSettingVM {
     }
     
     func saveUserDefaults() {
-        UserDefaultsManager.set(to: self.selectedTags, forKey: UserDefaultsManager.Keys.favoriteTags)
-        UserDefaultsManager.set(to: false, forKey: UserDefaultsManager.Keys.isInitial)
+        UserDefaultsManager.set(to: self.selectedTags, forKey: .favoriteTags)
+        UserDefaultsManager.set(to: false, forKey: .isInitial)
     }
     
     var isSelectFinished: Bool {

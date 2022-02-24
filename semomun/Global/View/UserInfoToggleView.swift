@@ -84,7 +84,7 @@ final class UserInfoToggleView: UIView {
     }
     
     func refresh() {
-        self.isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        self.isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         if self.isLogined {
             self.refreshUserInfo()
         } else {

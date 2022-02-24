@@ -29,7 +29,7 @@ class PreviewManager {
     }
     
     private func configureCategory() {
-        guard let category = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.currentCategory) as? String else { return }
+        guard let category = UserDefaultsManager.get(forKey: .currentCategory) as? String else { return }
         self.currentCategory = category
         print(category)
     }

@@ -235,7 +235,7 @@ extension ChangeUserInfoVM {
     private func updateVersionIfDataUpdateSucceed() {
         // TODO: 1.0 랜덤데이터가 사라졌다는 가정하에
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.userVersion)
+        UserDefaultsManager.set(to: version, forKey: .userVersion)
         print("userVersion 업데이트 완료")
     }
 }
