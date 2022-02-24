@@ -52,18 +52,8 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func checkNickname(_ sender: Any) {
-        guard let nickname = self.nickname.text, nickname != "" else {
-            self.coloredFrameLabels[0].configure(type: .warning("닉네임을 입력해주세요."))
-            return
-        }
-        self.viewModel?.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
-            if isSuccess {
-                self?.nickname.resignFirstResponder()
-                self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
-            } else {
-                self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
-            }
-        }
+        guard let nickname = self.nickname.text else { return }
+        self.viewModel?.changeNicknameIfAvailable(nickname: nickname)
     }
     
     @IBAction func requestAuth(_ sender: Any) {
@@ -72,10 +62,7 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func confirmAuth(_ sender: UIButton) {
-        guard let authStr = self.authNumTextField.text, let authNum = Int(authStr) else {
-            self.coloredFrameLabels[2].configure(type: .warning("인증번호를 입력해주세요."))
-            return
-        }
+        guard let authNum = self.authNumTextField.text else { return }
         self.viewModel?.confirmAuthNumber(with: authNum)
     }
     
@@ -117,6 +104,16 @@ extension LoginSignupVC {
         self.bodyFrame.addShadow(direction: .top)
         self.configureColoredFrameLabels()
     }
+    private func configureButtonUI(button: UIButton, isFilled: Bool) {
+        let mainColor = UIColor(.mainColor)
+        if isFilled {
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = mainColor
+        } else {
+            button.setTitleColor(mainColor, for: .normal)
+            button.backgroundColor = .white
+        }
+    }
     private func configureColoredFrameLabels() {
         self.coloredFrameLabels = (0..<3).map { _ in
             let label = ColoredFrameLabel()
@@ -134,16 +131,6 @@ extension LoginSignupVC {
             label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
             label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 3)
         ])
-    }
-    private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        let mainColor = UIColor(.mainColor)
-        if isFilled {
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = mainColor
-        } else {
-            button.setTitleColor(mainColor, for: .normal)
-            button.backgroundColor = .white
-        }
     }
 }
 
@@ -184,7 +171,6 @@ extension LoginSignupVC {
         let graduationMenuItems: [UIAction] = ["재학", "졸업"].map { status in
             return UIAction(title: status, image: nil) { [weak self] _ in
                 self?.viewModel?.graduationStatus = status
-                self?.graduationStatusSelector.setTitle(status, for: .normal)
             }
         }
         self.graduationStatusSelector.menu = UIMenu(title: "대학 / 졸업 선택", options: [], children: graduationMenuItems)
@@ -199,6 +185,7 @@ extension LoginSignupVC {
         self.bindMajorDetail()
         self.bindAlert()
         self.bindPhoneAuth()
+        self.bindChangeNicknameStatus()
     }
     private func bindMajor() {
         self.viewModel?.$majors
@@ -252,9 +239,34 @@ extension LoginSignupVC {
             }
             .store(in: &self.cancellables)
     }
+    private func bindChangeNicknameStatus() {
+        self.viewModel?.$changeNicknameStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .success:
+                    self?.nickname.resignFirstResponder()
+                    self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
+                case .fail:
+                    self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
+                case .none:
+                    break
+                }
+            }
+            .store(in: &self.cancellables)
+    }
 }
 
 extension LoginSignupVC {
+    private func configureUIForAuthComplete() {
+        self.requestAgainButton.isHidden = true
+        self.verifyAuthNumButton.isHidden = true
+        
+        self.authNumTextField.isEnabled = false
+        self.verifyAuthNumButton.isEnabled = false
+        
+        self.coloredFrameLabels[2].configure(type: .success("인증이 완료되었습니다."))
+    }
     private func configureUIForAuthSent() {
         self.coloredFrameLabels[1].isHidden = true
         self.showAlertWithOK(title: "인증번호가 전송되었습니다.", text: "")
@@ -265,15 +277,6 @@ extension LoginSignupVC {
         self.getAuthNumButton.isHidden = true
         self.requestAgainButton.isHidden = false
         self.verifyAuthNumButton.isHidden = false
-    }
-    private func configureUIForAuthComplete() {
-        self.requestAgainButton.isHidden = true
-        self.verifyAuthNumButton.isHidden = true
-        
-        self.authNumTextField.isEnabled = false
-        self.verifyAuthNumButton.isEnabled = false
-        
-        self.coloredFrameLabels[2].configure(type: .success("인증이 완료되었습니다."))
     }
 }
 
@@ -292,23 +295,23 @@ extension LoginSignupVC: UICollectionViewDelegate {
 extension LoginSignupVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == majorCollectionView {
-            return self.viewModel?.majors?.count ?? 0
+            return self.viewModel?.majors.count ?? 0
         } else {
-            return self.viewModel?.majorDetails?.count ?? 0
+            return self.viewModel?.majorDetails.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
-            guard let majorName = self.viewModel?.majors?[indexPath.item] else { return cell }
+            guard let majorName = self.viewModel?.majors[indexPath.item] else { return cell }
             if majorName == self.viewModel?.selectedMajor {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorName)
             return cell
         } else {
-            guard let majorDetailName = self.viewModel?.majorDetails?[indexPath.item] else { return cell }
+            guard let majorDetailName = self.viewModel?.majorDetails[indexPath.item] else { return cell }
             if majorDetailName == self.viewModel?.selectedMajorDetail {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }

@@ -57,7 +57,7 @@ protocol NicknameCheckable {
 }
 protocol PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ())
-    func checkValidity(of authNum: Int, completion: @escaping (Bool) -> Void)
+    func checkValidity(of authNum: String, completion: @escaping (Bool) -> Void)
 }
 protocol SemopayHistoryFetchable {
     func getSemopayHistory(completion: @escaping ((NetworkStatus, [SemopayHistory])) -> Void)

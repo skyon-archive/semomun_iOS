@@ -17,6 +17,7 @@ final class ChangeUserInfoVC: UIViewController {
     private var viewModel: ChangeUserInfoVM?
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
+    private var coloredFrameLabels: [ColoredFrameLabel] = []
     
     private var isAuthPhoneTFShown = false {
         didSet {
@@ -50,7 +51,7 @@ final class ChangeUserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureTableViewDelegate()
+        self.configureDelegate()
         self.bindAll()
         self.configureUI()
     }
@@ -61,19 +62,8 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func checkNickname(_ sender: Any) {
-        guard let nickname = self.nickname.text else {
-            self.showAlertWithOK(title: "닉네임을 입력하세요", text: "")
-            return
-        }
-        self.viewModel?.changeNicknameIfAvailable(nickname: nickname) { [weak self] isSuccess in
-            if isSuccess {
-                self?.nickname.resignFirstResponder()
-                self?.showAlertWithOK(title: "사용할 수 있는 닉네임입니다.", text: "")
-            } else {
-                // MARK: 아래276번째 라인이 실행된 후 실행되는가?
-                self?.showAlertWithOK(title: "중복된 닉네임입니다.", text: "")
-            }
-        }
+        guard let nickname = self.nickname.text else { return }
+        self.viewModel?.changeNicknameIfAvailable(nickname: nickname)
     }
     
     @IBAction func changePhoneNum(_ sender: Any) {
@@ -86,10 +76,7 @@ final class ChangeUserInfoVC: UIViewController {
     @IBAction func requestOrConfirmAuth(_ sender: UIButton) {
         if sender.titleLabel?.text == "인증확인" {
             //인증확인
-            guard let authStr = self.additionalTF.text, let authNum = Int(authStr) else {
-                self.showAlertWithOK(title: "인증번호를 입력하세요", text: "")
-                return
-            }
+            guard let authNum = self.additionalTF.text else { return }
             self.viewModel?.confirmAuthNumber(with: authNum)
         } else {
             //인증요청
@@ -123,6 +110,7 @@ extension ChangeUserInfoVC {
         self.requestAgainButton.isHidden = true
         self.bodyFrame.layer.cornerRadius = 15
         self.bodyFrame.addShadow(direction: .top)
+        self.configureColoredFrameLabels()
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
         let buttonColor = UIColor(.deepMint)
@@ -152,22 +140,37 @@ extension ChangeUserInfoVC {
     }
 }
 
-// MARK: Configure delegate
+// MARK: Configure ColoredFrameLabel
 extension ChangeUserInfoVC {
-    private func configureTableViewDelegate() {
+    private func configureColoredFrameLabels() {
+        self.coloredFrameLabels = (0..<2).map { _ in ColoredFrameLabel() }
+        self.coloredFrameLabels.forEach { $0.isHidden = true }
+        self.addFrameLabel(self.coloredFrameLabels[0], to: self.nicknameFrame)
+        self.addFrameLabel(self.coloredFrameLabels[1], to: self.additionalPhoneNumFrame)
+    }
+    private func addFrameLabel(_ label: ColoredFrameLabel, to frame: UIView) {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        frame.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
+            label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 3)
+        ])
+    }
+}
+
+// MARK: Configure delegates
+extension ChangeUserInfoVC {
+    private func configureDelegate() {
         self.majorCollectionView.dataSource = self
         self.majorCollectionView.delegate = self
         self.majorDetailCollectionView.dataSource = self
         self.majorDetailCollectionView.delegate = self
+        self.additionalTF.delegate = self
     }
 }
 
 // MARK: Configure Menus
 extension ChangeUserInfoVC {
-    enum GraduationStatus: String, CaseIterable {
-        case attending = "재학"
-        case graduated = "졸업"
-    }
     private func configureButtonMenus() {
         self.configureSchoolButtonMenu()
         self.configureSchoolStatusMenu()
@@ -186,11 +189,9 @@ extension ChangeUserInfoVC {
         self.schoolFinder.showsMenuAsPrimaryAction = true
     }
     private func configureSchoolStatusMenu() {
-        let graduationMenuItems: [UIAction] = GraduationStatus.allCases.map { status in
-            let description = status.rawValue
+        let graduationMenuItems: [UIAction] = ["재학", "졸업"].map { description in
             return UIAction(title: description, image: nil) { [weak self] _ in
                 self?.viewModel?.graduationStatus = description
-                self?.graduationStatusSelector.setTitle(description, for: .normal)
             }
         }
         self.graduationStatusSelector.menu = UIMenu(title: "대학 / 졸업 선택", options: [], children: graduationMenuItems)
@@ -210,7 +211,9 @@ extension ChangeUserInfoVC {
         self.bindAlert()
         self.bindPhoneAuth()
         self.bindConfigureUIForNicknamePhoneRequest()
+        self.bindChangeNicknameStatus()
     }
+    
     private func bindNickname() {
         self.viewModel?.$nickname
             .receive(on: DispatchQueue.main)
@@ -255,11 +258,11 @@ extension ChangeUserInfoVC {
         self.viewModel?.$phonenum
             .receive(on: DispatchQueue.main)
             .sink { [weak self] phone in
-                guard let phone = phone else { return }
                 self?.phoneNumTF.placeholder = phone
             }
             .store(in: &self.cancellables)
     }
+    
     private func bindAlert() {
         self.viewModel?.$alertStatus
             .receive(on: DispatchQueue.main)
@@ -288,18 +291,19 @@ extension ChangeUserInfoVC {
                     self?.configureButtonUI(button: button, isFilled: false)
                     button.setTitle("인증완료", for: .normal)
                     button.isEnabled = false
-                    self?.showAlertWithOK(title: "인증 완료", text: "")
+                    self?.showAlertWithOK(title: "인증이 완료되었습니다", text: "")
                 case .authNumSent:
-                    self?.showAlertWithOK(title: "인증번호 전송됨", text: "")
+                    self?.showAlertWithOK(title: "인증번호가 전송되었습니다", text: "")
+                    self?.coloredFrameLabels[1].isHidden = true
                     self?.changeAdditionalTFForAuthNum()
                 case .none:
                     self?.authPhoneNumButton.setTitle("인증요청", for: .normal)
                     guard let button = self?.authPhoneNumButton else { break }
                     self?.configureButtonUI(button: button, isFilled: true)
                 case .wrongAuthNumber:
-                    self?.showAlertWithOK(title: "잘못된 인증 번호", text: "")
+                    self?.coloredFrameLabels[1].configure(type: .warning("잘못된 인증번호입니다"))
                 case .invaildPhoneNum:
-                    self?.showAlertWithOK(title: "잘못된 전화번호", text: "")
+                    self?.coloredFrameLabels[1].configure(type: .warning("잘못된 전화번호입니다"))
                 }
             }
             .store(in: &self.cancellables)
@@ -310,6 +314,20 @@ extension ChangeUserInfoVC {
             .sink { [weak self] status in
                 guard status else { return }
                 self?.phoneNumTF.placeholder = "전화번호 정보 없음"
+            }
+            .store(in: &self.cancellables)
+    }
+    private func bindChangeNicknameStatus() {
+        self.viewModel?.$changeNicknameStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard let status = status else { return }
+                if status == .success {
+                    self?.nickname.resignFirstResponder()
+                    self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
+                } else {
+                    self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
+                }
             }
             .store(in: &self.cancellables)
     }
@@ -337,23 +355,23 @@ extension ChangeUserInfoVC: UICollectionViewDelegate {
 extension ChangeUserInfoVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == majorCollectionView {
-            return self.viewModel?.majors?.count ?? 0
+            return self.viewModel?.majors.count ?? 0
         } else {
-            return self.viewModel?.majorDetails?.count ?? 0
+            return self.viewModel?.majorDetails.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
-            guard let majorName = self.viewModel?.majors?[indexPath.item] else { return cell }
+            guard let majorName = self.viewModel?.majors[indexPath.item] else { return cell }
             if majorName == self.viewModel?.selectedMajor {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorName)
             return cell
         } else {
-            guard let majorDetailName = self.viewModel?.majorDetails?[indexPath.item] else { return cell }
+            guard let majorDetailName = self.viewModel?.majorDetails[indexPath.item] else { return cell }
             if majorDetailName == self.viewModel?.selectedMajorDetail {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
@@ -369,12 +387,20 @@ extension ChangeUserInfoVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: 학교 팝업 관련
+// MARK: 학교 팝업 Delegate
 extension ChangeUserInfoVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
         self.dismissKeyboard()
         self.viewModel?.schoolName = name
         self.schoolFinder.setTitle(name, for: .normal)
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ChangeUserInfoVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
 }
