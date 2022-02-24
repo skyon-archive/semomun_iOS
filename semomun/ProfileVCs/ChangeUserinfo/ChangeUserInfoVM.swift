@@ -51,9 +51,12 @@ final class ChangeUserInfoVM {
         self.networkUseCase = networkUseCase
         self.isSignup = isSignup
         if isSignup == false {
-            self.getUserInfo()
+            self.getUserInfo { [weak self] in
+                self?.fetchMajorInfo()
+            }
+        } else {
+            self.fetchMajorInfo()
         }
-        self.fetchMajorInfo()
     }
     
     func makeUserInfo() -> UserInfo {
@@ -158,14 +161,16 @@ final class ChangeUserInfoVM {
 
 // MARK: Private functions
 extension ChangeUserInfoVM {
-    private func getUserInfo() {
+    private func getUserInfo(completion: @escaping () -> Void) {
         SyncUsecase.syncUserDataFromDB { succeed in
             guard succeed else {
                 self.alertStatus = .withPopVC(.networkError)
+                completion()
                 return
             }
             guard let userInfo = CoreUsecase.fetchUserInfo() else {
                 self.alertStatus = .withoutPopVC(.coreDataFetchError)
+                completion()
                 return
             }
             self.nickname = userInfo.nickName
@@ -175,6 +180,7 @@ extension ChangeUserInfoVM {
             self.schoolName = userInfo.schoolName
             self.graduationStatus = userInfo.graduationStatus
             self.configureUIForNicknamePhoneRequestIfNeeded(userInfo)
+            completion()
         }
     }
     
