@@ -100,8 +100,8 @@ extension BookshelfVC {
     }
     
     private func checkMigration() {
-        let logined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
-        let coreVersion = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.coreVersion) as? String ?? String.pastVersion
+        let logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        let coreVersion = UserDefaultsManager.get(forKey: .coreVersion) as? String ?? String.pastVersion
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
         if logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
             print("migration start")
@@ -122,7 +122,7 @@ extension BookshelfVC {
                 return
             }
             
-            UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion) // migration 완료시 현재 version 저장
+            UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
             self?.fetch()
             CoreDataManager.saveCoreData()
             self?.removeLoader()

@@ -247,12 +247,12 @@ extension LoginSelectVC {
     
     private func saveAndDismissView(userInfo: UserInfo) {
         CoreUsecase.createUserCoreData(userInfo: userInfo)
-        UserDefaultsManager.set(to: true, forKey: UserDefaultsManager.Keys.logined)
+        UserDefaultsManager.set(to: true, forKey: .logined)
         
         if self.signupInfoConfigured { // 회원가입시: UserVersion, CoreVersion 반영
             let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-            UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.userVersion)
-            UserDefaultsManager.set(to: version, forKey: UserDefaultsManager.Keys.coreVersion)
+            UserDefaultsManager.set(to: version, forKey: .userVersion)
+            UserDefaultsManager.set(to: version, forKey: .coreVersion)
         }
         
         self.showAlertWithOK(title: "로그인 완료", text: "로그인에 성공하였습니다.") { [weak self] in

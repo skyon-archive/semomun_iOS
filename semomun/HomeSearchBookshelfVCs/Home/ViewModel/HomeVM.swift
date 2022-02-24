@@ -44,7 +44,7 @@ final class HomeVM {
     }
     
     private func fetchTags() {
-        let tags = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.favoriteTags) as? [String] ?? ["수능"]
+        let tags = UserDefaultsManager.get(forKey: .favoriteTags) as? [String] ?? ["수능"]
         self.tags = tags
         print(tags)
         self.fetchWorkbooksWithTags()

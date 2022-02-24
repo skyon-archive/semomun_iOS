@@ -18,7 +18,7 @@ final class ProfileVC: UIViewController {
     @IBOutlet weak var nameToCircleLeading: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     
-    private var isLogin = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+    private var isLogin = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
     
     private lazy var tableViewBeforeLogin: UIViewController = {
         let storyboard = UIStoryboard(name: UnloginedProfileTableVC.storyboardName, bundle: nil)
@@ -87,7 +87,7 @@ extension ProfileVC {
     }
     
     private func updateIfLoginStatusChanged() {
-        guard let isLoginNow = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool else { return }
+        guard let isLoginNow = UserDefaultsManager.get(forKey: .logined) as? Bool else { return }
         if self.isLogin != isLoginNow {
             self.isLogin = isLoginNow
             self.configureUI()

@@ -124,7 +124,7 @@ extension HomeVC {
     }
     
     private func fetch() {
-        let isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         if isLogined {
             self.noLoginedLabel1.removeFromSuperview()
             self.noLoginedLabel2.removeFromSuperview()
