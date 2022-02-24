@@ -214,6 +214,11 @@ extension ChangeUserInfoVM {
             if let selectedMajor = self?.selectedMajor,
                let majorDetails = self?.majorWithDetail[selectedMajor] {
                 self?.majorDetails = majorDetails
+            } else { // 회원가입(선택한 전공이 없는 경우)
+                if let firstMajorName = self?.majors.first,
+                   let firstMajorDetail = self?.majorWithDetail[firstMajorName] {
+                    self?.majorDetails = firstMajorDetail
+                }
             }
         }
     }
