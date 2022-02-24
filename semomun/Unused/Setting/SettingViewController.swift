@@ -71,7 +71,7 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController {
     private func configureLogin() {
-        self.isLogined = UserDefaultsManager.get(forKey: UserDefaultsManager.Keys.logined) as? Bool ?? false
+        self.isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor.black,
