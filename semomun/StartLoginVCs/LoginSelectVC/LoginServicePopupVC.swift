@@ -19,18 +19,15 @@ class LoginServicePopupVC: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     
     private lazy var isChecked = [Bool](repeating: false, count: checkButtons.count)
-    
     private var action: (() -> ())?
     private var networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
     private var canRegister: Bool {
         return isChecked[0] && isChecked[1]
     }
-    private var normalCheckButtons: ArraySlice<UIButton> {
-        return checkButtons[0..<3]
-    }
-    private var agreeAllButton: UIButton {
-        return checkButtons[3]
-    }
+    
+    private let normalCheckButtonsIndex = 0..<3
+    private let marketingAgreeButtonIndex = 2
+    private let agreeAllButtonIndex = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +43,7 @@ class LoginServicePopupVC: UIViewController {
     
     @IBAction func continueRegister(_ sender: Any) {
         guard self.canRegister else { return }
-        let marketingAgreed = isChecked[2]
+        let marketingAgreed = isChecked[self.marketingAgreeButtonIndex]
         self.networkUsecase?.postMarketingConsent(isConsent: marketingAgreed) { status in
             switch status {
             case .SUCCESS:
@@ -69,12 +66,12 @@ extension LoginServicePopupVC {
 // MARK: Configure buttons
 extension LoginServicePopupVC {
     private func configureNormalButtons() {
-        self.normalCheckButtons.forEach { button in
+        self.checkButtons[self.normalCheckButtonsIndex].forEach { button in
             let action = UIAction { [weak self] _ in
                 guard let self = self else { return }
                 self.isChecked[button.tag].toggle()
-                let agreeAllButtonStatus = self.isChecked[0..<3].allSatisfy({$0})
-                self.isChecked[3] = agreeAllButtonStatus
+                let agreeAllButtonStatus = self.isChecked[self.normalCheckButtonsIndex].allSatisfy({$0})
+                self.isChecked[self.agreeAllButtonIndex] = agreeAllButtonStatus
                 self.updateUIOfAllButtons()
             }
             button.addAction(action, for: .touchUpInside)
@@ -88,7 +85,7 @@ extension LoginServicePopupVC {
             self.isChecked = self.isChecked.map { _ in !agreeAllButtonState }
             self.updateUIOfAllButtons()
         }
-        self.agreeAllButton.addAction(action, for: .touchUpInside)
+        self.checkButtons[self.agreeAllButtonIndex].addAction(action, for: .touchUpInside)
     }
     
     private func configureLongTextButtons() {
