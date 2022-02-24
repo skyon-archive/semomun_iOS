@@ -62,6 +62,7 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
     func configureUI() {
         self.timerView.removeFromSuperview()
         self.shadowView.addShadow(direction: .top)
+        self.canvasView.delegate = nil
     }
     
     private func configureScrollView() {
@@ -151,8 +152,6 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
         canvasView.subviews[0].sendSubviewToBack(imageView)
 //        toolPicker?.setVisible(true, forFirstResponder: canvasView)
         toolPicker?.addObserver(canvasView)
-        
-        canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -165,13 +164,16 @@ class MultipleWithNoCell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVi
         } else {
             canvasView.drawing = PKDrawing()
         }
+        canvasView.delegate = self
     }
 }
 
 extension MultipleWithNoCell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
-        self.delegate?.reload()
+        guard let problem = self.problem else { return }
+        let data = self.canvasView.drawing.dataRepresentation()
+        problem.setValue(data, forKey: "drawing")
+        self.delegate?.addUpload(pid: Int(problem.pid))
     }
 }
 
