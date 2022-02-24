@@ -107,6 +107,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -332,8 +333,6 @@ extension SingleWith5AnswerVC {
         self.canvasView.subviews[0].sendSubviewToBack(imageView)
         self.toolPicker.setVisible(true, forFirstResponder: canvasView)
         self.toolPicker.addObserver(canvasView)
-        
-        self.canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -346,6 +345,7 @@ extension SingleWith5AnswerVC {
         } else {
             self.canvasView.drawing = PKDrawing()
         }
+        self.canvasView.delegate = self
     }
     
     func configureImageView() {
