@@ -285,6 +285,14 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
             }
         }
     }
+    
+    func addScoring(pid: Int) {
+        self.viewModel?.delegate?.addScoring(pid: pid)
+    }
+    
+    func addUpload(pid: Int) {
+        self.viewModel?.delegate?.addUpload(pid: pid)
+    }
 }
 
 extension MultipleWith5AnswerVC: ExplanationRemover {

@@ -119,6 +119,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.shadowView.addShadow(direction: .top)
+        self.canvasView.delegate = nil
     }
     
     private func configureScrollView() {
@@ -272,8 +273,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         canvasView.subviews[0].sendSubviewToBack(imageView)
 //        toolPicker?.setVisible(true, forFirstResponder: canvasView)
         toolPicker?.addObserver(canvasView)
-        
-        canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -286,6 +285,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         } else {
             canvasView.drawing = PKDrawing()
         }
+        canvasView.delegate = self
     }
     
     func updateSolved(problem: Problem_Core, input: String) {
@@ -295,13 +295,17 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             let correct = input == answer
             problem.setValue(correct, forKey: "correct")
         }
-        self.delegate?.reload()
+        self.delegate?.addScoring(pid: Int(problem.pid))
     }
 }
 
 extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.problem?.setValue(self.canvasView.drawing.dataRepresentation(), forKey: "drawing")
+        guard let problem = self.problem else { return }
+        let data = self.canvasView.drawing.dataRepresentation()
+        print("update data: \(data)")
+        problem.setValue(data, forKey: "drawing")
+        self.delegate?.addUpload(pid: Int(problem.pid))
     }
 }
 
