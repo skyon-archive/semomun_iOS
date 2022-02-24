@@ -22,7 +22,6 @@ protocol PagesFetchable {
 protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
 }
-
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
