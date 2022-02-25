@@ -85,7 +85,6 @@ final class SelectProblemsVM {
         self.section.setValue(self.uploadQueue, forKey: "uploadQueue")
         // count == totalCount -> section.terminated
         if scoringQueue.count == self.scoreableTotalCount {
-            self.section.setValue(true, forKey: "terminated")
             NotificationCenter.default.post(name: .sectionTerminated, object: nil)
         }
         // save section, VC: dismiss action
