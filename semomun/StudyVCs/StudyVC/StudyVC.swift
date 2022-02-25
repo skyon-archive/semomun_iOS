@@ -78,15 +78,18 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        self.manager?.stopSection()
+        self.manager?.pauseSection()
     }
     
     @IBAction func scoringSection(_ sender: Any) {
-        guard let terminated = self.manager?.section.terminated else { return }
+        guard let section = self.manager?.section else { return }
+        let terminated = section.terminated
+        
         if terminated {
-//            self.showResultViewController(result: <#T##SectionResult#>)
+            self.manager?.sendProblemDatas(isDismiss: false)
+            self.showResultViewController(section: section)
         } else {
-            self.showSelectProblemsVC()
+            self.showSelectProblemsVC(section: section)
         }
     }
     
@@ -200,8 +203,7 @@ extension StudyVC {
         self.present(reportVC, animated: true, completion: nil)
     }
     
-    private func showSelectProblemsVC() {
-        guard let section = self.manager?.section else { return }
+    private func showSelectProblemsVC(section: Section_Core) {
         let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
         guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
         let viewModel = SelectProblemsVM(section: section)
@@ -269,44 +271,12 @@ extension StudyVC: LayoutDelegate {
         self.showAlertWithOK(title: text, text: "")
     }
     
-    func saveComplete() {
+    func dismissSection() {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    func showResultViewController(result: SectionResult) {
-        guard let sectionResultVC = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
-        sectionResultVC.result = result
-        self.present(sectionResultVC, animated: true, completion: nil)
-    }
-    
-    func terminateSection(result: SectionResult, sid: Int, jsonString: String) {
-        let isConnected = true
-        let network = Network()
-        let networkUseCase = NetworkUsecase(network: network)
-        if isConnected && sid >= 0 {
-            networkUseCase.putSectionResult(sid: sid, submissions: jsonString) { [weak self] status in
-                DispatchQueue.main.async {
-                    switch status {
-                    case .SUCCESS:
-                        print("post sections success")
-                    default:
-                        // TODO: 쥐도 새도 모르게 반영한다 하여 따로 UI로 보이는 로직은 없는 상태
-                        print("Error: update submissions fail")
-                    }
-                    self?.previewCore?.setValue(true, forKey: "terminated")
-                    self?.sectionHeaderCore?.setValue(true, forKey: "terminated")
-                    CoreDataManager.saveCoreData()
-                    self?.changeResultLabel()
-                    self?.showResultViewController(result: result)
-                }
-            }
-        } else { // Dummy는 put 안하도록
-            self.previewCore?.setValue(true, forKey: "terminated")
-            self.sectionHeaderCore?.setValue(true, forKey: "terminated")
-            CoreDataManager.saveCoreData()
-            self.changeResultLabel()
-            self.showResultViewController(result: result)
-        }
+    func showResultViewController(section: Section_Core) {
+        
     }
     
     func changeResultLabel() {

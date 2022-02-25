@@ -13,9 +13,7 @@ protocol LayoutDelegate: AnyObject {
     func changeVC(pageData: PageData)
     func reloadButtons()
     func showAlert(text: String)
-    func saveComplete()
-    func showResultViewController(result: SectionResult)
-    func terminateSection(result: SectionResult, sid: Int, jsonString: String)
+    func dismissSection()
     func changeResultLabel()
 }
 
@@ -39,6 +37,7 @@ final class SectionManager {
         self.configure()
         self.configureStartPage()
         self.startTimer()
+        self.configureObservation()
     }
     
     private func configure() {
@@ -173,10 +172,16 @@ final class SectionManager {
         }
     }
     
-    func stopSection() {
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
+            self?.stopTimer()
+        }
+    }
+    
+    func pauseSection() {
         self.stopTimer()
         CoreDataManager.saveCoreData()
-        self.delegate?.saveComplete()
+        self.sendProblemDatas(isDismiss: true)
     }
     
     func stopTimer() {
@@ -196,29 +201,11 @@ final class SectionManager {
         self.section = section
     }
     
-    func terminateSection() {
-        guard let title = self.section.title else { return }
-        CoreDataManager.saveCoreData()
-        // 채점 로직
-        let saveSectionUsecase = SaveSectionUsecase(section: section)
-        self.section.setValue(saveSectionUsecase.wrongs, forKey: "wrongs")
-        // 저장 및 UI 반영
-        self.stopTimer()
-        let result = SectionResult(title: title, totalTime: section.time, sectionUsecase: saveSectionUsecase)
-        CoreDataManager.saveCoreData()
-        self.delegate?.reloadButtons()
-        self.refreshPage()
-        // 결과창 표시
-        if self.section.terminated {
-            self.delegate?.showResultViewController(result: result)
-        } else {
-            self.section.setValue(true, forKey: "terminated")
-            guard let jsonData = try? JSONEncoder().encode(saveSectionUsecase.submissions) else {
-                print("Encode Error")
-                return
-            }
-            guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-            self.delegate?.terminateSection(result: result, sid: Int(section.sid), jsonString: jsonStringData)
+    func sendProblemDatas(isDismiss: Bool) {
+        // uploadQueue -> json 로직
+        // Network post 로직
+        if isDismiss {
+            self.delegate?.dismissSection()
         }
     }
 }

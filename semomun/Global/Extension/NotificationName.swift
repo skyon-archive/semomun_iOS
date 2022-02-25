@@ -23,4 +23,6 @@ extension Notification.Name {
     static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
     static let logout = Self.init(rawValue: "logout")
     static let refreshFavoriteTags = Self.init(rawValue: "refreshFavoriteTags")
+    static let sectionTerminated = Self.init(rawValue: "sectionTerminated")
+    static let showSectionResult = Self.init(rawValue: "showSectionResult")
 }

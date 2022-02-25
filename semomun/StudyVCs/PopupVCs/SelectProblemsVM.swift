@@ -58,6 +58,9 @@ final class SelectProblemsVM {
         } else {
             let newPid = Int(self.problems[index].pid)
             self.scoringQueue.append(newPid)
+            
+            if self.uploadQueue.contains(newPid) { return }
+            self.uploadQueue.append(newPid)
         }
     }
     
@@ -69,18 +72,25 @@ final class SelectProblemsVM {
         }
     }
     
-    func startScoring() {
-        if self.section.terminated {
-            // 전체 문제에 대한 통계 계산
-            // uploadQueue DB 보내기
-        } else {
-            // scoringQueue 에 대한 통계 계산
-            // uploadQueue DB 보내기
-            
-            // if scoringQueue.count == self.totalCount
-            // -> section.terminated = true
-            // NotificationCenter.defaults.post(name: .sectionTerminate)
+    func startScoring(completion: @escaping (Bool) -> Void) {
+        // scoringQueue 모든 Problem -> terminate 처리
+        self.problems.forEach { problem in
+            if self.scoringQueue.contains(Int(problem.pid)) {
+                problem.setValue(true, forKey: "terminated")
+            }
         }
+        // scoringQueue = []
+        self.section.setValue([], forKey: "scoringQueue")
+        // uploadQueue -> setValue 처리
+        self.section.setValue(self.uploadQueue, forKey: "uploadQueue")
+        // count == totalCount -> section.terminated
+        if scoringQueue.count == self.scoreableTotalCount {
+            self.section.setValue(true, forKey: "terminated")
+            NotificationCenter.default.post(name: .sectionTerminated, object: nil)
+        }
+        // save section, VC: dismiss action
+        CoreDataManager.saveCoreData()
+        completion(true)
     }
     
     private func configureAllPids() {

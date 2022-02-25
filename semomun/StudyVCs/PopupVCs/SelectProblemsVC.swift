@@ -47,7 +47,12 @@ class SelectProblemsVC: UIViewController {
     }
     
     @IBAction func startScoring(_ sender: Any) {
-        self.viewModel?.startScoring()
+        self.viewModel?.startScoring() { [weak self] success in
+            guard success == true else { return }
+            self?.presentingViewController?.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: .showSectionResult, object: nil)
+            })
+        }
     }
 }
 
