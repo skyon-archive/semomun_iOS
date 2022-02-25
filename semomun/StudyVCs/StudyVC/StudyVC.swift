@@ -276,7 +276,12 @@ extension StudyVC: LayoutDelegate {
     }
     
     func showResultViewController(section: Section_Core) {
+        let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
+        guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
+        let viewModel = SectionResultVM(section: section)
+        sectionResultVC.configureViewModel(viewModel: viewModel)
         
+        self.present(sectionResultVC, animated: true, completion: nil)
     }
     
     func changeResultLabel() {
