@@ -49,7 +49,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="제출하기">
+                                        <state key="normal" title="채점하기">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -600,8 +600,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yut-Xa-AGb">
                                         <rect key="frame" x="126" y="304.5" width="320" height="121.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="걸린시간" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU2-9o-l3X">
-                                                <rect key="frame" x="16" y="52.5" width="65" height="19.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="풀이시간" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU2-9o-l3X">
+                                                <rect key="frame" x="16" y="52" width="65" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="65" id="hWa-BK-cNs"/>
                                                 </constraints>
@@ -625,7 +625,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 점수" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9J-BO-HiR">
-                                                <rect key="frame" x="16" y="17" width="65" height="19.5"/>
+                                                <rect key="frame" x="16" y="16.5" width="65" height="19.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="65" id="rxo-fH-5wh"/>
                                                 </constraints>
