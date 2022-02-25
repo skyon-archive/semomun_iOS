@@ -81,6 +81,10 @@ final class SectionManager {
         return self.problems[index].star
     }
     
+    func isTerminated(at index: Int) -> Bool {
+        return self.problems[index].terminated
+    }
+    
     func isWrong(at index: Int) -> Bool {
         let problem = self.problems[index]
         return problem.correct == false && problem.terminated

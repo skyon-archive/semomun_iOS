@@ -155,7 +155,7 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let num = manager.title(at: indexPath.item)
         let isStar = manager.isStar(at: indexPath.item)
-        let isTerminated = manager.section.terminated
+        let isTerminated = manager.isTerminated(at: indexPath.item)
         let isWrong = manager.isWrong(at: indexPath.item)
         let isChecked = manager.isChecked(at: indexPath.item)
         let isCurrent = indexPath.item == manager.currentIndex
