@@ -22,7 +22,7 @@ enum SemomunColor: String {
     case tableViewBackground = "tableViewBackground"
     case divider = "divider"
     case grayDefaultColor = "grayDefaultColor"
-    case redWrongColor = "redWrongColor"
+    case munRedColor = "munRedColor"
     case deepMint = "deepMint"
     case lightMainColor = "lightMainColor"
     case textColor = "textColor"
