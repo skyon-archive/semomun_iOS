@@ -10,7 +10,6 @@ import CoreData
 import Combine
 
 protocol LayoutDelegate: AnyObject {
-    func changeVC(pageData: PageData)
     func reloadButtons()
     func showAlert(text: String)
     func dismissSection()
@@ -72,11 +71,6 @@ final class SectionManager {
         let pageData = PageData(page: page)
         self.currentPage = pageData
         self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
-    }
-    
-    private func refreshPage() {
-        guard let currentPage = currentPage else { return }
-        self.delegate?.changeVC(pageData: currentPage)
     }
     
     func title(at index: Int) -> String {

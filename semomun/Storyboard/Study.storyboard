@@ -58,7 +58,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="finish:" destination="PAM-8C-mmn" eventType="touchUpInside" id="x79-rx-JnU"/>
+                                            <action selector="scoringSection:" destination="PAM-8C-mmn" eventType="touchUpInside" id="CyZ-bi-M5b"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aT-4m-aFH">

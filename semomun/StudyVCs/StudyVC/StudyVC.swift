@@ -66,6 +66,7 @@ final class StudyVC: UIViewController {
         self.bindAll()
         self.addCoreDataAlertObserver()
         self.configureShadow()
+        self.configureObservation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,6 +127,18 @@ extension StudyVC {
         self.setShadow(with: self.childFrameView)
         self.beforeFrameView.addShadow(direction: .right)
         self.nextFrameView.addShadow(direction: .left)
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .showSectionResult, object: nil, queue: .current) { [weak self] _ in
+            guard let section = self?.manager?.section,
+                  let pageData = self?.manager?.currentPage else { return }
+            
+            self?.changeVC(pageData: pageData)
+            self?.reloadButtons()
+            self?.manager?.sendProblemDatas(isDismiss: false)
+            self?.showResultViewController(section: section)
+        }
     }
 }
 
