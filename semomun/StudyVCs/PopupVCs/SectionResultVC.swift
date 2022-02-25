@@ -80,7 +80,7 @@ extension SectionResultVC {
 extension SectionResultVC {
     private func configureData(result: SectionResult) {
         self.scoreLabel.text = "\(result.score.removeDecimalPoint)점"
-        self.totalScoreLabel.text = "\(result.perfectScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
+        self.totalScoreLabel.text = "\(result.score.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
         self.totalTimeLabel.text = result.time.toTimeString
         self.configureWrongProblems(to: result.wrongProblems)
         self.setProgress(total: result.perfectScore, to: result.score)
