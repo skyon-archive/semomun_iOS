@@ -91,10 +91,6 @@ final class SectionManager {
         return problem.correct == false && problem.terminated
     }
     
-    func isChecked(at index: Int) -> Bool {
-        return self.problems[index].solved != nil
-    }
-    
     func changeNextPage() {
         let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex

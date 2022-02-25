@@ -157,10 +157,9 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let isStar = manager.isStar(at: indexPath.item)
         let isTerminated = manager.isTerminated(at: indexPath.item)
         let isWrong = manager.isWrong(at: indexPath.item)
-        let isChecked = manager.isChecked(at: indexPath.item)
         let isCurrent = indexPath.item == manager.currentIndex
         
-        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isChecked: isChecked, isCurrent: isCurrent)
+        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCurrent: isCurrent)
         
         return cell
     }
