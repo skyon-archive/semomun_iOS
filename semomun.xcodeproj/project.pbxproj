@@ -874,7 +874,6 @@
 			children = (
 				8716E955279A623500B33A5E /* StudyVC.swift */,
 				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
-				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
 				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
 				87C85EA9276F6C55001C9C4A /* Model */,
 			);
@@ -887,6 +886,8 @@
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
 				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
 				8784795727C87F18000C6307 /* SectionResultVM.swift */,
+				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
+				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
 				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
 				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
 				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
@@ -1099,7 +1100,6 @@
 			isa = PBXGroup;
 			children = (
 				87C85EBC276F6D13001C9C4A /* PageData.swift */,
-				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
 				87C85EC0276F6D32001C9C4A /* Submission.swift */,
 			);
 			path = Model;
