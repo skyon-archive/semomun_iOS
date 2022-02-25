@@ -10,8 +10,9 @@ import UIKit
 class ProblemNameCell: UICollectionViewCell {
     static let identifier = "ProblemNameCell"
     
+    @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var num: UILabel!
-    @IBOutlet weak var checkImageView: UIImageView!
+    @IBOutlet weak var bookmark: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,49 +25,36 @@ class ProblemNameCell: UICollectionViewCell {
     }
     
     private func resetUI() {
-        self.contentView.backgroundColor = .white
-        self.num.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        self.num.textColor = UIColor(.grayDefaultColor)
+        self.frameView.layer.borderColor = UIColor(.semoGray)?.cgColor
+        self.frameView.layer.borderWidth = 1
+        self.frameView.transform = CGAffineTransform.identity
+        self.bookmark.isHidden = true
+        self.num.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        self.num.textColor = UIColor(.semoGray)
         self.num.text = ""
-        self.checkImageView.isHidden = true
     }
     
-    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isChecked: Bool, isCurrent: Bool) {
+    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isCurrent: Bool) {
         self.num.text = num
         
         if isStar {
-            self.checkImageView.isHidden = false
+            self.bookmark.isHidden = false
         }
         
         if isTerminated {
-            self.contentView.layer.borderColor = UIColor.clear.cgColor
+            self.frameView.layer.borderWidth = 2
+            self.num.font = UIFont.systemFont(ofSize: 20, weight: .medium)
             if isWrong {
-                self.contentView.backgroundColor = UIColor(.redWrongColor)
-                self.num.textColor = .white
+                self.frameView.layer.borderColor = UIColor(.munRedColor)?.cgColor
+                self.num.textColor = UIColor(.munRedColor)
             } else {
-                self.contentView.backgroundColor = UIColor(.lightMainColor)
+                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
                 self.num.textColor = UIColor(.deepMint)
             }
-            if isCurrent {
-                self.num.font = UIFont.systemFont(ofSize: 18, weight: .black)
-            }
-            return
-        }
-        
-        if isChecked {
-            self.num.textColor = UIColor(.mainColor)
-            self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
-        } else {
-            self.num.textColor = UIColor(.grayDefaultColor)
-            self.contentView.layer.borderColor = UIColor(.grayDefaultColor)?.cgColor
         }
         
         if isCurrent {
-            self.num.font = UIFont.systemFont(ofSize: 18, weight: .black)
-            if !isChecked {
-                self.num.textColor = .black
-                self.contentView.layer.borderColor = UIColor.black.cgColor
-            }
+            self.frameView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }
     }
 }
