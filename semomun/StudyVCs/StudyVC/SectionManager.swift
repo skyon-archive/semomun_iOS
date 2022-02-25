@@ -169,6 +169,8 @@ final class SectionManager {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
             self?.stopTimer()
+            self?.section.setValue(true, forKey: "terminated")
+            CoreDataManager.saveCoreData()
         }
     }
     

@@ -25,9 +25,8 @@ final class SectionResultVM {
         self.sectionTitle = self.section.title
         let problems = self.section.problemCores?
             .sorted(by: { $0.orderIndex < $1.orderIndex}) ?? []
-            .filter({ $0.terminated} )
         
-        problems.forEach { problem in
+        problems.filter { $0.terminated }.forEach { problem in
             // 문제 배점 누적
             self.perfectScore += problem.point
             // 문제 걸린시간 누적
