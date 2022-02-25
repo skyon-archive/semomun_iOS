@@ -20,7 +20,7 @@ class SectionResultVC: UIViewController {
     @IBOutlet weak var wrongProblems: UICollectionView!
     @IBOutlet weak var wrongsHight: NSLayoutConstraint!
     private var wrongs: [String] = []
-    var result: SectionResult?
+    private var viewModel: SectionResultVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,10 @@ class SectionResultVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func configureViewModel(viewModel: SectionResultVM) {
+        self.viewModel = viewModel
+    }
+    
     private func configureDataSource() {
         self.wrongProblems.dataSource = self
     }
@@ -45,13 +49,13 @@ class SectionResultVC: UIViewController {
     }
     
     private func configureData() {
-        guard let result = self.result else { return }
-        self.titleLabel.text = result.title
-        self.scoreLabel.text = "\(result.totalScore.removeDecimalPoint)점"
-        self.totalScoreLabel.text = "\(result.totalScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
-        self.totalTimeLabel.text = result.totalTime.toTimeString
-        self.configureWrongProblems(to: result.wrongProblems)
-        self.setProgress(total: result.perfectScore, to: result.totalScore)
+//        guard let result = self.result else { return }
+//        self.titleLabel.text = result.title
+//        self.scoreLabel.text = "\(result.totalScore.removeDecimalPoint)점"
+//        self.totalScoreLabel.text = "\(result.totalScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
+//        self.totalTimeLabel.text = result.totalTime.toTimeString
+//        self.configureWrongProblems(to: result.wrongProblems)
+//        self.setProgress(total: result.perfectScore, to: result.totalScore)
     }
     
     private func configureWrongProblems(to problems: [String]) {
