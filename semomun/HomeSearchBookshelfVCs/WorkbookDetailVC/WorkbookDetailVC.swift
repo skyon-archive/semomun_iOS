@@ -190,8 +190,8 @@ extension WorkbookDetailVC {
         guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
-        solvingVC.previewCore = preview
         solvingVC.sectionHeaderCore = sectionHeader
+        solvingVC.previewCore = preview
         
         self.present(solvingVC, animated: true, completion: nil)
     }

@@ -24,15 +24,16 @@ final class SectionManager {
     private(set) var section: Section_Core
     private(set) var currentIndex: Int = 0
     private weak var delegate: LayoutDelegate?
+    private let sectionHeader: SectionHeader_Core
+    private let preview: Preview_Core
     private var timer: Timer!
     private var isRunning: Bool = true
     
-    init(delegate: LayoutDelegate, section: Section_Core, isTest: Bool = false) {
+    init(delegate: LayoutDelegate, section: Section_Core, sectionHeader: SectionHeader_Core, preview: Preview_Core) {
         self.delegate = delegate
         self.section = section
-        if isTest {
-            self.configureMock()
-        }
+        self.sectionHeader = sectionHeader
+        self.preview = preview
         self.configure()
         self.configureStartPage()
         self.startTimer()
@@ -174,7 +175,10 @@ final class SectionManager {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
             self?.stopTimer()
             self?.section.setValue(true, forKey: "terminated")
+            self?.sectionHeader.setValue(true, forKey: "terminated")
+            // TODO: preview 상에 진도율 반영 로직
             CoreDataManager.saveCoreData()
+            self?.delegate?.changeResultLabel()
         }
     }
     
@@ -202,6 +206,7 @@ final class SectionManager {
     }
     
     func sendProblemDatas(isDismiss: Bool) {
+        // TODO: Network 상에 반영 로직
         // uploadQueue -> json 로직
         // Network post 로직
         if isDismiss {
