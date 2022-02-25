@@ -60,6 +60,9 @@ class PageVM {
             assertionFailure("타이머가 중복 실행되려고합니다.")
             return
         }
+        // Single 타입의 경우 terminated 된 문제는 timer를 반영 안한다
+        if self.problems.count == 1 && self.problem?.terminated ?? false { return }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
         self.isTimeRecording = true
     }
