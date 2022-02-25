@@ -234,7 +234,7 @@ extension SingleWithTextAnswerVC {
     }
     
     func configureTimerView() {
-        guard let time = self.viewModel?.timeSpentOnPage else { return }
+        guard let time = self.viewModel?.problem?.time else { return }
         
         self.view.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false

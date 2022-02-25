@@ -169,8 +169,8 @@ extension SingleWithNoAnswerVC {
     }
     
     func configureTimerView() {
-        guard let problem = self.viewModel?.problem,
-              let time = self.viewModel?.timeSpentOnPage else { return }
+        guard let problem = self.viewModel?.problem else { return }
+        let time = problem.time
         
         if problem.terminated {
             self.view.addSubview(self.timerView)
