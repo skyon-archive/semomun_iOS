@@ -62,6 +62,8 @@ class PageVM {
         }
         // Single 타입의 경우 terminated 된 문제는 timer를 반영 안한다
         if self.problems.count == 1 && self.problem?.terminated ?? false { return }
+        // Multy 타입의 경우 terminated 된 문제수가 problems.count 와 같을시 timer를 반영 안한다
+        if self.problems.filter({ $0.terminated }).count == self.problems.count { return }
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
         self.isTimeRecording = true
@@ -73,12 +75,22 @@ class PageVM {
     }
     
     @objc func updateTime() {
+        print("timer active")
         self.timeSpentOnPage += 1
-        let timeSpentPerProblems = Double(self.timeSpentOnPage) / Double(self.problems.count)
-        let perTime = Int64(ceil(timeSpentPerProblems))
-        for (idx, problem) in problems.enumerated() {
-            let time = self.timeSpentPerProblems[idx] + perTime
-            problem.setValue(time, forKey: "time")
+        if self.problems.count == 1 {
+            let time = self.timeSpentPerProblems[0] + self.timeSpentOnPage
+            self.problems[0].setValue(time, forKey: "time")
+        } else {
+            let targetProblemsCount = self.problems.filter({ $0.terminated == false }).count
+            let timeSpentPerProblems = Double(self.timeSpentOnPage) / Double(targetProblemsCount)
+            let perTime = Int64(ceil(timeSpentPerProblems))
+            
+            for (idx, problem) in problems.enumerated() {
+                if problem.terminated == false {
+                    let time = self.timeSpentPerProblems[idx] + perTime
+                    problem.setValue(time, forKey: "time")
+                }
+            }
         }
     }
     
