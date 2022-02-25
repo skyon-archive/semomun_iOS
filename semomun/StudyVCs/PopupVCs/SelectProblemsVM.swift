@@ -51,6 +51,8 @@ final class SelectProblemsVM {
     }
     
     func toggle(at index: Int) {
+        guard self.problems[index].terminated == false else { return }
+        
         if self.isChecked(at: index) {
             let targetPid = Int(self.problems[index].pid)
             guard let targetIndex = self.scoringQueue.firstIndex(of: targetPid) else { return }
