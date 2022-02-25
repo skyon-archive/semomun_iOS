@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class SectionResultVC: UIViewController {
     static let identifier = "SectionResultVC"
@@ -21,13 +22,14 @@ class SectionResultVC: UIViewController {
     @IBOutlet weak var wrongsHight: NSLayoutConstraint!
     private var wrongs: [String] = []
     private var viewModel: SectionResultVM?
+    private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.configureDataSource()
         self.configureUI()
-        self.configureData()
+        self.bindAll()
+        self.viewModel?.calculateResult()
     }
     
     @IBAction func close(_ sender: Any) {
@@ -47,15 +49,41 @@ class SectionResultVC: UIViewController {
         self.progressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
         self.progressView.progressColor = UIColor(.mainColor) ?? .black
     }
+}
+
+extension SectionResultVC {
+    private func bindAll() {
+        self.bindTitle()
+        self.bindResult()
+    }
     
-    private func configureData() {
-//        guard let result = self.result else { return }
-//        self.titleLabel.text = result.title
-//        self.scoreLabel.text = "\(result.totalScore.removeDecimalPoint)점"
-//        self.totalScoreLabel.text = "\(result.totalScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
-//        self.totalTimeLabel.text = result.totalTime.toTimeString
-//        self.configureWrongProblems(to: result.wrongProblems)
-//        self.setProgress(total: result.perfectScore, to: result.totalScore)
+    private func bindTitle() {
+        self.viewModel?.$sectionTitle
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] title in
+                self?.titleLabel.text = title ?? ""
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindResult() {
+        self.viewModel?.$result
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                guard let result = result else { return }
+                self?.configureData(result: result)
+            })
+            .store(in: &self.cancellables)
+    }
+}
+
+extension SectionResultVC {
+    private func configureData(result: SectionResult) {
+        self.scoreLabel.text = "\(result.score.removeDecimalPoint)점"
+        self.totalScoreLabel.text = "\(result.perfectScore.removeDecimalPoint) / \(result.perfectScore.removeDecimalPoint)점"
+        self.totalTimeLabel.text = result.time.toTimeString
+        self.configureWrongProblems(to: result.wrongProblems)
+        self.setProgress(total: result.perfectScore, to: result.score)
     }
     
     private func configureWrongProblems(to problems: [String]) {
