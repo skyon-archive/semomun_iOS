@@ -255,11 +255,12 @@ extension MainViewController {
     }
     
     private func showSolvingVC(section: Section_Core, preview: Preview_Core) {
-        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
-        solvingVC.modalPresentationStyle = .fullScreen
-        solvingVC.sectionCore = section
-        solvingVC.previewCore = preview
-        self.present(solvingVC, animated: true, completion: nil)
+//        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+//        solvingVC.modalPresentationStyle = .fullScreen
+//        solvingVC.configureManager(section: section, sectionHeader: <#T##SectionHeader_Core#>)
+//        solvingVC.sectionCore = section
+//        solvingVC.previewCore = preview
+//        self.present(solvingVC, animated: true, completion: nil)
     }
 }
 

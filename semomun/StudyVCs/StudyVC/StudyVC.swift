@@ -109,17 +109,17 @@ final class StudyVC: UIViewController {
 
 // MARK: - Configure
 extension StudyVC {
+    private func configureManager() {
+        guard let section = self.sectionCore,
+              let sectionHeader = self.sectionHeaderCore,
+              let preview = self.previewCore else { return }
+        
+        self.manager = SectionManager(delegate: self, section: section, sectionHeader: sectionHeader, preview: preview)
+    }
+    
     private func configureCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-    }
-    
-    private func configureManager() {
-        if let sectionCore = self.sectionCore {
-            self.manager = SectionManager(delegate: self, section: sectionCore)
-        } else {
-            self.manager = SectionManager(delegate: self, section: Section_Core(context: CoreDataManager.shared.context), isTest: true)
-        }
     }
     
     private func configureShadow() {
@@ -210,7 +210,7 @@ extension StudyVC {
     
     private func showReportView() {
         guard let pageData = self.manager?.currentPage else { return }
-        guard let title = self.sectionCore?.title else { return }
+        guard let title = self.manager?.sectionTitle else { return }
         let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
         
         self.present(reportVC, animated: true, completion: nil)
