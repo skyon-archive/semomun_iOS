@@ -104,16 +104,6 @@ extension LoginSignupVC {
         self.bodyFrame.addShadow(direction: .top)
         self.configureColoredFrameLabels()
     }
-    private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        let mainColor = UIColor(.mainColor)
-        if isFilled {
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = mainColor
-        } else {
-            button.setTitleColor(mainColor, for: .normal)
-            button.backgroundColor = .white
-        }
-    }
     private func configureColoredFrameLabels() {
         self.coloredFrameLabels = (0..<3).map { _ in
             let label = ColoredFrameLabel()
