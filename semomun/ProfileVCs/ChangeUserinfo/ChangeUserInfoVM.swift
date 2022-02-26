@@ -33,6 +33,7 @@ final class ChangeUserInfoVM {
         case authComplete
         case wrongAuthNumber
         case invaildPhoneNum
+        case cancel
     }
     
     @Published private(set) var alertStatus: ChangeUserInfoAlert?
@@ -147,7 +148,6 @@ extension ChangeUserInfoVM {
                 self?.alertStatus = .withoutPopVC(.networkError)
             }
         }
-        self.phoneAuthStatus = .authNumSent
     }
     
     func confirmAuthNumber(with authNumber: String) {
@@ -164,7 +164,7 @@ extension ChangeUserInfoVM {
     
     /// 인증 취소
     func cancelPhoneAuth() {
-        self.phoneAuthStatus = nil
+        self.phoneAuthStatus = .cancel
         self.tempPhoneNum = nil
     }
 }

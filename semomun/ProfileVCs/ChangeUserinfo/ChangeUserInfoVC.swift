@@ -301,7 +301,7 @@ extension ChangeUserInfoVC {
                     self?.showAlertWithOK(title: "인증번호가 전송되었습니다", text: "")
                     self?.coloredFrameLabels[1].isHidden = true
                     self?.changeAdditionalTFForAuthNum()
-                case .none:
+                case .cancel:
                     self?.authPhoneNumButton.setTitle("인증요청", for: .normal)
                     guard let button = self?.authPhoneNumButton else { break }
                     self?.configureButtonUI(button: button, isFilled: true)
@@ -309,6 +309,8 @@ extension ChangeUserInfoVC {
                     self?.coloredFrameLabels[1].configure(type: .warning("잘못된 인증번호입니다"))
                 case .invaildPhoneNum:
                     self?.coloredFrameLabels[1].configure(type: .warning("잘못된 전화번호입니다"))
+                case .none:
+                    break
                 }
             }
             .store(in: &self.cancellables)
