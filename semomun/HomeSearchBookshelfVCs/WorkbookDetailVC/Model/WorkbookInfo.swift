@@ -34,29 +34,21 @@ struct WorkbookInfo {
     init(workbookDTO: WorkbookOfDB) {
         self.title = workbookDTO.title
         self.author = "저자 정보 없음"
-        self.publisher = workbookDTO.publisher
+        self.publisher = workbookDTO.publishCompany
         self.releaseDate = ""
         self.fileSize = "30.8MB"
         self.isbn = "987-6543210987"
-        self.price = workbookDTO.price
+        self.price = Int(workbookDTO.originalPrice) ?? 0
         self.image = nil
         self.imageURL = workbookDTO.bookcover
         self.configureReleaseDate(workbookDTO: workbookDTO)
     }
     
     private mutating func configureReleaseDate(previewCore: Preview_Core) {
-        if let year = previewCore.year {
-            if let month = previewCore.month {
-                self.releaseDate = "\(year)년 \(month)월"
-            } else {
-                self.releaseDate = "\(year)년"
-            }
-        } else {
-            self.releaseDate = ""
-        }
+        self.releaseDate = "CoreData: data 반영 예정"
     }
     
     private mutating func configureReleaseDate(workbookDTO: WorkbookOfDB) {
-        self.releaseDate = "\(workbookDTO.year)년 \(workbookDTO.month)월"
+        self.releaseDate = "\(workbookDTO.date)"
     }
 }
