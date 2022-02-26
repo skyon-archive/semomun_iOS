@@ -241,7 +241,7 @@ extension NetworkUsecase {
             completion(.DECODEERROR, [])
             return
         }
-        completion(.SUCCESS, searchPreview.workbooks[..<300].shuffled())
+        completion(.SUCCESS, searchPreview.workbooks.shuffled())
     }
 }
 
@@ -524,6 +524,7 @@ extension NetworkUsecase: UserInfoFetchable {
                 return
             }
             if statusCode == 504 {
+                print("server Error")
                 completion(.INSPECTION, nil)
                 return
             }
@@ -544,6 +545,42 @@ extension NetworkUsecase: UserInfoFetchable {
                 return
             }
             completion(.SUCCESS, userInfo)
+        }
+    }
+}
+
+
+extension NetworkUsecase: S3ImageFetchable {
+    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void) {
+        let param = ["uuid": uuid, "type": type.rawValue]
+        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { requestResult in
+            guard let statusCode = requestResult.statusCode else {
+                print("Error: no statusCode")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode == 504 {
+                print("server Error")
+                completion(.INSPECTION, nil)
+                return
+            }
+            guard let data = requestResult.data else {
+                print("Error: no data")
+                completion(.ERROR, nil)
+                return
+            }
+            if statusCode != 200 {
+                print("Error: \(statusCode)")
+                print("\(optional: String(data: data, encoding: .utf8))")
+                completion(.ERROR, nil)
+                return
+            }
+            guard let imageUrl: String = String(data: data, encoding: .utf8) else {
+                print("Error: Decode")
+                completion(.DECODEERROR, nil)
+                return
+            }
+            completion(.SUCCESS, imageUrl)
         }
     }
 }
