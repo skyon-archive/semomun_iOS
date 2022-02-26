@@ -13,7 +13,7 @@ final class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     
-    private var viewModel: ChangeUserInfoVM? = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
+    private var viewModel: ChangeUserInfoVM?
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     private var coloredFrameLabels: [ColoredFrameLabel] = []
@@ -44,6 +44,7 @@ final class LoginSignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureViewModel()
         self.configureUI()
         self.configureTableViewDelegate()
         self.configureTextFieldDelegate()
@@ -126,6 +127,13 @@ extension LoginSignupVC {
             label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
             label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 3)
         ])
+    }
+}
+
+// MARK: Configure ViewModel
+extension LoginSignupVC {
+    private func configureViewModel() {
+        self.viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
     }
 }
 
