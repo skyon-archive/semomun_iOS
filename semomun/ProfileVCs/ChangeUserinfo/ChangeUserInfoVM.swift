@@ -246,12 +246,7 @@ extension ChangeUserInfoVM {
     private func saveUserInfoToCoreData(userInfo: UserInfo) {
         guard self.checkIfSubmitAvailable() else { return }
         guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
-        userCoreData.setValue(self.nickname, forKey: "nickName")
-        userCoreData.setValue(self.phonenum, forKey: "phoneNumber")
-        userCoreData.setValue(self.selectedMajor, forKey: "major")
-        userCoreData.setValue(self.selectedMajorDetail, forKey: "majorDetail")
-        userCoreData.setValue(self.schoolName, forKey: "schoolName")
-        userCoreData.setValue(self.graduationStatus, forKey: "graduationStatus")
+        userCoreData.setValues(userInfo: userInfo)
         CoreDataManager.saveCoreData()
     }
 }
