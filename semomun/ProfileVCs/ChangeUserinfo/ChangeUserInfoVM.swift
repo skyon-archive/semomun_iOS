@@ -224,15 +224,14 @@ extension ChangeUserInfoVM {
     }
     
     private func checkIfSubmitAvailable() -> Bool {
-        guard [self.nickname, self.phonenum, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" }) else {
-            self.alertStatus = .withoutPopVC(.incomplateData)
-            return false
-        }
-        return true
+        return [self.nickname, self.phonenum, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" })
     }
     
     private func sendUserInfoToNetwork(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
-        guard self.checkIfSubmitAvailable() else { return }
+        guard self.checkIfSubmitAvailable() else {
+            self.alertStatus = .withoutPopVC(.incomplateData)
+            return
+        }
         self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { status in
             switch status {
             case .SUCCESS:
@@ -244,7 +243,10 @@ extension ChangeUserInfoVM {
     }
     
     private func saveUserInfoToCoreData(userInfo: UserInfo) {
-        guard self.checkIfSubmitAvailable() else { return }
+        guard self.checkIfSubmitAvailable() else {
+            self.alertStatus = .withoutPopVC(.incomplateData)
+            return
+        }
         guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
         userCoreData.setValues(userInfo: userInfo)
         CoreDataManager.saveCoreData()
