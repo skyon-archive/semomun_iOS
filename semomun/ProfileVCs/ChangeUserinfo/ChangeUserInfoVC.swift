@@ -56,6 +56,7 @@ final class ChangeUserInfoVC: UIViewController {
         super.viewDidLoad()
         self.configureDelegate()
         self.bindAll()
+        self.viewModel?.fetchData()
         self.configureUI()
     }
     

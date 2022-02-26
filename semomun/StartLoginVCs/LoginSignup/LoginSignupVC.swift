@@ -49,6 +49,7 @@ final class LoginSignupVC: UIViewController {
         self.configureTableViewDelegate()
         self.configureTextFieldDelegate()
         self.bindAll()
+        self.viewModel?.fetchData()
         self.phoneNumTextFieldTrailingMargin = self.phoneNumTextFieldTrailingConstraint.constant
     }
     
