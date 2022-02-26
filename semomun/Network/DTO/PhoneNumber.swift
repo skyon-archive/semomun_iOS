@@ -17,7 +17,7 @@ struct PhoneNumber {
         self.elevenDigit = phoneNum.split(separator: "-").joined()
     }
     init?(withHypenAndContryCode phoneNum: String) {
-        guard phoneNum.matchRegularExpression("^\\+82-\\d{2}-\\d{4}-\\d{4}$") else { return nil }
+        guard phoneNum.isValidPhoneNumberWithCountryCode else { return nil }
         self.elevenDigit = phoneNum.replacingOccurrences(of: "^\\+82-(\\d{2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
     }
     
