@@ -18,29 +18,43 @@ extension Preview_Core {
     @NSManaged public var wid: Int64 // Workbook id
     @NSManaged public var image: Data? // Workbook Image
     @NSManaged public var title: String? // Workbook title
-    @NSManaged public var subject: String? // Category 의 상단 분류값
     @NSManaged public var sids: [Int] // Sections id
-    @NSManaged public var terminated: Bool // 제출된 Workbook
-    @NSManaged public var category: String? // Workbook 의 category
-    @NSManaged public var downloaded: Bool // 다운완료여부
-    
-    @NSManaged public var year: String? // 출판연도
-    @NSManaged public var month: String? // 출판달
     @NSManaged public var price: Double // 가격
     @NSManaged public var detail: String? // 문제집 정보
     @NSManaged public var publisher: String? // 출판사
-    @NSManaged public var grade: String? // 학년
-    
-    @NSManaged public var isHide: Bool // 숨김 여부
-    @NSManaged public var isReproduction: Bool // 복제 여부
-    @NSManaged public var isNotFree: Bool // 유료 여부
-    
-    @NSManaged public var maxCategory: String? // 대대대분류
-    @NSManaged public var largeLargeCategory: String? // 대대분류
-    @NSManaged public var largeCategory: String? // 대분류
-    @NSManaged public var mediumCategory: String? // 중분류
-    @NSManaged public var smallCategory: String? // 중분류
     @NSManaged public var tags: [String] // 중분류
+    
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var subject: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var category: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var year: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var month: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var terminated: Bool //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var downloaded: Bool //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var grade: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var isHide: Bool //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var isReproduction: Bool //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var isNotFree: Bool //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var maxCategory: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var largeLargeCategory: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var largeCategory: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var mediumCategory: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var smallCategory: String? //Deprecated(1.1.3)
+    
 }
 
 @objc(Preview_Core)
@@ -53,22 +67,10 @@ public class Preview_Core: NSManagedObject{
     func setValues(preview: PreviewOfDB, workbook: WorkbookOfDB, sids: [Int], baseURL: String, category: String) {
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
-        self.setValue(workbook.subject, forKey: "subject")
         self.setValue(sids, forKey: "sids")
-        self.setValue(false, forKey: "terminated")
-        self.setValue(false, forKey: "downloaded")
-        self.setValue(category, forKey: "category")
-        self.setValue(workbook.year, forKey: "year")
-        self.setValue(workbook.month, forKey: "month")
-        self.setValue(Double(workbook.price), forKey: "price")
+        self.setValue(Double(workbook.originalPrice), forKey: "price")
         self.setValue(workbook.detail, forKey: "detail")
-        self.setValue(workbook.publisher, forKey: "publisher")
-        self.setValue(workbook.grade, forKey: "grade")
-        
-        self.setValue(false, forKey: "isHide") // default
-        self.setValue(false, forKey: "isReproduction") // default
-        let isNotFree = Double(workbook.price) != Double("0")
-        self.setValue(isNotFree, forKey: "isNotFree") // default
+        self.setValue(workbook.publishCompany, forKey: "publisher")
         self.setValue([], forKey: "tags") // default
         
         if let url = URL(string: baseURL + preview.bookcover) {
@@ -88,22 +90,10 @@ public class Preview_Core: NSManagedObject{
         let workbook = searchWorkbook.workbook
         self.setValue(Int64(workbook.wid), forKey: "wid")
         self.setValue(workbook.title, forKey: "title")
-        self.setValue(workbook.subject, forKey: "subject")
         self.setValue(searchWorkbook.sections.map(\.sid), forKey: "sids")
-        self.setValue(false, forKey: "terminated")
-        self.setValue(false, forKey: "downloaded")
-        self.setValue(workbook.category, forKey: "category")
-        self.setValue(workbook.year, forKey: "year")
-        self.setValue(workbook.month, forKey: "month")
-        self.setValue(Double(workbook.price), forKey: "price")
+        self.setValue(Double(workbook.originalPrice), forKey: "price")
         self.setValue(workbook.detail, forKey: "detail")
-        self.setValue(workbook.publisher, forKey: "publisher")
-        self.setValue(workbook.grade, forKey: "grade")
-        
-        self.setValue(false, forKey: "isHide")
-        self.setValue(false, forKey: "isReproduction")
-        let isNotFree = Double(workbook.price) != Double("0")
-        self.setValue(isNotFree, forKey: "isNotFree")
+        self.setValue(workbook.publishCompany, forKey: "publisher")
         self.setValue([], forKey: "tags")
         
         if let url = URL(string: NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover) {

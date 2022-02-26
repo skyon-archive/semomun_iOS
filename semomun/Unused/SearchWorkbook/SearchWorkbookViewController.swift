@@ -330,7 +330,7 @@ extension SearchWorkbookViewController {
             
             DispatchQueue.global().async {
                 self.savePreview(index: index, workbook: workbook, sids: sids)
-                self.saveSectionHeader(sections: sections, subject: workbook.subject, wid: workbook.wid)
+//                self.saveSectionHeader(sections: sections, subject: workbook.subject, wid: workbook.wid)
             }
         }
     }
