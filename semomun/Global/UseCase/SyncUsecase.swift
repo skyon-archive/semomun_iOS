@@ -10,7 +10,7 @@ import Foundation
 typealias SyncFetchable = (UserInfoFetchable)
 
 struct SyncUsecase {
-
+    
     static private let networkUsecase: SyncFetchable = NetworkUsecase(network: Network())
     
     static func syncUserDataFromDB(completion: @escaping (Bool) -> Void) {
@@ -18,10 +18,10 @@ struct SyncUsecase {
             switch status {
             case .SUCCESS:
                 guard let userInfo = userInfo,
-                        let userCoreData = CoreUsecase.fetchUserInfo() else {
-                    completion(false)
-                    return
-                }
+                      let userCoreData = CoreUsecase.fetchUserInfo() else {
+                          completion(false)
+                          return
+                      }
                 userCoreData.setValues(userInfo: userInfo)
                 CoreDataManager.saveCoreData()
                 completion(true)
