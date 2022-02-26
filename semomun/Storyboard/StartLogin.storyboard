@@ -1346,6 +1346,7 @@
                         <outlet property="majorDetailCollectionView" destination="WIc-2e-opj" id="8kg-m9-Hfd"/>
                         <outlet property="nickname" destination="KBB-eu-BQ0" id="6VU-rr-1H1"/>
                         <outlet property="nicknameFrame" destination="y3h-FH-cZN" id="U8V-46-RRS"/>
+                        <outlet property="phoneNumTextFieldTrailingConstraint" destination="4VY-pz-rZm" id="Fn4-dm-6Is"/>
                         <outlet property="phonenumFrame" destination="HEd-1x-bQ7" id="SbZ-TN-4rB"/>
                         <outlet property="phonenumTextField" destination="hZu-1p-3dC" id="8kP-EF-lAP"/>
                         <outlet property="requestAgainButton" destination="mGL-iX-xxF" id="kvr-m9-sfJ"/>

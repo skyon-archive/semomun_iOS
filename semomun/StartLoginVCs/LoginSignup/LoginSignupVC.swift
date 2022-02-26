@@ -38,12 +38,17 @@ final class LoginSignupVC: UIViewController {
     @IBOutlet weak var schoolFinder: UIButton!
     @IBOutlet weak var graduationStatusSelector: UIButton!
     
+    @IBOutlet weak var phoneNumTextFieldTrailingConstraint: NSLayoutConstraint!
+    
+    private var phoneNumTextFieldTrailingMargin: CGFloat = 12
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
         self.configureTableViewDelegate()
         self.configureTextFieldDelegate()
         self.bindAll()
+        self.phoneNumTextFieldTrailingMargin = self.phoneNumTextFieldTrailingConstraint.constant
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,13 +88,13 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func submitBypass(_ sender: Any) {
-        #if DEBUG
+#if DEBUG
         guard let userInfo = self.viewModel?.makeUserInfo() else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.configurePopup(isNeeded: true)
         vc.configureSignupInfo(userInfo)
         self.navigationController?.pushViewController(vc, animated: true)
-        #endif
+#endif
     }
     
 }
@@ -219,6 +224,8 @@ extension LoginSignupVC {
                     self?.configureUIForAuthComplete()
                 case .authNumSent:
                     self?.configureUIForAuthSent()
+                case .cancel:
+                    self?.configureUIForAuthCanceled()
                 case .wrongAuthNumber:
                     self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
                 case .invaildPhoneNum:
@@ -249,24 +256,43 @@ extension LoginSignupVC {
 
 extension LoginSignupVC {
     private func configureUIForAuthComplete() {
+        self.getAuthNumButton.isHidden = true
         self.requestAgainButton.isHidden = true
         self.verifyAuthNumButton.isHidden = true
         
         self.authNumTextField.isEnabled = false
-        self.verifyAuthNumButton.isEnabled = false
         
+        self.coloredFrameLabels[1].isHidden = true
         self.coloredFrameLabels[2].configure(type: .success("인증이 완료되었습니다."))
     }
     private func configureUIForAuthSent() {
-        self.coloredFrameLabels[1].isHidden = true
-        self.showAlertWithOK(title: "인증번호가 전송되었습니다.", text: "")
-        
-        self.phonenumTextField.isEnabled = false
-        self.authNumTextField.isEnabled = true
-        
         self.getAuthNumButton.isHidden = true
         self.requestAgainButton.isHidden = false
         self.verifyAuthNumButton.isHidden = false
+        
+        self.authNumTextField.isEnabled = true
+        self.authNumTextField.text = ""
+        
+        self.coloredFrameLabels[1].isHidden = true
+        self.coloredFrameLabels[2].isHidden = true
+        
+        let buttonWidth = self.getAuthNumButton.frame.width
+        self.phoneNumTextFieldTrailingConstraint.constant = -(buttonWidth + 10)
+        
+        self.showAlertWithOK(title: "인증번호가 전송되었습니다.", text: "")
+    }
+    private func configureUIForAuthCanceled() {
+        self.getAuthNumButton.isHidden = false
+        self.requestAgainButton.isHidden = true
+        self.verifyAuthNumButton.isHidden = true
+        
+        self.authNumTextField.isEnabled = false
+        self.authNumTextField.text = ""
+        
+        self.coloredFrameLabels[1].isHidden = true
+        self.coloredFrameLabels[2].isHidden = true
+        
+        self.phoneNumTextFieldTrailingConstraint.constant = self.phoneNumTextFieldTrailingMargin
     }
 }
 
@@ -329,8 +355,30 @@ extension LoginSignupVC: SchoolSelectAction {
 
 extension LoginSignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard self.checkIfTextChangeAvailable(textField) else { return false }
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return self.checkIfTextChangeAvailable(textField)
+    }
+    private func checkIfTextChangeAvailable(_ textField: UITextField) -> Bool {
+        guard textField == phonenumTextField else { return true }
+        switch self.viewModel?.phoneAuthStatus {
+        case .authComplete:
+            self.showAlertWithCancelAndOK(title: "인증 완료됨", text: "인증 완료된 전화번호를 바꾸시겠습니까?") { [weak self] in
+                self?.viewModel?.cancelPhoneAuth()
+            }
+            return false
+        case .authNumSent:
+            self.showAlertWithCancelAndOK(title: "인증 진행중", text: "진행중인 인증을 취소하시겠습니까?") { [weak self] in
+                self?.viewModel?.cancelPhoneAuth()
+            }
+            return false
+        default:
+            break
+        }
+        return true
     }
 }
