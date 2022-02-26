@@ -36,7 +36,7 @@ public class SectionHeader_Core: NSManagedObject {
         self.setValue(Int64(wid), forKey: "wid")
         self.setValue(section.title, forKey: "title")
         self.setValue(section.detail, forKey: "detail")
-        self.setValue(section.cutoff, forKey: "cutoff")
+//        self.setValue(section.cutoff, forKey: "cutoff")
         self.setValue(false, forKey: "downloaded")
         self.setValue(false, forKey: "terminated")
         self.setValue(nil, forKey: "image")

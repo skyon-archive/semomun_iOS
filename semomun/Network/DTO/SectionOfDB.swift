@@ -8,17 +8,18 @@
 import Foundation
 
 struct SectionOfDB: Codable {
-    let sid: Int // 식별값
-    let wid: Int
-    let index: Int
-    let title: String // 문제집 이름
-    let detail: String? // json 형식의 문제집 설명내용
-    let image: String // 문제집 표지
-    let cutoff: String? // json 형식의 커트라인
-    
-    enum CodingKeys: String, CodingKey {
-        case sid, wid, index, title, detail
-        case image = "sectioncover"
-        case cutoff
-    }
+    let wid: Int //속한 workbook 값
+    let sid: Int //식별값
+    let index: Int //섹션 번호
+    let title: String //section 명
+    let detail: String //section 설명
+    let cutoff: Cutoff //json 형식의 커트라인
+    let sectioncover: String //section 표시파일 uuid
+    let size: Int //section 파일크기
+    let audio: String? //음성파일 uuid
+    let audioDetail: String? //json 형식의 음성 파일에 대한 timestamp 등의 값
+    let createdAt: String //생성일자
+    let updatedAt: String //반영일자
 }
+
+struct Cutoff: Codable {}
