@@ -59,7 +59,10 @@ final class ChangeUserInfoVM {
     init(networkUseCase: ChangeUserInfoNetworkUseCase, isSignup: Bool) {
         self.networkUseCase = networkUseCase
         self.isSignup = isSignup
-        if isSignup {
+    }
+    
+    func fetchData() {
+        if self.isSignup {
             self.fetchMajorInfo()
         } else {
             self.getUserInfo { [weak self] in
