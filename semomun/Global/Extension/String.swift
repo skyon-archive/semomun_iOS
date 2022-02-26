@@ -35,6 +35,13 @@ extension String {
         default: return self
         }
     }
+    
+    func matchRegularExpression(_ pattern: String) -> Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
+        return regex.firstMatch(in: self, options: [], range: range) != nil
+    }
+    
     static let pastVersion: String = "1.1.3"
     
     static let currentVersion: String = "2.0"
