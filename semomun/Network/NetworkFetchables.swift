@@ -80,6 +80,11 @@ protocol MarketingConsentSendable {
 protocol ErrorReportable {
     func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
 }
+
 protocol UserInfoFetchable {
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
+}
+
+protocol S3ImageFetchable {
+    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void)
 }
