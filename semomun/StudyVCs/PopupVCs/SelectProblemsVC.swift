@@ -108,12 +108,12 @@ extension SelectProblemsVC {
 extension SelectProblemsVC {
     private func preventScoring() {
         self.startScoringBT.isUserInteractionEnabled = false
-        self.startScoringBT.alpha = 0.5
+        self.startScoringBT.backgroundColor = UIColor(.semoLightGray)
     }
     
     private func activeScoring() {
         self.startScoringBT.isUserInteractionEnabled = true
-        self.startScoringBT.alpha = 1
+        self.startScoringBT.backgroundColor = UIColor(.mainColor)
     }
 }
 
