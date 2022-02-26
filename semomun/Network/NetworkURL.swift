@@ -13,9 +13,15 @@ enum NetworkURL {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
+    enum imageType: String {
+        case bookcover
+        case sectioncover
+        case material
+        case explanation
+        case content
+    }
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-    static let base: String = "https://saemomoon.com"
-//    static let base: String = "http://54.180.80.20:8080"
+    static let base: String = "http://api.semomun.com:8080"
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
@@ -37,6 +43,7 @@ enum NetworkURL {
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
     static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
     static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709&country=kr"
+    static let s3ImageDirectory: String = base + "/s3/presignedUrl"
     
     static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
     static var bookcoverImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }

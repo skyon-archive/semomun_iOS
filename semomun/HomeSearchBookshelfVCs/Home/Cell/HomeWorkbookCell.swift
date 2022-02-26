@@ -24,8 +24,19 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        let stringUrl = NetworkURL.bookcoverImageDirectory(.large) + preview.bookcover
-        guard let url = URL(string: stringUrl) else { return }
-        self.bookcover.kf.setImage(with: url)
+        let networkUsecase = NetworkUsecase(network: Network())
+        networkUsecase.getImageFromS3(uuid: preview.bookcover, type: .bookcover) { [weak self] status, stringUrl in
+            DispatchQueue.main.async { [weak self] in
+                switch status {
+                case .SUCCESS:
+                    guard let stringUrl = stringUrl,
+                          let url = URL(string: stringUrl) else { return }
+                    print(stringUrl)
+                    self?.bookcover.kf.setImage(with: url)
+                default:
+                    print("get image Error")
+                }
+            }
+        }
     }
 }
