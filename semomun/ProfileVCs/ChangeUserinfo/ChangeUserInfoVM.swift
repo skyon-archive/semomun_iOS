@@ -227,7 +227,7 @@ extension ChangeUserInfoVM {
     }
     
     private func checkIfSubmitAvailable() -> Bool {
-        return [self.nickname, self.phonenum, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" })
+        return [self.nickname, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" }) && self.phonenum?.isValidPhoneNumber == true
     }
     
     private func sendUserInfoToNetwork(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
