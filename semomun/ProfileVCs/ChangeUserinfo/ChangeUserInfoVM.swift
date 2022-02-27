@@ -115,7 +115,7 @@ final class ChangeUserInfoVM {
     func makeUserInfo() -> UserInfo {
         let userInfo = UserInfo()
         userInfo.nickName = self.nickname
-        userInfo.phoneNumberWithCountryCode = self.phonenum
+        userInfo.phoneNumber = self.phonenum
         userInfo.major = self.selectedMajor
         userInfo.majorDetail = self.selectedMajorDetail
         userInfo.school = self.schoolName
