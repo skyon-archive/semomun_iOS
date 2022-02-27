@@ -263,12 +263,12 @@ extension SearchWorkbookViewController {
     }
     
     private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
-        guard let workbookVC = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
-        workbookVC.configureViewModel(to: viewModel)
-        workbookVC.configureIsCoreData(to: false)
-        
-        self.present(workbookVC, animated: true, completion: nil)
+//        guard let workbookVC = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+//        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+//        workbookVC.configureViewModel(to: viewModel)
+//        workbookVC.configureIsCoreData(to: false)
+//
+//        self.present(workbookVC, animated: true, completion: nil)
     }
     
     func loadPreviewFromDB() {

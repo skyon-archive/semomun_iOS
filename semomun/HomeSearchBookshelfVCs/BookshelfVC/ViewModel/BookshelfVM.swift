@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 final class BookshelfVM {
-    private let networkUsecse: NetworkUsecase
     private let refreshQueue = OperationQueue()
+    private(set) var networkUsecse: NetworkUsecase
     @Published private(set) var books: [Preview_Core] = []
     @Published private(set) var warning: (String, String)?
     

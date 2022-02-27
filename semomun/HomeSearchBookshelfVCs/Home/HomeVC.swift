@@ -18,7 +18,6 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var tagsStackView: UIStackView!
     @IBOutlet weak var recentHeight: NSLayoutConstraint!
     @IBOutlet weak var newestHeight: NSLayoutConstraint!
-    private var networkUsecase: NetworkUsecase?
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
     private var bannerAdsAutoScrollTimer: Timer?
@@ -29,7 +28,6 @@ final class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setShadow(with: navigationTitleView)
-        self.configureNetworkUsecase()
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
@@ -55,14 +53,9 @@ final class HomeVC: UIViewController {
 
 // MARK: - Configure
 extension HomeVC {
-    private func configureNetworkUsecase() {
+    private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
-        self.networkUsecase = networkUsecase
-    }
-    
-    private func configureViewModel() {
-        guard let networkUsecase = self.networkUsecase else { return }
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
     }
     
@@ -284,7 +277,7 @@ extension HomeVC: UICollectionViewDataSource {
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWorkbookCell.identifier, for: indexPath) as? HomeWorkbookCell else { return UICollectionViewCell() }
-            cell.configureNetworkUsecase(to: self.networkUsecase)
+            cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
             
             switch collectionView {
             case self.bestSellers:
@@ -345,7 +338,8 @@ extension HomeVC: UICollectionViewDelegate {
     private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
+        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
@@ -354,7 +348,8 @@ extension HomeVC: UICollectionViewDelegate {
     private func showWorkbookDetailVC(book: Preview_Core) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        let viewModel = WorkbookViewModel(previewCore: book)
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
+        let viewModel = WorkbookViewModel(previewCore: book, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)

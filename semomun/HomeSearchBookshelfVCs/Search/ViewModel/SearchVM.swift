@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 final class SearchVM {
-    private let networkUsecase: NetworkUsecase
     private let searchQueue = OperationQueue()
     private(set) var selectedWid: Int?
+    private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var tags: [String] = []
     @Published private(set) var workbook: SearchWorkbook?
     
