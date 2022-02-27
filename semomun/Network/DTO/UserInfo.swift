@@ -9,11 +9,11 @@ import Foundation
 
 class UserInfo: Codable, CustomStringConvertible {
     var description: String {
-        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phone), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.school), \(optional: self.graduationStatus))"
+        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phoneNumberWithCountryCode), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.school), \(optional: self.graduationStatus))"
     }
     var name: String?
     var nickName: String?
-    var phone: String?
+    var phoneNumberWithCountryCode: String?
     var favoriteCategory: String?
     var major: String?
     var majorDetail: String?
@@ -23,6 +23,11 @@ class UserInfo: Codable, CustomStringConvertible {
     var graduationStatus: String?
     var uid: String?
     var profileImage: Data?
+    
+    var phoneNumber: String? {
+        guard self.phoneNumberWithCountryCode?.isValidPhoneNumberWithCountryCode == true else { return nil }
+        return self.phoneNumberWithCountryCode?.replacingOccurrences(of: "^\\+82-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
+    }
     
     func configureName(to name: String?) {
         if let name = name {
@@ -42,9 +47,9 @@ class UserInfo: Codable, CustomStringConvertible {
     
     func configurePhone(to phone: String?) {
         if let phone = phone {
-            self.phone = phone
+            self.phoneNumberWithCountryCode = phone
         } else {
-            self.phone = String.randomPhoneNumber
+            self.phoneNumberWithCountryCode = String.randomPhoneNumber
         }
     }
     
@@ -81,7 +86,7 @@ class UserInfo: Codable, CustomStringConvertible {
     }
     
     var isValidSurvay: Bool {
-        return [self.nickName, self.phone, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
+        return [self.nickName, self.phoneNumberWithCountryCode, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
             $0 != nil && $0 != ""
         }
     }
@@ -89,7 +94,7 @@ class UserInfo: Codable, CustomStringConvertible {
     func setValues(userInfo: UserCoreData) {
         self.name = userInfo.name
         self.nickName = userInfo.nickName
-        self.phone = userInfo.phoneNumber
+        self.phoneNumberWithCountryCode = userInfo.phoneNumber
         self.favoriteCategory = userInfo.favoriteCategory
         self.major = userInfo.major
         self.majorDetail = userInfo.majorDetail
