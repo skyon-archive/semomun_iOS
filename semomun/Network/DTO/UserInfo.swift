@@ -13,7 +13,7 @@ class UserInfo: Codable, CustomStringConvertible {
     }
     var name: String?
     var nickName: String?
-    var phoneNumberWithCountryCode: String?
+    private(set) var phoneNumberWithCountryCode: String?
     var favoriteCategory: String?
     var major: String?
     var majorDetail: String?
@@ -25,8 +25,14 @@ class UserInfo: Codable, CustomStringConvertible {
     var profileImage: Data?
     
     var phoneNumber: String? {
-        guard self.phoneNumberWithCountryCode?.isValidPhoneNumberWithCountryCode == true else { return nil }
-        return self.phoneNumberWithCountryCode?.replacingOccurrences(of: "^\\+82-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
+        get {
+            guard self.phoneNumberWithCountryCode?.isValidPhoneNumberWithCountryCode == true else { return nil }
+            return self.phoneNumberWithCountryCode?.replacingOccurrences(of: "^\\+82-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
+        }
+        set {
+            guard newValue?.isValidPhoneNumber == true else { return }
+            self.phoneNumber = newValue?.replacingOccurrences(of: "^0(\\d{1,2})(\\d{4})(\\d{4})$", with: "+82-$1-$2-$3", options: .regularExpression, range: nil)
+        }
     }
     
     func configureName(to name: String?) {
