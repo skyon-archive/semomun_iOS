@@ -19,11 +19,11 @@ struct WorkbookOfDB: Codable {
     let detail: String //문제집 정보
     let isbn: String //ISBN값
     let author: String //저자
-    let date: String //발행일
+    let date: Date //발행일
     let publishMan: String //발행인
     let publishCompany: String //출판사
     let originalPrice: String //정가
     let bookcover: String //문제집 표지 이미지 uuid
-    let createdAt: String //생성일자
-    let updatedAt: String //반영일자
+    let createdAt: Date //생성일자
+    let updatedAt: Date //반영일자
 }
