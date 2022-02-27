@@ -228,7 +228,8 @@ extension SearchVC {
     private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook)
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
+        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
