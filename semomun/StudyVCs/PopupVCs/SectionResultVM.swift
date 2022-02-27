@@ -42,6 +42,6 @@ final class SectionResultVM {
             // 채점 불가한 경우 -> ?
         }
         
-        self.result = SectionResult(perfactScore: self.perfectScore, score: self.score, time: self.time, wrongProblems: self.wrongProblems)
+        self.result = SectionResult(perfectScore: self.perfectScore, score: self.score, time: self.time, wrongProblems: self.wrongProblems)
     }
 }

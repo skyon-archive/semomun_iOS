@@ -76,10 +76,8 @@ final class SelectProblemsVM {
     
     func startScoring(completion: @escaping (Bool) -> Void) {
         // scoringQueue 모든 Problem -> terminate 처리
-        self.problems.forEach { problem in
-            if self.scoringQueue.contains(Int(problem.pid)) {
-                problem.setValue(true, forKey: "terminated")
-            }
+        self.problems.filter { self.scoringQueue.contains(Int($0.pid)) }.forEach { problem in
+            problem.setValue(true, forKey: "terminated")
         }
         // scoringQueue = []
         self.section.setValue([], forKey: "scoringQueue")
