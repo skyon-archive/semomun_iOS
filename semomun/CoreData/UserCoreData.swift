@@ -42,7 +42,7 @@ public class UserCoreData: NSManagedObject {
         print("class: \(userInfo)")
         self.setValue(userInfo.name, forKey: "name")
         self.setValue(userInfo.nickName, forKey: "nickName")
-        self.setValue(userInfo.phone, forKey: "phoneNumber")
+        self.setValue(userInfo.phoneNumberWithCountryCode, forKey: "phoneNumber")
         self.setValue(userInfo.favoriteCategory, forKey: "favoriteCategory")
         self.setValue(userInfo.major, forKey: "major")
         self.setValue(userInfo.majorDetail, forKey: "majorDetail")
