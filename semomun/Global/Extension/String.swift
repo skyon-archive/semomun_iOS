@@ -37,7 +37,7 @@ extension String {
     }
     
     var isValidPhoneNumberWithCountryCode: Bool {
-        return self.matchRegularExpression("^\\+82-\\d{2}-\\d{4}-\\d{4}$")
+        return self.matchRegularExpression("^\\+82-\\d{1, 2}-\\d{4}-\\d{4}$")
     }
     
     func matchRegularExpression(_ pattern: String) -> Bool {
