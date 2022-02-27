@@ -40,7 +40,6 @@
 		257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */; };
 		2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C227ACFC3C00023A73 /* UIColor.swift */; };
 		2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */; };
-		2582ED1627CA40D5008E46AD /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582ED1527CA40D5008E46AD /* PhoneNumber.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
@@ -245,7 +244,6 @@
 		257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVM.swift; sourceTree = "<group>"; };
 		2582D6C227ACFC3C00023A73 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStringInterpolation.swift; sourceTree = "<group>"; };
-		2582ED1527CA40D5008E46AD /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
@@ -1132,7 +1130,6 @@
 				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
 				2502CECA27A6D8030072A037 /* Purchase.swift */,
 				255D637927ABBF46000991AB /* UserNotice.swift */,
-				2582ED1527CA40D5008E46AD /* PhoneNumber.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1462,7 +1459,6 @@
 				87C85E8C276F6AB6001C9C4A /* PreviewCell.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
-				2582ED1627CA40D5008E46AD /* PhoneNumber.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
 				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
