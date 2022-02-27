@@ -33,7 +33,7 @@ final class WorkbookViewModel {
             self.workbookInfo = WorkbookInfo(previewCore: previewCore)
         } else {
             guard let workbookDTO = self.workbookDTO else { return }
-            self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO.workbook)
+            self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
         }
     }
     

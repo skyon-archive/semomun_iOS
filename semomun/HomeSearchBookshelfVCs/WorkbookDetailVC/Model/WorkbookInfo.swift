@@ -31,17 +31,19 @@ struct WorkbookInfo {
         self.configureReleaseDate(previewCore: previewCore)
     }
     
-    init(workbookDTO: WorkbookOfDB) {
-        self.title = workbookDTO.title
-        self.author = "저자 정보 없음"
-        self.publisher = workbookDTO.publishCompany
+    init(workbookDTO: SearchWorkbook) {
+        let workbookInfo = workbookDTO.workbook
+        let sectionInfos = workbookDTO.sections
+        self.title = workbookInfo.title
+        self.author = workbookInfo.author
+        self.publisher = workbookInfo.publishCompany
         self.releaseDate = ""
-        self.fileSize = "30.8MB"
-        self.isbn = "987-6543210987"
-        self.price = Int(workbookDTO.originalPrice) ?? 0
+        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.size }))MB"
+        self.isbn = workbookInfo.isbn
+        self.price = Int(workbookInfo.originalPrice) ?? 0 //TODO: 정가 -> 판매가 수정 필요
         self.image = nil
-        self.imageURL = workbookDTO.bookcover
-        self.configureReleaseDate(workbookDTO: workbookDTO)
+        self.imageURL = workbookInfo.bookcover
+        self.configureReleaseDate(workbookDTO: workbookInfo)
     }
     
     private mutating func configureReleaseDate(previewCore: Preview_Core) {

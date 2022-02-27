@@ -463,8 +463,7 @@ extension NetworkUsecase: WorkbookFetchable {
     func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) {
         self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
             guard let data = requestResult.data else { return }
-            print(String(data: data, encoding: .utf8))
-            guard let searchWorkbook: SearchWorkbook = try? JSONDecoder().decode(SearchWorkbook.self, from: data) else {
+            guard let searchWorkbook: SearchWorkbook = try? JSONDecoderWithDate().decode(SearchWorkbook.self, from: data) else {
                 print("Error: Decode")
                 return
             }
