@@ -13,6 +13,7 @@ final class WorkbookViewModel {
         case login, updateUserinfo, purchase
     }
     private let tags: [String] = []
+    private let networkUsecase: NetworkUsecase
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: SearchWorkbook?
     @Published private(set) var workbookInfo: WorkbookInfo?
@@ -22,7 +23,8 @@ final class WorkbookViewModel {
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     
-    init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil) {
+    init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil, networkUsecase: NetworkUsecase) {
+        self.networkUsecase = networkUsecase
         self.previewCore = previewCore
         self.workbookDTO = workbookDTO
     }

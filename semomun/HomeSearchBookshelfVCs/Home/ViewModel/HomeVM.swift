@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class HomeVM {
-    private let networkUsecase: NetworkUsecase
+    private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var ads: [(String, String)] = [] // DTO로 타입이 변경될 부분
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
