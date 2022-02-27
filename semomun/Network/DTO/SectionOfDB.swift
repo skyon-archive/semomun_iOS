@@ -18,8 +18,8 @@ struct SectionOfDB: Codable {
     let size: Int //section 파일크기
     let audio: String? //음성파일 uuid
     let audioDetail: String? //json 형식의 음성 파일에 대한 timestamp 등의 값
-    let createdAt: String //생성일자
-    let updatedAt: String //반영일자
+    let createdAt: Date //생성일자
+    let updatedAt: Date //반영일자
 }
 
 struct Cutoff: Codable {}
