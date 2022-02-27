@@ -88,7 +88,7 @@ extension SelectProblemsVC {
                 self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
                 self?.problems.reloadData()
                 
-                if scoringQueue.count == 0 {
+                if scoringQueue.isEmpty {
                     self?.preventScoring()
                 } else {
                     self?.activeScoring()

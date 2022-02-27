@@ -60,10 +60,8 @@ class PageVM {
             assertionFailure("타이머가 중복 실행되려고합니다.")
             return
         }
-        // Single 타입의 경우 terminated 된 문제는 timer를 반영 안한다
-        if self.problems.count == 1 && self.problem?.terminated ?? false { return }
-        // Multy 타입의 경우 terminated 된 문제수가 problems.count 와 같을시 timer를 반영 안한다
-        if self.problems.filter({ $0.terminated }).count == self.problems.count { return }
+        // 모든 문제가 terminated 된 상태일 경우 timer를 반영 안한다
+        if self.problems.allSatisfy(\.terminated) { return }
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
         self.isTimeRecording = true
@@ -85,11 +83,9 @@ class PageVM {
             let timeSpentPerProblems = Double(self.timeSpentOnPage) / Double(targetProblemsCount)
             let perTime = Int64(ceil(timeSpentPerProblems))
             
-            for (idx, problem) in problems.enumerated() {
-                if problem.terminated == false {
-                    let time = self.timeSpentPerProblems[idx] + perTime
-                    problem.setValue(time, forKey: "time")
-                }
+            for (idx, problem) in problems.enumerated() where problem.terminated == false {
+                let time = self.timeSpentPerProblems[idx] + perTime
+                problem.setValue(time, forKey: "time")
             }
         }
     }
