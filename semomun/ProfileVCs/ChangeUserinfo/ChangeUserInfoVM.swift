@@ -198,7 +198,7 @@ extension ChangeUserInfoVM {
     }
     
     private func configureUIForNicknamePhoneRequestIfNeeded(_ userCoreData: UserCoreData) {
-        if userCoreData.phoneNumber == nil {
+        if userCoreData.phoneNumber?.isValidPhoneNumber != true {
             self.phonenum = ""
             self.configureUIForNicknamePhoneRequest = true
         }
