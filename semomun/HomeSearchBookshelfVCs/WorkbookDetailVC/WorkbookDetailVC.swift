@@ -26,6 +26,7 @@ final class WorkbookDetailVC: UIViewController {
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
+    @IBOutlet weak var isbnStackView: UIStackView!
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookViewModel?
@@ -150,8 +151,13 @@ extension WorkbookDetailVC {
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         self.fileSizeLabel.text = workbookInfo.fileSize
-        self.isbnLabel.text = workbookInfo.isbn
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma ?? "0")원 결제하기", for: .normal)
+        
+        if workbookInfo.isbn == "" {
+            self.isbnStackView.isHidden = true
+        } else {
+            self.isbnLabel.text = workbookInfo.isbn
+        }
         
         if self.isCoreData {
             if let imageData = workbookInfo.imageData {
