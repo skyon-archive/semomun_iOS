@@ -22,6 +22,7 @@ final class WorkbookViewModel {
     @Published private(set) var sectionDTOs: [SectionOfDB]?
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
+    @Published private(set) var bookcoverUrl: URL?
     
     init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil, networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -36,6 +37,20 @@ final class WorkbookViewModel {
         } else {
             guard let workbookDTO = self.workbookDTO else { return }
             self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
+            self.fetchBookcoverImage(bookcover: workbookDTO.workbook.bookcover)
+        }
+    }
+    
+    private func fetchBookcoverImage(bookcover: String) {
+        self.networkUsecase.getImageFromS3(uuid: bookcover, type: .bookcover) { [weak self] status, stringUrl in
+            switch status {
+            case .SUCCESS:
+                guard let stringUrl = stringUrl,
+                      let url = URL(string: stringUrl) else { return }
+                self?.bookcoverUrl = url
+            default:
+                print("get image Error")
+            }
         }
     }
     
