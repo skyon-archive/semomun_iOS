@@ -88,18 +88,17 @@ final class WorkbookViewModel {
         return self.tags[idx]
     }
     
-    func saveWorkbook() {
+    func saveWorkbook(bookcoverData: Data) {
         self.showLoader = true
         guard let searchWorkbook = self.workbookDTO else { return }
-        let wid = searchWorkbook.workbook.wid
         DispatchQueue.main.async { [weak self] in
             // MARK: - Save Preview
             let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-            preview_core.setValues(searchWorkbook: searchWorkbook)
+            preview_core.setValues(searchWorkbook: searchWorkbook, bookcoverData: bookcoverData)
             // MARK: - Save Sections
             searchWorkbook.sections.forEach { section in
                 let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
-                sectionHeader_core.setValues(section: section, baseURL: NetworkURL.sectioncoverImageDirectory(.large), wid: wid)
+                sectionHeader_core.setValues(section: section)
             }
             
             CoreDataManager.saveCoreData()
@@ -118,7 +117,7 @@ final class WorkbookViewModel {
             if userCoreData?.phoneNumber?.isValidPhoneNumberWithCountryCode == true {
                 self.popupType = .purchase
             } else {
-                self.popupType = .updateUserinfo
+                self.popupType = .purchase
             }
         }
     }
