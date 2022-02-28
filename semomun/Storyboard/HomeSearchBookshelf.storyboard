@@ -1500,6 +1500,7 @@ next line</string>
                         <outlet property="bookCoverImageViewFrameView" destination="28N-mx-w0B" id="pTT-L7-j0K"/>
                         <outlet property="fileSizeLabel" destination="6fM-FG-rAl" id="w77-Wf-E6J"/>
                         <outlet property="isbnLabel" destination="8Lx-Re-Lco" id="LwJ-7I-Ipb"/>
+                        <outlet property="isbnStackView" destination="OIJ-yS-teY" id="rw2-MB-DDD"/>
                         <outlet property="publisherLabel" destination="Kol-pw-3bS" id="iia-pO-Prs"/>
                         <outlet property="purchaseWorkbookButton" destination="kFe-ol-Ffc" id="Br4-0i-cYn"/>
                         <outlet property="releaseDateLabel" destination="4dq-Zv-x4F" id="LSv-Sd-QTB"/>
