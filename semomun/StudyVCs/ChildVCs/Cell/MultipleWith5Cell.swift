@@ -55,6 +55,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     
     override func prepareForReuse() {
         self.configureUI()
+        self.canvasView.delegate = nil
     }
     
     deinit {
@@ -119,7 +120,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
         self.shadowView.addShadow(direction: .top)
-        self.canvasView.delegate = nil
     }
     
     private func configureScrollView() {
@@ -262,7 +262,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     func configureCanvasView() {
-        self.configureCanvasViewData()
+        self.configureCanvasViewDataAndDelegate()
         
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
@@ -275,7 +275,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         toolPicker?.addObserver(canvasView)
     }
     
-    func configureCanvasViewData() {
+    func configureCanvasViewDataAndDelegate() {
         if let pkData = self.problem?.drawing {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
