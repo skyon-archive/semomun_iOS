@@ -309,9 +309,9 @@ extension SearchWorkbookViewController {
         guard let manager = self.manager else { return }
         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
         
-        sections.forEach {
-            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectioncoverImageDirectory(manager.imageScale), wid: wid)
-        }
+//        sections.forEach {
+//            sectionHeader_core.setValues(section: $0, baseURL: NetworkURL.sectioncoverImageDirectory(manager.imageScale), wid: wid)
+//        }
         CoreDataManager.saveCoreData()
         print("save complete")
         NotificationCenter.default.post(name: .downloadPreview, object: self, userInfo: ["subject" : subject])

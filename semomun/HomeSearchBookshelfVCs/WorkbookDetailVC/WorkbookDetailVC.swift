@@ -131,7 +131,8 @@ extension WorkbookDetailVC {
             self?.showChargeVC()
         }
         NotificationCenter.default.addObserver(forName: .purchaseComplete, object: nil, queue: .main) { [weak self] _ in
-            self?.viewModel?.saveWorkbook()
+            guard let bookcoverData = self?.bookCoverImageView.image?.pngData() else { return }
+            self?.viewModel?.saveWorkbook(bookcoverData: bookcoverData)
         }
     }
     

@@ -14,7 +14,7 @@ struct SectionOfDB: Codable {
     let title: String //section 명
     let detail: String //section 설명
     let cutoff: Cutoff //json 형식의 커트라인
-    let sectioncover: String //section 표시파일 uuid
+    let sectioncover: String //section 표시파일 uuid, 사용X
     let size: Int //section 파일크기
     let audio: String? //음성파일 uuid
     let audioDetail: String? //json 형식의 음성 파일에 대한 timestamp 등의 값
