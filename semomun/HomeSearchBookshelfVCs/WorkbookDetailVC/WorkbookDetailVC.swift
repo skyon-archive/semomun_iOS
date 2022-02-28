@@ -154,15 +154,11 @@ extension WorkbookDetailVC {
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma ?? "0")원 결제하기", for: .normal)
         
         if self.isCoreData {
-            if let imageData = workbookInfo.image {
+            if let imageData = workbookInfo.imageData {
                 self.bookCoverImageView.image = UIImage(data: imageData)
             } else {
                 self.bookCoverImageView.image = UIImage(.warning)
             }
-        } else {
-            guard let bookcoverURL = workbookInfo.imageURL,
-                  let url = URL(string: NetworkURL.bookcoverImageDirectory(.large) + bookcoverURL) else { return }
-            self.bookCoverImageView.kf.setImage(with: url)
         }
     }
     
@@ -237,6 +233,7 @@ extension WorkbookDetailVC {
         self.bindSectionDTOs()
         self.bindLoader()
         self.bindPopupType()
+        self.bindBookcover()
     }
     
     private func bindWarning() {
@@ -307,6 +304,16 @@ extension WorkbookDetailVC {
             .sink(receiveValue: { [weak self] type in
                 guard let type = type else { return }
                 self?.showPopupVC(type: type)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindBookcover() {
+        self.viewModel?.$bookcoverUrl
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] url in
+                guard let url = url else { return }
+                self?.bookCoverImageView.kf.setImage(with: url)
             })
             .store(in: &self.cancellables)
     }
