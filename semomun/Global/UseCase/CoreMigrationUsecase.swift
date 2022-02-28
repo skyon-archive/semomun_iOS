@@ -20,6 +20,7 @@ extension CoreUsecase {
             return
         }
         completion(true)
+        // TODO: workbooks/:wid 를 통해 없는정보 update 로직 필요 (cell 내의 author, publisher 반영)
     }
     
     static func updateSectionHeaders() -> Bool {

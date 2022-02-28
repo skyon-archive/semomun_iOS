@@ -30,6 +30,7 @@ extension Preview_Core {
         case sids
         case price
         case tags
+        case size
         case image
     }
     
@@ -46,7 +47,8 @@ extension Preview_Core {
     @NSManaged public var updatedAt: Date? // NEW: 반영일자
     @NSManaged public var sids: [Int] // Sections id
     @NSManaged public var price: Double // 가격
-    @NSManaged public var tags: [String] // 중분류
+    @NSManaged public var tags: [String]
+    @NSManaged public var size: Int64 // NEW: sections size 합산
     @NSManaged public var image: Data? // Workbook Image
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
@@ -127,6 +129,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(searchWorkbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
         self.setValue(Double(workbook.originalPrice), forKey: Attribute.price.rawValue) // TODO: origin -> price 수정 예정
         self.setValue([], forKey: Attribute.tags.rawValue)
+        self.setValue(Int64(searchWorkbook.sections.reduce(0, { $0 + $1.size})), forKey: Attribute.size.rawValue)
         self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
         print("savePreview complete")
     }
