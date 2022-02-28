@@ -15,8 +15,7 @@ struct WorkbookInfo {
     let fileSize: String
     let isbn: String
     let price: Int
-    let image: Data?
-    let imageURL: String?
+    let imageData: Data?
     
     init(previewCore: Preview_Core) {
         self.title = previewCore.title ?? "문제집 제목 없음"
@@ -26,8 +25,7 @@ struct WorkbookInfo {
         self.fileSize = "30.8MB"
         self.isbn = "987-6543210987"
         self.price = Int(previewCore.price)
-        self.image = previewCore.image
-        self.imageURL = nil
+        self.imageData = previewCore.image
         self.configureReleaseDate(previewCore: previewCore)
     }
     
@@ -41,8 +39,7 @@ struct WorkbookInfo {
         self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.size }))MB"
         self.isbn = workbookInfo.isbn
         self.price = Int(workbookInfo.originalPrice) ?? 0 //TODO: 정가 -> 판매가 수정 필요
-        self.image = nil
-        self.imageURL = workbookInfo.bookcover
+        self.imageData = nil
         self.configureReleaseDate(workbookDTO: workbookInfo)
     }
     
