@@ -48,6 +48,6 @@ struct WorkbookInfo {
     }
     
     private mutating func configureReleaseDate(workbookDTO: WorkbookOfDB) {
-        self.releaseDate = "\(workbookDTO.date)"
+        self.releaseDate = workbookDTO.date.koreanYearMonthDayText
     }
 }

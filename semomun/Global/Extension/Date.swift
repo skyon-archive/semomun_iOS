@@ -18,4 +18,9 @@ extension Date {
         guard let year = calendarDate.year, let month = calendarDate.month, let day = calendarDate.day else { return "20xx.xx.xx" }
         return String(format: "%d.%02d.%02d", year, month, day)
     }
+    var koreanYearMonthDayText: String {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "YYYY년 MM월 DD일"
+        return dateformatter.string(from: self)
+    }
 }
