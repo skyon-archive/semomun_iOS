@@ -112,7 +112,7 @@ extension WorkbookDetailVC {
         NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] notification in
             guard let sid = notification.userInfo?["sid"] as? Int else { return }
             guard let preview = self?.viewModel?.previewCore else { return }
-            guard let sectionHeader = self?.viewModel?.sectionHeaders?.first(where: { Int($0.sid) == sid }) else { return }
+            guard let sectionHeader = self?.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
             if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
                 self?.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
                 return
@@ -241,6 +241,7 @@ extension WorkbookDetailVC {
         self.bindLoader()
         self.bindPopupType()
         self.bindBookcover()
+        self.bindTags()
     }
     
     private func bindWarning() {
@@ -324,17 +325,26 @@ extension WorkbookDetailVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindTags() {
+        self.viewModel?.$tags
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.workbookTagsCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - CollectionView
 extension WorkbookDetailVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.viewModel?.tags.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.tag(idx: indexPath.item) else { return  cell }
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
         cell.configure(tag: tag)
         
         return cell
@@ -343,7 +353,7 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
 
 extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let tag = self.viewModel?.tag(idx: indexPath.item) else { return CGSize(width: 100, height: 30) }
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
         return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
     }
 }
@@ -359,10 +369,10 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell() }
         
         if self.isCoreData {
-            guard let sectionHeader = self.viewModel?.sectionHeader(idx: indexPath.row) else { return cell }
+            guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
             cell.configureCell(sectionHeader: sectionHeader, idx: indexPath.row)
         } else {
-            guard let sectionDTO = self.viewModel?.sectionDTO(idx: indexPath.row) else { return cell }
+            guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
             cell.configureCell(sectionDTO: sectionDTO, idx: indexPath.row)
         }
         
