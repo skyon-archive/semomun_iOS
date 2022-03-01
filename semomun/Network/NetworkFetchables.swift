@@ -66,7 +66,7 @@ protocol PurchaseListFetchable {
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
 }
 protocol WorkbookFetchable {
-    func downloadWorkbook(wid: Int, handler: @escaping(SearchWorkbook) -> ()) 
+    func downloadWorkbook(wid: Int, handler: @escaping(WorkbookOfDB) -> ()) 
 }
 protocol RemainingSemopayFetchable {
     func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void)

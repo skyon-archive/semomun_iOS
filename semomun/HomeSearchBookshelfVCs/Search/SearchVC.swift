@@ -160,7 +160,7 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbook in
                 guard let workbook = workbook else { return }
-                self?.showWorkbookDetailVC(searchWorkbook: workbook)
+                self?.showWorkbookDetailVC(workbook: workbook)
             })
             .store(in: &self.cancellables)
     }
@@ -225,11 +225,11 @@ extension SearchVC {
         self.searchResultVC.fetch(tags: tags, text: text)
     }
     
-    private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
+    private func showWorkbookDetailVC(workbook: WorkbookOfDB) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook, networkUsecase: networkUsecase)
+        let viewModel = WorkbookViewModel(workbookDTO: workbook, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)

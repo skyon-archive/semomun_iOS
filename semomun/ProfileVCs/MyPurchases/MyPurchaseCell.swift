@@ -43,9 +43,9 @@ final class MyPurchaseCell: UITableViewCell {
         self.dateLabel.text = purchase.date.yearMonthDayText
         let costStr = Int(purchase.cost).withComma ?? "0"
         self.costLabel.text = costStr + "원"
-        self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { [weak self] searchWorkbook in
-            self?.titleLabel.text = searchWorkbook.workbook.title
-            let urlString = NetworkURL.bookcoverImageDirectory(.large) + searchWorkbook.workbook.bookcover
+        self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { [weak self] workbook in
+            self?.titleLabel.text = workbook.title
+            let urlString = NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover
             guard let url = URL(string: urlString) else { return }
             self?.workbookImage.kf.setImage(with: url)
         }

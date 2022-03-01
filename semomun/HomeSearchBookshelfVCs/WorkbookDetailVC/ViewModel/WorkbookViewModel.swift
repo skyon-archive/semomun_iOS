@@ -15,7 +15,7 @@ final class WorkbookViewModel {
     private let tags: [String] = []
     private let networkUsecase: NetworkUsecase
     private(set) var previewCore: Preview_Core?
-    private(set) var workbookDTO: SearchWorkbook?
+    private(set) var workbookDTO: WorkbookOfDB?
     @Published private(set) var workbookInfo: WorkbookInfo?
     @Published private(set) var warning: String?
     @Published private(set) var sectionHeaders: [SectionHeader_Core]?
@@ -24,7 +24,7 @@ final class WorkbookViewModel {
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverUrl: URL?
     
-    init(previewCore: Preview_Core? = nil, workbookDTO: SearchWorkbook? = nil, networkUsecase: NetworkUsecase) {
+    init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.previewCore = previewCore
         self.workbookDTO = workbookDTO
@@ -37,7 +37,7 @@ final class WorkbookViewModel {
         } else {
             guard let workbookDTO = self.workbookDTO else { return }
             self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
-            self.fetchBookcoverImage(bookcover: workbookDTO.workbook.bookcover)
+            self.fetchBookcoverImage(bookcover: workbookDTO.bookcover)
         }
     }
     
@@ -90,13 +90,13 @@ final class WorkbookViewModel {
     
     func saveWorkbook(bookcoverData: Data) {
         self.showLoader = true
-        guard let searchWorkbook = self.workbookDTO else { return }
+        guard let workbook = self.workbookDTO else { return }
         DispatchQueue.main.async { [weak self] in
             // MARK: - Save Preview
             let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-            preview_core.setValues(searchWorkbook: searchWorkbook, bookcoverData: bookcoverData)
+            preview_core.setValues(workbook: workbook, bookcoverData: bookcoverData)
             // MARK: - Save Sections
-            searchWorkbook.sections.forEach { section in
+            workbook.sections.forEach { section in
                 let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
                 sectionHeader_core.setValues(section: section)
             }

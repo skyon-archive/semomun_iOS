@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct SearchWorkbook: Codable {
-    let workbook: WorkbookOfDB
-    let sections: [SectionOfDB]
-}
-
 struct WorkbookOfDB: Codable {
     let id: Int //상품 식별자
     let wid: Int //문제집 고유 번호
@@ -26,4 +21,13 @@ struct WorkbookOfDB: Codable {
     let bookcover: String //문제집 표지 이미지 uuid
     let createdAt: Date //생성일자
     let updatedAt: Date //반영일자
+    let sections: [SectionOfDB]
+    let price: Int
+    let tags: [TagOfDB]
+    let sales: Int
+}
+
+struct TagOfDB: Codable {
+    let tid: Int
+    let name: String
 }
