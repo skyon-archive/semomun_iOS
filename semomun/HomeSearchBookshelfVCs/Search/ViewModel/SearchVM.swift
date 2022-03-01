@@ -13,7 +13,7 @@ final class SearchVM {
     private(set) var selectedWid: Int?
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var tags: [String] = []
-    @Published private(set) var workbook: SearchWorkbook?
+    @Published private(set) var workbook: WorkbookOfDB?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -40,8 +40,8 @@ final class SearchVM {
     }
     
     func fetchWorkbook(wid: Int) {
-        self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] searchWorkbook in
-            self?.workbook = searchWorkbook
+        self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] workbook in
+            self?.workbook = workbook
         }
     }
 }

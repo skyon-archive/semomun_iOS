@@ -241,7 +241,7 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookDTO in
                 guard let workbookDTO = workbookDTO else { return }
-                self?.showWorkbookDetailVC(searchWorkbook: workbookDTO)
+                self?.showWorkbookDetailVC(workbook: workbookDTO)
             })
             .store(in: &self.cancellables)
     }
@@ -335,11 +335,11 @@ extension HomeVC: UICollectionViewDelegate {
         }
     }
     
-    private func showWorkbookDetailVC(searchWorkbook: SearchWorkbook) {
+    private func showWorkbookDetailVC(workbook: WorkbookOfDB) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: searchWorkbook, networkUsecase: networkUsecase)
+        let viewModel = WorkbookViewModel(workbookDTO: workbook, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)

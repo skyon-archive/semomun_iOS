@@ -28,21 +28,15 @@ struct WorkbookInfo {
         self.imageData = previewCore.image
     }
     
-    init(workbookDTO: SearchWorkbook) {
-        let workbookInfo = workbookDTO.workbook
+    init(workbookDTO: WorkbookOfDB) {
         let sectionInfos = workbookDTO.sections
-        self.title = workbookInfo.title
-        self.author = workbookInfo.author
-        self.publisher = workbookInfo.publishCompany
-        self.releaseDate = ""
-        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.size }))MB"
-        self.isbn = workbookInfo.isbn
-        self.price = Int(workbookInfo.originalPrice) ?? 0 //TODO: 정가 -> 판매가 수정 필요
-        self.imageData = nil
-        self.configureReleaseDate(workbookDTO: workbookInfo)
-    }
-    
-    private mutating func configureReleaseDate(workbookDTO: WorkbookOfDB) {
+        self.title = workbookDTO.title
+        self.author = workbookDTO.author
+        self.publisher = workbookDTO.publishCompany
         self.releaseDate = workbookDTO.date.koreanYearMonthDayText
+        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.size }))MB"
+        self.isbn = workbookDTO.isbn
+        self.price = workbookDTO.price
+        self.imageData = nil
     }
 }

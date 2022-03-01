@@ -209,7 +209,7 @@ extension WorkbookDetailVC {
         case .purchase:
             let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
             guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }
-            guard let info = self.viewModel?.workbookDTO?.workbook else { return }
+            guard let info = self.viewModel?.workbookDTO else { return }
             popupVC.configureInfo(info: info)
             popupVC.configureCurrentMoney(money: 2000) // 임시코드
             self.present(popupVC, animated: true, completion: nil)
