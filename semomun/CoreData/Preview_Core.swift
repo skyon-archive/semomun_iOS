@@ -91,7 +91,7 @@ public class Preview_Core: NSManagedObject{
         return "Preview(\(self.wid), \(self.image!), \(self.title!), \(self.subject!), \(self.sids), \(self.terminated), \(self.category!), \(self.downloaded)\n"
     }
     
-    func setValues(preview: PreviewOfDB, workbook: WorkbookOfDB, sids: [Int], baseURL: String, category: String) {
+    func setValues(preview: PreviewOfDB, workbook: PreviewOfDB, sids: [Int], baseURL: String, category: String) {
         self.setValue(Int64(preview.wid), forKey: "wid")
         self.setValue(preview.title, forKey: "title")
         self.setValue(sids, forKey: "sids")
@@ -113,8 +113,7 @@ public class Preview_Core: NSManagedObject{
         print("savePreview complete")
     }
     
-    func setValues(searchWorkbook: SearchWorkbook, bookcoverData: Data) {
-        let workbook = searchWorkbook.workbook
+    func setValues(workbook: WorkbookOfDB, bookcoverData: Data) {
         self.setValue(Int64(workbook.id), forKey: Attribute.id.rawValue)
         self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
         self.setValue(workbook.title, forKey: Attribute.title.rawValue)
@@ -126,10 +125,10 @@ public class Preview_Core: NSManagedObject{
         self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
         self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
         self.setValue(workbook.updatedAt, forKey: Attribute.updatedAt.rawValue)
-        self.setValue(searchWorkbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
-        self.setValue(Double(workbook.originalPrice), forKey: Attribute.price.rawValue) // TODO: origin -> price 수정 예정
-        self.setValue([], forKey: Attribute.tags.rawValue)
-        self.setValue(Int64(searchWorkbook.sections.reduce(0, { $0 + $1.size})), forKey: Attribute.size.rawValue)
+        self.setValue(workbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
+        self.setValue(Double(workbook.price), forKey: Attribute.price.rawValue)
+        self.setValue(workbook.tags.map(\.name), forKey: Attribute.tags.rawValue)
+        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.size})), forKey: Attribute.size.rawValue)
         self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
         print("savePreview complete")
     }
