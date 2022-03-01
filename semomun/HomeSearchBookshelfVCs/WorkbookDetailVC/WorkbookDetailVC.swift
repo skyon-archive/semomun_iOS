@@ -370,10 +370,10 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
         
         if self.isCoreData {
             guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
-            cell.configureCell(sectionHeader: sectionHeader, idx: indexPath.row)
+            cell.configureCell(sectionHeader: sectionHeader, idx: Int(sectionHeader.index))
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
-            cell.configureCell(sectionDTO: sectionDTO, idx: indexPath.row)
+            cell.configureCell(sectionDTO: sectionDTO, idx: sectionDTO.index)
         }
         
         return cell
