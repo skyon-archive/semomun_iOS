@@ -1342,7 +1342,7 @@ next line</string>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ec3-H3-hYq">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkbookTagCell" id="ec3-H3-hYq" customClass="WorkbookTagCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="73" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CIK-R4-FIp">
@@ -1362,6 +1362,9 @@ next line</string>
                                                         <constraint firstItem="8ll-Wy-MAe" firstAttribute="leading" secondItem="CIK-R4-FIp" secondAttribute="leading" constant="20" id="Ztf-BC-a3B"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="tagNameLabel" destination="8ll-Wy-MAe" id="Dyv-D3-n2k"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>

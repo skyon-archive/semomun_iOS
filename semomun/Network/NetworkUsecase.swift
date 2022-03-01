@@ -508,6 +508,12 @@ extension NetworkUsecase: WorkbookFetchable {
                     "name": "9급공무원",
                     "createdAt": "2022-02-25T20:32:20.000Z",
                     "updatedAt": "2022-02-25T20:32:22.000Z"
+                },
+                {
+                    "tid": 2,
+                    "name": "국가직9급공무원",
+                    "createdAt": "2022-02-25T20:32:20.000Z",
+                    "updatedAt": "2022-02-25T20:32:22.000Z"
                 }
             ]
         }
