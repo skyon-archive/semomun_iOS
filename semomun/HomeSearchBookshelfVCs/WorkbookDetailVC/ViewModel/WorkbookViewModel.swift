@@ -12,14 +12,14 @@ final class WorkbookViewModel {
     enum PopupType {
         case login, updateUserinfo, purchase
     }
-    private let tags: [String] = []
     private let networkUsecase: NetworkUsecase
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: WorkbookOfDB?
+    @Published private(set) var tags: [String] = []
     @Published private(set) var workbookInfo: WorkbookInfo?
     @Published private(set) var warning: String?
-    @Published private(set) var sectionHeaders: [SectionHeader_Core]?
-    @Published private(set) var sectionDTOs: [SectionOfDB]?
+    @Published private(set) var sectionHeaders: [SectionHeader_Core] = []
+    @Published private(set) var sectionDTOs: [SectionOfDB] = []
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverUrl: URL?
@@ -34,9 +34,11 @@ final class WorkbookViewModel {
         if isCoreData {
             guard let previewCore = self.previewCore else { return }
             self.workbookInfo = WorkbookInfo(previewCore: previewCore)
+            self.tags = previewCore.tags
         } else {
             guard let workbookDTO = self.workbookDTO else { return }
             self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
+            self.tags = workbookDTO.tags.map(\.name)
             self.fetchBookcoverImage(bookcover: workbookDTO.bookcover)
         }
     }
@@ -70,23 +72,23 @@ final class WorkbookViewModel {
     
     func count(isCoreData: Bool) -> Int {
         if isCoreData {
-            return self.sectionHeaders?.count ?? 0
+            return self.sectionHeaders.count
         } else {
-            return self.sectionDTOs?.count ?? 0
+            return self.sectionDTOs.count
         }
     }
     
-    func sectionHeader(idx: Int) -> SectionHeader_Core? {
-        return self.sectionHeaders?[idx]
-    }
-    
-    func sectionDTO(idx: Int) -> SectionOfDB? {
-        return self.sectionDTOs?[idx]
-    }
-    
-    func tag(idx: Int) -> String {
-        return self.tags[idx]
-    }
+//    func sectionHeader(idx: Int) -> SectionHeader_Core? {
+//        return self.sectionHeaders?[idx]
+//    }
+//
+//    func sectionDTO(idx: Int) -> SectionOfDB? {
+//        return self.sectionDTOs?[idx]
+//    }
+//
+//    func tag(idx: Int) -> String {
+//        return self.tags[idx]
+//    }
     
     func saveWorkbook(bookcoverData: Data) {
         self.showLoader = true
