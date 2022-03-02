@@ -44,7 +44,7 @@ final class WorkbookViewModel {
     }
     
     private func fetchBookcoverImage(bookcover: String) {
-        self.networkUsecase.getImageFromS3(uuid: bookcover, type: .bookcover) { [weak self] status, stringUrl in
+        self.networkUsecase.getImageURLFromS3(uuid: bookcover, type: .bookcover) { [weak self] status, stringUrl in
             switch status {
             case .SUCCESS:
                 guard let stringUrl = stringUrl,

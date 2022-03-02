@@ -67,7 +67,7 @@ extension PurchasePopupVC {
     private func configureType() {
         guard let info = self.info,
               let currentMoney = self.currentMoney else { return }
-        self.type = (currentMoney - (Int(info.originalPrice) ?? 0)) >= 0 ? .purchase : .charge
+        self.type = currentMoney >= Int(info.originalPrice) ?? 0 ? .purchase : .charge
     }
     
     private func configureUI() {

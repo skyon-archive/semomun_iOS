@@ -29,7 +29,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        self.networkUsecase?.getImageFromS3(uuid: preview.bookcover, type: .bookcover) { [weak self] status, stringUrl in
+        self.networkUsecase?.getImageURLFromS3(uuid: preview.bookcover, type: .bookcover) { [weak self] status, stringUrl in
             DispatchQueue.main.async { [weak self] in
                 switch status {
                 case .SUCCESS:
