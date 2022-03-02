@@ -54,7 +54,7 @@ class SearchWorkbookManager {
     
     func loadPreviews(completion: @escaping ()->Void) {
         self.networkUseCase.downloadPreviews(param: self.queryStringOfPreviews) { searchPreview in
-            let previews = searchPreview.workbooks
+            let previews = searchPreview.previews
             self.loadedPreviews = previews.filter { !self.filter.contains($0.wid) }
             completion()
         }

@@ -7,13 +7,18 @@
 
 import Foundation
 
-struct SearchPreview: Codable, CustomStringConvertible {
+struct SearchPreviews: Codable, CustomStringConvertible {
     var description: String {
-        return "\(count), \(workbooks)"
+        return "\(count), \(previews)"
     }
     
-    var count: Int
-    var workbooks: [PreviewOfDB]
+    let count: Int
+    let previews: [PreviewOfDB]
+    
+    enum CodingKeys: String, CodingKey {
+        case count
+        case previews = "workbooks"
+    }
 }
 
 struct PreviewOfDB: Codable {
