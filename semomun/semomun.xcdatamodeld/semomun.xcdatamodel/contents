@@ -82,13 +82,13 @@
         <attribute name="cutoff" optional="YES" attributeType="String"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sectionNum" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="UserCoreData" representedClassName="UserCoreData" syncable="YES">
@@ -106,11 +106,11 @@
         <attribute name="userImage" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>
-        <element name="Page_Core" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Preview_Core" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Problem_Core" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Section_Core" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SectionHeader_Core" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserCoreData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Page_Core" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="Preview_Core" positionX="-54" positionY="36" width="128" height="494"/>
+        <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="284"/>
+        <element name="Section_Core" positionX="-18" positionY="153" width="128" height="224"/>
+        <element name="SectionHeader_Core" positionX="0" positionY="171" width="128" height="224"/>
+        <element name="UserCoreData" positionX="-18" positionY="144" width="128" height="209"/>
     </elements>
 </model>
