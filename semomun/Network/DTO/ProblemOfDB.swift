@@ -9,24 +9,22 @@ import Foundation
 
 struct ProblemOfDB: Codable, CustomStringConvertible {
     var description: String {
-        return "Problem(\(pid)) {btNum: \(btNum), answer: \(answer ?? "none")}"
+        return "Problem(\(pid)) {btNum: \(btName), answer: \(answer ?? "none")}"
     }
     
     let vid: Int
     let pid: Int //고유 번호
     let index: Int //Page 내의 순서
     let btType: String //문제 유형 (개념, 문제)
-    let btNum: String //하단 아이콘 표시내용
+    let btName: String //하단 아이콘 표시내용
     let type: Int //선지 유형
     let answer: String? //문제 정답
-    let content: String //문제 내용 이미지의 숫자값, content.png 식으로 접근되는 식
-    let explanation: String? //문제의 해설 이미지의 숫자값
-    let point: Double?
+    let content: String //문제 이미지의 uuid
+    let explanation: String? //문제의 해설 이미지의 uuid
+    let point: Double? //문제 배점
     
     enum CodingKeys: String, CodingKey {
-        case vid, pid, index
-        case btType = "labelType"
-        case btNum = "labelNum"
-        case type, answer, content, explanation, point
+        case vid, pid, index, btType, btName, type, answer, content, explanation
+        case point = "score"
     }
 }

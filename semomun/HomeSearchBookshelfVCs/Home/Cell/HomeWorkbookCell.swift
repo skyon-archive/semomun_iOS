@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class HomeWorkbookCell: UICollectionViewCell {
     static let identifier = "HomeWorkbookCell"
@@ -29,17 +28,19 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        self.networkUsecase?.getImageURLFromS3(uuid: preview.bookcover, type: .bookcover) { [weak self] status, stringUrl in
+        self.networkUsecase?.getImageFromS3(uuid: preview.bookcover, type: .bookcover, completion: { [weak self] status, data in
             DispatchQueue.main.async { [weak self] in
                 switch status {
-                case .SUCCESS:
-                    guard let stringUrl = stringUrl,
-                          let url = URL(string: stringUrl) else { return }
-                    self?.bookcover.kf.setImage(with: url)
+                case.SUCCESS:
+                    guard let data = data,
+                          let image = UIImage(data: data) else { return }
+                    self?.bookcover.image = image
                 default:
-                    print("get image Error")
+                    print("HomeWorkbookCell: GET image fail")
+                    self?.bookcover.image = UIImage(.warning)
                 }
             }
-        }
+            
+        })
     }
 }
