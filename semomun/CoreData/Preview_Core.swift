@@ -16,39 +16,39 @@ extension Preview_Core {
     }
     
     enum Attribute: String {
-        case id
+        case productID
         case wid
         case title
         case detail
         case isbn
         case author
         case publisher
-        case date
+        case publishedDate
         case publishMan
         case originalPrice
-        case updatedAt
+        case updatedDate
         case sids
         case price
         case tags
-        case size
+        case fileSize
         case image
     }
     
-    @NSManaged public var id: Int64 // NEW: 상품 식별자
+    @NSManaged public var productID: Int64 // NEW: 상품 식별자
     @NSManaged public var wid: Int64 // identifier
     @NSManaged public var title: String?
     @NSManaged public var detail: String? // 문제집 정보
     @NSManaged public var isbn: String? // NEW: ISBN값
     @NSManaged public var author: String? // NEW: 저자
     @NSManaged public var publisher: String? // 출판사 (publishCompany)
-    @NSManaged public var date: Date? // NEW: 발행일
+    @NSManaged public var publishedDate: Date? // NEW: 발행일
     @NSManaged public var publishMan: String? // NEW: 발행인
     @NSManaged public var originalPrice: String? // NEW: 정가
-    @NSManaged public var updatedAt: Date? // NEW: 반영일자
+    @NSManaged public var updatedDate: Date? // NEW: 반영일자
     @NSManaged public var sids: [Int] // Sections id
     @NSManaged public var price: Double // 가격
     @NSManaged public var tags: [String]
-    @NSManaged public var size: Int64 // NEW: sections size 합산
+    @NSManaged public var fileSize: Int64 // NEW: sections size 합산
     @NSManaged public var image: Data? // Workbook Image
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
@@ -114,21 +114,21 @@ public class Preview_Core: NSManagedObject{
     }
     
     func setValues(workbook: WorkbookOfDB, bookcoverData: Data) {
-        self.setValue(Int64(workbook.productID), forKey: Attribute.id.rawValue)
+        self.setValue(Int64(workbook.productID), forKey: Attribute.productID.rawValue)
         self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
         self.setValue(workbook.title, forKey: Attribute.title.rawValue)
         self.setValue(workbook.detail, forKey: Attribute.detail.rawValue)
         self.setValue(workbook.isbn, forKey: Attribute.isbn.rawValue)
         self.setValue(workbook.author, forKey: Attribute.author.rawValue)
         self.setValue(workbook.publishCompany, forKey: Attribute.publisher.rawValue)
-        self.setValue(workbook.publishedDate, forKey: Attribute.date.rawValue)
+        self.setValue(workbook.publishedDate, forKey: Attribute.publishedDate.rawValue)
         self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
         self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
-        self.setValue(workbook.updatedDate, forKey: Attribute.updatedAt.rawValue)
+        self.setValue(workbook.updatedDate, forKey: Attribute.updatedDate.rawValue)
         self.setValue(workbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
         self.setValue(Double(workbook.price), forKey: Attribute.price.rawValue)
         self.setValue(workbook.tags.map(\.name), forKey: Attribute.tags.rawValue)
-        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize})), forKey: Attribute.size.rawValue)
+        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize})), forKey: Attribute.fileSize.rawValue)
         self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
         print("savePreview complete")
     }
