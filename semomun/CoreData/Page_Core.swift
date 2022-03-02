@@ -10,31 +10,36 @@ import Foundation
 import CoreData
 import UIKit
 
-struct PageResult {
+struct PageUUID {
     let vid: Int
-    let url: String?
-    let isImage: Bool
-    
-    init(vid: Int, url: String?, isImage: Bool) {
-        self.vid = vid
-        self.url = url
-        self.isImage = isImage
-    }
+    let material: String?
 }
 
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
     public override var description: String{
-        return "Page(\(self.vid), \(self.problems), \(optional: self.materialImage))\n"
+        return "\nPage(\(vid)) \(problemCores ?? [])\n"
     }
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Page_Core> {
         return NSFetchRequest<Page_Core>(entityName: "Page_Core")
     }
+    
+    enum Attribute: String {
+        case vid
+        case layoutType
+        case materialImage
+        case updatedDate
+        case drawing
+        case time
+        case problemCores
+    }
 
     @NSManaged public var vid: Int64 //뷰어의 고유 번호
-    @NSManaged public var materialImage: Data? //좌측 이미지
     @NSManaged public var layoutType: String //뷰컨트롤러 타입
+    @NSManaged public var materialImage: Data? //좌측 이미지
+    @NSManaged public var updatedDate: Date? // NEW: 반영일자
+    
     @NSManaged public var drawing: Data? //Pencil 데이터
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 인해 생긴 problemCore들
@@ -42,44 +47,31 @@ public class Page_Core: NSManagedObject {
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var problems: [Int] //Deprecated(1.1.3)
     
-    func setValues(page: PageOfDB, type: Int) -> PageResult {
-        self.setValue(Int64(page.vid), forKey: "vid")
-        self.setValue(getLayout(form: page.form, type: type), forKey: "layoutType")
-        self.setValue(nil, forKey: "drawing")
-        self.setValue(Int64(0), forKey: "time")
+    func setValues(page: PageOfDB, type: Int) -> PageUUID {
+        self.setValue(Int64(page.vid), forKey: Attribute.vid.rawValue)
+        self.setValue(self.getLayout(form: page.form, type: type), forKey: Attribute.layoutType.rawValue)
+        self.setValue(page.updatedDate, forKey: Attribute.updatedDate.rawValue)
+        self.setValue(nil, forKey: Attribute.drawing.rawValue)
+        self.setValue(Int64(0), forKey: Attribute.time.rawValue)
         print("Page: \(page.vid) save complete")
         
-        let materialUrl: String?
-        if let materialPath = page.material {
-            materialUrl = NetworkURL.materialImage + materialPath
-        } else {
-            materialUrl = nil
-        }
-        return PageResult(vid: page.vid, url: materialUrl, isImage: materialUrl != nil)
+        return PageUUID(vid: page.vid, material: page.material)
     }
     
-    func setMaterial(pageResult: PageResult, completion: @escaping(() -> Void)) {
-        guard pageResult.isImage == true else { return }
-        
-        if let url = pageResult.url {
-            Network().get(url: url, param: nil) { requestResult in
-                print(requestResult.data ?? "no data")
-                if requestResult.data != nil {
-                    self.setValue(requestResult.data, forKey: "materialImage")
-                    print("Page: \(pageResult.vid) save Material")
-                    completion()
-                } else {
-                    let warningImage = UIImage(.warning)
-                    self.setValue(warningImage.pngData(), forKey: "materialImage")
-                    print("Page: \(pageResult.vid) save Material")
-                    completion()
-                }
+    func setMaterial(uuid: PageUUID, networkUsecase: S3ImageFetchable, completion: @escaping(() -> Void)) {
+        guard let material = uuid.material else { return }
+        // MARK: - materialImage
+        networkUsecase.getImageFromS3(uuid: material, type: .material) { [weak self] status, data in
+            print(data ?? "Error: \(uuid.vid) - can't get material Image")
+            if data != nil {
+                self?.setValue(data, forKey: Attribute.materialImage.rawValue)
+                print("Page: \(uuid.vid) save material")
+                completion()
+            } else {
+                self?.setValue(UIImage(.warning).pngData, forKey: Attribute.materialImage.rawValue)
+                print("Page: \(uuid.vid) save material fail")
+                completion()
             }
-        } else {
-            let warningImage = UIImage(.warning) 
-            self.setValue(warningImage.pngData(), forKey: "materialImage")
-            print("Page: \(pageResult.vid) save Material")
-            completion()
         }
     }
     
