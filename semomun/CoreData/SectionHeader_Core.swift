@@ -18,13 +18,13 @@ extension SectionHeader_Core {
     enum Attribute: String {
         case wid
         case sid
-        case index
+        case sectionNum
         case title
         case detail
-        case size
+        case fileSize
         case audio
         case audioDetail
-        case updatedAt
+        case updatedDate
         case cutoff
         case downloaded
         case terminated
@@ -33,13 +33,13 @@ extension SectionHeader_Core {
     
     @NSManaged public var wid: Int64
     @NSManaged public var sid: Int64
-    @NSManaged public var index: Int64 //NEW: section number 값
+    @NSManaged public var sectionNum: Int64 //NEW: section number 값
     @NSManaged public var title: String?
     @NSManaged public var detail: String?
-    @NSManaged public var size: Int64 //NEW: section 파일크기
+    @NSManaged public var fileSize: Int64 //NEW: section 파일크기
     @NSManaged public var audio: Data? //NEW: audio 파일
     @NSManaged public var audioDetail: String? //NEW: audio 파일의 timestemp 값
-    @NSManaged public var updatedAt: Date? //NEW: 반영일자
+    @NSManaged public var updatedDate: Date? //NEW: 반영일자
     @NSManaged public var cutoff: String? // json 형식의 커트라인
     
     @NSManaged public var downloaded: Bool
@@ -56,14 +56,14 @@ public class SectionHeader_Core: NSManagedObject {
     func setValues(section: SectionOfDB) {
         self.setValue(Int64(section.wid), forKey: Attribute.wid.rawValue)
         self.setValue(Int64(section.sid), forKey: Attribute.sid.rawValue)
-        self.setValue(Int64(section.sectionNum), forKey: Attribute.index.rawValue)
+        self.setValue(Int64(section.sectionNum), forKey: Attribute.sectionNum.rawValue)
         self.setValue(section.title, forKey: Attribute.title.rawValue)
         self.setValue(section.detail, forKey: Attribute.detail.rawValue)
         self.setValue(nil, forKey: Attribute.cutoff.rawValue)
-        self.setValue(Int64(section.fileSize), forKey: Attribute.size.rawValue)
+        self.setValue(Int64(section.fileSize), forKey: Attribute.fileSize.rawValue)
         self.setValue(nil, forKey: Attribute.audio.rawValue) // TODO: 추후 Data 형식으로 가져오는 로직이 필요
         self.setValue(nil, forKey: Attribute.audioDetail.rawValue) // TODO: 추후 반영될 값
-        self.setValue(section.updatedDate, forKey: Attribute.updatedAt.rawValue)
+        self.setValue(section.updatedDate, forKey: Attribute.updatedDate.rawValue)
         self.setValue(false, forKey: Attribute.downloaded.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
         self.setValue(nil, forKey: Attribute.image.rawValue)
