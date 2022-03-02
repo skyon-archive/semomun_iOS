@@ -183,104 +183,14 @@ extension NetworkUsecase {
 
 extension NetworkUsecase: SectionDownloadable {
     func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
-//        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
-//            guard let data = requestResult.data else { return }
-//            guard let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
-//                print("Error: Decode")
-//                return
-//            }
-//            completion(section)
-//        }
-        let json = """
-        {
-            "wid": 1,
-            "sid": 1,
-            "index": 1,
-            "title": "2013년도 국가직 9급 국어",
-            "detail": "",
-            "cutoff": {},
-            "sectioncover": "725dfb91-8472-4c1a-af91-2c74b0b3ece5",
-            "size": 10,
-            "audio": null,
-            "audioDetail": null,
-            "createdAt": "2022-02-23T18:00:33.000Z",
-            "updatedAt": "2022-02-23T18:00:34.000Z",
-            "views": [
-                {
-                    "sid": 1,
-                    "vid": 1,
-                    "index": 1,
-                    "form": 0,
-                    "passage": null,
-                    "attachment": null,
-                    "createdAt": "2022-02-23T18:01:02.000Z",
-                    "updatedAt": "2022-02-23T18:01:03.000Z",
-                    "problems": [
-                        {
-                            "vid": 1,
-                            "pid": 1,
-                            "index": 1,
-                            "labelType": "문",
-                            "labelNum": "1",
-                            "type": 4,
-                            "answer": "4",
-                            "point": 5,
-                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
-                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
-                            "createdAt": "2022-02-23T18:01:55.000Z",
-                            "updatedAt": "2022-02-23T18:02:04.000Z"
-                        }
-                    ]
-                },
-                {
-                    "sid": 1,
-                    "vid": 2,
-                    "index": 2,
-                    "form": 0,
-                    "passage": null,
-                    "attachment": null,
-                    "createdAt": "2022-02-23T18:01:02.000Z",
-                    "updatedAt": "2022-02-23T18:01:03.000Z",
-                    "problems": [
-                        {
-                            "vid": 2,
-                            "pid": 2,
-                            "index": 1,
-                            "labelType": "문",
-                            "labelNum": "2",
-                            "type": 4,
-                            "answer": "4",
-                            "point": 5,
-                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
-                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
-                            "createdAt": "2022-02-23T18:01:55.000Z",
-                            "updatedAt": "2022-02-23T18:02:04.000Z"
-                        },
-                        {
-                            "vid": 2,
-                            "pid": 3,
-                            "index": 1,
-                            "labelType": "문",
-                            "labelNum": "3",
-                            "type": 4,
-                            "answer": "4",
-                            "point": 5,
-                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
-                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
-                            "createdAt": "2022-02-23T18:01:55.000Z",
-                            "updatedAt": "2022-02-23T18:02:04.000Z"
-                        }
-                    ]
-                }
-            ]
+        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
+            guard let data = requestResult.data else { return }
+            guard let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
+                print("Error: Decode")
+                return
+            }
+            completion(section)
         }
-        """
-        let data = Data(json.utf8)
-        guard let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
-            print("Error: Decode")
-            return
-        }
-        completion(section)
     }
 }
 
@@ -641,36 +551,46 @@ extension NetworkUsecase: UserInfoFetchable {
 
 
 extension NetworkUsecase: S3ImageFetchable {
-    func getImageURLFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void) {
+    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
         let param = ["uuid": uuid, "type": type.rawValue]
-        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { requestResult in
-            guard let statusCode = requestResult.statusCode else {
-                print("Error: no statusCode")
-                completion(.ERROR, nil)
-                return
+        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { [weak self] requestResult in
+            let result = self?.getStatusAndData(requestResult: requestResult)
+            switch result?.status {
+            case .SUCCESS:
+                guard let data = result?.data,
+                      let imageURL: String = String(data: data, encoding: .utf8) else {
+                          completion(.FAIL, nil)
+                          return
+                      }
+                
+                self?.network.get(url: imageURL, param: nil, completion: { requestResult in
+                    let status: NetworkStatus = requestResult.statusCode == 200 ? .SUCCESS : .FAIL
+                    completion(status, requestResult.data)
+                })
+            default:
+                completion(.FAIL, nil)
             }
-            if statusCode == 504 {
-                print("server Error")
-                completion(.INSPECTION, nil)
-                return
-            }
-            guard let data = requestResult.data else {
-                print("Error: no data")
-                completion(.ERROR, nil)
-                return
-            }
-            if statusCode != 200 {
-                print("Error: \(statusCode)")
-                print("\(optional: String(data: data, encoding: .utf8))")
-                completion(.ERROR, nil)
-                return
-            }
-            guard let imageUrl: String = String(data: data, encoding: .utf8) else {
-                print("Error: Decode")
-                completion(.DECODEERROR, nil)
-                return
-            }
-            completion(.SUCCESS, imageUrl)
         }
+    }
+}
+
+extension NetworkUsecase: FilterStatus {
+    func getStatusAndData(requestResult: RequestResult) -> (status: NetworkStatus, data: Data?) {
+        guard let statusCode = requestResult.statusCode else {
+            print("Error: no statusCode")
+            return (.ERROR, nil)
+        }
+        
+        guard let data = requestResult.data else {
+            print("Errror: no data, statusCode: \(statusCode)")
+            return (.ERROR, nil)
+        }
+        
+        if statusCode != 200 {
+            print("Error statusCode: \(statusCode)")
+            return (.ERROR, data)
+        }
+        
+        return (.SUCCESS, data)
     }
 }

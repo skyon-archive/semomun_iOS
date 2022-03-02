@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import Kingfisher
 
 struct CoreUsecase {
     static func sectionOfCoreData(sid: Int) -> Section_Core? {
@@ -37,7 +36,7 @@ struct CoreUsecase {
         var problemCores: [Problem_Core] = []
         
         var pageResults: [PageResult] = []
-        var problemResults: [ProblemResult] = []
+        var problemUUIDs: [ProblemUUIDs] = []
         var problemIndex: Int = 0
         
         print("----------save start----------")
@@ -52,7 +51,7 @@ struct CoreUsecase {
                 let problemData = CoreUsecase.createProblem(context: context, problem: problem, section: sectionCore, page: pageCore, index: problemIndex)
                 let problemCore = problemData.problem
                 problemCores.append(problemCore)
-                problemResults.append(problemData.result)
+                problemUUIDs.append(problemData.result)
                 problemIndex += 1
             }
         }
@@ -60,7 +59,7 @@ struct CoreUsecase {
         print("----------save end----------")
         
         let pageImageCount = pageResults.filter(\.isImage).count // 지문이미지 수
-        let problemImageCount = problemResults.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
+        let problemImageCount = problemUUIDs.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
         let loadingCount: Int = pageImageCount + problemImageCount
         var currentCount: Int = 0
         loading.setCount(to: loadingCount)
@@ -68,9 +67,9 @@ struct CoreUsecase {
         DispatchQueue.global().async {
             for idx in 0..<problemCores.count {
                 let problemCore = problemCores[idx]
-                let problemResult = problemResults[idx]
+                let problemUUIDs = problemUUIDs[idx]
                 
-                problemCore.fetchImages(problemResult: problemResult) {
+                problemCore.fetchImages(uuids: problemUUIDs) {
                     loading.oneProgressDone()
                     currentCount += 1
                     print("\(currentCount)/\(loadingCount)")
@@ -104,7 +103,7 @@ struct CoreUsecase {
         return (page: pageCore, result: pageResult)
     }
     
-    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemResult) {
+    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemUUIDs) {
         let problemCore = Problem_Core(context: context)
         let problemResult = problemCore.setValues(prob: problem, index: index)
         problemCore.pageCore = page

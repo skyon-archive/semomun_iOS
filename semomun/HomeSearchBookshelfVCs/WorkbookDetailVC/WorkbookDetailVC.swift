@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import Kingfisher
 
 final class WorkbookDetailVC: UIViewController {
     static let identifier = "WorkbookDetailVC"
@@ -317,11 +316,14 @@ extension WorkbookDetailVC {
     }
     
     private func bindBookcover() {
-        self.viewModel?.$bookcoverUrl
+        self.viewModel?.$bookcoverData
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] url in
-                guard let url = url else { return }
-                self?.bookCoverImageView.kf.setImage(with: url)
+            .sink(receiveValue: { [weak self] data in
+                guard let data = data else {
+                    self?.bookCoverImageView.image = UIImage(.warning)
+                    return
+                }
+                self?.bookCoverImageView.image = UIImage(data: data)
             })
             .store(in: &self.cancellables)
     }
