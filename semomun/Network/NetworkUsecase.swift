@@ -461,69 +461,14 @@ extension NetworkUsecase: PurchaseListFetchable {
 
 extension NetworkUsecase: WorkbookFetchable {
     func downloadWorkbook(wid: Int, handler: @escaping (WorkbookOfDB) -> ()) {
-//        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
-//            guard let data = requestResult.data else { return }
-//            guard let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
-//                print("Error: Decode")
-//                return
-//            }
-//            handler(workbookOfDB)
-//        }
-        let testJson = """
-        {
-            "id": 1,
-            "wid": 1,
-            "title": "2013년도 국가직 9급 국어",
-            "detail": "",
-            "isbn": "",
-            "author": "9급공무원",
-            "date": "2022-02-28T16:06:18.000Z",
-            "publishMan": "",
-            "publishCompany": "9급공무원",
-            "originalPrice": "0",
-            "bookcover": "5ad2d320-5e36-4fa6-a417-ed5daa7b644a",
-            "createdAt": "2022-02-28T16:06:36.000Z",
-            "updatedAt": "2022-02-28T16:06:37.000Z",
-            "price": 0,
-            "sales": 1,
-            "sections": [
-                {
-                    "wid": 1,
-                    "sid": 1,
-                    "index": 1,
-                    "title": "2013년도 국가직 9급 국어",
-                    "detail": "",
-                    "cutoff": {},
-                    "sectioncover": "725dfb91-8472-4c1a-af91-2c74b0b3ece5",
-                    "size": 10,
-                    "audio": null,
-                    "audioDetail": null,
-                    "createdAt": "2022-02-28T16:07:00.000Z",
-                    "updatedAt": "2022-02-28T16:07:01.000Z"
-                }
-            ],
-            "tags": [
-                {
-                    "tid": 1,
-                    "name": "9급공무원",
-                    "createdAt": "2022-02-25T20:32:20.000Z",
-                    "updatedAt": "2022-02-25T20:32:22.000Z"
-                },
-                {
-                    "tid": 2,
-                    "name": "국가직9급공무원",
-                    "createdAt": "2022-02-25T20:32:20.000Z",
-                    "updatedAt": "2022-02-25T20:32:22.000Z"
-                }
-            ]
+        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { requestResult in
+            guard let data = requestResult.data else { return }
+            guard let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
+                print("Error: Decode")
+                return
+            }
+            handler(workbookOfDB)
         }
-        """
-        let data = Data(testJson.utf8)
-        guard let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
-            print("Error: Decode")
-            return
-        }
-        handler(workbookOfDB)
     }
 }
 

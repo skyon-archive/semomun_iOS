@@ -19,8 +19,10 @@ extension Date {
         return String(format: "%d.%02d.%02d", year, month, day)
     }
     var koreanYearMonthDayText: String {
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "YYYY년 MM월 DD일"
-        return dateformatter.string(from: self)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        return formatter.string(from: self)
     }
 }
