@@ -181,16 +181,106 @@ extension NetworkUsecase {
     
 }
 
-extension NetworkUsecase: PagesFetchable {
-    func getPages(sid: Int, hander: @escaping ([PageOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
-            guard let data = requestResult.data else { return }
-            guard let pageOfDBs: [PageOfDB] = try? JSONDecoder().decode([PageOfDB].self, from: data) else {
-                print("Error: Decode")
-                return
-            }
-            hander(pageOfDBs)
+extension NetworkUsecase: SectionDownloadable {
+    func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
+//        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { requestResult in
+//            guard let data = requestResult.data else { return }
+//            guard let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
+//                print("Error: Decode")
+//                return
+//            }
+//            completion(section)
+//        }
+        let json = """
+        {
+            "wid": 1,
+            "sid": 1,
+            "index": 1,
+            "title": "2013년도 국가직 9급 국어",
+            "detail": "",
+            "cutoff": {},
+            "sectioncover": "725dfb91-8472-4c1a-af91-2c74b0b3ece5",
+            "size": 10,
+            "audio": null,
+            "audioDetail": null,
+            "createdAt": "2022-02-23T18:00:33.000Z",
+            "updatedAt": "2022-02-23T18:00:34.000Z",
+            "views": [
+                {
+                    "sid": 1,
+                    "vid": 1,
+                    "index": 1,
+                    "form": 0,
+                    "passage": null,
+                    "attachment": null,
+                    "createdAt": "2022-02-23T18:01:02.000Z",
+                    "updatedAt": "2022-02-23T18:01:03.000Z",
+                    "problems": [
+                        {
+                            "vid": 1,
+                            "pid": 1,
+                            "index": 1,
+                            "labelType": "문",
+                            "labelNum": "1",
+                            "type": 4,
+                            "answer": "4",
+                            "point": 5,
+                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
+                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
+                            "createdAt": "2022-02-23T18:01:55.000Z",
+                            "updatedAt": "2022-02-23T18:02:04.000Z"
+                        }
+                    ]
+                },
+                {
+                    "sid": 1,
+                    "vid": 2,
+                    "index": 2,
+                    "form": 0,
+                    "passage": null,
+                    "attachment": null,
+                    "createdAt": "2022-02-23T18:01:02.000Z",
+                    "updatedAt": "2022-02-23T18:01:03.000Z",
+                    "problems": [
+                        {
+                            "vid": 2,
+                            "pid": 2,
+                            "index": 1,
+                            "labelType": "문",
+                            "labelNum": "2",
+                            "type": 4,
+                            "answer": "4",
+                            "point": 5,
+                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
+                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
+                            "createdAt": "2022-02-23T18:01:55.000Z",
+                            "updatedAt": "2022-02-23T18:02:04.000Z"
+                        },
+                        {
+                            "vid": 2,
+                            "pid": 3,
+                            "index": 1,
+                            "labelType": "문",
+                            "labelNum": "3",
+                            "type": 4,
+                            "answer": "4",
+                            "point": 5,
+                            "content": "a77c6b87-cc5a-4364-a5a9-d64e4010140e",
+                            "explanation": "20499f0a-921b-4fc7-9979-0309a1017f8f",
+                            "createdAt": "2022-02-23T18:01:55.000Z",
+                            "updatedAt": "2022-02-23T18:02:04.000Z"
+                        }
+                    ]
+                }
+            ]
         }
+        """
+        let data = Data(json.utf8)
+        guard let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
+            print("Error: Decode")
+            return
+        }
+        completion(section)
     }
 }
 

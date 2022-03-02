@@ -55,22 +55,22 @@ public class Problem_Core: NSManagedObject {
     
     func setValues(prob: ProblemOfDB, index: Int) -> ProblemResult {
         self.setValue(Int64(prob.pid), forKey: "pid")
-        self.setValue(prob.icon_name, forKey: "pName")
+//        self.setValue(prob.icon_name, forKey: "pName")
         self.setValue(Int64(0), forKey: "time")
         self.setValue(prob.answer, forKey: "answer")
         self.setValue(nil, forKey: "solved")
         self.setValue(false , forKey: "correct")
-        self.setValue(prob.rate, forKey: "rate")
+//        self.setValue(prob.rate, forKey: "rate")
         self.setValue(nil, forKey: "drawing")
-        self.setValue(prob.type, forKey: "type")
+//        self.setValue(prob.type, forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(false, forKey: "terminated")
         self.setValue(Int64(index), forKey: "orderIndex")
-        if let point = prob.score {
-            self.setValue(Double(point), forKey: "point")
-        } else {
-            self.setValue(Double(0), forKey: "point")
-        }
+//        if let point = prob.score {
+//            self.setValue(Double(point), forKey: "point")
+//        } else {
+//            self.setValue(Double(0), forKey: "point")
+//        }
         print("Problem: \(prob.pid) save complete")
         
         let contentUrl: String = NetworkURL.contentImage + prob.content
