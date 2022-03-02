@@ -551,7 +551,7 @@ extension NetworkUsecase: UserInfoFetchable {
 
 
 extension NetworkUsecase: S3ImageFetchable {
-    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void) {
+    func getImageURLFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void) {
         let param = ["uuid": uuid, "type": type.rawValue]
         self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { requestResult in
             guard let statusCode = requestResult.statusCode else {
