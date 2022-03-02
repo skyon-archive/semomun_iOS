@@ -121,7 +121,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(workbook.isbn, forKey: Attribute.isbn.rawValue)
         self.setValue(workbook.author, forKey: Attribute.author.rawValue)
         self.setValue(workbook.publishCompany, forKey: Attribute.publisher.rawValue)
-        self.setValue(workbook.publishdDate, forKey: Attribute.date.rawValue)
+        self.setValue(workbook.publishedDate, forKey: Attribute.date.rawValue)
         self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
         self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
         self.setValue(workbook.updatedDate, forKey: Attribute.updatedAt.rawValue)
