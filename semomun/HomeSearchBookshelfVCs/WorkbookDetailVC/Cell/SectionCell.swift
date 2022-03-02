@@ -105,16 +105,16 @@ extension SectionCell {
         
         networkUsecase.getSection(sid: Int(sid)) { section in
             print(section)
-//            CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
-//                if sectionCore == nil {
-//                    NotificationCenter.default.post(name: .downloadSectionFail, object: nil)
-//                    self?.downloadButton.setTitle("다운실패", for: .normal)
-//                    return
-//                }
-//                self?.sectionHeader?.setValue(true, forKey: "downloaded")
-//                CoreDataManager.saveCoreData()
-//                self?.terminate()
-//            }
+            CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
+                if sectionCore == nil {
+                    NotificationCenter.default.post(name: .downloadSectionFail, object: nil)
+                    self?.downloadButton.setTitle("다운실패", for: .normal)
+                    return
+                }
+                self?.sectionHeader?.setValue(true, forKey: "downloaded")
+                CoreDataManager.saveCoreData()
+                self?.terminate()
+            }
         }
     }
     

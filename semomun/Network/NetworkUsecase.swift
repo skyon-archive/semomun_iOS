@@ -553,17 +553,17 @@ extension NetworkUsecase: UserInfoFetchable {
 extension NetworkUsecase: S3ImageFetchable {
     func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
         let param = ["uuid": uuid, "type": type.rawValue]
-        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { [weak self] requestResult in
-            let result = self?.getStatusAndData(requestResult: requestResult)
-            switch result?.status {
+        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { requestResult in
+            let result = self.getStatusAndData(requestResult: requestResult)
+            switch result.status {
             case .SUCCESS:
-                guard let data = result?.data,
+                guard let data = result.data,
                       let imageURL: String = String(data: data, encoding: .utf8) else {
                           completion(.FAIL, nil)
                           return
                       }
                 
-                self?.network.get(url: imageURL, param: nil, completion: { requestResult in
+                self.network.get(url: imageURL, param: nil, completion: { requestResult in
                     let status: NetworkStatus = requestResult.statusCode == 200 ? .SUCCESS : .FAIL
                     completion(status, requestResult.data)
                 })
