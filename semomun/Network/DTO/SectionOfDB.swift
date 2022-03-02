@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SectionOfDB: Codable {
+struct SectionOfDB: Decodable {
     let wid: Int //속한 workbook 값
     let sid: Int //식별값
     let sectionNum: Int //섹션 번호
@@ -32,4 +32,4 @@ struct SectionOfDB: Codable {
     }
 }
 
-struct Cutoff: Codable {}
+struct Cutoff: Decodable {}

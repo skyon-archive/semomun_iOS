@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WorkbookOfDB: Codable {
+struct WorkbookOfDB: Decodable {
     let productID: Int //상품 식별자
     let wid: Int //문제집 고유 번호
     let title: String
@@ -37,7 +37,7 @@ struct WorkbookOfDB: Codable {
     }
 }
 
-struct TagOfDB: Codable {
+struct TagOfDB: Decodable {
     let tid: Int
     let name: String
 }
