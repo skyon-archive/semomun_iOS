@@ -171,7 +171,7 @@ final class SectionManager {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
             self?.stopTimer()
             self?.section.setValue(true, forKey: "terminated")
-            self?.sectionHeader.setValue(true, forKey: "terminated")
+            self?.sectionHeader.setValue(true, forKey: SectionHeader_Core.Attribute.terminated.rawValue)
             // TODO: preview 상에 진도율 반영 로직
             CoreDataManager.saveCoreData()
             self?.delegate?.changeResultLabel()

@@ -21,8 +21,8 @@ struct WorkbookInfo {
         self.title = previewCore.title ?? "문제집 제목 없음"
         self.author = previewCore.author ?? "저자 정보 없음"
         self.publisher = previewCore.publisher ?? "출판사 정보 없음"
-        self.releaseDate = previewCore.date?.koreanYearMonthDayText ?? "출판일 정보 없음"
-        self.fileSize = "\(previewCore.size)MB"
+        self.releaseDate = previewCore.publishedDate?.koreanYearMonthDayText ?? "출판일 정보 없음"
+        self.fileSize = "\(previewCore.fileSize)MB"
         self.isbn = previewCore.isbn ?? ""
         self.price = Int(previewCore.price)
         self.imageData = previewCore.image
