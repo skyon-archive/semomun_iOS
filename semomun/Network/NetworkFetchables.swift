@@ -86,5 +86,8 @@ protocol UserInfoFetchable {
 }
 
 protocol S3ImageFetchable {
-    func getImageURLFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void)
+    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
+}
+protocol FilterStatus {
+    func getStatusAndData(requestResult: RequestResult) -> (status: NetworkStatus, data: Data?)
 }
