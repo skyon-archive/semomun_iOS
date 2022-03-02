@@ -27,6 +27,7 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
     @NSManaged public var scoringQueue: [Int]? //부분채점시 표시될 pid들
     @NSManaged public var uploadQueue: [Int]? //채점시 DB상에 upload 될 pid들
+    @NSManaged public var updatedDate: Date? // NEW: 반영일자
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var dictionaryOfProblem: [String: Int] //Deprecated(1.1.3)
@@ -45,6 +46,7 @@ public class Section_Core: NSManagedObject {
         self.setValue(0, forKey: "time")
         self.setValue(0, forKey: "lastPageId") // TODO: lastIndex 수정 예정
         self.setValue(false, forKey: "terminated")
+        self.setValue(header.updatedDate, forKey: "updatedDate")
         print("Section: \(header.sid) save complete")
     }
     

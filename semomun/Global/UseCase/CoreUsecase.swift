@@ -35,7 +35,7 @@ struct CoreUsecase {
         var pageCores: [Page_Core] = []
         var problemCores: [Problem_Core] = []
         
-        var pageResults: [PageResult] = []
+        var pageUUIDs: [PageUUID] = []
         var problemUUIDs: [ProblemUUID] = []
         var problemIndex: Int = 0
         
@@ -45,7 +45,7 @@ struct CoreUsecase {
             let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
             let pageCore = pageData.page
             pageCores.append(pageCore)
-            pageResults.append(pageData.result)
+            pageUUIDs.append(pageData.result)
             
             page.problems.forEach { problem in
                 let problemData = CoreUsecase.createProblem(context: context, problem: problem, section: sectionCore, page: pageCore, index: problemIndex)
@@ -58,7 +58,7 @@ struct CoreUsecase {
         
         print("----------save end----------")
         
-        let pageImageCount = pageResults.filter(\.isImage).count // 지문이미지 수
+        let pageImageCount = pageUUIDs.filter({ $0.material != nil }).count // 지문이미지 수
         let problemImageCount = problemUUIDs.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
         let loadingCount: Int = pageImageCount + problemImageCount
         var currentCount: Int = 0
@@ -83,9 +83,8 @@ struct CoreUsecase {
             
             for idx in 0..<pageCores.count {
                 let pageCore = pageCores[idx]
-                let pageResult = pageResults[idx]
-                
-                pageCore.setMaterial(pageResult: pageResult) {
+                let pageUUID = pageUUIDs[idx]
+                pageCore.setMaterial(uuid: pageUUID, networkUsecase: networkUsecase) {
                     loading.oneProgressDone()
                     currentCount += 1
                     print("\(currentCount)/\(loadingCount)")
@@ -98,7 +97,7 @@ struct CoreUsecase {
         }
     }
     
-    static private func createPage(context: NSManagedObjectContext, page: PageOfDB, type: Int) -> (page: Page_Core, result: PageResult) {
+    static private func createPage(context: NSManagedObjectContext, page: PageOfDB, type: Int) -> (page: Page_Core, result: PageUUID) {
         let pageCore = Page_Core(context: context)
         let pageResult = pageCore.setValues(page: page, type: type)
         return (page: pageCore, result: pageResult)

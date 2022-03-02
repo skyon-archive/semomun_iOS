@@ -85,7 +85,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.btName, forKey: Attribute.pName.rawValue)
         self.setValue(prob.type, forKey: Attribute.type.rawValue)
         self.setValue(prob.answer, forKey: Attribute.answer.rawValue)
-        self.setValue(prob.point, forUndefinedKey: Attribute.point.rawValue)
+        self.setValue(prob.point ?? Double(0), forKey: Attribute.point.rawValue)
         self.setValue(Int64(0), forKey: Attribute.time.rawValue)
         self.setValue(nil, forKey: Attribute.solved.rawValue)
         self.setValue(false, forKey: Attribute.correct.rawValue)
@@ -97,7 +97,7 @@ public class Problem_Core: NSManagedObject {
         return ProblemUUID(pid: prob.pid, content: prob.content, explanation: prob.explanation)
     }
     
-    func fetchImages(uuids: ProblemUUID, networkUsecase: S3ImageFetchable, completion: @escaping(() -> Void)) {
+    func fetchImages(uuids: ProblemUUID, networkUsecase: NetworkUsecase, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         networkUsecase.getImageFromS3(uuid: uuids.content, type: .content) { [weak self] status, data in
             print(data ?? "Error: \(uuids.pid) - can't get content Image")
@@ -120,6 +120,7 @@ public class Problem_Core: NSManagedObject {
                     print("Problem: \(uuids.pid) save explanationImage")
                     completion()
                 } else {
+                    print("hi")
                     self?.setValue(UIImage(.warning).pngData, forKey: Attribute.explanationImage.rawValue)
                     print("Problem: \(uuids.pid) save explanationImage fail")
                     completion()
