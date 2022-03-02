@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21E5222a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21E5227a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Page_Core" representedClassName="Page_Core" syncable="YES">
         <attribute name="drawing" optional="YES" attributeType="Binary"/>
         <attribute name="layoutType" optional="YES" attributeType="String"/>
@@ -44,6 +44,7 @@
     </entity>
     <entity name="Problem_Core" representedClassName="Problem_Core" syncable="YES">
         <attribute name="answer" optional="YES" attributeType="String"/>
+        <attribute name="btType" optional="YES" attributeType="String"/>
         <attribute name="contentImage" optional="YES" attributeType="Binary"/>
         <attribute name="correct" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="drawing" optional="YES" attributeType="Binary"/>
@@ -108,7 +109,7 @@
     <elements>
         <element name="Page_Core" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Preview_Core" positionX="-54" positionY="36" width="128" height="494"/>
-        <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="284"/>
+        <element name="Problem_Core" positionX="-36" positionY="63" width="128" height="299"/>
         <element name="Section_Core" positionX="-18" positionY="153" width="128" height="224"/>
         <element name="SectionHeader_Core" positionX="0" positionY="171" width="128" height="224"/>
         <element name="UserCoreData" positionX="-18" positionY="144" width="128" height="209"/>

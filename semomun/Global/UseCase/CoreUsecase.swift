@@ -36,7 +36,7 @@ struct CoreUsecase {
         var problemCores: [Problem_Core] = []
         
         var pageResults: [PageResult] = []
-        var problemUUIDs: [ProblemUUIDs] = []
+        var problemUUIDs: [ProblemUUID] = []
         var problemIndex: Int = 0
         
         print("----------save start----------")
@@ -64,12 +64,13 @@ struct CoreUsecase {
         var currentCount: Int = 0
         loading.setCount(to: loadingCount)
         
+        let networkUsecase = NetworkUsecase(network: Network())
         DispatchQueue.global().async {
             for idx in 0..<problemCores.count {
                 let problemCore = problemCores[idx]
-                let problemUUIDs = problemUUIDs[idx]
+                let problemUUID = problemUUIDs[idx]
                 
-                problemCore.fetchImages(uuids: problemUUIDs) {
+                problemCore.fetchImages(uuids: problemUUID, networkUsecase: networkUsecase) {
                     loading.oneProgressDone()
                     currentCount += 1
                     print("\(currentCount)/\(loadingCount)")
@@ -103,7 +104,7 @@ struct CoreUsecase {
         return (page: pageCore, result: pageResult)
     }
     
-    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemUUIDs) {
+    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, section: Section_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemUUID) {
         let problemCore = Problem_Core(context: context)
         let problemResult = problemCore.setValues(prob: problem, index: index)
         problemCore.pageCore = page
