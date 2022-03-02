@@ -14,7 +14,7 @@ struct WorkbookOfDB: Codable {
     let detail: String //문제집 정보
     let isbn: String //ISBN값
     let author: String //저자
-    let publishdDate: Date //발행일
+    let publishedDate: Date //발행일
     let publishMan: String //발행인
     let publishCompany: String //출판사
     let originalPrice: String //정가
@@ -29,7 +29,7 @@ struct WorkbookOfDB: Codable {
     enum CodingKeys: String, CodingKey {
         case productID = "id"
         case wid, title, detail, isbn, author
-        case publishdDate = "date"
+        case publishedDate = "date"
         case publishMan, publishCompany, originalPrice, bookcover
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
