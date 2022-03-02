@@ -21,7 +21,7 @@ struct WorkbookOfDB: Decodable {
     let bookcover: String //문제집 표지 이미지 uuid
     let createdDate: Date //생성일자
     let updatedDate: Date //반영일자
-    let sections: [SectionOfDB]
+    let sections: [SectionHeaderOfDB]
     let price: Int
     let tags: [TagOfDB]
     let sales: Int

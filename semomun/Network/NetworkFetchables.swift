@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias networkFetchables = (PagesFetchable & VersionFetchable)
+typealias networkFetchables = (SectionDownloadable & VersionFetchable)
 
 // Network
 protocol NetworkFetchable {
@@ -16,8 +16,8 @@ protocol NetworkFetchable {
     func put(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void)
 }
 // NetworkUseCase
-protocol PagesFetchable {
-    func getPages(sid: Int, hander: @escaping ([PageOfDB]) -> Void)
+protocol SectionDownloadable {
+    func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
 }
 protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)

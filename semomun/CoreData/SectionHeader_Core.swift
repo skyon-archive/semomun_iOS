@@ -53,7 +53,7 @@ public class SectionHeader_Core: NSManagedObject {
         return "SectionHeader(\(self.sid), \(optional: self.title), \(optional: self.image))"
     }
     
-    func setValues(section: SectionOfDB) {
+    func setValues(section: SectionHeaderOfDB) {
         self.setValue(Int64(section.wid), forKey: Attribute.wid.rawValue)
         self.setValue(Int64(section.sid), forKey: Attribute.sid.rawValue)
         self.setValue(Int64(section.sectionNum), forKey: Attribute.sectionNum.rawValue)

@@ -170,8 +170,8 @@
 		87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */; };
 		87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */; };
 		87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */; };
-		87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF1276F6EF0001C9C4A /* SectionOfDB.swift */; };
-		87C85EF4276F6EFE001C9C4A /* PageOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */; };
+		87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */; };
+		87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */; };
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
@@ -356,8 +356,8 @@
 		87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUsecase.swift; sourceTree = "<group>"; };
 		87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewOfDB.swift; sourceTree = "<group>"; };
 		87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookOfDB.swift; sourceTree = "<group>"; };
-		87C85EF1276F6EF0001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
-		87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageOfDB.swift; sourceTree = "<group>"; };
+		87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderOfDB.swift; sourceTree = "<group>"; };
+		87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
@@ -1011,8 +1011,8 @@
 				87C85E7E276F69CD001C9C4A /* UserInfo.swift */,
 				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
 				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
-				87C85EF1276F6EF0001C9C4A /* SectionOfDB.swift */,
-				87C85EF3276F6EFE001C9C4A /* PageOfDB.swift */,
+				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,
+				87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */,
 				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
 				8742544727795D3900D60264 /* QueryListButton.swift */,
 				8733159327799B77004E4A98 /* Categorys.swift */,
@@ -1303,7 +1303,7 @@
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
-				87C85EF4276F6EFE001C9C4A /* PageOfDB.swift in Sources */,
+				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
 				8716E956279A623500B33A5E /* StudyVC.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerVM.swift in Sources */,
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
@@ -1332,7 +1332,7 @@
 				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				259E994127AD1093000012AF /* CALayer.swift in Sources */,
-				87C85EF2276F6EF0001C9C4A /* SectionOfDB.swift in Sources */,
+				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
 			);
