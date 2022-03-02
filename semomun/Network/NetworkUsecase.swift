@@ -13,10 +13,10 @@ class NetworkUsecase {
         self.network = network
     }
     
-    func downloadPreviews(param: [String: String], hander: @escaping(SearchPreview) -> ()) {
+    func downloadPreviews(param: [String: String], hander: @escaping(SearchPreviews) -> ()) {
         self.network.get(url: NetworkURL.workbooks, param: param) { requestResult in
             guard let data = requestResult.data else { return }
-            guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
+            guard let searchPreview: SearchPreviews = try? JSONDecoder().decode(SearchPreviews.self, from: data) else {
                 print("Error: Decode")
                 return
             }
@@ -236,12 +236,12 @@ extension NetworkUsecase {
             completion(.ERROR, [])
             return
         }
-        guard let searchPreview: SearchPreview = try? JSONDecoderWithDate().decode(SearchPreview.self, from: data) else {
+        guard let searchPreview: SearchPreviews = try? JSONDecoderWithDate().decode(SearchPreviews.self, from: data) else {
             print("Error: Decode")
             completion(.DECODEERROR, [])
             return
         }
-        completion(.SUCCESS, searchPreview.workbooks.shuffled())
+        completion(.SUCCESS, searchPreview.previews.shuffled())
     }
 }
 
@@ -324,12 +324,12 @@ extension NetworkUsecase: SearchFetchable {
                         completion(.ERROR, [])
                         return
                     }
-                    guard let searchPreview: SearchPreview = try? JSONDecoder().decode(SearchPreview.self, from: data) else {
+                    guard let searchPreview: SearchPreviews = try? JSONDecoder().decode(SearchPreviews.self, from: data) else {
                         print("Error: Decode")
                         completion(.DECODEERROR, [])
                         return
                     }
-                    completion(.SUCCESS, searchPreview.workbooks)
+                    completion(.SUCCESS, searchPreview.previews)
                 }
             }
             
@@ -437,7 +437,7 @@ extension NetworkUsecase: SemopayHistoryFetchable {
             return Double(Int.random(in: -99...99) * 1000)
         }
         self.downloadPreviews(param: [:]) { searchPreview in
-            let wids = searchPreview.workbooks.map(\.wid)
+            let wids = searchPreview.previews.map(\.wid)
             let testData: [SemopayHistory] = Array(1...20).map { _ in
                 let cost = makeRandomCost()
                 let wid = cost > 0 ? nil : wids.randomElement()
