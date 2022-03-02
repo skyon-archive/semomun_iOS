@@ -33,8 +33,8 @@ struct WorkbookInfo {
         self.title = workbookDTO.title
         self.author = workbookDTO.author
         self.publisher = workbookDTO.publishCompany
-        self.releaseDate = workbookDTO.date.koreanYearMonthDayText
-        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.size }))MB"
+        self.releaseDate = workbookDTO.publishdDate.koreanYearMonthDayText
+        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.fileSize }))MB"
         self.isbn = workbookDTO.isbn
         self.price = workbookDTO.price
         self.imageData = nil
