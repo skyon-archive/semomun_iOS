@@ -78,18 +78,6 @@ final class WorkbookViewModel {
         }
     }
     
-//    func sectionHeader(idx: Int) -> SectionHeader_Core? {
-//        return self.sectionHeaders?[idx]
-//    }
-//
-//    func sectionDTO(idx: Int) -> SectionOfDB? {
-//        return self.sectionDTOs?[idx]
-//    }
-//
-//    func tag(idx: Int) -> String {
-//        return self.tags[idx]
-//    }
-    
     func saveWorkbook(bookcoverData: Data) {
         self.showLoader = true
         guard let workbook = self.workbookDTO else { return }

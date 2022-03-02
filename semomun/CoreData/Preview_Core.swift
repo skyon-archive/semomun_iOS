@@ -114,21 +114,21 @@ public class Preview_Core: NSManagedObject{
     }
     
     func setValues(workbook: WorkbookOfDB, bookcoverData: Data) {
-        self.setValue(Int64(workbook.id), forKey: Attribute.id.rawValue)
+        self.setValue(Int64(workbook.productID), forKey: Attribute.id.rawValue)
         self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
         self.setValue(workbook.title, forKey: Attribute.title.rawValue)
         self.setValue(workbook.detail, forKey: Attribute.detail.rawValue)
         self.setValue(workbook.isbn, forKey: Attribute.isbn.rawValue)
         self.setValue(workbook.author, forKey: Attribute.author.rawValue)
         self.setValue(workbook.publishCompany, forKey: Attribute.publisher.rawValue)
-        self.setValue(workbook.date, forKey: Attribute.date.rawValue)
+        self.setValue(workbook.publishdDate, forKey: Attribute.date.rawValue)
         self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
         self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
-        self.setValue(workbook.updatedAt, forKey: Attribute.updatedAt.rawValue)
+        self.setValue(workbook.updatedDate, forKey: Attribute.updatedAt.rawValue)
         self.setValue(workbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
         self.setValue(Double(workbook.price), forKey: Attribute.price.rawValue)
         self.setValue(workbook.tags.map(\.name), forKey: Attribute.tags.rawValue)
-        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.size})), forKey: Attribute.size.rawValue)
+        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize})), forKey: Attribute.size.rawValue)
         self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
         print("savePreview complete")
     }

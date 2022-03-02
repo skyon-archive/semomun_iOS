@@ -373,7 +373,7 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.configureCell(sectionHeader: sectionHeader, idx: Int(sectionHeader.index))
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
-            cell.configureCell(sectionDTO: sectionDTO, idx: sectionDTO.index)
+            cell.configureCell(sectionDTO: sectionDTO, idx: sectionDTO.sectionNum)
         }
         
         return cell
