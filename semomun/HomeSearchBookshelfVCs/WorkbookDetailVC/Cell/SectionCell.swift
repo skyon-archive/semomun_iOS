@@ -51,7 +51,7 @@ final class SectionCell: UITableViewCell {
 
 extension SectionCell {
     // MARK: - Configure from Search
-    func configureCell(sectionDTO: SectionOfDB, idx: Int) {
+    func configureCell(sectionDTO: SectionHeaderOfDB, idx: Int) {
         self.sectionNumber.text = String(format: "%02d", idx)
         self.downloadButton.isHidden = true
         self.numberLeading.constant = 0
@@ -103,17 +103,18 @@ extension SectionCell {
         guard let sid = self.sectionHeader?.sid else { return }
         let networkUsecase = NetworkUsecase(network: Network())
         
-        networkUsecase.getPages(sid: Int(sid)) { pages in
-            CoreUsecase.savePages(sid: Int(sid), pages: pages, loading: self) { [weak self] sectionCore in
-                if sectionCore == nil {
-                    NotificationCenter.default.post(name: .downloadSectionFail, object: nil)
-                    self?.downloadButton.setTitle("다운실패", for: .normal)
-                    return
-                }
-                self?.sectionHeader?.setValue(true, forKey: "downloaded")
-                CoreDataManager.saveCoreData()
-                self?.terminate()
-            }
+        networkUsecase.getSection(sid: Int(sid)) { section in
+            print(section)
+//            CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
+//                if sectionCore == nil {
+//                    NotificationCenter.default.post(name: .downloadSectionFail, object: nil)
+//                    self?.downloadButton.setTitle("다운실패", for: .normal)
+//                    return
+//                }
+//                self?.sectionHeader?.setValue(true, forKey: "downloaded")
+//                CoreDataManager.saveCoreData()
+//                self?.terminate()
+//            }
         }
     }
     

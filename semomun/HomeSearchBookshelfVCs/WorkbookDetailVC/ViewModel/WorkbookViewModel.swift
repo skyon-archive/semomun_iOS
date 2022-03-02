@@ -19,7 +19,7 @@ final class WorkbookViewModel {
     @Published private(set) var workbookInfo: WorkbookInfo?
     @Published private(set) var warning: String?
     @Published private(set) var sectionHeaders: [SectionHeader_Core] = []
-    @Published private(set) var sectionDTOs: [SectionOfDB] = []
+    @Published private(set) var sectionDTOs: [SectionHeaderOfDB] = []
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverUrl: URL?
