@@ -11,9 +11,9 @@ typealias networkFetchables = (SectionDownloadable & VersionFetchable)
 
 // Network
 protocol NetworkFetchable {
-    func get(url: String, param: [String: String]?, completion: @escaping (RequestResult) -> Void)
-    func post(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void)
-    func put(url: String, param: [String: String], completion: @escaping(RequestResult) -> Void)
+    func get(url: String, param: [String: String]?, completion: @escaping (NetworkResult) -> Void)
+    func post(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void)
+    func put(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void)
 }
 // NetworkUseCase
 protocol SectionDownloadable {
@@ -66,7 +66,7 @@ protocol PurchaseListFetchable {
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
 }
 protocol WorkbookFetchable {
-    func downloadWorkbook(wid: Int, handler: @escaping(WorkbookOfDB) -> ()) 
+    func downloadWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
 }
 protocol RemainingSemopayFetchable {
     func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void)
@@ -87,7 +87,4 @@ protocol UserInfoFetchable {
 
 protocol S3ImageFetchable {
     func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
-}
-protocol FilterStatus {
-    func getStatusAndData(requestResult: RequestResult) -> (status: NetworkStatus, data: Data?)
 }
