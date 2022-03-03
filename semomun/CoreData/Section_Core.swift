@@ -12,7 +12,7 @@ import CoreData
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
     public override var description: String{
-        return "Section(\(sid)) \(problemCores ?? [])"
+        return "Section(\(sid))\n" + (problemCores ?? []).map(\.description).joined(separator: "\n")
     }
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section_Core> {

@@ -23,7 +23,7 @@ class SearchResultCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        let stringUrl = NetworkURL.bookcoverImageDirectory(.large) + preview.bookcover
+        let stringUrl = NetworkURL.bookcoverImageDirectory(.large) + preview.bookcover.uuidString
         guard let url = URL(string: stringUrl) else { return }
         self.bookcover.kf.setImage(with: url)
     }

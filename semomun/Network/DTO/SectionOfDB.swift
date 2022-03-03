@@ -9,7 +9,7 @@ import Foundation
 
 struct SectionOfDB: Codable, CustomStringConvertible {
     var description: String {
-        return "Section(\(sid)) \(pages)"
+        return "Section(\(sid))\n" + pages.map(\.description).joined(separator: "\n")
     }
     
     let sid: Int
@@ -25,14 +25,14 @@ struct SectionOfDB: Codable, CustomStringConvertible {
 
 struct PageOfDB: Codable, CustomStringConvertible {
     var description: String {
-        return "\nPage(\(vid)) \(problems)\n"
+        return "Page(\(vid)) \(problems)"
     }
     
     let sid: Int
     let vid: Int //페이지 고유 번호
     let index: Int //페이지 번호
     let form: Int //페이지 유형
-    let material: String? //지문 이미지 uuid
+    let material: UUID? //지문 이미지 uuid
     let attachment: String? //추후 있을 화면단위 동영상 등의 자료 uuid
     let problems: [ProblemOfDB]
     let updatedDate: Date
