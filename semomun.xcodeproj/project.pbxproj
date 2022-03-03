@@ -918,9 +918,9 @@
 				87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */,
 				87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */,
 				87C85EE8276F6E95001C9C4A /* Network.swift */,
+				25520FB927D10DC800CC6015 /* NetworkTokenController.swift */,
 				87C85EEC276F6EC9001C9C4A /* DTO */,
 				877B1E3227CBC5B000AC8B84 /* Decoder */,
-				25520FB927D10DC800CC6015 /* NetworkTokenController.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";

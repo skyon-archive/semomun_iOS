@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-struct AuthTokenManager: RequestInterceptor {
+struct NetworkTokenController: RequestInterceptor {
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Swift.Result<URLRequest, Error>) -> Void) {
         guard urlRequest.url?.absoluteString.hasPrefix(NetworkURL.base) == true,
               let authToken = try? KeychainItem(account: .accessToken).readItem() else {
