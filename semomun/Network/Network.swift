@@ -11,29 +11,35 @@ import Alamofire
 struct Network: NetworkFetchable {
     private let session = Session(interceptor: NetworkTokenController())
     
-    func get(url: String, param: [String: String]?, completion: @escaping (NetworkResult) -> Void) {
-        let param = param != nil ? param : [:]
+    func get<T: Encodable>(url: String, param: T?, completion: @escaping (NetworkResult) -> Void) {
         print("\(url), \(optional: param)")
         session.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
-            .responseDecodable(of: String.self) { response in
-                self.toRequestResult(with: response, completion: completion)
-            }.resume()
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
     }
     
-    func post(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void) {
+    func get(url: String, completion: @escaping (NetworkResult) -> Void) {
+        session.request(url, method: .post)  { $0.timeoutInterval = .infinity }
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
+    }
+    
+    func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         print(url, param)
         session.request(url, method: .post, parameters: param)  { $0.timeoutInterval = .infinity }
-            .responseDecodable(of: String.self) { response in
-                self.toRequestResult(with: response, completion: completion)
-            }.resume()
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
     }
     
-    func put(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void) {
+    func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         print(url, param)
         session.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
-            .responseDecodable(of: String.self) { response in
-                self.toRequestResult(with: response, completion: completion)
-            }.resume()
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
     }
     
     private func toRequestResult(with response: DataResponse<String, AFError>, completion: @escaping (NetworkResult) -> Void) {
