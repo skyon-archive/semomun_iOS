@@ -295,7 +295,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     private func saveUserinKeychain(_ userIdentifier: String) {
         do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: KeychainItem.Items.userItentifier).saveItem(userIdentifier)
+            try KeychainItem(account: .userIdentifier).saveItem(userIdentifier)
         } catch {
             print("Unable to save userIdentifier to keychain.")
         }

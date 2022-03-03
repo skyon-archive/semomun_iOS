@@ -9,8 +9,10 @@ import Foundation
 
 struct KeychainItem {
     // MARK: Items
-    enum Items {
-        static let userItentifier = "userIdentifier"
+    enum Items: String {
+        case userIdentifier = "userIdentifier"
+        case accessToken = "accessToken"
+        case refreshToken = "refreshToken"
     }
     
     // MARK: Types
@@ -32,11 +34,11 @@ struct KeychainItem {
     
     // MARK: Intialization
     
-    init(service: String, account: String, accessGroup: String? = nil) {
-        self.service = service
-        self.account = account
-        self.accessGroup = accessGroup
-    }
+    init(account: Self.Items, service: String = "com.skyon.semomoonService", accessGroup: String? = nil) {
+            self.service = service
+            self.account = account.rawValue
+            self.accessGroup = accessGroup
+        }
     
     // MARK: Keychain access
     
@@ -137,7 +139,7 @@ struct KeychainItem {
      */
     static var currentUserIdentifier: String {
         do {
-            let storedIdentifier = try KeychainItem(service: "com.skyon.semomoonService", account: Items.userItentifier).readItem()
+            let storedIdentifier = try KeychainItem(account: Items.userIdentifier).readItem()
             return storedIdentifier
         } catch {
             return ""
@@ -146,7 +148,7 @@ struct KeychainItem {
     
     static func deleteUserIdentifierFromKeychain() {
         do {
-            try KeychainItem(service: "com.skyon.semomoonService", account: Items.userItentifier).deleteItem()
+            try KeychainItem(account: Items.userIdentifier).deleteItem()
         } catch {
             print("Unable to delete userIdentifier from keychain")
         }
