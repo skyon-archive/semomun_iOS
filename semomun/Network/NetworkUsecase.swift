@@ -78,18 +78,18 @@ extension NetworkUsecase {
         }
     }
     
-    func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping(NetworkStatus, NetworkTokens?) -> Void) {
+    func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userIDToken.paramValue
         let param = SignUpParam(info: userInfo, token: paramValue.type, type: paramValue.token)
         self.network.post(url: NetworkURL.signup, param: param) { result in
             switch result.statusCode {
             case 504:
-                completion(.INSPECTION, nil)
+                completion(.INSPECTION)
             case 200:
                 guard let data = result.data,
                       let userToken = try? JSONDecoder().decode(NetworkTokens.self, from: data) else {
                           print("Error: no data")
-                          completion(.DECODEERROR, nil)
+                          completion(.DECODEERROR)
                           return
                       }
                 print(userToken)
@@ -98,9 +98,9 @@ extension NetworkUsecase {
                 } catch {
                     print(error.localizedDescription)
                 }
-                completion(.SUCCESS, userToken)
+                completion(.SUCCESS)
             default:
-                completion(.ERROR, nil)
+                completion(.ERROR)
             }
         }
     }
