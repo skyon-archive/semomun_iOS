@@ -11,9 +11,10 @@ typealias networkFetchables = (SectionDownloadable & VersionFetchable)
 
 // Network
 protocol NetworkFetchable {
-    func get(url: String, param: [String: String]?, completion: @escaping (NetworkResult) -> Void)
-    func post(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void)
-    func put(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void)
+    func get(url: String, completion: @escaping (NetworkResult) -> Void)
+    func get<T: Encodable>(url: String, param: T?, completion: @escaping (NetworkResult) -> Void)
+    func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void)
+    func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void)
 }
 // NetworkUseCase
 protocol SectionDownloadable {

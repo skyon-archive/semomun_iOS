@@ -95,7 +95,7 @@ extension NetworkUsecase {
 
 extension NetworkUsecase: SectionDownloadable {
     func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid), param: nil) { result in
+        self.network.get(url: NetworkURL.sectionDirectory(sid)) { result in
             guard let data = result.data,
                   let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
                       print("Decode error")
@@ -108,7 +108,7 @@ extension NetworkUsecase: SectionDownloadable {
 
 extension NetworkUsecase: VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void) {
-        self.network.get(url: NetworkURL.appstoreVersion, param: nil) { result in
+        self.network.get(url: NetworkURL.appstoreVersion) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -127,7 +127,7 @@ extension NetworkUsecase: VersionFetchable {
 
 extension NetworkUsecase: BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks, param: nil) { result in
+        self.network.get(url: NetworkURL.workbooks) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -146,7 +146,7 @@ extension NetworkUsecase: BestSellersFetchable {
 
 extension NetworkUsecase: WorkbooksWithTagsFetchable {
     func getWorkbooks(tags: [String], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks, param: nil) { result in
+        self.network.get(url: NetworkURL.workbooks) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -165,7 +165,7 @@ extension NetworkUsecase: WorkbooksWithTagsFetchable {
 
 extension NetworkUsecase: WorkbooksWithRecentFetchable {
     func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks, param: nil) { result in
+        self.network.get(url: NetworkURL.workbooks) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -184,7 +184,7 @@ extension NetworkUsecase: WorkbooksWithRecentFetchable {
 
 extension NetworkUsecase: WorkbooksWithNewestFetchable {
     func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks, param: nil) { result in
+        self.network.get(url: NetworkURL.workbooks) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -217,7 +217,7 @@ extension NetworkUsecase: SearchTagsFetchable {
 
 extension NetworkUsecase: SearchFetchable {
     func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks, param: nil) { result in
+        self.network.get(url: NetworkURL.workbooks) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -236,7 +236,7 @@ extension NetworkUsecase: SearchFetchable {
 
 extension NetworkUsecase: MajorFetchable {
     func getMajors(completion: @escaping ([Major]?) -> Void) {
-        self.network.get(url: NetworkURL.majors, param: nil) { result in
+        self.network.get(url: NetworkURL.majors) { result in
             guard let data = result.data,
                   let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
                       print("Error: Decode")
@@ -328,7 +328,7 @@ extension NetworkUsecase: PurchaseListFetchable {
 
 extension NetworkUsecase: WorkbookFetchable {
     func downloadWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ()) {
-        self.network.get(url: NetworkURL.workbookDirectory(wid), param: nil) { result in
+        self.network.get(url: NetworkURL.workbookDirectory(wid)) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
                 print("Decode error")
@@ -414,10 +414,10 @@ extension NetworkUsecase: S3ImageFetchable {
                       return
                   }
             
-            self.network.get(url: imageURL, param: nil, completion: { result in
+            self.network.get(url: imageURL) { result in
                 let status: NetworkStatus = result.statusCode == 200 ? .SUCCESS : .FAIL
                 completion(status, result.data)
-            })
+            }
         }
     }
 }
