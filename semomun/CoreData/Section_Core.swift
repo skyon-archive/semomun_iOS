@@ -12,11 +12,23 @@ import CoreData
 @objc(Section_Core)
 public class Section_Core: NSManagedObject {
     public override var description: String{
-        return "Section(\(self.sid), \(self.buttons), \(self.stars), \(self.wrongs), \(self.dictionaryOfProblem))"
+        return "Section(\(sid)) \(problemCores ?? [])"
     }
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section_Core> {
         return NSFetchRequest<Section_Core>(entityName: "Section_Core")
+    }
+    
+    enum Attribute: String {
+        case sid
+        case title
+        case time
+        case lastPageId
+        case terminated
+        case problemCores
+        case scoringQueue
+        case uploadQueue
+        case updatedDate
     }
 
     @NSManaged public var sid: Int64 //식별 고유값
@@ -41,12 +53,12 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var checks: [Bool] //Deprecated(1.1.3)
     
     func setValues(header: SectionHeader_Core) {
-        self.setValue(header.sid, forKey: "sid")
-        self.setValue(header.title, forKey: "title")
-        self.setValue(0, forKey: "time")
-        self.setValue(0, forKey: "lastPageId") // TODO: lastIndex 수정 예정
-        self.setValue(false, forKey: "terminated")
-        self.setValue(header.updatedDate, forKey: "updatedDate")
+        self.setValue(header.sid, forKey: Attribute.sid.rawValue)
+        self.setValue(header.title, forKey: Attribute.title.rawValue)
+        self.setValue(0, forKey: Attribute.time.rawValue)
+        self.setValue(0, forKey: Attribute.lastPageId.rawValue) // TODO: lastIndex 수정 예정
+        self.setValue(false, forKey: Attribute.terminated.rawValue)
+        self.setValue(header.updatedDate, forKey: Attribute.updatedDate.rawValue)
         print("Section: \(header.sid) save complete")
     }
     
