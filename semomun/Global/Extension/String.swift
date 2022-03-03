@@ -37,8 +37,8 @@ extension String {
     }
     
     /// 10-11자리 숫자로 구성된 문자열인지를 반환합니다.
-    /// - 02-1234-5678
-    /// - 010-1234-5678
+    /// - 0212345678
+    /// - 01012345678
     var isValidPhoneNumber: Bool {
         return self.matchRegularExpression("^\\d{10,11}$")
     }
@@ -48,6 +48,11 @@ extension String {
     /// - +82-2-1234-5678
     var isValidPhoneNumberWithCountryCode: Bool {
         return self.matchRegularExpression("^\\+82-\\d{1,2}-\\d{4}-\\d{4}$")
+    }
+    
+    var phoneNumberWithCountryCode: String? {
+        guard self.isValidPhoneNumber else { return nil }
+        return self.replacingOccurrences(of: "^0(\\d{1,2})(\\d{4})(\\d{4})$", with: "+82-$1-$2-$3", options: .regularExpression, range: nil)
     }
     
     func matchRegularExpression(_ pattern: String) -> Bool {
