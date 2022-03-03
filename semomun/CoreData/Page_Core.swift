@@ -11,7 +11,6 @@ import CoreData
 import UIKit
 
 struct PageUUID {
-    let vid: Int
     let material: String?
 }
 
@@ -52,24 +51,24 @@ public class Page_Core: NSManagedObject {
         self.setValue(self.getLayout(form: page.form, type: type), forKey: Attribute.layoutType.rawValue)
         self.setValue(page.updatedDate, forKey: Attribute.updatedDate.rawValue)
         self.setValue(nil, forKey: Attribute.drawing.rawValue)
-        self.setValue(Int64(0), forKey: Attribute.time.rawValue)
+        self.setValue(0, forKey: Attribute.time.rawValue)
         print("Page: \(page.vid) save complete")
         
-        return PageUUID(vid: page.vid, material: page.material)
+        return PageUUID(material: page.material)
     }
     
     func setMaterial(uuid: PageUUID, networkUsecase: S3ImageFetchable, completion: @escaping(() -> Void)) {
         guard let material = uuid.material else { return }
         // MARK: - materialImage
         networkUsecase.getImageFromS3(uuid: material, type: .material) { [weak self] status, data in
-            print(data ?? "Error: \(uuid.vid) - can't get material Image")
+            print(data ?? "Error: \(self?.vid ?? 0) - can't get material Image")
             if data != nil {
                 self?.setValue(data, forKey: Attribute.materialImage.rawValue)
-                print("Page: \(uuid.vid) save material")
+                print("Page: \(self?.vid ?? 0) save material")
                 completion()
             } else {
                 self?.setValue(UIImage(.warning).pngData, forKey: Attribute.materialImage.rawValue)
-                print("Page: \(uuid.vid) save material fail")
+                print("Page: \(self?.vid ?? 0) save material fail")
                 completion()
             }
         }
