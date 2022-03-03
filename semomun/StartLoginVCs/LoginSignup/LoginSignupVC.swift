@@ -78,20 +78,19 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-        guard let userInfo = self.viewModel?.makeUserInfo() else { return }
-        if userInfo.isValidSurvay {
-            guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-            vc.configurePopup(isNeeded: true)
-            vc.configureSignupInfo(userInfo)
-            self.navigationController?.pushViewController(vc, animated: true)
-        } else {
+        guard let userInfo = self.viewModel?.makeSignupUserInfo() else {
             self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
+            return
         }
+        guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
+        vc.configurePopup(isNeeded: true)
+        vc.configureSignupInfo(userInfo)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func submitBypass(_ sender: Any) {
 #if DEBUG
-        guard let userInfo = self.viewModel?.makeUserInfo() else { return }
+        guard let userInfo = self.viewModel?.makeSignupUserInfo() else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.configurePopup(isNeeded: true)
         vc.configureSignupInfo(userInfo)
