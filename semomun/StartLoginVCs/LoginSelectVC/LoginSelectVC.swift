@@ -213,7 +213,7 @@ extension LoginSelectVC {
     }
     
     private func registerUser(with userInfo: UserInfo) {
-        self.networkUseCase?.postUserSignup(userInfo: userInfo) { [weak self] status in
+        self.networkUseCase?.postUserSignup(userInfo: SignUpUserInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -302,7 +302,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     }
     
     private func checkUser(idToken: String, completion: @escaping(Bool) -> Void) {
-        self.networkUseCase?.postCheckUser(userToken: idToken) { result, isUser in
+        self.networkUseCase?.postUserLogin(userToken: idToken) { result, isUser in
             switch result {
             case .SUCCESS:
                 completion(isUser)
