@@ -285,7 +285,7 @@ extension NetworkUsecase: MajorFetchable {
 
 extension NetworkUsecase: UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        self.network.put(url: NetworkURL.usersSelf) { result in
+        self.network.put(url: NetworkURL.usersSelf, param: userInfo) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)

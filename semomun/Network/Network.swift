@@ -11,16 +11,23 @@ import Alamofire
 struct Network: NetworkFetchable {
     private let session = Session(interceptor: NetworkTokenController())
     
-    func get<T: Encodable>(url: String, param: T?, completion: @escaping (NetworkResult) -> Void) {
-        print("\(url), \(optional: param)")
-        session.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
+    func get(url: String, completion: @escaping (NetworkResult) -> Void) {
+        session.request(url, method: .get)  { $0.timeoutInterval = .infinity }
         .responseDecodable(of: String.self) { response in
             self.toRequestResult(with: response, completion: completion)
         }.resume()
     }
     
-    func get(url: String, completion: @escaping (NetworkResult) -> Void) {
-        session.request(url, method: .post)  { $0.timeoutInterval = .infinity }
+    func put(url: String, completion: @escaping (NetworkResult) -> Void) {
+        session.request(url, method: .put)  { $0.timeoutInterval = .infinity }
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
+    }
+    
+    func get<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
+        print("\(url), \(optional: param)")
+        session.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
         .responseDecodable(of: String.self) { response in
             self.toRequestResult(with: response, completion: completion)
         }.resume()
@@ -37,13 +44,6 @@ struct Network: NetworkFetchable {
     func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         print(url, param)
         session.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
-        }.resume()
-    }
-    
-    func put(url: String, completion: @escaping (NetworkResult) -> Void) {
-        session.request(url, method: .put)  { $0.timeoutInterval = .infinity }
         .responseDecodable(of: String.self) { response in
             self.toRequestResult(with: response, completion: completion)
         }.resume()
