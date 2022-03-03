@@ -50,8 +50,8 @@ class BookshelfCell: UICollectionViewCell {
                 self?.bookcover.image = UIImage(data: imageData)
             }
         }
-        let author = book.author != "" ? book.author ?? "저자 정보 없음" : "저자 정보 없음"
-        let publisher = book.publisher != "" ? book.publisher ?? "출판사 정보 없음" : "출판사 정보 없음"
+        let author = book.author != "" ? (book.author ?? "저자 정보 없음") : "저자 정보 없음"
+        let publisher = book.publisher != "" ? (book.publisher ?? "출판사 정보 없음") : "출판사 정보 없음"
         self.authorAndPublisher.text = "\(author) | \(publisher)"
         let percent = Int.random(in: (0...100))
         self.progressView.setProgress(Float(percent)/Float(100), animated: true)

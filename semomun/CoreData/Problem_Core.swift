@@ -12,16 +12,15 @@ import Alamofire
 import UIKit
 
 struct ProblemUUID {
-    let pid: Int
     let content: String
     let explanation: String?
-    let imageCount: Int
+    var imageCount: Int {
+        return explanation == nil ? 1 : 2
+    }
     
-    init(pid: Int, content: String, explanation: String?) {
-        self.pid = pid
+    init(content: String, explanation: String?) {
         self.content = content
         self.explanation = explanation
-        self.imageCount = explanation == nil ? 1 : 2
     }
 }
 
@@ -85,8 +84,8 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.btName, forKey: Attribute.pName.rawValue)
         self.setValue(prob.type, forKey: Attribute.type.rawValue)
         self.setValue(prob.answer, forKey: Attribute.answer.rawValue)
-        self.setValue(prob.point ?? Double(0), forKey: Attribute.point.rawValue)
-        self.setValue(Int64(0), forKey: Attribute.time.rawValue)
+        self.setValue(prob.point ?? 0, forKey: Attribute.point.rawValue)
+        self.setValue(0, forKey: Attribute.time.rawValue)
         self.setValue(nil, forKey: Attribute.solved.rawValue)
         self.setValue(false, forKey: Attribute.correct.rawValue)
         self.setValue(nil, forKey: Attribute.drawing.rawValue)
@@ -94,40 +93,39 @@ public class Problem_Core: NSManagedObject {
         self.setValue(false, forKey: Attribute.terminated.rawValue)
         print("Problem: \(prob.pid) save complete")
         
-        return ProblemUUID(pid: prob.pid, content: prob.content, explanation: prob.explanation)
+        return ProblemUUID(content: prob.content, explanation: prob.explanation)
     }
     
     func fetchImages(uuids: ProblemUUID, networkUsecase: S3ImageFetchable, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         networkUsecase.getImageFromS3(uuid: uuids.content, type: .content) { [weak self] status, data in
-            print(data ?? "Error: \(uuids.pid) - can't get content Image")
+            print(data ?? "Error: \(self?.pid ?? 0) - can't get content Image")
             if data != nil {
                 self?.setValue(data, forKey: Attribute.contentImage.rawValue)
-                print("Problem: \(uuids.pid) save contentImage")
+                print("Problem: \(self?.pid ?? 0) save contentImage")
                 completion()
             } else {
                 self?.setValue(UIImage(.warning).pngData, forKey: Attribute.contentImage.rawValue)
-                print("Problem: \(uuids.pid) save contentImage fail")
+                print("Problem: \(self?.pid ?? 0) save contentImage fail")
                 completion()
             }
         }
         // MARK: - explanationImage
-        if let explanation = uuids.explanation {
-            networkUsecase.getImageFromS3(uuid: explanation, type: .explanation) { [weak self] status, data in
-                print(data ?? "Error: \(uuids.pid) - can't get explanation Image")
-                if data != nil {
-                    self?.setValue(data, forKey: Attribute.explanationImage.rawValue)
-                    print("Problem: \(uuids.pid) save explanationImage")
-                    completion()
-                } else {
-                    print("hi")
-                    self?.setValue(UIImage(.warning).pngData, forKey: Attribute.explanationImage.rawValue)
-                    print("Problem: \(uuids.pid) save explanationImage fail")
-                    completion()
-                }
+        guard let explanation = uuids.explanation else { return }
+        networkUsecase.getImageFromS3(uuid: explanation, type: .explanation) { [weak self] status, data in
+            print(data ?? "Error: \(self?.pid ?? 0) - can't get explanation Image")
+            if data != nil {
+                self?.setValue(data, forKey: Attribute.explanationImage.rawValue)
+                print("Problem: \(self?.pid ?? 0) save explanationImage")
+                completion()
+            } else {
+                print("hi")
+                self?.setValue(UIImage(.warning).pngData, forKey: Attribute.explanationImage.rawValue)
+                print("Problem: \(self?.pid ?? 0) save explanationImage fail")
+                completion()
             }
-        } else { return }
-    }
+        }
+    } 
     
     func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {
         self.setValue(Int64(pid), forKey: "pid")
