@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 import Alamofire
-import UIKit
 
 struct ProblemUUID {
     let content: String
@@ -105,7 +104,7 @@ public class Problem_Core: NSManagedObject {
                 print("Problem: \(self?.pid ?? 0) save contentImage")
                 completion()
             } else {
-                self?.setValue(UIImage(.warning).pngData, forKey: Attribute.contentImage.rawValue)
+                self?.setValue(nil, forKey: Attribute.contentImage.rawValue)
                 print("Problem: \(self?.pid ?? 0) save contentImage fail")
                 completion()
             }
@@ -120,7 +119,7 @@ public class Problem_Core: NSManagedObject {
                 completion()
             } else {
                 print("hi")
-                self?.setValue(UIImage(.warning).pngData, forKey: Attribute.explanationImage.rawValue)
+                self?.setValue(nil, forKey: Attribute.explanationImage.rawValue)
                 print("Problem: \(self?.pid ?? 0) save explanationImage fail")
                 completion()
             }
@@ -138,11 +137,11 @@ public class Problem_Core: NSManagedObject {
         self.setValue(Int64(type), forKey: "type")
         self.setValue(false, forKey: "star")
         self.setValue(Double(5), forKey: "point")
-        let imgData = UIImage(named: imgName)!.pngData()
-        self.setValue(imgData, forKey: "contentImage")
+//        let imgData = UIImage(named: imgName)!.pngData()
+//        self.setValue(imgData, forKey: "contentImage")
         if let expName = expName {
-            let expData = UIImage(named: expName)!.pngData()
-            self.setValue(expData, forKey: "explanationImage")
+//            let expData = UIImage(named: expName)!.pngData()
+//            self.setValue(expData, forKey: "explanationImage")
         } else {
             self.setValue(nil, forKey: "explanationImage")
         }
