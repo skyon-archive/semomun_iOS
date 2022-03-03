@@ -30,8 +30,9 @@ class UserInfo: Codable, CustomStringConvertible {
             return self.phoneNumberWithCountryCode?.replacingOccurrences(of: "^\\+82-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
         }
         set {
-            guard newValue?.isValidPhoneNumber == true else { return }
-            self.phoneNumber = newValue?.replacingOccurrences(of: "^0(\\d{1,2})(\\d{4})(\\d{4})$", with: "+82-$1-$2-$3", options: .regularExpression, range: nil)
+            if let phoneNumberWithCountryCode = newValue?.phoneNumberWithCountryCode {
+                self.phoneNumberWithCountryCode = phoneNumberWithCountryCode
+            }
         }
     }
     
