@@ -49,7 +49,7 @@ public class UserCoreData: NSManagedObject {
         self.setValue(userInfo.birth, forKey: "birthday")
         self.setValue(userInfo.school, forKey: "schoolName")
         self.setValue(userInfo.graduationStatus, forKey: "graduationStatus")
-        self.setValue(userInfo.uid, forKey: "uid")
+        self.setValue(String(userInfo.uid), forKey: "uid")
     }
     
     func setUserImage(imageData: Data) {
