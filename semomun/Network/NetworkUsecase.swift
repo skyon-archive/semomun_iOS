@@ -40,38 +40,67 @@ class NetworkUsecase {
 }
 
 extension NetworkUsecase {
-    func postCheckUser(userToken: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
-        let param = ["token": userToken]
-        self.network.post(url: NetworkURL.checkUser, param: param) { result in
-            switch result.statusCode {
-            case 504:
-                completion(.INSPECTION, false)
-            case 200:
-                guard let data = result.data,
-                      let validate: Validate = try? JSONDecoder().decode(Validate.self, from: data) else {
-                          print("Decode error")
-                          completion(.DECODEERROR, false)
-                          return
-                      }
-                completion(.SUCCESS, validate.check)
-            default:
-                completion(.ERROR, false)
+    enum UserIDToken {
+        case google(String)
+        case apple(String)
+        var paramValue: (type: String, token: String) {
+            switch self {
+            case .google(let string):
+                return ("google", string)
+            case .apple(let string):
+                return ("apple", string)
             }
         }
     }
-    
-    func postUserSignup(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        guard let jsonData = try? JSONEncoder().encode(userInfo),
-              let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        self.network.post(url: NetworkURL.register, param: param) { result in
+    func postUserLogin(userToken: UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
+        let paramValue = userToken.paramValue
+        let param = ["token": paramValue.token, "type": paramValue.type]
+        self.network.post(url: NetworkURL.login, param: param) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
             case 200:
-                completion(.SUCCESS)
+                do {
+                    guard let data = result.data else {
+                        completion(.DECODEERROR)
+                        return
+                    }
+                    let userToken = try JSONDecoder().decode(NetworkTokens.self, from: data)
+                    try userToken.save()
+                    completion(.SUCCESS)
+                } catch {
+                    print(error)
+                    completion(.DECODEERROR)
+                }
             default:
                 completion(.ERROR)
+            }
+        }
+    }
+    
+    func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping(NetworkStatus, NetworkTokens?) -> Void) {
+        let paramValue = userIDToken.paramValue
+        let param = SignUpParam(info: userInfo, token: paramValue.type, type: paramValue.token)
+        self.network.post(url: NetworkURL.signup, param: param) { result in
+            switch result.statusCode {
+            case 504:
+                completion(.INSPECTION, nil)
+            case 200:
+                guard let data = result.data,
+                      let userToken = try? JSONDecoder().decode(NetworkTokens.self, from: data) else {
+                          print("Error: no data")
+                          completion(.DECODEERROR, nil)
+                          return
+                      }
+                print(userToken)
+                do {
+                    try userToken.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
+                completion(.SUCCESS, userToken)
+            default:
+                completion(.ERROR, nil)
             }
         }
     }
@@ -256,12 +285,7 @@ extension NetworkUsecase: MajorFetchable {
 
 extension NetworkUsecase: UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        guard let nickName = userInfo.nickname else { return }
-        guard let jsonData = try? JSONEncoder().encode(userInfo) else { return }
-        guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
-        let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]
-        
-        self.network.put(url: NetworkURL.users+"\(nickName)", param: param) { result in
+        self.network.put(url: NetworkURL.usersSelf) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
@@ -331,9 +355,9 @@ extension NetworkUsecase: WorkbookFetchable {
         self.network.get(url: NetworkURL.workbookDirectory(wid)) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
-                print("Decode error")
-                return
-            }
+                      print("Decode error")
+                      return
+                  }
             completion(workbookOfDB)
         }
     }
@@ -380,22 +404,24 @@ extension NetworkUsecase: ErrorReportable {
 }
 
 extension NetworkUsecase: UserInfoFetchable {
-    func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void) {
-        let url = NetworkURL.users+"self"
-        let param: [String: String] = ["token": KeychainItem.currentUserIdentifier]
-        
-        self.network.get(url: url, param: param) { result in
+    func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
+        self.network.get(url: NetworkURL.usersSelf) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION, nil)
             case 200:
-                guard let data = result.data,
-                      let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) else {
-                          print("Decode error")
-                          completion(.DECODEERROR, nil)
-                          return
-                      }
-                completion(.SUCCESS, userInfo)
+                do {
+                    guard let data = result.data else {
+                        completion(.ERROR, nil)
+                        return
+                    }
+                    let userInfo = try JSONDecoderWithDate().decode(UserInfo.self, from: data)
+                    completion(.SUCCESS, userInfo)
+                } catch {
+                    print(error)
+                    completion(.DECODEERROR, nil)
+                    return
+                }
             default:
                 completion(.ERROR, nil)
             }

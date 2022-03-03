@@ -42,6 +42,13 @@ struct Network: NetworkFetchable {
         }.resume()
     }
     
+    func put(url: String, completion: @escaping (NetworkResult) -> Void) {
+        session.request(url, method: .put)  { $0.timeoutInterval = .infinity }
+        .responseDecodable(of: String.self) { response in
+            self.toRequestResult(with: response, completion: completion)
+        }.resume()
+    }
+    
     private func toRequestResult(with response: DataResponse<String, AFError>, completion: @escaping (NetworkResult) -> Void) {
         guard let statusCode = response.response?.statusCode else {
             print("Fail: no statusCode")
