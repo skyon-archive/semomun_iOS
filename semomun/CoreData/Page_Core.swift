@@ -10,13 +10,13 @@ import Foundation
 import CoreData
 
 struct PageUUID {
-    let material: String?
+    let material: UUID?
 }
 
 @objc(Page_Core)
 public class Page_Core: NSManagedObject {
     public override var description: String{
-        return "\nPage(\(vid)) \(problemCores ?? [])\n"
+        return "Page(\(vid)) \(problemCores ?? [])"
     }
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Page_Core> {

@@ -19,8 +19,8 @@ struct ProblemOfDB: Codable, CustomStringConvertible {
     let btName: String //하단 아이콘 표시내용
     let type: Int //선지 유형
     let answer: String? //문제 정답
-    let content: String //문제 이미지의 uuid
-    let explanation: String? //문제의 해설 이미지의 uuid
+    let content: UUID //문제 이미지의 uuid
+    let explanation: UUID? //문제의 해설 이미지의 uuid
     let point: Double? //문제 배점
     
     enum CodingKeys: String, CodingKey {
