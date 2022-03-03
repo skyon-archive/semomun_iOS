@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import UIKit
 
 struct PageUUID {
     let material: String?
@@ -67,7 +66,7 @@ public class Page_Core: NSManagedObject {
                 print("Page: \(self?.vid ?? 0) save material")
                 completion()
             } else {
-                self?.setValue(UIImage(.warning).pngData, forKey: Attribute.materialImage.rawValue)
+                self?.setValue(nil, forKey: Attribute.materialImage.rawValue)
                 print("Page: \(self?.vid ?? 0) save material fail")
                 completion()
             }
@@ -103,8 +102,8 @@ public class Page_Core: NSManagedObject {
         self.setValue(nil, forKey: "drawing")
         self.setValue(Int64(0), forKey: "time")
         if let mateImgName = mateImgName {
-            let imgData = UIImage(named: mateImgName)!.pngData()
-            self.setValue(imgData, forKey: "materialImage")
+//            let imgData = UIImage(named: mateImgName)!.pngData()
+//            self.setValue(imgData, forKey: "materialImage")
         } else {
             self.setValue(nil, forKey: "materialImage")
         }

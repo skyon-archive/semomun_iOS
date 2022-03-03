@@ -199,7 +199,7 @@ extension StudyVC {
         if let data = data, let image = UIImage(data: data) {
             return image
         } else {
-            return UIImage()
+            return UIImage(.warning)
         }
     }
     
