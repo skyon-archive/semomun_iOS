@@ -11,13 +11,13 @@ import CoreData
 import Alamofire
 
 struct ProblemUUID {
-    let content: String
-    let explanation: String?
+    let content: UUID
+    let explanation: UUID?
     var imageCount: Int {
         return explanation == nil ? 1 : 2
     }
     
-    init(content: String, explanation: String?) {
+    init(content: UUID, explanation: UUID?) {
         self.content = content
         self.explanation = explanation
     }

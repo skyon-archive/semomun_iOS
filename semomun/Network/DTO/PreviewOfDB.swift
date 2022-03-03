@@ -32,7 +32,7 @@ struct PreviewOfDB: Codable {
     let publishMan: String //발행인
     let publishCompany: String //출판사
     let originalPrice: String //정가
-    let bookcover: String //문제집 표지 이미지 uuid
+    let bookcover: UUID //문제집 표지 이미지 uuid
     let createdDate: Date //생성일자
     let updatedDate: Date //반영일자
     

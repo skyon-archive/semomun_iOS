@@ -45,7 +45,7 @@ final class MyPurchaseCell: UITableViewCell {
         self.costLabel.text = costStr + "원"
         self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { [weak self] workbook in
             self?.titleLabel.text = workbook.title
-            let urlString = NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover
+            let urlString = NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover.uuidString
             guard let url = URL(string: urlString) else { return }
             self?.workbookImage.kf.setImage(with: url)
         }
@@ -60,4 +60,3 @@ extension MyPurchaseCell {
         self.contentView.clipsToBounds = false
     }
 }
-

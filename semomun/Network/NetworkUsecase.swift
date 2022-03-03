@@ -405,8 +405,8 @@ extension NetworkUsecase: UserInfoFetchable {
 
 
 extension NetworkUsecase: S3ImageFetchable {
-    func getImageFromS3(uuid: String, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
-        let param = ["uuid": uuid, "type": type.rawValue]
+    func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
+        let param = ["uuid": uuid.uuidString.lowercased(), "type": type.rawValue]
         self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { result in
             guard let data = result.data,
                   let imageURL: String = String(data: data, encoding: .utf8) else {

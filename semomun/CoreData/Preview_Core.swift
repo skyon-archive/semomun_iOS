@@ -91,28 +91,6 @@ public class Preview_Core: NSManagedObject{
         return "Preview(\(self.wid), \(self.image!), \(self.title!), \(self.subject!), \(self.sids), \(self.terminated), \(self.category!), \(self.downloaded)\n"
     }
     
-    func setValues(preview: PreviewOfDB, workbook: PreviewOfDB, sids: [Int], baseURL: String, category: String) {
-        self.setValue(Int64(preview.wid), forKey: "wid")
-        self.setValue(preview.title, forKey: "title")
-        self.setValue(sids, forKey: "sids")
-        self.setValue(Double(workbook.originalPrice), forKey: "price")
-        self.setValue(workbook.detail, forKey: "detail")
-        self.setValue(workbook.publishCompany, forKey: "publisher")
-        self.setValue([], forKey: "tags") // default
-        
-        if let url = URL(string: baseURL + preview.bookcover) {
-            let imageData = try? Data(contentsOf: url)
-            if imageData != nil {
-                self.setValue(imageData, forKey: "image")
-            } else {
-                self.setValue(UIImage(.warning).pngData(), forKey: "image")
-            }
-        } else {
-            self.setValue(UIImage(.warning).pngData(), forKey: "image")
-        }
-        print("savePreview complete")
-    }
-    
     func setValues(workbook: WorkbookOfDB, bookcoverData: Data) {
         self.setValue(Int64(workbook.productID), forKey: Attribute.productID.rawValue)
         self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
