@@ -9,10 +9,12 @@ import Foundation
 import Alamofire
 
 struct Network: NetworkFetchable {
+    private let session = Session(interceptor: NetworkTokenController())
+    
     func get(url: String, param: [String: String]?, completion: @escaping (NetworkResult) -> Void) {
         let param = param != nil ? param : [:]
         print("\(url), \(optional: param)")
-        AF.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
+        session.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
@@ -20,7 +22,7 @@ struct Network: NetworkFetchable {
     
     func post(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void) {
         print(url, param)
-        AF.request(url, method: .post, parameters: param)  { $0.timeoutInterval = .infinity }
+        session.request(url, method: .post, parameters: param)  { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
@@ -28,7 +30,7 @@ struct Network: NetworkFetchable {
     
     func put(url: String, param: [String: String], completion: @escaping (NetworkResult) -> Void) {
         print(url, param)
-        AF.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
+        session.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
             .responseDecodable(of: String.self) { response in
                 self.toRequestResult(with: response, completion: completion)
             }.resume()
