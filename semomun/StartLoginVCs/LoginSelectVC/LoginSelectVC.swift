@@ -13,7 +13,7 @@ final class LoginSelectVC: UIViewController {
     
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"
-
+    
     @IBOutlet weak var semomunTitle: UILabel!
     
     private let buttonWidth: CGFloat = 309
@@ -23,7 +23,10 @@ final class LoginSelectVC: UIViewController {
     
     private var networkUseCase: NetworkUsecase?
     private var showPopup = true
-    private var signupInfo: UserInfo?
+    private var signupInfo: SignUpUserInfo?
+    private var isSignup: Bool {
+        return signupInfo != nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +42,7 @@ extension LoginSelectVC {
         self.showPopup = isNeeded
     }
     
-    func configureSignupInfo(_ signupInfo: UserInfo) {
+    func configureSignupInfo(_ signupInfo: SignUpUserInfo) {
         self.signupInfo = signupInfo
     }
 }
@@ -53,7 +56,7 @@ extension LoginSelectVC {
     
     private func configureSignInWithAppleButton() {
         let authorizationButton: ASAuthorizationAppleIDButton
-        if self.signupInfoConfigured {
+        if self.isSignup {
             authorizationButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black)
         } else {
             authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
@@ -94,7 +97,7 @@ extension LoginSelectVC {
         
         // Google로 로그인 라벨
         let text = UILabel()
-        text.text = self.signupInfoConfigured ? "Google로 등록" : "Google로 로그인"
+        text.text = self.isSignup ? "Google로 등록" : "Google로 로그인"
         text.textColor = UIColor(.grayTextColor)
         text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -132,7 +135,7 @@ extension LoginSelectVC {
     private enum LoginMethod {
         case apple, google
     }
-   
+    
     /// 로그인 버튼이 탭 되었을 때 실행되는 함수
     private func signInButtonAction(loginMethod: LoginMethod) {
         if self.showPopup {
@@ -159,7 +162,7 @@ extension LoginSelectVC {
             self.googleSignInButtonPressed()
         }
     }
-
+    
     private func appleSignInButtonPressed() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -186,34 +189,22 @@ extension LoginSelectVC {
         return signupInfo != nil
     }
     
-    /// 로그인 절차 이후 반환받은 isExistinguser 값으로 분기처리 진행
-    private func processLogin(isExistingUser: Bool) {
-        switch (self.signupInfoConfigured, isExistingUser) {
-        case (true, true): // 이미 가입한 계정으로 회원가입을 또 시도하는 상태
-            let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
-            let alertActions = [
-                UIAlertAction(title: "취소", style: .default),
-                UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
-                    guard let signupInfo = self?.signupInfo else { return }
-                    self?.registerUser(with: signupInfo)
-                }
-            ]
-            alertActions.forEach { alertController.addAction($0) }
-            self.present(alertController, animated: true)
-        case (true, false): // 회원가입을 정상적으로 진행하는 상태
-            guard let signupInfo = self.signupInfo else { return } // signupInfoWritten의 정의에 따라 항상 unwrapping 가능
-            self.registerUser(with: signupInfo)
-        case (false, true): // 로그인을 정상적으로 진행하는 상태
-            self.fetchUserInfoAndDismiss()
-        case (false, false): // 회원가입 정보가 없는데 로그인을 시도하는 상태
-            self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
-                self.navigationController?.popViewController(animated: true)
+    private func processLogin(userIDToken: NetworkUsecase.UserIDToken) {
+        if self.isSignup {
+            self.signup(userIDToken: userIDToken, userInfo: self.signupInfo!)
+        } else {
+            self.login(userToken: userIDToken) { [weak self] in
+                self?.fetchUserInfoAndDismiss()
             }
         }
     }
     
-    private func registerUser(with userInfo: UserInfo) {
-        self.networkUseCase?.postUserSignup(userInfo: SignUpUserInfo) { [weak self] status in
+    private func signup(userIDToken: NetworkUsecase.UserIDToken, userInfo: SignUpUserInfo) {
+        // TODO: 오류 코드 대처하기
+        //        self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
+        //            self.navigationController?.popViewController(animated: true)
+        //        }
+        self.networkUseCase?.postUserSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -269,14 +260,12 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
-            case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                let token = appleIDCredential.identityToken // 할때마다 생성되는 token 값 (변동있음)
-                
-                self.checkUser(idToken: String(data: token!, encoding: .utf8)!) { [weak self] isUser in
-                    self?.saveUserinKeychain(String(data: token!, encoding: .utf8)!)
-                    self?.processLogin(isExistingUser: isUser)
-                }
-            default: break
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            guard let tokenData = appleIDCredential.identityToken, // 할때마다 생성되는 token 값 (변동있음)
+                  let token = String(data: tokenData, encoding: .utf8) else { return }
+            self.saveUserinKeychain(token)
+            self.processLogin(userIDToken: .apple(token))
+        default: break
         }
     }
     
@@ -286,10 +275,8 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
             
-            self.checkUser(idToken: idToken) { [weak self] isUser in
-                self?.saveUserinKeychain(idToken)
-                self?.processLogin(isExistingUser: isUser)
-            }
+            self.saveUserinKeychain(idToken)
+            self.processLogin(userIDToken: .google(idToken))
         }
     }
     
@@ -301,11 +288,22 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         }
     }
     
-    private func checkUser(idToken: String, completion: @escaping(Bool) -> Void) {
-        self.networkUseCase?.postUserLogin(userToken: idToken) { result, isUser in
+    private func login(userToken: NetworkUsecase.UserIDToken, completion: @escaping () -> Void) {
+        // TODO: 오류 코드 대처하기
+        //        let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
+        //        let alertActions = [
+        //            UIAlertAction(title: "취소", style: .default),
+        //            UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
+        //                guard let signupInfo = self?.signupInfo else { return }
+        //                self?.signup(userIDToken: userIDToken, userInfo: signupInfo)
+        //            }
+        //        ]
+        //        alertActions.forEach { alertController.addAction($0) }
+        //        self.present(alertController, animated: true)
+        self.networkUseCase?.postUserLogin(userToken: userToken) { result in
             switch result {
             case .SUCCESS:
-                completion(isUser)
+                break
             case .DECODEERROR:
                 self.showAlertWithOK(title: "수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
             case .INSPECTION:
@@ -313,6 +311,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
             default:
                 self.showAlertWithOK(title: "네트워크 통신 에러", text: "인증에 실패하였습니다. 다시 시도하시기 바랍니다.")
             }
+            completion()
         }
     }
 }

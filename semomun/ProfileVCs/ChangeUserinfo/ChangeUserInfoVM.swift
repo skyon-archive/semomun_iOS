@@ -101,7 +101,10 @@ final class ChangeUserInfoVM {
     }
     
     func submitUserInfo() {
-        let userInfo = self.makeUserInfo()
+        guard let userInfo = self.makeUserInfo() else {
+            self.alertStatus = .withoutPopVC(.incomplateData)
+            return
+        }
         self.sendUserInfoToNetwork(userInfo: userInfo) { [weak self] isSuccess in
             if isSuccess {
                 self?.saveUserInfoToCoreData(userInfo: userInfo)
@@ -112,9 +115,10 @@ final class ChangeUserInfoVM {
         }
     }
     
-    func makeUserInfo() -> UserInfo {
-        let currentUserInfo = CoreUsecase.fetchUserInfo()
-        var userInfo = UserInfo(uid: Int(currentUserInfo?.uid ?? "-1") ?? -1)
+    func makeUserInfo() -> UserInfo? {
+        guard self.checkDataValidity(),
+              let uid = CoreUsecase.fetchUserInfo()?.uid else { return nil }
+        var userInfo = UserInfo(uid: Int(uid) ?? 0)
         userInfo.nickname = self.nickname
         userInfo.phoneNumber = self.phonenum
         userInfo.major = self.selectedMajor
@@ -122,6 +126,24 @@ final class ChangeUserInfoVM {
         userInfo.school = self.schoolName
         userInfo.graduationStatus = self.graduationStatus
         return userInfo
+    }
+    
+    func makeSignupUserInfo() -> SignUpUserInfo? {
+        guard let nickname = self.nickname,
+              let phone = self.phonenum?.phoneNumberWithCountryCode,
+              let school = self.schoolName,
+              let major = self.selectedMajor,
+              let majorDetail = self.selectedMajorDetail,
+              let graduationStatus = self.graduationStatus else { return nil }
+        return SignUpUserInfo(
+            nickname: nickname,
+            phone: phone,
+            school: school,
+            major: major,
+            majorDetail: majorDetail,
+            favoriteTags: [1, 2], // TODO: tid 반영
+            graduationStatus: graduationStatus
+        )
     }
 }
 
@@ -227,12 +249,12 @@ extension ChangeUserInfoVM {
         }
     }
     
-    private func checkIfSubmitAvailable() -> Bool {
+    private func checkDataValidity() -> Bool {
         return [self.nickname, self.selectedMajor, self.selectedMajorDetail, self.schoolName, self.graduationStatus].allSatisfy({ $0 != nil && $0 != "" }) && self.phonenum?.isValidPhoneNumber == true
     }
     
     private func sendUserInfoToNetwork(userInfo: UserInfo, completion: @escaping (Bool) -> Void) {
-        guard self.checkIfSubmitAvailable() else {
+        guard self.checkDataValidity() else {
             self.alertStatus = .withoutPopVC(.incomplateData)
             return
         }
@@ -247,7 +269,7 @@ extension ChangeUserInfoVM {
     }
     
     private func saveUserInfoToCoreData(userInfo: UserInfo) {
-        guard self.checkIfSubmitAvailable() else {
+        guard self.checkDataValidity() else {
             self.alertStatus = .withoutPopVC(.incomplateData)
             return
         }
