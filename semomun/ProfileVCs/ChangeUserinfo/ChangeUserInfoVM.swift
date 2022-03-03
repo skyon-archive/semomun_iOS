@@ -113,8 +113,9 @@ final class ChangeUserInfoVM {
     }
     
     func makeUserInfo() -> UserInfo {
-        let userInfo = UserInfo()
-        userInfo.nickName = self.nickname
+        let currentUserInfo = CoreUsecase.fetchUserInfo()
+        var userInfo = UserInfo(uid: Int(currentUserInfo?.uid ?? "-1") ?? -1)
+        userInfo.nickname = self.nickname
         userInfo.phoneNumber = self.phonenum
         userInfo.major = self.selectedMajor
         userInfo.majorDetail = self.selectedMajorDetail

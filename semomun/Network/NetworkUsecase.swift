@@ -256,7 +256,7 @@ extension NetworkUsecase: MajorFetchable {
 
 extension NetworkUsecase: UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        guard let nickName = userInfo.nickName else { return }
+        guard let nickName = userInfo.nickname else { return }
         guard let jsonData = try? JSONEncoder().encode(userInfo) else { return }
         guard let jsonStringData = String(data: jsonData, encoding: String.Encoding.utf8) else { return }
         let param: [String: String] = ["info": jsonStringData, "token": KeychainItem.currentUserIdentifier]

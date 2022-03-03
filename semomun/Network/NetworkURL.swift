@@ -39,6 +39,8 @@ enum NetworkURL {
     static let postPhone: String = register + "/auth"
     static let verifyPhone: String = register + "/verify"
     static let users: String = base + "/users/"
+    static let refreshToken = base + "/auth/refresh"
+    
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
     static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
