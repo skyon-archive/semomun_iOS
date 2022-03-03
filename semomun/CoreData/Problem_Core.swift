@@ -97,7 +97,7 @@ public class Problem_Core: NSManagedObject {
         return ProblemUUID(pid: prob.pid, content: prob.content, explanation: prob.explanation)
     }
     
-    func fetchImages(uuids: ProblemUUID, networkUsecase: NetworkUsecase, completion: @escaping(() -> Void)) {
+    func fetchImages(uuids: ProblemUUID, networkUsecase: S3ImageFetchable, completion: @escaping(() -> Void)) {
         // MARK: - contentImage
         networkUsecase.getImageFromS3(uuid: uuids.content, type: .content) { [weak self] status, data in
             print(data ?? "Error: \(uuids.pid) - can't get content Image")
