@@ -14,7 +14,7 @@ struct SignUpParam: Encodable {
 }
 
 struct SignUpUserInfo: Encodable {
-    let nickname: String
+    let username: String
     let phone: String
     let school: String
     let major: String

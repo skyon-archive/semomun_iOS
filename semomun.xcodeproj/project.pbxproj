@@ -23,6 +23,8 @@
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignUpUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignUpUserInfo.swift */; };
 		25520FBA27D10DC800CC6015 /* NetworkTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB927D10DC800CC6015 /* NetworkTokenController.swift */; };
+		2554C88F27D278B200AAD262 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C88E27D278B200AAD262 /* HTTPMethod.swift */; };
+		2554C89127D27BCC00AAD262 /* PhoneAuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C89027D27BCC00AAD262 /* PhoneAuthResult.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
@@ -213,6 +215,8 @@
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignUpUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUserInfo.swift; sourceTree = "<group>"; };
 		25520FB927D10DC800CC6015 /* NetworkTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokenController.swift; sourceTree = "<group>"; };
+		2554C88E27D278B200AAD262 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		2554C89027D27BCC00AAD262 /* PhoneAuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthResult.swift; sourceTree = "<group>"; };
 		255D637527ABB03F000991AB /* UserNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeVC.swift; sourceTree = "<group>"; };
 		255D637727ABB332000991AB /* UserNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeCell.swift; sourceTree = "<group>"; };
 		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
@@ -961,6 +965,7 @@
 				25A950B227C760EC0084513E /* Collection.swift */,
 				87D0A56827CF1C5800449AAD /* CoreGraphics.swift */,
 				25520FB127D10AAF00CC6015 /* HTTPHeader.swift */,
+				2554C88E27D278B200AAD262 /* HTTPMethod.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1024,6 +1029,7 @@
 				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
 				2502CECA27A6D8030072A037 /* Purchase.swift */,
 				255D637927ABBF46000991AB /* UserNotice.swift */,
+				2554C89027D27BCC00AAD262 /* PhoneAuthResult.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -1202,6 +1208,7 @@
 				25520FB227D10AAF00CC6015 /* HTTPHeader.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
+				2554C89127D27BCC00AAD262 /* PhoneAuthResult.swift in Sources */,
 				8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */,
 				8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */,
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
@@ -1318,6 +1325,7 @@
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
+				2554C88F27D278B200AAD262 /* HTTPMethod.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */,

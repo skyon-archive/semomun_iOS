@@ -9,7 +9,7 @@ import Foundation
 
 struct UserInfo: Codable {
     enum CodingKeys: String, CodingKey {
-        case uid, name, nickname, email, gender, birth, major, majorDetail, school, graduationStatus, credit
+        case uid, name, username, email, gender, birth, major, majorDetail, school, graduationStatus, credit
         case phoneNumberWithCountryCode = "phone"
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
@@ -17,7 +17,7 @@ struct UserInfo: Codable {
     
     var uid: Int
     var name: String?
-    var nickname: String?
+    var username: String?
     var email: String?
     var gender: String?
     var birth: String?
@@ -42,14 +42,14 @@ struct UserInfo: Codable {
     }
     
     var isValidSurvay: Bool {
-        return [self.nickname, self.phoneNumberWithCountryCode, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
+        return [self.username, self.phoneNumberWithCountryCode, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
             $0 != nil && $0 != ""
         }
     }
     
     mutating func setValues(userInfo: UserCoreData) {
         self.name = userInfo.name
-        self.nickname = userInfo.nickName
+        self.username = userInfo.nickName
         self.phoneNumber = userInfo.phoneNumber
         self.major = userInfo.major
         self.majorDetail = userInfo.majorDetail
