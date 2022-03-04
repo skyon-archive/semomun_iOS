@@ -73,7 +73,7 @@ extension SearchTagVC {
     }
     
     private func bindTags() {
-        self.viewModel?.$tags
+        self.viewModel?.$userTags
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -83,7 +83,7 @@ extension SearchTagVC {
     }
     
     private func bindSearchResults() {
-        self.viewModel?.$searchResultTags
+        self.viewModel?.$filteredTags
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -106,12 +106,12 @@ extension SearchTagVC {
 
 extension SearchTagVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.tags.count ?? 0
+        return self.viewModel?.userTags.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallTagCell.identifier, for: indexPath) as? SmallTagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.tags[indexPath.item] else { return cell }
+        guard let tag = self.viewModel?.userTags[indexPath.item] else { return cell }
         cell.configure(tag: tag.name)
         
         return cell
@@ -126,12 +126,12 @@ extension SearchTagVC: UICollectionViewDelegate {
 
 extension SearchTagVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.searchResultTags.count ?? 0
+        return self.viewModel?.filteredTags.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
-        guard let tag = self.viewModel?.searchResultTags[indexPath.item] else { return cell }
+        guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return cell }
         cell.configure(tag: tag.name)
         
         return cell
@@ -140,7 +140,7 @@ extension SearchTagVC: UITableViewDataSource {
 
 extension SearchTagVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tag = self.viewModel?.searchResultTags[indexPath.item] else { return }
+        guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return }
         self.viewModel?.appendTag(to: tag)
         self.searchTextField.text = ""
     }
