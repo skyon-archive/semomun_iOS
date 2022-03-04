@@ -301,7 +301,7 @@ extension NetworkUsecase: UserInfoSendable {
 
 extension NetworkUsecase: NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void) {
-        if nickname == "홍길동" {
+        if nickname != "" {
             completion((.SUCCESS, true))
         } else {
             completion((.SUCCESS, false))
@@ -311,11 +311,30 @@ extension NetworkUsecase: NicknameCheckable {
 
 extension NetworkUsecase: PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
-        completion(.SUCCESS)
+        self.network.post(url: NetworkURL.requestSMS, param: ["phone": phonenum]) { result in
+            guard let statusCode = result.statusCode, statusCode == 200 else {
+                completion(.FAIL)
+                return
+            }
+            completion(.SUCCESS)
+        }
     }
     
-    func checkValidity(of authNum: String, completion: @escaping (Bool) -> Void) {
-        completion(authNum == "1234")
+    func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void) {
+        let param = ["phone": phoneNumber, "code": authNum]
+        self.network.post(url: NetworkURL.verifySMS, param: param) { result in
+            guard let statusCode = result.statusCode, statusCode == 200 else {
+                completion(false)
+                return
+            }
+            guard let data = result.data,
+                  let isValid = try? JSONDecoder().decode(PhoneAuthResult.self, from: data) else {
+                      print("Error: Decode")
+                      completion(false)
+                      return
+                  }
+            completion(isValid.succeed)
+        }
     }
 }
 

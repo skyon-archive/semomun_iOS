@@ -38,6 +38,8 @@ enum NetworkURL {
     static let signup: String = base + "/auth/signup"
     static let refreshToken: String = base + "/auth/refresh"
     static let usersSelf = base + "/users/self"
+    static let requestSMS = base + "/sms/code"
+    static let verifySMS = base + "/sms/code/verify"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"

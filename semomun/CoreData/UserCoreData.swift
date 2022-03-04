@@ -41,7 +41,7 @@ public class UserCoreData: NSManagedObject {
     func setValues(userInfo: UserInfo) {
         print("class: \(userInfo)")
         self.setValue(userInfo.name, forKey: "name")
-        self.setValue(userInfo.nickname, forKey: "nickName")
+        self.setValue(userInfo.username, forKey: "nickName")
         self.setValue(userInfo.phoneNumber, forKey: "phoneNumber")
         self.setValue(userInfo.major, forKey: "major")
         self.setValue(userInfo.majorDetail, forKey: "majorDetail")

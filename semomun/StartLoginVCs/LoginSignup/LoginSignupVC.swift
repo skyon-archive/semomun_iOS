@@ -174,6 +174,7 @@ extension LoginSignupVC {
         let graduationMenuItems: [UIAction] = ["재학", "졸업"].map { status in
             return UIAction(title: status, image: nil) { [weak self] _ in
                 self?.viewModel?.graduationStatus = status
+                self?.graduationStatusSelector.setTitle(status, for: .normal)
             }
         }
         self.graduationStatusSelector.menu = UIMenu(title: "대학 / 졸업 선택", options: [], children: graduationMenuItems)
