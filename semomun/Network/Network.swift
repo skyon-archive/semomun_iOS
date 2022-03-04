@@ -9,7 +9,16 @@ import Foundation
 import Alamofire
 
 struct Network: NetworkFetchable {
-    private let session = Session(interceptor: NetworkTokenController())
+    
+    init(addTokenController: Bool) {
+        if addTokenController {
+            self.session = Session(interceptor: NetworkTokenController())
+        } else {
+            self.session = Session.default
+        }
+    }
+    
+    private let session: Session
     
     func get(url: String, completion: @escaping (NetworkResult) -> Void) {
         self.networkImplNoParam(url: url, method: .get, completion: completion)
@@ -56,16 +65,16 @@ struct Network: NetworkFetchable {
     
     private func makeNetworkResult(with response: DataResponse<Data, AFError>) -> NetworkResult {
         guard let statusCode = response.response?.statusCode else {
-            print("Fail: no statusCode")
-            return NetworkResult(data: nil, statusCode: -1)
+            print("Network Fail: no statusCode")
+            return NetworkResult(data: nil, statusCode: nil)
         }
         guard let data = response.data else {
-            print("Fail: no data, statusCode: \(statusCode)")
+            print("Network Fail: no data, statusCode \(statusCode)")
             return NetworkResult(data: nil, statusCode: statusCode)
         }
         guard statusCode == 200 else {
-            print("Error statusCode: \(statusCode)")
-            print("\(optional: String(data: data, encoding: .utf8))")
+            print("Network Error: statusCode \(statusCode)")
+            print("data: \(optional: String(data: data, encoding: .utf8))")
             return NetworkResult(data: data, statusCode: statusCode)
         }
         return NetworkResult(data: data, statusCode: statusCode)
