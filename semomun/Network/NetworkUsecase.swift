@@ -66,7 +66,7 @@ extension NetworkUsecase {
                         completion(.DECODEERROR)
                         return
                     }
-                    let userToken = try JSONDecoder().decode(NetworkTokens.self, from: data)
+                    let userToken = try JSONDecoderWithDate().decode(NetworkTokens.self, from: data)
                     try userToken.save()
                     completion(.SUCCESS)
                 } catch {
@@ -81,14 +81,14 @@ extension NetworkUsecase {
     
     func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userIDToken.paramValue
-        let param = SignUpParam(info: userInfo, token: paramValue.type, type: paramValue.token)
+        let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
         self.network.post(url: NetworkURL.signup, param: param) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
             case 200:
                 guard let data = result.data,
-                      let userToken = try? JSONDecoder().decode(NetworkTokens.self, from: data) else {
+                      let userToken = try? JSONDecoderWithDate().decode(NetworkTokens.self, from: data) else {
                           print("Error: no data")
                           completion(.DECODEERROR)
                           return
