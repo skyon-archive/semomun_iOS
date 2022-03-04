@@ -33,6 +33,10 @@ extension SearchTagsFromTextVC {
         self.delegate = delegate
     }
     
+    func refresh() {
+        self.viewModel?.refresh()
+    }
+    
     private func configureUI() {
         self.frameView.clipsToBounds = true
         self.frameView.layer.cornerRadius = 5
