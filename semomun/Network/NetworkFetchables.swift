@@ -16,6 +16,7 @@ protocol NetworkFetchable {
     func get<T: Encodable>(url: String, param: T?, completion: @escaping (NetworkResult) -> Void)
     func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void)
     func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void)
+    
 }
 // NetworkUseCase
 protocol SectionDownloadable {
