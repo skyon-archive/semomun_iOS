@@ -12,63 +12,58 @@ struct Network: NetworkFetchable {
     private let session = Session(interceptor: NetworkTokenController())
     
     func get(url: String, completion: @escaping (NetworkResult) -> Void) {
-        session.request(url, method: .get)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
-        }.resume()
+        self.networkImplNoParam(url: url, method: .get, completion: completion)
     }
     
     func put(url: String, completion: @escaping (NetworkResult) -> Void) {
-        session.request(url, method: .put)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
-        }.resume()
+        self.networkImplNoParam(url: url, method: .put, completion: completion)
     }
     
     func get<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        print("\(url), \(optional: param)")
-        session.request(url, method: .get, parameters: param) { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
-        }.resume()
+        self.networkImpl(url: url, method: .get, param: param, completion: completion)
     }
     
     func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        print(url, param)
-        session.request(url, method: .post, parameters: param)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
-        }.resume()
+        self.networkImpl(url: url, method: .post, param: param, completion: completion)
     }
     
     func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        print(url, param)
-        session.request(url, method: .put, parameters: param)  { $0.timeoutInterval = .infinity }
+        self.networkImpl(url: url, method: .put, param: param, completion: completion)
+    }
+    
+    private func networkImplNoParam(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
+        print("Network request: \(url), \(method)")
+        session.request(url, method: method)  { $0.timeoutInterval = .infinity }
         .responseDecodable(of: String.self) { response in
-            self.toRequestResult(with: response, completion: completion)
+            let networkResult = self.makeNetworkResult(with: response)
+            completion(networkResult)
         }.resume()
     }
     
-    private func toRequestResult(with response: DataResponse<String, AFError>, completion: @escaping (NetworkResult) -> Void) {
+    private func networkImpl<T: Encodable>(url: String, method: HTTPMethod, param: T, completion: @escaping (NetworkResult) -> Void) {
+        print("Network request: \(url), \(method), \(param)")
+        session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
+        .responseDecodable(of: String.self) { response in
+            let networkResult = self.makeNetworkResult(with: response)
+            completion(networkResult)
+        }.resume()
+    }
+    
+    
+    private func makeNetworkResult(with response: DataResponse<String, AFError>) -> NetworkResult {
         guard let statusCode = response.response?.statusCode else {
             print("Fail: no statusCode")
-            completion(NetworkResult(status: .FAIL, data: nil, statusCode: -1))
-            return
+            return NetworkResult(status: .FAIL, data: nil, statusCode: -1)
         }
-        
         guard let data = response.data else {
             print("Fail: no data, statusCode: \(statusCode)")
-            completion(NetworkResult(status: .FAIL, data: nil, statusCode: statusCode))
-            return
+            return NetworkResult(status: .FAIL, data: nil, statusCode: statusCode)
         }
-        
         guard statusCode == 200 else {
             print("Error statusCode: \(statusCode)")
-            print(String(data: data, encoding: .utf8)!)
-            completion(NetworkResult(status: .ERROR, data: data, statusCode: statusCode))
-            return
+            print("\(optional: String(data: data, encoding: .utf8))")
+            return NetworkResult(status: .ERROR, data: data, statusCode: statusCode)
         }
-        
-        completion(NetworkResult(status: .SUCCESS, data: data, statusCode: statusCode))
+        return NetworkResult(status: .SUCCESS, data: data, statusCode: statusCode)
     }
 }
