@@ -10,29 +10,32 @@ import Combine
 
 final class SearchTagVM {
     private let networkUsecase: TagsFetchable
-    @Published private(set) var searchResultTags: [TagOfDB] = []
+    private var totalTags: [TagOfDB] = []
+    @Published private(set) var filteredTags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var tags: [TagOfDB] = []
+    @Published private(set) var userTags: [TagOfDB] = []
     
     init(networkUsecase: TagsFetchable) {
         self.networkUsecase = networkUsecase
-        self.fetchTags()
+        self.fetchTagsFromLocal()
+        self.fetchTagsFromServer()
     }
     
-    private func fetchTags() {
+    private func fetchTagsFromLocal() {
         if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
            let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
-            self.tags = tags
+            self.userTags = tags
         } else {
-            self.tags = []
+            self.userTags = []
         }
     }
     
-    func searchTags(text: String) {
+    private func fetchTagsFromServer() {
         self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                self?.searchResultTags = tags
+                self?.totalTags = tags
+                self?.filteredTags = tags
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -41,27 +44,31 @@ final class SearchTagVM {
         }
     }
     
+    func searchTags(text: String) {
+        self.filteredTags = self.totalTags.filter { $0.name.contains(text) }
+    }
+    
     func removeTag(index: Int) {
-        self.tags.remove(at: index)
+        self.userTags.remove(at: index)
         self.saveTags()
     }
     
     func appendTag(to tag: TagOfDB) {
-        guard self.tags.count < 5 else {
+        guard self.userTags.count < 5 else {
             self.warning = ("5개 이하만 선택해주세요", "")
             return
         }
-        self.tags.append(tag)
+        self.userTags.append(tag)
         self.removeAll()
         self.saveTags()
     }
     
     func removeAll() {
-        self.searchResultTags = []
+        self.filteredTags = []
     }
     
     private func saveTags() {
-        let data = try? PropertyListEncoder().encode(self.tags)
+        let data = try? PropertyListEncoder().encode(self.userTags)
         UserDefaultsManager.set(to: data, forKey: .favoriteTags)
         NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
