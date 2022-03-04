@@ -45,7 +45,11 @@ final class SearchTagVM {
     }
     
     func searchTags(text: String) {
-        self.filteredTags = self.totalTags.filter { $0.name.contains(text) }
+        if text == "" {
+            self.filteredTags = self.totalTags
+        } else {
+            self.filteredTags = self.totalTags.filter { $0.name.contains(text) }
+        }
     }
     
     func removeTag(index: Int) {
@@ -59,12 +63,8 @@ final class SearchTagVM {
             return
         }
         self.userTags.append(tag)
-        self.removeAll()
-        self.saveTags()
-    }
-    
-    func removeAll() {
         self.filteredTags = []
+        self.saveTags()
     }
     
     private func saveTags() {

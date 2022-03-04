@@ -38,9 +38,9 @@ class SearchVC: UIViewController {
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
-    private lazy var searchTagsFromTextVC: UIViewController = {
+    private lazy var searchTagsFromTextVC: SearchTagsFromTextVC = {
         let storyboard = UIStoryboard(name: SearchTagsFromTextVC.storyboardName, bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC else { return UIViewController() }
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC else { return SearchTagsFromTextVC() }
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
@@ -83,6 +83,7 @@ class SearchVC: UIViewController {
     
     @IBAction func cancelSearch(_ sender: Any) {
         self.searchResultVC.removeAll()
+        self.searchTagsFromTextVC.refresh()
         self.changeToSearchFavoriteTagsVC()
         self.searchTextField.text = ""
         self.hiddenSearchBT()
@@ -122,6 +123,7 @@ extension SearchVC {
     
     private func configureTextFieldAction() {
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.searchTextField.addTarget(self, action: #selector(self.textFieldDidTap), for: .touchDown)
     }
     
     private func configureAddObserver() {
@@ -205,6 +207,15 @@ extension SearchVC {
             self.showCancelSearchBT()
         }
         NotificationCenter.default.post(name: .fetchTagsFromSearch, object: nil, userInfo: ["text" : text])
+    }
+    
+    @objc func textFieldDidTap() {
+        self.showCancelSearchBT()
+        if !self.isSearchTagsFromTextVC {
+            print("change")
+            self.changeToSearchTagsFromTextVC()
+            self.searchResultVC.removeAll()
+        }
     }
     
     private func removeChildVC() {
