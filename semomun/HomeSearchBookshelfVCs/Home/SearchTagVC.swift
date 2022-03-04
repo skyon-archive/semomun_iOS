@@ -57,11 +57,7 @@ extension SearchTagVC {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else {return }
-        if text.count == 0 {
-            self.viewModel?.removeAll()
-        } else {
-            self.viewModel?.searchTags(text: text)
-        }
+        self.viewModel?.searchTags(text: text)
     }
 }
 

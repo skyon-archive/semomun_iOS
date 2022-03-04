@@ -24,8 +24,11 @@ final class SearchTagsFromTextVM {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .fetchTagsFromSearch, object: nil, queue: self.searchQueue) { [weak self] notification in
             guard let text = notification.userInfo?["text"] as? String else { return }
-            
-            self?.searchTags(text: text)
+            if text == "" {
+                self?.refresh()
+            } else {
+                self?.searchTags(text: text)
+            }
         }
     }
     
@@ -48,5 +51,9 @@ final class SearchTagsFromTextVM {
     
     func removeAll() {
         self.filteredTags.removeAll()
+    }
+    
+    func refresh() {
+        self.filteredTags = self.tags
     }
 }
