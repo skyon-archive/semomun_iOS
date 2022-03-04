@@ -11,63 +11,63 @@ import Alamofire
 struct Network: NetworkFetchable {
     private let session = Session(interceptor: NetworkTokenController())
     
-    func get(url: String, completion: @escaping (NetworkResult<String>) -> Void) {
+    func get(url: String, completion: @escaping (NetworkResult) -> Void) {
         self.networkImplNoParam(url: url, method: .get, completion: completion)
     }
     
-    func put(url: String, completion: @escaping (NetworkResult<String>) -> Void) {
+    func post(url: String, completion: @escaping (NetworkResult) -> Void) {
+        self.networkImplNoParam(url: url, method: .post, completion: completion)
+    }
+    
+    func put(url: String, completion: @escaping (NetworkResult) -> Void) {
         self.networkImplNoParam(url: url, method: .put, completion: completion)
     }
     
-    func get<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult<String>) -> Void) {
+    func get<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         self.networkImpl(url: url, method: .get, param: param, completion: completion)
     }
     
-    func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult<String>) -> Void) {
+    func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         self.networkImpl(url: url, method: .post, param: param, completion: completion)
     }
     
-    func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult<String>) -> Void) {
+    func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
         self.networkImpl(url: url, method: .put, param: param, completion: completion)
     }
     
-    func get<U: Decodable>(url: String, completion: @escaping (NetworkResult<U>) -> Void) {
-        self.networkImplNoParam(url: url, method: .get, completion: completion)
-    }
-    
-    private func networkImplNoParam<T: Decodable>(url: String, method: HTTPMethod, completion: @escaping (NetworkResult<T>) -> Void) {
+    private func networkImplNoParam(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method)")
         session.request(url, method: method)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: T.self) { response in
+        .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
             completion(networkResult)
         }.resume()
     }
     
-    private func networkImpl<T: Encodable, U:Decodable>(url: String, method: HTTPMethod, param: T, completion: @escaping (NetworkResult<U>) -> Void) {
+    private func networkImpl<T: Encodable>(url: String, method: HTTPMethod, param: T, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method), \(param)")
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
-        .responseDecodable(of: U.self) { response in
+        .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
             completion(networkResult)
         }.resume()
     }
     
     
-    private func makeNetworkResult<T>(with response: DataResponse<T, AFError>) -> NetworkResult<T> {
+    private func makeNetworkResult(with response: DataResponse<Data, AFError>) -> NetworkResult {
         guard let statusCode = response.response?.statusCode else {
             print("Fail: no statusCode")
-            return NetworkResult<T>(status: .FAIL, data: nil, statusCode: -1, encodedData: nil)
+            return NetworkResult(data: nil, statusCode: -1)
         }
         guard let data = response.data else {
             print("Fail: no data, statusCode: \(statusCode)")
-            return NetworkResult<T>(status: .FAIL, data: nil, statusCode: statusCode, encodedData: nil)
+            return NetworkResult(data: nil, statusCode: statusCode)
         }
         guard statusCode == 200 else {
             print("Error statusCode: \(statusCode)")
             print("\(optional: String(data: data, encoding: .utf8))")
-            return NetworkResult<T>(status: .ERROR, data: data, statusCode: statusCode, encodedData: nil)
+            return NetworkResult(data: data, statusCode: statusCode)
         }
-        return NetworkResult<T>(status: .SUCCESS, data: data, statusCode: statusCode, encodedData: nil)
+        return NetworkResult(data: data, statusCode: statusCode)
     }
 }
