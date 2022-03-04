@@ -125,9 +125,13 @@ extension NetworkUsecase {
 
 extension NetworkUsecase: SectionDownloadable {
     func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid)) { (result: NetworkResult<SectionOfDB>) in
-            guard let encodedData = result.encodedData else { return }
-            completion(encodedData)
+        self.network.get(url: NetworkURL.sectionDirectory(sid)) { result in
+            guard let data = result.data,
+                  let sectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
+                      print("Decode Error")
+                      return
+                  }
+            completion(sectionOfDB)
         }
     }
 }
