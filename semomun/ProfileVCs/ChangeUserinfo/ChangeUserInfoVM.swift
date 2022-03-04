@@ -119,7 +119,7 @@ final class ChangeUserInfoVM {
         guard self.checkDataValidity(),
               let uid = CoreUsecase.fetchUserInfo()?.uid else { return nil }
         var userInfo = UserInfo(uid: Int(uid) ?? 0)
-        userInfo.nickname = self.nickname
+        userInfo.username = self.nickname
         userInfo.phoneNumber = self.phonenum
         userInfo.major = self.selectedMajor
         userInfo.majorDetail = self.selectedMajorDetail
@@ -136,7 +136,7 @@ final class ChangeUserInfoVM {
               let majorDetail = self.selectedMajorDetail,
               let graduationStatus = self.graduationStatus else { return nil }
         return SignUpUserInfo(
-            nickname: nickname,
+            username: nickname,
             phone: phone,
             school: school,
             major: major,
@@ -150,11 +150,12 @@ final class ChangeUserInfoVM {
 // 전화 인증 관련 메소드
 extension ChangeUserInfoVM {
     func requestPhoneAuth(withPhoneNumber phoneNum: String) {
-        guard phoneNum.count == 11 else {
+        guard let phoneNumber = phoneNum.phoneNumberWithCountryCode else {
+            print("ASDASD")
             self.phoneAuthStatus = .invaildPhoneNum
             return
         }
-        self.networkUseCase.requestVertification(of: phoneNum) { [weak self] status in
+        self.networkUseCase.requestVertification(of: phoneNumber) { [weak self] status in
             if status == .SUCCESS {
                 self?.phoneAuthStatus = .authNumSent
                 self?.tempPhoneNum = phoneNum
@@ -166,7 +167,7 @@ extension ChangeUserInfoVM {
     
     /// 재인증 요청
     func requestPhoneAuthAgain() {
-        guard let tempPhoneNum = tempPhoneNum else { return }
+        guard let tempPhoneNum = self.tempPhoneNum?.phoneNumberWithCountryCode else { return }
         self.networkUseCase.requestVertification(of: tempPhoneNum) { [weak self] status in
             if status == .SUCCESS {
                 self?.phoneAuthStatus = .authNumSent
@@ -177,7 +178,8 @@ extension ChangeUserInfoVM {
     }
     
     func confirmAuthNumber(with authNumber: String) {
-        self.networkUseCase.checkValidity(of: authNumber) {[weak self] confirmed in
+        guard let tempPhoneNum = self.tempPhoneNum?.phoneNumberWithCountryCode else { return }
+        self.networkUseCase.checkValidity(phoneNumber: tempPhoneNum, authNum: authNumber) {[weak self] confirmed in
             if confirmed {
                 self?.phoneAuthStatus = .authComplete
                 self?.phonenum = self?.tempPhoneNum

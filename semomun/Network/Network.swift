@@ -9,16 +9,7 @@ import Foundation
 import Alamofire
 
 struct Network: NetworkFetchable {
-    
-    init(addTokenController: Bool) {
-        if addTokenController {
-            self.session = Session(interceptor: NetworkTokenController())
-        } else {
-            self.session = Session.default
-        }
-    }
-    
-    private let session: Session
+    private let session = Session(interceptor: NetworkTokenController())
     
     func get(url: String, completion: @escaping (NetworkResult) -> Void) {
         self.networkImplNoParam(url: url, method: .get, completion: completion)
