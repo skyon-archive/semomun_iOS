@@ -7,9 +7,7 @@
 
 import Foundation
 
-struct NetworkResult<T> {
-    let status: NetworkStatus
+struct NetworkResult {
     let data: Data?
-    let statusCode: Int
-    let encodedData: T?
+    let statusCode: Int?
 }
