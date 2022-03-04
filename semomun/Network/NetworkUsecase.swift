@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class NetworkUsecase {
     let network: NetworkFetchable
@@ -124,13 +125,9 @@ extension NetworkUsecase {
 
 extension NetworkUsecase: SectionDownloadable {
     func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid)) { result in
-            guard let data = result.data,
-                  let section: SectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
-                      print("Decode error")
-                      return
-                  }
-            completion(section)
+        self.network.get(url: NetworkURL.sectionDirectory(sid)) { (result: NetworkResult<SectionOfDB>) in
+            guard let encodedData = result.encodedData else { return }
+            completion(encodedData)
         }
     }
 }
