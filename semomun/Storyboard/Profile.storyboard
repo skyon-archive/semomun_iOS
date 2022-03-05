@@ -259,7 +259,8 @@
                             <constraint firstItem="FjB-o2-7Ra" firstAttribute="top" secondItem="Pfu-Tw-ngC" secondAttribute="bottom" constant="29" id="yOn-96-2rc"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="프로필" image="tabBarPerson" id="SqW-G1-Yw3">
+                    <tabBarItem key="tabBarItem" title="프로필" image="profile" selectedImage="profile" id="SqW-G1-Yw3">
+                        <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -1701,7 +1702,7 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="personCircle" width="41" height="41"/>
-        <image name="tabBarPerson" width="32" height="32"/>
+        <image name="profile" width="32" height="32"/>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
