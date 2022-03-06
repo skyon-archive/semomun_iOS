@@ -11,31 +11,7 @@ import Alamofire
 struct Network: NetworkFetchable {
     private let session = Session(interceptor: NetworkTokenController())
     
-    func get(url: String, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImplNoParam(url: url, method: .get, completion: completion)
-    }
-    
-    func post(url: String, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImplNoParam(url: url, method: .post, completion: completion)
-    }
-    
-    func put(url: String, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImplNoParam(url: url, method: .put, completion: completion)
-    }
-    
-    func get<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImpl(url: url, method: .get, param: param, completion: completion)
-    }
-    
-    func post<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImpl(url: url, method: .post, param: param, completion: completion)
-    }
-    
-    func put<T: Encodable>(url: String, param: T, completion: @escaping (NetworkResult) -> Void) {
-        self.networkImpl(url: url, method: .put, param: param, completion: completion)
-    }
-    
-    private func networkImplNoParam(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
+    func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method)")
         session.request(url, method: method)  { $0.timeoutInterval = .infinity }
         .responseData { response in
@@ -43,8 +19,8 @@ struct Network: NetworkFetchable {
             completion(networkResult)
         }.resume()
     }
-    
-    private func networkImpl<T: Encodable>(url: String, method: HTTPMethod, param: T, completion: @escaping (NetworkResult) -> Void) {
+
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method), \(param)")
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
         .responseData { response in
@@ -52,7 +28,6 @@ struct Network: NetworkFetchable {
             completion(networkResult)
         }.resume()
     }
-    
     
     private func makeNetworkResult(with response: DataResponse<Data, AFError>) -> NetworkResult {
         guard let statusCode = response.response?.statusCode else {

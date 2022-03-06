@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 class NetworkUsecase {
     let network: NetworkFetchable
@@ -15,7 +14,7 @@ class NetworkUsecase {
     }
     
     func downloadPreviews(param: [String: String], completion: @escaping (SearchPreviews) -> ()) {
-        self.network.get(url: NetworkURL.workbooks, param: param) { result in
+        self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
             guard let data = result.data else { return }
             guard let searchPreview: SearchPreviews = try? JSONDecoder().decode(SearchPreviews.self, from: data) else {
                 print("Decode error")
@@ -26,7 +25,7 @@ class NetworkUsecase {
     }
     
     func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
-        self.network.get(url: NetworkURL.schoolApi, param: param) { result in
+        self.network.request(url: NetworkURL.schoolApi, param: param, method: .get) { result in
             guard let data = result.data,
                   let json = try? JSONDecoder().decode(CareerNetJSON.self, from: data) else {
                       print("Decode error")
@@ -56,7 +55,7 @@ extension NetworkUsecase {
     func postUserLogin(userToken: UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userToken.paramValue
         let param = ["token": paramValue.token, "type": paramValue.type]
-        self.network.post(url: NetworkURL.login, param: param) { result in
+        self.network.request(url: NetworkURL.login, param: param, method: .post) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
@@ -82,7 +81,7 @@ extension NetworkUsecase {
     func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userIDToken.paramValue
         let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
-        self.network.post(url: NetworkURL.signup, param: param) { result in
+        self.network.request(url: NetworkURL.signup, param: param, method: .post) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
@@ -110,7 +109,7 @@ extension NetworkUsecase {
 extension NetworkUsecase {
     func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
         let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
-        self.network.put(url: NetworkURL.sectionsSubmit(sid), param: param) { result in
+        self.network.request(url: NetworkURL.sectionsSubmit(sid), param: param, method: .put) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
@@ -125,7 +124,7 @@ extension NetworkUsecase {
 
 extension NetworkUsecase: SectionDownloadable {
     func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
-        self.network.get(url: NetworkURL.sectionDirectory(sid)) { result in
+        self.network.request(url: NetworkURL.sectionDirectory(sid), method: .get) { result in
             guard let data = result.data,
                   let sectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
                       print("Decode Error")
@@ -138,7 +137,7 @@ extension NetworkUsecase: SectionDownloadable {
 
 extension NetworkUsecase: VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void) {
-        self.network.get(url: NetworkURL.appstoreVersion) { result in
+        self.network.request(url: NetworkURL.appstoreVersion, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -157,7 +156,7 @@ extension NetworkUsecase: VersionFetchable {
 
 extension NetworkUsecase: BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks) { result in
+        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -176,7 +175,7 @@ extension NetworkUsecase: BestSellersFetchable {
 
 extension NetworkUsecase: WorkbooksWithTagsFetchable {
     func getWorkbooks(tags: [String], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks) { result in
+        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -195,7 +194,7 @@ extension NetworkUsecase: WorkbooksWithTagsFetchable {
 
 extension NetworkUsecase: WorkbooksWithRecentFetchable {
     func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks) { result in
+        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -214,7 +213,7 @@ extension NetworkUsecase: WorkbooksWithRecentFetchable {
 
 extension NetworkUsecase: WorkbooksWithNewestFetchable {
     func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks) { result in
+        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -247,7 +246,7 @@ extension NetworkUsecase: SearchTagsFetchable {
 
 extension NetworkUsecase: SearchFetchable {
     func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.get(url: NetworkURL.workbooks) { result in
+        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -266,7 +265,7 @@ extension NetworkUsecase: SearchFetchable {
 
 extension NetworkUsecase: MajorFetchable {
     func getMajors(completion: @escaping ([Major]?) -> Void) {
-        self.network.get(url: NetworkURL.majors) { result in
+        self.network.request(url: NetworkURL.majors, method: .get) { result in
             guard let data = result.data,
                   let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
                       print("Error: Decode")
@@ -286,7 +285,7 @@ extension NetworkUsecase: MajorFetchable {
 
 extension NetworkUsecase: UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        self.network.put(url: NetworkURL.usersSelf, param: userInfo) { result in
+        self.network.request(url: NetworkURL.usersSelf, param: userInfo, method: .put) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION)
@@ -311,7 +310,7 @@ extension NetworkUsecase: NicknameCheckable {
 
 extension NetworkUsecase: PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
-        self.network.post(url: NetworkURL.requestSMS, param: ["phone": phonenum]) { result in
+        self.network.request(url: NetworkURL.requestSMS, param: ["phone": phonenum], method: .post) { result in
             guard let statusCode = result.statusCode, statusCode == 200 else {
                 completion(.FAIL)
                 return
@@ -322,7 +321,7 @@ extension NetworkUsecase: PhonenumVerifiable {
     
     func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void) {
         let param = ["phone": phoneNumber, "code": authNum]
-        self.network.post(url: NetworkURL.verifySMS, param: param) { result in
+        self.network.request(url: NetworkURL.verifySMS, param: param, method: .post) { result in
             guard let statusCode = result.statusCode, statusCode == 200 else {
                 completion(false)
                 return
@@ -372,7 +371,7 @@ extension NetworkUsecase: PurchaseListFetchable {
 
 extension NetworkUsecase: WorkbookFetchable {
     func downloadWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ()) {
-        self.network.get(url: NetworkURL.workbookDirectory(wid)) { result in
+        self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
                       print("Decode error")
@@ -425,7 +424,7 @@ extension NetworkUsecase: ErrorReportable {
 
 extension NetworkUsecase: UserInfoFetchable {
     func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
-        self.network.get(url: NetworkURL.usersSelf) { result in
+        self.network.request(url: NetworkURL.usersSelf, method: .get) { result in
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION, nil)
@@ -453,14 +452,14 @@ extension NetworkUsecase: UserInfoFetchable {
 extension NetworkUsecase: S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
         let param = ["uuid": uuid.uuidString.lowercased(), "type": type.rawValue]
-        self.network.get(url: NetworkURL.s3ImageDirectory, param: param) { result in
+        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get) { result in
             guard let data = result.data,
                   let imageURL: String = String(data: data, encoding: .utf8) else {
                       completion(.FAIL, nil)
                       return
                   }
             
-            self.network.get(url: imageURL) { result in
+            self.network.request(url: imageURL, method: .get) { result in
                 let status: NetworkStatus = result.statusCode == 200 ? .SUCCESS : .FAIL
                 completion(status, result.data)
             }
