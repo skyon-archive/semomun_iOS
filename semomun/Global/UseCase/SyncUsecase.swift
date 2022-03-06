@@ -26,6 +26,7 @@ struct SyncUsecase {
                 CoreDataManager.saveCoreData()
                 completion(true)
             case .TOKENEXPIRED:
+                LogoutUsecase.logout()
                 NotificationCenter.default.post(name: .logout, object: nil)
             default:
                 completion(false)
