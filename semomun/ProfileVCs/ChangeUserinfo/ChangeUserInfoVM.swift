@@ -151,7 +151,6 @@ final class ChangeUserInfoVM {
 extension ChangeUserInfoVM {
     func requestPhoneAuth(withPhoneNumber phoneNum: String) {
         guard let phoneNumber = phoneNum.phoneNumberWithCountryCode else {
-            print("ASDASD")
             self.phoneAuthStatus = .invaildPhoneNum
             return
         }
