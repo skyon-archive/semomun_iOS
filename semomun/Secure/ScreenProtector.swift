@@ -23,7 +23,7 @@ class ScreenProtector {
     }
     
     @objc func alertPreventScreenCapture(notification:Notification) -> Void {
-        let alert = UIAlertController(title: "주의", message: "캡쳐 혹은 녹화를 하면 안되요!", preferredStyle: .alert)
+        let alert = UIAlertController(title: "주의", message: "캡쳐 혹은 녹화를 하면 안돼요!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         hideScreen()
         self.window?.rootViewController!.present(alert, animated: true, completion: nil)
