@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct CareerNetJSON: Codable {
+struct CareerNetJSON: Decodable {
     let dataSearch: DataSearch
 }
 
-struct DataSearch: Codable {
+struct DataSearch: Decodable {
     let content: [SchoolContent]
 }
 
-struct SchoolContent: Codable {
+struct SchoolContent: Decodable {
     let schoolName: String
 }

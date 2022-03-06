@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchPreviews: Codable, CustomStringConvertible {
+struct SearchPreviews: Decodable, CustomStringConvertible {
     var description: String {
         return "\(count), \(previews)"
     }
@@ -21,7 +21,7 @@ struct SearchPreviews: Codable, CustomStringConvertible {
     }
 }
 
-struct PreviewOfDB: Codable {
+struct PreviewOfDB: Decodable {
     let productID: Int //상품 식별자
     let wid: Int //문제집 고유 번호
     let title: String

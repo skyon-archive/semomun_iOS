@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SectionOfDB: Codable, CustomStringConvertible {
+struct SectionOfDB: Decodable, CustomStringConvertible {
     var description: String {
         return "Section(\(sid))\n" + pages.map(\.description).joined(separator: "\n")
     }
@@ -23,7 +23,7 @@ struct SectionOfDB: Codable, CustomStringConvertible {
     }
 }
 
-struct PageOfDB: Codable, CustomStringConvertible {
+struct PageOfDB: Decodable, CustomStringConvertible {
     var description: String {
         return "Page(\(vid)) \(problems)"
     }
