@@ -25,7 +25,7 @@ struct UserInfo: Codable {
     var majorDetail: String?
     var school: String?
     var graduationStatus: String?
-    var credit: Int?
+    private(set) var credit: Int?
     var createdDate: Date?
     var updatedDate: Date?
     
