@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 struct NetworkTokens: Decodable, Equatable {
     let accessToken: String
