@@ -13,4 +13,5 @@ enum NetworkStatus {
     case ERROR
     case INSPECTION //504
     case DECODEERROR
+    case TOKENEXPIRED
 }

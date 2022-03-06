@@ -10,4 +10,5 @@ import Foundation
 struct NetworkResult {
     let data: Data?
     let statusCode: Int?
+    let error: Error? 
 }

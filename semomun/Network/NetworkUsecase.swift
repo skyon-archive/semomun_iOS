@@ -414,6 +414,11 @@ extension NetworkUsecase: ErrorReportable {
 extension NetworkUsecase: UserInfoFetchable {
     func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
         self.network.request(url: NetworkURL.usersSelf, method: .get) { result in
+            if let error = result.error,
+               self.checkTokenExpire(error: error) {
+                completion(.TOKENEXPIRED, nil)
+                return
+            }
             switch result.statusCode {
             case 504:
                 completion(.INSPECTION, nil)
@@ -433,6 +438,14 @@ extension NetworkUsecase: UserInfoFetchable {
             default:
                 completion(.ERROR, nil)
             }
+        }
+    }
+    private func checkTokenExpire(error: Error) -> Bool {
+        if let tokenControllerError = error as? NetworkTokenControllerError,
+           tokenControllerError == .tokenExpired {
+            return true
+        } else {
+            return false
         }
     }
 }
