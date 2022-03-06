@@ -40,19 +40,7 @@ class NetworkUsecase {
 }
 
 extension NetworkUsecase {
-    enum UserIDToken {
-        case google(String)
-        case apple(String)
-        var paramValue: (type: String, token: String) {
-            switch self {
-            case .google(let string):
-                return ("google", string)
-            case .apple(let string):
-                return ("apple", string)
-            }
-        }
-    }
-    func postUserLogin(userToken: UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
+    func postUserLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userToken.paramValue
         let param = ["token": paramValue.token, "type": paramValue.type]
         self.network.request(url: NetworkURL.login, param: param, method: .post) { result in
@@ -78,7 +66,7 @@ extension NetworkUsecase {
         }
     }
     
-    func postUserSignup(userIDToken: UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void) {
+    func postUserSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void) {
         let paramValue = userIDToken.paramValue
         let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
         self.network.request(url: NetworkURL.signup, param: param, method: .post) { result in
