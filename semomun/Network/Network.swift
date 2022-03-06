@@ -14,35 +14,40 @@ struct Network: NetworkFetchable {
     func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method)")
         session.request(url, method: method)  { $0.timeoutInterval = .infinity }
-        .responseData { response in
-            let networkResult = self.makeNetworkResult(with: response)
-            completion(networkResult)
-        }.resume()
-    }
-
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
-        print("Network request: \(url), \(method), \(param)")
-        session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
+        .validate(statusCode: [200])
         .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
             completion(networkResult)
         }.resume()
     }
     
-    private func makeNetworkResult(with response: DataResponse<Data, AFError>) -> NetworkResult {
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
+        print("Network request: \(url), \(method), \(param)")
+        session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
+        .validate(statusCode: [200])
+        .responseData { response in
+            let networkResult = self.makeNetworkResult(with: response)
+            completion(networkResult)
+        }.resume()
+    }
+    
+    private func makeNetworkResult(with response: AFDataResponse<Data>) -> NetworkResult {
+        // Status code가 없으면 data가 없음을 전제
         guard let statusCode = response.response?.statusCode else {
-            print("Network Fail: no statusCode")
-            return NetworkResult(data: nil, statusCode: nil)
+            print("Network Fail: No status code")
+            return NetworkResult(data: nil, statusCode: nil, error: nil)
         }
-        guard let data = response.data else {
-            print("Network Fail: no data, statusCode \(statusCode)")
-            return NetworkResult(data: nil, statusCode: statusCode)
+        
+        switch response.result {
+            
+        // Validate로 인해 status code == 200
+        case .success(let data):
+            return NetworkResult(data: data, statusCode: statusCode, error: nil)
+            
+        // Validate로 인해 status code != 200
+        case .failure(let error):
+            print("Network Fail: status code is \(statusCode)")
+            return NetworkResult(data: response.data, statusCode: statusCode, error: error.underlyingError)
         }
-        guard statusCode == 200 else {
-            print("Network Error: statusCode \(statusCode)")
-            print("data: \(optional: String(data: data, encoding: .utf8))")
-            return NetworkResult(data: data, statusCode: statusCode)
-        }
-        return NetworkResult(data: data, statusCode: statusCode)
     }
 }

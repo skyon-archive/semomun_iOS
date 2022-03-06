@@ -25,6 +25,8 @@ struct SyncUsecase {
                 userCoreData.setValues(userInfo: userInfo)
                 CoreDataManager.saveCoreData()
                 completion(true)
+            case .TOKENEXPIRED:
+                NotificationCenter.default.post(name: .logout, object: nil)
             default:
                 completion(false)
             }
