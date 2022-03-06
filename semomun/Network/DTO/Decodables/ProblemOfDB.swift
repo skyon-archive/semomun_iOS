@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProblemOfDB: Codable, CustomStringConvertible {
+struct ProblemOfDB: Decodable, CustomStringConvertible {
     var description: String {
         return "Problem(\(pid)) {btNum: \(btName), answer: \(answer ?? "none")}"
     }
