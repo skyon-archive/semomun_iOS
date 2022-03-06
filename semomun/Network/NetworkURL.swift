@@ -20,6 +20,19 @@ enum NetworkURL {
         case explanation
         case content
     }
+    enum UserIDToken {
+        case google(String)
+        case apple(String)
+        var paramValue: (type: String, token: String) {
+            switch self {
+            case .google(let string):
+                return ("google", string)
+            case .apple(let string):
+                return ("apple", string)
+            }
+        }
+    }
+    
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
     static let base: String = "http://api.semomun.com:8080"
     static let workbooks: String = base + "/workbooks/"
