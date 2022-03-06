@@ -189,7 +189,7 @@ extension LoginSelectVC {
         return signupInfo != nil
     }
     
-    private func processLogin(userIDToken: NetworkUsecase.UserIDToken) {
+    private func processLogin(userIDToken: NetworkURL.UserIDToken) {
         if self.isSignup {
             self.signup(userIDToken: userIDToken, userInfo: self.signupInfo!)
         } else {
@@ -199,7 +199,7 @@ extension LoginSelectVC {
         }
     }
     
-    private func signup(userIDToken: NetworkUsecase.UserIDToken, userInfo: SignUpUserInfo) {
+    private func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignUpUserInfo) {
         // TODO: 오류 코드 대처하기
         //        self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
         //            self.navigationController?.popViewController(animated: true)
@@ -288,7 +288,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         }
     }
     
-    private func login(userToken: NetworkUsecase.UserIDToken, completion: @escaping () -> Void) {
+    private func login(userToken: NetworkURL.UserIDToken, completion: @escaping () -> Void) {
         // TODO: 오류 코드 대처하기
         //        let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
         //        let alertActions = [
