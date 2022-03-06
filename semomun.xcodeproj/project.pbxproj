@@ -411,6 +411,44 @@
 			path = MyPurchases;
 			sourceTree = "<group>";
 		};
+		25100CD827D4ABC8002C18CB /* Codables */ = {
+			isa = PBXGroup;
+			children = (
+				87C85E80276F69E9001C9C4A /* Validate.swift */,
+				8742544727795D3900D60264 /* QueryListButton.swift */,
+				87C85E7E276F69CD001C9C4A /* UserInfo.swift */,
+			);
+			path = Codables;
+			sourceTree = "<group>";
+		};
+		25100CD927D4ABCD002C18CB /* Encodables */ = {
+			isa = PBXGroup;
+			children = (
+				25520FB727D10D5C00CC6015 /* SignUpUserInfo.swift */,
+			);
+			path = Encodables;
+			sourceTree = "<group>";
+		};
+		25100CDA27D4AC0D002C18CB /* Decodables */ = {
+			isa = PBXGroup;
+			children = (
+				8733159327799B77004E4A98 /* Categorys.swift */,
+				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
+				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
+				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,
+				87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */,
+				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
+				873315952779A181004E4A98 /* Majors.swift */,
+				2502533C277AB30F0049F342 /* SchoolDTO.swift */,
+				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
+				2554C89027D27BCC00AAD262 /* PhoneAuthResult.swift */,
+				255D637927ABBF46000991AB /* UserNotice.swift */,
+				2502CECA27A6D8030072A037 /* Purchase.swift */,
+				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
+			);
+			path = Decodables;
+			sourceTree = "<group>";
+		};
 		251DC46F27B3B6FA00F1CE27 /* LoginSignup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,23 +1048,9 @@
 		87C85EEC276F6EC9001C9C4A /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				87C85E7E276F69CD001C9C4A /* UserInfo.swift */,
-				25520FB727D10D5C00CC6015 /* SignUpUserInfo.swift */,
-				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
-				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
-				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,
-				87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */,
-				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
-				8742544727795D3900D60264 /* QueryListButton.swift */,
-				8733159327799B77004E4A98 /* Categorys.swift */,
-				873315952779A181004E4A98 /* Majors.swift */,
-				2502533C277AB30F0049F342 /* SchoolDTO.swift */,
-				87C85E80276F69E9001C9C4A /* Validate.swift */,
-				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
-				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
-				2502CECA27A6D8030072A037 /* Purchase.swift */,
-				255D637927ABBF46000991AB /* UserNotice.swift */,
-				2554C89027D27BCC00AAD262 /* PhoneAuthResult.swift */,
+				25100CDA27D4AC0D002C18CB /* Decodables */,
+				25100CD927D4ABCD002C18CB /* Encodables */,
+				25100CD827D4ABC8002C18CB /* Codables */,
 			);
 			path = DTO;
 			sourceTree = "<group>";

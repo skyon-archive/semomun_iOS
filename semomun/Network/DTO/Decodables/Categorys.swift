@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Categorys: Codable {
+struct Categorys: Decodable {
     let category: [String]
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MajorFetched: Codable {
+struct MajorFetched: Decodable {
     let major: [[String: [String]]]
 }
 

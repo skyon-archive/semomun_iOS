@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct AppstoreVersion: Codable {
+struct AppstoreVersion: Decodable {
     let resultCount: Int
     let results: [Result]
 }
 
-struct Result: Codable {
+struct Result: Decodable {
     let version: String
 }
