@@ -28,6 +28,7 @@ final class LoginedSettingTableVC: UITableViewController {
 extension LoginedSettingTableVC {
     private func showLogoutedAlert() {
         self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "") {
+            LogoutUsecase.logout()
             NotificationCenter.default.post(name: .logout, object: nil)
         }
     }
