@@ -49,7 +49,7 @@ struct NetworkTokenController: RequestInterceptor {
             return
         }
         print(token)
-        let headers: HTTPHeaders = [.authorization(bearerToken: token.accessToken), .refresh(token.refreshToken)]
+        let headers: HTTPHeaders = [.authorization(bearerToken: token.accessToken), .refresh(token: token.refreshToken)]
         AF.request(NetworkURL.refreshToken, method: .get, headers: headers) { $0.timeoutInterval = .infinity }
         .responseDecodable(of: NetworkTokens.self) { requestResult in
             completion(requestResult)
