@@ -50,7 +50,7 @@ extension NetworkUsecase {
             case 200:
                 do {
                     guard let data = result.data else {
-                        completion(.DECODEERROR)
+                        completion(.ERROR)
                         return
                     }
                     let userToken = try JSONDecoderWithDate().decode(NetworkTokens.self, from: data)
@@ -76,15 +76,16 @@ extension NetworkUsecase {
             case 200:
                 guard let data = result.data,
                       let userToken = try? JSONDecoderWithDate().decode(NetworkTokens.self, from: data) else {
-                          print("Error: no data")
+                          print("NetworkTokens 디코딩 실패")
                           completion(.DECODEERROR)
                           return
                       }
-                print(userToken)
                 do {
                     try userToken.save()
                 } catch {
-                    print(error.localizedDescription)
+                    print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
+                    completion(.ERROR)
+                    return
                 }
                 completion(.SUCCESS)
             default:
