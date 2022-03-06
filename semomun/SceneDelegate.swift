@@ -34,6 +34,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self?.changeRootViewController()
         }
         NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .main) { [weak self] _ in
+            LogoutUsecase.logout()
             self?.showStartVC()
         }
 

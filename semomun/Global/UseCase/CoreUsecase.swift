@@ -261,7 +261,7 @@ struct CoreUsecase {
         }
         CoreDataManager.shared.context.delete(userInfo)
         CoreDataManager.saveCoreData()
-        print("userInfo delete complete")
+        print("CoreData delete complete")
     }
     
     static func deletePreview(wid: Int) {

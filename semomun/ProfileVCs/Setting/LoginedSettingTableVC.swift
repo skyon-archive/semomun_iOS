@@ -26,24 +26,8 @@ final class LoginedSettingTableVC: UITableViewController {
 
 // MARK: - 로그아웃 로직
 extension LoginedSettingTableVC {
-    private func deleteKeychain() {
-        KeychainItem.deleteUserIdentifierFromKeychain()
-        print("keychain delete complete")
-    }
-    
-    private func deleteUserDefaults() {
-        let dictionary = UserDefaults.standard.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
-            UserDefaults.standard.removeObject(forKey: key)
-        }
-        print("userDefaults delete complete")
-    }
-    
     private func showLogoutedAlert() {
         self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "") {
-            CoreUsecase.deleteAllCoreData()
-            self.deleteKeychain()
-            self.deleteUserDefaults()
             NotificationCenter.default.post(name: .logout, object: nil)
         }
     }
