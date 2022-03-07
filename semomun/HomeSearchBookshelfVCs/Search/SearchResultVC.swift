@@ -32,7 +32,7 @@ extension SearchResultVC {
         self.delegate = delegate
     }
     
-    func fetch(tags: [String], text: String) {
+    func fetch(tags: [TagOfDB], text: String) {
         self.searchResults.setContentOffset(.zero, animated: true)
         self.viewModel?.fetchSearchResults(tags: tags, text: text)
     }
@@ -90,7 +90,8 @@ extension SearchResultVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return UICollectionViewCell() }
-        guard let preview = self.viewModel?.preview(index: indexPath.item) else { return cell }
+        guard let preview = self.viewModel?.searchResults[indexPath.item] else { return cell }
+        cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
         cell.configure(with: preview)
         
         return cell
@@ -99,7 +100,7 @@ extension SearchResultVC: UICollectionViewDataSource {
 
 extension SearchResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let target = self.viewModel?.preview(index: indexPath.item) else { return }
+        guard let target = self.viewModel?.searchResults[indexPath.item] else { return }
         self.delegate?.showWorkbookDetail(wid: target.wid)
     }
 }

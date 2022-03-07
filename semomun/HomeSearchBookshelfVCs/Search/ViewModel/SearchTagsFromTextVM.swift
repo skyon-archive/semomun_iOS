@@ -11,27 +11,29 @@ import Combine
 final class SearchTagsFromTextVM {
     private let networkUsecase: NetworkUsecase
     private let searchQueue = OperationQueue()
-    @Published private(set) var tags: [String] = []
+    private var tags: [TagOfDB] = []
+    @Published private(set) var filteredTags: [TagOfDB] = []
     @Published private(set) var warning: (String, String)?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
+        self.fetchTags()
     }
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .fetchTagsFromSearch, object: nil, queue: self.searchQueue) { [weak self] notification in
             guard let text = notification.userInfo?["text"] as? String else { return }
             
-            self?.fetchTags(text: text)
+            self?.searchTags(text: text)
         }
     }
     
-    private func fetchTags(text: String) {
-        self.networkUsecase.getTagsFromSearch(text: text) { [weak self] status, tags in
+    private func fetchTags() {
+        self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                self?.tags = tags
+                self?.filteredTags = tags
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -40,11 +42,11 @@ final class SearchTagsFromTextVM {
         }
     }
     
-    func tag(index: Int) -> String {
-        return self.tags[index]
+    private func searchTags(text: String) {
+        self.filteredTags = self.tags.filter { $0.name.contains(text) }
     }
     
     func removeAll() {
-        self.tags.removeAll()
+        self.filteredTags.removeAll()
     }
 }

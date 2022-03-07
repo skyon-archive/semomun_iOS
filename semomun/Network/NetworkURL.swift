@@ -20,6 +20,10 @@ enum NetworkURL {
         case explanation
         case content
     }
+    enum TagsOrder: String {
+        case popularity
+        case name
+    }
     enum UserIDToken {
         case google(String)
         case apple(String)
@@ -38,15 +42,8 @@ enum NetworkURL {
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
-    static let workbookImageURL: String = images + "/workbook"
-    static let bookcoverImageURL: String = images + "/bookcover"
-    static let sectioncoverImageURL: String = images + "/sectioncover"
-    static let materialImage: String = images + "/material/"
-    static let contentImage: String = images + "/content/"
-    static let explanation: String = images + "/explanation/"
-    static let categorys: String = base + "/info/category"
-    static let queryButtons: String = base + "/info/buttons"
     static let majors: String = base + "/info/major"
+    static let tags: String = base + "/tags"
     static let login: String = base + "/auth/login"
     static let signup: String = base + "/auth/signup"
     static let refreshToken: String = base + "/auth/refresh"
@@ -60,9 +57,6 @@ enum NetworkURL {
     static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709&country=kr"
     static let s3ImageDirectory: String = base + "/s3/presignedUrl"
     
-    static var workbookImageDirectory: (scale) -> String = { workbookImageURL + $0.rawValue }
-    static var bookcoverImageDirectory: (scale) -> String = { bookcoverImageURL + $0.rawValue }
-    static var sectioncoverImageDirectory: (scale) -> String = { sectioncoverImageURL + $0.rawValue }
     static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
     static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }

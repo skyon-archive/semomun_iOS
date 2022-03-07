@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import Kingfisher
 
-typealias MyPurchaseCellNetworkUsecase = WorkbookFetchable
+typealias MyPurchaseCellNetworkUsecase = (WorkbookFetchable & S3ImageFetchable)
 
 /// - Note: 만약 이대로 cell에서(혹은 셀 내의 ViewModel 등에서) 네트워크에 접근해야된다면 prefetch를 사용해보는 것도 방법일듯. [참고]( https://youbidan-project.tistory.com/148)
 final class MyPurchaseCell: UITableViewCell {
@@ -43,12 +43,26 @@ final class MyPurchaseCell: UITableViewCell {
         self.dateLabel.text = purchase.date.yearMonthDayText
         let costStr = Int(purchase.cost).withComma ?? "0"
         self.costLabel.text = costStr + "원"
+        
         self.networkUsecase?.downloadWorkbook(wid: purchase.wid) { [weak self] workbook in
             self?.titleLabel.text = workbook.title
-            let urlString = NetworkURL.bookcoverImageDirectory(.large) + workbook.bookcover.uuidString
-            guard let url = URL(string: urlString) else { return }
-            self?.workbookImage.kf.setImage(with: url)
+            self?.getBookcoverImage(uuid: workbook.bookcover)
         }
+    }
+    
+    private func getBookcoverImage(uuid: UUID) {
+        self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, data in
+            DispatchQueue.main.async { [weak self] in
+                switch status {
+                case .SUCCESS:
+                    guard let data = data,
+                          let image = UIImage(data: data) else { return }
+                    self?.workbookImage.image = image
+                default:
+                    self?.workbookImage.image = UIImage(.warning)
+                }
+            }
+        })
     }
 }
 
