@@ -10,7 +10,7 @@ import Combine
 
 final class SearchFavoriteTagsVM {
     private let networkUsecase: NetworkUsecase
-    @Published private(set) var tags: [String] = []
+    @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var error: String?
     @Published private(set) var warning: (String, String)?
     
@@ -19,7 +19,7 @@ final class SearchFavoriteTagsVM {
     }
     
     func fetchTags() {
-        self.networkUsecase.getPopularTags { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 self?.tags = tags
@@ -29,9 +29,5 @@ final class SearchFavoriteTagsVM {
                 self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
             }
         }
-    }
-    
-    func tag(index: Int) -> String {
-        return self.tags[index]
     }
 }

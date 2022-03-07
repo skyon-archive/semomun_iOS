@@ -35,14 +35,11 @@ protocol WorkbooksWithRecentFetchable {
 protocol WorkbooksWithNewestFetchable {
     func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
-protocol PopularTagsFetchable {
-    func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void)
-}
-protocol SearchTagsFetchable {
-    func getTagsFromSearch(text: String, complection: @escaping (NetworkStatus, [String]) -> Void)
+protocol TagsFetchable {
+    func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
 }
 protocol SearchFetchable {
-    func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+    func getSearchResults(tids: String, text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
 //protocol BookshelfFetchable {
 //    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)

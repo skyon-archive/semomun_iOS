@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 final class SearchTagVM {
-    private let networkUsecase: SearchTagsFetchable
+    private let networkUsecase: TagsFetchable
     @Published private(set) var searchResultTags: [String] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var tags: [String] = []
     
-    init(networkUsecase: SearchTagsFetchable) {
+    init(networkUsecase: TagsFetchable) {
         self.networkUsecase = networkUsecase
         self.fetchTags()
     }
@@ -25,10 +25,10 @@ final class SearchTagVM {
     }
     
     func searchTags(text: String) {
-        self.networkUsecase.getTagsFromSearch(text: text) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                self?.searchResultTags = tags
+                self?.searchResultTags = tags.map(\.name)
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:

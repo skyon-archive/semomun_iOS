@@ -12,18 +12,14 @@ final class SearchVM {
     private let searchQueue = OperationQueue()
     private(set) var selectedWid: Int?
     private(set) var networkUsecase: NetworkUsecase
-    @Published private(set) var tags: [String] = []
+    @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var workbook: WorkbookOfDB?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
     
-    func tag(index: Int) -> String {
-        return self.tags[index]
-    }
-    
-    func append(tag: String) {
+    func append(tag: TagOfDB) {
         self.tags.append(tag)
     }
     

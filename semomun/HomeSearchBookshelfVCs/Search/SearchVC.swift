@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 protocol SearchControlable: AnyObject {
-    func appendTag(name: String)
+    func append(tag: TagOfDB)
     func changeToSearchFavoriteTagsVC()
     func changeToSearchTagsFromTextVC()
     func showWorkbookDetail(wid: Int)
@@ -174,8 +174,8 @@ extension SearchVC: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallTagCell.identifier, for: indexPath) as? SmallTagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.tag(index: indexPath.item) else { return cell }
-        cell.configure(tag: tag)
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return cell }
+        cell.configure(tag: tag.name)
         
         return cell
     }
@@ -265,8 +265,8 @@ extension SearchVC {
 
 // MARK: - Delegate
 extension SearchVC: SearchControlable {
-    func appendTag(name: String) {
-        self.viewModel?.append(tag: name)
+    func append(tag: TagOfDB) {
+        self.viewModel?.append(tag: tag)
         self.searchTextField.text = ""
         self.hiddenRemoveTextBT()
     }

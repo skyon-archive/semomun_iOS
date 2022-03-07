@@ -31,7 +31,7 @@ class HomeWorkbookCell: UICollectionViewCell {
         self.networkUsecase?.getImageFromS3(uuid: preview.bookcover, type: .bookcover, completion: { [weak self] status, data in
             DispatchQueue.main.async { [weak self] in
                 switch status {
-                case.SUCCESS:
+                case .SUCCESS:
                     guard let data = data,
                           let image = UIImage(data: data) else { return }
                     self?.bookcover.image = image
