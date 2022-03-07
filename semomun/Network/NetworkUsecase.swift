@@ -390,7 +390,11 @@ extension NetworkUsecase: UserWorkbooksFetchable {
 extension NetworkUsecase: UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date) {
         let log = WorkbookLog(wid: wid, datetime: datetime)
-        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put) { result in
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        
+        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put, encoder: encoder) { result in
             if result.statusCode == 200 {
                 print("send workbook log success")
             } else {
