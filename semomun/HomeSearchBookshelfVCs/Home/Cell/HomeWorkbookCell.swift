@@ -15,6 +15,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.bookcover.image = UIImage(.loadingBookcover)
     }
     
     override func prepareForReuse() {
@@ -37,7 +38,6 @@ class HomeWorkbookCell: UICollectionViewCell {
                     self?.bookcover.image = image
                 default:
                     print("HomeWorkbookCell: GET image fail")
-                    self?.bookcover.image = UIImage(.warning)
                 }
             }
             
