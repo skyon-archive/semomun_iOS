@@ -1143,7 +1143,7 @@ next line</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="28N-mx-w0B">
                                         <rect key="frame" x="105" y="117" width="168" height="210"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mlj-hv-9BJ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="Mlj-hv-9BJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="168" height="210"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="210" id="NZS-0j-rWz"/>
@@ -1995,6 +1995,7 @@ next line</string>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="home" width="32" height="32"/>
+        <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>

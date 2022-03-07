@@ -319,10 +319,7 @@ extension WorkbookDetailVC {
         self.viewModel?.$bookcoverData
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] data in
-                guard let data = data else {
-                    self?.bookCoverImageView.image = UIImage(.warning)
-                    return
-                }
+                guard let data = data else { return }
                 self?.bookCoverImageView.image = UIImage(data: data)
             })
             .store(in: &self.cancellables)
