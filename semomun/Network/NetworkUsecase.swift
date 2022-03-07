@@ -429,6 +429,22 @@ extension NetworkUsecase: UserInfoFetchable {
             }
         }
     }
+    func getUserCredit(completion: @escaping (NetworkStatus, Int?) -> Void) {
+        self.network.request(url: NetworkURL.usersSelf, method: .get) { result in
+            switch result.statusCode {
+            case 200:
+                if let data = result.data,
+                   let dto = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let credit = dto["credit"] as? Int {
+                    completion(.SUCCESS, credit)
+                } else {
+                    completion(.ERROR, nil)
+                }
+            default:
+                completion(.ERROR, nil)
+            }
+        }
+    }
     private func checkTokenExpire(error: Error) -> Bool {
         if let tokenControllerError = error as? NetworkTokenControllerError,
            tokenControllerError == .tokenExpired {
@@ -453,6 +469,24 @@ extension NetworkUsecase: S3ImageFetchable {
             self.network.request(url: imageURL, method: .get) { result in
                 let status: NetworkStatus = result.statusCode == 200 ? .SUCCESS : .FAIL
                 completion(status, result.data)
+            }
+        }
+    }
+}
+
+extension NetworkUsecase: Purchaseable {
+    func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void) {
+        self.network.request(url: NetworkURL.purchaseItem, param: productIDs, method: .post) { result in
+            switch result.statusCode {
+            case 200:
+                if let data = result.data,
+                   let dto = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Int] {
+                    completion(.SUCCESS, dto["balance"])
+                } else {
+                    completion(.DECODEERROR, nil)
+                }
+            default:
+                completion(.ERROR, nil)
             }
         }
     }

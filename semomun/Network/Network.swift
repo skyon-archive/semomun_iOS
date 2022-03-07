@@ -47,6 +47,9 @@ struct Network: NetworkFetchable {
         // Validate로 인해 status code != 200
         case .failure(let error):
             print("Network Fail: status code is \(statusCode)")
+            if let data = response.data {
+                print("Data: \(String(data: data, encoding: .utf8)!)")
+            }
             return NetworkResult(data: response.data, statusCode: statusCode, error: error.underlyingError)
         }
     }

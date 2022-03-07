@@ -50,6 +50,7 @@ enum NetworkURL {
     static let usersSelf = base + "/users/self"
     static let requestSMS = base + "/sms/code"
     static let verifySMS = base + "/sms/code/verify"
+    static let purchaseItem = base + "/pay/orders"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
