@@ -491,3 +491,23 @@ extension NetworkUsecase: Purchaseable {
         }
     }
 }
+
+extension NetworkUsecase: LogSendable {
+    func sendWorkbookEnterLog(wid: Int, datetime: Date) {
+        let log = WorkbookLog(wid: wid, datetime: datetime)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        guard let encodedData = try? encoder.encode(log) else {
+            print("Encode Error")
+            return
+        }
+        
+        self.network.request(url: NetworkURL.enterWorkbook, param: encodedData, method: .put) { result in
+            if result.statusCode == 200 {
+                print("send workbook log success")
+            } else {
+                print("Error: send workbook log")
+            }
+        }
+    }
+}

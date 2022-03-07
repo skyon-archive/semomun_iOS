@@ -25,4 +25,11 @@ extension Date {
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: self)
     }
+    var ISOStringFrom: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        return dateFormatter.string(from: self)
+    }
 }
