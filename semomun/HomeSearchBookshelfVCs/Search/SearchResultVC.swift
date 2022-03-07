@@ -118,3 +118,12 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
+
+// MARK: Pagination 을 위한 코드
+extension SearchResultVC {
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         if self.searchResults.contentOffset.y >= (self.searchResults.contentSize.height - self.searchResults.bounds.size.height) {
+             self.viewModel?.fetchSearchResults()
+         }
+     }
+ }
