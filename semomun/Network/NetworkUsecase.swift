@@ -163,8 +163,10 @@ extension NetworkUsecase: BestSellersFetchable {
 }
 
 extension NetworkUsecase: WorkbooksWithTagsFetchable {
-    func getWorkbooks(tids: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
+    func getWorkbooks(tags: [TagOfDB], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+        let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
+        let param = ["tags": tids]
+        self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -240,8 +242,10 @@ extension NetworkUsecase: TagsFetchable {
 }
 
 extension NetworkUsecase: SearchFetchable {
-    func getSearchResults(tids: String, text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.workbooks, method: .get) { result in
+    func getSearchResults(tags: [TagOfDB], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+        let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
+        let param = ["tags": tids]
+        self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,

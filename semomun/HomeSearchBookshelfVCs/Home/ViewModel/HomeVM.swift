@@ -73,8 +73,7 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        let tids = self.tags.map { "\($0.tid)" }.joined(separator: ",")
-        self.networkUsecase.getWorkbooks(tids: tids) { [weak self] status, workbooks in
+        self.networkUsecase.getWorkbooks(tags: self.tags) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 let count = min(10, workbooks.count)
