@@ -19,8 +19,7 @@ final class SearchResultVM {
     }
     
     func fetchSearchResults(tags: [TagOfDB], text: String) {
-        let tids = tags.map { "\($0.tid)" }.joined(separator: ",")
-        self.networkUsecase.getSearchResults(tids: tids, text: text) { [weak self] status, previews in
+        self.networkUsecase.getSearchResults(tags: tags, text: text) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 self?.searchResults = previews

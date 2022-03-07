@@ -137,7 +137,7 @@ extension SearchTagVC: UITableViewDataSource {
 extension SearchTagVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return }
-        self.viewModel?.appendTag(to: tag)
+        self.viewModel?.appendTag(tag)
         self.searchTextField.text = ""
     }
 }

@@ -57,12 +57,12 @@ final class SearchTagVM {
         self.saveTags()
     }
     
-    func appendTag(to tag: TagOfDB) {
+    func appendTag(_ newElement: TagOfDB) {
         guard self.userTags.count < 5 else {
             self.warning = ("5개 이하만 선택해주세요", "")
             return
         }
-        self.userTags.append(tag)
+        self.userTags.append(newElement)
         self.filteredTags = []
         self.saveTags()
     }
