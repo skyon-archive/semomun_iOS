@@ -36,7 +36,7 @@ final class SearchVM {
     }
     
     func fetchWorkbook(wid: Int) {
-        self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] workbook in
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
             self?.workbook = workbook
         }
     }

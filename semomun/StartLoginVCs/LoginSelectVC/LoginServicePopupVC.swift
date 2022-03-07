@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-typealias LoginServicePopupNetworkUsecase = MarketingConsentSendable
+typealias LoginServicePopupNetworkUsecase = UserInfoSendable
 
 class LoginServicePopupVC: UIViewController {
     static let identifier = "LoginServicePopupVC"

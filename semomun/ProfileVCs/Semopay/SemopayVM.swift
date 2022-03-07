@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias SemopayNetworkUsecase = (SemopayHistoryFetchable & RemainingSemopayFetchable & SemopayCellNetworkUsecase)
+typealias SemopayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable & SemopayCellNetworkUsecase)
 
 final class SemopayVM {
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [SemopayHistory])] = []
@@ -37,9 +37,9 @@ extension SemopayVM {
         }
     }
     private func initRemainingSemopay() {
-        self.networkUsecase.getRemainingSemopay { [weak self] status, result in
+        self.networkUsecase.getRemainingSemopay { [weak self] status, credit in
             if status == .SUCCESS {
-                self?.remainingSemopay = result
+                self?.remainingSemopay = credit ?? 0
             }
         }
     }
