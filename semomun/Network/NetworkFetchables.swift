@@ -26,9 +26,6 @@ protocol VersionFetchable {
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
-protocol WorkbooksWithTagsFetchable {
-    func getWorkbooks(tags: [TagOfDB], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
-}
 protocol WorkbooksWithRecentFetchable {
     func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
@@ -38,8 +35,8 @@ protocol WorkbooksWithNewestFetchable {
 protocol TagsFetchable {
     func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
 }
-protocol SearchFetchable {
-    func getSearchResults(tags: [TagOfDB], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+protocol PreviewsFetchable {
+    func getSearchPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
 //protocol BookshelfFetchable {
 //    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)
