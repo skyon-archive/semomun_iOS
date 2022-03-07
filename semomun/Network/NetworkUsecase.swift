@@ -162,27 +162,6 @@ extension NetworkUsecase: BestSellersFetchable {
     }
 }
 
-extension NetworkUsecase: WorkbooksWithTagsFetchable {
-    func getWorkbooks(tags: [TagOfDB], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
-        let param = ["tags": tids]
-        self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
-            switch result.statusCode {
-            case 200:
-                guard let data = result.data,
-                      let searchPreviews: SearchPreviews = try? JSONDecoderWithDate().decode(SearchPreviews.self, from: data) else {
-                          print("Decode Error")
-                          completion(.DECODEERROR, [])
-                          return
-                      }
-                completion(.SUCCESS, searchPreviews.previews)
-            default:
-                completion(.ERROR, [])
-            }
-        }
-    }
-}
-
 extension NetworkUsecase: WorkbooksWithRecentFetchable {
     func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         self.network.request(url: NetworkURL.workbooks, method: .get) { result in
@@ -241,10 +220,10 @@ extension NetworkUsecase: TagsFetchable {
     }
 }
 
-extension NetworkUsecase: SearchFetchable {
-    func getSearchResults(tags: [TagOfDB], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+extension NetworkUsecase: PreviewsFetchable {
+    func getSearchPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
-        let param = ["tags": tids]
+        let param = ["tags": tids, "text": text, "page": "\(page)", "limit": "\(limit)"]
         self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
             switch result.statusCode {
             case 200:

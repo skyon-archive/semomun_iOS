@@ -73,11 +73,11 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getWorkbooks(tags: self.tags) { [weak self] status, workbooks in
+        self.networkUsecase.getSearchPreviews(tags: self.tags, text: "", page: 1, limit: 10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
-                let count = min(10, workbooks.count)
-                self?.workbooksWithTags = Array(workbooks.prefix(upTo: count))
+                let count = min(10, previews.count)
+                self?.workbooksWithTags = Array(previews.prefix(upTo: count))
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
