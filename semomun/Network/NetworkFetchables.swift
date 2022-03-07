@@ -75,11 +75,13 @@ protocol MarketingConsentSendable {
 protocol ErrorReportable {
     func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
 }
-
 protocol UserInfoFetchable {
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
+    func getUserCredit(completion: @escaping (NetworkStatus, Int?) -> Void)
 }
-
 protocol S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
+}
+protocol Purchaseable {
+    func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void)
 }

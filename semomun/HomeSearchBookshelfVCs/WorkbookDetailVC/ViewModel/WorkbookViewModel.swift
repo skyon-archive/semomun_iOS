@@ -8,23 +8,26 @@
 import Foundation
 import Combine
 
+typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & Purchaseable)
+
 final class WorkbookViewModel {
     enum PopupType {
         case login, updateUserinfo, purchase
     }
-    private let networkUsecase: NetworkUsecase
+    private let networkUsecase: WorkbookVMNetworkUsecaes
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: WorkbookOfDB?
+    private(set) var credit: Int?
     @Published private(set) var tags: [String] = []
     @Published private(set) var workbookInfo: WorkbookInfo?
-    @Published private(set) var warning: String?
+    @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var sectionHeaders: [SectionHeader_Core] = []
     @Published private(set) var sectionDTOs: [SectionHeaderOfDB] = []
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverData: Data?
     
-    init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: NetworkUsecase) {
+    init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: WorkbookVMNetworkUsecaes) {
         self.networkUsecase = networkUsecase
         self.previewCore = previewCore
         self.workbookDTO = workbookDTO
@@ -55,7 +58,7 @@ final class WorkbookViewModel {
     func fetchSectionHeaders() {
         guard let previewCore = self.previewCore,
               let sectionHeaders = CoreUsecase.fetchSectionHeaders(wid: Int(previewCore.wid)) else {
-            self.warning = "문제집 정보 로딩 실패"
+                  self.warning = (title: "문제집 정보 로딩 실패", text: "앱 재설치 후 다시 시도하시기 바랍니다.")
             return
         }
         self.sectionHeaders = sectionHeaders.sorted(by: { $0.sid < $1.sid })
@@ -74,9 +77,23 @@ final class WorkbookViewModel {
         }
     }
     
-    func saveWorkbook(bookcoverData: Data) {
+    func purchaseWorkbook(bookcoverData: Data) {
         self.showLoader = true
         guard let workbook = self.workbookDTO else { return }
+        // TODO: Purchase item 반영
+        self.networkUsecase.purchaseItem(productIDs: [workbook.productID]) { [weak self] status, credit in
+            switch status {
+            case .SUCCESS:
+                print("결제 후 잔액: \(credit!)")
+                self?.saveWorkbookToCoreData(workbook: workbook, bookcoverData: bookcoverData)
+            default:
+                self?.warning = (title: "구매반영 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
+            }
+        }
+        
+    }
+    
+    private func saveWorkbookToCoreData(workbook: WorkbookOfDB, bookcoverData: Data) {
         DispatchQueue.main.async { [weak self] in
             // MARK: - Save Preview
             let preview_core = Preview_Core(context: CoreDataManager.shared.context)
@@ -101,9 +118,21 @@ final class WorkbookViewModel {
             // MARK: App의 version 값으로 비교시 2.1, 2.2 업데이트마다 띄워지게 되므로 분기점을 따로 저장하는 식으로 수정
             let userCoreData = CoreUsecase.fetchUserInfo()
             if userCoreData?.phoneNumber?.isValidPhoneNumber == true {
-                self.popupType = .purchase
+                self.fetchUserCredit()
             } else {
                 self.popupType = .updateUserinfo
+            }
+        }
+    }
+    
+    private func fetchUserCredit() {
+        self.networkUsecase.getUserCredit { [weak self] status, credit in
+            switch status {
+            case .SUCCESS:
+                self?.credit = credit
+                self?.popupType = .purchase
+            default:
+                self?.warning = (title: "잔액조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
         }
     }

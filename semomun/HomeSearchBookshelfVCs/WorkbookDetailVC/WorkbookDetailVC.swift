@@ -131,7 +131,7 @@ extension WorkbookDetailVC {
         }
         NotificationCenter.default.addObserver(forName: .purchaseComplete, object: nil, queue: .main) { [weak self] _ in
             guard let bookcoverData = self?.bookCoverImageView.image?.pngData() else { return }
-            self?.viewModel?.saveWorkbook(bookcoverData: bookcoverData)
+            self?.viewModel?.purchaseWorkbook(bookcoverData: bookcoverData)
         }
     }
     
@@ -208,9 +208,10 @@ extension WorkbookDetailVC {
         case .purchase:
             let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
             guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }
-            guard let info = self.viewModel?.workbookDTO else { return }
+            guard let info = self.viewModel?.workbookDTO,
+                  let credit = self.viewModel?.credit else { return }
             popupVC.configureInfo(info: info)
-            popupVC.configureCurrentMoney(money: 2000) // 임시코드
+            popupVC.configureCurrentMoney(money: credit)
             self.present(popupVC, animated: true, completion: nil)
         }
     }
@@ -249,7 +250,7 @@ extension WorkbookDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
-                self?.showAlertWithOK(title: warning, text: "", completion: nil)
+                self?.showAlertWithOK(title: warning.title, text: warning.text, completion: nil)
             })
             .store(in: &self.cancellables)
     }
