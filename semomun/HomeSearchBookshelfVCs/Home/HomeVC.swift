@@ -182,7 +182,7 @@ extension HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
-                self?.configureTags(with: tags)
+                self?.configureTags(with: tags.map(\.name))
             })
             .store(in: &self.cancellables)
         

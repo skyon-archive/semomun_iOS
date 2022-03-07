@@ -15,7 +15,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
 
         let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
-        let tags = UserDefaultsManager.get(forKey: .favoriteTags) as? [String] ?? [] // 2.0 기반 생긴 데이터
+        var tags: [TagOfDB] = []
+        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+           let tempTags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            tags = tempTags
+        }
+        
         if isInitial || tags.isEmpty {
             let storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
             let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
