@@ -198,6 +198,7 @@ extension SearchVC {
             if !self.isSearchTagsFromTextVC {
                 print("change")
                 self.changeToSearchTagsFromTextVC()
+                self.searchResultVC.removeAll()
             }
             self.showRemoveTextBT()
             self.showSearchBT()
