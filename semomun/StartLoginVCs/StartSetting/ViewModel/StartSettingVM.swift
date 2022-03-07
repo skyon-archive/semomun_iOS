@@ -29,8 +29,8 @@ final class StartSettingVM {
     func select(to index: Int) {
         // 제거
         if self.selectedIndexes.contains(index) {
-            self.selectedIndexes = self.selectedIndexes.filter { $0 != index }
-            self.selectedTags = self.selectedTags.filter { $0.tid != self.tags[index].tid }
+            self.selectedIndexes.removeAll(where: { $0 == index })
+            self.selectedTags.removeAll(where: { $0.tid == self.tags[index].tid })
         }
         // 추가
         else {
