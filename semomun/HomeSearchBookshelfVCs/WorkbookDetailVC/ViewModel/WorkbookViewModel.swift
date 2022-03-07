@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & Purchaseable)
+typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & Purchaseable & LogSendable)
 
 final class WorkbookViewModel {
     enum PopupType {
@@ -31,6 +31,14 @@ final class WorkbookViewModel {
         self.networkUsecase = networkUsecase
         self.previewCore = previewCore
         self.workbookDTO = workbookDTO
+        self.configureObservation()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] _ in
+            guard let wid = self?.previewCore?.wid else { return }
+            self?.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: Date())
+        }
     }
     
     func configureWorkbookInfo(isCoreData: Bool) {

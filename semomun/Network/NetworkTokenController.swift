@@ -21,6 +21,7 @@ struct NetworkTokenController: RequestInterceptor {
                   completion(.success(urlRequest))
                   return
               }
+        print("authToken: \(authToken)")
         var urlRequest = urlRequest
         urlRequest.setValue("Bearer " + authToken, forHTTPHeaderField: "Authorization")
         
