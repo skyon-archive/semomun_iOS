@@ -103,7 +103,7 @@ extension SectionCell {
         guard let sid = self.sectionHeader?.sid else { return }
         let networkUsecase = NetworkUsecase(network: Network())
         
-        networkUsecase.getSection(sid: Int(sid)) { section in
+        networkUsecase.downloadSection(sid: Int(sid)) { section in
             print(section)
             CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
                 if sectionCore == nil {

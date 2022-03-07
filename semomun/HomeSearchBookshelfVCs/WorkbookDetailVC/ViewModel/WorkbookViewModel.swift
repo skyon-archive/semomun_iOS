@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & Purchaseable & LogSendable)
+typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable)
 
 final class WorkbookViewModel {
     enum PopupType {
@@ -134,7 +134,7 @@ final class WorkbookViewModel {
     }
     
     private func fetchUserCredit() {
-        self.networkUsecase.getUserCredit { [weak self] status, credit in
+        self.networkUsecase.getRemainingSemopay { [weak self] status, credit in
             switch status {
             case .SUCCESS:
                 self?.credit = credit

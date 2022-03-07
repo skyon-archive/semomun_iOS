@@ -46,6 +46,6 @@ struct SchoolSearchUseCase {
             "thisPage": "1",
             "perPage": "20000"
         ]
-        self.networkUseCase?.getSchoolDTO(param: param, completion: completion)
+        self.networkUseCase?.getSchoolNames(param: param, completion: completion)
     }
 }

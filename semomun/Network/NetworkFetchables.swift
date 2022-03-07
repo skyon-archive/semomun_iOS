@@ -8,83 +8,86 @@
 import Foundation
 import Alamofire
 
-typealias networkFetchables = (SectionDownloadable & VersionFetchable)
-
-// Network
+// MARK: - Network
 protocol NetworkFetchable {
     func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
 
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
 }
-// NetworkUseCase
-protocol SectionDownloadable {
-    func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
-}
+// MARK: - Fetchable
 protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
 }
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
 }
-protocol WorkbooksWithRecentFetchable {
-    func getWorkbooksWithRecent(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
-}
-protocol WorkbooksWithNewestFetchable {
-    func getWorkbooksWithNewest(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
-}
 protocol TagsFetchable {
     func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
 }
-protocol PreviewsFetchable {
-    func getSearchPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
-}
-//protocol BookshelfFetchable {
-//    func getBooks(completion: @escaping (NetworkStatus, [TestBook]) -> Void)
-//}
 protocol MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void)
 }
-protocol UserInfoSendable {
-    func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void)
+protocol SchoolNamesFetchable {
+    func getSchoolNames(param: [String: String], completion: @escaping ([String]) -> Void)
 }
+protocol NoticeFetchable {
+    func getNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void)
+}
+protocol S3ImageFetchable {
+    func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
+}
+// MARK: - Searchable
+protocol PreviewsSearchable {
+    func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
+protocol WorkbookSearchable {
+    func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
+}
+// MARK: - Downloadable
+protocol SectionDownloadable {
+    func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
+}
+// MARK: - Chackable
 protocol NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void)
 }
 protocol PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ())
-    func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void) 
+    func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void)
 }
-protocol SemopayHistoryFetchable {
+// MARK: - UserAccessable
+protocol UserInfoSendable {
+    func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void)
+    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)
+}
+protocol UserHistoryFetchable {
     func getSemopayHistory(completion: @escaping ((NetworkStatus, [SemopayHistory])) -> Void)
-}
-protocol PurchaseListFetchable {
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
-}
-protocol WorkbookFetchable {
-    func downloadWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
-}
-protocol RemainingSemopayFetchable {
-    func getRemainingSemopay(completion: @escaping ((NetworkStatus, Int)) -> Void)
-}
-protocol UserNoticeFetchable {
-    func getUserNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void)
-}
-protocol MarketingConsentSendable {
-    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void) 
-}
-protocol ErrorReportable {
-    func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserInfoFetchable {
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
-    func getUserCredit(completion: @escaping (NetworkStatus, Int?) -> Void)
+    func getRemainingSemopay(completion: @escaping (NetworkStatus, Int?) -> Void)
 }
-protocol S3ImageFetchable {
-    func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
-}
-protocol Purchaseable {
+protocol UserPurchaseable {
     func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void)
 }
-protocol LogSendable {
+protocol UserWorkbooksFetchable {
+    func getUserWorkbooks(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+    func getUserRecentWorkbooks(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+}
+protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)
+}
+protocol UserSubmissionSendable {
+    func sendProblemSubmissions()
+    func sendPageSubmissions()
+}
+// MARK: - Reportable
+protocol ErrorReportable {
+    func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
+}
+// MARK: - Login&Signup
+protocol LoginSignupPostable {
+    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void)
+    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void)
 }
