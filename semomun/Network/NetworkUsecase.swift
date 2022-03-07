@@ -337,7 +337,7 @@ extension NetworkUsecase: UserInfoFetchable {
 }
 extension NetworkUsecase: UserPurchaseable {
     func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void) {
-        self.network.request(url: NetworkURL.purchaseItem, param: productIDs, method: .post) { result in
+        self.network.request(url: NetworkURL.purchaseItem, param: ["ids": productIDs], method: .post) { result in
             switch result.statusCode {
             case 200:
                 if let data = result.data,
@@ -390,14 +390,7 @@ extension NetworkUsecase: UserWorkbooksFetchable {
 extension NetworkUsecase: UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date) {
         let log = WorkbookLog(wid: wid, datetime: datetime)
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        guard let encodedData = try? encoder.encode(log) else {
-            print("Encode Error")
-            return
-        }
-        
-        self.network.request(url: NetworkURL.enterWorkbook, param: encodedData, method: .put) { result in
+        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put) { result in
             if result.statusCode == 200 {
                 print("send workbook log success")
             } else {
