@@ -10,9 +10,9 @@ import Combine
 
 final class SearchTagVM {
     private let networkUsecase: TagsFetchable
-    @Published private(set) var searchResultTags: [String] = []
+    @Published private(set) var searchResultTags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var tags: [String] = []
+    @Published private(set) var tags: [TagOfDB] = []
     
     init(networkUsecase: TagsFetchable) {
         self.networkUsecase = networkUsecase
@@ -20,15 +20,19 @@ final class SearchTagVM {
     }
     
     private func fetchTags() {
-        let tags = UserDefaultsManager.get(forKey: .favoriteTags) as? [String] ?? ["수능"]
-        self.tags = tags
+        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            self.tags = tags
+        } else {
+            self.tags = []
+        }
     }
     
     func searchTags(text: String) {
         self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                self?.searchResultTags = tags.map(\.name)
+                self?.searchResultTags = tags
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -42,7 +46,7 @@ final class SearchTagVM {
         self.saveTags()
     }
     
-    func appendTag(to tag: String) {
+    func appendTag(to tag: TagOfDB) {
         guard self.tags.count < 5 else {
             self.warning = ("5개 이하만 선택해주세요", "")
             return
@@ -57,7 +61,8 @@ final class SearchTagVM {
     }
     
     private func saveTags() {
-        UserDefaultsManager.set(to: self.tags, forKey: .favoriteTags)
+        let data = try? PropertyListEncoder().encode(self.tags)
+        UserDefaultsManager.set(to: data, forKey: .favoriteTags)
         NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
 }

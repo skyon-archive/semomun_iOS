@@ -12,7 +12,7 @@
      let tags: [TagOfDB]
  }
 
- struct TagOfDB: Decodable {
+ struct TagOfDB: Codable {
      let tid: Int
      let name: String
  }

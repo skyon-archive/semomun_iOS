@@ -163,7 +163,7 @@ extension NetworkUsecase: BestSellersFetchable {
 }
 
 extension NetworkUsecase: WorkbooksWithTagsFetchable {
-    func getWorkbooks(tags: [String], completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+    func getWorkbooks(tids: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:

@@ -126,7 +126,7 @@ extension StartSettingVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StartTagCell.identifier, for: indexPath) as? StartTagCell else { return UICollectionViewCell() }
         guard let viewModel = self.viewModel else { return cell }
         
-        cell.configure(title: viewModel.tag(index: indexPath.item))
+        cell.configure(title: viewModel.tags[indexPath.item].name)
         if viewModel.selectedIndexes.contains(indexPath.item) {
             cell.didSelect()
         }

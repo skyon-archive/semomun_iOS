@@ -15,7 +15,7 @@ final class HomeVM {
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
     @Published private(set) var workbooksWithRecent: [PreviewOfDB] = []
     @Published private(set) var workbooksWithNewest: [PreviewOfDB] = []
-    @Published private(set) var tags: [String] = []
+    @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var error: String?
     @Published private(set) var warning: (String, String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
@@ -44,9 +44,13 @@ final class HomeVM {
     }
     
     private func fetchTags() {
-        let tags = UserDefaultsManager.get(forKey: .favoriteTags) as? [String] ?? ["수능"]
-        self.tags = tags
-        print(tags)
+        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            self.tags = tags
+        } else {
+            self.tags = []
+        }
+        
         self.fetchWorkbooksWithTags()
     }
     
@@ -69,7 +73,8 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getWorkbooks(tags: self.tags) { [weak self] status, workbooks in
+        let tids = self.tags.map { "\($0.tid)" }.joined(separator: ",")
+        self.networkUsecase.getWorkbooks(tids: tids) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 let count = min(10, workbooks.count)
