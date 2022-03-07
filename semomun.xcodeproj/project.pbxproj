@@ -195,6 +195,7 @@
 		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
+		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -387,6 +388,7 @@
 		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
+		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				25520FB727D10D5C00CC6015 /* SignUpUserInfo.swift */,
+				87FA0A9427D60899005B6925 /* WorkbookLog.swift */,
 			);
 			path = Encodables;
 			sourceTree = "<group>";
@@ -1219,6 +1222,7 @@
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
+				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,

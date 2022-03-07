@@ -85,3 +85,6 @@ protocol S3ImageFetchable {
 protocol Purchaseable {
     func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void)
 }
+protocol LogSendable {
+    func sendWorkbookEnterLog(wid: Int, datetime: Date)
+}
