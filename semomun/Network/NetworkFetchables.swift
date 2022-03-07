@@ -13,6 +13,8 @@ protocol NetworkFetchable {
     func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
 
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
+    
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, completion: @escaping (NetworkResult) -> Void)
 }
 // MARK: - Fetchable
 protocol VersionFetchable {
