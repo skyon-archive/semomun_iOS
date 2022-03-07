@@ -219,22 +219,28 @@ extension NetworkUsecase: WorkbooksWithNewestFetchable {
     }
 }
 
-extension NetworkUsecase: PopularTagsFetchable {
-    func getPopularTags(completion: @escaping (NetworkStatus, [String]) -> Void) {
-        let dummyTags = ["국가 기술 자격","수학의 정석","기업 적성검사","해커스어학연구소","취업/상식","좋은책신사고","국가직 7급 공무원","국사편찬위원회","쎈","교육청","대한상공회의소","수능","국사편찬위원회"]
-        completion(.SUCCESS, dummyTags+dummyTags)
-    }
-}
-
-extension NetworkUsecase: SearchTagsFetchable {
-    func getTagsFromSearch(text: String, complection: @escaping (NetworkStatus, [String]) -> Void) {
-        let dummyTags = ["수능","수학","수학1","수학2","수리논술","수학가형","수학나형","수리"]
-        complection(.SUCCESS, dummyTags)
+extension NetworkUsecase: TagsFetchable {
+    func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void) {
+        let param = ["order": order.rawValue]
+        self.network.request(url: NetworkURL.tags, param: param, method: .get) { result in
+            switch result.statusCode {
+            case 200:
+                guard let data = result.data,
+                      let searchTags: SearchTags = try? JSONDecoder().decode(SearchTags.self, from: data) else {
+                          print("Decode Error")
+                          completion(.DECODEERROR, [])
+                          return
+                      }
+                completion(.SUCCESS, searchTags.tags)
+            default:
+                completion(.ERROR, [])
+            }
+        }
     }
 }
 
 extension NetworkUsecase: SearchFetchable {
-    func getSearchResults(tags: [String], text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+    func getSearchResults(tids: String, text: String, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
             case 200:

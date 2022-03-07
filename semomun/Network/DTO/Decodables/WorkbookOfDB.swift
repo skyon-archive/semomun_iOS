@@ -36,8 +36,3 @@ struct WorkbookOfDB: Decodable {
         case sections, price, tags, sales
     }
 }
-
-struct TagOfDB: Decodable {
-    let tid: Int
-    let name: String
-}

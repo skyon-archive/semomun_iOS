@@ -57,7 +57,7 @@ extension SearchTagsFromTextVC {
     }
     
     private func bindTags() {
-        self.viewModel?.$tags
+        self.viewModel?.$filteredTags
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -71,13 +71,13 @@ extension SearchTagsFromTextVC {
 // MARK: - TableView
 extension SearchTagsFromTextVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.tags.count ?? 0
+        return self.viewModel?.filteredTags.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
-        guard let tag = self.viewModel?.tag(index: indexPath.row) else { return cell }
-        cell.configure(tag: tag)
+        guard let tag = self.viewModel?.filteredTags[indexPath.row] else { return cell }
+        cell.configure(tag: tag.name)
         
         return cell
     }
@@ -85,8 +85,8 @@ extension SearchTagsFromTextVC: UITableViewDataSource {
 
 extension SearchTagsFromTextVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tag = self.viewModel?.tag(index: indexPath.row) else { return }
-        self.delegate?.appendTag(name: tag)
+        guard let tag = self.viewModel?.filteredTags[indexPath.row] else { return }
+        self.delegate?.append(tag: tag)
         self.viewModel?.removeAll()
     }
 }
