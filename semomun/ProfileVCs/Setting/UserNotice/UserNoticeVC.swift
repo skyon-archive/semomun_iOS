@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias UserNoticeNetworkUsecase = UserNoticeFetchable
+typealias UserNoticeNetworkUsecase = NoticeFetchable
 
 final class UserNoticeVC: UIViewController {
     private let noticeTableView = UITableView()
@@ -87,7 +87,7 @@ extension UserNoticeVC {
         self.noticeTableView.delegate = self
     }
     private func getData() {
-        self.networkUsecase?.getUserNotices { [weak self] status, userNotices in
+        self.networkUsecase?.getNotices { [weak self] status, userNotices in
             if status == .SUCCESS {
                 self?.noticeFetched = userNotices
                 self?.noticeTableView.reloadData()

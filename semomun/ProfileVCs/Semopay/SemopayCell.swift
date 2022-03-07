@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias SemopayCellNetworkUsecase = WorkbookFetchable
+typealias SemopayCellNetworkUsecase = WorkbookSearchable
 
 final class SemopayCell: UITableViewCell {
     static let identifier = "SemopayCell"
@@ -71,7 +71,7 @@ extension SemopayCell {
             if let preview = CoreUsecase.fetchPreview(wid: wid) {
                 self.historyTitle.text = preview.title
             } else {
-                self.networkUsecase?.downloadWorkbook(wid: wid) { [weak self] workbook in
+                self.networkUsecase?.getWorkbook(wid: wid) { [weak self] workbook in
                     self?.historyTitle.text = workbook.title
                 }
             }

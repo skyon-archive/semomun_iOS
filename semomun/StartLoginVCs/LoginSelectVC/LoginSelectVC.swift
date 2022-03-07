@@ -204,7 +204,7 @@ extension LoginSelectVC {
         //        self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
         //            self.navigationController?.popViewController(animated: true)
         //        }
-        self.networkUseCase?.postUserSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] status in
+        self.networkUseCase?.postSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .SUCCESS:
@@ -300,7 +300,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         //        ]
         //        alertActions.forEach { alertController.addAction($0) }
         //        self.present(alertController, animated: true)
-        self.networkUseCase?.postUserLogin(userToken: userToken) { result in
+        self.networkUseCase?.postLogin(userToken: userToken) { result in
             switch result {
             case .SUCCESS:
                 break

@@ -11,7 +11,7 @@ final class LongTextVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "LongTextVC"
     
-    private let networkUsecase: MarketingConsentSendable = NetworkUsecase(network: Network())
+    private let networkUsecase: UserInfoSendable = NetworkUsecase(network: Network())
     
     @IBOutlet weak var textViewBackground: UIView!
     @IBOutlet weak var textView: UITextView!

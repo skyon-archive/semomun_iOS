@@ -73,7 +73,7 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getSearchPreviews(tags: self.tags, text: "", page: 1, limit: 10) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, text: "", page: 1, limit: 10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 let count = min(10, previews.count)
@@ -87,7 +87,7 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithRecent() {
-        self.networkUsecase.getWorkbooksWithRecent { [weak self] status, workbooks in
+        self.networkUsecase.getUserRecentWorkbooks { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 let count = min(10, workbooks.count)
@@ -101,7 +101,7 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithNewest() {
-        self.networkUsecase.getWorkbooksWithNewest { [weak self] status, workbooks in
+        self.networkUsecase.getUserWorkbooks { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 let count = min(10, workbooks.count)
@@ -131,7 +131,7 @@ final class HomeVM {
     }
     
     func fetchWorkbook(wid: Int) {
-        self.networkUsecase.downloadWorkbook(wid: wid) { [weak self] workbook in
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
             self?.workbookDTO = workbook
         }
     }

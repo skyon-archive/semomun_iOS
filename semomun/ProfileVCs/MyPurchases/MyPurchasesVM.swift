@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias MyPurchasesNetworkUsecase = PurchaseListFetchable & MyPurchaseCellNetworkUsecase
+typealias MyPurchasesNetworkUsecase = UserHistoryFetchable & MyPurchaseCellNetworkUsecase
 
 final class MyPurchasesVM {
     let networkUsecase: MyPurchasesNetworkUsecase
