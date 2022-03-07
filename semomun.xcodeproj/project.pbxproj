@@ -421,6 +421,7 @@
 				87C85E80276F69E9001C9C4A /* Validate.swift */,
 				8742544727795D3900D60264 /* QueryListButton.swift */,
 				87C85E7E276F69CD001C9C4A /* UserInfo.swift */,
+				87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */,
 			);
 			path = Codables;
 			sourceTree = "<group>";
@@ -437,7 +438,6 @@
 			isa = PBXGroup;
 			children = (
 				8733159327799B77004E4A98 /* Categorys.swift */,
-				87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */,
 				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
 				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
 				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,

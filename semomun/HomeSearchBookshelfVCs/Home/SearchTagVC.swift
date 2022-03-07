@@ -112,7 +112,7 @@ extension SearchTagVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallTagCell.identifier, for: indexPath) as? SmallTagCell else { return UICollectionViewCell() }
         guard let tag = self.viewModel?.tags[indexPath.item] else { return cell }
-        cell.configure(tag: tag)
+        cell.configure(tag: tag.name)
         
         return cell
     }
@@ -132,7 +132,7 @@ extension SearchTagVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
         guard let tag = self.viewModel?.searchResultTags[indexPath.item] else { return cell }
-        cell.configure(tag: tag)
+        cell.configure(tag: tag.name)
         
         return cell
     }
