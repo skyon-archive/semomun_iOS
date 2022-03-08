@@ -122,19 +122,17 @@ extension BookshelfVC {
     private func startMigration() {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
         CoreUsecase.migration { [weak self] didMigrationSuccess in
-            guard didMigrationSuccess else {
-                self?.removeLoader()
-                self?.isMigration = false
-                print("migration fail")
-                // TODO: Migration 의 경우 syncBookshelf 에서 purchased 값을 저장하는 로직이 필요
-                return
-            }
-            
-            UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
-            self?.reloadBookshelf()
-            CoreDataManager.saveCoreData()
             self?.removeLoader()
             self?.isMigration = false
+            
+            guard didMigrationSuccess else {
+                print("migration fail")
+                return
+            }
+            // TODO: Migration 의 경우 syncBookshelf 에서 purchased 값을 저장하는 로직이 필요
+            UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
+            CoreDataManager.saveCoreData()
+            self?.reloadBookshelf()
             print("migration success")
         }
     }
@@ -178,10 +176,12 @@ extension BookshelfVC {
     }
 }
 
+// MARK: binding
 extension BookshelfVC {
     private func bindAll() {
         self.bindBooks()
         self.bindWarning()
+        self.bindLoading()
     }
     
     private func bindBooks() {
@@ -202,6 +202,19 @@ extension BookshelfVC {
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
                 self?.showAlertWithOK(title: warning.0, text: warning.1)
+            })
+            .store(in: &self.cancellables)
+    }
+    private func bindLoading() {
+        self.viewModel?.$loading
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] loading in
+                if loading {
+                    self?.showLoader()
+                } else {
+                    self?.removeLoader()
+                }
             })
             .store(in: &self.cancellables)
     }
