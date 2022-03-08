@@ -353,6 +353,24 @@ extension NetworkUsecase: UserPurchaseable {
     }
 }
 extension NetworkUsecase: UserWorkbooksFetchable {
+    func getBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfo]) -> Void) {
+        self.network.request(url: NetworkURL.purchasedWorkbooks, method: .get) { result in
+            switch result.statusCode {
+            case 200:
+                print(String(data: result.data!, encoding: .utf8))
+                guard let data = result.data,
+                      let bookshelfInfos: [BookshelfInfo] = try? JSONDecoderWithDate().decode([BookshelfInfo].self, from: data) else {
+                          print("Decode Error")
+                          
+                          completion(.DECODEERROR, [])
+                          return
+                      }
+                completion(.SUCCESS, bookshelfInfos)
+            default:
+                completion(.ERROR, [])
+            }
+        }
+    }
     func getUserWorkbooks(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         self.network.request(url: NetworkURL.workbooks, method: .get) { result in
             switch result.statusCode {
