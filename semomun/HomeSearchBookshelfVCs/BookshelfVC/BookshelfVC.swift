@@ -27,15 +27,16 @@ class BookshelfVC: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loadingView = LoadingView()
     private var isMigration: Bool = false
+    private var order: SortOrder = .purchase
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setShadow(with: navigationTitleView)
         self.configureUI()
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
         self.checkMigration()
+        self.configureObservation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,36 +47,7 @@ class BookshelfVC: UIViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        self.spinAnimation()
-        self.viewModel?.fetchBooksFromNetwork()
-    }
-}
-
-extension BookshelfVC {
-    private func configureUI() {
-        self.sortSelector.layer.borderWidth = 1
-        self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor
-        self.sortSelector.clipsToBounds = true
-        self.sortSelector.layer.cornerRadius = 3
-        self.configureMenu()
-    }
-    
-    private func configureMenu() {
-        let purchaseAction = UIAction(title: SortOrder.purchase.rawValue, image: nil) { [weak self] _ in
-            self?.sort(to: .purchase)
-        }
-        let recentAction = UIAction(title: SortOrder.recent.rawValue, image: nil) { [weak self] _ in
-            self?.sort(to: .recent)
-        }
-        let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
-            self?.sort(to: .alphabet)
-        }
-        self.sortSelector.menu = UIMenu(title: "정렬 순서", image: nil, children: [purchaseAction, recentAction, alphabetAction])
-        self.sortSelector.showsMenuAsPrimaryAction = true
-    }
-    
-    private func sort(to order: SortOrder) {
-        self.sortSelector.setTitle(order.rawValue, for: .normal)
+        self.syncBookshelf()
     }
     
     private func spinAnimation() {
@@ -87,11 +59,39 @@ extension BookshelfVC {
             self.refreshBT.transform = CGAffineTransform.identity
         }
     }
+}
+
+extension BookshelfVC {
+    private func configureUI() {
+        self.setShadow(with: navigationTitleView)
+        self.sortSelector.layer.borderWidth = 1
+        self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor
+        self.sortSelector.clipsToBounds = true
+        self.sortSelector.layer.cornerRadius = 3
+        self.configureMenu()
+    }
     
     private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
         self.viewModel = BookshelfVM(networkUsecse: networkUsecase)
+    }
+    
+    private func configureMenu() {
+        let purchaseAction = UIAction(title: SortOrder.purchase.rawValue, image: nil) { [weak self] _ in
+            self?.changeSort(to: .purchase)
+        }
+        let recentAction = UIAction(title: SortOrder.recent.rawValue, image: nil) { [weak self] _ in
+            self?.changeSort(to: .recent)
+        }
+        let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
+            self?.changeSort(to: .alphabet)
+        }
+        if let order = UserDefaultsManager.get(forKey: .bookshelfOrder) as? String {
+            self.order = SortOrder(rawValue: order) ?? .purchase
+        }
+        self.sortSelector.menu = UIMenu(title: self.order.rawValue, image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.sortSelector.showsMenuAsPrimaryAction = true
     }
     
     private func configureCollectionView() {
@@ -108,7 +108,14 @@ extension BookshelfVC {
             self.showLoader()
             self.isMigration = true
         } else {
-            self.fetch()
+            self.reloadBookshelf()
+            self.syncBookshelf()
+        }
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
+            self?.syncBookshelf()
         }
     }
     
@@ -119,23 +126,22 @@ extension BookshelfVC {
                 self?.removeLoader()
                 self?.isMigration = false
                 print("migration fail")
+                // TODO: Migration 의 경우 syncBookshelf 에서 purchased 값을 저장하는 로직이 필요
                 return
             }
             
             UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
-            self?.fetch()
+            self?.reloadBookshelf()
             CoreDataManager.saveCoreData()
             self?.removeLoader()
             self?.isMigration = false
             print("migration success")
         }
     }
-    
-    private func fetch() {
-        self.viewModel?.fetchBooksFromCoredata()
-        self.viewModel?.fetchBooksFromNetwork()
-    }
-    
+}
+
+// MARK: Loader
+extension BookshelfVC {
     private func showLoader() {
         self.view.addSubview(self.loadingView)
         self.loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,6 +157,24 @@ extension BookshelfVC {
     private func removeLoader() {
         self.loadingView.stop()
         self.loadingView.removeFromSuperview()
+    }
+}
+
+// MARK: Refresh Bookshelf
+extension BookshelfVC {
+    private func changeSort(to order: SortOrder) {
+        self.order = order
+        self.sortSelector.setTitle(order.rawValue, for: .normal)
+        self.reloadBookshelf()
+    }
+    
+    private func reloadBookshelf() {
+        self.viewModel?.reloadBookshelf(order: self.order)
+    }
+    
+    private func syncBookshelf() {
+        self.spinAnimation()
+        self.viewModel?.fetchBooksFromNetwork()
     }
 }
 

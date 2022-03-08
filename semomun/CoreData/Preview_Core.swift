@@ -32,6 +32,8 @@ extension Preview_Core {
         case tags
         case fileSize
         case image
+        case purchasedDate
+        case recentDate
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
@@ -50,6 +52,8 @@ extension Preview_Core {
     @NSManaged public var tags: [String]
     @NSManaged public var fileSize: Int64 // NEW: sections size 합산
     @NSManaged public var image: Data? // Workbook Image
+    @NSManaged public var purchasedDate: Date? // NEW: 구매일자
+    @NSManaged public var recentDate: Date? // NEW: 접근일
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var subject: String? //Deprecated(1.1.3)
@@ -109,5 +113,9 @@ public class Preview_Core: NSManagedObject{
         self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize})), forKey: Attribute.fileSize.rawValue)
         self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
         print("savePreview complete")
+    }
+    
+    func updateDate(_ date: Date) {
+        self.setValue(date, forKey: Attribute.recentDate.rawValue)
     }
 }

@@ -85,7 +85,7 @@ final class WorkbookViewModel {
         }
     }
     
-    func purchaseWorkbook(bookcoverData: Data) {
+    func purchaseWorkbook() {
         self.showLoader = true
         guard let workbook = self.workbookDTO else { return }
         // TODO: Purchase item 반영
@@ -93,28 +93,11 @@ final class WorkbookViewModel {
             switch status {
             case .SUCCESS:
                 print("결제 후 잔액: \(credit!)")
-                self?.saveWorkbookToCoreData(workbook: workbook, bookcoverData: bookcoverData)
+                // MARK: - 만약 책장으로 wid 등 넘길값이 필요하다면 이곳에 로직이 생길 예정
+                self?.showLoader = false
             default:
                 self?.warning = (title: "구매반영 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
-        }
-        
-    }
-    
-    private func saveWorkbookToCoreData(workbook: WorkbookOfDB, bookcoverData: Data) {
-        DispatchQueue.main.async { [weak self] in
-            // MARK: - Save Preview
-            let preview_core = Preview_Core(context: CoreDataManager.shared.context)
-            preview_core.setValues(workbook: workbook, bookcoverData: bookcoverData)
-            // MARK: - Save Sections
-            workbook.sections.forEach { section in
-                let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
-                sectionHeader_core.setValues(section: section)
-            }
-            
-            CoreDataManager.saveCoreData()
-            print("save complete")
-            self?.showLoader = false
         }
     }
     
