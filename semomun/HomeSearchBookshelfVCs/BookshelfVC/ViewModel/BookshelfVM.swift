@@ -12,6 +12,7 @@ final class BookshelfVM {
     private(set) var networkUsecse: NetworkUsecase
     @Published private(set) var books: [Preview_Core] = []
     @Published private(set) var warning: (String, String)?
+    @Published private(set) var loading: Bool = false
     
     init(networkUsecse: NetworkUsecase) {
         self.networkUsecse = networkUsecse
@@ -53,6 +54,8 @@ final class BookshelfVM {
     }
     
     func fetchBooksFromNetwork() {
-        // TODO: api 얘기해본 후 반영할 예정
+        // TODO: Network 확인 로직 필요
+        self.loading = true
+        
     }
 }
