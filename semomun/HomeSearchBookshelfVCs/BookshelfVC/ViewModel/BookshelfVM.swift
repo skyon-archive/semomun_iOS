@@ -11,7 +11,7 @@ import Combine
 final class BookshelfVM {
     private(set) var networkUsecse: NetworkUsecase
     @Published private(set) var books: [Preview_Core] = []
-    @Published private(set) var warning: (String, String)?
+    @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var loading: Bool = false
     
     init(networkUsecse: NetworkUsecase) {
@@ -56,6 +56,14 @@ final class BookshelfVM {
     func fetchBooksFromNetwork() {
         // TODO: Network 확인 로직 필요
         self.loading = true
-        
+        self.networkUsecse.getBookshelfInfos { [weak self] status, infos in
+            switch status {
+            case .SUCCESS:
+                print(infos)
+            default:
+                self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
+            }
+        }
+        self.loading = false
     }
 }

@@ -201,7 +201,7 @@ extension BookshelfVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
-                self?.showAlertWithOK(title: warning.0, text: warning.1)
+                self?.showAlertWithOK(title: warning.title, text: warning.text)
             })
             .store(in: &self.cancellables)
     }
