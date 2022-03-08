@@ -14,6 +14,7 @@ struct UserDefaultsManager {
         case isInitial = "isInitial"
         case favoriteTags = "favoriteTags"
         case coreVersion = "coreVersion"
+        case bookshelfOrder = "bookshelfOrder"
     }
     
     static func set<T>(to: T, forKey: Self.Keys) {
