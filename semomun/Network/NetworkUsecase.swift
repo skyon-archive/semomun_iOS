@@ -305,10 +305,19 @@ extension NetworkUsecase: SectionDownloadable {
 // MARK: - Chackable
 extension NetworkUsecase: NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
-        if nickname != "" {
-            completion(.SUCCESS, true)
-        } else {
-            completion(.SUCCESS, false)
+        self.network.request(url: NetworkURL.username, param: ["username": nickname], method: .get) { result in
+            if let statusCode = result.statusCode {
+                guard let data = result.data,
+                      let isValid = try? JSONDecoder().decode(BooleanResult.self, from: data).result else {
+                          print("Error: Decode")
+                          completion(.DECODEERROR, false)
+                          return
+                      }
+                let networkStatus = NetworkStatus(statusCode: statusCode)
+                completion(networkStatus, isValid)
+            } else {
+                completion(.FAIL, false)
+            }
         }
     }
 }
@@ -316,7 +325,7 @@ extension NetworkUsecase: PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
         self.network.request(url: NetworkURL.requestSMS, param: ["phone": phonenum], method: .post) { result in
             if let statusCode = result.statusCode {
-               let networkStatus = NetworkStatus(statusCode: statusCode)
+                let networkStatus = NetworkStatus(statusCode: statusCode)
                 completion(networkStatus)
             } else {
                 completion(.FAIL)
@@ -334,9 +343,9 @@ extension NetworkUsecase: PhonenumVerifiable {
             }
             
             let networkStatus = NetworkStatus(statusCode: statusCode)
-                
+            
             guard let data = result.data,
-                  let isValid = try? JSONDecoder().decode(PhoneAuthResult.self, from: data).succeed else {
+                  let isValid = try? JSONDecoder().decode(BooleanResult.self, from: data).result else {
                       print("Error: Decode")
                       completion(.DECODEERROR, nil)
                       return

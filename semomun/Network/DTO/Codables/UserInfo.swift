@@ -29,7 +29,7 @@ struct UserInfo: Codable {
     var createdDate: Date?
     var updatedDate: Date?
     
-    private(set) var phoneNumberWithCountryCode: String?
+    private var phoneNumberWithCountryCode: String?
     
     var phoneNumber: String? {
         get {
@@ -41,7 +41,7 @@ struct UserInfo: Codable {
         }
     }
     
-    var isValidSurvay: Bool {
+    var isValid: Bool {
         return [self.username, self.phoneNumberWithCountryCode, self.major, self.majorDetail, self.school, self.graduationStatus].allSatisfy {
             $0 != nil && $0 != ""
         }

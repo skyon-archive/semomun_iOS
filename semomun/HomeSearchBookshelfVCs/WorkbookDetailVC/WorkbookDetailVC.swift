@@ -218,7 +218,7 @@ extension WorkbookDetailVC {
     private func showChangeUserinfoVC() {
         let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
         guard let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
-        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: false)
+        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
         changeUserinfoVC.configureVM(viewModel)
         self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
     }

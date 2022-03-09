@@ -36,6 +36,7 @@ final class LoginSignupVM {
     }
     
     func changeUsername(_ username: String) {
+        guard username.isEmpty == false else { return }
         self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {

@@ -56,7 +56,7 @@ class PhoneAuthenticator {
     }
     
     /// - Parameters:
-    ///   - completion: 올바른 code가 전달되면
+    ///   - completion: 올바른 code가 전달되면 전화번호를 success의 연관값으로 반환
     func verifySMSCode(_ code: String, completion: @escaping (Result<String, CodeVerifyError>) -> Void) {
         guard let tempPhoneNumber = tempPhoneNumber else {
             completion(.failure(.codeNotSent))

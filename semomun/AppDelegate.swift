@@ -40,10 +40,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
           }
         
         SyncUsecase.syncUserDataFromDB { status in
-            if status {
+            switch status {
+            case .success(_):
                 print("유저 정보 동기화 성공")
-            } else {
-                print("유저 정보 동기화 실패")
+            case .failure(let error):
+                print("유저 정보 동기화 실패: \(error)")
             }
         }
         return true
