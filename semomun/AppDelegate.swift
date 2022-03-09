@@ -39,12 +39,24 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
           }
         
-        SyncUsecase.syncUserDataFromDB { status in
-            switch status {
-            case .success(_):
-                print("유저 정보 동기화 성공")
-            case .failure(let error):
-                print("유저 정보 동기화 실패: \(error)")
+        let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
+        
+        if isInitial {
+            do {
+                try KeychainItem(account: .accessToken).deleteItem()
+                try KeychainItem(account: .accessToken).deleteItem()
+                print("기존 토큰 삭제 성공")
+            } catch {
+                print("기존 토큰 삭제 실패: \(error)")
+            }
+        } else {
+            SyncUsecase.syncUserDataFromDB { status in
+                switch status {
+                case .success(_):
+                    print("AppDelegate: 유저 정보 동기화 성공")
+                case .failure(let error):
+                    print("AppDelegate: 유저 정보 동기화 실패: \(error)")
+                }
             }
         }
         return true
