@@ -11,6 +11,7 @@ import Combine
 typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable)
 
 final class LoginSignupVM {
+    
     enum ChangeUserInfoAlert {
         case withPopVC(AlertMessage)
         case withoutPopVC(AlertMessage)
@@ -40,7 +41,7 @@ final class LoginSignupVM {
     @Published private(set) var changeNicknameStatus: ChangeNicknameStatus?
     @Published private(set) var phoneAuthStatus: PhoneAuthStatus?
     
-    @Published private(set) var signupUserInfo = SignUpUserInfo()
+    @Published private(set) var signupUserInfo = SignupUserInfo()
     
     @Published var configureUIForNicknamePhoneRequest = false
     
@@ -94,24 +95,6 @@ final class LoginSignupVM {
     func selectMajorDetail(at index: Int) {
         guard let majorDetailName = self.majorDetails[safe: index] else { return }
         self.selectedMajorDetail = majorDetailName
-    }
-    
-    func makeSignupUserInfo() -> SignUpUserInfo? {
-        guard let nickname = self.nickname,
-              let phone = self.phonenum?.phoneNumberWithCountryCode,
-              let school = self.schoolName,
-              let major = self.selectedMajor,
-              let majorDetail = self.selectedMajorDetail,
-              let graduationStatus = self.graduationStatus else { return nil }
-        return SignUpUserInfo(
-            username: nickname,
-            phone: phone,
-            school: school,
-            major: major,
-            majorDetail: majorDetail,
-            favoriteTags: [1, 2], // TODO: tid 반영
-            graduationStatus: graduationStatus
-        )
     }
 }
 

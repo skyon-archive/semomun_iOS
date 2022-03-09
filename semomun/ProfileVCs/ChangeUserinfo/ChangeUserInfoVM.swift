@@ -128,14 +128,14 @@ final class ChangeUserInfoVM {
         return userInfo
     }
     
-    func makeSignupUserInfo() -> SignUpUserInfo? {
+    func makeSignupUserInfo() -> SignupUserInfo? {
         guard let nickname = self.nickname,
               let phone = self.phonenum?.phoneNumberWithCountryCode,
               let school = self.schoolName,
               let major = self.selectedMajor,
               let majorDetail = self.selectedMajorDetail,
               let graduationStatus = self.graduationStatus else { return nil }
-        return SignUpUserInfo(
+        return SignupUserInfo(
             username: nickname,
             phone: phone,
             school: school,
