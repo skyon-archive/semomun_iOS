@@ -21,13 +21,16 @@ struct SyncUsecase {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
             case .SUCCESS:
-                guard let userInfo = userInfo,
-                      let userCoreData = CoreUsecase.fetchUserInfo() else {
-                          completion(.failure(.coreDataFetchFail))
-                          return
-                      }
-                userCoreData.setValues(userInfo: userInfo)
-                CoreDataManager.saveCoreData()
+                guard let userInfo = userInfo else {
+                    completion(.failure(.networkFail))
+                    return
+                }
+                if let userCoreData = CoreUsecase.fetchUserInfo() {
+                    userCoreData.setValues(userInfo: userInfo)
+                    CoreDataManager.saveCoreData()
+                } else {
+                    CoreUsecase.createUserCoreData(userInfo: userInfo)
+                }
                 completion(.success(userInfo))
             case .TOKENEXPIRED:
                 LogoutUsecase.logout()
