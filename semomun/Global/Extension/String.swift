@@ -55,6 +55,11 @@ extension String {
         return self.replacingOccurrences(of: "^0(\\d{1,2})(\\d{4})(\\d{4})$", with: "+82-$1-$2-$3", options: .regularExpression, range: nil)
     }
     
+    var phoneNumberWithNumbers: String? {
+        guard self.isValidPhoneNumberWithCountryCode else { return nil }
+        return self.replacingOccurrences(of: "^+\\d{1,4}-(\\d{1,2})(\\d{4})(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
+    }
+    
     func matchRegularExpression(_ pattern: String) -> Bool {
         let range = NSRange(location: 0, length: self.utf16.count)
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }

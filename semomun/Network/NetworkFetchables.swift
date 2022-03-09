@@ -51,11 +51,12 @@ protocol SectionDownloadable {
 }
 // MARK: - Chackable
 protocol NicknameCheckable {
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void)
+    func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void)
 }
 protocol PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ())
-    func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void)
+
+    func checkValidity(phoneNumber: String, code: String, completion: @escaping (NetworkStatus, Bool?) -> Void)
 }
 // MARK: - UserAccessable
 protocol UserInfoSendable {

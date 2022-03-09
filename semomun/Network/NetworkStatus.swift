@@ -36,3 +36,5 @@ extension NetworkStatus {
         }
     }
 }
+
+extension NetworkStatus: Equatable { }
