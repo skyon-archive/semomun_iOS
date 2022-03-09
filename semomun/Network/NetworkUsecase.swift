@@ -12,6 +12,116 @@ class NetworkUsecase {
     init(network: NetworkFetchable) {
         self.network = network
     }
+    
+    func downloadPreviews(param: [String: String], completion: @escaping (SearchPreviews) -> ()) {
+        self.network.request(url: NetworkURL.workbooks, param: param, method: .get) { result in
+            guard let data = result.data else { return }
+            guard let searchPreview: SearchPreviews = try? JSONDecoder().decode(SearchPreviews.self, from: data) else {
+                print("Decode error")
+                return
+            }
+            completion(searchPreview)
+        }
+    }
+    
+    func getSchoolDTO(param: [String: String], completion: @escaping ([String]) -> Void) {
+        self.network.request(url: NetworkURL.schoolApi, param: param, method: .get) { result in
+            guard let data = result.data,
+                  let json = try? JSONDecoder().decode(CareerNetJSON.self, from: data) else {
+                      print("Decode error")
+                      completion([])
+                      return
+                  }
+            print("학교 정보 다운로드 완료")
+            let schoolNames = json.dataSearch.content.map(\.schoolName)
+            completion(Array(Set(schoolNames)).sorted())
+        }
+    }
+}
+
+extension NetworkUsecase {
+    func postUserLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
+        let paramValue = userToken.paramValue
+        let param = ["token": paramValue.token, "type": paramValue.type]
+        self.network.request(url: NetworkURL.login, param: param, method: .post) { result in
+            switch result.statusCode {
+            case 504:
+                completion(.INSPECTION)
+            case 200:
+                do {
+                    guard let data = result.data else {
+                        completion(.ERROR)
+                        return
+                    }
+                    let userToken = try JSONDecoderWithDate().decode(NetworkTokens.self, from: data)
+                    try userToken.save()
+                    completion(.SUCCESS)
+                } catch {
+                    print(error)
+                    completion(.DECODEERROR)
+                }
+            default:
+                completion(.ERROR)
+            }
+        }
+    }
+    
+    func postUserSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping (NetworkStatus) -> Void) {
+        let paramValue = userIDToken.paramValue
+        let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
+        self.network.request(url: NetworkURL.signup, param: param, method: .post) { result in
+            switch result.statusCode {
+            case 504:
+                completion(.INSPECTION)
+            case 200:
+                guard let data = result.data,
+                      let userToken = try? JSONDecoderWithDate().decode(NetworkTokens.self, from: data) else {
+                          print("NetworkTokens 디코딩 실패")
+                          completion(.DECODEERROR)
+                          return
+                      }
+                do {
+                    try userToken.save()
+                } catch {
+                    print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
+                    completion(.ERROR)
+                    return
+                }
+                completion(.SUCCESS)
+            default:
+                completion(.ERROR)
+            }
+        }
+    }
+}
+
+extension NetworkUsecase {
+    func putSectionResult(sid: Int, submissions: String, completion: @escaping(NetworkStatus) -> Void) {
+        let param = ["submissions": submissions, "token": KeychainItem.currentUserIdentifier]
+        self.network.request(url: NetworkURL.sectionsSubmit(sid), param: param, method: .put) { result in
+            switch result.statusCode {
+            case 504:
+                completion(.INSPECTION)
+            case 200:
+                completion(.SUCCESS)
+            default:
+                completion(.ERROR)
+            }
+        }
+    }
+}
+
+extension NetworkUsecase: SectionDownloadable {
+    func getSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
+        self.network.request(url: NetworkURL.sectionDirectory(sid), method: .get) { result in
+            guard let data = result.data,
+                  let sectionOfDB = try? JSONDecoderWithDate().decode(SectionOfDB.self, from: data) else {
+                      print("Decode Error")
+                      return
+                  }
+            completion(sectionOfDB)
+        }
+    }
 }
 
 // MARK: - Fetchable
@@ -205,11 +315,10 @@ extension NetworkUsecase: NicknameCheckable {
 extension NetworkUsecase: PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
         self.network.request(url: NetworkURL.requestSMS, param: ["phone": phonenum], method: .post) { result in
-            guard let statusCode = result.statusCode, statusCode == 200 else {
+            switch result.statusCode {
+            case .none:
                 completion(.FAIL)
-                return
             }
-            completion(.SUCCESS)
         }
     }
     
