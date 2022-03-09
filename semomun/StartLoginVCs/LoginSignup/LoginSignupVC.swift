@@ -13,7 +13,7 @@ final class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
     static let storyboardName = "StartLogin"
     
-    private var viewModel: ChangeUserInfoVM?
+    private var viewModel: LoginSignupVM?
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?
     private var cancellables: Set<AnyCancellable> = []
     private var coloredFrameLabels: [ColoredFrameLabel] = []
