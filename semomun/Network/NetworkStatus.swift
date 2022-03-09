@@ -12,7 +12,7 @@ enum NetworkStatus {
     case BADREQUEST // 400
     case TOOMANYREQUESTS // 429
     case INSPECTION //504
-    case OTHER(statusCode: Int)
+    case OTHERS(statusCode: Int)
     
     case FAIL
     case ERROR
@@ -32,7 +32,7 @@ extension NetworkStatus {
         case 504:
             self = .INSPECTION
         default:
-            self = .OTHER(statusCode: statusCode)
+            self = .OTHERS(statusCode: statusCode)
         }
     }
 }

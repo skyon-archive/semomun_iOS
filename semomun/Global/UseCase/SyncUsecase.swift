@@ -12,7 +12,7 @@ typealias SyncFetchable = (UserInfoFetchable)
 struct SyncUsecase {
     
     enum SyncError: Error {
-        case networkFail, coreDataFetchFail
+        case networkFail, coreDataFetchFail, noCoreData
     }
     
     static private let networkUsecase: SyncFetchable = NetworkUsecase(network: Network())

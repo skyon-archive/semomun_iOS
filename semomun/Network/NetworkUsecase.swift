@@ -41,7 +41,7 @@ class NetworkUsecase {
 
 extension NetworkUsecase {
     func postUserLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
-        let paramValue = userToken.paramValue
+        let paramValue = userToken.param
         let param = ["token": paramValue.token, "type": paramValue.type]
         self.network.request(url: NetworkURL.login, param: param, method: .post, tokenRequired: false) { result in
             switch result.statusCode {
@@ -67,7 +67,7 @@ extension NetworkUsecase {
     }
     
     func postUserSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        let paramValue = userIDToken.paramValue
+        let paramValue = userIDToken.param
         let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
         self.network.request(url: NetworkURL.signup, param: param, method: .post, tokenRequired: false) { result in
             switch result.statusCode {
@@ -223,14 +223,14 @@ extension NetworkUsecase: NoticeFetchable {
 extension NetworkUsecase: S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
         let param = ["uuid": uuid.uuidString.lowercased(), "type": type.rawValue]
-        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let imageURL: String = String(data: data, encoding: .utf8) else {
                       completion(.FAIL, nil)
                       return
                   }
             
-            self.network.request(url: imageURL, method: .get, tokenRequired: true) { result in
+            self.network.request(url: imageURL, method: .get, tokenRequired: false) { result in
                 let status: NetworkStatus = result.statusCode == 200 ? .SUCCESS : .FAIL
                 completion(status, result.data)
             }
@@ -244,7 +244,7 @@ extension NetworkUsecase: PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
         let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
         let param = ["tags": tids, "text": text, "page": "\(page)", "limit": "\(limit)"]
-        self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -262,7 +262,7 @@ extension NetworkUsecase: PreviewsSearchable {
 }
 extension NetworkUsecase: WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ()) {
-        self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = try? JSONDecoderWithDate().decode(WorkbookOfDB.self, from: data) else {
                       print("Decode error")
@@ -539,56 +539,59 @@ extension NetworkUsecase: ErrorReportable {
 
 // MARK: - Login&Signup
 extension NetworkUsecase: LoginSignupPostable {
-    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void) {
-        let paramValue = userToken.paramValue
-        let param = ["token": paramValue.token, "type": paramValue.type]
+    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping ((status: NetworkStatus, userNotExist: Bool)) -> Void) {
+        let tokenParam = userToken.param
+        let param = ["token": tokenParam.token, "type": tokenParam.type]
         self.network.request(url: NetworkURL.login, param: param, method: .post, tokenRequired: false) { result in
-            switch result.statusCode {
-            case 504:
-                completion(.INSPECTION)
-            case 200:
-                do {
-                    guard let data = result.data else {
-                        completion(.ERROR)
-                        return
-                    }
-                    let userToken = try JSONDecoderWithDate().decode(NetworkTokens.self, from: data)
-                    try userToken.save()
-                    completion(.SUCCESS)
-                } catch {
-                    print(error)
-                    completion(.DECODEERROR)
-                }
-            default:
-                completion(.ERROR)
+            guard let statusCode = result.statusCode,
+                  let data = result.data else {
+                completion((.FAIL, false))
+                return
+            }
+            
+            let networkStatus = NetworkStatus(statusCode: statusCode)
+            guard networkStatus == .SUCCESS else {
+                let errorMessage = String(data: data, encoding: .utf8)
+                completion((networkStatus, errorMessage == "USER_NOT_EXIST"))
+                return
+            }
+            
+            do {
+                try self.saveToken(in: data)
+            } catch {
+                print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
+                completion((.DECODEERROR, false))
             }
         }
     }
-    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping (NetworkStatus) -> Void) {
-        let paramValue = userIDToken.paramValue
-        let param = SignUpParam(info: userInfo, token: paramValue.token, type: paramValue.type)
+    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping ((status: NetworkStatus, userAlreadyExist: Bool)) -> Void) {
+        let tokenParam = userIDToken.param
+        let param = SignUpParam(info: userInfo, token: tokenParam.token, type: tokenParam.type)
         self.network.request(url: NetworkURL.signup, param: param, method: .post, tokenRequired: false) { result in
-            switch result.statusCode {
-            case 504:
-                completion(.INSPECTION)
-            case 200:
-                guard let data = result.data,
-                      let userToken = try? JSONDecoderWithDate().decode(NetworkTokens.self, from: data) else {
-                          print("NetworkTokens 디코딩 실패")
-                          completion(.DECODEERROR)
-                          return
-                      }
-                do {
-                    try userToken.save()
-                } catch {
-                    print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
-                    completion(.ERROR)
-                    return
-                }
-                completion(.SUCCESS)
-            default:
-                completion(.ERROR)
+            guard let statusCode = result.statusCode,
+                  let data = result.data else {
+                completion((.FAIL, false))
+                return
+            }
+            
+            let networkStatus = NetworkStatus(statusCode: statusCode)
+            guard networkStatus == .SUCCESS else {
+                let errorMessage = String(data: data, encoding: .utf8)
+                completion((networkStatus, errorMessage == "USER_ALREADY_EXISTS"))
+                return
+            }
+            
+            do {
+                try self.saveToken(in: data)
+            } catch {
+                print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
+                completion((.DECODEERROR, false))
             }
         }
+    }
+    
+    private func saveToken(in data: Data) throws {
+        let userToken = try JSONDecoderWithDate().decode(NetworkTokens.self, from: data)
+        try userToken.save()
     }
 }
