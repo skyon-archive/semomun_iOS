@@ -304,38 +304,45 @@ extension NetworkUsecase: SectionDownloadable {
 
 // MARK: - Chackable
 extension NetworkUsecase: NicknameCheckable {
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping ((NetworkStatus, Bool)) -> Void) {
+    func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
         if nickname != "" {
-            completion((.SUCCESS, true))
+            completion(.SUCCESS, true)
         } else {
-            completion((.SUCCESS, false))
+            completion(.SUCCESS, false)
         }
     }
 }
 extension NetworkUsecase: PhonenumVerifiable {
     func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
         self.network.request(url: NetworkURL.requestSMS, param: ["phone": phonenum], method: .post) { result in
-            switch result.statusCode {
-            case .none:
+            if let statusCode = result.statusCode {
+               let networkStatus = NetworkStatus(statusCode: statusCode)
+                completion(networkStatus)
+            } else {
                 completion(.FAIL)
             }
         }
     }
     
-    func checkValidity(phoneNumber: String, authNum: String, completion: @escaping (Bool) -> Void) {
-        let param = ["phone": phoneNumber, "code": authNum]
+    func checkValidity(phoneNumber: String, code: String, completion: @escaping (NetworkStatus, Bool?) -> Void) {
+        let param = ["phone": phoneNumber, "code": code]
+        
         self.network.request(url: NetworkURL.verifySMS, param: param, method: .post) { result in
-            guard let statusCode = result.statusCode, statusCode == 200 else {
-                completion(false)
+            guard let statusCode = result.statusCode else {
+                completion(.FAIL, nil)
                 return
             }
+            
+            let networkStatus = NetworkStatus(statusCode: statusCode)
+                
             guard let data = result.data,
-                  let isValid = try? JSONDecoder().decode(PhoneAuthResult.self, from: data) else {
+                  let isValid = try? JSONDecoder().decode(PhoneAuthResult.self, from: data).succeed else {
                       print("Error: Decode")
-                      completion(false)
+                      completion(.DECODEERROR, nil)
                       return
                   }
-            completion(isValid.succeed)
+            
+            completion(networkStatus, isValid)
         }
     }
 }

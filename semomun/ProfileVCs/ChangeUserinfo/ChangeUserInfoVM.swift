@@ -178,15 +178,15 @@ extension ChangeUserInfoVM {
     
     func confirmAuthNumber(with authNumber: String) {
         guard let tempPhoneNum = self.tempPhoneNum?.phoneNumberWithCountryCode else { return }
-        self.networkUseCase.checkValidity(phoneNumber: tempPhoneNum, authNum: authNumber) {[weak self] confirmed in
-            if confirmed {
-                self?.phoneAuthStatus = .authComplete
-                self?.phonenum = self?.tempPhoneNum
-                self?.tempPhoneNum = nil
-            } else {
-                self?.phoneAuthStatus = .wrongAuthNumber
-            }
-        }
+//        self.networkUseCase.checkValidity(phoneNumber: tempPhoneNum, code: authNumber) {[weak self] confirmed in
+//            if confirmed {
+//                self?.phoneAuthStatus = .authComplete
+//                self?.phonenum = self?.tempPhoneNum
+//                self?.tempPhoneNum = nil
+//            } else {
+//                self?.phoneAuthStatus = .wrongAuthNumber
+//            }
+//        }
     }
     
     /// 인증 취소
