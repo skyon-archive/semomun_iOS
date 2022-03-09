@@ -92,6 +92,6 @@ protocol ErrorReportable {
 }
 // MARK: - Login&Signup
 protocol LoginSignupPostable {
-    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping (NetworkStatus) -> Void)
-    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void)
+    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping ((status: NetworkStatus, userNotExist: Bool)) -> Void)
+    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping ((status: NetworkStatus, userAlreadyExist: Bool)) -> Void)
 }

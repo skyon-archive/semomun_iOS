@@ -19,7 +19,7 @@ final class LoginStartVC: UIViewController, UINavigationControllerDelegate {
     
     @IBAction func login(_ sender: Any) {
         guard let nextVC = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        nextVC.configurePopup(isNeeded: false)
+        nextVC.showPopup = false
         
         self.isAnimation = true
         self.navigationController?.pushViewController(nextVC, animated: true)

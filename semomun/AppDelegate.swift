@@ -40,6 +40,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
           }
         
         let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
+        let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         
         if isInitial {
             do {
@@ -49,7 +50,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch {
                 print("기존 토큰 삭제 실패: \(error)")
             }
-        } else {
+        }
+        
+        if isLogined {
             SyncUsecase.syncUserDataFromDB { status in
                 switch status {
                 case .success(_):
