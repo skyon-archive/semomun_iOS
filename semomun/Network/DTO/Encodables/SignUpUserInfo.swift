@@ -14,11 +14,11 @@ struct SignUpParam: Encodable {
 }
 
 struct SignUpUserInfo: Encodable {
-    let username: String
-    let phone: String
-    let school: String
-    let major: String
-    let majorDetail: String
-    let favoriteTags: [Int]
-    let graduationStatus: String
+    var username: String?
+    var phone: String?
+    var school: String?
+    var major: String?
+    var majorDetail: String?
+    var favoriteTags: [Int] = []
+    var graduationStatus: String?
 }
