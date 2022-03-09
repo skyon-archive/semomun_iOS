@@ -9,9 +9,11 @@ import Foundation
 import Alamofire
 
 struct Network: NetworkFetchable {
-    private let session = Session(interceptor: NetworkTokenController())
+    private let sessionWithoutToken = Session()
+    private let sessionWithToken = Session(interceptor: NetworkTokenController())
     
-    func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
+    func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
+        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
         print("Network request: \(url), \(method)")
         session.request(url, method: method)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
@@ -21,7 +23,8 @@ struct Network: NetworkFetchable {
         }.resume()
     }
     
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void) {
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
+        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
         print("Network request: \(url), \(method), \(param)")
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
@@ -34,7 +37,7 @@ struct Network: NetworkFetchable {
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, completion: @escaping (NetworkResult) -> Void) {
         print("Network request: \(url), \(method), \(param)")
         let parameterEncoder = JSONParameterEncoder(encoder: encoder)
-        session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
+        sessionWithToken.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
