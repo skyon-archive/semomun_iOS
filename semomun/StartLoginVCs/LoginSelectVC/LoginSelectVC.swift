@@ -23,7 +23,7 @@ final class LoginSelectVC: UIViewController {
     
     private var networkUseCase: NetworkUsecase?
     private var showPopup = true
-    private var signupInfo: SignUpUserInfo?
+    private var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
         return signupInfo != nil
     }
@@ -42,7 +42,7 @@ extension LoginSelectVC {
         self.showPopup = isNeeded
     }
     
-    func configureSignupInfo(_ signupInfo: SignUpUserInfo) {
+    func configureSignupInfo(_ signupInfo: SignupUserInfo) {
         self.signupInfo = signupInfo
     }
 }
@@ -199,7 +199,7 @@ extension LoginSelectVC {
         }
     }
     
-    private func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignUpUserInfo) {
+    private func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
         // TODO: 오류 코드 대처하기
         //        self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
         //            self.navigationController?.popViewController(animated: true)

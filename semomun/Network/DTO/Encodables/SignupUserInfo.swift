@@ -8,12 +8,12 @@
 import Foundation
 
 struct SignUpParam: Encodable {
-    let info: SignUpUserInfo
+    let info: SignupUserInfo
     let token: String
     let type: String
 }
 
-struct SignUpUserInfo: Encodable {
+struct SignupUserInfo: Encodable {
     var username: String?
     var phone: String?
     var school: String?
