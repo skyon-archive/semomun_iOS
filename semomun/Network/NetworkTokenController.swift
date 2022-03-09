@@ -9,19 +9,18 @@ import Foundation
 import Alamofire
 
 enum NetworkTokenControllerError: Error {
-    case tokenExpired
+    case refreshTokenExpired
 }
 
 struct NetworkTokenController: RequestInterceptor {
     /// 네트워크 요청 전 urlRequest에 관한 처리를 가로채서 적용
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Swift.Result<URLRequest, Error>) -> Void) {
-        // TODO: 토큰값이 필요한 요청에 대해서만 토큰을 추가하도록 수정하기
-        guard urlRequest.url?.absoluteString.hasPrefix(NetworkURL.base) == true,
-              let authToken = try? KeychainItem(account: .accessToken).readItem() else {
-                  completion(.success(urlRequest))
-                  return
-              }
-        print("authToken: \(authToken)")
+        guard let authToken = try? KeychainItem(account: .accessToken).readItem() else {
+            assertionFailure()
+            completion(.success(urlRequest))
+            return
+        }
+        
         var urlRequest = urlRequest
         urlRequest.setValue("Bearer " + authToken, forHTTPHeaderField: "Authorization")
         
@@ -56,7 +55,7 @@ struct NetworkTokenController: RequestInterceptor {
                 }
             case .failure(let error):
                 print("토큰 재발급 실패: \(error)")
-                completion(.doNotRetryWithError(NetworkTokenControllerError.tokenExpired))
+                completion(.doNotRetryWithError(NetworkTokenControllerError.refreshTokenExpired))
             }
         }
     }
