@@ -10,12 +10,13 @@ import Alamofire
 
 // MARK: - Network
 protocol NetworkFetchable {
-    func request(url: String, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
+    func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void)
 
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, completion: @escaping (NetworkResult) -> Void)
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void)
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, completion: @escaping (NetworkResult) -> Void)
 }
+
 // MARK: - Fetchable
 protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
@@ -91,6 +92,6 @@ protocol ErrorReportable {
 }
 // MARK: - Login&Signup
 protocol LoginSignupPostable {
-    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignUpUserInfo, completion: @escaping (NetworkStatus) -> Void)
+    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping (NetworkStatus) -> Void)
     func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping (NetworkStatus) -> Void)
 }
