@@ -11,25 +11,29 @@ typealias SyncFetchable = (UserInfoFetchable)
 
 struct SyncUsecase {
     
+    enum SyncError: Error {
+        case networkFail, coreDataFetchFail
+    }
+    
     static private let networkUsecase: SyncFetchable = NetworkUsecase(network: Network())
     
-    static func syncUserDataFromDB(completion: @escaping (Bool) -> Void) {
+    static func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
             case .SUCCESS:
                 guard let userInfo = userInfo,
                       let userCoreData = CoreUsecase.fetchUserInfo() else {
-                          completion(false)
+                          completion(.failure(.coreDataFetchFail))
                           return
                       }
                 userCoreData.setValues(userInfo: userInfo)
                 CoreDataManager.saveCoreData()
-                completion(true)
+                completion(.success(userInfo))
             case .TOKENEXPIRED:
                 LogoutUsecase.logout()
                 NotificationCenter.default.post(name: .logout, object: nil)
             default:
-                completion(false)
+                completion(.failure(.networkFail))
             }
         }
     }
