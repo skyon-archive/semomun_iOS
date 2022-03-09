@@ -7,37 +7,62 @@
 
 import Foundation
 
-
-struct PhoneAuthenticator {
+class PhoneAuthenticator {
     
-    private var tempPhoneNumber = ""
+    enum CodeSendError: Error {
+        case noNetwork
+        case invalidPhoneNumber
+        case smsSentTooMuch
+    }
+    
+    enum CodeVerifyError: Error {
+        case noNetwork
+        case codeNotSent
+    }
+    
+    private var tempPhoneNumber: String?
     private var networkUsecase: PhonenumVerifiable
     
-    func sendSMSCode(to phoneNum: String) {
-        guard let phoneNumber = phoneNum.phoneNumberWithCountryCode else {
-            self.phoneAuthStatus = .invaildPhoneNum
-            return
-        }
-        self.networkUseCase.requestVertification(of: phoneNumber) { [weak self] status in
-            if status == .SUCCESS {
-                self?.phoneAuthStatus = .authNumSent
-                self?.tempPhoneNum = phoneNum
-            } else {
-                self?.alertStatus = .withoutPopVC(.networkError)
+    init(networkUsecase: PhonenumVerifiable) {
+        self.networkUsecase = networkUsecase
+    }
+    
+    /// - Parameter phoneNumber: 숫자로만 이루어진 전화번호 문자열
+    func sendSMSCode(to phoneNumber: String, completion: @escaping (Result<String, CodeSendError>) -> Void) throws {
+        self.networkUsecase.requestVertification(of: phoneNumber) { status in
+            switch status {
+            case .SUCCESS:
+                self.tempPhoneNumber = phoneNumber
+                completion(.success(phoneNumber))
+            case .BADREQUEST:
+                completion(.failure(.invalidPhoneNumber))
+            case .TOOMANYREQUESTS:
+                completion(.failure(.smsSentTooMuch))
+            default:
+                assertionFailure()
+                completion(.failure(.noNetwork))
             }
         }
     }
     
-    func verifySMSCode(_ code: String) {
-        guard let tempPhoneNum = self.tempPhoneNum?.phoneNumberWithCountryCode else { return }
-        self.networkUseCase.checkValidity(phoneNumber: tempPhoneNum, authNum: authNumber) {[weak self] confirmed in
-            if confirmed {
-                self?.phoneAuthStatus = .authComplete
-                self?.phonenum = self?.tempPhoneNum
-                self?.tempPhoneNum = nil
-            } else {
-                self?.phoneAuthStatus = .wrongAuthNumber
+    func verifySMSCode(_ code: String, completion: @escaping (Result<Bool, CodeVerifyError>) -> Void) {
+        guard let tempPhoneNumber = tempPhoneNumber else {
+            completion(.failure(.codeNotSent))
+            return
+        }
+        self.networkUsecase.checkValidity(phoneNumber: tempPhoneNumber, code: code) { isValid, networkStatus in
+            switch networkStatus {
+            case .SUCCESS:
+                guard let isValid = isValid else {
+                    assertionFailure()
+                    return
+                }
+                self.tempPhoneNumber = nil
+                completion(.success(isValid))
+            default:
+                completion(.failure(.noNetwork))
             }
+            
         }
     }
 }
