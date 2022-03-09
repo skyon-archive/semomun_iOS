@@ -76,9 +76,9 @@ class LoginSelectVM {
         UserDefaultsManager.set(to: true, forKey: .logined)
         do {
             try KeychainItem(account: .userIdentifier).saveItem(userID)
+            self.status = .complete
         } catch {
             print("User ID 키체인 저장 실패: \(error)")
         }
-        self.status = .complete
     }
 }

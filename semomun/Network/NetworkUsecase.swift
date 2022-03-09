@@ -558,6 +558,7 @@ extension NetworkUsecase: LoginSignupPostable {
             
             do {
                 try self.saveToken(in: data)
+                completion((.SUCCESS, false))
             } catch {
                 print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
                 completion((.DECODEERROR, false))
@@ -583,6 +584,7 @@ extension NetworkUsecase: LoginSignupPostable {
             
             do {
                 try self.saveToken(in: data)
+                completion((.SUCCESS, false))
             } catch {
                 print("회원가입 시 얻은 토큰값 저장 실패: \(error)")
                 completion((.DECODEERROR, false))
