@@ -9,9 +9,9 @@ import Foundation
 
 struct AppstoreVersion: Decodable {
     let resultCount: Int
-    let results: [Result]
+    let results: [AppStoreVersionResult]
 }
 
-struct Result: Decodable {
+struct AppStoreVersionResult: Decodable {
     let version: String
 }
