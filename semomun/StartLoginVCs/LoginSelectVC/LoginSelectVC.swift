@@ -23,6 +23,7 @@ final class LoginSelectVC: UIViewController {
     
     private var networkUseCase: NetworkUsecase?
     private var showPopup = true
+    
     private var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
         return signupInfo != nil

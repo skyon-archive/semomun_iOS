@@ -82,7 +82,7 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func submit(_ sender: Any) {
         guard let userInfo = self.viewModel?.signupUserInfo,
-              userInfo.canSubmit else {
+              userInfo.isValid else {
                   self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
                   return
               }
