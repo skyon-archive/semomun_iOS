@@ -49,7 +49,6 @@ final class LoginSignupVC: UIViewController {
         self.configureTableViewDelegate()
         self.configureTextFieldDelegate()
         self.bindAll()
-        self.viewModel?.fetchData()
         self.phoneNumTextFieldTrailingMargin = self.phoneNumTextFieldTrailingConstraint.constant
     }
     
@@ -60,11 +59,15 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func checkNickname(_ sender: Any) {
         guard let nickname = self.nickname.text else { return }
-        self.viewModel?.changeNicknameIfAvailable(nickname: nickname)
+        self.viewModel?.changeUsername(nickname)
     }
     
     @IBAction func requestAuth(_ sender: Any) {
         guard let newPhoneStr = self.phonenumTextField.text else { return }
+        guard newPhoneStr.isValidPhoneNumber else {
+            self.coloredFrameLabels[1].configure(type: .warning("올바른 전화번호를 입력해주세요."))
+            return
+        }
         self.viewModel?.requestPhoneAuth(withPhoneNumber: newPhoneStr)
     }
     
@@ -74,14 +77,15 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func requestAuthAgain(_ sender: Any) {
-        self.viewModel?.requestPhoneAuthAgain()
+        self.viewModel?.requestAuthAgain()
     }
     
     @IBAction func submit(_ sender: Any) {
-        guard let userInfo = self.viewModel?.makeSignupUserInfo() else {
-            self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
-            return
-        }
+        guard let userInfo = self.viewModel?.signupUserInfo,
+              userInfo.canSubmit else {
+                  self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
+                  return
+              }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.configurePopup(isNeeded: true)
         vc.configureSignupInfo(userInfo)
@@ -90,7 +94,7 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func submitBypass(_ sender: Any) {
 #if DEBUG
-        guard let userInfo = self.viewModel?.makeSignupUserInfo() else { return }
+        guard let userInfo = self.viewModel?.signupUserInfo else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.configurePopup(isNeeded: true)
         vc.configureSignupInfo(userInfo)
@@ -133,7 +137,7 @@ extension LoginSignupVC {
 // MARK: Configure ViewModel
 extension LoginSignupVC {
     private func configureViewModel() {
-        self.viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()), isSignup: true)
+        self.viewModel = LoginSignupVM(networkUseCase: NetworkUsecase(network: Network()))
     }
 }
 
@@ -173,7 +177,7 @@ extension LoginSignupVC {
     private func configureSchoolStatusMenu() {
         let graduationMenuItems: [UIAction] = ["재학", "졸업"].map { status in
             return UIAction(title: status, image: nil) { [weak self] _ in
-                self?.viewModel?.graduationStatus = status
+                self?.viewModel?.selectGraduationStatus(status)
                 self?.graduationStatusSelector.setTitle(status, for: .normal)
             }
         }
@@ -185,76 +189,58 @@ extension LoginSignupVC {
 // MARK: Bind
 extension LoginSignupVC {
     private func bindAll() {
-        self.bindMajor()
-        self.bindMajorDetail()
+        self.bindData()
+        self.bindStatus()
         self.bindAlert()
-        self.bindPhoneAuth()
-        self.bindChangeNicknameStatus()
     }
-    private func bindMajor() {
+    private func bindData() {
         self.viewModel?.$majors
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] signupUserInfo in
                 self?.majorCollectionView.reloadData()
             }
             .store(in: &self.cancellables)
-    }
-    private func bindMajorDetail() {
         self.viewModel?.$majorDetails
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] signupUserInfo in
                 self?.majorDetailCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+            
+    }
+    private func bindStatus() {
+        self.viewModel?.$status
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .codeSent:
+                    self?.configureUIForAuthSent()
+                case .codeWrong:
+                    self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
+                case .codeAuthComplete:
+                    self?.configureUIForAuthComplete()
+                case .usernameInavailable:
+                    self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
+                case .usernameAvailable:
+                    self?.nickname.resignFirstResponder()
+                    self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
+                case .none:
+                    break
+                }
             }
             .store(in: &self.cancellables)
     }
     private func bindAlert() {
-        self.viewModel?.$alertStatus
+        self.viewModel?.$alert
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                switch status {
-                case .withoutPopVC(let message):
-                    self?.showAlertWithOK(title: message.rawValue, text: "")
-                case .withPopVC(let message):
-                    self?.showAlertWithOK(title: message.rawValue, text: "") {
+            .sink { [weak self] alert in
+                switch alert {
+                case .alertWithoutPop(title: let title, description: let description):
+                    self?.showAlertWithOK(title: title, text: description ?? "")
+                case .alertWithPop(title: let title, description: let description):
+                    self?.showAlertWithOK(title: title, text: description ?? "") {
                         self?.navigationController?.popViewController(animated: true)
                     }
-                case .none:
-                    break
-                }
-            }
-            .store(in: &self.cancellables)
-    }
-    private func bindPhoneAuth() {
-        self.viewModel?.$phoneAuthStatus
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                switch status {
-                case .authComplete:
-                    self?.configureUIForAuthComplete()
-                case .authNumSent:
-                    self?.configureUIForAuthSent()
-                case .cancel:
-                    self?.configureUIForAuthCanceled()
-                case .wrongAuthNumber:
-                    self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
-                case .invaildPhoneNum:
-                    self?.coloredFrameLabels[1].configure(type: .warning("올바른 전화번호를 입력해주세요."))
-                case .none:
-                    break
-                }
-            }
-            .store(in: &self.cancellables)
-    }
-    private func bindChangeNicknameStatus() {
-        self.viewModel?.$changeNicknameStatus
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                switch status {
-                case .success:
-                    self?.nickname.resignFirstResponder()
-                    self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
-                case .fail:
-                    self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
                 case .none:
                     break
                 }
@@ -356,7 +342,7 @@ extension LoginSignupVC: UICollectionViewDelegateFlowLayout {
 extension LoginSignupVC: SchoolSelectAction {
     func schoolSelected(_ name: String) {
         self.dismissKeyboard()
-        self.viewModel?.schoolName = name
+        self.viewModel?.selectSchool(name)
         self.schoolFinder.setTitle(name, for: .normal)
         self.schoolSearchView?.dismiss(animated: true, completion: nil)
     }
@@ -374,19 +360,19 @@ extension LoginSignupVC: UITextFieldDelegate {
     }
     private func checkIfTextChangeAvailable(_ textField: UITextField) -> Bool {
         guard textField == phonenumTextField else { return true }
-        switch self.viewModel?.phoneAuthStatus {
-        case .authComplete:
+        guard let status = self.viewModel?.status else { return true }
+        if status == .codeAuthComplete {
             self.showAlertWithCancelAndOK(title: "인증 완료됨", text: "인증 완료된 전화번호를 바꾸시겠습니까?") { [weak self] in
-                self?.viewModel?.cancelPhoneAuth()
+                self?.configureUIForAuthCanceled()
+                self?.viewModel?.cancelAuth()
             }
             return false
-        case .authNumSent:
+        } else if status == .codeSent {
             self.showAlertWithCancelAndOK(title: "인증 진행중", text: "진행중인 인증을 취소하시겠습니까?") { [weak self] in
-                self?.viewModel?.cancelPhoneAuth()
+                self?.configureUIForAuthCanceled()
+                self?.viewModel?.cancelAuth()
             }
             return false
-        default:
-            break
         }
         return true
     }

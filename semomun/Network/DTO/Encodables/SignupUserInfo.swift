@@ -21,4 +21,9 @@ struct SignupUserInfo: Encodable {
     var majorDetail: String?
     var favoriteTags: [Int] = []
     var graduationStatus: String?
+    
+    var canSubmit: Bool {
+        return [username, school, major, majorDetail, graduationStatus].allSatisfy { $0 != nil }
+        && phone?.isValidPhoneNumberWithCountryCode == true
+    }
 }
