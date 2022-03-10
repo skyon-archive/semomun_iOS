@@ -214,6 +214,7 @@ extension BookshelfVC {
                     self?.showLoader()
                 } else {
                     self?.removeLoader()
+                    self?.reloadBookshelf()
                 }
             })
             .store(in: &self.cancellables)
