@@ -80,9 +80,10 @@ final class BookshelfVM {
         print("---------- sync bookshelf ----------")
         userPurchases.forEach { info in
             // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
+            // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localBookWids.contains(Int64(info.wid)) {
                 let targetWorkbook = self.books.first { $0.wid == Int64(info.wid) }
-                targetWorkbook?.updateDate(info.recentDate)
+                targetWorkbook?.updateDate(info)
                 print("local preview(\(info.wid) update complete")
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
