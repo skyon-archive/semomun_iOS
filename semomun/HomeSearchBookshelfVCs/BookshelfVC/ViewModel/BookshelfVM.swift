@@ -59,11 +59,39 @@ final class BookshelfVM {
         self.networkUsecse.getBookshelfInfos { [weak self] status, infos in
             switch status {
             case .SUCCESS:
-                print(infos)
+                if infos.isEmpty == false {
+                    self?.syncBookshelf(infos: infos)
+                } else {
+                    self?.loading = false
+                }
             default:
+                self?.loading = false
                 self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
         }
+    }
+    
+    private func syncBookshelf(infos: [BookshelfInfoOfDB]) {
+        let userPurchases = infos.map { BookshelfInfo(info: $0) }.sorted(by: { $0.wid != $1.wid ? ($0.wid < $1.wid) : ($0.purchased > $1.purchased) }) // wid 순으로 정렬, 동일 wid 시 purchased 내림차준 정렬
+        var dict: [Int: [BookshelfInfo]] = [:]
+        print("before: \(userPurchases)")
+        userPurchases.forEach { info in
+            if var values = dict[info.wid] {
+                values.append(info)
+            } else {
+                dict[info.wid] = [info]
+            }
+        }
+        var filteredUserPurchases: [BookshelfInfo] = []
+        dict.values.forEach { infos in
+            let maxDate = infos.map { $0.purchased }.max()
+            infos.forEach { info in
+                if info.purchased == maxDate {
+                    filteredUserPurchases.append(info)
+                }
+            }
+        }
+        print("after: \(filteredUserPurchases)")
         self.loading = false
     }
 }
