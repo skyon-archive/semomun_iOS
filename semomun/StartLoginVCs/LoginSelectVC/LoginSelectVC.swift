@@ -11,20 +11,26 @@ import AuthenticationServices
 import GoogleSignIn
 
 final class LoginSelectVC: UIViewController {
+    private enum ButtonUIConstants {
+        static let buttonWidth: CGFloat = 309
+        static let buttonHeight: CGFloat = 54
+        static let buttonRadius: CGFloat = 10
+    }
+    
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"
     
     @IBOutlet weak var semomunTitle: UILabel!
     
-    var showPopup = true
+    var serviceInfoViewNeeded = true
     var signupInfo: SignupUserInfo?
     
-    private let buttonWidth: CGFloat = 309
-    private let buttonHeight: CGFloat = 54
-    private let buttonRadius: CGFloat = 10
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
-    
     private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()))
+    
+    private var isSignup: Bool {
+        return self.signupInfo != nil
+    }
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
@@ -35,6 +41,130 @@ final class LoginSelectVC: UIViewController {
     }
 }
 
+// MARK: Apple로 로그인 버튼
+extension LoginSelectVC {
+    private func configureSignInWithAppleButton() {
+        let button = self.makeAppleButton()
+        self.configureButtonAction(button, loginMethod: .apple)
+        self.configureButtonUI(button, verticalSpaceToSemomunTitle: 73)
+    }
+    
+    private func makeAppleButton() -> ASAuthorizationAppleIDButton {
+        if self.isSignup {
+            return ASAuthorizationAppleIDButton(type: .signUp, style: .black)
+        } else {
+            return ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        }
+    }
+}
+
+// MARK: Google로 로그인 버튼
+extension LoginSelectVC {
+    private func configureSignInWithGoogleButton() {
+        let button = makeGoogleButton()
+        let contentContainer = self.makeGoogleButtonContentContainer()
+        let googleIcon = self.makeGoogleIcon()
+        let text = self.makeGoogleLabel()
+        
+        self.doNotTranslateAutoresizingMaskIntoConstraints(
+            of: button, contentContainer, googleIcon, text
+        )
+        button.addSubviews(contentContainer, googleIcon, text)
+
+        self.layoutGoogleButtonContentContainer(button: button, container: contentContainer)
+        self.layoutGoogleIcon(contentContainer: contentContainer, icon: googleIcon)
+        self.layoutGoogleLabel(contentContainer: contentContainer, label: text, icon: googleIcon)
+        
+        self.configureButtonAction(button, loginMethod: .google)
+        self.configureButtonUI(button, verticalSpaceToSemomunTitle: 145)
+    }
+    
+    private func makeGoogleButton() -> UIControl {
+        let signInWithGoogleButton = UIControl()
+        signInWithGoogleButton.backgroundColor = .white
+        return signInWithGoogleButton
+    }
+    
+    private func makeGoogleButtonContentContainer() -> UIView {
+        let buttonContentContainer = UIView()
+        return buttonContentContainer
+    }
+    
+    private func makeGoogleIcon() -> UIImageView {
+        let googleIconImg = UIImage(.googleLogo)
+        let googleIcon = UIImageView(image: googleIconImg)
+        return googleIcon
+    }
+    
+    private func makeGoogleLabel() -> UILabel {
+        let text = UILabel()
+        text.text = self.isSignup ? "Google로 등록" : "Google로 로그인"
+        text.textColor = UIColor(.grayTextColor)
+        text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return text
+    }
+    
+    private func layoutGoogleButtonContentContainer(button: UIView, container: UIView) {
+        NSLayoutConstraint.activate([
+            container.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            container.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+        ])
+    }
+    
+    private func layoutGoogleIcon(contentContainer: UIView, icon: UIView) {
+        NSLayoutConstraint.activate([
+            icon.widthAnchor.constraint(equalToConstant: 20),
+            icon.heightAnchor.constraint(equalToConstant: 20),
+            icon.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor),
+            icon.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor)
+        ])
+    }
+    
+    private func layoutGoogleLabel(contentContainer: UIView, label: UIView, icon: UIView) {
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 5),
+            label.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor)
+        ])
+    }
+    
+    private func doNotTranslateAutoresizingMaskIntoConstraints(of views: UIView...) {
+        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = true }
+    }
+}
+
+// MARK: 버튼 configure 공통
+extension LoginSelectVC {
+    private func configureButtonAction(_ button: UIControl, loginMethod: LoginMethod) {
+        let action = UIAction { [weak self] _ in
+            self?.signInButtonAction(loginMethod: loginMethod)
+        }
+        button.addAction(action, for: .touchUpInside)
+    }
+    
+    private func configureButtonUI(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
+        self.configureButtonLayer(button)
+        self.configureButtonLayout(button, verticalSpaceToSemomunTitle: verticalSpaceToSemomunTitle)
+    }
+    
+    private func configureButtonLayer(_ button: UIView) {
+        button.layer.cornerRadius = Self.ButtonUIConstants.buttonRadius
+        button.addShadow(direction: .bottom)
+    }
+    
+    private func configureButtonLayout(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: Self.ButtonUIConstants.buttonWidth),
+            button.heightAnchor.constraint(equalToConstant: Self.ButtonUIConstants.buttonHeight),
+            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: verticalSpaceToSemomunTitle),
+            button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
+        ])
+    }
+}
+
+// MARK: Bindings
 extension LoginSelectVC {
     private func bindAll() {
         self.bindAlert()
@@ -56,31 +186,42 @@ extension LoginSelectVC {
             .sink { [weak self] status in
                 switch status {
                 case .userNotExist:
-                    self?.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
+                    self?.showUserNotExistAlert()
                 case .userAlreadyExist:
-                    let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
-                    let alertActions = [
-                        UIAlertAction(title: "취소", style: .default),
-                        UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
-                            // TODO: 잘 덮어씌우기
-                            
-                        }
-                    ]
-                    alertActions.forEach { alertController.addAction($0) }
-                    self?.present(alertController, animated: true)
+                    self?.showUserAlreadyExistAlert()
                 case .complete:
-                    self?.showAlertWithOK(title: "로그인 완료", text: "로그인에 성공하였습니다.") { [weak self] in
-                        self?.presentingViewController?.dismiss(animated: true, completion: nil)
-                        NotificationCenter.default.post(name: .logined, object: nil)
-                    }
+                    self?.showCompleteAlert()
                 case .none:
                     break
                 }
-                
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func showUserNotExistAlert() {
+        self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func showUserAlreadyExistAlert() {
+        let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
+        let alertActions = [
+            UIAlertAction(title: "취소", style: .default),
+            UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
+                // TODO: 잘 덮어씌우기
+                
+            }
+        ]
+        alertActions.forEach { alertController.addAction($0) }
+        self.present(alertController, animated: true)
+    }
+    
+    private func showCompleteAlert() {
+        self.showAlertWithOK(title: "로그인 완료", text: "로그인에 성공하였습니다.") { [weak self] in
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: .logined, object: nil)
+        }
     }
 }
 
@@ -90,8 +231,9 @@ extension LoginSelectVC {
         case apple, google
     }
     
+    /// 버튼에 할당된 액션
     private func signInButtonAction(loginMethod: LoginMethod) {
-        if self.showPopup {
+        if self.serviceInfoViewNeeded {
             self.showServiceInfoView(loginMethod: loginMethod)
         } else {
             self.performLogin(loginMethod: loginMethod)
@@ -136,18 +278,6 @@ extension LoginSelectVC {
     }
 }
 
-extension LoginSelectVC {
-    /// 로그인 시도 후 userID를 받아 처리
-    private func processLogin(userIDToken: NetworkURL.UserIDToken) {
-        if let signupInfo = self.signupInfo {
-            self.viewModel.signup(userIDToken: userIDToken, userInfo: signupInfo)
-        } else {
-            self.viewModel.login(userIDToken: userIDToken)
-        }
-    }
-}
-
-// MARK: AuthenticationServices Protocols
 extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
@@ -171,82 +301,12 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
             self.processLogin(userIDToken: .google(idToken))
         }
     }
-}
-
-// MARK: 버튼 디자인/기능 설정
-extension LoginSelectVC {
-    private func configureSignInWithAppleButton() {
-        let authorizationButton: ASAuthorizationAppleIDButton
-        if self.signupInfo != nil {
-            authorizationButton = ASAuthorizationAppleIDButton(type: .signUp, style: .black)
+    
+    private func processLogin(userIDToken: NetworkURL.UserIDToken) {
+        if let signupInfo = self.signupInfo {
+            self.viewModel.signup(userIDToken: userIDToken, userInfo: signupInfo)
         } else {
-            authorizationButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+            self.viewModel.login(userIDToken: userIDToken)
         }
-        authorizationButton.layer.cornerRadius = self.buttonRadius
-        let action = UIAction { [weak self] _ in
-            self?.signInButtonAction(loginMethod: .apple)
-        }
-        authorizationButton.addAction(action, for: .touchUpInside)
-        self.configureSignInButtonLayout(authorizationButton, verticalSpaceToSemomunTitle: 73)
-    }
-    
-    private func configureSignInWithGoogleButton() {
-        let signInWithGoogleButton = UIControl()
-        signInWithGoogleButton.backgroundColor = .white
-        signInWithGoogleButton.layer.cornerRadius = self.buttonRadius
-        
-        // 버튼 내용물의 container view
-        let buttonContentContainer = UIView()
-        signInWithGoogleButton.addSubview(buttonContentContainer)
-        buttonContentContainer.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            buttonContentContainer.centerXAnchor.constraint(equalTo: signInWithGoogleButton.centerXAnchor),
-            buttonContentContainer.centerYAnchor.constraint(equalTo: signInWithGoogleButton.centerYAnchor),
-        ])
-        
-        // Google 로고
-        let googleIconImg = UIImage(.googleLogo)
-        let googleIcon = UIImageView(image: googleIconImg)
-        googleIcon.translatesAutoresizingMaskIntoConstraints = false
-        buttonContentContainer.addSubview(googleIcon)
-        NSLayoutConstraint.activate([
-            googleIcon.widthAnchor.constraint(equalToConstant: 20),
-            googleIcon.heightAnchor.constraint(equalToConstant: 20),
-            googleIcon.centerYAnchor.constraint(equalTo: buttonContentContainer.centerYAnchor),
-            googleIcon.leadingAnchor.constraint(equalTo: buttonContentContainer.leadingAnchor)
-        ])
-        
-        // Google로 로그인 라벨
-        let text = UILabel()
-        text.text = self.signupInfo != nil ? "Google로 등록" : "Google로 로그인"
-        text.textColor = UIColor(.grayTextColor)
-        text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        text.translatesAutoresizingMaskIntoConstraints = false
-        buttonContentContainer.addSubview(text)
-        NSLayoutConstraint.activate([
-            text.leadingAnchor.constraint(equalTo: googleIcon.trailingAnchor, constant: 5),
-            text.centerYAnchor.constraint(equalTo: buttonContentContainer.centerYAnchor),
-            text.trailingAnchor.constraint(equalTo: buttonContentContainer.trailingAnchor)
-        ])
-        
-        // Action 설정
-        let action = UIAction { [weak self] _ in
-            self?.signInButtonAction(loginMethod: .google)
-        }
-        signInWithGoogleButton.addAction(action, for: .touchUpInside)
-        
-        self.configureSignInButtonLayout(signInWithGoogleButton, verticalSpaceToSemomunTitle: 145)
-    }
-    
-    private func configureSignInButtonLayout(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: self.buttonWidth),
-            button.heightAnchor.constraint(equalToConstant: self.buttonHeight),
-            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: verticalSpaceToSemomunTitle),
-            button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
-        ])
-        button.addShadow(direction: .bottom)
     }
 }
