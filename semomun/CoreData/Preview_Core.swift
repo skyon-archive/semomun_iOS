@@ -95,26 +95,6 @@ public class Preview_Core: NSManagedObject{
         return "Preview(\(self.wid), \(self.image!), \(self.title!), \(self.subject!), \(self.sids), \(self.terminated), \(self.category!), \(self.downloaded)\n"
     }
     
-    func setValues(workbook: WorkbookOfDB, bookcoverData: Data) {
-        self.setValue(Int64(workbook.productID), forKey: Attribute.productID.rawValue)
-        self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
-        self.setValue(workbook.title, forKey: Attribute.title.rawValue)
-        self.setValue(workbook.detail, forKey: Attribute.detail.rawValue)
-        self.setValue(workbook.isbn, forKey: Attribute.isbn.rawValue)
-        self.setValue(workbook.author, forKey: Attribute.author.rawValue)
-        self.setValue(workbook.publishCompany, forKey: Attribute.publisher.rawValue)
-        self.setValue(workbook.publishedDate, forKey: Attribute.publishedDate.rawValue)
-        self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
-        self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
-        self.setValue(workbook.updatedDate, forKey: Attribute.updatedDate.rawValue)
-        self.setValue(workbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
-        self.setValue(Double(workbook.price), forKey: Attribute.price.rawValue)
-        self.setValue(workbook.tags.map(\.name), forKey: Attribute.tags.rawValue)
-        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize})), forKey: Attribute.fileSize.rawValue)
-        self.setValue(bookcoverData, forKey: Attribute.image.rawValue)
-        print("savePreview complete")
-    }
-    
     func setValues(workbook: WorkbookOfDB, info: BookshelfInfo) {
         self.setValue(Int64(workbook.productID), forKey: Attribute.productID.rawValue)
         self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
@@ -133,7 +113,13 @@ public class Preview_Core: NSManagedObject{
         self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize })), forKey: Attribute.fileSize.rawValue)
         self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
         self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
-        // TODO: image 저장 로직이 필요
+    }
+    
+    func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
+        networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover) { [weak self] status, data in
+            self?.setValue(data, forKey: Attribute.image.rawValue)
+            completion()
+        }
     }
     
     func updateDate(_ date: Date?) {

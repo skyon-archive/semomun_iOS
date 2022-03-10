@@ -46,9 +46,7 @@ class BookshelfCell: UICollectionViewCell {
     func configure(with book: Preview_Core) {
         self.title.text = book.title
         if let imageData = book.image {
-            DispatchQueue.main.async { [weak self] in
-                self?.bookcover.image = UIImage(data: imageData)
-            }
+            self.bookcover.image = UIImage(data: imageData)
         }
         let author = book.author != "" ? (book.author ?? "저자 정보 없음") : "저자 정보 없음"
         let publisher = book.publisher != "" ? (book.publisher ?? "출판사 정보 없음") : "출판사 정보 없음"

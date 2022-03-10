@@ -94,12 +94,15 @@ final class BookshelfVM {
                         let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
                         sectionHeader_core.setValues(section: section)
                     }
-                    print("save preview(\(info.wid)) complete")
-                    currentCount += 1
                     
-                    if currentCount == fetchCount {
-                        CoreDataManager.saveCoreData()
-                        self?.loading = false
+                    preview_core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecse) { [weak self] in
+                        print("save preview(\(info.wid)) complete")
+                        currentCount += 1
+                        
+                        if currentCount == fetchCount {
+                            CoreDataManager.saveCoreData()
+                            self?.loading = false
+                        }
                     }
                 }
             }

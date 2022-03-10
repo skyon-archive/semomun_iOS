@@ -90,7 +90,8 @@ extension BookshelfVC {
         if let order = UserDefaultsManager.get(forKey: .bookshelfOrder) as? String {
             self.order = SortOrder(rawValue: order) ?? .purchase
         }
-        self.sortSelector.menu = UIMenu(title: self.order.rawValue, image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.sortSelector.setTitle(self.order.rawValue, for: .normal)
+        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
         self.sortSelector.showsMenuAsPrimaryAction = true
     }
     
@@ -162,6 +163,7 @@ extension BookshelfVC {
 extension BookshelfVC {
     private func changeSort(to order: SortOrder) {
         self.order = order
+        UserDefaultsManager.set(to: order.rawValue, forKey: .bookshelfOrder)
         self.sortSelector.setTitle(order.rawValue, for: .normal)
         self.reloadBookshelf()
     }
