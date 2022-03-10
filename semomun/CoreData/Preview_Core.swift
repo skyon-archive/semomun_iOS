@@ -115,7 +115,29 @@ public class Preview_Core: NSManagedObject{
         print("savePreview complete")
     }
     
-    func updateDate(_ date: Date) {
+    func setValues(workbook: WorkbookOfDB, info: BookshelfInfo) {
+        self.setValue(Int64(workbook.productID), forKey: Attribute.productID.rawValue)
+        self.setValue(Int64(workbook.wid), forKey: Attribute.wid.rawValue)
+        self.setValue(workbook.title, forKey: Attribute.title.rawValue)
+        self.setValue(workbook.detail, forKey: Attribute.detail.rawValue)
+        self.setValue(workbook.isbn, forKey: Attribute.isbn.rawValue)
+        self.setValue(workbook.author, forKey: Attribute.author.rawValue)
+        self.setValue(workbook.publishCompany, forKey: Attribute.publisher.rawValue)
+        self.setValue(workbook.publishedDate, forKey: Attribute.publishedDate.rawValue)
+        self.setValue(workbook.publishMan, forKey: Attribute.publishMan.rawValue)
+        self.setValue(workbook.originalPrice, forKey: Attribute.originalPrice.rawValue)
+        self.setValue(workbook.updatedDate, forKey: Attribute.updatedDate.rawValue)
+        self.setValue(workbook.sections.map(\.sid), forKey: Attribute.sids.rawValue)
+        self.setValue(Double(workbook.price), forKey: Attribute.price.rawValue)
+        self.setValue(workbook.tags.map(\.name), forKey: Attribute.tags.rawValue)
+        self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize })), forKey: Attribute.fileSize.rawValue)
+        self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
+        self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
+        // TODO: image 저장 로직이 필요
+    }
+    
+    func updateDate(_ date: Date?) {
+        // nil 또는 최신값을 그대로 저장
         self.setValue(date, forKey: Attribute.recentDate.rawValue)
     }
 }
