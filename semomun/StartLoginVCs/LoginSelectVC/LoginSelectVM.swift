@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias LoginSelectVMNetworkUsecase = (LoginSignupPostable & UserInfoSendable & UserInfoFetchable)
+
 class LoginSelectVM {
     enum LoginSelectVMAlert {
         static let decodeError = (title: "수신 불가", description: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
@@ -22,13 +24,16 @@ class LoginSelectVM {
     @Published var alert: (title: String, description: String?)?
     @Published var status: LoginSelectVMStatus?
     
-    private let networkUsecase: LoginSignupPostable
+    /// 덮어쓰기를 위해 저장해놓는 값
+    private var backupForPaste: NetworkURL.UserIDToken?
+    private let networkUsecase: LoginSelectVMNetworkUsecase
     
-    init(networkUsecase: LoginSignupPostable) {
+    init(networkUsecase: LoginSelectVMNetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
+        self.backupForPaste = userIDToken
         self.networkUsecase.postSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] result in
             self?.handleSignupNetworkResult(token: userIDToken.userID, networkResult: result)
         }
@@ -39,6 +44,16 @@ class LoginSelectVM {
             self?.handleLoginNetworkResult(token: userIDToken.userID, networkResult: result)
         }
     }
+    
+    func pasteUserInfo(signupUserInfo: SignupUserInfo) {
+        guard let backupForPaste = backupForPaste else {
+            assertionFailure()
+            return
+        }
+        self.networkUsecase.postLogin(userToken: backupForPaste) { [weak self] result in
+            self?.handlePasteNetworkResult(signupUserInfo: signupUserInfo, token: backupForPaste.userID, status: result.status)
+        }
+    }
 }
 
 // MARK: 회원가입
@@ -46,6 +61,7 @@ extension LoginSelectVM {
     private func handleSignupNetworkResult(token: String, networkResult: (status: NetworkStatus, userAlreadyExist: Bool)) {
         if networkResult.userAlreadyExist {
             self.status = .userAlreadyExist
+            
         } else {
             self.handleSignupNetworkStatus(token: token, status: networkResult.status)
         }
@@ -100,6 +116,61 @@ extension LoginSelectVM {
                 self?.alert = LoginSelectVMAlert.networkError
             }
         }
+    }
+}
+
+// MARK: 기존 정보 붙여넣기
+extension LoginSelectVM {
+    private func handlePasteNetworkResult(signupUserInfo: SignupUserInfo, token: String, status: NetworkStatus) {
+        switch status {
+        case .SUCCESS:
+            self.postUpdatedUserInfo(signupUserInfo: signupUserInfo) { isSuccess in
+                if isSuccess {
+                    self.setLocalDataAfterLoginSuccess(token: token)
+                } else {
+                    self.alert = LoginSelectVMAlert.networkError
+                }
+            }
+        default:
+            self.alert = LoginSelectVMAlert.networkError
+        }
+    }
+    
+    private func postUpdatedUserInfo(signupUserInfo: SignupUserInfo, completion: @escaping (Bool) -> Void) {
+        self.networkUsecase.getUserInfo { [weak self] status, userInfo in
+            guard let strongSelf = self else {
+                completion(false)
+                return
+            }
+            guard let userInfo = userInfo else {
+                strongSelf.alert = LoginSelectVMAlert.networkError
+                completion(false)
+                return
+            }
+            if case .SUCCESS = status {
+                let updatedUserInfo = strongSelf.makePastedUserInfo(signupUserInfo: signupUserInfo, userInfo: userInfo)
+                strongSelf.networkUsecase.putUserInfoUpdate(userInfo: updatedUserInfo) { status in
+                    if case .SUCCESS = status {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
+    private func makePastedUserInfo(signupUserInfo: SignupUserInfo, userInfo: UserInfo) -> UserInfo {
+        var updatedUserInfo = userInfo
+        updatedUserInfo.graduationStatus = signupUserInfo.graduationStatus
+        updatedUserInfo.major = signupUserInfo.major
+        updatedUserInfo.majorDetail = signupUserInfo.majorDetail
+        updatedUserInfo.phoneNumber = signupUserInfo.phone
+        updatedUserInfo.school = signupUserInfo.school
+        updatedUserInfo.username = signupUserInfo.username
+        return updatedUserInfo
     }
 }
 
