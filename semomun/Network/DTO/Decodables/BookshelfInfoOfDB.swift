@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BookshelfInfo: Decodable {
+struct BookshelfInfoOfDB: Decodable {
     let wid: Int
     let recentDate: Date?
     let purchasedDates: [PurchasedDate]
@@ -24,5 +24,18 @@ struct PurchasedDate: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case purchased = "createdAt"
+    }
+}
+
+
+struct BookshelfInfo {
+    let wid: Int
+    let recentDate: Date?
+    let purchased: Date
+    
+    init(info: BookshelfInfoOfDB) {
+        self.wid = info.wid
+        self.recentDate = info.recentDate
+        self.purchased = info.purchasedDates.first!.purchased // 구매내역은 1개이상, 구매일자는 필수로 존재
     }
 }
