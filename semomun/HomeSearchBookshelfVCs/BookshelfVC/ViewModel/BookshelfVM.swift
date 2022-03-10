@@ -19,7 +19,7 @@ final class BookshelfVM {
     }
     
     func reloadBookshelf(order: BookshelfVC.SortOrder) {
-        print(order)
+        print("reload Bookshelf, order: \(order)")
         guard let previews = CoreUsecase.fetchPreviews() else {
             print("no previews")
             return
@@ -72,26 +72,43 @@ final class BookshelfVM {
     }
     
     private func syncBookshelf(infos: [BookshelfInfoOfDB]) {
-        let userPurchases = infos.map { BookshelfInfo(info: $0) }.sorted(by: { $0.wid != $1.wid ? ($0.wid < $1.wid) : ($0.purchased > $1.purchased) }) // wid 순으로 정렬, 동일 wid 시 purchased 내림차준 정렬
-        var dict: [Int: [BookshelfInfo]] = [:]
-        print("before: \(userPurchases)")
+        let localBookWids = self.books.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
+        let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
+        // Local 내에 없는 book 정보들의 수를 센다
+        let fetchCount: Int = userPurchases.filter { localBookWids.contains(Int64($0.wid)) == false }.count
+        var currentCount: Int = 0
+        print("---------- sync bookshelf ----------")
         userPurchases.forEach { info in
-            if var values = dict[info.wid] {
-                values.append(info)
-            } else {
-                dict[info.wid] = [info]
+            // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
+            if localBookWids.contains(Int64(info.wid)) {
+                let targetWorkbook = self.books.first { $0.wid == Int64(info.wid) }
+                targetWorkbook?.updateDate(info.recentDate)
+                print("local preview(\(info.wid) update complete")
             }
-        }
-        var filteredUserPurchases: [BookshelfInfo] = []
-        dict.values.forEach { infos in
-            let maxDate = infos.map { $0.purchased }.max()
-            infos.forEach { info in
-                if info.purchased == maxDate {
-                    filteredUserPurchases.append(info)
+            // Local 내에 없는 경우 필요정보를 받아와 저장한다
+            else {
+                self.networkUsecse.getWorkbook(wid: info.wid) { [weak self] workbook in
+                    let preview_core = Preview_Core(context: CoreDataManager.shared.context)
+                    preview_core.setValues(workbook: workbook, info: info)
+                    workbook.sections.forEach { section in
+                        let sectionHeader_core = SectionHeader_Core(context: CoreDataManager.shared.context)
+                        sectionHeader_core.setValues(section: section)
+                    }
+                    print("save preview(\(info.wid)) complete")
+                    currentCount += 1
+                    
+                    if currentCount == fetchCount {
+                        CoreDataManager.saveCoreData()
+                        self?.loading = false
+                    }
                 }
             }
         }
-        print("after: \(filteredUserPurchases)")
-        self.loading = false
+        
+        // fetch 할 정보가 없을 경우 loading 종료
+        if fetchCount == 0 {
+            CoreDataManager.saveCoreData()
+            self.loading = false
+        }
     }
 }
