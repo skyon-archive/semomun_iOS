@@ -12,7 +12,7 @@ typealias SyncFetchable = (UserInfoFetchable)
 struct SyncUsecase {
     
     enum SyncError: Error {
-        case networkFail, coreDataFetchFail, noCoreData
+        case networkFail, coreDataFetchFail
     }
     
     static private let networkUsecase: SyncFetchable = NetworkUsecase(network: Network())
@@ -20,24 +20,28 @@ struct SyncUsecase {
     static func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
-            case .SUCCESS:
-                guard let userInfo = userInfo else {
-                    completion(.failure(.networkFail))
-                    return
-                }
-                if let userCoreData = CoreUsecase.fetchUserInfo() {
-                    userCoreData.setValues(userInfo: userInfo)
-                    CoreDataManager.saveCoreData()
-                } else {
-                    CoreUsecase.createUserCoreData(userInfo: userInfo)
-                }
-                completion(.success(userInfo))
+            case .SUCCESS where userInfo != nil:
+                self.saveUserInfoToCoreData(userInfo!)
+                completion(.success(userInfo!))
             case .TOKENEXPIRED:
-                LogoutUsecase.logout()
-                NotificationCenter.default.post(name: .logout, object: nil)
+                self.handleTokenExpire()
             default:
                 completion(.failure(.networkFail))
             }
         }
+    }
+    
+    static private func saveUserInfoToCoreData(_ userInfo: UserInfo) {
+        if let userCoreData = CoreUsecase.fetchUserInfo() {
+            userCoreData.setValues(userInfo: userInfo)
+            CoreDataManager.saveCoreData()
+        } else {
+            CoreUsecase.createUserCoreData(userInfo: userInfo)
+        }
+    }
+    
+    static private func handleTokenExpire() {
+        LogoutUsecase.logout()
+        NotificationCenter.default.post(name: .logout, object: nil)
     }
 }
