@@ -122,8 +122,9 @@ public class Preview_Core: NSManagedObject{
         }
     }
     
-    func updateDate(_ date: Date?) {
+    func updateDate(_ info: BookshelfInfo?) {
         // nil 또는 최신값을 그대로 저장
-        self.setValue(date, forKey: Attribute.recentDate.rawValue)
+        self.setValue(info?.purchased, forKey: Attribute.purchasedDate.rawValue)
+        self.setValue(info?.recentDate, forKey: Attribute.recentDate.rawValue)
     }
 }

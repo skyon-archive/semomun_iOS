@@ -28,9 +28,11 @@ class BookshelfVC: UIViewController {
     private lazy var loadingView = LoadingView()
     private var isMigration: Bool = false
     private var order: SortOrder = .purchase
+    private var logined: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("책장 viewDidLoad")
         self.configureUI()
         self.configureViewModel()
         self.configureCollectionView()
@@ -47,7 +49,13 @@ class BookshelfVC: UIViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        self.syncBookshelf()
+        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        if self.logined {
+            self.syncBookshelf()
+        } else {
+            self.spinAnimation()
+            // login 없는 상태, 표시할 팝업이 있다면?
+        }
     }
     
     private func spinAnimation() {
@@ -101,21 +109,24 @@ extension BookshelfVC {
     }
     
     private func checkMigration() {
-        let logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         let coreVersion = UserDefaultsManager.get(forKey: .coreVersion) as? String ?? String.pastVersion
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
-        if logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
+        if self.logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
             print("migration start")
             self.showLoader()
             self.isMigration = true
-        } else {
+        } else if self.logined {
             self.reloadBookshelf()
             self.syncBookshelf()
+        } else {
+            // login 없는 상태, 뭔가 UI적으로 표시할 게 있다면?
         }
     }
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
+            self?.logined = true
             self?.syncBookshelf()
         }
     }
@@ -130,10 +141,10 @@ extension BookshelfVC {
                 print("migration fail")
                 return
             }
-            // TODO: Migration 의 경우 syncBookshelf 에서 purchased 값을 저장하는 로직이 필요
+            
             UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
             CoreDataManager.saveCoreData()
-            self?.reloadBookshelf()
+            self?.syncBookshelf()
             print("migration success")
         }
     }
@@ -163,9 +174,14 @@ extension BookshelfVC {
 extension BookshelfVC {
     private func changeSort(to order: SortOrder) {
         self.order = order
-        UserDefaultsManager.set(to: order.rawValue, forKey: .bookshelfOrder)
         self.sortSelector.setTitle(order.rawValue, for: .normal)
-        self.reloadBookshelf()
+        UserDefaultsManager.set(to: order.rawValue, forKey: .bookshelfOrder)
+        
+        if self.logined {
+            self.reloadBookshelf()
+        } else {
+            // login 없는 상태, 표시할 팝업이 있다면?
+        }
     }
     
     private func reloadBookshelf() {
