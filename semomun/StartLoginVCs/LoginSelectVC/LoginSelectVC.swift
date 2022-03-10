@@ -209,8 +209,11 @@ extension LoginSelectVC {
         let alertActions = [
             UIAlertAction(title: "취소", style: .default),
             UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
-                // TODO: 잘 덮어씌우기
-                
+                guard let signupUserInfo = self?.signupInfo else {
+                    assertionFailure()
+                    return
+                }
+                self?.viewModel.pasteUserInfo(signupUserInfo: signupUserInfo)
             }
         ]
         alertActions.forEach { alertController.addAction($0) }
