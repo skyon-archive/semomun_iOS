@@ -7,10 +7,25 @@
 
 import Foundation
 
-/// 하나의 페이 충전 내역을 표현
-/// - Note: [Codable로 Date 바로 변환하기.](https://useyourloaf.com/blog/swift-codable-with-custom-dates/)
+struct PayHistoryGroup: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case count
+        case content = "history"
+    }
+    let count: Int
+    let content: [PayHistory]
+}
+
 struct PayHistory: Decodable {
-    let wid: Int?
-    let date: Date
-    let cost: Double // 가격이 중간에 변동될 수도 있을듯
+    let amount: Int /// 양수면 충전, 음수 또는 0이면 구매
+    let item: PurchasedItem
+}
+
+struct PurchasedItem: Codable {
+    let workbook: PurchasedWorkbook
+}
+
+struct PurchasedWorkbook: Codable {
+    let title: String
+    let bookcover: UUID
 }
