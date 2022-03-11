@@ -35,9 +35,14 @@ final class SemopayCell: UITableViewCell {
 // MARK: Cell 정보 configure
 extension SemopayCell {
     func configureCell(using purchase: PayHistory) {
-        self.setTitle(using: purchase.wid)
-        self.setCost(to: purchase.cost)
-        self.setDate(using: purchase.date)
+        if self.isPurchaseCharge(purchase) {
+            self.setTitleLabelForPayCharge()
+        } else {
+            self.setTitleLabelForWorkbook(workbook: purchase.item.workbook)
+        }
+        
+        self.setCostLabel(transaction: purchase.transaction)
+        self.setDate(using: purchase.createdDate)
     }
     
     func configureNetworkUsecase(_ networkUsecase: SemopayCellNetworkUsecase) {
@@ -65,47 +70,63 @@ extension SemopayCell {
 }
 
 extension SemopayCell {
-    private func setTitle(using wid: Int?) {
-        if let wid = wid {
-            // TODO: 네트워크로만 연결 가능하게 하기.
-            if let preview = CoreUsecase.fetchPreview(wid: wid) {
-                self.historyTitle.text = preview.title
-            } else {
-                self.networkUsecase?.getWorkbook(wid: wid) { [weak self] workbook in
-                    self?.historyTitle.text = workbook.title
-                }
-            }
+    private func isPurchaseCharge(_ purchase: PayHistory) -> Bool {
+        if case .charge = purchase.transaction {
+            return true
         } else {
-            self.historyTitle.text = "세모페이 충전"
+            return false
         }
+    }
+    
+    private func setTitleLabelForPayCharge() {
+        self.historyTitle.text = "세모페이 충전"
+    }
+    
+    private func setTitleLabelForWorkbook(workbook: PurchasedWorkbook) {
+        self.historyTitle.text = workbook.title
     }
     
     private func setDate(using date: Date) {
         self.date.text = date.yearMonthDayText
     }
     
-    private func setCost(to cost: Double) {
-        var costStr = Int(cost).withCommaAndSign ?? "0"
-        costStr += "원"
-        let attrString = NSMutableAttributedString(string: costStr)
-        let costRange = NSRange(location: 0, length: costStr.count-1)
-        let costAttribute = [
-            NSAttributedString.Key.foregroundColor: color(of: cost),
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)]
-        attrString.addAttributes(costAttribute, range: costRange)
+    private func setCostLabel(transaction: Transaction) {
+        let labelColor = self.getCostLabelColor(transaction: transaction)
+        let costLabelNumberPart = self.getCostLabelNumberPart(transaction: transaction)
+        
+        let numberPartRange = NSRange(location: 0, length: costLabelNumberPart.count)
+        let costLabel = costLabelNumberPart + "원"
+        
+        let attrString = NSMutableAttributedString(string: costLabel)
+        let numberPartAttribute = [
+            NSAttributedString.Key.foregroundColor: labelColor,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)
+        ]
+        
+        attrString.addAttributes(numberPartAttribute, range: numberPartRange)
         self.cost.attributedText = attrString
     }
     
-    private func color(of cost: Double) -> UIColor {
+    private func getCostLabelNumberPart(transaction: Transaction) -> String {
+        switch transaction {
+        case .charge(let text), .purchase(let text):
+            return text.withCommaAndSign
+        case .free:
+            return "0"
+        }
+    }
+    
+    private func getCostLabelColor(transaction: Transaction) -> UIColor {
         guard let red = UIColor(.costRed), let blue = UIColor(.costBlue) else {
             return .lightGray
         }
-        if cost.isZero {
-            return .lightGray
-        } else if cost.isLess(than: 0) {
-            return red
-        } else {
+        switch transaction {
+        case .charge(_):
             return blue
+        case .purchase(_):
+            return red
+        case .free:
+            return .lightGray
         }
     }
 }

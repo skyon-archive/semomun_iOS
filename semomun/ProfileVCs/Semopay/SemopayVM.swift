@@ -25,11 +25,11 @@ final class SemopayVM {
 
 extension SemopayVM {
     private func initSemopayHistory() {
-        self.networkUsecase.getSemopayHistory { [weak self] status, result in
+        self.networkUsecase.getSemopayHistory(page: 1) { [weak self] status, result in
             if status == .SUCCESS {
                 var resultGroupedByYearMonth: [String: [PayHistory]] = [:]
-                result.forEach { purchase in
-                    let yearMonthText = purchase.date.yearMonthText
+                result?.content.forEach { purchase in
+                    let yearMonthText = purchase.createdDate.yearMonthText
                     resultGroupedByYearMonth[yearMonthText, default: []].append(purchase)
                 }
                 self?.purchaseOfEachMonth = resultGroupedByYearMonth.sorted(by: { $0.key > $1.key}).map { ($0.key, $0.value) }
