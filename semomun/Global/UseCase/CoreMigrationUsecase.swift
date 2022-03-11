@@ -36,6 +36,7 @@ extension CoreUsecase {
         
         // previews.forEach
         for preview in previews {
+            preview.setValue(0, forKey: Preview_Core.Attribute.progressCount.rawValue)
             // fetch sectionHeaders
             guard let sectionHeaders = CoreUsecase.fetchSectionHeaders(wid: Int(preview.wid)) else { continue }
             let sectionCount = sectionHeaders.count
@@ -47,6 +48,7 @@ extension CoreUsecase {
                     }
                     // update sectionHeader: terminated
                     if preview.terminated {
+                        preview.updateProgress()
                         sectionHeader.setValue(true, forKey: "terminated")
                     }
                 }
