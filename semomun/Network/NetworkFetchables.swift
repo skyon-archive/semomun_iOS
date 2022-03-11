@@ -14,7 +14,7 @@ protocol NetworkFetchable {
 
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void)
     
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, completion: @escaping (NetworkResult) -> Void)
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void)
 }
 
 // MARK: - Fetchable
