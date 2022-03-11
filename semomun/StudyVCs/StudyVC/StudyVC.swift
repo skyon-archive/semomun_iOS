@@ -30,6 +30,7 @@ final class StudyVC: UIViewController {
     @IBOutlet weak var resultBT: UIButton!
     @IBOutlet weak var beforeFrameView: UIView!
     @IBOutlet weak var nextFrameView: UIView!
+    @IBOutlet weak var menuButton: UIButton!
     
     var sectionHeaderCore: SectionHeader_Core?
     var sectionCore: Section_Core?
@@ -61,6 +62,7 @@ final class StudyVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureMenu()
         self.configureCollectionView()
         self.configureManager()
         self.bindAll()
@@ -101,14 +103,22 @@ final class StudyVC: UIViewController {
     @IBAction func nextPage(_ sender: Any) {
         self.manager?.changeNextPage()
     }
-    
-    @IBAction func reportError(_ sender: Any) {
-        self.showReportView()
-    }
 }
 
 // MARK: - Configure
 extension StudyVC {
+    private func configureMenu() {
+        let reportErrorAction = UIAction(title: "오류신고", image: nil) { [weak self] _ in
+            self?.showReportView()
+        }
+        let showResultAction = UIAction(title: "결과보기", image: nil) { [weak self] _ in
+            guard let section = self?.manager?.section else { return }
+            self?.showResultViewController(section: section)
+        }
+        self.menuButton.menu = UIMenu(title: "", image: nil, children: [reportErrorAction, showResultAction])
+        self.menuButton.showsMenuAsPrimaryAction = true
+    }
+    
     private func configureManager() {
         guard let section = self.sectionCore,
               let sectionHeader = self.sectionHeaderCore,
