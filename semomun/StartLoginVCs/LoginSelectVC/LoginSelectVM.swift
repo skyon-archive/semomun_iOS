@@ -69,21 +69,11 @@ extension LoginSelectVM {
     
     private func handleSignupNetworkStatus(token: String, status: NetworkStatus) {
         if case .SUCCESS = status {
-            self.setLocalDataAfterSignupSuccess(token: token)
+            AccountUsecase.setLocalDataAfterSignup(token: token) {[weak self] isSuccess in
+                self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+            }
         } else {
             self.alert = LoginSelectVMAlert.networkError
-        }
-    }
-    
-    private func setLocalDataAfterSignupSuccess(token: String) {
-        self.syncUserDataAndSaveKeychain(token: token) { [weak self] succeed in
-            if succeed {
-                self?.updateCoreVersion()
-                self?.setUserDefaultsToLogined()
-                self?.publishProcessFinished()
-            } else {
-                self?.alert = LoginSelectVMAlert.networkError
-            }
         }
     }
 }
@@ -101,20 +91,11 @@ extension LoginSelectVM {
     private func handleLoginNetworkStatus(token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            self.setLocalDataAfterLoginSuccess(token: token)
+            AccountUsecase.setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
+                self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+            }
         default:
             self.alert = LoginSelectVMAlert.networkError
-        }
-    }
-    
-    private func setLocalDataAfterLoginSuccess(token: String) {
-        self.syncUserDataAndSaveKeychain(token: token) { [weak self] succeed in
-            if succeed {
-                self?.setUserDefaultsToLogined()
-                self?.publishProcessFinished()
-            } else {
-                self?.alert = LoginSelectVMAlert.networkError
-            }
         }
     }
 }
@@ -124,9 +105,11 @@ extension LoginSelectVM {
     private func handlePasteNetworkResult(signupUserInfo: SignupUserInfo, token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            self.postUpdatedUserInfo(signupUserInfo: signupUserInfo) { isSuccess in
-                if isSuccess {
-                    self.setLocalDataAfterLoginSuccess(token: token)
+            self.postUpdatedUserInfo(signupUserInfo: signupUserInfo) { postSuccees in
+                if postSuccees {
+                    AccountUsecase.setLocalDataAfterLogin(token: token) { [weak self] updateSuccess in
+                        self?.handleLocalDataSettingResult(isSuccess: updateSuccess)
+                    }
                 } else {
                     self.alert = LoginSelectVMAlert.networkError
                 }
@@ -138,15 +121,12 @@ extension LoginSelectVM {
     
     private func postUpdatedUserInfo(signupUserInfo: SignupUserInfo, completion: @escaping (Bool) -> Void) {
         self.networkUsecase.getUserInfo { [weak self] status, userInfo in
-            guard let strongSelf = self else {
+            guard let strongSelf = self,
+                  let userInfo = userInfo else {
                 completion(false)
                 return
             }
-            guard let userInfo = userInfo else {
-                strongSelf.alert = LoginSelectVMAlert.networkError
-                completion(false)
-                return
-            }
+            
             if case .SUCCESS = status {
                 let updatedUserInfo = strongSelf.makePastedUserInfo(signupUserInfo: signupUserInfo, userInfo: userInfo)
                 strongSelf.networkUsecase.putUserInfoUpdate(userInfo: updatedUserInfo) { status in
@@ -176,50 +156,11 @@ extension LoginSelectVM {
 
 // MARK: 공통
 extension LoginSelectVM {
-    private func syncUserDataAndSaveKeychain(token: String, completion: @escaping (Bool) -> Void) {
-        self.tryDataSyncFromDB(token: token) { [weak self] syncSucceed in
-            if syncSucceed {
-                self?.saveUserIDToKeychain(token: token) { keyChainSaveSucceed in
-                    completion(keyChainSaveSucceed)
-                }
-            } else {
-                completion(false)
-            }
+    private func handleLocalDataSettingResult(isSuccess: Bool) {
+        if isSuccess {
+            self.status = .complete
+        } else {
+            self.alert = LoginSelectVMAlert.networkError
         }
-    }
-    
-    private func tryDataSyncFromDB(token: String, completion: @escaping (Bool) -> Void) {
-        SyncUsecase.syncUserDataFromDB { result in
-            switch result {
-            case .success(_):
-                completion(true)
-            case .failure(let error):
-                print("회원가입 중 회원 정보와 DB 동기화 실패: \(error)")
-                completion(false)
-            }
-        }
-    }
-    
-    private func saveUserIDToKeychain(token: String, completion: (Bool) -> Void) {
-        do {
-            try KeychainItem(account: .userIdentifier).saveItem(token)
-            completion(true)
-        } catch {
-            print("User ID 키체인 저장 실패: \(error)")
-            completion(false)
-        }
-    }
-    
-    private func setUserDefaultsToLogined() {
-        UserDefaultsManager.set(to: true, forKey: .logined)
-    }
-    
-    private func updateCoreVersion() {
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        UserDefaultsManager.set(to: version, forKey: .coreVersion)
-    }
-    
-    private func publishProcessFinished() {
-        self.status = .complete
     }
 }

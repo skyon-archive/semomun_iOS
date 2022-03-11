@@ -9,7 +9,7 @@ import Foundation
 
 struct KeychainItem {
     // MARK: Items
-    enum Items: String {
+    enum Items: String, CaseIterable {
         case userIdentifier = "userIdentifier"
         case accessToken = "accessToken"
         case refreshToken = "refreshToken"
@@ -146,11 +146,13 @@ struct KeychainItem {
         }
     }
     
-    static func deleteUserIdentifierFromKeychain() {
+    static func deleteAllItemsFromKeychain() {
         do {
-            try KeychainItem(account: Items.userIdentifier).deleteItem()
+            try Items.allCases.map { KeychainItem(account: $0) }.forEach { keychainItem in
+                try keychainItem.deleteItem()
+            }
         } catch {
-            print("Unable to delete userIdentifier from keychain")
+            print("키체인 데이터 삭제 실패: \(error)")
         }
     }
 }

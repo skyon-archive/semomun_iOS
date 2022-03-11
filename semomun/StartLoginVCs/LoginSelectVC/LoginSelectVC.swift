@@ -11,27 +11,26 @@ import AuthenticationServices
 import GoogleSignIn
 
 final class LoginSelectVC: UIViewController {
-    private enum ButtonUIConstants {
-        static let buttonWidth: CGFloat = 309
-        static let buttonHeight: CGFloat = 54
-        static let buttonRadius: CGFloat = 10
-    }
     
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"
     
     @IBOutlet weak var semomunTitle: UILabel!
     
-    var serviceInfoViewNeeded = true
     var signupInfo: SignupUserInfo?
-    
-    private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
-    private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()))
-    
     private var isSignup: Bool {
         return self.signupInfo != nil
     }
+    
+    private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
+    private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()))
     private var cancellables: Set<AnyCancellable> = []
+    
+    private enum ButtonUIConstants {
+        static let buttonWidth: CGFloat = 309
+        static let buttonHeight: CGFloat = 54
+        static let buttonRadius: CGFloat = 10
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -234,12 +233,11 @@ extension LoginSelectVC {
         case apple, google
     }
     
-    /// 버튼에 할당된 액션
     private func signInButtonAction(loginMethod: LoginMethod) {
-        if self.serviceInfoViewNeeded {
+        if self.isSignup {
             self.showServiceInfoView(loginMethod: loginMethod)
         } else {
-            self.performLogin(loginMethod: loginMethod)
+            self.askLoginTo(loginMethod: loginMethod)
         }
     }
     
@@ -247,12 +245,12 @@ extension LoginSelectVC {
         guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil)
                 .instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
         serviceInfoVC.configureConfirmAction { [weak self] in
-            self?.performLogin(loginMethod: loginMethod)
+            self?.askLoginTo(loginMethod: loginMethod)
         }
         self.present(serviceInfoVC, animated: true, completion: nil)
     }
     
-    private func performLogin(loginMethod: LoginMethod) {
+    private func askLoginTo(loginMethod: LoginMethod) {
         switch loginMethod {
         case .apple:
             self.appleSignInButtonPressed()
@@ -291,7 +289,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             guard let tokenData = appleIDCredential.identityToken, // 할때마다 생성되는 token 값 (변동있음)
                   let token = String(data: tokenData, encoding: .utf8) else { return }
-            self.processLogin(userIDToken: .apple(token))
+            self.continueAccountSetting(userIDToken: .apple(token))
         default: break
         }
     }
@@ -301,11 +299,11 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
             guard error == nil else { return }
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
-            self.processLogin(userIDToken: .google(idToken))
+            self.continueAccountSetting(userIDToken: .google(idToken))
         }
     }
     
-    private func processLogin(userIDToken: NetworkURL.UserIDToken) {
+    private func continueAccountSetting(userIDToken: NetworkURL.UserIDToken) {
         if let signupInfo = self.signupInfo {
             self.viewModel.signup(userIDToken: userIDToken, userInfo: signupInfo)
         } else {

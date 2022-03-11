@@ -15,7 +15,7 @@ struct LogoutUsecase {
     }
     
     static private func deleteKeychain() {
-        KeychainItem.deleteUserIdentifierFromKeychain()
+        KeychainItem.deleteAllItemsFromKeychain()
         print("keychain delete complete")
     }
     
