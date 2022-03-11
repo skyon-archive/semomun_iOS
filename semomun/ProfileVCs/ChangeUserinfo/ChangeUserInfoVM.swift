@@ -132,11 +132,22 @@ extension ChangeUserInfoVM {
     }
     
     func requestAuthAgain() {
-        guard let phoneNumberWaitingAuth = self.phoneAuthenticator.phoneNumberAuthenticating else {
-            assertionFailure()
-            return
+        self.phoneAuthenticator.resendSMSCode { result in
+            switch result {
+            case .success(_):
+                self.status = .codeSent
+                self.alert = .codeSentAlert
+            case .failure(let error):
+                switch error {
+                case .noNetwork:
+                    self.alert = .networkErrorWithoutPop
+                case .smsSentTooMuch:
+                    self.alert = .snsLimitExceedAlert
+                case .didNotSend:
+                    assertionFailure()
+                }
+            }
         }
-        self.requestPhoneAuth(withPhoneNumber: phoneNumberWaitingAuth)
     }
     
     func cancelAuth() {
