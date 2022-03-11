@@ -281,17 +281,17 @@ extension HomeVC: UICollectionViewDataSource {
             
             switch collectionView {
             case self.bestSellers:
-                guard let preview = self.viewModel?.bestSeller(index: indexPath.item) else { return cell }
+                guard let preview = self.viewModel?.bestSellers[indexPath.item] else { return cell }
                 cell.configure(with: preview)
             case self.workbooksWithTags:
-                guard let preview = self.viewModel?.workbookWithTags(index: indexPath.item) else { return cell }
+                guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
                 cell.configure(with: preview)
             case self.workbooksWithRecent:
-                guard let preview = self.viewModel?.workbookWithRecent(index: indexPath.item) else { return cell }
+                guard let preview = self.viewModel?.workbooksWithRecent[indexPath.item] else { return cell }
                 cell.configure(with: preview)
             case self.workbooksWithNewest:
-                guard let preview = self.viewModel?.workbookWithNewest(index: indexPath.item) else { return cell }
-                cell.configure(with: preview)
+                guard let info = self.viewModel?.workbooksWithNewest[indexPath.item] else { return cell }
+                cell.configure(with: info)
             default:
                 return cell
             }

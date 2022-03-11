@@ -14,10 +14,10 @@ final class HomeVM {
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
     @Published private(set) var workbooksWithRecent: [PreviewOfDB] = []
-    @Published private(set) var workbooksWithNewest: [PreviewOfDB] = []
+    @Published private(set) var workbooksWithNewest: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var error: String?
-    @Published private(set) var warning: (String, String)?
+    @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
     
     init(networkUsecase: NetworkUsecase) {
@@ -87,47 +87,30 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithRecent() {
-        self.networkUsecase.getUserRecentWorkbooks { [weak self] status, workbooks in
-            switch status {
-            case .SUCCESS:
-                let count = min(10, workbooks.count)
-                self?.workbooksWithRecent = Array(workbooks.prefix(upTo: count))
-            case .DECODEERROR:
-                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
-            default:
-                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
-            }
-        }
+//        self.networkUsecase.getUserRecentWorkbooks { [weak self] status, workbooks in
+//            switch status {
+//            case .SUCCESS:
+//                let count = min(10, workbooks.count)
+//                self?.workbooksWithRecent = Array(workbooks.prefix(upTo: count))
+//            case .DECODEERROR:
+//                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+//            default:
+//                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+//            }
+//        }
     }
     
     private func fetchWorkbooksWithNewest() {
-        self.networkUsecase.getUserWorkbooks { [weak self] status, workbooks in
+        self.networkUsecase.getUserBookshelfInfos(order: .purchase) { [weak self] status, infos in
             switch status {
             case .SUCCESS:
-                let count = min(10, workbooks.count)
-                self?.workbooksWithNewest = Array(workbooks.prefix(upTo: count))
-            case .DECODEERROR:
-                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+                let infos = infos.map { BookshelfInfo(info: $0) }
+                let count = min(10, infos.count)
+                self?.workbooksWithNewest = Array(infos.prefix(upTo: count))
             default:
-                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+                self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
         }
-    }
-    
-    func bestSeller(index: Int) -> PreviewOfDB {
-        return self.bestSellers[index]
-    }
-    
-    func workbookWithTags(index: Int) -> PreviewOfDB {
-        return self.workbooksWithTags[index]
-    }
-    
-    func workbookWithRecent(index: Int) -> PreviewOfDB {
-        return self.workbooksWithRecent[index]
-    }
-    
-    func workbookWithNewest(index: Int) -> PreviewOfDB {
-        return self.workbooksWithNewest[index]
     }
     
     func fetchWorkbook(wid: Int) {
