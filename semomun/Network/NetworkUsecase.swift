@@ -507,7 +507,7 @@ extension NetworkUsecase: UserLogSendable {
         encoder.dateEncodingStrategy = .iso8601
         encoder.keyEncodingStrategy = .convertToSnakeCase
         
-        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put, encoder: encoder) { result in
+        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put, encoder: encoder, tokenRequired: true) { result in
             if result.statusCode == 200 {
                 print("send workbook log success")
             } else {
