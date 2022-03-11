@@ -55,6 +55,10 @@ class BookshelfVC: UIViewController {
     
     @IBAction func refresh(_ sender: Any) {
         self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        guard NetworkStatusManager.isConnectedToInternet() else {
+            self.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하시기 바랍니다.")
+            return
+        }
         if self.logined {
             self.syncBookshelf()
         } else {
