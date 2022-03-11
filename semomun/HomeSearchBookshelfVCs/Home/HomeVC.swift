@@ -287,8 +287,8 @@ extension HomeVC: UICollectionViewDataSource {
                 guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
                 cell.configure(with: preview)
             case self.workbooksWithRecent:
-                guard let preview = self.viewModel?.workbooksWithRecent[indexPath.item] else { return cell }
-                cell.configure(with: preview)
+                guard let info = self.viewModel?.workbooksWithRecent[indexPath.item] else { return cell }
+                cell.configure(with: info)
             case self.workbooksWithNewest:
                 guard let info = self.viewModel?.workbooksWithNewest[indexPath.item] else { return cell }
                 cell.configure(with: info)
