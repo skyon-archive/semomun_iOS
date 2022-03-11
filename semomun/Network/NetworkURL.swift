@@ -36,6 +36,10 @@ enum NetworkURL {
             }
         }
     }
+    enum PurchasesOrder: String {
+        case solve
+        case purchase
+    }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
     static let base: String = "http://api.semomun.com:8080"

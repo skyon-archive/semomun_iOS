@@ -74,9 +74,8 @@ protocol UserPurchaseable {
     func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void)
 }
 protocol UserWorkbooksFetchable {
-    func getBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
-    func getUserWorkbooks(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
-    func getUserRecentWorkbooks(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+    func getUserBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
+    func getUserBookshelfInfos(order: NetworkURL.PurchasesOrder, completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
 }
 protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)

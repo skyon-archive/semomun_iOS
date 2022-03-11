@@ -56,7 +56,7 @@ final class BookshelfVM {
     func fetchBooksFromNetwork() {
         // TODO: Network 확인 로직 필요
         self.loading = true
-        self.networkUsecse.getBookshelfInfos { [weak self] status, infos in
+        self.networkUsecse.getUserBookshelfInfos { [weak self] status, infos in
             switch status {
             case .SUCCESS:
                 if infos.isEmpty == false {
