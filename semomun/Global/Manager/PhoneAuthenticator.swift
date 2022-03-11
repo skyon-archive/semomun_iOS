@@ -21,13 +21,14 @@ class PhoneAuthenticator {
         case wrongCode
     }
     
-    private var tempPhoneNumber: String?
-    private let networkUsecase: PhonenumVerifiable
-    
-    /// 현재 인증중인 전화번호(숫자로만 이루어진 문자열)
-    var phoneNumberAuthenticating: String? {
-        return self.tempPhoneNumber?.phoneNumberWithNumbers
+    enum CodeResendError: Error {
+        case noNetwork
+        case didNotSend
+        case smsSentTooMuch
     }
+    
+    private var tempPhoneNumberForResend: String?
+    private let networkUsecase: PhonenumVerifiable
     
     init(networkUsecase: PhonenumVerifiable) {
         self.networkUsecase = networkUsecase
@@ -42,7 +43,7 @@ class PhoneAuthenticator {
         self.networkUsecase.requestVertification(of: phoneNumberWithCountryCode) { status in
             switch status {
             case .SUCCESS:
-                self.tempPhoneNumber = phoneNumberWithCountryCode
+                self.tempPhoneNumberForResend = phoneNumber
                 completion(.success(phoneNumber))
             case .BADREQUEST:
                 completion(.failure(.invalidPhoneNumber))
@@ -55,10 +56,8 @@ class PhoneAuthenticator {
         }
     }
     
-    /// - Parameters:
-    ///   - completion: 올바른 code가 전달되면 전화번호를 success의 연관값으로 반환
     func verifySMSCode(_ code: String, completion: @escaping (Result<String, CodeVerifyError>) -> Void) {
-        guard let tempPhoneNumber = tempPhoneNumber else {
+        guard let tempPhoneNumber = tempPhoneNumberForResend else {
             completion(.failure(.codeNotSent))
             return
         }
@@ -71,7 +70,7 @@ class PhoneAuthenticator {
                 }
                 if isValid {
                     completion(.success(tempPhoneNumber))
-                    self.tempPhoneNumber = nil
+                    self.tempPhoneNumberForResend = nil
                 } else {
                     completion(.failure(.wrongCode))
                 }
@@ -79,6 +78,37 @@ class PhoneAuthenticator {
                 completion(.failure(.noNetwork))
             }
             
+        }
+    }
+    
+    func resendSMSCode(completion: @escaping (Result<String, CodeResendError>) -> Void) {
+        guard let tempPhoneNumber = tempPhoneNumberForResend else {
+            completion(.failure(.didNotSend))
+            return
+        }
+        self.sendSMSCode(to: tempPhoneNumber) { [weak self] result in
+            switch result {
+            case .success(let phoneNumber):
+                completion(.success(phoneNumber))
+            case .failure(let sendError):
+                guard let resendError = self?.convertSendErrorToResendError(sendError) else {
+                    assertionFailure()
+                    return
+                }
+                completion(.failure(resendError))
+            }
+        }
+    }
+    
+    private func convertSendErrorToResendError(_ error: CodeSendError) -> CodeResendError {
+        switch error {
+        case .invalidPhoneNumber:
+            assertionFailure()
+            return .noNetwork
+        case .noNetwork:
+            return .noNetwork
+        case .smsSentTooMuch:
+            return .smsSentTooMuch
         }
     }
 }
