@@ -31,6 +31,38 @@ struct AccountUsecase {
         }
     }
     
+    static func updateTokenForVersionOneUsers(networkUsecase: LoginSignupPostable) {
+        do {
+            let tokenString = try KeychainItem(account: .userIdentifier).readItem()
+            let userToken = NetworkURL.UserIDToken.apple(tokenString)
+            
+            // TODO: 타입 필요 없는 API로 대체하기
+            networkUsecase.postLogin(userToken: userToken) { result in
+                guard result.userNotExist == false else {
+                    assertionFailure()
+                    return
+                }
+                switch result.status {
+                case .SUCCESS:
+                    Self.setLocalDataAfterLogin(token: tokenString) { result in
+                        if result {
+                            print("1.0 유저 토큰 발급 성공")
+                        } else {
+                            print("1.0 유저 토큰 발급 실패")
+                        }
+                    }
+                default:
+                    print("1.0 유저 로그인 실패: \(result.status)")
+                }
+            }
+        } catch {
+            print("Auth/Refresh 토큰 발급 실패: \(error)")
+        }
+    }
+}
+ 
+// MARK: Private
+extension AccountUsecase {
     static private func syncUserDataAndSaveKeychain(token: String, completion: @escaping (Bool) -> Void) {
         Self.tryDataSyncFromDB(token: token) { syncSucceed in
             if syncSucceed {

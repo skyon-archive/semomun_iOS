@@ -146,7 +146,7 @@ struct KeychainItem {
         }
     }
     
-    static func deleteAllItemsFromKeychain() {
+    static func deleteAllItems() {
         do {
             try Items.allCases.map { KeychainItem(account: $0) }.forEach { keychainItem in
                 try keychainItem.deleteItem()

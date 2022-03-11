@@ -41,24 +41,23 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
         let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        let coreVersion = UserDefaultsManager.get(forKey: .coreVersion) as? String ?? String.pastVersion
         
         if isInitial {
-            do {
-                try KeychainItem(account: .accessToken).deleteItem()
-                try KeychainItem(account: .accessToken).deleteItem()
-                print("기존 토큰 삭제 성공")
-            } catch {
-                print("기존 토큰 삭제 실패: \(error)")
-            }
+            KeychainItem.deleteAllItems()
         }
         
         if isLogined {
-            SyncUsecase.syncUserDataFromDB { status in
-                switch status {
-                case .success(_):
-                    print("AppDelegate: 유저 정보 동기화 성공")
-                case .failure(let error):
-                    print("AppDelegate: 유저 정보 동기화 실패: \(error)")
+            if coreVersion.compare("2.0.0", options: .numeric) == .orderedAscending {
+                AccountUsecase.updateTokenForVersionOneUsers(networkUsecase: NetworkUsecase(network: Network()))
+            } else {
+                SyncUsecase.syncUserDataFromDB { status in
+                    switch status {
+                    case .success(_):
+                        print("AppDelegate: 유저 정보 동기화 성공")
+                    case .failure(let error):
+                        print("AppDelegate: 유저 정보 동기화 실패: \(error)")
+                    }
                 }
             }
         }
