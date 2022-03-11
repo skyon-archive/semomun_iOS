@@ -72,6 +72,7 @@ final class BookshelfVM {
     }
     
     private func syncBookshelf(infos: [BookshelfInfoOfDB]) {
+        print("sync Bookshelf")
         let localBookWids = self.books.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
         let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
         // Local 내에 없는 book 정보들의 수를 센다
@@ -83,8 +84,8 @@ final class BookshelfVM {
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localBookWids.contains(Int64(info.wid)) {
                 let targetWorkbook = self.books.first { $0.wid == Int64(info.wid) }
-                targetWorkbook?.updateDate(info)
-                print("local preview(\(info.wid) update complete")
+                targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecse)
+                print("local preview(\(info.wid)) update complete")
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
