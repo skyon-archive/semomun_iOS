@@ -10,22 +10,30 @@ import CoreData
 
 extension CoreUsecase {
     static func migration(completion: @escaping(Bool) -> Void) {
-        if CoreUsecase.updateSectionHeaders() == false {
-            completion(false)
-            return
-        }
-        
         if CoreUsecase.updateSections() == false {
             completion(false)
             return
         }
-        completion(true)
-        // TODO: workbooks/:wid 를 통해 없는정보 update 로직 필요 (cell 내의 author, publisher 반영)
+        CoreUsecase.updateSectionHeaders() { success in
+            completion(success)
+            return
+        }
     }
     
-    static func updateSectionHeaders() -> Bool {
+    static func updateSectionHeaders(completion: @escaping (Bool) -> Void) {
         // fetch all previews
-        guard let previews = CoreUsecase.fetchPreviews() else { return false }
+        guard let previews = CoreUsecase.fetchPreviews() else {
+            completion(false)
+            return
+        }
+        let networkUsecase: (WorkbookSearchable & UserPurchaseable) = NetworkUsecase(network: Network())
+        let purchaseCount: Int = previews.count
+        var productIds: [Int] = []
+        
+        if previews.isEmpty {
+            completion(true)
+        }
+        
         // previews.forEach
         for preview in previews {
             // fetch sectionHeaders
@@ -43,9 +51,19 @@ extension CoreUsecase {
                     }
                 }
             }
+            // fetch productID -> append productID
+            networkUsecase.getWorkbook(wid: Int(preview.wid)) { workbook in
+                productIds.append(workbook.productID)
+                // POST /pay/orders 반영
+                if productIds.count == purchaseCount {
+                    networkUsecase.purchaseItem(productIDs: productIds) { status, credit in
+                        print("PURCHASES MIGRATION SUCCESS")
+                        completion(status == .SUCCESS)
+                    }
+                }
+            }
         }
         print("PREVIEW MIGRATION SUCCESS")
-        return true
     }
     
     static func updateSections() -> Bool {
