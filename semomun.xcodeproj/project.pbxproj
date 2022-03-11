@@ -33,7 +33,7 @@
 		25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */; };
 		25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25627726279EDE92006F9370 /* receiveMarketingInfo.txt */; };
 		2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627729279EE6C7006F9370 /* MainThemeSwitch.swift */; };
-		2562772E27A16C56006F9370 /* SemopayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* SemopayHistory.swift */; };
+		2562772E27A16C56006F9370 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistory.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
@@ -235,7 +235,7 @@
 		25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25627726279EDE92006F9370 /* receiveMarketingInfo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = receiveMarketingInfo.txt; sourceTree = "<group>"; };
 		25627729279EE6C7006F9370 /* MainThemeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThemeSwitch.swift; sourceTree = "<group>"; };
-		2562772D27A16C56006F9370 /* SemopayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayHistory.swift; sourceTree = "<group>"; };
+		2562772D27A16C56006F9370 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 				2554C89027D27BCC00AAD262 /* BooleanResult.swift */,
 				255D637927ABBF46000991AB /* UserNotice.swift */,
 				2502CECA27A6D8030072A037 /* Purchase.swift */,
-				2562772D27A16C56006F9370 /* SemopayHistory.swift */,
+				2562772D27A16C56006F9370 /* PayHistory.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 			);
 			path = Decodables;
@@ -1380,7 +1380,7 @@
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
-				2562772E27A16C56006F9370 /* SemopayHistory.swift in Sources */,
+				2562772E27A16C56006F9370 /* PayHistory.swift in Sources */,
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
