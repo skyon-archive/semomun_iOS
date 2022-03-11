@@ -54,7 +54,8 @@ final class BookshelfVM {
     }
     
     func fetchBooksFromNetwork() {
-        // TODO: Network 확인 로직 필요
+        guard NetworkStatusManager.isConnectedToInternet() else { return }
+        
         self.loading = true
         self.networkUsecse.getUserBookshelfInfos { [weak self] status, infos in
             switch status {

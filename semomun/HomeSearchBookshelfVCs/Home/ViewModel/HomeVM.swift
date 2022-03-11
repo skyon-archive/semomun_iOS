@@ -32,6 +32,8 @@ final class HomeVM {
     }
     
     func fetchAll() {
+        guard NetworkStatusManager.isConnectedToInternet() else { return }
+        
         self.fetchSome()
         self.fetchWorkbooksWithRecent()
         self.fetchWorkbooksWithNewest()
