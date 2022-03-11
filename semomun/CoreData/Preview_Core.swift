@@ -34,6 +34,7 @@ extension Preview_Core {
         case image
         case purchasedDate
         case recentDate
+        case progressCount
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
@@ -54,6 +55,7 @@ extension Preview_Core {
     @NSManaged public var image: Data? // Workbook Image
     @NSManaged public var purchasedDate: Date? // NEW: 구매일자
     @NSManaged public var recentDate: Date? // NEW: 접근일
+    @NSManaged public var progressCount: Int64 // NEW: 책장 진도율값
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var subject: String? //Deprecated(1.1.3)
@@ -113,6 +115,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize })), forKey: Attribute.fileSize.rawValue)
         self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
         self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
+        self.setValue(0, forKey: Attribute.progressCount.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
@@ -134,5 +137,10 @@ public class Preview_Core: NSManagedObject{
         } else {
             self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
         }
+    }
+    
+    func updateProgress() {
+        let count = min(Int(self.progressCount)+1, self.sids.count)
+        self.setValue(count, forKey: Attribute.progressCount.rawValue)
     }
 }

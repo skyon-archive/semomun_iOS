@@ -48,6 +48,11 @@ class BookshelfVC: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.reloadBookshelf()
+    }
+    
     @IBAction func refresh(_ sender: Any) {
         self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
         if self.logined {
