@@ -87,7 +87,6 @@ final class LoginSignupVC: UIViewController {
                   return
               }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        vc.serviceInfoViewNeeded = true
         vc.signupInfo = userInfo
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -96,7 +95,6 @@ final class LoginSignupVC: UIViewController {
 #if DEBUG
         guard let userInfo = self.viewModel?.signupUserInfo else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        vc.serviceInfoViewNeeded = true
         vc.signupInfo = userInfo
         self.navigationController?.pushViewController(vc, animated: true)
 #endif
