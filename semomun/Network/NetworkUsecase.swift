@@ -268,23 +268,9 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    func getSemopayHistory(completion: @escaping ((NetworkStatus, [PayHistory])) -> Void) {
-        let makeRandomPastDate: () -> Date = {
-            let randomTimeInterval = Double.random(in: -10000000...0)
-            return Date().addingTimeInterval(randomTimeInterval)
-        }
-        let makeRandomCost: () -> Double = {
-            return Double(Int.random(in: -99...99) * 1000)
-        }
-        self.getPreviews(tags: [], text: "", page: 1, limit: 20) { status, previews in
-            let wids = previews.map(\.wid)
-            let testData: [PayHistory] = Array(1...20).map { _ in
-                let cost = makeRandomCost()
-                let wid = cost > 0 ? nil : wids.randomElement()
-                return PayHistory(wid: wid, date: makeRandomPastDate(), cost: cost)
-            }.sorted(by: { $0.date > $1.date })
-            // 정렬은 프론트에서? 백에서?
-            completion((.SUCCESS, testData))
+    func getSemopayHistory(page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
+        self.getPayHistory(onlyPurchaseHistory: false, page: page, limit: limit) {
+            completion($0, $1)
         }
     }
     
@@ -294,6 +280,24 @@ extension NetworkUsecase: UserHistoryFetchable {
         let dates = Array(1...50).map { Date(timeIntervalSinceNow: -86400 * 5 * Double($0)) }
         let purchases = Array(0..<50).map { Purchase(wid: wids[$0], date: dates[$0], cost: Double.random(in: 1...99) * 1000)}
         completion((.SUCCESS, purchases))
+    }
+    
+    private func getPayHistory(onlyPurchaseHistory: Bool, page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
+        let type = onlyPurchaseHistory ? "order" : ""
+        let param = ["type": type, "page": String(page), "limit": String(limit)]
+        self.network.request(url: NetworkURL.pay, param: param, method: .get, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode else {
+                completion(.FAIL, nil)
+                return
+            }
+            let networkStatus = NetworkStatus(statusCode: statusCode)
+            guard let data = result.data,
+                  let decoded = try? JSONDecoderWithDate().decode(PayHistoryGroup.self, from: data) else {
+                      completion(.DECODEERROR, nil)
+                      return
+                  }
+            completion(networkStatus, decoded)
+        }
     }
 }
 extension NetworkUsecase: UserInfoFetchable {
