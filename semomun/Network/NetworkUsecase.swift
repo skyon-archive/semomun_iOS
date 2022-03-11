@@ -268,7 +268,7 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    func getSemopayHistory(completion: @escaping ((NetworkStatus, [SemopayHistory])) -> Void) {
+    func getSemopayHistory(completion: @escaping ((NetworkStatus, [PayHistory])) -> Void) {
         let makeRandomPastDate: () -> Date = {
             let randomTimeInterval = Double.random(in: -10000000...0)
             return Date().addingTimeInterval(randomTimeInterval)
@@ -278,10 +278,10 @@ extension NetworkUsecase: UserHistoryFetchable {
         }
         self.getPreviews(tags: [], text: "", page: 1, limit: 20) { status, previews in
             let wids = previews.map(\.wid)
-            let testData: [SemopayHistory] = Array(1...20).map { _ in
+            let testData: [PayHistory] = Array(1...20).map { _ in
                 let cost = makeRandomCost()
                 let wid = cost > 0 ? nil : wids.randomElement()
-                return SemopayHistory(wid: wid, date: makeRandomPastDate(), cost: cost)
+                return PayHistory(wid: wid, date: makeRandomPastDate(), cost: cost)
             }.sorted(by: { $0.date > $1.date })
             // 정렬은 프론트에서? 백에서?
             completion((.SUCCESS, testData))

@@ -65,7 +65,7 @@ protocol UserInfoSendable {
     func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserHistoryFetchable {
-    func getSemopayHistory(completion: @escaping ((NetworkStatus, [SemopayHistory])) -> Void)
+    func getSemopayHistory(completion: @escaping ((NetworkStatus, [PayHistory])) -> Void)
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
 }
 protocol UserInfoFetchable {

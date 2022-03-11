@@ -34,7 +34,7 @@ final class SemopayCell: UITableViewCell {
 
 // MARK: Cell 정보 configure
 extension SemopayCell {
-    func configureCell(using purchase: SemopayHistory) {
+    func configureCell(using purchase: PayHistory) {
         self.setTitle(using: purchase.wid)
         self.setCost(to: purchase.cost)
         self.setDate(using: purchase.date)
