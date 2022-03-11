@@ -13,7 +13,7 @@ final class HomeVM {
     @Published private(set) var ads: [(String, String)] = [] // DTO로 타입이 변경될 부분
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
-    @Published private(set) var workbooksWithRecent: [PreviewOfDB] = []
+    @Published private(set) var workbooksWithRecent: [BookshelfInfo] = []
     @Published private(set) var workbooksWithNewest: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var error: String?
@@ -87,17 +87,16 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithRecent() {
-//        self.networkUsecase.getUserRecentWorkbooks { [weak self] status, workbooks in
-//            switch status {
-//            case .SUCCESS:
-//                let count = min(10, workbooks.count)
-//                self?.workbooksWithRecent = Array(workbooks.prefix(upTo: count))
-//            case .DECODEERROR:
-//                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
-//            default:
-//                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
-//            }
-//        }
+        self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
+            switch status {
+            case .SUCCESS:
+                let infos = infos.map { BookshelfInfo(info: $0) }.filter { $0.recentDate != nil }
+                let count = min(10, infos.count)
+                self?.workbooksWithRecent = Array(infos.prefix(upTo: count))
+            default:
+                self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
+            }
+        }
     }
     
     private func fetchWorkbooksWithNewest() {
