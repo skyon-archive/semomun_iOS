@@ -172,7 +172,8 @@ final class SectionManager {
             self?.stopTimer()
             self?.section.setValue(true, forKey: "terminated")
             self?.sectionHeader.setValue(true, forKey: SectionHeader_Core.Attribute.terminated.rawValue)
-            // TODO: preview 상에 진도율 반영 로직
+            
+            self?.preview.updateProgress()
             CoreDataManager.saveCoreData()
             self?.delegate?.changeResultLabel()
         }
