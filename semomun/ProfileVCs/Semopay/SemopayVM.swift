@@ -11,7 +11,7 @@ import Combine
 typealias SemopayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable & SemopayCellNetworkUsecase)
 
 final class SemopayVM {
-    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [SemopayHistory])] = []
+    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
     
     let networkUsecase: SemopayNetworkUsecase
@@ -27,7 +27,7 @@ extension SemopayVM {
     private func initSemopayHistory() {
         self.networkUsecase.getSemopayHistory { [weak self] status, result in
             if status == .SUCCESS {
-                var resultGroupedByYearMonth: [String: [SemopayHistory]] = [:]
+                var resultGroupedByYearMonth: [String: [PayHistory]] = [:]
                 result.forEach { purchase in
                     let yearMonthText = purchase.date.yearMonthText
                     resultGroupedByYearMonth[yearMonthText, default: []].append(purchase)
