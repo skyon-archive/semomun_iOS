@@ -34,10 +34,11 @@ struct Network: NetworkFetchable {
         }.resume()
     }
     
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, completion: @escaping (NetworkResult) -> Void) {
+    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
+        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
         print("Network request: \(url), \(method), \(param)")
         let parameterEncoder = JSONParameterEncoder(encoder: encoder)
-        sessionWithToken.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
+        session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
