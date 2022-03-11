@@ -37,7 +37,9 @@ final class WorkbookViewModel {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] _ in
             guard let wid = self?.previewCore?.wid else { return }
-            self?.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: Date())
+            let updateDate = Date()
+            self?.previewCore?.setValue(updateDate, forKey: Preview_Core.Attribute.recentDate.rawValue)
+            self?.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: updateDate)
         }
     }
     

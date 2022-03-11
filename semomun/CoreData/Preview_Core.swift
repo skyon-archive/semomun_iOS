@@ -122,9 +122,17 @@ public class Preview_Core: NSManagedObject{
         }
     }
     
-    func updateDate(_ info: BookshelfInfo?) {
-        // nil 또는 최신값을 그대로 저장
-        self.setValue(info?.purchased, forKey: Attribute.purchasedDate.rawValue)
-        self.setValue(info?.recentDate, forKey: Attribute.recentDate.rawValue)
+    func updateDate(info: BookshelfInfo, networkUsecase: UserLogSendable) {
+        if self.purchasedDate == nil {
+            self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
+        }
+        
+        if let recentDate = self.recentDate,
+           let serverDate = info.recentDate,
+           recentDate > serverDate {
+            networkUsecase.sendWorkbookEnterLog(wid: info.wid, datetime: recentDate)
+        } else {
+            self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
+        }
     }
 }
