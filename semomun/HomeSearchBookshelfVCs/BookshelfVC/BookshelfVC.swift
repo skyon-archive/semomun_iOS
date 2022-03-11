@@ -129,6 +129,13 @@ extension BookshelfVC {
             self?.logined = true
             self?.syncBookshelf()
         }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
+            self?.logined = true
+            self?.checkMigration()
+            if self?.isMigration ?? false {
+                self?.startMigration()
+            }
+        }
     }
     
     private func startMigration() {
@@ -144,6 +151,7 @@ extension BookshelfVC {
             
             UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
             CoreDataManager.saveCoreData()
+            self?.reloadBookshelf()
             self?.syncBookshelf()
             print("migration success")
         }
