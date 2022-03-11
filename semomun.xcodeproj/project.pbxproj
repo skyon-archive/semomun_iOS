@@ -109,6 +109,7 @@
 		8720B034278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B033278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8720B035278E7A2200B8775F /* GoogleService-Info.plist */; };
 		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
+		87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
@@ -307,6 +308,7 @@
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusManager.swift; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
@@ -979,6 +981,7 @@
 		87C85E2A276F65B3001C9C4A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */,
 				879A52E027D0BE97000B4D97 /* NetworkResult.swift */,
 				874600D5278C06E5001EB091 /* NetworkURL.swift */,
 				87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */,
@@ -1232,6 +1235,7 @@
 				25100CDC27D4C2E0002C18CB /* LogoutUsecase.swift in Sources */,
 				87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */,
 				87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */,
+				87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
