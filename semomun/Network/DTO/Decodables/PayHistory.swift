@@ -16,9 +16,33 @@ struct PayHistoryGroup: Decodable {
     let content: [PayHistory]
 }
 
+enum Transaction {
+    case charge(Int)
+    case purchase(Int)
+    case free
+}
+
 struct PayHistory: Decodable {
-    let amount: Int /// 양수면 충전, 음수 또는 0이면 구매
+    enum CodingKeys: String, CodingKey {
+        case item, amount
+        case createdDate = "createdAt"
+    }
+    
+    var transaction: Transaction {
+        switch self.amount {
+        case 0:
+            return .free
+        case ..<0:
+            return .purchase(-self.amount)
+        default:
+            return .charge(self.amount)
+        }
+    }
+    
     let item: PurchasedItem
+    let createdDate: Date
+    
+    private let amount: Int
 }
 
 struct PurchasedItem: Codable {

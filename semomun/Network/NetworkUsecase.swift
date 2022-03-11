@@ -268,8 +268,8 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    func getSemopayHistory(page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
-        self.getPayHistory(onlyPurchaseHistory: false, page: page, limit: limit) {
+    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
+        self.getPayHistory(onlyPurchaseHistory: false, page: page) {
             completion($0, $1)
         }
     }
