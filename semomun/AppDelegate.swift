@@ -48,7 +48,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if isLogined {
-            if coreVersion.compare("2.0.0", options: .numeric) == .orderedAscending {
+            if coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
                 SyncUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network())) { result in
                     if result == false {
                         // TODO: 처리해야됨

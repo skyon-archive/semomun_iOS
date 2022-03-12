@@ -12,7 +12,15 @@ struct LoginSignupUsecase {
     func setLocalDataAfterLogin(token: String, completion: @escaping (Bool) -> Void) {
         self.syncUserDataAndSaveKeychain(token: token) { succeed in
             if succeed {
-                // TODO: 전화번호 확인 필요
+                guard let userInfo = CoreUsecase.fetchUserInfo() else {
+                    completion(false)
+                    return
+                }
+                
+                if userInfo.phoneNumber?.isValidPhoneNumber ?? false {
+                    self.updateCoreVersion()
+                }
+                
                 UserDefaultsManager.set(to: true, forKey: .logined)
                 completion(true)
             } else {
