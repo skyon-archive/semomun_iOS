@@ -13,7 +13,7 @@ struct PayHistoryGroup: Decodable {
         case content = "history"
     }
     let count: Int
-    let content: [PayHistory]
+    var content: [PayHistory]
 }
 
 enum Transaction {
