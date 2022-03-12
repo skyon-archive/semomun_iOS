@@ -27,9 +27,11 @@ class LoginSelectVM {
     /// 덮어쓰기를 위해 저장해놓는 값
     private var backupForPaste: NetworkURL.UserIDToken?
     private let networkUsecase: LoginSelectVMNetworkUsecase
+    private let usecase: LoginSignupUsecase
     
-    init(networkUsecase: LoginSelectVMNetworkUsecase) {
+    init(networkUsecase: LoginSelectVMNetworkUsecase, usecase: LoginSignupUsecase) {
         self.networkUsecase = networkUsecase
+        self.usecase = usecase
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
@@ -61,7 +63,6 @@ extension LoginSelectVM {
     private func handleSignupNetworkResult(token: String, networkResult: (status: NetworkStatus, userAlreadyExist: Bool)) {
         if networkResult.userAlreadyExist {
             self.status = .userAlreadyExist
-            
         } else {
             self.handleSignupNetworkStatus(token: token, status: networkResult.status)
         }
@@ -69,7 +70,7 @@ extension LoginSelectVM {
     
     private func handleSignupNetworkStatus(token: String, status: NetworkStatus) {
         if case .SUCCESS = status {
-            AccountUsecase.setLocalDataAfterSignup(token: token) {[weak self] isSuccess in
+            self.usecase.setLocalDataAfterSignup(token: token) {[weak self] isSuccess in
                 self?.handleLocalDataSettingResult(isSuccess: isSuccess)
             }
         } else {
@@ -91,7 +92,7 @@ extension LoginSelectVM {
     private func handleLoginNetworkStatus(token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            AccountUsecase.setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
+            LoginSignupUsecase().setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
                 self?.handleLocalDataSettingResult(isSuccess: isSuccess)
             }
         default:
@@ -107,7 +108,7 @@ extension LoginSelectVM {
         case .SUCCESS:
             self.postUpdatedUserInfo(signupUserInfo: signupUserInfo) { postSuccees in
                 if postSuccees {
-                    AccountUsecase.setLocalDataAfterLogin(token: token) { [weak self] updateSuccess in
+                    self.usecase.setLocalDataAfterLogin(token: token) { [weak self] updateSuccess in
                         self?.handleLocalDataSettingResult(isSuccess: updateSuccess)
                     }
                 } else {

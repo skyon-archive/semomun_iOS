@@ -38,7 +38,7 @@
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
 		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
-		256F3C0027DB6E6D0012EE95 /* AccountUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* AccountUsecase.swift */; };
+		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257AC2CF27A9306F00008DD9 /* MyPurchasesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */; };
@@ -238,7 +238,7 @@
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
-		256F3BFF27DB6E6C0012EE95 /* AccountUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUsecase.swift; sourceTree = "<group>"; };
+		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesVM.swift; sourceTree = "<group>"; };
@@ -632,6 +632,7 @@
 				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 				25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */,
+				256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */,
 			);
 			path = LoginSelectVC;
 			sourceTree = "<group>";
@@ -878,7 +879,6 @@
 				2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */,
 				2502001027C613A80075744A /* SyncUsecase.swift */,
 				25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */,
-				256F3BFF27DB6E6C0012EE95 /* AccountUsecase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1234,7 +1234,7 @@
 				87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
-				256F3C0027DB6E6D0012EE95 /* AccountUsecase.swift in Sources */,
+				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
 				2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */,
 				87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
