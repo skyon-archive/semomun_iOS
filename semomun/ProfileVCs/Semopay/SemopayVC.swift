@@ -96,10 +96,19 @@ extension SemopayVC: UITableViewDataSource {
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
         cell.configureNetworkUsecase(self.viewModel.networkUsecase)
         cell.configureCell(using: purchase)
+        
         // Configuring cell on specific position
         let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
         cell.configureCellUI(row: indexPath.row, numberOfRowsInSection: numberOfRowsInSection)
         return cell
+    }
+}
+
+extension SemopayVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.payChargeList.contentOffset.y + self.payChargeList.frame.size.height) > self.payChargeList.contentSize.height {
+            self.viewModel.tryFetchMoreList()
+        }
     }
 }
 
