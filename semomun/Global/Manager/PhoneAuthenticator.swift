@@ -23,7 +23,6 @@ class PhoneAuthenticator {
     
     enum CodeResendError: Error {
         case noNetwork
-        case didNotSend
         case smsSentTooMuch
     }
     
@@ -83,7 +82,7 @@ class PhoneAuthenticator {
     
     func resendSMSCode(completion: @escaping (Result<String, CodeResendError>) -> Void) {
         guard let tempPhoneNumber = self.tempPhoneNumberForResend else {
-            completion(.failure(.didNotSend))
+            assertionFailure()
             return
         }
         self.sendSMSCode(to: tempPhoneNumber) { [weak self] result in
