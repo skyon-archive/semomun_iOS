@@ -57,7 +57,7 @@ class PhoneAuthenticator {
     }
     
     func verifySMSCode(_ code: String, completion: @escaping (Result<String, CodeVerifyError>) -> Void) {
-        guard let tempPhoneNumber = tempPhoneNumberForResend else {
+        guard let tempPhoneNumber = self.tempPhoneNumberForResend else {
             completion(.failure(.codeNotSent))
             return
         }
@@ -82,7 +82,7 @@ class PhoneAuthenticator {
     }
     
     func resendSMSCode(completion: @escaping (Result<String, CodeResendError>) -> Void) {
-        guard let tempPhoneNumber = tempPhoneNumberForResend else {
+        guard let tempPhoneNumber = self.tempPhoneNumberForResend else {
             completion(.failure(.didNotSend))
             return
         }
