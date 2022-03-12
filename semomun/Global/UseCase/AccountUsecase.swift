@@ -8,30 +8,8 @@
 import Foundation
 
 struct AccountUsecase {
-    static func setLocalDataAfterLogin(token: String, completion: @escaping (Bool) -> Void) {
-        Self.syncUserDataAndSaveKeychain(token: token) { succeed in
-            if succeed {
-                Self.setUserDefaultsToLogined()
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
-    }
-    
-    static func setLocalDataAfterSignup(token: String, completion: @escaping (Bool) -> Void) {
-        Self.syncUserDataAndSaveKeychain(token: token) { succeed in
-            if succeed {
-                Self.updateCoreVersion()
-                Self.setUserDefaultsToLogined()
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
-    }
-    
-    static func updateTokenForVersionOneUsers(networkUsecase: LoginSignupPostable) {
+    // MARK: AppDelegate 에서 1.0 -> 2.0 업데이트 로직
+    static func getTokensForPastVersionUser(networkUsecase: LoginSignupPostable) {
         do {
             let tokenString = try KeychainItem(account: .userIdentifier).readItem()
             let userToken = NetworkURL.UserIDToken.apple(tokenString)
@@ -42,6 +20,7 @@ struct AccountUsecase {
                     assertionFailure()
                     return
                 }
+                
                 switch result.status {
                 case .SUCCESS:
                     Self.setLocalDataAfterLogin(token: tokenString) { result in
@@ -59,12 +38,37 @@ struct AccountUsecase {
             print("Auth/Refresh 토큰 발급 실패: \(error)")
         }
     }
+    
+    // MARK: - LoginSelectVM 에서 로그인 이후 로직
+    static func setLocalDataAfterLogin(token: String, completion: @escaping (Bool) -> Void) {
+        Self.syncUserDataAndSaveKeychain(token: token) { succeed in
+            if succeed {
+                Self.setUserDefaultsToLogined()
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
+    // MARK: - LoginSelectVM 에서 회원가입 이후 로직
+    static func setLocalDataAfterSignup(token: String, completion: @escaping (Bool) -> Void) {
+        Self.syncUserDataAndSaveKeychain(token: token) { succeed in
+            if succeed {
+                Self.updateCoreVersion()
+                Self.setUserDefaultsToLogined()
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }
  
 // MARK: Private
 extension AccountUsecase {
     static private func syncUserDataAndSaveKeychain(token: String, completion: @escaping (Bool) -> Void) {
-        Self.tryDataSyncFromDB(token: token) { syncSucceed in
+        Self.tryDataSyncFromDB() { syncSucceed in
             if syncSucceed {
                 self.saveUserIDToKeychain(token: token) { keyChainSaveSucceed in
                     completion(keyChainSaveSucceed)
@@ -75,7 +79,7 @@ extension AccountUsecase {
         }
     }
     
-    static private func tryDataSyncFromDB(token: String, completion: @escaping (Bool) -> Void) {
+    static private func tryDataSyncFromDB(completion: @escaping (Bool) -> Void) {
         SyncUsecase.syncUserDataFromDB { result in
             switch result {
             case .success(_):

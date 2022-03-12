@@ -49,7 +49,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if isLogined {
             if coreVersion.compare("2.0.0", options: .numeric) == .orderedAscending {
-                AccountUsecase.updateTokenForVersionOneUsers(networkUsecase: NetworkUsecase(network: Network()))
+                AccountUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network()))
             } else {
                 SyncUsecase.syncUserDataFromDB { status in
                     switch status {
