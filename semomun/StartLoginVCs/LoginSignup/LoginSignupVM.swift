@@ -126,8 +126,6 @@ extension LoginSignupVM {
                     self.alert = .networkErrorWithoutPop
                 case .smsSentTooMuch:
                     self.alert = .snsLimitExceedAlert
-                case .didNotSend:
-                    assertionFailure()
                 }
             }
         }
