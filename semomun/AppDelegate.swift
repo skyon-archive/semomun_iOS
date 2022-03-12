@@ -49,19 +49,29 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if isLogined {
             if coreVersion.compare("2.0.0", options: .numeric) == .orderedAscending {
-                AccountUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network()))
-            } else {
-                SyncUsecase.syncUserDataFromDB { status in
-                    switch status {
-                    case .success(_):
-                        print("AppDelegate: 유저 정보 동기화 성공")
-                    case .failure(let error):
-                        print("AppDelegate: 유저 정보 동기화 실패: \(error)")
+                SyncUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network())) { result in
+                    if result == false {
+                        // TODO: 처리해야됨
+                    } else {
+                        self.syncUserData()
                     }
                 }
+            } else {
+                self.syncUserData()
             }
         }
         return true
+    }
+    
+    private func syncUserData() {
+        SyncUsecase.syncUserDataFromDB { status in
+            switch status {
+            case .success(_):
+                print("AppDelegate: 유저 정보 동기화 성공")
+            case .failure(let error):
+                print("AppDelegate: 유저 정보 동기화 실패: \(error)")
+            }
+        }
     }
     
     func application(
@@ -143,6 +153,5 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
     }
-
 }
 
