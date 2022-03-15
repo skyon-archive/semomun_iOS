@@ -12,8 +12,6 @@ typealias SemopayCellNetworkUsecase = WorkbookSearchable
 final class SemopayCell: UITableViewCell {
     static let identifier = "SemopayCell"
     
-    private var networkUsecase: SemopayCellNetworkUsecase?
-    
     @IBOutlet private weak var date: UILabel!
     @IBOutlet private weak var historyTitle: UILabel!
     @IBOutlet private weak var cost: UILabel!
@@ -34,19 +32,15 @@ final class SemopayCell: UITableViewCell {
 
 // MARK: Cell 정보 configure
 extension SemopayCell {
-    func configureCell(using purchase: PayHistory) {
+    func configureCell<T: PayHistoryRepresentable>(using purchase: T) {
         if self.isPurchaseCharge(purchase) {
             self.setTitleLabelForPayCharge()
         } else {
-            self.setTitleLabelForWorkbook(workbook: purchase.item.workbook)
+            self.historyTitle.text = purchase.title
         }
         
         self.setCostLabel(transaction: purchase.transaction)
         self.setDate(using: purchase.createdDate)
-    }
-    
-    func configureNetworkUsecase(_ networkUsecase: SemopayCellNetworkUsecase) {
-        self.networkUsecase = networkUsecase
     }
 }
 
@@ -70,7 +64,7 @@ extension SemopayCell {
 }
 
 extension SemopayCell {
-    private func isPurchaseCharge(_ purchase: PayHistory) -> Bool {
+    private func isPurchaseCharge<T: PayHistoryRepresentable>(_ purchase: T) -> Bool {
         if case .charge = purchase.transaction {
             return true
         } else {

@@ -8,13 +8,15 @@
 import Foundation
 import Combine
 
-typealias SemopayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable & SemopayCellNetworkUsecase)
+typealias PayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable)
 
-final class SemopayVM {
+final class SemopayVM<NetworkUsecase: PayNetworkUsecase> {
+    typealias PayHistory = NetworkUsecase.Group.Element
+    
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
     
-    let networkUsecase: SemopayNetworkUsecase
+    let networkUsecase: NetworkUsecase
     
     private var paginationStarted = false
     private var latestFetchedPage = 0
@@ -27,7 +29,7 @@ final class SemopayVM {
         return self.purchaseOfEachMonth.map(\.content).flatMap({$0}).count < purchaseTotalCount
     }
     
-    init(networkUsecase: SemopayNetworkUsecase) {
+    init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.initSemopayHistory()
         self.initRemainingSemopay()
