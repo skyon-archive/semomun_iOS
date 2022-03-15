@@ -24,6 +24,7 @@ final class HomeVC: UIViewController {
     private let bannerAdsAutoScrollInterval: TimeInterval = 3
     private lazy var noLoginedLabel1 = NoneWorkbookLabel()
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
+    private lazy var warningOfflineView = WarningOfflineStatusView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,6 +165,16 @@ extension HomeVC {
             self?.fetch()
         }
     }
+    
+    private func showOfflineAlert() {
+        self.view.addSubview(self.warningOfflineView)
+        NSLayoutConstraint.activate([
+            self.warningOfflineView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.warningOfflineView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.warningOfflineView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.warningOfflineView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
 }
 
 // MARK: - Binding
@@ -175,6 +186,7 @@ extension HomeVC {
         self.bindRecent()
         self.bindNewest()
         self.bindWorkbookDTO()
+        self.bindOfflineStatus()
     }
     
     private func bindTags() {
@@ -242,6 +254,20 @@ extension HomeVC {
             .sink(receiveValue: { [weak self] workbookDTO in
                 guard let workbookDTO = workbookDTO else { return }
                 self?.showWorkbookDetailVC(workbook: workbookDTO)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindOfflineStatus() {
+        self.viewModel?.$offlineStatus
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] offline in
+                if offline {
+                    self?.showOfflineAlert()
+                } else {
+                    self?.warningOfflineView.removeFromSuperview()
+                    self?.fetch()
+                }
             })
             .store(in: &self.cancellables)
     }
