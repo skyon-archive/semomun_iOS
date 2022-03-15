@@ -26,7 +26,6 @@ extension Notification.Name {
     static let sectionTerminated = Self.init(rawValue: "sectionTerminated")
     static let showSectionResult = Self.init(rawValue: "showSectionResult")
     static let checkHomeNetworkFetchable = Self.init(rawValue: "checkHomeNetworkFetchable")
-    static let syncSuccess = Self.init(rawValue: "syncSuccess")
     static let tokenExpired = Self.init(rawValue: "tokenExpired")
     static let networkError = Self.init(rawValue: "networkError")
 }

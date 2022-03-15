@@ -55,30 +55,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     return true
                 }
-                SyncUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network())) { result in
-                    if result == false {
-                        // TODO: 처리해야됨
-                    } else {
-                        self.syncUserData()
-                    }
-                }
-            } else {
-                self.syncUserData()
             }
         }
         return true
-    }
-    
-    private func syncUserData() {
-        guard NetworkStatusManager.isConnectedToInternet() == true else { return }
-        SyncUsecase.syncUserDataFromDB { status in
-            switch status {
-            case .success(_):
-                print("AppDelegate: 유저 정보 동기화 성공")
-            case .failure(let error):
-                print("AppDelegate: 유저 정보 동기화 실패: \(error)")
-            }
-        }
     }
     
     func application(
