@@ -64,9 +64,4 @@ struct SyncUsecase {
             CoreUsecase.createUserCoreData(userInfo: userInfo)
         }
     }
-    
-    static private func handleTokenExpire() {
-        LogoutUsecase.logout()
-        NotificationCenter.default.post(name: .logout, object: nil)
-    }
 }
