@@ -30,16 +30,14 @@ final class HomeVC: UIViewController {
         super.viewDidLoad()
         self.setShadow(with: navigationTitleView)
         self.configureViewModel()
-        self.configureCollectionView()
         self.bindAll()
-        self.fetch()
+        self.configureCollectionView()
         self.configureAddObserver()
         self.configureBannerAds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.startBannerAdsAutoScroll()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,13 +73,13 @@ extension HomeVC {
     private func configureBannerAds() {
         self.bannerAds.delegate = self
         self.bannerAds.dataSource = self
-        let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
-        self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
         self.bannerAds.decelerationRate = .fast
-        self.configureBannerAdsStartIndex()
     }
     
     private func configureBannerAdsStartIndex() {
+        let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
+        self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
+        
         guard let adDataNum = self.viewModel?.ads.count, adDataNum > 0 else { return }
         let adRepeatTime = self.collectionView(self.bannerAds, numberOfItemsInSection: 0) / adDataNum
         let startIndex = adDataNum * (adRepeatTime / 2)
@@ -212,7 +210,9 @@ extension HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
+                self?.configureBannerAdsStartIndex()
                 self?.bannerAds.reloadData()
+                self?.startBannerAdsAutoScroll()
             })
             .store(in: &self.cancellables)
     }
@@ -261,6 +261,7 @@ extension HomeVC {
     private func bindOfflineStatus() {
         self.viewModel?.$offlineStatus
             .receive(on: DispatchQueue.main)
+            .dropFirst()
             .sink(receiveValue: { [weak self] offline in
                 if offline {
                     self?.showOfflineAlert()
