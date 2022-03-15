@@ -20,11 +20,13 @@ final class HomeVM {
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
     @Published private(set) var offlineStatus: Bool = false
+    @Published private(set) var logined: Bool = false
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.checkNetwork()
+        self.checkNetworkAndFetchNonLogined()
+        self.checkLogined()
     }
     
     private func configureObservation() {
@@ -33,30 +35,52 @@ final class HomeVM {
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.didConnected, object: nil, queue: .current) { [weak self] _ in
             self?.offlineStatus = false
+            self?.fetch()
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disConnected, object: nil, queue: .current) { [weak self] _ in
             self?.offlineStatus = true
         }
         NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
-            self?.checkNetwork()
+            self?.checkNetworkAndFetchNonLogined()
+        }
+        NotificationCenter.default.addObserver(forName: .syncSuccess, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchLogined()
+        }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
+            self?.logined = true
+            self?.fetchLogined()
         }
     }
     
-    private func checkNetwork() {
+    private func checkNetworkAndFetchNonLogined() {
         NetworkStatusManager.state()
-        self.offlineStatus = NetworkStatusManager.isConnectedToInternet() == false
+        guard NetworkStatusManager.isConnectedToInternet() == true else {
+            self.offlineStatus = true
+            return
+        }
+        self.fetchNonLogined()
     }
     
-    func fetchAll() {
-        self.fetchSome()
-        self.fetchWorkbooksWithRecent()
-        self.fetchWorkbooksWithNewest()
+    func checkLogined() {
+        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
     }
     
-    func fetchSome() {
+    private func fetch() {
+        self.fetchNonLogined()
+        if self.logined {
+            self.fetchLogined()
+        }
+    }
+    
+    private func fetchNonLogined() {
         self.fetchTags()
         self.fetchAds()
         self.fetchBestSellers()
+    }
+    
+    private func fetchLogined() {
+        self.fetchWorkbooksWithRecent()
+        self.fetchWorkbooksWithNewest()
     }
     
     private func fetchTags() {

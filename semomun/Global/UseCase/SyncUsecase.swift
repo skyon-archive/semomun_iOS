@@ -47,9 +47,10 @@ struct SyncUsecase {
             switch status {
             case .SUCCESS where userInfo != nil:
                 self.saveUserInfoToCoreData(userInfo!)
+                NotificationCenter.default.post(name: .syncSuccess, object: nil)
                 completion(.success(userInfo!))
             case .TOKENEXPIRED:
-                self.handleTokenExpire()
+                NotificationCenter.default.post(name: .tokenExpired, object: nil)
             default:
                 completion(.failure(.networkFail))
             }
