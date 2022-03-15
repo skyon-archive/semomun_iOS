@@ -48,8 +48,6 @@ final class HomeVM {
     }
     
     func fetchAll() {
-        guard NetworkStatusManager.isConnectedToInternet() else { return }
-        
         self.fetchSome()
         self.fetchWorkbooksWithRecent()
         self.fetchWorkbooksWithNewest()
@@ -73,7 +71,8 @@ final class HomeVM {
     }
     
     private func fetchAds() {
-        self.ads = (1...5).map { ("banner\($0)", "https://forms.gle/suXByYKEied6RcSd8")}
+        let temp = (1...5).map { ("banner\($0)", "https://forms.gle/suXByYKEied6RcSd8")}
+        self.ads = temp
     }
     
     private func fetchBestSellers() {
