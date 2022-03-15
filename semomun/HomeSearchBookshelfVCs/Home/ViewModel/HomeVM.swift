@@ -43,6 +43,7 @@ final class HomeVM {
     }
     
     private func checkNetwork() {
+        NetworkStatusManager.state()
         self.offlineStatus = NetworkStatusManager.isConnectedToInternet() == false
     }
     

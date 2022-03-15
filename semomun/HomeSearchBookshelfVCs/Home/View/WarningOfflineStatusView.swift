@@ -38,9 +38,11 @@ final class WarningOfflineStatusView: UIView {
         button.clipsToBounds = true
         button.layer.cornerRadius = 3
         button.backgroundColor = UIColor(.mainColor)
-        button.setTitle("새로고침", for: .normal)
+        button.setTitle("  새로고침", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        button.setImage(UIImage(.refresh), for: .normal)
+        
         button.addAction(UIAction(handler: { _ in
             NotificationCenter.default.post(name: .checkHomeNetworkFetchable, object: nil)
         }), for: .touchUpInside)
