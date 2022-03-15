@@ -25,4 +25,5 @@ extension Notification.Name {
     static let refreshFavoriteTags = Self.init(rawValue: "refreshFavoriteTags")
     static let sectionTerminated = Self.init(rawValue: "sectionTerminated")
     static let showSectionResult = Self.init(rawValue: "showSectionResult")
+    static let checkHomeNetworkFetchable = Self.init(rawValue: "checkHomeNetworkFetchable")
 }

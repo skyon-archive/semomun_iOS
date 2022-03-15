@@ -59,6 +59,12 @@ extension UIView {
         }
     }
     
+    func layoutConstraintActivates(_ layouts: [NSLayoutConstraint]...) {
+        layouts.forEach { layout in
+            NSLayoutConstraint.activate(layout)
+        }
+    }
+    
     func addShadow(direction: CALayer.ShadowDirection = .center) {
         self.layer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor)
     }
