@@ -147,6 +147,9 @@
                             <outlet property="delegate" destination="447-De-0KO" id="XrI-HA-v9k"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="remainingPay" destination="MmR-vI-oeP" id="78b-6p-yQX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCW-EM-QjQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

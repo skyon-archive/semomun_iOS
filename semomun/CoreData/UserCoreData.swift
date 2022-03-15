@@ -26,6 +26,7 @@ extension UserCoreData {
     @NSManaged public var graduationStatus: String?
     @NSManaged public var userImage: Data?
     @NSManaged public var uid: String?
+    @NSManaged public var credit: Int64
 }
 
 extension UserCoreData : Identifiable {
@@ -35,7 +36,7 @@ extension UserCoreData : Identifiable {
 @objc(UserCoreData)
 public class UserCoreData: NSManagedObject {
     public override var description: String{
-        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phoneNumber), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.schoolName), \(optional: self.graduationStatus))"
+        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phoneNumber), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.schoolName), \(optional: self.graduationStatus), \(self.credit)"
     }
     
     func setValues(userInfo: UserInfo) {
@@ -50,6 +51,7 @@ public class UserCoreData: NSManagedObject {
         self.setValue(userInfo.school, forKey: "schoolName")
         self.setValue(userInfo.graduationStatus, forKey: "graduationStatus")
         self.setValue(String(userInfo.uid), forKey: "uid")
+        self.setValue(userInfo.credit, forKey: "credit")
     }
     
     func setUserImage(imageData: Data) {
