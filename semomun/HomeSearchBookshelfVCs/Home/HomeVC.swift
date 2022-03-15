@@ -31,6 +31,7 @@ final class HomeVC: UIViewController {
         self.setShadow(with: navigationTitleView)
         self.configureViewModel()
         self.bindAll()
+        self.viewModel?.checkLogined()
         self.configureCollectionView()
         self.configureAddObserver()
         self.configureBannerAds()
@@ -122,20 +123,6 @@ extension HomeVC {
         }
     }
     
-    private func fetch() {
-        let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
-        if isLogined {
-            self.noLoginedLabel1.removeFromSuperview()
-            self.noLoginedLabel2.removeFromSuperview()
-            self.recentHeight.constant = 232
-            self.newestHeight.constant = 232
-            self.viewModel?.fetchAll()
-        } else {
-            self.viewModel?.fetchSome()
-            self.configureLoginTextView()
-        }
-    }
-    
     private func configureLoginTextView() {
         self.recentHeight.constant = 72
         self.newestHeight.constant = 72
@@ -158,9 +145,6 @@ extension HomeVC {
     private func configureAddObserver() {
         NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
-        }
-        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .main) { [weak self] _ in
-            self?.fetch()
         }
     }
     
@@ -185,6 +169,7 @@ extension HomeVC {
         self.bindNewest()
         self.bindWorkbookDTO()
         self.bindOfflineStatus()
+        self.bindLogined()
     }
     
     private func bindTags() {
@@ -267,7 +252,23 @@ extension HomeVC {
                     self?.showOfflineAlert()
                 } else {
                     self?.warningOfflineView.removeFromSuperview()
-                    self?.fetch()
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindLogined() {
+        self.viewModel?.$logined
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] logined in
+                if logined == false {
+                    self?.configureLoginTextView()
+                } else {
+                    self?.noLoginedLabel1.removeFromSuperview()
+                    self?.noLoginedLabel2.removeFromSuperview()
+                    self?.recentHeight.constant = 232
+                    self?.newestHeight.constant = 232
                 }
             })
             .store(in: &self.cancellables)
