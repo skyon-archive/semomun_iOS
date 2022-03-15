@@ -25,26 +25,22 @@ final class HomeVM {
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.checkNetworkAndFetchNonLogined()
-        self.checkLogined()
+        NetworkStatusManager.state()
     }
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
             self?.fetchTags()
         }
+        // MARK: - NetworkStatusManager.state() 메소드를 실행함에 따라 온라인일 경우 항상 한번 이상 실행된다.
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.didConnected, object: nil, queue: .current) { [weak self] _ in
-            self?.offlineStatus = false
             self?.fetch()
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disConnected, object: nil, queue: .current) { [weak self] _ in
-            self?.offlineStatus = true
+            self?.offlineStatus = true // 온라인 -> 오프라인으로 변화시 동작
         }
         NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
-            self?.checkNetworkAndFetchNonLogined()
-        }
-        NotificationCenter.default.addObserver(forName: .syncSuccess, object: nil, queue: .current) { [weak self] _ in
-            self?.fetchLogined()
+            self?.fetch()
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
@@ -52,23 +48,24 @@ final class HomeVM {
         }
     }
     
-    private func checkNetworkAndFetchNonLogined() {
-        NetworkStatusManager.state()
-        guard NetworkStatusManager.isConnectedToInternet() == true else {
-            self.offlineStatus = true
-            return
-        }
-        self.fetchNonLogined()
-    }
-    
-    func checkLogined() {
+    func checkLogined() { // VC 에서 불리는 함수
         self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
     }
     
     private func fetch() {
+        self.offlineStatus = NetworkStatusManager.isConnectedToInternet() == false
         self.fetchNonLogined()
+        
         if self.logined {
-            self.fetchLogined()
+            SyncUsecase.syncUserDataFromDB { [weak self] status in
+                switch status {
+                case .success(_):
+                    print("Home: 유저 정보 동기화 성공")
+                    self?.fetchLogined()
+                default:
+                    return
+                }
+            }
         }
     }
     
