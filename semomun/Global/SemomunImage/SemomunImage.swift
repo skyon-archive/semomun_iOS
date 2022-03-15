@@ -23,6 +23,7 @@ enum SemomunImage: ImageName {
     case exclamationmarkTriangle = "exclamationmark.triangle"
     case circle = "circle.fill"
     case offlineAlert = "/offlineAlert"
+    case refresh = "/refresh"
 }
 
 struct ImageName: Equatable, ExpressibleByStringLiteral {
