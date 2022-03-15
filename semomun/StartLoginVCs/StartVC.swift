@@ -14,6 +14,7 @@ final class StartVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        self.configureObservation()
     }
     
     @IBAction func start(_ sender: Any) {
@@ -22,6 +23,16 @@ final class StartVC: UIViewController {
 }
 
 extension StartVC {
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .networkError, object: nil, queue: .main) { [weak self] _ in
+            self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도해주시기 바랍니다.", completion: {
+                UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    exit(0)
+                }
+            })
+        }
+    }
     private func goStartSettingVC() {
         let nextVC = UIStoryboard(name: StartSettingVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
         self.navigationController?.pushViewController(nextVC, animated: true)

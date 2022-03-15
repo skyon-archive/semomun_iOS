@@ -49,6 +49,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if isLogined {
             if coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
+                guard NetworkStatusManager.isConnectedToInternet() == true else {
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                        NotificationCenter.default.post(name: .networkError, object: nil)
+                    }
+                    return true
+                }
                 SyncUsecase.getTokensForPastVersionUser(networkUsecase: NetworkUsecase(network: Network())) { result in
                     if result == false {
                         // TODO: 처리해야됨
@@ -64,6 +70,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func syncUserData() {
+        guard NetworkStatusManager.isConnectedToInternet() == true else { return }
         SyncUsecase.syncUserDataFromDB { status in
             switch status {
             case .success(_):
