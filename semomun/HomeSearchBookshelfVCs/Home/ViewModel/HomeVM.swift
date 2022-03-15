@@ -19,16 +19,31 @@ final class HomeVM {
     @Published private(set) var error: String?
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
+    @Published private(set) var offlineStatus: Bool = false
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
+        self.checkNetwork()
     }
     
     private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
             self?.fetchTags()
         }
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.didConnected, object: nil, queue: .current) { [weak self] _ in
+            self?.offlineStatus = false
+        }
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disConnected, object: nil, queue: .current) { [weak self] _ in
+            self?.offlineStatus = true
+        }
+        NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
+            self?.checkNetwork()
+        }
+    }
+    
+    private func checkNetwork() {
+        self.offlineStatus = NetworkStatusManager.isConnectedToInternet() == false
     }
     
     func fetchAll() {
