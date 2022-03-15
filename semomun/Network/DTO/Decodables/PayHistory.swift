@@ -7,6 +7,25 @@
 
 import Foundation
 
+protocol PayHistoryGroupRepresentable {
+    associatedtype Element: PayHistoryRepresentable
+    var count: Int { get }
+    var content: [Element] { get }
+}
+
+protocol PayHistoryRepresentable {
+    var createdDate: Date { get }
+    var transaction: Transaction { get }
+    var title: String { get }
+    var bookCover: UUID? { get }
+}
+
+enum Transaction {
+    case charge(Int)
+    case purchase(Int)
+    case free
+}
+
 struct PayHistoryGroup: Decodable {
     enum CodingKeys: String, CodingKey {
         case count
@@ -14,12 +33,6 @@ struct PayHistoryGroup: Decodable {
     }
     let count: Int
     var content: [PayHistory]
-}
-
-enum Transaction {
-    case charge(Int)
-    case purchase(Int)
-    case free
 }
 
 struct PayHistory: Decodable {
@@ -52,4 +65,17 @@ struct PurchasedItem: Codable {
 struct PurchasedWorkbook: Codable {
     let title: String
     let bookcover: UUID
+}
+
+// MARK: Protocol conformance for UI
+extension PayHistoryGroup: PayHistoryGroupRepresentable { }
+
+extension PayHistory: PayHistoryRepresentable {
+    var title: String {
+        self.item.workbook.title
+    }
+    
+    var bookCover: UUID? {
+        self.item.workbook.bookcover
+    }
 }

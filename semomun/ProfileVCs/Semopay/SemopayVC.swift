@@ -12,7 +12,12 @@ final class SemopayVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "SemopayVC"
     
+    #if DEBUG
+    private let viewModel = SemopayVM(networkUsecase: MockPayNetworkUsecase())
+    #else
     private let viewModel = SemopayVM(networkUsecase: NetworkUsecase(network: Network()))
+    #endif
+    
     private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet weak var headerFrame: UIView!
@@ -21,6 +26,7 @@ final class SemopayVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.configureHeaderUI()
         self.configureDelegates()
         self.configureTableView()
@@ -94,7 +100,6 @@ extension SemopayVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
         // Configuring cell using data
         let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
-        cell.configureNetworkUsecase(self.viewModel.networkUsecase)
         cell.configureCell(using: purchase)
         
         // Configuring cell on specific position
