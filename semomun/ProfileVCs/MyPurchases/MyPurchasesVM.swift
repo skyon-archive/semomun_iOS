@@ -10,8 +10,8 @@ import Combine
 
 typealias MyPurchasesNetworkUsecase = UserHistoryFetchable & MyPurchaseCellNetworkUsecase
 
-final class MyPurchasesVM {
-    let networkUsecase: MyPurchasesNetworkUsecase
+final class MyPurchasesVM<NetworkUsecase: MyPurchasesNetworkUsecase> {
+    let networkUsecase: NetworkUsecase
     
     enum MyPurchasesAlert {
         case networkFailonStart
@@ -30,7 +30,7 @@ final class MyPurchasesVM {
         return Date()
     }
     
-    init(networkUsecase: MyPurchasesNetworkUsecase) {
+    init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
     

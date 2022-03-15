@@ -98,7 +98,6 @@ extension ProfileVC {
             self.name.text = userInfo.nickName
         } else {
             self.name.text = "로그인이 필요합니다"
-            self.name.frame = self.name.frame.offsetBy(dx: -41, dy: 0)
         }
     }
 }

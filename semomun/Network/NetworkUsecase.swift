@@ -268,36 +268,9 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
-        #if DEBUG
-        let contentSizeRange = 1...200
-        let defaultPageSize = 25
-        
-        let requestedContentLowerBound = 1 + (page - 1) * defaultPageSize
-        let requestedContentUpperBound = requestedContentLowerBound + defaultPageSize - 1
-        let requestedContentRange = requestedContentLowerBound...requestedContentUpperBound
-        
-        guard contentSizeRange.overlaps(requestedContentRange) else {
-            completion(.FAIL, nil)
-            return
-        }
-        
-        let availableContentRange = contentSizeRange.clamped(to: requestedContentRange)
-        let availableContentSize = availableContentRange.count
-        
-        print("Page: \(page)")
-        print("PayHistory 범위: \(availableContentRange)")
-        
-        self.getPayHistory(onlyPurchaseHistory: false, page: 1) { status, group in
-            guard let group = group else {
-                completion(status, nil)
-                return
-            }
-            let resizedContent = Array(repeating: group.content[0], count: availableContentSize)
-            let resizedGroup = PayHistoryGroup(count: contentSizeRange.count, content: resizedContent)
-            completion(status, resizedGroup)
-        }
-        #else
+    typealias Group = PayHistoryGroup
+    
+    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, Group?) -> Void) {
         self.getPayHistory(onlyPurchaseHistory: false, page: page) { status, group in
             guard let group = group else {
                 completion(status, nil)
@@ -305,7 +278,6 @@ extension NetworkUsecase: UserHistoryFetchable {
             }
             completion(status, group)
         }
-        #endif
     }
     
     func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
