@@ -37,6 +37,11 @@ final class HomeVC: UIViewController {
         self.configureBannerAds()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startBannerAdsAutoScroll()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.stopBannerAdsAutoScroll()
@@ -199,7 +204,6 @@ extension HomeVC {
             .sink(receiveValue: { [weak self] _ in
                 self?.configureBannerAdsStartIndex()
                 self?.bannerAds.reloadData()
-                self?.startBannerAdsAutoScroll()
             })
             .store(in: &self.cancellables)
     }
