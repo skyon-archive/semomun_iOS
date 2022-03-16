@@ -8,7 +8,7 @@
 import Foundation
 
 struct MockPayNetworkUsecase: PayNetworkUsecase {
-    typealias Group = MockPayHistoryGroup
+    typealias PayHistoryConforming = MockPayHistoryGroup
     
     private let historyCount = 212
     
@@ -16,19 +16,16 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
         completion(.SUCCESS, 123456789)
     }
     
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, Group?) -> Void) {
+    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
         guard let range = returnedIndex(page: page) else {
             completion(.SUCCESS, nil)
             return
         }
-        let histories: [MockPayHistory] = (0..<self.historyCount).reversed().map {
-            let formatter = NumberFormatter()
-            formatter.locale = Locale(identifier: "ko_KR")
-            formatter.numberStyle = .spellOut
-            let name = formatter.string(from: NSNumber(value: $0))!
-            let date = Date().addingTimeInterval(TimeInterval($0 * 86400))
+        let histories: [MockPayHistory] = (0..<self.historyCount).map {
+            let name = "\($0)"
+            let date = Date().addingTimeInterval(TimeInterval(-$0 * 86400))
             let transaction = [Transaction.purchase(123456), Transaction.charge(654321), Transaction.free].randomElement()!
-            return MockPayHistory(createdDate: date, transaction: transaction, title: name, bookCover: nil)
+            return MockPayHistory(createdDate: date, transaction: transaction, title: name)
         }
         let historyGroup = MockPayHistoryGroup(count: self.historyCount, content: Array(histories[range]))
         completion(.SUCCESS, historyGroup)
@@ -63,15 +60,15 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
     
 }
 
-struct MockPayHistoryGroup: PayHistoryGroupRepresentable {
+struct MockPayHistoryGroup: PayHistory {
     typealias Element = MockPayHistory
     let count: Int
     let content: [MockPayHistory]
 }
 
-struct MockPayHistory: PayHistoryRepresentable {
+struct MockPayHistory: PurchasedItem {
     let createdDate: Date
     let transaction: Transaction
     let title: String
-    let bookCover: UUID?
+    let bookCoverImageID: UUID? = nil
 }
