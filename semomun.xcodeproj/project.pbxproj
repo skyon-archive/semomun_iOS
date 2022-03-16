@@ -11,7 +11,7 @@
 		2502001127C613A80075744A /* SyncUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502001027C613A80075744A /* SyncUsecase.swift */; };
 		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
-		2502CEC827A593750072A037 /* SemopayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* SemopayVM.swift */; };
+		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
 		2502CECB27A6D8030072A037 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECA27A6D8030072A037 /* Purchase.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
@@ -42,7 +42,6 @@
 		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
-		257AC2CF27A9306F00008DD9 /* MyPurchasesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */; };
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
 		257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */; };
 		257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */; };
@@ -214,7 +213,7 @@
 		2502001027C613A80075744A /* SyncUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsecase.swift; sourceTree = "<group>"; };
 		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
-		2502CEC727A593750072A037 /* SemopayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayVM.swift; sourceTree = "<group>"; };
+		2502CEC727A593750072A037 /* PayHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryVM.swift; sourceTree = "<group>"; };
 		2502CECA27A6D8030072A037 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -247,7 +246,6 @@
 		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
-		257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesVM.swift; sourceTree = "<group>"; };
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDateLabel.swift; sourceTree = "<group>"; };
 		257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVM.swift; sourceTree = "<group>"; };
@@ -434,7 +432,6 @@
 			children = (
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
 				2562772F27A17E00006F9370 /* MyPurchaseCell.swift */,
-				257AC2CE27A9306F00008DD9 /* MyPurchasesVM.swift */,
 			);
 			path = MyPurchases;
 			sourceTree = "<group>";
@@ -536,7 +533,7 @@
 			children = (
 				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
 				2562773127A19E51006F9370 /* SemopayCell.swift */,
-				2502CEC727A593750072A037 /* SemopayVM.swift */,
+				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
 				25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */,
 			);
 			path = Semopay;
@@ -1314,7 +1311,6 @@
 				87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				877B1E3127CBC4B000AC8B84 /* JSONDecoderWithDate.swift in Sources */,
-				257AC2CF27A9306F00008DD9 /* MyPurchasesVM.swift in Sources */,
 				8716E93C279A5FDE00B33A5E /* StartVC.swift in Sources */,
 				254C3C0F27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
@@ -1386,7 +1382,7 @@
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
-				2502CEC827A593750072A037 /* SemopayVM.swift in Sources */,
+				2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */,
 				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
 				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
