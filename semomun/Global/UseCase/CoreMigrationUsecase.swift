@@ -15,6 +15,7 @@ extension CoreUsecase {
             return
         }
         CoreUsecase.updateSectionHeaders() { success in
+            NotificationCenter.default.post(name: .migrationTerminated, object: nil)
             completion(success)
             return
         }
