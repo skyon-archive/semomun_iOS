@@ -12,7 +12,6 @@
 		2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533C277AB30F0049F342 /* SchoolDTO.swift */; };
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
-		2502CECB27A6D8030072A037 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECA27A6D8030072A037 /* Purchase.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		25100CD627D4A9A8002C18CB /* Alamofire+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */; };
@@ -214,7 +213,6 @@
 		2502533C277AB30F0049F342 /* SchoolDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolDTO.swift; sourceTree = "<group>"; };
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		2502CEC727A593750072A037 /* PayHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryVM.swift; sourceTree = "<group>"; };
-		2502CECA27A6D8030072A037 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
@@ -470,7 +468,6 @@
 				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
 				2554C89027D27BCC00AAD262 /* BooleanResult.swift */,
 				255D637927ABBF46000991AB /* UserNotice.swift */,
-				2502CECA27A6D8030072A037 /* Purchase.swift */,
 				2562772D27A16C56006F9370 /* PayHistory.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 			);
@@ -1291,7 +1288,6 @@
 				87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */,
 				8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* CollectionCellDelegate.swift in Sources */,
-				2502CECB27A6D8030072A037 /* Purchase.swift in Sources */,
 				87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
