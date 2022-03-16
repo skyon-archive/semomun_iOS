@@ -19,8 +19,8 @@ class NetworkStatusManager {
     private init() {}
     
     enum Notifications {
-        static let didConnected = Notification.Name("didConnected")
-        static let disConnected = Notification.Name("disConnected")
+        static let connected = Notification.Name("connected")
+        static let disconnected = Notification.Name("disconnected")
     }
     
     static private let manager = Alamofire.NetworkReachabilityManager()
@@ -34,9 +34,9 @@ class NetworkStatusManager {
         manager?.startListening { status in
             switch status {
             case .notReachable :
-                NotificationCenter.default.post(name: Notifications.disConnected, object: self)
+                NotificationCenter.default.post(name: Notifications.disconnected, object: self)
             case .reachable :
-                NotificationCenter.default.post(name: Notifications.didConnected, object: self)
+                NotificationCenter.default.post(name: Notifications.connected, object: self)
             default :
                 print("unknown")
             }

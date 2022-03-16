@@ -33,10 +33,10 @@ final class HomeVM {
             self?.fetchTags()
         }
         // MARK: - NetworkStatusManager.state() 메소드를 실행함에 따라 온라인일 경우 항상 한번 이상 실행된다.
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.didConnected, object: nil, queue: .current) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
             self?.fetch()
         }
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disConnected, object: nil, queue: .current) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.offlineStatus = true // 온라인 -> 오프라인으로 변화시 동작
         }
         NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
