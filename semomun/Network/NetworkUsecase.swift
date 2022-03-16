@@ -268,15 +268,16 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    typealias Group = PayHistoryGroup
+    typealias PayHistoryConforming = PayHistoryNetworkAdapter
     
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, Group?) -> Void) {
+    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
         self.getPayHistory(onlyPurchaseHistory: false, page: page) { status, group in
             guard let group = group else {
                 completion(status, nil)
                 return
             }
-            completion(status, group)
+            let adapted = PayHistoryNetworkAdapter(networkDTO: group)
+            completion(status, adapted)
         }
     }
     
@@ -288,7 +289,7 @@ extension NetworkUsecase: UserHistoryFetchable {
         completion((.SUCCESS, purchases))
     }
     
-    private func getPayHistory(onlyPurchaseHistory: Bool, page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroup?) -> Void) {
+    private func getPayHistory(onlyPurchaseHistory: Bool, page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroupOfDB?) -> Void) {
         let type = onlyPurchaseHistory ? "order" : ""
         let param = ["type": type, "page": String(page), "limit": String(limit)]
         self.network.request(url: NetworkURL.pay, param: param, method: .get, tokenRequired: true) { result in
@@ -298,7 +299,7 @@ extension NetworkUsecase: UserHistoryFetchable {
             }
             let networkStatus = NetworkStatus(statusCode: statusCode)
             guard let data = result.data,
-                  let decoded = try? JSONDecoderWithDate().decode(PayHistoryGroup.self, from: data) else {
+                  let decoded = try? JSONDecoderWithDate().decode(PayHistoryGroupOfDB.self, from: data) else {
                       completion(.DECODEERROR, nil)
                       return
                   }

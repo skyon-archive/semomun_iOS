@@ -32,7 +32,7 @@ final class SemopayCell: UITableViewCell {
 
 // MARK: Cell 정보 configure
 extension SemopayCell {
-    func configureCell<T: PayHistoryRepresentable>(using purchase: T) {
+    func configureCell<T: PurchasedItem>(using purchase: T) {
         if self.isPurchaseCharge(purchase) {
             self.setTitleLabelForPayCharge()
         } else {
@@ -64,7 +64,7 @@ extension SemopayCell {
 }
 
 extension SemopayCell {
-    private func isPurchaseCharge<T: PayHistoryRepresentable>(_ purchase: T) -> Bool {
+    private func isPurchaseCharge<T: PurchasedItem>(_ purchase: T) -> Bool {
         if case .charge = purchase.transaction {
             return true
         } else {
@@ -74,10 +74,6 @@ extension SemopayCell {
     
     private func setTitleLabelForPayCharge() {
         self.historyTitle.text = "세모페이 충전"
-    }
-    
-    private func setTitleLabelForWorkbook(workbook: PurchasedWorkbook) {
-        self.historyTitle.text = workbook.title
     }
     
     private func setDate(using date: Date) {
