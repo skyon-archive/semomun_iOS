@@ -67,7 +67,7 @@ extension PayHistoryVM {
     private func tryFetchPayHistory(page: Int) {
         guard self.paginationStarted == false else { return }
         self.paginationStarted = true
-        self.networkUsecase.getPayHistory(onlyPurchaseHistory: false, page: page) { [weak self] status, result in
+        self.networkUsecase.getPayHistory(onlyPurchaseHistory: self.onlyPurchaseHistory, page: page) { [weak self] status, result in
             defer {
                 self?.paginationStarted = false
             }

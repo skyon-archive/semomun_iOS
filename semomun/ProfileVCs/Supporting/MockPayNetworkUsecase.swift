@@ -22,9 +22,9 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
             let date = Date().addingTimeInterval(TimeInterval(-$0 * 86400))
             let transaction: Transaction
             if onlyPurchaseHistory {
-                transaction = [Transaction.purchase(123456), Transaction.charge(654321), Transaction.free].randomElement()!
-            } else {
                 transaction = Transaction.purchase(123456)
+            } else {
+                transaction = [Transaction.purchase(123456), Transaction.charge(654321), Transaction.free].randomElement()!
             }
             return MockPayHistory(createdDate: date, transaction: transaction, title: name)
         }
