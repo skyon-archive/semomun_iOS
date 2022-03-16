@@ -18,9 +18,7 @@ struct PayHistoryNetworkAdapter: PayHistory {
         self.content = networkDTO.content.map { payHistoryOfDB in
             let date = payHistoryOfDB.createdDate
             let amount = payHistoryOfDB.amount
-            let title = payHistoryOfDB.item.workbook.title
-            let bookCoverImageID = payHistoryOfDB.item.workbook.bookcover
-            return PurchasedItemNetworkAdapter(createdDate: date, amount: amount, title: title, bookCoverImageID: bookCoverImageID)
+            return PurchasedItemNetworkAdapter(purchasedItemofDB: payHistoryOfDB.item, createdDate: date, amount: amount)
         }
     }
 }
@@ -31,12 +29,15 @@ struct PurchasedItemNetworkAdapter: PurchasedItem {
     let title: String
     let bookCoverImageID: UUID?
     
-    init(createdDate: Date, amount: Int, title: String, bookCoverImageID: UUID? = nil) {
+    private let purchasedItem: PurchasedItemofDB
+    
+    init(purchasedItemofDB: PurchasedItemofDB, createdDate: Date, amount: Int) {
+        self.purchasedItem = purchasedItemofDB
         self.createdDate = createdDate
-        self.title = title
-        self.bookCoverImageID = bookCoverImageID
+        self.title = purchasedItemofDB.workbook.title
+        self.bookCoverImageID = purchasedItemofDB.workbook.bookcover
         
-        switch amount {
+        switch amount{
         case 0:
             self.transaction = .free
         case ..<0:

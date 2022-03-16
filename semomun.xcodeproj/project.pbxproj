@@ -533,8 +533,6 @@
 			children = (
 				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
 				2562773127A19E51006F9370 /* SemopayCell.swift */,
-				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
-				25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */,
 			);
 			path = Semopay;
 			sourceTree = "<group>";
@@ -549,14 +547,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		2593970227A3E19900BD5BD3 /* Supporting Views */ = {
+		2593970227A3E19900BD5BD3 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */,
+				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
 				25627728279EE6AC006F9370 /* LongText */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
 				257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */,
 			);
-			path = "Supporting Views";
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 		259C000E27914171005D432B /* WorkbookDetailVC */ = {
@@ -700,7 +700,7 @@
 				2502CEC927A6D7100072A037 /* MyPurchases */,
 				257AC7E627A5834A005E91EC /* Semopay */,
 				256A3746279DA7EC00455655 /* Setting */,
-				2593970227A3E19900BD5BD3 /* Supporting Views */,
+				2593970227A3E19900BD5BD3 /* Supporting */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";
