@@ -64,7 +64,7 @@ extension SemopayCell {
 }
 
 extension SemopayCell {
-    private func isPurchaseCharge<T: PurchasedItem>(_ purchase: T) -> Bool {
+    private func isPurchaseCharge(_ purchase: PurchasedItem) -> Bool {
         if case .charge = purchase.transaction {
             return true
         } else {
@@ -99,8 +99,10 @@ extension SemopayCell {
     
     private func getCostLabelNumberPart(transaction: Transaction) -> String {
         switch transaction {
-        case .charge(let text), .purchase(let text):
-            return text.withCommaAndSign
+        case .charge(let text):
+            return "+\(text)"
+        case .purchase(let text):
+            return "-\(text)"
         case .free:
             return "0"
         }
