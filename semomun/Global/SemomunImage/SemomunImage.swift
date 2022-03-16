@@ -22,8 +22,8 @@ enum SemomunImage: ImageName {
     case googleLogo = "/googleLogo"
     case exclamationmarkTriangle = "exclamationmark.triangle"
     case circle = "circle.fill"
-    case offlineAlert = "/offlineAlert"
     case refresh = "/refresh"
+    case cloud = "/cloud"
 }
 
 struct ImageName: Equatable, ExpressibleByStringLiteral {
