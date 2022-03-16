@@ -13,9 +13,9 @@ final class SemopayVC: UIViewController {
     static let identifier = "SemopayVC"
     
     #if DEBUG
-    private let viewModel = SemopayVM(networkUsecase: MockPayNetworkUsecase())
+    private let viewModel = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: MockPayNetworkUsecase())
     #else
-    private let viewModel = SemopayVM(networkUsecase: NetworkUsecase(network: Network()))
+    private let viewModel = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: NetworkUsecase(network: Network()))
     #endif
     
     private var cancellables: Set<AnyCancellable> = []
@@ -26,11 +26,11 @@ final class SemopayVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.configureHeaderUI()
         self.configureDelegates()
         self.configureTableView()
         self.bindAll()
+        self.viewModel.initPublished()
     }
     
     override func viewWillAppear(_ animated: Bool) {

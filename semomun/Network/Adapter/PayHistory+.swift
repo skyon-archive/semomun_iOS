@@ -8,10 +8,10 @@
 import Foundation
 
 protocol PayHistory {
-    associatedtype Element: PurchasedItem
+    associatedtype Item: PurchasedItem
     
     var count: Int { get }
-    var content: [Element] { get }
+    var content: [Item] { get }
 }
 
 protocol PurchasedItem {
@@ -25,4 +25,12 @@ enum Transaction {
     case charge(Int)
     case purchase(Int)
     case free
+    var amount: Int {
+        switch self {
+        case .charge(let int), .purchase(let int):
+            return int
+        case .free:
+            return 0
+        }
+    }
 }

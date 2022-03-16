@@ -10,13 +10,19 @@ import Combine
 
 typealias PayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable)
 
-final class SemopayVM<NetworkUsecase: PayNetworkUsecase> {
-    typealias PayHistory = NetworkUsecase.PayHistoryConforming.Element
+final class PayHistoryVM<NetworkUsecase: PayNetworkUsecase> {
+    enum Alert {
+        case noNetwork
+    }
+    
+    typealias PayHistory = NetworkUsecase.PayHistoryConforming.Item
     
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
+    @Published private(set) var alert: Alert?
     
     let networkUsecase: NetworkUsecase
+    let onlyPurchaseHistory: Bool
     
     private var paginationStarted = false
     private var latestFetchedPage = 0
@@ -26,13 +32,17 @@ final class SemopayVM<NetworkUsecase: PayNetworkUsecase> {
         guard let purchaseTotalCount = purchaseTotalCount else {
             return false
         }
-        return self.purchaseOfEachMonth.map(\.content).flatMap({$0}).count < purchaseTotalCount
+        return self.purchaseOfEachMonth.reduce(0, { $0 + $1.content.count }) < purchaseTotalCount
     }
     
-    init(networkUsecase: NetworkUsecase) {
+    init(onlyPurchaseHistory: Bool, networkUsecase: NetworkUsecase) {
+        self.onlyPurchaseHistory = onlyPurchaseHistory
         self.networkUsecase = networkUsecase
-        self.initSemopayHistory()
+    }
+    
+    func initPublished() {
         self.initRemainingSemopay()
+        self.tryFetchPayHistory(page: 1)
     }
     
     func tryFetchMoreList() {
@@ -43,15 +53,13 @@ final class SemopayVM<NetworkUsecase: PayNetworkUsecase> {
     }
 }
 
-extension SemopayVM {
-    private func initSemopayHistory() {
-        self.tryFetchPayHistory(page: 1)
-    }
-    
+extension PayHistoryVM {
     private func initRemainingSemopay() {
         self.networkUsecase.getRemainingSemopay { [weak self] status, credit in
             if status == .SUCCESS {
                 self?.remainingSemopay = credit ?? 0
+            } else {
+                self?.alert = .noNetwork
             }
         }
     }
@@ -59,16 +67,20 @@ extension SemopayVM {
     private func tryFetchPayHistory(page: Int) {
         guard self.paginationStarted == false else { return }
         self.paginationStarted = true
-        
-        self.networkUsecase.getSemopayHistory(page: page) { [weak self] status, result in
-            guard let result = result else {
+        self.networkUsecase.getPayHistory(onlyPurchaseHistory: false, page: page) { [weak self] status, result in
+            defer {
                 self?.paginationStarted = false
+            }
+            
+            guard status == .SUCCESS,
+            let result = result else {
+                self?.alert = .noNetwork
                 return
             }
+            
             self?.latestFetchedPage = page
             self?.purchaseTotalCount = result.count
             self?.addPayHistoriesGroupedByDate(result.content)
-            self?.paginationStarted = false
         }
     }
     
@@ -81,7 +93,7 @@ extension SemopayVM {
                 let contentSorted = value.sorted(by: { $0.createdDate > $1.createdDate })
                 return (dateStr, contentSorted)
             }
-
+        
         historySorted.forEach { section, content in
             if let idx = self.purchaseOfEachMonth.firstIndex(where: { $0.section == section}) {
                 self.purchaseOfEachMonth[idx].content.append(contentsOf: content)

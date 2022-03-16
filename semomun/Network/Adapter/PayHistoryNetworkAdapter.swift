@@ -8,10 +8,10 @@
 import Foundation
 
 struct PayHistoryNetworkAdapter: PayHistory {
-    typealias Element = PurchasedItemNetworkAdapter
+    typealias Item = PurchasedItemNetworkAdapter
     
     let count: Int
-    let content: [Element]
+    let content: [Item]
     
     init(networkDTO: PayHistoryGroupOfDB) {
         self.count = networkDTO.count

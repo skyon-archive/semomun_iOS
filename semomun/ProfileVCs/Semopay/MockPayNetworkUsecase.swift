@@ -12,11 +12,7 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
     
     private let historyCount = 212
     
-    func getRemainingSemopay(completion: @escaping (NetworkStatus, Int?) -> Void) {
-        completion(.SUCCESS, 123456789)
-    }
-    
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
+    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, MockPayHistoryGroup?) -> Void) {
         guard let range = returnedIndex(page: page) else {
             completion(.SUCCESS, nil)
             return
@@ -24,7 +20,12 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
         let histories: [MockPayHistory] = (0..<self.historyCount).map {
             let name = "\($0)"
             let date = Date().addingTimeInterval(TimeInterval(-$0 * 86400))
-            let transaction = [Transaction.purchase(123456), Transaction.charge(654321), Transaction.free].randomElement()!
+            let transaction: Transaction
+            if onlyPurchaseHistory {
+                transaction = [Transaction.purchase(123456), Transaction.charge(654321), Transaction.free].randomElement()!
+            } else {
+                transaction = Transaction.purchase(123456)
+            }
             return MockPayHistory(createdDate: date, transaction: transaction, title: name)
         }
         let historyGroup = MockPayHistoryGroup(count: self.historyCount, content: Array(histories[range]))
@@ -51,8 +52,8 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
         return availableContentRange
     }
     
-    func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
-        
+    func getRemainingSemopay(completion: @escaping (NetworkStatus, Int?) -> Void) {
+        completion(.SUCCESS, 123456789)
     }
     
     func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
@@ -61,7 +62,7 @@ struct MockPayNetworkUsecase: PayNetworkUsecase {
 }
 
 struct MockPayHistoryGroup: PayHistory {
-    typealias Element = MockPayHistory
+    typealias Item = MockPayHistory
     let count: Int
     let content: [MockPayHistory]
 }
