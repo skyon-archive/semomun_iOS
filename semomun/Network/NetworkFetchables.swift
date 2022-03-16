@@ -67,8 +67,7 @@ protocol UserInfoSendable {
 protocol UserHistoryFetchable {
     associatedtype PayHistoryConforming: PayHistory
     
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void)
-    func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void)
+    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void)
 }
 protocol UserInfoFetchable {
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)

@@ -270,40 +270,25 @@ extension NetworkUsecase: UserInfoSendable {
 extension NetworkUsecase: UserHistoryFetchable {
     typealias PayHistoryConforming = PayHistoryNetworkAdapter
     
-    func getSemopayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
-        self.getPayHistory(onlyPurchaseHistory: false, page: page) { status, group in
-            guard let group = group else {
-                completion(status, nil)
-                return
-            }
-            let adapted = PayHistoryNetworkAdapter(networkDTO: group)
-            completion(status, adapted)
-        }
-    }
-    
-    func getPurchaseList(from startDate: Date, to endDate: Date, completion: @escaping ((NetworkStatus, [Purchase])) -> Void) {
-        guard startDate <= endDate else { return }
-        let wids = Array(repeating: 1, count: 50)
-        let dates = Array(1...50).map { Date(timeIntervalSinceNow: -86400 * 5 * Double($0)) }
-        let purchases = Array(0..<50).map { Purchase(wid: wids[$0], date: dates[$0], cost: Double.random(in: 1...99) * 1000)}
-        completion((.SUCCESS, purchases))
-    }
-    
-    private func getPayHistory(onlyPurchaseHistory: Bool, page: Int, limit: Int = 25, completion: @escaping (NetworkStatus, PayHistoryGroupOfDB?) -> Void) {
+    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
         let type = onlyPurchaseHistory ? "order" : ""
-        let param = ["type": type, "page": String(page), "limit": String(limit)]
+        let param = ["type": type, "page": String(page)]
         self.network.request(url: NetworkURL.pay, param: param, method: .get, tokenRequired: true) { result in
             guard let statusCode = result.statusCode else {
                 completion(.FAIL, nil)
                 return
             }
             let networkStatus = NetworkStatus(statusCode: statusCode)
+            
             guard let data = result.data,
                   let decoded = try? JSONDecoderWithDate().decode(PayHistoryGroupOfDB.self, from: data) else {
                       completion(.DECODEERROR, nil)
                       return
                   }
-            completion(networkStatus, decoded)
+            
+            let adapted = PayHistoryNetworkAdapter(networkDTO: decoded)
+            
+            completion(networkStatus, adapted)
         }
     }
 }
