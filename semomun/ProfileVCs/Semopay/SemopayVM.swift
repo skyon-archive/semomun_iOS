@@ -11,7 +11,7 @@ import Combine
 typealias PayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable)
 
 final class SemopayVM<NetworkUsecase: PayNetworkUsecase> {
-    typealias PayHistory = NetworkUsecase.Group.Element
+    typealias PayHistory = NetworkUsecase.PayHistoryConforming.Element
     
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PayHistory])] = []
     @Published private(set) var remainingSemopay: Int = 0
@@ -73,13 +73,16 @@ extension SemopayVM {
     }
     
     private func addPayHistoriesGroupedByDate(_ payHistories: [PayHistory]) {
-        var resultGroupedByYearMonth: [String: [PayHistory]] = [:]
-        payHistories.forEach { purchase in
-            let yearMonthText = purchase.createdDate.yearMonthText
-            resultGroupedByYearMonth[yearMonthText, default: []].append(purchase)
-        }
-        let sortedTuples = resultGroupedByYearMonth.sorted(by: { $0.key > $1.key}).map { ($0.key, $0.value) }
-        sortedTuples.forEach { section, content in
+        let historyGrouped = Dictionary(grouping: payHistories, by: { $0.createdDate })
+        let historySorted: [(String, [PayHistory])] = historyGrouped
+            .sorted(by: { $0.key > $1.key }) // Date 키 값 기준으로 정렬
+            .map { key, value in
+                let dateStr = key.yearMonthText
+                let contentSorted = value.sorted(by: { $0.createdDate > $1.createdDate })
+                return (dateStr, contentSorted)
+            }
+
+        historySorted.forEach { section, content in
             if let idx = self.purchaseOfEachMonth.firstIndex(where: { $0.section == section}) {
                 self.purchaseOfEachMonth[idx].content.append(contentsOf: content)
             } else {
