@@ -21,9 +21,8 @@ struct SyncUsecase {
     static func getTokensForPastVersionUser(networkUsecase: LoginSignupPostable, completion: @escaping (Bool) -> Void) {
         do {
             let tokenString = try KeychainItem(account: .userIdentifier).readItem()
-            let userToken = NetworkURL.UserIDToken.apple(tokenString)
+            let userToken = NetworkURL.UserIDToken.unspecified(tokenString)
             
-            // TODO: 타입 필요 없는 API로 대체하기
             networkUsecase.postLogin(userToken: userToken) { status, userNotExist in
                 guard userNotExist == false else {
                     assertionFailure()
