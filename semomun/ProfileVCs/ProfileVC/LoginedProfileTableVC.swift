@@ -57,14 +57,23 @@ extension LoginedProfileTableVC {
 
 extension LoginedProfileTableVC {
     private func updatePay() {
-        self.networkUsecase?.getRemainingPay { status, credit in
-            if let credit = credit {
-                self.remainingPay.text = "\(credit)원"
-            } else if let userInfo = CoreUsecase.fetchUserInfo() {
-                self.remainingPay.text = "\(userInfo.credit)원"
-            } else {
-                self.remainingPay.text = "-원"
+        if let userInfo = CoreUsecase.fetchUserInfo() {
+            guard NetworkStatusManager.isConnectedToInternet() else {
+                self.remainingPay.text = "\(Int(userInfo.credit).withComma)원"
+                return
             }
+            
+            self.networkUsecase?.getRemainingPay { status, credit in
+                if let credit = credit {
+                    self.remainingPay.text = "\(credit.withComma)원"
+                    userInfo.updateCredit(credit)
+                } else {
+                    self.remainingPay.text = "?원"
+                }
+            }
+        } else {
+            self.remainingPay.text = "?원"
         }
+        
     }
 }

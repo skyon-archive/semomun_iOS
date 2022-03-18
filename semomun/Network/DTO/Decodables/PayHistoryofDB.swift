@@ -27,11 +27,11 @@ struct PayHistoryofDB: Decodable {
     let amount: Int
 }
 
-struct PurchasedItemofDB: Codable {
+struct PurchasedItemofDB: Decodable {
     let workbook: PurchasedWorkbookofDB
 }
 
-struct PurchasedWorkbookofDB: Codable {
+struct PurchasedWorkbookofDB: Decodable {
     let title: String
     let bookcover: UUID
 }
