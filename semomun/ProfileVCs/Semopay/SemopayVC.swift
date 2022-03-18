@@ -61,8 +61,24 @@ extension SemopayVC {
 // MARK: Binding
 extension SemopayVC {
     private func bindAll() {
+        self.bindAlert()
         self.bindPurchaseList()
         self.bindRemainingSemopay()
+    }
+    private func bindAlert() {
+        self.viewModel?.$alert
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] alert in
+                switch alert {
+                case .none:
+                    break
+                case .noNetwork:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도하시기 바랍니다.") {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
+            .store(in: &self.cancellables)
     }
     private func bindPurchaseList() {
         self.viewModel?.$purchaseOfEachMonth
