@@ -56,7 +56,7 @@ extension MyPurchasesVC {
                 case .none:
                     break
                 case .noNetwork:
-                    self?.showAlertWithOK(title: "네트워크 없음", text: "") {
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도하시기 바랍니다.") {
                         self?.navigationController?.popViewController(animated: true)
                     }
                 }
