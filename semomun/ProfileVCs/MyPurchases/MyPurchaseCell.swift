@@ -11,7 +11,6 @@ import Kingfisher
 
 typealias MyPurchaseCellNetworkUsecase = (WorkbookSearchable & S3ImageFetchable)
 
-
 final class MyPurchaseCell: UITableViewCell  {
     
     static let storyboardName = "Profile"
@@ -41,7 +40,7 @@ final class MyPurchaseCell: UITableViewCell  {
     func configure(item: PurchasedItem, networkUsecase: MyPurchaseCellNetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.titleLabel.text = item.title
-        self.dateLabel.text = item.createdDate.yearMonthText
+        self.dateLabel.text = item.createdDate.yearMonthDayText
         let costStr = Int(item.transaction.amount).withComma
         self.costLabel.text = costStr + "원"
         self.getBookcoverImage(uuid: item.descriptionImageID)
