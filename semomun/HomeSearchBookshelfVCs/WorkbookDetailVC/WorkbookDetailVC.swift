@@ -150,7 +150,7 @@ extension WorkbookDetailVC {
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         self.fileSizeLabel.text = workbookInfo.fileSize
-        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma ?? "0")원 결제하기", for: .normal)
+        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 결제하기", for: .normal)
         
         if workbookInfo.isbn == "" {
             self.isbnStackView.isHidden = true

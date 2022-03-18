@@ -66,7 +66,7 @@ enum NetworkURL {
     static let enterWorkbook = workbooks + "solve"
     static let purchasedWorkbooks: String = workbooks + "purchased"
     static let username = base + "/users/username"
-    static let pay = base + "/pay"
+    static let payHistory = base + "/pay"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"

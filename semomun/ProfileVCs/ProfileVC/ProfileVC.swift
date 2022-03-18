@@ -34,7 +34,12 @@ final class ProfileVC: UIViewController {
     
     private lazy var tableViewAfterLogin: UIViewController = {
         let storyboard = UIStoryboard(name: LoginedProfileTableVC.storyboardName, bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier)
+        let vc = storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier)
+        guard let loginedProfileTableVC = vc as? LoginedProfileTableVC else {
+            return vc
+        }
+        loginedProfileTableVC.configureNetworkUsecase(NetworkUsecase(network: Network()))
+        return loginedProfileTableVC
     }()
     
     override func viewWillAppear(_ animated: Bool) {

@@ -10,14 +10,12 @@ import Combine
 
 typealias PayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable)
 
-final class PayHistoryVM<NetworkUsecase: PayNetworkUsecase> {
+final class PayHistoryVM {
     enum Alert {
         case noNetwork
     }
     
-    typealias PayHistory = NetworkUsecase.PayHistoryConforming.Item
-    
-    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PayHistory])] = []
+    @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PurchasedItem])] = []
     @Published private(set) var remainingSemopay: Int = 0
     @Published private(set) var alert: Alert?
     
@@ -55,7 +53,7 @@ final class PayHistoryVM<NetworkUsecase: PayNetworkUsecase> {
 
 extension PayHistoryVM {
     private func initRemainingSemopay() {
-        self.networkUsecase.getRemainingSemopay { [weak self] status, credit in
+        self.networkUsecase.getRemainingPay { [weak self] status, credit in
             if status == .SUCCESS {
                 self?.remainingSemopay = credit ?? 0
             } else {
@@ -84,9 +82,9 @@ extension PayHistoryVM {
         }
     }
     
-    private func addPayHistoriesGroupedByDate(_ payHistories: [PayHistory]) {
+    private func addPayHistoriesGroupedByDate(_ payHistories: [PurchasedItem]) {
         let historyGrouped = Dictionary(grouping: payHistories, by: { $0.createdDate })
-        let historySorted: [(String, [PayHistory])] = historyGrouped
+        let historySorted: [(String, [PurchasedItem])] = historyGrouped
             .sorted(by: { $0.key > $1.key }) // Date 키 값 기준으로 정렬
             .map { key, value in
                 let dateStr = key.yearMonthText

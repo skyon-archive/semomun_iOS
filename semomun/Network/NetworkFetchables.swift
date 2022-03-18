@@ -65,13 +65,11 @@ protocol UserInfoSendable {
     func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserHistoryFetchable {
-    associatedtype PayHistoryConforming: PayHistory
-    
-    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void)
+    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistory?) -> Void)
 }
 protocol UserInfoFetchable {
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
-    func getRemainingSemopay(completion: @escaping (NetworkStatus, Int?) -> Void)
+    func getRemainingPay(completion: @escaping (NetworkStatus, Int?) -> Void)
 }
 protocol UserPurchaseable {
     func purchaseItem(productIDs: [Int], completion: @escaping (NetworkStatus, Int?) -> Void)
