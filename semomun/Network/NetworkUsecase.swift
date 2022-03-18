@@ -268,27 +268,26 @@ extension NetworkUsecase: UserInfoSendable {
     }
 }
 extension NetworkUsecase: UserHistoryFetchable {
-    typealias PayHistoryConforming = PayHistoryNetworkAdapter
+    typealias PayHistoryConforming = PayHistory
     
     func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
         let type = onlyPurchaseHistory ? "order" : ""
         let param = ["type": type, "page": String(page)]
-        self.network.request(url: NetworkURL.pay, param: param, method: .get, tokenRequired: true) { result in
+        
+        self.network.request(url: NetworkURL.payHistory, param: param, method: .get, tokenRequired: true) { result in
             guard let statusCode = result.statusCode else {
                 completion(.FAIL, nil)
                 return
             }
-            let networkStatus = NetworkStatus(statusCode: statusCode)
             
             guard let data = result.data,
                   let decoded = try? JSONDecoderWithDate().decode(PayHistoryGroupOfDB.self, from: data) else {
                       completion(.DECODEERROR, nil)
                       return
                   }
+            let payHistory = PayHistory(networkDTO: decoded)
             
-            let adapted = PayHistoryNetworkAdapter(networkDTO: decoded)
-            
-            completion(networkStatus, adapted)
+            completion(NetworkStatus(statusCode: statusCode), payHistory)
         }
     }
 }
@@ -321,7 +320,7 @@ extension NetworkUsecase: UserInfoFetchable {
             }
         }
     }
-    func getRemainingSemopay(completion: @escaping (NetworkStatus, Int?) -> Void) {
+    func getRemainingPay(completion: @escaping (NetworkStatus, Int?) -> Void) {
         self.network.request(url: NetworkURL.usersSelf, method: .get, tokenRequired: true) { result in
             switch result.statusCode {
             case 200:
