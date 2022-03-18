@@ -27,12 +27,15 @@ enum NetworkURL {
     enum UserIDToken {
         case google(String)
         case apple(String)
-        var param: (type: String, token: String) {
+        case unspecified(String)
+        var param: (type: String?, token: String) {
             switch self {
             case .google(let string):
                 return ("google", string)
             case .apple(let string):
                 return ("apple", string)
+            case .unspecified(let string):
+                return (nil, string)
             }
         }
         var userID: String {
@@ -40,6 +43,8 @@ enum NetworkURL {
             case .google(let string):
                 return string
             case .apple(let string):
+                return string
+            case .unspecified(let string):
                 return string
             }
         }
