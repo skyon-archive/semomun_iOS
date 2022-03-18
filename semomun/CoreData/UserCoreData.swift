@@ -9,7 +9,12 @@
 import Foundation
 import CoreData
 
-extension UserCoreData {
+@objc(UserCoreData)
+public class UserCoreData: NSManagedObject {
+    public override var description: String{
+        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phoneNumber), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.schoolName), \(optional: self.graduationStatus), \(self.credit)"
+    }
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<UserCoreData> {
         return NSFetchRequest<UserCoreData>(entityName: "UserCoreData")
     }
@@ -27,17 +32,6 @@ extension UserCoreData {
     @NSManaged public var userImage: Data?
     @NSManaged public var uid: String?
     @NSManaged public var credit: Int64
-}
-
-extension UserCoreData : Identifiable {
-}
-
-
-@objc(UserCoreData)
-public class UserCoreData: NSManagedObject {
-    public override var description: String{
-        return "User(\(optional: self.uid), \(optional: self.name), \(optional: self.nickName), \(optional: self.phoneNumber), \(optional: self.favoriteCategory), \(optional: self.major), \(optional: self.majorDetail), \(optional: self.gender), \(optional: self.birthday), \(optional: self.schoolName), \(optional: self.graduationStatus), \(self.credit)"
-    }
     
     func setValues(userInfo: UserInfo) {
         print("class: \(userInfo)")
@@ -56,5 +50,9 @@ public class UserCoreData: NSManagedObject {
     
     func setUserImage(imageData: Data) {
         self.setValue(imageData, forKey: "userImage")
+    }
+    
+    func updateCredit(_ credit: Int) {
+        self.setValue(Int64(credit), forKey: "credit")
     }
 }
