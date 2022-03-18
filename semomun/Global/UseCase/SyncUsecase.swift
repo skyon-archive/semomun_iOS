@@ -21,7 +21,7 @@ struct SyncUsecase {
     static func getTokensForPastVersionUser(networkUsecase: LoginSignupPostable, completion: @escaping (Bool) -> Void) {
         do {
             let tokenString = try KeychainItem(account: .userIdentifier).readItem()
-            let userToken = NetworkURL.UserIDToken.unspecified(tokenString)
+            let userToken = NetworkURL.UserIDToken.legacy(tokenString)
             
             networkUsecase.postLogin(userToken: userToken) { status, userNotExist in
                 guard userNotExist == false else {

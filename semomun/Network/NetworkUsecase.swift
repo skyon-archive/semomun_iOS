@@ -439,10 +439,7 @@ extension NetworkUsecase: ErrorReportable {
 extension NetworkUsecase: LoginSignupPostable {
     func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping ((status: NetworkStatus, userNotExist: Bool)) -> Void) {
         let tokenParam = userToken.param
-        var param = ["token": tokenParam.token]
-        if let type = tokenParam.type {
-            param["type"] = type
-        }
+        let param = ["token": tokenParam.token, "type": tokenParam.type]
         
         self.network.request(url: NetworkURL.login, param: param, method: .post, tokenRequired: false) { result in
             guard let statusCode = result.statusCode,
@@ -469,12 +466,7 @@ extension NetworkUsecase: LoginSignupPostable {
     }
     func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping ((status: NetworkStatus, userAlreadyExist: Bool)) -> Void) {
         let tokenParam = userIDToken.param
-        guard let type = tokenParam.type else {
-            assertionFailure("회원가입 시에는 type값이 반드시 필요합니다.")
-            completion((.FAIL, false))
-            return
-        }
-        let param = SignUpParam(info: userInfo, token: tokenParam.token, type: type)
+        let param = SignUpParam(info: userInfo, token: tokenParam.token, type: tokenParam.type)
         self.network.request(url: NetworkURL.signup, param: param, method: .post, tokenRequired: false) { result in
             guard let statusCode = result.statusCode,
                   let data = result.data else {
