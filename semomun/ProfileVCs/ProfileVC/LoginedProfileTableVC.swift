@@ -13,6 +13,8 @@ final class LoginedProfileTableVC: UITableViewController {
     
     @IBOutlet weak var remainingPay: UILabel!
     
+    private var networkUsecase: UserInfoFetchable?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.setHorizontalMargin(to: 109)
@@ -20,9 +22,11 @@ final class LoginedProfileTableVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let userInfo = CoreUsecase.fetchUserInfo() {
-            self.remainingPay.text = String(userInfo.credit) + "원"
-        }
+        self.updatePay()
+    }
+    
+    func configureNetworkUsecase(_ networkUsecase: UserInfoFetchable) {
+        self.networkUsecase = networkUsecase
     }
 
     @IBAction func chargeSemopay(_ sender: Any) {
@@ -48,5 +52,19 @@ extension LoginedProfileTableVC {
         }
         self.navigationController?.pushViewController(nextVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension LoginedProfileTableVC {
+    private func updatePay() {
+        self.networkUsecase?.getRemainingPay { status, credit in
+            if let credit = credit {
+                self.remainingPay.text = "\(credit)원"
+            } else if let userInfo = CoreUsecase.fetchUserInfo() {
+                self.remainingPay.text = "\(userInfo.credit)원"
+            } else {
+                self.remainingPay.text = "-원"
+            }
+        }
     }
 }

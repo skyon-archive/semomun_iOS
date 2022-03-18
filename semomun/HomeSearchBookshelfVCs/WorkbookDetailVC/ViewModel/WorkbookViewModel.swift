@@ -119,7 +119,7 @@ final class WorkbookViewModel {
     }
     
     private func fetchUserCredit() {
-        self.networkUsecase.getRemainingSemopay { [weak self] status, credit in
+        self.networkUsecase.getRemainingPay { [weak self] status, credit in
             switch status {
             case .SUCCESS:
                 self?.credit = credit

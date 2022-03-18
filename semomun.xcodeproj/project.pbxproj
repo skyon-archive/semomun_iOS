@@ -20,11 +20,12 @@
 		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC47027B63F0800F1CE27 /* UIImage.swift */; };
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
-		254C3C0F27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift */; };
+		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
 		25520FBA27D10DC800CC6015 /* NetworkTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB927D10DC800CC6015 /* NetworkTokenController.swift */; };
 		2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C89027D27BCC00AAD262 /* BooleanResult.swift */; };
+		25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25571EC427E43EC0002C72ED /* PurchasedItem.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
@@ -33,7 +34,7 @@
 		25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */; };
 		25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25627726279EDE92006F9370 /* receiveMarketingInfo.txt */; };
 		2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627729279EE6C7006F9370 /* MainThemeSwitch.swift */; };
-		2562772E27A16C56006F9370 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistory.swift */; };
+		2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistoryofDB.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
@@ -50,13 +51,11 @@
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
-		25A7181027E0D62000CA6603 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */; };
 		25A950B327C760EC0084513E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A950B227C760EC0084513E /* Collection.swift */; };
 		25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookViewModel.swift */; };
 		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
 		25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */; };
 		25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */; };
-		25B8C09127E20C2B00AC500F /* PayHistory+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B8C09027E20C2B00AC500F /* PayHistory+.swift */; };
 		25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */; };
 		25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDF279D46A700807196 /* SettingVC.swift */; };
 		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
@@ -223,11 +222,12 @@
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		254C3C0E27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryNetworkAdapter.swift; sourceTree = "<group>"; };
+		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
 		25520FB927D10DC800CC6015 /* NetworkTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokenController.swift; sourceTree = "<group>"; };
 		2554C89027D27BCC00AAD262 /* BooleanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanResult.swift; sourceTree = "<group>"; };
+		25571EC427E43EC0002C72ED /* PurchasedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItem.swift; sourceTree = "<group>"; };
 		255D637527ABB03F000991AB /* UserNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeVC.swift; sourceTree = "<group>"; };
 		255D637727ABB332000991AB /* UserNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeCell.swift; sourceTree = "<group>"; };
 		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25627726279EDE92006F9370 /* receiveMarketingInfo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = receiveMarketingInfo.txt; sourceTree = "<group>"; };
 		25627729279EE6C7006F9370 /* MainThemeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThemeSwitch.swift; sourceTree = "<group>"; };
-		2562772D27A16C56006F9370 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
+		2562772D27A16C56006F9370 /* PayHistoryofDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryofDB.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
@@ -254,13 +254,11 @@
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
-		25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPayNetworkUsecase.swift; sourceTree = "<group>"; };
 		25A950B227C760EC0084513E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		25A9B2B3279158020087E774 /* WorkbookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookViewModel.swift; sourceTree = "<group>"; };
 		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
 		25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVM.swift; sourceTree = "<group>"; };
 		25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthenticator.swift; sourceTree = "<group>"; };
-		25B8C09027E20C2B00AC500F /* PayHistory+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayHistory+.swift"; sourceTree = "<group>"; };
 		25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25D1BDDF279D46A700807196 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -468,7 +466,7 @@
 				87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */,
 				2554C89027D27BCC00AAD262 /* BooleanResult.swift */,
 				255D637927ABBF46000991AB /* UserNotice.swift */,
-				2562772D27A16C56006F9370 /* PayHistory.swift */,
+				2562772D27A16C56006F9370 /* PayHistoryofDB.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 			);
 			path = Decodables;
@@ -547,9 +545,9 @@
 		2593970227A3E19900BD5BD3 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				25A7180F27E0D62000CA6603 /* MockPayNetworkUsecase.swift */,
-				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
+				25B8C09227E2150C00AC500F /* Model */,
 				25627728279EE6AC006F9370 /* LongText */,
+				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
 				257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */,
 			);
@@ -583,13 +581,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		25B8C09227E2150C00AC500F /* Adapter */ = {
+		25B8C09227E2150C00AC500F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				25B8C09027E20C2B00AC500F /* PayHistory+.swift */,
-				254C3C0E27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift */,
+				254C3C0E27E205D70007BBA3 /* PayHistory.swift */,
+				25571EC427E43EC0002C72ED /* PurchasedItem.swift */,
 			);
-			path = Adapter;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		25D1BDDC279D3A3300807196 /* ProfileVC */ = {
@@ -1005,7 +1003,6 @@
 				25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */,
 				87C85EEC276F6EC9001C9C4A /* DTO */,
 				877B1E3227CBC5B000AC8B84 /* Decoder */,
-				25B8C09227E2150C00AC500F /* Adapter */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1277,7 +1274,6 @@
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
-				25B8C09127E20C2B00AC500F /* PayHistory+.swift in Sources */,
 				2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */,
 				8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */,
 				8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */,
@@ -1308,7 +1304,7 @@
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				877B1E3127CBC4B000AC8B84 /* JSONDecoderWithDate.swift in Sources */,
 				8716E93C279A5FDE00B33A5E /* StartVC.swift in Sources */,
-				254C3C0F27E205D70007BBA3 /* PayHistoryNetworkAdapter.swift in Sources */,
+				254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
 				8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
@@ -1328,6 +1324,7 @@
 				2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */,
 				8716E95C279A625B00B33A5E /* ConceptVC.swift in Sources */,
 				87C85ED1276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift in Sources */,
+				25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */,
 				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
 				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,
 				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
@@ -1391,7 +1388,7 @@
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
-				2562772E27A16C56006F9370 /* PayHistory.swift in Sources */,
+				2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */,
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
@@ -1412,7 +1409,6 @@
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
-				25A7181027E0D62000CA6603 /* MockPayNetworkUsecase.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
 				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,

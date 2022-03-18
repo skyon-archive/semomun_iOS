@@ -42,12 +42,9 @@ final class MyPurchaseCell: UITableViewCell  {
         self.networkUsecase = networkUsecase
         self.titleLabel.text = item.title
         self.dateLabel.text = item.createdDate.yearMonthText
-        
         let costStr = Int(item.transaction.amount).withComma
         self.costLabel.text = costStr + "원"
-        if let bookCoverImageID = item.bookCoverImageID {
-            self.getBookcoverImage(uuid: bookCoverImageID)
-        }
+        self.getBookcoverImage(uuid: item.descriptionImageID)
     }
     
     private func getBookcoverImage(uuid: UUID) {

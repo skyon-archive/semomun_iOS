@@ -12,11 +12,7 @@ final class SemopayVC: UIViewController {
     static let storyboardName = "Profile"
     static let identifier = "SemopayVC"
     
-    #if DEBUG
-    private let viewModel = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: MockPayNetworkUsecase())
-    #else
-    private let viewModel = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: NetworkUsecase(network: Network()))
-    #endif
+    private let viewModel: PayHistoryVM? = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: NetworkUsecase(network: Network()))
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -30,7 +26,7 @@ final class SemopayVC: UIViewController {
         self.configureDelegates()
         self.configureTableView()
         self.bindAll()
-        self.viewModel.initPublished()
+        self.viewModel?.initPublished()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +65,7 @@ extension SemopayVC {
         self.bindRemainingSemopay()
     }
     private func bindPurchaseList() {
-        self.viewModel.$purchaseOfEachMonth
+        self.viewModel?.$purchaseOfEachMonth
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.payChargeList.reloadData()
@@ -77,7 +73,7 @@ extension SemopayVC {
             .store(in: &self.cancellables)
     }
     private func bindRemainingSemopay() {
-        self.viewModel.$remainingSemopay
+        self.viewModel?.$remainingSemopay
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] remainingSemopay in
                 let costStr = remainingSemopay.withComma 
@@ -89,17 +85,19 @@ extension SemopayVC {
 
 extension SemopayVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.purchaseOfEachMonth.count
+        return self.viewModel?.purchaseOfEachMonth.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.purchaseOfEachMonth[section].content.count
+        return self.viewModel?.purchaseOfEachMonth[section].content.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
         // Configuring cell using data
-        let purchase = self.viewModel.purchaseOfEachMonth[indexPath.section].content[indexPath.row]
+        guard let purchase = self.viewModel?.purchaseOfEachMonth[indexPath.section].content[indexPath.row] else {
+            return cell
+        }
         cell.configureCell(using: purchase)
         
         // Configuring cell on specific position
@@ -111,15 +109,17 @@ extension SemopayVC: UITableViewDataSource {
 
 extension SemopayVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (self.payChargeList.contentOffset.y + self.payChargeList.frame.size.height) > self.payChargeList.contentSize.height {
-            self.viewModel.tryFetchMoreList()
+        if self.payChargeList.contentOffset.y >= (self.payChargeList.contentSize.height - self.payChargeList.bounds.size.height) {
+            self.viewModel?.tryFetchMoreList()
         }
     }
 }
 
 extension SemopayVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionText = self.viewModel.purchaseOfEachMonth[section].section
+        guard let sectionText = self.viewModel?.purchaseOfEachMonth[section].section else {
+            return nil
+        }
         return SectionDateLabelFrame(text: sectionText, filled: false)
     }
     

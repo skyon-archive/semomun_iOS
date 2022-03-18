@@ -32,7 +32,7 @@ final class SemopayCell: UITableViewCell {
 
 // MARK: Cell 정보 configure
 extension SemopayCell {
-    func configureCell<T: PurchasedItem>(using purchase: T) {
+    func configureCell(using purchase: PurchasedItem) {
         if self.isPurchaseCharge(purchase) {
             self.setTitleLabelForPayCharge()
         } else {
@@ -81,20 +81,20 @@ extension SemopayCell {
     }
     
     private func setCostLabel(transaction: Transaction) {
-        let labelColor = self.getCostLabelColor(transaction: transaction)
-        let costLabelNumberPart = self.getCostLabelNumberPart(transaction: transaction)
+        let costColor = self.getCostLabelColor(transaction: transaction)
+        let cost = self.getCostLabelNumberPart(transaction: transaction)
         
-        let numberPartRange = NSRange(location: 0, length: costLabelNumberPart.count)
-        let costLabel = costLabelNumberPart + "원"
+        let costRange = NSRange(location: 0, length: cost.count)
+        let costWithWon = cost + "원"
         
-        let attrString = NSMutableAttributedString(string: costLabel)
-        let numberPartAttribute = [
-            NSAttributedString.Key.foregroundColor: labelColor,
+        let attrCostString = NSMutableAttributedString(string: costWithWon)
+        let costAttr = [
+            NSAttributedString.Key.foregroundColor: costColor,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)
         ]
         
-        attrString.addAttributes(numberPartAttribute, range: numberPartRange)
-        self.cost.attributedText = attrString
+        attrCostString.addAttributes(costAttr, range: costRange)
+        self.cost.attributedText = attrCostString
     }
     
     private func getCostLabelNumberPart(transaction: Transaction) -> String {
@@ -115,10 +115,8 @@ extension SemopayCell {
         switch transaction {
         case .charge(_):
             return blue
-        case .purchase(_):
+        case .purchase(_), .free:
             return red
-        case .free:
-            return .lightGray
         }
     }
 }
