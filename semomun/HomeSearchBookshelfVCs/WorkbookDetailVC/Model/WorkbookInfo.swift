@@ -22,7 +22,8 @@ struct WorkbookInfo {
         self.author = previewCore.author != "" ? (previewCore.author ?? "저자 정보 없음") : "저자 정보 없음"
         self.publisher = previewCore.publisher != "" ? (previewCore.publisher ?? "출판사 정보 없음") : "출판사 정보 없음"
         self.releaseDate = previewCore.publishedDate?.koreanYearMonthDayText ?? "출판일 정보 없음"
-        self.fileSize = "\(previewCore.fileSize)MB"
+        let byteSize = Int(previewCore.fileSize)
+        self.fileSize = byteSize.byteToMBString
         self.isbn = previewCore.isbn ?? ""
         self.price = Int(previewCore.price)
         self.imageData = previewCore.image
@@ -34,7 +35,8 @@ struct WorkbookInfo {
         self.author = workbookDTO.author != "" ? workbookDTO.author : "저자 정보 없음"
         self.publisher = workbookDTO.publishCompany != "" ? workbookDTO.publishCompany : "출판사 정보 없음"
         self.releaseDate = workbookDTO.publishedDate.koreanYearMonthDayText
-        self.fileSize = "\(sectionInfos.reduce(0, { $0 + $1.fileSize }))MB"
+        let byteSize = sectionInfos.reduce(0, { $0 + $1.fileSize })
+        self.fileSize = byteSize.byteToMBString
         self.isbn = workbookDTO.isbn
         self.price = workbookDTO.price
         self.imageData = nil
