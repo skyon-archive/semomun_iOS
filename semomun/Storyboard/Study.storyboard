@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_5" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lfx-R9-ZZe" userLabel="headerView">
-                                <rect key="frame" x="-5" y="-5" width="844" height="106"/>
+                                <rect key="frame" x="0.0" y="-5" width="834" height="106"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="고3 2021년 7월 화법과 작문" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWD-M2-vDE">
-                                        <rect key="frame" x="320" y="45" width="204.5" height="22"/>
+                                        <rect key="frame" x="315" y="45" width="204.5" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="CYa-5k-7Ko"/>
                                         </constraints>
@@ -32,7 +32,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34:02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccW-Cv-1sE">
-                                        <rect key="frame" x="404" y="80" width="36.5" height="16"/>
+                                        <rect key="frame" x="399" y="80" width="36.5" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="eac-ik-AdE"/>
                                         </constraints>
@@ -41,7 +41,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lu8-2Q-Z3p">
-                                        <rect key="frame" x="707" y="40" width="92" height="32"/>
+                                        <rect key="frame" x="710" y="40" width="92" height="32"/>
                                         <color key="backgroundColor" name="mainColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="92" id="jUv-lu-zr3"/>
@@ -62,7 +62,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aT-4m-aFH">
-                                        <rect key="frame" x="45" y="40" width="92" height="32"/>
+                                        <rect key="frame" x="32" y="40" width="92" height="32"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="92" id="NFf-Tk-oPD"/>
@@ -89,7 +89,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeC-X8-abm">
-                                        <rect key="frame" x="534.5" y="45" width="22" height="22"/>
+                                        <rect key="frame" x="529.5" y="45" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="AXY-RJ-aen"/>
                                             <constraint firstAttribute="width" secondItem="UeC-X8-abm" secondAttribute="height" multiplier="1:1" id="TEH-LK-BAZ"/>
@@ -101,14 +101,14 @@
                                 <color key="backgroundColor" name="gray_light"/>
                                 <constraints>
                                     <constraint firstItem="1aT-4m-aFH" firstAttribute="centerY" secondItem="uWD-M2-vDE" secondAttribute="centerY" id="3el-F0-bdz"/>
-                                    <constraint firstAttribute="trailing" secondItem="Lu8-2Q-Z3p" secondAttribute="trailing" constant="45" id="CAm-yx-MkA"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lu8-2Q-Z3p" secondAttribute="trailing" constant="32" id="CAm-yx-MkA"/>
                                     <constraint firstAttribute="bottom" secondItem="ccW-Cv-1sE" secondAttribute="bottom" constant="10" id="GZF-SL-YOa"/>
                                     <constraint firstItem="Lu8-2Q-Z3p" firstAttribute="centerY" secondItem="uWD-M2-vDE" secondAttribute="centerY" id="NVQ-Eg-u27"/>
                                     <constraint firstItem="uWD-M2-vDE" firstAttribute="centerX" secondItem="Lfx-R9-ZZe" secondAttribute="centerX" id="RBt-J1-Jfe"/>
                                     <constraint firstItem="UeC-X8-abm" firstAttribute="centerY" secondItem="uWD-M2-vDE" secondAttribute="centerY" id="lGN-FH-eIK"/>
                                     <constraint firstItem="ccW-Cv-1sE" firstAttribute="centerX" secondItem="uWD-M2-vDE" secondAttribute="centerX" id="rTX-4K-SRc"/>
                                     <constraint firstItem="uWD-M2-vDE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1aT-4m-aFH" secondAttribute="trailing" constant="42" id="svk-pK-cE9"/>
-                                    <constraint firstItem="1aT-4m-aFH" firstAttribute="leading" secondItem="Lfx-R9-ZZe" secondAttribute="leading" constant="45" id="ugd-Xo-NTm"/>
+                                    <constraint firstItem="1aT-4m-aFH" firstAttribute="leading" secondItem="Lfx-R9-ZZe" secondAttribute="leading" constant="32" id="ugd-Xo-NTm"/>
                                     <constraint firstItem="ccW-Cv-1sE" firstAttribute="top" secondItem="uWD-M2-vDE" secondAttribute="bottom" constant="13" id="xFb-36-B2U"/>
                                     <constraint firstItem="UeC-X8-abm" firstAttribute="leading" secondItem="uWD-M2-vDE" secondAttribute="trailing" constant="10" id="zHK-Qx-K6u"/>
                                 </constraints>
@@ -302,7 +302,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uWD-M2-vDE" firstAttribute="top" secondItem="gCM-AS-BZF" secondAttribute="top" constant="20" id="1h9-Il-ZCC"/>
-                            <constraint firstItem="gCM-AS-BZF" firstAttribute="trailing" secondItem="Lfx-R9-ZZe" secondAttribute="trailing" constant="-5" id="G8t-jP-GgC"/>
+                            <constraint firstItem="gCM-AS-BZF" firstAttribute="trailing" secondItem="Lfx-R9-ZZe" secondAttribute="trailing" id="G8t-jP-GgC"/>
                             <constraint firstItem="xai-eR-Gl1" firstAttribute="bottom" secondItem="C1T-K7-k44" secondAttribute="bottom" id="NDu-Md-ST4"/>
                             <constraint firstItem="Lfx-R9-ZZe" firstAttribute="centerX" secondItem="gCM-AS-BZF" secondAttribute="centerX" id="Oyu-3Y-dqf"/>
                             <constraint firstItem="xai-eR-Gl1" firstAttribute="top" secondItem="U60-qb-wc3" secondAttribute="bottom" constant="6" id="RFz-kI-b9q"/>
@@ -310,7 +310,7 @@
                             <constraint firstItem="U60-qb-wc3" firstAttribute="top" secondItem="Lfx-R9-ZZe" secondAttribute="bottom" constant="6" id="UvE-Xw-uYQ"/>
                             <constraint firstItem="xai-eR-Gl1" firstAttribute="leading" secondItem="gCM-AS-BZF" secondAttribute="leading" id="YuY-Pv-4lM"/>
                             <constraint firstItem="gCM-AS-BZF" firstAttribute="trailing" secondItem="U60-qb-wc3" secondAttribute="trailing" id="aX4-tb-4pC"/>
-                            <constraint firstItem="Lfx-R9-ZZe" firstAttribute="leading" secondItem="gCM-AS-BZF" secondAttribute="leading" constant="-5" id="cUi-2D-2lk"/>
+                            <constraint firstItem="Lfx-R9-ZZe" firstAttribute="leading" secondItem="gCM-AS-BZF" secondAttribute="leading" id="cUi-2D-2lk"/>
                             <constraint firstAttribute="bottom" secondItem="xai-eR-Gl1" secondAttribute="bottom" id="fzG-Ll-PH8"/>
                             <constraint firstItem="U60-qb-wc3" firstAttribute="leading" secondItem="gCM-AS-BZF" secondAttribute="leading" id="jiW-2x-d5Z"/>
                             <constraint firstItem="gCM-AS-BZF" firstAttribute="bottom" secondItem="9oo-cB-ao2" secondAttribute="bottom" constant="23.5" id="kkI-Ie-6DH"/>
@@ -789,7 +789,7 @@
                                 <rect key="frame" x="0.0" y="20" width="834" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Ig-Hz-KdH">
-                                        <rect key="frame" x="100" y="14" width="132" height="32"/>
+                                        <rect key="frame" x="32" y="14" width="132" height="32"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVE-Nz-856">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -797,7 +797,7 @@
                                                     <constraint firstAttribute="height" constant="32" id="f8h-LY-RPn"/>
                                                     <constraint firstAttribute="width" constant="32" id="gHg-p8-rzx"/>
                                                 </constraints>
-                                                <color key="tintColor" name="darkMainColor"/>
+                                                <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
                                                 <state key="selected" image="bookmarkFill">
@@ -815,7 +815,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="해설">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showExplanation:" destination="nee-lV-R5i" eventType="touchUpInside" id="wX9-t2-GQj"/>
@@ -829,7 +829,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="정답">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showAnswer:" destination="nee-lV-R5i" eventType="touchUpInside" id="9vz-2o-oOF"/>
@@ -838,7 +838,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hih-tI-Ph0">
-                                        <rect key="frame" x="526" y="14" width="208" height="32"/>
+                                        <rect key="frame" x="594" y="14" width="208" height="32"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xn-UP-56W">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -849,7 +849,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="1">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -859,7 +859,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -875,7 +875,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="2">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -885,7 +885,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -901,7 +901,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="3">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -911,7 +911,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -927,7 +927,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="4">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -937,7 +937,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -953,7 +953,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="5">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -963,7 +963,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -976,8 +976,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Z1u-a2-ocQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="hih-tI-Ph0" secondAttribute="trailing" constant="100" id="ced-da-61J"/>
-                                    <constraint firstItem="5Ig-Hz-KdH" firstAttribute="leading" secondItem="qzj-iM-1JT" secondAttribute="leading" constant="100" id="kkU-OB-V3v"/>
+                                    <constraint firstAttribute="trailing" secondItem="hih-tI-Ph0" secondAttribute="trailing" constant="32" id="ced-da-61J"/>
+                                    <constraint firstItem="5Ig-Hz-KdH" firstAttribute="leading" secondItem="qzj-iM-1JT" secondAttribute="leading" constant="32" id="kkU-OB-V3v"/>
                                     <constraint firstItem="hih-tI-Ph0" firstAttribute="centerY" secondItem="qzj-iM-1JT" secondAttribute="centerY" id="l2G-Mf-X0Z"/>
                                     <constraint firstItem="5Ig-Hz-KdH" firstAttribute="centerY" secondItem="qzj-iM-1JT" secondAttribute="centerY" id="zDt-hp-q1m"/>
                                 </constraints>
@@ -1074,7 +1074,7 @@
                                 <rect key="frame" x="0.0" y="20" width="834" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Whh-hG-7zH">
-                                        <rect key="frame" x="100" y="14" width="132" height="32"/>
+                                        <rect key="frame" x="32" y="14" width="132" height="32"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3FI-3H-91O">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -1082,7 +1082,7 @@
                                                     <constraint firstAttribute="height" constant="32" id="B4J-Kg-Cb7"/>
                                                     <constraint firstAttribute="width" constant="32" id="fnA-4s-9N4"/>
                                                 </constraints>
-                                                <color key="tintColor" name="darkMainColor"/>
+                                                <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
                                                 <state key="selected" image="bookmarkFill">
@@ -1100,7 +1100,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="해설">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showExplanation:" destination="dtC-XT-npO" eventType="touchUpInside" id="8ZC-0h-REd"/>
@@ -1114,7 +1114,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="정답">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showAnswer:" destination="dtC-XT-npO" eventType="touchUpInside" id="GJc-6p-2PD"/>
@@ -1123,7 +1123,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="aJt-DX-iKa">
-                                        <rect key="frame" x="570" y="14" width="164" height="32"/>
+                                        <rect key="frame" x="638" y="14" width="164" height="32"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aha-JE-bgz">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -1134,7 +1134,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="1">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1144,7 +1144,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -1160,7 +1160,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="2">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1170,7 +1170,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -1186,7 +1186,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="3">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1196,7 +1196,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -1212,7 +1212,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="4">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1222,7 +1222,7 @@
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="darkMainColor"/>
+                                                        <color key="value" name="deepMint"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -1235,8 +1235,8 @@
                                 <color key="backgroundColor" name="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="FR9-Hj-TUm"/>
-                                    <constraint firstItem="Whh-hG-7zH" firstAttribute="leading" secondItem="HJx-61-f01" secondAttribute="leading" constant="100" id="Ra3-BF-Zme"/>
-                                    <constraint firstAttribute="trailing" secondItem="aJt-DX-iKa" secondAttribute="trailing" constant="100" id="brg-8G-BOw"/>
+                                    <constraint firstItem="Whh-hG-7zH" firstAttribute="leading" secondItem="HJx-61-f01" secondAttribute="leading" constant="32" id="Ra3-BF-Zme"/>
+                                    <constraint firstAttribute="trailing" secondItem="aJt-DX-iKa" secondAttribute="trailing" constant="32" id="brg-8G-BOw"/>
                                     <constraint firstItem="Whh-hG-7zH" firstAttribute="centerY" secondItem="HJx-61-f01" secondAttribute="centerY" id="dmq-B7-CnZ"/>
                                     <constraint firstItem="aJt-DX-iKa" firstAttribute="centerY" secondItem="HJx-61-f01" secondAttribute="centerY" id="hrt-KP-r9C"/>
                                 </constraints>
@@ -1340,7 +1340,7 @@
                                                     <constraint firstAttribute="height" constant="32" id="AGv-1F-OLL"/>
                                                     <constraint firstAttribute="width" constant="32" id="cNv-OQ-oDT"/>
                                                 </constraints>
-                                                <color key="tintColor" name="darkMainColor"/>
+                                                <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
                                                 <state key="selected" image="bookmarkFill">
@@ -1358,7 +1358,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="해설">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showExplanation:" destination="DV8-mz-Cyh" eventType="touchUpInside" id="KAa-mc-hsK"/>
@@ -1372,7 +1372,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="정답">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showAnswer:" destination="DV8-mz-Cyh" eventType="touchUpInside" id="JqD-bL-spJ"/>
@@ -1576,7 +1576,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="VAF-vR-3bF"/>
                                                                         <constraint firstAttribute="height" constant="30" id="laq-JO-wwr"/>
                                                                     </constraints>
-                                                                    <color key="tintColor" name="darkMainColor"/>
+                                                                    <color key="tintColor" name="deepMint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="bookmark"/>
                                                                     <state key="selected" image="bookmarkFill">
@@ -1594,7 +1594,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="해설">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="showExplanation:" destination="Y2J-Wm-Lov" eventType="touchUpInside" id="Eac-EL-JTg"/>
@@ -1608,7 +1608,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="정답">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="showAnswer:" destination="Y2J-Wm-Lov" eventType="touchUpInside" id="LCb-HV-qgL"/>
@@ -1628,7 +1628,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="1">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1638,7 +1638,7 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" name="darkMainColor"/>
+                                                                            <color key="value" name="deepMint"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
@@ -1654,7 +1654,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="2">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1664,7 +1664,7 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" name="darkMainColor"/>
+                                                                            <color key="value" name="deepMint"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
@@ -1680,7 +1680,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="3">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1690,7 +1690,7 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" name="darkMainColor"/>
+                                                                            <color key="value" name="deepMint"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
@@ -1706,7 +1706,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="4">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1716,7 +1716,7 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" name="darkMainColor"/>
+                                                                            <color key="value" name="deepMint"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
@@ -1732,7 +1732,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="5">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1742,7 +1742,7 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                            <color key="value" name="darkMainColor"/>
+                                                                            <color key="value" name="deepMint"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
@@ -1946,7 +1946,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="eqf-ri-7WP"/>
                                                                         <constraint firstAttribute="height" constant="30" id="j9h-Dm-0Iy"/>
                                                                     </constraints>
-                                                                    <color key="tintColor" name="darkMainColor"/>
+                                                                    <color key="tintColor" name="deepMint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="bookmark"/>
                                                                     <state key="selected" image="bookmarkFill">
@@ -1964,7 +1964,7 @@
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="해설">
-                                                                        <color key="titleColor" name="darkMainColor"/>
+                                                                        <color key="titleColor" name="deepMint"/>
                                                                     </state>
                                                                     <connections>
                                                                         <action selector="showExplanation:" destination="a7R-cH-lv0" eventType="touchUpInside" id="5IP-e1-8P4"/>
@@ -2085,7 +2085,7 @@
                                 <rect key="frame" x="0.0" y="20" width="834" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Blu-IC-hNX">
-                                        <rect key="frame" x="100" y="14" width="32" height="32"/>
+                                        <rect key="frame" x="32" y="14" width="32" height="32"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2c-cc-QWU">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -2093,7 +2093,7 @@
                                                     <constraint firstAttribute="height" constant="32" id="AIp-Lz-kGo"/>
                                                     <constraint firstAttribute="width" constant="32" id="nv2-ui-p7o"/>
                                                 </constraints>
-                                                <color key="tintColor" name="darkMainColor"/>
+                                                <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
                                                 <state key="selected" image="bookmarkFill">
@@ -2110,7 +2110,7 @@
                                 <constraints>
                                     <constraint firstItem="Blu-IC-hNX" firstAttribute="centerY" secondItem="vhH-XY-3OI" secondAttribute="centerY" id="4uO-Cn-Qx3"/>
                                     <constraint firstAttribute="height" constant="60" id="6cC-zk-YQV"/>
-                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" constant="100" id="c0u-wa-XT1"/>
+                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" constant="32" id="c0u-wa-XT1"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHZ-OR-WbG">
@@ -2198,7 +2198,7 @@
                                 <rect key="frame" x="0.0" y="20" width="834" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="shI-XP-5na">
-                                        <rect key="frame" x="100" y="14" width="82" height="32"/>
+                                        <rect key="frame" x="32" y="14" width="82" height="32"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORO-rw-fQa">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -2206,7 +2206,7 @@
                                                     <constraint firstAttribute="width" constant="32" id="9yn-N8-9HV"/>
                                                     <constraint firstAttribute="height" constant="32" id="Sro-sk-m6v"/>
                                                 </constraints>
-                                                <color key="tintColor" name="darkMainColor"/>
+                                                <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bookmark"/>
                                                 <state key="selected" image="bookmarkFill">
@@ -2224,7 +2224,7 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="해설">
-                                                    <color key="titleColor" name="darkMainColor"/>
+                                                    <color key="titleColor" name="deepMint"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="showExplanation:" destination="8YT-Df-uFO" eventType="touchUpInside" id="8iT-UL-HfR"/>
@@ -2236,7 +2236,7 @@
                                 <color key="backgroundColor" name="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="shI-XP-5na" firstAttribute="centerY" secondItem="gXc-pV-7Cl" secondAttribute="centerY" id="2kQ-QA-okn"/>
-                                    <constraint firstItem="shI-XP-5na" firstAttribute="leading" secondItem="gXc-pV-7Cl" secondAttribute="leading" constant="100" id="dLT-Ny-RC6"/>
+                                    <constraint firstItem="shI-XP-5na" firstAttribute="leading" secondItem="gXc-pV-7Cl" secondAttribute="leading" constant="32" id="dLT-Ny-RC6"/>
                                     <constraint firstAttribute="height" constant="60" id="zje-JS-8s6"/>
                                 </constraints>
                             </view>
@@ -2316,14 +2316,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bookmark" width="48" height="48"/>
+        <image name="bookmark" width="96" height="96"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="menus" width="96" height="96"/>
+        <image name="menus" width="48" height="48"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="darkMainColor">
             <color red="0.23921568627450981" green="0.4392156862745098" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
