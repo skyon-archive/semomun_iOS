@@ -29,7 +29,7 @@ final class SearchResultVM {
     
     func fetchSearchResults() {
         self.pageCount += 1
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 20) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 60) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 self?.searchResults += previews
