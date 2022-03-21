@@ -358,11 +358,7 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     private func searchWorkbook(wid: Int) {
-        guard let books = CoreUsecase.fetchPreviews() else { return }
-        let isCoredata = books.contains { Int($0.wid) == wid }
-        
-        if isCoredata {
-            guard let book = CoreUsecase.fetchPreview(wid: wid) else { return }
+        if let book = CoreUsecase.fetchPreview(wid: wid) {
             self.showWorkbookDetailVC(book: book)
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
