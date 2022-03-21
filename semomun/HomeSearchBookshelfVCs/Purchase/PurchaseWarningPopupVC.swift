@@ -51,20 +51,25 @@ extension PurchaseWarningPopupVC {
     
     private func configureUI() {
         guard let type = self.type else { return }
+        let fontSize = UIFont.systemFont(ofSize: 18, weight: .heavy)
+        
         switch type {
         case .login:
-            self.configureTitle(to: "회원가입 또는 로그인이 필요합니다")
-            self.configureText(to: "문제집을 구매하기 위해서 로그인을 해주세요.")
+            let title = "회원가입 또는 로그인을 해주세요"
+            let attrTitle = NSMutableAttributedString(string: title)
+            attrTitle.addAttribute(.font, value: fontSize, range: (title as NSString).range(of: "회원가입"))
+            attrTitle.addAttribute(.font, value: fontSize, range: (title as NSString).range(of: "로그인"))
+            self.titleLabel.attributedText = attrTitle
+            self.configureText(to: "문제집을 구매하기 위해서 로그인이 필요합니다.")
             self.configureActionTitle(to: "로그인 하기")
         case .updateUserinfo:
-            self.configureTitle(to: "추가적인 정보가 필요합니다")
-            self.configureText(to: "구매를 진행하기 위해 닉네임, 전화번호를 수정해주세요.")
+            let title = "추가적인 정보가 필요해요"
+            let attrTitle = NSMutableAttributedString(string: title)
+            attrTitle.addAttribute(.font, value: fontSize, range: (title as NSString).range(of: "추가적인 정보"))
+            self.titleLabel.attributedText = attrTitle
+            self.configureText(to: "문제집을 구매하기 위해\n닉네임과 전화번호를 작성해주세요.")
             self.configureActionTitle(to: "추가정보 작성하기")
         }
-    }
-    
-    private func configureTitle(to title: String) {
-        self.titleLabel.text = title
     }
     
     private func configureText(to text: String) {
