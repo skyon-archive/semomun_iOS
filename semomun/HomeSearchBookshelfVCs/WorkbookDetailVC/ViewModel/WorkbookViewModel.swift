@@ -90,12 +90,15 @@ final class WorkbookViewModel {
     func purchaseWorkbook() {
         self.showLoader = true
         guard let workbook = self.workbookDTO else { return }
-        // TODO: Purchase item 반영
+        
         self.networkUsecase.purchaseItem(productIDs: [workbook.productID]) { [weak self] status, credit in
             switch status {
             case .SUCCESS:
-                print("결제 후 잔액: \(credit!)")
-                // MARK: - 만약 책장으로 wid 등 넘길값이 필요하다면 이곳에 로직이 생길 예정
+                if let credit = credit,
+                   let userInfo = CoreUsecase.fetchUserInfo() {
+                    print("결제 후 잔액: \(credit)")
+                    userInfo.updateCredit(credit)
+                }
                 self?.showLoader = false
             default:
                 self?.warning = (title: "구매반영 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
