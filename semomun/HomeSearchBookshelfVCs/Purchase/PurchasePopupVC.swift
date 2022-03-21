@@ -79,7 +79,7 @@ extension PurchasePopupVC {
         
         switch type {
         case .purchase:
-            self.configureActionTitle(to: "구매하기")
+            self.configureActionTitle(to: "구매하고 문제 풀기")
             self.moneyStatusLabel.text = "구매 후 세모페이 잔액"
             self.warningLabel.isHidden = true
         case .charge:
@@ -88,7 +88,11 @@ extension PurchasePopupVC {
     }
     
     private func configureTitle(to title: String) {
-        self.titleLabel.text = title
+        let fullTitle = "\(title)\n구매하시겠습니까?"
+        let fontSize = UIFont.systemFont(ofSize: 18, weight: .heavy)
+        let attrTitle = NSMutableAttributedString(string: fullTitle)
+        attrTitle.addAttribute(.font, value: fontSize, range: (title as NSString).range(of: title))
+        self.titleLabel.attributedText = attrTitle
     }
     
     private func configureMoneyUI(currentMoney: Int, info: WorkbookOfDB) {
