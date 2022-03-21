@@ -49,6 +49,9 @@ final class HomeVM {
         NotificationCenter.default.addObserver(forName: .migrationTerminated, object: nil, queue: .current) { [weak self] _ in
             self?.fetchLogined()
         }
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchLogined()
+        }
     }
     
     func checkLogined() { // VC 에서 불리는 함수
