@@ -246,6 +246,16 @@ extension SearchVC {
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
     }
+    
+    private func showWorkbookDetailVC(book: Preview_Core) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
+        let viewModel = WorkbookViewModel(previewCore: book, networkUsecase: networkUsecase)
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: true)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
 }
 
 // MARK: - ConfigureUI {
@@ -296,6 +306,10 @@ extension SearchVC: SearchControlable {
     }
     
     func showWorkbookDetail(wid: Int) {
-        self.viewModel?.fetchWorkbook(wid: wid)
+        if let book = CoreUsecase.fetchPreview(wid: wid) {
+            self.showWorkbookDetailVC(book: book)
+        } else {
+            self.viewModel?.fetchWorkbook(wid: wid)
+        }
     }
 }
