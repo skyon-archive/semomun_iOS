@@ -148,6 +148,7 @@ extension LoginSignupVC {
         self.majorDetailCollectionView.delegate = self
     }
     private func configureTextFieldDelegate() {
+        self.nickname.delegate = self
         self.phonenumTextField.delegate = self
         self.authNumTextField.delegate = self
     }
@@ -348,16 +349,36 @@ extension LoginSignupVC: SchoolSelectAction {
 
 extension LoginSignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard self.checkIfTextChangeAvailable(textField) else { return false }
-        let allowedCharacters = CharacterSet.decimalDigits
-        let characterSet = CharacterSet(charactersIn: string)
-        return allowedCharacters.isSuperset(of: characterSet)
+        if textField == self.phonenumTextField {
+            if self.isPhoneNumberChangeAvailable() {
+                return string.isEmpty || string.isNumber
+            } else {
+                return false
+            }
+        }
+        
+        if string.isEmpty { // delete는 항상 가능
+            return true
+        }
+        
+        if textField == self.nickname {
+            return string.isValidUsernameCharacters
+        } else if textField == self.authNumTextField {
+            return string.isNumber
+        } else {
+            return true
+        }
     }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return self.checkIfTextChangeAvailable(textField)
+        if textField == self.phonenumTextField {
+            return self.isPhoneNumberChangeAvailable()
+        } else {
+            return true
+        }
     }
-    private func checkIfTextChangeAvailable(_ textField: UITextField) -> Bool {
-        guard textField == phonenumTextField else { return true }
+    
+    private func isPhoneNumberChangeAvailable() -> Bool {
         guard let status = self.viewModel?.status else { return true }
         if status == .codeAuthComplete {
             self.showAlertWithCancelAndOK(title: "인증 완료됨", text: "인증 완료된 전화번호를 바꾸시겠습니까?") { [weak self] in

@@ -69,8 +69,10 @@ extension String {
 // MARK: 닉네임/인증번호 검증
 extension String {
     var isNumber: Bool {
-        let allowedCharacters = CharacterSet.decimalDigits
-        let characterSet = CharacterSet(charactersIn: self)
-        return allowedCharacters.isSuperset(of: characterSet)
+        return self.matchRegularExpression("^[0-9]$")
+    }
+    
+    var isValidUsernameCharacters: Bool {
+        return self.matchRegularExpression("^[a-z0-9_]$")
     }
 }
