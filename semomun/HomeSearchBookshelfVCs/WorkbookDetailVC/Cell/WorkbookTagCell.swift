@@ -16,7 +16,7 @@ class WorkbookTagCell: UICollectionViewCell {
         super.awakeFromNib()
         self.contentView.layer.cornerRadius = 15
         self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(.mainColor)?.cgColor
+        self.contentView.layer.borderColor = UIColor(.deepMint)?.cgColor
     }
     
     override func prepareForReuse() {

@@ -80,7 +80,7 @@ extension PurchasePopupVC {
         switch type {
         case .purchase:
             self.configureActionTitle(to: "구매하기")
-            self.moneyStatusLabel.text = "결제 후 세모페이 잔액"
+            self.moneyStatusLabel.text = "구매 후 세모페이 잔액"
             self.warningLabel.isHidden = true
         case .charge:
             self.configureActionTitle(to: "세모페이 충전하기")
@@ -113,11 +113,11 @@ extension PurchasePopupVC {
             var reason: String = ""
             switch self.context.biometryType {
             case .faceID:
-                reason = "결제를 진행하기 위해서 Face ID로 인증해주세요."
+                reason = "구매를 진행하기 위해서 Face ID로 인증해주세요."
             case .touchID:
-                reason = "결제를 진행하기 위해서 Touch ID로 인증해주세요."
+                reason = "구매를 진행하기 위해서 Touch ID로 인증해주세요."
             case .none:
-                reason = "결제를 진행하기 위해서 비밀번호로 인증해주세요."
+                reason = "구매를 진행하기 위해서 비밀번호로 인증해주세요."
             default:
                 break
             }
