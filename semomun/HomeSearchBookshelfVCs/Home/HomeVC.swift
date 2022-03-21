@@ -40,6 +40,9 @@ final class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.startBannerAdsAutoScroll()
+        let title = "2월 28일 (월요일) 오후 11시~ 3월 1일 (화요일) 오전 3시"
+        let noticeVC = NoticePopupVC(title: title)
+        self.present(noticeVC, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
