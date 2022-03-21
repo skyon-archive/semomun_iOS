@@ -40,10 +40,10 @@ final class SectionDateLabelFrame: UIView {
         label.layer.borderWidth = 1
         label.layer.cornerRadius = 14
         
-        guard let mainColor = UIColor(.mainColor) else { return }
+        guard let deepMint = UIColor(.deepMint) else { return }
         guard let backgroundColor = UIColor(.tableViewBackground) else { return }
-        label.textColor = filled ? .white : mainColor
-        label.layer.borderColor = mainColor.cgColor
-        label.backgroundColor = filled ? mainColor : backgroundColor
+        label.textColor = filled ? .white : deepMint
+        label.layer.borderColor = deepMint.cgColor
+        label.backgroundColor = filled ? deepMint : backgroundColor
     }
 }
