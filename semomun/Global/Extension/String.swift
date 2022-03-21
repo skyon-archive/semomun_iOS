@@ -8,16 +8,6 @@
 import Foundation
 
 extension String {
-    static var randomUserNumber: String {
-        let randomVal = Int.random(in: 0...99999)
-        return String(format: "%05d", randomVal)
-    }
-    
-    static var randomPhoneNumber: String {
-        let randomVal = Int.random(in: 0...99999999)
-        return "010"+String(format: "%08d", randomVal)
-    }
-    
     static var nowTime: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -36,6 +26,21 @@ extension String {
         }
     }
     
+    func matchRegularExpression(_ pattern: String) -> Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
+        return regex.firstMatch(in: self, options: [], range: range) != nil
+    }
+    
+    static let pastVersion: String = "1.1.3"
+    
+    static let currentVersion: String = "2.0"
+    
+    static let latestCoreVersion: String = "2.0"
+}
+
+// MARK: 전화번호 검증 및 변환
+extension String {
     /// 10-11자리 숫자로 구성된 문자열인지를 반환합니다.
     /// - 0212345678
     /// - 01012345678
@@ -59,16 +64,13 @@ extension String {
         guard self.isValidPhoneNumberWithCountryCode else { return nil }
         return self.replacingOccurrences(of: "^\\+\\d{1,4}-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
     }
-    
-    func matchRegularExpression(_ pattern: String) -> Bool {
-        let range = NSRange(location: 0, length: self.utf16.count)
-        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
-        return regex.firstMatch(in: self, options: [], range: range) != nil
+}
+
+// MARK: 닉네임/인증번호 검증
+extension String {
+    var isNumber: Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: self)
+        return allowedCharacters.isSuperset(of: characterSet)
     }
-    
-    static let pastVersion: String = "1.1.3"
-    
-    static let currentVersion: String = "2.0"
-    
-    static let latestCoreVersion: String = "2.0"
 }
