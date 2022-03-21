@@ -58,6 +58,8 @@ final class ChangeUserInfoVC: UIViewController {
         self.bindAll()
         self.viewModel?.fetchData()
         self.configureUI()
+        self.nickname.undoManager?.disableUndoRegistration()
+        self.additionalTF.undoManager?.disableUndoRegistration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,9 +185,12 @@ extension ChangeUserInfoVC {
     private func configureDelegate() {
         self.majorCollectionView.dataSource = self
         self.majorCollectionView.delegate = self
+        
         self.majorDetailCollectionView.dataSource = self
         self.majorDetailCollectionView.delegate = self
+        
         self.additionalTF.delegate = self
+        self.nickname.delegate = self
     }
 }
 
@@ -382,6 +387,15 @@ extension ChangeUserInfoVC: SchoolSelectAction {
 
 extension ChangeUserInfoVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return string.isNumber
+        if string.isEmpty { // delete는 항상 가능
+            return true
+        }
+        if textField == self.nickname {
+            return string.isValidUsernameCharacters
+        } else if textField == self.additionalTF {
+            return string.isNumber
+        } else {
+            return true
+        }
     }
 }
