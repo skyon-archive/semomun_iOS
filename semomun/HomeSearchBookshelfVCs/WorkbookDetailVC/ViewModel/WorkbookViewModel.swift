@@ -96,7 +96,7 @@ final class WorkbookViewModel {
             case .SUCCESS:
                 if let credit = credit,
                    let userInfo = CoreUsecase.fetchUserInfo() {
-                    print("결제 후 잔액: \(credit)")
+                    print("구매 후 잔액: \(credit)")
                     userInfo.updateCredit(credit)
                 }
                 self?.showLoader = false

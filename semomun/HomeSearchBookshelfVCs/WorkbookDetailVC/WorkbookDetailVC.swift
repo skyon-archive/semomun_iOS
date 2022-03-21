@@ -26,6 +26,7 @@ final class WorkbookDetailVC: UIViewController {
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
     @IBOutlet weak var isbnStackView: UIStackView!
+    @IBOutlet weak var periodLabel: UILabel!
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookViewModel?
@@ -72,6 +73,7 @@ extension WorkbookDetailVC {
         
         if self.isCoreData {
             self.purchaseWorkbookButton.isHidden = true
+            self.periodLabel.isHidden = true
         }
     }
     
@@ -150,7 +152,7 @@ extension WorkbookDetailVC {
         self.publisherLabel.text = workbookInfo.publisher
         self.releaseDateLabel.text = workbookInfo.releaseDate
         self.fileSizeLabel.text = workbookInfo.fileSize
-        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 결제하기", for: .normal)
+        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
         if workbookInfo.isbn == "" {
             self.isbnStackView.isHidden = true
