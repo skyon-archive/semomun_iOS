@@ -591,7 +591,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84H-gn-cob" userLabel="Frame VIew">
-                                <rect key="frame" x="131" y="335.5" width="572" height="461"/>
+                                <rect key="frame" x="131" y="334.5" width="572" height="463"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWW-1p-qmL">
                                         <rect key="frame" x="512" y="10" width="50" height="50"/>
@@ -615,7 +615,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yut-Xa-AGb">
-                                        <rect key="frame" x="126" y="304.5" width="320" height="121.5"/>
+                                        <rect key="frame" x="117" y="304.5" width="338" height="123.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="풀이시간" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU2-9o-l3X">
                                                 <rect key="frame" x="16" y="52" width="65" height="20"/>
@@ -657,28 +657,28 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f3T-li-pGs">
-                                                <rect key="frame" x="106" y="86.5" width="198" height="25"/>
+                                                <rect key="frame" x="106" y="86.5" width="216" height="27"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="198" id="5dj-w7-1Hf"/>
-                                                    <constraint firstAttribute="height" constant="25" id="VIY-Ob-JeY"/>
+                                                    <constraint firstAttribute="width" constant="216" id="5dj-w7-1Hf"/>
+                                                    <constraint firstAttribute="height" constant="27" id="VIY-Ob-JeY"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="N1N-JB-q5d">
-                                                    <size key="itemSize" width="33" height="25"/>
+                                                    <size key="itemSize" width="36" height="27"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WrongProblemCell" id="1Co-O9-Cvc" customClass="WrongProblemCell" customModule="semomun" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="33" height="25"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="27"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vDK-J0-FYj">
-                                                            <rect key="frame" x="0.0" y="0.0" width="33" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="36" height="27"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-Lw-FeC">
-                                                                    <rect key="frame" x="0.0" y="2" width="29" height="21"/>
+                                                                    <rect key="frame" x="0.0" y="3" width="29" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -689,7 +689,7 @@
                                                                 <constraint firstItem="dTo-Lw-FeC" firstAttribute="centerY" secondItem="vDK-J0-FYj" secondAttribute="centerY" id="T01-Z4-hY5"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
-                                                        <size key="customSize" width="33" height="25"/>
+                                                        <size key="customSize" width="36" height="27"/>
                                                         <connections>
                                                             <outlet property="problemNumber" destination="dTo-Lw-FeC" id="VSh-Ze-bNR"/>
                                                         </connections>
@@ -2316,7 +2316,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bookmark" width="96" height="96"/>
+        <image name="bookmark" width="48" height="48"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>

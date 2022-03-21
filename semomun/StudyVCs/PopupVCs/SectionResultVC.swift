@@ -87,7 +87,7 @@ extension SectionResultVC {
     }
     
     private func configureWrongProblems(to problems: [String]) {
-        let cellHeight: CGFloat = 25
+        let cellHeight: CGFloat = 27
         let verticalTerm: CGFloat = 5
         self.wrongsHight.constant = cellHeight+(cellHeight+verticalTerm)*CGFloat(problems.count/6)
         self.wrongs = problems
@@ -119,7 +119,7 @@ extension SectionResultVC: UICollectionViewDataSource {
 
 extension SectionResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 33, height: 25)
+        return CGSize(width: 36, height: 27)
     }
 }
 
