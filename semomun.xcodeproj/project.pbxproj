@@ -110,6 +110,7 @@
 		8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8720B035278E7A2200B8775F /* GoogleService-Info.plist */; };
 		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
 		87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */; };
+		87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87319F9227E8D6230040108A /* NoticePopupVC.swift */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
@@ -310,6 +311,7 @@
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusManager.swift; sourceTree = "<group>"; };
+		87319F9227E8D6230040108A /* NoticePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupVC.swift; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
@@ -1138,6 +1140,7 @@
 			children = (
 				8716E930279A5F4D00B33A5E /* HomeVC.swift */,
 				87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */,
+				87319F9227E8D6230040108A /* NoticePopupVC.swift */,
 				87458552279E86A100E331F1 /* ViewModel */,
 				87458555279E86C300E331F1 /* Cell */,
 				878766CB27AED290003B975E /* View */,
@@ -1377,6 +1380,7 @@
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
 				2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */,
 				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
+				87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */,
 				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
 				25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */,
