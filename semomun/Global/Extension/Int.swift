@@ -27,4 +27,8 @@ extension Int {
         }
         return formatted
     }
+    var byteToMBString: String {
+        let size = Double(self)/1000000
+        return String(format: "%.1fMB", size)
+    }
 }
