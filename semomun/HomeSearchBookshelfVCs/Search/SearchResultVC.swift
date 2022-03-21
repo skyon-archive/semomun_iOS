@@ -108,12 +108,17 @@ extension SearchResultVC: UICollectionViewDelegate {
 extension SearchResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalTerm: CGFloat = 20
-        let horizontalMargin: CGFloat = 40
+        let horizontalMargin: CGFloat = 28
         let superWidth = self.searchResults.frame.width - 2*horizontalMargin
         let textHeight: CGFloat = 34
         let textHeightTerm: CGFloat = 5
-        
-        let width = (superWidth - (3*horizontalTerm))/4
+        var horizontalCellCount: CGFloat = 5 // 기본의 경우 5개씩 표시
+        if self.view.frame.width == 1024 { // 12인치의 경우 6개씩 표시
+            horizontalCellCount = 6
+        } else if self.view.frame.width == 744 { // 미니의 경우 4개씩 표시
+            horizontalCellCount = 4
+        }
+        let width = (superWidth - ((horizontalCellCount-1)*horizontalTerm))/horizontalCellCount
         let height = (width/4)*5 + textHeightTerm + textHeight
         return CGSize(width: width, height: height)
     }
