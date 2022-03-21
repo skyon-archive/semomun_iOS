@@ -29,8 +29,6 @@ final class ReportProblemErrorVC: UIViewController {
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(.mainColor)?.cgColor
         return view
     }()
     private lazy var centerTitleLabel: UILabel = {
@@ -118,7 +116,7 @@ final class ReportProblemErrorVC: UIViewController {
         textView.clipsToBounds = true
         textView.layer.cornerRadius = 3
         textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor(.mainColor)?.cgColor
+        textView.layer.borderColor = UIColor(.deepMint)?.cgColor
         textView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         textView.textColor = .black
         textView.textAlignment = .left
@@ -275,7 +273,7 @@ final class ReportProblemErrorVC: UIViewController {
         guard let selectedPid = self.selectedPid else { return }
         self.buttons.forEach { button in
             if button.tag == selectedPid {
-                button.backgroundColor = UIColor(.mainColor)
+                button.backgroundColor = UIColor(.deepMint)
                 button.setTitleColor(.white, for: .normal)
             } else {
                 button.backgroundColor = .white
@@ -289,7 +287,7 @@ final class ReportProblemErrorVC: UIViewController {
         print(selectedCheckbox)
         self.checkboxes.forEach { button in
             if button.tag == selectedCheckbox {
-                button.backgroundColor = UIColor(.mainColor)
+                button.backgroundColor = UIColor(.deepMint)
             } else {
                 button.backgroundColor = .white
             }
@@ -354,7 +352,7 @@ extension ReportProblemErrorVC {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.borderWidth = 1
-        button.borderColor = UIColor(.mainColor)
+        button.borderColor = UIColor(.deepMint)
         button.layer.cornerRadius = 3
         button.clipsToBounds = true
         button.setTitleColor(.black, for: .normal)
@@ -375,7 +373,7 @@ extension ReportProblemErrorVC {
         button.backgroundColor = .white
         button.clipsToBounds = true
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(.mainColor)?.cgColor
+        button.layer.borderColor = UIColor(.deepMint)?.cgColor
         button.layer.cornerRadius = 23/2
         button.tag = tag
         button.addAction(UIAction(handler: { [weak self] _ in
