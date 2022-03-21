@@ -99,7 +99,7 @@ extension UserNoticeContentVC {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.backgroundFrame.leadingAnchor, constant: 107),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.backgroundFrame.leadingAnchor, constant: 28),
             self.titleLabel.topAnchor.constraint(equalTo: self.backgroundFrame.topAnchor, constant: 27)
         ])
         
@@ -116,7 +116,7 @@ extension UserNoticeContentVC {
             self.divider.heightAnchor.constraint(equalToConstant: 1),
             self.divider.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             self.divider.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 16),
-            self.divider.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32)
+            self.divider.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
     
@@ -125,7 +125,7 @@ extension UserNoticeContentVC {
         self.view.addSubview(self.contentTextView)
         NSLayoutConstraint.activate([
             self.contentTextView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.contentTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 107),
+            self.contentTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 28),
             self.contentTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.contentTextView.topAnchor.constraint(equalTo: self.divider.bottomAnchor, constant: 37)
         ])

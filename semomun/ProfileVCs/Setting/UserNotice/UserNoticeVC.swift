@@ -31,7 +31,6 @@ final class UserNoticeVC: UIViewController {
 extension UserNoticeVC {
     private func configureUI() {
         self.navigationItem.title = "공지사항"
-        self.navigationItem.backButtonTitle = "목록"
         self.view.backgroundColor = .white
         self.configureBackgroundLayout()
         self.configureTableViewLayout()
@@ -72,7 +71,7 @@ extension UserNoticeVC {
         self.noticeTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.noticeTableView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 25)
         ])
@@ -85,6 +84,8 @@ extension UserNoticeVC {
         self.noticeTableView.register(UserNoticeCell.self, forCellReuseIdentifier: UserNoticeCell.identifier)
         self.noticeTableView.dataSource = self
         self.noticeTableView.delegate = self
+        
+        self.noticeTableView.separatorInset = .zero
     }
     private func getData() {
         self.networkUsecase?.getNotices { [weak self] status, userNotices in
