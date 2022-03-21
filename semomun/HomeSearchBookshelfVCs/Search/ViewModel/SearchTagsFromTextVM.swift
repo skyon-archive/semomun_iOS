@@ -36,6 +36,7 @@ final class SearchTagsFromTextVM {
         self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
+                self?.tags = tags
                 self?.filteredTags = tags
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
