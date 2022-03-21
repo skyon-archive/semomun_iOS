@@ -686,7 +686,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WX2-IL-AaG">
-                                <rect key="frame" x="0.0" y="4" width="834" height="110"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="책장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="int-kT-68l">
                                         <rect key="frame" x="28" y="44.5" width="52" height="36"/>
@@ -703,7 +703,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwG-es-rre">
-                                <rect key="frame" x="0.0" y="127" width="834" height="1002"/>
+                                <rect key="frame" x="0.0" y="123" width="834" height="1006"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 문제집" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYu-Oq-A7Y">
                                         <rect key="frame" x="32" y="25" width="74" height="20"/>
@@ -746,7 +746,7 @@
                                         </state>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UT5-i4-gH1">
-                                        <rect key="frame" x="0.0" y="63" width="834" height="939"/>
+                                        <rect key="frame" x="0.0" y="63" width="834" height="943"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="33" minimumInteritemSpacing="0.0" id="xKM-yz-yfi">
                                             <size key="itemSize" width="425" height="182"/>
@@ -861,7 +861,7 @@ Title</string>
                             <constraint firstItem="zlU-Vk-Rc3" firstAttribute="trailing" secondItem="WX2-IL-AaG" secondAttribute="trailing" id="4bX-8t-Iks"/>
                             <constraint firstItem="YwG-es-rre" firstAttribute="leading" secondItem="zlU-Vk-Rc3" secondAttribute="leading" id="7ej-o3-41X"/>
                             <constraint firstItem="zlU-Vk-Rc3" firstAttribute="bottom" secondItem="YwG-es-rre" secondAttribute="bottom" id="Q5s-3M-rRV"/>
-                            <constraint firstItem="WX2-IL-AaG" firstAttribute="top" secondItem="zlU-Vk-Rc3" secondAttribute="top" constant="-20" id="UtV-QK-8TW"/>
+                            <constraint firstItem="WX2-IL-AaG" firstAttribute="top" secondItem="f7J-IN-WMU" secondAttribute="top" id="UtV-QK-8TW"/>
                             <constraint firstItem="YwG-es-rre" firstAttribute="top" secondItem="WX2-IL-AaG" secondAttribute="bottom" constant="13" id="lhU-up-6lg"/>
                             <constraint firstItem="zlU-Vk-Rc3" firstAttribute="trailing" secondItem="YwG-es-rre" secondAttribute="trailing" id="oTg-gL-nda"/>
                             <constraint firstItem="WX2-IL-AaG" firstAttribute="leading" secondItem="zlU-Vk-Rc3" secondAttribute="leading" id="pmc-1E-NU6"/>
