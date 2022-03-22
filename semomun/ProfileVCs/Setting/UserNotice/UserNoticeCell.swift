@@ -47,7 +47,7 @@ extension UserNoticeCell {
         self.contentView.addSubview(titleLabel)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 28),
             self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 22),
         ])
         
