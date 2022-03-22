@@ -52,7 +52,7 @@ extension String {
     /// - +82-10-1234-5678
     /// - +82-2-1234-5678
     var isValidPhoneNumberWithCountryCode: Bool {
-        return self.matchRegularExpression("^\\+82-\\d{1,2}-\\d{4}-\\d{4}$")
+        return self.matchRegularExpression("^\\+\\d{1,4}-\\d{1,3}-\\d{3,4}-\\d{3,4}$")
     }
     
     var phoneNumberWithCountryCode: String? {
@@ -62,7 +62,7 @@ extension String {
     
     var phoneNumberWithNumbers: String? {
         guard self.isValidPhoneNumberWithCountryCode else { return nil }
-        return self.replacingOccurrences(of: "^\\+\\d{1,4}-(\\d{1,2})-(\\d{4})-(\\d{4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
+        return self.replacingOccurrences(of: "^\\+\\d{1,4}-(\\d{1,3})-(\\d{3,4})-(\\d{3,4})$", with: "0$1$2$3", options: .regularExpression, range: nil)
     }
 }
 
