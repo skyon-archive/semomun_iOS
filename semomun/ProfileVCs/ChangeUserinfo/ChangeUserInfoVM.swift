@@ -20,6 +20,7 @@ final class ChangeUserInfoVM {
     @Published var configureUIForNicknamePhoneRequest = false
     
     private var majorWithDetail: [String: [String]] = [:]
+    private var currentUserName: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
     private let phoneAuthenticator: PhoneAuthenticator
@@ -37,6 +38,9 @@ final class ChangeUserInfoVM {
     
     func changeUsername(_ username: String) {
         guard username.isEmpty == false else { return }
+        // 기존과 같은 이름인지 확인
+        guard username != self.currentUserName else { return }
+        
         self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
@@ -160,15 +164,18 @@ extension ChangeUserInfoVM {
             switch result {
             case .success(let userInfo):
                 self.userInfo = userInfo
+                self.currentUserName = userInfo.username
             case .failure(_):
                 self.alert = .networkErrorWithPop
                 completion()
                 return
             }
+            
             guard let userCoreData = CoreUsecase.fetchUserInfo() else {
                 self.alert = .networkErrorWithPop
                 return
             }
+            
             self.configurePhoneNumberIfNeeded(userCoreData)
             completion()
         }
