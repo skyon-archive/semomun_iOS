@@ -46,6 +46,8 @@ extension LoginedSettingTableVC {
             self.showLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
         case (1, 3):
             self.showLongTextVC(title: "마케팅 정보 수신", txtResourceName: "receiveMarketingInfo", marketingInfo: true)
+        case (1, 4):
+            self.showLongTextVC(title: "전자금융거래 이용약관", txtResourceName: "termsOfElectronicTransaction", marketingInfo: false)
         default:
             break
         }
