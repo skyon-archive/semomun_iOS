@@ -17,7 +17,6 @@ final class LongTextVC: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var labelAboutMarketingAccept: UILabel!
     
-    
     @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
 }
