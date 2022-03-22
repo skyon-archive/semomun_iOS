@@ -58,8 +58,6 @@ final class ChangeUserInfoVC: UIViewController {
         self.bindAll()
         self.viewModel?.fetchData()
         self.configureUI()
-        self.nickname.undoManager?.disableUndoRegistration()
-        self.additionalTF.undoManager?.disableUndoRegistration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
