@@ -69,10 +69,21 @@ extension String {
 // MARK: 닉네임/인증번호 검증
 extension String {
     var isNumber: Bool {
-        return self.matchRegularExpression("^[0-9]$")
+        return self.matchRegularExpression("^[0-9]*$")
     }
     
-    var isValidUsernameCharacters: Bool {
-        return self.matchRegularExpression("^[a-z0-9_]$")
+    /// 유저가 닉네임을 타이핑하는 동안 닉네임이 유효한지 체크
+    /// - Note: 최소 길이 및 알파벳 개수 제한을 체크하지 않음
+    var isValidUsernameDuringTyping: Bool {
+        return self.matchRegularExpression("^[a-z0-9_]{0,20}$")
+    }
+    
+    var isValidUsername: Bool {
+        // TODO: 알파벳 개수 체크도 정규표현식으로 수정하기
+        return self.matchRegularExpression("^[a-z0-9_]{5,20}$") && self.contains(where: { String($0).isSmallCaseAlphabet })
+    }
+    
+    var isSmallCaseAlphabet: Bool {
+        return self.matchRegularExpression("^[a-z]*$")
     }
 }
