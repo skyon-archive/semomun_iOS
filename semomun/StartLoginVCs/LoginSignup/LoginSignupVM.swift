@@ -72,6 +72,13 @@ final class LoginSignupVM {
     func selectGraduationStatus(_ graduationStatus: String) {
         self.signupUserInfo.graduationStatus = graduationStatus
     }
+    
+    func updateFavoriteTags() {
+        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            self.signupUserInfo.favoriteTags = tags.map(\.tid)
+        }
+    }
 }
 
 // MARK: 전화 인증 관련 메소드
