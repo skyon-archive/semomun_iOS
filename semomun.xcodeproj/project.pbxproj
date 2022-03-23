@@ -206,6 +206,8 @@
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
+		87FEBB3627EB074400B106F2 /* Main_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3527EB074400B106F2 /* Main_phone.storyboard */; };
+		87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -409,6 +411,8 @@
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
 		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
+		87FEBB3527EB074400B106F2 /* Main_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main_phone.storyboard; sourceTree = "<group>"; };
+		87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin_phone.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -657,11 +661,8 @@
 		8716E926279A5D5D00B33A5E /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				871B6E56276EE48D008CEEBA /* Main.storyboard */,
-				8716E927279A5D8400B33A5E /* StartLogin.storyboard */,
-				8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */,
-				8716E92B279A5D9E00B33A5E /* Profile.storyboard */,
-				8716E92D279A5DAA00B33A5E /* Study.storyboard */,
+				87FEBB3327EB070B00B106F2 /* iPad */,
+				87FEBB3427EB071E00B106F2 /* IPhone */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1151,6 +1152,27 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		87FEBB3327EB070B00B106F2 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				871B6E56276EE48D008CEEBA /* Main.storyboard */,
+				8716E927279A5D8400B33A5E /* StartLogin.storyboard */,
+				8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */,
+				8716E92B279A5D9E00B33A5E /* Profile.storyboard */,
+				8716E92D279A5DAA00B33A5E /* Study.storyboard */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		87FEBB3427EB071E00B106F2 /* IPhone */ = {
+			isa = PBXGroup;
+			children = (
+				87FEBB3527EB074400B106F2 /* Main_phone.storyboard */,
+				87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */,
+			);
+			path = IPhone;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1225,6 +1247,8 @@
 			files = (
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
+				87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */,
+				87FEBB3627EB074400B106F2 /* Main_phone.storyboard in Resources */,
 				8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */,
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
@@ -1605,7 +1629,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1642,7 +1666,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

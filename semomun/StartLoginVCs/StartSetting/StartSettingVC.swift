@@ -11,7 +11,9 @@ import Combine
 final class StartSettingVC: UIViewController {
     static let identifier = "StartSettingVC"
     static let storyboardName = "StartLogin"
+    static let storyboardName_phone = "StartLogin_phone"
     
+    @IBOutlet weak var topFrameView: UIView! // phone 용
     @IBOutlet weak var tags: UICollectionView!
     
     private var viewModel: StartSettingVM?
@@ -19,6 +21,7 @@ final class StartSettingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureDeviceUI()
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
@@ -38,6 +41,11 @@ final class StartSettingVC: UIViewController {
 
 // MARK: - Configure
 extension StartSettingVC {
+    private func configureDeviceUI() {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.topFrameView.addShadow()
+        }
+    }
     private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
