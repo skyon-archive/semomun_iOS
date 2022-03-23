@@ -63,12 +63,13 @@ class PhoneAuthenticator {
         self.networkUsecase.checkValidity(phoneNumber: tempPhoneNumber, code: code) { networkStatus, isValid in
             switch networkStatus {
             case .SUCCESS:
-                guard let isValid = isValid else {
+                guard let isValid = isValid,
+                      let phoneNumber = tempPhoneNumber.phoneNumberWithNumbers else {
                     assertionFailure()
                     return
                 }
                 if isValid {
-                    completion(.success(tempPhoneNumber))
+                    completion(.success(phoneNumber))
                     self.tempPhoneNumberForResend = nil
                 } else {
                     completion(.failure(.wrongCode))
