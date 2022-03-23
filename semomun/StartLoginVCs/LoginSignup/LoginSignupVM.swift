@@ -17,7 +17,9 @@ final class LoginSignupVM {
     @Published private(set) var majorDetails: [String] = []
     
     private(set) var signupUserInfo = SignupUserInfo()
+    private(set) var canChangePhoneNumber = true
     private var majorWithDetail: [String: [String]] = [:]
+    
     private let networkUseCase: LoginSignupVMNetworkUsecase
     private let phoneAuthenticator: PhoneAuthenticator
     
@@ -35,15 +37,26 @@ final class LoginSignupVM {
         self.fetchMajorInfo()
     }
     
+    func checkUsernameFormat(_ username: String) {
+        self.status = username.isValidUsernameDuringTyping ? .usernameGoodFormat : .usernameWrongFormat
+    }
+    
+    func checkPhoneNumberFormat(_ phoneNumber: String) {
+        self.status = phoneNumber.isNumber ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
+    }
+    
     func changeUsername(_ username: String) {
-        guard username.isEmpty == false else { return }
+        guard username.isValidUsername else {
+            self.status = .usernameWrongFormat
+            return
+        }
         self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
                     self?.signupUserInfo.username = username
-                    self?.status = .usernameAvailable
+                    self?.status = .usernameNotInUse
                 } else {
-                    self?.status = .usernameInavailable
+                    self?.status = .usernameAlreadyUsed
                 }
             } else {
                 self?.alert = .networkErrorWithoutPop
@@ -84,11 +97,16 @@ final class LoginSignupVM {
 // MARK: 전화 인증 관련 메소드
 extension LoginSignupVM {
     func requestPhoneAuth(withPhoneNumber phoneNumber: String) {
+        guard phoneNumber.isValidPhoneNumber else {
+            self.status = .phoneNumberWrongFormat
+            return
+        }
         self.phoneAuthenticator.sendSMSCode(to: phoneNumber) { result in
             switch result {
             case .success(_):
-                self.status = .codeSent
+                self.status = .authCodeSent
                 self.alert = .codeSentAlert
+                self.canChangePhoneNumber = false
             case .failure(let error):
                 switch error {
                 case .noNetwork:
@@ -106,12 +124,16 @@ extension LoginSignupVM {
         self.phoneAuthenticator.verifySMSCode(code) { result in
             switch result {
             case .success(let phoneNumber):
-                self.signupUserInfo.phone = phoneNumber
-                self.status = .codeAuthComplete
+                guard let phoneNumberWithCountryCode = phoneNumber.phoneNumberWithCountryCode else {
+                    self.alert = .networkErrorWithoutPop
+                    return
+                }
+                self.signupUserInfo.phone = phoneNumberWithCountryCode
+                self.status = .authComplete
             case .failure(let error):
                 switch error {
                 case .wrongCode:
-                    self.status = .codeWrong
+                    self.status = .wrongAuthCode
                 case .noNetwork:
                     self.alert = .networkErrorWithoutPop
                 case .codeNotSent:
@@ -125,7 +147,7 @@ extension LoginSignupVM {
         self.phoneAuthenticator.resendSMSCode { result in
             switch result {
             case .success(_):
-                self.status = .codeSent
+                self.status = .authCodeSent
                 self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {
@@ -139,7 +161,7 @@ extension LoginSignupVM {
     }
     
     func cancelAuth() {
-        self.status = nil
+        self.canChangePhoneNumber = true
     }
 }
 

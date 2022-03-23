@@ -20,6 +20,7 @@ final class ChangeUserInfoVM {
     @Published var configureUIForNicknamePhoneRequest = false
     
     private var majorWithDetail: [String: [String]] = [:]
+    // VC에 진입하는 순간 DB에 존재하는 사용자의 username 값
     private var currentUserName: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
@@ -36,18 +37,34 @@ final class ChangeUserInfoVM {
         }
     }
     
+    func checkUsernameFormat(_ username: String) {
+        self.status = username.isValidUsernameDuringTyping ? .usernameGoodFormat : .usernameWrongFormat
+    }
+    
+    func checkPhoneNumberFormat(_ phoneNumber: String) {
+        self.status = phoneNumber.isNumber ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
+    }
+    
     func changeUsername(_ username: String) {
-        guard username.isEmpty == false else { return }
-        // 기존과 같은 이름인지 확인
-        guard username != self.currentUserName else { return }
+        guard username.isValidUsername else {
+            self.status = .usernameWrongFormat
+            return
+        }
+        
+        // 기존과 같은 이름이면 서버 통신 안함
+        guard username != self.currentUserName else {
+            self.userInfo?.username = username
+            self.status = .usernameNotInUse
+            return
+        }
         
         self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
                     self?.userInfo?.username = username
-                    self?.status = .usernameAvailable
+                    self?.status = .usernameNotInUse
                 } else {
-                    self?.status = .usernameInavailable
+                    self?.status = .usernameAlreadyUsed
                 }
             } else {
                 self?.alert = .networkErrorWithoutPop
@@ -78,8 +95,8 @@ final class ChangeUserInfoVM {
     }
     
     func submit(completionWhenSucceed: @escaping () -> Void) {
-        guard self.status != .codeWrong,
-              self.status != .codeSent,
+        guard self.status != .wrongAuthCode,
+              self.status != .authCodeSent,
               self.userInfo?.isValid == true else {
                   self.alert = .insufficientData
                   return
@@ -101,7 +118,7 @@ extension ChangeUserInfoVM {
         self.phoneAuthenticator.sendSMSCode(to: phoneNumber) { result in
             switch result {
             case .success(_):
-                self.status = .codeSent
+                self.status = .authCodeSent
                 self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {
@@ -121,11 +138,11 @@ extension ChangeUserInfoVM {
             switch result {
             case .success(let phoneNumber):
                 self.userInfo?.phoneNumber = phoneNumber
-                self.status = .codeAuthComplete
+                self.status = .authComplete
             case .failure(let error):
                 switch error {
                 case .wrongCode:
-                    self.status = .codeWrong
+                    self.status = .wrongAuthCode
                 case .noNetwork:
                     self.alert = .networkErrorWithoutPop
                 case .codeNotSent:
@@ -139,7 +156,7 @@ extension ChangeUserInfoVM {
         self.phoneAuthenticator.resendSMSCode { result in
             switch result {
             case .success(_):
-                self.status = .codeSent
+                self.status = .authCodeSent
                 self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {

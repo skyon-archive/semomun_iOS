@@ -86,10 +86,6 @@ final class ChangeUserInfoVC: UIViewController {
         } else {
             //인증요청
             guard let newPhoneStr = self.additionalTF.text else { return }
-            guard newPhoneStr.isValidPhoneNumber else {
-                self.coloredFrameLabels[1].configure(type: .warning("잘못된 전화번호입니다"))
-                return
-            }
             self.viewModel?.requestPhoneAuth(withPhoneNumber: newPhoneStr)
         }
     }
@@ -100,7 +96,7 @@ final class ChangeUserInfoVC: UIViewController {
     
     @IBAction func submit(_ sender: Any) {
         guard self.nickname.text == self.viewModel?.userInfo?.username else {
-                  self.showAlertWithOK(title: "정보 입력을 완료해주세요", text: "")
+                  self.showAlertWithOK(title: "닉네임 중복확인이 필요합니다", text: "")
                   return
               }
         self.viewModel?.submit() { [weak self] in
@@ -168,6 +164,7 @@ extension ChangeUserInfoVC {
         self.addFrameLabel(self.coloredFrameLabels[0], to: self.nicknameFrame)
         self.addFrameLabel(self.coloredFrameLabels[1], to: self.additionalPhoneNumFrame)
     }
+    
     private func addFrameLabel(_ label: ColoredFrameLabel, to frame: UIView) {
         label.translatesAutoresizingMaskIntoConstraints = false
         frame.addSubview(label)
@@ -266,24 +263,36 @@ extension ChangeUserInfoVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
-                case .codeSent:
+                case .usernameWrongFormat:
+                    self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 영문 소문자(최소 하나), 언더바(_)의 조합이 가능합니다."))
+                case .usernameGoodFormat:
+                    self?.coloredFrameLabels[0].isHidden = true
+                    
+                case .phoneNumberWrongFormat:
+                    self?.coloredFrameLabels[1].configure(type: .warning("10-11자리의 숫자를 입력해주세요."))
+                case .phoneNumberGoodFormat:
+                    self?.coloredFrameLabels[1].isHidden = true
+                    
+                case .authCodeSent:
                     self?.showAlertWithOK(title: "인증번호가 전송되었습니다", text: "")
                     self?.coloredFrameLabels[1].isHidden = true
                     self?.changeAdditionalTFForAuthNum()
-                case .codeWrong:
+                case .wrongAuthCode:
                     self?.coloredFrameLabels[1].configure(type: .warning("잘못된 인증번호입니다"))
-                case .codeAuthComplete:
+                case .authComplete:
                     self?.isAuthPhoneTFShown = false
                     guard let button = self?.changePhoneNumButton else { break }
                     self?.configureButtonUI(button: button, isFilled: false)
                     button.setTitle("인증완료", for: .normal)
                     button.isEnabled = false
                     self?.showAlertWithOK(title: "인증이 완료되었습니다", text: "")
-                case .usernameInavailable:
+                    
+                case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
-                case .usernameAvailable:
+                case .usernameNotInUse:
                     self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
+                    
                 case .none:
                     break
                 }
@@ -385,15 +394,19 @@ extension ChangeUserInfoVC: SchoolSelectAction {
 
 extension ChangeUserInfoVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.isEmpty { // delete는 항상 가능
+        guard let text = textField.text, let textRange = Range(range, in: text) else {
             return true
         }
-        if textField == self.nickname {
-            return string.isValidUsernameCharacters
-        } else if textField == self.additionalTF {
-            return string.isNumber
-        } else {
-            return true
+        
+        // replacementString이 적용된 최종 text
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+        
+        if textField == self.phoneNumTF {
+            self.viewModel?.checkPhoneNumberFormat(updatedText)
+        } else if textField == self.nickname {
+            self.viewModel?.checkUsernameFormat(updatedText)
         }
+        
+        return true
     }
 }

@@ -82,7 +82,7 @@ class PhoneAuthenticator {
     }
     
     func resendSMSCode(completion: @escaping (Result<String, CodeResendError>) -> Void) {
-        guard let tempPhoneNumber = self.tempPhoneNumberForResend else {
+        guard let tempPhoneNumber = self.tempPhoneNumberForResend?.phoneNumberWithNumbers else {
             assertionFailure()
             return
         }

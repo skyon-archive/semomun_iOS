@@ -33,9 +33,15 @@ enum LoginSignupAlert {
 }
 
 enum LoginSignupStatus {
-    case usernameAvailable
-    case usernameInavailable
-    case codeWrong
-    case codeAuthComplete
-    case codeSent
+    case usernameNotInUse
+    case usernameAlreadyUsed
+    case usernameWrongFormat
+    case usernameGoodFormat
+    
+    case phoneNumberWrongFormat
+    case phoneNumberGoodFormat
+    
+    case wrongAuthCode
+    case authComplete
+    case authCodeSent
 }

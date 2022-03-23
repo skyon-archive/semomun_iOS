@@ -64,10 +64,6 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func requestAuth(_ sender: Any) {
         guard let newPhoneStr = self.phonenumTextField.text else { return }
-        guard newPhoneStr.isValidPhoneNumber else {
-            self.coloredFrameLabels[1].configure(type: .warning("올바른 전화번호를 입력해주세요."))
-            return
-        }
         self.viewModel?.requestPhoneAuth(withPhoneNumber: newPhoneStr)
     }
     
@@ -115,6 +111,7 @@ extension LoginSignupVC {
         self.bodyFrame.addShadow(direction: .top)
         self.configureColoredFrameLabels()
     }
+    
     private func configureColoredFrameLabels() {
         self.coloredFrameLabels = (0..<3).map { _ in
             let label = ColoredFrameLabel()
@@ -125,6 +122,7 @@ extension LoginSignupVC {
         self.addFrameLabel(self.coloredFrameLabels[1], to: self.phonenumFrame)
         self.addFrameLabel(self.coloredFrameLabels[2], to: self.authNumFrame)
     }
+    
     private func addFrameLabel(_ label: ColoredFrameLabel, to frame: UIView) {
         label.translatesAutoresizingMaskIntoConstraints = false
         frame.addSubview(label)
@@ -208,24 +206,35 @@ extension LoginSignupVC {
                 self?.majorDetailCollectionView.reloadData()
             }
             .store(in: &self.cancellables)
-            
+        
     }
     private func bindStatus() {
         self.viewModel?.$status
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
-                case .codeSent:
-                    self?.configureUIForAuthSent()
-                case .codeWrong:
-                    self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
-                case .codeAuthComplete:
-                    self?.configureUIForAuthComplete()
-                case .usernameInavailable:
+                case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
-                case .usernameAvailable:
+                case .usernameNotInUse:
                     self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
+                case .usernameWrongFormat:
+                    self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 영문 소문자(최소 하나), 언더바(_)의 조합이 가능합니다."))
+                case .usernameGoodFormat:
+                    self?.coloredFrameLabels[0].isHidden = true
+                    
+                case .phoneNumberWrongFormat:
+                    self?.coloredFrameLabels[1].configure(type: .warning("10-11자리의 숫자를 입력해주세요."))
+                case .phoneNumberGoodFormat:
+                    self?.coloredFrameLabels[1].isHidden = true
+                    
+                case .authCodeSent:
+                    self?.configureUIForAuthSent()
+                case .wrongAuthCode:
+                    self?.coloredFrameLabels[2].configure(type: .warning("잘못된 인증 번호입니다."))
+                case .authComplete:
+                    self?.configureUIForAuthComplete()
+                    
                 case .none:
                     break
                 }
@@ -352,25 +361,21 @@ extension LoginSignupVC: SchoolSelectAction {
 
 extension LoginSignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text, let textRange = Range(range, in: text) else {
+            return true
+        }
+        
+        // replacementString이 적용된 최종 text
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+        
         if textField == self.phonenumTextField {
-            if self.isPhoneNumberChangeAvailable() {
-                return string.isEmpty || string.isNumber
-            } else {
-                return false
-            }
+            guard self.isPhoneNumberChangeAvailable() else { return false }
+            self.viewModel?.checkPhoneNumberFormat(updatedText)
+        } else if textField == self.nickname {
+            self.viewModel?.checkUsernameFormat(updatedText)
         }
         
-        if string.isEmpty { // delete는 항상 가능
-            return true
-        }
-        
-        if textField == self.nickname {
-            return string.isValidUsernameCharacters
-        } else if textField == self.authNumTextField {
-            return string.isNumber
-        } else {
-            return true
-        }
+        return true
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -381,16 +386,10 @@ extension LoginSignupVC: UITextFieldDelegate {
         }
     }
     
+    // 인증 중이거나 인증이 완료된 경우 Alert을 띄우고 false를 반환
     private func isPhoneNumberChangeAvailable() -> Bool {
-        guard let status = self.viewModel?.status else { return true }
-        if status == .codeAuthComplete {
-            self.showAlertWithCancelAndOK(title: "인증 완료됨", text: "인증 완료된 전화번호를 바꾸시겠습니까?") { [weak self] in
-                self?.configureUIForAuthCanceled()
-                self?.viewModel?.cancelAuth()
-            }
-            return false
-        } else if status == .codeSent {
-            self.showAlertWithCancelAndOK(title: "인증 진행중", text: "진행중인 인증을 취소하시겠습니까?") { [weak self] in
+        if self.viewModel?.canChangePhoneNumber == false {
+            self.showAlertWithCancelAndOK(title: "전화번호 수정", text: "다른 전화번호로 다시 진행하시겠습니까?") { [weak self] in
                 self?.configureUIForAuthCanceled()
                 self?.viewModel?.cancelAuth()
             }
