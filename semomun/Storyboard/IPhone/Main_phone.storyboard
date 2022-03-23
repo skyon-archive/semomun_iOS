@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Wmq-0R-bcw">
+            <objects>
+                <tabBarController id="wMZ-ae-XC7" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dD5-Lv-tZC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="mainColor"/>
+                        <color key="selectedImageTintColor" name="mainColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="hja-3e-Gz9" kind="relationship" relationship="viewControllers" id="hZS-mo-RgH"/>
+                        <segue destination="vUM-mK-NvN" kind="relationship" relationship="viewControllers" id="xG6-zL-kCL"/>
+                        <segue destination="ve9-TH-Cnv" kind="relationship" relationship="viewControllers" id="hdY-gg-pSI"/>
+                        <segue destination="vHl-0i-amS" kind="relationship" relationship="viewControllers" id="sts-v3-Dcj"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GU9-f7-hUF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-275" y="3339"/>
+        </scene>
+        <!--SearchVC-->
+        <scene sceneID="hhC-Qn-0zH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="SearchVC" id="vUM-mK-NvN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="검색" id="Qvo-a0-Osx"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a6W-CL-g54" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-367" y="3725"/>
+        </scene>
+        <!--BookshelfVC-->
+        <scene sceneID="Qkx-1e-voO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="BookshelfVC" id="ve9-TH-Cnv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="내 책장" id="xsP-a6-R9V"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zyw-Ce-Jhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-187" y="3725"/>
+        </scene>
+        <!--ProfileVC-->
+        <scene sceneID="cNf-QG-qFh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileVC" id="vHl-0i-amS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="마이" id="0kc-5M-boe"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qAE-pP-J0S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-9" y="3725"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="f2w-d9-PPt">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="hja-3e-Gz9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="홈" id="51x-qF-PSB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uzm-Cf-R9s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-544" y="3725"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="mainColor">
+            <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>
