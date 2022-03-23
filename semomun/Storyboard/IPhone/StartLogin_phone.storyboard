@@ -295,23 +295,23 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SOo-A2-mL5">
                                 <rect key="frame" x="16" y="189" width="358" height="434"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="18" minimumInteritemSpacing="8" id="HcU-wS-z3n">
-                                    <size key="itemSize" width="128" height="38"/>
-                                    <size key="estimatedItemSize" width="128" height="38"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="HcU-wS-z3n">
+                                    <size key="itemSize" width="128" height="34"/>
+                                    <size key="estimatedItemSize" width="128" height="34"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StartTagCell" id="PsU-V8-6AW" customClass="StartTagCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="122.66666666666666" height="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="114.33333333333331" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5Jx-s1-nfx">
-                                            <rect key="frame" x="0.0" y="0.0" width="122.66666666666666" height="38"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="114.33333333333331" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수험서/자격증" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esP-9y-fRK">
-                                                    <rect key="frame" x="20" y="10" width="82.666666666666671" height="18"/>
+                                                    <rect key="frame" x="16" y="8" width="82.333333333333329" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" name="deepMint"/>
                                                     <nil key="highlightedColor"/>
@@ -319,7 +319,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="esP-9y-fRK" firstAttribute="leading" secondItem="5Jx-s1-nfx" secondAttribute="leading" constant="20" id="AN9-CV-0rf"/>
+                                                <constraint firstItem="esP-9y-fRK" firstAttribute="leading" secondItem="5Jx-s1-nfx" secondAttribute="leading" constant="16" id="AN9-CV-0rf"/>
                                                 <constraint firstItem="esP-9y-fRK" firstAttribute="centerX" secondItem="5Jx-s1-nfx" secondAttribute="centerX" id="AiX-fb-qyu"/>
                                                 <constraint firstItem="esP-9y-fRK" firstAttribute="centerY" secondItem="5Jx-s1-nfx" secondAttribute="centerY" id="jra-GU-dE1"/>
                                             </constraints>
@@ -349,7 +349,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="huv-3G-cXu"/>
                     <connections>
-                        <outlet property="tags" destination="SOo-A2-mL5" id="fPq-nR-g8Y"/>
+                        <outlet property="tags" destination="SOo-A2-mL5" id="ecS-MM-MKA"/>
                         <outlet property="topFrameView" destination="eZz-hP-TPY" id="jWT-ok-aH8"/>
                     </connections>
                 </viewController>
