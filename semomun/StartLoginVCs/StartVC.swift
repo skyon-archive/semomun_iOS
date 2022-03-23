@@ -10,6 +10,7 @@ import UIKit
 final class StartVC: UIViewController {
     static let identifier = "StartVC"
     static let storyboardName = "StartLogin"
+    static let storyboardName_phone = "StartLogin_phone"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,10 @@ extension StartVC {
         }
     }
     private func goStartSettingVC() {
-        let nextVC = UIStoryboard(name: StartSettingVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
+        var nextVC = UIStoryboard(name: StartSettingVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            nextVC = UIStoryboard(name: StartSettingVC.storyboardName_phone, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
+        }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
