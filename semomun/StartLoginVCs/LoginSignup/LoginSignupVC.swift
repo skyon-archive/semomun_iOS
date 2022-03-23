@@ -81,11 +81,14 @@ final class LoginSignupVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
+        // MARK: - favoriteTags 반영
+        self.viewModel?.updateFavoriteTags()
+        
         guard let userInfo = self.viewModel?.signupUserInfo,
               userInfo.isValid else {
-                  self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
-                  return
-              }
+            self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
+            return
+        }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.signupInfo = userInfo
         self.navigationController?.pushViewController(vc, animated: true)
