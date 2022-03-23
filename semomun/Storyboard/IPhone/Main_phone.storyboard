@@ -33,7 +33,7 @@
         <!--SearchVC-->
         <scene sceneID="hhC-Qn-0zH">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="SearchVC" id="vUM-mK-NvN" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf_phone" referencedIdentifier="SearchVC" id="vUM-mK-NvN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="검색" id="Qvo-a0-Osx"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6W-CL-g54" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -43,7 +43,7 @@
         <!--BookshelfVC-->
         <scene sceneID="Qkx-1e-voO">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="BookshelfVC" id="ve9-TH-Cnv" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf_phone" referencedIdentifier="BookshelfVC" id="ve9-TH-Cnv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="내 책장" id="xsP-a6-R9V"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zyw-Ce-Jhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -53,7 +53,7 @@
         <!--ProfileVC-->
         <scene sceneID="cNf-QG-qFh">
             <objects>
-                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileVC" id="vHl-0i-amS" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Profile_phone" referencedIdentifier="ProfileVC" id="vHl-0i-amS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="마이" id="0kc-5M-boe"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAE-pP-J0S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -63,7 +63,7 @@
         <!--HomeVC-->
         <scene sceneID="f2w-d9-PPt">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="hja-3e-Gz9" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf_phone" referencedIdentifier="HomeVC" id="hja-3e-Gz9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="홈" id="51x-qF-PSB"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uzm-Cf-R9s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
