@@ -100,7 +100,7 @@ extension HomeVC {
         if UIDevice.current.userInterfaceIdiom == .pad {
             superWidth -= 200
         } else {
-            superWidth -= 141
+            superWidth -= 137
         }
         var widthSum: CGFloat = 0
         
@@ -285,8 +285,8 @@ extension HomeVC {
                 } else {
                     self?.noLoginedLabel1.removeFromSuperview()
                     self?.noLoginedLabel2.removeFromSuperview()
-                    self?.recentHeight.constant = 232
-                    self?.newestHeight.constant = 232
+                    self?.recentHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
+                    self?.newestHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
                 }
             })
             .store(in: &self.cancellables)
