@@ -37,13 +37,8 @@ final class SectionDateLabelFrame: UIView {
         label.clipsToBounds = true
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textAlignment = .center
-        label.layer.borderWidth = 1
         label.layer.cornerRadius = 14
-        
-        guard let deepMint = UIColor(.deepMint) else { return }
-        guard let backgroundColor = UIColor(.tableViewBackground) else { return }
-        label.textColor = filled ? .white : deepMint
-        label.layer.borderColor = deepMint.cgColor
-        label.backgroundColor = filled ? deepMint : backgroundColor
+        label.textColor = .white
+        label.backgroundColor = UIColor(.deepMint)
     }
 }

@@ -24,7 +24,6 @@ final class SemopayVC: UIViewController {
         super.viewDidLoad()
         self.configureHeaderUI()
         self.configureDelegates()
-        self.configureTableView()
         self.bindAll()
         self.viewModel?.initPublished()
     }
@@ -45,16 +44,11 @@ extension SemopayVC {
     private func configureHeaderUI() {
         self.navigationItem.titleView?.backgroundColor = .white
         self.navigationItem.title = "페이 이용 내역"
-        self.headerFrame.addAccessibleShadow(direction: .bottom)
-        self.headerFrame.clipAccessibleShadow(at: .top)
     }
+    
     private func configureDelegates() {
         self.payChargeList.dataSource = self
         self.payChargeList.delegate = self
-    }
-    private func configureTableView() {
-        self.payChargeList.clipsToBounds = false
-        self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -33)
     }
 }
 
