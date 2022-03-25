@@ -100,7 +100,9 @@ final class ChangeUserInfoVC: UIViewController {
                   return
               }
         self.viewModel?.submit() { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+            self?.showAlertWithOK(title: "저장 완료", text: "계정 정보가 저장되었습니다.") { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
