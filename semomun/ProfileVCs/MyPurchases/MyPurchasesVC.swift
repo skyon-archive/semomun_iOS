@@ -90,7 +90,7 @@ extension MyPurchasesVC: UITableViewDataSource {
         guard let item = self.viewModel?.purchaseOfEachMonth[indexPath.section].content[indexPath.row] else {
             return cell
         }
-        cell.configure(item: item, networkUsecase: NetworkUsecase(network: Network()))
+        cell.configure(item: item, networkUsecase: NetworkUsecase(network: Network()), superWidth: self.view.frame.width)
         
         return cell
     }
