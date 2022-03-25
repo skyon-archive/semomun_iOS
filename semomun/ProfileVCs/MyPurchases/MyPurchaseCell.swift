@@ -23,6 +23,7 @@ final class MyPurchaseCell: UITableViewCell  {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var frameViewLeading: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +38,12 @@ final class MyPurchaseCell: UITableViewCell  {
         self.costLabel.text = nil
     }
     
-    func configure(item: PurchasedItem, networkUsecase: MyPurchaseCellNetworkUsecase) {
+    func configure(item: PurchasedItem, networkUsecase: MyPurchaseCellNetworkUsecase, superWidth: CGFloat) {
+        print(superWidth)
+        if superWidth == 744 { // mini 사이즈일 경우 leading 수정
+            self.frameViewLeading.constant = 100
+            self.backgroundFrameView.layoutIfNeeded()
+        }
         self.networkUsecase = networkUsecase
         self.titleLabel.text = item.title
         self.dateLabel.text = item.createdDate.yearMonthDayText
@@ -64,6 +70,7 @@ final class MyPurchaseCell: UITableViewCell  {
 
 extension MyPurchaseCell {
     private func configureBasicUI() {
+        self.backgroundFrameView.layoutIfNeeded()
         self.backgroundFrameView.layer.cornerRadius = 10
         self.backgroundFrameView.addAccessibleShadow(direction: .bottom)
         self.clipsToBounds = false
