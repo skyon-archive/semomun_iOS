@@ -15,16 +15,6 @@ final class SemopayCell: UITableViewCell {
     @IBOutlet private weak var date: UILabel!
     @IBOutlet private weak var historyTitle: UILabel!
     @IBOutlet private weak var cost: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.removeCornerRadius()
-        self.removeBottomDivider()
-    }
 }
 
 // MARK: Cell 정보 configure
@@ -33,23 +23,6 @@ extension SemopayCell {
         self.setTitle(using: purchase)
         self.setCostLabel(transaction: purchase.transaction)
         self.setDate(using: purchase.createdDate)
-    }
-}
-
-extension SemopayCell {
-        func configureCellUI(row: Int, numberOfRowsInSection: Int) {
-            if numberOfRowsInSection == 1 {
-                self.makeCornerRadius(at: .all)
-            } else {
-                if row == numberOfRowsInSection - 1 {
-                    self.makeCornerRadius(at: .bottom)
-                } else {
-                    self.addBottomDivider()
-                    if row == 0 {
-                        self.makeCornerRadius(at: .top)
-                    }
-                }
-            }
     }
 }
 
@@ -108,59 +81,5 @@ extension SemopayCell {
         case .purchase(_), .free:
             return red
         }
-    }
-}
-
-// MARK: Divider configure
-extension SemopayCell {
-    static let dividerSublayerName = "SemopayDivider"
-    private func addBottomDivider() {
-        let dividerColor = UIColor(.divider)
-        let dividerHeight: CGFloat = 0.25
-        let dividerMargin: CGFloat = 20
-        let dividerWidth = self.contentView.frame.size.width - 2 * dividerMargin
-        let dividerYpos = self.contentView.frame.size.height - dividerHeight
-        let border: CALayer = {
-            let border = CALayer()
-            border.name = Self.dividerSublayerName
-            border.backgroundColor = dividerColor?.cgColor
-            border.frame = CGRect(x: dividerMargin, y: dividerYpos, width: dividerWidth, height: dividerHeight)
-            return border
-        }()
-        self.contentView.layer.addSublayer(border)
-    }
-    
-    private func removeBottomDivider() {
-        self.contentView.layer.sublayers?.removeAll(where: { $0.name == Self.dividerSublayerName})
-    }
-}
-
-// MARK: Corner radius configure
-extension SemopayCell {
-    private enum CornerRadiusDirection {
-        case top, bottom, all
-    }
-    
-    private func makeCornerRadius(at direction: CornerRadiusDirection) {
-        let cornerRadius: CGFloat = 10
-        let roundingCorners: UIRectCorner
-        switch direction {
-        case .top:
-            roundingCorners = [.topLeft, .topRight]
-        case .bottom:
-            roundingCorners = [.bottomLeft, .bottomRight]
-        case .all:
-            self.contentView.layer.cornerRadius = cornerRadius
-            return
-        }
-        let path = UIBezierPath(roundedRect: self.contentView.bounds, byRoundingCorners: roundingCorners, cornerRadii: CGSize(width: cornerRadius, height:  cornerRadius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        self.contentView.layer.mask = maskLayer
-    }
-    
-    private func removeCornerRadius() {
-        self.contentView.layer.mask = nil
-        self.contentView.layer.cornerRadius = 0
     }
 }
