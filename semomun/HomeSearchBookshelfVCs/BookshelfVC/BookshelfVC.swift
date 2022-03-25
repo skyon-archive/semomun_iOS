@@ -80,6 +80,7 @@ class BookshelfVC: UIViewController {
 
 extension BookshelfVC {
     private func configureUI() {
+        self.view.layoutIfNeeded()
         self.setShadow(with: navigationTitleView)
         self.sortSelector.layer.borderWidth = 1
         self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor

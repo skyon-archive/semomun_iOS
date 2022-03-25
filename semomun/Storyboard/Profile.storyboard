@@ -1041,29 +1041,28 @@
                                 <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
                                 <color key="backgroundColor" name="tableViewBackground"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="186" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xP8-HW-vT9">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="194" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xP8-HW-vT9">
                                 <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
                                 <color key="backgroundColor" name="tableViewBackground"/>
                                 <color key="separatorColor" name="divider"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyPurchaseCell" id="8E9-ml-xYv" customClass="MyPurchaseCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="834" height="186"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="834" height="194"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8E9-ml-xYv" id="X0k-6h-hsG">
-                                            <rect key="frame" x="0.0" y="0.0" width="834" height="186"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="834" height="194"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qga-ey-rAe">
-                                                    <rect key="frame" x="131" y="6" width="572" height="174"/>
+                                                    <rect key="frame" x="131" y="10" width="572" height="174"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="174" id="HR3-xa-Zby"/>
-                                                        <constraint firstAttribute="width" constant="572" id="xOY-dd-iEH"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Wv-6R-WWm">
-                                                    <rect key="frame" x="206" y="46" width="84" height="118"/>
+                                                    <rect key="frame" x="206" y="50" width="84" height="118"/>
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="118" id="Irk-Kv-EUU"/>
@@ -1071,25 +1070,25 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구매완료" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uN-Eb-aIt">
-                                                    <rect key="frame" x="206" y="24" width="45" height="16"/>
+                                                    <rect key="frame" x="206" y="28" width="45" height="16"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022.01.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3i-mB-Pnk">
-                                                    <rect key="frame" x="306" y="46" width="66" height="16"/>
+                                                    <rect key="frame" x="306" y="50" width="66" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" name="grayTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="유튜버 연고맨의 전투수학" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-h1-w1t">
-                                                    <rect key="frame" x="306" y="66" width="151" height="18"/>
+                                                    <rect key="frame" x="306" y="70" width="151" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,000 원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3f-Tg-kIb">
-                                                    <rect key="frame" x="306" y="142.5" width="80" height="21.5"/>
+                                                    <rect key="frame" x="306" y="146.5" width="80" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1097,11 +1096,11 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="qga-ey-rAe" firstAttribute="leading" secondItem="X0k-6h-hsG" secondAttribute="leading" constant="131" id="1cM-M7-uYF"/>
                                                 <constraint firstItem="qga-ey-rAe" firstAttribute="leading" secondItem="4Wv-6R-WWm" secondAttribute="leading" constant="-75" id="2nV-Wm-UVq"/>
                                                 <constraint firstItem="bqb-h1-w1t" firstAttribute="top" secondItem="O3i-mB-Pnk" secondAttribute="bottom" constant="4" id="2qZ-3e-ISA"/>
                                                 <constraint firstItem="qga-ey-rAe" firstAttribute="centerX" secondItem="X0k-6h-hsG" secondAttribute="centerX" id="Aa0-2W-wO3"/>
                                                 <constraint firstItem="4Wv-6R-WWm" firstAttribute="top" secondItem="9uN-Eb-aIt" secondAttribute="bottom" constant="6" id="Hqf-jd-HlT"/>
-                                                <constraint firstItem="qga-ey-rAe" firstAttribute="top" secondItem="X0k-6h-hsG" secondAttribute="top" constant="6" id="Kkb-br-a0b"/>
                                                 <constraint firstItem="D3f-Tg-kIb" firstAttribute="leading" secondItem="bqb-h1-w1t" secondAttribute="leading" id="PEI-1v-Oo8"/>
                                                 <constraint firstItem="O3i-mB-Pnk" firstAttribute="leading" secondItem="4Wv-6R-WWm" secondAttribute="trailing" constant="16" id="THP-N8-8x0"/>
                                                 <constraint firstItem="bqb-h1-w1t" firstAttribute="leading" secondItem="O3i-mB-Pnk" secondAttribute="leading" id="W0P-gk-0pI"/>
@@ -1117,6 +1116,7 @@
                                             <outlet property="backgroundFrameView" destination="qga-ey-rAe" id="hie-TD-h1k"/>
                                             <outlet property="costLabel" destination="D3f-Tg-kIb" id="4eq-92-Fuh"/>
                                             <outlet property="dateLabel" destination="O3i-mB-Pnk" id="Jlh-h0-bsx"/>
+                                            <outlet property="frameViewLeading" destination="1cM-M7-uYF" id="l8f-J0-ClH"/>
                                             <outlet property="titleLabel" destination="bqb-h1-w1t" id="4Yi-Vj-NFB"/>
                                             <outlet property="workbookImage" destination="4Wv-6R-WWm" id="wh8-g1-cJT"/>
                                         </connections>
