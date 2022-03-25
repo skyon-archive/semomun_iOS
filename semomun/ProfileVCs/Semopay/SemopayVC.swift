@@ -33,6 +33,11 @@ final class SemopayVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.configureScrollIndicatorInset()
+    }
+    
     @IBAction func charge(_ sender: Any) {
         let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
@@ -49,6 +54,11 @@ extension SemopayVC {
     private func configureDelegates() {
         self.payChargeList.dataSource = self
         self.payChargeList.delegate = self
+    }
+    
+    private func configureScrollIndicatorInset() {
+        let rightInset = (self.view.frame.width - self.payChargeList.frame.width)/2
+        self.payChargeList.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -rightInset)
     }
 }
 
@@ -104,15 +114,13 @@ extension SemopayVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SemopayCell.identifier) as? SemopayCell else { return UITableViewCell() }
+        
         // Configuring cell using data
         guard let purchase = self.viewModel?.purchaseOfEachMonth[indexPath.section].content[indexPath.row] else {
             return cell
         }
-        cell.configureCell(using: purchase)
         
-        // Configuring cell on specific position
-        let numberOfRowsInSection = self.tableView(tableView, numberOfRowsInSection: indexPath.section)
-        cell.configureCellUI(row: indexPath.row, numberOfRowsInSection: numberOfRowsInSection)
+        cell.configureCell(using: purchase)
         return cell
     }
 }
