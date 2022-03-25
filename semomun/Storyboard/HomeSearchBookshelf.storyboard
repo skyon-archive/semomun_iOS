@@ -677,7 +677,7 @@
             </objects>
             <point key="canvasLocation" x="1533.8129496402878" y="39.698492462311556"/>
         </scene>
-        <!--내 책장-->
+        <!--책장-->
         <scene sceneID="gh7-kP-Slv">
             <objects>
                 <viewController storyboardIdentifier="BookshelfVC" id="Zyx-OH-eto" customClass="BookshelfVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -867,7 +867,7 @@ Title</string>
                             <constraint firstItem="WX2-IL-AaG" firstAttribute="leading" secondItem="zlU-Vk-Rc3" secondAttribute="leading" id="pmc-1E-NU6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="내 책장" image="bookshelf" selectedImage="bookshelf" id="9CP-UO-49J">
+                    <tabBarItem key="tabBarItem" title="책장" image="bookshelf" selectedImage="bookshelf" id="9CP-UO-49J">
                         <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
