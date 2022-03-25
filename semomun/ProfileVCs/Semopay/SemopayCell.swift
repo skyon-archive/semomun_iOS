@@ -18,27 +18,19 @@ final class SemopayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.addAccessibleShadow(direction: .bottom)
-        self.clipsToBounds = false
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.removeCornerRadius()
         self.removeBottomDivider()
-        self.removeClipOfAccessibleShadow()
     }
 }
 
 // MARK: Cell 정보 configure
 extension SemopayCell {
     func configureCell(using purchase: PurchasedItem) {
-        if self.isPurchaseCharge(purchase) {
-            self.setTitleLabelForPayCharge()
-        } else {
-            self.historyTitle.text = purchase.title
-        }
-        
+        self.setTitle(using: purchase)
         self.setCostLabel(transaction: purchase.transaction)
         self.setDate(using: purchase.createdDate)
     }
@@ -48,36 +40,22 @@ extension SemopayCell {
         func configureCellUI(row: Int, numberOfRowsInSection: Int) {
             if numberOfRowsInSection == 1 {
                 self.makeCornerRadius(at: .all)
-            } else if row == 0 {
-                self.makeCornerRadius(at: .top)
-                self.clipAccessibleShadow(at: .bottom)
-                self.addBottomDivider()
-            } else if row == numberOfRowsInSection - 1 {
-                self.makeCornerRadius(at: .bottom)
-                self.clipAccessibleShadow(at: .top)
             } else {
-                self.clipAccessibleShadow(at: .both)
-                self.changeShadowOffset(to: CGSize())
-                self.addBottomDivider()
+                if row == numberOfRowsInSection - 1 {
+                    self.makeCornerRadius(at: .bottom)
+                } else {
+                    self.addBottomDivider()
+                    if row == 0 {
+                        self.makeCornerRadius(at: .top)
+                    }
+                }
             }
     }
 }
 
 extension SemopayCell {
-    private func isPurchaseCharge(_ purchase: PurchasedItem) -> Bool {
-        if case .charge = purchase.transaction {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    private func setTitleLabelForPayCharge() {
-        self.historyTitle.text = "세모페이 충전"
-    }
-    
-    private func setDate(using date: Date) {
-        self.date.text = date.yearMonthDayText
+    private func setTitle(using purchase: PurchasedItem) {
+        self.historyTitle.text = self.isPurchaseCharge(purchase) ? "세모페이 충전" : purchase.title
     }
     
     private func setCostLabel(transaction: Transaction) {
@@ -95,6 +73,18 @@ extension SemopayCell {
         
         attrCostString.addAttributes(costAttr, range: costRange)
         self.cost.attributedText = attrCostString
+    }
+    
+    private func setDate(using date: Date) {
+        self.date.text = date.yearMonthDayText
+    }
+    
+    private func isPurchaseCharge(_ purchase: PurchasedItem) -> Bool {
+        if case .charge = purchase.transaction {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func getCostLabelNumberPart(transaction: Transaction) -> String {
@@ -127,7 +117,7 @@ extension SemopayCell {
     private func addBottomDivider() {
         let dividerColor = UIColor(.divider)
         let dividerHeight: CGFloat = 0.25
-        let dividerMargin: CGFloat = 39
+        let dividerMargin: CGFloat = 20
         let dividerWidth = self.contentView.frame.size.width - 2 * dividerMargin
         let dividerYpos = self.contentView.frame.size.height - dividerHeight
         let border: CALayer = {
