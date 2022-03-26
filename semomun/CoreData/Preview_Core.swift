@@ -94,7 +94,7 @@ extension Preview_Core {
 public class Preview_Core: NSManagedObject{
     
     public override var description: String {
-        return "Preview(\(self.wid), \(self.image!), \(self.title!), \(self.subject!), \(self.sids), \(self.terminated), \(self.category!), \(self.downloaded)\n"
+        return "Preview(\(self.wid), \(self.image), \(self.title), \(self.sids), \(self.terminated))"
     }
     
     func setValues(workbook: WorkbookOfDB, info: BookshelfInfo) {
