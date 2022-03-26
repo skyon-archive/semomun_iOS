@@ -45,11 +45,6 @@ final class UserNoticeContentVC: UIViewController {
         self.configureLayout()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.backgroundFrame.addAccessibleShadow(direction: .top)
-    }
-    
     func configureContent(using userNotice: UserNotice) {
         self.titleLabel.text = userNotice.title
         self.dateLabel.text = userNotice.date.yearMonthDayText
@@ -60,17 +55,13 @@ final class UserNoticeContentVC: UIViewController {
 // MARK: Configure layout
 extension UserNoticeContentVC {
     private func configureLayout() {
-        self.configureBackgroundLayout()
-        self.configureHeaderLayout()
-        self.configureTextViewLayout()
+        self.layoutBackgroundColorView()
+        self.layoutBackgroundFrame()
+        self.layoutHeader()
+        self.layoutTextView()
     }
     
-    private func configureBackgroundLayout() {
-        self.configureBackgroundColorView()
-        self.configureBackgroundShadowView()
-    }
-    
-    private func configureBackgroundColorView() {
+    private func layoutBackgroundColorView() {
         let backgroundColorView = UIView()
         backgroundColorView.backgroundColor = UIColor(.lightGrayBackgroundColor)
         backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +74,7 @@ extension UserNoticeContentVC {
         ])
     }
     
-    private func configureBackgroundShadowView() {
+    private func layoutBackgroundFrame() {
         self.backgroundFrame.backgroundColor = .white
         self.backgroundFrame.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.backgroundFrame)
@@ -95,23 +86,22 @@ extension UserNoticeContentVC {
         ])
     }
     
-    private func configureHeaderLayout() {
+    private func layoutHeader() {
+        self.view.addSubviews(self.titleLabel, self.dateLabel, self.divider)
+        
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             self.titleLabel.leadingAnchor.constraint(equalTo: self.backgroundFrame.leadingAnchor, constant: 28),
             self.titleLabel.topAnchor.constraint(equalTo: self.backgroundFrame.topAnchor, constant: 27)
         ])
         
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             self.dateLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
             self.dateLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4)
         ])
         
         self.divider.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(divider)
         NSLayoutConstraint.activate([
             self.divider.heightAnchor.constraint(equalToConstant: 1),
             self.divider.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
@@ -120,14 +110,16 @@ extension UserNoticeContentVC {
         ])
     }
     
-    private func configureTextViewLayout() {
-        self.contentTextView.translatesAutoresizingMaskIntoConstraints = false
+    private func layoutTextView() {
+        self.contentTextView.textContainerInset = UIEdgeInsets(top: 37, left: 28, bottom: 28, right: 37)
+        
         self.view.addSubview(self.contentTextView)
+        self.contentTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.contentTextView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.contentTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 28),
+            self.contentTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             self.contentTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.contentTextView.topAnchor.constraint(equalTo: self.divider.bottomAnchor, constant: 37)
+            self.contentTextView.topAnchor.constraint(equalTo: self.divider.bottomAnchor)
         ])
     }
 }
