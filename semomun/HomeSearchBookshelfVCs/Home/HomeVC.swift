@@ -32,6 +32,7 @@ final class HomeVC: UIViewController {
         self.configureViewModel()
         self.bindAll()
         self.viewModel?.checkLogined()
+        self.viewModel?.checkVersion()
         self.configureCollectionView()
         self.configureAddObserver()
         self.configureBannerAds()
@@ -40,10 +41,10 @@ final class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.startBannerAdsAutoScroll()
-        /// 임시코드
-        let title = "4월 1일 (금요일) 오후 11시~ 4월 2일 (토요일) 오전 3시"
-        let noticeVC = NoticePopupVC(title: title)
-        self.present(noticeVC, animated: true)
+        /// 임시코드, 버전 업데이트 팝업과 겹쳐 주석처리
+//        let title = "4월 1일 (금요일) 오후 11시~ 4월 2일 (토요일) 오전 3시"
+//        let noticeVC = NoticePopupVC(title: title)
+//        self.present(noticeVC, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -181,6 +182,7 @@ extension HomeVC {
         self.bindWorkbookDTO()
         self.bindOfflineStatus()
         self.bindLogined()
+        self.bindVersion()
     }
     
     private func bindTags() {
@@ -279,6 +281,26 @@ extension HomeVC {
                     self?.noLoginedLabel2.removeFromSuperview()
                     self?.recentHeight.constant = 232
                     self?.newestHeight.constant = 232
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindVersion() {
+        self.viewModel?.$updateToVersion
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] version in
+                guard let version = version else { return }
+                self?.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(version) 버전을 다운받아주세요") {
+                    if let url = URL(string: NetworkURL.appstore),
+                       UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:])
+                        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            exit(0)
+                        }
+                    }
                 }
             })
             .store(in: &self.cancellables)

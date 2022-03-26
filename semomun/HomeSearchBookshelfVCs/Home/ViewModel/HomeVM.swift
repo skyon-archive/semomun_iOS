@@ -21,6 +21,7 @@ final class HomeVM {
     @Published private(set) var workbookDTO: WorkbookOfDB?
     @Published private(set) var offlineStatus: Bool = false
     @Published private(set) var logined: Bool = false
+    @Published private(set) var updateToVersion: String?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -56,6 +57,27 @@ final class HomeVM {
     
     func checkLogined() { // VC 에서 불리는 함수
         self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+    }
+    
+    func checkVersion() { // VC 에서 불리는 함수
+        self.networkUsecase.getAppstoreVersion { status, versionDTO in
+            switch status {
+            case .SUCCESS:
+                guard let deviceVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+                      let appstoreVersion = versionDTO?.results.first?.version else {
+                    assertionFailure()
+                    return
+                }
+                
+                if deviceVersion.versionCompare(appstoreVersion) == .orderedAscending {
+                    self.updateToVersion = appstoreVersion
+                }
+            case .ERROR:
+                self.error = "네트워크 연결을 확인 후 다시 시도하세요"
+            default:
+                return
+            }
+        }
     }
     
     private func fetch() {
