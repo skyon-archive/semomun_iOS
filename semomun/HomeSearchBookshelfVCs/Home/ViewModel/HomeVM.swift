@@ -60,7 +60,7 @@ final class HomeVM {
     }
     
     func checkVersion() { // VC 에서 불리는 함수
-        self.networkUsecase.getAppstoreVersion { status, versionDTO in
+        self.networkUsecase.getAppstoreVersion { [weak self] status, versionDTO in
             switch status {
             case .SUCCESS:
                 guard let deviceVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
@@ -70,10 +70,10 @@ final class HomeVM {
                 }
                 
                 if deviceVersion.versionCompare(appstoreVersion) == .orderedAscending {
-                    self.updateToVersion = appstoreVersion
+                    self?.updateToVersion = appstoreVersion
                 }
             case .ERROR:
-                self.error = "네트워크 연결을 확인 후 다시 시도하세요"
+                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
             default:
                 return
             }
