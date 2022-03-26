@@ -16,7 +16,6 @@ final class HomeVM {
     @Published private(set) var workbooksWithRecent: [BookshelfInfo] = []
     @Published private(set) var workbooksWithNewest: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
-    @Published private(set) var error: String?
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
     @Published private(set) var offlineStatus: Bool = false
@@ -60,6 +59,7 @@ final class HomeVM {
     }
     
     func checkVersion() { // VC 에서 불리는 함수
+        guard NetworkStatusManager.isConnectedToInternet() else { return }
         self.networkUsecase.getAppstoreVersion { [weak self] status, versionDTO in
             switch status {
             case .SUCCESS:
@@ -73,7 +73,7 @@ final class HomeVM {
                     self?.updateToVersion = appstoreVersion
                 }
             case .ERROR:
-                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             default:
                 return
             }
@@ -133,7 +133,7 @@ final class HomeVM {
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
-                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
     }
@@ -147,7 +147,7 @@ final class HomeVM {
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
-                self?.error = "네트워크 연결을 확인 후 다시 시도하세요"
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
     }
