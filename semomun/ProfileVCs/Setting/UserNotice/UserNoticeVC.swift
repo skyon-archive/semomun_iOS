@@ -12,7 +12,6 @@ typealias UserNoticeNetworkUsecase = NoticeFetchable
 final class UserNoticeVC: UIViewController {
     private let noticeTableView = UITableView()
     private var noticeFetched: [UserNotice] = []
-    private let backgroundShadowView = UIView()
     private let networkUsecase: UserNoticeNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
@@ -21,10 +20,6 @@ final class UserNoticeVC: UIViewController {
         self.configureTableView()
         self.getData()
     }
-    
-    override func viewDidLayoutSubviews() {
-        self.backgroundShadowView.addAccessibleShadow(direction: .top)
-    }
 }
 
 // MARK: Confiure layout
@@ -32,13 +27,8 @@ extension UserNoticeVC {
     private func configureUI() {
         self.navigationItem.title = "공지사항"
         self.view.backgroundColor = .white
-        self.configureBackgroundLayout()
-        self.configureTableViewLayout()
-    }
-    
-    private func configureBackgroundLayout() {
         self.configureBackgroundColorView()
-        self.configureBackgroundShadowView()
+        self.configureTableViewLayout()
     }
     
     private func configureBackgroundColorView() {
@@ -51,18 +41,6 @@ extension UserNoticeVC {
             backgroundColorView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             backgroundColorView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             backgroundColorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        ])
-    }
-    
-    private func configureBackgroundShadowView() {
-        self.backgroundShadowView.backgroundColor = .white
-        self.backgroundShadowView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.backgroundShadowView)
-        NSLayoutConstraint.activate([
-            self.backgroundShadowView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.backgroundShadowView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            self.backgroundShadowView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.backgroundShadowView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
         ])
     }
     
@@ -85,8 +63,9 @@ extension UserNoticeVC {
         self.noticeTableView.dataSource = self
         self.noticeTableView.delegate = self
 
-        self.noticeTableView.backgroundColor = UIColor(.tableViewBackground)
+        self.noticeTableView.backgroundColor = UIColor(.clear)
     }
+    
     private func getData() {
         self.networkUsecase?.getNotices { [weak self] status, userNotices in
             if status == .SUCCESS {
