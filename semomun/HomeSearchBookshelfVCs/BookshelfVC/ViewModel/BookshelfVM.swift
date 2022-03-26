@@ -53,7 +53,7 @@ final class BookshelfVM {
         }
     }
     
-    func fetchBooksFromNetwork() {
+    func fetchBooksFromNetwork(updateAll: Bool = false) {
         guard NetworkStatusManager.isConnectedToInternet() else { return }
         
         self.loading = true
@@ -61,7 +61,11 @@ final class BookshelfVM {
             switch status {
             case .SUCCESS:
                 if infos.isEmpty == false {
-                    self?.syncBookshelf(infos: infos)
+                    if updateAll {
+                        self?.updateAllBooks(infos: infos)
+                    } else {
+                        self?.syncBookshelf(infos: infos)
+                    }
                 } else {
                     self?.loading = false
                 }
@@ -113,6 +117,37 @@ final class BookshelfVM {
         
         // fetch 할 정보가 없을 경우 loading 종료
         if fetchCount == 0 {
+            CoreDataManager.saveCoreData()
+            self.loading = false
+        }
+    }
+    
+    // Migration 의 경우 coredata 상에 저장된 preview 도 모두 정보를 최신화 하는 함수
+    private func updateAllBooks(infos: [BookshelfInfoOfDB]) {
+        let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
+        let updateCount: Int = self.books.count
+        var currentCount: Int = 0
+        print("---------- update All books ----------")
+        
+        userPurchases.forEach { info in
+            self.networkUsecse.getWorkbook(wid: info.wid) { [weak self] workbook in
+                let targetWorkbook = self?.books.first { $0.wid == Int64(info.wid) }
+                
+                targetWorkbook?.setValues(workbook: workbook, info: info) // 저자, isbn 등 모두 새롭게 저장, 표지가 바뀔 수 있기에 표지도 fetch
+                targetWorkbook?.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecse, completion: { [weak self] in
+                    print("update preview(\(info.wid)) complete")
+                    currentCount += 1
+                    
+                    if currentCount == updateCount {
+                        CoreDataManager.saveCoreData()
+                        self?.loading = false
+                    }
+                })
+            }
+        }
+        
+        // update 할 정보가 없을 경우 loading 종료
+        if updateCount == 0 {
             CoreDataManager.saveCoreData()
             self.loading = false
         }
