@@ -161,7 +161,7 @@ extension BookshelfVC {
             UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
             CoreDataManager.saveCoreData()
             self?.reloadBookshelf()
-            self?.syncBookshelf()
+            self?.syncBookshelf(isMigration: true)
             print("migration success")
         }
     }
@@ -205,9 +205,9 @@ extension BookshelfVC {
         self.viewModel?.reloadBookshelf(order: self.order)
     }
     
-    private func syncBookshelf() {
+    private func syncBookshelf(isMigration: Bool = false) {
         self.spinAnimation()
-        self.viewModel?.fetchBooksFromNetwork()
+        self.viewModel?.fetchBooksFromNetwork(updateAll: isMigration)
     }
 }
 
