@@ -84,6 +84,7 @@ extension UserNoticeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.noticeFetched.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserNoticeCell.identifier) as? UserNoticeCell else { return UITableViewCell() }
         let notice = self.noticeFetched[indexPath.row]
@@ -91,6 +92,7 @@ extension UserNoticeVC: UITableViewDataSource {
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = UserNoticeContentVC()
         let notice = self.noticeFetched[indexPath.row]
