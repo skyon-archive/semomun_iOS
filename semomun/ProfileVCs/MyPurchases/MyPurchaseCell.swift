@@ -25,21 +25,15 @@ final class MyPurchaseCell: UITableViewCell  {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var frameViewLeading: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.configureBasicUI()
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.workbookImage.image = nil
+        self.workbookImage.image = UIImage(.loadingBookcover)
         self.dateLabel.text = nil
         self.titleLabel.text = nil
         self.costLabel.text = nil
     }
     
     func configure(item: PurchasedItem, networkUsecase: MyPurchaseCellNetworkUsecase, superWidth: CGFloat) {
-        print(superWidth)
         if superWidth == 744 { // mini 사이즈일 경우 leading 수정
             self.frameViewLeading.constant = 100
             self.backgroundFrameView.layoutIfNeeded()
@@ -47,8 +41,7 @@ final class MyPurchaseCell: UITableViewCell  {
         self.networkUsecase = networkUsecase
         self.titleLabel.text = item.title
         self.dateLabel.text = item.createdDate.yearMonthDayText
-        let costStr = Int(item.transaction.amount).withComma
-        self.costLabel.text = costStr + "원"
+        self.costLabel.text = Int(item.transaction.amount).withComma + "원"
         self.getBookcoverImage(uuid: item.descriptionImageID)
     }
     
@@ -61,19 +54,9 @@ final class MyPurchaseCell: UITableViewCell  {
                           let image = UIImage(data: data) else { return }
                     self?.workbookImage.image = image
                 default:
-                    self?.workbookImage.image = UIImage(.warning)
+                    return
                 }
             }
         })
-    }
-}
-
-extension MyPurchaseCell {
-    private func configureBasicUI() {
-        self.backgroundFrameView.layoutIfNeeded()
-        self.backgroundFrameView.layer.cornerRadius = 10
-        self.backgroundFrameView.addAccessibleShadow(direction: .bottom)
-        self.clipsToBounds = false
-        self.contentView.clipsToBounds = false
     }
 }
