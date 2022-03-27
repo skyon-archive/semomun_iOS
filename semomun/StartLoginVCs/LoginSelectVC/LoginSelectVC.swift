@@ -11,9 +11,9 @@ import AuthenticationServices
 import GoogleSignIn
 
 final class LoginSelectVC: UIViewController {
-    
     static let identifier = "LoginSelectVC"
     static let storyboardName = "StartLogin"
+    static let storyboardName_phone = "StartLogin_phone"
     
     @IBOutlet weak var semomunTitle: UILabel!
     
@@ -27,8 +27,8 @@ final class LoginSelectVC: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
     
     private enum ButtonUIConstants {
-        static let buttonWidth: CGFloat = 309
-        static let buttonHeight: CGFloat = 54
+        static let buttonWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 240 : 309
+        static let buttonHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 45 : 54
         static let buttonRadius: CGFloat = 10
     }
     
@@ -43,9 +43,10 @@ final class LoginSelectVC: UIViewController {
 // MARK: Apple로 로그인 버튼
 extension LoginSelectVC {
     private func configureSignInWithAppleButton() {
+        let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 64 : 73
         let button = self.makeAppleButton()
         self.configureButtonAction(button, loginMethod: .apple)
-        self.configureButtonUI(button, verticalSpaceToSemomunTitle: 73)
+        self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
     }
     
     private func makeAppleButton() -> ASAuthorizationAppleIDButton {
@@ -60,6 +61,7 @@ extension LoginSelectVC {
 // MARK: Google로 로그인 버튼
 extension LoginSelectVC {
     private func configureSignInWithGoogleButton() {
+        let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 125 : 145
         let button = makeGoogleButton()
         let contentContainer = self.makeGoogleButtonContentContainer()
         let googleIcon = self.makeGoogleIcon()
@@ -75,7 +77,7 @@ extension LoginSelectVC {
         self.layoutGoogleLabel(contentContainer: contentContainer, label: text, icon: googleIcon)
         
         self.configureButtonAction(button, loginMethod: .google)
-        self.configureButtonUI(button, verticalSpaceToSemomunTitle: 145)
+        self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
     }
     
     private func makeGoogleButton() -> UIControl {
