@@ -8,8 +8,10 @@
 import UIKit
 
 final class SettingVC: UIViewController {
-    static let storyboardName = "Profile"
     static let identifier = "SettingVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
+    
 
     private var isLogin = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
     private lazy var tableViewAfterLogin: UIViewController = {

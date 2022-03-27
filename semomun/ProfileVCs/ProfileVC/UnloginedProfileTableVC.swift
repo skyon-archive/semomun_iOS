@@ -8,12 +8,17 @@
 import UIKit
 
 final class UnloginedProfileTableVC: UITableViewController {
-    static let storyboardName = "Profile"
     static let identifier = "UnloginedProfileTableVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.setHorizontalMargin(to: 109)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.setHorizontalMargin(to: 16)
+        } else {
+            self.tableView.setHorizontalMargin(to: 109)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,7 +29,7 @@ final class UnloginedProfileTableVC: UITableViewController {
 extension UnloginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section, indexPath.row) == (0, 0) {
-            let storyboard = UIStoryboard(name: SettingVC.storyboardName, bundle: nil)
+            let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? SettingVC.storyboardName_phone : SettingVC.storyboardName, bundle: nil)
             let nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
             self.navigationController?.pushViewController(nextVC, animated: true)
             self.tableView.deselectRow(at: indexPath, animated: true)
