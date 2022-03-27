@@ -58,7 +58,7 @@ final class ProfileVC: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        let storyboard = UIStoryboard(name: LoginStartVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? LoginStartVC.storyboardName_phone : LoginStartVC.storyboardName, bundle: nil)
         let nextVC = storyboard.instantiateViewController(withIdentifier: LoginStartVC.identifier)
         let navigationVC = UINavigationController(rootViewController: nextVC)
         navigationVC.navigationBar.tintColor = UIColor(named: "mainColor")
