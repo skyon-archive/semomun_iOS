@@ -16,7 +16,7 @@ class SmallTagCell: UICollectionViewCell {
         self.contentView.layer.borderWidth = 1
         self.contentView.layer.borderColor = UIColor(.deepMint)?.cgColor
         self.contentView.clipsToBounds = true
-        self.contentView.layer.cornerRadius = 15
+        self.contentView.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .phone ? 13.5 : 15
     }
     
     override func prepareForReuse() {
