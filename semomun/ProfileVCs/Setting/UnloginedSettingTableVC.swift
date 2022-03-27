@@ -8,14 +8,21 @@
 import UIKit
 
 final class UnloginedSettingTableVC: UITableViewController {
-    static let storyboardName = "Profile"
     static let identifier = "UnloginedSettingTableVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
+    
     
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 109, bottom: 0, trailing: 109)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        } else {
+            self.tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 109, bottom: 0, trailing: 109)
+        }
+        
         self.versionLabel.text =  Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
     }
 }

@@ -299,7 +299,7 @@ extension BookshelfVC: UICollectionViewDelegate {
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (self.books.frame.width)/2
+        let width = UIDevice.current.userInterfaceIdiom == .phone ? self.books.frame.width : (self.books.frame.width)/2
         let height: CGFloat = 182
         return CGSize(width: width, height: height)
     }

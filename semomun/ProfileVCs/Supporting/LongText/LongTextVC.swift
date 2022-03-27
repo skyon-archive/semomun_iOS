@@ -8,8 +8,9 @@
 import UIKit
 
 final class LongTextVC: UIViewController {
-    static let storyboardName = "Profile"
     static let identifier = "LongTextVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
     
     private let networkUsecase: UserInfoSendable = NetworkUsecase(network: Network())
     
@@ -37,7 +38,12 @@ extension LongTextVC {
     }
     
     private func configureBasicUI(navigationBarTitle: String, text: String) {
-        self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        } else {
+            self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
+        }
+        
         self.isModalInPresentation = true
         self.textView.text = text
         self.navigationItem.title = navigationBarTitle
