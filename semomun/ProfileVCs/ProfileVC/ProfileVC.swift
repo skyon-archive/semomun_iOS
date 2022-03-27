@@ -28,7 +28,7 @@ final class ProfileVC: UIViewController {
     }
     
     private lazy var tableViewBeforeLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: UnloginedProfileTableVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? UnloginedProfileTableVC.storyboardName_phone : UnloginedProfileTableVC.storyboardName, bundle: nil)
         return storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier)
     }()
     
