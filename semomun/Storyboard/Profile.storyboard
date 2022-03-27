@@ -1183,7 +1183,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj1-Kl-HEt">
-                                <rect key="frame" x="642" y="725" width="56" height="18"/>
+                                <rect key="frame" x="653" y="756" width="56" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1193,7 +1193,7 @@
                         <color key="backgroundColor" name="defaultBackground"/>
                         <constraints>
                             <constraint firstItem="GHe-uQ-XiN" firstAttribute="leading" secondItem="lMV-Rb-TUr" secondAttribute="leading" id="1Ab-Ac-bQF"/>
-                            <constraint firstItem="lMV-Rb-TUr" firstAttribute="bottom" secondItem="aj1-Kl-HEt" secondAttribute="bottom" constant="431" id="1yy-a5-iYy"/>
+                            <constraint firstItem="lMV-Rb-TUr" firstAttribute="bottom" secondItem="aj1-Kl-HEt" secondAttribute="bottom" constant="400" id="1yy-a5-iYy"/>
                             <constraint firstItem="BXO-Sc-YOj" firstAttribute="centerY" secondItem="lMV-Rb-TUr" secondAttribute="centerY" id="4ti-aI-zyr"/>
                             <constraint firstItem="GHe-uQ-XiN" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" id="8qk-qH-qw1"/>
                             <constraint firstItem="BXO-Sc-YOj" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="Cik-wS-jfg"/>
@@ -1202,14 +1202,15 @@
                             <constraint firstItem="KGA-4b-zkM" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="JJf-Fv-ydn"/>
                             <constraint firstItem="KGA-4b-zkM" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" constant="20" id="Ppc-F9-8tg"/>
                             <constraint firstItem="KGA-4b-zkM" firstAttribute="centerY" secondItem="lMV-Rb-TUr" secondAttribute="centerY" id="RvJ-U9-428"/>
+                            <constraint firstItem="KGA-4b-zkM" firstAttribute="trailing" secondItem="aj1-Kl-HEt" secondAttribute="trailing" constant="105" id="XT9-xw-rYa"/>
                             <constraint firstItem="BXO-Sc-YOj" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" constant="20" id="cFg-fe-78P"/>
-                            <constraint firstItem="lMV-Rb-TUr" firstAttribute="trailing" secondItem="aj1-Kl-HEt" secondAttribute="trailing" constant="136" id="iIr-tP-BPd"/>
                             <constraint firstAttribute="bottom" secondItem="GHe-uQ-XiN" secondAttribute="bottom" id="mB6-mK-Ixk"/>
                             <constraint firstItem="GHe-uQ-XiN" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="sJO-fd-cwR"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="labelAboutMarketingAccept" destination="aj1-Kl-HEt" id="y63-3G-w3J"/>
+                        <outlet property="marketingAcceptBottomSpacing" destination="1yy-a5-iYy" id="37f-GF-JQp"/>
                         <outlet property="textView" destination="KGA-4b-zkM" id="RYO-rV-h0T"/>
                         <outlet property="textViewBackground" destination="BXO-Sc-YOj" id="TqX-EF-Wu6"/>
                         <outlet property="textViewLeadingConstraint" destination="Iqs-or-2FL" id="zan-d6-1m7"/>
