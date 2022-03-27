@@ -49,7 +49,6 @@ extension SearchTagsFromTextVC {
     }
     
     private func configureTableView() {
-        self.tags.cellLayoutMarginsFollowReadableWidth = false
         self.tags.separatorInset.left = 0
         self.tags.dataSource = self
         self.tags.delegate = self
