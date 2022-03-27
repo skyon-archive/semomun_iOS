@@ -200,7 +200,10 @@
                                 <rect key="frame" x="0.0" y="205" width="390" height="556"/>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWn-sf-dbS">
-                                <rect key="frame" x="275" y="147" width="99" height="15"/>
+                                <rect key="frame" x="264" y="147" width="110" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="Zjw-by-pze"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                 <color key="tintColor" name="grayTextColor"/>
                                 <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -213,7 +216,7 @@
                                     <action selector="openChangeAccountInfoView:" destination="I4c-5I-jdn" eventType="touchUpInside" id="rEW-RA-GG9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndq-wn-DYy">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndq-wn-DYy">
                                 <rect key="frame" x="298" y="139.66666666666666" width="76" height="30"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
@@ -1523,7 +1526,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFO-UO-sl1">
-                                <rect key="frame" x="213" y="760" width="56" height="18"/>
+                                <rect key="frame" x="238" y="760" width="56" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1532,7 +1535,7 @@
                         <viewLayoutGuide key="safeArea" id="Lxy-Lf-qBA"/>
                         <color key="backgroundColor" name="defaultBackground"/>
                         <constraints>
-                            <constraint firstItem="csj-r0-GjL" firstAttribute="trailing" secondItem="aFO-UO-sl1" secondAttribute="trailing" constant="105" id="10c-aq-yVJ"/>
+                            <constraint firstItem="csj-r0-GjL" firstAttribute="trailing" secondItem="aFO-UO-sl1" secondAttribute="trailing" constant="80" id="10c-aq-yVJ"/>
                             <constraint firstItem="uMq-s8-FBm" firstAttribute="centerX" secondItem="Lxy-Lf-qBA" secondAttribute="centerX" id="6hu-hB-Y8U"/>
                             <constraint firstItem="csj-r0-GjL" firstAttribute="centerY" secondItem="Lxy-Lf-qBA" secondAttribute="centerY" id="7Xf-hv-tmE"/>
                             <constraint firstItem="uMq-s8-FBm" firstAttribute="top" secondItem="Lxy-Lf-qBA" secondAttribute="top" constant="16" id="EmK-PQ-VI0"/>
