@@ -19,6 +19,7 @@ final class LongTextVC: UIViewController {
     
     @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var marketingAcceptBottomSpacing: NSLayoutConstraint!
 }
 
 extension LongTextVC {
@@ -60,6 +61,9 @@ extension LongTextVC {
     
     private func addViewsForMarketingAccept() {
         // 라벨 설정
+        if self.view.frame.width == 1024 { // 12인치의 경우 수정
+            self.marketingAcceptBottomSpacing.constant = 600
+        }
         self.labelAboutMarketingAccept.isHidden = false
         self.view.bringSubviewToFront(labelAboutMarketingAccept)
         // 토글 설정
