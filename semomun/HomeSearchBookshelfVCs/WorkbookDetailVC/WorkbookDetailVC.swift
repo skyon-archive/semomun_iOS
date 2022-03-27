@@ -11,6 +11,7 @@ import Combine
 final class WorkbookDetailVC: UIViewController {
     static let identifier = "WorkbookDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
+    static let storyboardName_phone = "HomeSearchBookshelf_phone"
     
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!

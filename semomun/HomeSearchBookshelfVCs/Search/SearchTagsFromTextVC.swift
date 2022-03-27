@@ -11,6 +11,7 @@ import Combine
 final class SearchTagsFromTextVC: UIViewController {
     static let identifier = "SearchTagsFromTextVC"
     static let storyboardName = "HomeSearchBookshelf"
+    static let storyboardName_phone = "HomeSearchBookshelf_phone"
     
     @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var tags: UITableView!
