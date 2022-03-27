@@ -8,8 +8,9 @@
 import UIKit
 
 final class LoginedProfileTableVC: UITableViewController {
-    static let storyboardName = "Profile"
     static let identifier = "LoginedProfileTableVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
     
     @IBOutlet weak var remainingPay: UILabel!
     
@@ -17,7 +18,11 @@ final class LoginedProfileTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.setHorizontalMargin(to: 109)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.setHorizontalMargin(to: 16)
+        } else {
+            self.tableView.setHorizontalMargin(to: 109)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

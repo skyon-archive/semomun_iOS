@@ -8,14 +8,21 @@
 import UIKit
 
 final class LoginedSettingTableVC: UITableViewController {
-    static let storyboardName = "Profile"
     static let identifier = "LoginedSettingTableVC"
+    static let storyboardName = "Profile"
+    static let storyboardName_phone = "Profile_phone"
+    
     
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.setHorizontalMargin(to: 109)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.setHorizontalMargin(to: 16)
+        } else {
+            self.tableView.setHorizontalMargin(to: 109)
+        }
+        
         self.versionLabel.text =  Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
     }
     
