@@ -272,7 +272,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oG-K1-of3">
-                                <rect key="frame" x="118" y="647" width="154" height="59"/>
+                                <rect key="frame" x="118" y="667" width="154" height="59"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="Rgx-o6-HU9"/>
@@ -293,7 +293,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SOo-A2-mL5">
-                                <rect key="frame" x="16" y="189" width="358" height="434"/>
+                                <rect key="frame" x="16" y="189" width="358" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="HcU-wS-z3n">
                                     <size key="itemSize" width="128" height="34"/>
@@ -337,7 +337,7 @@
                             <constraint firstItem="eZz-hP-TPY" firstAttribute="leading" secondItem="cxk-0h-RBV" secondAttribute="leading" id="0xA-MH-7FG"/>
                             <constraint firstItem="SOo-A2-mL5" firstAttribute="centerX" secondItem="cxk-0h-RBV" secondAttribute="centerX" id="7Ox-Cb-eVt"/>
                             <constraint firstItem="SOo-A2-mL5" firstAttribute="top" secondItem="d2O-Hs-MHE" secondAttribute="bottom" constant="26" id="L2k-bR-gZO"/>
-                            <constraint firstItem="cxk-0h-RBV" firstAttribute="bottom" secondItem="0oG-K1-of3" secondAttribute="bottom" constant="104" id="ezZ-fQ-bZy"/>
+                            <constraint firstItem="cxk-0h-RBV" firstAttribute="bottom" secondItem="0oG-K1-of3" secondAttribute="bottom" constant="84" id="ezZ-fQ-bZy"/>
                             <constraint firstAttribute="top" secondItem="eZz-hP-TPY" secondAttribute="top" id="fkf-JX-Ha3"/>
                             <constraint firstItem="d2O-Hs-MHE" firstAttribute="leading" secondItem="cxk-0h-RBV" secondAttribute="leading" constant="16" id="gdi-oE-qcL"/>
                             <constraint firstItem="SOo-A2-mL5" firstAttribute="leading" secondItem="d2O-Hs-MHE" secondAttribute="leading" id="hEk-XR-SO0"/>

@@ -483,7 +483,7 @@
                                 <rect key="frame" x="0.0" y="4" width="834" height="228"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQ2-YD-FGr" userLabel="innerView">
-                                        <rect key="frame" x="110" y="132" width="614" height="50"/>
+                                        <rect key="frame" x="110" y="124" width="614" height="50"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xl2-8G-rc1">
                                                 <rect key="frame" x="24" y="14.5" width="22" height="20.5"/>
@@ -547,7 +547,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDI-Md-b5T">
-                                        <rect key="frame" x="729" y="132" width="50" height="50"/>
+                                        <rect key="frame" x="729" y="124" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="cPf-5s-T6k"/>
                                         </constraints>
@@ -561,7 +561,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cYf-1g-pWY">
-                                        <rect key="frame" x="110" y="190" width="614" height="30"/>
+                                        <rect key="frame" x="110" y="186" width="614" height="30"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="FUq-Bd-yh6"/>
@@ -619,10 +619,10 @@
                                     <constraint firstItem="cYf-1g-pWY" firstAttribute="trailing" secondItem="LQ2-YD-FGr" secondAttribute="trailing" id="Qi2-sz-fRl"/>
                                     <constraint firstItem="LQ2-YD-FGr" firstAttribute="leading" secondItem="F6w-gQ-FSf" secondAttribute="leading" constant="110" id="i7b-0g-YIk"/>
                                     <constraint firstItem="iDI-Md-b5T" firstAttribute="centerY" secondItem="LQ2-YD-FGr" secondAttribute="centerY" id="ifG-0y-MPW"/>
-                                    <constraint firstItem="cYf-1g-pWY" firstAttribute="top" secondItem="LQ2-YD-FGr" secondAttribute="bottom" constant="8" id="p5B-Pt-6hD"/>
+                                    <constraint firstItem="cYf-1g-pWY" firstAttribute="top" secondItem="LQ2-YD-FGr" secondAttribute="bottom" constant="12" id="p5B-Pt-6hD"/>
                                     <constraint firstItem="iDI-Md-b5T" firstAttribute="leading" secondItem="LQ2-YD-FGr" secondAttribute="trailing" constant="5" id="rTa-I9-4iJ"/>
                                     <constraint firstItem="cYf-1g-pWY" firstAttribute="leading" secondItem="LQ2-YD-FGr" secondAttribute="leading" id="rbI-dz-Ggd"/>
-                                    <constraint firstAttribute="bottom" secondItem="cYf-1g-pWY" secondAttribute="bottom" constant="8" id="ulc-Gp-zau"/>
+                                    <constraint firstAttribute="bottom" secondItem="cYf-1g-pWY" secondAttribute="bottom" constant="12" id="ulc-Gp-zau"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPD-Dk-Y6f" userLabel="titleView">

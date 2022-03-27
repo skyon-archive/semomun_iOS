@@ -11,6 +11,7 @@ import Combine
 final class SearchResultVC: UIViewController {
     static let identifier = "SearchResultVC"
     static let storyboardName = "HomeSearchBookshelf"
+    static let storyboardName_phone = "HomeSearchBookshelf_phone"
     
     @IBOutlet weak var searchResults: UICollectionView!
     
@@ -117,6 +118,9 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
             horizontalCellCount = 6
         } else if self.view.frame.width == 744 { // 미니의 경우 4개씩 표시
             horizontalCellCount = 4
+        }
+        if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
+            horizontalCellCount = 2
         }
         let width = (superWidth - ((horizontalCellCount-1)*horizontalTerm))/horizontalCellCount
         let height = (width/4)*5 + textHeightTerm + textHeight

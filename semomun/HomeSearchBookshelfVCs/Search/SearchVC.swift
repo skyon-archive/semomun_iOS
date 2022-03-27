@@ -16,9 +16,6 @@ protocol SearchControlable: AnyObject {
 }
 
 class SearchVC: UIViewController {
-    static let identifier = "SearchVC"
-    static let storyboardName = "HomeSearchBookshelf"
-    
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchInnerView: UIView!
     @IBOutlet weak var removeTextBT: UIView!
@@ -33,19 +30,19 @@ class SearchVC: UIViewController {
     private var currentChildVC: UIViewController?
     private var isSearchTagsFromTextVC: Bool = false
     private lazy var searchFavoriteTagsVC: UIViewController = {
-        let storyboard = UIStoryboard(name: SearchFavoriteTagsVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? SearchFavoriteTagsVC.storyboardName_phone : SearchFavoriteTagsVC.storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchFavoriteTagsVC.identifier) as? SearchFavoriteTagsVC else { return UIViewController() }
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
     private lazy var searchTagsFromTextVC: SearchTagsFromTextVC = {
-        let storyboard = UIStoryboard(name: SearchTagsFromTextVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? SearchTagsFromTextVC.storyboardName_phone : SearchTagsFromTextVC.storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC else { return SearchTagsFromTextVC() }
         viewController.configureDelegate(delegate: self)
         return viewController
     }()
     private lazy var searchResultVC: SearchResultVC = {
-        let storyboard = UIStoryboard(name: SearchResultVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? SearchResultVC.storyboardName_phone : SearchResultVC.storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(withIdentifier: SearchResultVC.identifier) as? SearchResultVC else { return SearchResultVC() }
         viewController.configureDelegate(delegate: self)
         return viewController
@@ -238,7 +235,7 @@ extension SearchVC {
     }
     
     private func showWorkbookDetailVC(workbook: WorkbookOfDB) {
-        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? WorkbookDetailVC.storyboardName_phone : WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
         let viewModel = WorkbookViewModel(workbookDTO: workbook, networkUsecase: networkUsecase)
@@ -248,7 +245,7 @@ extension SearchVC {
     }
     
     private func showWorkbookDetailVC(book: Preview_Core) {
-        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? WorkbookDetailVC.storyboardName_phone : WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
         let viewModel = WorkbookViewModel(previewCore: book, networkUsecase: networkUsecase)
