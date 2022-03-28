@@ -8,10 +8,6 @@
 import UIKit
 
 final class StartVC: UIViewController {
-    static let identifier = "StartVC"
-    static let storyboardName = "StartLogin"
-    static let storyboardName_phone = "StartLogin_phone"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -41,4 +37,9 @@ extension StartVC {
         }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+}
+
+extension StartVC: StoryboardOriginVC {
+    static let storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
+    static let vcIdentifier: String = "StartVC"
 }
