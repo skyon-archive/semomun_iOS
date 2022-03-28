@@ -22,7 +22,7 @@ final class SearchTagVM {
     }
     
     private func fetchTagsFromLocal() {
-        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+        if let tagsData = UserDefaultsManager.favoriteTags,
            let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
             self.userTags = tags
         } else {
@@ -69,7 +69,7 @@ final class SearchTagVM {
     
     private func saveTags() {
         let data = try? PropertyListEncoder().encode(self.userTags)
-        UserDefaultsManager.set(to: data, forKey: .favoriteTags)
+        UserDefaultsManager.favoriteTags = data
         NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
 }

@@ -45,7 +45,7 @@ final class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.isLoginUI = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        self.isLoginUI = UserDefaultsManager.isLogined
         self.configureUserInfoUI()
     }
 

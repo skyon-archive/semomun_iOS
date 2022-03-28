@@ -14,9 +14,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
 
-        let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
+        let isInitial = UserDefaultsManager.isInitial // 앱 최초로딩 여부
         var tags: [TagOfDB] = []
-        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+        if let tagsData = UserDefaultsManager.favoriteTags,
            let tempTags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
             tags = tempTags
         }

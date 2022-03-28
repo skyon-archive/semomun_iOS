@@ -55,7 +55,7 @@ final class HomeVM {
     }
     
     func checkLogined() { // VC 에서 불리는 함수
-        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        self.logined = UserDefaultsManager.isLogined
     }
     
     func checkVersion() { // VC 에서 불리는 함수
@@ -109,7 +109,7 @@ final class HomeVM {
     }
     
     private func fetchTags() {
-        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+        if let tagsData = UserDefaultsManager.favoriteTags,
            let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
             self.tags = tags
         } else {

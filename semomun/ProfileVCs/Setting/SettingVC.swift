@@ -13,7 +13,7 @@ final class SettingVC: UIViewController {
     static let storyboardName_phone = "Profile_phone"
     
 
-    private var isLogin = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+    private var isLogin = UserDefaultsManager.isLogined
     private lazy var tableViewAfterLogin: UIViewController = {
         let storyboard = UIStoryboard(name: LoginedSettingTableVC.storyboardName, bundle: nil)
         return storyboard.instantiateViewController(withIdentifier: LoginedSettingTableVC.identifier)
@@ -41,7 +41,7 @@ final class SettingVC: UIViewController {
 
 extension SettingVC {
     private func updateIfLoginStatusChanged() {
-        let currentLogin = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        let currentLogin = UserDefaultsManager.isLogined
         if self.isLogin != currentLogin {
             self.isLogin = currentLogin
             self.configureTableView()

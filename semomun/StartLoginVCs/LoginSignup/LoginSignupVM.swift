@@ -87,7 +87,7 @@ final class LoginSignupVM {
     }
     
     func updateFavoriteTags() {
-        if let tagsData = UserDefaultsManager.get(forKey: .favoriteTags) as? Data,
+        if let tagsData = UserDefaultsManager.favoriteTags,
            let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
             self.signupUserInfo.favoriteTags = tags.map(\.tid)
         }
