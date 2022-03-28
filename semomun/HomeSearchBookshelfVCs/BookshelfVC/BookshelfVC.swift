@@ -54,7 +54,7 @@ class BookshelfVC: UIViewController {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        self.logined = UserDefaultsManager.isLogined
         guard NetworkStatusManager.isConnectedToInternet() else {
             self.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하시기 바랍니다.")
             return
@@ -105,7 +105,7 @@ extension BookshelfVC {
         let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
             self?.changeSort(to: .alphabet)
         }
-        if let order = UserDefaultsManager.get(forKey: .bookshelfOrder) as? String {
+        if let order = UserDefaultsManager.bookshelfOrder {
             self.order = SortOrder(rawValue: order) ?? .purchase
         }
         self.sortSelector.setTitle(self.order.rawValue, for: .normal)
@@ -119,8 +119,8 @@ extension BookshelfVC {
     }
     
     private func checkMigration() {
-        self.logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
-        let coreVersion = UserDefaultsManager.get(forKey: .coreVersion) as? String ?? String.pastVersion
+        self.logined = UserDefaultsManager.isLogined
+        let coreVersion = UserDefaultsManager.coreVersion
         // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
         if self.logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
             print("migration start")
@@ -159,7 +159,7 @@ extension BookshelfVC {
                 return
             }
             
-            UserDefaultsManager.set(to: version, forKey: .coreVersion) // migration 완료시 현재 version 저장
+            UserDefaultsManager.coreVersion = version // migration 완료시 현재 version 저장
             CoreDataManager.saveCoreData()
             self?.reloadBookshelf()
             self?.syncBookshelf(isMigration: true)
@@ -193,7 +193,7 @@ extension BookshelfVC {
     private func changeSort(to order: SortOrder) {
         self.order = order
         self.sortSelector.setTitle(order.rawValue, for: .normal)
-        UserDefaultsManager.set(to: order.rawValue, forKey: .bookshelfOrder)
+        UserDefaultsManager.bookshelfOrder = order.rawValue
         
         if self.logined {
             self.reloadBookshelf()

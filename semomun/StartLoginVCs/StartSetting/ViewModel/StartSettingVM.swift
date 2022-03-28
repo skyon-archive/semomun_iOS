@@ -45,8 +45,8 @@ final class StartSettingVM {
     
     func saveUserDefaults() {
         let data = try? PropertyListEncoder().encode(self.selectedTags)
-        UserDefaultsManager.set(to: data, forKey: .favoriteTags)
-        UserDefaultsManager.set(to: false, forKey: .isInitial)
+        UserDefaultsManager.favoriteTags = data
+        UserDefaultsManager.isInitial = false
     }
     
     var isSelectFinished: Bool {

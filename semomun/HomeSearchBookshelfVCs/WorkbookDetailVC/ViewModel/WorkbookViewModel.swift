@@ -107,7 +107,7 @@ final class WorkbookViewModel {
     }
     
     func switchPurchase() {
-        let logined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
+        let logined = UserDefaultsManager.isLogined
         if !logined {
             self.popupType = .login
         } else {
