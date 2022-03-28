@@ -22,12 +22,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         if isInitial || tags.isEmpty {
-            var storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                storyboard = UIStoryboard(name: StartVC.storyboardName_phone, bundle: nil)
-            }
-            let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
-            let navigationController = UINavigationController(rootViewController: startViewController)
+            let startVC = UIStoryboard.makeVCForCurrentUI(StartVC.self)
+            let navigationController = UINavigationController(rootViewController: startVC)
             self.window?.rootViewController = navigationController
         } else {
             var storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -76,12 +72,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showStartVC() {
-        var storyboard = UIStoryboard(name: StartVC.storyboardName, bundle: nil)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            storyboard = UIStoryboard(name: StartVC.storyboardName_phone, bundle: nil)
-        }
-        let startViewController = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
-        let navigationController = UINavigationController(rootViewController: startViewController)
+        let startVC = UIStoryboard.makeVCForCurrentUI(StartVC.self)
+        let navigationController = UINavigationController(rootViewController: startVC)
         navigationController.navigationBar.tintColor = UIColor(.mainColor)
         navigationController.isNavigationBarHidden = true
         
