@@ -20,8 +20,7 @@ struct LoginSignupUsecase {
                 if userInfo.phoneNumber?.isValidPhoneNumber ?? false {
                     self.updateCoreVersion()
                 }
-                
-                UserDefaultsManager.set(to: true, forKey: .logined)
+                UserDefaultsManager.isLogined = true
                 completion(true)
             } else {
                 completion(false)
@@ -34,7 +33,7 @@ struct LoginSignupUsecase {
         self.syncUserDataAndSaveKeychain(token: token) { succeed in
             if succeed {
                 self.updateCoreVersion()
-                UserDefaultsManager.set(to: true, forKey: .logined)
+                UserDefaultsManager.isLogined = true
                 completion(true)
             } else {
                 completion(false)
@@ -70,6 +69,6 @@ extension LoginSignupUsecase {
     
     private func updateCoreVersion() {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        UserDefaultsManager.set(to: version, forKey: .coreVersion)
+        UserDefaultsManager.coreVersion = version
     }
 }

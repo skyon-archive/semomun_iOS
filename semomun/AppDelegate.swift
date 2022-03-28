@@ -39,9 +39,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
           }
         
-        let isInitial = UserDefaultsManager.get(forKey: .isInitial) as? Bool ?? true // 앱 최초로딩 여부
-        let isLogined = UserDefaultsManager.get(forKey: .logined) as? Bool ?? false
-        let coreVersion = UserDefaultsManager.get(forKey: .coreVersion) as? String ?? String.pastVersion
+        let isInitial = UserDefaultsManager.isInitial // 앱 최초로딩 여부
+        let isLogined = UserDefaultsManager.isLogined
+        let coreVersion = UserDefaultsManager.coreVersion
         
         if isInitial {
             KeychainItem.deleteAllItems()
