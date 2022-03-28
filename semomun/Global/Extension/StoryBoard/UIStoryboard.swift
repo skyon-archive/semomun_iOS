@@ -8,13 +8,13 @@
 import UIKit
 
 extension UIStoryboard {
-    static func makeVCForCurrentUI(_ storyboardInitializable: StoryboardOriginVC.Type) -> UIViewController {
-        guard let currentUIStoryboardName = storyboardInitializable.currentUIStoryboardName else {
+    static func makeVCForCurrentUI(_ storyboardOriginVC: StoryboardOriginVC.Type) -> UIViewController {
+        guard let currentUIStoryboardName = storyboardOriginVC.currentUIStoryboardName else {
             assertionFailure()
             return UIViewController()
         }
         let storyboard = UIStoryboard(name: currentUIStoryboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: storyboardInitializable.vcIdentifier)
+        let vc = storyboard.instantiateViewController(withIdentifier: storyboardOriginVC.vcIdentifier)
         return vc
     }
 }
