@@ -16,7 +16,7 @@ enum NetworkURL {
     enum imageType: String {
         case bookcover
         case sectioncover
-        case material
+        case material = "passage"
         case explanation
         case content
     }
