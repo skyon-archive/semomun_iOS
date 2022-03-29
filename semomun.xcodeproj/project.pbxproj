@@ -59,6 +59,8 @@
 		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
 		25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */; };
 		25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */; };
+		25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */; };
+		25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */; };
 		25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */; };
 		25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDF279D46A700807196 /* SettingVC.swift */; };
 		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
@@ -215,6 +217,16 @@
 		87FEBB3E27EB116500B106F2 /* Study_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3D27EB116500B106F2 /* Study_phone.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		25CF011527F3229A00FAB013 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 871B6E45276EE48D008CEEBA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 871B6E4C276EE48D008CEEBA;
+			remoteInfo = semomun;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		250194C827C25AD8003B8C6B /* PageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVM.swift; sourceTree = "<group>"; };
 		2502001027C613A80075744A /* SyncUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsecase.swift; sourceTree = "<group>"; };
@@ -271,6 +283,9 @@
 		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
 		25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVM.swift; sourceTree = "<group>"; };
 		25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthenticator.swift; sourceTree = "<group>"; };
+		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = SemomunTests/ViewModels/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
+		25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPayNetworkUsecase.swift; path = semomunTests/Network/MockPayNetworkUsecase.swift; sourceTree = SOURCE_ROOT; };
 		25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25D1BDDF279D46A700807196 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -426,6 +441,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		25CF010E27F3229A00FAB013 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		871B6E4A276EE48D008CEEBA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -609,6 +631,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		25CF011227F3229A00FAB013 /* semomunTests */ = {
+			isa = PBXGroup;
+			children = (
+				25CF012227F340D800FAB013 /* Network */,
+				25CF011A27F322A500FAB013 /* ViewModels */,
+			);
+			path = semomunTests;
+			sourceTree = "<group>";
+		};
+		25CF011A27F322A500FAB013 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		25CF012227F340D800FAB013 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		25D1BDDC279D3A3300807196 /* ProfileVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,6 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				871B6E4F276EE48D008CEEBA /* semomun */,
+				25CF011227F3229A00FAB013 /* semomunTests */,
 				871B6E4E276EE48D008CEEBA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -764,6 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				871B6E4D276EE48D008CEEBA /* semomun.app */,
+				25CF011127F3229A00FAB013 /* semomunTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1199,6 +1248,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		25CF011027F3229A00FAB013 /* semomunTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25CF011927F3229A00FAB013 /* Build configuration list for PBXNativeTarget "semomunTests" */;
+			buildPhases = (
+				25CF010D27F3229A00FAB013 /* Sources */,
+				25CF010E27F3229A00FAB013 /* Frameworks */,
+				25CF010F27F3229A00FAB013 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				25CF011627F3229A00FAB013 /* PBXTargetDependency */,
+			);
+			name = semomunTests;
+			productName = semomunTests;
+			productReference = 25CF011127F3229A00FAB013 /* semomunTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		871B6E4C276EE48D008CEEBA /* semomun */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 871B6E61276EE48D008CEEBA /* Build configuration list for PBXNativeTarget "semomun" */;
@@ -1230,9 +1297,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+					25CF011027F3229A00FAB013 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = 871B6E4C276EE48D008CEEBA;
+					};
 					871B6E4C276EE48D008CEEBA = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -1259,11 +1330,19 @@
 			projectRoot = "";
 			targets = (
 				871B6E4C276EE48D008CEEBA /* semomun */,
+				25CF011027F3229A00FAB013 /* semomunTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		25CF010F27F3229A00FAB013 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		871B6E4B276EE48D008CEEBA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1291,6 +1370,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		25CF010D27F3229A00FAB013 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */,
+				25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		871B6E49276EE48D008CEEBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1484,6 +1572,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		25CF011627F3229A00FAB013 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 871B6E4C276EE48D008CEEBA /* semomun */;
+			targetProxy = 25CF011527F3229A00FAB013 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		871B6E56276EE48D008CEEBA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1506,6 +1602,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		25CF011727F3229A00FAB013 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4K9NF6L78D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun.semomunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/semomun.app/semomun";
+			};
+			name = Debug;
+		};
+		25CF011827F3229A00FAB013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4K9NF6L78D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun.semomunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/semomun.app/semomun";
+			};
+			name = Release;
+		};
 		871B6E5F276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1701,6 +1835,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		25CF011927F3229A00FAB013 /* Build configuration list for PBXNativeTarget "semomunTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25CF011727F3229A00FAB013 /* Debug */,
+				25CF011827F3229A00FAB013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		871B6E48276EE48D008CEEBA /* Build configuration list for PBXProject "semomun" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
