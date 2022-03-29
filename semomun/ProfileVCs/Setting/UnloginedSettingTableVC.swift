@@ -7,11 +7,9 @@
 
 import UIKit
 
-final class UnloginedSettingTableVC: UITableViewController {
+final class UnloginedSettingTableVC: UITableViewController, StoryboardController {
     static let identifier = "UnloginedSettingTableVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
-    
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     @IBOutlet weak var versionLabel: UILabel!
     

@@ -7,11 +7,9 @@
 
 import UIKit
 
-final class LoginedSettingTableVC: UITableViewController {
+final class LoginedSettingTableVC: UITableViewController, StoryboardController {
     static let identifier = "LoginedSettingTableVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
-    
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     @IBOutlet weak var versionLabel: UILabel!
     

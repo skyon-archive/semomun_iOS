@@ -7,10 +7,9 @@
 
 import UIKit
 
-final class LongTextVC: UIViewController {
+final class LongTextVC: UIViewController, StoryboardController {
     static let identifier = "LongTextVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     private let networkUsecase: UserInfoSendable = NetworkUsecase(network: Network())
     

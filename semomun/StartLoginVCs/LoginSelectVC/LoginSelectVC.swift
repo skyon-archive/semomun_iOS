@@ -10,10 +10,9 @@ import Combine
 import AuthenticationServices
 import GoogleSignIn
 
-final class LoginSelectVC: UIViewController {
+final class LoginSelectVC: UIViewController, StoryboardController {
     static let identifier = "LoginSelectVC"
-    static let storyboardName = "StartLogin"
-    static let storyboardName_phone = "StartLogin_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
     
     @IBOutlet weak var semomunTitle: UILabel!
     

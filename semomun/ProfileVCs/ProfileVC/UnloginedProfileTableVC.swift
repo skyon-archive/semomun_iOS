@@ -7,10 +7,9 @@
 
 import UIKit
 
-final class UnloginedProfileTableVC: UITableViewController {
+final class UnloginedProfileTableVC: UITableViewController, StoryboardController {
     static let identifier = "UnloginedProfileTableVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,7 @@ final class UnloginedProfileTableVC: UITableViewController {
 extension UnloginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section, indexPath.row) == (0, 0) {
-            let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? SettingVC.storyboardName_phone : SettingVC.storyboardName, bundle: nil)
+            let storyboard = UIStoryboard(controllerType: SettingVC.self)
             let nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
             self.navigationController?.pushViewController(nextVC, animated: true)
             self.tableView.deselectRow(at: indexPath, animated: true)

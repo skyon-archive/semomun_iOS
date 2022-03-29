@@ -28,15 +28,14 @@ final class ProfileVC: UIViewController {
     }
     
     private lazy var tableViewBeforeLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? UnloginedProfileTableVC.storyboardName_phone : UnloginedProfileTableVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(controllerType: UnloginedProfileTableVC.self)
         return storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier)
     }()
     
     private lazy var tableViewAfterLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: LoginedProfileTableVC.storyboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier)
-        guard let loginedProfileTableVC = vc as? LoginedProfileTableVC else {
-            return vc
+        let storyboard = UIStoryboard(controllerType: LoginedProfileTableVC.self)
+        guard let loginedProfileTableVC = storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier) as? LoginedProfileTableVC else {
+            return LoginedProfileTableVC()
         }
         loginedProfileTableVC.configureNetworkUsecase(NetworkUsecase(network: Network()))
         return loginedProfileTableVC
@@ -58,7 +57,7 @@ final class ProfileVC: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        let storyboard = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? LoginStartVC.storyboardName_phone : LoginStartVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(controllerType: LoginStartVC.self)
         let nextVC = storyboard.instantiateViewController(withIdentifier: LoginStartVC.identifier)
         let navigationVC = UINavigationController(rootViewController: nextVC)
         navigationVC.navigationBar.tintColor = UIColor(named: "mainColor")

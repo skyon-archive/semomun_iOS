@@ -8,10 +8,9 @@
 import UIKit
 import Combine
 
-final class WorkbookDetailVC: UIViewController {
+final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
-    static let storyboardName = "HomeSearchBookshelf"
-    static let storyboardName_phone = "HomeSearchBookshelf_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -191,7 +190,7 @@ extension WorkbookDetailVC {
 // MARK: - Show VC
 extension WorkbookDetailVC {
     private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
-        guard let solvingVC = UIStoryboard(name: "Study", bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+        guard let solvingVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
         solvingVC.modalPresentationStyle = .fullScreen
         solvingVC.sectionCore = section
         solvingVC.sectionHeaderCore = sectionHeader
