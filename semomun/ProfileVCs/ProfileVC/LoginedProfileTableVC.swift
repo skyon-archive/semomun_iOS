@@ -7,10 +7,9 @@
 
 import UIKit
 
-final class LoginedProfileTableVC: UITableViewController {
+final class LoginedProfileTableVC: UITableViewController, StoryboardController {
     static let identifier = "LoginedProfileTableVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     @IBOutlet weak var remainingPay: UILabel!
     
@@ -44,7 +43,7 @@ final class LoginedProfileTableVC: UITableViewController {
 extension LoginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nextVC: UIViewController
-        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
         switch (indexPath.section, indexPath.row) {
         case (1, 0):
             nextVC = storyboard.instantiateViewController(withIdentifier: MyPurchasesVC.identifier)

@@ -8,10 +8,9 @@
 import UIKit
 import Combine
 
-final class StartSettingVC: UIViewController {
+final class StartSettingVC: UIViewController, StoryboardController {
     static let identifier = "StartSettingVC"
-    static let storyboardName = "StartLogin"
-    static let storyboardName_phone = "StartLogin_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
     
     @IBOutlet weak var topFrameView: UIView! // phone 용
     @IBOutlet weak var tags: UICollectionView!

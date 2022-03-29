@@ -7,10 +7,9 @@
 
 import UIKit
 
-final class LoginStartVC: UIViewController, UINavigationControllerDelegate {
+final class LoginStartVC: UIViewController, StoryboardController, UINavigationControllerDelegate {
     static let identifier = "LoginStartVC"
-    static let storyboardName = "StartLogin"
-    static let storyboardName_phone = "StartLogin_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
     var isAnimation: Bool = false
     
     override func viewDidLoad() {
@@ -19,7 +18,7 @@ final class LoginStartVC: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func login(_ sender: Any) {
-        guard let nextVC = UIStoryboard(name: UIDevice.current.userInterfaceIdiom == .phone ? LoginSelectVC.storyboardName_phone : LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
+        guard let nextVC = UIStoryboard(controllerType: LoginSelectVC.self).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         
         self.isAnimation = true
         self.navigationController?.pushViewController(nextVC, animated: true)

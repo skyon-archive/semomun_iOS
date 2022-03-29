@@ -7,19 +7,17 @@
 
 import UIKit
 
-final class SettingVC: UIViewController {
+final class SettingVC: UIViewController, StoryboardController {
     static let identifier = "SettingVC"
-    static let storyboardName = "Profile"
-    static let storyboardName_phone = "Profile_phone"
-    
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
 
     private var isLogin = UserDefaultsManager.isLogined
     private lazy var tableViewAfterLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: LoginedSettingTableVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(controllerType: LoginedSettingTableVC.self)
         return storyboard.instantiateViewController(withIdentifier: LoginedSettingTableVC.identifier)
     }()
     private lazy var tableViewBeforeLogin: UIViewController = {
-        let storyboard = UIStoryboard(name: UnloginedSettingTableVC.storyboardName, bundle: nil)
+        let storyboard = UIStoryboard(controllerType: UnloginedSettingTableVC.self)
         return storyboard.instantiateViewController(withIdentifier: UnloginedSettingTableVC.identifier)
     }()
     
