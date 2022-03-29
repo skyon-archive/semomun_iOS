@@ -32,7 +32,7 @@ class MyPurchasesVMTest: XCTestCase {
         XCTAssertEqual(contentCount, networkUsecase.pageSize)
         
         for payHistory in networkUsecase.purchaseHistories[0..<networkUsecase.pageSize] {
-            XCTAssert(groupContainsItem(group: dataGroupedByVM, item: payHistory))
+            XCTAssert(groupContainsItem(group: dataGroupedByVM, payHistoryOfDB: payHistory))
         }
     }
     
@@ -44,15 +44,18 @@ class MyPurchasesVMTest: XCTestCase {
         self.vm.tryFetchMoreList()
         var dataGroupedByVM = self.vm.purchaseOfEachMonth
         
+        // 정렬 확인
         dataGroupedByVM.forEach { _, content in
             XCTAssert(content == content.sorted(by: { $0.createdDate > $1.createdDate }))
         }
         
+        // 개수 확인
         var contentCount = dataGroupedByVM.reduce(0, { $0 + $1.content.count })
         XCTAssertEqual(contentCount, 50)
         
+        // DB값과 매칭여부 확인
         for payHistory in networkUsecase.purchaseHistories[0..<50] {
-            XCTAssert(groupContainsItem(group: dataGroupedByVM, item: payHistory))
+            XCTAssert(groupContainsItem(group: dataGroupedByVM, payHistoryOfDB: payHistory))
         }
         
         // Page 3 (50~55)
@@ -67,25 +70,24 @@ class MyPurchasesVMTest: XCTestCase {
         XCTAssertEqual(contentCount, 55)
         
         for payHistory in networkUsecase.purchaseHistories[0..<55] {
-            XCTAssert(groupContainsItem(group: dataGroupedByVM, item: payHistory))
+            XCTAssert(groupContainsItem(group: dataGroupedByVM, payHistoryOfDB: payHistory))
         }
     }
     
-    private func groupContainsItem(group: [(section: String, content: [PurchasedItem])], item: PayHistoryofDB) -> Bool {
-        guard let section = group.first(where: { $0.section == item.createdDate.yearMonthText }) else {
+    private func groupContainsItem(group: [(section: String, content: [PurchasedItem])], payHistoryOfDB: PayHistoryofDB) -> Bool {
+        guard let section = group.first(where: { $0.section == payHistoryOfDB.createdDate.yearMonthText }) else {
             return false
         }
-        return section.content.contains(where: { self.isEqual(purchasedItem: $0, payHistoryOfDB: item)})
-    }
-    
-    private func isEqual(purchasedItem: PurchasedItem, payHistoryOfDB: PayHistoryofDB) -> Bool  {
-        return purchasedItem.createdDate == payHistoryOfDB.createdDate &&
-        purchasedItem.descriptionImageID == payHistoryOfDB.item.workbook.bookcover &&
-        purchasedItem.title == payHistoryOfDB.item.workbook.title &&
-        purchasedItem.transaction == Transaction(amount: payHistoryOfDB.amount)
+        return section.content.contains(where: { purchasedItem in
+            purchasedItem.createdDate == payHistoryOfDB.createdDate &&
+            purchasedItem.descriptionImageID == payHistoryOfDB.item.workbook.bookcover &&
+            purchasedItem.title == payHistoryOfDB.item.workbook.title &&
+            purchasedItem.transaction == Transaction(amount: payHistoryOfDB.amount)
+        })
     }
 }
 
+// MARK: Supporting extensions
 extension Transaction: Equatable {
     public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
         guard lhs.amount == rhs.amount else { return false }
