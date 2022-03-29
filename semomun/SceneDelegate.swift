@@ -15,14 +15,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
 
         let isInitial = UserDefaultsManager.isInitial // 앱 최초로딩 여부
-        var tags: [TagOfDB] = []
-        if let tagsData = UserDefaultsManager.favoriteTags,
-           let tempTags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
-            tags = tempTags
-        }
+        let tagsData = UserDefaultsManager.favoriteTags // 나의 태그값 유무
         
-        if isInitial || tags.isEmpty {
-            let startVC = UIStoryboard.makeVCForCurrentUI(StartVC.self)
+        if isInitial == true || tagsData == nil {
+            let startVC = StartVC.controlledDevice
             let navigationController = UINavigationController(rootViewController: startVC)
             self.window?.rootViewController = navigationController
         } else {

@@ -11,15 +11,15 @@ import Foundation
 struct UserDefault<Value> {
     let key: String
     let defaultValue: Value
-    var container: UserDefaults = .standard
+    private(set) var container: UserDefaults = .standard
 
     var wrappedValue: Value {
         get {
-            return container.object(forKey: key) as? Value ?? defaultValue
+            return self.container.object(forKey: self.key) as? Value ?? self.defaultValue
         }
         set {
-            print("UserDefault set '\(key)' to \(newValue)")
-            container.set(newValue, forKey: key)
+            print("UserDefault set '\(self.key)' to \(newValue)")
+            self.container.set(newValue, forKey: self.key)
         }
     }
 }
