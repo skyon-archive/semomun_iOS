@@ -19,7 +19,7 @@ final class PayHistoryVM {
     @Published private(set) var remainingSemopay: Int = 0
     @Published private(set) var alert: Alert?
     
-    let networkUsecase: NetworkUsecase
+    let networkUsecase: PayNetworkUsecase
     let onlyPurchaseHistory: Bool
     
     private var paginationStarted = false
@@ -33,7 +33,7 @@ final class PayHistoryVM {
         return self.purchaseOfEachMonth.reduce(0, { $0 + $1.content.count }) < purchaseTotalCount
     }
     
-    init(onlyPurchaseHistory: Bool, networkUsecase: NetworkUsecase) {
+    init(onlyPurchaseHistory: Bool, networkUsecase: PayNetworkUsecase) {
         self.onlyPurchaseHistory = onlyPurchaseHistory
         self.networkUsecase = networkUsecase
     }
