@@ -18,7 +18,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tagsData = UserDefaultsManager.favoriteTags // 나의 태그값 유무
         
         if isInitial == true || tagsData == nil {
-            let startVC = StartVC.controlledDevice
+            let storyboard = UIStoryboard.controlledDevice(vcType: StartVC.self)
+            let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
             let navigationController = UINavigationController(rootViewController: startVC)
             self.window?.rootViewController = navigationController
         } else {
@@ -68,7 +69,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showStartVC() {
-        let startVC = UIStoryboard.makeVCForCurrentUI(StartVC.self)
+        let storyboard = UIStoryboard.controlledDevice(vcType: StartVC.self)
+        let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
         let navigationController = UINavigationController(rootViewController: startVC)
         navigationController.navigationBar.tintColor = UIColor(.mainColor)
         navigationController.isNavigationBarHidden = true
