@@ -8,10 +8,9 @@
 import UIKit
 import Combine
 
-final class SearchResultVC: UIViewController {
+final class SearchResultVC: UIViewController, StoryboardController {
     static let identifier = "SearchResultVC"
-    static let storyboardName = "HomeSearchBookshelf"
-    static let storyboardName_phone = "HomeSearchBookshelf_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
     @IBOutlet weak var searchResults: UICollectionView!
     

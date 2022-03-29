@@ -34,10 +34,7 @@ extension StartVC {
         }
     }
     private func goStartSettingVC() {
-        var nextVC = UIStoryboard(name: StartSettingVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            nextVC = UIStoryboard(name: StartSettingVC.storyboardName_phone, bundle: nil).instantiateViewController(withIdentifier: StartSettingVC.identifier)
-        }
+        let nextVC = UIStoryboard(controllerType: StartSettingVC.self).instantiateViewController(withIdentifier: StartSettingVC.identifier)
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

@@ -8,10 +8,9 @@
 import UIKit
 import Combine
 
-final class SearchFavoriteTagsVC: UIViewController {
+final class SearchFavoriteTagsVC: UIViewController, StoryboardController {
     static let identifier = "SearchFavoriteTagsVC"
-    static let storyboardName = "HomeSearchBookshelf"
-    static let storyboardName_phone = "HomeSearchBookshelf_phone"
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
     @IBOutlet weak var tags: UICollectionView!
     private weak var delegate: SearchControlable?

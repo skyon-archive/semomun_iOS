@@ -23,10 +23,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let navigationController = UINavigationController(rootViewController: startVC)
             self.window?.rootViewController = navigationController
         } else {
-            var storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                storyboard = UIStoryboard(name: "Main_phone", bundle: nil)
-            }
+            let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
             let navigationController = UINavigationController(rootViewController: mainViewController)
             navigationController.navigationBar.tintColor = UIColor(.mainColor)
@@ -45,10 +42,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func changeRootViewController() {
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            storyboard = UIStoryboard(name: "Main_phone", bundle: nil)
-        }
+        let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
         navigationController.navigationBar.tintColor = UIColor(.mainColor)
