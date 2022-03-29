@@ -19,8 +19,8 @@ final class PayHistoryVM {
     @Published private(set) var remainingSemopay: Int = 0
     @Published private(set) var alert: Alert?
     
-    let networkUsecase: PayNetworkUsecase
-    let onlyPurchaseHistory: Bool
+    private let networkUsecase: PayNetworkUsecase
+    private let onlyPurchaseHistory: Bool
     
     private var paginationStarted = false
     private var latestFetchedPage = 0
