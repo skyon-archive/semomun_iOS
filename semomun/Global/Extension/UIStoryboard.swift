@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIStoryboard {
-    static func controlledDevice(vcType: StoryboardController.Type) -> UIStoryboard {
-        return UIStoryboard(name: vcType.storyboardName, bundle: nil)
+    convenience init(controllerType: StoryboardController.Type) {
+        self.init(name: controllerType.storyboardName, bundle: nil)
     }
 }
