@@ -8,9 +8,7 @@
 import UIKit
 
 extension UIStoryboard {
-    static func makeVCForCurrentUI(_ storyboardOriginVC: StoryboardController.Type) -> UIViewController {
-        let storyboard = UIStoryboard(name: storyboardOriginVC.storyboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: storyboardOriginVC.identifier)
-        return vc
+    static func controlledDevice(vcType: StoryboardController.Type) -> UIStoryboard {
+        return UIStoryboard(name: vcType.storyboardName, bundle: nil)
     }
 }
