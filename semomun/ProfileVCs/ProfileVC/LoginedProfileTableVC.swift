@@ -44,6 +44,7 @@ extension LoginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nextVC: UIViewController
         let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
+
         switch (indexPath.section, indexPath.row) {
         case (1, 0):
             nextVC = storyboard.instantiateViewController(withIdentifier: MyPurchasesVC.identifier)
