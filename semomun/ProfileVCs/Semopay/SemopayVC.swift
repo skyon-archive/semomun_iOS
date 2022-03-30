@@ -8,8 +8,8 @@
 import UIKit
 import Combine
 
-final class SemopayVC: UIViewController {
-    static let storyboardName = "Profile"
+final class SemopayVC: UIViewController, StoryboardController {
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.phone: "Profile_phone", .pad: "Profile"]
     static let identifier = "SemopayVC"
     
     private let viewModel: PayHistoryVM? = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: NetworkUsecase(network: Network()))
@@ -22,7 +22,7 @@ final class SemopayVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureHeaderUI()
+        self.navigationItem.title = "페이 이용 내역"
         self.configureDelegates()
         self.bindAll()
         self.viewModel?.initPublished()
@@ -31,6 +31,10 @@ final class SemopayVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.addNavigationShadow()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,14 +50,17 @@ final class SemopayVC: UIViewController {
 }
 
 extension SemopayVC {
-    private func configureHeaderUI() {
-        self.navigationItem.titleView?.backgroundColor = .white
-        self.navigationItem.title = "페이 이용 내역"
-    }
-    
     private func configureDelegates() {
         self.payChargeList.dataSource = self
         self.payChargeList.delegate = self
+    }
+    
+    private func addNavigationShadow() {
+        guard let navigationSubview = self.navigationController?.navigationBar.subviews[safe: 0] else {
+            return
+        }
+        navigationSubview.backgroundColor = .white
+        navigationSubview.addShadow(direction: .bottom)
     }
     
     private func configureScrollIndicatorInset() {
