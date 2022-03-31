@@ -14,6 +14,7 @@ final class SearchResultVM {
     private var pageCount: Int = 0
     private var tags: [TagOfDB] = []
     private var text: String = ""
+    private var isLastPage: Bool = false
     @Published private(set) var searchResults: [PreviewOfDB] = []
     @Published private(set) var warning: (String, String)?
     
@@ -28,10 +29,15 @@ final class SearchResultVM {
     }
     
     func fetchSearchResults() {
+        guard isLastPage == false else { return }
         self.pageCount += 1
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 60) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 6) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
+                if previews.isEmpty {
+                    self?.isLastPage = true
+                    return
+                }
                 self?.searchResults += previews
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
@@ -44,5 +50,6 @@ final class SearchResultVM {
     func removeAll() {
         self.pageCount = 0
         self.searchResults = []
+        self.isLastPage = false
     }
 }
