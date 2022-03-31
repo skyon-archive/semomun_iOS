@@ -13,11 +13,6 @@ class SearchResultCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     private var networkUsecase: S3ImageFetchable?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.bookcover.image = UIImage(.loadingBookcover)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.bookcover.image = UIImage(.loadingBookcover)
