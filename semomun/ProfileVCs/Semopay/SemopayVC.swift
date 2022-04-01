@@ -37,6 +37,13 @@ final class SemopayVC: UIViewController, StoryboardController {
         self.configureScrollIndicatorInset()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.removeNavigationShadow()
+        }
+    }
+    
     @IBAction func charge(_ sender: Any) {
         let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
@@ -56,6 +63,10 @@ extension SemopayVC {
         }
         navigationSubview.backgroundColor = .white
         navigationSubview.addShadow(direction: .bottom)
+    }
+    
+    private func removeNavigationShadow() {
+        self.navigationController?.navigationBar.subviews.first?.removeShadow()
     }
     
     private func configureScrollIndicatorInset() {
