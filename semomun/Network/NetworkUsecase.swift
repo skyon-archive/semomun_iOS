@@ -212,8 +212,8 @@ extension NetworkUsecase: NicknameCheckable {
     }
 }
 extension NetworkUsecase: PhonenumVerifiable {
-    func requestVertification(of phonenum: String, completion: @escaping (NetworkStatus) -> ()) {
-        self.network.request(url: NetworkURL.requestSMS, param: ["phone": phonenum], method: .post, tokenRequired: false) { result in
+    func requestVertification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ()) {
+        self.network.request(url: NetworkURL.requestSMS, param: ["phone": phoneNumber], method: .post, tokenRequired: false) { result in
             if let statusCode = result.statusCode {
                 let networkStatus = NetworkStatus(statusCode: statusCode)
                 completion(networkStatus)
