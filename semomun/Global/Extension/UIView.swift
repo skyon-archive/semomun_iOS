@@ -69,6 +69,10 @@ extension UIView {
         self.layer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor)
     }
     
+    func removeShadow() {
+        self.layer.removeShadow()
+    }
+    
     /// - Note: Rasterize가 적용된 그림자가 추가됩니다.
     /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewDidLayoutSubview등에서 호출해야합니다.
     func addAccessibleShadow(direction: CALayer.ShadowDirection = .center) {
