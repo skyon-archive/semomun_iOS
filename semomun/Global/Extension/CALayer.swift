@@ -32,6 +32,11 @@ extension CALayer {
         }
         self.shadowOffset = getShadowOffset(of: direction)
     }
+    
+    func removeShadow() {
+        self.shadowOpacity = 0
+        self.shadowOffset = CGSize(0, -3)
+    }
 
     private func getShadowOffset(of shadowDirection: ShadowDirection) -> CGSize {
         switch shadowDirection {
