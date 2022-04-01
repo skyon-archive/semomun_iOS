@@ -666,19 +666,22 @@
                                 <rect key="frame" x="0.0" y="44" width="390" height="800"/>
                                 <color key="backgroundColor" name="tableViewBackground"/>
                             </view>
-                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="78" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FuV-Yt-Z5l">
+                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="86" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FuV-Yt-Z5l">
                                 <rect key="frame" x="0.0" y="210" width="390" height="634"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="tableViewBackground"/>
                                 <color key="separatorColor" name="divider"/>
-                                <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SemopayCell" id="B3p-hN-qzJ" customClass="SemopayCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="49" width="350" height="78"/>
+                                        <rect key="frame" x="0.0" y="49" width="390" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B3p-hN-qzJ" id="Tr8-FX-Zbv">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="78"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="86"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kGW-zE-8Xr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="86"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개념원리 수학(상)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zE-5K-DqF">
                                                     <rect key="frame" x="20.000000000000007" y="21" width="92.666666666666686" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
@@ -686,7 +689,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-10,000원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHu-uh-ksS">
-                                                    <rect key="frame" x="250.66666666666666" y="20.666666666666668" width="64.333333333333343" height="17.000000000000004"/>
+                                                    <rect key="frame" x="290.66666666666669" y="20.666666666666668" width="64.333333333333314" height="17.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -698,13 +701,17 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="whiteColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="kGW-zE-8Xr" secondAttribute="bottom" id="GYC-vl-iaa"/>
                                                 <constraint firstItem="8zE-5K-DqF" firstAttribute="leading" secondItem="Tr8-FX-Zbv" secondAttribute="leading" constant="20" id="Pkw-Xp-3Rl"/>
                                                 <constraint firstItem="iHu-uh-ksS" firstAttribute="centerY" secondItem="8zE-5K-DqF" secondAttribute="centerY" id="X3i-8V-ppe"/>
+                                                <constraint firstItem="kGW-zE-8Xr" firstAttribute="top" secondItem="Tr8-FX-Zbv" secondAttribute="top" id="dxN-Ph-DN7"/>
                                                 <constraint firstItem="8zE-5K-DqF" firstAttribute="top" secondItem="Tr8-FX-Zbv" secondAttribute="top" constant="21" id="jJv-m7-iEh"/>
                                                 <constraint firstAttribute="trailing" secondItem="iHu-uh-ksS" secondAttribute="trailing" constant="35" id="m4Q-AH-g7t"/>
+                                                <constraint firstAttribute="trailing" secondItem="kGW-zE-8Xr" secondAttribute="trailing" id="nA2-Jz-FvK"/>
                                                 <constraint firstItem="9ds-g5-2u5" firstAttribute="top" secondItem="8zE-5K-DqF" secondAttribute="bottom" constant="8" id="sa4-kb-BNQ"/>
+                                                <constraint firstItem="kGW-zE-8Xr" firstAttribute="leading" secondItem="Tr8-FX-Zbv" secondAttribute="leading" id="xuE-DL-V1G"/>
                                                 <constraint firstItem="9ds-g5-2u5" firstAttribute="leading" secondItem="8zE-5K-DqF" secondAttribute="leading" id="zzW-tZ-7UG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -727,17 +734,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,000원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnF-uO-nSx">
-                                        <rect key="frame" x="227.33333333333334" y="52" width="127.66666666666666" height="36"/>
+                                        <rect key="frame" x="227.33333333333334" y="51" width="127.66666666666666" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" name="whiteColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihD-gv-lO5">
-                                        <rect key="frame" x="271" y="100" width="84" height="30"/>
+                                        <rect key="frame" x="266" y="99" width="89" height="31"/>
                                         <color key="backgroundColor" name="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="5te-ng-1Cu"/>
-                                            <constraint firstAttribute="width" constant="84" id="XLM-Vi-XGT"/>
+                                            <constraint firstAttribute="height" constant="31" id="5te-ng-1Cu"/>
+                                            <constraint firstAttribute="width" constant="89" id="XLM-Vi-XGT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="tintColor" name="whiteColor"/>

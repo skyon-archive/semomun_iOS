@@ -83,7 +83,8 @@ extension PayHistoryVM {
     }
     
     private func addPayHistoriesGroupedByDate(_ payHistories: [PurchasedItem]) {
-        let historyGrouped = Dictionary(grouping: payHistories, by: { $0.createdDate })
+        let temp = Array(repeating: payHistories, count: 10).flatMap { $0 }
+        let historyGrouped = Dictionary(grouping: temp, by: { $0.createdDate })
         let historySorted: [(String, [PurchasedItem])] = historyGrouped
             .sorted(by: { $0.key > $1.key }) // Date 키 값 기준으로 정렬
             .map { key, value in

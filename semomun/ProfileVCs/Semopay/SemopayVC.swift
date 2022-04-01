@@ -152,6 +152,7 @@ extension SemopayVC: UITableViewDelegate {
         return 72
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 78
+        let cellVerticalSpace: CGFloat = 8
+        return 78 + cellVerticalSpace
     }
 }
