@@ -22,16 +22,11 @@ final class SemopayVC: UIViewController, StoryboardController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "페이 이용 내역"
         self.configureDelegates()
         self.bindAll()
         self.viewModel?.initPublished()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.addNavigationShadow()
         }
@@ -40,13 +35,6 @@ final class SemopayVC: UIViewController, StoryboardController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureScrollIndicatorInset()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            self.removeNavigationShadow()
-        }
     }
     
     @IBAction func charge(_ sender: Any) {
@@ -63,18 +51,11 @@ extension SemopayVC {
     }
     
     private func addNavigationShadow() {
-        guard let navigationSubview = self.navigationController?.navigationBar.subviews[safe: 0] else {
+        guard let navigationSubview = self.navigationController?.navigationBar.subviews.first else {
             return
         }
         navigationSubview.backgroundColor = .white
         navigationSubview.addShadow(direction: .bottom)
-    }
-    
-    private func removeNavigationShadow() {
-        guard let navigationSubview = self.navigationController?.navigationBar.subviews[safe: 0] else {
-            return
-        }
-        navigationSubview.removeShadow()
     }
     
     private func configureScrollIndicatorInset() {
@@ -165,13 +146,11 @@ extension SemopayVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 72
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let rowHeight: CGFloat = 79
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            let cellVerticalSpace: CGFloat = 8
-            return rowHeight + cellVerticalSpace
-        } else {
-            return rowHeight
-        }
+        let cellVerticalSpace: CGFloat = 8
+        
+        return UIDevice.current.userInterfaceIdiom == .phone ? rowHeight + cellVerticalSpace : rowHeight
     }
 }
