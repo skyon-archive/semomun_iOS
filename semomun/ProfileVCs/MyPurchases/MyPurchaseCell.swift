@@ -38,6 +38,9 @@ final class MyPurchaseCell: UITableViewCell  {
             self.frameViewLeading.constant = 100
             self.backgroundFrameView.layoutIfNeeded()
         }
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.backgroundFrameView.addShadow(direction: .bottom)
+        }
         self.networkUsecase = networkUsecase
         self.titleLabel.text = item.title
         self.dateLabel.text = item.createdDate.yearMonthDayText

@@ -107,6 +107,15 @@ extension MyPurchasesVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 72
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let cellVerticalSpace: CGFloat = 12
+            return 147 + cellVerticalSpace
+        } else {
+            return 174
+        }
+    }
 }
 
 extension MyPurchasesVC: UIScrollViewDelegate {
