@@ -152,7 +152,12 @@ extension SemopayVC: UITableViewDelegate {
         return 72
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellVerticalSpace: CGFloat = 8
-        return 78 + cellVerticalSpace
+        let rowHeight: CGFloat = 79
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let cellVerticalSpace: CGFloat = 8
+            return rowHeight + cellVerticalSpace
+        } else {
+            return rowHeight
+        }
     }
 }
