@@ -15,6 +15,13 @@ final class SemopayCell: UITableViewCell {
     @IBOutlet private weak var date: UILabel!
     @IBOutlet private weak var historyTitle: UILabel!
     @IBOutlet private weak var cost: UILabel!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
+        }
+    }
 }
 
 // MARK: Cell 정보 configure
