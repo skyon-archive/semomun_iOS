@@ -26,6 +26,8 @@
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
 		25520FBA27D10DC800CC6015 /* NetworkTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB927D10DC800CC6015 /* NetworkTokenController.swift */; };
+		25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */; };
+		25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */; };
 		2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C89027D27BCC00AAD262 /* BooleanResult.swift */; };
 		25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25571EC427E43EC0002C72ED /* PurchasedItem.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
@@ -249,6 +251,8 @@
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
 		25520FB927D10DC800CC6015 /* NetworkTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokenController.swift; sourceTree = "<group>"; };
+		25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhoneAuthenticatorTest.swift; path = SemomunTests/Models/PhoneAuthenticatorTest.swift; sourceTree = SOURCE_ROOT; };
+		25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPhoneNumVerifiable.swift; path = SemomunTests/Network/MockPhoneNumVerifiable.swift; sourceTree = SOURCE_ROOT; };
 		2554C89027D27BCC00AAD262 /* BooleanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanResult.swift; sourceTree = "<group>"; };
 		25571EC427E43EC0002C72ED /* PurchasedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItem.swift; sourceTree = "<group>"; };
 		255D637527ABB03F000991AB /* UserNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeVC.swift; sourceTree = "<group>"; };
@@ -523,6 +527,14 @@
 			path = LoginSignup;
 			sourceTree = "<group>";
 		};
+		25532DA327F70F9D00D3603C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		255D637D27ABC24D000991AB /* UserNotice */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				25CF012227F340D800FAB013 /* Network */,
+				25532DA327F70F9D00D3603C /* Models */,
 				25CF011A27F322A500FAB013 /* ViewModels */,
 			);
 			path = semomunTests;
@@ -652,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */,
+				25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1374,8 +1388,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */,
 				25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */,
 				25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */,
+				25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -49,7 +49,6 @@ class PhoneAuthenticator {
             case .TOOMANYREQUESTS:
                 completion(.failure(.smsSentTooMuch))
             default:
-                assertionFailure()
                 completion(.failure(.noNetwork))
             }
         }
