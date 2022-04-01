@@ -10,7 +10,6 @@ import UIKit
 protocol StoryboardController {
     static var identifier: String { get }
     static var storyboardNames: [UIUserInterfaceIdiom: String] { get }
-    static var storyboardName: String { get }
 }
 
 extension StoryboardController {
