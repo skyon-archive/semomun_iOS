@@ -17,6 +17,7 @@ final class SectionDateLabelFrame: UIView {
         super.init(frame: frame)
         self.commonInit()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.commonInit()
