@@ -109,7 +109,7 @@ extension SemopayVC {
         self.viewModel?.$remainingSemopay
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] remainingSemopay in
-                let costStr = remainingSemopay.withComma 
+                let costStr = remainingSemopay.withComma
                 self?.remainingSemopay.text = costStr + "원"
             })
             .store(in: &self.cancellables)
