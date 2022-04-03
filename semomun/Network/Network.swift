@@ -8,17 +8,25 @@
 import Foundation
 import Alamofire
 
-struct Network: NetworkFetchable {
+class Network: NetworkFetchable {
     private let sessionWithoutToken = Session()
-    private var sessionWithToken: Session = {
-        let interceptor = AuthenticationInterceptor(authenticator: OAuthAuthenticator(), credential: OAuthCredential())
+    private lazy var sessionWithToken: Session = {
+        guard let token = NetworkTokens() else {
+            assertionFailure()
+            return Session()
+        }
+        
+        let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
+        let authenticator = OAuthAuthenticator()
+        let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
+        
         return Session(interceptor: interceptor)
     }()
     
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? sessionWithToken : sessionWithoutToken
         print("Network request: \(url), \(method)")
-        session.request(url, method: method)  { $0.timeoutInterval = .infinity }
+        session.request(url, method: method) { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
