@@ -39,7 +39,7 @@ class PhoneAuthenticator {
             completion(.failure(.invalidPhoneNumber))
             return
         }
-        self.networkUsecase.requestVertification(of: phoneNumberWithCountryCode) { status in
+        self.networkUsecase.requestVerification(of: phoneNumberWithCountryCode) { status in
             switch status {
             case .SUCCESS:
                 self.tempPhoneNumberForResend = phoneNumberWithCountryCode

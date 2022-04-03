@@ -14,7 +14,7 @@ final class MockPhoneNumVerifiable: PhonenumVerifiable {
     private(set) var inputParameter: String?
     var networkStatus: NetworkStatus = .SUCCESS
     
-    func requestVertification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ()) {
+    func requestVerification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ()) {
         self.inputParameter = phoneNumber
         completion(self.networkStatus)
     }
