@@ -8,10 +8,11 @@
 import Foundation
 import Alamofire
 
-enum NetworkTokenControllerError: Error {
+enum OAuthError: Error {
     case refreshTokenExpired, fail
 }
 
+/// AuthenticationCredential로 URLRequest를 서버에서 인증 가능하게(authenticate) 하며 필요한 경우 AuthenticationCredential을 재발급받는다.
 class OAuthAuthenticator: Authenticator {
     
     /// 토큰을 URLRequest에 적용
@@ -32,7 +33,7 @@ class OAuthAuthenticator: Authenticator {
             guard let token = NetworkTokens() else {
                 print("refresh에 사용 가능한 토큰값 없음")
                 assertionFailure()
-                completion(.failure(NetworkTokenControllerError.fail))
+                completion(.failure(OAuthError.fail))
                 return
             }
             
@@ -51,11 +52,11 @@ class OAuthAuthenticator: Authenticator {
                             completion(.success(credential))
                         } catch {
                             print("토큰 저장 실패: \(error)")
-                            completion(.failure(NetworkTokenControllerError.fail))
+                            completion(.failure(OAuthError.fail))
                         }
                     case .failure(let error):
                         print("토큰 재발급 실패: \(error)")
-                        completion(.failure(NetworkTokenControllerError.refreshTokenExpired))
+                        completion(.failure(OAuthError.refreshTokenExpired))
                     }
                 }
         }
