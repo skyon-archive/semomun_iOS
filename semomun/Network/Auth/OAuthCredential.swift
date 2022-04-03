@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 
+/// URLRequest를 서버에서 인증 가능하게(authenticate) 만든다.
 struct OAuthCredential: AuthenticationCredential {
     let requiresRefresh = false
 }

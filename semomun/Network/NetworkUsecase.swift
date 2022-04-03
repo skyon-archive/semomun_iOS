@@ -337,7 +337,7 @@ extension NetworkUsecase: UserInfoFetchable {
         }
     }
     private func checkTokenExpire(error: Error) -> Bool {
-        if let tokenControllerError = error as? NetworkTokenControllerError,
+        if let tokenControllerError = error as? OAuthError,
            tokenControllerError == .refreshTokenExpired {
             return true
         } else {
