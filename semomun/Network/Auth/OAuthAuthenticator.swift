@@ -17,11 +17,7 @@ class OAuthAuthenticator: Authenticator {
     
     /// 토큰을 URLRequest에 적용
     func apply(_ credential: OAuthCredential, to urlRequest: inout URLRequest) {
-        guard let networkTokens = NetworkTokens() else {
-            assertionFailure()
-            return
-        }
-        urlRequest.headers.add(.authorization(bearerToken: networkTokens.accessToken))
+        urlRequest.headers.add(.authorization(bearerToken: credential.accessToken))
     }
     
     /// 토큰을 재발급받고 completion에 전달
@@ -48,7 +44,7 @@ class OAuthAuthenticator: Authenticator {
                         do {
                             try token.save()
                             print("토큰 재발급 완료: \(token)")
-                            let credential = OAuthCredential()
+                            let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
                             completion(.success(credential))
                         } catch {
                             print("토큰 저장 실패: \(error)")
@@ -70,11 +66,7 @@ class OAuthAuthenticator: Authenticator {
     
     /// Refresh 작업 후 완료된 request들에 대해 새로운 토큰이 적용되었는지 확인
     func isRequest(_ urlRequest: URLRequest, authenticatedWith credential: OAuthCredential) -> Bool {
-        guard let networkTokens = NetworkTokens() else {
-            assertionFailure()
-            return true
-        }
-        let bearerToken = HTTPHeader.authorization(bearerToken: networkTokens.accessToken).value
+        let bearerToken = HTTPHeader.authorization(bearerToken: credential.accessToken).value
         return urlRequest.headers["Authorization"] == bearerToken
     }
 }
