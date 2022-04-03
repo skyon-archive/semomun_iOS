@@ -10,7 +10,10 @@ import Alamofire
 
 struct Network: NetworkFetchable {
     private let sessionWithoutToken = Session()
-    private let sessionWithToken = Session(interceptor: NetworkTokenController())
+    private var sessionWithToken: Session = {
+        let interceptor = AuthenticationInterceptor(authenticator: OAuthAuthenticator(), credential: OAuthCredential())
+        return Session(interceptor: interceptor)
+    }()
     
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? sessionWithToken : sessionWithoutToken
@@ -49,7 +52,7 @@ struct Network: NetworkFetchable {
     private func makeNetworkResult(with response: AFDataResponse<Data>) -> NetworkResult {
         // Status code가 없으면 data가 없음을 전제
         guard let statusCode = response.response?.statusCode else {
-            print("Network Fail: No status code")
+            print("Network Fail: No status code, \(optional: response.error)")
             return NetworkResult(data: nil, statusCode: nil, error: nil)
         }
         

@@ -25,7 +25,6 @@
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
-		25520FBA27D10DC800CC6015 /* NetworkTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB927D10DC800CC6015 /* NetworkTokenController.swift */; };
 		25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */; };
 		25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */; };
 		2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C89027D27BCC00AAD262 /* BooleanResult.swift */; };
@@ -59,6 +58,8 @@
 		25A950B327C760EC0084513E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A950B227C760EC0084513E /* Collection.swift */; };
 		25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookViewModel.swift */; };
 		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
+		25B514BE27F9D0060047FC16 /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BD27F9D0060047FC16 /* OAuthAuthenticator.swift */; };
+		25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BF27F9D0270047FC16 /* OAuthCredential.swift */; };
 		25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */; };
 		25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */; };
 		25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */; };
@@ -250,7 +251,6 @@
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
-		25520FB927D10DC800CC6015 /* NetworkTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokenController.swift; sourceTree = "<group>"; };
 		25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhoneAuthenticatorTest.swift; path = SemomunTests/Models/PhoneAuthenticatorTest.swift; sourceTree = SOURCE_ROOT; };
 		25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPhoneNumVerifiable.swift; path = SemomunTests/Network/MockPhoneNumVerifiable.swift; sourceTree = SOURCE_ROOT; };
 		2554C89027D27BCC00AAD262 /* BooleanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanResult.swift; sourceTree = "<group>"; };
@@ -285,6 +285,8 @@
 		25A950B227C760EC0084513E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		25A9B2B3279158020087E774 /* WorkbookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookViewModel.swift; sourceTree = "<group>"; };
 		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
+		25B514BD27F9D0060047FC16 /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
+		25B514BF27F9D0270047FC16 /* OAuthCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthCredential.swift; sourceTree = "<group>"; };
 		25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVM.swift; sourceTree = "<group>"; };
 		25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthenticator.swift; sourceTree = "<group>"; };
 		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -632,6 +634,15 @@
 				25A9B2B6279164B80087E774 /* WorkbookInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		25B514BC27F9CFFC0047FC16 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				25B514BF27F9D0270047FC16 /* OAuthCredential.swift */,
+				25B514BD27F9D0060047FC16 /* OAuthAuthenticator.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		25B8C09227E2150C00AC500F /* Model */ = {
@@ -1080,6 +1091,7 @@
 		87C85E2A276F65B3001C9C4A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				25B514BC27F9CFFC0047FC16 /* Auth */,
 				87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */,
 				879A52E027D0BE97000B4D97 /* NetworkResult.swift */,
 				874600D5278C06E5001EB091 /* NetworkURL.swift */,
@@ -1087,7 +1099,6 @@
 				87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */,
 				87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */,
 				87C85EE8276F6E95001C9C4A /* Network.swift */,
-				25520FB927D10DC800CC6015 /* NetworkTokenController.swift */,
 				25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */,
 				87C85EEC276F6EC9001C9C4A /* DTO */,
 				877B1E3227CBC5B000AC8B84 /* Decoder */,
@@ -1422,6 +1433,7 @@
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,
 				257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */,
+				25B514BE27F9D0060047FC16 /* OAuthAuthenticator.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
 				8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */,
@@ -1527,7 +1539,6 @@
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
-				25520FBA27D10DC800CC6015 /* NetworkTokenController.swift in Sources */,
 				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */,
@@ -1544,6 +1555,7 @@
 				25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
+				25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */,
 				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
 				8716E956279A623500B33A5E /* StudyVC.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerVM.swift in Sources */,
