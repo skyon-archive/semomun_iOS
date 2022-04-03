@@ -55,7 +55,7 @@ protocol NicknameCheckable {
     func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void)
 }
 protocol PhonenumVerifiable {
-    func requestVertification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ())
+    func requestVerification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ())
 
     func checkValidity(phoneNumber: String, code: String, completion: @escaping (NetworkStatus, Bool?) -> Void)
 }
