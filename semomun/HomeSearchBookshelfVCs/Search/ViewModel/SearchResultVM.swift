@@ -31,7 +31,8 @@ final class SearchResultVM {
     func fetchSearchResults() {
         guard isLastPage == false else { return }
         self.pageCount += 1
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 6) { [weak self] status, previews in
+        // limit : 12인치의 6배수, 11인치의 5배수의 LCM : 30
+        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 30) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
