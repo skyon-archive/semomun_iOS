@@ -13,6 +13,11 @@ class HomeWorkbookCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     private var networkUsecase: (S3ImageFetchable & WorkbookSearchable)?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.bookcover.image = UIImage(.loadingBookcover)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.bookcover.image = UIImage(.loadingBookcover)
