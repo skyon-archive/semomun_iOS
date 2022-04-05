@@ -13,11 +13,6 @@ class HomeWorkbookCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     private var networkUsecase: (S3ImageFetchable & WorkbookSearchable)?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.bookcover.image = UIImage(.loadingBookcover)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.bookcover.image = UIImage(.loadingBookcover)
@@ -29,28 +24,34 @@ class HomeWorkbookCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        self.fetchImage(uuid: preview.bookcover)
+        self.configureImage(uuid: preview.bookcover)
     }
     
     func configure(with info: BookshelfInfo) {
         self.networkUsecase?.getWorkbook(wid: info.wid, completion: { [weak self] workbook in
             self?.title.text = workbook.title
-            self?.fetchImage(uuid: workbook.bookcover)
+            self?.configureImage(uuid: workbook.bookcover)
         })
     }
     
-    private func fetchImage(uuid: UUID) {
-        self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, data in
-            DispatchQueue.main.async { [weak self] in
+    private func configureImage(uuid: UUID) {
+        if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
+            print("cached image: \(uuid)")
+            self.bookcover.image = cachedImage
+        } else {
+            self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in
                 switch status {
                 case .SUCCESS:
-                    guard let data = data,
-                          let image = UIImage(data: data) else { return }
-                    self?.bookcover.image = image
+                    guard let imageData = imageData,
+                          let image = UIImage(data: imageData) else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.bookcover.image = image
+                        ImageCacheManager.shared.saveImage(uuid: uuid, image: image)
+                    }
                 default:
                     print("HomeWorkbookCell: GET image fail")
                 }
-            }
-        })
+            })
+        }
     }
 }
