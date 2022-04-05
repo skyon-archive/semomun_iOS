@@ -38,7 +38,6 @@ protocol NoticeFetchable {
 }
 protocol S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
-    func getImageURLforS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void)
 }
 // MARK: - Searchable
 protocol PreviewsSearchable {
