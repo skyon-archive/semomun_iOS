@@ -139,6 +139,18 @@ extension NetworkUsecase: S3ImageFetchable {
             }
         }
     }
+    
+    func getImageURLforS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, String?) -> Void) {
+        let param = ["uuid": uuid.uuidString.lowercased(), "type": type.rawValue]
+        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: false) { result in
+            guard let data = result.data,
+                  let imageURL = String(data: data, encoding: .utf8) else {
+                completion(.FAIL, nil)
+                return
+            }
+            completion(.SUCCESS, imageURL)
+        }
+    }
 }
 
 

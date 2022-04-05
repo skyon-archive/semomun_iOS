@@ -24,17 +24,23 @@ class SearchResultCell: UICollectionViewCell {
     
     func configure(with preview: PreviewOfDB) {
         self.title.text = preview.title
-        self.networkUsecase?.getImageFromS3(uuid: preview.bookcover, type: .bookcover, completion: { [weak self] status, data in
-            DispatchQueue.main.async { [weak self] in
+        if let cachedImage = ImageCacheManager.shared.getImage(uuid: preview.bookcover) {
+            print("cached image: \(preview.bookcover)")
+            self.bookcover.image = cachedImage
+        } else {
+            self.networkUsecase?.getImageFromS3(uuid: preview.bookcover, type: .bookcover, completion: { [weak self] status, imageData in
                 switch status {
                 case .SUCCESS:
-                    guard let data = data,
-                          let image = UIImage(data: data) else { return }
-                    self?.bookcover.image = image
+                    guard let imageData = imageData,
+                          let image = UIImage(data: imageData) else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.bookcover.image = image
+                        ImageCacheManager.shared.saveImage(uuid: preview.bookcover, image: image)
+                    }
                 default:
                     print("SearchResultCell: GET image fail")
                 }
-            }
-        })
+            })
+        }
     }
 }
