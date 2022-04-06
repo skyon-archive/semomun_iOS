@@ -2,20 +2,19 @@
 //  PayHistoryVMTest.swift
 //  semomunTests
 //
-//  Created by SEONG YEOL YI on 2022/03/29.
+//  Created by SEONG YEOL YI on 2022/04/06.
 //
 
 @testable import semomun
 import XCTest
 
-class MyPurchasesVMTest: XCTestCase {
+class PayHistoryVMTest: XCTestCase {
     
-    // MockPayNetworkUsecase의 구현에 따라 구매 목록은 110/2=55개
-    private let networkUsecase = MockPayNetworkUsecase(payHistoryCount: 110)
+    private let networkUsecase = MockPayNetworkUsecase(payHistoryCount: 55)
     private var vm: PayHistoryVM!
     
     override func setUp() {
-        self.vm = PayHistoryVM(onlyPurchaseHistory: true, networkUsecase: networkUsecase)
+        self.vm = PayHistoryVM(onlyPurchaseHistory: false, networkUsecase: networkUsecase)
     }
     
     func testInitialState() {
@@ -56,7 +55,7 @@ class MyPurchasesVMTest: XCTestCase {
         XCTAssertEqual(contentCount, expectedSize)
         
         // DB값과 매칭 여부 확인
-        for payHistory in networkUsecase.purchaseHistories[0..<expectedSize] {
+        for payHistory in networkUsecase.wholePayHistories[0..<expectedSize] {
             self.checkGroupContainsItem(group: group, payHistoryOfDB: payHistory)
         }
     }
@@ -75,28 +74,5 @@ class MyPurchasesVMTest: XCTestCase {
                 purchasedItem.transaction == Transaction(amount: payHistoryOfDB.amount)
             })
         )
-    }
-}
-
-// MARK: Supporting extensions
-extension Transaction: Equatable {
-    public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        guard lhs.amount == rhs.amount else { return false }
-        
-        switch (lhs, rhs) {
-        case (.free, .free), (.charge, .charge), (.purchase, .purchase):
-            return true
-        default:
-            return false
-        }
-    }
-}
-
-extension PurchasedItem: Equatable {
-    public static func == (lhs: PurchasedItem, rhs: PurchasedItem) -> Bool {
-        return lhs.createdDate == rhs.createdDate &&
-        lhs.transaction == rhs.transaction &&
-        lhs.descriptionImageID == rhs.descriptionImageID &&
-        lhs.title == rhs.title
     }
 }
