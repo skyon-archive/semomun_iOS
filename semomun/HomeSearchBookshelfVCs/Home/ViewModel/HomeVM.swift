@@ -85,7 +85,7 @@ final class HomeVM {
         self.fetchNonLogined()
         
         if self.logined {
-            SyncUsecase.syncUserDataFromDB { [weak self] status in
+            SyncUsecase(networkUsecase: self.networkUsecase).syncUserDataFromDB { [weak self] status in
                 switch status {
                 case .success(_):
                     print("Home: 유저 정보 동기화 성공")

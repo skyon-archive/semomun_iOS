@@ -42,6 +42,7 @@ extension LoginSignupAlert: Equatable {
 // nil과의 비교만 필요해 임시 구현
 extension UserInfo: Equatable {
     public static func == (lhs: UserInfo, rhs: UserInfo) -> Bool {
+        XCTFail()
         return false
     }
 }
