@@ -34,6 +34,13 @@ class OAuthAuthenticator: Authenticator {
                 return
             }
             
+            // 다른 객체에서 토큰 값이 바뀐 경우 처리
+            guard token.accessToken == credential.accessToken else {
+                let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
+                completion(.success(credential))
+                return
+            }
+            
             let headers: HTTPHeaders = [
                 .authorization(bearerToken: token.accessToken),
                 .refresh(token: token.refreshToken)]
