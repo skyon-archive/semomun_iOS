@@ -12,13 +12,39 @@ import Foundation
 class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
     var reachability = true
     var tooManyCodeRequest = false
-    let validName = "홍길동"
+    var userExist = false
+    
+    let usedName = ["사용중", "인이름"]
     let validAuthCode = "123456"
     let majors = [
         Major(name: "A", details: ["1","2","3"]),
         Major(name: "B", details: ["4","5","6"]),
         Major(name: "C", details: ["7","8","9"]),
     ]
+    let remainingPay = 123456
+    
+    lazy private(set) var userInfo: UserInfo = {
+        let string = """
+{
+    "uid": 9,
+    "username": "User57665",
+    "name": "",
+    "email": "",
+    "gender": "",
+    "birth": null,
+    "phone": "+82-10-3280-8642",
+    "major": "이과 계열",
+    "majorDetail": "자연",
+    "school": "서울대학교",
+    "graduationStatus": "재학",
+    "credit": 0,
+    "createdAt": "2022-03-25T15:59:23.000Z",
+    "updatedAt": "2022-03-26T06:13:44.000Z"
+}
+"""
+        let data = string.data(using: .utf8)!
+        return try! JSONDecoderWithDate().decode(UserInfo.self, from: data)
+    }()
     
     func getMajors(completion: @escaping ([Major]?) -> Void) {
         guard self.reachability == true else {
@@ -29,13 +55,13 @@ class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
         completion(self.majors)
     }
     
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
+    func usernameAvailable(_ nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
         guard reachability == true else {
             completion(.FAIL, false)
             return
         }
         
-        completion(.SUCCESS, nickname == self.validName)
+        completion(.SUCCESS, self.usedName.contains(nickname) == false)
     }
     
     func requestVerification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ()) {
@@ -71,5 +97,31 @@ class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
     
     func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void) {
         completion(self.reachability ? .SUCCESS : .FAIL)
+    }
+    
+    func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping ((status: NetworkStatus, userNotExist: Bool)) -> Void) {
+        completion((self.reachability ? .SUCCESS : .FAIL, self.userExist))
+    }
+    
+    func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping ((status: NetworkStatus, userAlreadyExist: Bool)) -> Void) {
+        completion((self.reachability ? .SUCCESS : .FAIL, self.userExist))
+    }
+    
+    func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
+        guard reachability == true else {
+            completion(.FAIL, nil)
+            return
+        }
+        
+        completion(.SUCCESS, self.userInfo)
+    }
+    
+    func getRemainingPay(completion: @escaping (NetworkStatus, Int?) -> Void) {
+        if self.reachability {
+            completion(.SUCCESS, self.remainingPay)
+        } else {
+            completion(.FAIL, nil)
+        }
+        
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable & SyncFetchable)
+typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & UsernameCheckable & PhonenumVerifiable & SyncFetchable)
 
 final class ChangeUserInfoVM {
     @Published private(set) var status: LoginSignupStatus?
@@ -37,12 +37,14 @@ final class ChangeUserInfoVM {
         }
     }
     
+    /// 사용자가 입력하는 중에도 확인할 수 있는 포맷들을 확인합니다.
     func checkUsernameFormat(_ username: String) {
         self.status = username.isValidUsernameDuringTyping ? .usernameGoodFormat : .usernameWrongFormat
     }
     
+    /// 사용자가 입력하는 중에도 확인할 수 있는 포맷들을 확인합니다.
     func checkPhoneNumberFormat(_ phoneNumber: String) {
-        self.status = phoneNumber.isNumber ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
+        self.status = phoneNumber.isNumber && phoneNumber.count <= 11 ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
     }
     
     func changeUsername(_ username: String) {
@@ -58,7 +60,7 @@ final class ChangeUserInfoVM {
             return
         }
         
-        self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
+        self.networkUseCase.usernameAvailable(username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
                     self?.userInfo?.username = username

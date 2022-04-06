@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable)
+typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & UsernameCheckable & PhonenumVerifiable)
 
 final class LoginSignupVM {
     @Published private(set) var status: LoginSignupStatus?
@@ -50,7 +50,7 @@ final class LoginSignupVM {
             self.status = .usernameWrongFormat
             return
         }
-        self.networkUseCase.checkRedundancy(ofNickname: username) { [weak self] status, isAvailable in
+        self.networkUseCase.usernameAvailable(username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
                     self?.signupUserInfo.username = username
