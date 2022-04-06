@@ -5,7 +5,6 @@
 //  Created by Kang Minsang on 2021/12/19.
 //
 
-import UIKit
 import CoreData
 import Combine
 
@@ -28,12 +27,14 @@ final class SectionManager {
     private let preview: Preview_Core
     private var timer: Timer!
     private var isRunning: Bool = true
+    private let networkUsecase: UserSubmissionSendable
     
-    init(delegate: LayoutDelegate, section: Section_Core, sectionHeader: SectionHeader_Core, preview: Preview_Core) {
+    init(delegate: LayoutDelegate, section: Section_Core, sectionHeader: SectionHeader_Core, preview: Preview_Core, networkUsecase: UserSubmissionSendable) {
         self.delegate = delegate
         self.section = section
         self.sectionHeader = sectionHeader
         self.preview = preview
+        self.networkUsecase = networkUsecase
         self.configure()
         self.configureStartPage()
         self.startTimer()
@@ -132,17 +133,17 @@ final class SectionManager {
         if scoringQueue.contains(pid) { return }
         
         scoringQueue.append(pid)
-        self.section.setValue(scoringQueue, forKey: "scoringQueue")
+        self.section.setValue(scoringQueue, forKey: Section_Core.Attribute.scoringQueue.rawValue)
         CoreDataManager.saveCoreData()
         self.addUpload(pid: pid)
     }
     
     func addUpload(pid: Int) {
-        var uploadQueue = self.section.uploadQueue ?? []
+        var uploadQueue = self.section.uploadProblemQueue ?? []
         if uploadQueue.contains(pid) { return }
         
         uploadQueue.append(pid)
-        self.section.setValue(uploadQueue, forKey: "uploadQueue")
+        self.section.setValue(uploadQueue, forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
         CoreDataManager.saveCoreData()
     }
     
@@ -182,7 +183,6 @@ final class SectionManager {
     func pauseSection() {
         self.stopTimer()
         CoreDataManager.saveCoreData()
-        self.sendProblemDatas(isDismiss: true)
     }
     
     func stopTimer() {
@@ -202,12 +202,29 @@ final class SectionManager {
         self.section = section
     }
     
-    func sendProblemDatas(isDismiss: Bool) {
-        // TODO: Network 상에 반영 로직
+    func postProblemDatas(isDismiss: Bool) {
+        guard let uploadProblemQueue = self.section.uploadProblemQueue,
+              uploadProblemQueue.isEmpty == false else {
+            if isDismiss {
+                self.delegate?.dismissSection()
+            }
+            return
+        }
         // uploadQueue -> json 로직
-        // Network post 로직
-        if isDismiss {
-            self.delegate?.dismissSection()
+        let uploadProblems = self.problems
+            .filter { uploadProblemQueue.contains(Int($0.pid)) }
+            .map { SubmissionProblem(problem: $0) }
+        self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
+            if status == .SUCCESS {
+                self?.section.setValue([], forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
+                CoreDataManager.saveCoreData()
+            } else {
+                print("Submission Problems fail")
+            }
+            
+            if isDismiss {
+                self?.delegate?.dismissSection()
+            }
         }
     }
 }
