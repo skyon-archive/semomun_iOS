@@ -82,8 +82,8 @@ protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)
 }
 protocol UserSubmissionSendable {
-    func sendProblemSubmissions()
-    func sendPageSubmissions()
+    func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void)
+    func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void)
 }
 // MARK: - Reportable
 protocol ErrorReportable {
