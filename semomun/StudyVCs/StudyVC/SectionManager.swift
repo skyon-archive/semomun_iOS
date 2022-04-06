@@ -209,13 +209,9 @@ final class SectionManager {
     }
     
     func postProblemAndPageDatas(isDismiss: Bool) {
-        
         let uploadProblemQueue = self.section.uploadProblemQueue ?? []
         let uploadPageQueue = self.section.uploadPageQueue ?? []
-        
-        var completeCount: Int = 2
-        if uploadProblemQueue.isEmpty { completeCount -= 1 }
-        if uploadPageQueue.isEmpty { completeCount -= 1 }
+        var completeCount: Int = [uploadProblemQueue.isEmpty == false, uploadPageQueue.isEmpty == false].filter { $0 }.count
         if completeCount == 0 {
             if isDismiss {
                 self.delegate?.dismissSection()
@@ -223,37 +219,54 @@ final class SectionManager {
             return
         }
         
-        let uploadProblems = self.problems
-            .filter { uploadProblemQueue.contains(Int($0.pid)) }
-            .map { SubmissionProblem(problem: $0) }
-        let uploadPages = Array(Set(self.problems.compactMap(\.pageCore)
-            .filter { uploadPageQueue.contains(Int($0.vid)) }
-            .map { SubmissionPage(page: $0) }))
-        
-        self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
-            if status == .SUCCESS {
-                self?.section.setValue([], forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
-                CoreDataManager.saveCoreData() // submission 완료시 저장
-                print("problems complete")
-            }
-            
-            completeCount -= 1
-            if completeCount == 0 && isDismiss {
-                self?.delegate?.dismissSection()
+        if uploadProblemQueue.isEmpty == false {
+            let uploadProblems = self.problems
+                .filter { uploadProblemQueue.contains(Int($0.pid)) }
+                .map { SubmissionProblem(problem: $0) }
+            self.postProblemDatas(uploadProblems: uploadProblems) { [weak self] in
+                completeCount -= 1
+                if completeCount == 0 {
+                    if isDismiss {
+                        self?.delegate?.dismissSection()
+                    }
+                    return
+                }
             }
         }
         
+        if uploadPageQueue.isEmpty == false {
+            let uploadPages = Array(Set(self.problems.compactMap(\.pageCore)
+                .filter { uploadPageQueue.contains(Int($0.vid)) }
+                .map { SubmissionPage(page: $0) }))
+            self.postPageDatas(uploadPages: uploadPages) { [weak self] in
+                completeCount -= 1
+                if completeCount == 0 {
+                    if isDismiss {
+                        self?.delegate?.dismissSection()
+                    }
+                    return
+                }
+            }
+        }
+    }
+    
+    private func postProblemDatas(uploadProblems: [SubmissionProblem], completion: @escaping (() -> Void)) {
+        self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
+            if status == .SUCCESS {
+                self?.section.setValue([], forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
+                CoreDataManager.saveCoreData()
+            }
+            completion()
+        }
+    }
+    
+    private func postPageDatas(uploadPages: [SubmissionPage], completion: @escaping (() -> Void)) {
         self.networkUsecase.postPageSubmissions(pages: uploadPages) { [weak self] status in
             if status == .SUCCESS {
                 self?.section.setValue([], forKey: Section_Core.Attribute.uploadPageQueue.rawValue)
-                CoreDataManager.saveCoreData() // submission 완료시 저장
-                print("pages complete")
+                CoreDataManager.saveCoreData()
             }
-            
-            completeCount -= 1
-            if completeCount == 0 && isDismiss {
-                self?.delegate?.dismissSection()
-            }
+            completion()
         }
     }
 }
