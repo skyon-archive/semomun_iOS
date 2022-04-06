@@ -134,17 +134,23 @@ final class SectionManager {
         
         scoringQueue.append(pid)
         self.section.setValue(scoringQueue, forKey: Section_Core.Attribute.scoringQueue.rawValue)
-        CoreDataManager.saveCoreData()
-        self.addUpload(pid: pid)
+        self.addUploadProblem(pid: pid)
     }
     
-    func addUpload(pid: Int) {
+    func addUploadProblem(pid: Int) {
         var uploadQueue = self.section.uploadProblemQueue ?? []
         if uploadQueue.contains(pid) { return }
         
         uploadQueue.append(pid)
         self.section.setValue(uploadQueue, forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
-        CoreDataManager.saveCoreData()
+    }
+    
+    func addUploadPage(vid: Int) {
+        var uploadQueue = self.section.uploadPageQueue ?? []
+        if uploadQueue.contains(vid) { return }
+        
+        uploadQueue.append(vid)
+        self.section.setValue(uploadQueue, forKey: Section_Core.Attribute.uploadPageQueue.rawValue)
     }
     
     private func startTimer() {
@@ -159,7 +165,7 @@ final class SectionManager {
                 self.section.setValue(self.currentTime, forKey: "time")
                 
                 if self.currentTime%10 == 0 {
-                    CoreDataManager.saveCoreData()
+                    CoreDataManager.saveCoreData() // 10초 간격으로 저장
                 }
             }
             while self.isRunning {
@@ -175,14 +181,14 @@ final class SectionManager {
             self?.sectionHeader.setValue(true, forKey: SectionHeader_Core.Attribute.terminated.rawValue)
             
             self?.preview.updateProgress()
-            CoreDataManager.saveCoreData()
+            CoreDataManager.saveCoreData() // section 풀이 종료시 저장
             self?.delegate?.changeResultLabel()
         }
     }
     
     func pauseSection() {
         self.stopTimer()
-        CoreDataManager.saveCoreData()
+        CoreDataManager.saveCoreData() // 뒤로나갈시 저장
     }
     
     func stopTimer() {
@@ -202,27 +208,52 @@ final class SectionManager {
         self.section = section
     }
     
-    func postProblemDatas(isDismiss: Bool) {
+    func postProblemAndPageDatas(isDismiss: Bool) {
         guard let uploadProblemQueue = self.section.uploadProblemQueue,
-              uploadProblemQueue.isEmpty == false else {
+              let uploadPageQueue = self.section.uploadPageQueue else {
+            assertionFailure()
+            return
+        }
+        
+        var completeCount: Int = 2
+        if uploadProblemQueue.isEmpty { completeCount -= 1 }
+        if uploadPageQueue.isEmpty { completeCount -= 1 }
+        if completeCount == 0 {
             if isDismiss {
                 self.delegate?.dismissSection()
             }
             return
         }
-        // uploadQueue -> json 로직
+        
         let uploadProblems = self.problems
             .filter { uploadProblemQueue.contains(Int($0.pid)) }
             .map { SubmissionProblem(problem: $0) }
+        let uploadPages = self.problems.compactMap(\.pageCore)
+            .filter { uploadPageQueue.contains(Int($0.vid)) }
+            .map { SubmissionPage(page: $0) }
+        
         self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
             if status == .SUCCESS {
                 self?.section.setValue([], forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
-                CoreDataManager.saveCoreData()
-            } else {
-                print("Submission Problems fail")
+                CoreDataManager.saveCoreData() // submission 완료시 저장
+                print("problems complete")
             }
             
-            if isDismiss {
+            completeCount -= 1
+            if completeCount == 0 && isDismiss {
+                self?.delegate?.dismissSection()
+            }
+        }
+        
+        self.networkUsecase.postPageSubmissions(pages: uploadPages) { [weak self] status in
+            if status == .SUCCESS {
+                self?.section.setValue([], forKey: Section_Core.Attribute.uploadPageQueue.rawValue)
+                CoreDataManager.saveCoreData() // submission 완료시 저장
+                print("pages complete")
+            }
+            
+            completeCount -= 1
+            if completeCount == 0 && isDismiss {
                 self?.delegate?.dismissSection()
             }
         }

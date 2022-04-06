@@ -420,7 +420,8 @@ extension NetworkUsecase: UserSubmissionSendable {
         completion(.SUCCESS)
     }
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
-        
+        print("Pages: \(pages.map(\.vid))")
+        completion(.SUCCESS)
     }
 }
 
