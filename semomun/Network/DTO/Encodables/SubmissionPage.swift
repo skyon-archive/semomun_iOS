@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SubmissionPage: Encodable {
+struct SubmissionPage: Encodable, Hashable {
     let vid: Int
     let attempt: Int
     let note: Data?
