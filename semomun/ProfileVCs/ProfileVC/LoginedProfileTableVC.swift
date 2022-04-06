@@ -42,7 +42,7 @@ final class LoginedProfileTableVC: UITableViewController, StoryboardController {
 
 extension LoginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextVC: UIViewController
+        var nextVC: UIViewController?
         let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
 
         switch (indexPath.section, indexPath.row) {
@@ -51,11 +51,23 @@ extension LoginedProfileTableVC {
         case (1, 1):
             nextVC = storyboard.instantiateViewController(withIdentifier: SemopayVC.identifier)
         case (2, 0):
+            nextVC = UserNoticeVC()
+        case (2, 1):
+            if let url = URL(string: NetworkURL.customerService) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        case (2, 2):
+            if let url = URL(string: NetworkURL.errorReport) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        case (2, 3):
             nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
         default:
             return
         }
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if let nextVC = nextVC {
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

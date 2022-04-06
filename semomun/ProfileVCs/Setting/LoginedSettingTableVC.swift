@@ -43,8 +43,6 @@ extension LoginedSettingTableVC {
 extension LoginedSettingTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
-        case (0, 1):
-            self.navigationController?.pushViewController(UserNoticeVC(), animated: true)
         case (1, 1):
             self.showLongTextVC(title: "이용약관", txtResourceName: "termsAndConditions")
         case (1, 2):
