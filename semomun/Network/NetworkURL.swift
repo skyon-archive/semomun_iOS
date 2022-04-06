@@ -72,6 +72,8 @@ enum NetworkURL {
     static let purchasedWorkbooks: String = workbooks + "purchased"
     static let username = base + "/users/username"
     static let payHistory = base + "/pay"
+    static let submissionOfProblems = base + "/submissions"
+    static let submissionOfPages = base + "/view-submissions"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
@@ -81,5 +83,4 @@ enum NetworkURL {
     
     static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-    static var sectionsSubmit: (Int) -> String = { sections + "\($0)" + "/submission" }
 }
