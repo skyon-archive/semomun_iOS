@@ -166,8 +166,6 @@ extension MultipleWith5AnswerVC {
         canvasView.subviews[0].sendSubviewToBack(imageView)
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
-        
-        canvasView.delegate = self
     }
     
     func configureCanvasViewData() {
@@ -180,6 +178,7 @@ extension MultipleWith5AnswerVC {
         } else {
             canvasView.drawing = PKDrawing()
         }
+        self.canvasView.delegate = self
     }
     
     func configureMainImageView() {
