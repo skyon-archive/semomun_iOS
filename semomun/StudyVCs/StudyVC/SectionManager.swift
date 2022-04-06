@@ -209,11 +209,9 @@ final class SectionManager {
     }
     
     func postProblemAndPageDatas(isDismiss: Bool) {
-        guard let uploadProblemQueue = self.section.uploadProblemQueue,
-              let uploadPageQueue = self.section.uploadPageQueue else {
-            assertionFailure()
-            return
-        }
+        
+        let uploadProblemQueue = self.section.uploadProblemQueue ?? []
+        let uploadPageQueue = self.section.uploadPageQueue ?? []
         
         var completeCount: Int = 2
         if uploadProblemQueue.isEmpty { completeCount -= 1 }
@@ -228,9 +226,9 @@ final class SectionManager {
         let uploadProblems = self.problems
             .filter { uploadProblemQueue.contains(Int($0.pid)) }
             .map { SubmissionProblem(problem: $0) }
-        let uploadPages = self.problems.compactMap(\.pageCore)
+        let uploadPages = Array(Set(self.problems.compactMap(\.pageCore)
             .filter { uploadPageQueue.contains(Int($0.vid)) }
-            .map { SubmissionPage(page: $0) }
+            .map { SubmissionPage(page: $0) }))
         
         self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
             if status == .SUCCESS {
