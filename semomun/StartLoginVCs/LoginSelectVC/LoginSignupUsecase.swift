@@ -8,6 +8,12 @@
 import Foundation
 
 struct LoginSignupUsecase {
+    private let syncUsecase: SyncUsecase
+    
+    init(networkUsecase: SyncFetchable) {
+        self.syncUsecase = SyncUsecase(networkUsecase: networkUsecase)
+    }
+    
     // MARK: - LoginSelectVM 에서 로그인 이후 로직
     func setLocalDataAfterLogin(token: String, completion: @escaping (Bool) -> Void) {
         self.syncUserDataAndSaveKeychain(token: token) { succeed in
@@ -45,7 +51,7 @@ struct LoginSignupUsecase {
 // MARK: Private
 extension LoginSignupUsecase {
     private func syncUserDataAndSaveKeychain(token: String, completion: @escaping (Bool) -> Void) {
-        SyncUsecase.syncUserDataFromDB { result in
+        self.syncUsecase.syncUserDataFromDB { result in
             switch result {
             case .success(_):
                 let saveKeychainResult = self.saveUserIDToKeychain(token: token)

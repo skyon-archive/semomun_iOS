@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable)
+typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & NicknameCheckable & PhonenumVerifiable & SyncFetchable)
 
 final class ChangeUserInfoVM {
     @Published private(set) var status: LoginSignupStatus?
@@ -177,7 +177,7 @@ extension ChangeUserInfoVM {
 // MARK: Private functions
 extension ChangeUserInfoVM {
     private func getUserInfo(completion: @escaping () -> Void) {
-        SyncUsecase.syncUserDataFromDB { result in
+        SyncUsecase(networkUsecase: self.networkUseCase).syncUserDataFromDB { result in
             switch result {
             case .success(let userInfo):
                 self.userInfo = userInfo
