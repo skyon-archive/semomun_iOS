@@ -43,6 +43,7 @@
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
 		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
+		2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
@@ -62,7 +63,7 @@
 		25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BF27F9D0270047FC16 /* OAuthCredential.swift */; };
 		25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */; };
 		25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */; };
-		25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */; };
+		25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */; };
 		25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */; };
 		25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */; };
 		25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDF279D46A700807196 /* SettingVC.swift */; };
@@ -272,6 +273,7 @@
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
+		2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = semomunTests/ViewModels/Profile/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -293,7 +295,7 @@
 		25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVM.swift; sourceTree = "<group>"; };
 		25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthenticator.swift; sourceTree = "<group>"; };
 		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = SemomunTests/ViewModels/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
+		25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPurchasesVMTest.swift; path = semomunTests/ViewModels/Profile/MyPurchasesVMTest.swift; sourceTree = SOURCE_ROOT; };
 		25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPayNetworkUsecase.swift; path = semomunTests/Network/MockPayNetworkUsecase.swift; sourceTree = SOURCE_ROOT; };
 		25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25D1BDDF279D46A700807196 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
@@ -585,6 +587,15 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		2570543227FDAFF5005398F9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */,
+				2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		257AC7E627A5834A005E91EC /* Semopay */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,7 +686,7 @@
 		25CF011A27F322A500FAB013 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				25CF011E27F325A100FAB013 /* PayHistoryVMTest.swift */,
+				2570543227FDAFF5005398F9 /* Profile */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1409,9 +1420,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */,
-				25CF011F27F325A100FAB013 /* PayHistoryVMTest.swift in Sources */,
+				25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */,
 				25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */,
 				25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */,
+				2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
