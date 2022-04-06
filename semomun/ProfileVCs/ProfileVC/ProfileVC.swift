@@ -47,6 +47,11 @@ final class ProfileVC: UIViewController {
         self.isLoginUI = UserDefaultsManager.isLogined
         self.configureUserInfoUI()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     @IBAction func openChangeAccountInfoView(_ sender: Any) {
         let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)

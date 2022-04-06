@@ -27,11 +27,28 @@ final class UnloginedProfileTableVC: UITableViewController, StoryboardController
 
 extension UnloginedProfileTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section, indexPath.row) == (0, 0) {
-            let storyboard = UIStoryboard(controllerType: SettingVC.self)
-            let nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
-            self.navigationController?.pushViewController(nextVC, animated: true)
-            self.tableView.deselectRow(at: indexPath, animated: true)
+        var nextVC: UIViewController?
+        let storyboard = UIStoryboard(name: Self.storyboardName, bundle: nil)
+
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
+            nextVC = UserNoticeVC()
+        case (0, 1):
+            if let url = URL(string: NetworkURL.customerService) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        case (0, 2):
+            if let url = URL(string: NetworkURL.errorReport) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        case (0, 3):
+            nextVC = storyboard.instantiateViewController(withIdentifier: SettingVC.identifier)
+        default:
+            return
         }
+        if let nextVC = nextVC {
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
