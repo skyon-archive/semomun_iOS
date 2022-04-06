@@ -215,7 +215,7 @@ extension LoginSignupVC {
                 switch status {
                 case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
-                case .usernameNotInUse:
+                case .usernameAvailable:
                     self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                 case .usernameWrongFormat:

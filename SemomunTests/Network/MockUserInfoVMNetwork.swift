@@ -14,7 +14,7 @@ class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
     var tooManyCodeRequest = false
     var userExist = false
     
-    let usedName = ["사용중", "인이름"]
+    let usedName = ["hello1", "world2"]
     let validAuthCode = "123456"
     let majors = [
         Major(name: "A", details: ["1","2","3"]),
@@ -27,7 +27,7 @@ class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
         let string = """
 {
     "uid": 9,
-    "username": "User57665",
+    "username": "user57665",
     "name": "",
     "email": "",
     "gender": "",

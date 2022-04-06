@@ -37,12 +37,12 @@ final class ChangeUserInfoVM {
         }
     }
     
-    /// 사용자가 입력하는 중에도 확인할 수 있는 포맷들을 확인합니다.
+    /// 사용자가 입력하는 중에도 확인할 수 있는 username 포맷들을 확인합니다. e.g. 사용할 수 없는 문자
     func checkUsernameFormat(_ username: String) {
         self.status = username.isValidUsernameDuringTyping ? .usernameGoodFormat : .usernameWrongFormat
     }
     
-    /// 사용자가 입력하는 중에도 확인할 수 있는 포맷들을 확인합니다.
+    /// 사용자가 입력하는 중에도 확인할 수 있는 전화번호 포맷들을 확인합니다. e.g. 사용할 수 없는 문자
     func checkPhoneNumberFormat(_ phoneNumber: String) {
         self.status = phoneNumber.isNumber && phoneNumber.count <= 11 ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
     }
@@ -56,7 +56,7 @@ final class ChangeUserInfoVM {
         // 기존과 같은 이름이면 서버 통신 안함
         guard username != self.currentUserName else {
             self.userInfo?.username = username
-            self.status = .usernameNotInUse
+            self.status = .usernameAvailable
             return
         }
         
@@ -64,7 +64,7 @@ final class ChangeUserInfoVM {
             if status == .SUCCESS {
                 if isAvailable {
                     self?.userInfo?.username = username
-                    self?.status = .usernameNotInUse
+                    self?.status = .usernameAvailable
                 } else {
                     self?.status = .usernameAlreadyUsed
                 }
@@ -210,7 +210,7 @@ extension ChangeUserInfoVM {
     private func fetchMajorInfo() {
         self.networkUseCase.getMajors { [weak self] majorFetched in
             guard let majorFetched = majorFetched else {
-                self?.alert = .networkErrorWithoutPop
+                self?.alert = .networkErrorWithPop
                 return
             }
             self?.majors = majorFetched.map(\.name)
