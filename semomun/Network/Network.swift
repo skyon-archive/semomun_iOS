@@ -10,8 +10,8 @@ import Alamofire
 
 class Network: NetworkFetchable {
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? Session.sessionWithToken : AF
-        print("Network request: \(url), \(method)")
+        let session = tokenRequired ? Session.sessionWithToken : Session.default
+        print("\(method): \(url)")
         session.request(url, method: method) { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -21,8 +21,8 @@ class Network: NetworkFetchable {
     }
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? Session.sessionWithToken : AF
-        print("Network request: \(url), \(method), \(param)")
+        let session = tokenRequired ? Session.sessionWithToken : Session.default
+        print("\(method): \(url), \(param)")
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -32,8 +32,8 @@ class Network: NetworkFetchable {
     }
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? Session.sessionWithToken : AF
-        print("Network request: \(url), \(method), \(param)")
+        let session = tokenRequired ? Session.sessionWithToken : Session.default
+        print("\(method): \(url), \(param)")
         let parameterEncoder = JSONParameterEncoder(encoder: encoder)
         session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
@@ -58,7 +58,7 @@ class Network: NetworkFetchable {
             
         // Validate로 인해 status code != 200
         case .failure(let error):
-            print("Network Fail: status code is \(statusCode)")
+            print("Network Fail \(statusCode)")
             if let data = response.data {
                 print("Data: \(String(data: data, encoding: .utf8)!)")
             }
