@@ -9,23 +9,9 @@ import Foundation
 import Alamofire
 
 class Network: NetworkFetchable {
-    private let sessionWithoutToken = Session()
-    private lazy var sessionWithToken: Session = {
-        guard let token = NetworkTokens() else {
-            assertionFailure()
-            return Session()
-        }
-        
-        let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
-        let authenticator = OAuthAuthenticator()
-        let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
-        
-        return Session(interceptor: interceptor)
-    }()
-    
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
-//        print("Network request: \(url), \(method)")
+        let session = tokenRequired ? Session.sessionWithToken : AF
+        print("Network request: \(url), \(method)")
         session.request(url, method: method) { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -35,8 +21,8 @@ class Network: NetworkFetchable {
     }
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
-//        print("Network request: \(url), \(method), \(param)")
+        let session = tokenRequired ? Session.sessionWithToken : AF
+        print("Network request: \(url), \(method), \(param)")
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -46,8 +32,8 @@ class Network: NetworkFetchable {
     }
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? sessionWithToken : sessionWithoutToken
-//        print("Network request: \(url), \(method), \(param)")
+        let session = tokenRequired ? Session.sessionWithToken : AF
+        print("Network request: \(url), \(method), \(param)")
         let parameterEncoder = JSONParameterEncoder(encoder: encoder)
         session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
