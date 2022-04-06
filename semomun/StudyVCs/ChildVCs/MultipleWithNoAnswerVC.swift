@@ -290,7 +290,7 @@ extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
     }
     
     func addUpload(pid: Int) {
-        self.viewModel?.delegate?.addUpload(pid: pid)
+        self.viewModel?.delegate?.addUploadProblem(pid: pid)
     }
 }
 

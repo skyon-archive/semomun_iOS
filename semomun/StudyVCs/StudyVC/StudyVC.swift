@@ -14,7 +14,8 @@ protocol PageDelegate: AnyObject {
     func nextPage()
     func beforePage()
     func addScoring(pid: Int)
-    func addUpload(pid: Int)
+    func addUploadProblem(pid: Int)
+    func addUploadPage(vid: Int)
 }
 
 final class StudyVC: UIViewController {
@@ -82,14 +83,14 @@ final class StudyVC: UIViewController {
     
     @IBAction func back(_ sender: Any) {
         self.manager?.pauseSection()
-        self.manager?.postProblemDatas(isDismiss: true) // 나가기 전에 submission
+        self.manager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
     }
     
     @IBAction func scoringSection(_ sender: Any) {
         guard let section = self.manager?.section else { return }
         
         if section.terminated {
-            self.manager?.postProblemDatas(isDismiss: false) // 결과보기 누를때 submission
+            self.manager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
             self.showResultViewController(section: section)
         } else {
             self.showSelectProblemsVC(section: section)
@@ -147,7 +148,7 @@ extension StudyVC {
             
             self?.changeVC(pageData: pageData)
             self?.reloadButtons()
-            self?.manager?.postProblemDatas(isDismiss: false) // 채점 이후 post
+            self?.manager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
     }
@@ -331,8 +332,12 @@ extension StudyVC: PageDelegate {
         self.reloadButtons()
     }
     
-    func addUpload(pid: Int) {
-        self.manager?.addUpload(pid: pid)
+    func addUploadProblem(pid: Int) {
+        self.manager?.addUploadProblem(pid: pid)
+    }
+    
+    func addUploadPage(vid: Int) {
+        self.manager?.addUploadPage(vid: vid)
     }
 }
 

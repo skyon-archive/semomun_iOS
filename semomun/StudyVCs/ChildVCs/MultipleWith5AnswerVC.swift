@@ -291,7 +291,7 @@ extension MultipleWith5AnswerVC: CollectionCellDelegate {
     }
     
     func addUpload(pid: Int) {
-        self.viewModel?.delegate?.addUpload(pid: pid)
+        self.viewModel?.delegate?.addUploadProblem(pid: pid)
     }
 }
 
