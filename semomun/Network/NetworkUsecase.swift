@@ -416,7 +416,8 @@ extension NetworkUsecase: UserLogSendable {
 }
 extension NetworkUsecase: UserSubmissionSendable {
     func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void) {
-        
+        print("Problems: \(problems.map(\.pid))")
+        completion(.SUCCESS)
     }
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
         

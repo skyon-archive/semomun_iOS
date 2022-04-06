@@ -82,14 +82,14 @@ final class StudyVC: UIViewController {
     
     @IBAction func back(_ sender: Any) {
         self.manager?.pauseSection()
+        self.manager?.postProblemDatas(isDismiss: true) // 나가기 전에 submission
     }
     
     @IBAction func scoringSection(_ sender: Any) {
         guard let section = self.manager?.section else { return }
-        let terminated = section.terminated
         
-        if terminated {
-            self.manager?.sendProblemDatas(isDismiss: false)
+        if section.terminated {
+            self.manager?.postProblemDatas(isDismiss: false) // 결과보기 누를때 submission
             self.showResultViewController(section: section)
         } else {
             self.showSelectProblemsVC(section: section)
@@ -124,7 +124,8 @@ extension StudyVC {
               let sectionHeader = self.sectionHeaderCore,
               let preview = self.previewCore else { return }
         
-        self.manager = SectionManager(delegate: self, section: section, sectionHeader: sectionHeader, preview: preview)
+        let networkUsecase = NetworkUsecase(network: Network())
+        self.manager = SectionManager(delegate: self, section: section, sectionHeader: sectionHeader, preview: preview, networkUsecase: networkUsecase)
     }
     
     private func configureCollectionView() {
@@ -146,7 +147,7 @@ extension StudyVC {
             
             self?.changeVC(pageData: pageData)
             self?.reloadButtons()
-            self?.manager?.sendProblemDatas(isDismiss: false)
+            self?.manager?.postProblemDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
     }

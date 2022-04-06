@@ -38,7 +38,7 @@ final class SelectProblemsVM {
     }
     
     private func configureUploadQueue() {
-        self.uploadQueue = self.section.uploadQueue ?? []
+        self.uploadQueue = self.section.uploadProblemQueue ?? []
         print("upload: \(self.uploadQueue)")
     }
     
@@ -82,7 +82,7 @@ final class SelectProblemsVM {
         // scoringQueue = []
         self.section.setValue([], forKey: "scoringQueue")
         // uploadQueue -> setValue 처리
-        self.section.setValue(self.uploadQueue, forKey: "uploadQueue")
+        self.section.setValue(self.uploadQueue, forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
         // count == totalCount -> section.terminated
         if scoringQueue.count == self.scoreableTotalCount {
             NotificationCenter.default.post(name: .sectionTerminated, object: nil)
