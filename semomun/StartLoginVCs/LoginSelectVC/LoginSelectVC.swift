@@ -22,7 +22,7 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     }
     
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
-    private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()), usecase: LoginSignupUsecase())
+    private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()))
     private var cancellables: Set<AnyCancellable> = []
     
     private enum ButtonUIConstants {

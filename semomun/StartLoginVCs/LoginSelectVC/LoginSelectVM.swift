@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias LoginSelectVMNetworkUsecase = (LoginSignupPostable & UserInfoSendable & UserInfoFetchable)
+typealias LoginSelectVMNetworkUsecase = (LoginSignupPostable & UserInfoSendable & UserInfoFetchable & SyncFetchable)
 
 class LoginSelectVM {
     enum LoginSelectVMAlert {
@@ -29,9 +29,9 @@ class LoginSelectVM {
     private let networkUsecase: LoginSelectVMNetworkUsecase
     private let usecase: LoginSignupUsecase
     
-    init(networkUsecase: LoginSelectVMNetworkUsecase, usecase: LoginSignupUsecase) {
+    init(networkUsecase: LoginSelectVMNetworkUsecase) {
         self.networkUsecase = networkUsecase
-        self.usecase = usecase
+        self.usecase = LoginSignupUsecase(networkUsecase: networkUsecase)
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
@@ -92,7 +92,7 @@ extension LoginSelectVM {
     private func handleLoginNetworkStatus(token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            LoginSignupUsecase().setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
+            LoginSignupUsecase(networkUsecase: self.networkUsecase).setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
                 self?.handleLocalDataSettingResult(isSuccess: isSuccess)
             }
         default:

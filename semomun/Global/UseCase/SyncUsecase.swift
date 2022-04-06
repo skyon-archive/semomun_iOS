@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias SyncFetchable = (UserInfoFetchable)
+typealias SyncFetchable = (UserInfoFetchable & LoginSignupPostable)
 
 struct SyncUsecase {
     
@@ -15,15 +15,19 @@ struct SyncUsecase {
         case networkFail, coreDataFetchFail
     }
     
-    static private let networkUsecase: SyncFetchable = NetworkUsecase(network: Network())
+    private let networkUsecase: SyncFetchable
+    
+    init(networkUsecase: SyncFetchable) {
+        self.networkUsecase = networkUsecase
+    }
     
     // MARK: AppDelegate 에서 1.0 -> 2.0 업데이트 로직
-    static func getTokensForPastVersionUser(networkUsecase: LoginSignupPostable, completion: @escaping (Bool) -> Void) {
+    func getTokensForPastVersionUser(completion: @escaping (Bool) -> Void) {
         do {
             let tokenString = try KeychainItem(account: .userIdentifier).readItem()
             let userToken = NetworkURL.UserIDToken.legacy(tokenString)
-            
-            networkUsecase.postLogin(userToken: userToken) { status, userNotExist in
+
+            self.networkUsecase.postLogin(userToken: userToken) { status, userNotExist in
                 guard userNotExist == false else {
                     assertionFailure()
                     completion(false)
@@ -41,7 +45,7 @@ struct SyncUsecase {
         }
     }
     
-    static func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
+    func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
             case .SUCCESS where userInfo != nil:
@@ -55,7 +59,7 @@ struct SyncUsecase {
         }
     }
     
-    static private func saveUserInfoToCoreData(_ userInfo: UserInfo) {
+    private func saveUserInfoToCoreData(_ userInfo: UserInfo) {
         if let userCoreData = CoreUsecase.fetchUserInfo() {
             userCoreData.setValues(userInfo: userInfo)
             CoreDataManager.saveCoreData()
