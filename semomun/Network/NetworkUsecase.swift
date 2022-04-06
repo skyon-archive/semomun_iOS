@@ -416,12 +416,27 @@ extension NetworkUsecase: UserLogSendable {
 }
 extension NetworkUsecase: UserSubmissionSendable {
     func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void) {
-        print("Problems: \(problems.map(\.pid))")
-        completion(.SUCCESS)
+        print(problems)
+        self.network.request(url: NetworkURL.submissionOfProblems, param: ["submissions": problems], method: .post, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode,
+                  statusCode != 200 else {
+                print("submission of problems ERROR")
+                completion(.FAIL)
+                return
+            }
+            completion(.SUCCESS)
+        }
     }
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
-        print("Pages: \(pages.map(\.vid))")
-        completion(.SUCCESS)
+        self.network.request(url: NetworkURL.submissionOfPages, param: ["submissions": pages], method: .post, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode,
+                  statusCode != 200 else {
+                print("submission of pages ERROR")
+                completion(.FAIL)
+                return
+            }
+            completion(.SUCCESS)
+        }
     }
 }
 
