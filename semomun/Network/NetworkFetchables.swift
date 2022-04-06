@@ -51,8 +51,10 @@ protocol SectionDownloadable {
     func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
 }
 // MARK: - Chackable
-protocol NicknameCheckable {
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void)
+protocol UsernameCheckable {
+    /// - Parameters:
+    ///   - completion: 이름이 사용가능하면 completion의 Bool값으로 true가 반환됩니다.
+    func usernameAvailable(_ username: String, completion: @escaping (NetworkStatus, Bool) -> Void)
 }
 protocol PhonenumVerifiable {
     func requestVerification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ())

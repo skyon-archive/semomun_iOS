@@ -193,8 +193,8 @@ extension NetworkUsecase: SectionDownloadable {
 
 
 // MARK: - Chackable
-extension NetworkUsecase: NicknameCheckable {
-    func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
+extension NetworkUsecase: UsernameCheckable {
+    func usernameAvailable(_ nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
         self.network.request(url: NetworkURL.username, param: ["username": nickname], method: .get, tokenRequired: false) { result in
             if let statusCode = result.statusCode {
                 guard let data = result.data,
