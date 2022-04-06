@@ -33,7 +33,7 @@ enum LoginSignupAlert {
 }
 
 enum LoginSignupStatus {
-    case usernameNotInUse
+    case usernameAvailable
     case usernameAlreadyUsed
     case usernameWrongFormat
     case usernameGoodFormat

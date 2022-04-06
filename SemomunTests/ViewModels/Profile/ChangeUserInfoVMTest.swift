@@ -36,6 +36,13 @@ class ChangeUserInfoVMTest: XCTestCase {
         XCTAssertEqual(self.vm.configureUIForNicknamePhoneRequest, false)
     }
     
+    func testNoNetworkFetchData() {
+        self.networkUsecase.reachability = false
+        self.vm.fetchData()
+        
+        XCTAssertEqual(self.vm.alert, .networkErrorWithPop)
+    }
+    
     func testCheckUsernameFormat() {
         // 길이
         self.vm.checkUsernameFormat("123")
@@ -62,7 +69,74 @@ class ChangeUserInfoVMTest: XCTestCase {
         self.vm.checkPhoneNumberFormat("010123456")
         XCTAssertEqual(self.vm.status, .phoneNumberGoodFormat)
     }
+    
+    func testChangeUsername() {
+        self.vm.fetchData()
+        
+        // 사용중인 이름
+        self.vm.changeUsername(self.networkUsecase.usedName.randomElement()!)
+        XCTAssertEqual(self.vm.status, .usernameAlreadyUsed)
+        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        
+        // 사용할 수 없는 이름
+        self.vm.changeUsername("*")
+        XCTAssertEqual(self.vm.status, .usernameWrongFormat)
+        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        
+        // 기존 이름
+        self.vm.changeUsername(self.networkUsecase.userInfo.username!)
+        XCTAssertEqual(self.vm.status, .usernameAvailable)
+        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        
+        // 사용할 수 있는 이름
+        let newUsername = "___________________a"
+        self.vm.changeUsername(newUsername)
+        XCTAssertEqual(self.vm.status, .usernameAvailable)
+        XCTAssertEqual(self.vm.userInfo?.username, newUsername)
+        
+        // 네트워크
+        self.networkUsecase.reachability = false
+        self.vm.changeUsername("abc123")
+        XCTAssertEqual(self.vm.alert, .networkErrorWithoutPop)
+        XCTAssertEqual(self.vm.userInfo?.username, newUsername)
+    }
+    
+    func testSelectMajor() {
+        self.vm.fetchData()
+        self.vm.selectMajor(at: 1)
+        
+        let major = self.networkUsecase.majors[1]
+        XCTAssertEqual(self.vm.majorDetails, major.details)
+        XCTAssertEqual(self.vm.userInfo?.major, major.name)
+        XCTAssertEqual(self.vm.userInfo?.majorDetail, nil)
+    }
+    
+    func testSelectMajorDetail() {
+        self.vm.fetchData()
+        self.vm.selectMajor(at: 2)
+        self.vm.selectMajorDetail(at: 1)
+        
+        let major = self.networkUsecase.majors[2]
+        XCTAssertEqual(self.vm.userInfo?.majorDetail, major.details[1])
+    }
+    
+    func testSubmitFlow() {
+        self.vm.fetchData()
+        
+        self.vm.changeUsername("abc123")
+        self.vm.selectMajor(at: 1)
+        self.vm.selectMajorDetail(at: 2)
+        self.vm.requestPhoneAuth(withPhoneNumber: "01012345678")
+        self.vm.confirmAuthNumber(with: self.networkUsecase.validAuthCode)
+        
+        XCTAssertEqual(self.vm.userInfo?.username, "abc123")
+        XCTAssertEqual(self.vm.userInfo?.phoneNumber, "01012345678")
+        XCTAssertEqual(self.vm.userInfo?.major, self.networkUsecase.majors[1].name)
+        XCTAssertEqual(self.vm.userInfo?.majorDetail, self.networkUsecase.majors[1].details[2])
+    }
 }
+
+// MARK: - Supporting
 
 extension LoginSignupAlert: Equatable {
     public static func == (lhs: LoginSignupAlert, rhs: LoginSignupAlert) -> Bool {
@@ -77,13 +151,8 @@ extension LoginSignupAlert: Equatable {
     }
 }
 
-// nil과의 비교만 필요해 임시 구현
 extension UserInfo: Equatable {
     public static func == (lhs: UserInfo, rhs: UserInfo) -> Bool {
-<<<<<<< HEAD
-        XCTFail()
-        return false
-=======
         return lhs.uid == rhs.uid &&
         lhs.name == rhs.name &&
         lhs.username == rhs.username &&
@@ -97,6 +166,5 @@ extension UserInfo: Equatable {
         lhs.credit == rhs.credit &&
         lhs.createdDate == rhs.createdDate &&
         lhs.updatedDate == rhs.updatedDate
->>>>>>> ffaee0db ([Feat] SyncUsecase에 네트워크를 주입하도록해 테스트 가능하도록 수정)
     }
 }

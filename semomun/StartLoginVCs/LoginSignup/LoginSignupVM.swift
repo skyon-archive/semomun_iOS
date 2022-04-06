@@ -54,7 +54,7 @@ final class LoginSignupVM {
             if status == .SUCCESS {
                 if isAvailable {
                     self?.signupUserInfo.username = username
-                    self?.status = .usernameNotInUse
+                    self?.status = .usernameAvailable
                 } else {
                     self?.status = .usernameAlreadyUsed
                 }
