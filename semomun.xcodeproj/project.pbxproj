@@ -140,6 +140,8 @@
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
 		8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781442B27C6044E00C31104 /* ProblemSelectCell.swift */; };
 		8781442E27C6175400C31104 /* SelectProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781442D27C6175400C31104 /* SelectProblemsVM.swift */; };
+		8782DDF127FD3F8000BB5FF7 /* SubmissionProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */; };
+		8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */; };
 		8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784795727C87F18000C6307 /* SectionResultVM.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879A52E027D0BE97000B4D97 /* NetworkResult.swift */; };
@@ -367,6 +369,8 @@
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		8781442B27C6044E00C31104 /* ProblemSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemSelectCell.swift; sourceTree = "<group>"; };
 		8781442D27C6175400C31104 /* SelectProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVM.swift; sourceTree = "<group>"; };
+		8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionProblem.swift; sourceTree = "<group>"; };
+		8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionPage.swift; sourceTree = "<group>"; };
 		8784795727C87F18000C6307 /* SectionResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultVM.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879A52E027D0BE97000B4D97 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
@@ -496,6 +500,8 @@
 			children = (
 				87FA0A9427D60899005B6925 /* WorkbookLog.swift */,
 				25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */,
+				8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */,
+				8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */,
 			);
 			path = Encodables;
 			sourceTree = "<group>";
@@ -1454,6 +1460,7 @@
 				2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */,
 				8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */,
 				8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */,
+				8782DDF127FD3F8000BB5FF7 /* SubmissionProblem.swift in Sources */,
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
 				8716E931279A5F4D00B33A5E /* HomeVC.swift in Sources */,
 				25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */,
@@ -1512,6 +1519,7 @@
 				25A950B327C760EC0084513E /* Collection.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
+				8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */,
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,

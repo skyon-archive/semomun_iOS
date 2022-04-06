@@ -415,12 +415,11 @@ extension NetworkUsecase: UserLogSendable {
     }
 }
 extension NetworkUsecase: UserSubmissionSendable {
-    func sendProblemSubmissions() {
-        // TODO: 구현 예정
+    func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void) {
+        
     }
-    
-    func sendPageSubmissions() {
-        // TODO: 구현 예정
+    func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
+        
     }
 }
 
