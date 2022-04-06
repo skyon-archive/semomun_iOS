@@ -44,6 +44,8 @@
 		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
 		2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */; };
+		2570543627FDB1CF005398F9 /* ChangeUserInfoVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */; };
+		2570543827FDB212005398F9 /* MockUserInfoVMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
@@ -274,6 +276,8 @@
 		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
 		2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = semomunTests/ViewModels/Profile/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
+		2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeUserInfoVMTest.swift; path = SemomunTests/ViewModels/Profile/ChangeUserInfoVMTest.swift; sourceTree = SOURCE_ROOT; };
+		2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockUserInfoVMNetwork.swift; path = SemomunTests/Network/MockUserInfoVMNetwork.swift; sourceTree = SOURCE_ROOT; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -592,6 +596,7 @@
 			children = (
 				25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */,
 				2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */,
+				2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -696,6 +701,7 @@
 			children = (
 				25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */,
 				25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */,
+				2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1420,7 +1426,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */,
+				2570543627FDB1CF005398F9 /* ChangeUserInfoVMTest.swift in Sources */,
 				25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */,
+				2570543827FDB212005398F9 /* MockUserInfoVMNetwork.swift in Sources */,
 				25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */,
 				25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */,
 				2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */,
