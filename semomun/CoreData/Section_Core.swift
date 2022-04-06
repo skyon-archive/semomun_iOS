@@ -27,7 +27,8 @@ public class Section_Core: NSManagedObject {
         case terminated
         case problemCores
         case scoringQueue
-        case uploadQueue
+        case uploadProblemQueue
+        case uploadPageQueue
         case updatedDate
     }
 
@@ -37,8 +38,9 @@ public class Section_Core: NSManagedObject {
     @NSManaged public var lastPageId: Int64 //TODO: lastIndex 수정 예정
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 생긴 ProblemCore들
-    @NSManaged public var scoringQueue: [Int]? //부분채점시 표시될 pid들
-    @NSManaged public var uploadQueue: [Int]? //채점시 DB상에 upload 될 pid들
+    @NSManaged public var scoringQueue: [Int]? //NEW: 부분채점시 표시될 pid들
+    @NSManaged public var uploadProblemQueue: [Int]? //NEW: DB상에 upload 될 pid들
+    @NSManaged public var uploadPageQueue: [Int]? // NEW: DB상에 upload 될 vid들
     @NSManaged public var updatedDate: Date? // NEW: 반영일자
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
