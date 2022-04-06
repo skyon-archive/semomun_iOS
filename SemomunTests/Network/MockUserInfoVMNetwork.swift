@@ -8,11 +8,17 @@
 import Foundation
 @testable import semomun
 
-struct MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
+/// - Note: VM 속 객체를 외부에서 조작하기 위해 class로 선언
+class MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
     var reachability = true
     var tooManyCodeRequest = false
     let validName = "홍길동"
     let validAuthCode = "123456"
+    let majors = [
+        Major(name: "A", details: ["1","2","3"]),
+        Major(name: "B", details: ["4","5","6"]),
+        Major(name: "C", details: ["7","8","9"]),
+    ]
     
     func getMajors(completion: @escaping ([Major]?) -> Void) {
         guard self.reachability == true else {
@@ -20,13 +26,7 @@ struct MockUserInfoVMNetwork: ChangeUserInfoNetworkUseCase {
             return
         }
         
-        let majors = [
-            Major(name: "A", details: ["1","2","3"]),
-            Major(name: "B", details: ["4","5","6"]),
-            Major(name: "C", details: ["7","8","9"]),
-        ]
-        
-        completion(majors)
+        completion(self.majors)
     }
     
     func checkRedundancy(ofNickname nickname: String, completion: @escaping (NetworkStatus, Bool) -> Void) {
