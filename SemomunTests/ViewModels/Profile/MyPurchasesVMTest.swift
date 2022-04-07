@@ -78,15 +78,6 @@ class MyPurchasesVMTest: XCTestCase {
     }
 }
 
-extension PurchasedItem: Equatable {
-    public static func == (lhs: PurchasedItem, rhs: PurchasedItem) -> Bool {
-        return lhs.createdDate == rhs.createdDate &&
-        lhs.transaction == rhs.transaction &&
-        lhs.descriptionImageID == rhs.descriptionImageID &&
-        lhs.title == rhs.title
-    }
-}
-
 // MARK: Supporting extensions
 extension Transaction: Equatable {
     public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
@@ -98,5 +89,14 @@ extension Transaction: Equatable {
         default:
             return false
         }
+    }
+}
+
+extension PurchasedItem: Equatable {
+    public static func == (lhs: PurchasedItem, rhs: PurchasedItem) -> Bool {
+        return lhs.createdDate == rhs.createdDate &&
+        lhs.transaction == rhs.transaction &&
+        lhs.descriptionImageID == rhs.descriptionImageID &&
+        lhs.title == rhs.title
     }
 }

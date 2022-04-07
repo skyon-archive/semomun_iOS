@@ -20,6 +20,11 @@ final class UserNoticeVC: UIViewController {
         self.configureTableView()
         self.getData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 }
 
 // MARK: Confiure layout
