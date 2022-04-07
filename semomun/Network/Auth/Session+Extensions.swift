@@ -14,6 +14,8 @@ extension Session {
             return Session()
         }
         
+        print("token: \(token.accessToken)")
+        
         let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
         let authenticator = OAuthAuthenticator()
         let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
