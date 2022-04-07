@@ -28,7 +28,7 @@ extension NetworkUsecase: VersionFetchable {
                       }
                 completion(.SUCCESS, appstoreVersion)
             default:
-                completion(.ERROR, nil)
+                completion(.FAIL, nil)
             }
         }
     }
@@ -46,7 +46,7 @@ extension NetworkUsecase: BestSellersFetchable {
                       }
                 completion(.SUCCESS, searchPreviews.previews)
             default:
-                completion(.ERROR, [])
+                completion(.FAIL, [])
             }
         }
     }
@@ -65,7 +65,7 @@ extension NetworkUsecase: TagsFetchable {
                       }
                 completion(.SUCCESS, searchTags.tags)
             default:
-                completion(.ERROR, [])
+                completion(.FAIL, [])
             }
         }
     }
@@ -158,7 +158,7 @@ extension NetworkUsecase: PreviewsSearchable {
                       }
                 completion(.SUCCESS, searchPreviews.previews)
             default:
-                completion(.ERROR, [])
+                completion(.FAIL, [])
             }
         }
     }
@@ -257,7 +257,7 @@ extension NetworkUsecase: UserInfoSendable {
             case 200:
                 completion(.SUCCESS)
             default:
-                completion(.ERROR)
+                completion(.FAIL)
             }
         }
     }
@@ -294,29 +294,34 @@ extension NetworkUsecase: UserHistoryFetchable {
 extension NetworkUsecase: UserInfoFetchable {
     func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
         self.network.request(url: NetworkURL.usersSelf, method: .get, tokenRequired: true) { result in
-            if let error = result.error,
-               self.checkTokenExpire(error: error) {
+            if let error = result.error, self.checkTokenExpire(error: error) {
                 completion(.TOKENEXPIRED, nil)
                 return
             }
-            switch result.statusCode {
-            case 504:
-                completion(.INSPECTION, nil)
-            case 200:
-                do {
-                    guard let data = result.data else {
-                        completion(.ERROR, nil)
-                        return
-                    }
-                    let userInfo = try JSONDecoderWithDate().decode(UserInfo.self, from: data)
-                    completion(.SUCCESS, userInfo)
-                } catch {
-                    print(error)
-                    completion(.DECODEERROR, nil)
+            
+            guard let statusCodeVal = result.statusCode else {
+                completion(.FAIL, nil)
+                return
+            }
+            
+            let networkResult = NetworkStatus(statusCode: statusCodeVal)
+            
+            guard networkResult == .SUCCESS else {
+                completion(.FAIL, nil)
+                return
+            }
+            
+            do {
+                guard let data = result.data else {
+                    completion(.FAIL, nil)
                     return
                 }
-            default:
-                completion(.ERROR, nil)
+                let userInfo = try JSONDecoderWithDate().decode(UserInfo.self, from: data)
+                completion(.SUCCESS, userInfo)
+            } catch {
+                print("getUserInfo Error: \(error)")
+                completion(.DECODEERROR, nil)
+                return
             }
         }
     }
@@ -329,10 +334,10 @@ extension NetworkUsecase: UserInfoFetchable {
                    let credit = dto["credit"] as? Int {
                     completion(.SUCCESS, credit)
                 } else {
-                    completion(.ERROR, nil)
+                    completion(.FAIL, nil)
                 }
             default:
-                completion(.ERROR, nil)
+                completion(.FAIL, nil)
             }
         }
     }
@@ -357,7 +362,7 @@ extension NetworkUsecase: UserPurchaseable {
                     completion(.DECODEERROR, nil)
                 }
             default:
-                completion(.ERROR, nil)
+                completion(.FAIL, nil)
             }
         }
     }
@@ -375,7 +380,7 @@ extension NetworkUsecase: UserWorkbooksFetchable {
                       }
                 completion(.SUCCESS, bookshelfInfos)
             default:
-                completion(.ERROR, [])
+                completion(.FAIL, [])
             }
         }
     }
@@ -393,7 +398,7 @@ extension NetworkUsecase: UserWorkbooksFetchable {
                       }
                 completion(.SUCCESS, bookshelfInfos)
             default:
-                completion(.ERROR, [])
+                completion(.FAIL, [])
             }
         }
     }

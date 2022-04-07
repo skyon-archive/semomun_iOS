@@ -13,5 +13,6 @@ struct OAuthCredential: AuthenticationCredential {
     let accessToken: String
     let refreshToken: String
     
+    /// 해당 객체가 refresh되야하는지 여부를 확인.
     let requiresRefresh = false
 }

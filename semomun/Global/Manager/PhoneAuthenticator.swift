@@ -44,8 +44,6 @@ class PhoneAuthenticator {
             case .SUCCESS:
                 self.tempPhoneNumberForResend = phoneNumberWithCountryCode
                 completion(.success(phoneNumber))
-            case .BADREQUEST:
-                completion(.failure(.invalidPhoneNumber))
             case .TOOMANYREQUESTS:
                 completion(.failure(.smsSentTooMuch))
             default:

@@ -72,7 +72,7 @@ final class HomeVM {
                 if deviceVersion.versionCompare(appstoreVersion) == .orderedAscending {
                     self?.updateToVersion = appstoreVersion
                 }
-            case .ERROR:
+            case .FAIL:
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             default:
                 return
