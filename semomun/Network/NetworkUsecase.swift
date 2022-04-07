@@ -419,7 +419,7 @@ extension NetworkUsecase: UserSubmissionSendable {
         print(problems)
         self.network.request(url: NetworkURL.submissionOfProblems, param: ["submissions": problems], method: .post, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
-                  statusCode != 200 else {
+                  statusCode == 200 else {
                 print("submission of problems ERROR")
                 completion(.FAIL)
                 return
@@ -430,7 +430,7 @@ extension NetworkUsecase: UserSubmissionSendable {
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
         self.network.request(url: NetworkURL.submissionOfPages, param: ["submissions": pages], method: .post, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
-                  statusCode != 200 else {
+                  statusCode == 200 else {
                 print("submission of pages ERROR")
                 completion(.FAIL)
                 return
