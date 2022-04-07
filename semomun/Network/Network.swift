@@ -12,6 +12,7 @@ class Network: NetworkFetchable {
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? Session.sessionWithToken : Session.default
         print("\(method): \(url)")
+        
         session.request(url, method: method) { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -23,6 +24,7 @@ class Network: NetworkFetchable {
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? Session.sessionWithToken : Session.default
         print("\(method): \(url), \(param)")
+        
         session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
@@ -34,6 +36,7 @@ class Network: NetworkFetchable {
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? Session.sessionWithToken : Session.default
         print("\(method): \(url), \(param)")
+        
         let parameterEncoder = JSONParameterEncoder(encoder: encoder)
         session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
