@@ -211,42 +211,40 @@ final class SectionManager {
     func postProblemAndPageDatas(isDismiss: Bool) {
         let uploadProblemQueue = self.section.uploadProblemQueue ?? []
         let uploadPageQueue = self.section.uploadPageQueue ?? []
-        var completeCount: Int = [uploadProblemQueue.isEmpty == false, uploadPageQueue.isEmpty == false].filter { $0 }.count
-        if completeCount == 0 {
+        if uploadProblemQueue.isEmpty && uploadPageQueue.isEmpty {
             if isDismiss {
                 self.delegate?.dismissSection()
             }
             return
         }
         
+        let taskGroup = DispatchGroup()
+        
         if uploadProblemQueue.isEmpty == false {
+            taskGroup.enter()
             let uploadProblems = self.problems
                 .filter { uploadProblemQueue.contains(Int($0.pid)) }
                 .map { SubmissionProblem(problem: $0) }
-            self.postProblemDatas(uploadProblems: uploadProblems) { [weak self] in
-                completeCount -= 1
-                if completeCount == 0 {
-                    if isDismiss {
-                        self?.delegate?.dismissSection()
-                    }
-                    return
-                }
+            self.postProblemDatas(uploadProblems: uploadProblems) {
+                taskGroup.leave()
             }
         }
         
         if uploadPageQueue.isEmpty == false {
+            taskGroup.enter()
             let uploadPages = Array(Set(self.problems.compactMap(\.pageCore)
                 .filter { uploadPageQueue.contains(Int($0.vid)) }
                 .map { SubmissionPage(page: $0) }))
-            self.postPageDatas(uploadPages: uploadPages) { [weak self] in
-                completeCount -= 1
-                if completeCount == 0 {
-                    if isDismiss {
-                        self?.delegate?.dismissSection()
-                    }
-                    return
-                }
+            self.postPageDatas(uploadPages: uploadPages) {
+                taskGroup.leave()
             }
+        }
+        
+        taskGroup.notify(queue: .main) {
+            if isDismiss {
+                self.delegate?.dismissSection()
+            }
+            return
         }
     }
     
