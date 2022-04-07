@@ -17,7 +17,6 @@ class OAuthAuthenticator: Authenticator {
     
     /// 토큰을 URLRequest에 적용
     func apply(_ credential: OAuthCredential, to urlRequest: inout URLRequest) {
-        print("token: \(credential.accessToken)")
         urlRequest.headers.add(.authorization(bearerToken: credential.accessToken))
     }
     

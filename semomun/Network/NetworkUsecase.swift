@@ -419,10 +419,11 @@ extension NetworkUsecase: UserLogSendable {
         }
     }
 }
+
 extension NetworkUsecase: UserSubmissionSendable {
     func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void) {
         let encoder = JSONEncoder()
-        self.network.request(url: NetworkURL.submissionOfProblems, param: ["submissions": problems], method: .post, encoder: encoder, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.submissionOfProblems, param: ["submissions": problems], method: .post, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
                   statusCode == 200 else {
                 print("submission of problems ERROR")

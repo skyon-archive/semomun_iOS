@@ -34,7 +34,6 @@ class SearchResultCell: UICollectionViewCell {
     
     private func configureImage(uuid: UUID) {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
-            print("cached image: \(uuid)")
             self.bookcover.image = cachedImage
         } else {
             self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in

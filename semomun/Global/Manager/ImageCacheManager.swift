@@ -20,6 +20,5 @@ final class ImageCacheManager {
     func saveImage(uuid: UUID, image: UIImage) {
         let cachedKey = NSString(string: uuid.uuidString.lowercased())
         self.cache.setObject(image, forKey: cachedKey)
-        print("Save cache image: \(uuid.uuidString.lowercased())")
     }
 }
