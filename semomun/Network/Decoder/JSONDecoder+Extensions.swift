@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class JSONDecoderWithDate: JSONDecoder {
-    override init() {
-        super.init()
-        
+extension JSONDecoder {
+    static var dateformatted: JSONDecoder = {
+        let decoder = JSONDecoder()
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
-        self.dateDecodingStrategy = .formatted(formatter)
-    }
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        return decoder
+    }()
 }
