@@ -477,6 +477,7 @@ Label</string>
                         <outlet property="navigationTitleView" destination="dAq-4v-ISC" id="rHc-wR-31N"/>
                         <outlet property="newestHeight" destination="0q1-Ix-onL" id="TR4-cp-OaX"/>
                         <outlet property="recentHeight" destination="pYB-X9-Lkv" id="7SM-xp-HwE"/>
+                        <outlet property="scrollView" destination="2mm-AJ-JeX" id="Eah-46-ovS"/>
                         <outlet property="tagsStackView" destination="Za2-Pw-zvx" id="Ith-NJ-Onl"/>
                         <outlet property="workbooksWithNewest" destination="b4q-Fp-Nim" id="IXt-7O-N2L"/>
                         <outlet property="workbooksWithRecent" destination="Hxv-tO-4Bd" id="lwE-rY-mjZ"/>
