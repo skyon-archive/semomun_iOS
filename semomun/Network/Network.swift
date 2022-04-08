@@ -8,16 +8,7 @@
 import Foundation
 import Alamofire
 
-class Network: NetworkFetchable {
-    private let urlFormEncoder = URLEncodedFormParameterEncoder.default
-    private lazy var jsonEncoder: JSONParameterEncoder = {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        encoder.keyEncodingStrategy = .convertToSnakeCase
-        
-        return JSONParameterEncoder(encoder: encoder)
-    }()
-    
+struct Network: NetworkFetchable {
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         
         let session = tokenRequired ? Session.sessionWithToken : Session.default
@@ -69,9 +60,9 @@ class Network: NetworkFetchable {
     
     private func getEncoder(for method: HTTPMethod) -> ParameterEncoder {
         if method == .get {
-            return self.urlFormEncoder
+            return URLEncodedFormParameterEncoder.default
         } else {
-            return self.jsonEncoder
+            return JSONParameterEncoder.dateformatted
         }
     }
 }
