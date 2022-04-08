@@ -27,11 +27,11 @@ class LoginSelectVM {
     /// 덮어쓰기를 위해 저장해놓는 값
     private var backupForPaste: NetworkURL.UserIDToken?
     private let networkUsecase: LoginSelectVMNetworkUsecase
-    private let usecase: LoginSignupUsecase
+    private let usecase: LoginSignupLogic
     
-    init(networkUsecase: LoginSelectVMNetworkUsecase) {
+    init(networkUsecase: LoginSelectVMNetworkUsecase, usecase: LoginSignupLogic) {
         self.networkUsecase = networkUsecase
-        self.usecase = LoginSignupUsecase(networkUsecase: networkUsecase)
+        self.usecase = usecase
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
