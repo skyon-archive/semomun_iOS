@@ -12,7 +12,6 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var navigationTitleView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
     @IBOutlet weak var bannerAds: UICollectionView!
     @IBOutlet weak var bestSellers: UICollectionView!
     @IBOutlet weak var workbooksWithTags: UICollectionView!
