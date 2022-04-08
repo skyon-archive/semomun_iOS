@@ -41,6 +41,11 @@ final class ProfileVC: UIViewController {
         return loginedProfileTableVC
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationTitleView.addShadow(direction: .bottom)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
