@@ -26,8 +26,8 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     private var cancellables: Set<AnyCancellable> = []
     
     private enum ButtonUIConstants {
-        static let buttonWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 240 : 309
-        static let buttonHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 45 : 54
+        static let buttonWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 240 : 345
+        static let buttonHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 45 : 60
         static let buttonRadius: CGFloat = 10
     }
     
