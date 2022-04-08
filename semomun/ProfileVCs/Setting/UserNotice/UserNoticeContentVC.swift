@@ -47,8 +47,8 @@ final class UserNoticeContentVC: UIViewController {
     
     func configureContent(using userNotice: UserNotice) {
         self.titleLabel.text = userNotice.title
-        self.dateLabel.text = userNotice.date.yearMonthDayText
-        self.contentTextView.attributedText = NSAttributedString(string: userNotice.content, attributes: textViewAttribute)
+        self.dateLabel.text = userNotice.updatedDate.yearMonthDayText
+        self.contentTextView.attributedText = NSAttributedString(string: userNotice.text, attributes: textViewAttribute)
     }
 }
 
