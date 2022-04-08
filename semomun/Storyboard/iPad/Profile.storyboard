@@ -217,11 +217,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-UW-kvw">
+                                <rect key="frame" x="0.0" y="214" width="834" height="915"/>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Tw-ngC">
-                                <rect key="frame" x="0.0" y="4" width="834" height="110"/>
+                                <rect key="frame" x="0.0" y="4" width="834" height="210"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu4-tq-aPw">
-                                        <rect key="frame" x="28" y="44.5" width="78" height="36"/>
+                                        <rect key="frame" x="28" y="42" width="78" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" name="defaultText"/>
                                         <nil key="highlightedColor"/>
@@ -229,9 +232,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="Pfu-Tw-ngC" secondAttribute="leading" constant="28" id="RXu-4T-RB1"/>
-                                    <constraint firstAttribute="height" constant="110" id="Yk0-SG-2EA"/>
-                                    <constraint firstItem="eu4-tq-aPw" firstAttribute="centerY" secondItem="Pfu-Tw-ngC" secondAttribute="centerY" constant="7.5" id="aSU-7O-sUA"/>
+                                    <constraint firstAttribute="height" constant="210" id="Yk0-SG-2EA"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personCircle" translatesAutoresizingMaskIntoConstraints="NO" id="FjB-o2-7Ra" userLabel="Person Circle">
@@ -243,16 +244,6 @@
                                 <color key="textColor" name="defaultText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZA0-7P-slR" userLabel="Divider">
-                                <rect key="frame" x="0.0" y="213.5" width="834" height="0.5"/>
-                                <color key="backgroundColor" name="divider"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.25" id="ttN-0D-S3M"/>
-                                </constraints>
-                            </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-UW-kvw">
-                                <rect key="frame" x="0.0" y="214" width="834" height="915"/>
-                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEK-xF-hYe">
                                 <rect key="frame" x="604" y="154.5" width="123" height="18"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -301,19 +292,18 @@
                             <constraint firstItem="FjB-o2-7Ra" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="107" id="74b-eV-m12"/>
                             <constraint firstItem="Pfu-Tw-ngC" firstAttribute="top" secondItem="TAC-R5-80x" secondAttribute="top" constant="-20" id="9Vo-W6-x9N"/>
                             <constraint firstAttribute="bottom" secondItem="Ati-UW-kvw" secondAttribute="bottom" constant="65" id="ArF-sF-MeJ"/>
+                            <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="Pfu-Tw-ngC" secondAttribute="bottom" id="Brp-OX-n1f"/>
                             <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Ati-UW-kvw" secondAttribute="trailing" id="K94-Rb-UWh"/>
                             <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="FjB-o2-7Ra" secondAttribute="bottom" constant="30" id="Vfb-8m-9sx"/>
                             <constraint firstItem="TAC-R5-80x" firstAttribute="leading" secondItem="Ati-UW-kvw" secondAttribute="leading" id="Wj5-24-AUt"/>
                             <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="ngq-F7-SIo" secondAttribute="trailing" constant="107" id="awn-YT-UIk"/>
                             <constraint firstItem="vEK-xF-hYe" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="o6Q-PM-f63"/>
-                            <constraint firstItem="ZA0-7P-slR" firstAttribute="leading" secondItem="Ati-UW-kvw" secondAttribute="leading" id="rQq-Pn-YVw"/>
                             <constraint firstItem="Pfu-Tw-ngC" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" id="rb8-Ms-MmX"/>
-                            <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="ZA0-7P-slR" secondAttribute="bottom" constant="0.25" id="s2F-KJ-rpC"/>
+                            <constraint firstItem="eu4-tq-aPw" firstAttribute="top" secondItem="TAC-R5-80x" secondAttribute="top" constant="22" id="slS-vY-zFq"/>
+                            <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="28" id="t4e-w4-owO"/>
                             <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Pfu-Tw-ngC" secondAttribute="trailing" id="uMv-tI-BqY"/>
                             <constraint firstItem="WHv-VQ-Ze5" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="uTV-NG-QAe"/>
                             <constraint firstItem="ngq-F7-SIo" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="wbi-en-Mzq"/>
-                            <constraint firstItem="ZA0-7P-slR" firstAttribute="width" secondItem="Ati-UW-kvw" secondAttribute="width" id="xvC-kE-RFA"/>
-                            <constraint firstItem="FjB-o2-7Ra" firstAttribute="top" secondItem="Pfu-Tw-ngC" secondAttribute="bottom" constant="29" id="yOn-96-2rc"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="프로필" image="profile" selectedImage="profile" id="SqW-G1-Yw3">
