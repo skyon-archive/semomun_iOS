@@ -299,23 +299,14 @@ extension NetworkUsecase: UserInfoFetchable {
                 return
             }
             
-            guard let statusCodeVal = result.statusCode else {
-                completion(.FAIL, nil)
-                return
-            }
-            
-            let networkResult = NetworkStatus(statusCode: statusCodeVal)
-            
-            guard networkResult == .SUCCESS else {
-                completion(.FAIL, nil)
-                return
-            }
+            guard let statusCode = result.statusCode,
+                  let data = result.data,
+                  NetworkStatus(statusCode: statusCode) == .SUCCESS else {
+                      completion(.FAIL, nil)
+                      return
+                  }
             
             do {
-                guard let data = result.data else {
-                    completion(.FAIL, nil)
-                    return
-                }
                 let userInfo = try JSONDecoderWithDate().decode(UserInfo.self, from: data)
                 completion(.SUCCESS, userInfo)
             } catch {
