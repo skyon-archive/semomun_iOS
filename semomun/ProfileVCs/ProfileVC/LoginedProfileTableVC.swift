@@ -17,6 +17,7 @@ final class LoginedProfileTableVC: UITableViewController, StoryboardController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.contentInset = .init(top: 27, left: 0, bottom: 27, right: 0)
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.tableView.setHorizontalMargin(to: 16)
         } else {
