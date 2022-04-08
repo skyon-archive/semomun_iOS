@@ -51,6 +51,8 @@ final class BookshelfVM {
                 return leftTitle < rightTitle
             })
         }
+        let books = self.books
+        self.books = books + books + books + books + books + books + books + books + books + books
     }
     
     func fetchBooksFromNetwork(updateAll: Bool = false) {
