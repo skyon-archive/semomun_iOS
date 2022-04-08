@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct LoginSignupUsecase {
+protocol LoginSignupLogic {
+    func setLocalDataAfterLogin(token: String, completion: @escaping (Bool) -> Void)
+    func setLocalDataAfterSignup(token: String, completion: @escaping (Bool) -> Void)
+}
+
+struct LoginSignupUsecase: LoginSignupLogic  {
     private let syncUsecase: SyncUsecase
     
     init(networkUsecase: SyncFetchable) {
