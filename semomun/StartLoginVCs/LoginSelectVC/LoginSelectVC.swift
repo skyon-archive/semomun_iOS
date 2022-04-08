@@ -109,7 +109,7 @@ extension LoginSelectVC {
         let text = UILabel()
         text.text = self.isSignup ? "Google로 등록" : "Google로 로그인"
         text.textColor = UIColor(.grayTextColor)
-        text.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        text.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         return text
     }
     
