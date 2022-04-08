@@ -57,6 +57,7 @@ final class BookshelfVM {
         guard NetworkStatusManager.isConnectedToInternet() else { return }
         
         self.loading = true
+        print("loading start")
         self.networkUsecse.getUserBookshelfInfos { [weak self] status, infos in
             switch status {
             case .SUCCESS:
@@ -125,31 +126,35 @@ final class BookshelfVM {
     // Migration 의 경우 coredata 상에 저장된 preview 도 모두 정보를 최신화 하는 함수
     private func updateAllBooks(infos: [BookshelfInfoOfDB]) {
         let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
-        let updateCount: Int = self.books.count
-        var currentCount: Int = 0
+        guard userPurchases.isEmpty == false else {
+            self.loading = false
+            return
+        }
+        
+        let taskGroup = DispatchGroup()
         print("---------- update All books ----------")
         
         userPurchases.forEach { info in
+            taskGroup.enter()
             self.networkUsecse.getWorkbook(wid: info.wid) { [weak self] workbook in
                 let targetWorkbook = self?.books.first { $0.wid == Int64(info.wid) }
+                if targetWorkbook == nil {
+                    print("CoreData 상에 없는 Workbook 정보 존재")
+                    taskGroup.leave()
+                }
                 
                 targetWorkbook?.setValues(workbook: workbook, info: info) // 저자, isbn 등 모두 새롭게 저장, 표지가 바뀔 수 있기에 표지도 fetch
-                targetWorkbook?.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecse, completion: { [weak self] in
+                targetWorkbook?.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecse, completion: {
                     print("update preview(\(info.wid)) complete")
-                    currentCount += 1
-                    
-                    if currentCount == updateCount {
-                        CoreDataManager.saveCoreData()
-                        self?.loading = false
-                    }
+                    taskGroup.leave()
                 })
             }
         }
         
-        // update 할 정보가 없을 경우 loading 종료
-        if updateCount == 0 {
+        taskGroup.notify(queue: .main) {
             CoreDataManager.saveCoreData()
             self.loading = false
+            return
         }
     }
 }
