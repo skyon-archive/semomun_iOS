@@ -397,11 +397,8 @@ extension NetworkUsecase: UserWorkbooksFetchable {
 extension NetworkUsecase: UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date) {
         let log = WorkbookLog(wid: wid, datetime: datetime)
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        encoder.keyEncodingStrategy = .convertToSnakeCase
         
-        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put, encoder: encoder, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.enterWorkbook, param: log, method: .put, tokenRequired: true) { result in
             if result.statusCode == 200 {
                 print("send workbook log success")
             } else {
@@ -413,7 +410,6 @@ extension NetworkUsecase: UserLogSendable {
 
 extension NetworkUsecase: UserSubmissionSendable {
     func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void) {
-        let encoder = JSONEncoder()
         self.network.request(url: NetworkURL.submissionOfProblems, param: ["submissions": problems], method: .post, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
                   statusCode == 200 else {
@@ -425,8 +421,7 @@ extension NetworkUsecase: UserSubmissionSendable {
         }
     }
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void) {
-        let encoder = JSONEncoder()
-        self.network.request(url: NetworkURL.submissionOfPages, param: ["submissions": pages], method: .post, encoder: encoder, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.submissionOfPages, param: ["submissions": pages], method: .post, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
                   statusCode == 200 else {
                 print("submission of pages ERROR")
