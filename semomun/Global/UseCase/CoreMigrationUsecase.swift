@@ -74,6 +74,10 @@ extension CoreUsecase {
         guard let sections = CoreUsecase.fetchSections() else { return false }
         // sections.forEach
         for section in sections {
+            // 기존 풀이내역 및 지문필기를 upload 하기 위한 queue 생성
+            var scoringQueue: [Int] = []
+            var uploadProblemsQueue: [Int] = []
+            var uploadPagesQueue: [Int] = []
             // get pages
             let pageCores = CoreUsecase.getPageCores(pNames: section.buttons, dictionary: section.dictionaryOfProblem)
             // get problems
@@ -95,6 +99,26 @@ extension CoreUsecase {
                 problem.setValue(idx, forKey: "orderIndex")
                 problem.pageCore = page
                 problem.sectionCore = section
+                // update queue
+                if problem.solved != nil && scoringQueue.contains(Int(problem.pid)) == false {
+                    scoringQueue.append(Int(problem.pid))
+                }
+                if problem.drawing != nil && uploadProblemsQueue.contains(Int(problem.pid)) == false {
+                    uploadProblemsQueue.append(Int(problem.pid))
+                }
+                if page.drawing != nil && uploadPagesQueue.contains(Int(page.vid)) == false {
+                    uploadPagesQueue.append(Int(page.vid))
+                }
+            }
+            // save queue
+            if scoringQueue.isEmpty == false {
+                section.setValue(scoringQueue, forKey: Section_Core.Attribute.scoringQueue.rawValue)
+            }
+            if uploadProblemsQueue.isEmpty == false {
+                section.setValue(uploadProblemsQueue, forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
+            }
+            if uploadPagesQueue.isEmpty == false {
+                section.setValue(uploadPagesQueue, forKey: Section_Core.Attribute.uploadPageQueue.rawValue)
             }
         }
         print("SECTION MIGRATION SUCCESS")
