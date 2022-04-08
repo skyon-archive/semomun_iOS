@@ -10,25 +10,36 @@ import Combine
 
 final class HomeVC: UIViewController {
     @IBOutlet weak var navigationTitleView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    
     @IBOutlet weak var bannerAds: UICollectionView!
     @IBOutlet weak var bestSellers: UICollectionView!
     @IBOutlet weak var workbooksWithTags: UICollectionView!
     @IBOutlet weak var workbooksWithRecent: UICollectionView!
     @IBOutlet weak var workbooksWithNewest: UICollectionView!
+    
     @IBOutlet weak var tagsStackView: UIStackView!
+    
     @IBOutlet weak var recentHeight: NSLayoutConstraint!
     @IBOutlet weak var newestHeight: NSLayoutConstraint!
+    
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
+    
     private var bannerAdsAutoScrollTimer: Timer?
     private let bannerAdsAutoScrollInterval: TimeInterval = 3
+    
     private lazy var noLoginedLabel1 = NoneWorkbookLabel()
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     private lazy var warningOfflineView = WarningOfflineStatusView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setShadow(with: navigationTitleView)
+        
+        self.scrollView.contentInset = .init(top: 12, left: 0, bottom: 12, right: 0)
+        self.navigationTitleView.addShadow(direction: .bottom)
+        
         self.configureViewModel()
         self.bindAll()
         self.viewModel?.checkLogined()
