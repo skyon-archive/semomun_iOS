@@ -35,10 +35,7 @@ final class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.scrollView.contentInset = .init(top: 12, left: 0, bottom: 12, right: 0)
-        self.navigationTitleView.addShadow(direction: .bottom)
-        
+        self.configureUI()
         self.configureViewModel()
         self.bindAll()
         self.viewModel?.checkLogined()
@@ -69,6 +66,11 @@ final class HomeVC: UIViewController {
 
 // MARK: - Configure
 extension HomeVC {
+    private func configureUI() {
+        self.scrollView.contentInset = .init(top: 12, left: 0, bottom: 12, right: 0)
+        self.navigationTitleView.addShadow(direction: .bottom)
+    }
+    
     private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
