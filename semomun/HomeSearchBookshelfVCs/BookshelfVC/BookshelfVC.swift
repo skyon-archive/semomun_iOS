@@ -82,6 +82,7 @@ class BookshelfVC: UIViewController {
     }
     
     private func spinAnimation() {
+        self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1) {
             self.refreshBT.transform = CGAffineTransform(rotationAngle: ((180.0 * .pi) / 180.0) * -1)
             self.refreshBT.transform = CGAffineTransform(rotationAngle: ((0.0 * .pi) / 360.0) * -1)
@@ -302,6 +303,13 @@ extension BookshelfVC: UICollectionViewDataSource {
         cell.configure(with: book)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfFooterView.identifier, for: indexPath)
+            return footer
+        } else { return UICollectionReusableView() }
     }
 }
 
