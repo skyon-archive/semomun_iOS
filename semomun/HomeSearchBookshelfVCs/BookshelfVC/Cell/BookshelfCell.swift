@@ -20,11 +20,16 @@ class BookshelfCell: UICollectionViewCell {
         self.configureBookcoverShadow()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.progressView.setProgress(0, animated: false)
+    }
+    
     private func configureBookcoverShadow() {
-        self.bookcoverFrameView.layer.shadowOpacity = 0.25
+        self.bookcoverFrameView.layer.shadowOpacity = 0.4
         self.bookcoverFrameView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.bookcoverFrameView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.bookcoverFrameView.layer.shadowRadius = 5
+        self.bookcoverFrameView.layer.shadowOffset = CGSize(width: 1.5, height: 3.5)
+        self.bookcoverFrameView.layer.shadowRadius = 3
     }
     
     func configure(with book: Preview_Core) {
@@ -33,7 +38,7 @@ class BookshelfCell: UICollectionViewCell {
             self.bookcover.image = UIImage(data: imageData)
         }
         let percent = Float(book.progressCount)/Float(book.sids.count)
-        self.progressView.setProgress(percent, animated: true)
+        self.progressView.setProgress(percent, animated: false)
         self.progressPercentLabel.text = "\(Int(percent*100))%"
     }
 }
