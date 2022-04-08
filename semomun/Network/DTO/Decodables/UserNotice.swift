@@ -9,11 +9,10 @@ import Foundation
 
 struct UserNotice: Codable {
     let title, text: String
-    let createdDate, updatedDate: Date
+    let createdDate: Date
     
     enum CodingKeys: String, CodingKey {
         case title, text
         case createdDate = "createdAt"
-        case updatedDate = "updatedAt"
     }
 }
