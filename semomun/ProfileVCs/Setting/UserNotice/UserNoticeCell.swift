@@ -36,7 +36,7 @@ final class UserNoticeCell: UITableViewCell {
     
     func configure(using userNotice: UserNotice) {
         self.titleLabel.text = userNotice.title
-        self.dateLabel.text = userNotice.updatedDate.yearMonthDayText
+        self.dateLabel.text = userNotice.createdDate.yearMonthDayText
     }
 }
 
