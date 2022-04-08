@@ -36,7 +36,7 @@ final class UserNoticeCell: UITableViewCell {
     
     func configure(using userNotice: UserNotice) {
         self.titleLabel.text = userNotice.title
-        self.dateLabel.text = userNotice.date.yearMonthDayText
+        self.dateLabel.text = userNotice.updatedDate.yearMonthDayText
     }
 }
 
@@ -55,7 +55,7 @@ extension UserNoticeCell {
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.dateLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
-            self.dateLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4)
+            self.dateLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 8)
         ])
     }
 }

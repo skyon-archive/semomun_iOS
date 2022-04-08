@@ -46,6 +46,8 @@ extension UserNoticeVC {
     }
     
     private func configureTableViewLayout() {
+        self.noticeTableView.backgroundColor = .white
+        
         self.view.addSubview(noticeTableView)
         self.noticeTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -63,8 +65,6 @@ extension UserNoticeVC {
         self.noticeTableView.register(UserNoticeCell.self, forCellReuseIdentifier: UserNoticeCell.identifier)
         self.noticeTableView.dataSource = self
         self.noticeTableView.delegate = self
-
-        self.noticeTableView.backgroundColor = UIColor(.clear)
     }
     
     private func getData() {

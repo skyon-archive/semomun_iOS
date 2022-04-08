@@ -32,7 +32,7 @@ protocol SchoolNamesFetchable {
     func getSchoolNames(param: [String: String], completion: @escaping ([String]) -> Void)
 }
 protocol NoticeFetchable {
-    func getNotices(completion: @escaping ((NetworkStatus, [UserNotice])) -> Void)
+    func getNotices(completion: @escaping (NetworkStatus, [UserNotice]) -> Void)
 }
 protocol S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)

@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct UserNotice: Decodable {
-    let title: String
-    let date: Date
-    let content: String
+struct UserNotice: Codable {
+    let title, text: String
+    let createdDate, updatedDate: Date
+    
+    enum CodingKeys: String, CodingKey {
+        case title, text
+        case createdDate = "createdAt"
+        case updatedDate = "updatedAt"
+    }
 }
