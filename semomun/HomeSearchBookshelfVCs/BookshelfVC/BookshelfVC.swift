@@ -29,6 +29,20 @@ class BookshelfVC: UIViewController {
     private var isMigration: Bool = false
     private var order: SortOrder = .purchase
     private var logined: Bool = false
+    private var columnCount: CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return 3
+        } else {
+            if self.view.frame.width == 1024 {
+                return 6
+            } else if self.view.frame.width == 744 {
+                return 4
+            } else {
+                return 5
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,50 +272,65 @@ extension BookshelfVC {
 }
 
 extension BookshelfVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = self.viewModel?.books.count ?? 0
-        return count%2 == 1 ? count+1 : count
+    /// section 개수 = columnCount 으로  나눈 몫값, 나머지가 있는 경우 +1
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if let booksCount = self.viewModel?.books.count {
+            var sectionCount = booksCount / Int(self.columnCount)
+            if booksCount % Int(self.columnCount) != 0 {
+                sectionCount += 1
+            }
+            return sectionCount
+        } else {
+            return 0
+        }
     }
-    
+    /// 해당 section의 cell 개수 = 전체 - (section+1)*columnCount 값이 0 이상 -> column수, 아닐 경우 나머지값
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let booksCount = self.viewModel?.books.count ?? 0
+        if booksCount - (section+1)*Int(self.columnCount) >= 0 {
+            return Int(self.columnCount)
+        } else {
+            return booksCount % Int(self.columnCount)
+        }
+    }
+    /// cell.index = section*columnCount + row
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
-        let count = self.viewModel?.books.count ?? 0
-        let isOdd = count%2 == 1
-        let isLastIndex = self.isLastIndex(collectionView: collectionView, indexPath: indexPath)
-        let isShadowCell = isOdd && isLastIndex
-        if isShadowCell {
-            cell.configureShadow()
-        } else {
-            guard let book = self.viewModel?.books[indexPath.item] else { return cell }
-            cell.configure(with: book)
-        }
+        let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
+        guard let book = self.viewModel?.books[bookIndex] else { return cell }
+        
+        cell.configure(with: book)
         
         return cell
-    }
-    
-    private func isLastIndex(collectionView: UICollectionView, indexPath: IndexPath) -> Bool {
-        let lastIndex: Int = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        return indexPath.item == lastIndex
     }
 }
 
 extension BookshelfVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let count = self.viewModel?.books.count ?? 0
-        let isOdd = count%2 == 1
-        let isLastIndex = self.isLastIndex(collectionView: collectionView, indexPath: indexPath)
-        if isOdd && isLastIndex { return } // 전체수가 홀수이면서 마지막 cell 일 경우 클릭액션 제거
+        let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
+        guard let book = self.viewModel?.books[bookIndex] else { return }
         
-        guard let book = self.viewModel?.books[indexPath.item] else { return }
         self.showWorkbookDetailVC(book: book)
     }
 }
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIDevice.current.userInterfaceIdiom == .phone ? self.books.frame.width : (self.books.frame.width)/2
-        let height: CGFloat = 182
-        return CGSize(width: width, height: height)
+        // MARK: phone 버전 대응은 추후 반영할 예정
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let horizontalMargin: CGFloat = 28
+            let horizontalTerm: CGFloat = 10
+            let superWidth = self.books.frame.width - 2*horizontalMargin
+            
+            let width = (superWidth - (horizontalTerm*(self.columnCount-1)))/self.columnCount
+            let imageFrameViewHeight = (width-10)*5/4
+            let height = 10 + imageFrameViewHeight + 42 + 30 + 10
+            
+            return CGSize(width: width, height: height)
+        }
+        else {
+            return CGSize(width: self.books.frame.width, height: 182)
+        }
     }
 }
 
