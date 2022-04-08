@@ -107,8 +107,11 @@ extension NetworkUsecase: SchoolNamesFetchable {
 extension NetworkUsecase: NoticeFetchable {
     func getNotices(completion: @escaping (NetworkStatus, [UserNotice]) -> Void) {
         self.network.request(url: NetworkURL.notices, method: .get, tokenRequired: false) { result in
-            guard let data = result.data,
-                  let notices = try? JSONDecoder.dateformatted.decode([UserNotice].self, from: data) else {
+            guard let data = result.data else {
+                completion(.FAIL, [])
+                return
+            }
+            guard let notices = try? JSONDecoder.dateformatted.decode([UserNotice].self, from: data) else {
                 completion(.DECODEERROR, [])
                 return
             }
