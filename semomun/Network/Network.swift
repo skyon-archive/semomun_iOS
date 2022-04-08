@@ -9,7 +9,17 @@ import Foundation
 import Alamofire
 
 class Network: NetworkFetchable {
+    private let urlFormEncoder = URLEncodedFormParameterEncoder.default
+    private lazy var jsonEncoder: JSONParameterEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        
+        return JSONParameterEncoder(encoder: encoder)
+    }()
+    
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
+        
         let session = tokenRequired ? Session.sessionWithToken : Session.default
 //        print("\(method): \(url)")
         
@@ -23,22 +33,10 @@ class Network: NetworkFetchable {
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? Session.sessionWithToken : Session.default
+        let encoder = self.getEncoder(for: method)
 //        print("\(method): \(url), \(param)")
         
-        session.request(url, method: method, parameters: param)  { $0.timeoutInterval = .infinity }
-        .validate(statusCode: [200])
-        .responseData { response in
-            let networkResult = self.makeNetworkResult(with: response)
-            completion(networkResult)
-        }.resume()
-    }
-    
-    func request<T: Encodable>(url: String, param: T, method: HTTPMethod, encoder: JSONEncoder, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
-        let session = tokenRequired ? Session.sessionWithToken : Session.default
-//        print("\(method): \(url), \(param)")
-        
-        let parameterEncoder = JSONParameterEncoder(encoder: encoder)
-        session.request(url, method: method, parameters: param, encoder: parameterEncoder)  { $0.timeoutInterval = .infinity }
+        session.request(url, method: method, parameters: param, encoder: encoder)  { $0.timeoutInterval = .infinity }
         .validate(statusCode: [200])
         .responseData { response in
             let networkResult = self.makeNetworkResult(with: response)
@@ -66,6 +64,14 @@ class Network: NetworkFetchable {
                 print("Data: \(String(data: data, encoding: .utf8)!)")
             }
             return NetworkResult(data: response.data, statusCode: statusCode, error: error.underlyingError)
+        }
+    }
+    
+    private func getEncoder(for method: HTTPMethod) -> ParameterEncoder {
+        if method == .get {
+            return self.urlFormEncoder
+        } else {
+            return self.jsonEncoder
         }
     }
 }
