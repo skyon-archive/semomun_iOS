@@ -29,7 +29,11 @@ final class ProfileVC: UIViewController {
     
     private lazy var tableViewBeforeLogin: UIViewController = {
         let storyboard = UIStoryboard(controllerType: UnloginedProfileTableVC.self)
-        return storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier)
+        guard let unloginedProfileTableVC = storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier) as? UnloginedProfileTableVC else {
+            return UnloginedProfileTableVC()
+        }
+        unloginedProfileTableVC.tableView.contentInset = .init(top: 27, left: 0, bottom: 27, right: 0)
+        return unloginedProfileTableVC
     }()
     
     private lazy var tableViewAfterLogin: UIViewController = {
@@ -37,6 +41,7 @@ final class ProfileVC: UIViewController {
         guard let loginedProfileTableVC = storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier) as? LoginedProfileTableVC else {
             return LoginedProfileTableVC()
         }
+        loginedProfileTableVC.tableView.contentInset = .init(top: 27, left: 0, bottom: 27, right: 0)
         loginedProfileTableVC.configureNetworkUsecase(NetworkUsecase(network: Network()))
         return loginedProfileTableVC
     }()
