@@ -22,7 +22,7 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     }
     
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
-    private let viewModel = LoginSelectVM(networkUsecase: NetworkUsecase(network: Network()))
+    private var viewModel: LoginSelectVM?
     private var cancellables: Set<AnyCancellable> = []
     
     private enum ButtonUIConstants {
@@ -33,14 +33,23 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureViewModel()
         self.configureSignInWithAppleButton()
         self.configureSignInWithGoogleButton()
         self.bindAll()
     }
 }
 
+extension LoginSelectVC {
+    private func configureViewModel() {
+        let networkUsecase = NetworkUsecase(network: Network())
+        self.viewModel = LoginSelectVM(networkUsecase: networkUsecase, usecase: LoginSignupUsecase(networkUsecase: networkUsecase))
+    }
+}
+
 // MARK: Apple로 로그인 버튼
 extension LoginSelectVC {
+    
     private func configureSignInWithAppleButton() {
         let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 64 : 73
         let button = self.makeAppleButton()
@@ -171,7 +180,7 @@ extension LoginSelectVC {
         self.bindStatus()
     }
     private func bindAlert() {
-        self.viewModel.$alert
+        self.viewModel?.$alert
             .receive(on: DispatchQueue.main)
             .sink { [weak self] alert in
                 if let alert = alert {
@@ -181,7 +190,7 @@ extension LoginSelectVC {
             .store(in: &self.cancellables)
     }
     private func bindStatus() {
-        self.viewModel.$status
+        self.viewModel?.$status
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
@@ -213,7 +222,7 @@ extension LoginSelectVC {
                     assertionFailure()
                     return
                 }
-                self?.viewModel.pasteUserInfo(signupUserInfo: signupUserInfo)
+                self?.viewModel?.pasteUserInfo(signupUserInfo: signupUserInfo)
             }
         ]
         alertActions.forEach { alertController.addAction($0) }
@@ -306,9 +315,9 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
     
     private func continueAccountSetting(userIDToken: NetworkURL.UserIDToken) {
         if let signupInfo = self.signupInfo {
-            self.viewModel.signup(userIDToken: userIDToken, userInfo: signupInfo)
+            self.viewModel?.signup(userIDToken: userIDToken, userInfo: signupInfo)
         } else {
-            self.viewModel.login(userIDToken: userIDToken)
+            self.viewModel?.login(userIDToken: userIDToken)
         }
     }
 }
