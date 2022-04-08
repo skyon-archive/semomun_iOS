@@ -73,7 +73,7 @@ class PageVM {
     }
     
     @objc func updateTime() {
-        print("timer active")
+//        print("timer active")
         self.timeSpentOnPage += 1
         if self.problems.count == 1 {
             let time = self.timeSpentPerProblems[0] + self.timeSpentOnPage
