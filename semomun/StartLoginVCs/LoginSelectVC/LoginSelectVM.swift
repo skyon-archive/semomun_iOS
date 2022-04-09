@@ -34,6 +34,15 @@ class LoginSelectVM {
         self.usecase = usecase
     }
     
+    var tids: [Int] {
+        if let tagsData = UserDefaultsManager.favoriteTags,
+           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            return tags.map(\.tid)
+        } else {
+            return []
+        }
+    }
+    
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
         self.backupForPaste = userIDToken
         self.networkUsecase.postSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] result in
@@ -70,8 +79,15 @@ extension LoginSelectVM {
     
     private func handleSignupNetworkStatus(token: String, status: NetworkStatus) {
         if case .SUCCESS = status {
-            self.usecase.setLocalDataAfterSignup(token: token) {[weak self] isSuccess in
-                self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+            self.networkUsecase.putUserSelectedTags(tids: tids) { [weak self] status in
+                guard status == .SUCCESS else {
+                    self?.alert = LoginSelectVMAlert.networkError
+                    return
+                }
+                
+                self?.usecase.setLocalDataAfterSignup(token: token) { isSuccess in
+                    self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+                }
             }
         } else {
             self.alert = LoginSelectVMAlert.networkError
@@ -92,8 +108,15 @@ extension LoginSelectVM {
     private func handleLoginNetworkStatus(token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            LoginSignupUsecase(networkUsecase: self.networkUsecase).setLocalDataAfterLogin(token: token) { [weak self] isSuccess in
-                self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+            self.networkUsecase.putUserSelectedTags(tids: tids) { [weak self] status in
+                guard status == .SUCCESS else {
+                    self?.alert = LoginSelectVMAlert.networkError
+                    return
+                }
+                guard let networkUsecase = self?.networkUsecase else { return }
+                LoginSignupUsecase(networkUsecase: networkUsecase).setLocalDataAfterLogin(token: token) { isSuccess in
+                    self?.handleLocalDataSettingResult(isSuccess: isSuccess)
+                }
             }
         default:
             self.alert = LoginSelectVMAlert.networkError
