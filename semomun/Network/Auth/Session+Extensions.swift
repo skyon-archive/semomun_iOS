@@ -8,18 +8,32 @@
 import Alamofire
 
 extension Session {
-    static var sessionWithToken: Session = {
-        guard let token = NetworkTokens() else {
-            assertionFailure()
-            return Session()
+    
+    static var sessionWithToken: Session {
+        if let _sessionWithToken = self._sessionWithToken {
+            return _sessionWithToken
+        } else {
+            guard let token = NetworkTokens() else {
+                assertionFailure()
+                return Session()
+            }
+            
+            print("token: \(token.accessToken)")
+            
+            let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
+            let authenticator = OAuthAuthenticator()
+            let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
+            
+            let session = Session(interceptor: interceptor)
+            self._sessionWithToken = session
+            
+            return session
         }
-        
-        print("token: \(token.accessToken)")
-        
-        let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
-        let authenticator = OAuthAuthenticator()
-        let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
-        
-        return Session(interceptor: interceptor)
-    }()
+    }
+    
+    static func clearSession() {
+        self._sessionWithToken = nil
+    }
+    
+    private static var _sessionWithToken: Session?
 }

@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import Alamofire
 
 struct LogoutUsecase {
     static func logout() {
         CoreUsecase.deleteAllCoreData()
         Self.deleteKeychain()
         Self.deleteUserDefaults()
+        Session.clearSession()
     }
     
     static private func deleteKeychain() {
