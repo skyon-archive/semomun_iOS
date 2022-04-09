@@ -8,14 +8,16 @@
 import Foundation
 import Combine
 
+typealias SearchTagNetworkUsecase = TagsFetchable & UserInfoSendable
+
 final class SearchTagVM {
-    private let networkUsecase: TagsFetchable
+    private let networkUsecase: SearchTagNetworkUsecase
     private var totalTags: [TagOfDB] = []
     @Published private(set) var filteredTags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var userTags: [TagOfDB] = []
     
-    init(networkUsecase: TagsFetchable) {
+    init(networkUsecase: SearchTagNetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.fetchTagsFromLocal()
         self.fetchTagsFromServer()
@@ -68,8 +70,17 @@ final class SearchTagVM {
     }
     
     private func saveTags() {
-        let data = try? PropertyListEncoder().encode(self.userTags)
-        UserDefaultsManager.favoriteTags = data
-        NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+        self.networkUsecase.putUserSelectedTags(tids: self.userTags.map(\.tid)) { [weak self] status in
+            guard status == .SUCCESS else {
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            
+            guard let userTags = self?.userTags else { return }
+            
+            let data = try? PropertyListEncoder().encode(userTags)
+            UserDefaultsManager.favoriteTags = data
+            NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+        }
     }
 }

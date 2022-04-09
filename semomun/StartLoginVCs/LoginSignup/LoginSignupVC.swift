@@ -85,6 +85,7 @@ final class LoginSignupVC: UIViewController {
             self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
             return
         }
+        
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         vc.signupInfo = userInfo
         self.navigationController?.pushViewController(vc, animated: true)
