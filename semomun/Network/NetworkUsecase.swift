@@ -35,16 +35,16 @@ extension NetworkUsecase: VersionFetchable {
 }
 extension NetworkUsecase: BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.workbooks, method: .get, tokenRequired: false) { result in
+        self.network.request(url: NetworkURL.bestsellers, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let searchPreviews: SearchPreviews = try? JSONDecoder.dateformatted.decode(SearchPreviews.self, from: data) else {
+                      let previews = try? JSONDecoder.dateformatted.decode([PreviewOfDB].self, from: data) else {
                           print("Decode Error")
                           completion(.DECODEERROR, [])
                           return
                       }
-                completion(.SUCCESS, searchPreviews.previews)
+                completion(.SUCCESS, previews)
             default:
                 completion(.FAIL, [])
             }
