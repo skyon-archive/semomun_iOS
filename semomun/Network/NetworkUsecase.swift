@@ -288,6 +288,23 @@ extension NetworkUsecase: UserHistoryFetchable {
     }
 }
 extension NetworkUsecase: UserInfoFetchable {
+    func getUserSelectedTags(completion: @escaping (NetworkStatus, [TagOfDB]) -> Void) {
+        self.network.request(url: NetworkURL.tagsSelf, method: .get, tokenRequired: true) { result in
+            guard let data = result.data,
+                  let statusCode = result.statusCode else {
+                completion(.FAIL, [])
+                return
+            }
+            
+            guard let tags = try? JSONDecoder.dateformatted.decode([TagOfDB].self, from: data) else {
+                completion(.DECODEERROR, [])
+                return
+            }
+            
+            completion(NetworkStatus(statusCode: statusCode), tags)
+        }
+    }
+    
     func getUserInfo(completion: @escaping (NetworkStatus, UserInfo?) -> Void) {
         self.network.request(url: NetworkURL.usersSelf, method: .get, tokenRequired: true) { result in
             if let error = result.error, self.checkTokenExpire(error: error) {
