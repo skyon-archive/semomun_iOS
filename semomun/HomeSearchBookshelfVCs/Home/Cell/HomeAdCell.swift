@@ -10,7 +10,7 @@ import UIKit
 class HomeAdCell: UICollectionViewCell {
     static let identifier = "HomeAdCell"
     @IBOutlet weak var imageView: UIImageView!
-    private var addUrl: String?
+    private var url: URL?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,14 +22,13 @@ class HomeAdCell: UICollectionViewCell {
     }
     
     @IBAction func showAd(_ sender: Any) {
-        if let addUrl = self.addUrl,
-           let url = URL(string: addUrl) {
+        if let url = self.url {
             UIApplication.shared.open(url, options: [:])
         }
     }
     
-    func configureTest(imageURL: String, url: String) {
-        self.addUrl = url
-        self.imageView.image = UIImage(named: imageURL) // 수정 필요
+    func configureTest(imageURL: URL, url: URL) {
+        self.url = url
+        self.imageView.kf.setImage(with: imageURL)
     }
 }
