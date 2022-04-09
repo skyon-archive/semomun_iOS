@@ -37,6 +37,9 @@ protocol NoticeFetchable {
 protocol S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
 }
+protocol BannerFetchable {
+    func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void)
+}
 // MARK: - Searchable
 protocol PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)

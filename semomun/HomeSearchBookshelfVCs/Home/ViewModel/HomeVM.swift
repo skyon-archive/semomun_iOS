@@ -10,7 +10,7 @@ import Combine
 
 final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
-    @Published private(set) var ads: [(String, String)] = [] // DTO로 타입이 변경될 부분
+    @Published private(set) var ads: [Banner] = []
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
     @Published private(set) var workbooksWithRecent: [BookshelfInfo] = []
@@ -120,8 +120,16 @@ final class HomeVM {
     }
     
     private func fetchAds() {
-        let temp = (1...5).map { ("banner\($0)", "https://forms.gle/suXByYKEied6RcSd8")}
-        self.ads = temp
+        self.networkUsecase.getBanners { [weak self] status, banners in
+            switch status {
+            case .SUCCESS:
+                self?.ads = banners
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
     }
     
     private func fetchBestSellers() {

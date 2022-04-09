@@ -528,3 +528,22 @@ extension NetworkUsecase: LoginSignupPostable {
         try userToken.save()
     }
 }
+
+extension NetworkUsecase: BannerFetchable {
+    func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void) {
+        self.network.request(url: NetworkURL.banners, method: .get, tokenRequired: false) { result in
+            guard let statusCode = result.statusCode,
+                  let data = result.data else {
+                completion(.FAIL, [])
+                return
+            }
+            
+            guard let banners = try? JSONDecoder.dateformatted.decode([Banner].self, from: data) else {
+                completion(.DECODEERROR, [])
+                return
+            }
+            
+            completion(NetworkStatus(statusCode: statusCode), banners)
+        }
+    }
+}
