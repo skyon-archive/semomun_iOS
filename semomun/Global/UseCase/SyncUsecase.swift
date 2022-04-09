@@ -12,7 +12,9 @@ typealias SyncFetchable = (UserInfoFetchable & LoginSignupPostable)
 struct SyncUsecase {
     
     enum SyncError: Error {
-        case networkFail, coreDataFetchFail
+        case networkFail
+        case coreDataFetchFail
+        case tagOfDBEncodeFail
     }
     
     private let networkUsecase: SyncFetchable
@@ -46,15 +48,31 @@ struct SyncUsecase {
     }
     
     func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
-        self.networkUsecase.getUserInfo { status, userInfo in
-            switch status {
-            case .SUCCESS where userInfo != nil:
-                self.saveUserInfoToCoreData(userInfo!)
-                completion(.success(userInfo!))
-            case .TOKENEXPIRED:
-                NotificationCenter.default.post(name: .tokenExpired, object: nil)
-            default:
+        self.networkUsecase.getUserSelectedTags { status, tags in
+            guard status == .SUCCESS else {
                 completion(.failure(.networkFail))
+                return
+            }
+            
+            do {
+                let data = try PropertyListEncoder().encode(tags)
+                UserDefaultsManager.favoriteTags = data
+            } catch {
+                print("Sync 실패: \(error)")
+                completion(.failure(.tagOfDBEncodeFail))
+                return
+            }
+            
+            self.networkUsecase.getUserInfo { status, userInfo in
+                switch status {
+                case .SUCCESS where userInfo != nil:
+                    self.saveUserInfoToCoreData(userInfo!)
+                    completion(.success(userInfo!))
+                case .TOKENEXPIRED:
+                    NotificationCenter.default.post(name: .tokenExpired, object: nil)
+                default:
+                    completion(.failure(.networkFail))
+                }
             }
         }
     }

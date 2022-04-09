@@ -68,6 +68,7 @@ protocol UserHistoryFetchable {
     func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistory?) -> Void)
 }
 protocol UserInfoFetchable {
+    func getUserSelectedTags(completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
     func getUserInfo(completion: @escaping(NetworkStatus, UserInfo?) -> Void)
     func getRemainingPay(completion: @escaping (NetworkStatus, Int?) -> Void)
 }
