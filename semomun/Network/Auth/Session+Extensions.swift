@@ -8,7 +8,6 @@
 import Alamofire
 
 extension Session {
-    
     static var sessionWithToken: Session {
         if let _sessionWithToken = self._sessionWithToken {
             return _sessionWithToken
