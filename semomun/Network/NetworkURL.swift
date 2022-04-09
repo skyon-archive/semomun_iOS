@@ -77,6 +77,7 @@ enum NetworkURL {
     static let submissionOfPages = base + "/view-submissions"
     static let notices = base + "/notices"
     static let banners = base + "/banners"
+    static let popup = base + "/popups"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
