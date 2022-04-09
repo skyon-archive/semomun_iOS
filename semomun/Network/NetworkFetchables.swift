@@ -40,6 +40,9 @@ protocol S3ImageFetchable {
 protocol BannerFetchable {
     func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void)
 }
+protocol PopupFetchable {
+    func getPopup(completion: @escaping (NetworkStatus, URL?) -> Void)
+}
 // MARK: - Searchable
 protocol PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)

@@ -48,10 +48,6 @@ final class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.startBannerAdsAutoScroll()
-        /// 임시코드, 버전 업데이트 팝업과 겹쳐 주석처리
-//        let title = "4월 1일 (금요일) 오후 11시~ 4월 2일 (토요일) 오전 3시"
-//        let noticeVC = NoticePopupVC(title: title)
-//        self.present(noticeVC, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -201,6 +197,7 @@ extension HomeVC {
         self.bindLogined()
         self.bindVersion()
         self.bindWarning()
+        self.bindPopup()
     }
     
     private func bindTags() {
@@ -331,6 +328,19 @@ extension HomeVC {
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
                 self?.showAlertWithOK(title: warning.title, text: warning.text)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPopup() {
+        self.viewModel?.$popupURL
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] url in
+                guard let url = url else { return }
+                let noticeVC = NoticePopupVC()
+                noticeVC.configureImage(url: url)
+                self?.present(noticeVC, animated: true)
             })
             .store(in: &self.cancellables)
     }

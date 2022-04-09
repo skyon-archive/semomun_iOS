@@ -21,6 +21,7 @@ final class HomeVM {
     @Published private(set) var offlineStatus: Bool = false
     @Published private(set) var logined: Bool = false
     @Published private(set) var updateToVersion: String?
+    @Published private(set) var popupURL: URL?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -101,6 +102,7 @@ final class HomeVM {
         self.fetchTags()
         self.fetchAds()
         self.fetchBestSellers()
+        self.fetchPopup()
     }
     
     private func fetchLogined() {
@@ -138,6 +140,19 @@ final class HomeVM {
             case .SUCCESS:
                 let count = min(10, workbooks.count)
                 self?.bestSellers = Array(workbooks.prefix(upTo: count))
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
+    }
+    
+    private func fetchPopup() {
+        self.networkUsecase.getPopup { [weak self] status, popupURL in
+            switch status {
+            case .SUCCESS:
+                self?.popupURL = popupURL
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
