@@ -28,7 +28,7 @@ struct SyncUsecase {
         do {
             let tokenString = try KeychainItem(account: .userIdentifier).readItem()
             let userToken = NetworkURL.UserIDToken.legacy(tokenString)
-
+            
             self.networkUsecase.postLogin(userToken: userToken) { status, userNotExist in
                 guard userNotExist == false else {
                     assertionFailure()
@@ -48,30 +48,33 @@ struct SyncUsecase {
     }
     
     func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
-        self.networkUsecase.getUserSelectedTags { status, tags in
-            guard status == .SUCCESS else {
+        self.networkUsecase.getUserInfo { status, userInfo in
+            switch status {
+            case .SUCCESS where userInfo != nil:
+                self.saveUserInfoToCoreData(userInfo!)
+                completion(.success(userInfo!))
+            case .TOKENEXPIRED:
+                NotificationCenter.default.post(name: .tokenExpired, object: nil)
+                return
+            default:
                 completion(.failure(.networkFail))
                 return
             }
             
-            do {
-                let data = try PropertyListEncoder().encode(tags)
-                UserDefaultsManager.favoriteTags = data
-            } catch {
-                print("Sync 실패: \(error)")
-                completion(.failure(.tagOfDBEncodeFail))
-                return
-            }
-            
-            self.networkUsecase.getUserInfo { status, userInfo in
-                switch status {
-                case .SUCCESS where userInfo != nil:
-                    self.saveUserInfoToCoreData(userInfo!)
-                    completion(.success(userInfo!))
-                case .TOKENEXPIRED:
-                    NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                default:
+            self.networkUsecase.getUserSelectedTags { status, tags in
+                guard status == .SUCCESS else {
                     completion(.failure(.networkFail))
+                    return
+                }
+                
+                do {
+                    let data = try PropertyListEncoder().encode(tags)
+                    UserDefaultsManager.favoriteTags = data
+                    NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+                } catch {
+                    print("Sync 실패: \(error)")
+                    completion(.failure(.tagOfDBEncodeFail))
+                    return
                 }
             }
         }

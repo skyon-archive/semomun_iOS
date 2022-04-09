@@ -12,7 +12,7 @@ extension JSONParameterEncoder {
     static var dateformatted: JSONParameterEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
-        encoder.keyEncodingStrategy = .convertToSnakeCase
+//        encoder.keyEncodingStrategy = .convertToSnakeCase
         
         return JSONParameterEncoder(encoder: encoder)
     }()

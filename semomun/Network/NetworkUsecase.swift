@@ -245,6 +245,16 @@ extension NetworkUsecase: PhonenumVerifiable {
 
 // MARK: - UserAccessable
 extension NetworkUsecase: UserInfoSendable {
+    func putUserSelectedTags(tids: [Int], completion: @escaping (NetworkStatus) -> Void) {
+        self.network.request(url: NetworkURL.tagsSelf, param: tids, method: .put, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode else {
+                completion(.FAIL)
+                return
+            }
+            completion(NetworkStatus(statusCode: statusCode))
+        }
+    }
+    
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping (NetworkStatus) -> Void) {
         self.network.request(url: NetworkURL.usersSelf, param: userInfo, method: .put, tokenRequired: true) { result in
             switch result.statusCode {
