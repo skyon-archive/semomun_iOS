@@ -361,7 +361,7 @@ extension HomeVC: UICollectionViewDataSource {
             guard let count = self.viewModel?.ads.count else { return cell }
             guard let testAd = self.viewModel?.ads[indexPath.item % count] else { return cell }
             
-            cell.configureTest(imageURL: testAd.0, url: testAd.1)
+            cell.configureTest(imageURL: testAd.image, url: testAd.url)
             
             return cell
         } else {

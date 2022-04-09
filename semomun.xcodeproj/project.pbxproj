@@ -52,6 +52,7 @@
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
 		257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */; };
 		257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */; };
+		257E133C28019EFC00368ACF /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E133B28019EFC00368ACF /* Banner.swift */; };
 		258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */; };
 		2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C227ACFC3C00023A73 /* UIColor.swift */; };
 		2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */; };
@@ -287,6 +288,7 @@
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDateLabel.swift; sourceTree = "<group>"; };
 		257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVM.swift; sourceTree = "<group>"; };
+		257E133B28019EFC00368ACF /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupStatus.swift; sourceTree = "<group>"; };
 		2582D6C227ACFC3C00023A73 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStringInterpolation.swift; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				255D637927ABBF46000991AB /* UserNotice.swift */,
 				2562772D27A16C56006F9370 /* PayHistoryofDB.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
+				257E133B28019EFC00368ACF /* Banner.swift */,
 			);
 			path = Decodables;
 			sourceTree = "<group>";
@@ -1581,6 +1584,7 @@
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
+				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
