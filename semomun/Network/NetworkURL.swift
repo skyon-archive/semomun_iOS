@@ -71,6 +71,7 @@ enum NetworkURL {
     static let purchaseItem = base + "/pay/orders"
     static let enterWorkbook = workbooks + "solve"
     static let purchasedWorkbooks: String = workbooks + "purchased"
+    static let bestsellers = workbooks + "/bestseller"
     static let username = base + "/users/username"
     static let payHistory = base + "/pay"
     static let submissionOfProblems = base + "/submissions"
