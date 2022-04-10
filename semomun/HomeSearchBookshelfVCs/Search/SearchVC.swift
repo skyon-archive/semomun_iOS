@@ -94,17 +94,9 @@ class SearchVC: UIViewController {
 // MARK: - Configure
 extension SearchVC {
     private func configureUI() {
-        self.configureSearchInnerView()
         self.hiddenRemoveTextBT()
         self.hiddenSearchBT()
         self.hiddenCancelSearchBT()
-    }
-    
-    private func configureSearchInnerView() {
-        self.searchInnerView.clipsToBounds = true
-        self.searchInnerView.layer.borderWidth = 2
-        self.searchInnerView.layer.cornerRadius = 10
-        self.searchInnerView.layer.borderColor = UIColor(.mainColor)?.cgColor
     }
     
     private func configureViewModel() {
