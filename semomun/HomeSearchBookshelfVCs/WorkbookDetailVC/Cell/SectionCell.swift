@@ -28,6 +28,7 @@ final class SectionCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        print(downloadButton.frame)
         super.prepareForReuse()
         self.nameLabel.text = ""
         self.terminatedImageView.isHidden = true
