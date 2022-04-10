@@ -26,6 +26,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
     @IBOutlet weak var isbnStackView: UIStackView!
+    @IBOutlet weak var isbnDivider: UIView!
     @IBOutlet weak var periodLabel: UILabel!
     
     private var isCoreData: Bool = false
@@ -150,12 +151,20 @@ extension WorkbookDetailVC {
         self.titleLabel.text = workbookInfo.title
         self.authorLabel.text = workbookInfo.author
         self.publisherLabel.text = workbookInfo.publisher
-        self.releaseDateLabel.text = workbookInfo.releaseDate
+        
+        // 자연스러운 줄바꿈을 위해 개행문자 추가
+        var releaseDate = workbookInfo.releaseDate
+        if let yearIndex = releaseDate.firstIndex(of: "년") {
+            releaseDate.insert("\n", at: releaseDate.index(after: yearIndex))
+        }
+        self.releaseDateLabel.text = releaseDate
+        
         self.fileSizeLabel.text = workbookInfo.fileSize
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
         if workbookInfo.isbn == "" {
             self.isbnStackView.isHidden = true
+            self.isbnDivider.isHidden = true
         } else {
             self.isbnLabel.text = workbookInfo.isbn
         }
