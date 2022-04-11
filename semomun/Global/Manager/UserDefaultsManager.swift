@@ -39,4 +39,7 @@ struct UserDefaultsManager {
     
     @UserDefault(key: "bookshelfOrder", defaultValue: nil)
     static var bookshelfOrder: String?
+    
+    @UserDefault(key: "lastViewedPopup", defaultValue: nil)
+    static var lastViewedPopup: String?
 }
