@@ -109,11 +109,11 @@ extension MyPurchasesVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellVerticalSpace: CGFloat = 12
         if UIDevice.current.userInterfaceIdiom == .phone {
-            let cellVerticalSpace: CGFloat = 12
             return 147 + cellVerticalSpace
         } else {
-            return 174
+            return 174 + cellVerticalSpace
         }
     }
 }
