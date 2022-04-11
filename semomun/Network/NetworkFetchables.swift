@@ -68,7 +68,6 @@ protocol PhonenumVerifiable {
 // MARK: - UserAccessable
 protocol UserInfoSendable {
     func putUserInfoUpdate(userInfo: UserInfo, completion: @escaping(NetworkStatus) -> Void)
-    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)
     func putUserSelectedTags(tids: [Int], completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserHistoryFetchable {

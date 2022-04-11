@@ -254,7 +254,8 @@ extension LoginSelectVC {
     private func showServiceInfoView(loginMethod: LoginMethod) {
         guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil)
                 .instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
-        serviceInfoVC.configureConfirmAction { [weak self] in
+        serviceInfoVC.configureConfirmAction { [weak self] marketingAgreed in
+            self?.signupInfo?.marketing = marketingAgreed
             self?.askLoginTo(loginMethod: loginMethod)
         }
         self.present(serviceInfoVC, animated: true, completion: nil)

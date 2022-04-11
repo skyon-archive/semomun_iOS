@@ -19,7 +19,7 @@ class LoginServicePopupVC: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     
     private lazy var isChecked = [Bool](repeating: false, count: checkButtons.count)
-    private var action: (() -> ())?
+    private var action: ((Bool) -> ())?
     private var networkUsecase: LoginServicePopupNetworkUsecase? = NetworkUsecase(network: Network())
     private var canRegister: Bool {
         return isChecked[0] && isChecked[1]
@@ -44,21 +44,15 @@ class LoginServicePopupVC: UIViewController {
     @IBAction func continueRegister(_ sender: Any) {
         guard self.canRegister else { return }
         let marketingAgreed = isChecked[self.marketingAgreeButtonIndex]
-        self.networkUsecase?.postMarketingConsent(isConsent: marketingAgreed) { status in
-            switch status {
-            case .SUCCESS:
-                self.dismiss(animated: true)
-                self.action?()
-            default:
-                self.showAlertWithOK(title: "네트워크 오류", text: "네트워크 연결 확인 후 다시 시도해주세요.")
-            }
-        }
+        self.dismiss(animated: true)
+        self.action?(marketingAgreed)
     }
 }
 
 // MARK: Public configure
 extension LoginServicePopupVC {
-    func configureConfirmAction(_ action: @escaping () -> Void) {
+    /// 마케팅 수신 동의 여부를 전달합니다.
+    func configureConfirmAction(_ action: @escaping (Bool) -> Void) {
         self.action = action
     }
 }
@@ -111,6 +105,7 @@ extension LoginServicePopupVC {
         }
         self.updateUIOfRegisterButton()
     }
+    
     // isChecked를 버튼들에 반영
     private func updateUI(of button: UIButton) {
         let check = UIImage(.circleCheckmark)
