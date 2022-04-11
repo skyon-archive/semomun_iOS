@@ -1679,25 +1679,29 @@ next line</string>
                                                 </constraints>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="small"/>
                                             </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDB-4I-Ulj">
+                                                <rect key="frame" x="0.0" y="44" width="492" height="2"/>
+                                                <color key="backgroundColor" name="mainColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="CrV-8k-rpJ"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="o1E-Lc-AkY" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="7yn-yD-n2S"/>
+                                            <constraint firstItem="vDB-4I-Ulj" firstAttribute="centerX" secondItem="kTd-32-jpP" secondAttribute="centerX" id="AX7-yT-Jln"/>
                                             <constraint firstAttribute="height" constant="46" id="SKw-Qt-QPg"/>
                                             <constraint firstAttribute="trailing" secondItem="o1E-Lc-AkY" secondAttribute="trailing" constant="16" id="URK-7y-HHC"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="leading" secondItem="kTd-32-jpP" secondAttribute="leading" constant="15" id="Umz-Gt-2PC"/>
+                                            <constraint firstItem="vDB-4I-Ulj" firstAttribute="width" secondItem="kTd-32-jpP" secondAttribute="width" id="am7-Yb-Kwv"/>
                                             <constraint firstItem="o1E-Lc-AkY" firstAttribute="leading" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" constant="5" id="asB-Qj-6Bg"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="beY-gS-bdE"/>
+                                            <constraint firstAttribute="bottom" secondItem="vDB-4I-Ulj" secondAttribute="bottom" id="dv8-bZ-ypI"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" name="mainColor"/>
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -1752,19 +1756,19 @@ next line</string>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="duc-Gb-r0X">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="duc-Gb-r0X">
                                         <rect key="frame" x="40" y="207" width="492" height="406"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="492" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="492" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="492" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="492" height="45"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nC9-NK-POX">
-                                                            <rect key="frame" x="15" y="13.5" width="462" height="17"/>
+                                                            <rect key="frame" x="20" y="14" width="457" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1773,9 +1777,10 @@ next line</string>
                                                     <constraints>
                                                         <constraint firstItem="nC9-NK-POX" firstAttribute="centerY" secondItem="slk-XO-dTA" secondAttribute="centerY" id="28h-db-IFQ"/>
                                                         <constraint firstAttribute="trailing" secondItem="nC9-NK-POX" secondAttribute="trailing" constant="15" id="Ylm-dC-nWh"/>
-                                                        <constraint firstItem="nC9-NK-POX" firstAttribute="leading" secondItem="slk-XO-dTA" secondAttribute="leading" constant="15" id="gBI-se-bMW"/>
+                                                        <constraint firstItem="nC9-NK-POX" firstAttribute="leading" secondItem="slk-XO-dTA" secondAttribute="leading" constant="20" id="gBI-se-bMW"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
                                                     <outlet property="title" destination="nC9-NK-POX" id="etk-CB-QYJ"/>
                                                 </connections>
