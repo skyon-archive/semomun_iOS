@@ -23,7 +23,7 @@ struct UnivFinderView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
                     .font(.system(size: 16, weight: .regular))
@@ -34,14 +34,13 @@ struct UnivFinderView: View {
                     .foregroundColor(.black)
                     .padding(.trailing, 20)
             }
-            .frame(height: 50)
-            .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color(UIColor(.mainColor) ?? .gray), lineWidth: 2)
-                )
+            .frame(height: 52)
             .onChange(of: search) { _ in
                 filterList()
             }
+            Divider()
+                .frame(height: 2)
+                .background(Color(UIColor(.mainColor) ?? .black))
             ScrollView {
                 LazyVStack(spacing: 0) {
                     ForEach(filteredUnivList, id: \.self) { univ in
@@ -66,21 +65,21 @@ struct UnivFinderView: View {
             .padding(.top, 10)
             .frame(maxHeight: 500)
         }
-        .onAppear(perform: {
+        .onAppear {
             let network = Network()
             let networkUseCase = NetworkUsecase(network: network)
             let schoolSearchUseCase = SchoolSearchUseCase(networkUseCase: networkUseCase)
-            schoolSearchUseCase.request(schoolKey: schoolType.key, completion: { downloaded in
+            schoolSearchUseCase.request(schoolKey: schoolType.key) { downloaded in
                 self.univList = downloaded
                 filterList()
-            })
-        })
+            }
+        }
     }
 }
 
 struct UnivFinderView_Previews: PreviewProvider {
     static var previews: some View {
-        UnivFinderView(selected: .constant(""), schoolType: .middle)
+        UnivFinderView(selected: .constant(""), schoolType: .univ)
     }
 }
 
