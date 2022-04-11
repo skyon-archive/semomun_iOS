@@ -174,6 +174,7 @@ extension LoginSelectVM {
         updatedUserInfo.phoneNumber = signupUserInfo.phone
         updatedUserInfo.school = signupUserInfo.school
         updatedUserInfo.username = signupUserInfo.username
+        updatedUserInfo.marketing = signupUserInfo.marketing
         return updatedUserInfo
     }
 }
