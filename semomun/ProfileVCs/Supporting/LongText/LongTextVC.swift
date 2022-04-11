@@ -11,7 +11,8 @@ final class LongTextVC: UIViewController, StoryboardController {
     static let identifier = "LongTextVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
-    private let networkUsecase: UserInfoSendable = NetworkUsecase(network: Network())
+    private var networkUsecase: UserInfoSendable? = NetworkUsecase(network: Network())
+    private lazy var syncUsecase: SyncUsecase? = SyncUsecase(networkUsecase: NetworkUsecase(network: Network()))
     
     @IBOutlet weak var textViewBackground: UIView!
     @IBOutlet weak var textView: UITextView!
@@ -20,6 +21,11 @@ final class LongTextVC: UIViewController, StoryboardController {
     @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var marketingAcceptBottomSpacing: NSLayoutConstraint!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        CoreDataManager.saveCoreData()
+    }
 }
 
 extension LongTextVC {
@@ -52,6 +58,7 @@ extension LongTextVC {
         self.textViewBackground.isHidden = true
         self.textViewLeadingConstraint.constant = 0
         self.textViewTopConstraint.constant = 0
+        
         // 우측 상단 닫기 버튼 생성
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
         let closeImage = UIImage(.xmark, withConfiguration: imageConfig)
@@ -71,18 +78,10 @@ extension LongTextVC {
         }
         self.labelAboutMarketingAccept.isHidden = false
         self.view.bringSubviewToFront(labelAboutMarketingAccept)
+        
         // 토글 설정
         let toggle = MainThemeSwitch()
         toggle.translatesAutoresizingMaskIntoConstraints = false
-        toggle.setup { [weak self] isOn in
-            self?.networkUsecase.postMarketingConsent(isConsent: isOn) { status in
-                if status != .SUCCESS {
-                    self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크를 확인해주세요")
-                    toggle.toggleButton()
-                }
-            }
-        }
-        
         self.view.addSubview(toggle)
         NSLayoutConstraint.activate([
             toggle.leadingAnchor.constraint(equalTo: labelAboutMarketingAccept.trailingAnchor, constant: 12),
@@ -91,6 +90,31 @@ extension LongTextVC {
             toggle.heightAnchor.constraint(equalToConstant: 25),
         ])
         self.view.bringSubviewToFront(toggle)
+        
+        self.syncUsecase?.syncUserDataFromDB { [weak self] result in
+            switch result {
+            case .success(var userInfo):
+                toggle.isOn = userInfo.marketing
+                toggle.setup { [weak self] isOn in
+                    userInfo.marketing = isOn
+                    self?.networkUsecase?.putUserInfoUpdate(userInfo: userInfo) { status in
+                        guard status == .SUCCESS else {
+                            self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크 연결 상태를 확인해주세요")
+                            
+                            // 네트워크 실패시 변경을 원상태로 복구
+                            toggle.toggle()
+                            userInfo.marketing.toggle()
+                            
+                            return
+                        }
+                    }
+                }
+            case .failure:
+                self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크 연결 상태를 확인해주세요") {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
     }
     
 }

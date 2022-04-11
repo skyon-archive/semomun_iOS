@@ -267,11 +267,6 @@ extension NetworkUsecase: UserInfoSendable {
             }
         }
     }
-    // TODO: putUserInfoUpdagte 로 합쳐질 예정
-    func postMarketingConsent(isConsent: Bool, completion: @escaping (NetworkStatus) -> Void)  {
-        print("마케팅 수신 동의 \(isConsent)로 post 시도")
-        completion(.SUCCESS)
-    }
 }
 extension NetworkUsecase: UserHistoryFetchable {
     typealias PayHistoryConforming = PayHistory
