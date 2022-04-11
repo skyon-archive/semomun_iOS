@@ -21,7 +21,7 @@ struct SignupUserInfo: Encodable {
     var majorDetail: String?
     var favoriteTags: [Int] = []
     var graduationStatus: String?
-    var marketing: Bool?
+    var marketing: Bool = false
     
     var isValid: Bool {
         return [username, school, major, majorDetail, graduationStatus, marketing].allSatisfy { $0 != nil }
