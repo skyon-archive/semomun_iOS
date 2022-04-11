@@ -13,6 +13,7 @@ struct UserInfo: Codable {
         case phoneNumberWithCountryCode = "phone"
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
+        case _marketing = "marketing"
     }
     
     var uid: Int
@@ -28,6 +29,13 @@ struct UserInfo: Codable {
     private(set) var credit: Int?
     var createdDate: Date?
     var updatedDate: Date?
+    
+    /// TODO: https://stackoverflow.com/questions/45090671/convert-received-int-to-bool-decoding-json-using-codable 참고하기
+    private var _marketing: Int
+    var marketing: Bool {
+        get { self._marketing == 1 }
+        set { self._marketing = newValue ? 1 : 0 }
+    }
     
     private var phoneNumberWithCountryCode: String?
     
