@@ -28,5 +28,4 @@ extension Notification.Name {
     static let checkHomeNetworkFetchable = Self.init(rawValue: "checkHomeNetworkFetchable")
     static let tokenExpired = Self.init(rawValue: "tokenExpired")
     static let networkError = Self.init(rawValue: "networkError")
-    static let migrationTerminated = Self.init(rawValue: "migrationTerminated")
 }
