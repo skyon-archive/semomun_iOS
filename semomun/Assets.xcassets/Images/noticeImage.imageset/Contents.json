@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "noticeImage.png",
+      "filename" : "iPad Pro 11_ - 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "noticeImage-1.png",
+      "filename" : "iPad Pro 11_ - 1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "noticeImage-2.png",
+      "filename" : "iPad Pro 11_ - 1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

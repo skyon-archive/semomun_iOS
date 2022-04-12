@@ -38,14 +38,46 @@ final class NoticePopupVC: UIViewController {
     
     private lazy var doNotShowAgainButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitle("다시 보지 않기", for: .normal)
-        button.setTitleColor(UIColor(.textColor), for: .normal)
+        
+        let checkbox = UIImageView(image: UIImage(systemName: "square"))
+        checkbox.translatesAutoresizingMaskIntoConstraints = false
+        checkbox.tintColor = .white
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .white
+        let underlineAttriString = NSAttributedString(
+            string: "다시 보지 않기",
+            attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue]
+        )
+        label.attributedText = underlineAttriString
+        
+        button.addSubviews(label, checkbox)
+        NSLayoutConstraint.activate([
+            checkbox.widthAnchor.constraint(equalToConstant: 18),
+            checkbox.heightAnchor.constraint(equalToConstant: 18),
+            
+            checkbox.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            label.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            checkbox.leadingAnchor.constraint(equalTo: button.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: button.trailingAnchor),
+            
+            checkbox.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -10)
+        ])
+        
+        var doNotShow = false
         button.addAction(UIAction(handler: { [weak self] _ in
-            UserDefaultsManager.lastViewedPopup = self?.imageURL.absoluteString
-            self?.presentingViewController?.dismiss(animated: true, completion: nil)
+            doNotShow.toggle()
+            if doNotShow {
+                UserDefaultsManager.lastViewedPopup = self?.imageURL.absoluteString
+                checkbox.image = UIImage(systemName: "checkmark.square.fill")
+            } else {
+                UserDefaultsManager.lastViewedPopup = ""
+                checkbox.image = UIImage(systemName: "square")
+            }
         }), for: .touchUpInside)
+        
         return button
     }()
     
@@ -82,7 +114,8 @@ final class NoticePopupVC: UIViewController {
         
         NSLayoutConstraint.activate([
             self.doNotShowAgainButton.centerXAnchor.constraint(equalTo: self.noticeImageView.centerXAnchor),
-            self.doNotShowAgainButton.topAnchor.constraint(equalTo: self.noticeImageView.bottomAnchor, constant: 15)
+            self.doNotShowAgainButton.bottomAnchor.constraint(equalTo: self.noticeImageView.bottomAnchor, constant: -24),
+            self.doNotShowAgainButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
