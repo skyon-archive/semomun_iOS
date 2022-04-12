@@ -35,6 +35,7 @@ final class BookshelfVM {
         }
     }
     
+    /// Optional인 값을 비교하여 내림차순이면 True를 반환. 비교대상이 모두 nil이면 purchasedDate를 사용
     func areInIncreasingOrder<Value: Comparable>(_ keyPath: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
         switch (leftBook[keyPath: keyPath], rightBook[keyPath: keyPath]) {
         case (let lhs?, let rhs?):
@@ -47,7 +48,6 @@ final class BookshelfVM {
             // 둘 다 값이 없는 경우 purchasedDate 사용
             guard let leftDate = leftBook.purchasedDate,
                   let rightDate = rightBook.purchasedDate else {
-                assertionFailure()
                 return true
             }
             return leftDate > rightDate
