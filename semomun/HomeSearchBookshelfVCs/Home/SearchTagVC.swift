@@ -47,6 +47,7 @@ extension SearchTagVC {
     
     private func configureTextField() {
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.searchTextField.delegate = self
     }
     
     private func configureViewModel() {
@@ -139,5 +140,12 @@ extension SearchTagVC: UITableViewDelegate {
         guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return }
         self.viewModel?.appendTag(tag)
         self.searchTextField.text = ""
+    }
+}
+
+extension SearchTagVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }
