@@ -473,8 +473,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21A-Ta-v6Y">
-                                <rect key="frame" x="0.0" y="228" width="834" height="901"/>
+                                <rect key="frame" x="0.0" y="241" width="834" height="888"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-MS-e7l">
+                                <rect key="frame" x="0.0" y="228" width="834" height="13"/>
+                                <color key="backgroundColor" name="grayBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="4gM-Ow-8oW"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F6w-gQ-FSf" userLabel="searchView">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="228"/>
@@ -653,14 +660,17 @@
                         <viewLayoutGuide key="safeArea" id="B5k-Gr-cV1"/>
                         <color key="backgroundColor" name="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="hyx-MS-e7l" firstAttribute="centerX" secondItem="B5k-Gr-cV1" secondAttribute="centerX" id="0cx-Qe-Fjx"/>
                             <constraint firstItem="F6w-gQ-FSf" firstAttribute="leading" secondItem="B5k-Gr-cV1" secondAttribute="leading" id="2j6-YY-hul"/>
                             <constraint firstItem="B5k-Gr-cV1" firstAttribute="trailing" secondItem="21A-Ta-v6Y" secondAttribute="trailing" id="5Ed-JY-PgM"/>
-                            <constraint firstItem="21A-Ta-v6Y" firstAttribute="top" secondItem="F6w-gQ-FSf" secondAttribute="bottom" id="5Tb-bw-zM4"/>
                             <constraint firstItem="IPD-Dk-Y6f" firstAttribute="top" secondItem="je3-NU-COH" secondAttribute="top" id="DVw-yd-1Xt"/>
+                            <constraint firstItem="hyx-MS-e7l" firstAttribute="top" secondItem="F6w-gQ-FSf" secondAttribute="bottom" id="JJu-cX-84M"/>
                             <constraint firstItem="B5k-Gr-cV1" firstAttribute="trailing" secondItem="IPD-Dk-Y6f" secondAttribute="trailing" id="NJV-PM-re4"/>
                             <constraint firstItem="B5k-Gr-cV1" firstAttribute="bottom" secondItem="21A-Ta-v6Y" secondAttribute="bottom" id="PHl-Fw-i3q"/>
                             <constraint firstItem="21A-Ta-v6Y" firstAttribute="leading" secondItem="B5k-Gr-cV1" secondAttribute="leading" id="hKB-M1-3ao"/>
+                            <constraint firstItem="hyx-MS-e7l" firstAttribute="width" secondItem="je3-NU-COH" secondAttribute="width" id="kjV-XN-0op"/>
                             <constraint firstItem="B5k-Gr-cV1" firstAttribute="trailing" secondItem="F6w-gQ-FSf" secondAttribute="trailing" id="mVd-ow-x5J"/>
+                            <constraint firstItem="21A-Ta-v6Y" firstAttribute="top" secondItem="hyx-MS-e7l" secondAttribute="bottom" id="vkO-RO-F9n"/>
                             <constraint firstItem="F6w-gQ-FSf" firstAttribute="top" secondItem="IPD-Dk-Y6f" secondAttribute="top" id="vsy-vG-IlP"/>
                             <constraint firstItem="IPD-Dk-Y6f" firstAttribute="leading" secondItem="B5k-Gr-cV1" secondAttribute="leading" id="zAf-3B-v9D"/>
                         </constraints>
@@ -1073,11 +1083,11 @@ Label</string>
                                     <size key="itemSize" width="155" height="253"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="28" minY="18" maxX="28" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="0uK-RQ-jrh" customClass="SearchResultCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="28" y="18" width="155" height="253"/>
+                                        <rect key="frame" x="28" y="0.0" width="155" height="253"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uBP-Dr-Ngk">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="253"/>
@@ -2136,6 +2146,9 @@ test</string>
         </namedColor>
         <namedColor name="divider">
             <color red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="grayBackground">
+            <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="grayLineColor">
             <color red="0.58039215686274515" green="0.58431372549019611" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
