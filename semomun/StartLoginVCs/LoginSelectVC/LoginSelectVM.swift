@@ -24,6 +24,15 @@ class LoginSelectVM {
     @Published var alert: (title: String, description: String?)?
     @Published var status: LoginSelectVMStatus?
     
+    var tags: [TagOfDB] {
+        if let tagsData = UserDefaultsManager.favoriteTags,
+           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+            return tags
+        } else {
+            return []
+        }
+    }
+    
     /// 덮어쓰기를 위해 저장해놓는 값
     private var backupForPaste: NetworkURL.UserIDToken?
     private let networkUsecase: LoginSelectVMNetworkUsecase
@@ -32,15 +41,6 @@ class LoginSelectVM {
     init(networkUsecase: LoginSelectVMNetworkUsecase, usecase: LoginSignupLogic) {
         self.networkUsecase = networkUsecase
         self.usecase = usecase
-    }
-    
-    var tids: [Int] {
-        if let tagsData = UserDefaultsManager.favoriteTags,
-           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
-            return tags.map(\.tid)
-        } else {
-            return []
-        }
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo) {
@@ -79,7 +79,7 @@ extension LoginSelectVM {
     
     private func handleSignupNetworkStatus(token: String, status: NetworkStatus) {
         if case .SUCCESS = status {
-            self.networkUsecase.putUserSelectedTags(tids: tids) { [weak self] status in
+            self.networkUsecase.putUserSelectedTags(tags: tags) { [weak self] status in
                 guard status == .SUCCESS else {
                     self?.alert = LoginSelectVMAlert.networkError
                     return
@@ -108,7 +108,7 @@ extension LoginSelectVM {
     private func handleLoginNetworkStatus(token: String, status: NetworkStatus) {
         switch status {
         case .SUCCESS:
-            self.networkUsecase.putUserSelectedTags(tids: tids) { [weak self] status in
+            self.networkUsecase.putUserSelectedTags(tags: tags) { [weak self] status in
                 guard status == .SUCCESS else {
                     self?.alert = LoginSelectVMAlert.networkError
                     return
