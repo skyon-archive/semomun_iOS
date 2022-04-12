@@ -10,7 +10,7 @@ import Combine
 
 final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
-    @Published private(set) var ads: [Banner] = []
+    @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
     @Published private(set) var workbooksWithRecent: [BookshelfInfo] = []
@@ -126,7 +126,7 @@ final class HomeVM {
         self.networkUsecase.getBanners { [weak self] status, banners in
             switch status {
             case .SUCCESS:
-                self?.ads = banners
+                self?.banners = banners
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
