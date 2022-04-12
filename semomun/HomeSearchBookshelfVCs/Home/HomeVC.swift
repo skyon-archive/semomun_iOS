@@ -40,6 +40,7 @@ final class HomeVC: UIViewController {
         self.bindAll()
         self.viewModel?.checkLogined()
         self.viewModel?.checkVersion()
+        self.viewModel?.checkMigration()
         self.configureCollectionView()
         self.configureAddObserver()
         self.configureBannerAds()

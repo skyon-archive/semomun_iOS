@@ -22,6 +22,7 @@ final class HomeVM {
     @Published private(set) var logined: Bool = false
     @Published private(set) var updateToVersion: String?
     @Published private(set) var popupURL: URL?
+    @Published private(set) var isMigration: Bool = false
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -78,6 +79,28 @@ final class HomeVM {
             default:
                 return
             }
+        }
+    }
+    
+    func checkMigration() {
+        let coreVersion = UserDefaultsManager.coreVersion
+        if self.logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
+            print("migration start")
+            self.isMigration = true
+            self.migration()
+        }
+    }
+    
+    private func migration() {
+        CoreUsecase.migration { [weak self] migrationSuccess in
+            guard migrationSuccess else {
+                self?.isMigration = false
+                self?.warning = ("동기화 실패", "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            
+            print("migration success")
+            self?.isMigration = false
         }
     }
     

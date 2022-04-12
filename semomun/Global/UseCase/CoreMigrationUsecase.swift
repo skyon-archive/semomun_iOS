@@ -14,9 +14,17 @@ extension CoreUsecase {
             completion(false)
             return
         }
+        
         CoreUsecase.updateSectionHeaders() { success in
-            NotificationCenter.default.post(name: .migrationTerminated, object: nil)
-            completion(success)
+            guard success else {
+                completion(false)
+                return
+            }
+            
+            let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
+            UserDefaultsManager.coreVersion = version
+            CoreDataManager.saveCoreData()
+            completion(true)
             return
         }
     }
