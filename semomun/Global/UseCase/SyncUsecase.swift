@@ -52,30 +52,26 @@ struct SyncUsecase {
             switch status {
             case .SUCCESS where userInfo != nil:
                 self.saveUserInfoToCoreData(userInfo!)
-                completion(.success(userInfo!))
+                self.networkUsecase.getUserSelectedTags { status, tags in
+                    guard status == .SUCCESS else {
+                        completion(.failure(.networkFail))
+                        return
+                    }
+                    
+                    do {
+                        let data = try PropertyListEncoder().encode(tags)
+                        UserDefaultsManager.favoriteTags = data
+                        NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+                        completion(.success(userInfo!))
+                    } catch {
+                        print("Sync 실패: \(error)")
+                        completion(.failure(.tagOfDBEncodeFail))
+                    }
+                }
             case .TOKENEXPIRED:
                 NotificationCenter.default.post(name: .tokenExpired, object: nil)
-                return
             default:
                 completion(.failure(.networkFail))
-                return
-            }
-            
-            self.networkUsecase.getUserSelectedTags { status, tags in
-                guard status == .SUCCESS else {
-                    completion(.failure(.networkFail))
-                    return
-                }
-                
-                do {
-                    let data = try PropertyListEncoder().encode(tags)
-                    UserDefaultsManager.favoriteTags = data
-                    NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
-                } catch {
-                    print("Sync 실패: \(error)")
-                    completion(.failure(.tagOfDBEncodeFail))
-                    return
-                }
             }
         }
     }

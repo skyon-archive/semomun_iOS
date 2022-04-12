@@ -92,6 +92,7 @@ final class HomeVM {
                     print("Home: 유저 정보 동기화 성공")
                     self?.fetchLogined()
                 default:
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                     return
                 }
             }
