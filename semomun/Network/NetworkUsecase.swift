@@ -245,7 +245,8 @@ extension NetworkUsecase: PhonenumVerifiable {
 
 // MARK: - UserAccessable
 extension NetworkUsecase: UserInfoSendable {
-    func putUserSelectedTags(tids: [Int], completion: @escaping (NetworkStatus) -> Void) {
+    func putUserSelectedTags(tags: [TagOfDB], completion: @escaping (NetworkStatus) -> Void) {
+        let tids = tags.map(\.tid)
         self.network.request(url: NetworkURL.tagsSelf, param: tids, method: .put, tokenRequired: true) { result in
             guard let statusCode = result.statusCode else {
                 completion(.FAIL)
