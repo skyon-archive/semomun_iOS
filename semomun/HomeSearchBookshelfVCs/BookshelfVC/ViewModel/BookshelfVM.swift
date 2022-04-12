@@ -27,29 +27,30 @@ final class BookshelfVM {
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
         case .purchase:
-            self.books = previews.sorted(by: { leftbook, rightbook in
-                guard let leftDate = leftbook.purchasedDate,
-                      let rightDate = rightbook.purchasedDate else {
-                          return true
-                      } // default: previews order
-                return leftDate > rightDate
-            })
+            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.purchasedDate, leftBook: $0, rightBook: $1) })
         case .recent:
-            self.books = previews.sorted(by: { leftbook, rightbook in
-                guard let leftDate = leftbook.recentDate,
-                      let rightDate = rightbook.recentDate else {
-                          return leftbook.purchasedDate ?? Date() > rightbook.purchasedDate ?? Date()
-                      } // default: purchasedDate
-                return leftDate > rightDate
-            })
+            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.recentDate, leftBook: $0, rightBook: $1) })
         case .alphabet:
-            self.books = previews.sorted(by: { leftbook, rightbook in
-                guard let leftTitle = leftbook.title,
-                      let rightTitle = rightbook.title else {
-                          return true
-                      } // default: previews order
-                return leftTitle < rightTitle
-            })
+            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.title, leftBook: $0, rightBook: $1) })
+        }
+    }
+    
+    func areInIncreasingOrder<Value: Comparable>(_ keyPath: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
+        switch (leftBook[keyPath: keyPath], rightBook[keyPath: keyPath]) {
+        case (let lhs?, let rhs?):
+            return lhs > rhs
+        case (_?, nil):
+            return true
+        case (nil, _?):
+            return false
+        default:
+            // 둘 다 값이 없는 경우 purchasedDate 사용
+            guard let leftDate = leftBook.purchasedDate,
+                  let rightDate = rightBook.purchasedDate else {
+                assertionFailure()
+                return true
+            }
+            return leftDate > rightDate
         }
     }
     
