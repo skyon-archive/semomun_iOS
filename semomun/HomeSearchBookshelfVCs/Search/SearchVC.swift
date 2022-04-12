@@ -201,7 +201,7 @@ extension SearchVC {
         let storyboard = UIStoryboard(controllerType: WorkbookDetailVC.self)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookViewModel(workbookDTO: workbook, networkUsecase: networkUsecase)
+        let viewModel = WorkbookDetailVM(workbookDTO: workbook, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: false)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
@@ -211,7 +211,7 @@ extension SearchVC {
         let storyboard = UIStoryboard(controllerType: WorkbookDetailVC.self)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookViewModel(previewCore: book, networkUsecase: networkUsecase)
+        let viewModel = WorkbookDetailVM(previewCore: book, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
