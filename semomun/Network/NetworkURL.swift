@@ -79,10 +79,11 @@ enum NetworkURL {
     static let notices = base + "/notices"
     static let banners = base + "/banners"
     static let popup = base + "/popups"
+    static let errorReports = base + "/error-reports"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
-    static let errorReport: String = "https://forms.gle/suXByYKEied6RcSd8"
+    static let errorReportGoogleForm: String = "https://forms.gle/suXByYKEied6RcSd8"
     static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709&country=kr"
     static let s3ImageDirectory: String = base + "/s3/presignedUrl"
     

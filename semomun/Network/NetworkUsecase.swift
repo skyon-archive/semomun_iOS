@@ -455,10 +455,15 @@ extension NetworkUsecase: UserSubmissionSendable {
 
 // MARK: - Reportable
 extension NetworkUsecase: ErrorReportable {
-    // TODO: 새로운 API 필요한 상태
     func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void) {
-        print(pid, text)
-        completion(.SUCCESS)
+        let param = ErrorReport(pid: pid, content: text)
+        self.network.request(url: NetworkURL.errorReports, param: param, method: .post, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode else {
+                completion(.FAIL)
+                return
+            }
+            completion(NetworkStatus(statusCode: statusCode))
+        }
     }
 }
 
