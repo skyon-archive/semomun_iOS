@@ -1313,7 +1313,7 @@ next line</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="68" id="gu9-G4-8Vu"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="6Rt-RG-XdE">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="6Rt-RG-XdE">
                                             <size key="itemSize" width="110" height="68"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1327,7 +1327,7 @@ next line</string>
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="68"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8h-4j-73i" userLabel="separator">
+                                                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8h-4j-73i" userLabel="separator">
                                                             <rect key="frame" x="0.0" y="0.0" width="1" height="68"/>
                                                             <color key="backgroundColor" name="semoGray"/>
                                                             <constraints>
@@ -1345,7 +1345,7 @@ next line</string>
                                                             <string key="text">인사혁신처, 
 국회사무처</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
