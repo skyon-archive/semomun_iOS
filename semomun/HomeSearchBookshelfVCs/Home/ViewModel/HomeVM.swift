@@ -48,9 +48,6 @@ final class HomeVM {
             self?.logined = true
             self?.fetchLogined()
         }
-        NotificationCenter.default.addObserver(forName: .migrationTerminated, object: nil, queue: .current) { [weak self] _ in
-            self?.fetchLogined()
-        }
         NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
             self?.fetchLogined()
         }
@@ -85,7 +82,7 @@ final class HomeVM {
     func checkMigration() {
         let coreVersion = UserDefaultsManager.coreVersion
         if self.logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
-            print("migration start")
+            print("HOMEVM : migration start")
             self.isMigration = true
             self.migration()
         }
@@ -99,8 +96,9 @@ final class HomeVM {
                 return
             }
             
-            print("migration success")
+            print("HOMEVM : migration success")
             self?.isMigration = false
+            self?.fetchLogined()
         }
     }
     
