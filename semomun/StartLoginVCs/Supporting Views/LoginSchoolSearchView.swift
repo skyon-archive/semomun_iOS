@@ -24,11 +24,11 @@ struct LoginSchoolSearchView: View {
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.trailing, 27)
-            .padding(.top, 27)
+            .padding(.top, 24)
             Text("\(schoolType.rawValue) 찾기")
-                .font(.system(size: 20, weight: .semibold))
-                .padding(.top, 5)
-                .padding(.bottom, 27)
+                .font(.system(size: 18, weight: .medium))
+                .padding(.top, 3)
+                .padding(.bottom, 30)
             UnivFinderView(selected: .constant(""), schoolType: schoolType, delegate: delegate)
                 .padding(.horizontal, 40)
         }
