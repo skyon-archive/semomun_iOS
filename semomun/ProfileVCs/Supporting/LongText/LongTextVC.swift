@@ -21,11 +21,6 @@ final class LongTextVC: UIViewController, StoryboardController {
     @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var marketingAcceptBottomSpacing: NSLayoutConstraint!
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        CoreDataManager.saveCoreData()
-    }
 }
 
 extension LongTextVC {
@@ -107,6 +102,7 @@ extension LongTextVC {
                             
                             return
                         }
+                        CoreDataManager.saveCoreData()
                     }
                 }
             case .failure:
