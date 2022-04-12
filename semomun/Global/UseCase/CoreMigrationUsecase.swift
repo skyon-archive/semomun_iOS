@@ -10,26 +10,30 @@ import CoreData
 
 extension CoreUsecase {
     static func migration(completion: @escaping(Bool) -> Void) {
+        /// Problem - Page - Section 간의 구조를 맞추는 로직
         if CoreUsecase.updateSections() == false {
             completion(false)
             return
         }
-        
-        CoreUsecase.updateSectionHeaders() { success in
+        /// sectionHeader 반영 및 workbook들 구매 반영 로직
+        CoreUsecase.updateSectionHeadersAndPostPurchase() { success in
             guard success else {
                 completion(false)
                 return
             }
-            
+            /// 성공시 동작 로직
             let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
             UserDefaultsManager.coreVersion = version
             CoreDataManager.saveCoreData()
-            completion(true)
-            return
+            /// 기존 Workbook 들의 정보를 최신화 하는 로직
+            self.updateAllWorkbooks { success in
+                completion(success)
+                return
+            }
         }
     }
     
-    static func updateSectionHeaders(completion: @escaping (Bool) -> Void) {
+    private static func updateSectionHeadersAndPostPurchase(completion: @escaping (Bool) -> Void) {
         // fetch all previews
         guard let previews = CoreUsecase.fetchPreviews() else {
             completion(false)
@@ -77,7 +81,7 @@ extension CoreUsecase {
         print("PREVIEW MIGRATION SUCCESS")
     }
     
-    static func updateSections() -> Bool {
+    private static func updateSections() -> Bool {
         // fetch all sections
         guard let sections = CoreUsecase.fetchSections() else { return false }
         // sections.forEach
@@ -133,18 +137,63 @@ extension CoreUsecase {
         return true
     }
     
-    static func getPageCores(pNames: [String], dictionary: [String: Int]) -> [Page_Core] {
+    private static func getPageCores(pNames: [String], dictionary: [String: Int]) -> [Page_Core] {
         let vids = NSOrderedSet(array: pNames.map { dictionary[$0, default: 0] }).map { $0 as? Int ?? 0 }
         let pageCores = vids.compactMap { vid in CoreUsecase.fetchPage(vid: vid) }
         return pageCores
     }
     
-    static func getProblemCores(pageCores: [Page_Core]) -> [Problem_Core] {
+    private static func getProblemCores(pageCores: [Page_Core]) -> [Problem_Core] {
         let problemCores = pageCores.flatMap { page in
             page.problems.compactMap { pid in
                 CoreUsecase.fetchProblem(pid: pid)
             }
         }
         return problemCores
+    }
+    
+    private static func updateAllWorkbooks(completion: @escaping (Bool) -> Void) {
+        let networkUsecase: (UserWorkbooksFetchable & WorkbookSearchable & S3ImageFetchable) = NetworkUsecase(network: Network())
+        networkUsecase.getUserBookshelfInfos { status, infos in
+            guard status == .SUCCESS,
+                  let previews = self.fetchPreviews() else {
+                completion(false)
+                return
+            }
+            guard infos.isEmpty == false else {
+                completion(true)
+                return
+            }
+            
+            print("update All Workbooks")
+            let userPurchases = infos.map { BookshelfInfo(info: $0) }
+            let taskGroup = DispatchGroup()
+            
+            userPurchases.forEach { info in
+                taskGroup.enter()
+                networkUsecase.getWorkbook(wid: info.wid) { workbook in
+                    let preview_core = previews.first { $0.wid == Int64(info.wid) }
+                    /// 개발진행자의 경우 Coredata 상에 없는 구매한 workbook이 존재
+                    /// 일반 사용자의 경우 아이폰용이 출시되기전까지 진행되지 않는다
+                    if preview_core == nil {
+                        print("CoreData 상에 없는 Workbook")
+                        taskGroup.leave()
+                    }
+                    
+                    preview_core?.setValues(workbook: workbook, info: info)
+                    preview_core?.fetchBookcover(uuid: workbook.bookcover, networkUsecase: networkUsecase, completion: {
+                        print("update preview(\(info.wid) complete")
+                        taskGroup.leave()
+                    })
+                }
+            }
+            
+            taskGroup.notify(queue: .main) {
+                CoreDataManager.saveCoreData()
+                print("update All Workbooks Success")
+                completion(true)
+                return
+            }
+        }
     }
 }
