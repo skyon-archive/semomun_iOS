@@ -70,7 +70,7 @@ final class SearchTagVM {
     }
     
     private func saveTags() {
-        self.networkUsecase.putUserSelectedTags(tids: self.userTags.map(\.tid)) { [weak self] status in
+        self.networkUsecase.putUserSelectedTags(tags: self.userTags) { [weak self] status in
             guard status == .SUCCESS else {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
