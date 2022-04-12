@@ -1641,7 +1641,7 @@ next line</string>
                                 <rect key="frame" x="131" y="277.5" width="572" height="643"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0h-yl-XiC">
-                                        <rect key="frame" x="522" y="10" width="40" height="40"/>
+                                        <rect key="frame" x="505" y="24" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="kBI-lv-NP2"/>
                                             <constraint firstAttribute="width" secondItem="m0h-yl-XiC" secondAttribute="height" multiplier="1:1" id="nEx-6I-J68"/>
@@ -1656,31 +1656,31 @@ next line</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 태그" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZ4-eu-4Vi">
-                                        <rect key="frame" x="252.5" y="50" width="67" height="22"/>
+                                        <rect key="frame" x="252.5" y="51" width="67" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTd-32-jpP">
-                                        <rect key="frame" x="40" y="99" width="492" height="46"/>
+                                        <rect key="frame" x="40" y="100" width="492" height="37"/>
                                         <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o1E-Lc-AkY">
+                                                <rect key="frame" x="2" y="8.5" width="25" height="20"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="o1E-Lc-AkY" secondAttribute="height" multiplier="1:1" id="X9C-MT-4tT"/>
+                                                    <constraint firstAttribute="width" constant="25" id="aru-zt-miw"/>
+                                                </constraints>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="small"/>
+                                            </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SeQ-zF-pbJ">
-                                                <rect key="frame" x="15" y="12.5" width="428" height="21"/>
+                                                <rect key="frame" x="35" y="0.0" width="457" height="37"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o1E-Lc-AkY">
-                                                <rect key="frame" x="448" y="11.5" width="28" height="23"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="o1E-Lc-AkY" secondAttribute="height" multiplier="1:1" id="X9C-MT-4tT"/>
-                                                    <constraint firstAttribute="width" constant="28" id="aru-zt-miw"/>
-                                                </constraints>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="small"/>
-                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDB-4I-Ulj">
-                                                <rect key="frame" x="0.0" y="44" width="492" height="2"/>
+                                                <rect key="frame" x="0.0" y="35" width="492" height="2"/>
                                                 <color key="backgroundColor" name="mainColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="CrV-8k-rpJ"/>
@@ -1691,13 +1691,14 @@ next line</string>
                                         <constraints>
                                             <constraint firstItem="o1E-Lc-AkY" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="7yn-yD-n2S"/>
                                             <constraint firstItem="vDB-4I-Ulj" firstAttribute="centerX" secondItem="kTd-32-jpP" secondAttribute="centerX" id="AX7-yT-Jln"/>
-                                            <constraint firstAttribute="height" constant="46" id="SKw-Qt-QPg"/>
-                                            <constraint firstAttribute="trailing" secondItem="o1E-Lc-AkY" secondAttribute="trailing" constant="16" id="URK-7y-HHC"/>
-                                            <constraint firstItem="SeQ-zF-pbJ" firstAttribute="leading" secondItem="kTd-32-jpP" secondAttribute="leading" constant="15" id="Umz-Gt-2PC"/>
+                                            <constraint firstAttribute="height" constant="37" id="SKw-Qt-QPg"/>
+                                            <constraint firstAttribute="trailing" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" id="ZSc-zY-2VQ"/>
                                             <constraint firstItem="vDB-4I-Ulj" firstAttribute="width" secondItem="kTd-32-jpP" secondAttribute="width" id="am7-Yb-Kwv"/>
-                                            <constraint firstItem="o1E-Lc-AkY" firstAttribute="leading" secondItem="SeQ-zF-pbJ" secondAttribute="trailing" constant="5" id="asB-Qj-6Bg"/>
                                             <constraint firstItem="SeQ-zF-pbJ" firstAttribute="centerY" secondItem="kTd-32-jpP" secondAttribute="centerY" id="beY-gS-bdE"/>
                                             <constraint firstAttribute="bottom" secondItem="vDB-4I-Ulj" secondAttribute="bottom" id="dv8-bZ-ypI"/>
+                                            <constraint firstItem="SeQ-zF-pbJ" firstAttribute="top" secondItem="kTd-32-jpP" secondAttribute="top" id="exY-02-icz"/>
+                                            <constraint firstItem="SeQ-zF-pbJ" firstAttribute="leading" secondItem="o1E-Lc-AkY" secondAttribute="trailing" constant="8" id="oMz-UC-wOh"/>
+                                            <constraint firstItem="o1E-Lc-AkY" firstAttribute="leading" secondItem="kTd-32-jpP" secondAttribute="leading" constant="2" id="zt8-9q-Ckl"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -1706,7 +1707,7 @@ next line</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jus-n3-bfj">
-                                        <rect key="frame" x="40" y="157" width="492" height="30"/>
+                                        <rect key="frame" x="40" y="149" width="492" height="30"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="TlF-0m-kXE"/>
@@ -1757,7 +1758,7 @@ next line</string>
                                         </cells>
                                     </collectionView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="duc-Gb-r0X">
-                                        <rect key="frame" x="40" y="207" width="492" height="406"/>
+                                        <rect key="frame" x="40" y="196" width="492" height="417"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
@@ -1792,19 +1793,19 @@ next line</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="643" id="1rc-tk-o6n"/>
                                     <constraint firstItem="Jus-n3-bfj" firstAttribute="centerX" secondItem="Gpp-Tr-qd4" secondAttribute="centerX" id="5r0-Yy-IdB"/>
-                                    <constraint firstAttribute="trailing" secondItem="m0h-yl-XiC" secondAttribute="trailing" constant="10" id="A3X-Gp-4An"/>
+                                    <constraint firstAttribute="trailing" secondItem="m0h-yl-XiC" secondAttribute="trailing" constant="27" id="A3X-Gp-4An"/>
                                     <constraint firstItem="Jus-n3-bfj" firstAttribute="width" secondItem="kTd-32-jpP" secondAttribute="width" id="AGj-OO-HW7"/>
-                                    <constraint firstItem="duc-Gb-r0X" firstAttribute="top" secondItem="Jus-n3-bfj" secondAttribute="bottom" constant="20" id="FCe-Ey-qPS"/>
+                                    <constraint firstItem="duc-Gb-r0X" firstAttribute="top" secondItem="Jus-n3-bfj" secondAttribute="bottom" constant="17" id="FCe-Ey-qPS"/>
                                     <constraint firstAttribute="width" constant="572" id="HRi-1X-IEY"/>
                                     <constraint firstItem="kTd-32-jpP" firstAttribute="centerX" secondItem="Gpp-Tr-qd4" secondAttribute="centerX" id="IVi-zx-ZYx"/>
                                     <constraint firstItem="oZ4-eu-4Vi" firstAttribute="centerX" secondItem="Gpp-Tr-qd4" secondAttribute="centerX" id="NVb-89-1nO"/>
-                                    <constraint firstItem="m0h-yl-XiC" firstAttribute="top" secondItem="Gpp-Tr-qd4" secondAttribute="top" constant="10" id="PcY-5m-pKM"/>
+                                    <constraint firstItem="m0h-yl-XiC" firstAttribute="top" secondItem="Gpp-Tr-qd4" secondAttribute="top" constant="24" id="PcY-5m-pKM"/>
                                     <constraint firstItem="Jus-n3-bfj" firstAttribute="top" secondItem="kTd-32-jpP" secondAttribute="bottom" constant="12" id="Z1c-di-GMT"/>
                                     <constraint firstAttribute="bottom" secondItem="duc-Gb-r0X" secondAttribute="bottom" constant="30" id="bzM-ys-lqD"/>
                                     <constraint firstItem="duc-Gb-r0X" firstAttribute="centerX" secondItem="Gpp-Tr-qd4" secondAttribute="centerX" id="dl6-kk-Cuz"/>
                                     <constraint firstItem="duc-Gb-r0X" firstAttribute="width" secondItem="Jus-n3-bfj" secondAttribute="width" id="h68-K4-kcm"/>
                                     <constraint firstItem="kTd-32-jpP" firstAttribute="top" secondItem="oZ4-eu-4Vi" secondAttribute="bottom" constant="27" id="hxh-fl-GkT"/>
-                                    <constraint firstItem="oZ4-eu-4Vi" firstAttribute="top" secondItem="Gpp-Tr-qd4" secondAttribute="top" constant="50" id="pGZ-az-48M"/>
+                                    <constraint firstItem="oZ4-eu-4Vi" firstAttribute="top" secondItem="Gpp-Tr-qd4" secondAttribute="top" constant="51" id="pGZ-az-48M"/>
                                     <constraint firstItem="kTd-32-jpP" firstAttribute="leading" secondItem="Gpp-Tr-qd4" secondAttribute="leading" constant="40" id="v9I-DA-JDn"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>

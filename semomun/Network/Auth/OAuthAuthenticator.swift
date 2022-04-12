@@ -39,7 +39,6 @@ class OAuthAuthenticator: Authenticator {
             
             AF.request(NetworkURL.refreshToken, method: .get, headers: headers) { $0.timeoutInterval = .infinity }
                 .responseDecodable(of: NetworkTokens.self) { result in
-                    dump(result)
                     switch result.result {
                     case .success(let token):
                         do {
