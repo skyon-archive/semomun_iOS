@@ -61,7 +61,7 @@
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
 		25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25A31F5627E9E79300411987 /* termsOfElectronicTransaction.txt */; };
 		25A950B327C760EC0084513E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A950B227C760EC0084513E /* Collection.swift */; };
-		25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookViewModel.swift */; };
+		25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookDetailVM.swift */; };
 		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
 		25B514BE27F9D0060047FC16 /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BD27F9D0060047FC16 /* OAuthAuthenticator.swift */; };
 		25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BF27F9D0270047FC16 /* OAuthCredential.swift */; };
@@ -220,6 +220,7 @@
 		87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54A277EBEB000359BAE /* termsAndConditions.txt */; };
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
 		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
+		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
 		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
@@ -299,7 +300,7 @@
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		25A31F5627E9E79300411987 /* termsOfElectronicTransaction.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = termsOfElectronicTransaction.txt; sourceTree = "<group>"; };
 		25A950B227C760EC0084513E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		25A9B2B3279158020087E774 /* WorkbookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookViewModel.swift; sourceTree = "<group>"; };
+		25A9B2B3279158020087E774 /* WorkbookDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVM.swift; sourceTree = "<group>"; };
 		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
 		25B514BD27F9D0060047FC16 /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
 		25B514BF27F9D0270047FC16 /* OAuthCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthCredential.swift; sourceTree = "<group>"; };
@@ -457,6 +458,7 @@
 		87E7A54A277EBEB000359BAE /* termsAndConditions.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = termsAndConditions.txt; sourceTree = "<group>"; };
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
 		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
+		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
 		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 			children = (
 				2560E1E727914D11003BDAC0 /* SectionCell.swift */,
 				87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */,
+				87EEC2902805752C0050854D /* WorkbookInfoCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -659,7 +662,7 @@
 		25A9B2B2279157F60087E774 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				25A9B2B3279158020087E774 /* WorkbookViewModel.swift */,
+				25A9B2B3279158020087E774 /* WorkbookDetailVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1474,6 +1477,7 @@
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
+				87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */,
 				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
 				2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */,
 				87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */,
@@ -1627,7 +1631,7 @@
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
-				25A9B2B4279158020087E774 /* WorkbookViewModel.swift in Sources */,
+				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,

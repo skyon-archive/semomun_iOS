@@ -347,7 +347,7 @@ extension BookshelfVC {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
         guard let networkUsecase = self.viewModel?.networkUsecse else { return }
-        let viewModel = WorkbookViewModel(previewCore: book, networkUsecase: networkUsecase)
+        let viewModel = WorkbookDetailVM(previewCore: book, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)

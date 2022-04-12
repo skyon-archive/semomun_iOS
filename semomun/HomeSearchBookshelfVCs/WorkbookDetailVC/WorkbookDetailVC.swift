@@ -14,23 +14,17 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     @IBOutlet weak var workbookInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var publisherLabel: UILabel!
-    @IBOutlet weak var releaseDateLabel: UILabel!
-    @IBOutlet weak var fileSizeLabel: UILabel!
-    @IBOutlet weak var isbnLabel: UILabel!
     @IBOutlet weak var bookCoverImageViewFrameView: UIView!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
     @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
+    @IBOutlet weak var workbookInfosCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
-    @IBOutlet weak var isbnStackView: UIStackView!
-    @IBOutlet weak var isbnDivider: UIView!
     @IBOutlet weak var periodLabel: UILabel!
     
     private var isCoreData: Bool = false
-    private var viewModel: WorkbookViewModel?
+    private var viewModel: WorkbookDetailVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loader = self.makeLoaderWithoutPercentage()
     
@@ -38,6 +32,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         super.viewDidLoad()
         self.configureUI()
         self.configureTags()
+        self.configureInfos()
         self.configureTableViewDelegate()
         self.bindAll()
         self.configureAddObserver()
@@ -60,7 +55,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
 }
 
 extension WorkbookDetailVC {
-    func configureViewModel(to viewModel: WorkbookViewModel) {
+    func configureViewModel(to viewModel: WorkbookDetailVM) {
         self.viewModel = viewModel
     }
     
@@ -103,6 +98,10 @@ extension WorkbookDetailVC {
     private func configureTags() {
         self.workbookTagsCollectionView.delegate = self
         self.workbookTagsCollectionView.dataSource = self
+    }
+    
+    private func configureInfos() {
+        self.workbookInfosCollectionView.dataSource = self
     }
     
     private func configureTableViewDelegate() {
@@ -149,32 +148,15 @@ extension WorkbookDetailVC {
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
         self.titleLabel.text = workbookInfo.title
-        self.authorLabel.text = workbookInfo.author
-        self.publisherLabel.text = workbookInfo.publisher
-        
-        // 자연스러운 줄바꿈을 위해 개행문자 추가
-        var releaseDate = workbookInfo.releaseDate
-        if let yearIndex = releaseDate.firstIndex(of: "년") {
-            releaseDate.insert("\n", at: releaseDate.index(after: yearIndex))
-        }
-        self.releaseDateLabel.text = releaseDate
-        
-        self.fileSizeLabel.text = workbookInfo.fileSize
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
-        if workbookInfo.isbn == "" {
-            self.isbnStackView.isHidden = true
-            self.isbnDivider.isHidden = true
+        if let imageData = workbookInfo.imageData {
+            self.bookCoverImageView.image = UIImage(data: imageData)
+        } else if let uuid = workbookInfo.bookcover,
+                  let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
+            self.bookCoverImageView.image = cachedImage
         } else {
-            self.isbnLabel.text = workbookInfo.isbn
-        }
-        
-        if self.isCoreData {
-            if let imageData = workbookInfo.imageData {
-                self.bookCoverImageView.image = UIImage(data: imageData)
-            } else {
-                self.bookCoverImageView.image = UIImage(.warning)
-            }
+            assertionFailure()
         }
     }
     
@@ -208,7 +190,7 @@ extension WorkbookDetailVC {
         self.present(solvingVC, animated: true, completion: nil)
     }
     
-    private func showPopupVC(type: WorkbookViewModel.PopupType) {
+    private func showPopupVC(type: WorkbookDetailVM.PopupType) {
         switch type {
         case .login, .updateUserinfo:
             let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
@@ -246,6 +228,7 @@ extension WorkbookDetailVC {
     private func bindAll() {
         self.bindWarning()
         self.bindWorkbookInfo()
+        self.bindInfos()
         self.bindSectionHeaders()
         self.bindSectionDTOs()
         self.bindLoader()
@@ -272,6 +255,16 @@ extension WorkbookDetailVC {
             .sink(receiveValue: { [weak self] workbookInfo in
                 guard let workbookInfo = workbookInfo else { return }
                 self?.configureBookInfo(workbookInfo: workbookInfo)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindInfos() {
+        self.viewModel?.$workbookCellInfos
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.workbookInfosCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }
