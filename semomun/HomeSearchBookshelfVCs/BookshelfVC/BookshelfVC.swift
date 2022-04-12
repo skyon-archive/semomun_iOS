@@ -26,7 +26,6 @@ class BookshelfVC: UIViewController {
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loadingView = LoadingView()
-    private var isMigration: Bool = false
     private var order: SortOrder = .purchase
     private var logined: Bool = false
     private var columnCount: CGFloat {
@@ -43,23 +42,14 @@ class BookshelfVC: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("책장 viewDidLoad")
         self.configureUI()
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
-        self.checkMigration()
+        self.checkSyncBookshelf()
         self.configureObservation()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.isMigration {
-            self.startMigration()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,15 +123,9 @@ extension BookshelfVC {
         self.books.delegate = self
     }
     
-    private func checkMigration() {
+    private func checkSyncBookshelf() {
         self.logined = UserDefaultsManager.isLogined
-        let coreVersion = UserDefaultsManager.coreVersion
-        // 기존 회원이며, 이전버전의 CoreData 일 경우 -> migration 로직 적용
-        if self.logined && coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending { // 비교 값은 분기 버전
-            print("migration start")
-            self.showLoader()
-            self.isMigration = true
-        } else if self.logined {
+        if self.logined {
             self.reloadBookshelf()
             self.syncBookshelf()
         } else {
@@ -156,29 +140,7 @@ extension BookshelfVC {
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
-            self?.checkMigration()
-            if self?.isMigration ?? false {
-                self?.startMigration()
-            }
-        }
-    }
-    
-    private func startMigration() {
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? String.currentVersion
-        CoreUsecase.migration { [weak self] didMigrationSuccess in
-            self?.removeLoader()
-            self?.isMigration = false
-            
-            guard didMigrationSuccess else {
-                print("migration fail")
-                return
-            }
-            
-            UserDefaultsManager.coreVersion = version // migration 완료시 현재 version 저장
-            CoreDataManager.saveCoreData()
-            self?.reloadBookshelf()
-            self?.syncBookshelf(isMigration: true)
-            print("migration success")
+            self?.checkSyncBookshelf()
         }
     }
 }
@@ -221,9 +183,9 @@ extension BookshelfVC {
         self.viewModel?.reloadBookshelf(order: self.order)
     }
     
-    private func syncBookshelf(isMigration: Bool = false) {
+    private func syncBookshelf() {
         self.spinAnimation()
-        self.viewModel?.fetchBooksFromNetwork(updateAll: isMigration)
+        self.viewModel?.fetchBooksFromNetwork()
     }
 }
 
