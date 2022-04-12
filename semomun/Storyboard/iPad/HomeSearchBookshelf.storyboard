@@ -1687,7 +1687,7 @@ next line</string>
                                                 <rect key="frame" x="35" y="0.0" width="457" height="37"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDB-4I-Ulj">
                                                 <rect key="frame" x="0.0" y="35" width="492" height="2"/>
