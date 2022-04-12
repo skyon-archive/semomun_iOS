@@ -41,7 +41,7 @@ protocol BannerFetchable {
     func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void)
 }
 protocol PopupFetchable {
-    func getPopup(completion: @escaping (NetworkStatus, URL?) -> Void)
+    func getNoticePopup(completion: @escaping (NetworkStatus, URL?) -> Void)
 }
 // MARK: - Searchable
 protocol PreviewsSearchable {

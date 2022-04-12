@@ -545,7 +545,7 @@ extension NetworkUsecase: BannerFetchable {
 }
 
 extension NetworkUsecase: PopupFetchable {
-    func getPopup(completion: @escaping (NetworkStatus, URL?) -> Void) {
+    func getNoticePopup(completion: @escaping (NetworkStatus, URL?) -> Void) {
         self.network.request(url: NetworkURL.popup, method: .get, tokenRequired: false) { result in
             guard let statusCode = result.statusCode,
                   let data = result.data else {

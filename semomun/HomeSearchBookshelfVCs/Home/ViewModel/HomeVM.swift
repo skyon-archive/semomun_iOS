@@ -150,7 +150,7 @@ final class HomeVM {
     }
     
     private func fetchPopup() {
-        self.networkUsecase.getPopup { [weak self] status, popupURL in
+        self.networkUsecase.getNoticePopup { [weak self] status, popupURL in
             guard UserDefaultsManager.lastViewedPopup != popupURL?.absoluteString else { return }
             
             switch status {
