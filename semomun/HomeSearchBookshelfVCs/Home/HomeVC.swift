@@ -368,9 +368,9 @@ extension HomeVC: UICollectionViewDataSource {
         if collectionView == self.bannerAds {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
             guard let count = self.viewModel?.banners.count else { return cell }
-            guard let testAd = self.viewModel?.banners[indexPath.item % count] else { return cell }
+            guard let banner = self.viewModel?.banners[indexPath.item % count] else { return cell }
             
-            cell.configureContent(imageURL: testAd.image, url: testAd.url)
+            cell.configureContent(imageURL: banner.image, url: banner.url)
             
             return cell
         } else {
