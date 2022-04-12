@@ -33,6 +33,8 @@ final class HomeVC: UIViewController {
     private lazy var noLoginedLabel2 = NoneWorkbookLabel()
     private lazy var warningOfflineView = WarningOfflineStatusView()
     
+    private lazy var loadingView = LoadingView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
@@ -199,6 +201,7 @@ extension HomeVC {
         self.bindVersion()
         self.bindWarning()
         self.bindPopup()
+        self.bindMigrationLoading()
     }
     
     private func bindTags() {
@@ -341,6 +344,20 @@ extension HomeVC {
                 guard let url = url else { return }
                 let noticeVC = NoticePopupVC(url: url)
                 self?.present(noticeVC, animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindMigrationLoading() {
+        self.viewModel?.$isMigration
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] isLoading in
+                if isLoading {
+                    self?.showLoader()
+                } else {
+                    self?.removeLoader()
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -493,5 +510,25 @@ extension HomeVC: BannerAdsAutoScrollStoppable {
     func stopBannerAdsAutoScroll() {
         self.bannerAdsAutoScrollTimer?.invalidate()
         self.bannerAdsAutoScrollTimer = nil
+    }
+}
+
+// MARK: Loader
+extension HomeVC {
+    private func showLoader() {
+        self.view.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.loadingView.start()
+    }
+    
+    private func removeLoader() {
+        self.loadingView.stop()
+        self.loadingView.removeFromSuperview()
     }
 }
