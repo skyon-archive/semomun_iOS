@@ -18,10 +18,8 @@ protocol SearchControlable: AnyObject {
 class SearchVC: UIViewController {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchInnerView: UIView!
-    @IBOutlet weak var removeTextBT: UIView!
     @IBOutlet weak var cancelSearchBT: UIView!
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchBT: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tagList: UICollectionView!
     
@@ -55,27 +53,9 @@ class SearchVC: UIViewController {
         self.configureViewModel()
         self.bindAll()
         self.configureCollectionView()
-        self.configureTextFieldAction()
+        self.configureTextField()
         self.changeToSearchFavoriteTagsVC()
         self.configureAddObserver()
-    }
-    
-    @IBAction func removeText(_ sender: Any) {
-        self.searchTextField.text = ""
-        self.hiddenRemoveTextBT()
-        if self.viewModel?.tags.isEmpty ?? true {
-            self.hiddenSearchBT()
-        }
-    }
-    
-    @IBAction func search(_ sender: Any) {
-        self.removeChildVC()
-        self.changeChildVC(to: self.searchResultVC)
-        self.fetchResults()
-        self.isSearchTagsFromTextVC = false
-        self.dismissKeyboard()
-        self.hiddenSearchBT()
-        self.hiddenRemoveTextBT()
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
@@ -83,8 +63,6 @@ class SearchVC: UIViewController {
         self.searchTagsFromTextVC.refresh()
         self.changeToSearchFavoriteTagsVC()
         self.searchTextField.text = ""
-        self.hiddenSearchBT()
-        self.hiddenRemoveTextBT()
         self.viewModel?.removeAll()
         self.hiddenCancelSearchBT()
         self.dismissKeyboard()
@@ -94,8 +72,6 @@ class SearchVC: UIViewController {
 // MARK: - Configure
 extension SearchVC {
     private func configureUI() {
-        self.hiddenRemoveTextBT()
-        self.hiddenSearchBT()
         self.hiddenCancelSearchBT()
     }
     
@@ -110,7 +86,9 @@ extension SearchVC {
         self.tagList.dataSource = self
     }
     
-    private func configureTextFieldAction() {
+    private func configureTextField() {
+        self.searchTextField.delegate = self
+        
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidTap), for: .touchDown)
     }
@@ -136,10 +114,7 @@ extension SearchVC {
             .sink(receiveValue: { [weak self] tags in
                 self?.tagList.reloadData()
                 if tags.count > 0 {
-                    self?.showSearchBT()
                     self?.showCancelSearchBT()
-                } else if tags.count == 0 {
-                    self?.hiddenSearchBT()
                 }
             })
             .store(in: &self.cancellables)
@@ -182,17 +157,12 @@ extension SearchVC: UICollectionViewDelegate {
 extension SearchVC {
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        if text.count == 0 {
-            self.hiddenSearchBT()
-            self.hiddenRemoveTextBT()
-        } else {
+        if text.count != 0 {
             if !self.isSearchTagsFromTextVC {
                 print("change")
                 self.changeToSearchTagsFromTextVC()
                 self.searchResultVC.removeAll()
             }
-            self.showRemoveTextBT()
-            self.showSearchBT()
             self.showCancelSearchBT()
         }
         NotificationCenter.default.post(name: .fetchTagsFromSearch, object: nil, userInfo: ["text" : text])
@@ -249,24 +219,8 @@ extension SearchVC {
 
 // MARK: - ConfigureUI {
 extension SearchVC {
-    private func hiddenRemoveTextBT() {
-        self.removeTextBT.isHidden = true
-    }
-    
-    private func hiddenSearchBT() {
-        self.searchBT.isHidden = true
-    }
-    
     private func hiddenCancelSearchBT() {
         self.cancelSearchBT.isHidden = true
-    }
-    
-    private func showRemoveTextBT() {
-        self.removeTextBT.isHidden = false
-    }
-    
-    private func showSearchBT() {
-        self.searchBT.isHidden = false
     }
     
     private func showCancelSearchBT() {
@@ -279,7 +233,6 @@ extension SearchVC: SearchControlable {
     func append(tag: TagOfDB) {
         self.viewModel?.append(tag: tag)
         self.searchTextField.text = ""
-        self.hiddenRemoveTextBT()
     }
     
     func changeToSearchFavoriteTagsVC() {
@@ -300,5 +253,16 @@ extension SearchVC: SearchControlable {
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
         }
+    }
+}
+
+extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.removeChildVC()
+        self.changeChildVC(to: self.searchResultVC)
+        self.fetchResults()
+        self.isSearchTagsFromTextVC = false
+        self.dismissKeyboard()
+        return false
     }
 }
