@@ -11,22 +11,14 @@ extension Session {
     static var sessionWithToken: Session {
         if let _sessionWithToken = self._sessionWithToken {
             return _sessionWithToken
-        } else {
-            guard let token = NetworkTokens() else {
-                assertionFailure()
-                return Session()
-            }
-            
-            print("token: \(token.accessToken)")
-            
-            let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
-            let authenticator = OAuthAuthenticator()
-            let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
-            
-            let session = Session(interceptor: interceptor)
+        } else if let token = NetworkTokens() {
+            print("Access token: \(token.accessToken)")
+            let session = self.createSessionWithToken(token)
             self._sessionWithToken = session
-            
             return session
+        } else {
+            assertionFailure()
+            return Session()
         }
     }
     
@@ -35,4 +27,11 @@ extension Session {
     }
     
     private static var _sessionWithToken: Session?
+    
+    private static func createSessionWithToken(_ token: NetworkTokens) -> Session {
+        let credential = OAuthCredential(accessToken: token.accessToken, refreshToken: token.refreshToken)
+        let interceptor = AuthenticationInterceptor(authenticator: OAuthAuthenticator(), credential: credential)
+        
+        return Session(interceptor: interceptor)
+    }
 }
