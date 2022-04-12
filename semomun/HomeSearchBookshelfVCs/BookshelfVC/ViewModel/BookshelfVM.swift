@@ -27,16 +27,16 @@ final class BookshelfVM {
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
         case .purchase:
-            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.purchasedDate, leftBook: $0, rightBook: $1) })
+            self.books = previews.sorted(by: { self.areInDecreasingOrder(\.purchasedDate, leftBook: $0, rightBook: $1) })
         case .recent:
-            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.recentDate, leftBook: $0, rightBook: $1) })
+            self.books = previews.sorted(by: { self.areInDecreasingOrder(\.recentDate, leftBook: $0, rightBook: $1) })
         case .alphabet:
-            self.books = previews.sorted(by: { self.areInIncreasingOrder(\.title, leftBook: $0, rightBook: $1) })
+            self.books = previews.sorted(by: { self.areInDecreasingOrder(\.title, leftBook: $1, rightBook: $0) })
         }
     }
     
-    /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate를 사용.
-    func areInIncreasingOrder<Value: Comparable>(_ path: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
+    /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate의 최신순으로 정렬
+    func areInDecreasingOrder<Value: Comparable>(_ path: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
         switch (leftBook[keyPath: path], rightBook[keyPath: path]) {
         case (let lhs?, let rhs?):
             return lhs > rhs
