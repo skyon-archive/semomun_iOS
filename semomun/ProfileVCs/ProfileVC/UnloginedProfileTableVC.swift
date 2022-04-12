@@ -39,7 +39,7 @@ extension UnloginedProfileTableVC {
                 UIApplication.shared.open(url, options: [:])
             }
         case (0, 2):
-            if let url = URL(string: NetworkURL.errorReport) {
+            if let url = URL(string: NetworkURL.errorReportGoogleForm) {
                 UIApplication.shared.open(url, options: [:])
             }
         case (0, 3):

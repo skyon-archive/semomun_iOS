@@ -35,9 +35,9 @@ final class BookshelfVM {
         }
     }
     
-    /// Optional인 값을 비교하여 내림차순이면 True를 반환. 비교대상이 모두 nil이면 purchasedDate를 사용
-    func areInIncreasingOrder<Value: Comparable>(_ keyPath: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
-        switch (leftBook[keyPath: keyPath], rightBook[keyPath: keyPath]) {
+    /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate를 사용.
+    func areInIncreasingOrder<Value: Comparable>(_ path: KeyPath<Preview_Core, Value?>, leftBook: Preview_Core, rightBook: Preview_Core) -> Bool {
+        switch (leftBook[keyPath: path], rightBook[keyPath: path]) {
         case (let lhs?, let rhs?):
             return lhs > rhs
         case (_?, nil):
@@ -48,6 +48,7 @@ final class BookshelfVM {
             // 둘 다 값이 없는 경우 purchasedDate 사용
             guard let leftDate = leftBook.purchasedDate,
                   let rightDate = rightBook.purchasedDate else {
+                // 여기로 오는 경우가 있으려나,,?
                 return true
             }
             return leftDate > rightDate
