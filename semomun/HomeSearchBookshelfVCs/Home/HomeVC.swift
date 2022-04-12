@@ -338,8 +338,7 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] url in
                 guard let url = url else { return }
-                let noticeVC = NoticePopupVC()
-                noticeVC.configureImage(url: url)
+                let noticeVC = NoticePopupVC(url: url)
                 self?.present(noticeVC, animated: true)
             })
             .store(in: &self.cancellables)

@@ -8,7 +8,7 @@
 import UIKit
 
 final class NoticePopupVC: UIViewController {
-    private var imageURL: URL?
+    private var imageURL: URL
     
     private let xmarkImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
@@ -43,7 +43,7 @@ final class NoticePopupVC: UIViewController {
         button.setTitle("다시 보지 않기", for: .normal)
         button.setTitleColor(UIColor(.textColor), for: .normal)
         button.addAction(UIAction(handler: { [weak self] _ in
-            UserDefaultsManager.lastViewedPopup = self?.imageURL?.absoluteString
+            UserDefaultsManager.lastViewedPopup = self?.imageURL.absoluteString
             self?.presentingViewController?.dismiss(animated: true, completion: nil)
         }), for: .touchUpInside)
         return button
@@ -53,18 +53,15 @@ final class NoticePopupVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init() {
+    init(url: URL) {
+        self.imageURL = url
         super.init(nibName: nil, bundle: nil)
+        self.noticeImageView.kf.setImage(with: url)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLayout()
-    }
-    
-    func configureImage(url: URL) {
-        self.imageURL = url
-        self.noticeImageView.kf.setImage(with: url)
     }
     
     private func configureLayout() {
