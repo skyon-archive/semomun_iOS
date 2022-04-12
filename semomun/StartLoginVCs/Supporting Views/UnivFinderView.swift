@@ -24,15 +24,14 @@ struct UnivFinderView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
-                    .font(.system(size: 16, weight: .regular))
-                    .frame(maxWidth: .infinity)
-                    .offset(x: 20)
+            HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 20))
                     .foregroundColor(.black)
-                    .padding(.trailing, 20)
+                    .padding(.leading, 2)
+                TextField("\(schoolType.rawValue) 이름을 검색하세요", text: $search)
+                    .font(.system(size: 16, weight: .regular))
+                    .frame(maxWidth: .infinity)
             }
             .frame(height: 52)
             .onChange(of: search) { _ in
