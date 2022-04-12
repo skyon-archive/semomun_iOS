@@ -27,7 +27,7 @@ class HomeAdCell: UICollectionViewCell {
         }
     }
     
-    func configureTest(imageURL: URL, url: URL) {
+    func configureContent(imageURL: URL, url: URL) {
         self.url = url
         self.imageView.kf.setImage(with: imageURL)
     }
