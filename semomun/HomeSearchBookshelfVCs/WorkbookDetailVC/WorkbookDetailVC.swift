@@ -30,6 +30,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "개요"
         self.configureUI()
         self.configureTags()
         self.configureInfos()
@@ -40,13 +41,13 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.fetchWorkbook()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
@@ -101,6 +102,7 @@ extension WorkbookDetailVC {
     }
     
     private func configureInfos() {
+        self.workbookInfosCollectionView.delegate = self
         self.workbookInfosCollectionView.dataSource = self
     }
     
@@ -342,22 +344,42 @@ extension WorkbookDetailVC {
 // MARK: - CollectionView
 extension WorkbookDetailVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.tags.count ?? 0
+        if collectionView == self.workbookInfosCollectionView {
+            return self.viewModel?.workbookCellInfos.count ?? 0
+        } else {
+            return self.viewModel?.tags.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
-        cell.configure(tag: tag)
-        
-        return cell
+        if collectionView == self.workbookInfosCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookInfoCell.identifier, for: indexPath) as? WorkbookInfoCell else { return UICollectionViewCell() }
+            guard let info = self.viewModel?.workbookCellInfos[indexPath.item] else { return cell }
+            cell.configure(title: info.title, text: info.text)
+            if indexPath.item == 0 {
+                cell.hideSeparator()
+            }
+            
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
+            guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
+            cell.configure(tag: tag)
+            
+            return cell
+        }
     }
 }
 
 extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
-        return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
+        if collectionView == self.workbookInfosCollectionView {
+            let superWidth = self.workbookInfosCollectionView.bounds.width
+            return CGSize(width: superWidth/5, height: 68)
+        } else {
+            guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
+            return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
+        }
     }
 }
 
