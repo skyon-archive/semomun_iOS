@@ -95,7 +95,7 @@ extension HomeVC {
         let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
         self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
         
-        guard let adDataNum = self.viewModel?.ads.count, adDataNum > 0 else { return }
+        guard let adDataNum = self.viewModel?.banners.count, adDataNum > 0 else { return }
         let adRepeatTime = self.collectionView(self.bannerAds, numberOfItemsInSection: 0) / adDataNum
         let startIndex = adDataNum * (adRepeatTime / 2)
         self.bannerAds.scrollToItem(at: IndexPath(item: startIndex, section: 0), at: .centeredHorizontally, animated: false)
@@ -219,7 +219,7 @@ extension HomeVC {
     }
     
     private func bindAds() {
-        self.viewModel?.$ads
+        self.viewModel?.$banners
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -350,7 +350,7 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case self.bannerAds:
-            return (self.viewModel?.ads.count ?? 0) * 500
+            return (self.viewModel?.banners.count ?? 0) * 500
         case self.bestSellers:
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
@@ -367,8 +367,8 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.bannerAds {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
-            guard let count = self.viewModel?.ads.count else { return cell }
-            guard let testAd = self.viewModel?.ads[indexPath.item % count] else { return cell }
+            guard let count = self.viewModel?.banners.count else { return cell }
+            guard let testAd = self.viewModel?.banners[indexPath.item % count] else { return cell }
             
             cell.configureContent(imageURL: testAd.image, url: testAd.url)
             
