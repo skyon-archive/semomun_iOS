@@ -10,6 +10,8 @@ import Foundation
 typealias SyncFetchable = (UserInfoFetchable & LoginSignupPostable)
 
 struct SyncUsecase {
+    /// 1.0 -> 2.0 유저가 홈화면에 들어가기 전에 token refresh 완료되었는지 여부
+    static private(set) var isPastUserGetTokenCompleted: Bool = false
     
     enum SyncError: Error {
         case networkFail
@@ -37,6 +39,7 @@ struct SyncUsecase {
                 }
                 switch status {
                 case .SUCCESS:
+                    Self.isPastUserGetTokenCompleted = true
                     completion(true)
                 default:
                     completion(false)
