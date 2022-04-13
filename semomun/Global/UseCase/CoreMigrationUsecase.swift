@@ -84,6 +84,7 @@ extension CoreUsecase {
     private static func updateSections() -> Bool {
         // fetch all sections
         guard let sections = CoreUsecase.fetchSections() else { return false }
+        
         // sections.forEach
         for section in sections {
             // 기존 풀이내역 및 지문필기를 upload 하기 위한 queue 생성
@@ -94,6 +95,7 @@ extension CoreUsecase {
             let pageCores = CoreUsecase.getPageCores(pNames: section.buttons, dictionary: section.dictionaryOfProblem)
             // get problems
             let problemCores = CoreUsecase.getProblemCores(pageCores: pageCores)
+            
             // pNames.forEach
             for (idx, pName) in section.buttons.enumerated() {
                 // find page from dictionary[pName]
@@ -122,6 +124,7 @@ extension CoreUsecase {
                     uploadPagesQueue.append(Int(page.vid))
                 }
             }
+            
             // save queue
             if scoringQueue.isEmpty == false {
                 section.setValue(scoringQueue, forKey: Section_Core.Attribute.scoringQueue.rawValue)
@@ -138,7 +141,7 @@ extension CoreUsecase {
     }
     
     private static func getPageCores(pNames: [String], dictionary: [String: Int]) -> [Page_Core] {
-        let vids = NSOrderedSet(array: pNames.map { dictionary[$0, default: 0] }).map { $0 as? Int ?? 0 }
+        let vids = NSOrderedSet(array: pNames.compactMap { dictionary[$0] }).compactMap { $0 as? Int }
         let pageCores = vids.compactMap { vid in CoreUsecase.fetchPage(vid: vid) }
         return pageCores
     }
@@ -172,16 +175,16 @@ extension CoreUsecase {
             userPurchases.forEach { info in
                 taskGroup.enter()
                 networkUsecase.getWorkbook(wid: info.wid) { workbook in
-                    let preview_core = previews.first { $0.wid == Int64(info.wid) }
                     /// 개발진행자의 경우 Coredata 상에 없는 구매한 workbook이 존재
                     /// 일반 사용자의 경우 아이폰용이 출시되기전까지 진행되지 않는다
-                    if preview_core == nil {
+                    guard let preview_core = (previews.first { $0.wid == Int64(info.wid) }) else {
                         print("CoreData 상에 없는 Workbook")
                         taskGroup.leave()
+                        return
                     }
                     
-                    preview_core?.setValues(workbook: workbook, info: info)
-                    preview_core?.fetchBookcover(uuid: workbook.bookcover, networkUsecase: networkUsecase, completion: {
+                    preview_core.setValues(workbook: workbook, info: info)
+                    preview_core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: networkUsecase, completion: {
                         print("update preview(\(info.wid) complete")
                         taskGroup.leave()
                     })
