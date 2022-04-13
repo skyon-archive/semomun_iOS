@@ -29,12 +29,19 @@ final class StartSettingVC: UIViewController, StoryboardController {
     
     @IBAction func goMain(_ sender: Any) {
         let finished = self.viewModel?.isSelectFinished ?? false
-        if finished {
-            self.viewModel?.saveUserDefaults()
-            self.goMainVC()
-        } else {
+        guard finished else {
             self.showAlertWithOK(title: "관심이 있는 문제 유형을 선택해 주세요", text: "")
+            return
         }
+        
+        let logined = UserDefaultsManager.isLogined
+        guard !logined || SyncUsecase.isPastUserGetTokenCompleted else {
+            print("네트워크 느림")
+            return
+        }
+        
+        self.viewModel?.saveUserDefaults()
+        self.goMainVC()
     }
 }
 
