@@ -263,11 +263,11 @@ extension SearchVC: UITextFieldDelegate {
         self.changeChildVC(to: self.searchResultVC)
         self.fetchResults()
         self.isSearchTagsFromTextVC = false
-        self.dismissKeyboard()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.searchWorkbooks()
-        return false
+        self.dismissKeyboard()
+        return true
     }
 }
