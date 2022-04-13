@@ -50,10 +50,6 @@ final class SearchTagsFromTextVM {
         self.filteredTags = self.tags.filter { $0.name.contains(text) }
     }
     
-    func removeAll() {
-        self.filteredTags.removeAll()
-    }
-    
     func refresh() {
         self.filteredTags = self.tags
     }
