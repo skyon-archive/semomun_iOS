@@ -146,6 +146,6 @@ extension SearchTagVC: UITableViewDelegate {
 extension SearchTagVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return false
+        return true
     }
 }
