@@ -321,7 +321,7 @@ final class ReportProblemErrorVC: UIViewController {
     private func report(pid: Int, text: String) {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
-        networkUsecase.postProblemError(pid: pid, text: text) { [weak self] status in
+        networkUsecase.postProblemError(error: ErrorReport(pid: pid, content: text)) { [weak self] status in
             switch status {
             case .SUCCESS:
                 print("SUCCESS: post error")
