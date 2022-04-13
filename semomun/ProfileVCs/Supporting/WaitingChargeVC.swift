@@ -21,6 +21,13 @@ final class WaitingChargeVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let url = URL(string: NetworkURL.chargePay) {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
     @IBAction func chargeComplete(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
