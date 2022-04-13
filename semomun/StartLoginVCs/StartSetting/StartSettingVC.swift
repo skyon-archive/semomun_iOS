@@ -13,6 +13,7 @@ final class StartSettingVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
     
     @IBOutlet weak var topFrameView: UIView! // phone 용
+    @IBOutlet weak var startBT: UIButton!
     @IBOutlet weak var tags: UICollectionView!
     
     private var viewModel: StartSettingVM?
@@ -112,7 +113,12 @@ extension StartSettingVC {
         self.viewModel?.$selectedTags
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] tags in
+                if tags.count == 0 {
+                    self?.startBT.backgroundColor = UIColor(.semoLightGray)
+                } else {
+                    self?.startBT.backgroundColor = UIColor(.mainColor)
+                }
                 self?.tags.reloadData()
             })
             .store(in: &self.cancellables)

@@ -268,7 +268,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpP-UW-WGT">
                                 <rect key="frame" x="199.5" y="856" width="345" height="60"/>
-                                <color key="backgroundColor" name="mainColor"/>
+                                <color key="backgroundColor" name="semoLightGray"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="e5h-xs-8HD"/>
                                     <constraint firstAttribute="height" constant="60" id="zdp-e7-RfH"/>
@@ -346,6 +346,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="HlI-dq-Nbc"/>
                     <connections>
+                        <outlet property="startBT" destination="IpP-UW-WGT" id="i99-Pp-Mey"/>
                         <outlet property="tags" destination="ZlQ-9K-na5" id="UiP-rf-Z6Z"/>
                     </connections>
                 </viewController>
@@ -1392,6 +1393,9 @@
         </namedColor>
         <namedColor name="mainColor">
             <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="semoLightGray">
+            <color red="0.82352941176470584" green="0.82745098039215681" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="whiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
