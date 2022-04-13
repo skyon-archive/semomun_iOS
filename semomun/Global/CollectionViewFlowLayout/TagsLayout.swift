@@ -14,7 +14,7 @@ final class TagsLayout: UICollectionViewFlowLayout {
     
     private func common() {
         estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        minimumLineSpacing = UIDevice.current.userInterfaceIdiom == .phone ? 8 : 18
+        minimumLineSpacing = UIDevice.current.userInterfaceIdiom == .phone ? 8 : 12
         minimumInteritemSpacing = 8
     }
     

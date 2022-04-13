@@ -61,7 +61,9 @@ extension StartSettingVC {
     private func configureCollectionView() {
         self.tags.delegate = self
         self.tags.dataSource = self
-        self.tags.collectionViewLayout = TagsLayout()
+        let layout = TagsLayout()
+        layout.minimumLineSpacing = 18
+        self.tags.collectionViewLayout = layout
     }
 }
 
