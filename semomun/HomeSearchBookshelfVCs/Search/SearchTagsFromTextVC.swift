@@ -92,6 +92,6 @@ extension SearchTagsFromTextVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tag = self.viewModel?.filteredTags[indexPath.row] else { return }
         self.delegate?.append(tag: tag)
-        self.viewModel?.removeAll()
+        self.viewModel?.refresh()
     }
 }

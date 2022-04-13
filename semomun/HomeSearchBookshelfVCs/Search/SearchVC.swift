@@ -114,6 +114,7 @@ extension SearchVC {
             .sink(receiveValue: { [weak self] tags in
                 self?.tagList.reloadData()
                 if tags.count > 0 {
+                    self?.searchWorkbooks()
                     self?.showCancelSearchBT()
                 }
             })
@@ -257,12 +258,16 @@ extension SearchVC: SearchControlable {
 }
 
 extension SearchVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    private func searchWorkbooks() {
         self.removeChildVC()
         self.changeChildVC(to: self.searchResultVC)
         self.fetchResults()
         self.isSearchTagsFromTextVC = false
         self.dismissKeyboard()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.searchWorkbooks()
         return false
     }
 }
