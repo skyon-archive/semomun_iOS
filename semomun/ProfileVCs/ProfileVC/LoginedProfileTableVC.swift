@@ -58,7 +58,7 @@ extension LoginedProfileTableVC {
                 UIApplication.shared.open(url, options: [:])
             }
         case (2, 2):
-            if let url = URL(string: NetworkURL.errorReportGoogleForm) {
+            if let url = URL(string: NetworkURL.errorReportOfApp) {
                 UIApplication.shared.open(url, options: [:])
             }
         case (2, 3):

@@ -94,7 +94,7 @@ protocol UserSubmissionSendable {
 }
 // MARK: - Reportable
 protocol ErrorReportable {
-    func postProblemError(pid: Int, text: String, completion: @escaping (NetworkStatus) -> Void)
+    func postProblemError(error: ErrorReport, completion: @escaping (NetworkStatus) -> Void)
 }
 // MARK: - Login&Signup
 protocol LoginSignupPostable {
