@@ -27,7 +27,7 @@ final class SearchFavoriteTagsVM {
         self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                let count = min(20, tags.count)
+                let count = min(30, tags.count)
                 self?.tags = Array(tags.prefix(upTo: count))
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
