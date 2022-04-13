@@ -120,6 +120,6 @@ extension LoginServicePopupVC {
     }
     
     private func updateUIOfRegisterButton() {
-        self.registerButton.layer.opacity = self.canRegister ? 1 : 0.3
+        self.registerButton.backgroundColor = self.canRegister ? UIColor(.mainColor) : UIColor(.semoLightGray)
     }
 }
