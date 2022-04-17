@@ -55,7 +55,7 @@ enum NetworkURL {
     }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-    static let base: String = "http://api.semomun.com"
+    static let base: String = "https://api.semomun.com"
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
