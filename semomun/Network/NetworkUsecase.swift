@@ -436,6 +436,7 @@ extension NetworkUsecase: UserSubmissionSendable {
                 completion(.FAIL)
                 return
             }
+            print("submission of problems complete")
             completion(.SUCCESS)
         }
     }
@@ -447,6 +448,7 @@ extension NetworkUsecase: UserSubmissionSendable {
                 completion(.FAIL)
                 return
             }
+            print("submission of pages complete")
             completion(.SUCCESS)
         }
     }
