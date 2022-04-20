@@ -12,6 +12,16 @@ class NetworkUsecase {
     init(network: NetworkFetchable) {
         self.network = network
     }
+    
+    private func decodeRequested<T: Decodable>(_ type: T.Type, from data: Data) -> T? {
+        do {
+            let decoded = try JSONDecoder.dateformatted.decode(type, from: data)
+            return decoded
+        } catch {
+            print("NetworkUsecase: \(T.self) decode failed. \(error)")
+            return nil
+        }
+    }
 }
 
 // MARK: - Fetchable
@@ -21,8 +31,7 @@ extension NetworkUsecase: VersionFetchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let appstoreVersion: AppstoreVersion = try? JSONDecoder().decode(AppstoreVersion.self, from: data) else {
-                          print("Decode Error")
+                      let appstoreVersion = self.decodeRequested(AppstoreVersion.self, from: data) else {
                           completion(.DECODEERROR, nil)
                           return
                       }
@@ -39,8 +48,7 @@ extension NetworkUsecase: BestSellersFetchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let previews = try? JSONDecoder.dateformatted.decode([PreviewOfDB].self, from: data) else {
-                          print("Decode Error")
+                      let previews = self.decodeRequested([PreviewOfDB].self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -58,8 +66,7 @@ extension NetworkUsecase: TagsFetchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let searchTags: SearchTags = try? JSONDecoder().decode(SearchTags.self, from: data) else {
-                          print("Decode Error")
+                      let searchTags: SearchTags = self.decodeRequested(SearchTags.self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -74,8 +81,7 @@ extension NetworkUsecase: MajorFetchable {
     func getMajors(completion: @escaping ([Major]?) -> Void) {
         self.network.request(url: NetworkURL.majors, method: .get, tokenRequired: false) { result in
             guard let data = result.data,
-                  let majors: MajorFetched = try? JSONDecoder().decode(MajorFetched.self, from: data) else {
-                      print("Error: Decode")
+                  let majors: MajorFetched = self.decodeRequested(MajorFetched.self, from: data) else {
                       completion(nil)
                       return
                   }
@@ -93,8 +99,7 @@ extension NetworkUsecase: SchoolNamesFetchable {
     func getSchoolNames(param: [String: String], completion: @escaping ([String]) -> Void) {
         self.network.request(url: NetworkURL.schoolApi, param: param, method: .get, tokenRequired: false) { result in
             guard let data = result.data,
-                  let json = try? JSONDecoder().decode(CareerNetJSON.self, from: data) else {
-                      print("Decode error")
+                  let json = self.decodeRequested(CareerNetJSON.self, from: data) else {
                       completion([])
                       return
                   }
@@ -111,7 +116,7 @@ extension NetworkUsecase: NoticeFetchable {
                 completion(.FAIL, [])
                 return
             }
-            guard let notices = try? JSONDecoder.dateformatted.decode([UserNotice].self, from: data) else {
+            guard let notices = self.decodeRequested([UserNotice].self, from: data) else {
                 completion(.DECODEERROR, [])
                 return
             }
@@ -147,8 +152,7 @@ extension NetworkUsecase: PreviewsSearchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let searchPreviews: SearchPreviews = try? JSONDecoder.dateformatted.decode(SearchPreviews.self, from: data) else {
-                          print("Decode error")
+                      let searchPreviews: SearchPreviews = self.decodeRequested(SearchPreviews.self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -163,8 +167,7 @@ extension NetworkUsecase: WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ()) {
         self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get, tokenRequired: false) { result in
             guard let data = result.data,
-                  let workbookOfDB: WorkbookOfDB = try? JSONDecoder.dateformatted.decode(WorkbookOfDB.self, from: data) else {
-                      print("Decode error")
+                  let workbookOfDB: WorkbookOfDB = self.decodeRequested(WorkbookOfDB.self, from: data) else {
                       return
                   }
             completion(workbookOfDB)
@@ -178,8 +181,7 @@ extension NetworkUsecase: SectionDownloadable {
     func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
         self.network.request(url: NetworkURL.sectionDirectory(sid), method: .get, tokenRequired: true) { result in
             guard let data = result.data,
-                  let sectionOfDB = try? JSONDecoder.dateformatted.decode(SectionOfDB.self, from: data) else {
-                      print("Decode Error")
+                  let sectionOfDB = self.decodeRequested(SectionOfDB.self, from: data) else {
                       return
                   }
             completion(sectionOfDB)
@@ -194,8 +196,7 @@ extension NetworkUsecase: UsernameCheckable {
         self.network.request(url: NetworkURL.username, param: ["username": nickname], method: .get, tokenRequired: false) { result in
             if let statusCode = result.statusCode {
                 guard let data = result.data,
-                      let isValid = try? JSONDecoder().decode(BooleanResult.self, from: data).result else {
-                          print("Error: Decode")
+                      let isValid = self.decodeRequested(BooleanResult.self, from: data)?.result else {
                           completion(.DECODEERROR, false)
                           return
                       }
@@ -231,8 +232,7 @@ extension NetworkUsecase: PhonenumVerifiable {
             let networkStatus = NetworkStatus(statusCode: statusCode)
             
             guard let data = result.data,
-                  let isValid = try? JSONDecoder().decode(BooleanResult.self, from: data).result else {
-                      print("Error: Decode")
+                  let isValid = self.decodeRequested(BooleanResult.self, from: data)?.result else {
                       completion(.DECODEERROR, nil)
                       return
                   }
@@ -283,7 +283,7 @@ extension NetworkUsecase: UserHistoryFetchable {
             }
             
             guard let data = result.data,
-                  let decoded = try? JSONDecoder.dateformatted.decode(PayHistoryGroupOfDB.self, from: data) else {
+                  let decoded = self.decodeRequested(PayHistoryGroupOfDB.self, from: data) else {
                       completion(.DECODEERROR, nil)
                       return
                   }
@@ -302,7 +302,7 @@ extension NetworkUsecase: UserInfoFetchable {
                 return
             }
             
-            guard let tags = try? JSONDecoder.dateformatted.decode([TagOfDB].self, from: data) else {
+            guard let tags = self.decodeRequested([TagOfDB].self, from: data) else {
                 completion(.DECODEERROR, [])
                 return
             }
@@ -325,13 +325,10 @@ extension NetworkUsecase: UserInfoFetchable {
                       return
                   }
             
-            do {
-                let userInfo = try JSONDecoder.dateformatted.decode(UserInfo.self, from: data)
+            if let userInfo = self.decodeRequested(UserInfo.self, from: data) {
                 completion(.SUCCESS, userInfo)
-            } catch {
-                print("getUserInfo Error: \(error)")
+            } else {
                 completion(.DECODEERROR, nil)
-                return
             }
         }
     }
@@ -383,8 +380,7 @@ extension NetworkUsecase: UserWorkbooksFetchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let bookshelfInfos: [BookshelfInfoOfDB] = try? JSONDecoder.dateformatted.decode([BookshelfInfoOfDB].self, from: data) else {
-                          print("Decode Error")
+                      let bookshelfInfos = self.decodeRequested([BookshelfInfoOfDB].self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -401,8 +397,7 @@ extension NetworkUsecase: UserWorkbooksFetchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let bookshelfInfos: [BookshelfInfoOfDB] = try? JSONDecoder.dateformatted.decode([BookshelfInfoOfDB].self, from: data) else {
-                          print("Decode Error")
+                      let bookshelfInfos = self.decodeRequested([BookshelfInfoOfDB].self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -540,7 +535,7 @@ extension NetworkUsecase: BannerFetchable {
                 return
             }
             
-            guard let banners = try? JSONDecoder.dateformatted.decode([Banner].self, from: data) else {
+            guard let banners = self.decodeRequested([Banner].self, from: data) else {
                 completion(.DECODEERROR, [])
                 return
             }
@@ -558,11 +553,9 @@ extension NetworkUsecase: PopupFetchable {
                 completion(.FAIL, nil)
                 return
             }
-            
-            do {
-                let popupURL = try JSONDecoder.dateformatted.decode(Optional<URL>.self, from: data)
+            if let popupURL = self.decodeRequested(Optional<URL>.self, from: data) {
                 completion(NetworkStatus(statusCode: statusCode), popupURL)
-            } catch {
+            } else {
                 completion(.DECODEERROR, nil)
             }
         }
