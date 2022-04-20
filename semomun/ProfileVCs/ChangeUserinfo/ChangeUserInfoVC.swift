@@ -116,7 +116,7 @@ extension ChangeUserInfoVC {
 // MARK: Configure UI
 extension ChangeUserInfoVC {
     private func configureUI() {
-        self.navigationItem.title = "계정 정보 변경하기"
+        self.navigationItem.title = "개인정보 수정"
         self.navigationItem.titleView?.backgroundColor = .white
         self.configureButtonMenus()
         self.additionalPhoneNumFrame.isHidden = true
