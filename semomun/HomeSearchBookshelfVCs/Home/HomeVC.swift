@@ -495,7 +495,8 @@ extension HomeVC {
         let visibleItemIndexes = bannerAds.indexPathsForVisibleItems.sorted()
         
         // 더 이상 넘길 수 없는 경우 체크
-        let lastVisibleItemIndex = visibleItemIndexes.last!.item
+        guard let lastVisibleItemIndex = visibleItemIndexes.last?.item else { return }
+        
         if lastVisibleItemIndex == bannerAdsDataCount - 1 {
             self.bannerAds.scrollToItem(at: IndexPath(item: bannerAdsDataCount/2, section: 0), at: .centeredHorizontally, animated: false)
             return

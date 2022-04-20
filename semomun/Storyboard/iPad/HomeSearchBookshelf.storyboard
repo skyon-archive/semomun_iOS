@@ -472,16 +472,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21A-Ta-v6Y">
-                                <rect key="frame" x="0.0" y="241" width="834" height="888"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-MS-e7l">
                                 <rect key="frame" x="0.0" y="228" width="834" height="13"/>
                                 <color key="backgroundColor" name="grayBackground"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="4gM-Ow-8oW"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21A-Ta-v6Y">
+                                <rect key="frame" x="0.0" y="241" width="834" height="888"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F6w-gQ-FSf" userLabel="searchView">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="228"/>
@@ -649,6 +649,8 @@
                     <connections>
                         <outlet property="cancelSearchBT" destination="iDI-Md-b5T" id="rug-5e-CvF"/>
                         <outlet property="containerView" destination="21A-Ta-v6Y" id="nIA-CG-AyZ"/>
+                        <outlet property="containerViewTopMargin" destination="vkO-RO-F9n" id="pp1-di-shr"/>
+                        <outlet property="grayMarginView" destination="hyx-MS-e7l" id="cz7-SE-BTH"/>
                         <outlet property="searchInnerView" destination="LQ2-YD-FGr" id="s2h-la-CE0"/>
                         <outlet property="searchTextField" destination="xeS-LG-pER" id="S7C-hs-ldS"/>
                         <outlet property="searchView" destination="F6w-gQ-FSf" id="kJx-4O-Z7g"/>
@@ -1047,11 +1049,11 @@ Label</string>
                                     <size key="itemSize" width="155" height="253"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="28" minY="10" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="0uK-RQ-jrh" customClass="SearchResultCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="28" y="0.0" width="155" height="253"/>
+                                        <rect key="frame" x="28" y="10" width="155" height="253"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uBP-Dr-Ngk">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="253"/>

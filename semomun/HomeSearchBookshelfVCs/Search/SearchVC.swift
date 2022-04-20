@@ -23,6 +23,10 @@ class SearchVC: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var tagList: UICollectionView!
     
+    // searchView가 보일 때 상단 여백 조절용
+    @IBOutlet weak var grayMarginView: UIView!
+    @IBOutlet weak var containerViewTopMargin: NSLayoutConstraint!
+    
     private var viewModel: SearchVM?
     private var cancellables: Set<AnyCancellable> = []
     private var currentChildVC: UIViewController?
@@ -189,6 +193,12 @@ extension SearchVC {
         self.containerView.addSubview(targetVC.view)
         self.addChild(targetVC)
         targetVC.didMove(toParent: self)
+        
+        if targetVC == self.searchResultVC {
+            self.containerViewTopMargin.constant = -self.grayMarginView.frame.height
+        } else {
+            self.containerViewTopMargin.constant = 0
+        }
     }
     
     private func fetchResults() {
