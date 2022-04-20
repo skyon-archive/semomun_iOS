@@ -17,7 +17,7 @@ struct WorkbookOfDB: Decodable {
     let publishedDate: Date //발행일
     let publishMan: String //발행인
     let publishCompany: String //출판사
-    let originalPrice: String //정가
+    let originalPrice: Int //정가
     let bookcover: UUID //문제집 표지 이미지 uuid
     let createdDate: Date //생성일자
     let updatedDate: Date //반영일자

@@ -46,7 +46,7 @@ extension Preview_Core {
     @NSManaged public var publisher: String? // 출판사 (publishCompany)
     @NSManaged public var publishedDate: Date? // NEW: 발행일
     @NSManaged public var publishMan: String? // NEW: 발행인
-    @NSManaged public var originalPrice: String? // NEW: 정가
+    @NSManaged public var originalPrice: Int64 // NEW: 정가
     @NSManaged public var updatedDate: Date? // NEW: 반영일자
     @NSManaged public var sids: [Int] // Sections id
     @NSManaged public var price: Double // 가격
