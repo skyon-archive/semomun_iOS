@@ -12,6 +12,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var title: UILabel!
     private var networkUsecase: (S3ImageFetchable & WorkbookSearchable)?
+    private var requestedUUID: UUID?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.bookcover.image = UIImage(.loadingBookcover)
+        self.requestedUUID = nil
     }
     
     func configureNetworkUsecase(to usecase: (S3ImageFetchable & WorkbookSearchable)?) {
@@ -43,14 +45,16 @@ class HomeWorkbookCell: UICollectionViewCell {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.bookcover.image = cachedImage
         } else {
+            self.requestedUUID = uuid
             self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in
                 switch status {
                 case .SUCCESS:
                     guard let imageData = imageData,
                           let image = UIImage(data: imageData) else { return }
                     DispatchQueue.main.async { [weak self] in
-                        self?.bookcover.image = image
                         ImageCacheManager.shared.saveImage(uuid: uuid, image: image)
+                        guard self?.requestedUUID == uuid else { return }
+                        self?.bookcover.image = image
                     }
                 default:
                     print("HomeWorkbookCell: GET image fail")
