@@ -15,7 +15,12 @@ final class SearchTagVM {
     private var totalTags: [TagOfDB] = []
     @Published private(set) var filteredTags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var userTags: [TagOfDB] = []
+    @Published private(set) var userTags: [TagOfDB] = [] {
+        didSet { self.setFilteredTags() }
+    }
+    private var searchedText: String = "" {
+        didSet { self.setFilteredTags() }
+    }
     
     init(networkUsecase: SearchTagNetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -32,12 +37,18 @@ final class SearchTagVM {
         }
     }
     
+    private func setFilteredTags() {
+        self.filteredTags = self.totalTags.filter {
+            (self.searchedText == "" || $0.name.contains(self.searchedText)) && !self.userTags.contains($0)
+        }
+    }
+    
     private func fetchTagsFromServer() {
         self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 self?.totalTags = tags
-                self?.filteredTags = tags
+                self?.setFilteredTags()
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -47,11 +58,7 @@ final class SearchTagVM {
     }
     
     func searchTags(text: String) {
-        if text == "" {
-            self.filteredTags = self.totalTags
-        } else {
-            self.filteredTags = self.totalTags.filter { $0.name.contains(text) }
-        }
+        self.searchedText = text
     }
     
     func removeTag(index: Int) {
@@ -65,7 +72,6 @@ final class SearchTagVM {
             return
         }
         self.userTags.append(newElement)
-        self.filteredTags = []
         self.saveTags()
     }
     
