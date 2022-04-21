@@ -58,15 +58,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 let syncUsecase = SyncUsecase(networkUsecase: NetworkUsecase(network: Network()))
                 syncUsecase.getTokensForPastVersionUser { result in
                     if result == true {
+                        print("1.0 사용자 authToken 발급 성공")
                         syncUsecase.syncUserDataFromDB { status in
                             switch status {
                             case .success(_):
-                                print("1.0 사용자 authToken 발급 성공")
+                                print("1.0 사용자 정보 sync 성공")
                             case .failure(let error):
-                                print("1.0 사용자 authToken 발급 실패: \(error)")
+                                print("1.0 사용자 정보 sync 실패 \(error)")
                             }
                         }
                     } else {
+                        print("1.0 사용자 authToken 발급 실패")
                         // TODO
                     }
                 }
