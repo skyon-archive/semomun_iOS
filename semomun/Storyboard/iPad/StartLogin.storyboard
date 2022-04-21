@@ -493,26 +493,22 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZT-xh-zIu">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="22"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6o-uW-fgl">
-                                                        <rect key="frame" x="8" y="-4" width="40" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6o-uW-fgl">
+                                                        <rect key="frame" x="8" y="-4" width="212" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="JJl-T3-ZwV"/>
                                                             <constraint firstAttribute="height" constant="30" id="Y6E-ze-hKc"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="tintColor" name="grayDefaultColor"/>
+                                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" title="" image="checkmark.circle" catalog="system">
+                                                        <state key="normal" title="개인정보 처리 방침 (필수)" image="checkmark.circle" catalog="system">
+                                                            <color key="titleColor" name="defaultText"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
                                                         </state>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보 처리 방침 (필수)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46R-xX-jFT" userLabel="개인정보 처리 방침 (필수)">
-                                                        <rect key="frame" x="48" y="2" width="153" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNH-2m-TQR">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNH-2m-TQR">
                                                         <rect key="frame" x="250" y="-3.5" width="30" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -523,35 +519,31 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="46R-xX-jFT" firstAttribute="centerY" secondItem="wZT-xh-zIu" secondAttribute="centerY" id="O42-PO-tYh"/>
                                                     <constraint firstAttribute="height" constant="22" id="awY-oZ-XoQ"/>
-                                                    <constraint firstItem="u6o-uW-fgl" firstAttribute="trailing" secondItem="46R-xX-jFT" secondAttribute="leading" id="cCB-cR-b6Q"/>
                                                     <constraint firstItem="UNH-2m-TQR" firstAttribute="centerY" secondItem="wZT-xh-zIu" secondAttribute="centerY" id="kT7-Gl-iny"/>
                                                     <constraint firstItem="u6o-uW-fgl" firstAttribute="leading" secondItem="wZT-xh-zIu" secondAttribute="leading" constant="8" id="lhQ-Ck-fAA"/>
                                                     <constraint firstItem="u6o-uW-fgl" firstAttribute="centerY" secondItem="wZT-xh-zIu" secondAttribute="centerY" id="n1c-uJ-gg4"/>
+                                                    <constraint firstItem="UNH-2m-TQR" firstAttribute="leading" secondItem="u6o-uW-fgl" secondAttribute="trailing" constant="30" id="x79-Oj-cLq"/>
                                                     <constraint firstAttribute="trailing" secondItem="UNH-2m-TQR" secondAttribute="trailing" id="ylD-eb-3UQ"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYV-q0-ZXU">
                                                 <rect key="frame" x="0.0" y="35" width="280" height="22"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hx-pr-RUm">
-                                                        <rect key="frame" x="8" y="-4" width="40" height="30"/>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hx-pr-RUm">
+                                                        <rect key="frame" x="8" y="-4" width="212" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="avo-KU-ufj"/>
-                                                            <constraint firstAttribute="width" constant="40" id="pwc-V6-JP9"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="grayDefaultColor"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" title="" image="checkmark.circle" catalog="system"/>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 이용 약관 (필수)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-O4-QOo" userLabel="개인정보 처리 방침 (필수)">
-                                                        <rect key="frame" x="48" y="2" width="140" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwG-Ap-C7y">
+                                                        <color key="tintColor" name="grayDefaultColor"/>
+                                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="서비스 이용 약관 (필수)" image="checkmark.circle" catalog="system">
+                                                            <color key="titleColor" name="defaultText"/>
+                                                        </state>
+                                                    </button>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwG-Ap-C7y">
                                                         <rect key="frame" x="250" y="-3.5" width="30" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -562,10 +554,9 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="eeZ-O4-QOo" firstAttribute="centerY" secondItem="zYV-q0-ZXU" secondAttribute="centerY" id="53L-PA-F8x"/>
                                                     <constraint firstItem="0Hx-pr-RUm" firstAttribute="centerY" secondItem="zYV-q0-ZXU" secondAttribute="centerY" id="7Qf-eU-Ggk"/>
                                                     <constraint firstItem="rwG-Ap-C7y" firstAttribute="centerY" secondItem="zYV-q0-ZXU" secondAttribute="centerY" id="SFi-3t-aak"/>
-                                                    <constraint firstItem="0Hx-pr-RUm" firstAttribute="trailing" secondItem="eeZ-O4-QOo" secondAttribute="leading" id="UGT-O7-3fc"/>
+                                                    <constraint firstItem="rwG-Ap-C7y" firstAttribute="leading" secondItem="0Hx-pr-RUm" secondAttribute="trailing" constant="30" id="cJh-y2-8ff"/>
                                                     <constraint firstAttribute="height" constant="22" id="o4c-A2-MYy"/>
                                                     <constraint firstAttribute="trailing" secondItem="rwG-Ap-C7y" secondAttribute="trailing" id="xxT-mb-FbL"/>
                                                     <constraint firstItem="0Hx-pr-RUm" firstAttribute="leading" secondItem="zYV-q0-ZXU" secondAttribute="leading" constant="8" id="zMo-Xj-zhx"/>
@@ -574,23 +565,20 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtb-hu-DRd">
                                                 <rect key="frame" x="0.0" y="70" width="280" height="22"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNK-4v-n4t">
-                                                        <rect key="frame" x="8" y="-4" width="40" height="30"/>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNK-4v-n4t">
+                                                        <rect key="frame" x="8" y="-4" width="212" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="4o1-DD-f9e"/>
-                                                            <constraint firstAttribute="width" constant="40" id="7CK-Of-hcb"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="grayDefaultColor"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" title="" image="checkmark.circle" catalog="system"/>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="마케팅 정보 수신 (선택)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4c-sn-UAv" userLabel="개인정보 처리 방침 (필수)">
-                                                        <rect key="frame" x="48" y="2" width="140" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQ8-qh-Nea">
+                                                        <color key="tintColor" name="grayDefaultColor"/>
+                                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="마케팅 정보 수신 (선택)" image="checkmark.circle" catalog="system">
+                                                            <color key="titleColor" name="defaultText"/>
+                                                        </state>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQ8-qh-Nea">
                                                         <rect key="frame" x="250" y="-3.5" width="30" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -601,39 +589,34 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="zNK-4v-n4t" firstAttribute="trailing" secondItem="G4c-sn-UAv" secondAttribute="leading" id="Pvh-zZ-UYC"/>
                                                     <constraint firstItem="RQ8-qh-Nea" firstAttribute="centerY" secondItem="gtb-hu-DRd" secondAttribute="centerY" id="UHB-kS-0bg"/>
                                                     <constraint firstAttribute="height" constant="22" id="b5w-CQ-xuI"/>
                                                     <constraint firstAttribute="trailing" secondItem="RQ8-qh-Nea" secondAttribute="trailing" id="dB2-GH-ueD"/>
                                                     <constraint firstItem="zNK-4v-n4t" firstAttribute="leading" secondItem="gtb-hu-DRd" secondAttribute="leading" constant="8" id="fOd-Kt-td7"/>
-                                                    <constraint firstItem="G4c-sn-UAv" firstAttribute="centerY" secondItem="gtb-hu-DRd" secondAttribute="centerY" id="kiA-eJ-FJk"/>
+                                                    <constraint firstItem="RQ8-qh-Nea" firstAttribute="leading" secondItem="zNK-4v-n4t" secondAttribute="trailing" constant="30" id="q9c-Ti-hsK"/>
                                                     <constraint firstItem="zNK-4v-n4t" firstAttribute="centerY" secondItem="gtb-hu-DRd" secondAttribute="centerY" id="vet-FN-p0w"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MoU-W6-PA1">
                                                 <rect key="frame" x="0.0" y="105" width="280" height="50"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okA-nc-q4V">
-                                                        <rect key="frame" x="8" y="20" width="40" height="30"/>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okA-nc-q4V">
+                                                        <rect key="frame" x="8" y="20" width="90" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="8GH-Nn-G7w"/>
                                                             <constraint firstAttribute="height" constant="30" id="BUU-nR-gg6"/>
+                                                            <constraint firstAttribute="width" constant="90" id="f3A-b8-GH0"/>
                                                         </constraints>
-                                                        <color key="tintColor" name="grayDefaultColor"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="checkmark.circle" catalog="system"/>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전체 동의" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3G-1j-Xe8" userLabel="개인정보 처리 방침 (필수)">
-                                                        <rect key="frame" x="48" y="26" width="56" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                        <color key="tintColor" name="grayDefaultColor"/>
+                                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="전체 동의" image="checkmark.circle" catalog="system">
+                                                            <color key="titleColor" name="defaultText"/>
+                                                        </state>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="d3G-1j-Xe8" firstAttribute="centerY" secondItem="okA-nc-q4V" secondAttribute="centerY" id="a2D-ya-TBq"/>
-                                                    <constraint firstItem="okA-nc-q4V" firstAttribute="trailing" secondItem="d3G-1j-Xe8" secondAttribute="leading" id="cYx-33-p04"/>
                                                     <constraint firstAttribute="bottom" secondItem="okA-nc-q4V" secondAttribute="bottom" id="g1o-4Q-K2m"/>
                                                     <constraint firstAttribute="height" constant="50" id="htS-5b-bQF"/>
                                                     <constraint firstItem="okA-nc-q4V" firstAttribute="leading" secondItem="MoU-W6-PA1" secondAttribute="leading" constant="8" id="zFy-hp-HUp"/>
@@ -698,7 +681,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NHv-32-sn4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="1429"/>
+            <point key="canvasLocation" x="885.48387096774195" y="1428.5083848190643"/>
         </scene>
         <!--Login SignupVC-->
         <scene sceneID="N07-FL-s78">
