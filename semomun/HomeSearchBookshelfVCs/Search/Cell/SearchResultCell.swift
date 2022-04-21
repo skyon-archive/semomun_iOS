@@ -12,6 +12,7 @@ class SearchResultCell: UICollectionViewCell {
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var title: UILabel!
     private var networkUsecase: S3ImageFetchable?
+    private var requestedUUID: UUID?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +21,7 @@ class SearchResultCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.requestedUUID = nil
         self.bookcover.image = UIImage(.loadingBookcover)
     }
     
@@ -36,14 +38,16 @@ class SearchResultCell: UICollectionViewCell {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.bookcover.image = cachedImage
         } else {
+            self.requestedUUID = uuid
             self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in
                 switch status {
                 case .SUCCESS:
                     guard let imageData = imageData,
                           let image = UIImage(data: imageData) else { return }
                     DispatchQueue.main.async { [weak self] in
-                        self?.bookcover.image = image
                         ImageCacheManager.shared.saveImage(uuid: uuid, image: image)
+                        guard self?.requestedUUID == uuid else { return }
+                        self?.bookcover.image = image
                     }
                 default:
                     print("SearchResultCell: GET image fail")
