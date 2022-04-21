@@ -1,18 +1,18 @@
 //
- //  TagOfDB.swift
- //  semomun
- //
- //  Created by Kang Minsang on 2022/03/03.
- //
+//  TagOfDB.swift
+//  semomun
+//
+//  Created by Kang Minsang on 2022/03/03.
+//
 
- import Foundation
+import Foundation
 
- struct SearchTags: Decodable {
-     let count: Int
-     let tags: [TagOfDB]
- }
+struct SearchTags: Decodable {
+    let count: Int
+    let tags: [TagOfDB]
+}
 
- struct TagOfDB: Codable {
-     let tid: Int
-     let name: String
- }
+struct TagOfDB: Equatable, Codable {
+    let tid: Int
+    let name: String
+}
