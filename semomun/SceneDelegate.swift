@@ -9,6 +9,15 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private var networkUsecase: SyncFetchable? = NetworkUsecase(network: Network())
+    private lazy var syncUsecase: SyncUsecase? = {
+        guard let networkUsecase = self.networkUsecase else {
+            assertionFailure()
+            return nil
+        }
+        
+        return SyncUsecase(networkUsecase: networkUsecase)
+    }()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -103,6 +112,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        self.syncUsecase?.syncUserDataFromDB { _ in }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
