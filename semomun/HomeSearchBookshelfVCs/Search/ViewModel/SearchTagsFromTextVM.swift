@@ -11,7 +11,8 @@ import Combine
 final class SearchTagsFromTextVM {
     private let networkUsecase: NetworkUsecase
     private let searchQueue = OperationQueue()
-    private var tags: [TagOfDB] = []
+    private var totalTags: [TagOfDB] = []
+    private var userSelected: [TagOfDB] = []
     @Published private(set) var filteredTags: [TagOfDB] = []
     @Published private(set) var warning: (String, String)?
     
@@ -36,7 +37,7 @@ final class SearchTagsFromTextVM {
         self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
-                self?.tags = tags
+                self?.totalTags = tags
                 self?.filteredTags = tags
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
@@ -47,10 +48,15 @@ final class SearchTagsFromTextVM {
     }
     
     private func searchTags(text: String) {
-        self.filteredTags = self.tags.filter { $0.name.contains(text) }
+        self.filteredTags = self.totalTags.filter { $0.name.contains(text) && !self.userSelected.contains($0) }
     }
     
     func refresh() {
-        self.filteredTags = self.tags
+        self.filteredTags = self.totalTags.filter { !self.userSelected.contains($0) }
+    }
+    
+    func updateSelectedTags(tags: [TagOfDB]) {
+        self.userSelected = tags
+        self.refresh()
     }
 }
