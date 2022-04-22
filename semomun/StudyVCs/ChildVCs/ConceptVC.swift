@@ -149,8 +149,7 @@ extension ConceptVC {
     }
     
     func configureTimerView() {
-        guard let problem = self.viewModel?.problem,
-              let time = self.viewModel?.timeSpentOnPage else { return }
+        guard let problem = self.viewModel?.problem else { return }
         
         if problem.terminated {
             self.view.addSubview(self.timerView)
@@ -161,7 +160,7 @@ extension ConceptVC {
                 self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 15)
             ])
             
-            self.timerView.configureTime(to: time)
+            self.timerView.configureTime(to: problem.time)
         }
     }
     
