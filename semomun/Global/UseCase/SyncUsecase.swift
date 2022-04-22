@@ -50,6 +50,7 @@ struct SyncUsecase {
         }
     }
     
+    /// DB의 사용자 정보를 CoreData에 저장합니다. 토큰이 만료된 경우 tokenExpired Notification을 post합니다.
     func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
