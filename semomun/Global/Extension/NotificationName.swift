@@ -20,7 +20,7 @@ extension Notification.Name {
     static let goToUpdateUserinfo = Self.init(rawValue: "goToUpdateUserinfo")
     static let goToCharge = Self.init(rawValue: "goToCharge")
     static let purchaseComplete = Self.init(rawValue: "purchaseComplete")
-    static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
+    static let purchaseBook = Self.init(rawValue: "purchaseBook")
     static let logout = Self.init(rawValue: "logout")
     static let refreshFavoriteTags = Self.init(rawValue: "refreshFavoriteTags")
     static let sectionTerminated = Self.init(rawValue: "sectionTerminated")
@@ -29,4 +29,5 @@ extension Notification.Name {
     static let tokenExpired = Self.init(rawValue: "tokenExpired")
     static let networkError = Self.init(rawValue: "networkError")
     static let selectTagInSearch = Self.init(rawValue: "selectTagInSearch")
+    static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
 }
