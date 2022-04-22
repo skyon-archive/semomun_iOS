@@ -187,13 +187,11 @@
 		87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9B276F6B7F001C9C4A /* Page_Core.swift */; };
 		87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */; };
 		87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB2276F6CBE001C9C4A /* SectionManager.swift */; };
-		87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */; };
 		87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */; };
 		87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */; };
 		87C85EBB276F6D00001C9C4A /* MultipleWithNoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */; };
 		87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBC276F6D13001C9C4A /* PageData.swift */; };
 		87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBE276F6D26001C9C4A /* SectionResult.swift */; };
-		87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EC0276F6D32001C9C4A /* Submission.swift */; };
 		87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerVM.swift */; };
 		87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift */; };
 		87C85ED1276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift */; };
@@ -425,13 +423,11 @@
 		87C85E9B276F6B7F001C9C4A /* Page_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page_Core.swift; sourceTree = "<group>"; };
 		87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem_Core.swift; sourceTree = "<group>"; };
 		87C85EB2276F6CBE001C9C4A /* SectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionManager.swift; sourceTree = "<group>"; };
-		87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSectionUsecase.swift; sourceTree = "<group>"; };
 		87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemNameCell.swift; sourceTree = "<group>"; };
 		87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5Cell.swift; sourceTree = "<group>"; };
 		87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoCell.swift; sourceTree = "<group>"; };
 		87C85EBC276F6D13001C9C4A /* PageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageData.swift; sourceTree = "<group>"; };
 		87C85EBE276F6D26001C9C4A /* SectionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResult.swift; sourceTree = "<group>"; };
-		87C85EC0276F6D32001C9C4A /* Submission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
 		87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith5AnswerVM.swift; sourceTree = "<group>"; };
 		87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithTextAnswerVM.swift; sourceTree = "<group>"; };
 		87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerVM.swift; sourceTree = "<group>"; };
@@ -1079,7 +1075,6 @@
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
 				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
 				8784795727C87F18000C6307 /* SectionResultVM.swift */,
-				87C85EB4276F6CD0001C9C4A /* SaveSectionUsecase.swift */,
 				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
 				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
 				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
@@ -1218,7 +1213,6 @@
 			isa = PBXGroup;
 			children = (
 				87C85EBC276F6D13001C9C4A /* PageData.swift */,
-				87C85EC0276F6D32001C9C4A /* Submission.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1571,7 +1565,6 @@
 				8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */,
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
-				87C85EC1276F6D32001C9C4A /* Submission.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
@@ -1588,7 +1581,6 @@
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
-				87C85EB5276F6CD0001C9C4A /* SaveSectionUsecase.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,

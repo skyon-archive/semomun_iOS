@@ -7,4 +7,9 @@
 
 import Foundation
 
-final class ConceptVM: PageVM { }
+final class ConceptVM: PageVM {
+    override init(delegate: PageDelegate, pageData: PageData) {
+        super.init(delegate: delegate, pageData: pageData)
+        self.problem?.setValue(true, forKey: "correct")
+    }
+}
