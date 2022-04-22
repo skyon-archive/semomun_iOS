@@ -24,6 +24,7 @@ final class BookshelfVM {
             print("no previews")
             return
         }
+        NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
         case .purchase:

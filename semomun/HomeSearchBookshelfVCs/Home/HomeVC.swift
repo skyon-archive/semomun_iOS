@@ -40,7 +40,7 @@ final class HomeVC: UIViewController {
         self.configureUI()
         self.configureViewModel()
         self.bindAll()
-        self.viewModel?.checkLogined()
+        self.viewModel?.checkLogined()     
         self.viewModel?.checkVersion()
         self.viewModel?.checkMigration()
         self.configureCollectionView()
@@ -165,7 +165,7 @@ extension HomeVC {
     }
     
     private func configureAddObserver() {
-        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
         }
         NotificationCenter.default.addObserver(forName: .tokenExpired, object: nil, queue: .main) { [weak self] _ in

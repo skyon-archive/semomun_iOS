@@ -134,7 +134,7 @@ extension BookshelfVC {
     }
     
     private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
             self?.syncBookshelf()
         }

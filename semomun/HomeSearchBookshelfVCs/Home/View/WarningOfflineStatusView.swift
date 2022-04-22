@@ -69,7 +69,7 @@ final class WarningOfflineStatusView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         
         button.addAction(UIAction(handler: { _ in
-            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+            NotificationCenter.default.post(name: .purchaseBook, object: nil)
         }), for: .touchUpInside)
         return button
     }()

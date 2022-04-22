@@ -98,7 +98,7 @@ extension SearchVC {
     }
     
     private func configureAddObserver() {
-        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
         }
     }

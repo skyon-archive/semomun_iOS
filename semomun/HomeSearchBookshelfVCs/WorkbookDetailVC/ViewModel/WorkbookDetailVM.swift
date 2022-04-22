@@ -42,6 +42,7 @@ final class WorkbookDetailVM {
             let updateDate = Date()
             self?.previewCore?.setValue(updateDate, forKey: Preview_Core.Attribute.recentDate.rawValue)
             self?.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: updateDate)
+            CoreDataManager.saveCoreData()
         }
     }
     
