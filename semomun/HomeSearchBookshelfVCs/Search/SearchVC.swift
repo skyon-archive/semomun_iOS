@@ -117,6 +117,7 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 self?.tagList.reloadData()
+                self?.searchTagsFromTextVC.updateSelectedTags(tags: tags)
                 if tags.count > 0 {
                     self?.searchWorkbooks()
                     self?.showCancelSearchBT()
