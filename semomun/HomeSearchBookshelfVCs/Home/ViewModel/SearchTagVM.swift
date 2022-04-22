@@ -77,9 +77,7 @@ final class SearchTagVM {
     
     private func saveTags() {
         guard UserDefaultsManager.isLogined else {
-            let data = try? PropertyListEncoder().encode(userTags)
-            UserDefaultsManager.favoriteTags = data
-            NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+            self.saveUserDefaultsFavoriteTags()
             return
         }
         
@@ -89,11 +87,13 @@ final class SearchTagVM {
                 return
             }
             
-            guard let userTags = self?.userTags else { return }
-            
-            let data = try? PropertyListEncoder().encode(userTags)
-            UserDefaultsManager.favoriteTags = data
-            NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+            self?.saveUserDefaultsFavoriteTags()
         }
+    }
+    
+    private func saveUserDefaultsFavoriteTags() {
+        let data = try? PropertyListEncoder().encode(self.userTags)
+        UserDefaultsManager.favoriteTags = data
+        NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
     }
 }
