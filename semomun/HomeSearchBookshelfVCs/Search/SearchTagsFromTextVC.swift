@@ -37,6 +37,13 @@ extension SearchTagsFromTextVC {
         self.viewModel?.refresh()
     }
     
+    func updateSelectedTags(tags: [TagOfDB]) {
+        if self.viewModel == nil {
+            self.configureViewModel()
+        }
+        self.viewModel?.updateSelectedTags(tags: tags)
+    }
+    
     private func configureUI() {
         self.frameView.clipsToBounds = true
         self.frameView.layer.cornerRadius = 5
