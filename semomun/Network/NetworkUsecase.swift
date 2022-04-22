@@ -127,7 +127,8 @@ extension NetworkUsecase: NoticeFetchable {
 extension NetworkUsecase: S3ImageFetchable {
     func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void) {
         let param = ["uuid": uuid.uuidString.lowercased(), "type": type.rawValue]
-        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: false) { result in
+        let tokenRequired = ["content", "passage", "explanation"].contains(type.rawValue)
+        self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: tokenRequired) { result in
             guard let data = result.data,
                   let imageURL: String = String(data: data, encoding: .utf8) else {
                       completion(.FAIL, nil)

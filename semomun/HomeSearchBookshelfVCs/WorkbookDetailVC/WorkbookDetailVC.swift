@@ -304,7 +304,7 @@ extension WorkbookDetailVC {
                 } else {
                     self?.stopLoader()
                     self?.navigationController?.popViewController(animated: true) {
-                        NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+                        NotificationCenter.default.post(name: .purchaseBook, object: nil)
                     }
                 }
             })
