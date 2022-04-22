@@ -77,7 +77,7 @@ class PageVM {
         self.timeSpentOnPage += 1
         if self.problems.count == 1 {
             let time = self.timeSpentPerProblems[0] + self.timeSpentOnPage
-            self.problems[0].setValue(time, forKey: "time")
+            self.problem?.setValue(time, forKey: "time")
         } else {
             let targetProblemsCount = self.problems.filter({ $0.terminated == false }).count
             // MARK: ChangeVC 되기 전에 실행되는 경우 0으로 나뉠 수 있는 경우가 생김에 따라 코드 추가
