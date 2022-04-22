@@ -154,11 +154,12 @@ extension WorkbookDetailVC {
         
         if let imageData = workbookInfo.imageData {
             self.bookCoverImageView.image = UIImage(data: imageData)
-        } else if let uuid = workbookInfo.bookcover,
-                  let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
-            self.bookCoverImageView.image = cachedImage
-        } else {
-            assertionFailure()
+        } else if let uuid = workbookInfo.bookcover {
+            if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
+                self.bookCoverImageView.image = cachedImage
+            } else {
+                self.viewModel?.fetchBookcoverImage(bookcover: uuid)
+            }
         }
     }
     

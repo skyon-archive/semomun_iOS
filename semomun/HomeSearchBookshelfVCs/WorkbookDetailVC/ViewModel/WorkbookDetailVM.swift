@@ -58,7 +58,7 @@ final class WorkbookDetailVM {
         self.configureWorkbookCellInfos()
     }
     
-    private func fetchBookcoverImage(bookcover: UUID) {
+    func fetchBookcoverImage(bookcover: UUID) {
         self.networkUsecase.getImageFromS3(uuid: bookcover, type: .bookcover) { [weak self] status, data in
             if status == .FAIL {
                 print("WorkbookDetailVM: GET image fail")
