@@ -1154,6 +1154,12 @@ Label</string>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" name="mainColor"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="download:" destination="1TR-KH-WmL" eventType="touchUpInside" id="vdn-e5-gks"/>
@@ -1183,8 +1189,37 @@ Label</string>
                                                     </constraints>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMs-lE-dhc">
+                                                    <rect key="frame" x="696" y="8.5" width="82" height="33"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="33" id="Ib8-t2-SvE"/>
+                                                        <constraint firstAttribute="width" constant="82" id="z2M-J6-NnP"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="tintColor" name="semoGray"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="삭제">
+                                                        <color key="titleColor" name="semoGray"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" name="semoGray"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="deleteSection:" destination="1TR-KH-WmL" eventType="touchUpInside" id="kS8-O6-eAL"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="AMs-lE-dhc" secondAttribute="trailing" id="3ni-gJ-nhY"/>
                                                 <constraint firstItem="4Bn-sA-sU0" firstAttribute="leading" secondItem="2Fp-b8-Cgk" secondAttribute="trailing" constant="16" id="ES8-Gt-RHT"/>
                                                 <constraint firstItem="2Fp-b8-Cgk" firstAttribute="centerY" secondItem="dj9-Yj-SWz" secondAttribute="centerY" id="GD5-75-tRb"/>
                                                 <constraint firstItem="C80-gK-z2p" firstAttribute="leading" secondItem="T0n-yi-JdQ" secondAttribute="leading" constant="98" id="GY6-d3-mRW"/>
@@ -1194,10 +1229,12 @@ Label</string>
                                                 <constraint firstItem="C80-gK-z2p" firstAttribute="centerY" secondItem="T0n-yi-JdQ" secondAttribute="centerY" id="Wbn-jc-4W8"/>
                                                 <constraint firstItem="C80-gK-z2p" firstAttribute="leading" secondItem="dj9-Yj-SWz" secondAttribute="trailing" constant="16" id="XBZ-Yl-1VG"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4Bn-sA-sU0" secondAttribute="trailing" constant="10" id="p1X-NK-P2c"/>
+                                                <constraint firstItem="AMs-lE-dhc" firstAttribute="centerY" secondItem="T0n-yi-JdQ" secondAttribute="centerY" id="vCH-rY-NjU"/>
                                                 <constraint firstItem="dj9-Yj-SWz" firstAttribute="leading" secondItem="T0n-yi-JdQ" secondAttribute="leading" id="zgJ-yx-VEV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="deleteButton" destination="AMs-lE-dhc" id="Ibp-8D-FU8"/>
                                             <outlet property="downloadButton" destination="dj9-Yj-SWz" id="K6O-rY-jBf"/>
                                             <outlet property="nameLabel" destination="2Fp-b8-Cgk" id="Hl6-EM-WMF"/>
                                             <outlet property="numberLeading" destination="GY6-d3-mRW" id="oc7-tw-Qup"/>
@@ -1394,10 +1431,17 @@ next line</string>
                                     <constraint firstItem="kFe-ol-Ffc" firstAttribute="leading" secondItem="lnK-oJ-FfR" secondAttribute="leading" id="nea-Ar-TG5"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pL5-Jm-5vE">
+                                <rect key="frame" x="770" y="503" width="49" height="31"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="편집"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yoA-4Y-A8P"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="yoA-4Y-A8P" firstAttribute="trailing" secondItem="pL5-Jm-5vE" secondAttribute="trailing" constant="15" id="5UK-iP-IiD"/>
                             <constraint firstItem="yoA-4Y-A8P" firstAttribute="trailing" secondItem="WWZ-Vm-bIm" secondAttribute="trailing" id="80z-dN-Y6f"/>
                             <constraint firstItem="Nay-kq-2hM" firstAttribute="leading" secondItem="UZK-IB-vDP" secondAttribute="leading" id="CGm-J8-mIX"/>
                             <constraint firstItem="Nay-kq-2hM" firstAttribute="top" secondItem="UZK-IB-vDP" secondAttribute="bottom" constant="24" id="K2g-bl-sFy"/>
@@ -1408,6 +1452,7 @@ next line</string>
                             <constraint firstAttribute="bottom" secondItem="Nay-kq-2hM" secondAttribute="bottom" id="hQp-ZK-P4q"/>
                             <constraint firstItem="WWZ-Vm-bIm" firstAttribute="leading" secondItem="yoA-4Y-A8P" secondAttribute="leading" id="n9i-5h-iez"/>
                             <constraint firstItem="WWZ-Vm-bIm" firstAttribute="top" secondItem="hAz-pw-XpS" secondAttribute="top" id="tyh-af-bui"/>
+                            <constraint firstItem="pL5-Jm-5vE" firstAttribute="centerY" secondItem="UZK-IB-vDP" secondAttribute="centerY" id="zwr-EZ-jMN"/>
                         </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

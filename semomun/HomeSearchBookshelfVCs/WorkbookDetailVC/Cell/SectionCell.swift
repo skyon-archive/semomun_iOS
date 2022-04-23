@@ -15,22 +15,17 @@ final class SectionCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var numberLeading: NSLayoutConstraint!
     @IBOutlet weak var terminatedImageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var downloading: Bool = false
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.downloadButton.borderWidth = 1
-        self.downloadButton.borderColor = UIColor(.mainColor)
-        self.terminatedImageView.isHidden = true
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.nameLabel.text = ""
         self.terminatedImageView.isHidden = true
+        self.deleteButton.isHidden = true
         self.configureWhite()
         self.numberLeading.constant = 114
         self.downloadButton.isHidden = false
@@ -47,6 +42,10 @@ final class SectionCell: UITableViewCell {
             self.downloadSection()
         }
     }
+    
+    @IBAction func deleteSection(_ sender: Any) {
+        // popup -> delete -> VC noti 필요
+    }
 }
 
 extension SectionCell {
@@ -58,11 +57,12 @@ extension SectionCell {
         self.nameLabel.text = sectionDTO.title
     }
     // MARK: - Configure from CoreData
-    func configureCell(sectionHeader: SectionHeader_Core, idx: Int) {
+    func configureCell(sectionHeader: SectionHeader_Core, idx: Int, isEditing: Bool = false) {
         self.sectionNumber.text = String(format: "%02d", idx)
         self.sectionHeader = sectionHeader
         self.nameLabel.text = sectionHeader.title
         self.configureButton()
+        self.configureDeleteButton(isEditing)
     }
     
     private func configureButton() {
@@ -78,6 +78,21 @@ extension SectionCell {
         } else {
             self.configureWhite()
             self.downloadButton.setTitle("다운로드", for: .normal)
+        }
+    }
+    
+    private func configureDeleteButton(_ editing: Bool) {
+        if editing {
+            self.deleteButton.isHidden = false
+            if self.sectionHeader?.downloaded ?? false {
+                self.deleteButton.backgroundColor = UIColor(.costRed)
+                self.deleteButton.layer.borderColor = UIColor(.costRed)?.cgColor
+                self.deleteButton.setTitleColor(.white, for: .normal)
+            } else {
+                self.deleteButton.backgroundColor = .white
+                self.deleteButton.layer.borderColor = UIColor(.semoLightGray)?.cgColor
+                self.deleteButton.setTitleColor(UIColor(.semoLightGray), for: .normal)
+            }
         }
     }
     
