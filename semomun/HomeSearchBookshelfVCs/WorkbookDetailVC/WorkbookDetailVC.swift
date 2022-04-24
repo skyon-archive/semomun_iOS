@@ -22,6 +22,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     @IBOutlet weak var workbookInfosCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
     @IBOutlet weak var periodLabel: UILabel!
+    @IBOutlet weak var editSectionsButton: UIButton!
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookDetailVM?
@@ -52,6 +53,11 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     @IBAction func addWorkbook(_ sender: Any) {
         self.viewModel?.switchPurchase()
+    }
+    
+    @IBAction func toggleEdit(_ sender: Any) {
+        self.editSectionsButton.isSelected.toggle()
+        self.sectionListTableView.reloadData()
     }
 }
 
@@ -112,18 +118,6 @@ extension WorkbookDetailVC {
     }
     
     private func configureAddObserver() {
-        NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] notification in
-            guard let sid = notification.userInfo?["sid"] as? Int else { return }
-            guard let preview = self?.viewModel?.previewCore else { return }
-            guard let sectionHeader = self?.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
-            if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
-                self?.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
-                return
-            }
-        }
-        NotificationCenter.default.addObserver(forName: .downloadSectionFail, object: nil, queue: .main) { [weak self] notification in
-            self?.showAlertWithOK(title: "다운로드에 실패하였습니다", text: "네트워크 확인 후 다시 시도해주세요", completion: nil)
-        }
         NotificationCenter.default.addObserver(forName: .goToLogin, object: nil, queue: .main) { [weak self] _ in
             self?.showLoginVC()
         }
@@ -396,12 +390,39 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
         
         if self.isCoreData {
             guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
-            cell.configureCell(sectionHeader: sectionHeader, idx: Int(sectionHeader.sectionNum))
+            let isEditing = self.editSectionsButton.isSelected
+            cell.configureDelegate(to: self)
+            cell.configureCell(sectionHeader: sectionHeader, isEditing: isEditing)
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
-            cell.configureCell(sectionDTO: sectionDTO, idx: sectionDTO.sectionNum)
+            cell.configureCell(sectionDTO: sectionDTO)
         }
         
         return cell
+    }
+}
+
+protocol WorkbookCellController: AnyObject {
+    func showSection(sid: Int)
+    func showAlertDownloadSectionFail()
+    func showAlertDeletePopup(sectionNum: Int64?, completion: @escaping (() -> Void))
+}
+
+extension WorkbookDetailVC: WorkbookCellController {
+    func showSection(sid: Int) {
+        guard let preview = self.viewModel?.previewCore else { return }
+        guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
+        if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
+            self.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
+        }
+    }
+    
+    func showAlertDownloadSectionFail() {
+        self.showAlertWithOK(title: "다운로드에 실패하였습니다", text: "네트워크 확인 후 다시 시도해주세요", completion: nil)
+    }
+    
+    func showAlertDeletePopup(sectionNum: Int64?, completion: @escaping (() -> Void)) {
+        let title = sectionNum != nil ? "\(sectionNum!)번 section 정보를 지우시겠습니까?" : "해당 section 정보를 지우시겠습니까?"
+        self.showAlertWithCancelAndOK(title: title, text: "", completion: completion)
     }
 }
