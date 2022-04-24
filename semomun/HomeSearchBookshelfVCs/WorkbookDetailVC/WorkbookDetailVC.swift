@@ -422,7 +422,7 @@ extension WorkbookDetailVC: WorkbookCellController {
     }
     
     func showAlertDeletePopup(sectionNum: Int64?, completion: @escaping (() -> Void)) {
-        let title = sectionNum != nil ? "\(sectionNum!)번 section 정보를 지우시겠습니까?" : "해당 section 정보를 지우시겠습니까?"
-        self.showAlertWithCancelAndOK(title: title, text: "", completion: completion)
+        let title = sectionNum != nil ? "\(sectionNum!)번 섹션정보를 지우시겠습니까?" : "해당 섹션정보를 지우시겠습니까?"
+        self.showAlertWithCancelAndOK(title: title, text: "필기와 이미지 데이터가 제거됩니다.", completion: completion)
     }
 }
