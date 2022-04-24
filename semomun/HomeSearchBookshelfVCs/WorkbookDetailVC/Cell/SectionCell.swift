@@ -54,9 +54,8 @@ final class SectionCell: UITableViewCell {
     
     @IBAction func deleteSection(_ sender: Any) {
         let sectionNum = self.sectionHeader?.sectionNum
-        self.delegate?.showAlertDeletePopup(sectionNum: sectionNum, completion: {
-            print("delete section!")
-            // delete 로직
+        self.delegate?.showAlertDeletePopup(sectionNum: sectionNum, completion: { [weak self] in
+            self?.deleteSection()
         })
     }
 }
@@ -102,15 +101,21 @@ extension SectionCell {
         if editing {
             self.deleteButton.isHidden = false
             if self.sectionHeader?.downloaded ?? false {
+                self.deleteButton.isUserInteractionEnabled = true
                 self.deleteButton.backgroundColor = UIColor(.costRed)
                 self.deleteButton.layer.borderColor = UIColor(.costRed)?.cgColor
                 self.deleteButton.setTitleColor(.white, for: .normal)
             } else {
-                self.deleteButton.backgroundColor = .white
-                self.deleteButton.layer.borderColor = UIColor(.semoLightGray)?.cgColor
-                self.deleteButton.setTitleColor(UIColor(.semoLightGray), for: .normal)
+                self.deleteUnnable()
             }
         }
+    }
+    
+    private func deleteUnnable() {
+        self.deleteButton.isUserInteractionEnabled = false
+        self.deleteButton.backgroundColor = .white
+        self.deleteButton.layer.borderColor = UIColor(.semoLightGray)?.cgColor
+        self.deleteButton.setTitleColor(UIColor(.semoLightGray), for: .normal)
     }
     
     private func configureWhite() {
@@ -136,6 +141,7 @@ extension SectionCell {
         
         networkUsecase.downloadSection(sid: Int(sid)) { section in
             CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
+                self?.downloading = false
                 if sectionCore == nil {
                     self?.delegate?.showAlertDownloadSectionFail()
                     self?.downloadButton.setTitle("다운실패", for: .normal)
@@ -145,6 +151,18 @@ extension SectionCell {
                 CoreDataManager.saveCoreData()
                 self?.terminate()
             }
+        }
+    }
+    
+    private func deleteSection() {
+        guard let sid = self.sectionHeader?.sid else { return }
+        CoreUsecase.deleteSection(sid: Int(sid))
+        if CoreUsecase.fetchSection(sid: Int(sid)) == nil {
+            self.sectionHeader?.setValue(false, forKey: "downloaded")
+            self.configureWhite()
+            self.downloadButton.setTitle("다운로드", for: .normal)
+            self.deleteUnnable()
+            CoreDataManager.saveCoreData()
         }
     }
     
