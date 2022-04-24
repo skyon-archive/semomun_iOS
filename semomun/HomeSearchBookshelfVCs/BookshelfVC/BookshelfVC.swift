@@ -54,6 +54,7 @@ class BookshelfVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        guard UserDefaultsManager.isLogined else { return }
         self.reloadBookshelf()
     }
     

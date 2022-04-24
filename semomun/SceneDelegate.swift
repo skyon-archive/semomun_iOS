@@ -118,7 +118,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let coreVersion = UserDefaultsManager.coreVersion
         guard UserDefaultsManager.isLogined
                 && coreVersion.compare(String.latestCoreVersion, options: .numeric) != .orderedAscending else { return }
-        
+        print("sync in sceneDelegate")
         self.syncUsecase?.syncUserDataFromDB { result in
             if case .failure = result {
                 print("sceneWillEnterForeground: 유저 정보 동기화 실패")
