@@ -98,20 +98,23 @@ extension SectionCell {
     }
     
     private func configureDeleteButton(_ editing: Bool) {
-        if editing {
-            self.deleteButton.isHidden = false
-            if self.sectionHeader?.downloaded ?? false {
-                self.deleteButton.isUserInteractionEnabled = true
-                self.deleteButton.backgroundColor = UIColor(.costRed)
-                self.deleteButton.layer.borderColor = UIColor(.costRed)?.cgColor
-                self.deleteButton.setTitleColor(.white, for: .normal)
-            } else {
-                self.deleteUnnable()
-            }
+        guard editing else { return }
+        self.deleteButton.isHidden = false
+        if self.sectionHeader?.downloaded ?? false {
+            self.deleteEnable()
+        } else {
+            self.deleteUnable()
         }
     }
     
-    private func deleteUnnable() {
+    private func deleteEnable() {
+        self.deleteButton.isUserInteractionEnabled = true
+        self.deleteButton.backgroundColor = UIColor(.costRed)
+        self.deleteButton.layer.borderColor = UIColor(.costRed)?.cgColor
+        self.deleteButton.setTitleColor(.white, for: .normal)
+    }
+    
+    private func deleteUnable() {
         self.deleteButton.isUserInteractionEnabled = false
         self.deleteButton.backgroundColor = .white
         self.deleteButton.layer.borderColor = UIColor(.semoLightGray)?.cgColor
@@ -161,7 +164,7 @@ extension SectionCell {
             self.sectionHeader?.setValue(false, forKey: "downloaded")
             self.configureWhite()
             self.downloadButton.setTitle("다운로드", for: .normal)
-            self.deleteUnnable()
+            self.deleteUnable()
             CoreDataManager.saveCoreData()
         }
     }
