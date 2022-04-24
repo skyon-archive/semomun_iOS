@@ -413,6 +413,7 @@ extension WorkbookDetailVC: WorkbookCellController {
         guard let preview = self.viewModel?.previewCore else { return }
         guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
         if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
+            self.viewModel?.updateRecentDate()
             self.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
         }
     }
