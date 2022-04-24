@@ -33,17 +33,14 @@ final class WorkbookDetailVM {
         self.networkUsecase = networkUsecase
         self.previewCore = previewCore
         self.workbookDTO = workbookDTO
-        self.configureObservation()
     }
     
-    private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .showSection, object: nil, queue: .main) { [weak self] _ in
-            guard let wid = self?.previewCore?.wid else { return }
-            let updateDate = Date()
-            self?.previewCore?.setValue(updateDate, forKey: Preview_Core.Attribute.recentDate.rawValue)
-            self?.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: updateDate)
-            CoreDataManager.saveCoreData()
-        }
+    func updateRecentDate() {
+        guard let wid = self.previewCore?.wid else { return }
+        let updateDate = Date()
+        self.previewCore?.setValue(updateDate, forKey: Preview_Core.Attribute.recentDate.rawValue)
+        self.networkUsecase.sendWorkbookEnterLog(wid: Int(wid), datetime: updateDate)
+        CoreDataManager.saveCoreData()
     }
     
     func configureWorkbookInfo(isCoreData: Bool) {
