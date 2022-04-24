@@ -115,6 +115,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 앱의 background 상태에서 사용자 정보에 변화(e.g. 탈퇴 등)가 있을 경우 이를 반영
         // - TODO: 앱 사용 중 발생한 변화에도 대응하기.
+        let coreVersion = UserDefaultsManager.coreVersion
+        guard UserDefaultsManager.isLogined
+                && coreVersion.compare(String.latestCoreVersion, options: .numeric) != .orderedAscending else { return }
+        
         self.syncUsecase?.syncUserDataFromDB { result in
             if case .failure = result {
                 print("sceneWillEnterForeground: 유저 정보 동기화 실패")
