@@ -1431,17 +1431,25 @@ next line</string>
                                     <constraint firstItem="kFe-ol-Ffc" firstAttribute="leading" secondItem="lnK-oJ-FfR" secondAttribute="leading" id="nea-Ar-TG5"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pL5-Jm-5vE">
-                                <rect key="frame" x="770" y="503" width="49" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pL5-Jm-5vE">
+                                <rect key="frame" x="756" y="501.5" width="50" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="gBF-Pz-Re5"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="편집"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="편집">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleEdit:" destination="lLn-wl-FgN" eventType="touchUpInside" id="IpR-1v-aUx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yoA-4Y-A8P"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="yoA-4Y-A8P" firstAttribute="trailing" secondItem="pL5-Jm-5vE" secondAttribute="trailing" constant="15" id="5UK-iP-IiD"/>
+                            <constraint firstItem="yoA-4Y-A8P" firstAttribute="trailing" secondItem="pL5-Jm-5vE" secondAttribute="trailing" constant="28" id="5UK-iP-IiD"/>
                             <constraint firstItem="yoA-4Y-A8P" firstAttribute="trailing" secondItem="WWZ-Vm-bIm" secondAttribute="trailing" id="80z-dN-Y6f"/>
                             <constraint firstItem="Nay-kq-2hM" firstAttribute="leading" secondItem="UZK-IB-vDP" secondAttribute="leading" id="CGm-J8-mIX"/>
                             <constraint firstItem="Nay-kq-2hM" firstAttribute="top" secondItem="UZK-IB-vDP" secondAttribute="bottom" constant="24" id="K2g-bl-sFy"/>
@@ -1459,6 +1467,7 @@ next line</string>
                     <connections>
                         <outlet property="bookCoverImageView" destination="Mlj-hv-9BJ" id="Mvz-A3-91r"/>
                         <outlet property="bookCoverImageViewFrameView" destination="28N-mx-w0B" id="pTT-L7-j0K"/>
+                        <outlet property="editSectionsButton" destination="pL5-Jm-5vE" id="S3j-JX-R2Z"/>
                         <outlet property="periodLabel" destination="MeN-dK-hMR" id="R2G-Fe-xew"/>
                         <outlet property="purchaseWorkbookButton" destination="kFe-ol-Ffc" id="Br4-0i-cYn"/>
                         <outlet property="sectionListTableView" destination="Nay-kq-2hM" id="vfC-RN-pLA"/>
