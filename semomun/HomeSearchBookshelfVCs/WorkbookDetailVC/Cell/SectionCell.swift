@@ -20,15 +20,24 @@ final class SectionCell: UITableViewCell {
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var downloading: Bool = false
+    private weak var delegate: WorkbookCellController?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.resetCell()
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.resetCell()
+    }
+    
+    private func resetCell() {
         self.nameLabel.text = ""
         self.terminatedImageView.isHidden = true
         self.deleteButton.isHidden = true
-        self.configureWhite()
-        self.numberLeading.constant = 114
         self.downloadButton.isHidden = false
+        self.numberLeading.constant = 114
         self.downloadButton.setTitle("다운로드", for: .normal)
         self.downloading = false
     }
@@ -44,21 +53,29 @@ final class SectionCell: UITableViewCell {
     }
     
     @IBAction func deleteSection(_ sender: Any) {
-        // popup -> delete -> VC noti 필요
+        let sectionNum = self.sectionHeader?.sectionNum
+        self.delegate?.showAlertDeletePopup(sectionNum: sectionNum, completion: {
+            print("delete section!")
+            // delete 로직
+        })
     }
 }
 
 extension SectionCell {
     // MARK: - Configure from Search
-    func configureCell(sectionDTO: SectionHeaderOfDB, idx: Int) {
-        self.sectionNumber.text = String(format: "%02d", idx)
+    func configureCell(sectionDTO: SectionHeaderOfDB) {
+        self.sectionNumber.text = String(format: "%02d", Int(sectionDTO.sectionNum))
         self.downloadButton.isHidden = true
         self.numberLeading.constant = 0
         self.nameLabel.text = sectionDTO.title
     }
     // MARK: - Configure from CoreData
-    func configureCell(sectionHeader: SectionHeader_Core, idx: Int, isEditing: Bool = false) {
-        self.sectionNumber.text = String(format: "%02d", idx)
+    func configureDelegate(to delegate: WorkbookCellController) {
+        self.delegate = delegate
+    }
+    
+    func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false) {
+        self.sectionNumber.text = String(format: "%02d", Int(sectionHeader.sectionNum))
         self.sectionHeader = sectionHeader
         self.nameLabel.text = sectionHeader.title
         self.configureButton()
@@ -109,9 +126,8 @@ extension SectionCell {
 
 extension SectionCell {
     private func showSection() {
-        print("show Section")
         guard let sid = self.sectionHeader?.sid else { return }
-        NotificationCenter.default.post(name: .showSection, object: nil, userInfo: ["sid" : Int(sid)])
+        self.delegate?.showSection(sid: Int(sid))
     }
     
     private func downloadSection() {
@@ -119,10 +135,9 @@ extension SectionCell {
         let networkUsecase = NetworkUsecase(network: Network())
         
         networkUsecase.downloadSection(sid: Int(sid)) { section in
-            print(section)
             CoreUsecase.savePages(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
                 if sectionCore == nil {
-                    NotificationCenter.default.post(name: .downloadSectionFail, object: nil)
+                    self?.delegate?.showAlertDownloadSectionFail()
                     self?.downloadButton.setTitle("다운실패", for: .normal)
                     return
                 }
