@@ -13,7 +13,6 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
     @IBOutlet weak var workbookInfoView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bookCoverImageViewFrameView: UIView!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
@@ -143,7 +142,7 @@ extension WorkbookDetailVC {
     }
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
-        self.titleLabel.text = workbookInfo.title
+        self.title = workbookInfo.title
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
         if let imageData = workbookInfo.imageData {
