@@ -32,7 +32,7 @@ final class LoginedSettingTableVC: UITableViewController, StoryboardController {
 // MARK: - 로그아웃 로직
 extension LoginedSettingTableVC {
     private func showLogoutedAlert() {
-        self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "") {
+        self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "필기와 이미지 데이터가 제거되며, 구매내역은 유지됩니다.") {
             LogoutUsecase.logout()
             NotificationCenter.default.post(name: .logout, object: nil)
         }
