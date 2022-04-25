@@ -17,7 +17,6 @@ enum SemomunColor: String {
     case grayTextColor = "grayTextColor"
     case grayTitleLineColor = "grayTitleLineColor"
     case lightGrayBackgroundColor = "lightGrayBackgroundColor"
-    case costRed = "costRed"
     case costBlue = "costBlue"
     case tableViewBackground = "tableViewBackground"
     case divider = "divider"

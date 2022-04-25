@@ -20,6 +20,7 @@ final class SectionCell: UITableViewCell {
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var downloading: Bool = false
+    private var editingMode: Bool = false
     private weak var delegate: WorkbookCellController?
     
     override func awakeFromNib() {
@@ -37,9 +38,10 @@ final class SectionCell: UITableViewCell {
         self.terminatedImageView.isHidden = true
         self.deleteButton.isHidden = true
         self.downloadButton.isHidden = false
-        self.numberLeading.constant = 114
+        self.numberLeading.constant = 94
         self.downloadButton.setTitle("다운로드", for: .normal)
         self.downloading = false
+        self.editingMode = false
     }
     
     @IBAction func download(_ sender: Any) {
@@ -53,8 +55,8 @@ final class SectionCell: UITableViewCell {
     }
     
     @IBAction func deleteSection(_ sender: Any) {
-        let sectionNum = self.sectionHeader?.sectionNum
-        self.delegate?.showAlertDeletePopup(sectionNum: sectionNum, completion: { [weak self] in
+        let sectionTitle = self.sectionHeader?.title
+        self.delegate?.showAlertDeletePopup(sectionTitle: sectionTitle, completion: { [weak self] in
             self?.deleteSection()
         })
     }
@@ -98,6 +100,7 @@ extension SectionCell {
     }
     
     private func configureDeleteButton(_ editing: Bool) {
+        self.editingMode = editing
         guard editing else { return }
         self.deleteButton.isHidden = false
         if self.sectionHeader?.downloaded ?? false {
@@ -109,8 +112,8 @@ extension SectionCell {
     
     private func deleteEnable() {
         self.deleteButton.isUserInteractionEnabled = true
-        self.deleteButton.backgroundColor = UIColor(.costRed)
-        self.deleteButton.layer.borderColor = UIColor(.costRed)?.cgColor
+        self.deleteButton.backgroundColor = UIColor(.munRedColor)
+        self.deleteButton.layer.borderColor = UIColor(.munRedColor)?.cgColor
         self.deleteButton.setTitleColor(.white, for: .normal)
     }
     
@@ -153,6 +156,7 @@ extension SectionCell {
                 self?.sectionHeader?.setValue(true, forKey: "downloaded")
                 CoreDataManager.saveCoreData()
                 self?.terminate()
+                self?.configureDeleteButton(self?.editingMode ?? false)
             }
         }
     }

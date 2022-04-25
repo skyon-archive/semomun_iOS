@@ -79,7 +79,7 @@ extension SemopayCell {
     }
     
     private func getCostLabelColor(transaction: Transaction) -> UIColor {
-        guard let red = UIColor(.costRed), let blue = UIColor(.costBlue) else {
+        guard let red = UIColor(.munRedColor), let blue = UIColor(.costBlue) else {
             return .lightGray
         }
         switch transaction {
