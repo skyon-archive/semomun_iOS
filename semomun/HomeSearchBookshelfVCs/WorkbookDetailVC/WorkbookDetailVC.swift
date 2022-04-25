@@ -75,7 +75,8 @@ extension WorkbookDetailVC {
         
         if self.isCoreData {
             self.purchaseWorkbookButton.isHidden = true
-            self.periodLabel.isHidden = true
+        } else {
+            self.editSectionsButton.isHidden = true
         }
     }
     
