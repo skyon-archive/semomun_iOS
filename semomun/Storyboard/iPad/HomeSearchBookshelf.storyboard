@@ -1248,14 +1248,6 @@ Label</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWZ-Vm-bIm" userLabel="Workbook Info View">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="490"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-oJ-FfR">
-                                        <rect key="frame" x="244.5" y="105" width="561.5" height="43"/>
-                                        <string key="text">Book Title 
-next line</string>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="28N-mx-w0B">
                                         <rect key="frame" x="28" y="105" width="186.5" height="233"/>
                                         <subviews>
@@ -1347,7 +1339,7 @@ next line</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rE1-gh-GUA">
-                                        <rect key="frame" x="244.5" y="161" width="561.5" height="68"/>
+                                        <rect key="frame" x="244.5" y="105" width="561.5" height="68"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="68" id="gu9-G4-8Vu"/>
@@ -1411,24 +1403,21 @@ next line</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lnK-oJ-FfR" secondAttribute="trailing" constant="28" id="1gY-u5-iE1"/>
-                                    <constraint firstItem="lnK-oJ-FfR" firstAttribute="top" secondItem="28N-mx-w0B" secondAttribute="top" id="4dY-jE-tHe"/>
-                                    <constraint firstItem="MeN-dK-hMR" firstAttribute="leading" secondItem="lnK-oJ-FfR" secondAttribute="leading" id="6aC-f7-hvT"/>
-                                    <constraint firstItem="rE1-gh-GUA" firstAttribute="top" secondItem="lnK-oJ-FfR" secondAttribute="top" constant="56" id="ESM-N4-Lyf"/>
+                                    <constraint firstItem="kFe-ol-Ffc" firstAttribute="leading" secondItem="rE1-gh-GUA" secondAttribute="leading" id="1cQ-ed-DmJ"/>
                                     <constraint firstItem="Jk4-6o-by9" firstAttribute="leading" secondItem="28N-mx-w0B" secondAttribute="leading" id="FmT-en-p2X"/>
+                                    <constraint firstItem="rE1-gh-GUA" firstAttribute="leading" secondItem="28N-mx-w0B" secondAttribute="trailing" constant="30" id="GBc-MP-P3o"/>
                                     <constraint firstItem="28N-mx-w0B" firstAttribute="top" secondItem="WWZ-Vm-bIm" secondAttribute="top" constant="105" id="GEB-Gv-kWH"/>
+                                    <constraint firstItem="MeN-dK-hMR" firstAttribute="leading" secondItem="rE1-gh-GUA" secondAttribute="leading" id="GhE-dc-vGd"/>
                                     <constraint firstItem="Jk4-6o-by9" firstAttribute="centerX" secondItem="WWZ-Vm-bIm" secondAttribute="centerX" id="I97-L3-lFB"/>
-                                    <constraint firstItem="rE1-gh-GUA" firstAttribute="leading" secondItem="lnK-oJ-FfR" secondAttribute="leading" id="Kof-bx-ass"/>
                                     <constraint firstAttribute="trailing" secondItem="rE1-gh-GUA" secondAttribute="trailing" constant="28" id="L5m-la-yLV"/>
                                     <constraint firstItem="jlg-wr-pNR" firstAttribute="top" secondItem="Mlj-hv-9BJ" secondAttribute="bottom" constant="34" id="LUu-YT-I5J"/>
                                     <constraint firstAttribute="bottom" secondItem="Jk4-6o-by9" secondAttribute="bottom" constant="16" id="QwP-BE-q8Y"/>
                                     <constraint firstItem="28N-mx-w0B" firstAttribute="leading" secondItem="WWZ-Vm-bIm" secondAttribute="leading" constant="28" id="W7c-4b-MNo"/>
                                     <constraint firstItem="kFe-ol-Ffc" firstAttribute="bottom" secondItem="28N-mx-w0B" secondAttribute="bottom" id="Xyi-tk-XQY"/>
-                                    <constraint firstItem="lnK-oJ-FfR" firstAttribute="leading" secondItem="28N-mx-w0B" secondAttribute="trailing" constant="30" id="ZYI-mf-hwU"/>
                                     <constraint firstItem="Jk4-6o-by9" firstAttribute="top" secondItem="jlg-wr-pNR" secondAttribute="bottom" constant="16" id="d7s-4d-p4d"/>
                                     <constraint firstItem="jlg-wr-pNR" firstAttribute="leading" secondItem="Mlj-hv-9BJ" secondAttribute="leading" id="ebZ-um-car"/>
                                     <constraint firstItem="kFe-ol-Ffc" firstAttribute="top" secondItem="MeN-dK-hMR" secondAttribute="bottom" constant="5" id="hO3-43-SmI"/>
-                                    <constraint firstItem="kFe-ol-Ffc" firstAttribute="leading" secondItem="lnK-oJ-FfR" secondAttribute="leading" id="nea-Ar-TG5"/>
+                                    <constraint firstItem="rE1-gh-GUA" firstAttribute="top" secondItem="28N-mx-w0B" secondAttribute="top" id="qQg-NM-I86"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pL5-Jm-5vE">
@@ -1476,7 +1465,6 @@ next line</string>
                         <outlet property="purchaseWorkbookButton" destination="kFe-ol-Ffc" id="Br4-0i-cYn"/>
                         <outlet property="sectionListTableView" destination="Nay-kq-2hM" id="vfC-RN-pLA"/>
                         <outlet property="sectionNumberLabel" destination="UZK-IB-vDP" id="MBs-2e-rRx"/>
-                        <outlet property="titleLabel" destination="lnK-oJ-FfR" id="Z4f-hs-Elg"/>
                         <outlet property="workbookInfoView" destination="WWZ-Vm-bIm" id="Ubs-9P-Ioq"/>
                         <outlet property="workbookInfosCollectionView" destination="rE1-gh-GUA" id="XVT-TV-v0R"/>
                         <outlet property="workbookTagsCollectionView" destination="Jk4-6o-by9" id="c9a-pU-cuA"/>
