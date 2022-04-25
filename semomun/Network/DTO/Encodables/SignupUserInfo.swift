@@ -24,7 +24,7 @@ struct SignupUserInfo: Encodable {
     var marketing: Bool = false
     
     var isValid: Bool {
-        return [username, school, major, majorDetail, graduationStatus, marketing].allSatisfy { $0 != nil }
+        return [username, school, major, majorDetail, graduationStatus].allSatisfy { $0 != nil }
         && phone?.isValidPhoneNumberWithCountryCode == true
     }
 }
