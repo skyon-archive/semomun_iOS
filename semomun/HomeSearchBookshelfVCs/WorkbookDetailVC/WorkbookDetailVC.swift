@@ -405,7 +405,7 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
 protocol WorkbookCellController: AnyObject {
     func showSection(sid: Int)
     func showAlertDownloadSectionFail()
-    func showAlertDeletePopup(sectionNum: Int64?, completion: @escaping (() -> Void))
+    func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
 }
 
 extension WorkbookDetailVC: WorkbookCellController {
@@ -422,8 +422,8 @@ extension WorkbookDetailVC: WorkbookCellController {
         self.showAlertWithOK(title: "다운로드에 실패하였습니다", text: "네트워크 확인 후 다시 시도해주세요", completion: nil)
     }
     
-    func showAlertDeletePopup(sectionNum: Int64?, completion: @escaping (() -> Void)) {
-        let title = sectionNum != nil ? "\(sectionNum!)번 섹션정보를 지우시겠습니까?" : "해당 섹션정보를 지우시겠습니까?"
+    func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void)) {
+        let title = sectionTitle != nil ? sectionTitle! : "섹션정보 삭제"
         self.showAlertWithCancelAndOK(title: title, text: "필기와 이미지 데이터가 제거됩니다.", completion: completion)
     }
 }
