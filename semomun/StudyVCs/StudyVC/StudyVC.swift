@@ -25,13 +25,13 @@ final class StudyVC: UIViewController {
     @IBOutlet weak var headerFrameView: UIView!
     @IBOutlet weak var bottomFrameView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var childFrameView: UIView!
     @IBOutlet weak var resultBT: UIButton!
     @IBOutlet weak var beforeFrameView: UIView!
     @IBOutlet weak var nextFrameView: UIView!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     var sectionHeaderCore: SectionHeader_Core?
     var sectionCore: Section_Core?
@@ -361,7 +361,7 @@ extension StudyVC {
         self.manager?.$currentTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] time in
-                self?.timeLabel.text = time.toTimeString
+                self?.backButton.setTitle(time.toTimeString, for: .normal)
             })
             .store(in: &self.cancellables)
     }
