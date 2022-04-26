@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "launch2.png",
+      "filename" : "submit.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "launch2-1.png",
+      "filename" : "submit-1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "launch2-2.png",
+      "filename" : "submit-2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
