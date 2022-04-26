@@ -27,10 +27,10 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     private var viewModel: WorkbookDetailVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loader = self.makeLoaderWithoutPercentage()
+    private var navigationAnimation: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "개요"
         self.configureUI()
         self.configureTags()
         self.configureInfos()
@@ -41,12 +41,17 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.fetchWorkbook()
+        guard self.navigationAnimation else {
+            self.navigationAnimation = true
+            return
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        guard self.navigationAnimation else { return }
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
@@ -143,7 +148,7 @@ extension WorkbookDetailVC {
     }
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
-        self.title = "2021학년도 11월 고1 전국연합학력평가 수학영역 확률과 통계 영역"
+        self.title = workbookInfo.title
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
         if let imageData = workbookInfo.imageData {
@@ -410,6 +415,7 @@ protocol WorkbookCellController: AnyObject {
 
 extension WorkbookDetailVC: WorkbookCellController {
     func showSection(sid: Int) {
+        self.navigationAnimation = false
         guard let preview = self.viewModel?.previewCore else { return }
         guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
         if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
