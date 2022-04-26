@@ -46,28 +46,28 @@ class ChangeUserInfoVMTest: XCTestCase {
     func testCheckUsernameFormat() {
         // 길이
         self.vm.checkUsernameFormat("123")
-        XCTAssertEqual(self.vm.status, .usernameGoodFormat)
+        XCTAssertEqual(self.vm.status, .usernameValid)
         self.vm.checkUsernameFormat("12345678912345678912")
-        XCTAssertEqual(self.vm.status, .usernameGoodFormat)
+        XCTAssertEqual(self.vm.status, .usernameValid)
         self.vm.checkUsernameFormat("123456789123456789123")
-        XCTAssertEqual(self.vm.status, .usernameWrongFormat)
+        XCTAssertEqual(self.vm.status, .usernameInvalid)
         
         // 허용 문자
         self.vm.checkUsernameFormat("123;123")
-        XCTAssertEqual(self.vm.status, .usernameWrongFormat)
+        XCTAssertEqual(self.vm.status, .usernameInvalid)
         self.vm.checkUsernameFormat("__________")
-        XCTAssertEqual(self.vm.status, .usernameGoodFormat)
+        XCTAssertEqual(self.vm.status, .usernameValid)
         self.vm.checkUsernameFormat("_+=")
-        XCTAssertEqual(self.vm.status, .usernameWrongFormat)
+        XCTAssertEqual(self.vm.status, .usernameInvalid)
     }
     
     func testCheckPhoneNumberFormat() {
         self.vm.checkPhoneNumberFormat("010-1234")
-        XCTAssertEqual(self.vm.status, .phoneNumberWrongFormat)
+        XCTAssertEqual(self.vm.status, .phoneNumberInvalid)
         self.vm.checkPhoneNumberFormat("010123456789")
-        XCTAssertEqual(self.vm.status, .phoneNumberWrongFormat)
+        XCTAssertEqual(self.vm.status, .phoneNumberInvalid)
         self.vm.checkPhoneNumberFormat("010123456")
-        XCTAssertEqual(self.vm.status, .phoneNumberGoodFormat)
+        XCTAssertEqual(self.vm.status, .phoneNumberValid)
     }
     
     func testChangeUsername() {
@@ -80,7 +80,7 @@ class ChangeUserInfoVMTest: XCTestCase {
         
         // 사용할 수 없는 이름
         self.vm.changeUsername("*")
-        XCTAssertEqual(self.vm.status, .usernameWrongFormat)
+        XCTAssertEqual(self.vm.status, .usernameInvalid)
         XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
         
         // 기존 이름
