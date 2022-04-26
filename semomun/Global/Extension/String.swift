@@ -104,10 +104,10 @@ extension String {
     
     var isValidUsername: Bool {
         // TODO: 알파벳 개수 체크도 정규표현식으로 수정하기
-        return self.matchRegularExpression("^[a-z0-9_]{5,20}$") && self.contains(where: { String($0).isSmallCaseAlphabet })
+        return self.matchRegularExpression("^[a-z0-9_]{5,20}$") && self.contains(where: { String($0).isLowercaseAlphabet })
     }
     
-    var isSmallCaseAlphabet: Bool {
+    var isLowercaseAlphabet: Bool {
         return self.matchRegularExpression("^[a-z]*$")
     }
 }
