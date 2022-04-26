@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 final class SearchResultVM {
+    var isPaging: Bool = false
     private let searchResultQueue = OperationQueue()
     private(set) var networkUsecase: NetworkUsecase
     private var pageCount: Int = 0
@@ -29,10 +30,12 @@ final class SearchResultVM {
     }
     
     func fetchSearchResults() {
-        guard isLastPage == false else { return }
+        guard self.isLastPage == false,
+              self.isPaging == false else { return }
+        self.isPaging = true
         self.pageCount += 1
-        // limit : 12인치의 6배수, 11인치의 5배수의 LCM : 30
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 30) { [weak self] status, previews in
+        // limit : 12인치의 6배수, 11인치의 5배수, 미니의 4배수의 LCM : 60
+        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 60) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
