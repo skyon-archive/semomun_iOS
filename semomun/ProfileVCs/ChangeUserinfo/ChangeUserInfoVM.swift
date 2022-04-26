@@ -40,10 +40,10 @@ final class ChangeUserInfoVM {
     /// 사용자가 입력하는 중에도 확인할 수 있는 username 포맷들을 확인합니다. e.g. 사용할 수 없는 문자
     func checkUsernameFormat(_ username: String) -> Bool {
         if username.isValidUsernameDuringTyping {
-            self.status = .usernameValid
+            self.status = .usernameGoodFormat
             return true
         } else {
-            self.status = .usernameInvalid
+            self.status = .usernameWrongFormat
             return false
         }
     }
@@ -51,17 +51,17 @@ final class ChangeUserInfoVM {
     /// 사용자가 입력하는 중에도 확인할 수 있는 전화번호 포맷들을 확인합니다. e.g. 사용할 수 없는 문자
     func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
         if phoneNumber.isNumber && phoneNumber.count <= 11 {
-            self.status = .phoneNumberValid
+            self.status = .phoneNumberGoodFormat
             return true
         } else {
-            self.status = .phoneNumberInvalid
+            self.status = .phoneNumberWrongFormat
             return false
         }
     }
     
     func changeUsername(_ username: String) {
         guard username.isValidUsername else {
-            self.status = .usernameInvalid
+            self.status = .usernameWrongFormat
             return
         }
         

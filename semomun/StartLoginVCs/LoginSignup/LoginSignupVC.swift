@@ -219,14 +219,14 @@ extension LoginSignupVC {
                 case .usernameAvailable:
                     self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
-                case .usernameInvalid:
+                case .usernameWrongFormat:
                     self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 영문 소문자(최소 하나), 언더바(_)의 조합이 가능합니다."))
-                case .usernameValid:
+                case .usernameGoodFormat:
                     self?.coloredFrameLabels[0].isHidden = true
                     
-                case .phoneNumberInvalid:
+                case .phoneNumberWrongFormat:
                     self?.coloredFrameLabels[1].configure(type: .warning("10-11자리의 숫자를 입력해주세요."))
-                case .phoneNumberValid:
+                case .phoneNumberGoodFormat:
                     self?.coloredFrameLabels[1].isHidden = true
                     
                 case .authCodeSent:
