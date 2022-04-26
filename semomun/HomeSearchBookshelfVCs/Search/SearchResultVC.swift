@@ -134,4 +134,8 @@ extension SearchResultVC {
              self.viewModel?.fetchSearchResults()
          }
      }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.viewModel?.isPaging = false
+    }
  }
