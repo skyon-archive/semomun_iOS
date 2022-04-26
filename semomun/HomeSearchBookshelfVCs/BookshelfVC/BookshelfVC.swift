@@ -28,7 +28,8 @@ class BookshelfVC: UIViewController {
     private lazy var loadingView = LoadingView()
     private var order: SortOrder = .purchase
     private var logined: Bool = false
-    private var columnCount: CGFloat {
+    
+    private lazy var columnCount: CGFloat = {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return 3
         } else {
@@ -40,7 +41,34 @@ class BookshelfVC: UIViewController {
                 return 5
             }
         }
-    }
+    }()
+    
+    private lazy var imageFrameViewSize: CGSize = {
+        let horizontalMargin: CGFloat = 28
+        let horizontalTerm: CGFloat = 10
+        
+        let superWidth = self.books.frame.width - 2*horizontalMargin
+        let cellWidth = (superWidth - (horizontalTerm*(self.columnCount-1)))/self.columnCount
+        
+        let width = cellWidth - 10
+        let height = width*5/4
+        
+        return CGSize(width, height)
+    }()
+    
+    private lazy var cellSize: CGSize = {
+        // MARK: phone 버전 대응은 추후 반영할 예정
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let imageFrameViewSize = self.imageFrameViewSize
+            
+            let width = imageFrameViewSize.width + 10
+            let height = 10 + imageFrameViewSize.height + 42 + 30 + 10
+            
+            return CGSize(width: width, height: height)
+        } else {
+            return CGSize(width: self.books.frame.width, height: 182)
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -263,7 +291,7 @@ extension BookshelfVC: UICollectionViewDataSource {
         let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
         guard let book = self.viewModel?.books[bookIndex] else { return cell }
         
-        cell.configure(with: book)
+        cell.configure(with: book, imageSize: self.imageFrameViewSize)
         
         return cell
     }
@@ -287,21 +315,7 @@ extension BookshelfVC: UICollectionViewDelegate {
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // MARK: phone 버전 대응은 추후 반영할 예정
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            let horizontalMargin: CGFloat = 28
-            let horizontalTerm: CGFloat = 10
-            let superWidth = self.books.frame.width - 2*horizontalMargin
-            
-            let width = (superWidth - (horizontalTerm*(self.columnCount-1)))/self.columnCount
-            let imageFrameViewHeight = (width-10)*5/4
-            let height = 10 + imageFrameViewHeight + 42 + 30 + 10
-            
-            return CGSize(width: width, height: height)
-        }
-        else {
-            return CGSize(width: self.books.frame.width, height: 182)
-        }
+        return self.cellSize
     }
 }
 

@@ -17,12 +17,14 @@ extension CALayer {
     
     enum ShadowDirection {
         case center, bottom, top, diagnal, right, left
+        case custom(Double, Double)
     }
     
-    func configureShadow(direction: ShadowDirection, cornerRadius: CGFloat, backgroundColor: CGColor?, bounds: CGRect? = nil, shouldRasterize: Bool = false) {
-        self.shadowOpacity = 0.3
+    func configureShadow(direction: ShadowDirection, cornerRadius: CGFloat, backgroundColor: CGColor?, opacity: Float = 0.3,
+                         shadowRadius: CGFloat = 5, bounds: CGRect? = nil, shouldRasterize: Bool = false) {
+        self.shadowOpacity = opacity
         self.shadowColor = UIColor.lightGray.cgColor
-        self.shadowRadius = 5
+        self.shadowRadius = shadowRadius
         self.cornerRadius = cornerRadius
         self.shouldRasterize = shouldRasterize
         self.backgroundColor = backgroundColor
@@ -52,6 +54,8 @@ extension CALayer {
             return CGSize(width: -2, height:5)
         case .left:
             return CGSize(width: 2, height: 5)
+        case .custom(let x, let y):
+            return CGSize(width: x, height: y)
         }
     }
 }
