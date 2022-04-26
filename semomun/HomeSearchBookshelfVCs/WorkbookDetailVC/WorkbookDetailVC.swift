@@ -41,6 +41,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.editSectionsButton.isSelected = false
         self.fetchWorkbook()
         self.navigationAnimation = true
         self.navigationController?.setNavigationBarHidden(false, animated: true)
