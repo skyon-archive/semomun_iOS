@@ -396,19 +396,20 @@ extension ChangeUserInfoVC: SchoolSelectAction {
 
 extension ChangeUserInfoVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, let textRange = Range(range, in: text) else {
+        guard let text = textField.text, let textRange = Range(range, in: text), let vm = self.viewModel else {
             return true
         }
         
         // replacementString이 적용된 최종 text
         let updatedText = text.replacingCharacters(in: textRange, with: string)
         
-        if textField == self.phoneNumTF {
-            self.viewModel?.checkPhoneNumberFormat(updatedText)
-        } else if textField == self.nickname {
-            self.viewModel?.checkUsernameFormat(updatedText)
+        switch textField {
+        case self.additionalTF:
+            return vm.checkPhoneNumberFormat(updatedText)
+        case self.nickname:
+            return vm.checkUsernameFormat(updatedText)
+        default:
+            return true
         }
-        
-        return true
     }
 }
