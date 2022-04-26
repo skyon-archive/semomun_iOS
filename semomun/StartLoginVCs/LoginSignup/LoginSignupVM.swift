@@ -37,12 +37,24 @@ final class LoginSignupVM {
         self.fetchMajorInfo()
     }
     
-    func checkUsernameFormat(_ username: String) {
-        self.status = username.isValidUsernameDuringTyping ? .usernameGoodFormat : .usernameWrongFormat
+    func checkUsernameFormat(_ username: String) -> Bool {
+        if username.isValidUsernameDuringTyping {
+            self.status = .usernameGoodFormat
+            return true
+        } else {
+            self.status = .usernameWrongFormat
+            return false
+        }
     }
     
-    func checkPhoneNumberFormat(_ phoneNumber: String) {
-        self.status = phoneNumber.isNumber ? .phoneNumberGoodFormat : .phoneNumberWrongFormat
+    func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
+        if phoneNumber.isNumber && phoneNumber.count < 12 {
+            self.status = .phoneNumberGoodFormat
+            return true
+        } else {
+            self.status = .phoneNumberWrongFormat
+            return false
+        }
     }
     
     func changeUsername(_ username: String) {

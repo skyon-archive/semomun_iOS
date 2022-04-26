@@ -101,7 +101,7 @@ public class Page_Core: NSManagedObject {
         self.setValue(pids, forKey: "problems")
         self.setValue(nil, forKey: "drawing")
         self.setValue(Int64(0), forKey: "time")
-        if let mateImgName = mateImgName {
+        if let _ = mateImgName {
 //            let imgData = UIImage(named: mateImgName)!.pngData()
 //            self.setValue(imgData, forKey: "materialImage")
         } else {
