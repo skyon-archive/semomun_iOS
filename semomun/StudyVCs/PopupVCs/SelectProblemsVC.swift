@@ -113,7 +113,7 @@ extension SelectProblemsVC {
     
     private func activeScoring() {
         self.startScoringBT.isUserInteractionEnabled = true
-        self.startScoringBT.backgroundColor = UIColor(.mainColor)
+        self.startScoringBT.backgroundColor = UIColor(.deepMint)
     }
 }
 
