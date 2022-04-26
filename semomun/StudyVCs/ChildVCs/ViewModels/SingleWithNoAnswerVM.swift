@@ -7,4 +7,9 @@
 
 import Foundation
 
-final class SingleWithNoAnswerVM: PageVM { }
+final class SingleWithNoAnswerVM: PageVM {
+    override init(delegate: PageDelegate, pageData: PageData) {
+        super.init(delegate: delegate, pageData: pageData)
+        self.problem?.setValue(true, forKey: "correct")
+    }
+}
