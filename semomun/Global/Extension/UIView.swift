@@ -75,11 +75,13 @@ extension UIView {
     
     /// - Note: Rasterize가 적용된 그림자가 추가됩니다.
     /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewDidLayoutSubview등에서 호출해야합니다.
-    func addAccessibleShadow(direction: CALayer.ShadowDirection = .center) {
+    func addAccessibleShadow(direction: CALayer.ShadowDirection = .center, opacity: Float = 0.3, shadowRadius: CGFloat = 5, bounds: CGRect? = nil) {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
-        shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, bounds: self.layer.bounds, shouldRasterize: true)
-        self.layer.insertSublayer(shadowLayer, at: 0)
+        shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, opacity: opacity, shadowRadius: shadowRadius, bounds: bounds ?? self.layer.bounds, shouldRasterize: true)
+        if self.layer.sublayers?.contains(shadowLayer) == false {
+            self.layer.insertSublayer(shadowLayer, at: 0)
+        }
     }
     
     func changeShadowOffset(to offset: CGSize) {
