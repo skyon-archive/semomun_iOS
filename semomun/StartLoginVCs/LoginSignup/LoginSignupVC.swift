@@ -279,6 +279,7 @@ extension LoginSignupVC {
         
         self.authNumTextField.isEnabled = true
         self.authNumTextField.text = ""
+        self.authNumTextField.becomeFirstResponder()
         
         self.coloredFrameLabels[1].isHidden = true
         self.coloredFrameLabels[2].isHidden = true
@@ -362,21 +363,22 @@ extension LoginSignupVC: SchoolSelectAction {
 
 extension LoginSignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, let textRange = Range(range, in: text) else {
+        guard let text = textField.text, let textRange = Range(range, in: text), let vm = self.viewModel else {
             return true
         }
         
         // replacementString이 적용된 최종 text
         let updatedText = text.replacingCharacters(in: textRange, with: string)
         
-        if textField == self.phonenumTextField {
+        switch textField {
+        case self.phonenumTextField:
             guard self.isPhoneNumberChangeAvailable() else { return false }
-            self.viewModel?.checkPhoneNumberFormat(updatedText)
-        } else if textField == self.nickname {
-            self.viewModel?.checkUsernameFormat(updatedText)
+            return vm.checkPhoneNumberFormat(updatedText)
+        case self.nickname:
+            return vm.checkUsernameFormat(updatedText)
+        default:
+            return true
         }
-        
-        return true
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {

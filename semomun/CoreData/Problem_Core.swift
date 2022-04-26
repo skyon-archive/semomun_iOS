@@ -139,7 +139,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(Double(5), forKey: "point")
 //        let imgData = UIImage(named: imgName)!.pngData()
 //        self.setValue(imgData, forKey: "contentImage")
-        if let expName = expName {
+        if let _ = expName {
 //            let expData = UIImage(named: expName)!.pngData()
 //            self.setValue(expData, forKey: "explanationImage")
         } else {
