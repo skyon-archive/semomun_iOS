@@ -42,10 +42,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.fetchWorkbook()
-        guard self.navigationAnimation else {
-            self.navigationAnimation = true
-            return
-        }
+        self.navigationAnimation = true
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
