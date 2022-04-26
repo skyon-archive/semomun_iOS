@@ -143,7 +143,7 @@ extension WorkbookDetailVC {
     }
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
-        self.title = workbookInfo.title
+        self.title = "2021학년도 11월 고1 전국연합학력평가 수학영역 확률과 통계 영역"
         self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
         
         if let imageData = workbookInfo.imageData {
