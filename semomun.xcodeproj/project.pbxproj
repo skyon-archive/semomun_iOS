@@ -1382,7 +1382,7 @@
 			};
 			buildConfigurationList = 871B6E48276EE48D008CEEBA /* Build configuration list for PBXProject "semomun" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
