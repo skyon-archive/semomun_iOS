@@ -39,27 +39,27 @@ final class LoginSignupVM {
     
     func checkUsernameFormat(_ username: String) -> Bool {
         if username.isValidUsernameDuringTyping {
-            self.status = .usernameGoodFormat
+            self.status = .usernameValid
             return true
         } else {
-            self.status = .usernameWrongFormat
+            self.status = .usernameInvalid
             return false
         }
     }
     
     func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
         if phoneNumber.isNumber && phoneNumber.count < 12 {
-            self.status = .phoneNumberGoodFormat
+            self.status = .phoneNumberValid
             return true
         } else {
-            self.status = .phoneNumberWrongFormat
+            self.status = .phoneNumberInvalid
             return false
         }
     }
     
     func changeUsername(_ username: String) {
         guard username.isValidUsername else {
-            self.status = .usernameWrongFormat
+            self.status = .usernameInvalid
             return
         }
         self.networkUseCase.usernameAvailable(username) { [weak self] status, isAvailable in
@@ -110,7 +110,7 @@ final class LoginSignupVM {
 extension LoginSignupVM {
     func requestPhoneAuth(withPhoneNumber phoneNumber: String) {
         guard phoneNumber.isValidPhoneNumber else {
-            self.status = .phoneNumberWrongFormat
+            self.status = .phoneNumberInvalid
             return
         }
         self.phoneAuthenticator.sendSMSCode(to: phoneNumber) { result in
