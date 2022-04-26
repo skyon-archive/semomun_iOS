@@ -14,10 +14,10 @@ class BookshelfCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var progressPercentLabel: UILabel!
+    @IBOutlet weak var bookcoverHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.configureBookcoverShadow()
     }
     
     override func prepareForReuse() {
@@ -25,14 +25,7 @@ class BookshelfCell: UICollectionViewCell {
         self.progressView.setProgress(0, animated: false)
     }
     
-    private func configureBookcoverShadow() {
-        self.bookcoverFrameView.layer.shadowOpacity = 0.4
-        self.bookcoverFrameView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.bookcoverFrameView.layer.shadowOffset = CGSize(width: 1.5, height: 3.5)
-        self.bookcoverFrameView.layer.shadowRadius = 3
-    }
-    
-    func configure(with book: Preview_Core) {
+    func configure(with book: Preview_Core, imageSize: CGSize) {
         self.title.text = book.title
         if let imageData = book.image {
             self.bookcover.image = UIImage(data: imageData)
@@ -40,5 +33,11 @@ class BookshelfCell: UICollectionViewCell {
         let percent = Float(book.progressCount)/Float(book.sids.count)
         self.progressView.setProgress(percent, animated: false)
         self.progressPercentLabel.text = "\(Int(percent*100))%"
+        
+        self.bookcoverHeight.constant = imageSize.height
+        self.layoutIfNeeded()
+        // TODO: 0.2 없애기
+        let shadowBound = CGRect(-0.2, -0.2, self.bookcover.frame.width, self.bookcover.frame.height)
+        self.bookcoverFrameView.addAccessibleShadow(direction: .custom(1.5, 3.5), opacity: 0.4, shadowRadius: 3, bounds: shadowBound)
     }
 }

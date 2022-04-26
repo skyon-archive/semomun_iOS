@@ -809,6 +809,7 @@ Label</string>
                                                 <connections>
                                                     <outlet property="bookcover" destination="VNk-NW-S4J" id="IKt-NW-9aA"/>
                                                     <outlet property="bookcoverFrameView" destination="19W-is-j0d" id="een-Qp-Mh9"/>
+                                                    <outlet property="bookcoverHeight" destination="zxR-dB-fmv" id="IDY-wp-KTD"/>
                                                     <outlet property="progressPercentLabel" destination="9Xw-Ee-ceD" id="y7h-LA-u7q"/>
                                                     <outlet property="progressView" destination="9hI-ye-hOj" id="CC1-Cd-Iah"/>
                                                     <outlet property="title" destination="lQK-vK-tnz" id="NMW-W4-dbg"/>
