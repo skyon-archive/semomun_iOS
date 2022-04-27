@@ -72,6 +72,7 @@
 		25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */; };
 		25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDF279D46A700807196 /* SettingVC.swift */; };
 		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
+		25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */; };
 		25F9049E28001C2400A517CC /* JSONParameterEncoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F9049D28001C2400A517CC /* JSONParameterEncoder+Extensions.swift */; };
@@ -310,6 +311,7 @@
 		25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25D1BDDF279D46A700807196 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
+		25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookSearchParam.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectVM.swift; sourceTree = "<group>"; };
 		25F9049D28001C2400A517CC /* JSONParameterEncoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONParameterEncoder+Extensions.swift"; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */,
 				8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */,
 				25F96AC82805562F00A0FD5F /* ErrorReport.swift */,
+				25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */,
 			);
 			path = Encodables;
 			sourceTree = "<group>";
@@ -1624,6 +1627,7 @@
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
+				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,
