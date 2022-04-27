@@ -147,8 +147,8 @@ extension NetworkUsecase: S3ImageFetchable {
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        let tids: String = tags.map { "\($0.tid)" }.joined(separator: ",")
-        let param = ["tags": tids, "text": text, "page": "\(page)", "limit": "\(limit)"]
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tags.map(\.tid), keyword: text)
+        
         self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
