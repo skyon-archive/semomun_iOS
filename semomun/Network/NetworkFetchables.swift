@@ -100,4 +100,5 @@ protocol ErrorReportable {
 protocol LoginSignupPostable {
     func postLogin(userToken: NetworkURL.UserIDToken, completion: @escaping ((status: NetworkStatus, userNotExist: Bool)) -> Void)
     func postSignup(userIDToken: NetworkURL.UserIDToken, userInfo: SignupUserInfo, completion: @escaping ((status: NetworkStatus, userAlreadyExist: Bool)) -> Void)
+    func resign(completion: @escaping (NetworkStatus) -> Void)
 }
