@@ -12,6 +12,9 @@ final class LoginedSettingTableVC: UITableViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
     
     @IBOutlet weak var versionLabel: UILabel!
+    private lazy var networkUsecase: LoginSignupPostable = {
+        return NetworkUsecase(network: Network())
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +36,24 @@ final class LoginedSettingTableVC: UITableViewController, StoryboardController {
 extension LoginedSettingTableVC {
     private func showLogoutedAlert() {
         self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "필기와 이미지 데이터가 제거되며, 구매내역은 유지됩니다.") {
-            LogoutUsecase.logout()
-            NotificationCenter.default.post(name: .logout, object: nil)
+            self.logout()
+        }
+    }
+    
+    private func logout() {
+        LogoutUsecase.logout()
+        NotificationCenter.default.post(name: .logout, object: nil)
+    }
+    
+    private func showResignAlert() {
+        self.showAlertWithCancelAndOK(title: "정말로 탈퇴하시겠어요?", text: "세모페이와 구매 및 사용내역이 제거됩니다.") { [weak self] in
+            self?.networkUsecase.resign(completion: { status in
+                if status == .SUCCESS {
+                    self?.logout()
+                } else {
+                    self?.showAlertWithOK(title: "탈퇴 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
+                }
+            })
         }
     }
 }
@@ -44,9 +63,7 @@ extension LoginedSettingTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 1):
-            if let url = URL(string: NetworkURL.removeAccount) {
-                UIApplication.shared.open(url, options: [:])
-            }
+            self.showResignAlert()
         case (1, 1):
             self.showLongTextVC(title: "이용약관", txtResourceName: "termsAndConditions")
         case (1, 2):
