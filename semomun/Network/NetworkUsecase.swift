@@ -520,6 +520,15 @@ extension NetworkUsecase: LoginSignupPostable {
             }
         }
     }
+    func resign(completion: @escaping (NetworkStatus) -> Void) {
+        self.network.request(url: NetworkURL.usersSelf, method: .delete, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode else {
+                completion(.FAIL)
+                return
+            }
+            completion(NetworkStatus(statusCode: statusCode))
+        }
+    }
     
     private func saveToken(in data: Data) throws {
         let userToken = try JSONDecoder.dateformatted.decode(NetworkTokens.self, from: data)
