@@ -115,7 +115,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(Int64(workbook.sections.reduce(0, { $0 + $1.fileSize })), forKey: Attribute.fileSize.rawValue)
         self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
         self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
-        self.setValue(0, forKey: Attribute.progressCount.rawValue)
+        self.setValue(max(0, self.progressCount), forKey: Attribute.progressCount.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
