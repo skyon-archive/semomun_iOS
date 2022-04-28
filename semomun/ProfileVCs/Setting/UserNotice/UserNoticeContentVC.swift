@@ -30,7 +30,7 @@ final class UserNoticeContentVC: UIViewController {
     }()
     private let textViewAttribute: [NSAttributedString.Key : Any] = {
         let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = 1
+        style.lineHeightMultiple = 2
         let attributes = [
             NSAttributedString.Key.paragraphStyle: style,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .regular)
