@@ -55,5 +55,6 @@ final class SearchResultVM {
         self.pageCount = 0
         self.searchResults = []
         self.isLastPage = false
+        self.isPaging = false
     }
 }
