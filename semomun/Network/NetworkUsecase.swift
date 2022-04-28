@@ -147,7 +147,8 @@ extension NetworkUsecase: S3ImageFetchable {
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tags.map(\.tid), keyword: text)
+        let tids = tags.isEmpty ? nil : tags.map(\.tid) // tags가 빈배열일때 문제인가 싶어 nil로 시도
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: text)
         
         self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {

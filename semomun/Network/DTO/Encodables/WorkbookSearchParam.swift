@@ -10,6 +10,6 @@ import Foundation
 struct WorkbookSearchParam: Encodable {
     let page: Int
     let limit: Int
-    let tids: [Int]
+    let tids: [Int]?
     let keyword: String
 }

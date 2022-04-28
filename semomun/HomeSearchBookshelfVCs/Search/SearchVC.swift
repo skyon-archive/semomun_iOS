@@ -243,8 +243,8 @@ extension SearchVC {
 // MARK: - Delegate
 extension SearchVC: SearchControlable {
     func append(tag: TagOfDB) {
-        self.viewModel?.append(tag: tag)
         self.searchTextField.text = ""
+        self.viewModel?.append(tag: tag)
     }
     
     func changeToSearchFavoriteTagsVC() {
