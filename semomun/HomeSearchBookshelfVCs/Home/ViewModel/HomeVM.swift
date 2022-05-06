@@ -12,9 +12,11 @@ final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [PreviewOfDB] = []
-    @Published private(set) var workbooksWithTags: [PreviewOfDB] = []
-    @Published private(set) var workbooksWithRecent: [BookshelfInfo] = []
-    @Published private(set) var workbooksWithNewest: [BookshelfInfo] = []
+    @Published private(set) var workbooksWithTags: [PreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
+    @Published private(set) var newWorkbooks: [PreviewOfDB] = [] // 2.1: 새롭게 추가된 문제집들
+    @Published private(set) var practiceTests: [PreviewOfDB] = [] // 2.1: 실전 모의고사
+    @Published private(set) var recentEnters: [BookshelfInfo] = []
+    @Published private(set) var purchased: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
@@ -124,15 +126,17 @@ final class HomeVM {
     }
     
     private func fetchNonLogined() {
-        self.fetchTags()
         self.fetchAds()
         self.fetchBestSellers()
+        self.fetchTags()
+        self.fetchNewWorkbooks()
+        self.fetchPracticeTests()
         self.fetchPopup()
     }
     
     private func fetchLogined() {
-        self.fetchWorkbooksWithRecent()
-        self.fetchWorkbooksWithNewest()
+        self.fetchRecentEnters()
+        self.fetchPurchased()
     }
     
     private func fetchTags() {
@@ -216,30 +220,38 @@ final class HomeVM {
         }
     }
     
-    private func fetchWorkbooksWithRecent() {
+    private func fetchRecentEnters() {
         self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
             switch status {
             case .SUCCESS:
                 let infos = infos.map { BookshelfInfo(info: $0) }.filter { $0.recentDate != nil }
                 let count = min(10, infos.count)
-                self?.workbooksWithRecent = Array(infos.prefix(upTo: count))
+                self?.recentEnters = Array(infos.prefix(upTo: count))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
         }
     }
     
-    private func fetchWorkbooksWithNewest() {
+    private func fetchPurchased() {
         self.networkUsecase.getUserBookshelfInfos(order: .purchase) { [weak self] status, infos in
             switch status {
             case .SUCCESS:
                 let infos = infos.map { BookshelfInfo(info: $0) }
                 let count = min(10, infos.count)
-                self?.workbooksWithNewest = Array(infos.prefix(upTo: count))
+                self?.purchased = Array(infos.prefix(upTo: count))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
         }
+    }
+    
+    private func fetchNewWorkbooks() {
+        // TODO: network 연결로직 필요
+    }
+    
+    private func fetchPracticeTests() {
+        // TODO: network 연결로직 필요
     }
     
     func fetchWorkbook(wid: Int) {

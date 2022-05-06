@@ -15,8 +15,10 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var bannerAds: UICollectionView!
     @IBOutlet weak var bestSellers: UICollectionView!
     @IBOutlet weak var workbooksWithTags: UICollectionView!
-    @IBOutlet weak var workbooksWithRecent: UICollectionView!
-    @IBOutlet weak var workbooksWithNewest: UICollectionView!
+    @IBOutlet weak var newWorkbooks: UICollectionView!
+    @IBOutlet weak var practiceTests: UICollectionView!
+    @IBOutlet weak var recentEnters: UICollectionView!
+    @IBOutlet weak var purchased: UICollectionView!
     
     @IBOutlet weak var tagsStackView: UIStackView!
     
@@ -43,9 +45,9 @@ final class HomeVC: UIViewController {
         self.viewModel?.checkLogined()     
         self.viewModel?.checkVersion()
         self.viewModel?.checkMigration()
+        self.configureBannerAds()
         self.configureCollectionView()
         self.configureAddObserver()
-        self.configureBannerAds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,21 +74,24 @@ extension HomeVC {
     }
     
     private func configureViewModel() {
-        let network = Network()
-        let networkUsecase = NetworkUsecase(network: network)
+        let networkUsecase = NetworkUsecase(network: Network())
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
     }
     
     private func configureCollectionView() {
-        self.configureBannerAds()
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
-        self.workbooksWithRecent.dataSource = self
-        self.workbooksWithNewest.dataSource = self
+        self.newWorkbooks.dataSource = self
+        self.practiceTests.dataSource = self
+        self.recentEnters.dataSource = self
+        self.purchased.dataSource = self
+        
         self.bestSellers.delegate = self
         self.workbooksWithTags.delegate = self
-        self.workbooksWithRecent.delegate = self
-        self.workbooksWithNewest.delegate = self
+        self.newWorkbooks.delegate = self
+        self.practiceTests.delegate = self
+        self.recentEnters.delegate = self
+        self.purchased.delegate = self
     }
     
     private func configureBannerAds() {
@@ -153,17 +158,17 @@ extension HomeVC {
         self.newestHeight.constant = 72
         
         self.noLoginedLabel1.text = "아직 푼 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.workbooksWithRecent.addSubview(self.noLoginedLabel1)
+        self.recentEnters.addSubview(self.noLoginedLabel1)
         NSLayoutConstraint.activate([
-            self.noLoginedLabel1.centerYAnchor.constraint(equalTo: self.workbooksWithRecent.centerYAnchor),
-            self.noLoginedLabel1.leadingAnchor.constraint(equalTo: self.workbooksWithRecent.leadingAnchor, constant: 50)
+            self.noLoginedLabel1.centerYAnchor.constraint(equalTo: self.recentEnters.centerYAnchor),
+            self.noLoginedLabel1.leadingAnchor.constraint(equalTo: self.recentEnters.leadingAnchor, constant: 50)
         ])
         
         self.noLoginedLabel2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.workbooksWithNewest.addSubview(self.noLoginedLabel2)
+        self.purchased.addSubview(self.noLoginedLabel2)
         NSLayoutConstraint.activate([
-            self.noLoginedLabel2.centerYAnchor.constraint(equalTo: self.workbooksWithNewest.centerYAnchor),
-            self.noLoginedLabel2.leadingAnchor.constraint(equalTo: self.workbooksWithNewest.leadingAnchor, constant: 50)
+            self.noLoginedLabel2.centerYAnchor.constraint(equalTo: self.purchased.centerYAnchor),
+            self.noLoginedLabel2.leadingAnchor.constraint(equalTo: self.purchased.leadingAnchor, constant: 50)
         ])
     }
     
@@ -208,6 +213,8 @@ extension HomeVC {
         self.bindWarning()
         self.bindPopup()
         self.bindMigrationLoading()
+        self.bindNewWorkbooks()
+        self.bindPracticeTests()
     }
     
     private func bindTags() {
@@ -250,21 +257,21 @@ extension HomeVC {
     }
     
     private func bindRecent() {
-        self.viewModel?.$workbooksWithRecent
+        self.viewModel?.$recentEnters
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.workbooksWithRecent.reloadData()
+                self?.recentEnters.reloadData()
             })
             .store(in: &self.cancellables)
     }
     
     private func bindNewest() {
-        self.viewModel?.$workbooksWithNewest
+        self.viewModel?.$purchased
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.workbooksWithNewest.reloadData()
+                self?.purchased.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -367,6 +374,26 @@ extension HomeVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindNewWorkbooks() {
+        self.viewModel?.$newWorkbooks
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.newWorkbooks.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPracticeTests() {
+        self.viewModel?.$practiceTests
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.practiceTests.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - CollectionView
@@ -379,10 +406,10 @@ extension HomeVC: UICollectionViewDataSource {
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
             return self.viewModel?.workbooksWithTags.count ?? 0
-        case self.workbooksWithRecent:
-            return self.viewModel?.workbooksWithRecent.count ?? 0
-        case self.workbooksWithNewest:
-            return self.viewModel?.workbooksWithNewest.count ?? 0
+        case self.recentEnters:
+            return self.viewModel?.recentEnters.count ?? 0
+        case self.purchased:
+            return self.viewModel?.purchased.count ?? 0
         default:
             return 0
         }
@@ -408,11 +435,11 @@ extension HomeVC: UICollectionViewDataSource {
             case self.workbooksWithTags:
                 guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
                 cell.configure(with: preview)
-            case self.workbooksWithRecent:
-                guard let info = self.viewModel?.workbooksWithRecent[indexPath.item] else { return cell }
+            case self.recentEnters:
+                guard let info = self.viewModel?.recentEnters[indexPath.item] else { return cell }
                 cell.configure(with: info)
-            case self.workbooksWithNewest:
-                guard let info = self.viewModel?.workbooksWithNewest[indexPath.item] else { return cell }
+            case self.purchased:
+                guard let info = self.viewModel?.purchased[indexPath.item] else { return cell }
                 cell.configure(with: info)
             default:
                 return cell
@@ -434,11 +461,11 @@ extension HomeVC: UICollectionViewDelegate {
         case self.workbooksWithTags:
             guard let wid = self.viewModel?.workbooksWithTags[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
-        case self.workbooksWithRecent:
-            guard let wid = self.viewModel?.workbooksWithRecent[indexPath.item].wid else { return }
+        case self.recentEnters:
+            guard let wid = self.viewModel?.recentEnters[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
-        case self.workbooksWithNewest:
-            guard let wid = self.viewModel?.workbooksWithNewest[indexPath.item].wid else { return }
+        case self.purchased:
+            guard let wid = self.viewModel?.purchased[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         default:
             return
