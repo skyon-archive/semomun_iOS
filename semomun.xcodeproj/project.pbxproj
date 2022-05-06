@@ -141,6 +141,8 @@
 		8720B032278E775800B8775F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B031278E775800B8775F /* FirebaseAnalytics */; };
 		8720B034278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B033278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8720B035278E7A2200B8775F /* GoogleService-Info.plist */; };
+		87231B8828250B41001CA2F7 /* PracticeTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8728250B41001CA2F7 /* PracticeTestVC.swift */; };
+		87231B8B28250D3F001CA2F7 /* PracticeTestsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8A28250D3F001CA2F7 /* PracticeTestsHeaderView.swift */; };
 		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
 		87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C192840B2A7007B7092 /* TimeRecordControllable.swift */; };
 		87273C1C2840E559007B7092 /* CorrectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C1B2840E559007B7092 /* CorrectImageView.swift */; };
@@ -405,6 +407,8 @@
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		87231B8728250B41001CA2F7 /* PracticeTestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestVC.swift; sourceTree = "<group>"; };
+		87231B8A28250D3F001CA2F7 /* PracticeTestsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestsHeaderView.swift; sourceTree = "<group>"; };
 		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		87273C192840B2A7007B7092 /* TimeRecordControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRecordControllable.swift; sourceTree = "<group>"; };
 		87273C1B2840E559007B7092 /* CorrectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectImageView.swift; sourceTree = "<group>"; };
@@ -911,6 +915,7 @@
 		8716E92F279A5F1200B33A5E /* HomeSearchBookshelfVCs */ = {
 			isa = PBXGroup;
 			children = (
+				87231B86282508C0001CA2F7 /* PracticeTest */,
 				87F5826A279E84A700A2BD15 /* Home */,
 				8745855C279FB84700E331F1 /* Search */,
 				259C000E27914171005D432B /* WorkbookDetailVC */,
@@ -1023,6 +1028,23 @@
 				8720B035278E7A2200B8775F /* GoogleService-Info.plist */,
 			);
 			path = semomun;
+			sourceTree = "<group>";
+		};
+		87231B86282508C0001CA2F7 /* PracticeTest */ = {
+			isa = PBXGroup;
+			children = (
+				87231B8928250D21001CA2F7 /* View */,
+				87231B8728250B41001CA2F7 /* PracticeTestVC.swift */,
+			);
+			path = PracticeTest;
+			sourceTree = "<group>";
+		};
+		87231B8928250D21001CA2F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87231B8A28250D3F001CA2F7 /* PracticeTestsHeaderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		8726CB0E278D2040004D9CC0 /* Manager */ = {
@@ -1609,6 +1631,7 @@
 				87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */,
+				87231B8828250B41001CA2F7 /* PracticeTestVC.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */,
 				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
@@ -1805,6 +1828,7 @@
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
 				87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
+				87231B8B28250D3F001CA2F7 /* PracticeTestsHeaderView.swift in Sources */,
 				25F9049E28001C2400A517CC /* JSONParameterEncoder+Extensions.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
 				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,

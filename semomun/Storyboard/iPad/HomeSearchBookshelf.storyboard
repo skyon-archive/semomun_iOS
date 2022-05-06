@@ -1256,6 +1256,82 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="2244.6043165467627" y="737.6884422110553"/>
         </scene>
+        <!--Practice TestVC-->
+        <scene sceneID="HLo-gx-Cl6">
+            <objects>
+                <viewController storyboardIdentifier="PracticeTestVC" id="8yR-Z0-eKn" customClass="PracticeTestVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M01-0P-tyG">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-uB-9VK">
+                                <rect key="frame" x="0.0" y="24" width="834" height="240"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="LVM-bE-Q5n"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-Y3-Ya4">
+                                <rect key="frame" x="0.0" y="304" width="834" height="870"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hgg-hT-LRE">
+                                    <size key="itemSize" width="146" height="240"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IoM-JE-k4Z">
+                                        <rect key="frame" x="28" y="50" width="146" height="240"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vDn-lj-ZN0">
+                                            <rect key="frame" x="0.0" y="0.0" width="146" height="240"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestsHeaderView" id="sPi-OC-LeT" customClass="PracticeTestsHeaderView" customModule="semomun" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 실전 모의고사" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH4-3t-eIk">
+                                            <rect key="frame" x="29" y="14.5" width="133" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bH4-3t-eIk" firstAttribute="leading" secondItem="sPi-OC-LeT" secondAttribute="leading" constant="29" id="32q-4m-mDc"/>
+                                        <constraint firstItem="bH4-3t-eIk" firstAttribute="centerY" secondItem="sPi-OC-LeT" secondAttribute="centerY" id="S4Z-Dw-RPY"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerText" destination="bH4-3t-eIk" id="LNf-tN-hZD"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="y59-ww-zfv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y59-ww-zfv" firstAttribute="trailing" secondItem="hxF-uB-9VK" secondAttribute="trailing" id="EJw-7O-gAD"/>
+                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="leading" secondItem="y59-ww-zfv" secondAttribute="leading" id="LBs-lZ-pvv"/>
+                            <constraint firstItem="hxF-uB-9VK" firstAttribute="leading" secondItem="y59-ww-zfv" secondAttribute="leading" id="Ppx-I1-ngm"/>
+                            <constraint firstItem="y59-ww-zfv" firstAttribute="bottom" secondItem="AHs-Y3-Ya4" secondAttribute="bottom" id="Q3m-Dm-p8d"/>
+                            <constraint firstItem="hxF-uB-9VK" firstAttribute="top" secondItem="y59-ww-zfv" secondAttribute="top" id="R9K-4X-kiO"/>
+                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="top" secondItem="hxF-uB-9VK" secondAttribute="bottom" constant="40" id="TOR-gc-5SZ"/>
+                            <constraint firstItem="y59-ww-zfv" firstAttribute="trailing" secondItem="AHs-Y3-Ya4" secondAttribute="trailing" id="lkL-qy-pXo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="practiceTests" destination="AHs-Y3-Ya4" id="cYt-cW-DC1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pjj-xS-1hu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3209" y="738"/>
+        </scene>
         <!--Workbook DetailVC-->
         <scene sceneID="skC-tp-odr">
             <objects>
