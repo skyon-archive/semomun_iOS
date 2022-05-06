@@ -252,6 +252,7 @@ final class HomeVM {
     
     private func fetchPracticeTests() {
         // TODO: network 연결로직 필요
+        self.practiceTests = [PreviewOfDB(productID: 0, wid: 0, title: "22년 5월 1주차 모의고사", detail: "", isbn: "", author: "", publishedDate: Date(), publishMan: "", publishCompany: "", originalPrice: 0, bookcover: UUID(), createdDate: Date(), updatedDate: Date())]
     }
     
     func fetchWorkbook(wid: Int) {

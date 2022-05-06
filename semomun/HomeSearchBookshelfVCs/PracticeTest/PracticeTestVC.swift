@@ -10,6 +10,7 @@ import Combine
 
 class PracticeTestVC: UIViewController {
     static let identifier = "PracticeTestVC"
+    static let storyboardName = "HomeSearchBookshelf"
     
     @IBOutlet weak var practiceTests: UICollectionView!
     
@@ -17,6 +18,18 @@ class PracticeTestVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.title = "실전 모의고사"
+        self.practiceTests.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
