@@ -474,11 +474,11 @@ Label</string>
                         <outlet property="bestSellers" destination="t6g-L8-B1c" id="aYv-l9-nnj"/>
                         <outlet property="navigationTitleView" destination="dAq-4v-ISC" id="rHc-wR-31N"/>
                         <outlet property="newestHeight" destination="0q1-Ix-onL" id="TR4-cp-OaX"/>
+                        <outlet property="purchased" destination="b4q-Fp-Nim" id="IXt-7O-N2L"/>
+                        <outlet property="recentEnters" destination="Hxv-tO-4Bd" id="lwE-rY-mjZ"/>
                         <outlet property="recentHeight" destination="pYB-X9-Lkv" id="7SM-xp-HwE"/>
                         <outlet property="scrollView" destination="2mm-AJ-JeX" id="Eah-46-ovS"/>
                         <outlet property="tagsStackView" destination="Za2-Pw-zvx" id="Ith-NJ-Onl"/>
-                        <outlet property="workbooksWithNewest" destination="b4q-Fp-Nim" id="IXt-7O-N2L"/>
-                        <outlet property="workbooksWithRecent" destination="Hxv-tO-4Bd" id="lwE-rY-mjZ"/>
                         <outlet property="workbooksWithTags" destination="Xhj-ix-3Of" id="aJt-3I-chj"/>
                     </connections>
                 </viewController>
@@ -1167,10 +1167,10 @@ Label</string>
                                         <rect key="frame" x="0.0" y="44.5" width="536" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QeU-jn-Rc8" id="JCN-Zj-eQ8">
-                                            <rect key="frame" x="0.0" y="0.0" width="326" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="536" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-tV-kyB">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-tV-kyB">
                                                     <rect key="frame" x="0.0" y="9" width="82" height="32"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -1192,13 +1192,13 @@ Label</string>
                                                         <action selector="download:" destination="QeU-jn-Rc8" eventType="touchUpInside" id="2R2-6Z-6RD"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKF-Xw-EYa">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Section Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKF-Xw-EYa">
                                                     <rect key="frame" x="154" y="15.5" width="102" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gp7-La-m2P">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gp7-La-m2P">
                                                     <rect key="frame" x="114" y="14.5" width="30" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="41Y-w2-kma"/>
@@ -1207,7 +1207,7 @@ Label</string>
                                                     <color key="textColor" name="mainColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Os-NY-LFV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Os-NY-LFV">
                                                     <rect key="frame" x="276" y="14.5" width="20" height="21"/>
                                                     <color key="tintColor" name="mainColor"/>
                                                     <constraints>
