@@ -410,6 +410,8 @@ extension HomeVC: UICollectionViewDataSource {
             return self.viewModel?.recentEnters.count ?? 0
         case self.purchased:
             return self.viewModel?.purchased.count ?? 0
+        case self.practiceTests:
+            return self.viewModel?.practiceTests.count ?? 0
         default:
             return 0
         }
@@ -441,6 +443,9 @@ extension HomeVC: UICollectionViewDataSource {
             case self.purchased:
                 guard let info = self.viewModel?.purchased[indexPath.item] else { return cell }
                 cell.configure(with: info)
+            case self.practiceTests:
+                guard let preview = self.viewModel?.practiceTests[indexPath.item] else { return cell }
+                cell.configure(with: preview)
             default:
                 return cell
             }
@@ -467,6 +472,9 @@ extension HomeVC: UICollectionViewDelegate {
         case self.purchased:
             guard let wid = self.viewModel?.purchased[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
+        case self.practiceTests:
+            // TODO: Backend 와 소통 이후 로직작성 필요
+            self.showPracticeTestVC()
         default:
             return
         }
@@ -505,6 +513,12 @@ extension HomeVC: UICollectionViewDelegate {
         guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
         
         self.present(searchTagVC, animated: true, completion: nil)
+    }
+    
+    private func showPracticeTestVC() {
+        let storyboard = UIStoryboard(name: PracticeTestVC.storyboardName, bundle: nil)
+        guard let practiveTextVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
+        self.navigationController?.pushViewController(practiveTextVC, animated: true)
     }
 }
 
