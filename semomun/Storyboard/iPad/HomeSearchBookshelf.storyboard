@@ -1274,21 +1274,59 @@ Label</string>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-Y3-Ya4">
                                 <rect key="frame" x="0.0" y="304" width="834" height="870"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Hgg-hT-LRE">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="12" id="Hgg-hT-LRE">
                                     <size key="itemSize" width="146" height="240"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IoM-JE-k4Z">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestCell" id="IoM-JE-k4Z" customClass="PracticeTestCell" customModule="semomun" customModuleProvider="target">
                                         <rect key="frame" x="28" y="50" width="146" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vDn-lj-ZN0">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-1N-2uS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="146" height="182.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="VwB-1N-2uS" secondAttribute="height" multiplier="4:5" id="AFk-xl-1TS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejn-YK-fn5">
+                                                    <rect key="frame" x="0.0" y="187" width="146" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="146" id="IcI-kt-bde"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA1-Ym-BKU">
+                                                    <rect key="frame" x="0.0" y="220.5" width="146" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ejn-YK-fn5" firstAttribute="leading" secondItem="vDn-lj-ZN0" secondAttribute="leading" id="40y-NG-y7k"/>
+                                                <constraint firstAttribute="trailing" secondItem="ejn-YK-fn5" secondAttribute="trailing" id="UdB-dH-OuM"/>
+                                                <constraint firstItem="VwB-1N-2uS" firstAttribute="top" secondItem="vDn-lj-ZN0" secondAttribute="top" id="Uqz-xD-mZg"/>
+                                                <constraint firstItem="XA1-Ym-BKU" firstAttribute="leading" secondItem="vDn-lj-ZN0" secondAttribute="leading" id="Vcv-lc-Chb"/>
+                                                <constraint firstAttribute="trailing" secondItem="XA1-Ym-BKU" secondAttribute="trailing" id="ZxT-Mu-qD7"/>
+                                                <constraint firstItem="XA1-Ym-BKU" firstAttribute="top" secondItem="ejn-YK-fn5" secondAttribute="top" constant="33.5" id="k5f-GO-etH"/>
+                                                <constraint firstItem="VwB-1N-2uS" firstAttribute="centerX" secondItem="vDn-lj-ZN0" secondAttribute="centerX" id="mDY-fR-gqR"/>
+                                                <constraint firstItem="VwB-1N-2uS" firstAttribute="leading" secondItem="vDn-lj-ZN0" secondAttribute="leading" id="rv5-XD-0cX"/>
+                                                <constraint firstItem="ejn-YK-fn5" firstAttribute="top" secondItem="VwB-1N-2uS" secondAttribute="bottom" constant="4.5" id="yPU-xn-DuI"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="bookcover" destination="VwB-1N-2uS" id="SkI-eJ-qRb"/>
+                                            <outlet property="priceLabel" destination="XA1-Ym-BKU" id="WV9-mr-CO8"/>
+                                            <outlet property="titleLabel" destination="ejn-YK-fn5" id="Lh0-0r-pO5"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestsHeaderView" id="sPi-OC-LeT" customClass="PracticeTestsHeaderView" customModule="semomun" customModuleProvider="target">
@@ -1330,7 +1368,7 @@ Label</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pjj-xS-1hu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3209" y="738"/>
+            <point key="canvasLocation" x="3208.6330935251799" y="737.6884422110553"/>
         </scene>
         <!--Workbook DetailVC-->
         <scene sceneID="skC-tp-odr">
