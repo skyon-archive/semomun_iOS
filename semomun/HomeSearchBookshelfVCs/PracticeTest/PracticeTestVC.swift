@@ -16,9 +16,10 @@ class PracticeTestVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         self.title = "실전 모의고사"
+        // 임시 로직
+        self.practiceTests.dataSource = self
+        self.practiceTests.delegate = self
         self.practiceTests.reloadData()
     }
     
@@ -31,10 +32,6 @@ class PracticeTestVC: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-}
-
-extension PracticeTestVC: UICollectionViewDelegate {
-    
 }
 
 extension PracticeTestVC: UICollectionViewDataSource {
@@ -51,7 +48,15 @@ extension PracticeTestVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeTestCell.identifer, for: indexPath) as? PracticeTestCell else { return UICollectionViewCell() }
+        
+        // 임시용 로직
+        if indexPath.section == 0 {
+            cell.configure(title: "국어(화법과 작문)")
+        } else {
+            cell.configure(title: "2021년도 국가직 9급 공무원 정보시스템 보안", price: "10,000원")
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -66,5 +71,18 @@ extension PracticeTestVC: UICollectionViewDataSource {
         default:
             return UICollectionReusableView()
         }
+    }
+}
+
+extension PracticeTestVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(146, 240)
+    }
+}
+
+extension PracticeTestVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 임시 로직
+        print(indexPath.section, indexPath.item)
     }
 }
