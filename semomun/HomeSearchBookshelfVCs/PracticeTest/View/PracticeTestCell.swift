@@ -25,7 +25,7 @@ final class PracticeTestCell: UICollectionViewCell {
     // 임시용 로직
     func configure(title: String, price: String? = nil) {
         self.titleLabel.text = title
-        self.priceLabel.text = price != nil ? price! : ""
+        self.priceLabel.text = price ?? ""
     }
     
 }

@@ -473,10 +473,10 @@ Label</string>
                         <outlet property="bannerAds" destination="0dC-54-wcz" id="EDx-8D-P1N"/>
                         <outlet property="bestSellers" destination="t6g-L8-B1c" id="aYv-l9-nnj"/>
                         <outlet property="navigationTitleView" destination="dAq-4v-ISC" id="rHc-wR-31N"/>
-                        <outlet property="newestHeight" destination="0q1-Ix-onL" id="TR4-cp-OaX"/>
-                        <outlet property="purchased" destination="b4q-Fp-Nim" id="IXt-7O-N2L"/>
-                        <outlet property="recentEnters" destination="Hxv-tO-4Bd" id="lwE-rY-mjZ"/>
-                        <outlet property="recentHeight" destination="pYB-X9-Lkv" id="7SM-xp-HwE"/>
+                        <outlet property="recentEntered" destination="Hxv-tO-4Bd" id="lwE-rY-mjZ"/>
+                        <outlet property="recentEnteredHeight" destination="pYB-X9-Lkv" id="7SM-xp-HwE"/>
+                        <outlet property="recentPurchased" destination="b4q-Fp-Nim" id="IXt-7O-N2L"/>
+                        <outlet property="recentPurchasedHeight" destination="0q1-Ix-onL" id="TR4-cp-OaX"/>
                         <outlet property="scrollView" destination="2mm-AJ-JeX" id="Eah-46-ovS"/>
                         <outlet property="tagsStackView" destination="Za2-Pw-zvx" id="Ith-NJ-Onl"/>
                         <outlet property="workbooksWithTags" destination="Xhj-ix-3Of" id="aJt-3I-chj"/>
