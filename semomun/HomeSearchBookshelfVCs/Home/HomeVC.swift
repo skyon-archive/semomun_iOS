@@ -17,13 +17,13 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var workbooksWithTags: UICollectionView!
     @IBOutlet weak var newWorkbooks: UICollectionView!
     @IBOutlet weak var practiceTests: UICollectionView!
-    @IBOutlet weak var recentEnters: UICollectionView!
-    @IBOutlet weak var purchased: UICollectionView!
+    @IBOutlet weak var recentEntered: UICollectionView!
+    @IBOutlet weak var recentPurchased: UICollectionView!
     
     @IBOutlet weak var tagsStackView: UIStackView!
     
-    @IBOutlet weak var recentHeight: NSLayoutConstraint!
-    @IBOutlet weak var newestHeight: NSLayoutConstraint!
+    @IBOutlet weak var recentEnteredHeight: NSLayoutConstraint!
+    @IBOutlet weak var recentPurchasedHeight: NSLayoutConstraint!
     
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
@@ -83,15 +83,15 @@ extension HomeVC {
         self.workbooksWithTags.dataSource = self
         self.newWorkbooks.dataSource = self
         self.practiceTests.dataSource = self
-        self.recentEnters.dataSource = self
-        self.purchased.dataSource = self
+        self.recentEntered.dataSource = self
+        self.recentPurchased.dataSource = self
         
         self.bestSellers.delegate = self
         self.workbooksWithTags.delegate = self
         self.newWorkbooks.delegate = self
         self.practiceTests.delegate = self
-        self.recentEnters.delegate = self
-        self.purchased.delegate = self
+        self.recentEntered.delegate = self
+        self.recentPurchased.delegate = self
     }
     
     private func configureBannerAds() {
@@ -154,21 +154,21 @@ extension HomeVC {
     }
     
     private func configureLoginTextView() {
-        self.recentHeight.constant = 72
-        self.newestHeight.constant = 72
+        self.recentEnteredHeight.constant = 72
+        self.recentPurchasedHeight.constant = 72
         
         self.noLoginedLabel1.text = "아직 푼 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.recentEnters.addSubview(self.noLoginedLabel1)
+        self.recentEntered.addSubview(self.noLoginedLabel1)
         NSLayoutConstraint.activate([
-            self.noLoginedLabel1.centerYAnchor.constraint(equalTo: self.recentEnters.centerYAnchor),
-            self.noLoginedLabel1.leadingAnchor.constraint(equalTo: self.recentEnters.leadingAnchor, constant: 50)
+            self.noLoginedLabel1.centerYAnchor.constraint(equalTo: self.recentEntered.centerYAnchor),
+            self.noLoginedLabel1.leadingAnchor.constraint(equalTo: self.recentEntered.leadingAnchor, constant: 50)
         ])
         
         self.noLoginedLabel2.text = "아직 구매한 문제집이 없습니다!\n문제집을 검색하여 추가하고, 문제집을 풀어보세요"
-        self.purchased.addSubview(self.noLoginedLabel2)
+        self.recentPurchased.addSubview(self.noLoginedLabel2)
         NSLayoutConstraint.activate([
-            self.noLoginedLabel2.centerYAnchor.constraint(equalTo: self.purchased.centerYAnchor),
-            self.noLoginedLabel2.leadingAnchor.constraint(equalTo: self.purchased.leadingAnchor, constant: 50)
+            self.noLoginedLabel2.centerYAnchor.constraint(equalTo: self.recentPurchased.centerYAnchor),
+            self.noLoginedLabel2.leadingAnchor.constraint(equalTo: self.recentPurchased.leadingAnchor, constant: 50)
         ])
     }
     
@@ -257,21 +257,21 @@ extension HomeVC {
     }
     
     private func bindRecent() {
-        self.viewModel?.$recentEnters
+        self.viewModel?.$recentEntered
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.recentEnters.reloadData()
+                self?.recentEntered.reloadData()
             })
             .store(in: &self.cancellables)
     }
     
     private func bindNewest() {
-        self.viewModel?.$purchased
+        self.viewModel?.$recentPurchased
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.purchased.reloadData()
+                self?.recentPurchased.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -311,8 +311,8 @@ extension HomeVC {
                 } else {
                     self?.noLoginedLabel1.removeFromSuperview()
                     self?.noLoginedLabel2.removeFromSuperview()
-                    self?.recentHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
-                    self?.newestHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
+                    self?.recentEnteredHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
+                    self?.recentPurchasedHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
                 }
             })
             .store(in: &self.cancellables)
@@ -406,10 +406,10 @@ extension HomeVC: UICollectionViewDataSource {
             return self.viewModel?.bestSellers.count ?? 0
         case self.workbooksWithTags:
             return self.viewModel?.workbooksWithTags.count ?? 0
-        case self.recentEnters:
-            return self.viewModel?.recentEnters.count ?? 0
-        case self.purchased:
-            return self.viewModel?.purchased.count ?? 0
+        case self.recentEntered:
+            return self.viewModel?.recentEntered.count ?? 0
+        case self.recentPurchased:
+            return self.viewModel?.recentPurchased.count ?? 0
         case self.practiceTests:
             return self.viewModel?.practiceTests.count ?? 0
         default:
@@ -437,11 +437,11 @@ extension HomeVC: UICollectionViewDataSource {
             case self.workbooksWithTags:
                 guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
                 cell.configure(with: preview)
-            case self.recentEnters:
-                guard let info = self.viewModel?.recentEnters[indexPath.item] else { return cell }
+            case self.recentEntered:
+                guard let info = self.viewModel?.recentEntered[indexPath.item] else { return cell }
                 cell.configure(with: info)
-            case self.purchased:
-                guard let info = self.viewModel?.purchased[indexPath.item] else { return cell }
+            case self.recentPurchased:
+                guard let info = self.viewModel?.recentPurchased[indexPath.item] else { return cell }
                 cell.configure(with: info)
             case self.practiceTests:
                 guard let preview = self.viewModel?.practiceTests[indexPath.item] else { return cell }
@@ -466,11 +466,11 @@ extension HomeVC: UICollectionViewDelegate {
         case self.workbooksWithTags:
             guard let wid = self.viewModel?.workbooksWithTags[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
-        case self.recentEnters:
-            guard let wid = self.viewModel?.recentEnters[indexPath.item].wid else { return }
+        case self.recentEntered:
+            guard let wid = self.viewModel?.recentEntered[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
-        case self.purchased:
-            guard let wid = self.viewModel?.purchased[indexPath.item].wid else { return }
+        case self.recentPurchased:
+            guard let wid = self.viewModel?.recentPurchased[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         case self.practiceTests:
             // TODO: Backend 와 소통 이후 로직작성 필요

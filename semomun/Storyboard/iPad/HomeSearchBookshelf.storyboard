@@ -590,11 +590,11 @@
                         <outlet property="bestSellers" destination="Kkd-Ts-nYU" id="fVW-Rl-wCf"/>
                         <outlet property="navigationTitleView" destination="kxf-gW-fhA" id="WT2-C1-OKb"/>
                         <outlet property="newWorkbooks" destination="MaE-f7-LFM" id="H0a-2F-GvQ"/>
-                        <outlet property="newestHeight" destination="w4C-c7-qoo" id="wKP-B4-uYw"/>
                         <outlet property="practiceTests" destination="uLr-EI-1NI" id="kj3-FK-WQT"/>
-                        <outlet property="purchased" destination="RJe-kD-aOx" id="XCV-wc-CgW"/>
-                        <outlet property="recentEnters" destination="aiU-wR-I4J" id="SLz-dq-veB"/>
-                        <outlet property="recentHeight" destination="BQw-CJ-YSp" id="lLG-Vj-er0"/>
+                        <outlet property="recentEntered" destination="aiU-wR-I4J" id="SLz-dq-veB"/>
+                        <outlet property="recentEnteredHeight" destination="BQw-CJ-YSp" id="lLG-Vj-er0"/>
+                        <outlet property="recentPurchased" destination="RJe-kD-aOx" id="XCV-wc-CgW"/>
+                        <outlet property="recentPurchasedHeight" destination="w4C-c7-qoo" id="wKP-B4-uYw"/>
                         <outlet property="scrollView" destination="gIM-TK-By1" id="yvy-OI-Kva"/>
                         <outlet property="tagsStackView" destination="yTx-r1-fS9" id="K5C-R6-qeG"/>
                         <outlet property="workbooksWithTags" destination="M66-s7-lzJ" id="4Gy-vj-M1v"/>

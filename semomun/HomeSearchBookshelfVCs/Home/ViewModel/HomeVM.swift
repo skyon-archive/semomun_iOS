@@ -15,8 +15,8 @@ final class HomeVM {
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
     @Published private(set) var newWorkbooks: [PreviewOfDB] = [] // 2.1: 새롭게 추가된 문제집들
     @Published private(set) var practiceTests: [PreviewOfDB] = [] // 2.1: 실전 모의고사
-    @Published private(set) var recentEnters: [BookshelfInfo] = []
-    @Published private(set) var purchased: [BookshelfInfo] = []
+    @Published private(set) var recentEntered: [BookshelfInfo] = []
+    @Published private(set) var recentPurchased: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
@@ -226,7 +226,7 @@ final class HomeVM {
             case .SUCCESS:
                 let infos = infos.map { BookshelfInfo(info: $0) }.filter { $0.recentDate != nil }
                 let count = min(10, infos.count)
-                self?.recentEnters = Array(infos.prefix(upTo: count))
+                self?.recentEntered = Array(infos.prefix(upTo: count))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
@@ -239,7 +239,7 @@ final class HomeVM {
             case .SUCCESS:
                 let infos = infos.map { BookshelfInfo(info: $0) }
                 let count = min(10, infos.count)
-                self?.purchased = Array(infos.prefix(upTo: count))
+                self?.recentPurchased = Array(infos.prefix(upTo: count))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
