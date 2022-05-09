@@ -27,9 +27,9 @@ extension View {
 }
 
 extension Path {
-    /// 2개 이상의 점들을 이은 꺾은선 그래프의 Path를 반환
+    /// 점들을 이은 직선들의 Path를 반환, (0, 0)부터 grid 단위로 좌표 이동
     /// - Parameters:
-    ///   - yValue: 점들의 y값
+    ///   - yValue: 점들의 y값, nil이면 건너뜀
     ///   - grid: 격자의 크기
     static func lineChart(yValue: [Double?], grid: CGSize) -> Path {
         var path = Path()
@@ -46,6 +46,10 @@ extension Path {
         return path
     }
     
+    ///  선택된 좌표에 원을 그린 Path를 반환, (0, 0)부터 grid 단위로 좌표 이동
+    /// - Parameters:
+    ///   - yValue: 점들의 y값, nil이면 건너뜀
+    ///   - grid: 격자의 크기
     static func lineChartCircle(yValue: [Double?], grid: CGSize) -> Path {
         var path = Path()
         
@@ -120,35 +124,42 @@ struct GradeLineGraph: View {
         }
     }
     
-    func getGridSize(frame: CGSize) -> CGSize {
-        return CGSize(width: frame.width / CGFloat(self.xLabelCount), height: frame.height / CGFloat(self.yLabelCount))
+    var graph: some View {
+        GeometryReader { reader in
+            ZStack {
+                Line(data: self.averageYVal,
+                     lineColor: Color(UIColor(SemomunColor.semoGray) ?? .gray),
+                     circleColor: Color(UIColor(SemomunColor.yellowColor) ?? .black),
+                     strokeStyle: .init(lineWidth: 1.5, dash: [5]),
+                     gridSize: self.getGridSize(frame: reader.size)
+                )
+                Line(data: self.gradeYVal,
+                     lineColor: Color(UIColor(SemomunColor.semoLightGray) ?? .gray),
+                     circleColor: Color(UIColor(.mainColor) ?? .black),
+                     strokeStyle: .init(lineWidth: 1.5),
+                     gridSize: self.getGridSize(frame: reader.size)
+                )
+            }
+            .offset( // label에 맞게 위치 이동
+                x: reader.frame(in: .local).width / CGFloat(xLabelCount*2),
+                y: reader.frame(in: .local).height / CGFloat(yLabelCount*2)
+            )
+        }
+        .xyAxis()
+    }
+    
+    private func getGridSize(frame: CGSize) -> CGSize {
+        return CGSize(
+            width: frame.width / CGFloat(self.xLabelCount),
+            height: frame.height / CGFloat(self.yLabelCount)
+        )
     }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
                 self.yAxisLabels
-                GeometryReader{ reader in
-                    ZStack {
-                        Line(data: self.averageYVal,
-                             lineColor: Color(UIColor(SemomunColor.semoGray) ?? .gray),
-                             circleColor: Color(UIColor(SemomunColor.yellowColor) ?? .black),
-                             strokeStyle: .init(lineWidth: 1.5, dash: [5]),
-                             gridSize: self.getGridSize(frame: reader.size)
-                        )
-                        Line(data: self.gradeYVal,
-                             lineColor: Color(UIColor(SemomunColor.semoLightGray) ?? .gray),
-                             circleColor: Color(UIColor(.mainColor) ?? .black),
-                             strokeStyle: .init(lineWidth: 1.5),
-                             gridSize: self.getGridSize(frame: reader.size)
-                        )
-                    }
-                    .offset(
-                        x: reader.frame(in: .local).width / CGFloat(xLabelCount*2),
-                        y: reader.frame(in: .local).height / CGFloat(yLabelCount*2)
-                    )
-                }
-                .xyAxis()
+                self.graph
             }
             self.xAxisLabels
         }
