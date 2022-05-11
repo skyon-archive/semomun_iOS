@@ -117,7 +117,6 @@ extension LoginSignupVM {
             switch result {
             case .success(_):
                 self.status = .authCodeSent
-                self.alert = .codeSentAlert
                 self.canChangePhoneNumber = false
             case .failure(let error):
                 switch error {
@@ -160,7 +159,6 @@ extension LoginSignupVM {
             switch result {
             case .success(_):
                 self.status = .authCodeSent
-                self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {
                 case .noNetwork:

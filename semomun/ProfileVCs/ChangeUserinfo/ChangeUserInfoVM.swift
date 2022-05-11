@@ -133,7 +133,6 @@ extension ChangeUserInfoVM {
             switch result {
             case .success(_):
                 self.status = .authCodeSent
-                self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {
                 case .noNetwork:
@@ -171,7 +170,6 @@ extension ChangeUserInfoVM {
             switch result {
             case .success(_):
                 self.status = .authCodeSent
-                self.alert = .codeSentAlert
             case .failure(let error):
                 switch error {
                 case .noNetwork:

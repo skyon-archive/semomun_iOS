@@ -276,7 +276,6 @@ extension ChangeUserInfoVC {
                     self?.coloredFrameLabels[1].isHidden = true
                     
                 case .authCodeSent:
-                    self?.showAlertWithOK(title: "인증번호가 전송되었습니다", text: "")
                     self?.coloredFrameLabels[1].isHidden = true
                     self?.changeAdditionalTFForAuthNum()
                 case .wrongAuthCode:
@@ -287,7 +286,6 @@ extension ChangeUserInfoVC {
                     self?.configureButtonUI(button: button, isFilled: false)
                     button.setTitle("인증완료", for: .normal)
                     button.isEnabled = false
-                    self?.showAlertWithOK(title: "인증이 완료되었습니다", text: "")
                     
                 case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
