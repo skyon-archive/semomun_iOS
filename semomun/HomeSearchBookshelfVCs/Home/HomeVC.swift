@@ -168,6 +168,9 @@ extension HomeVC {
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
         }
+        NotificationCenter.default.addObserver(forName: .goToBookShelf, object: nil, queue: .main) { [weak self] _ in
+            self?.tabBarController?.selectedIndex = 2
+        }
         NotificationCenter.default.addObserver(forName: .tokenExpired, object: nil, queue: .main) { [weak self] _ in
             self?.showAlertWithOK(title: "세션이 만료되었습니다.", text: "다시 로그인 해주시기 바랍니다.") {
                 LogoutUsecase.logout()

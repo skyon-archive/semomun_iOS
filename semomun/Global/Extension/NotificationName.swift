@@ -26,4 +26,5 @@ extension Notification.Name {
     static let tokenExpired = Self.init(rawValue: "tokenExpired")
     static let networkError = Self.init(rawValue: "networkError")
     static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
+    static let goToBookShelf = Self.init(rawValue: "goToBookShelf")
 }
