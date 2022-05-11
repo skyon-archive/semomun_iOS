@@ -19,7 +19,6 @@ protocol TestStartable: AnyObject {
 
 struct TestInfoView: View {
     @State private var startTest = false
-    @State private var orientation = UIDeviceOrientation.unknown
     @State private var titleTopPadding: CGFloat = 117
     @State private var startButtonBottomPadding: CGFloat = 90
     @Environment(\.presentationMode) var presentationMode
@@ -51,8 +50,8 @@ struct TestInfoView: View {
             self.StartTestButton
         }
         .onRotate { newOrientation in
-            self.titleTopPadding = newOrientation.isPortrait ? CGFloat(117) : CGFloat(30)
-            self.startButtonBottomPadding = newOrientation.isPortrait ? CGFloat(90) : CGFloat(30)
+            self.titleTopPadding = newOrientation.isPortrait ? 117 : 30
+            self.startButtonBottomPadding = newOrientation.isPortrait ? 90 : 30
         }
     }
 }
@@ -70,14 +69,15 @@ extension TestInfoView {
     }
     
     var CloseButton: some View {
-        Image(systemName: "xmark")
-            .resizable()
-            .foregroundColor(.black)
-            .frame(width: 26, height: 26)
-            .padding(40)
-            .onTapGesture {
-                self.presentationMode.wrappedValue.dismiss()
-            }
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "xmark")
+                .resizable()
+                .foregroundColor(.black)
+                .frame(width: 26, height: 26)
+        }
+        .padding(40)
     }
     
     var CenterBorderView: some View {
@@ -126,6 +126,10 @@ extension TestInfoView {
 struct TestInfoView_Previews: PreviewProvider {
     static var previews: some View {
         let info = TestInfo(title: "2022년 1회차 고3 실전전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
-        TestInfoView(info: info, delegate: StudyVC())
+        if #available(iOS 15.0, *) {
+            TestInfoView(info: info, delegate: StudyVC())
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }

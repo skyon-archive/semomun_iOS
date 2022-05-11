@@ -239,7 +239,8 @@ extension HomeVC {
         self.viewModel?.$banners
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] banners in
+                guard banners.isEmpty == false else { return }
                 self?.configureBannerAdsStartIndex()
                 self?.bannerAds.reloadData()
             })
