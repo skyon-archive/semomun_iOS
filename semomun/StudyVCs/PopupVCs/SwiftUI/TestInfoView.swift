@@ -19,6 +19,9 @@ protocol TestStartable: AnyObject {
 
 struct TestInfoView: View {
     @State private var startTest = false
+    @State private var orientation = UIDeviceOrientation.unknown
+    @State private var titleTopPadding: CGFloat = 117
+    @State private var startButtonBottomPadding: CGFloat = 90
     @Environment(\.presentationMode) var presentationMode
     private weak var delegate: TestStartable?
     
@@ -27,6 +30,10 @@ struct TestInfoView: View {
     init(info: TestInfo, delegate: TestStartable) {
         self.info = info
         self.delegate = delegate
+        if UIWindow.isLandscape {
+            self._titleTopPadding = State(initialValue: 30)
+            self._startButtonBottomPadding = State(initialValue: 30)
+        }
     }
     
     var body: some View {
@@ -43,6 +50,10 @@ struct TestInfoView: View {
             Spacer()
             self.StartTestButton
         }
+        .onRotate { newOrientation in
+            self.titleTopPadding = newOrientation.isPortrait ? CGFloat(117) : CGFloat(30)
+            self.startButtonBottomPadding = newOrientation.isPortrait ? CGFloat(90) : CGFloat(30)
+        }
     }
 }
 
@@ -52,23 +63,21 @@ extension TestInfoView {
         VStack {
             Text(self.info.title)
                 .font(.system(size: 30, weight: .semibold))
-                .padding(EdgeInsets(top: 117, leading: 0, bottom: 5, trailing: 0))
+                .padding(EdgeInsets(top: self.titleTopPadding, leading: 0, bottom: 5, trailing: 0))
             Text(self.info.subTitle)
                 .font(.system(size: 50, weight: .bold))
         }
     }
     
     var CloseButton: some View {
-        Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) { }
-            .background(
-                Image(systemName: "xmark")
-                    .resizable()
-                    .foregroundColor(.black)
-                    .frame(width: 26, height: 26))
-        .frame(width: 32, height: 32)
-        .padding(40)
+        Image(systemName: "xmark")
+            .resizable()
+            .foregroundColor(.black)
+            .frame(width: 26, height: 26)
+            .padding(40)
+            .onTapGesture {
+                self.presentationMode.wrappedValue.dismiss()
+            }
     }
     
     var CenterBorderView: some View {
@@ -87,10 +96,10 @@ extension TestInfoView {
     
     var WarningContentTextsView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("○ 문제 풀이 중 중도포기시 재응시가 불가능합니다.")
-            Text("○ 시험시간을 실제 수능 시간과 동일하게 제공됩니다.")
-            Text("○ 시험시간이 종료되면 자동으로 채점됩니다.")
-            Text("○ 모의고사 서비스의 답과 해설은 시험 종료 후 제공됩니다.")
+            Text("○ 문제 풀이 중 ")+Text("중도포기시 재응시가 불가능").bold()+Text("합니다.")
+            Text("○ 시험시간을 ")+Text("실제 수능 시간과 동일").bold()+Text("하게 제공됩니다.")
+            Text("○ 시험시간이 종료되면 ")+Text("자동으로 채점").bold()+Text("됩니다.")
+            Text("○ 모의고사 서비스의 답과 해설은 ")+Text("시험 종료 후 제공").bold()+Text("됩니다.")
             Text("○ 재응시가 불가능 하니 신중하게 응시해주세요.")
         }
         .font(.system(size: 20))
@@ -104,18 +113,19 @@ extension TestInfoView {
             self.delegate?.startTest()
             self.presentationMode.wrappedValue.dismiss()
         }) {
-            Text("시험시작").font(.system(size: 20, weight: .medium))
+            Text("시험시작")
+                .font(.system(size: 20, weight: .medium))
+                .frame(width: 345, height: 54)
         }
         .foregroundColor(.white)
-        .frame(width: 345, height: 54)
         .background(RoundedRectangle(cornerRadius: 5).fill(Color(SemomunColor.mainColor.rawValue)))
-        .padding(.bottom, 90)
+        .padding(.bottom, self.startButtonBottomPadding)
     }
 }
 
-
-//struct TestInfoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TestInfoView()
-//    }
-//}
+struct TestInfoView_Previews: PreviewProvider {
+    static var previews: some View {
+        let info = TestInfo(title: "2022년 1회차 고3 실전전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
+        TestInfoView(info: info, delegate: StudyVC())
+    }
+}
