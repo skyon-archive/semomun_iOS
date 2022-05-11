@@ -63,13 +63,8 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func cancelSearch(_ sender: Any) {
-        self.searchResultVC.removeAll()
-        self.searchTagsFromTextVC.refresh()
-        self.changeToSearchFavoriteTagsVC()
         self.searchTextField.text = ""
         self.viewModel?.removeAll()
-        self.hiddenCancelSearchBT()
-        self.dismissKeyboard()
     }
 }
 
@@ -118,9 +113,15 @@ extension SearchVC {
             .sink(receiveValue: { [weak self] tags in
                 self?.tagList.reloadData()
                 self?.searchTagsFromTextVC.updateSelectedTags(tags: tags)
+                self?.searchResultVC.removeAll()
+                self?.dismissKeyboard()
                 if tags.count > 0 {
                     self?.searchWorkbooks()
                     self?.showCancelSearchBT()
+                } else if tags.count == 0 && self?.searchTextField.text == "" {
+                    self?.searchTagsFromTextVC.refresh()
+                    self?.changeToSearchFavoriteTagsVC()
+                    self?.hiddenCancelSearchBT()
                 }
             })
             .store(in: &self.cancellables)
@@ -277,6 +278,7 @@ extension SearchVC: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.searchResultVC.removeAll()
         self.searchWorkbooks()
         self.dismissKeyboard()
         return true
