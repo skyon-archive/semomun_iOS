@@ -38,6 +38,8 @@ final class LoginSignupVC: UIViewController {
     @IBOutlet weak var schoolFinder: UIButton!
     @IBOutlet weak var graduationStatusSelector: UIButton!
     
+    @IBOutlet weak var submitButton: UIButton!
+    
     @IBOutlet weak var phoneNumTextFieldTrailingConstraint: NSLayoutConstraint!
     
     private var phoneNumTextFieldTrailingMargin: CGFloat = 12
@@ -236,6 +238,11 @@ extension LoginSignupVC {
                 case .authComplete:
                     self?.configureUIForAuthComplete()
                     
+                case .userInfoComplete:
+                    self?.submitButton.backgroundColor = UIColor(.mainColor)
+                case .userInfoIncomplete:
+                    self?.submitButton.backgroundColor = UIColor(.semoLightGray)
+                    
                 case .none:
                     break
                 }
@@ -359,6 +366,7 @@ extension LoginSignupVC: SchoolSelectAction {
     }
 }
 
+// MARK: TextField
 extension LoginSignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text, let textRange = Range(range, in: text), let vm = self.viewModel else {
@@ -373,6 +381,7 @@ extension LoginSignupVC: UITextFieldDelegate {
             guard self.isPhoneNumberChangeAvailable() else { return false }
             return vm.checkPhoneNumberFormat(updatedText)
         case self.nickname:
+            vm.invalidateUsername()
             return vm.checkUsernameFormat(updatedText)
         default:
             return true
@@ -382,6 +391,9 @@ extension LoginSignupVC: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField == self.phonenumTextField {
             return self.isPhoneNumberChangeAvailable()
+        } else if textField == self.nickname {
+            self.viewModel?.invalidateUsername()
+            return true
         } else {
             return true
         }
