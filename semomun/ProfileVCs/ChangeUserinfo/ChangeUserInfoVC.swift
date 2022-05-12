@@ -32,7 +32,7 @@ final class ChangeUserInfoVC: UIViewController {
     @IBOutlet weak var bodyFrame: UIView!
     
     @IBOutlet weak var nicknameFrame: UIView!
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var nickname: UITextField!
     
     @IBOutlet weak var phoneNumFrame: UIView!
     @IBOutlet weak var phoneNumTextField: UITextField!
@@ -67,7 +67,7 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func checkNickname(_ sender: Any) {
-        guard let username = self.username.text else { return }
+        guard let username = self.nickname.text else { return }
         self.viewModel?.changeUsername(username)
     }
     
@@ -96,7 +96,7 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-        guard self.username.text == self.viewModel?.newUserInfo?.username else {
+        guard self.nickname.text == self.viewModel?.newUserInfo?.username else {
             self.showAlertWithOK(title: "닉네임 중복확인이 필요합니다", text: "")
             return
         }
@@ -192,7 +192,7 @@ extension ChangeUserInfoVC {
         self.majorDetailCollectionView.delegate = self
         
         self.phoneNumberAuthTextField.delegate = self
-        self.username.delegate = self
+        self.nickname.delegate = self
     }
 }
 
@@ -255,7 +255,7 @@ extension ChangeUserInfoVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
                 guard let userInfo = userInfo else { return }
-                self?.username.text = userInfo.username
+                self?.nickname.text = userInfo.username
                 self?.phoneNumTextField.placeholder = userInfo.phoneNumber
             }
             .store(in: &self.cancellables)
@@ -301,7 +301,7 @@ extension ChangeUserInfoVC {
                 case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
                 case .usernameAvailable:
-                    self?.username.resignFirstResponder()
+                    self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                     
                 case .userInfoComplete:
@@ -427,7 +427,7 @@ extension ChangeUserInfoVC: UITextFieldDelegate {
                 // TODO: 인증번호 유효성 로직도 VM에 추가
                 return updatedText.isNumber
             }
-        case self.username:
+        case self.nickname:
             vm.invalidateUsername()
             return vm.checkUsernameFormat(updatedText)
         default:
