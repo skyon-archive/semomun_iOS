@@ -19,7 +19,7 @@ class ChangeUserInfoVMTest: XCTestCase {
     func testInitialState() {
         XCTAssertEqual(self.vm.status, nil)
         XCTAssertEqual(self.vm.alert, nil)
-        XCTAssertEqual(self.vm.userInfo, nil)
+        XCTAssertEqual(self.vm.currentUserInfo, nil)
         XCTAssertEqual(self.vm.majors, [])
         XCTAssertEqual(self.vm.majorDetails, [])
         XCTAssertEqual(self.vm.configureUIForNicknamePhoneRequest, false)
@@ -30,7 +30,7 @@ class ChangeUserInfoVMTest: XCTestCase {
         
         XCTAssertEqual(self.vm.status, nil)
         XCTAssertEqual(self.vm.alert, nil)
-        XCTAssertEqual(vm.userInfo, self.networkUsecase.userInfo)
+        XCTAssertEqual(vm.currentUserInfo, self.networkUsecase.userInfo)
         XCTAssertEqual(self.vm.majors, self.networkUsecase.majors.map(\.name))
         XCTAssertEqual(self.vm.majorDetails, [])
         XCTAssertEqual(self.vm.configureUIForNicknamePhoneRequest, false)
@@ -76,29 +76,29 @@ class ChangeUserInfoVMTest: XCTestCase {
         // 사용중인 이름
         self.vm.changeUsername(self.networkUsecase.usedName.randomElement()!)
         XCTAssertEqual(self.vm.status, .usernameAlreadyUsed)
-        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        XCTAssertEqual(self.vm.currentUserInfo?.username, self.networkUsecase.userInfo.username)
         
         // 사용할 수 없는 이름
         self.vm.changeUsername("*")
         XCTAssertEqual(self.vm.status, .usernameInvalid)
-        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        XCTAssertEqual(self.vm.currentUserInfo?.username, self.networkUsecase.userInfo.username)
         
         // 기존 이름
         self.vm.changeUsername(self.networkUsecase.userInfo.username!)
         XCTAssertEqual(self.vm.status, .usernameAvailable)
-        XCTAssertEqual(self.vm.userInfo?.username, self.networkUsecase.userInfo.username)
+        XCTAssertEqual(self.vm.currentUserInfo?.username, self.networkUsecase.userInfo.username)
         
         // 사용할 수 있는 이름
         let newUsername = "___________________a"
         self.vm.changeUsername(newUsername)
         XCTAssertEqual(self.vm.status, .usernameAvailable)
-        XCTAssertEqual(self.vm.userInfo?.username, newUsername)
+        XCTAssertEqual(self.vm.currentUserInfo?.username, newUsername)
         
         // 네트워크
         self.networkUsecase.reachability = false
         self.vm.changeUsername("abc123")
         XCTAssertEqual(self.vm.alert, .networkErrorWithoutPop)
-        XCTAssertEqual(self.vm.userInfo?.username, newUsername)
+        XCTAssertEqual(self.vm.currentUserInfo?.username, newUsername)
     }
     
     func testSelectMajor() {
@@ -107,8 +107,8 @@ class ChangeUserInfoVMTest: XCTestCase {
         
         let major = self.networkUsecase.majors[1]
         XCTAssertEqual(self.vm.majorDetails, major.details)
-        XCTAssertEqual(self.vm.userInfo?.major, major.name)
-        XCTAssertEqual(self.vm.userInfo?.majorDetail, nil)
+        XCTAssertEqual(self.vm.currentUserInfo?.major, major.name)
+        XCTAssertEqual(self.vm.currentUserInfo?.majorDetail, nil)
     }
     
     func testSelectMajorDetail() {
@@ -117,7 +117,7 @@ class ChangeUserInfoVMTest: XCTestCase {
         self.vm.selectMajorDetail(at: 1)
         
         let major = self.networkUsecase.majors[2]
-        XCTAssertEqual(self.vm.userInfo?.majorDetail, major.details[1])
+        XCTAssertEqual(self.vm.currentUserInfo?.majorDetail, major.details[1])
     }
     
     func testSubmitFlow() {
@@ -129,10 +129,10 @@ class ChangeUserInfoVMTest: XCTestCase {
         self.vm.requestPhoneAuth(withPhoneNumber: "01012345678")
         self.vm.confirmAuthNumber(with: self.networkUsecase.validAuthCode)
         
-        XCTAssertEqual(self.vm.userInfo?.username, "abc123")
-        XCTAssertEqual(self.vm.userInfo?.phoneNumber, "01012345678")
-        XCTAssertEqual(self.vm.userInfo?.major, self.networkUsecase.majors[1].name)
-        XCTAssertEqual(self.vm.userInfo?.majorDetail, self.networkUsecase.majors[1].details[2])
+        XCTAssertEqual(self.vm.currentUserInfo?.username, "abc123")
+        XCTAssertEqual(self.vm.currentUserInfo?.phoneNumber, "01012345678")
+        XCTAssertEqual(self.vm.currentUserInfo?.major, self.networkUsecase.majors[1].name)
+        XCTAssertEqual(self.vm.currentUserInfo?.majorDetail, self.networkUsecase.majors[1].details[2])
     }
 }
 

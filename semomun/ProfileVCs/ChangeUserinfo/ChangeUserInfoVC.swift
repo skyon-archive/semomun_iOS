@@ -32,7 +32,7 @@ final class ChangeUserInfoVC: UIViewController {
     @IBOutlet weak var bodyFrame: UIView!
     
     @IBOutlet weak var nicknameFrame: UIView!
-    @IBOutlet weak var nickname: UITextField!
+    @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var phoneNumFrame: UIView!
     @IBOutlet weak var phoneNumTextField: UITextField!
@@ -49,10 +49,9 @@ final class ChangeUserInfoVC: UIViewController {
     @IBOutlet weak var schoolFinder: UIButton!
     @IBOutlet weak var graduationStatusSelector: UIButton!
     
-    
+    @IBOutlet weak var submitButton: UIButton!
     
     @IBOutlet weak var additionalTextFieldTrailingConstraint: NSLayoutConstraint!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +67,7 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func checkNickname(_ sender: Any) {
-        guard let username = self.nickname.text else { return }
+        guard let username = self.username.text else { return }
         self.viewModel?.changeUsername(username)
     }
     
@@ -97,11 +96,12 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBAction func submit(_ sender: Any) {
-        guard self.nickname.text == self.viewModel?.userInfo?.username else {
+        guard self.username.text == self.viewModel?.newUserInfo?.username else {
             self.showAlertWithOK(title: "닉네임 중복확인이 필요합니다", text: "")
             return
         }
-        self.viewModel?.submit() { [weak self] in
+        self.viewModel?.submit { [weak self] success in
+            guard success else { return }
             self?.showAlertWithOK(title: "저장 완료", text: "계정 정보가 저장되었습니다.") { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
             }
@@ -140,6 +140,8 @@ extension ChangeUserInfoVC {
         }
     }
     private func prepareToShowPhoneNumFrame() {
+        self.viewModel?.invalidatePhonenumber()
+        
         self.changePhoneNumButton.setTitle("취소", for: .normal)
         self.phoneNumberAuthFrame.isHidden = false
         self.phoneNumberAuthTextField.placeholder = "변경할 전화번호를 입력해주세요."
@@ -153,6 +155,7 @@ extension ChangeUserInfoVC {
     }
     private func prepareToHidePhoneNumFrame() {
         self.viewModel?.cancelAuth()
+        
         self.changePhoneNumButton.setTitle("변경", for: .normal)
         self.phoneNumberAuthFrame.isHidden = true
         self.phoneNumberAuthTextField.resignFirstResponder()
@@ -189,7 +192,7 @@ extension ChangeUserInfoVC {
         self.majorDetailCollectionView.delegate = self
         
         self.phoneNumberAuthTextField.delegate = self
-        self.nickname.delegate = self
+        self.username.delegate = self
     }
 }
 
@@ -248,16 +251,22 @@ extension ChangeUserInfoVC {
         
     }
     private func bindUserInfo() {
-        self.viewModel?.$userInfo
+        self.viewModel?.$currentUserInfo
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
                 guard let userInfo = userInfo else { return }
-                self?.nickname.text = userInfo.username
+                self?.username.text = userInfo.username
+                self?.phoneNumTextField.placeholder = userInfo.phoneNumber
+            }
+            .store(in: &self.cancellables)
+        self.viewModel?.$newUserInfo
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userInfo in
+                guard let userInfo = userInfo else { return }
                 self?.majorCollectionView.reloadData()
                 self?.majorDetailCollectionView.reloadData()
                 self?.schoolFinder.setTitle(userInfo.school, for: .normal)
                 self?.graduationStatusSelector.setTitle(userInfo.graduationStatus, for: .normal)
-                self?.phoneNumTextField.placeholder = userInfo.phoneNumber
             }
             .store(in: &self.cancellables)
     }
@@ -292,13 +301,14 @@ extension ChangeUserInfoVC {
                 case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
                 case .usernameAvailable:
-                    self?.nickname.resignFirstResponder()
+                    self?.username.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                     
                 case .userInfoComplete:
-                    fatalError()
+                    self?.submitButton.backgroundColor = UIColor(.mainColor)
                 case .userInfoIncomplete:
-                    fatalError()
+                    self?.submitButton.backgroundColor = UIColor(.semoLightGray)
+                    
                 case .none:
                     break
                 }
@@ -366,14 +376,14 @@ extension ChangeUserInfoVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MajorCollectionViewCell.identifier, for: indexPath) as? MajorCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == majorCollectionView {
             guard let majorName = self.viewModel?.majors[indexPath.item] else { return cell }
-            if majorName == self.viewModel?.userInfo?.major {
+            if majorName == self.viewModel?.newUserInfo?.major {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorName)
             return cell
         } else {
             guard let majorDetailName = self.viewModel?.majorDetails[indexPath.item] else { return cell }
-            if majorDetailName == self.viewModel?.userInfo?.majorDetail {
+            if majorDetailName == self.viewModel?.newUserInfo?.majorDetail {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
             }
             cell.configureText(major: majorDetailName)
@@ -417,7 +427,8 @@ extension ChangeUserInfoVC: UITextFieldDelegate {
                 // TODO: 인증번호 유효성 로직도 VM에 추가
                 return updatedText.isNumber
             }
-        case self.nickname:
+        case self.username:
+            vm.invalidateUsername()
             return vm.checkUsernameFormat(updatedText)
         default:
             return true
