@@ -281,13 +281,11 @@ extension LoginSignupVC {
         self.authNumTextField.text = ""
         self.authNumTextField.becomeFirstResponder()
         
-        self.coloredFrameLabels[1].isHidden = true
+        self.coloredFrameLabels[1].configure(type: .success("인증번호가 전송되었습니다."))
         self.coloredFrameLabels[2].isHidden = true
         
         let buttonWidth = self.getAuthNumButton.frame.width
         self.phoneNumTextFieldTrailingConstraint.constant = -(buttonWidth + 10)
-        
-        self.showAlertWithOK(title: "인증번호가 전송되었습니다.", text: "")
     }
     private func configureUIForAuthCanceled() {
         self.getAuthNumButton.isHidden = false
