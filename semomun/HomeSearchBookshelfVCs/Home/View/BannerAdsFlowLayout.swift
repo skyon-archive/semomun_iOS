@@ -49,7 +49,7 @@ class BannerAdsFlowLayout: UICollectionViewLayout {
         return self.cache.filter { $0.frame.intersects(rect) }
     }
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.cache[indexPath.item]
+        return self.cache.indices.contains(indexPath.item) ? self.cache[indexPath.item] : nil
     }
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return false

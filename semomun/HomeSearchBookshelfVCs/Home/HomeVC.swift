@@ -96,6 +96,8 @@ extension HomeVC {
     
     private func configureBannerAdsStartIndex() {
         let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
+        
+        self.bannerAds.reloadData()
         self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
         
         guard let adDataNum = self.viewModel?.banners.count, adDataNum > 0 else { return }
