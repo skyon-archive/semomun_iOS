@@ -11,7 +11,6 @@ import Combine
 final class StartSettingVM {
     private let networkUsecase: NetworkUsecase
     @Published private(set) var tags: [TagOfDB] = []
-    @Published private(set) var error: String?
     @Published private(set) var warning: String?
     @Published private(set) var selectedTags: [TagOfDB] = []
     @Published private(set) var networkWarning: Bool = false

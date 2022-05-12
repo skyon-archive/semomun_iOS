@@ -72,7 +72,6 @@ extension StartSettingVC {
 extension StartSettingVC {
     private func bindAll() {
         self.bindTags()
-        self.bindError()
         self.bindWarning()
         self.bindSelectedTags()
         self.bindNetworkWarning()
@@ -84,17 +83,6 @@ extension StartSettingVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.tags.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindError() {
-        self.viewModel?.$error
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] error in
-                guard let error = error else { return }
-                self?.showAlertWithOK(title: "네트워크 에러", text: error)
             })
             .store(in: &self.cancellables)
     }
