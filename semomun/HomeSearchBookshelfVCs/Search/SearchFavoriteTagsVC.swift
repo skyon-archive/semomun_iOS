@@ -22,6 +22,10 @@ final class SearchFavoriteTagsVC: UIViewController, StoryboardController {
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.viewModel?.fetchTags()
     }
 }

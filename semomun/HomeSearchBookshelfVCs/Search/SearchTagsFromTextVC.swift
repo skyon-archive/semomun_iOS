@@ -25,6 +25,11 @@ final class SearchTagsFromTextVC: UIViewController, StoryboardController {
         self.configureTableView()
         self.bindAll()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.fetchTags()
+    }
 }
 
 // MARK: - Configure
