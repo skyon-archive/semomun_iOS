@@ -29,9 +29,13 @@ enum LoginSignupAlert {
 }
 
 enum LoginSignupStatus {
+    /// DB에서 중복되지 않는 유저 이름
     case usernameAvailable
+    /// 이미 다른 사람에 의해 사용된 유저 이름
     case usernameAlreadyUsed
+    // 형식에 맞지 않는 유저 이름
     case usernameInvalid
+    // 형식에 맞는 유저 이름
     case usernameValid
     
     case phoneNumberInvalid
