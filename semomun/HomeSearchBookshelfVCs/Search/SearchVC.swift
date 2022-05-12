@@ -166,7 +166,6 @@ extension SearchVC {
         guard let text = textField.text else { return }
         if text.count != 0 {
             if !self.isSearchTagsFromTextVC {
-                print("change")
                 self.changeToSearchTagsFromTextVC()
                 self.searchResultVC.removeAll()
             }
@@ -178,7 +177,6 @@ extension SearchVC {
     @objc func textFieldDidTap() {
         self.showCancelSearchBT()
         if !self.isSearchTagsFromTextVC {
-            print("change")
             self.changeToSearchTagsFromTextVC()
             self.searchResultVC.removeAll()
         }
