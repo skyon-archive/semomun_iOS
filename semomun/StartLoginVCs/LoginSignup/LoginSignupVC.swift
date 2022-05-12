@@ -95,9 +95,9 @@ final class LoginSignupVC: UIViewController {
     
     @IBAction func submitBypass(_ sender: Any) {
 #if DEBUG
-        guard let userInfo = self.viewModel?.signupUserInfo else { return }
+        guard let currentUserInfo = self.viewModel?.signupUserInfo else { return }
         guard let vc = UIStoryboard(name: LoginSelectVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        vc.signupInfo = userInfo
+        vc.signupInfo = currentUserInfo
         self.navigationController?.pushViewController(vc, animated: true)
 #endif
     }

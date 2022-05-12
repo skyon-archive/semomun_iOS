@@ -1365,7 +1365,6 @@
                         <outlet property="graduationStatusSelector" destination="6zJ-kt-Rwh" id="zwb-61-ace"/>
                         <outlet property="majorCollectionView" destination="V2B-VL-LR7" id="Lbk-Hi-MWR"/>
                         <outlet property="majorDetailCollectionView" destination="xtJ-Ur-tP2" id="2xh-Zd-2CK"/>
-                        <outlet property="nickname" destination="jYR-Sq-bTF" id="2Z8-Nq-1ZC"/>
                         <outlet property="nicknameFrame" destination="fkF-1a-bVK" id="6aZ-mJ-CvA"/>
                         <outlet property="phoneNumFrame" destination="kK3-TS-Qqc" id="fQQ-nT-lTv"/>
                         <outlet property="phoneNumTextField" destination="JfF-mp-6AQ" id="0Qf-mE-keE"/>
@@ -1373,6 +1372,7 @@
                         <outlet property="phoneNumberAuthTextField" destination="npu-K8-G7j" id="Whf-4r-avh"/>
                         <outlet property="requestAgainButton" destination="0HC-W8-8rg" id="hmm-am-VVN"/>
                         <outlet property="schoolFinder" destination="ufi-1I-aHu" id="ouT-I3-rad"/>
+                        <outlet property="username" destination="jYR-Sq-bTF" id="2Z8-Nq-1ZC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ytA-73-HC0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
