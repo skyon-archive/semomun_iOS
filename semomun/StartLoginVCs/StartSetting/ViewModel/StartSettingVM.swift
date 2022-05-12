@@ -33,7 +33,7 @@ final class StartSettingVM {
             self.networkWarning = true
             return
         }
-        
+        self.networkWarning = false
         self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             self?.tags = tags
         }
