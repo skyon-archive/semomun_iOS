@@ -14,13 +14,27 @@ final class StartSettingVM {
     @Published private(set) var error: String?
     @Published private(set) var warning: String?
     @Published private(set) var selectedTags: [TagOfDB] = []
+    @Published private(set) var networkWarning: Bool = false
     private(set) var selectedIndexes: [Int] = []
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
+        self.configureObservation()
+        NetworkStatusManager.state()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchTags()
+        }
     }
     
     func fetchTags() {
+        guard NetworkStatusManager.isConnectedToInternet() else {
+            self.networkWarning = true
+            return
+        }
+        
         self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             self?.tags = tags
         }
