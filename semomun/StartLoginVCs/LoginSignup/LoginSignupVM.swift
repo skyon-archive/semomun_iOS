@@ -16,8 +16,15 @@ final class LoginSignupVM {
     @Published private(set) var majors: [String] = []
     @Published private(set) var majorDetails: [String] = []
     
-    private(set) var signupUserInfo = SignupUserInfo()
+    private(set) var signupUserInfo = SignupUserInfo() {
+        didSet {
+            self.status = self.signupUserInfo.isValid ? .userInfoComplete : .userInfoIncomplete
+        }
+    }
+    
+    /// 전화번호 인증이 완료되었는지 여부
     private(set) var canChangePhoneNumber = true
+    
     private var majorWithDetail: [String: [String]] = [:]
     
     private let networkUseCase: LoginSignupVMNetworkUsecase
@@ -104,6 +111,11 @@ final class LoginSignupVM {
             self.signupUserInfo.favoriteTags = tags.map(\.tid)
         }
     }
+    
+    /// username에 변화가 있는 경우 기존에 있던(예전에 중복확인을 한) username을 무효화
+    func invalidateUsername() {
+        self.signupUserInfo.username = nil
+    }
 }
 
 // MARK: 전화 인증 관련 메소드
@@ -172,6 +184,7 @@ extension LoginSignupVM {
     
     func cancelAuth() {
         self.canChangePhoneNumber = true
+        self.signupUserInfo.phone = nil
     }
 }
 
