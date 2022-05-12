@@ -13,15 +13,24 @@ typealias ChangeUserInfoNetworkUseCase = (MajorFetchable & UserInfoSendable & Us
 final class ChangeUserInfoVM {
     @Published private(set) var status: LoginSignupStatus?
     @Published private(set) var alert: LoginSignupAlert?
-    @Published private(set) var userInfo: UserInfo?
     
     @Published private(set) var majors: [String] = []
     @Published private(set) var majorDetails: [String] = []
     @Published var configureUIForNicknamePhoneRequest = false
     
+    /// VC에서 수정의 대상이 되며 DB로 보내지는 UserInfo
+    @Published private(set) var newUserInfo: UserInfo? {
+        didSet {
+            self.status = self.newUserInfo?.isValid == true ? .userInfoComplete : .userInfoIncomplete
+        }
+    }
+    
+    /// 현재 DB에 존재하는 UserInfo
+    @Published private(set) var currentUserInfo: UserInfo?
+    
     private var majorWithDetail: [String: [String]] = [:]
-    // VC에 진입하는 순간 DB에 존재하는 사용자의 username 값
-    private var currentUserName: String?
+    /// 가장 최신에 인증이 완료된 전화번호
+    private var latestAuthedPhoneNumber: String?
     
     private let networkUseCase: ChangeUserInfoNetworkUseCase
     private let phoneAuthenticator: PhoneAuthenticator
@@ -65,9 +74,9 @@ final class ChangeUserInfoVM {
             return
         }
         
-        // 기존과 같은 이름이면 서버 통신 안함
-        guard username != self.currentUserName else {
-            self.userInfo?.username = username
+        // 기존과 같은 이름이면 서버 통신시 중복 결과가 나오기 때문에 예외 처리
+        guard username != self.currentUserInfo?.username else {
+            self.newUserInfo?.username = username
             self.status = .usernameAvailable
             return
         }
@@ -75,7 +84,7 @@ final class ChangeUserInfoVM {
         self.networkUseCase.usernameAvailable(username) { [weak self] status, isAvailable in
             if status == .SUCCESS {
                 if isAvailable {
-                    self?.userInfo?.username = username
+                    self?.newUserInfo?.username = username
                     self?.status = .usernameAvailable
                 } else {
                     self?.status = .usernameAlreadyUsed
@@ -88,47 +97,58 @@ final class ChangeUserInfoVM {
     
     func selectMajor(at index: Int) {
         guard let majorName = self.majors[safe: index] else { return }
-        self.userInfo?.major = majorName
+        self.newUserInfo?.major = majorName
         if let majorDetails = self.majorWithDetail[majorName] {
             self.majorDetails = majorDetails
         }
-        self.userInfo?.majorDetail = nil
+        self.newUserInfo?.majorDetail = nil
     }
     
     func selectMajorDetail(at index: Int) {
         guard let majorDetailName = self.majorDetails[safe: index] else { return }
-        self.userInfo?.majorDetail = majorDetailName
+        self.newUserInfo?.majorDetail = majorDetailName
     }
     
     func selectSchool(_ school: String) {
-        self.userInfo?.school = school
+        self.newUserInfo?.school = school
     }
     
     func selectGraduationStatus(_ graduationStatus: String) {
-        self.userInfo?.graduationStatus = graduationStatus
+        self.newUserInfo?.graduationStatus = graduationStatus
     }
     
-    func submit(completionWhenSucceed: @escaping () -> Void) {
+    func submit(completion: @escaping (Bool) -> Void) {
         guard self.status != .wrongAuthCode,
               self.status != .authCodeSent,
-              self.userInfo?.isValid == true else {
-                  self.alert = .insufficientData
-                  return
-              }
+              self.newUserInfo?.isValid == true else {
+            self.alert = .insufficientData
+            completion(false)
+            return
+        }
         self.sendUserInfoToNetwork { status in
             if status {
                 self.saveUserInfoToCoreData()
-                completionWhenSucceed()
+                completion(true)
             } else {
                 self.alert = .networkErrorWithoutPop
+                completion(false)
             }
         }
+    }
+    
+    func invalidateUsername() {
+        self.newUserInfo?.username = nil
+    }
+    
+    func invalidatePhonenumber() {
+        self.newUserInfo?.phoneNumber = nil
     }
 }
 
 // 전화 인증 관련 메소드
 extension ChangeUserInfoVM {
     func requestPhoneAuth(withPhoneNumber phoneNumber: String) {
+        self.newUserInfo?.phoneNumber = nil
         self.phoneAuthenticator.sendSMSCode(to: phoneNumber) { result in
             switch result {
             case .success(_):
@@ -150,7 +170,8 @@ extension ChangeUserInfoVM {
         self.phoneAuthenticator.verifySMSCode(code) { result in
             switch result {
             case .success(let phoneNumber):
-                self.userInfo?.phoneNumber = phoneNumber
+                self.newUserInfo?.phoneNumber = phoneNumber
+                self.latestAuthedPhoneNumber = phoneNumber
                 self.status = .authComplete
             case .failure(let error):
                 switch error {
@@ -182,7 +203,7 @@ extension ChangeUserInfoVM {
     }
     
     func cancelAuth() {
-        self.status = nil
+        self.newUserInfo?.phoneNumber = self.latestAuthedPhoneNumber
     }
 }
 
@@ -192,8 +213,9 @@ extension ChangeUserInfoVM {
         SyncUsecase(networkUsecase: self.networkUseCase).syncUserDataFromDB { result in
             switch result {
             case .success(let userInfo):
-                self.userInfo = userInfo
-                self.currentUserName = userInfo.username
+                self.currentUserInfo = userInfo
+                self.newUserInfo = userInfo
+                self.latestAuthedPhoneNumber = userInfo.phoneNumber
             case .failure(_):
                 self.alert = .networkErrorWithPop
                 completion()
@@ -210,9 +232,11 @@ extension ChangeUserInfoVM {
         }
     }
     
+    /// 이전 버전에서 와 전화번호가 없는(옳지 않은 형식인) 사용자인 경우를 처리
     private func configurePhoneNumberIfNeeded(_ userCoreData: UserCoreData) {
         if userCoreData.phoneNumber?.isValidPhoneNumber != true {
-            self.userInfo?.phoneNumber = nil
+            self.currentUserInfo?.phoneNumber = nil
+            self.newUserInfo?.phoneNumber = nil
             self.configureUIForNicknamePhoneRequest = true
         }
     }
@@ -227,7 +251,7 @@ extension ChangeUserInfoVM {
             self?.majorWithDetail = majorFetched.reduce(into: [:]) { majorWithDetail, major in
                 majorWithDetail[major.name] = major.details
             }
-            if let selectedMajor = self?.userInfo?.major,
+            if let selectedMajor = self?.currentUserInfo?.major,
                let majorDetails = self?.majorWithDetail[selectedMajor] {
                 self?.majorDetails = majorDetails
             }
@@ -235,7 +259,7 @@ extension ChangeUserInfoVM {
     }
     
     private func sendUserInfoToNetwork(completion: @escaping (Bool) -> Void) {
-        guard let userInfo = self.userInfo else {
+        guard let userInfo = self.newUserInfo else {
             completion(false)
             return
         }
@@ -250,7 +274,7 @@ extension ChangeUserInfoVM {
     }
     
     private func saveUserInfoToCoreData() {
-        guard let userInfo = self.userInfo else {
+        guard let userInfo = self.newUserInfo else {
             return
         }
         guard let userCoreData = CoreUsecase.fetchUserInfo() else { return }
