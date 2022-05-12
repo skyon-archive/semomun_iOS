@@ -500,10 +500,13 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="regular"/>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="태그, 제목, 출판사" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xeS-LG-pER">
-                                                <rect key="frame" x="47" y="15.5" width="567" height="19.5"/>
+                                                <rect key="frame" x="47" y="5" width="567" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="kix-Qh-b7n"/>
+                                                </constraints>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7S-UH-rRz">
                                                 <rect key="frame" x="0.0" y="51" width="614" height="2"/>
