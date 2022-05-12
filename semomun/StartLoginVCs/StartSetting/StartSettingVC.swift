@@ -75,6 +75,7 @@ extension StartSettingVC {
         self.bindError()
         self.bindWarning()
         self.bindSelectedTags()
+        self.bindNetworkWarning()
     }
     
     private func bindTags() {
@@ -120,6 +121,18 @@ extension StartSettingVC {
                     self?.startBT.backgroundColor = UIColor(.mainColor)
                 }
                 self?.tags.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindNetworkWarning() {
+        self.viewModel?.$networkWarning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                if warning {
+                    self?.showAlertWithOK(title: "네트워크 오류", text: "네트워크 연결을 확인해주세요.")
+                }
             })
             .store(in: &self.cancellables)
     }
