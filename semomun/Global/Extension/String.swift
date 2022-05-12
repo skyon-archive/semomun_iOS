@@ -99,15 +99,15 @@ extension String {
     /// 유저가 닉네임을 타이핑하는 동안 닉네임이 유효한지 체크
     /// - Note: 최소 길이 및 알파벳 개수 제한을 체크하지 않음
     var isValidUsernameDuringTyping: Bool {
-        return self.matchRegularExpression("^[a-z0-9_]{0,20}$")
+        return self.matchRegularExpression("^[a-zA-Z0-9_]{0,20}$")
     }
     
     var isValidUsername: Bool {
         // TODO: 알파벳 개수 체크도 정규표현식으로 수정하기
-        return self.matchRegularExpression("^[a-z0-9_]{5,20}$") && self.contains(where: { String($0).isLowercaseAlphabet })
+        return self.matchRegularExpression("^[a-zA-Z0-9_]{5,20}$") && self.contains(where: { String($0).isAlphabet })
     }
     
-    var isLowercaseAlphabet: Bool {
-        return self.matchRegularExpression("^[a-z]*$")
+    var isAlphabet: Bool {
+        return self.matchRegularExpression("^[a-zA-Z]*$")
     }
 }
