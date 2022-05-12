@@ -33,9 +33,9 @@ enum LoginSignupStatus {
     case usernameAvailable
     /// 이미 다른 사람에 의해 사용된 유저 이름
     case usernameAlreadyUsed
-    // 형식에 맞지 않는 유저 이름
+    /// 형식에 맞지 않는 유저 이름
     case usernameInvalid
-    // 형식에 맞는 유저 이름
+    /// 형식에 맞는 유저 이름
     case usernameValid
     
     case phoneNumberInvalid
@@ -44,4 +44,9 @@ enum LoginSignupStatus {
     case wrongAuthCode
     case authComplete
     case authCodeSent
+    
+    /// 회원가입에 필요한 모든 유저 정보 입력됨
+    case userInfoComplete
+    /// 회원가입에 필요한 모든 유저 정보가 아직 입력되지 않음
+    case userInfoIncomplete
 }

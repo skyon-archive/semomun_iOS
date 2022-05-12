@@ -49,6 +49,8 @@ final class ChangeUserInfoVC: UIViewController {
     @IBOutlet weak var schoolFinder: UIButton!
     @IBOutlet weak var graduationStatusSelector: UIButton!
     
+    
+    
     @IBOutlet weak var additionalTextFieldTrailingConstraint: NSLayoutConstraint!
     
     
@@ -293,6 +295,10 @@ extension ChangeUserInfoVC {
                     self?.nickname.resignFirstResponder()
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                     
+                case .userInfoComplete:
+                    fatalError()
+                case .userInfoIncomplete:
+                    fatalError()
                 case .none:
                     break
                 }
