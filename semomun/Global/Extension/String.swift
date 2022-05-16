@@ -58,7 +58,7 @@ extension String {
     
     static let pastVersion: String = "1.1.3"
     
-    static let currentVersion: String = "2.0"
+    static let currentVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     
     static let latestCoreVersion: String = "2.0"
 }
