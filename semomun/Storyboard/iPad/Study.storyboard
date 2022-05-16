@@ -2300,10 +2300,10 @@
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.left" catalog="system" width="32" height="32"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle" catalog="system" width="32" height="32"/>
         <image name="submit" width="23" height="23"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="darkMainColor">

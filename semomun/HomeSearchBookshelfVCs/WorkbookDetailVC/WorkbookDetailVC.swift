@@ -181,13 +181,16 @@ extension WorkbookDetailVC {
 // MARK: - Show VC
 extension WorkbookDetailVC {
     private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
-        guard let solvingVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
-        solvingVC.modalPresentationStyle = .fullScreen
-        solvingVC.sectionCore = section
-        solvingVC.sectionHeaderCore = sectionHeader
-        solvingVC.previewCore = preview
+//        guard let solvingVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+//        solvingVC.modalPresentationStyle = .fullScreen
+//        solvingVC.sectionCore = section
+//        solvingVC.sectionHeaderCore = sectionHeader
+//        solvingVC.previewCore = preview
         
-        self.present(solvingVC, animated: true, completion: nil)
+        let pdfStudyView = PDFStudyView()
+        pdfStudyView.modalPresentationStyle = .fullScreen
+        
+        self.present(pdfStudyView, animated: true, completion: nil)
     }
     
     private func showPopupVC(type: WorkbookDetailVM.PopupType) {
