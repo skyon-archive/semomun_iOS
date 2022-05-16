@@ -15,6 +15,7 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
     
     @IBOutlet weak var semomunTitle: UILabel!
+    @IBOutlet weak var reviewButton: UIButton!
     
     var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
@@ -36,7 +37,32 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         self.configureViewModel()
         self.configureSignInWithAppleButton()
         self.configureSignInWithGoogleButton()
+        self.configureReviewButton()
         self.bindAll()
+    }
+    
+    private func configureReviewButton() {
+        // 버전 가져오기
+        let version = String.currentVersion
+        // post 버전 -> true, false 값 수신
+        let url = NetworkURL.base + "/status/review"
+        let reviewNetwork = Network()
+        reviewNetwork.request(url: url, method: .get, tokenRequired: false) { [weak self] result in
+            guard let data = result.data,
+                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
+                self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
+                return
+            }
+            
+            if status.result == true {
+                self?.reviewButton.isHidden = false
+            }
+        }
+    }
+    
+    @IBAction func reviewLogin(_ sender: Any) {
+        // 누르면 popup 으로 id, password 입력
+        // 패스워드 입력 후 post -> 로그인
     }
 }
 
