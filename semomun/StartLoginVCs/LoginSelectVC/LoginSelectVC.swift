@@ -42,12 +42,11 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     }
     
     private func configureReviewButton() {
-        // 버전 가져오기
         let version = String.currentVersion
-        // post 버전 -> true, false 값 수신
         let url = NetworkURL.base + "/status/review"
-        let reviewNetwork = Network()
-        reviewNetwork.request(url: url, method: .get, tokenRequired: false) { [weak self] result in
+        let param = ["version": version]
+        
+        Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
             guard let data = result.data,
                   let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
                 self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
@@ -62,7 +61,28 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     
     @IBAction func reviewLogin(_ sender: Any) {
         // 누르면 popup 으로 id, password 입력
-        // 패스워드 입력 후 post -> 로그인
+        let alert = UIAlertController(title: "Semomun Acount Login", message: "Please Enter ID, PASSWORD", preferredStyle: .alert)
+        let login = UIAlertAction(title: "Login", style: .default) { [weak self] _ in
+            let password = alert.textFields?[1].text ?? "none"
+            self?.requestReviewLogin(password: password)
+        }
+        
+        alert.addTextField { id in
+            id.placeholder = "ID"
+            id.textAlignment = .center
+        }
+        alert.addTextField { password in
+            password.placeholder = "PASSWORD"
+            password.textAlignment = .center
+            password.isSecureTextEntry = true
+        }
+        alert.addAction(login)
+        
+        self.present(alert, animated: true)
+    }
+    
+    private func requestReviewLogin(password: String) {
+        self.viewModel?.login(userIDToken: .review(password))
     }
 }
 
