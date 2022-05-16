@@ -405,6 +405,28 @@
                                         <color key="textColor" name="mainColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0J-hZ-NqO">
+                                        <rect key="frame" x="181.5" y="604.5" width="345" height="60"/>
+                                        <color key="backgroundColor" name="mainColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="LQQ-YC-TI8"/>
+                                            <constraint firstAttribute="width" constant="345" id="Rgs-kU-4vq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="세모문 계정으로 로그인">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="login:" destination="U2a-Vv-OHi" eventType="touchUpInside" id="ZdX-xC-8cW"/>
+                                            <action selector="reviewLogin:" destination="9sf-BX-cko" eventType="touchUpInside" id="cox-ul-pYh"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ZQ1-3a-5ix" firstAttribute="leading" secondItem="uoL-Ny-agc" secondAttribute="leading" constant="182" id="1wl-4D-imv"/>
@@ -413,8 +435,10 @@
                                     <constraint firstItem="7Wc-gj-Hup" firstAttribute="top" secondItem="ZQ1-3a-5ix" secondAttribute="bottom" constant="40" id="E0b-Cq-8iz"/>
                                     <constraint firstAttribute="trailing" secondItem="ZQ1-3a-5ix" secondAttribute="trailing" constant="182" id="HaK-lX-xvw"/>
                                     <constraint firstItem="ZQ1-3a-5ix" firstAttribute="top" secondItem="uoL-Ny-agc" secondAttribute="top" constant="10" id="eQA-sD-RFg"/>
+                                    <constraint firstItem="V0J-hZ-NqO" firstAttribute="centerX" secondItem="uoL-Ny-agc" secondAttribute="centerX" id="kw0-N0-DLW"/>
                                     <constraint firstItem="7Wc-gj-Hup" firstAttribute="centerX" secondItem="ZQ1-3a-5ix" secondAttribute="centerX" id="rmy-5K-hxz"/>
                                     <constraint firstItem="LXl-bp-n8w" firstAttribute="centerX" secondItem="7Wc-gj-Hup" secondAttribute="centerX" id="veM-dD-qxS"/>
+                                    <constraint firstItem="V0J-hZ-NqO" firstAttribute="top" secondItem="LXl-bp-n8w" secondAttribute="bottom" constant="215" id="xJk-tP-nrr"/>
                                     <constraint firstItem="LXl-bp-n8w" firstAttribute="top" secondItem="7Wc-gj-Hup" secondAttribute="bottom" id="zQJ-2i-JeF"/>
                                 </constraints>
                             </view>
@@ -427,6 +451,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="reviewButton" destination="V0J-hZ-NqO" id="9Ei-WB-Cum"/>
                         <outlet property="semomunTitle" destination="LXl-bp-n8w" id="XgA-f0-mlN"/>
                     </connections>
                 </viewController>
