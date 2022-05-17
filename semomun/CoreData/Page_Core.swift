@@ -87,8 +87,10 @@ public class Page_Core: NSManagedObject {
         }
         else if form == 1 {
             switch type {
+            case -1: return MultipleWithConceptVC.identifier
             case 0: return MultipleWithNoAnswerVC.identifier
             case 5: return MultipleWith5AnswerVC.identifier
+            case 6: return MultipleWithSubProblemsVC.identifier
             default: return MultipleWith5AnswerVC.identifier
             }
         }
