@@ -1,5 +1,5 @@
 //
-//  MultipleWithSubProblemsVC.swift
+//  SingleWithSubProblemsVC.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/05/17.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class MultipleWithSubProblemsVC: UIViewController {
-    static let identifier = "MultipleWithSubProblemsVC"
+final class SingleWithSubProblemsVC: UIViewController {
+    static let identifier = "SingleWithSubProblemsVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()

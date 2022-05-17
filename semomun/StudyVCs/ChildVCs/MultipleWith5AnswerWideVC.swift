@@ -1,5 +1,5 @@
 //
-//  MultipleWithConceptVC.swift
+//  MultipleWith5AnswerWideVC.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/05/17.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class MultipleWithConceptVC: UIViewController {
-    static let identifier = "MultipleWithConceptVC"
-
+final class MultipleWith5AnswerWideVC: UIViewController {
+    static let identifier = "MultipleWith5AnswerWideVC"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
