@@ -51,6 +51,7 @@ public class Problem_Core: NSManagedObject {
         case drawing
         case star
         case terminated
+        case subCount
     }
 
     @NSManaged public var pid: Int64 //문제 고유번호
@@ -72,6 +73,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var drawing: Data? //펜슬데이터
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
+    @NSManaged public var subCount: Int64 //단답형 문제수
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var rate: Int64 //Deprecated(1.1.3)
@@ -90,6 +92,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(nil, forKey: Attribute.drawing.rawValue)
         self.setValue(false, forKey: Attribute.star.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
+        self.setValue(prob.subCount, forKey: Attribute.subCount.rawValue)
         print("Problem: \(prob.pid) save complete")
         
         return ProblemUUID(content: prob.content, explanation: prob.explanation)
