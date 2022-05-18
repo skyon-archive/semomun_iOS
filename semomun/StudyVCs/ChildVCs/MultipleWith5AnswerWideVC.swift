@@ -16,13 +16,14 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     @IBOutlet weak var canvasView: PKCanvasView! // 지문 필기뷰
     @IBOutlet weak var imageView: UIImageView! // 지문 이미지뷰
     @IBOutlet weak var collectionView: UICollectionView! // 문제들뷰
-    @IBOutlet weak var canvasHeight: NSLayoutConstraint! // 지문 필기뷰 높이
+    @IBOutlet weak var imageWidth: NSLayoutConstraint! // 지문 이미지 width 필요
     @IBOutlet weak var imageHeight: NSLayoutConstraint! // 지문 이미지 높이
+    @IBOutlet weak var canvasViewHeight: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView! // 스크롤뷰 컨텐트뷰
-    // 지문 bottom constraint 필요
-    // 지문 right constraint 필요
-    // 문제 top constraint 필요
-    // 문제 left constraint 필요
+    @IBOutlet weak var scrollViewWidth: NSLayoutConstraint! // 지문 width 필요
+    @IBOutlet weak var scrollViewHeight: NSLayoutConstraint! // 지문 height 필요
+    @IBOutlet weak var collectionViewWidth: NSLayoutConstraint! // 문제 width 필요
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint! // 문제 height 필요
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -147,7 +148,7 @@ extension MultipleWith5AnswerWideVC {
     }
     
     private func configureScrollView() {
-        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.minimumZoomScale = 0.5
         self.scrollView.maximumZoomScale = 2.0
         self.scrollView.delegate = self
     }
@@ -184,6 +185,7 @@ extension MultipleWith5AnswerWideVC {
     }
     
     func configureMainImageView() {
+        // MARK: 세로, 가로모드에 따른 설정 필요
         width = canvasView.frame.width
         guard let mainImage = self.mainImage else { return }
         height = mainImage.size.height*(width/mainImage.size.width)
@@ -198,9 +200,9 @@ extension MultipleWith5AnswerWideVC {
         
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageHeight.constant = height
+        self.imageHeight.constant = height
+        self.canvasViewHeight.constant = height
         canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        canvasHeight.constant = height
     }
 }
 
@@ -208,6 +210,10 @@ extension MultipleWith5AnswerWideVC {
 extension MultipleWith5AnswerWideVC {
     private func configureOrientation() {
         // MARK: 가로, 세로에 따른 UI 설정
+        self.imageWidth.constant = self.view.bounds.width
+//        self.scrollViewWidth.constant = self.view.bounds.width
+        self.scrollViewHeight.constant = self.view.bounds.height/2
+        self.view.layoutIfNeeded()
     }
     
     private func configureObservation() {
@@ -219,7 +225,7 @@ extension MultipleWith5AnswerWideVC {
 // MARK: - Configure MultipleWith5Cell
 extension MultipleWith5AnswerWideVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.problems.count ?? 0
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

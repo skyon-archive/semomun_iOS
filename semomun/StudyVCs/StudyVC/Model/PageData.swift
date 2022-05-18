@@ -56,7 +56,11 @@ final class PageData {
             }
             // Version 2.0
         } else {
-            return type
+            if type == MultipleWith5AnswerVC.identifier {
+                return MultipleWith5AnswerWideVC.identifier
+            } else {
+                return type
+            }
         }
     }
 }
