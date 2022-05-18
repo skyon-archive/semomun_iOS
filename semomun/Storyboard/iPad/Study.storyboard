@@ -3040,6 +3040,7 @@
                                     <constraint firstAttribute="height" constant="546" id="5rA-Np-SXV"/>
                                     <constraint firstAttribute="width" constant="834" id="Clo-Qx-p7G"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="trailing" secondItem="FMY-Wk-Tn6" secondAttribute="trailing" id="RS5-tf-0BN"/>
+                                    <constraint firstItem="Ndk-IV-dRO" firstAttribute="centerX" secondItem="6zK-B3-Idh" secondAttribute="centerX" id="Y6C-ps-qSC"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="top" secondItem="FMY-Wk-Tn6" secondAttribute="top" id="eXE-9f-p9d"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="width" secondItem="8xR-rJ-8hB" secondAttribute="width" id="pLN-nl-FnR"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="bottom" secondItem="FMY-Wk-Tn6" secondAttribute="bottom" id="uYQ-88-6sJ"/>
@@ -3049,7 +3050,11 @@
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xy3-9B-4v0">
                                 <rect key="frame" x="0.0" y="566" width="834" height="546"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="mainColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="546" id="bhK-d7-1yt"/>
+                                    <constraint firstAttribute="width" constant="834" id="crl-JU-3gC"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="c7P-G2-3T1">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -3074,8 +3079,6 @@
                             <constraint firstItem="wtG-Yb-i8i" firstAttribute="bottom" secondItem="xy3-9B-4v0" secondAttribute="bottom" id="3dG-5L-dtX"/>
                             <constraint firstItem="wtG-Yb-i8i" firstAttribute="trailing" secondItem="xy3-9B-4v0" secondAttribute="trailing" id="Ut0-tz-Oby"/>
                             <constraint firstItem="6zK-B3-Idh" firstAttribute="leading" secondItem="wtG-Yb-i8i" secondAttribute="leading" id="fhX-tZ-9sU"/>
-                            <constraint firstItem="xy3-9B-4v0" firstAttribute="height" secondItem="wtG-Yb-i8i" secondAttribute="height" multiplier="0.5" id="fwK-gu-iok"/>
-                            <constraint firstItem="xy3-9B-4v0" firstAttribute="width" secondItem="wtG-Yb-i8i" secondAttribute="width" id="oFm-x3-eii"/>
                             <constraint firstItem="6zK-B3-Idh" firstAttribute="top" secondItem="wtG-Yb-i8i" secondAttribute="top" id="wUC-IN-PJR"/>
                         </constraints>
                     </view>
@@ -3084,8 +3087,8 @@
                         <outlet property="canvasViewHeight" destination="rn1-zY-h32" id="zdm-Af-EDo"/>
                         <outlet property="canvasViewWidth" destination="9Dx-pa-f2o" id="rVj-cU-NSQ"/>
                         <outlet property="collectionView" destination="xy3-9B-4v0" id="zBC-ck-JPR"/>
-                        <outlet property="collectionViewHeight" destination="fwK-gu-iok" id="Qie-A2-gSa"/>
-                        <outlet property="collectionViewWidth" destination="oFm-x3-eii" id="gQU-8H-WXn"/>
+                        <outlet property="collectionViewHeight" destination="bhK-d7-1yt" id="uRC-DD-cbn"/>
+                        <outlet property="collectionViewWidth" destination="crl-JU-3gC" id="ihL-PA-LG0"/>
                         <outlet property="contentView" destination="Ndk-IV-dRO" id="uWO-ST-8Oe"/>
                         <outlet property="imageHeight" destination="1VZ-kq-15x" id="fIN-3t-NKa"/>
                         <outlet property="imageView" destination="vpi-14-nmz" id="MwP-Va-oq8"/>

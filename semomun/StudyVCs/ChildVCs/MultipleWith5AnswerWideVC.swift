@@ -51,7 +51,6 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
-        self.collectionView.alpha = 0
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
@@ -216,11 +215,15 @@ extension MultipleWith5AnswerWideVC {
             self.canvasViewWidth.constant = self.view.bounds.width/2
             self.scrollViewWidth.constant = self.view.bounds.width/2
             self.scrollViewHeight.constant = self.view.bounds.height
+            self.collectionViewWidth.constant = self.view.bounds.width/2
+            self.collectionViewHeight.constant = self.view.bounds.height
         } else {
             self.imageWidth.constant = self.view.bounds.width
             self.canvasViewWidth.constant = self.view.bounds.width
             self.scrollViewWidth.constant = self.view.bounds.width
             self.scrollViewHeight.constant = self.view.bounds.height/2
+            self.collectionViewWidth.constant = self.view.bounds.width
+            self.collectionViewHeight.constant = self.view.bounds.height/2
         }
     }
     
@@ -232,8 +235,8 @@ extension MultipleWith5AnswerWideVC {
     @objc func deviceRotated(){
         UIView.animate(withDuration: 0.25) { [weak self] in
             self?.configureOrientation()
-            self?.configureMainImageView()
             self?.view.layoutIfNeeded()
+            self?.configureMainImageView()
         }
     }
 }
@@ -317,5 +320,11 @@ extension MultipleWith5AnswerWideVC: ExplanationRemover {
 extension MultipleWith5AnswerWideVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
+        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
+        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 }
