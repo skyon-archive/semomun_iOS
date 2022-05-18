@@ -54,6 +54,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
+        self.configureDoubpeTapGesture()
         self.addCoreDataAlertObserver()
         self.configureScrollView()
         self.configureOrientation()
@@ -139,12 +140,25 @@ extension MultipleWith5AnswerWideVC {
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
     
+    func configureDoubpeTapGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.contentView.addGestureRecognizer(doubleTapGesture)
+    }
+    
     @objc func rightDragged() {
         self.viewModel?.delegate?.beforePage()
     }
     
     @objc func leftDragged() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    @objc func doubleTapped() {
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.scrollView.zoomScale = 1.0
+            self?.view.layoutIfNeeded()
+        }
     }
     
     private func configureScrollView() {
@@ -225,6 +239,7 @@ extension MultipleWith5AnswerWideVC {
             self.collectionViewWidth.constant = self.view.bounds.width
             self.collectionViewHeight.constant = self.view.bounds.height/2
         }
+        self.view.layoutIfNeeded()
     }
     
     private func configureObservation() {
@@ -233,11 +248,13 @@ extension MultipleWith5AnswerWideVC {
     }
     
     @objc func deviceRotated(){
-        UIView.animate(withDuration: 0.25) { [weak self] in
-            self?.configureOrientation()
-            self?.view.layoutIfNeeded()
-            self?.configureMainImageView()
-        }
+        let beforeWidth = self.canvasView.bounds.width
+        self.configureOrientation()
+        self.configureMainImageView()
+        let afterWidth = self.canvasView.bounds.width
+        let scale = afterWidth / beforeWidth
+        let transform = CGAffineTransform(scaleX: scale, y: scale)
+        self.canvasView.drawing.transform(using: transform)
     }
 }
 
