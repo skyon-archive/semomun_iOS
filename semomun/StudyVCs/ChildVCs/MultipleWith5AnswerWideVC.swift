@@ -18,6 +18,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     @IBOutlet weak var collectionView: UICollectionView! // 문제들뷰
     @IBOutlet weak var imageWidth: NSLayoutConstraint! // 지문 이미지 width 필요
     @IBOutlet weak var imageHeight: NSLayoutConstraint! // 지문 이미지 높이
+    @IBOutlet weak var canvasViewWidth: NSLayoutConstraint!
     @IBOutlet weak var canvasViewHeight: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView! // 스크롤뷰 컨텐트뷰
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint! // 지문 width 필요
@@ -50,7 +51,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
-        
+        self.collectionView.alpha = 0
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
@@ -74,7 +75,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
-        
+        self.configureOrientation()
         self.stopLoader()
         self.configureMainImageView()
         self.viewModel?.startTimeRecord()
@@ -210,14 +211,30 @@ extension MultipleWith5AnswerWideVC {
 extension MultipleWith5AnswerWideVC {
     private func configureOrientation() {
         // MARK: 가로, 세로에 따른 UI 설정
-        self.imageWidth.constant = self.view.bounds.width
-//        self.scrollViewWidth.constant = self.view.bounds.width
-        self.scrollViewHeight.constant = self.view.bounds.height/2
-        self.view.layoutIfNeeded()
+        if UIDevice.current.orientation.isLandscape {
+            self.imageWidth.constant = self.view.bounds.width/2
+            self.canvasViewWidth.constant = self.view.bounds.width/2
+            self.scrollViewWidth.constant = self.view.bounds.width/2
+            self.scrollViewHeight.constant = self.view.bounds.height
+        } else {
+            self.imageWidth.constant = self.view.bounds.width
+            self.canvasViewWidth.constant = self.view.bounds.width
+            self.scrollViewWidth.constant = self.view.bounds.width
+            self.scrollViewHeight.constant = self.view.bounds.height/2
+        }
     }
     
     private func configureObservation() {
         // MARK:  가로, 세로 변화 수신
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    @objc func deviceRotated(){
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.configureOrientation()
+            self?.configureMainImageView()
+            self?.view.layoutIfNeeded()
+        }
     }
 }
 

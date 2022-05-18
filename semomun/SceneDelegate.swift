@@ -133,3 +133,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+/// UIDevice.current.orientation 값이 부정확하므로 Window 의 UI의 값을 통한 가로모드인지 여부 값
+extension UIWindow {
+    static var isLandscape: Bool {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows
+                .first?
+                .windowScene?
+                .interfaceOrientation
+                .isLandscape ?? false
+        } else {
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        }
+    }
+}

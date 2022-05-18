@@ -3018,6 +3018,7 @@
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="vpi-14-nmz" firstAttribute="top" secondItem="Rcy-cz-Bki" secondAttribute="top" id="7t2-zx-Uwn"/>
+                                                    <constraint firstAttribute="width" constant="834" id="9Dx-pa-f2o"/>
                                                     <constraint firstItem="vpi-14-nmz" firstAttribute="leading" secondItem="Rcy-cz-Bki" secondAttribute="leading" id="C4m-t7-Fhy"/>
                                                     <constraint firstAttribute="trailing" secondItem="vpi-14-nmz" secondAttribute="trailing" id="Zub-t4-sba"/>
                                                     <constraint firstAttribute="height" constant="500" id="rn1-zY-h32"/>
@@ -3081,6 +3082,7 @@
                     <connections>
                         <outlet property="canvasView" destination="Rcy-cz-Bki" id="uJA-q9-G8e"/>
                         <outlet property="canvasViewHeight" destination="rn1-zY-h32" id="zdm-Af-EDo"/>
+                        <outlet property="canvasViewWidth" destination="9Dx-pa-f2o" id="rVj-cU-NSQ"/>
                         <outlet property="collectionView" destination="xy3-9B-4v0" id="zBC-ck-JPR"/>
                         <outlet property="collectionViewHeight" destination="fwK-gu-iok" id="Qie-A2-gSa"/>
                         <outlet property="collectionViewWidth" destination="oFm-x3-eii" id="gQU-8H-WXn"/>
