@@ -51,7 +51,7 @@ public class Problem_Core: NSManagedObject {
         case drawing
         case star
         case terminated
-        case subCount
+        case subProblemsCount
     }
 
     @NSManaged public var pid: Int64 //문제 고유번호
@@ -92,7 +92,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(nil, forKey: Attribute.drawing.rawValue)
         self.setValue(false, forKey: Attribute.star.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
-        self.setValue(prob.subCount, forKey: Attribute.subCount.rawValue)
+        self.setValue(prob.subProblemsCount, forKey: Attribute.subProblemsCount.rawValue)
         print("Problem: \(prob.pid) save complete")
         
         return ProblemUUID(content: prob.content, explanation: prob.explanation)

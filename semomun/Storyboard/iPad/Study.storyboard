@@ -3040,7 +3040,6 @@
                                     <constraint firstAttribute="height" constant="546" id="5rA-Np-SXV"/>
                                     <constraint firstAttribute="width" constant="834" id="Clo-Qx-p7G"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="trailing" secondItem="FMY-Wk-Tn6" secondAttribute="trailing" id="RS5-tf-0BN"/>
-                                    <constraint firstItem="Ndk-IV-dRO" firstAttribute="centerX" secondItem="6zK-B3-Idh" secondAttribute="centerX" id="Y6C-ps-qSC"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="top" secondItem="FMY-Wk-Tn6" secondAttribute="top" id="eXE-9f-p9d"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="width" secondItem="8xR-rJ-8hB" secondAttribute="width" id="pLN-nl-FnR"/>
                                     <constraint firstItem="Ndk-IV-dRO" firstAttribute="bottom" secondItem="FMY-Wk-Tn6" secondAttribute="bottom" id="uYQ-88-6sJ"/>

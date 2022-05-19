@@ -83,14 +83,18 @@ public class Page_Core: NSManagedObject {
             case 4: return SingleWith4AnswerVC.identifier
             case 5: return SingleWith5AnswerVC.identifier
             case 6: return SingleWithSubProblemsVC.identifier
-            default: return SingleWith5AnswerVC.identifier
+            default:
+                assertionFailure()
+                return SingleWith5AnswerVC.identifier
             }
         }
         else if form == 1 {
             switch type {
             case 0: return MultipleWithNoAnswerVC.identifier
             case 5: return MultipleWith5AnswerVC.identifier
-            default: return MultipleWith5AnswerVC.identifier
+            default:
+                assertionFailure()
+                return MultipleWith5AnswerVC.identifier
             }
         }
         else if form == 2 {
@@ -98,7 +102,9 @@ public class Page_Core: NSManagedObject {
             case -1: return MultipleWithConceptWideVC.identifier
             case 5: return MultipleWith5AnswerWideVC.identifier
             case 6: return MultipleWithSubProblemsWideVC.identifier
-            default: return MultipleWith5AnswerWideVC.identifier
+            default:
+                assertionFailure()
+                return MultipleWith5AnswerWideVC.identifier
             }
         }
         return SingleWith5AnswerVC.identifier
