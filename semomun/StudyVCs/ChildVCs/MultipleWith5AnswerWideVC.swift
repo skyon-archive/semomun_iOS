@@ -25,6 +25,8 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint! // 지문 height 필요
     @IBOutlet weak var collectionViewWidth: NSLayoutConstraint! // 문제 width 필요
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint! // 문제 height 필요
+    private var explanationWidth: NSLayoutConstraint!
+    private var explanationHeight: NSLayoutConstraint!
     
     private var width: CGFloat!
     private var height: CGFloat!
@@ -45,6 +47,8 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     private lazy var explanationView: ExplanationView = {
         let explanationView = ExplanationView()
         explanationView.alpha = 0
+        explanationView.translatesAutoresizingMaskIntoConstraints = false
+        explanationView.configureDelegate(to: self)
         return explanationView
     }()
     
@@ -265,6 +269,12 @@ extension MultipleWith5AnswerWideVC {
         self.canvasView.drawing.transform(using: transform)
         self.collectionView.collectionViewLayout.invalidateLayout()
         self.collectionView.reloadData()
+        
+        if self.explanationId != nil {
+            self.removeExplanationLayout()
+            self.configureExplanationLayout()
+            self.explanationView.updateLayout()
+        }
     }
 }
 
@@ -320,7 +330,48 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
     }
     
     func showExplanation(image: UIImage?, pid: Int) {
-        // MARK: 가로, 세로에 따른 해설 UI 로직 구현 필요
+        if let explanationId = self.explanationId {
+            if explanationId == pid {
+                self.closeExplanation() // 제거
+            } else {
+                self.explanationId = pid
+                self.explanationView.configureImage(to: image) // 이미지 바꿔치기
+            }
+        } else {
+            // 새로 생성
+            self.explanationId = pid
+            self.view.addSubview(self.explanationView)
+            self.removeExplanationLayout()
+            self.configureExplanationLayout()
+            
+            self.explanationView.configureImage(to: image)
+            self.setShadow(with: self.explanationView)
+            
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.explanationView.alpha = 1
+            }
+        }
+    }
+    
+    private func removeExplanationLayout() {
+        if self.explanationWidth != nil {
+            NSLayoutConstraint.deactivate([
+                self.explanationWidth,
+                self.explanationHeight
+            ])
+        }
+    }
+    
+    private func configureExplanationLayout() {
+        self.explanationWidth = self.explanationView.widthAnchor.constraint(equalToConstant: self.scrollViewWidth.constant)
+        self.explanationHeight = self.explanationView.heightAnchor.constraint(equalToConstant: self.scrollViewHeight.constant)
+        
+        NSLayoutConstraint.activate([
+            self.explanationWidth,
+            self.explanationHeight,
+            self.explanationView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
+            self.explanationView.topAnchor.constraint(equalTo: self.scrollView.topAnchor)
+        ])
     }
     
     func addScoring(pid: Int) {
@@ -339,6 +390,7 @@ extension MultipleWith5AnswerWideVC: ExplanationRemover {
             self?.explanationView.alpha = 0
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
+            
         }
     }
 }

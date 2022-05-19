@@ -22,11 +22,11 @@ struct ProblemOfDB: Decodable, CustomStringConvertible {
     let content: UUID //문제 이미지의 uuid
     let explanation: UUID? //문제의 해설 이미지의 uuid
     let point: Double? //문제 배점
-    let subCount: Int? //단답형 문제수
+    let subProblemsCount: Int? //단답형 문제수
     
     enum CodingKeys: String, CodingKey {
         case vid, pid, index, btType, btName, type, answer, content, explanation
         case point = "score"
-        case subCount = "subproblemCnt"
+        case subProblemsCount = "subproblemCnt"
     }
 }
