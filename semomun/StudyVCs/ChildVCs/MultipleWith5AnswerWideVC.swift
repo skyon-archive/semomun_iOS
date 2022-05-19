@@ -55,7 +55,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
-        self.configureDoubpeTapGesture()
+        self.configureDoubleTapGesture()
         self.addCoreDataAlertObserver()
         self.configureScrollView()
         self.configureOrientation()
@@ -148,7 +148,7 @@ extension MultipleWith5AnswerWideVC {
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
     
-    func configureDoubpeTapGesture() {
+    func configureDoubleTapGesture() {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         doubleTapGesture.numberOfTapsRequired = 2
         self.contentView.addGestureRecognizer(doubleTapGesture)
@@ -264,6 +264,7 @@ extension MultipleWith5AnswerWideVC {
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         self.canvasView.drawing.transform(using: transform)
         self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.reloadData()
     }
 }
 
