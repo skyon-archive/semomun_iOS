@@ -13,8 +13,8 @@ protocol ExplanationRemover: AnyObject {
 
 final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemover?
-    private var contentViewHeightConstraint: NSLayoutConstraint?
-    private var imageViewHeightConstraint: NSLayoutConstraint?
+    private var contentViewHeightConstraint: NSLayoutConstraint!
+    private var imageViewHeightConstraint: NSLayoutConstraint!
     private lazy var imageviewHeight: CGFloat = (self.frame.height/2)-40
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
@@ -107,5 +107,16 @@ final class ExplanationView: UIView {
         self.contentViewHeightConstraint?.constant = height
         self.explanationImageView.image = image
         self.scrollView.setContentOffset(.zero, animated: false)
+    }
+    
+    func updateLayout() {
+        self.layoutIfNeeded()
+        guard let imageSize = self.explanationImageView.image?.size else { return }
+        
+        NSLayoutConstraint.deactivate([self.imageViewHeightConstraint, self.contentViewHeightConstraint])
+        let height = imageSize.height*(self.scrollView.bounds.width)/imageSize.width
+        self.imageViewHeightConstraint = self.explanationImageView.heightAnchor.constraint(equalToConstant: height)
+        self.contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalToConstant: height)
+        NSLayoutConstraint.activate([self.imageViewHeightConstraint, self.contentViewHeightConstraint])
     }
 }
