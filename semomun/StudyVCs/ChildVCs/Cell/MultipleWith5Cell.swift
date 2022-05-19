@@ -16,8 +16,10 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var canvasWidth: NSLayoutConstraint!
     @IBOutlet weak var canvasHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageWidth: NSLayoutConstraint!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -50,6 +52,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         super.awakeFromNib()
         self.configureUI()
         self.configureScrollView()
+        self.configureDoubleTapGesture()
         print("\(Self.identifier) awakeFromNib")
     }
     
@@ -123,7 +126,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     }
     
     private func configureScrollView() {
-        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.minimumZoomScale = 0.5
         self.scrollView.maximumZoomScale = 2.0
         self.scrollView.delegate = self
     }
@@ -300,6 +303,21 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
 }
 
 extension MultipleWith5Cell {
+    func configureDoubleTapGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.contentView.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    @objc func doubleTapped() {
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.scrollView.zoomScale = 1.0
+            self?.contentView.layoutIfNeeded()
+        }
+    }
+}
+
+extension MultipleWith5Cell {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
         let data = self.canvasView.drawing.dataRepresentation()
@@ -311,5 +329,11 @@ extension MultipleWith5Cell {
 extension MultipleWith5Cell: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.canvasView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
+        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
+        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
     }
 }
