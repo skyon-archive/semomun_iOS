@@ -51,6 +51,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\(Self.identifier) didLoad")
+        self.collectionView.isHidden = true
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
@@ -59,6 +60,12 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
         self.configureScrollView()
         self.configureOrientation()
         self.configureObservation()
+    }
+    
+    // MARK: 화면전환시 사용되는 부분이나, Noti가 뒤에 수신되기에 Noti 에서 일단 로직 반영
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +82,7 @@ final class MultipleWith5AnswerWideVC: UIViewController, PKToolPickerObserver, P
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 좌우형 : didAppear")
+        self.collectionView.isHidden = false
         self.configureOrientation()
         self.stopLoader()
         self.configureMainImageView()
@@ -199,7 +207,7 @@ extension MultipleWith5AnswerWideVC {
     }
     
     func configureMainImageView() {
-        // MARK: 세로, 가로모드에 따른 설정 필요
+        // MARK: canvasView.boudns 를 선 계산 및 반영 후 iMageView 크기 계산
         width = canvasView.frame.width
         guard let mainImage = self.mainImage else { return }
         height = mainImage.size.height*(width/mainImage.size.width)
@@ -224,19 +232,19 @@ extension MultipleWith5AnswerWideVC {
 extension MultipleWith5AnswerWideVC {
     private func configureOrientation() {
         // MARK: 가로, 세로에 따른 UI 설정
-        if UIDevice.current.orientation.isLandscape {
+        if UIWindow.isLandscape {
             self.imageWidth.constant = self.view.bounds.width/2
             self.canvasViewWidth.constant = self.view.bounds.width/2
             self.scrollViewWidth.constant = self.view.bounds.width/2
             self.scrollViewHeight.constant = self.view.bounds.height
-            self.collectionViewWidth.constant = self.view.bounds.width/2
+            self.collectionViewWidth.constant = self.view.bounds.width/2 - 10
             self.collectionViewHeight.constant = self.view.bounds.height
         } else {
             self.imageWidth.constant = self.view.bounds.width
             self.canvasViewWidth.constant = self.view.bounds.width
             self.scrollViewWidth.constant = self.view.bounds.width
             self.scrollViewHeight.constant = self.view.bounds.height/2
-            self.collectionViewWidth.constant = self.view.bounds.width
+            self.collectionViewWidth.constant = self.view.bounds.width - 10
             self.collectionViewHeight.constant = self.view.bounds.height/2
         }
         self.view.layoutIfNeeded()
@@ -247,7 +255,7 @@ extension MultipleWith5AnswerWideVC {
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
-    @objc func deviceRotated(){
+    @objc func deviceRotated() {
         let beforeWidth = self.canvasView.bounds.width
         self.configureOrientation()
         self.configureMainImageView()
@@ -255,6 +263,7 @@ extension MultipleWith5AnswerWideVC {
         let scale = afterWidth / beforeWidth
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         self.canvasView.drawing.transform(using: transform)
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
@@ -262,7 +271,7 @@ extension MultipleWith5AnswerWideVC {
 // MARK: - Configure MultipleWith5Cell
 extension MultipleWith5AnswerWideVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.viewModel?.problems.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -281,8 +290,7 @@ extension MultipleWith5AnswerWideVC: UICollectionViewDelegate, UICollectionViewD
 
 extension MultipleWith5AnswerWideVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // MARK: 가로, 세로모드에 따른 계산 로직 필요
-        let width: CGFloat = self.view.frame.width/2 - 10
+        let width: CGFloat = self.collectionView.bounds.width
         let solveInputFrameHeight: CGFloat = 6 + 45
         // imageView 높이값 가져오기
         guard var contentImage = subImages?[indexPath.row] else {
