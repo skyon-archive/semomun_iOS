@@ -19,13 +19,22 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canvasView: PKCanvasView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
-    @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var contentView: UIView!
     
-    private var width: CGFloat!
-    private var height: CGFloat!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var contentHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var topViewHeight: NSLayoutConstraint!
+    
+    private var height: CGFloat {
+        let image = self.image ?? UIImage(.warning)
+        self.view.layoutIfNeeded()
+        return image.size.height*(self.imageView.frame.width/image.size.width)
+    }
+    
     var image: UIImage?
     var viewModel: SingleWith5AnswerVM?
     
@@ -108,6 +117,8 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.answerView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
         self.canvasView.delegate = nil
+        
+        self.closeExplanation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -288,9 +299,11 @@ extension SingleWith5AnswerVC {
             self.imageView.addSubview(self.resultImageView)
             self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
             
-            let autoLeading: CGFloat = 65*self.width/CGFloat(834)
-            let autoTop: CGFloat = 0*self.width/CGFloat(834)
-            let autoSize: CGFloat = 150*self.width/CGFloat(834)
+            let width = imageView.frame.width
+            let autoLeading: CGFloat = 65*width/CGFloat(834)
+            let autoTop: CGFloat = 0*width/CGFloat(834)
+            let autoSize: CGFloat = 150*width/CGFloat(834)
+            
             NSLayoutConstraint.activate([
                 self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
                 self.resultImageView.heightAnchor.constraint(equalToConstant: autoSize),
@@ -349,47 +362,70 @@ extension SingleWith5AnswerVC {
     }
     
     func configureImageView() {
-        self.width = canvasView.frame.width
         guard let mainImage = self.image else { return }
-        self.height = mainImage.size.height*(width/mainImage.size.width)
         
         if mainImage.size.width > 0 && mainImage.size.height > 0 {
             self.imageView.image = mainImage
         } else {
-            let worningImage = UIImage(.warning)
-            self.imageView.image = worningImage
-            self.height = worningImage.size.height*(width/worningImage.size.width)
+            let warningImage = UIImage(.warning)
+            self.imageView.image = warningImage
         }
         
-        self.imageView.clipsToBounds = true
-        self.imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.imageHeight.constant = height
-        self.canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        self.canvasHeight.constant = height
+        self.contentHeight.constant = height
     }
     
     private func showExplanation(to image: UIImage?) {
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
-        self.explanationView.translatesAutoresizingMaskIntoConstraints = false
-        let height = self.view.frame.height/2
-        
-        NSLayoutConstraint.activate([
-            self.explanationView.heightAnchor.constraint(equalToConstant: height),
-            self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
+        self.layoutExplanation()
         self.explanationView.configureImage(to: image)
         self.setShadow(with: self.explanationView)
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.scrollViewBottomConstraint.constant = height
-            self?.explanationView.alpha = 1
+        self.contentHeight.constant = self.height
+        UIView.animate(withDuration: 0.2) {
+            self.explanationView.alpha = 1
         }
     }
+    
+    // https://stackoverflow.com/a/38066024
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // will execute before rotation
+        coordinator.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) in
+            // will execute during rotation
+            if self.explanationBT.isSelected {
+                self.layoutExplanation()
+            } else {
+                self.scrollViewTrailingConstraint.constant = 0
+                self.scrollViewBottomConstraint.constant = 0
+                self.topViewTrailingConstraint.constant = 0
+            }
+            self.contentHeight.constant = self.height
+        }) { (context: UIViewControllerTransitionCoordinatorContext) in
+            // will execute after rotation
+            
+        }
+    }
+    
+    private func layoutExplanation() {
+        // 초기화
+        self.scrollViewTrailingConstraint.constant = 0
+        self.topViewTrailingConstraint.constant = 0
+        self.scrollViewBottomConstraint.constant = 0
+        
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        if UIWindow.isLandscape {
+            self.scrollViewTrailingConstraint.constant = width/2
+            self.topViewTrailingConstraint.constant = width/2
+            self.explanationView.frame = .init(width/2, 0, width/2, height)
+        } else {
+            self.scrollViewBottomConstraint.constant = height/2
+            self.explanationView.frame = .init(0, height/2, width, height/2)
+        }
+        
+        self.explanationView.updateLayout()
+    }
 }
-
-
 
 extension SingleWith5AnswerVC: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -400,12 +436,15 @@ extension SingleWith5AnswerVC: PKCanvasViewDelegate {
 
 extension SingleWith5AnswerVC: ExplanationRemover {
     func closeExplanation() {
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.explanationView.alpha = 0
-            self?.scrollViewBottomConstraint.constant = 0
-        } completion: { [weak self] _ in
-            self?.explanationView.removeFromSuperview()
-        }
+        self.explanationView.alpha = 0
+        self.scrollViewBottomConstraint.constant = 0
+        self.scrollViewTrailingConstraint.constant = 0
+        self.topViewTrailingConstraint.constant = 0
+    
+        self.explanationView.removeFromSuperview()
+        self.explanationBT.isSelected = false
+        self.contentHeight.constant = self.height
+        
     }
 }
 
