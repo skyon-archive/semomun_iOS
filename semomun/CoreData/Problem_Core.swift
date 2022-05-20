@@ -73,7 +73,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var drawing: Data? //펜슬데이터
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
-    @NSManaged public var subCount: Int64 //단답형 문제수
+    @NSManaged public var subProblemsCount: Int64 //단답형 문제수
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var rate: Int64 //Deprecated(1.1.3)
