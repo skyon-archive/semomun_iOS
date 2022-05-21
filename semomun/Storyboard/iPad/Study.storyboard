@@ -962,74 +962,20 @@
                                     <constraint firstItem="hih-tI-Ph0" firstAttribute="top" secondItem="qzj-iM-1JT" secondAttribute="top" constant="14" id="xc3-iK-tLm"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ng-qp-Wa8">
-                                <rect key="frame" x="0.0" y="70" width="834" height="1042"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVP-gF-zw6" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tmy-R1-dS3" customClass="PKCanvasView">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sfj-yB-CqH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="sfj-yB-CqH" firstAttribute="centerY" secondItem="Tmy-R1-dS3" secondAttribute="centerY" id="GZL-AF-75o"/>
-                                                    <constraint firstItem="sfj-yB-CqH" firstAttribute="top" secondItem="Tmy-R1-dS3" secondAttribute="top" id="GaJ-5M-Ivh"/>
-                                                    <constraint firstItem="sfj-yB-CqH" firstAttribute="leading" secondItem="Tmy-R1-dS3" secondAttribute="leading" id="P3g-8o-ZsY"/>
-                                                    <constraint firstItem="sfj-yB-CqH" firstAttribute="centerX" secondItem="Tmy-R1-dS3" secondAttribute="centerX" id="kds-vF-Dga"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" name="gray_light"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Tmy-R1-dS3" secondAttribute="bottom" id="DiZ-ES-hnv"/>
-                                            <constraint firstItem="Tmy-R1-dS3" firstAttribute="leading" secondItem="ZVP-gF-zw6" secondAttribute="leading" id="XYX-Ij-pAI"/>
-                                            <constraint firstItem="Tmy-R1-dS3" firstAttribute="top" secondItem="ZVP-gF-zw6" secondAttribute="top" id="hwB-HA-WT4"/>
-                                            <constraint firstAttribute="height" constant="700" id="vI2-1S-t7N"/>
-                                            <constraint firstItem="Tmy-R1-dS3" firstAttribute="centerX" secondItem="ZVP-gF-zw6" secondAttribute="centerX" id="yxe-8Q-VSM"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="ZVP-gF-zw6" firstAttribute="bottom" secondItem="pTG-B1-Bcd" secondAttribute="bottom" id="Did-G6-7y2"/>
-                                    <constraint firstItem="ZVP-gF-zw6" firstAttribute="trailing" secondItem="pTG-B1-Bcd" secondAttribute="trailing" id="YK9-fP-JdP"/>
-                                    <constraint firstItem="ZVP-gF-zw6" firstAttribute="leading" secondItem="pTG-B1-Bcd" secondAttribute="leading" id="eGz-pH-zVA"/>
-                                    <constraint firstItem="ZVP-gF-zw6" firstAttribute="top" secondItem="pTG-B1-Bcd" secondAttribute="top" id="klN-T1-Sxj"/>
-                                    <constraint firstItem="ZVP-gF-zw6" firstAttribute="width" secondItem="sIK-VC-6Pi" secondAttribute="width" id="koF-Qj-mJT"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="pTG-B1-Bcd"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="sIK-VC-6Pi"/>
-                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ml2-WD-9R7"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qzj-iM-1JT" firstAttribute="top" secondItem="ml2-WD-9R7" secondAttribute="top" id="9Yj-YC-06g"/>
-                            <constraint firstItem="9ng-qp-Wa8" firstAttribute="top" secondItem="qzj-iM-1JT" secondAttribute="bottom" id="FUS-g4-8n7"/>
-                            <constraint firstItem="ml2-WD-9R7" firstAttribute="trailing" secondItem="9ng-qp-Wa8" secondAttribute="trailing" id="JZ1-QC-41z"/>
-                            <constraint firstItem="ml2-WD-9R7" firstAttribute="bottom" secondItem="9ng-qp-Wa8" secondAttribute="bottom" id="dCY-fX-Rvq"/>
                             <constraint firstItem="ml2-WD-9R7" firstAttribute="trailing" secondItem="qzj-iM-1JT" secondAttribute="trailing" id="l2B-m1-A5y"/>
-                            <constraint firstItem="9ng-qp-Wa8" firstAttribute="leading" secondItem="ml2-WD-9R7" secondAttribute="leading" id="tYR-JQ-y2b"/>
                             <constraint firstItem="qzj-iM-1JT" firstAttribute="leading" secondItem="ml2-WD-9R7" secondAttribute="leading" id="zjn-oX-kvg"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="answerBT" destination="Ytx-62-9aI" id="QTz-Fs-wX9"/>
                         <outlet property="bookmarkBT" destination="tVE-Nz-856" id="B15-5U-nfJ"/>
-                        <outlet property="canvasView" destination="Tmy-R1-dS3" id="26L-ga-iTf"/>
-                        <outlet property="contentHeight" destination="vI2-1S-t7N" id="twb-7X-2UU"/>
-                        <outlet property="contentView" destination="ZVP-gF-zw6" id="dQA-O5-Pga"/>
                         <outlet property="explanationBT" destination="4OU-Jd-AIJ" id="vDv-WD-ivq"/>
-                        <outlet property="imageView" destination="sfj-yB-CqH" id="S6t-4f-fgb"/>
-                        <outlet property="scrollView" destination="9ng-qp-Wa8" id="Txh-Qe-qZj"/>
-                        <outlet property="scrollViewBottomConstraint" destination="dCY-fX-Rvq" id="gQc-Me-AfU"/>
-                        <outlet property="scrollViewTrailingConstraint" destination="JZ1-QC-41z" id="2EQ-zS-rSs"/>
-                        <outlet property="topViewHeight" destination="Z1u-a2-ocQ" id="ahl-mb-qF1"/>
+                        <outlet property="topView" destination="qzj-iM-1JT" id="alx-kj-WVJ"/>
                         <outlet property="topViewTrailingConstraint" destination="l2B-m1-A5y" id="Y6u-e9-k2Z"/>
                         <outletCollection property="checkNumbers" destination="0Xn-UP-56W" collectionClass="NSMutableArray" id="Ilc-G5-vee"/>
                         <outletCollection property="checkNumbers" destination="lIe-aQ-2yR" collectionClass="NSMutableArray" id="qNV-BL-RNK"/>
