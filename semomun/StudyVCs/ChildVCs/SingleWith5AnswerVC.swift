@@ -11,32 +11,28 @@ import PencilKit
 final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     static let identifier = "SingleWith5AnswerVC" // form == 0 && type == 5
     static let storyboardName = "Study"
-
+    
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewTrailingConstraint: NSLayoutConstraint!
+    private let canvasView = PKCanvasView()
+    private let imageView = UIImageView()
+    
     @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var contentHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var topViewHeight: NSLayoutConstraint!
-    
-    private var height: CGFloat {
-        let image = self.image ?? UIImage(.warning)
-        self.view.layoutIfNeeded()
-        return image.size.height*(self.imageView.frame.width/image.size.width)
-    }
+    @IBOutlet weak var topView: UIView!
     
     var image: UIImage?
     var viewModel: SingleWith5AnswerVM?
+    
+    var contentHeight: CGFloat {
+        return self.view.frame.height - self.topView.frame.height
+    }
+    
+    var contentWidth: CGFloat {
+        return self.view.frame.width
+    }
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -77,18 +73,31 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         
         self.configureLoader()
         self.configureSwipeGesture()
+        self.configureDoubleTapGesture()
         self.addCoreDataAlertObserver()
         self.configureScrollView()
+        
+        self.view.addSubview(self.canvasView)
+        
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
+        
+        self.canvasView.borderWidth = 5
+        self.canvasView.borderColor = .red
+        
+        self.imageView.borderWidth = 5
+        self.imageView.borderColor = .blue
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("5다선지 willAppear")
         
-        self.scrollView.setContentOffset(.zero, animated: true)
+        self.canvasView.setContentOffset(.zero, animated: true)
         self.configureUI()
         self.configureCanvasView()
-        self.scrollView.zoomScale = 1.0
+        self.canvasView.zoomScale = 1.0
+        self.canvasView.contentInset = .zero
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +109,9 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.configureImageView()
         self.showResultImage()
         self.viewModel?.startTimeRecord()
+        
+        self.canvasView.frame = .init(0, self.topView.frame.height, self.contentWidth, self.contentHeight)
+        self.updateLayout(previousCanvasWidth: self.contentWidth, previousContentOffset: .zero)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,7 +127,8 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
-        self.scrollViewBottomConstraint.constant = 0
+        self.canvasView.frame.size.height = self.contentHeight
+        
         self.canvasView.delegate = nil
         
         self.closeExplanation()
@@ -127,9 +140,8 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     }
     
     deinit {
-        guard let canvasView = self.canvasView else { return }
-        toolPicker.setVisible(false, forFirstResponder: canvasView)
-        toolPicker.removeObserver(canvasView)
+        toolPicker.setVisible(false, forFirstResponder: self.canvasView)
+        toolPicker.removeObserver(self.canvasView)
         print("5다선지 deinit")
     }
     
@@ -199,6 +211,18 @@ extension SingleWith5AnswerVC {
         self.loader.startAnimating()
     }
     
+    func configureDoubleTapGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.canvasView.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    @objc func doubleTapped() {
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.canvasView.zoomScale = 1.0
+        }
+    }
+    
     func configureSwipeGesture() {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
         rightSwipeGesture.direction = .right
@@ -220,9 +244,9 @@ extension SingleWith5AnswerVC {
     }
     
     private func configureScrollView() {
-        self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 2.0
-        self.scrollView.delegate = self
+        self.canvasView.minimumZoomScale = 0.5
+        self.canvasView.maximumZoomScale = 2.0
+        self.canvasView.delegate = self
     }
     
     func stopLoader() {
@@ -342,8 +366,6 @@ extension SingleWith5AnswerVC {
         self.canvasView.becomeFirstResponder()
         self.canvasView.drawingPolicy = .pencilOnly
         
-        self.canvasView.subviews[0].addSubview(imageView)
-        self.canvasView.subviews[0].sendSubviewToBack(imageView)
         self.toolPicker.setVisible(true, forFirstResponder: canvasView)
         self.toolPicker.addObserver(canvasView)
     }
@@ -370,60 +392,93 @@ extension SingleWith5AnswerVC {
             let warningImage = UIImage(.warning)
             self.imageView.image = warningImage
         }
-        
-        self.contentHeight.constant = height
     }
     
     private func showExplanation(to image: UIImage?) {
+        let previousCanvasWidth = self.canvasView.frame.width
+        let previousContentOffset = self.canvasView.contentOffset
+        
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
-        self.layoutExplanation()
+        
+        self.layoutExplanation(newSize: self.view.frame.size)
+        
         self.explanationView.configureImage(to: image)
         self.setShadow(with: self.explanationView)
-        self.contentHeight.constant = self.height
+        self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
+        
         UIView.animate(withDuration: 0.2) {
             self.explanationView.alpha = 1
         }
     }
     
-    // https://stackoverflow.com/a/38066024
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        // will execute before rotation
-        coordinator.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) in
-            // will execute during rotation
-            if self.explanationBT.isSelected {
-                self.layoutExplanation()
-            } else {
-                self.scrollViewTrailingConstraint.constant = 0
-                self.scrollViewBottomConstraint.constant = 0
-                self.topViewTrailingConstraint.constant = 0
+        
+        let previousCanvasWidth = self.canvasView.frame.width
+        let previousContentOffset = self.canvasView.contentOffset
+        
+        coordinator.animate(alongsideTransition: { _ in
+            UIView.performWithoutAnimation {
+                if self.explanationBT.isSelected {
+                    self.layoutExplanation(newSize: size)
+                } else {
+                    self.canvasView.frame.size.width = self.contentWidth
+                    self.canvasView.frame.size.height = self.contentHeight
+                    self.topViewTrailingConstraint.constant = 0
+                }
+                self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
             }
-            self.contentHeight.constant = self.height
-        }) { (context: UIViewControllerTransitionCoordinatorContext) in
-            // will execute after rotation
+        }, completion: { _ in
             
-        }
+        })
     }
     
-    private func layoutExplanation() {
-        // 초기화
-        self.scrollViewTrailingConstraint.constant = 0
-        self.topViewTrailingConstraint.constant = 0
-        self.scrollViewBottomConstraint.constant = 0
+    private func layoutExplanation(newSize: CGSize) {
+        let width = newSize.width
+        let height = newSize.height
         
-        let width = self.view.frame.width
-        let height = self.view.frame.height
         if UIWindow.isLandscape {
-            self.scrollViewTrailingConstraint.constant = width/2
+            self.canvasView.frame.size.width = width/2
+            self.canvasView.frame.size.height = height
             self.topViewTrailingConstraint.constant = width/2
             self.explanationView.frame = .init(width/2, 0, width/2, height)
         } else {
-            self.scrollViewBottomConstraint.constant = height/2
+            self.canvasView.frame.size.width = width
+            self.canvasView.frame.size.height = height/2
+            self.topViewTrailingConstraint.constant = 0
             self.explanationView.frame = .init(0, height/2, width, height/2)
         }
         
         self.explanationView.updateLayout()
+    }
+    
+    private func updateLayout(previousCanvasWidth: CGFloat, previousContentOffset: CGPoint) {
+        let currentCanvasWidth = self.canvasView.frame.width
+        
+        let scaleFactor: CGFloat = currentCanvasWidth/previousCanvasWidth
+        let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+        self.canvasView.drawing.transform(using: transform)
+        
+        let previousContentSize = self.canvasView.contentSize
+        let relativeContentOffset = (previousContentOffset.x/previousContentSize.width, previousContentOffset.y/previousContentSize.height)
+        
+        let defaultImageWidth = self.canvasView.frame.width
+        let image = self.image ?? UIImage(.warning)
+        let defaultImageHeight = image.size.height*(defaultImageWidth/image.size.width)
+        self.imageView.frame.size = CGSize(width: defaultImageWidth * canvasView.zoomScale, height: defaultImageHeight * canvasView.zoomScale)
+        self.canvasView.contentSize = self.imageView.frame.size
+        
+        if previousContentSize != .zero {
+        self.canvasView.contentOffset = .init(self.canvasView.contentSize.width*relativeContentOffset.0, self.canvasView.contentSize.height*relativeContentOffset.1)
+        }
+        
+        
+        let offsetX = max((self.canvasView.bounds.width - self.canvasView.contentSize.width) * 0.5, 0)
+        let offsetY = max((self.canvasView.bounds.height - self.canvasView.contentSize.height) * 0.5, 0)
+        self.canvasView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
+        
+        
     }
 }
 
@@ -436,20 +491,27 @@ extension SingleWith5AnswerVC: PKCanvasViewDelegate {
 
 extension SingleWith5AnswerVC: ExplanationRemover {
     func closeExplanation() {
+        let previousCanvasWidth = self.canvasView.frame.width
+        let previousContentOffset = self.canvasView.contentOffset
+        
         self.explanationView.alpha = 0
-        self.scrollViewBottomConstraint.constant = 0
-        self.scrollViewTrailingConstraint.constant = 0
+        self.canvasView.frame.size.width = self.contentWidth
+        self.canvasView.frame.size.height = self.contentHeight
         self.topViewTrailingConstraint.constant = 0
-    
+        
         self.explanationView.removeFromSuperview()
         self.explanationBT.isSelected = false
-        self.contentHeight.constant = self.height
         
+        self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
     }
 }
 
 extension SingleWith5AnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.contentView
+        return self.imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        self.updateLayout(previousCanvasWidth: scrollView.frame.width, previousContentOffset: scrollView.contentOffset)
     }
 }
