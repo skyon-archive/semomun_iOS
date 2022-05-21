@@ -111,7 +111,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         self.viewModel?.startTimeRecord()
         
         self.canvasView.frame = .init(0, self.topView.frame.height, self.contentWidth, self.contentHeight)
-        self.updateLayout(previousCanvasWidth: self.contentWidth, previousContentOffset: .zero)
+        self.updateLayout(previousCanvasSize: .init(self.contentWidth, self.contentHeight), previousContentOffset: .zero)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -395,7 +395,7 @@ extension SingleWith5AnswerVC {
     }
     
     private func showExplanation(to image: UIImage?) {
-        let previousCanvasWidth = self.canvasView.frame.width
+        let previousCanvasSize = self.canvasView.frame.size
         let previousContentOffset = self.canvasView.contentOffset
         
         self.explanationView.configureDelegate(to: self)
@@ -405,7 +405,7 @@ extension SingleWith5AnswerVC {
         
         self.explanationView.configureImage(to: image)
         self.setShadow(with: self.explanationView)
-        self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
+        self.updateLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
         
         UIView.animate(withDuration: 0.2) {
             self.explanationView.alpha = 1
@@ -415,7 +415,7 @@ extension SingleWith5AnswerVC {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        let previousCanvasWidth = self.canvasView.frame.width
+        let previousCanvasSize = self.canvasView.frame.size
         let previousContentOffset = self.canvasView.contentOffset
         
         coordinator.animate(alongsideTransition: { _ in
@@ -427,7 +427,7 @@ extension SingleWith5AnswerVC {
                     self.canvasView.frame.size.height = self.contentHeight
                     self.topViewTrailingConstraint.constant = 0
                 }
-                self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
+                self.updateLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
             }
         }, completion: { _ in
             
@@ -453,15 +453,18 @@ extension SingleWith5AnswerVC {
         self.explanationView.updateLayout()
     }
     
-    private func updateLayout(previousCanvasWidth: CGFloat, previousContentOffset: CGPoint) {
-        let currentCanvasWidth = self.canvasView.frame.width
+    private func updateLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
+        let currentCanvasSize = self.canvasView.frame.size
         
-        let scaleFactor: CGFloat = currentCanvasWidth/previousCanvasWidth
+        let scaleFactor: CGFloat = currentCanvasSize.width/previousCanvasSize.width
         let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
         self.canvasView.drawing.transform(using: transform)
         
         let previousContentSize = self.canvasView.contentSize
-        let relativeContentOffset = (previousContentOffset.x/previousContentSize.width, previousContentOffset.y/previousContentSize.height)
+        let relativeContentOffset = (
+            (previousContentOffset.x+previousCanvasSize.width/2)/previousContentSize.width,
+            (previousContentOffset.y+previousCanvasSize.height/2)/previousContentSize.height
+        )
         
         let defaultImageWidth = self.canvasView.frame.width
         let image = self.image ?? UIImage(.warning)
@@ -470,15 +473,15 @@ extension SingleWith5AnswerVC {
         self.canvasView.contentSize = self.imageView.frame.size
         
         if previousContentSize != .zero {
-        self.canvasView.contentOffset = .init(self.canvasView.contentSize.width*relativeContentOffset.0, self.canvasView.contentSize.height*relativeContentOffset.1)
+            self.canvasView.contentOffset = .init(
+                self.canvasView.contentSize.width*relativeContentOffset.0-currentCanvasSize.width/2,
+                self.canvasView.contentSize.height*relativeContentOffset.1-currentCanvasSize.height/2
+            )
         }
-        
         
         let offsetX = max((self.canvasView.bounds.width - self.canvasView.contentSize.width) * 0.5, 0)
         let offsetY = max((self.canvasView.bounds.height - self.canvasView.contentSize.height) * 0.5, 0)
         self.canvasView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
-        
-        
     }
 }
 
@@ -491,7 +494,7 @@ extension SingleWith5AnswerVC: PKCanvasViewDelegate {
 
 extension SingleWith5AnswerVC: ExplanationRemover {
     func closeExplanation() {
-        let previousCanvasWidth = self.canvasView.frame.width
+        let previousCanvasSize = self.canvasView.frame.size
         let previousContentOffset = self.canvasView.contentOffset
         
         self.explanationView.alpha = 0
@@ -502,7 +505,7 @@ extension SingleWith5AnswerVC: ExplanationRemover {
         self.explanationView.removeFromSuperview()
         self.explanationBT.isSelected = false
         
-        self.updateLayout(previousCanvasWidth: previousCanvasWidth, previousContentOffset: previousContentOffset)
+        self.updateLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
     }
 }
 
@@ -512,6 +515,6 @@ extension SingleWith5AnswerVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.updateLayout(previousCanvasWidth: scrollView.frame.width, previousContentOffset: scrollView.contentOffset)
+        self.updateLayout(previousCanvasSize: scrollView.frame.size, previousContentOffset: scrollView.contentOffset)
     }
 }
