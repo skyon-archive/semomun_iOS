@@ -17,7 +17,6 @@ protocol FormZeroDelegate: AnyObject {
     var topViewTrailingConstraint: NSLayoutConstraint! { get }
     
     var drawing: Data? { get }
-    var showExplanation: Bool { get }
     
     func previousPage()
     func nextPage()
@@ -31,6 +30,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     private let imageView = UIImageView()
     
     weak var delegate: FormZeroDelegate!
+    var showExplanation = false
     
     var image: UIImage?
     
@@ -68,7 +68,6 @@ class FormZero: UIViewController, PKToolPickerObserver {
         
         self.configureCanvasView()
         self.configureCanvasViewData()
-        
         self.configureImageView()
         self.showResultImage()
     }
@@ -82,18 +81,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         self.setViewToDefault()
         CoreDataManager.saveCoreData()
-    }
-
-// MARK: - Configures
-    /// 단 한 번만 필요한 UI 설정을 수행
-    private func configureBasicUI() {
-        self.view.addSubview(self.canvasView)
-        self.canvasView.addSubview(self.imageView)
-        self.canvasView.sendSubviewToBack(self.imageView)
-        self.imageView.backgroundColor = .white
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
@@ -116,9 +106,21 @@ class FormZero: UIViewController, PKToolPickerObserver {
         self.explanationView.removeFromSuperview()
     }
     
+    /// View의 frame이 정해진 후 UI를 구성
     func configureUI() {
         self.canvasView.frame = .init(origin: .init(0, self.delegate.topHeight), size: self.contentSize)
         self.adjustLayout()
+    }
+}
+
+extension FormZero {
+    /// 단 한 번만 필요한 UI 설정을 수행
+    private func configureBasicUI() {
+        self.view.addSubview(self.canvasView)
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
+        self.imageView.backgroundColor = .white
+        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     private func configureScrollView() {
@@ -195,6 +197,8 @@ extension FormZero {
     }
     
     func showExplanation(to image: UIImage?) {
+        self.showExplanation = true
+        
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
         self.explanationView.configureImage(to: image)
@@ -220,7 +224,7 @@ extension FormZero {
         coordinator.animate { _ in
             // 회전 도중
             UIView.performWithoutAnimation {
-                if self.delegate.showExplanation {
+                if self.showExplanation {
                     self.layoutExplanation()
                 } else {
                     self.canvasView.frame.size = self.contentSize
@@ -317,6 +321,8 @@ extension FormZero: PKCanvasViewDelegate {
 
 extension FormZero: ExplanationRemover {
     func closeExplanation() {
+        self.showExplanation = false
+        
         self.explanationView.alpha = 0
         self.explanationView.removeFromSuperview()
         self.delegate.topViewTrailingConstraint.constant = 0
