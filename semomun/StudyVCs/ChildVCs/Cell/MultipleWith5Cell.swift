@@ -8,21 +8,16 @@
 import UIKit
 import PencilKit
 
-class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasViewDelegate {
+class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver {
     static let identifier = "MultipleWith5Cell"
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
-    @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var canvasWidth: NSLayoutConstraint!
-    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageWidth: NSLayoutConstraint!
-    @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    @IBOutlet weak var shadowView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    
+    private let canvasView = PKCanvasView()
+    private let imageView = UIImageView()
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -52,19 +47,37 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         super.awakeFromNib()
         self.configureUI()
         self.configureScrollView()
-        self.configureDoubleTapGesture()
+        
+        self.contentView.addSubview(canvasView)
+        self.canvasView.addDoubleTabGesture()
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
+        
+        self.canvasView.borderColor = .red
+        self.canvasView.borderWidth = 5
+        self.imageView.borderColor = .blue
+        self.imageView.borderWidth = 5
+        
         print("\(Self.identifier) awakeFromNib")
     }
     
     override func prepareForReuse() {
         self.configureUI()
         self.canvasView.delegate = nil
+        
+        self.layoutIfNeeded()
+        let size = self.contentView.frame
+        self.canvasView.frame = .init(0, 51, size.width, size.height-51)
+        self.adjustLayout()
     }
     
-    deinit {
-        guard let canvasView = self.canvasView else { return }
-        toolPicker?.setVisible(false, forFirstResponder: canvasView)
-        toolPicker?.removeObserver(canvasView)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.layoutIfNeeded()
+        let size = self.contentView.frame
+        self.canvasView.frame = .init(0, 51, size.width, size.height-51)
+        self.adjustLayout()
     }
     
     // 객관식 1~5 클릭 부분
@@ -122,19 +135,18 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.answerBT.isHidden = false
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
-        self.shadowView.addShadow(direction: .top)
     }
     
     private func configureScrollView() {
-        self.scrollView.minimumZoomScale = 0.5
-        self.scrollView.maximumZoomScale = 2.0
-        self.scrollView.delegate = self
+        self.canvasView.minimumZoomScale = 0.5
+        self.canvasView.maximumZoomScale = 2.0
+        self.canvasView.delegate = self
     }
     
     // MARK: - Configure Reuse
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ superWidth: CGFloat, _ toolPicker: PKToolPicker?) {
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         self.configureProblem(problem)
-        self.configureUI(contentImage, superWidth)
+        self.configureUI(contentImage)
         self.toolPicker = toolPicker
         self.configureCanvasView()
     }
@@ -143,9 +155,8 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         self.problem = problem
     }
     
-    func configureUI(_ contentImage: UIImage?, _ superWidth: CGFloat) {
+    func configureUI(_ contentImage: UIImage?) {
         self.configureImageView(contentImage)
-        self.configureHeight(superWidth)
         self.configureCheckButtons()
         self.configureStar()
         self.configureAnswer()
@@ -160,16 +171,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
             self.contentImage = UIImage(.warning)
         }
         self.imageView.image = self.contentImage
-    }
-    
-    func configureHeight(_ superWidth: CGFloat) {
-        guard let contentImage = self.contentImage else { return }
-        let height = contentImage.size.height*(superWidth/contentImage.size.width)
-        
-        imageView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: superWidth, height: height)
-        canvasHeight.constant = height
     }
     
     func configureCheckButtons() {
@@ -229,16 +230,7 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
     func showResultImage(to: Bool) {
         let imageName: String = to ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
-        
-        self.contentView.addSubview(self.resultImageView)
-        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.resultImageView.widthAnchor.constraint(equalToConstant: 50),
-            self.resultImageView.heightAnchor.constraint(equalToConstant: 50),
-            self.resultImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
-            self.resultImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 70)
-        ])
+        self.imageView.addSubview(self.resultImageView)
     }
     
     func configureStar() {
@@ -272,8 +264,6 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
 //        canvasView.becomeFirstResponder()
         canvasView.drawingPolicy = .pencilOnly
         
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
 //        toolPicker?.setVisible(true, forFirstResponder: canvasView)
         toolPicker?.addObserver(canvasView)
     }
@@ -300,24 +290,34 @@ class MultipleWith5Cell: UICollectionViewCell, PKToolPickerObserver, PKCanvasVie
         }
         self.delegate?.addScoring(pid: Int(problem.pid))
     }
-}
-
-extension MultipleWith5Cell {
-    func configureDoubleTapGesture() {
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-        doubleTapGesture.numberOfTapsRequired = 2
-        self.contentView.addGestureRecognizer(doubleTapGesture)
+    
+    /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
+    private func adjustLayout(_ action: (() -> ())? = nil) {
+        let previousCanvasSize = self.canvasView.frame.size
+        let previousContentOffset = self.canvasView.contentOffset
+        action?()
+        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
     }
     
-    @objc func doubleTapped() {
-        UIView.animate(withDuration: 0.25) { [weak self] in
-            self?.scrollView.zoomScale = 1.0
-            self?.contentView.layoutIfNeeded()
+    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
+    private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
+        guard let image = self.imageView.image else {
+            assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
+            return
         }
+        
+        let ratio = image.size.height/image.size.width
+        self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+        
+        // 문제 이미지 크기 설정
+        self.imageView.frame.size = self.canvasView.contentSize
+        // 채점 이미지 크기 설정
+        let imageViewWidth = self.imageView.frame.width
+        self.resultImageView.frame = .init(imageViewWidth*65/834, 0, imageViewWidth*150/834, imageViewWidth*150/834)
     }
 }
 
-extension MultipleWith5Cell {
+extension MultipleWith5Cell: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
         let data = self.canvasView.drawing.dataRepresentation()
@@ -328,12 +328,10 @@ extension MultipleWith5Cell {
 
 extension MultipleWith5Cell: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.canvasView
+        return self.imageView
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
-        let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
-        scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
+        self.adjustLayout()
     }
 }
