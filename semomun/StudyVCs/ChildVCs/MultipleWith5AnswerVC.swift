@@ -214,10 +214,9 @@ extension MultipleWith5AnswerVC: UICollectionViewDelegate, UICollectionViewDataS
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
         let problem = self.viewModel?.problems[indexPath.item]
-        let superWidth = self.collectionView.frame.width
         
         cell.delegate = self
-        cell.configureReuse(contentImage, problem, superWidth, toolPicker)
+        cell.configureReuse(contentImage, problem, toolPicker)
         
         return cell
     }

@@ -74,9 +74,9 @@ final class SingleWith5AnswerVC: FormZero {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage else { return }
         let explanationImage = UIImage(data: imageData)
-        self.explanationBT.isSelected.toggle()
+        self.showExplanation.toggle()
         
-        if self.explanationBT.isSelected {
+        if self.showExplanation {
             self.showExplanation(to: explanationImage)
         } else {
             self.closeExplanation()
@@ -220,10 +220,6 @@ extension SingleWith5AnswerVC: FormZeroDelegate {
     
     var drawing: Data? {
         self.viewModel?.problem?.drawing
-    }
-    
-    var showExplanation: Bool {
-        self.explanationBT.isSelected
     }
     
     func previousPage() {
