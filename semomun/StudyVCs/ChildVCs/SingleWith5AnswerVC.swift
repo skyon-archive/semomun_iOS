@@ -280,21 +280,7 @@ extension SingleWith5AnswerVC {
         
         let imageName: String = problem.correct ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
-        
         self.imageView.addSubview(self.resultImageView)
-        self.resultImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let width = imageView.frame.width
-        let autoLeading: CGFloat = 65*width/CGFloat(834)
-        let autoTop: CGFloat = 0*width/CGFloat(834)
-        let autoSize: CGFloat = 150*width/CGFloat(834)
-        
-        NSLayoutConstraint.activate([
-            self.resultImageView.widthAnchor.constraint(equalToConstant: autoSize),
-            self.resultImageView.heightAnchor.constraint(equalToConstant: autoSize),
-            self.resultImageView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor, constant: autoLeading),
-            self.resultImageView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: autoTop)
-        ])
     }
     
     private func configureCanvasView() {
@@ -423,6 +409,9 @@ extension SingleWith5AnswerVC {
         let ratio = image.size.height/image.size.width
         self.canvasView.adjustContentLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
         self.imageView.frame.size = self.canvasView.contentSize
+        
+        let imageViewWidth = self.imageView.frame.width
+        self.resultImageView.frame = .init(imageViewWidth*65/834, 0, imageViewWidth*150/834, imageViewWidth*150/834)
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
