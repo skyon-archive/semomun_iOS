@@ -8,18 +8,43 @@
 import PencilKit
 
 extension PKCanvasView {
-    /// CanvasView의 레이아웃에 변화가 가해진 후 호출하면 변화를 반영하여 필기 크기 및 위치를 조절
+    /// 캔버스의 레이아웃에 변화가 가해진 후 호출하면 변화를 반영하여 필기의 크기 및 위치를 조절
     /// - Parameters:
-    ///   - previousCanvasSize: 레이아웃 변화 이전 캔버스 크기
+    ///   - previousContentSize: 레이아웃 변화 이전 content 크기
     ///   - previousContentOffset: 레이아웃 변화 이전 contentOffset
-    ///   - ratio: 캔버스의 높이/너비
-    func adjustContentLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint, contentRatio: CGFloat) {
-        let canvasWidth = self.frame.width
-        
+    ///   - contentRatio: 스크롤뷰의 높이/너비
+    func adjustDrawingLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint, contentRatio: CGFloat) {
         // 필기 크기 조절
-        let scaleFactor: CGFloat = canvasWidth/previousCanvasSize.width
+        let scaleFactor: CGFloat = self.frame.width/previousCanvasSize.width
         let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
         self.drawing.transform(using: transform)
+        
+        self.adjustContentLayout(previousContentSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: contentRatio)
+    }
+    
+    /// 두 번 탭했을 때 기본 크기로 돌아가는 제스처를 추가
+    /// - TODO: 탭 한 위치를 중심으로
+    func addDoubleTabGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    @objc private func doubleTapped() {
+        UIView.animate(withDuration: 0.25) {
+            self.zoomScale = 1.0
+        }
+    }
+}
+
+extension UIScrollView {
+    /// UIScrollView의 레이아웃에 변화가 가해진 후 호출하면 변화를 반영하여 content의 크기 및 위치를 조절
+    /// - Parameters:
+    ///   - previousContentSize: 레이아웃 변화 이전 content 크기
+    ///   - previousContentOffset: 레이아웃 변화 이전 contentOffset
+    ///   - contentRatio: 스크롤뷰의 높이/너비
+    func adjustContentLayout(previousContentSize: CGSize, previousContentOffset: CGPoint, contentRatio: CGFloat) {
+        let canvasWidth = self.frame.width
         
         // 아래에서 크기를 조절하기 전에 원래 contentSize 기록
         let previousContentSize = self.contentSize
