@@ -77,14 +77,13 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
         
         self.configureImageView()
         self.showResultImage()
-        
-        self.configureUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 didAppear")
         
+        self.configureUI()
         self.viewModel?.startTimeRecord()
         self.stopLoader()
     }
@@ -92,7 +91,6 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
-        
         self.setViewToDefault()
         CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
@@ -168,13 +166,14 @@ extension SingleWith5AnswerVC {
         self.canvasView.zoomScale = 1.0
         self.canvasView.contentInset = .zero
 
-        // 필기 남는 버그 우회
+        // 필기 남는 버그 우회, canvasView 객체를 다시 설정
         self.canvasView.removeFromSuperview()
         self.imageView.removeFromSuperview()
         self.canvasView = PKCanvasView()
         self.view.addSubview(self.canvasView)
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
+        self.configureScrollView()
         
         self.resultImageView.removeFromSuperview()
         self.checkImageView.removeFromSuperview()
