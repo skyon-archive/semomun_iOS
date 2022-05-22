@@ -13,7 +13,7 @@ extension PKCanvasView {
     ///   - previousCanvasSize: 레이아웃 변화 이전 캔버스 크기
     ///   - previousContentOffset: 레이아웃 변화 이전 contentOffset
     ///   - ratio: 캔버스의 높이/너비
-    func reflectLayoutChange(previousCanvasSize: CGSize, previousContentOffset: CGPoint, ratio: CGFloat) {
+    func adjustContentLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint, contentRatio: CGFloat) {
         let canvasWidth = self.frame.width
         
         // 필기 크기 조절
@@ -25,7 +25,7 @@ extension PKCanvasView {
         let previousContentSize = self.contentSize
         
         // imageView와 canvasView의 크기 조절
-        self.contentSize = CGSize(width: canvasWidth * self.zoomScale, height: canvasWidth * ratio * self.zoomScale)
+        self.contentSize = CGSize(width: canvasWidth * self.zoomScale, height: canvasWidth * contentRatio * self.zoomScale)
         
         // 바뀐 크기에 맞게 이전과 같은 좌상단를 가지도록 contentOffset 조절
         if previousContentSize.height != 0 && previousContentSize.width != 0 {

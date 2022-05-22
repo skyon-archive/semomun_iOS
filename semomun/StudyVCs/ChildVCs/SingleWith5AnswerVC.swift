@@ -20,7 +20,7 @@ final class SingleWith5AnswerVC: UIViewController, PKToolPickerObserver {
     @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
     
-    private let canvasView = PKCanvasView()
+    private var canvasView = PKCanvasView()
     private let imageView = UIImageView()
     
     var image: UIImage?
@@ -167,14 +167,20 @@ extension SingleWith5AnswerVC {
         self.canvasView.setContentOffset(.zero, animated: false)
         self.canvasView.zoomScale = 1.0
         self.canvasView.contentInset = .zero
+
+        // 필기 남는 버그 우회
+        self.canvasView.removeFromSuperview()
+        self.imageView.removeFromSuperview()
+        self.canvasView = PKCanvasView()
+        self.view.addSubview(self.canvasView)
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
         
         self.resultImageView.removeFromSuperview()
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
         self.answerView.removeFromSuperview()
-        
-        self.canvasView.delegate = nil
     }
     
     private func configureUI() {
@@ -184,7 +190,7 @@ extension SingleWith5AnswerVC {
         self.configureExplanation()
         
         self.canvasView.frame = .init(origin: .init(0, self.topView.frame.height), size: self.contentSize)
-        self.reflectLayoutChange()
+        self.adjustCanvasLayout()
     }
     
     private func configureCheckButtons() {
@@ -312,7 +318,6 @@ extension SingleWith5AnswerVC {
         } else {
             self.canvasView.drawing = PKDrawing()
         }
-
         self.canvasView.delegate = self
     }
     
@@ -358,7 +363,7 @@ extension SingleWith5AnswerVC {
         self.explanationView.configureImage(to: image)
         self.explanationView.addShadow()
         
-        self.reflectLayoutChange {
+        self.adjustCanvasLayout {
             self.layoutExplanation()
         }
         
@@ -367,6 +372,7 @@ extension SingleWith5AnswerVC {
         }
     }
     
+    // 화면이 회전할 때 실행
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -383,11 +389,12 @@ extension SingleWith5AnswerVC {
                     self.canvasView.frame.size = self.contentSize
                     self.topViewTrailingConstraint.constant = 0
                 }
-                self.reflectLayoutChange(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+                self.adjustCanvasLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
             }
         }
     }
     
+    /// ExplanationView의 frame을 상황에 맞게 수정
     private func layoutExplanation() {
         let width = self.contentSize.width
         let height = self.contentSize.height
@@ -408,23 +415,23 @@ extension SingleWith5AnswerVC {
         self.explanationView.updateLayout()
     }
     
-
-    private func reflectLayoutChange(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
+    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
+    private func adjustCanvasLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
         guard let image = self.imageView.image else {
             assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
             return
         }
         let ratio = image.size.height/image.size.width
-        self.canvasView.reflectLayoutChange(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, ratio: ratio)
+        self.canvasView.adjustContentLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
         self.imageView.frame.size = self.canvasView.contentSize
     }
     
-    /// 변화 이전 캔버스 크기와 contentOffset을 자동으로 기록하는 편의 메소드
-    private func reflectLayoutChange(of action: (() -> ())? = nil) {
+    /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
+    private func adjustCanvasLayout(_ action: (() -> ())? = nil) {
         let previousCanvasSize = self.canvasView.frame.size
         let previousContentOffset = self.canvasView.contentOffset
         action?()
-        self.reflectLayoutChange(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+        self.adjustCanvasLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
     }
 }
 
@@ -468,6 +475,7 @@ extension SingleWith5AnswerVC {
     }
 }
 
+// MARK: - Protocols
 extension SingleWith5AnswerVC: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
@@ -482,7 +490,7 @@ extension SingleWith5AnswerVC: ExplanationRemover {
         self.explanationBT.isSelected = false
         self.topViewTrailingConstraint.constant = 0
         
-        self.reflectLayoutChange {
+        self.adjustCanvasLayout {
             self.canvasView.frame.size = self.contentSize
         }
     }
@@ -494,6 +502,6 @@ extension SingleWith5AnswerVC: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.reflectLayoutChange()
+        self.adjustCanvasLayout()
     }
 }
