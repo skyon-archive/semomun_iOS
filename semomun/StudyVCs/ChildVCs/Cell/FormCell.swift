@@ -15,6 +15,13 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     
     var contentImage: UIImage?
     var problem: Problem_Core?
+    
+    // 상속 전용
+    var internalTopViewHeight: CGFloat {
+        assertionFailure()
+        return 51
+    }
+    
     weak var delegate: CollectionCellDelegate?
     
     var toolPicker: PKToolPicker?
@@ -34,25 +41,27 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func prepareForReuse() {
         self.resultImageView.removeFromSuperview()
         self.canvasView.delegate = nil
-        
-        self.layoutIfNeeded()
-        let size = self.contentView.frame
-        self.canvasView.frame = .init(0, 51, size.width, size.height-51)
-        self.adjustLayout()
+        self.layoutCanvas()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.layoutIfNeeded()
-        let size = self.contentView.frame
-        self.canvasView.frame = .init(0, 51, size.width, size.height-51)
-        self.adjustLayout()
+        self.layoutCanvas()
+    }
+    
+    private func layoutCanvas() {
+        print(self.canvasView.contentOffset)
+//        self.layoutIfNeeded()
+        self.adjustLayout {
+            let size = self.contentView.frame
+            self.canvasView.frame = .init(0, self.internalTopViewHeight, size.width, size.height-self.internalTopViewHeight)
+        }
     }
     
     // MARK: Configure
     private func configureBasicUI() {
         self.contentView.addSubviews(self.canvasView, self.background)
+        self.contentView.sendSubviewToBack(self.canvasView)
         self.contentView.sendSubviewToBack(self.background)
         
         self.canvasView.addDoubleTabGesture()
@@ -149,6 +158,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         }
         
         let ratio = image.size.height/image.size.width
+        
         self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
         
         // 배경 뷰 위치 설정
