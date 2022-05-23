@@ -50,8 +50,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     private func layoutCanvas() {
-        print(self.canvasView.contentOffset)
-//        self.layoutIfNeeded()
         self.adjustLayout {
             let size = self.contentView.frame
             self.canvasView.frame = .init(0, self.internalTopViewHeight, size.width, size.height-self.internalTopViewHeight)
@@ -126,7 +124,9 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         canvasView.delegate = self
     }
     
-    func updateSolved(problem: Problem_Core, input: String) {
+    func updateSolved(input: String) {
+        guard let problem = self.problem else { return }
+
         problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
