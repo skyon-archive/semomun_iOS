@@ -79,7 +79,7 @@ extension UIView {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, opacity: opacity, shadowRadius: shadowRadius, bounds: bounds ?? self.layer.bounds, shouldRasterize: true)
-        if self.layer.sublayers?.contains(shadowLayer) == false {
+        if self.layer.sublayers?.contains(shadowLayer) != true {
             self.layer.insertSublayer(shadowLayer, at: 0)
         }
     }
@@ -92,24 +92,32 @@ extension UIView {
     }
     
     enum ShadowClipDirection {
-        case top, bottom, both
+        case top, bottom, both, exceptTop
     }
     
     func clipAccessibleShadow(at direction: ShadowClipDirection) {
-        guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
-        let shadowRadius: CGFloat = shadowLayer.shadowRadius * 2 // 왜 곱하기 2를 해야 될까🤔
+        guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else {
+            assertionFailure("그림자 레이어가 존재하지 않습니다.")
+            return
+        }
+        let shadowRadius: CGFloat = shadowLayer.shadowRadius * 2 // 왜 곱하기 2를 해야 될까
         let shadowLayerHeight = shadowLayer.frame.height
-        // 왼쪽부분 그림자는 항상 남음
-        let x = -shadowRadius
-        // 마찬가지로 좌우 그림자는 항상 남으므로 셀의 너비 + 양쪽 그림자의 넓이
-        let w = shadowLayer.frame.width+2*shadowRadius
+        
+        var x = -shadowRadius
+        var w = shadowLayer.frame.width+2*shadowRadius
         let y, h: CGFloat
+        
         switch direction {
         case .top:
             y = 0
             h = shadowLayerHeight+shadowRadius
         case .bottom:
             y = -shadowRadius
+            h = shadowLayerHeight+shadowRadius
+        case .exceptTop:
+            x = 0
+            y = -shadowRadius
+            w = shadowLayer.frame.width
             h = shadowLayerHeight+shadowRadius
         case .both:
             y = 0

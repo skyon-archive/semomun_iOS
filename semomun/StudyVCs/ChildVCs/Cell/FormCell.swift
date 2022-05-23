@@ -11,6 +11,7 @@ import PencilKit
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private let canvasView = PKCanvasView()
     private let imageView = UIImageView()
+    private let background = UIView()
     
     var contentImage: UIImage?
     var problem: Problem_Core?
@@ -28,7 +29,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         super.awakeFromNib()
         self.configureBasicUI()
         self.configureScrollView()
-
     }
     
     override func prepareForReuse() {
@@ -52,15 +52,17 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     
     // MARK: Configure
     private func configureBasicUI() {
-        self.contentView.addSubview(canvasView)
+        self.contentView.addSubviews(self.canvasView, self.background)
+        self.contentView.sendSubviewToBack(self.background)
+        
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
+        self.canvasView.backgroundColor = .clear
         
-        self.canvasView.borderColor = .red
-        self.canvasView.borderWidth = 5
-        self.imageView.borderColor = .blue
-        self.imageView.borderWidth = 5
+        self.imageView.backgroundColor = .white
+        
+        self.background.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     private func configureScrollView() {
@@ -95,7 +97,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureCanvasViewDataAndDelegate()
         
         canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
 //        canvasView.becomeFirstResponder()
         canvasView.drawingPolicy = .pencilOnly
         
@@ -150,6 +151,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         let ratio = image.size.height/image.size.width
         self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
         
+        // 배경 뷰 위치 설정
+        self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정

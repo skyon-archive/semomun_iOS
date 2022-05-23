@@ -23,6 +23,8 @@ protocol FormTwoDelegate: AnyObject {
 
 class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
+    
+    private let canvasShadowView = UIView()
     private let imageView = UIImageView()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -84,9 +86,12 @@ class FormTwo: UIViewController {
         self.setViewToDefault()
         CoreDataManager.saveCoreData()
     }
-    
+}
+
+// MARK: - Private 메소드
+extension FormTwo {
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
-    func setViewToDefault() {
+    private func setViewToDefault() {
         self.canvasView.setContentOffset(.zero, animated: true)
         self.canvasView.zoomScale = 1.0
         
@@ -94,22 +99,27 @@ class FormTwo: UIViewController {
     }
     
     /// View의 frame이 정해진 후 UI를 구성
-    func configureUI() {
+    private func configureUI() {
         self.layoutSplitView()
         self.collectionView.collectionViewLayout.invalidateLayout()
         self.adjustLayout()
     }
-}
-
-// MARK: - Private 메소드
-extension FormTwo {
+    
     private func configureBasicUI() {
         let cellNib = UINib(nibName: self.delegate.cellNibName, bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: self.delegate.cellIdentifier)
-        self.view.addSubview(self.canvasView)
-        self.view.addSubview(self.collectionView)
+        
+        self.collectionView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
+        
+        self.view.addSubviews(self.canvasView, self.collectionView, self.canvasShadowView)
+        self.view.sendSubviewToBack(self.canvasShadowView)
+        
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
+        
+        self.imageView.backgroundColor = .white
+        
+        self.canvasShadowView.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     private func configureDelegate() {
@@ -203,6 +213,10 @@ extension FormTwo {
         self.imageView.frame.size = self.canvasView.contentSize
         // 답지 크기 설정
         self.explanationView.frame.size = self.canvasView.frame.size
+        
+        self.canvasShadowView.frame = self.canvasView.frame
+        self.canvasShadowView.addAccessibleShadow()
+        self.canvasShadowView.clipAccessibleShadow(at: .exceptTop)
     }
 }
 
@@ -228,14 +242,19 @@ extension FormTwo {
     
     private func layoutSplitView() {
         let viewSize = self.view.frame.size
+        let marginForTopShadow: CGFloat = 10
+        
         if UIWindow.isLandscape {
-            let size = CGSize(viewSize.width/2, viewSize.height)
-            self.canvasView.frame = .init(origin: .init(0, 0), size: size)
-            self.collectionView.frame = .init(origin: .init(viewSize.width/2, 0), size: size)
+            let marginBetweenView: CGFloat = 26
+            let canvasViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height-marginForTopShadow)
+            let collectionViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height)
+            self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: canvasViewSize)
+            self.collectionView.frame = .init(origin: .init(self.canvasView.frame.maxX+marginBetweenView, 0), size: collectionViewSize)
         } else {
-            let size = CGSize(viewSize.width, viewSize.height/2)
-            self.canvasView.frame = .init(origin: .init(0, 0), size: size)
-            self.collectionView.frame = .init(origin: .init(0, viewSize.height/2), size: size)
+            let marginBetweenView: CGFloat = 13
+            let size = CGSize(viewSize.width, (viewSize.height-marginBetweenView)/2)
+            self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: size)
+            self.collectionView.frame = .init(origin: .init(0, viewSize.height/2+marginBetweenView), size: size)
         }
     }
 }
