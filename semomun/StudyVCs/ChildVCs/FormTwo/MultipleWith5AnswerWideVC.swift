@@ -10,13 +10,12 @@ import PencilKit
 
 final class MultipleWith5AnswerWideVC: FormTwo {
     static let identifier = "MultipleWith5AnswerWideVC"
-    static let storyboardName = "Study"
     
     var viewModel: MultipleWith5AnswerVM?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.delegate = self
+        super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +67,14 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
 }
 
 extension MultipleWith5AnswerWideVC: FormTwoDelegate {
+    var cellType: UICollectionViewCell.Type {
+        return MultipleWith5Cell.self
+    }
+    
+    var cellIdentifier: String {
+        return MultipleWith5Cell.identifier
+    }
+    
     var pagePencilData: Data? {
         return self.viewModel?.pagePencilData
     }
