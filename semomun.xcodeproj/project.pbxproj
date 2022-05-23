@@ -621,7 +621,6 @@
 			children = (
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
-				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1306,6 +1305,7 @@
 		87E151622787DD160080D39A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
 				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
 				87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */,
 			);
