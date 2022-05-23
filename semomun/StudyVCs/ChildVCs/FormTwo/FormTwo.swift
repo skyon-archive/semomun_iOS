@@ -12,6 +12,8 @@ protocol FormTwoDelegate: AnyObject {
     var pagePencilData: Data? { get }
     func updatePagePencilData(_ data: Data)
     
+    var cellType: UICollectionViewCell.Type { get }
+    var cellIdentifier: String { get }
     var cellCount: Int { get }
     func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     
@@ -22,7 +24,7 @@ protocol FormTwoDelegate: AnyObject {
 class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
     private let imageView = UIImageView()
-    @IBOutlet weak var collectionView: UICollectionView!
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     /// Cell에서 받은 explanation 의 pid
     var explanationId: Int?
@@ -102,7 +104,9 @@ class FormTwo: UIViewController {
 // MARK: - Private 메소드
 extension FormTwo {
     private func configureBasicUI() {
+        self.collectionView.register(UINib(nibName: MultipleWith5Cell.identifier, bundle: nil), forCellWithReuseIdentifier: MultipleWith5Cell.identifier)
         self.view.addSubview(self.canvasView)
+        self.view.addSubview(self.collectionView)
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
     }

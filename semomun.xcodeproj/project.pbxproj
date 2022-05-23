@@ -22,6 +22,7 @@
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE427F1D5B50097F678 /* StoryboardController.swift */; };
 		25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE827F1DC7F0097F678 /* UIStoryboard.swift */; };
+		2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2549D182283B3020005878E2 /* MultipleWith5Cell.xib */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
@@ -266,6 +267,7 @@
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2549D182283B3020005878E2 /* MultipleWith5Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleWith5Cell.xib; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
@@ -619,6 +621,7 @@
 			children = (
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
+				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1467,6 +1470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
+				2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				87FEBB3E27EB116500B106F2 /* Study_phone.storyboard in Resources */,
 				87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */,
