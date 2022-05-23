@@ -8,14 +8,24 @@
 import UIKit
 import PencilKit
 
-class MultipleWith5Cell: FormCell {
+protocol XibAwakable {
+    static var identifier: String { get }
+    static var topViewHeight: CGFloat { get }
+}
+
+class MultipleWith5Cell: FormCell, XibAwakable {
     static let identifier = "MultipleWith5Cell"
+    static let topViewHeight: CGFloat = 51
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet weak var topView: UIView!
+    
+    override var internalTopViewHeight: CGFloat {
+        return Self.topViewHeight
+    }
     
     lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()

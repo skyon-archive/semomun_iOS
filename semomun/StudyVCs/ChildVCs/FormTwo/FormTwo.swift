@@ -12,8 +12,8 @@ protocol FormTwoDelegate: AnyObject {
     var pagePencilData: Data? { get }
     func updatePagePencilData(_ data: Data)
     
-    var cellNibName: String { get }
-    var cellIdentifier: String { get }
+    var xibAwakable: XibAwakable.Type { get }
+    
     var cellCount: Int { get }
     func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     
@@ -106,8 +106,8 @@ extension FormTwo {
     }
     
     private func configureBasicUI() {
-        let cellNib = UINib(nibName: self.delegate.cellNibName, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: self.delegate.cellIdentifier)
+        let cellNib = UINib(nibName: self.delegate.xibAwakable.identifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: self.delegate.xibAwakable.identifier)
         
         self.collectionView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
         
@@ -313,7 +313,7 @@ extension FormTwo: UICollectionViewDelegateFlowLayout {
         let width = self.collectionView.bounds.width
         let image = subImages?[indexPath.row] ?? UIImage(.warning)
         let imgHeight = image.size.height * (width/image.size.width)
-        let topViewHeight: CGFloat = 51
+        let topViewHeight = self.delegate.xibAwakable.topViewHeight
         let height = topViewHeight + imgHeight
         
         return CGSize(width: width, height: height)
