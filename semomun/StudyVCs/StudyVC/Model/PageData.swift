@@ -57,7 +57,7 @@ final class PageData {
             // Version 2.0
         } else {
             if type == MultipleWith5AnswerVC.identifier {
-                return MultipleWith5AnswerWideVC.identifier
+                return MultipleWithSubProblemsWideVC.identifier
             } else {
                 return type
             }

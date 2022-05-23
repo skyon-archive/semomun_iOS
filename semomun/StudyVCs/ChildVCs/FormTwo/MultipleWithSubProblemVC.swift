@@ -1,17 +1,17 @@
 //
-//  MultipleWith5AnswerWideVC.swift
+//  MultipleWithSubProblemsVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/05/17.
+//  Created by SEONG YEOL YI on 2022/05/23.
 //
 
 import UIKit
 import PencilKit
 
-final class MultipleWith5AnswerWideVC: FormTwo {
-    static let identifier = "MultipleWith5AnswerWideVC"
+final class MultipleWithSubProblemsWideVC: FormTwo {
+    static let identifier = "MultipleWithSubProblemsWideVC"
     
-    var viewModel: MultipleWith5AnswerVM?
+    var viewModel: MultipleWithSubProblemsVM?
     
     override func viewDidLoad() {
         self.delegate = self
@@ -29,7 +29,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     }
 }
 
-extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
+extension MultipleWithSubProblemsWideVC: CollectionCellDelegate {
     func reload() {
         self.viewModel?.delegate?.reload()
     }
@@ -66,9 +66,9 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
     }
 }
 
-extension MultipleWith5AnswerWideVC: FormTwoDelegate {
+extension MultipleWithSubProblemsWideVC: FormTwoDelegate {
     var xibAwakable: XibAwakable.Type {
-        return MultipleWith5Cell.self
+        return SubProblemCell.self
     }
     
     var pagePencilData: Data? {
@@ -84,14 +84,14 @@ extension MultipleWith5AnswerWideVC: FormTwoDelegate {
     }
     
     func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubProblemCell.identifier, for: indexPath) as? SubProblemCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
         
         cell.delegate = self
         cell.configureReuse(contentImage, problem, toolPicker)
-        
+
         return cell
     }
     
@@ -103,3 +103,4 @@ extension MultipleWith5AnswerWideVC: FormTwoDelegate {
         self.viewModel?.delegate?.nextPage()
     }
 }
+

@@ -62,7 +62,7 @@ extension UIScrollView {
             self.contentOffset = .init(contentXOffset, contentYOffset)
             
             // 최하단에서 가로->세로 변경 시 여백이 보일 수 있는 점 고려
-            if self.contentOffset.y + self.frame.height > self.contentSize.height {
+            if self.zoomScale > 1 && self.contentOffset.y + self.frame.height > self.contentSize.height {
                 self.contentOffset.y = self.contentSize.height - self.frame.height
             }
         }

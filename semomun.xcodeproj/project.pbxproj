@@ -22,7 +22,7 @@
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE427F1D5B50097F678 /* StoryboardController.swift */; };
 		25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE827F1DC7F0097F678 /* UIStoryboard.swift */; };
-		2549D183283B3020005878E2 /* Cells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2549D182283B3020005878E2 /* Cells.xib */; };
+		2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2549D182283B3020005878E2 /* MultipleWith5Cell.xib */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
@@ -35,6 +35,11 @@
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
 		255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637B27ABC057000991AB /* UserNoticeContentVC.swift */; };
 		2560BB99283B542500A32EC4 /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB98283B542500A32EC4 /* FormCell.swift */; };
+		2560BB9B283B7EA700A32EC4 /* SubProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */; };
+		2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB9C283B7F6200A32EC4 /* SubProblemCheckButton.swift */; };
+		2560BB9F283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */; };
+		2560BBA1283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift */; };
+		2560BBA3283B869700A32EC4 /* SubProblemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2560BBA2283B869700A32EC4 /* SubProblemCell.xib */; };
 		2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560E1E727914D11003BDAC0 /* SectionCell.swift */; };
 		25622C4D283A53540056E0DF /* PKCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622C4C283A53540056E0DF /* PKCanvasView.swift */; };
 		25622C4F283A84330056E0DF /* FormZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622C4E283A84330056E0DF /* FormZero.swift */; };
@@ -166,7 +171,6 @@
 		87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221D27A39FF900B48F9D /* BookshelfCell.swift */; };
 		87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
-		87B17A182833CAC600DB5F10 /* MultipleWithSubProblemsWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A172833CAC600DB5F10 /* MultipleWithSubProblemsWideVC.swift */; };
 		87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */; };
 		87B17A1C2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */; };
 		87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */; };
@@ -268,7 +272,7 @@
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		2549D182283B3020005878E2 /* Cells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cells.xib; sourceTree = "<group>"; };
+		2549D182283B3020005878E2 /* MultipleWith5Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleWith5Cell.xib; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
@@ -281,6 +285,11 @@
 		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
 		255D637B27ABC057000991AB /* UserNoticeContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeContentVC.swift; sourceTree = "<group>"; };
 		2560BB98283B542500A32EC4 /* FormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
+		2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubProblemCell.swift; sourceTree = "<group>"; };
+		2560BB9C283B7F6200A32EC4 /* SubProblemCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubProblemCheckButton.swift; sourceTree = "<group>"; };
+		2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithSubProblemsVM.swift; sourceTree = "<group>"; };
+		2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithSubProblemVC.swift; sourceTree = "<group>"; };
+		2560BBA2283B869700A32EC4 /* SubProblemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubProblemCell.xib; sourceTree = "<group>"; };
 		2560E1E727914D11003BDAC0 /* SectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		25622C4C283A53540056E0DF /* PKCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCanvasView.swift; sourceTree = "<group>"; };
 		25622C4E283A84330056E0DF /* FormZero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormZero.swift; sourceTree = "<group>"; };
@@ -412,7 +421,6 @@
 		87AC221D27A39FF900B48F9D /* BookshelfCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCell.swift; sourceTree = "<group>"; };
 		87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWarningPopupVC.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
-		87B17A172833CAC600DB5F10 /* MultipleWithSubProblemsWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithSubProblemsWideVC.swift; sourceTree = "<group>"; };
 		87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptWideVC.swift; sourceTree = "<group>"; };
 		87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerWideVC.swift; sourceTree = "<group>"; };
 		87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithSubProblemsVC.swift; sourceTree = "<group>"; };
@@ -623,6 +631,7 @@
 			children = (
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
+				2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1098,7 +1107,6 @@
 				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
 				8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */,
 				8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */,
-				87B17A172833CAC600DB5F10 /* MultipleWithSubProblemsWideVC.swift */,
 				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
 				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
 				878766CA27AED255003B975E /* View */,
@@ -1280,6 +1288,7 @@
 				87C85ED2276F6DC4001C9C4A /* SingleWith4AnswerVM.swift */,
 				25738C6D27929C97002A6676 /* ConceptVM.swift */,
 				25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */,
+				2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1307,10 +1316,13 @@
 		87E151622787DD160080D39A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				2549D182283B3020005878E2 /* Cells.xib */,
+				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
+				2560BBA2283B869700A32EC4 /* SubProblemCell.xib */,
 				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
 				87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */,
+				2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */,
 				2560BB98283B542500A32EC4 /* FormCell.swift */,
+				2560BB9C283B7F6200A32EC4 /* SubProblemCheckButton.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1473,7 +1485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
-				2549D183283B3020005878E2 /* Cells.xib in Resources */,
+				2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				87FEBB3E27EB116500B106F2 /* Study_phone.storyboard in Resources */,
 				87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */,
@@ -1484,6 +1496,7 @@
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
 				87FEBB3C27EB10D700B106F2 /* Profile_phone.storyboard in Resources */,
+				2560BBA3283B869700A32EC4 /* SubProblemCell.xib in Resources */,
 				25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */,
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
@@ -1562,6 +1575,7 @@
 				25F96AC92805562F00A0FD5F /* ErrorReport.swift in Sources */,
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
 				8716E931279A5F4D00B33A5E /* HomeVC.swift in Sources */,
+				2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */,
 				25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */,
 				2560BB99283B542500A32EC4 /* FormCell.swift in Sources */,
 				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
@@ -1598,7 +1612,6 @@
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
-				87B17A182833CAC600DB5F10 /* MultipleWithSubProblemsWideVC.swift in Sources */,
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,
@@ -1614,6 +1627,7 @@
 				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
 				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,
 				87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */,
+				2560BBA1283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift in Sources */,
 				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
 				874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */,
@@ -1622,6 +1636,7 @@
 				25A950B327C760EC0084513E /* Collection.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
+				2560BB9B283B7EA700A32EC4 /* SubProblemCell.swift in Sources */,
 				8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */,
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
@@ -1687,6 +1702,7 @@
 				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
+				2560BB9F283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,
 				87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */,
