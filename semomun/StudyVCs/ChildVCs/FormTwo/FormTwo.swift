@@ -12,7 +12,7 @@ protocol FormTwoDelegate: AnyObject {
     var pagePencilData: Data? { get }
     func updatePagePencilData(_ data: Data)
     
-    var cellType: UICollectionViewCell.Type { get }
+    var cellNibName: String { get }
     var cellIdentifier: String { get }
     var cellCount: Int { get }
     func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -104,7 +104,8 @@ class FormTwo: UIViewController {
 // MARK: - Private 메소드
 extension FormTwo {
     private func configureBasicUI() {
-        self.collectionView.register(UINib(nibName: MultipleWith5Cell.identifier, bundle: nil), forCellWithReuseIdentifier: MultipleWith5Cell.identifier)
+        let cellNib = UINib(nibName: self.delegate.cellNibName, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: self.delegate.cellIdentifier)
         self.view.addSubview(self.canvasView)
         self.view.addSubview(self.collectionView)
         self.canvasView.addSubview(self.imageView)

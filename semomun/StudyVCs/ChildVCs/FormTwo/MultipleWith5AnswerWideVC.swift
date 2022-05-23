@@ -67,8 +67,8 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
 }
 
 extension MultipleWith5AnswerWideVC: FormTwoDelegate {
-    var cellType: UICollectionViewCell.Type {
-        return MultipleWith5Cell.self
+    var cellNibName: String {
+        return MultipleWith5Cell.identifier
     }
     
     var cellIdentifier: String {
