@@ -68,7 +68,7 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
 
 extension MultipleWith5AnswerWideVC: FormTwoDelegate {
     var cellNibName: String {
-        return MultipleWith5Cell.identifier
+        return "Cells"
     }
     
     var cellIdentifier: String {
