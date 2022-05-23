@@ -52,7 +52,7 @@ class MultipleWith5Cell: FormCell, XibAwakable {
         if problem.terminated { return }
         
         let input: Int = sender.tag
-        self.updateSolved(problem: problem, input: "\(input)")
+        self.updateSolved(input: "\(input)")
         
         self.configureCheckButtons()
     }

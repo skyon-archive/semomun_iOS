@@ -8,6 +8,40 @@
 import UIKit
 import PencilKit
 
+class SavedAnswerCell: UICollectionViewCell {
+    static let identifier = "SavedAnswerCell"
+    private let label = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 3
+        
+        self.contentView.addSubview(self.label)
+        self.label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.label.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+            self.label.heightAnchor.constraint(equalTo: self.contentView.heightAnchor),
+            self.label.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            self.label.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+        ])
+        
+        self.label.font = .systemFont(ofSize: 12, weight: .medium)
+        self.label.textColor = UIColor(.deepMint) ?? .black
+        self.label.textAlignment = .center
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        fatalError()
+    }
+    
+    func configureText(to text: String) {
+        self.label.text = text
+    }
+}
+
 class SubProblemCell: FormCell, XibAwakable {
     static let identifier = "SubProblemCell"
     static let topViewHeight: CGFloat = 87
@@ -22,13 +56,25 @@ class SubProblemCell: FormCell, XibAwakable {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var answerTF: UITextField!
+    @IBOutlet weak var savedAnswerView: UICollectionView!
     
     private var currentProblemIndex: Int = 0 {
         didSet {
             self.answerTF.text = solvings[currentProblemIndex]
         }
     }
-    private var solvings: [String?] = []
+    
+    private var solvings: [String?] = [] {
+        didSet {
+            self.savedAnswerView.reloadData()
+            self.answerTF.text = solvings[currentProblemIndex]
+            
+            let solvingConverted = self.solvings
+                .map { $0 ?? "" }
+                .joined(separator: "$")
+            self.updateSolved(input: solvingConverted)
+        }
+    }
     
     lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
@@ -46,13 +92,18 @@ class SubProblemCell: FormCell, XibAwakable {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.answerTF.delegate = self
+        self.savedAnswerView.delegate = self
+        self.savedAnswerView.dataSource = self
+        
+        self.savedAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.layoutIfNeeded()
         self.topView.addAccessibleShadow()
         self.topView.clipAccessibleShadow(at: .exceptTop)
-        self.answerTF.layer.addBorder([.bottom], color: UIColor(.mainColor) ?? .black, width: 1)
+        self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -95,7 +146,7 @@ class SubProblemCell: FormCell, XibAwakable {
     override func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.configureReuse(contentImage, problem, toolPicker)
         
-//        guard let subProblemCount = problem?.subProblemsCount else { return }
+        //        guard let subProblemCount = problem?.subProblemsCount else { return }
         let subProblemCount = 6
         
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -105,9 +156,14 @@ class SubProblemCell: FormCell, XibAwakable {
             if i == 0 { button.isSelected = true; button.select() }
         }
         
-//        guard let solved = problem?.solved else { return }
-        let solved = "일$$삼$사$$육"
-        self.solvings = solved.components(separatedBy: "$")
+        if let solved = problem?.solved {
+            self.solvings = solved.components(separatedBy: "$").map {
+                $0 == "" ? nil : $0
+            }
+            self.solvings += .init(repeating: nil, count: subProblemCount - self.solvings.count)
+        } else {
+            self.solvings = .init(repeating: nil, count: subProblemCount)
+        }
         self.currentProblemIndex = 0
     }
 }
@@ -133,6 +189,70 @@ extension SubProblemCell: SubProblemCheckObservable {
     }
 }
 
-extension SubProblemCell: UITextFieldDelegate {
+extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    private func getSolvingIndex(from itemIdx: Int) -> Int {
+        var subProblemIdx = 0
+        var cnt = 0
+        for (n, x) in self.solvings.enumerated() {
+            if x != nil { cnt += 1 }
+            if cnt == itemIdx+1 {
+                subProblemIdx = n
+                break
+            }
+        }
+        return subProblemIdx
+    }
     
+    private func getSubproblemName(from itemIdx: Int) -> String {
+        let subProblemIdx = self.getSolvingIndex(from: itemIdx)
+        guard let subproblemCheckButton = self.stackView.arrangedSubviews[safe: subProblemIdx] as? SubProblemCheckButton,
+              let subproblemName = subproblemCheckButton.titleLabel?.text else {
+            return ""
+        }
+        return subproblemName
+    }
+    
+    private func getCellTitle(at itemIdx: Int) -> String {
+        let subproblemName = self.getSubproblemName(from: itemIdx)
+        
+        guard let solved = self.solvings.compactMap({$0})[safe: itemIdx] else { return "" }
+        
+        return "\(subproblemName): \(solved)"
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.solvings.compactMap({$0}).count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedAnswerCell.identifier, for: indexPath) as? SavedAnswerCell else { return UICollectionViewCell() }
+        
+        let text = self.getCellTitle(at: indexPath.item)
+        cell.configureText(to: text)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let subProblemIdx = self.getSolvingIndex(from: indexPath.item)
+        self.solvings[subProblemIdx] = nil
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 사용자 풀이 내용
+        let text = self.getCellTitle(at: indexPath.item)
+        print(text)
+        let itemSize = text.size(withAttributes: [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .medium)
+        ])
+        
+        return .init(itemSize.width+20, 30)
+    }
+}
+
+extension SubProblemCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.solvings[self.currentProblemIndex] = textField.text
+        return true
+    }
 }
