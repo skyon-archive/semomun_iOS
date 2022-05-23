@@ -61,7 +61,7 @@ final class StudyVC: UIViewController {
         return UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC ?? SingleWithNoAnswerVC()
     }()
     private lazy var multipleWith5AnswerWide: MultipleWith5AnswerWideVC = {
-        return UIStoryboard(name: MultipleWith5AnswerWideVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWith5AnswerWideVC.identifier) as? MultipleWith5AnswerWideVC ?? MultipleWith5AnswerWideVC()
+        return MultipleWith5AnswerWideVC()
     }()
     
     override func viewDidLoad() {
@@ -285,7 +285,7 @@ extension StudyVC: LayoutDelegate {
             self.singleWithNoAnswer.image = self.getImage(data: pageData.problems[0].contentImage)
         
         case MultipleWith5AnswerWideVC.identifier:
-            self.multipleWith5AnswerWide = UIStoryboard(name: MultipleWith5AnswerWideVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWith5AnswerWideVC.identifier) as? MultipleWith5AnswerWideVC ?? MultipleWith5AnswerWideVC()
+            self.multipleWith5AnswerWide = .init()
             self.currentVC = self.multipleWith5AnswerWide
             self.multipleWith5AnswerWide.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData)
             self.multipleWith5AnswerWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
