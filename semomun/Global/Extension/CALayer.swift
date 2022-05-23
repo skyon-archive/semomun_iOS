@@ -7,7 +7,8 @@
 
 import UIKit
 
-extension CALayer {    
+extension CALayer {
+    // 참고: https://stackoverflow.com/a/50720221
     func clipLayer(rect: CGRect) {
         let layer = CALayer()
         layer.backgroundColor = UIColor.white.cgColor

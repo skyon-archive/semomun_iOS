@@ -15,6 +15,7 @@ class MultipleWith5Cell: FormCell {
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet weak var topView: UIView!
     
     lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
@@ -28,6 +29,12 @@ class MultipleWith5Cell: FormCell {
         return answerView
     }()
     private lazy var timerView = ProblemTimerView()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .bottom)
+    }
 
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
