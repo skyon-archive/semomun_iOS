@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="6" width="528" height="45"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="snu-XR-4zu">
-                                <rect key="frame" x="10" y="10" width="122" height="30"/>
+                                <rect key="frame" x="5" y="10" width="122" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daa-NS-YLI">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -71,7 +71,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pNc-pv-b9l">
-                                <rect key="frame" x="338" y="10" width="190" height="30"/>
+                                <rect key="frame" x="310" y="10" width="190" height="30"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-1Y-IIp">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -209,8 +209,8 @@
                         <color key="backgroundColor" name="gray_light"/>
                         <constraints>
                             <constraint firstItem="snu-XR-4zu" firstAttribute="top" secondItem="eRT-0H-Iup" secondAttribute="top" constant="10" id="L3y-JV-qmm"/>
-                            <constraint firstItem="snu-XR-4zu" firstAttribute="leading" secondItem="eRT-0H-Iup" secondAttribute="leading" constant="10" id="PcF-Py-F4e"/>
-                            <constraint firstAttribute="trailing" secondItem="pNc-pv-b9l" secondAttribute="trailing" id="X5h-JN-TVS"/>
+                            <constraint firstItem="snu-XR-4zu" firstAttribute="leading" secondItem="eRT-0H-Iup" secondAttribute="leading" constant="5" id="PcF-Py-F4e"/>
+                            <constraint firstAttribute="trailing" secondItem="pNc-pv-b9l" secondAttribute="trailing" constant="28" id="X5h-JN-TVS"/>
                             <constraint firstItem="pNc-pv-b9l" firstAttribute="top" secondItem="eRT-0H-Iup" secondAttribute="top" constant="10" id="bPI-1l-fos"/>
                             <constraint firstAttribute="height" constant="45" id="m7j-4f-SYm"/>
                         </constraints>
@@ -227,6 +227,7 @@
                 <outlet property="answerBT" destination="62j-Qp-n0O" id="LrJ-6d-qxf"/>
                 <outlet property="bookmarkBT" destination="daa-NS-YLI" id="6lV-fy-c8i"/>
                 <outlet property="explanationBT" destination="Hlc-nV-Vs2" id="EUf-0D-iES"/>
+                <outlet property="topView" destination="eRT-0H-Iup" id="Z86-O9-YRA"/>
                 <outletCollection property="checkNumbers" destination="i0L-1Y-IIp" collectionClass="NSMutableArray" id="zYG-x0-b8x"/>
                 <outletCollection property="checkNumbers" destination="SwT-ya-GGn" collectionClass="NSMutableArray" id="SbS-h3-XIA"/>
                 <outletCollection property="checkNumbers" destination="TAX-ei-khY" collectionClass="NSMutableArray" id="1s3-hh-kcO"/>
