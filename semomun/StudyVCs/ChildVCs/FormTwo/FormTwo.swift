@@ -12,7 +12,7 @@ protocol FormTwoDelegate: AnyObject {
     var pagePencilData: Data? { get }
     func updatePagePencilData(_ data: Data)
     
-    var xibAwakable: XibAwakable.Type { get }
+    var xibAwakable: CellLayoutable.Type { get }
     
     var cellCount: Int { get }
     func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -312,9 +312,7 @@ extension FormTwo: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = self.collectionView.bounds.width
         let image = subImages?[indexPath.row] ?? UIImage(.warning)
-        let imgHeight = image.size.height * (width/image.size.width)
-        let topViewHeight = self.delegate.xibAwakable.topViewHeight
-        let height = topViewHeight + imgHeight
+        let height = image.size.height * (width/image.size.width)
         
         return CGSize(width: width, height: height)
     }

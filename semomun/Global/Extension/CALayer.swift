@@ -61,8 +61,10 @@ extension CALayer {
     }
     
     func addBorder(_ arr_edge: [UIRectEdge], color: UIColor, width: CGFloat) {
+        self.sublayers?.removeAll(where: { $0.name == "border" })
         for edge in arr_edge {
             let border = CALayer()
+            border.name = "border"
             switch edge {
             case UIRectEdge.top:
                 border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: width)

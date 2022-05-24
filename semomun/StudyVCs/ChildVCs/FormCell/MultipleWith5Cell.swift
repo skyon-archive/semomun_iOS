@@ -8,14 +8,16 @@
 import UIKit
 import PencilKit
 
-protocol XibAwakable {
+protocol CellLayoutable {
     static var identifier: String { get }
-    static var topViewHeight: CGFloat { get }
+    static func topViewHeight(with problem: Problem_Core) -> CGFloat
 }
 
-class MultipleWith5Cell: FormCell, XibAwakable {
+class MultipleWith5Cell: FormCell, CellLayoutable {
     static let identifier = "MultipleWith5Cell"
-    static let topViewHeight: CGFloat = 51
+    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
+        return 51
+    }
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
@@ -24,7 +26,7 @@ class MultipleWith5Cell: FormCell, XibAwakable {
     @IBOutlet weak var topView: UIView!
     
     override var internalTopViewHeight: CGFloat {
-        return Self.topViewHeight
+        return 51
     }
     
     lazy var checkImageView: UIImageView = {
