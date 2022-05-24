@@ -158,6 +158,9 @@
 		8768B3AC2800596100E99BBD /* BookshelfFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */; };
 		877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
+		877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */; };
+		877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877D90A7283D04BB00CE0D81 /* MultipleWithConceptCell.swift */; };
+		877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 877D90A6283D047000CE0D81 /* MultipleWithConceptCell.xib */; };
 		8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781442B27C6044E00C31104 /* ProblemSelectCell.swift */; };
 		8781442E27C6175400C31104 /* SelectProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781442D27C6175400C31104 /* SelectProblemsVM.swift */; };
 		8782DDF127FD3F8000BB5FF7 /* SubmissionProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */; };
@@ -409,6 +412,9 @@
 		8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfFooterView.swift; sourceTree = "<group>"; };
 		877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptWideVM.swift; sourceTree = "<group>"; };
+		877D90A6283D047000CE0D81 /* MultipleWithConceptCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleWithConceptCell.xib; sourceTree = "<group>"; };
+		877D90A7283D04BB00CE0D81 /* MultipleWithConceptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptCell.swift; sourceTree = "<group>"; };
 		8781442B27C6044E00C31104 /* ProblemSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemSelectCell.swift; sourceTree = "<group>"; };
 		8781442D27C6175400C31104 /* SelectProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVM.swift; sourceTree = "<group>"; };
 		8782DDF027FD3F8000BB5FF7 /* SubmissionProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionProblem.swift; sourceTree = "<group>"; };
@@ -588,6 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
+				877D90A6283D047000CE0D81 /* MultipleWithConceptCell.xib */,
 				2560BBA2283B869700A32EC4 /* SubProblemCell.xib */,
 			);
 			path = FormXibs;
@@ -654,6 +661,7 @@
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
 				2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemVC.swift */,
+				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1129,7 +1137,6 @@
 				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
 				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
 				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
-				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
 				878766CA27AED255003B975E /* View */,
 				87C85EAB276F6C62001C9C4A /* ViewModels */,
 				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
@@ -1309,6 +1316,7 @@
 				25738C6D27929C97002A6676 /* ConceptVM.swift */,
 				25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */,
 				2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */,
+				877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1338,6 +1346,7 @@
 			children = (
 				2560BB98283B542500A32EC4 /* FormCell.swift */,
 				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
+				877D90A7283D04BB00CE0D81 /* MultipleWithConceptCell.swift */,
 				87C85EBA276F6D00001C9C4A /* MultipleWithNoCell.swift */,
 				2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */,
 				253FC519283CED340014EA4F /* SavedAnswerCell.swift */,
@@ -1519,6 +1528,7 @@
 				25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */,
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
+				877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */,
 				8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */,
 				8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */,
 				8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */,
@@ -1567,6 +1577,7 @@
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
+				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,
@@ -1710,6 +1721,7 @@
 				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
 				8716E956279A623500B33A5E /* StudyVC.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerVM.swift in Sources */,
+				877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */,
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
