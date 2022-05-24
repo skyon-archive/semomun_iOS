@@ -85,6 +85,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.btName, forKey: Attribute.pName.rawValue)
         self.setValue(prob.type, forKey: Attribute.type.rawValue)
         self.setValue(prob.answer, forKey: Attribute.answer.rawValue)
+        // MARK: prob.point 계산 로직 수정 필요
         self.setValue(prob.point ?? 0, forKey: Attribute.point.rawValue)
         self.setValue(0, forKey: Attribute.time.rawValue)
         self.setValue(nil, forKey: Attribute.solved.rawValue)
