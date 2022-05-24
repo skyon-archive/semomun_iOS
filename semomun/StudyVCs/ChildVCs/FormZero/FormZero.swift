@@ -8,28 +8,11 @@
 import UIKit
 import PencilKit
 
-protocol FormZeroDelegate: AnyObject {
-    /// 상단 바 높이
-    var topHeight: CGFloat { get }
-    /// 채점 결과. nil이면 미채점
-    var problemResult: Bool? { get }
-    
-    var topViewTrailingConstraint: NSLayoutConstraint! { get }
-    
-    var drawing: Data? { get }
-    
-    func previousPage()
-    func nextPage()
-    
-    func savePencilData(_ data: Data)
-}
-
 /// 상단에 바가 있는 form = 0
 class FormZero: UIViewController, PKToolPickerObserver {
     private var canvasView = PKCanvasView()
     private let imageView = UIImageView()
     
-    weak var delegate: FormZeroDelegate!
     var showExplanation = false
     
     var image: UIImage?
@@ -86,6 +69,21 @@ class FormZero: UIViewController, PKToolPickerObserver {
         CoreDataManager.saveCoreData()
     }
     
+    /// 상단 바 높이
+    var topHeight: CGFloat { return 0 }
+    
+    /// 채점 결과. nil이면 미채점
+    var problemResult: Bool? { return nil }
+    
+    var _topViewTrailingConstraint: NSLayoutConstraint? { return nil }
+    
+    var drawing: Data? { return nil }
+    
+    func previousPage() { }
+    func nextPage() { }
+    
+    func savePencilData(_ data: Data) { }
+    
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
     func setViewToDefault() {
         self.canvasView.setContentOffset(.zero, animated: false)
@@ -108,7 +106,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     
     /// View의 frame이 정해진 후 UI를 구성
     func configureUI() {
-        self.canvasView.frame = .init(origin: .init(0, self.delegate.topHeight), size: self.contentSize)
+        self.canvasView.frame = .init(origin: .init(0, self.topHeight), size: self.contentSize)
         self.adjustLayout()
     }
 }
@@ -130,7 +128,7 @@ extension FormZero {
     }
     
     private func showResultImage() {
-        guard let result = self.delegate.problemResult else { return }
+        guard let result = self.problemResult else { return }
         
         let imageName = result ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
@@ -148,7 +146,7 @@ extension FormZero {
     }
     
     private func configureCanvasViewData() {
-        if let pkData = self.delegate.drawing {
+        if let pkData = self.drawing {
             do {
                 try self.canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
@@ -193,7 +191,7 @@ extension FormZero {
 extension FormZero {
     /// topView를 제외한 나머지 view의 사이즈
     private var contentSize: CGSize {
-        return CGSize(self.view.frame.width, self.view.frame.height - self.delegate.topHeight)
+        return CGSize(self.view.frame.width, self.view.frame.height - self.topHeight)
     }
     
     func showExplanation(to image: UIImage?) {
@@ -228,7 +226,7 @@ extension FormZero {
                     self.layoutExplanation()
                 } else {
                     self.canvasView.frame.size = self.contentSize
-                    self.delegate.topViewTrailingConstraint.constant = 0
+                    self._topViewTrailingConstraint?.constant = 0
                 }
                 self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
             }
@@ -239,17 +237,17 @@ extension FormZero {
     private func layoutExplanation() {
         let width = self.contentSize.width
         let height = self.contentSize.height
-        let topViewHeight = self.delegate.topHeight
+        let topViewHeight = self.topHeight
         
         if UIWindow.isLandscape {
             self.canvasView.frame.size.width = width/2
             self.canvasView.frame.size.height = height
-            self.delegate.topViewTrailingConstraint.constant = width/2
+            self._topViewTrailingConstraint?.constant = width/2
             self.explanationView.frame = .init(width/2, 0, width/2, height+topViewHeight)
         } else {
             self.canvasView.frame.size.width = width
             self.canvasView.frame.size.height = height/2
-            self.delegate.topViewTrailingConstraint.constant = 0
+            self._topViewTrailingConstraint?.constant = 0
             self.explanationView.frame = .init(0, height/2+topViewHeight, width, height/2)
         }
         
@@ -303,11 +301,11 @@ extension FormZero {
     }
     
     @objc func rightDragged() {
-        self.delegate.previousPage()
+        self.previousPage()
     }
     
     @objc func leftDragged() {
-        self.delegate.nextPage()
+        self.nextPage()
     }
 }
 
@@ -315,7 +313,7 @@ extension FormZero {
 extension FormZero: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.delegate.savePencilData(data)
+        self.savePencilData(data)
     }
 }
 
@@ -325,7 +323,7 @@ extension FormZero: ExplanationRemover {
         
         self.explanationView.alpha = 0
         self.explanationView.removeFromSuperview()
-        self.delegate.topViewTrailingConstraint.constant = 0
+        self._topViewTrailingConstraint?.constant = 0
         
         self.adjustLayout {
             self.canvasView.frame.size = self.contentSize
