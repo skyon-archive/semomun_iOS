@@ -164,7 +164,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="lightGrayBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rTg-px-Edw" secondAttribute="trailing" constant="10" id="8qf-vV-pdM"/>
                             <constraint firstItem="BWm-ww-fl7" firstAttribute="leading" secondItem="3UM-16-iAa" secondAttribute="leading" constant="5" id="GcV-dg-iKh"/>
@@ -207,9 +207,6 @@
         <image name="bookmarkFill" width="48" height="48"/>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="lightGrayBackgroundColor">
-            <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

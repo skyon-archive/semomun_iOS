@@ -85,7 +85,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     func savePencilData(_ data: Data) { }
     
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
-    func setViewToDefault() {
+    private func setViewToDefault() {
         self.canvasView.setContentOffset(.zero, animated: false)
         self.canvasView.zoomScale = 1.0
         self.canvasView.contentInset = .zero
@@ -105,7 +105,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     }
     
     /// View의 frame이 정해진 후 UI를 구성
-    func configureUI() {
+    private func configureUI() {
         self.canvasView.frame = .init(origin: .init(0, self.topHeight), size: self.contentSize)
         self.adjustLayout()
     }
