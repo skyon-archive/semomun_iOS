@@ -53,6 +53,10 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         self.configureSwipeGesture()
         self.addCoreDataAlertObserver()
         self.configureScrollView()
+        
+        let cellIdentifier = MultipleWith5Cell.identifier
+        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
