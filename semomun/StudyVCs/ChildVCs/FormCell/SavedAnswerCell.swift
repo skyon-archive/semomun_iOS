@@ -44,4 +44,9 @@ class SavedAnswerCell: UICollectionViewCell {
         self.layer.borderColor = UIColor(.munRedColor)?.cgColor
         self.label.textColor = UIColor(.munRedColor) ?? .red
     }
+    
+    func makeCorrect() {
+        self.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.label.textColor = UIColor(.deepMint) ?? .black
+    }
 }

@@ -146,7 +146,6 @@ final class SingleWith5AnswerVC: FormZero {
 
 // MARK: - Configures
     private func setViewToDefault() {
-        self.resultImageView.removeFromSuperview()
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
