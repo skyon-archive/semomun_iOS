@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubProblemCell" id="msj-US-wkZ" userLabel="SubProblemCell" customClass="SubProblemCell" customModule="semomun" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="528" height="447"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rSI-Hy-68U">
+                <rect key="frame" x="0.0" y="0.0" width="528" height="447"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3UM-16-iAa" userLabel="topView">
+                        <rect key="frame" x="0.0" y="5" width="528" height="140"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="BWm-ww-fl7">
+                                <rect key="frame" x="5" y="8" width="122" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KG0-Mt-tOY">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Iwl-a4-G76"/>
+                                            <constraint firstAttribute="height" constant="30" id="kyt-o2-waD"/>
+                                        </constraints>
+                                        <color key="tintColor" name="deepMint"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="bookmark"/>
+                                        <state key="selected" image="bookmarkFill">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toggleBookmark:" destination="msj-US-wkZ" eventType="touchUpInside" id="cfJ-2I-hFl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkw-AY-jR0">
+                                        <rect key="frame" x="33" y="0.0" width="43" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="43" id="fjB-Py-R0P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="해설">
+                                            <color key="titleColor" name="deepMint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showExplanation:" destination="msj-US-wkZ" eventType="touchUpInside" id="NY3-2K-DrV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Il5-sl-Opc">
+                                        <rect key="frame" x="79" y="0.0" width="43" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="43" id="Ybg-0N-ACt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="정답">
+                                            <color key="titleColor" name="deepMint"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAnswer:" destination="msj-US-wkZ" eventType="touchUpInside" id="ezi-FI-i8W"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rTg-px-Edw">
+                                <rect key="frame" x="137" y="8" width="381" height="30"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bbg-cr-sDa">
+                                        <rect key="frame" x="216" y="0.0" width="165" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="x4R-M2-VFI"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S3z-59-SVa">
+                                <rect key="frame" x="10" y="48" width="518" height="80"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9T-yp-hBy">
+                                        <rect key="frame" x="0.0" y="0.0" width="518" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 답안" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oiL-5O-3A7">
+                                                <rect key="frame" x="0.0" y="13" width="34.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                <color key="textColor" name="deepMint"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="v9j-Ji-82X">
+                                                <rect key="frame" x="39.5" y="5" width="228.5" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="ada-1p-LRF"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RUL-BE-Alb">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                            </collectionView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="답안 작성" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fEa-j4-gS6">
+                                                <rect key="frame" x="268" y="4" width="250" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="250" id="FIA-Q7-DwF"/>
+                                                    <constraint firstAttribute="height" constant="32" id="WTz-Kx-fju"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="v9j-Ji-82X" firstAttribute="leading" secondItem="oiL-5O-3A7" secondAttribute="trailing" constant="5" id="6xg-sb-wb4"/>
+                                            <constraint firstItem="fEa-j4-gS6" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="Hkt-qe-s9U"/>
+                                            <constraint firstAttribute="trailing" secondItem="fEa-j4-gS6" secondAttribute="trailing" id="Obg-8K-pXv"/>
+                                            <constraint firstItem="oiL-5O-3A7" firstAttribute="leading" secondItem="d9T-yp-hBy" secondAttribute="leading" id="QWI-rY-lak"/>
+                                            <constraint firstItem="v9j-Ji-82X" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="TaE-Xz-m7x"/>
+                                            <constraint firstItem="fEa-j4-gS6" firstAttribute="leading" secondItem="v9j-Ji-82X" secondAttribute="trailing" id="dAF-fF-oLC"/>
+                                            <constraint firstAttribute="height" constant="40" id="gEu-7O-BhK"/>
+                                            <constraint firstItem="oiL-5O-3A7" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="tgw-vb-KSd"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc0-bk-I3N">
+                                        <rect key="frame" x="0.0" y="40" width="518" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정답" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3i1-Mb-87E">
+                                                <rect key="frame" x="0.0" y="13" width="21" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                <color key="textColor" name="deepMint"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4SU-gj-nph">
+                                                <rect key="frame" x="39.5" y="5" width="228.5" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2el-RM-WxD">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                            </collectionView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="4SU-gj-nph" firstAttribute="centerY" secondItem="Dc0-bk-I3N" secondAttribute="centerY" id="Gdp-Bt-XCm"/>
+                                            <constraint firstItem="3i1-Mb-87E" firstAttribute="leading" secondItem="Dc0-bk-I3N" secondAttribute="leading" id="HBv-NX-VYC"/>
+                                            <constraint firstItem="3i1-Mb-87E" firstAttribute="centerY" secondItem="Dc0-bk-I3N" secondAttribute="centerY" id="VVS-lL-Vd0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4SU-gj-nph" firstAttribute="width" secondItem="v9j-Ji-82X" secondAttribute="width" id="2j0-Ox-xt1"/>
+                                    <constraint firstItem="4SU-gj-nph" firstAttribute="leading" secondItem="v9j-Ji-82X" secondAttribute="leading" id="KdI-Uy-Vqd"/>
+                                    <constraint firstItem="Dc0-bk-I3N" firstAttribute="height" secondItem="d9T-yp-hBy" secondAttribute="height" id="a1q-RS-arb"/>
+                                    <constraint firstItem="4SU-gj-nph" firstAttribute="height" secondItem="v9j-Ji-82X" secondAttribute="height" id="bKg-dR-w62"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="lightGrayBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="rTg-px-Edw" secondAttribute="trailing" constant="10" id="8qf-vV-pdM"/>
+                            <constraint firstItem="BWm-ww-fl7" firstAttribute="leading" secondItem="3UM-16-iAa" secondAttribute="leading" constant="5" id="GcV-dg-iKh"/>
+                            <constraint firstItem="BWm-ww-fl7" firstAttribute="top" secondItem="3UM-16-iAa" secondAttribute="top" constant="8" id="V1J-cd-NG2"/>
+                            <constraint firstItem="BWm-ww-fl7" firstAttribute="bottom" secondItem="S3z-59-SVa" secondAttribute="top" constant="-10" id="VbZ-0v-uGq"/>
+                            <constraint firstAttribute="trailing" secondItem="S3z-59-SVa" secondAttribute="trailing" id="aE6-7y-oUb"/>
+                            <constraint firstItem="rTg-px-Edw" firstAttribute="leading" secondItem="BWm-ww-fl7" secondAttribute="trailing" constant="10" id="abZ-jy-1QB"/>
+                            <constraint firstItem="S3z-59-SVa" firstAttribute="leading" secondItem="3UM-16-iAa" secondAttribute="leading" constant="10" id="aoO-kz-xDc"/>
+                            <constraint firstAttribute="bottom" secondItem="S3z-59-SVa" secondAttribute="bottom" constant="12" id="trT-WL-Pou"/>
+                            <constraint firstItem="rTg-px-Edw" firstAttribute="centerY" secondItem="BWm-ww-fl7" secondAttribute="centerY" id="xbn-C6-S5E"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="3UM-16-iAa" secondAttribute="trailing" id="BvL-jT-7Qk"/>
+                    <constraint firstItem="3UM-16-iAa" firstAttribute="top" secondItem="rSI-Hy-68U" secondAttribute="top" constant="5" id="DfI-SB-hPI"/>
+                    <constraint firstItem="3UM-16-iAa" firstAttribute="leading" secondItem="rSI-Hy-68U" secondAttribute="leading" id="Qqk-0D-BDm"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="528" height="400"/>
+            <connections>
+                <outlet property="answerBT" destination="Il5-sl-Opc" id="hvC-RB-THo"/>
+                <outlet property="answerTF" destination="fEa-j4-gS6" id="0W0-bI-5dK"/>
+                <outlet property="bookmarkBT" destination="KG0-Mt-tOY" id="qzy-co-WRh"/>
+                <outlet property="explanationBT" destination="lkw-AY-jR0" id="D13-Ls-6KM"/>
+                <outlet property="realAnswerView" destination="4SU-gj-nph" id="lpo-5J-HqM"/>
+                <outlet property="resultView" destination="Dc0-bk-I3N" id="aWD-oY-444"/>
+                <outlet property="savedAnswerLabel" destination="oiL-5O-3A7" id="npi-RE-DnY"/>
+                <outlet property="savedAnswerView" destination="v9j-Ji-82X" id="Jm4-VZ-lld"/>
+                <outlet property="savedAnswerViewWidth" destination="FIA-Q7-DwF" id="sZT-tL-kAf"/>
+                <outlet property="stackView" destination="Bbg-cr-sDa" id="FMX-CN-o3N"/>
+                <outlet property="topView" destination="3UM-16-iAa" id="O85-iD-OHP"/>
+            </connections>
+            <point key="canvasLocation" x="1047.8260869565217" y="381.36160714285711"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bookmark" width="48" height="48"/>
+        <image name="bookmarkFill" width="48" height="48"/>
+        <namedColor name="deepMint">
+            <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="lightGrayBackgroundColor">
+            <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

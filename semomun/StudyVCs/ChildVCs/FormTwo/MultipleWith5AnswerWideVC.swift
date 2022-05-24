@@ -27,6 +27,18 @@ final class MultipleWith5AnswerWideVC: FormTwo {
         super.viewWillDisappear(animated)
         self.viewModel?.endTimeRecord()
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let baseSize = super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
+        
+        guard let problem = self.viewModel?.problems[indexPath.item] else {
+            return baseSize
+        }
+        
+        let topViewHeight = self.xibAwakable.topViewHeight(with: problem)
+        
+        return .init(baseSize.width, topViewHeight+baseSize.height)
+    }
 }
 
 extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
@@ -67,7 +79,7 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
 }
 
 extension MultipleWith5AnswerWideVC: FormTwoDelegate {
-    var xibAwakable: XibAwakable.Type {
+    var xibAwakable: CellLayoutable.Type {
         return MultipleWith5Cell.self
     }
     
