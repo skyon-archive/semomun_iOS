@@ -8,19 +8,6 @@
 import UIKit
 import PencilKit
 
-protocol FormTwoDelegate: AnyObject {
-    var pagePencilData: Data? { get }
-    func updatePagePencilData(_ data: Data)
-    
-    var xibAwakable: CellLayoutable.Type { get }
-    
-    var cellCount: Int { get }
-    func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    
-    func previousPage()
-    func nextPage()
-}
-
 class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
     
@@ -33,8 +20,6 @@ class FormTwo: UIViewController {
     
     var mainImage: UIImage?
     var subImages: [UIImage?]?
-    
-    weak var delegate: FormTwoDelegate!
     
     lazy var toolPicker: PKToolPicker = {
         let toolPicker = PKToolPicker()
@@ -86,6 +71,22 @@ class FormTwo: UIViewController {
         self.setViewToDefault()
         CoreDataManager.saveCoreData()
     }
+    
+    var pagePencilData: Data? { return nil }
+    
+    func updatePagePencilData(_ data: Data) { }
+    
+    var cellLayoutable: CellLayoutable.Type? { return nil }
+    
+    var cellCount: Int { return 0 }
+    
+    func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    func previousPage() { }
+    
+    func nextPage() { }
 }
 
 // MARK: - Private 메소드
@@ -106,8 +107,10 @@ extension FormTwo {
     }
     
     private func configureBasicUI() {
-        let cellNib = UINib(nibName: self.delegate.xibAwakable.identifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: self.delegate.xibAwakable.identifier)
+        guard let cellIdentifier = self.cellLayoutable?.identifier else { return }
+        
+        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
         
         self.collectionView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
         
@@ -168,7 +171,7 @@ extension FormTwo {
     }
     
     private func configureCanvasViewData() {
-        if let pkData = self.delegate.pagePencilData {
+        if let pkData = self.pagePencilData {
             do {
                 try canvasView.drawing = PKDrawing.init(data: pkData)
             } catch {
@@ -289,22 +292,22 @@ extension FormTwo {
     }
 
     @objc func rightDragged() {
-        self.delegate.previousPage()
+        self.previousPage()
     }
     
     @objc func leftDragged() {
-        self.delegate.nextPage()
+        self.nextPage()
     }
 }
 
 // MARK: - Configure Cell
 extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.delegate.cellCount
+        return self.cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return self.delegate.getCell(collectionView, cellForItemAt: indexPath)
+        return self.getCell(collectionView, cellForItemAt: indexPath)
     }
 }
 
@@ -321,7 +324,7 @@ extension FormTwo: UICollectionViewDelegateFlowLayout {
 extension FormTwo: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.delegate.updatePagePencilData(data)
+        self.updatePagePencilData(data)
     }
 }
 

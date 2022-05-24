@@ -35,11 +35,6 @@ final class SingleWith5AnswerVC: FormZero {
     }()
     private lazy var timerView = ProblemTimerView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.delegate = self
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 didAppear")
@@ -104,6 +99,38 @@ final class SingleWith5AnswerVC: FormZero {
                 self?.answerView.alpha = 0
             }
         }
+    }
+    
+    override var _topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailingConstraint
+    }
+    
+    override var topHeight: CGFloat {
+        self.topView.frame.height
+    }
+    
+    override var problemResult: Bool? {
+        if let problem = self.viewModel?.problem, problem.terminated && problem.answer != nil {
+            return problem.correct
+        } else {
+            return nil
+        }
+    }
+    
+    override var drawing: Data? {
+        self.viewModel?.problem?.drawing
+    }
+    
+    override func previousPage() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    override func nextPage() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    override func savePencilData(_ data: Data) {
+        self.viewModel?.updatePencilData(to: data)
     }
 
 // MARK: - Configures
@@ -202,35 +229,5 @@ final class SingleWith5AnswerVC: FormZero {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
-    }
-}
-
-extension SingleWith5AnswerVC: FormZeroDelegate {
-    var topHeight: CGFloat {
-        self.topView.frame.height
-    }
-    
-    var problemResult: Bool? {
-        if let problem = self.viewModel?.problem, problem.terminated && problem.answer != nil {
-            return problem.correct
-        } else {
-            return nil
-        }
-    }
-    
-    var drawing: Data? {
-        self.viewModel?.problem?.drawing
-    }
-    
-    func previousPage() {
-        self.viewModel?.delegate?.beforePage()
-    }
-    
-    func nextPage() {
-        self.viewModel?.delegate?.nextPage()
-    }
-    
-    func savePencilData(_ data: Data) {
-        self.viewModel?.updatePencilData(to: data)
     }
 }
