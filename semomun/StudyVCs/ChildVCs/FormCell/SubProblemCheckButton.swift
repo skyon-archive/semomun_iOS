@@ -21,7 +21,7 @@ class SubProblemCheckButton: UIButton {
     }
 
     private func commonInit(index: Int, delegate: SubProblemCheckObservable) {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         
         self.borderWidth = 1
         self.layer.borderColor = UIColor(.deepMint)?.cgColor
@@ -45,7 +45,13 @@ class SubProblemCheckButton: UIButton {
     }
 
     func deselect() {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
         self.setTitleColor(UIColor(.deepMint), for: .normal)
+    }
+    
+    func wrong() {
+        self.layer.borderColor = UIColor(.munRedColor)?.cgColor
+        self.setTitleColor(UIColor(.munRedColor) ?? .red, for: .normal)
+        self.backgroundColor = .clear
     }
 }
