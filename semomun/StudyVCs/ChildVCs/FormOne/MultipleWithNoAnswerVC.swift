@@ -210,7 +210,7 @@ extension MultipleWithNoAnswerVC: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoAnswerCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
         let problem = self.viewModel?.problems[indexPath.item]

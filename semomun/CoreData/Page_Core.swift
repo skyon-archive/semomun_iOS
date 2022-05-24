@@ -100,10 +100,11 @@ public class Page_Core: NSManagedObject {
         else if form == 2 {
             switch type {
             case -1: return MultipleWithConceptWideVC.identifier
+            case 0: return MultipleWithNoAnswerWideVC.identifier
             case 5: return MultipleWith5AnswerWideVC.identifier
             case 6: return MultipleWithSubProblemsWideVC.identifier
             default:
-//                assertionFailure()
+                assertionFailure()
                 return MultipleWith5AnswerWideVC.identifier
             }
         }
