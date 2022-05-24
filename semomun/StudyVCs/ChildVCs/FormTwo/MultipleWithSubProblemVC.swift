@@ -13,11 +13,6 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     
     var viewModel: MultipleWithSubProblemsVM?
     
-    override func viewDidLoad() {
-        self.delegate = self
-        super.viewDidLoad()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.viewModel?.startTimeRecord()
@@ -35,9 +30,45 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
             return baseSize
         }
         
-        let topViewHeight = self.xibAwakable.topViewHeight(with: problem)
+        let topViewHeight = self.cellLayoutable?.topViewHeight(with: problem) ?? 0
         
         return .init(baseSize.width, topViewHeight+baseSize.height)
+    }
+    
+    override var cellLayoutable: CellLayoutable.Type? {
+        return SubProblemCell.self
+    }
+    
+    override var pagePencilData: Data? {
+        return self.viewModel?.pagePencilData
+    }
+    
+    override func updatePagePencilData(_ data: Data) {
+        self.viewModel?.updatePagePencilData(to: data)
+    }
+    
+    override var cellCount: Int {
+        return self.viewModel?.problems.count ?? 0
+    }
+    
+    override func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubProblemCell.identifier, for: indexPath) as? SubProblemCell else { return UICollectionViewCell() }
+        
+        let contentImage = self.subImages?[indexPath.item]
+        let problem = self.viewModel?.problems[indexPath.item]
+        
+        cell.delegate = self
+        cell.configureReuse(contentImage, problem, toolPicker)
+        
+        return cell
+    }
+    
+    override func previousPage() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    override func nextPage() {
+        self.viewModel?.delegate?.nextPage()
     }
 }
 
@@ -75,44 +106,6 @@ extension MultipleWithSubProblemsWideVC: CollectionCellDelegate {
     
     func addUpload(pid: Int) {
         self.viewModel?.delegate?.addUploadProblem(pid: pid)
-    }
-}
-
-extension MultipleWithSubProblemsWideVC: FormTwoDelegate {
-    var xibAwakable: CellLayoutable.Type {
-        return SubProblemCell.self
-    }
-    
-    var pagePencilData: Data? {
-        return self.viewModel?.pagePencilData
-    }
-    
-    func updatePagePencilData(_ data: Data) {
-        self.viewModel?.updatePagePencilData(to: data)
-    }
-    
-    var cellCount: Int {
-        return self.viewModel?.problems.count ?? 0
-    }
-    
-    func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubProblemCell.identifier, for: indexPath) as? SubProblemCell else { return UICollectionViewCell() }
-        
-        let contentImage = self.subImages?[indexPath.item]
-        let problem = self.viewModel?.problems[indexPath.item]
-        
-        cell.delegate = self
-        cell.configureReuse(contentImage, problem, toolPicker)
-
-        return cell
-    }
-    
-    func previousPage() {
-        self.viewModel?.delegate?.beforePage()
-    }
-    
-    func nextPage() {
-        self.viewModel?.delegate?.nextPage()
     }
 }
 
