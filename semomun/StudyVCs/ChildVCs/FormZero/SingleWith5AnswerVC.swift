@@ -35,6 +35,11 @@ final class SingleWith5AnswerVC: FormZero {
     }()
     private lazy var timerView = ProblemTimerView()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureUI()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("5다선지 didAppear")
@@ -47,6 +52,12 @@ final class SingleWith5AnswerVC: FormZero {
         print("5다선지 willDisappear")
         self.setViewToDefault()
         self.viewModel?.endTimeRecord()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .bottom)
     }
     
     // 객관식 1~5 클릭 부분
@@ -134,23 +145,18 @@ final class SingleWith5AnswerVC: FormZero {
     }
 
 // MARK: - Configures
-    /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
-    override func setViewToDefault() {
-        super.setViewToDefault()
-        
+    private func setViewToDefault() {
         self.resultImageView.removeFromSuperview()
         self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
     }
     
-    override func configureUI() {
+    private func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
         self.configureAnswer()
         self.configureExplanation()
-        
-        super.configureUI()
     }
     
     private func configureCheckButtons() {

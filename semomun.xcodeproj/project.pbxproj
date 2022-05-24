@@ -631,6 +631,8 @@
 		25622C51283A8F810056E0DF /* FormOne */ = {
 			isa = PBXGroup;
 			children = (
+				8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */,
+				8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */,
 			);
 			path = FormOne;
 			sourceTree = "<group>";
@@ -1115,10 +1117,8 @@
 				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
 				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
 				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
-				8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */,
-				8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */,
-				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
 				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
+				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
 				878766CA27AED255003B975E /* View */,
 				87C85EAB276F6C62001C9C4A /* ViewModels */,
 				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
