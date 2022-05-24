@@ -54,12 +54,6 @@ class SubProblemCell: FormCell, CellLayoutable {
                 self.answerTF.text = solvings[currentProblemIndex]
             }
             
-            // 답안 저장
-            let solvingConverted = self.solvings
-                .map { $0 ?? "" }
-                .joined(separator: "$")
-            self.updateSolved(input: solvingConverted)
-            
             self.savedAnswerView.reloadData()
         }
     }
@@ -118,7 +112,8 @@ class SubProblemCell: FormCell, CellLayoutable {
         guard let answer = self.problem?.answer else { return }
         self.answerView.removeFromSuperview()
         
-        self.answerView.configureAnswer(to: answer.circledAnswer)
+        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
+        self.answerView.configureAnswer(to: answerConverted)
         self.contentView.addSubview(self.answerView)
         self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -168,8 +163,10 @@ class SubProblemCell: FormCell, CellLayoutable {
             self.resultView.isHidden = false
             self.savedAnswerViewWidth.constant = 0
         }
+        
         if self.problem?.terminated == true {
             self.configureAfterTermination()
+            self.showResultImage(to: self.problem?.correct ?? false)
         }
     }
     
@@ -181,7 +178,7 @@ class SubProblemCell: FormCell, CellLayoutable {
             $0.isUserInteractionEnabled = false
         }
         
-        let answerConverted = answer.components(separatedBy: "$")
+        let answerConverted = answer.split(separator: "$").map { String($0) }
         self.answer = answerConverted
         
         for (idx, zipped) in zip(self.solvings, answerConverted).enumerated() {
@@ -190,7 +187,7 @@ class SubProblemCell: FormCell, CellLayoutable {
             
             guard let solving = zipped.0 else {
                 button.wrong()
-                return
+                continue
             }
             
             if solving != zipped.1 {
@@ -203,6 +200,13 @@ class SubProblemCell: FormCell, CellLayoutable {
 }
 
 extension SubProblemCell: SubProblemCheckObservable {
+    private func deselect(except button: SubProblemCheckButton) {
+        self.stackView.arrangedSubviews
+            .filter { $0 != button }
+            .compactMap { $0 as? SubProblemCheckButton }
+            .forEach { $0.isSelected = false; $0.deselect() }
+    }
+    
     func checkButton(index: Int) {
         guard let targetButton = self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton else {
             assertionFailure()
@@ -223,14 +227,12 @@ extension SubProblemCell: SubProblemCheckObservable {
             self.savedAnswerViewWidth.constant = 0
         }
         
-        self.stackView.arrangedSubviews
-            .filter { $0 != targetButton}
-            .compactMap { $0 as? SubProblemCheckButton }
-            .forEach { $0.isSelected = false; $0.deselect() }
+        self.deselect(except: targetButton)
     }
 }
 
 extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    /// 내 답안 collectionview 인덱스 -> 실제 문제 인덱스
     private func getSolvingIndex(from itemIdx: Int) -> Int {
         var subProblemIdx = 0
         var cnt = 0
@@ -271,9 +273,22 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         return "\(buttonTitle): \(self.answer[itemIdx])"
     }
     
+    private func getSavedCellTitleAfterTermination(at itemIdx: Int) -> String {
+        guard let button = self.stackView.arrangedSubviews[itemIdx] as? SubProblemCheckButton else {
+            return ""
+        }
+        let buttonTitle = button.titleLabel?.text ?? ""
+        let solved = self.solvings[itemIdx] ?? "-"
+        return "\(buttonTitle): \(solved)"
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.savedAnswerView {
-            return self.solvings.compactMap({$0}).count
+            if self.problem?.terminated == true {
+                return self.answer.count
+            } else {
+                return self.solvings.compactMap({$0}).count
+            }
         } else {
             return self.answer.count
         }
@@ -283,14 +298,20 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedAnswerCell.identifier, for: indexPath) as? SavedAnswerCell else { return UICollectionViewCell() }
         
         if collectionView == self.savedAnswerView {
-            let text = self.getSavedCellTitle(at: indexPath.item)
-            cell.configureText(to: text)
             if self.problem?.terminated == true {
+                let text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
+                cell.configureText(to: text)
+                
                 if self.solvings[indexPath.item] != self.answer[indexPath.item] {
                     cell.makeWrong()
+                } else {
+                    cell.makeCorrect()
                 }
+            } else {
+                let text = self.getSavedCellTitle(at: indexPath.item)
+                cell.configureText(to: text)
             }
-        } else {
+        } else if collectionView == self.realAnswerView {
             let text = self.getAnswerCellTitle(at: indexPath.item)
             cell.configureText(to: text)
         }
@@ -299,14 +320,28 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard self.problem?.terminated == false else { return }
         guard collectionView == self.savedAnswerView else { return }
         self.currentProblemIndex = indexPath.item
+        
+        let subProblemIndex = self.getSolvingIndex(from: indexPath.item)
+        guard let targetButton = self.stackView.arrangedSubviews[safe: subProblemIndex] as? SubProblemCheckButton else { return }
+        targetButton.select()
+        self.deselect(except: targetButton)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 사용자 풀이 내용
+        let text: String
+        if collectionView == self.savedAnswerView {
+            if self.problem?.terminated == true {
+                text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
+            } else {
+                text = self.getSavedCellTitle(at: indexPath.item)
+            }
+        } else {
+            text = self.getAnswerCellTitle(at: indexPath.item)
+        }
         
-        let text = collectionView == self.savedAnswerView ? self.getSavedCellTitle(at: indexPath.item) : self.getAnswerCellTitle(at: indexPath.item)
         let itemSize = text.size(withAttributes: [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .medium)
         ])
@@ -319,6 +354,12 @@ extension SubProblemCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let currentProblemIndex = self.currentProblemIndex else { return true }
         self.solvings[currentProblemIndex] = (textField.text == "" ? nil : textField.text)
+        
+        // 답안 저장. 엔터를 눌렀을 경우에만 updateSolved해야함.
+        let solvingConverted = self.solvings
+            .map { $0 ?? "" }
+            .joined(separator: "$")
+        self.updateSolved(input: solvingConverted)
         
         return true
     }

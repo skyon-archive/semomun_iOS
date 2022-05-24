@@ -23,6 +23,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = false
+        self.imageView.addSubview(imageView)
+        
         return imageView
     }()
     private lazy var loader: UIActivityIndicatorView = {
@@ -102,6 +105,8 @@ class FormZero: UIViewController, PKToolPickerObserver {
         
         // 각종 subView들 제거
         self.explanationView.removeFromSuperview()
+        
+        self.resultImageView.isHidden = false
     }
     
     /// View의 frame이 정해진 후 UI를 구성
@@ -132,7 +137,7 @@ extension FormZero {
         
         let imageName = result ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
-        self.imageView.addSubview(self.resultImageView)
+        self.resultImageView.isHidden = false
     }
     
     private func configureCanvasView() {
@@ -269,7 +274,8 @@ extension FormZero {
         
         // 채점 이미지 크기 설정
         let imageViewWidth = self.imageView.frame.width
-        self.resultImageView.frame = .init(imageViewWidth*65/834, 0, imageViewWidth*150/834, imageViewWidth*150/834)
+        
+        self.resultImageView.frame = .init(imageViewWidth/10, imageViewWidth/10, imageViewWidth*150/834, imageViewWidth*150/834)
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수

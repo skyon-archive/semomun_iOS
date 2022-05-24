@@ -25,10 +25,13 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     weak var delegate: CollectionCellDelegate?
     
     var toolPicker: PKToolPicker?
-    lazy var resultImageView: UIImageView = {
+    
+    private lazy var resultImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
+        self.imageView.addSubview(imageView)
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -39,8 +42,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     override func prepareForReuse() {
-        self.resultImageView.removeFromSuperview()
         self.canvasView.delegate = nil
+        self.resultImageView.isHidden = true
         self.layoutCanvas()
     }
     
@@ -139,7 +142,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     func showResultImage(to: Bool) {
         let imageName: String = to ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
-        self.imageView.addSubview(self.resultImageView)
+        self.resultImageView.isHidden = false
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
@@ -166,8 +169,11 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
-        let imageViewWidth = self.imageView.frame.width
-        self.resultImageView.frame = .init(imageViewWidth*65/834, 0, imageViewWidth*150/834, imageViewWidth*150/834)
+        if self.resultImageView.isHidden == false {
+            let imageViewWidth = self.imageView.frame.width
+            
+            self.resultImageView.frame = .init(imageViewWidth/10, imageViewWidth/10, imageViewWidth*150/834, imageViewWidth*150/834)
+        }
     }
 }
 
