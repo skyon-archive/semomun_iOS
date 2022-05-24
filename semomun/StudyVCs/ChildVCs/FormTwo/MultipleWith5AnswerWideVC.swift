@@ -77,29 +77,6 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
         self.viewModel?.delegate?.reload()
     }
     
-    func showExplanation(image: UIImage?, pid: Int) {
-        if let explanationId = self.explanationId {
-            if explanationId == pid {
-                self.closeExplanation()
-            } else {
-                self.explanationId = pid
-                self.explanationView.configureImage(to: image) // 이미지 바꿔치기
-            }
-        } else {
-            // 새로 생성
-            self.explanationId = pid
-            self.view.addSubview(self.explanationView)
-            self.explanationView.frame = self.canvasView.frame
-            
-            self.explanationView.configureImage(to: image)
-            self.explanationView.addShadow()
-            
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.explanationView.alpha = 1
-            }
-        }
-    }
-    
     func addScoring(pid: Int) {
         self.viewModel?.delegate?.addScoring(pid: pid)
     }

@@ -295,7 +295,7 @@ extension StudyVC: LayoutDelegate {
             self.multipleWithSubProblemsWide.viewModel = MultipleWithSubProblemsVM(delegate: self, pageData: pageData)
             self.multipleWithSubProblemsWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithSubProblemsWide.subImages = self.getImages(problems: pageData.problems)
-            
+        
         default:
             break
         }
