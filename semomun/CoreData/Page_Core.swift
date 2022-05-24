@@ -103,7 +103,7 @@ public class Page_Core: NSManagedObject {
             case 5: return MultipleWith5AnswerWideVC.identifier
             case 6: return MultipleWithSubProblemsWideVC.identifier
             default:
-                assertionFailure()
+//                assertionFailure()
                 return MultipleWith5AnswerWideVC.identifier
             }
         }

@@ -10,13 +10,16 @@ import PencilKit
 
 class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
-    
-    private let canvasShadowView = UIView()
     private let imageView = UIImageView()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let canvasShadowView = UIView()
     
     /// Cell에서 받은 explanation 의 pid
-    var explanationId: Int?
+    var explanationId: Int? {
+        didSet {
+            print(self.explanationId ?? "none")
+        }
+    }
     
     var mainImage: UIImage?
     var subImages: [UIImage?]?
@@ -26,7 +29,7 @@ class FormTwo: UIViewController {
         return toolPicker
     }()
     
-    private lazy var loader: UIActivityIndicatorView = {
+    private var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
@@ -42,11 +45,12 @@ class FormTwo: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.configureDelegate()
+        self.configureCollectionView()
+        self.configureScrollView()
         self.configureLoader()
         self.configureGesture()
         self.addCoreDataAlertObserver()
-        self.configureScrollView()
+        
         self.configureBasicUI()
     }
     
@@ -55,7 +59,7 @@ class FormTwo: UIViewController {
         
         self.configureCanvasView()
         self.configureCanvasViewData()
-        self.configureMainImageView()
+        self.configureMainImageView() // MARK: width, height 를 제외한 이미지 반영만 있는 로직을 수정
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,16 +97,14 @@ class FormTwo: UIViewController {
 extension FormTwo {
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
     private func setViewToDefault() {
-        self.canvasView.setContentOffset(.zero, animated: true)
+        self.canvasView.setContentOffset(.zero, animated: false)
         self.canvasView.zoomScale = 1.0
-        
         self.explanationView.removeFromSuperview()
     }
     
     /// View의 frame이 정해진 후 UI를 구성
     private func configureUI() {
         self.layoutSplitView()
-        self.collectionView.collectionViewLayout.invalidateLayout()
         self.adjustLayout()
     }
     
@@ -112,10 +114,11 @@ extension FormTwo {
         let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
         
-        self.collectionView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
+        // MARK: 디자인 확인 후 수정이 필요할 수 있는 부분
+        self.collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         
-        self.view.addSubviews(self.canvasView, self.collectionView, self.canvasShadowView)
-        self.view.sendSubviewToBack(self.canvasShadowView)
+        self.view.addSubviews(self.canvasView, self.collectionView)
+//        self.view.sendSubviewToBack(self.canvasShadowView)
         
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
@@ -125,7 +128,7 @@ extension FormTwo {
         self.canvasShadowView.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
-    private func configureDelegate() {
+    private func configureCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
@@ -184,14 +187,13 @@ extension FormTwo {
     }
     
     private func configureMainImageView() {
-        guard let mainImage = self.mainImage else { return }
-        
-        if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            self.imageView.image = mainImage
-        } else {
+        guard let mainImage = self.mainImage,
+              mainImage.size.width > 0, mainImage.size.height > 0 else {
             let warningImage = UIImage(.warning)
             self.imageView.image = warningImage
+            return
         }
+        self.imageView.image = mainImage
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
@@ -214,8 +216,6 @@ extension FormTwo {
         
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
-        // 답지 크기 설정
-        self.explanationView.frame.size = self.canvasView.frame.size
         
         self.canvasShadowView.frame = self.canvasView.frame
         self.canvasShadowView.addAccessibleShadow()
@@ -237,18 +237,22 @@ extension FormTwo {
             // 회전 도중
             UIView.performWithoutAnimation {
                 self.layoutSplitView()
-                self.collectionView.collectionViewLayout.invalidateLayout()
                 self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+                
+                if self.explanationId != nil {
+                    // 답지 크기 설정
+                    self.explanationView.frame.size = self.canvasView.frame.size
+                }
             }
         }
     }
     
     private func layoutSplitView() {
         let viewSize = self.view.frame.size
-        let marginForTopShadow: CGFloat = 10
+        let marginForTopShadow: CGFloat = 10 // MARK: 디자인 확인 필요
         
         if UIWindow.isLandscape {
-            let marginBetweenView: CGFloat = 26
+            let marginBetweenView: CGFloat = 26 // MARK: 디자인 확인 필요
             let canvasViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height-marginForTopShadow)
             let collectionViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height)
             self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: canvasViewSize)
@@ -259,12 +263,14 @@ extension FormTwo {
             self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: size)
             self.collectionView.frame = .init(origin: .init(0, viewSize.height/2+marginBetweenView), size: size)
         }
+        
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
 extension FormTwo: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.imageView
+        return self.canvasView
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -274,12 +280,12 @@ extension FormTwo: UIScrollViewDelegate {
 
 // MARK: - 제스쳐
 extension FormTwo {
-    func configureGesture() {
+    private func configureGesture() {
         self.canvasView.addDoubleTabGesture()
         self.configureSwipeGesture()
     }
     
-    func configureSwipeGesture() {
+    private func configureSwipeGesture() {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
         rightSwipeGesture.direction = .right
         rightSwipeGesture.numberOfTouchesRequired = 1
@@ -329,6 +335,29 @@ extension FormTwo: PKCanvasViewDelegate {
 }
 
 extension FormTwo: ExplanationRemover {
+    func showExplanation(image: UIImage?, pid: Int) {
+        if let explanationId = self.explanationId {
+            if explanationId == pid {
+                self.closeExplanation()
+            } else {
+                self.explanationId = pid
+                self.explanationView.configureImage(to: image) // 이미지 바꿔치기
+            }
+        } else {
+            // 새로 생성
+            self.explanationId = pid
+            self.view.addSubview(self.explanationView)
+            self.explanationView.frame = self.canvasView.frame
+            
+            self.explanationView.configureImage(to: image)
+            self.explanationView.addShadow()
+            
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.explanationView.alpha = 1
+            }
+        }
+    }
+    
     func closeExplanation() {
         self.explanationId = nil
         UIView.animate(withDuration: 0.2) {
