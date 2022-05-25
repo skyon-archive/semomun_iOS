@@ -144,7 +144,7 @@ class SubProblemCell: FormCell, CellLayoutable {
             let button = SubProblemCheckButton(index: i, delegate: self)
             self.stackView.addArrangedSubview(button)
             // 초기 UI: 첫번째 버튼이 클릭된 상태
-            if i == 0 {
+            if problem?.solved == nil && i == 0 {
                 button.isSelected = true
                 button.select()
             }
@@ -156,6 +156,7 @@ class SubProblemCell: FormCell, CellLayoutable {
                 $0 == "" ? nil : $0
             }
             self.solvings += .init(repeating: nil, count: Int(subProblemCount) - self.solvings.count)
+            self.savedAnswerViewWidth.constant = 0
         } else {
             self.solvings = .init(repeating: nil, count: Int(subProblemCount))
         }
@@ -365,16 +366,22 @@ extension SubProblemCell: UITextFieldDelegate {
             .joined(separator: "$")
         self.updateSolved(input: solvingConverted)
         // 다음문제로 이동
-        guard let subCount = self.problem?.subProblemsCount else { return true }
+        guard let subCount = self.problem?.subProblemsCount,
+              let currentButton = self.subProblemButton(index: currentProblemIndex) else { return true }
+        currentButton.isSelected = false
+        currentButton.deselect()
+        
         if currentProblemIndex+1 < Int(subCount),
-           let currentButton = self.subProblemButton(index: currentProblemIndex),
            let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
-            currentButton.isSelected = false
-            currentButton.deselect()
             self.currentProblemIndex = currentProblemIndex+1
             nextButton.isSelected = true
             nextButton.select()
             self.updateStackview(except: nextButton)
+        }
+        else if currentProblemIndex+1 == Int(subCount) {
+            self.currentProblemIndex = nil
+            self.savedAnswerViewWidth.constant = 0
+            self.endEditing(true)
         }
         
         return true
