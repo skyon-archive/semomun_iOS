@@ -20,6 +20,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     
     var contentImage: UIImage?
     var problem: Problem_Core?
+    var showTopShadow: Bool = false
     
     // 상속 전용
     var internalTopViewHeight: CGFloat {

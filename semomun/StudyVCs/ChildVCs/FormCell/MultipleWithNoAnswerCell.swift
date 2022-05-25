@@ -31,8 +31,12 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .bottom)
+        self.layoutIfNeeded()
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -86,5 +90,16 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
+    }
+}
+
+extension MultipleWithNoAnswerCell {
+    func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
     }
 }

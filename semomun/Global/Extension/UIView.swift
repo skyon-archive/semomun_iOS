@@ -126,6 +126,13 @@ extension UIView {
         shadowLayer.clipLayer(rect: CGRect(x, y, w, h))
     }
     
+    func removeAccessibleShadow() {
+        guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else {
+            return
+        }
+        shadowLayer.removeFromSuperlayer()
+    }
+    
     func removeClipOfAccessibleShadow() {
         guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
         shadowLayer.mask = nil

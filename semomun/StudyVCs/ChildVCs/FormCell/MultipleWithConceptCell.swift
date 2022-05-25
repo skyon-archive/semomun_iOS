@@ -30,8 +30,12 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .bottom)
+        self.layoutIfNeeded()
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
     }
 
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -70,3 +74,15 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
 }
+
+extension MultipleWithConceptCell {
+    func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
+    }
+}
+

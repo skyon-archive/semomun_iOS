@@ -39,8 +39,12 @@ class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .bottom)
+        self.layoutIfNeeded()
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
     }
 
     // 객관식 1~5 클릭 부분
@@ -179,5 +183,16 @@ class MultipleWith5Cell: FormCell, CellLayoutable {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
+    }
+}
+
+extension MultipleWith5Cell {
+    func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
     }
 }
