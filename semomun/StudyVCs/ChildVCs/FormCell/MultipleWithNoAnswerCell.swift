@@ -22,12 +22,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         return 51
     }
     
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     private lazy var answerView: AnswerView = {
         let answerView = AnswerView()
         answerView.alpha = 0
