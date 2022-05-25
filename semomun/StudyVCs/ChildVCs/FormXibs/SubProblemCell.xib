@@ -115,11 +115,40 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZh-cu-Nos">
+                                                <rect key="frame" x="492" y="7.5" width="26" height="23"/>
+                                                <color key="backgroundColor" name="deepMint"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="26" id="3Au-TJ-qPk"/>
+                                                    <constraint firstAttribute="height" constant="23" id="A3f-SL-M10"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="return" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="13" weight="medium"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="deepMint"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="returnButtonAction:" destination="msj-US-wkZ" eventType="touchUpInside" id="V8g-Ao-JsA"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="v9j-Ji-82X" firstAttribute="leading" secondItem="oiL-5O-3A7" secondAttribute="trailing" constant="5" id="6xg-sb-wb4"/>
+                                            <constraint firstItem="IZh-cu-Nos" firstAttribute="trailing" secondItem="fEa-j4-gS6" secondAttribute="trailing" id="APc-m1-eXm"/>
                                             <constraint firstItem="fEa-j4-gS6" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="Hkt-qe-s9U"/>
+                                            <constraint firstItem="IZh-cu-Nos" firstAttribute="centerY" secondItem="fEa-j4-gS6" secondAttribute="centerY" constant="-1" id="MOv-pE-byi"/>
                                             <constraint firstAttribute="trailing" secondItem="fEa-j4-gS6" secondAttribute="trailing" id="Obg-8K-pXv"/>
                                             <constraint firstItem="oiL-5O-3A7" firstAttribute="leading" secondItem="d9T-yp-hBy" secondAttribute="leading" id="QWI-rY-lak"/>
                                             <constraint firstItem="v9j-Ji-82X" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="TaE-Xz-m7x"/>
@@ -193,6 +222,7 @@
                 <outlet property="explanationBT" destination="lkw-AY-jR0" id="D13-Ls-6KM"/>
                 <outlet property="realAnswerView" destination="4SU-gj-nph" id="lpo-5J-HqM"/>
                 <outlet property="resultView" destination="Dc0-bk-I3N" id="aWD-oY-444"/>
+                <outlet property="returnButton" destination="IZh-cu-Nos" id="98z-je-pTs"/>
                 <outlet property="savedAnswerLabel" destination="oiL-5O-3A7" id="npi-RE-DnY"/>
                 <outlet property="savedAnswerView" destination="v9j-Ji-82X" id="Jm4-VZ-lld"/>
                 <outlet property="savedAnswerViewWidth" destination="FIA-Q7-DwF" id="sZT-tL-kAf"/>
@@ -205,6 +235,7 @@
     <resources>
         <image name="bookmark" width="48" height="48"/>
         <image name="bookmarkFill" width="48" height="48"/>
+        <image name="return" catalog="system" width="128" height="101"/>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

@@ -35,6 +35,8 @@ class SubProblemCell: FormCell, CellLayoutable {
     
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var realAnswerView: UICollectionView!
+    @IBOutlet weak var returnButton: UIButton!
+    
     // textField 의 width 값
     private let savedAnswerWidth: CGFloat = 250
     
@@ -133,6 +135,10 @@ class SubProblemCell: FormCell, CellLayoutable {
         }
     }
     
+    @IBAction func returnButtonAction(_ sender: Any) {
+        self.returnAction()
+    }
+    
     override func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.configureReuse(contentImage, problem, toolPicker)
         
@@ -156,7 +162,7 @@ class SubProblemCell: FormCell, CellLayoutable {
                 $0 == "" ? nil : $0
             }
             self.solvings += .init(repeating: nil, count: Int(subProblemCount) - self.solvings.count)
-            self.savedAnswerViewWidth.constant = 0
+            self.hideTextField()
         } else {
             self.solvings = .init(repeating: nil, count: Int(subProblemCount))
         }
@@ -167,7 +173,7 @@ class SubProblemCell: FormCell, CellLayoutable {
         } else {
             self.currentProblemIndex = nil
             self.resultView.isHidden = false
-            self.savedAnswerViewWidth.constant = 0
+            self.hideTextField()
         }
         
         if self.problem?.terminated == true {
@@ -217,15 +223,25 @@ extension SubProblemCell: SubProblemCheckObservable {
             // 켜짐
             self.currentProblemIndex = index
             targetButton.select()
-            self.savedAnswerViewWidth.constant = self.savedAnswerWidth
+            self.showTextField()
         } else {
             // 꺼짐
             self.currentProblemIndex = nil
             targetButton.deselect()
-            self.savedAnswerViewWidth.constant = 0
+            self.hideTextField()
         }
         
         self.updateStackview(except: targetButton)
+    }
+    
+    private func showTextField() {
+        self.savedAnswerViewWidth.constant = self.savedAnswerWidth
+        self.returnButton.alpha = 1
+    }
+    
+    private func hideTextField() {
+        self.savedAnswerViewWidth.constant = 0
+        self.returnButton.alpha = 0
     }
     
     private func updateStackview(except button: SubProblemCheckButton) {
@@ -357,8 +373,13 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
 extension SubProblemCell: UITextFieldDelegate {
     // TODO: 빈 문자열 입력시 입력된 답안 제거?
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let currentProblemIndex = self.currentProblemIndex else { return true }
-        self.solvings[currentProblemIndex] = (textField.text == "" ? nil : textField.text)
+        self.returnAction()
+        return true
+    }
+    
+    private func returnAction() {
+        guard let currentProblemIndex = self.currentProblemIndex else { return }
+        self.solvings[currentProblemIndex] = (self.answerTF.text == "" ? nil : self.answerTF.text)
         
         // 답안 저장. 엔터를 눌렀을 경우에만 updateSolved해야함.
         let solvingConverted = self.solvings
@@ -368,7 +389,7 @@ extension SubProblemCell: UITextFieldDelegate {
         self.updateCorrectPoints()
         // 다음문제로 이동
         guard let subCount = self.problem?.subProblemsCount,
-              let currentButton = self.subProblemButton(index: currentProblemIndex) else { return true }
+              let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
         currentButton.isSelected = false
         currentButton.deselect()
         
@@ -381,11 +402,9 @@ extension SubProblemCell: UITextFieldDelegate {
         }
         else if currentProblemIndex+1 == Int(subCount) {
             self.currentProblemIndex = nil
-            self.savedAnswerViewWidth.constant = 0
+            self.hideTextField()
             self.endEditing(true)
         }
-        
-        return true
     }
 }
 
