@@ -140,8 +140,8 @@ final class SingleWith5AnswerVC: FormZero {
         self.viewModel?.delegate?.nextPage()
     }
     
-    override func savePencilData(_ data: Data) {
-        self.viewModel?.updatePencilData(to: data)
+    override func savePencilData(data: Data, width: CGFloat) {
+        self.viewModel?.updatePencilData(to: data, width: Int(width))
     }
 
 // MARK: - Configures
