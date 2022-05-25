@@ -31,13 +31,12 @@ class SubProblemCell: FormCell, CellLayoutable {
     
     @IBOutlet weak var savedAnswerView: UICollectionView!
     @IBOutlet weak var savedAnswerViewWidth: NSLayoutConstraint!
-    private var savedAnswerViewWidthWhenShown: CGFloat = 250
     @IBOutlet weak var savedAnswerLabel: UILabel!
     
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var realAnswerView: UICollectionView!
-    
-    private var subProblemButtons: [SubProblemCheckButton] = []
+    // textField 의 width 값
+    private let savedAnswerWidth: CGFloat = 250
     
     private var currentProblemIndex: Int? = nil {
         didSet {
@@ -143,7 +142,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for i in 0..<Int(subProblemCount) {
             let button = SubProblemCheckButton(index: i, delegate: self)
-            self.subProblemButtons.append(button)
             self.stackView.addArrangedSubview(button)
             // 초기 UI: 첫번째 버튼이 클릭된 상태
             if i == 0 {
@@ -207,31 +205,33 @@ class SubProblemCell: FormCell, CellLayoutable {
 }
 
 extension SubProblemCell: SubProblemCheckObservable {
-    private func deselect(except button: SubProblemCheckButton) {
-        self.stackView.arrangedSubviews
-            .filter { $0 != button }
-            .compactMap { $0 as? SubProblemCheckButton }
-            .forEach { $0.isSelected = false; $0.deselect() }
-    }
-    
     func checkButton(index: Int) {
-        let targetButton = self.subProblemButtons[index]
+        guard let targetButton = self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton else {
+            assertionFailure()
+            return
+        }
         targetButton.isSelected.toggle()
         
         if targetButton.isSelected {
             // 켜짐
             self.currentProblemIndex = index
             targetButton.select()
-            self.savedAnswerViewWidth.constant = self.savedAnswerViewWidthWhenShown
+            self.savedAnswerViewWidth.constant = self.savedAnswerWidth
         } else {
             // 꺼짐
             self.currentProblemIndex = nil
             targetButton.deselect()
-            self.savedAnswerViewWidthWhenShown = self.savedAnswerViewWidth.constant
             self.savedAnswerViewWidth.constant = 0
         }
         
-        self.deselect(except: targetButton)
+        self.updateStackview(except: targetButton)
+    }
+    
+    private func updateStackview(except button: SubProblemCheckButton) {
+        self.stackView.arrangedSubviews
+            .filter { $0 != button }
+            .compactMap { $0 as? SubProblemCheckButton }
+            .forEach { $0.isSelected = false; $0.deselect() }
     }
 }
 
@@ -331,7 +331,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         let subProblemIndex = self.getSolvingIndex(from: indexPath.item)
         guard let targetButton = self.stackView.arrangedSubviews[safe: subProblemIndex] as? SubProblemCheckButton else { return }
         targetButton.select()
-        self.deselect(except: targetButton)
+        self.updateStackview(except: targetButton)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -365,7 +365,24 @@ extension SubProblemCell: UITextFieldDelegate {
             .joined(separator: "$")
         self.updateSolved(input: solvingConverted)
         // 다음문제로 이동
+        guard let subCount = self.problem?.subProblemsCount else { return true }
+        if currentProblemIndex+1 < Int(subCount),
+           let currentButton = self.subProblemButton(index: currentProblemIndex),
+           let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
+            currentButton.isSelected = false
+            currentButton.deselect()
+            self.currentProblemIndex = currentProblemIndex+1
+            nextButton.isSelected = true
+            nextButton.select()
+            self.updateStackview(except: nextButton)
+        }
         
         return true
+    }
+}
+
+extension SubProblemCell {
+    private func subProblemButton(index: Int) -> SubProblemCheckButton? {
+        return self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton ?? nil
     }
 }
