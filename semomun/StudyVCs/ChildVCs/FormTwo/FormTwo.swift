@@ -59,7 +59,6 @@ class FormTwo: UIViewController {
         super.viewWillAppear(animated)
         
         self.configureCanvasView()
-        self.configureCanvasViewData()
         self.configureMainImageView() // MARK: width, height 를 제외한 이미지 반영만 있는 로직을 수정
     }
     
@@ -67,6 +66,7 @@ class FormTwo: UIViewController {
         super.viewDidAppear(animated)
         
         self.configureUI()
+        self.configureCanvasViewData() // 가로<->세로 모드 대응을 위해 현재 frame 사이즈가 필요하기에 configureUI 이후 실행
         self.stopLoader()
     }
     
@@ -81,7 +81,7 @@ class FormTwo: UIViewController {
     
     var pagePencilDataWidth: CGFloat { return self.canvasView.frame.size.width }
     
-    func updatePagePencilData(_ data: Data) { }
+    func updatePagePencilData(data: Data, width: CGFloat) { }
     
     var cellLayoutable: CellLayoutable.Type? { return nil }
     
@@ -157,7 +157,6 @@ extension FormTwo {
     private func configureScrollView() {
         self.canvasView.minimumZoomScale = 0.5
         self.canvasView.maximumZoomScale = 2.0
-        self.canvasView.delegate = self
     }
     
     private func configureCanvasView() {
@@ -173,13 +172,22 @@ extension FormTwo {
     private func configureCanvasViewData() {
         if let pkData = self.pagePencilData {
             do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
+                let drawing = try PKDrawing(data: pkData)
+                guard self.pagePencilDataWidth > 0 else {
+                    self.canvasView.drawing = drawing
+                    return
+                }
+                let scale = self.canvasView.frame.width / self.pagePencilDataWidth
+                let transform = CGAffineTransform(scaleX: scale, y: scale)
+                let drawingConverted = drawing.transformed(using: transform)
+                self.canvasView.drawing = drawingConverted
             } catch {
                 print("Error loading drawing object")
             }
         } else {
-            canvasView.drawing = PKDrawing()
+            self.canvasView.drawing = PKDrawing()
         }
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
         self.canvasView.delegate = self
     }
     
@@ -326,8 +334,9 @@ extension FormTwo: UICollectionViewDelegateFlowLayout {
 
 extension FormTwo: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        let width = self.canvasView.frame.width
         let data = self.canvasView.drawing.dataRepresentation()
-        self.updatePagePencilData(data)
+        self.updatePagePencilData(data: data, width: width)
     }
 }
 

@@ -19,7 +19,7 @@ extension PKCanvasView {
         let transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
         self.drawing.transform(using: transform)
         
-        self.adjustContentLayout(previousContentSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: contentRatio)
+        self.adjustContentLayout(previousContentOffset: previousContentOffset, contentRatio: contentRatio)
     }
     
     /// 두 번 탭했을 때 기본 크기로 돌아가는 제스처를 추가
@@ -43,7 +43,7 @@ extension UIScrollView {
     ///   - previousContentSize: 레이아웃 변화 이전 content 크기
     ///   - previousContentOffset: 레이아웃 변화 이전 contentOffset
     ///   - contentRatio: 스크롤뷰의 높이/너비
-    func adjustContentLayout(previousContentSize: CGSize, previousContentOffset: CGPoint, contentRatio: CGFloat) {
+    func adjustContentLayout(previousContentOffset: CGPoint, contentRatio: CGFloat) {
         let canvasWidth = self.frame.width
         
         // 아래에서 크기를 조절하기 전에 원래 contentSize 기록
