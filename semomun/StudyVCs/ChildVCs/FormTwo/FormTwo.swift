@@ -115,7 +115,7 @@ extension FormTwo {
         self.collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         
         self.view.addSubviews(self.canvasView, self.collectionView)
-//        self.view.sendSubviewToBack(self.canvasShadowView)
+        //        self.view.sendSubviewToBack(self.canvasShadowView)
         
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
@@ -170,25 +170,25 @@ extension FormTwo {
     }
     
     private func configureCanvasViewData() {
-        if let pkData = self.pagePencilData {
-            do {
-                let drawing = try PKDrawing(data: pkData)
-                guard self.pagePencilDataWidth > 0 else {
-                    self.canvasView.drawing = drawing
-                    return
-                }
-                let scale = self.canvasView.frame.width / self.pagePencilDataWidth
-                let transform = CGAffineTransform(scaleX: scale, y: scale)
-                let drawingConverted = drawing.transformed(using: transform)
-                self.canvasView.drawing = drawingConverted
-            } catch {
-                print("Error loading drawing object")
-            }
-        } else {
-            self.canvasView.drawing = PKDrawing()
-        }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        self.canvasView.delegate = self
+        defer { self.canvasView.delegate = self }
+        
+        guard let pkData = self.pagePencilData,
+              self.pagePencilDataWidth > 0 else {
+            self.canvasView.drawing = PKDrawing()
+            return
+        }
+        
+        guard let drawing = try? PKDrawing(data: pkData) else {
+            print("Error loading drawing object")
+            self.canvasView.drawing = PKDrawing()
+            return
+        }
+        
+        let scale = self.canvasView.frame.width / self.pagePencilDataWidth
+        let transform = CGAffineTransform(scaleX: scale, y: scale)
+        let drawingConverted = drawing.transformed(using: transform)
+        self.canvasView.drawing = drawingConverted
     }
     
     private func configureMainImageView() {
@@ -301,7 +301,7 @@ extension FormTwo {
         leftSwipeGesture.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(leftSwipeGesture)
     }
-
+    
     @objc func rightDragged() {
         self.previousPage()
     }
