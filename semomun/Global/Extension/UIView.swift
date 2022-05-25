@@ -92,7 +92,7 @@ extension UIView {
     }
     
     enum ShadowClipDirection {
-        case top, bottom, both, exceptTop
+        case top, bottom, both, exceptTop, exceptLeft
     }
     
     func clipAccessibleShadow(at direction: ShadowClipDirection) {
@@ -121,6 +121,10 @@ extension UIView {
             h = shadowLayerHeight+shadowRadius
         case .both:
             y = 0
+            h = shadowLayerHeight
+        case .exceptLeft:
+            y = 0
+            w = shadowLayer.frame.width + shadowRadius
             h = shadowLayerHeight
         }
         shadowLayer.clipLayer(rect: CGRect(x, y, w, h))
