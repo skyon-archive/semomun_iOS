@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import PencilKit
 
 /// - Note: pageData.pageCore.time를 어떻게 사용하는지 확인 필요
 class PageVM {
@@ -30,8 +29,8 @@ class PageVM {
         return pageData.pageCore.drawing
     }
     
-    var pagePencilDataWidth: CGFloat {
-        return CGFloat(pageData.pageCore.drawingWidth)
+    var pagePencilDataWidth: Int {
+        return Int(pageData.pageCore.drawingWidth)
     }
     
     init(delegate: PageDelegate, pageData: PageData) {
@@ -120,8 +119,9 @@ class PageVM {
         self.delegate?.addUploadProblem(pid: Int(problem.pid))
     }
     
-    func updatePagePencilData(to data: Data) {
+    func updatePagePencilData(to data: Data, width: Int) {
         self.pageData.pageCore.setValue(data, forKey: "drawing")
+        self.pageData.pageCore.setValue(Int64(width), forKey: "drawingWidth")
         self.delegate?.addUploadPage(vid: pageData.vid)
     }
 }
