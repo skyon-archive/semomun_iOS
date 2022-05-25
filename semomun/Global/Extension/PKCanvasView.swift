@@ -21,20 +21,6 @@ extension PKCanvasView {
         
         self.adjustContentLayout(previousContentOffset: previousContentOffset, contentRatio: contentRatio)
     }
-    
-    /// 두 번 탭했을 때 기본 크기로 돌아가는 제스처를 추가
-    /// - TODO: 탭 한 위치를 중심으로
-    func addDoubleTabGesture() {
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-        doubleTapGesture.numberOfTapsRequired = 2
-        self.addGestureRecognizer(doubleTapGesture)
-    }
-    
-    @objc private func doubleTapped() {
-        UIView.animate(withDuration: 0.25) {
-            self.zoomScale = 1.0
-        }
-    }
 }
 
 extension UIScrollView {
@@ -71,5 +57,19 @@ extension UIScrollView {
         let offsetX = max((self.bounds.width - self.contentSize.width) * 0.5, 0)
         let offsetY = max((self.bounds.height - self.contentSize.height) * 0.5, 0)
         self.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
+    }
+    
+    /// 두 번 탭했을 때 기본 크기로 돌아가는 제스처를 추가
+    /// - TODO: 탭 한 위치를 중심으로
+    func addDoubleTabGesture() {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        self.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    @objc private func doubleTapped() {
+        UIView.animate(withDuration: 0.25) {
+            self.zoomScale = 1.0
+        }
     }
 }
