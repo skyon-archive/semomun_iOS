@@ -79,6 +79,8 @@ class FormTwo: UIViewController {
     
     var pagePencilData: Data? { return nil }
     
+    var pagePencilDataWidth: CGFloat { return self.canvasView.frame.size.width }
+    
     func updatePagePencilData(_ data: Data) { }
     
     var cellLayoutable: CellLayoutable.Type? { return nil }

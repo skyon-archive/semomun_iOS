@@ -72,6 +72,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var solved: String? //사용자 입력답
     @NSManaged public var correct: Bool //맞았는지 여부
     @NSManaged public var drawing: Data? //펜슬데이터
+    @NSManaged public var drawingWidth: Int64 // Pencil 데이터 가로 폭
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var subProblemsCount: Int64 //단답형 문제수
