@@ -31,6 +31,7 @@ public class Page_Core: NSManagedObject {
         case drawing
         case time
         case problemCores
+        case drawingWidth
     }
 
     @NSManaged public var vid: Int64 //뷰어의 고유 번호
@@ -39,7 +40,7 @@ public class Page_Core: NSManagedObject {
     @NSManaged public var updatedDate: Date? // NEW: 반영일자
     
     @NSManaged public var drawing: Data? //Pencil 데이터
-    @NSManaged public var drawingWidth: Int64 // Pencil 데이터 가로 폭
+    @NSManaged public var drawingWidth: Double // Pencil 데이터 가로 폭
     @NSManaged public var time: Int64 // 좌우형 시간계산을 위한 화면단위 누적 시간
     @NSManaged public var problemCores: [Problem_Core]? //relation으로 인해 생긴 problemCore들
     

@@ -379,7 +379,7 @@ extension SingleWithTextAnswerVC {
 extension SingleWithTextAnswerVC {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.viewModel?.updatePencilData(to: data, width: Int(self.canvasView.frame.width))
+        self.viewModel?.updatePencilData(to: data, width: Double(self.canvasView.frame.width))
     }
 }
 

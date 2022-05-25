@@ -69,7 +69,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     }
     
     override func updatePagePencilData(data: Data, width: CGFloat) {
-        self.viewModel?.updatePagePencilData(to: data, width: Int(width))
+        self.viewModel?.updatePagePencilData(to: data, width: Double(width))
     }
     
     override func previousPage() {
