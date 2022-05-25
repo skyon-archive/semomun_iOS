@@ -94,7 +94,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="v9j-Ji-82X">
-                                                <rect key="frame" x="39.5" y="5" width="228.5" height="30"/>
+                                                <rect key="frame" x="39.5" y="5" width="218.5" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="ada-1p-LRF"/>
@@ -152,9 +152,9 @@
                                             <constraint firstAttribute="trailing" secondItem="fEa-j4-gS6" secondAttribute="trailing" id="Obg-8K-pXv"/>
                                             <constraint firstItem="oiL-5O-3A7" firstAttribute="leading" secondItem="d9T-yp-hBy" secondAttribute="leading" id="QWI-rY-lak"/>
                                             <constraint firstItem="v9j-Ji-82X" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="TaE-Xz-m7x"/>
-                                            <constraint firstItem="fEa-j4-gS6" firstAttribute="leading" secondItem="v9j-Ji-82X" secondAttribute="trailing" id="dAF-fF-oLC"/>
                                             <constraint firstAttribute="height" constant="40" id="gEu-7O-BhK"/>
                                             <constraint firstItem="oiL-5O-3A7" firstAttribute="centerY" secondItem="d9T-yp-hBy" secondAttribute="centerY" id="tgw-vb-KSd"/>
+                                            <constraint firstAttribute="trailing" secondItem="v9j-Ji-82X" secondAttribute="trailing" constant="260" id="vK0-Ue-RgV"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc0-bk-I3N">
@@ -167,7 +167,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4SU-gj-nph">
-                                                <rect key="frame" x="39.5" y="5" width="228.5" height="30"/>
+                                                <rect key="frame" x="39.5" y="5" width="218.5" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2el-RM-WxD">
                                                     <size key="itemSize" width="128" height="128"/>
@@ -225,7 +225,7 @@
                 <outlet property="returnButton" destination="IZh-cu-Nos" id="98z-je-pTs"/>
                 <outlet property="savedAnswerLabel" destination="oiL-5O-3A7" id="npi-RE-DnY"/>
                 <outlet property="savedAnswerView" destination="v9j-Ji-82X" id="Jm4-VZ-lld"/>
-                <outlet property="savedAnswerViewWidth" destination="FIA-Q7-DwF" id="sZT-tL-kAf"/>
+                <outlet property="savedAnswersTrailing" destination="vK0-Ue-RgV" id="BPd-OB-NMe"/>
                 <outlet property="stackView" destination="Bbg-cr-sDa" id="FMX-CN-o3N"/>
                 <outlet property="topView" destination="3UM-16-iAa" id="O85-iD-OHP"/>
             </connections>
