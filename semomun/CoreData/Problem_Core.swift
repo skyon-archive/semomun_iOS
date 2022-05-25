@@ -52,6 +52,7 @@ public class Problem_Core: NSManagedObject {
         case star
         case terminated
         case subProblemsCount
+        case correctPoints
     }
 
     @NSManaged public var pid: Int64 //문제 고유번호
@@ -74,6 +75,7 @@ public class Problem_Core: NSManagedObject {
     @NSManaged public var star: Bool //별표표시여부
     @NSManaged public var terminated: Bool //채점여부
     @NSManaged public var subProblemsCount: Int64 //단답형 문제수
+    @NSManaged public var correctPoints: Int64 //단답형 맞은문제수
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var rate: Int64 //Deprecated(1.1.3)
@@ -85,8 +87,7 @@ public class Problem_Core: NSManagedObject {
         self.setValue(prob.btName, forKey: Attribute.pName.rawValue)
         self.setValue(prob.type, forKey: Attribute.type.rawValue)
         self.setValue(prob.answer, forKey: Attribute.answer.rawValue)
-        // MARK: prob.point 계산 로직 수정 필요
-        self.setValue(prob.point ?? 0, forKey: Attribute.point.rawValue)
+        self.setValue(prob.point ?? 1, forKey: Attribute.point.rawValue)
         self.setValue(0, forKey: Attribute.time.rawValue)
         self.setValue(nil, forKey: Attribute.solved.rawValue)
         self.setValue(false, forKey: Attribute.correct.rawValue)
@@ -94,6 +95,12 @@ public class Problem_Core: NSManagedObject {
         self.setValue(false, forKey: Attribute.star.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
         self.setValue(prob.subProblemsCount, forKey: Attribute.subProblemsCount.rawValue)
+        // MARK: 단답형 n가지 문제일 경우 point 값을 단답형 개수*1점으로 반영
+        if prob.subProblemsCount ?? 0 != 0 {
+            self.setValue(prob.subProblemsCount, forKey: Attribute.point.rawValue)
+        }
+        self.setValue(0, forKey: Attribute.correctPoints.rawValue)
+        
         print("Problem: \(prob.pid) save complete")
         
         return ProblemUUID(content: prob.content, explanation: prob.explanation)

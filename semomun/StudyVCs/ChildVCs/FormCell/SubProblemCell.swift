@@ -283,7 +283,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
             return ""
         }
         let buttonTitle = button.titleLabel?.text ?? ""
-        let solved = self.solvings[itemIdx] ?? "-"
+        let solved = self.solvings[itemIdx] ?? "미기입"
         return "\(buttonTitle): \(solved)"
     }
     
@@ -365,6 +365,7 @@ extension SubProblemCell: UITextFieldDelegate {
             .map { $0 ?? "" }
             .joined(separator: "$")
         self.updateSolved(input: solvingConverted)
+        self.updateCorrectPoints()
         // 다음문제로 이동
         guard let subCount = self.problem?.subProblemsCount,
               let currentButton = self.subProblemButton(index: currentProblemIndex) else { return true }
@@ -391,5 +392,21 @@ extension SubProblemCell: UITextFieldDelegate {
 extension SubProblemCell {
     private func subProblemButton(index: Int) -> SubProblemCheckButton? {
         return self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton ?? nil
+    }
+    
+    private func updateCorrectPoints() {
+        guard let answer = self.problem?.answer else {
+            self.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+            return
+        }
+        let answers = answer.split(separator: "$").map { String($0) }
+        var points: Int64 = 0
+        for i in 0..<answers.count {
+            if let input = self.solvings[safe: i],
+               input == answers[i] {
+                points += 1
+            }
+        }
+        self.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
 }

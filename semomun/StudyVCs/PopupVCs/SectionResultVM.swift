@@ -36,9 +36,9 @@ final class SectionResultVM {
                 self.score += problem.point
             }
             // MARK: 채점로직 수정 필요
-//                else if let _ = problem.subProblemsCount {
-//                self.score += problem.correctPoints
-//            }
+            else if problem.subProblemsCount > 0 {
+                self.score += Double(problem.correctPoints)
+            }
             // 틀린경우 -> false 저장, wrongProblems 누적
             else {
                 self.wrongProblems.append(problem.pName ?? "-")
