@@ -139,7 +139,7 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     override func savePencilData(data: Data, width: CGFloat) {
-        self.viewModel?.updatePencilData(to: data, width: Int(width))
+        self.viewModel?.updatePencilData(to: data, width: Double(width))
     }
 
 // MARK: - Configures

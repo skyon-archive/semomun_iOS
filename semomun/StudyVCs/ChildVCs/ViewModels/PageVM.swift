@@ -113,16 +113,16 @@ class PageVM {
         self.delegate?.reload()
     }
     
-    func updatePencilData(to data: Data, width: Int, problem: Problem_Core? = nil) {
+    func updatePencilData(to data: Data, width: Double, problem: Problem_Core? = nil) {
         guard let problem = problem ?? self.problem else { return }
-        problem.setValue(Int64(width), forKey: "drawingWidth")
-        problem.setValue(data, forKey: "drawing")
+        problem.setValue(width, forKey: Problem_Core.Attribute.drawingWidth.rawValue)
+        problem.setValue(data, forKey: Problem_Core.Attribute.drawing.rawValue)
         self.delegate?.addUploadProblem(pid: Int(problem.pid))
     }
     
-    func updatePagePencilData(to data: Data, width: Int) {
-        self.pageData.pageCore.setValue(data, forKey: "drawing")
-        self.pageData.pageCore.setValue(Int64(width), forKey: "drawingWidth")
+    func updatePagePencilData(to data: Data, width: Double) {
+        self.pageData.pageCore.setValue(width, forKey: Page_Core.Attribute.drawingWidth.rawValue)
+        self.pageData.pageCore.setValue(data, forKey: Page_Core.Attribute.drawing.rawValue)
         self.delegate?.addUploadPage(vid: pageData.vid)
     }
 }
