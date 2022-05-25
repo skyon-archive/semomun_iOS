@@ -35,23 +35,11 @@ final class MultipleWithConceptWideVC: FormTwo {
         return .init(baseSize.width, topViewHeight+baseSize.height)
     }
     
-    override var cellLayoutable: CellLayoutable.Type? {
-        return MultipleWithConceptCell.self
-    }
-    
-    override var pagePencilData: Data? {
-        return self.viewModel?.pagePencilData
-    }
-    
-    override func updatePagePencilData(_ data: Data) {
-        self.viewModel?.updatePagePencilData(to: data)
-    }
-    
-    override var cellCount: Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
     }
     
-    override func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithConceptCell.identifier, for: indexPath) as? MultipleWithConceptCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
@@ -62,6 +50,18 @@ final class MultipleWithConceptWideVC: FormTwo {
         cell.showTopShadow = indexPath.item == 0 ? false : true
         
         return cell
+    }
+    
+    override var cellLayoutable: CellLayoutable.Type? {
+        return MultipleWithConceptCell.self
+    }
+    
+    override var pagePencilData: Data? {
+        return self.viewModel?.pagePencilData
+    }
+    
+    override func updatePagePencilData(_ data: Data) {
+        self.viewModel?.updatePagePencilData(to: data)
     }
     
     override func previousPage() {
