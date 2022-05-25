@@ -76,15 +76,14 @@ class MultipleWith5Cell: FormCell, CellLayoutable {
         guard let answer = self.problem?.answer else { return }
         self.answerView.removeFromSuperview()
         
-        self.answerView.configureAnswer(to: answer.circledAnswer)
+        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
+        self.answerView.configureAnswer(to: answerConverted)
         self.contentView.addSubview(self.answerView)
         self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.answerView.widthAnchor.constraint(equalToConstant: 146),
-            self.answerView.heightAnchor.constraint(equalToConstant: 61),
-            self.answerView.centerXAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor,constant: 5)
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
         ])
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.answerView.alpha = 1
