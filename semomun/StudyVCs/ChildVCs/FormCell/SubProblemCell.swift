@@ -396,12 +396,12 @@ extension SubProblemCell: UITextFieldDelegate {
             .joined(separator: "$")
         self.updateSolved(input: solvingConverted)
         self.updateCorrectPoints()
-        // 다음문제로 이동
+        // 현재문제 deselect
         guard let subCount = self.problem?.subProblemsCount,
               let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
         currentButton.isSelected = false
         currentButton.deselect()
-        
+        // 다음문제 있는 경우 다음문제 select
         if currentProblemIndex+1 < Int(subCount),
            let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
             self.currentProblemIndex = currentProblemIndex+1
@@ -409,6 +409,7 @@ extension SubProblemCell: UITextFieldDelegate {
             nextButton.select()
             self.updateStackview(except: nextButton)
         }
+        // 마지막 문제인 경우 keyboard 내림
         else if currentProblemIndex+1 == Int(subCount) {
             self.currentProblemIndex = nil
             self.hideTextField(animation: true)
