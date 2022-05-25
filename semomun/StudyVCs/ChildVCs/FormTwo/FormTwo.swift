@@ -83,12 +83,6 @@ class FormTwo: UIViewController {
     
     var cellLayoutable: CellLayoutable.Type? { return nil }
     
-    var cellCount: Int { return 0 }
-    
-    func getCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-    
     func previousPage() { }
     
     func nextPage() { }
@@ -310,11 +304,11 @@ extension FormTwo {
 // MARK: - Configure Cell
 extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.cellCount
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return self.getCell(collectionView, cellForItemAt: indexPath)
+        return UICollectionViewCell()
     }
 }
 
