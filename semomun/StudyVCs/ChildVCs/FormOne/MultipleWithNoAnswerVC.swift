@@ -244,7 +244,7 @@ extension MultipleWithNoAnswerVC: UICollectionViewDelegateFlowLayout{
 extension MultipleWithNoAnswerVC {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.viewModel?.updatePagePencilData(to: data)
+        self.viewModel?.updatePagePencilData(to: data, width: Int(self.canvasView.contentSize.width))
     }
 }
 

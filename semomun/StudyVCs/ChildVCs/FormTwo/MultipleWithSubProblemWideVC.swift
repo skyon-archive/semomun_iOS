@@ -61,11 +61,15 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     }
     
     override var pagePencilDataWidth: CGFloat {
-        return self.viewModel?.pagePencilDataWidth ?? super.pagePencilDataWidth
+        if let width = self.viewModel?.pagePencilDataWidth {
+            return CGFloat(width)
+        } else {
+            return super.pagePencilDataWidth
+        }
     }
     
-    override func updatePagePencilData(_ data: Data) {
-        self.viewModel?.updatePagePencilData(to: data)
+    override func updatePagePencilData(data: Data, width: CGFloat) {
+        self.viewModel?.updatePagePencilData(to: data, width: Int(width))
     }
     
     override func previousPage() {
