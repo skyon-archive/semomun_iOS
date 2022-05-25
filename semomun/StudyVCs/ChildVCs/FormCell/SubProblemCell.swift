@@ -87,6 +87,8 @@ class SubProblemCell: FormCell, CellLayoutable {
         
         self.savedAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
         self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
+        
+        self.answerTF.addAccessibleShadow()
     }
     
     override func layoutSubviews() {
@@ -98,6 +100,7 @@ class SubProblemCell: FormCell, CellLayoutable {
             self.removeTopShadow()
         }
         self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
+        self.answerTF.clipAccessibleShadow(at: .exceptLeft)
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
