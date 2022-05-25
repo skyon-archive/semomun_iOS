@@ -30,15 +30,15 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBOutlet weak var answerTF: UITextField!
     
     @IBOutlet weak var savedAnswerView: UICollectionView!
-    @IBOutlet weak var savedAnswerViewWidth: NSLayoutConstraint!
     @IBOutlet weak var savedAnswerLabel: UILabel!
+    @IBOutlet weak var savedAnswersTrailing: NSLayoutConstraint!
     
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var realAnswerView: UICollectionView!
     @IBOutlet weak var returnButton: UIButton!
     
     // textField 의 width 값
-    private let savedAnswerWidth: CGFloat = 250
+    private let savedAnswerWidth: CGFloat = 250+10
     
     private var currentProblemIndex: Int? = nil {
         didSet {
@@ -223,25 +223,31 @@ extension SubProblemCell: SubProblemCheckObservable {
             // 켜짐
             self.currentProblemIndex = index
             targetButton.select()
-            self.showTextField()
+            self.showTextField(animation: true)
         } else {
             // 꺼짐
             self.currentProblemIndex = nil
             targetButton.deselect()
-            self.hideTextField()
+            self.hideTextField(animation: true)
         }
         
         self.updateStackview(except: targetButton)
     }
     
-    private func showTextField() {
-        self.savedAnswerViewWidth.constant = self.savedAnswerWidth
-        self.returnButton.alpha = 1
+    private func showTextField(animation: Bool = false) {
+        UIView.animate(withDuration: animation ? 0.15 : 0) {
+            self.savedAnswersTrailing.constant = self.savedAnswerWidth
+            self.answerTF.alpha = 1
+            self.returnButton.alpha = 1
+        }
     }
     
-    private func hideTextField() {
-        self.savedAnswerViewWidth.constant = 0
-        self.returnButton.alpha = 0
+    private func hideTextField(animation: Bool = false) {
+        UIView.animate(withDuration: animation ? 0.15 : 0) {
+            self.savedAnswersTrailing.constant = 0
+            self.answerTF.alpha = 0
+            self.returnButton.alpha = 0
+        }
     }
     
     private func updateStackview(except button: SubProblemCheckButton) {
@@ -402,7 +408,7 @@ extension SubProblemCell: UITextFieldDelegate {
         }
         else if currentProblemIndex+1 == Int(subCount) {
             self.currentProblemIndex = nil
-            self.hideTextField()
+            self.hideTextField(animation: true)
             self.endEditing(true)
         }
     }
