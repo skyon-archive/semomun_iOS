@@ -391,7 +391,7 @@ extension SingleWith4AnswerVC {
 extension SingleWith4AnswerVC {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.viewModel?.updatePencilData(to: data)
+        self.viewModel?.updatePencilData(to: data, width: Int(self.canvasView.frame.width))
     }
 }
 
