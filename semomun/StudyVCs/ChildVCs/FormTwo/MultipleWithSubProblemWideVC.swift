@@ -59,6 +59,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
         
         cell.delegate = self
         cell.configureReuse(contentImage, problem, toolPicker)
+        cell.showTopShadow = indexPath.item == 0 ? false : true
         
         return cell
     }

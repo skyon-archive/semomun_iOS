@@ -92,8 +92,11 @@ class SubProblemCell: FormCell, CellLayoutable {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutIfNeeded()
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
         self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
     }
     
@@ -433,5 +436,16 @@ extension SubProblemCell {
             }
         }
         self.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+    }
+}
+
+extension SubProblemCell {
+    func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
     }
 }
