@@ -247,6 +247,7 @@ extension FormTwo {
                 if self.explanationId != nil {
                     // 답지 크기 설정
                     self.explanationView.frame.size = self.canvasView.frame.size
+                    print(self.explanationView.frame.size)
                 }
             }
         }
