@@ -138,6 +138,7 @@ extension StudyVC {
     
     private func configureShadow() {
         self.view.layoutIfNeeded()
+        self.setShadow(with: self.childFrameView)
         self.beforeFrameView.addShadow(direction: .right)
         self.nextFrameView.addShadow(direction: .left)
     }
