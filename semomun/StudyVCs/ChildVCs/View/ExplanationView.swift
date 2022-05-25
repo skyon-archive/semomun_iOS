@@ -13,29 +13,14 @@ protocol ExplanationRemover: AnyObject {
 
 final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemover?
-    private var contentViewHeightConstraint: NSLayoutConstraint!
-    private var imageViewHeightConstraint: NSLayoutConstraint!
-    private lazy var imageviewHeight: CGFloat = (self.frame.height/2)-40
+    private let imageView = UIImageView()
+    private let scrollView = UIScrollView()
+    
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
         return UIImage(.xmark, withConfiguration: largeConfig)
     }()
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private lazy var explanationImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -49,16 +34,15 @@ final class ExplanationView: UIView {
     
     convenience init() {
         self.init(frame: CGRect())
-        self.configureLayout()
-    }
-    
-    func configureDelegate(to delegate: ExplanationRemover) {
-        self.delegate = delegate
-    }
-    
-    private func configureLayout() {
-        self.addSubviews(self.scrollView, self.closeButton)
         self.backgroundColor = .white
+        self.scrollView.delegate = self
+        self.addSubviews(self.scrollView, self.closeButton)
+        self.scrollView.addSubview(self.imageView)
+        self.scrollView.sendSubviewToBack(self.imageView)
+        self.imageView.backgroundColor = .white
+        
+        self.scrollView.minimumZoomScale = 0.5
+        self.scrollView.maximumZoomScale = 2.0
         
         NSLayoutConstraint.activate([
             self.closeButton.widthAnchor.constraint(equalToConstant: 50),
@@ -67,56 +51,55 @@ final class ExplanationView: UIView {
             self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
         ])
         
-        NSLayoutConstraint.activate([
-            self.scrollView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
-            self.scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 100),
-            self.scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -100),
-            self.scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-        
-        self.scrollView.addSubview(self.contentView)
-        NSLayoutConstraint.activate([
-            self.contentView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
-            self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
-            self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
-            self.contentView.widthAnchor.constraint(equalTo: self.scrollView.frameLayoutGuide.widthAnchor)
-        ])
-        
-        self.contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalToConstant: self.imageviewHeight)
-        self.contentViewHeightConstraint?.isActive = true
-        
-        
-        self.contentView.addSubview(self.explanationImageView)
-        NSLayoutConstraint.activate([
-            self.explanationImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.explanationImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.explanationImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
-        ])
-        
-        self.imageViewHeightConstraint = self.explanationImageView.heightAnchor.constraint(equalToConstant: self.imageviewHeight)
-        self.imageViewHeightConstraint?.isActive = true
+        self.scrollView.addDoubleTabGesture()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.scrollView.frame.size = self.frame.size
+        self.adjustLayout()
+    }
+    
+    func configureDelegate(to delegate: ExplanationRemover) {
+        self.delegate = delegate
     }
     
     func configureImage(to image: UIImage?) {
-        self.layoutIfNeeded()
         guard let image = image else { return }
-        let width = self.scrollView.frame.width
-        let height = image.size.height*(width/image.size.width)
-        self.imageViewHeightConstraint?.constant = height
-        self.contentViewHeightConstraint?.constant = height
-        self.explanationImageView.image = image
-        self.scrollView.setContentOffset(.zero, animated: false)
+        self.imageView.image = image
+    }
+}
+
+extension ExplanationView {
+    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
+    private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
+        guard let image = self.imageView.image else {
+            assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
+            return
+        }
+        
+        let ratio = image.size.height/image.size.width
+        self.scrollView.adjustContentLayout(previousContentOffset: previousContentOffset, contentRatio: ratio)
+        
+        // 문제 이미지 크기 설정
+        self.imageView.frame.size = self.scrollView.contentSize
     }
     
-    func updateLayout() {
-        self.layoutIfNeeded()
-        guard let imageSize = self.explanationImageView.image?.size else { return }
-        
-        NSLayoutConstraint.deactivate([self.imageViewHeightConstraint, self.contentViewHeightConstraint])
-        let height = imageSize.height*(self.scrollView.bounds.width)/imageSize.width
-        self.imageViewHeightConstraint = self.explanationImageView.heightAnchor.constraint(equalToConstant: height)
-        self.contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalToConstant: height)
-        NSLayoutConstraint.activate([self.imageViewHeightConstraint, self.contentViewHeightConstraint])
+    /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
+    private func adjustLayout(_ action: (() -> ())? = nil) {
+        let previousCanvasSize = self.scrollView.frame.size
+        let previousContentOffset = self.scrollView.contentOffset
+        action?()
+        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+    }
+}
+
+extension ExplanationView: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        self.adjustLayout()
     }
 }

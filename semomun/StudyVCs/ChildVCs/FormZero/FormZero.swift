@@ -255,8 +255,6 @@ extension FormZero {
             self._topViewTrailingConstraint?.constant = 0
             self.explanationView.frame = .init(0, height/2+topViewHeight, width, height/2)
         }
-        
-        self.explanationView.updateLayout()
     }
     
     /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
