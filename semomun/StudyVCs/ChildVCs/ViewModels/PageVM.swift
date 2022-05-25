@@ -30,6 +30,10 @@ class PageVM {
         return pageData.pageCore.drawing
     }
     
+    var pagePencilDataWidth: CGFloat {
+        return CGFloat(pageData.pageCore.drawingWidth)
+    }
+    
     init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
         self.pageData = pageData
