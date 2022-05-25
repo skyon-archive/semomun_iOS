@@ -85,7 +85,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     func previousPage() { }
     func nextPage() { }
     
-    func savePencilData(_ data: Data) { }
+    func savePencilData(data: Data, width: CGFloat) { }
     
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
     private func setViewToDefault() {
@@ -319,7 +319,7 @@ extension FormZero {
 extension FormZero: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.savePencilData(data)
+        self.savePencilData(data: data, width: self.canvasView.frame.width)
     }
 }
 

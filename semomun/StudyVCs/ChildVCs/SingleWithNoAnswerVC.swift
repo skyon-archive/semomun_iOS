@@ -277,7 +277,7 @@ extension SingleWithNoAnswerVC {
 extension SingleWithNoAnswerVC: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
-        self.viewModel?.updatePencilData(to: data)
+        self.viewModel?.updatePencilData(to: data, width: Int(self.canvasView.frame.width))
     }
 }
 

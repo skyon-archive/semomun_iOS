@@ -197,7 +197,6 @@ extension FormCell: PKCanvasViewDelegate {
         let data = self.canvasView.drawing.dataRepresentation()
         problem.setValue(Int64(width), forKey: "drawingWidth")
         problem.setValue(data, forKey: "drawing")
-        print("SAVED \(data) \(width)")
         self.delegate?.addUpload(pid: Int(problem.pid))
     }
 }
