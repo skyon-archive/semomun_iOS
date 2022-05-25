@@ -52,6 +52,7 @@ class FormTwo: UIViewController {
         self.addCoreDataAlertObserver()
         
         self.configureBasicUI()
+        self.collectionView.showsVerticalScrollIndicator = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -249,19 +250,19 @@ extension FormTwo {
     
     private func layoutSplitView() {
         let viewSize = self.view.frame.size
-        let marginForTopShadow: CGFloat = 10 // MARK: 디자인 확인 필요
         
         if UIWindow.isLandscape {
-            let marginBetweenView: CGFloat = 26 // MARK: 디자인 확인 필요
-            let canvasViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height-marginForTopShadow)
-            let collectionViewSize = CGSize((viewSize.width-marginBetweenView)/2, viewSize.height)
-            self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: canvasViewSize)
-            self.collectionView.frame = .init(origin: .init(self.canvasView.frame.maxX+marginBetweenView, 0), size: collectionViewSize)
+            let marginBetweenView: CGFloat = 26
+            let canvasViewSize = CGSize((viewSize.width - marginBetweenView)/2, viewSize.height)
+            let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
+            self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
+            self.collectionView.frame = .init(origin: .init(canvasViewSize.width + marginBetweenView, 0), size: collectionViewSize)
         } else {
             let marginBetweenView: CGFloat = 13
-            let size = CGSize(viewSize.width, (viewSize.height-marginBetweenView)/2)
-            self.canvasView.frame = .init(origin: .init(0, marginForTopShadow), size: size)
-            self.collectionView.frame = .init(origin: .init(0, viewSize.height/2+marginBetweenView), size: size)
+            let canvasViewSize = CGSize(viewSize.width, (viewSize.height - marginBetweenView)/2)
+            let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
+            self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
+            self.collectionView.frame = .init(origin: .init(0, canvasViewSize.height + marginBetweenView), size: collectionViewSize)
         }
         
         self.collectionView.collectionViewLayout.invalidateLayout()

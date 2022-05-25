@@ -37,6 +37,8 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var realAnswerView: UICollectionView!
     
+    private var subProblemButtons: [SubProblemCheckButton] = []
+    
     private var currentProblemIndex: Int? = nil {
         didSet {
             guard let currentProblemIndex = self.currentProblemIndex else { return }
@@ -141,8 +143,13 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for i in 0..<Int(subProblemCount) {
             let button = SubProblemCheckButton(index: i, delegate: self)
+            self.subProblemButtons.append(button)
             self.stackView.addArrangedSubview(button)
-            if i == 0 { button.isSelected = true; button.select() }
+            // 초기 UI: 첫번째 버튼이 클릭된 상태
+            if i == 0 {
+                button.isSelected = true
+                button.select()
+            }
         }
         
         // 사용자 답안 불러와서 적용
@@ -208,12 +215,9 @@ extension SubProblemCell: SubProblemCheckObservable {
     }
     
     func checkButton(index: Int) {
-        guard let targetButton = self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton else {
-            assertionFailure()
-            return
-        }
-        
+        let targetButton = self.subProblemButtons[index]
         targetButton.isSelected.toggle()
+        
         if targetButton.isSelected {
             // 켜짐
             self.currentProblemIndex = index
@@ -360,6 +364,7 @@ extension SubProblemCell: UITextFieldDelegate {
             .map { $0 ?? "" }
             .joined(separator: "$")
         self.updateSolved(input: solvingConverted)
+        // 다음문제로 이동
         
         return true
     }
