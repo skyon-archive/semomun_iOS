@@ -34,9 +34,7 @@ final class SectionResultVM {
             // 맞은경우 -> true 저장, score 누적
             if problem.correct {
                 self.score += problem.point
-            }
-            // MARK: 채점로직 수정 필요
-            else if problem.subProblemsCount > 0 {
+            } else if problem.subProblemsCount > 0 {
                 self.score += Double(problem.correctPoints)
             }
             // 틀린경우 -> false 저장, wrongProblems 누적
