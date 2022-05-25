@@ -45,17 +45,18 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         super.awakeFromNib()
         self.configureBasicUI()
         self.configureScrollView()
+        self.configureCanvasView()
     }
     
     override func prepareForReuse() {
         self.canvasView.delegate = nil
         self.resultImageView.isHidden = true
-        self.layoutCanvas()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutCanvas()
+        self.configureCanvasViewDataAndDelegate()
     }
     
     private func layoutCanvas() {
@@ -84,7 +85,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private func configureScrollView() {
         self.canvasView.minimumZoomScale = 0.5
         self.canvasView.maximumZoomScale = 2.0
-        self.canvasView.delegate = self
     }
     
     // MARK: - Configure Reuse
@@ -92,7 +92,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureProblem(problem)
         self.configureImageView(contentImage)
         self.toolPicker = toolPicker
-        self.configureCanvasView()
     }
     
     func configureProblem(_ problem: Problem_Core?) {
@@ -110,8 +109,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     func configureCanvasView() {
-        self.configureCanvasViewDataAndDelegate()
-        
         canvasView.isOpaque = false
 //        canvasView.becomeFirstResponder()
         canvasView.drawingPolicy = .pencilOnly
@@ -121,16 +118,26 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     func configureCanvasViewDataAndDelegate() {
-        if let pkData = self.problem?.drawing {
-            do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
-            } catch {
-                print("Error loading drawing object")
-            }
-        } else {
-            canvasView.drawing = PKDrawing()
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+        defer { self.canvasView.delegate = self }
+        
+        guard let pkData = self.problem?.drawing,
+              let drawingWidth = self.problem?.drawingWidth,
+              drawingWidth > 0 else {
+            self.canvasView.drawing = PKDrawing()
+            return
         }
-        canvasView.delegate = self
+        
+        guard let drawing = try? PKDrawing(data: pkData) else {
+            print("Error loading drawing object")
+            self.canvasView.drawing = PKDrawing()
+            return
+        }
+        
+        let scale = self.canvasView.frame.width / CGFloat(drawingWidth)
+        let transform = CGAffineTransform(scaleX: scale, y: scale)
+        let drawingConverted = drawing.transformed(using: transform)
+        self.canvasView.drawing = drawingConverted
     }
     
     func updateSolved(input: String) {
@@ -186,8 +193,11 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
 extension FormCell: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
+        let width = self.canvasView.frame.width
         let data = self.canvasView.drawing.dataRepresentation()
+        problem.setValue(Int64(width), forKey: "drawingWidth")
         problem.setValue(data, forKey: "drawing")
+        print("SAVED \(data) \(width)")
         self.delegate?.addUpload(pid: Int(problem.pid))
     }
 }
