@@ -184,8 +184,10 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         // 채점 이미지 크기 설정
         if self.resultImageView.isHidden == false {
             let imageViewWidth = self.imageView.frame.width
-            
-            self.resultImageView.frame = .init(imageViewWidth/10, imageViewWidth/10, imageViewWidth*150/834, imageViewWidth*150/834)
+            let resultImageWidth = imageViewWidth/5
+            let resultImageXOffset = imageViewWidth/10-resultImageWidth/2
+            let resultImageYOffset = imageViewWidth/100*13.5-resultImageWidth/2
+            self.resultImageView.frame = .init(resultImageXOffset, resultImageYOffset, resultImageWidth, resultImageWidth)
         }
     }
 }
