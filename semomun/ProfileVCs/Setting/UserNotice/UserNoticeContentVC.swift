@@ -10,7 +10,12 @@ import UIKit
 
 final class UserNoticeContentVC: UIViewController {
     private let backgroundFrame = UIView()
-    private let contentTextView = UITextView()
+    private let contentTextView: UITextView = {
+       let view = UITextView()
+        view.isEditable = false
+        view.isSelectable = false
+        return view
+    }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
