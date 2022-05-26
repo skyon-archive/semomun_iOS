@@ -12,8 +12,8 @@ class PageVM {
     weak var delegate: PageDelegate?
     
     private(set) var problems: [Problem_Core]
-    private(set) var timeSpentOnPage: Int64 = 0
     
+    private var startTime: Date?
     private var isTimeRecording = false
     
     private let pageData: PageData
@@ -66,27 +66,23 @@ class PageVM {
         // 모든 문제가 terminated 된 상태일 경우 timer를 반영 안한다
         if self.problems.allSatisfy(\.terminated) { return }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: .seconds, object: nil)
+        self.startTime = Date()
         self.isTimeRecording = true
     }
     
     func endTimeRecord() {
-        NotificationCenter.default.removeObserver(self)
-        self.isTimeRecording = false
-    }
-    
-    @objc func updateTime() {
-//        print("timer active")
-        self.timeSpentOnPage += 1
+        guard let startTime = startTime else { return }
+
+        let timeSpentOnPage = Int64(startTime.timeIntervalSinceNow) * -1
         if self.problems.count == 1 {
-            let time = self.timeSpentPerProblems[0] + self.timeSpentOnPage
+            let time = self.timeSpentPerProblems[0] + timeSpentOnPage
             self.problem?.setValue(time, forKey: "time")
         } else {
             let targetProblemsCount = self.problems.filter({ $0.terminated == false }).count
             // MARK: ChangeVC 되기 전에 실행되는 경우 0으로 나뉠 수 있는 경우가 생김에 따라 코드 추가
             guard targetProblemsCount != 0 else { return }
             
-            let timeSpentPerProblems = Double(self.timeSpentOnPage) / Double(targetProblemsCount)
+            let timeSpentPerProblems = Double(timeSpentOnPage) / Double(targetProblemsCount)
             let perTime = Int64(ceil(timeSpentPerProblems))
             
             for (idx, problem) in problems.enumerated() where problem.terminated == false {
@@ -94,6 +90,10 @@ class PageVM {
                 problem.setValue(time, forKey: "time")
             }
         }
+        self.startTime = nil
+        self.isTimeRecording = false
+        
+        print("총 시간: \(timeSpentOnPage), 문제별 시간: \(self.timeSpentPerProblems)")
     }
     
     func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {
