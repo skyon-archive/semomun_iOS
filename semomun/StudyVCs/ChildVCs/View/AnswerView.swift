@@ -19,7 +19,7 @@ final class AnswerView: UIView {
         return label
     }()
     private let blurBackground: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurEffect = UIBlurEffect(style: .systemMaterialLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.cornerRadius = 10
@@ -35,9 +35,6 @@ final class AnswerView: UIView {
         return view
     }()
     
-    private var widthConstraint: NSLayoutConstraint?
-    private var heightConstraint: NSLayoutConstraint?
-    
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
@@ -47,14 +44,14 @@ final class AnswerView: UIView {
         self.addSubviews(self.answerLabel, self.blurBackground, self.triangle)
         self.sendSubviewToBack(self.blurBackground)
         self.sendSubviewToBack(self.triangle)
-        
-        self.widthConstraint = self.answerLabel.widthAnchor.constraint(equalToConstant: 120)
 
         NSLayoutConstraint.activate([
-            self.blurBackground.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            self.blurBackground.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
             self.blurBackground.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.widthConstraint,
-        ].compactMap({$0}))
+            self.answerLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150),
+            self.answerLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 30),
+            self.answerLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+        ])
         
         
         NSLayoutConstraint.activate([
@@ -67,8 +64,8 @@ final class AnswerView: UIView {
         NSLayoutConstraint.activate([
             self.triangle.topAnchor.constraint(equalTo: self.topAnchor),
             self.triangle.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.triangle.heightAnchor.constraint(equalToConstant: 40),
-            self.triangle.widthAnchor.constraint(equalToConstant: 60),
+            self.triangle.heightAnchor.constraint(equalToConstant: 21),
+            self.triangle.widthAnchor.constraint(equalToConstant: 28),
         ])
     }
     
@@ -88,7 +85,7 @@ class TriangleView : UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurEffect = UIBlurEffect(style: .systemMaterialLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         
         let path = UIBezierPath(ovalIn: rect)
