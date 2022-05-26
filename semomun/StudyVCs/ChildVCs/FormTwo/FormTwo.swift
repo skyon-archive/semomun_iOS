@@ -12,7 +12,6 @@ class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
     private let imageView = UIImageView()
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private let canvasShadowView = UIView()
     
     /// Cell에서 받은 explanation 의 pid
     var explanationId: Int? {
@@ -121,8 +120,6 @@ extension FormTwo {
         self.canvasView.sendSubviewToBack(self.imageView)
         
         self.imageView.backgroundColor = .white
-        
-        self.canvasShadowView.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     private func configureCollectionView() {
@@ -221,10 +218,6 @@ extension FormTwo {
         
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
-        
-        self.canvasShadowView.frame = self.canvasView.frame
-        self.canvasShadowView.addAccessibleShadow()
-        self.canvasShadowView.clipAccessibleShadow(at: .exceptTop)
     }
 }
 
@@ -247,7 +240,6 @@ extension FormTwo {
                 if self.explanationId != nil {
                     // 답지 크기 설정
                     self.explanationView.frame.size = self.canvasView.frame.size
-                    print(self.explanationView.frame.size)
                 }
             }
         }
