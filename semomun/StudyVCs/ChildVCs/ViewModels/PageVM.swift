@@ -58,6 +58,7 @@ class PageVM {
         return false
     }
     
+    // TODO: 앱을 종료할때도 저장 가능하도록 수정
     func startTimeRecord() {
         guard self.isTimeRecording == false else {
             assertionFailure("타이머가 중복 실행되려고합니다.")
