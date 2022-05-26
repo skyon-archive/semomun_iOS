@@ -64,6 +64,9 @@ final class StudyVC: UIViewController {
     private var multipleWithSubProblemsWide = MultipleWithSubProblemsWideVC()
     private var multipleWithConceptWide = MultipleWithConceptWideVC()
     private var multipleWithNoAnswerWide = MultipleWithNoAnswerWideVC()
+    private lazy var singleWithSubProblems = {
+        return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -319,6 +322,11 @@ extension StudyVC: LayoutDelegate {
             self.multipleWithNoAnswerWide.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
             self.multipleWithNoAnswerWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithNoAnswerWide.subImages = self.getImages(problems: pageData.problems)
+            
+        case SingleWithSubProblemsVC.identifier:
+            self.currentVC = self.singleWithSubProblems
+            self.singleWithSubProblems.viewModel = SingleWithSubProblemsVM(delegate: self, pageData: pageData)
+            self.singleWithSubProblems.image = self.getImage(data: pageData.problems[0].contentImage)
         
         default:
             break

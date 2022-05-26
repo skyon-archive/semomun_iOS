@@ -92,6 +92,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureProblem(problem)
         self.configureImageView(contentImage)
         self.toolPicker = toolPicker
+        toolPicker?.setVisible(true, forFirstResponder: canvasView)
+        toolPicker?.addObserver(canvasView)
     }
     
     func configureProblem(_ problem: Problem_Core?) {
@@ -112,9 +114,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         canvasView.isOpaque = false
 //        canvasView.becomeFirstResponder()
         canvasView.drawingPolicy = .pencilOnly
-        
-//        toolPicker?.setVisible(true, forFirstResponder: canvasView)
-        toolPicker?.addObserver(canvasView)
     }
     
     func configureCanvasViewDataAndDelegate() {
@@ -134,10 +133,14 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
             return
         }
         
-        let scale = self.canvasView.frame.width / CGFloat(drawingWidth)
-        let transform = CGAffineTransform(scaleX: scale, y: scale)
-        let drawingConverted = drawing.transformed(using: transform)
-        self.canvasView.drawing = drawingConverted
+        if drawingWidth > 0 {
+            let scale = self.canvasView.frame.width / CGFloat(drawingWidth)
+            let transform = CGAffineTransform(scaleX: scale, y: scale)
+            let drawingConverted = drawing.transformed(using: transform)
+            self.canvasView.drawing = drawingConverted
+        } else {
+            self.canvasView.drawing = drawing
+        }
     }
     
     func updateSolved(input: String) {
