@@ -13,8 +13,10 @@ class ConceptVC: FormZero {
     static let storyboardName = "Study"
     
     @IBOutlet weak var bookmarkBT: UIButton!
-    
+    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topView: UIView!
     var viewModel: ConceptVM?
+    
     
     private lazy var timerView = ProblemTimerView()
     
@@ -25,6 +27,7 @@ class ConceptVC: FormZero {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         print("개념 didAppear")
         self.viewModel?.startTimeRecord()
     }
@@ -42,6 +45,42 @@ class ConceptVC: FormZero {
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
         self.viewModel?.updateStar(to: status)
+    }
+    
+    override var _topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailingConstraint
+    }
+    
+    override var topHeight: CGFloat {
+        self.topView.frame.height
+    }
+    
+    override var problemResult: Bool? {
+        if let problem = self.viewModel?.problem, problem.terminated && problem.answer != nil {
+            return problem.correct
+        } else {
+            return nil
+        }
+    }
+    
+    override var drawing: Data? {
+        return self.viewModel?.problem?.drawing
+    }
+    
+    override var drawingWidth: CGFloat? {
+        CGFloat(self.viewModel?.problem?.drawingWidth ?? 0)
+    }
+    
+    override func previousPage() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    override func nextPage() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    override func savePencilData(data: Data, width: CGFloat) {
+        self.viewModel?.updatePencilData(to: data, width: Double(width))
     }
 }
 

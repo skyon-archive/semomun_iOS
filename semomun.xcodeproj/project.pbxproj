@@ -35,6 +35,7 @@
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
 		255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637B27ABC057000991AB /* UserNoticeContentVC.swift */; };
+		255EDB69283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255EDB68283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift */; };
 		2560BB99283B542500A32EC4 /* FormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB98283B542500A32EC4 /* FormCell.swift */; };
 		2560BB9B283B7EA700A32EC4 /* SubProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */; };
 		2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560BB9C283B7F6200A32EC4 /* SubProblemCheckButton.swift */; };
@@ -292,6 +293,7 @@
 		255D637727ABB332000991AB /* UserNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeCell.swift; sourceTree = "<group>"; };
 		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
 		255D637B27ABC057000991AB /* UserNoticeContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeContentVC.swift; sourceTree = "<group>"; };
+		255EDB68283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithSubProblemsVM.swift; sourceTree = "<group>"; };
 		2560BB98283B542500A32EC4 /* FormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCell.swift; sourceTree = "<group>"; };
 		2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubProblemCell.swift; sourceTree = "<group>"; };
 		2560BB9C283B7F6200A32EC4 /* SubProblemCheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubProblemCheckButton.swift; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				25622C4E283A84330056E0DF /* FormZero.swift */,
 				8716E95B279A625B00B33A5E /* ConceptVC.swift */,
 				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
+				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
 			);
 			path = FormZero;
 			sourceTree = "<group>";
@@ -1153,7 +1156,6 @@
 				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
 				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
 				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
-				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
 				878766CA27AED255003B975E /* View */,
 				87C85EAB276F6C62001C9C4A /* ViewModels */,
 				8766B1F4277C448300061CE6 /* MutipleCellDelegate */,
@@ -1326,6 +1328,7 @@
 			children = (
 				250194C827C25AD8003B8C6B /* PageVM.swift */,
 				87C85ECC276F6D9A001C9C4A /* SingleWith5AnswerVM.swift */,
+				255EDB68283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift */,
 				87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift */,
 				87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift */,
 				87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift */,
@@ -1729,6 +1732,7 @@
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
 				2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */,
 				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
+				255EDB69283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift in Sources */,
 				87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */,
 				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
