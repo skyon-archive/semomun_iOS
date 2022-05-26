@@ -15,17 +15,6 @@ extension String {
         return formatter.string(from: Date())
     }
     
-    var circledAnswer: String {
-        switch self {
-        case "1": return "⓵"
-        case "2": return "⓶"
-        case "3": return "⓷"
-        case "4": return "⓸"
-        case "5": return "⓹"
-        default: return self
-        }
-    }
-    
     func matchRegularExpression(_ pattern: String) -> Bool {
         let range = NSRange(location: 0, length: self.utf16.count)
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
