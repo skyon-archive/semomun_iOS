@@ -355,8 +355,11 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         guard collectionView == self.savedAnswerView else { return }
         self.currentProblemIndex = indexPath.item
         
+        self.showTextField(animation: true)
         let subProblemIndex = self.getSolvingIndex(from: indexPath.item)
+        self.answerTF.text = self.solvings[subProblemIndex]
         guard let targetButton = self.stackView.arrangedSubviews[safe: subProblemIndex] as? SubProblemCheckButton else { return }
+        targetButton.isSelected = true
         targetButton.select()
         self.updateStackview(except: targetButton)
     }
