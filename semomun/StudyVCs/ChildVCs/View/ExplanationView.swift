@@ -34,24 +34,9 @@ final class ExplanationView: UIView {
     
     convenience init() {
         self.init(frame: CGRect())
-        self.backgroundColor = .white
-        self.scrollView.delegate = self
-        self.addSubviews(self.scrollView, self.closeButton)
-        self.scrollView.addSubview(self.imageView)
-        self.scrollView.sendSubviewToBack(self.imageView)
-        self.imageView.backgroundColor = .white
-        
-        self.scrollView.minimumZoomScale = 0.5
-        self.scrollView.maximumZoomScale = 2.0
-        
-        NSLayoutConstraint.activate([
-            self.closeButton.widthAnchor.constraint(equalToConstant: 50),
-            self.closeButton.heightAnchor.constraint(equalToConstant: 50),
-            self.closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
-        ])
-        
-        self.scrollView.addDoubleTabGesture()
+        self.configureUI()
+        self.configureLayout()
+        self.configureScrollView()
     }
     
     override func layoutSubviews() {
@@ -71,6 +56,31 @@ final class ExplanationView: UIView {
 }
 
 extension ExplanationView {
+    private func configureUI() {
+        self.backgroundColor = .white
+        self.imageView.backgroundColor = .white
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.delegate = self
+        self.scrollView.minimumZoomScale = 0.5
+        self.scrollView.maximumZoomScale = 2.0
+        self.scrollView.addDoubleTabGesture()
+    }
+    
+    private func configureLayout() {
+        self.addSubviews(self.scrollView, self.closeButton)
+        self.scrollView.addSubview(self.imageView)
+        self.scrollView.sendSubviewToBack(self.imageView)
+        
+        NSLayoutConstraint.activate([
+            self.closeButton.widthAnchor.constraint(equalToConstant: 50),
+            self.closeButton.heightAnchor.constraint(equalToConstant: 50),
+            self.closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
+        ])
+    }
+    
     /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
     private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
         guard let image = self.imageView.image else {

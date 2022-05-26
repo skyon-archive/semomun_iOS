@@ -13,6 +13,13 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     
     var viewModel: MultipleWith5AnswerVM?
     
+    private let cellType = MultipleWith5Cell.self
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureCollectionView()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.viewModel?.startTimeRecord()
@@ -30,7 +37,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
             return baseSize
         }
         
-        let topViewHeight = self.cellLayoutable?.topViewHeight(with: problem) ?? 0
+        let topViewHeight = self.cellType.topViewHeight(with: problem)
         
         return .init(baseSize.width, topViewHeight+baseSize.height)
     }
@@ -50,10 +57,6 @@ final class MultipleWith5AnswerWideVC: FormTwo {
         cell.showTopShadow = indexPath.item == 0 ? false : true
         
         return cell
-    }
-    
-    override var cellLayoutable: CellLayoutable.Type? {
-        return MultipleWith5Cell.self
     }
     
     override var pagePencilData: Data? {
@@ -78,6 +81,12 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     
     override func nextPage() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    private func configureCollectionView() {
+        let cellIdentifier = self.cellType.identifier
+        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
 }
 
