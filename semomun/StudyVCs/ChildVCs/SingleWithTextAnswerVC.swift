@@ -146,7 +146,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         guard let answer = self.viewModel?.problem?.answer else { return }
         self.answerView.removeFromSuperview()
         
-        self.answerView.configureAnswer(to: answer.circledAnswer)
+        self.answerView.configureAnswer(to: answer)
         self.view.addSubview(self.answerView)
         self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
