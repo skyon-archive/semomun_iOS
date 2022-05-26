@@ -52,6 +52,7 @@ final class ExplanationView: UIView {
     func configureImage(to image: UIImage?) {
         guard let image = image else { return }
         self.imageView.image = image
+        self.adjustLayout()
     }
 }
 
