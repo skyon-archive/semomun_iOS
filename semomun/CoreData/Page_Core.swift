@@ -86,7 +86,7 @@ public class Page_Core: NSManagedObject {
             case 5: return SingleWith5AnswerVC.identifier
             case 6: return SingleWithSubProblemsVC.identifier
             default:
-                assertionFailure()
+                assertionFailure("form: 0, type: \(type)")
                 return SingleWith5AnswerVC.identifier
             }
         }
@@ -95,7 +95,7 @@ public class Page_Core: NSManagedObject {
             case 0: return MultipleWithNoAnswerVC.identifier
             case 5: return MultipleWith5AnswerVC.identifier
             default:
-                assertionFailure()
+                assertionFailure("form: 1, type: \(type)")
                 return MultipleWith5AnswerVC.identifier
             }
         }
@@ -106,7 +106,7 @@ public class Page_Core: NSManagedObject {
             case 5: return MultipleWith5AnswerWideVC.identifier
             case 6: return MultipleWithSubProblemsWideVC.identifier
             default:
-                assertionFailure()
+                assertionFailure("form: 2, type: \(type)")
                 return MultipleWith5AnswerWideVC.identifier
             }
         }
