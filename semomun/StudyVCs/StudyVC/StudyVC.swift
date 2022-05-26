@@ -93,6 +93,13 @@ final class StudyVC: UIViewController {
     @IBAction func scoringSection(_ sender: Any) {
         guard let section = self.manager?.section else { return }
         
+        if let vc = self.currentVC as? MultipleWith5AnswerWideVC {
+            vc.viewModel?.endTimeRecord()
+        }
+        if let vc = self.currentVC as? MultipleWithSubProblemsWideVC {
+            vc.viewModel?.endTimeRecord()
+        }
+        
         if section.terminated {
             self.manager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
             self.showResultViewController(section: section)
