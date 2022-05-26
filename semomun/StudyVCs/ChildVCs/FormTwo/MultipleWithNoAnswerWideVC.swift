@@ -13,8 +13,11 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     
     var viewModel: MultipleWithNoAnswerVM?
     
+    private let cellType = MultipleWithNoAnswerCell.self
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.configureCollectionView()
         self.viewModel?.startTimeRecord()
     }
     
@@ -30,7 +33,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
             return baseSize
         }
         
-        let topViewHeight = self.cellLayoutable?.topViewHeight(with: problem) ?? 0
+        let topViewHeight = self.cellType.topViewHeight(with: problem)
         
         return .init(baseSize.width, topViewHeight+baseSize.height)
     }
@@ -50,10 +53,6 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
         cell.showTopShadow = indexPath.item == 0 ? false : true
         
         return cell
-    }
-    
-    override var cellLayoutable: CellLayoutable.Type? {
-        return MultipleWithNoAnswerCell.self
     }
     
     override var pagePencilData: Data? {
@@ -78,6 +77,12 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     
     override func nextPage() {
         self.viewModel?.delegate?.nextPage()
+    }
+    
+    private func configureCollectionView() {
+        let cellIdentifier = self.cellType.identifier
+        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
 }
 

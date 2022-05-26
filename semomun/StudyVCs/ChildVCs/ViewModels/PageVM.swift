@@ -29,8 +29,8 @@ class PageVM {
         return pageData.pageCore.drawing
     }
     
-    var pagePencilDataWidth: Int {
-        return Int(pageData.pageCore.drawingWidth)
+    var pagePencilDataWidth: Double {
+        return Double(pageData.pageCore.drawingWidth)
     }
     
     init(delegate: PageDelegate, pageData: PageData) {

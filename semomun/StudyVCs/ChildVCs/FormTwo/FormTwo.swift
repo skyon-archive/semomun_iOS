@@ -10,15 +10,12 @@ import PencilKit
 
 class FormTwo: UIViewController {
     let canvasView = PKCanvasView()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     private let imageView = UIImageView()
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     /// Cell에서 받은 explanation 의 pid
-    var explanationId: Int? {
-        didSet {
-            print(self.explanationId ?? "none")
-        }
-    }
+    var explanationId: Int?
     
     var mainImage: UIImage?
     var subImages: [UIImage?]?
@@ -76,17 +73,37 @@ class FormTwo: UIViewController {
         CoreDataManager.saveCoreData()
     }
     
+    // 아래 프로퍼티/메소드들은 override가 필요
     var pagePencilData: Data? { return nil }
     
     var pagePencilDataWidth: CGFloat { return self.canvasView.frame.size.width }
     
     func updatePagePencilData(data: Data, width: CGFloat) { }
     
-    var cellLayoutable: CellLayoutable.Type? { return nil }
-    
     func previousPage() { }
     
     func nextPage() { }
+}
+
+// MARK: - FormTwo의 Cell 부분 동작을 위해 override가 필요
+extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+}
+
+extension FormTwo: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.collectionView.bounds.width
+        let image = subImages?[indexPath.row] ?? UIImage(.warning)
+        let height = image.size.height * (width/image.size.width)
+        
+        return CGSize(width: width, height: height)
+    }
 }
 
 // MARK: - Private 메소드
@@ -105,11 +122,6 @@ extension FormTwo {
     }
     
     private func configureBasicUI() {
-        guard let cellIdentifier = self.cellLayoutable?.identifier else { return }
-        
-        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
-        
         // MARK: 디자인 확인 후 수정이 필요할 수 있는 부분
         self.collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         
@@ -301,27 +313,6 @@ extension FormTwo {
     
     @objc func leftDragged() {
         self.nextPage()
-    }
-}
-
-// MARK: - Configure Cell
-extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-}
-
-extension FormTwo: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.collectionView.bounds.width
-        let image = subImages?[indexPath.row] ?? UIImage(.warning)
-        let height = image.size.height * (width/image.size.width)
-        
-        return CGSize(width: width, height: height)
     }
 }
 
