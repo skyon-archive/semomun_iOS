@@ -37,6 +37,11 @@ final class SingleWith5AnswerVC: FormZero {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setViewToDefault()
         self.configureUI()
     }
     
@@ -128,6 +133,10 @@ final class SingleWith5AnswerVC: FormZero {
     
     override var drawing: Data? {
         self.viewModel?.problem?.drawing
+    }
+    
+    override var drawingWidth: CGFloat? {
+        CGFloat(self.viewModel?.problem?.drawingWidth ?? 0)
     }
     
     override func previousPage() {

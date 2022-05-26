@@ -53,7 +53,6 @@ class FormZero: UIViewController, PKToolPickerObserver {
         super.viewWillAppear(animated)
         
         self.configureCanvasView()
-        self.configureCanvasViewData()
         self.configureImageView()
         self.showResultImage()
     }
@@ -62,6 +61,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
         super.viewDidAppear(animated)
         
         self.configureUI()
+        self.configureCanvasViewData()
         self.stopLoader()
     }
     
@@ -81,6 +81,8 @@ class FormZero: UIViewController, PKToolPickerObserver {
     var _topViewTrailingConstraint: NSLayoutConstraint? { return nil }
     
     var drawing: Data? { return nil }
+    
+    var drawingWidth: CGFloat? { return nil }
     
     func previousPage() { }
     func nextPage() { }
@@ -129,11 +131,13 @@ extension FormZero {
     private func configureScrollView() {
         self.canvasView.minimumZoomScale = 0.5
         self.canvasView.maximumZoomScale = 2.0
-        self.canvasView.delegate = self
     }
     
     private func showResultImage() {
-        guard let result = self.problemResult else { return }
+        guard let result = self.problemResult else {
+            self.resultImageView.isHidden = true
+            return
+        }
         
         let imageName = result ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
@@ -151,16 +155,30 @@ extension FormZero {
     }
     
     private func configureCanvasViewData() {
-        if let pkData = self.drawing {
-            do {
-                try self.canvasView.drawing = PKDrawing.init(data: pkData)
-            } catch {
-                print("Error loading drawing object")
-            }
-        } else {
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+        defer { self.canvasView.delegate = self }
+        
+        guard let pkData = self.drawing,
+              let drawingWidth = self.drawingWidth else {
             self.canvasView.drawing = PKDrawing()
+            return
         }
-        self.canvasView.delegate = self
+        
+        guard let drawing = try? PKDrawing(data: pkData) else {
+            print("Error loading drawing object")
+            self.canvasView.drawing = PKDrawing()
+            return
+        }
+        
+        
+        if drawingWidth > 0 {
+            let scale = self.canvasView.frame.width / CGFloat(drawingWidth)
+            let transform = CGAffineTransform(scaleX: scale, y: scale)
+            let drawingConverted = drawing.transformed(using: transform)
+            self.canvasView.drawing = drawingConverted
+        } else {
+            self.canvasView.drawing = drawing
+        }
     }
     
     private func configureImageView() {
@@ -271,9 +289,13 @@ extension FormZero {
         self.imageView.frame.size = self.canvasView.contentSize
         
         // 채점 이미지 크기 설정
-        let imageViewWidth = self.imageView.frame.width
-        
-        self.resultImageView.frame = .init(imageViewWidth/10, imageViewWidth/10, imageViewWidth*150/834, imageViewWidth*150/834)
+        if self.resultImageView.isHidden == false {
+            let imageViewWidth = self.imageView.frame.width
+            let resultImageWidth = imageViewWidth/5
+            let resultImageXOffset = imageViewWidth/100*19-resultImageWidth/2
+            let resultImageYOffset = imageViewWidth/10-resultImageWidth/2
+            self.resultImageView.frame = .init(resultImageXOffset, resultImageYOffset, resultImageWidth, resultImageWidth)
+        }
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수

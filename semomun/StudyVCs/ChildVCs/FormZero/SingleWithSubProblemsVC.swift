@@ -1,24 +1,19 @@
 //
-//  SubProblemCell.swift
+//  SingleWithSubProblemsVC.swift
 //  semomun
 //
-//  Created by SEONG YEOL YI on 2022/05/23.
+//  Created by Kang Minsang on 2022/05/17.
 //
 
 import UIKit
 import PencilKit
+import Kingfisher
 
-class SubProblemCell: FormCell, CellLayoutable {
-    static let identifier = "SubProblemCell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
-        return 99 + (problem.terminated ? 30 : 0)
-    }
+class SingleWithSubProblemsVC: FormZero {
+    static let identifier = "SingleWithSubProblemsVC"
+    static let storyboardName = "Study"
     
-    override var internalTopViewHeight: CGFloat {
-        guard let problem = self.problem else { return 99 }
-        
-        return 99 + (problem.terminated ? 30 : 0)
-    }
+    var viewModel: SingleWithSubProblemsVM?
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
@@ -37,6 +32,120 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBOutlet weak var realAnswerView: UICollectionView!
     @IBOutlet weak var returnButton: UIButton!
     
+    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.savedAnswerView.delegate = self
+        self.savedAnswerView.dataSource = self
+        self.realAnswerView.delegate = self
+        self.realAnswerView.dataSource = self
+        self.answerTF.delegate = self
+        
+        self.savedAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
+        self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.answerTF.addAccessibleShadow()
+        
+        guard let subProblemCount = self.viewModel?.problem?.subProblemsCount, subProblemCount > 0 else { return }
+        guard let problem = self.viewModel?.problem else { return }
+        
+        // 부분문제 개수에 맞게 선택 버튼 추가
+        self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        for i in 0..<Int(subProblemCount) {
+            let button = SubProblemCheckButton(index: i, delegate: self)
+            self.stackView.addArrangedSubview(button)
+            // 초기 UI: 첫번째 버튼이 클릭된 상태
+            if problem.solved == nil && i == 0 {
+                button.isSelected = true
+                button.select()
+            }
+        }
+        
+        // 사용자 답안 불러와서 적용
+        if let solved = problem.solved {
+            self.solvings = solved.components(separatedBy: "$").map {
+                $0 == "" ? nil : $0
+            }
+            self.solvings += .init(repeating: nil, count: Int(subProblemCount) - self.solvings.count)
+            self.hideTextField()
+        } else {
+            self.solvings = .init(repeating: nil, count: Int(subProblemCount))
+        }
+        
+        if problem.terminated == false {
+            self.currentProblemIndex = 0
+            self.resultView.isHidden = true
+        } else {
+            self.currentProblemIndex = nil
+            self.resultView.isHidden = false
+            self.hideTextField()
+        }
+        
+        if problem.terminated == true {
+            self.configureAfterTermination()
+            self.resultImageView.isHidden = false
+            self.hideTextField(animation: true)
+        } else {
+            self.showTextField(animation: false)
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel?.startTimeRecord()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        CoreDataManager.saveCoreData()
+        self.viewModel?.endTimeRecord()
+        self.timerView.removeFromSuperview()
+    }
+    
+    override var _topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailingConstraint
+    }
+    
+    override var topHeight: CGFloat {
+        self.topView.frame.height
+    }
+    
+    override var problemResult: Bool? {
+        if let problem = self.viewModel?.problem, problem.terminated && problem.answer != nil {
+            return problem.correct
+        } else {
+            return nil
+        }
+    }
+    
+    override var drawing: Data? {
+        self.viewModel?.problem?.drawing
+    }
+    
+    override var drawingWidth: CGFloat? {
+        CGFloat(self.viewModel?.problem?.drawingWidth ?? 0)
+    }
+    
+    override func previousPage() {
+        self.viewModel?.delegate?.beforePage()
+    }
+    
+    override func nextPage() {
+        self.viewModel?.delegate?.nextPage()
+    }
+    
+    override func savePencilData(data: Data, width: CGFloat) {
+        self.viewModel?.updatePencilData(to: data, width: Double(width))
+    }
+    
     // textField 의 width 값
     private let savedAnswerWidth: CGFloat = 250+10
     
@@ -50,7 +159,7 @@ class SubProblemCell: FormCell, CellLayoutable {
     private var solvings: [String?] = [] {
         didSet {
             // 입력된 사용자 답안이 없는 경우 '내 답안' 라벨 숨김
-            self.savedAnswerLabel.isHidden = self.problem?.terminated != true && self.solvings.allSatisfy { $0 == nil }
+            self.savedAnswerLabel.isHidden = self.viewModel?.problem?.terminated != true && self.solvings.allSatisfy { $0 == nil }
             
             // 사용자가 쓴 답안에 맞게 UI 수정
             if let currentProblemIndex = self.currentProblemIndex {
@@ -78,29 +187,8 @@ class SubProblemCell: FormCell, CellLayoutable {
     }()
     private lazy var timerView = ProblemTimerView()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.answerTF.delegate = self
-        self.savedAnswerView.delegate = self
-        self.savedAnswerView.dataSource = self
-        self.realAnswerView.delegate = self
-        self.realAnswerView.dataSource = self
-        
-        self.savedAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
-        self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
-        
-        self.answerTF.addAccessibleShadow()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
         self.answerTF.clipAccessibleShadow(at: .exceptLeft)
     }
@@ -108,24 +196,27 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
-        
-        self.problem?.setValue(status, forKey: "star")
-        self.delegate?.reload()
+        self.viewModel?.updateStar(to: status)
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage,
-              let pid = self.problem?.pid else { return }
-        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
+        guard let imageData = self.viewModel?.problem?.explanationImage,
+            let image = UIImage(data: imageData) else { return }
+        self.explanationBT.isSelected.toggle()
+        if self.explanationBT.isSelected {
+            self.showExplanation(to: image)
+        } else {
+            self.closeExplanation()
+        }
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
+        guard let answer = self.viewModel?.problem?.answer else { return }
         self.answerView.removeFromSuperview()
         
         let answerConverted = answer.split(separator: "$").joined(separator: ", ")
         self.answerView.configureAnswer(to: answerConverted)
-        self.contentView.addSubview(self.answerView)
+        self.view.addSubview(self.answerView)
         self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -145,51 +236,8 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.returnAction()
     }
     
-    override func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        super.configureReuse(contentImage, problem, toolPicker)
-        
-        guard let subProblemCount = problem?.subProblemsCount, subProblemCount > 0 else { return }
-        
-        // 부분문제 개수에 맞게 선택 버튼 추가
-        self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for i in 0..<Int(subProblemCount) {
-            let button = SubProblemCheckButton(index: i, delegate: self)
-            self.stackView.addArrangedSubview(button)
-            // 초기 UI: 첫번째 버튼이 클릭된 상태
-            if problem?.solved == nil && i == 0 {
-                button.isSelected = true
-                button.select()
-            }
-        }
-        
-        // 사용자 답안 불러와서 적용
-        if let solved = problem?.solved {
-            self.solvings = solved.components(separatedBy: "$").map {
-                $0 == "" ? nil : $0
-            }
-            self.solvings += .init(repeating: nil, count: Int(subProblemCount) - self.solvings.count)
-            self.hideTextField()
-        } else {
-            self.solvings = .init(repeating: nil, count: Int(subProblemCount))
-        }
-        
-        if self.problem?.terminated == false {
-            self.currentProblemIndex = 0
-            self.resultView.isHidden = true
-        } else {
-            self.currentProblemIndex = nil
-            self.resultView.isHidden = false
-            self.hideTextField()
-        }
-        
-        if self.problem?.terminated == true {
-            self.configureAfterTermination()
-            self.showResultImage(to: self.problem?.correct ?? false)
-        }
-    }
-    
     private func configureAfterTermination() {
-        guard let answer = problem?.answer else { return }
+        guard let answer = self.viewModel?.problem?.answer else { return }
         
         // 선택지 터치 불가하게
         self.stackView.arrangedSubviews.forEach {
@@ -217,7 +265,7 @@ class SubProblemCell: FormCell, CellLayoutable {
     }
 }
 
-extension SubProblemCell: SubProblemCheckObservable {
+extension SingleWithSubProblemsVC: SubProblemCheckObservable {
     func checkButton(index: Int) {
         guard let targetButton = self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton else {
             assertionFailure()
@@ -264,7 +312,7 @@ extension SubProblemCell: SubProblemCheckObservable {
     }
 }
 
-extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     /// 내 답안 collectionview 인덱스 -> 실제 문제 인덱스
     private func getSolvingIndex(from itemIdx: Int) -> Int {
         var subProblemIdx = 0
@@ -317,7 +365,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.savedAnswerView {
-            if self.problem?.terminated == true {
+            if self.viewModel?.problem?.terminated == true {
                 return self.answer.count
             } else {
                 return self.solvings.compactMap({$0}).count
@@ -331,7 +379,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedAnswerCell.identifier, for: indexPath) as? SavedAnswerCell else { return UICollectionViewCell() }
         
         if collectionView == self.savedAnswerView {
-            if self.problem?.terminated == true {
+            if self.viewModel?.problem?.terminated == true {
                 let text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
                 cell.configureText(to: text)
                 
@@ -342,8 +390,8 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
                 }
             } else {
                 let text = self.getSavedCellTitle(at: indexPath.item)
-                cell.configureText(to: text)
                 cell.makeCorrect()
+                cell.configureText(to: text)
             }
         } else if collectionView == self.realAnswerView {
             let text = self.getAnswerCellTitle(at: indexPath.item)
@@ -354,7 +402,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard self.problem?.terminated == false else { return }
+        guard self.viewModel?.problem?.terminated == false else { return }
         guard collectionView == self.savedAnswerView else { return }
         self.currentProblemIndex = indexPath.item
         
@@ -370,7 +418,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text: String
         if collectionView == self.savedAnswerView {
-            if self.problem?.terminated == true {
+            if self.viewModel?.problem?.terminated == true {
                 text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
             } else {
                 text = self.getSavedCellTitle(at: indexPath.item)
@@ -386,7 +434,7 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 }
 
-extension SubProblemCell: UITextFieldDelegate {
+extension SingleWithSubProblemsVC: UITextFieldDelegate {
     // TODO: 빈 문자열 입력시 입력된 답안 제거?
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.returnAction()
@@ -401,10 +449,10 @@ extension SubProblemCell: UITextFieldDelegate {
         let solvingConverted = self.solvings
             .map { $0 ?? "" }
             .joined(separator: "$")
-        self.updateSolved(input: solvingConverted)
+        self.viewModel?.updateSolved(withSelectedAnswer: solvingConverted)
         self.updateCorrectPoints()
         // 현재문제 deselect
-        guard let subCount = self.problem?.subProblemsCount,
+        guard let subCount = self.viewModel?.problem?.subProblemsCount,
               let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
         currentButton.isSelected = false
         currentButton.deselect()
@@ -420,19 +468,19 @@ extension SubProblemCell: UITextFieldDelegate {
         else if currentProblemIndex+1 == Int(subCount) {
             self.currentProblemIndex = nil
             self.hideTextField(animation: true)
-            self.endEditing(true)
+            self.view.endEditing(true)
         }
     }
 }
 
-extension SubProblemCell {
+extension SingleWithSubProblemsVC {
     private func subProblemButton(index: Int) -> SubProblemCheckButton? {
         return self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton ?? nil
     }
     
     private func updateCorrectPoints() {
-        guard let answer = self.problem?.answer else {
-            self.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+        guard let answer = self.viewModel?.problem?.answer else {
+            self.viewModel?.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
             return
         }
         let answers = answer.split(separator: "$").map { String($0) }
@@ -443,17 +491,6 @@ extension SubProblemCell {
                 points += 1
             }
         }
-        self.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
-    }
-}
-
-extension SubProblemCell {
-    func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
+        self.viewModel?.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
 }
