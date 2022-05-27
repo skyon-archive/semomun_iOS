@@ -25,6 +25,8 @@ enum SemomunImage: ImageName {
     case refresh = "/refresh"
     case cloud = "/cloud"
     case noticeImage = "/noticeImage"
+    case wrong = "/wrong"
+    case correct = "/correct"
 }
 
 struct ImageName: Equatable, ExpressibleByStringLiteral {
