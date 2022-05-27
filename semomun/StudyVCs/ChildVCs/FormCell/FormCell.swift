@@ -14,11 +14,7 @@ protocol CellLayoutable {
 }
 
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
-    private let canvasView: PKCanvasView = {
-        let canvasView = PKCanvasView()
-        canvasView.backgroundColor = .clear
-        return canvasView
-    }()
+    private let canvasView = RotationableCanvasView()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -34,7 +30,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.imageView.addSubview(imageView)
         return imageView
     }()
-    private var contentImage: UIImage?
     private var toolPicker: PKToolPicker?
     // 자식 cell 에서 사용 가능한 Property들
     weak var delegate: CollectionCellDelegate?
@@ -58,20 +53,22 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.resultImageView.isHidden = true
     }
     
+    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+        self.configureProblem(problem)
+        self.configureImageView(contentImage)
+        self.configureToolpicker(toolPicker)
+    }
+    
+    // MARK: Rotation
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layoutCanvas()
+        self.adjustLayouts(rotate: true)
         self.configureCanvasViewDataAndDelegate()
     }
-    
-    private func layoutCanvas() {
-        self.adjustLayout {
-            let size = self.contentView.frame
-            self.canvasView.frame = .init(0, self.internalTopViewHeight, size.width, size.height-self.internalTopViewHeight)
-        }
-    }
-    
-    // MARK: Configure
+}
+
+// MARK: Configure
+extension FormCell {
     private func configureBasicUI() {
         self.contentView.addSubviews(self.canvasView, self.background)
         self.contentView.sendSubviewToBack(self.canvasView)
@@ -87,97 +84,45 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.canvasView.maximumZoomScale = 2.0
     }
     
-    // MARK: - Configure Reuse
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        self.configureProblem(problem)
-        self.configureImageView(contentImage)
-        self.toolPicker = toolPicker
-        toolPicker?.setVisible(true, forFirstResponder: canvasView)
-        toolPicker?.addObserver(canvasView)
+    private func configureCanvasView() {
+        self.canvasView.isOpaque = false
+        self.canvasView.becomeFirstResponder()
+        self.canvasView.drawingPolicy = .pencilOnly
     }
-    
-    func configureProblem(_ problem: Problem_Core?) {
+}
+
+// MARK: Configure Reuse
+extension FormCell {
+    private func configureProblem(_ problem: Problem_Core?) {
         self.problem = problem
     }
     
-    func configureImageView(_ contentImage: UIImage?) {
-        guard let contentImage = contentImage else { return }
-        if contentImage.size.width > 0 && contentImage.size.height > 0 {
-            self.contentImage = contentImage
-        } else {
-            self.contentImage = UIImage(.warning)
-        }
-        self.imageView.image = self.contentImage
-    }
-    
-    func configureCanvasView() {
-        canvasView.isOpaque = false
-//        canvasView.becomeFirstResponder()
-        canvasView.drawingPolicy = .pencilOnly
-    }
-    
-    func configureCanvasViewDataAndDelegate() {
-        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer { self.canvasView.delegate = self }
-        
-        guard let pkData = self.problem?.drawing,
-              let drawingWidth = self.problem?.drawingWidth,
-              drawingWidth > 0 else {
-            self.canvasView.drawing = PKDrawing()
+    private func configureImageView(_ contentImage: UIImage?) {
+        guard let contentImage = contentImage,
+              contentImage.size.width > 0, contentImage.size.height > 0 else {
+            self.imageView.image = UIImage(.warning)
             return
         }
-        
-        guard let drawing = try? PKDrawing(data: pkData) else {
-            print("Error loading drawing object")
-            self.canvasView.drawing = PKDrawing()
-            return
-        }
-        
-        if drawingWidth > 0 {
-            let scale = self.canvasView.frame.width / CGFloat(drawingWidth)
-            let transform = CGAffineTransform(scaleX: scale, y: scale)
-            let drawingConverted = drawing.transformed(using: transform)
-            self.canvasView.drawing = drawingConverted
-        } else {
-            self.canvasView.drawing = drawing
-        }
+        self.imageView.image = contentImage
     }
     
-    func updateSolved(input: String) {
-        guard let problem = self.problem else { return }
+    private func configureToolpicker(_ toolPicker: PKToolPicker?) {
+        self.toolPicker = toolPicker
+        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker?.addObserver(self.canvasView)
+    }
+}
 
-        problem.setValue(input, forKey: "solved") // 사용자 입력 값 저장
-        
-        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
-            let correct = input == answer
-            problem.setValue(correct, forKey: "correct")
-        }
-        self.delegate?.addScoring(pid: Int(problem.pid))
-    }
-    
-    func showResultImage(to: Bool) {
-        self.resultImageView.show(isWrong: to)
-    }
-    
-    /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
-    private func adjustLayout(_ action: (() -> ())? = nil) {
-        let previousCanvasSize = self.canvasView.frame.size
-        let previousContentOffset = self.canvasView.contentOffset
-        action?()
-        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-    }
-    
-    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
-    private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
-        guard let image = self.imageView.image else {
-            assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
+// MARK: Rotation
+extension FormCell {
+    private func adjustLayouts(rotate: Bool = false) {
+        let contentFrame = self.contentView.frame
+        guard let imageSize = self.imageView.image?.size else {
+            assertionFailure("imageView 내 image 가 존재하지 않습니다.")
             return
         }
-        
-        let ratio = image.size.height/image.size.width
-        
-        self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
-        
+        // canvasView 크기 및 필기 ratio 조절
+        self.canvasView.updateFrameAndRatio(contentFrame: contentFrame, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
         // 배경 뷰 위치 설정
         self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정
@@ -185,26 +130,58 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         // 채점 이미지 크기 설정
         self.resultImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
     }
+
+    private func configureCanvasViewDataAndDelegate() {
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+        defer { self.canvasView.delegate = self }
+        
+        let savedData = self.problem?.drawing
+        let lastWidth = self.problem?.drawingWidth
+        let currentWidth = self.canvasView.frame.width
+        // 필기데이터 ratio 조절 후 표시
+        self.canvasView.updateDrawing(to: savedData, lastWidth: lastWidth, currentWidth: currentWidth)
+    }
 }
 
+// MARK: Child Accessible
+extension FormCell {
+    func updateSolved(input: String) {
+        guard let problem = self.problem else { return }
+        problem.setValue(input, forKey: Problem_Core.Attribute.solved.rawValue)
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+            let correct = (input == answer)
+            problem.setValue(correct, forKey: Problem_Core.Attribute.correct.rawValue)
+        }
+        self.delegate?.addScoring(pid: Int(problem.pid))
+    }
+    
+    func showResultImage(to: Bool) {
+        self.resultImageView.show(isCorrect: to)
+    }
+}
+
+// MARK: Drawing Detect
 extension FormCell: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
+        
         let width = self.canvasView.frame.width
         let data = self.canvasView.drawing.dataRepresentation()
         problem.setValue(Double(width), forKey: Problem_Core.Attribute.drawingWidth.rawValue)
         problem.setValue(data, forKey: Problem_Core.Attribute.drawing.rawValue)
+        
         self.delegate?.addUpload(pid: Int(problem.pid))
     }
 }
 
+// MARK: Zooming
 extension FormCell: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.adjustLayout()
+        self.adjustLayouts()
     }
 }
-
