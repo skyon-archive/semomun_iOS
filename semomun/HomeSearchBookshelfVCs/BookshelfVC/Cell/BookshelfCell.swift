@@ -30,11 +30,10 @@ class BookshelfCell: UICollectionViewCell {
         if let imageData = book.image {
             self.bookcover.image = UIImage(data: imageData)
         }
-        if book.sids.isEmpty == false {
-            let percent = Float(book.progressCount)/Float(book.sids.count)
-            self.progressView.setProgress(percent, animated: false)
-            self.progressPercentLabel.text = "\(Int(percent*100))%"
-        }
+        
+        let percent: Float = book.sids.isEmpty ? 0 : Float(book.progressCount)/Float(book.sids.count)
+        self.progressView.setProgress(percent, animated: false)
+        self.progressPercentLabel.text = "\(Int(percent*100))%"
         
         self.bookcoverHeight.constant = imageSize.height
         self.layoutIfNeeded()
