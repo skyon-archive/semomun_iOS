@@ -105,6 +105,12 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.answerTF.clipAccessibleShadow(at: .exceptLeft)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.answerBT.isHidden = false
+        self.timerView.removeFromSuperview()
+    }
+    
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
@@ -185,6 +191,25 @@ class SubProblemCell: FormCell, CellLayoutable {
         if self.problem?.terminated == true {
             self.configureAfterTermination()
             self.showResultImage(to: self.problem?.correct ?? false)
+        }
+        
+        self.configureTimerView()
+    }
+    
+    private func configureTimerView() {
+        guard let problem = self.problem else { return }
+        
+        if problem.terminated {
+            self.answerBT.isHidden = true
+            self.contentView.addSubview(self.timerView)
+            self.timerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+                self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+            ])
+            
+            self.timerView.configureTime(to: problem.time)
         }
     }
     

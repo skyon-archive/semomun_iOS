@@ -69,7 +69,6 @@ class FormZero: UIViewController, PKToolPickerObserver {
         super.viewWillDisappear(animated)
         
         self.setViewToDefault()
-        CoreDataManager.saveCoreData()
     }
     
     /// 상단 바 높이

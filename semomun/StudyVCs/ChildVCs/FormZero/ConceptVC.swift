@@ -17,12 +17,12 @@ class ConceptVC: FormZero {
     @IBOutlet weak var topView: UIView!
     var viewModel: ConceptVM?
     
-    
     private lazy var timerView = ProblemTimerView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("개념 willAppear")
+        self.configureUI()
         self.checkScoring()
     }
     
