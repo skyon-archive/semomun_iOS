@@ -61,8 +61,6 @@ final class SingleWith5AnswerVC: FormZero {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .bottom)
     }
     
     // 객관식 1~5 클릭 부분
