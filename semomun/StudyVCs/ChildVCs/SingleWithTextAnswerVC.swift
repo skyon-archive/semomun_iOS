@@ -92,7 +92,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         super.viewWillDisappear(animated)
         print("객관식 willDisappear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.solveInput.isHidden = false
@@ -396,5 +396,11 @@ extension SingleWithTextAnswerVC: ExplanationRemover {
 extension SingleWithTextAnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+}
+
+extension SingleWithTextAnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

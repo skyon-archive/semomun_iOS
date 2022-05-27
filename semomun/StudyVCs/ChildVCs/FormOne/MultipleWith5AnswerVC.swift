@@ -83,7 +83,7 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         super.viewWillDisappear(animated)
         print("5다선지 좌우형 : willDisapplear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
@@ -312,5 +312,11 @@ extension MultipleWith5AnswerVC: ExplanationRemover {
 extension MultipleWith5AnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+}
+
+extension MultipleWith5AnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

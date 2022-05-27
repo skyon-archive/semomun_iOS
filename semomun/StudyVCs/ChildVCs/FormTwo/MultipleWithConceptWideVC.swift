@@ -23,7 +23,7 @@ final class MultipleWithConceptWideVC: FormTwo {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -97,5 +97,11 @@ extension MultipleWithConceptWideVC: CollectionCellDelegate {
     
     func addUpload(pid: Int) {
         self.viewModel?.delegate?.addUploadProblem(pid: pid)
+    }
+}
+
+extension MultipleWithConceptWideVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }
