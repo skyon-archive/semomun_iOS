@@ -1049,12 +1049,12 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VKJ-au-ifT">
-                                        <rect key="frame" x="170" y="15" width="636" height="30"/>
+                                        <rect key="frame" x="170" y="14" width="636" height="32"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="pym-2J-Qs0">
-                                                <rect key="frame" x="471" y="0.0" width="165" height="30"/>
+                                                <rect key="frame" x="471" y="0.0" width="165" height="32"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="csG-am-4eG"/>
+                                                    <constraint firstAttribute="height" constant="32" id="csG-am-4eG"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
