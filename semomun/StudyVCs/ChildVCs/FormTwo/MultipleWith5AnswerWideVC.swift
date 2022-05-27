@@ -27,7 +27,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -101,5 +101,11 @@ extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
     
     func addUpload(pid: Int) {
         self.viewModel?.delegate?.addUploadProblem(pid: pid)
+    }
+}
+
+extension MultipleWith5AnswerWideVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

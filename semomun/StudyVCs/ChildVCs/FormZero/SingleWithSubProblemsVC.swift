@@ -104,7 +104,7 @@ class SingleWithSubProblemsVC: FormZero {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.timerView.removeFromSuperview()
     }
     
@@ -490,5 +490,11 @@ extension SingleWithSubProblemsVC {
             }
         }
         self.viewModel?.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+    }
+}
+
+extension SingleWithSubProblemsVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

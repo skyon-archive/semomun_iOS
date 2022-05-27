@@ -96,7 +96,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillDisappear(animated)
         print("4다선지 willDisappear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil
         self.answerBT.isHidden = false
@@ -408,5 +408,11 @@ extension SingleWith4AnswerVC: ExplanationRemover {
 extension SingleWith4AnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+}
+
+extension SingleWith4AnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

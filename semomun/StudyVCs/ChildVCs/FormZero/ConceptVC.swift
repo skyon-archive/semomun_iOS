@@ -36,7 +36,7 @@ class ConceptVC: FormZero {
         super.viewWillDisappear(animated)
         print("개념 willDisappear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.timerView.removeFromSuperview()
     }
     
@@ -116,5 +116,11 @@ extension ConceptVC {
         if terminated == false {
             self.viewModel?.delegate?.addScoring(pid: Int(problem.pid))
         }
+    }
+}
+
+extension ConceptVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

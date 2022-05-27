@@ -27,7 +27,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -104,3 +104,8 @@ extension MultipleWithSubProblemsWideVC: CollectionCellDelegate {
     }
 }
 
+extension MultipleWithSubProblemsWideVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
+    }
+}

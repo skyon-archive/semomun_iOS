@@ -89,18 +89,19 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
+        // 임시코드: 내부 VC.viewModel?.endTimeRecord 실행
+        if let vc = self.currentVC as? TimeRecordControllable {
+            vc.endTimeRecord()
+        }
         self.manager?.pauseSection()
         self.manager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
     }
     
     @IBAction func scoringSection(_ sender: Any) {
         guard let section = self.manager?.section else { return }
-        
-        if let vc = self.currentVC as? MultipleWith5AnswerWideVC {
-            vc.viewModel?.endTimeRecord()
-        }
-        if let vc = self.currentVC as? MultipleWithSubProblemsWideVC {
-            vc.viewModel?.endTimeRecord()
+        // 임시코드: 내부 VC.viewModel?.endTimeRecord 실행
+        if let vc = self.currentVC as? TimeRecordControllable {
+            vc.endTimeRecord()
         }
         
         if section.terminated {
