@@ -37,6 +37,11 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
             self.removeTopShadow()
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.timerView.removeFromSuperview()
+    }
 
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
@@ -54,20 +59,23 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     // MARK: Configure
     private func configureUI() {
         self.configureStar()
+        self.configureTimerView()
     }
     
     private func configureTimerView() {
-        guard let time = self.problem?.time else { return }
+        guard let problem = self.problem else { return }
         
-        self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
-        ])
-        
-        self.timerView.configureTime(to: time)
+        if problem.terminated {
+            self.contentView.addSubview(self.timerView)
+            self.timerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
+                self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
+            ])
+            
+            self.timerView.configureTime(to: problem.time)
+        }
     }
     
     private func configureStar() {

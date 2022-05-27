@@ -95,6 +95,8 @@ class SingleWithSubProblemsVC: FormZero {
             self.showTextField(animation: false)
         }
         
+        self.configureStar()
+        self.configureTimerView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,6 +107,7 @@ class SingleWithSubProblemsVC: FormZero {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
+        self.answerBT.isHidden = false
         self.timerView.removeFromSuperview()
     }
     
@@ -496,5 +499,28 @@ extension SingleWithSubProblemsVC {
 extension SingleWithSubProblemsVC: TimeRecordControllable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension SingleWithSubProblemsVC {
+    private func configureStar() {
+        self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
+    }
+    
+    private func configureTimerView() {
+        guard let problem = self.viewModel?.problem else { return }
+        
+        if problem.terminated {
+            self.answerBT.isHidden = true
+            self.view.addSubview(self.timerView)
+            self.timerView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+                self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+            ])
+            
+            self.timerView.configureTime(to: problem.time)
+        }
     }
 }
