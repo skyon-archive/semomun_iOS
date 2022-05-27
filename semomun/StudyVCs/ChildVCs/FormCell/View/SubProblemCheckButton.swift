@@ -17,16 +17,16 @@ class SubProblemCheckButton: UIButton {
     
     private var size: CGFloat = 32
 
-    convenience init(size: CGFloat, index: Int, delegate: SubProblemCheckObservable) {
+    convenience init(size: CGFloat, fontSize: CGFloat, index: Int, delegate: SubProblemCheckObservable) {
         self.init(frame: CGRect(0, 0, 32, 32))
-        self.commonInit(size: size, index: index, delegate: delegate)
+        self.commonInit(size: size, fontSize: fontSize, index: index, delegate: delegate)
     }
     
     override var intrinsicContentSize: CGSize {
         return CGSize(width: self.size, height: self.size)
     }
 
-    private func commonInit(size: CGFloat, index: Int, delegate: SubProblemCheckObservable) {
+    private func commonInit(size: CGFloat, fontSize: CGFloat, index: Int, delegate: SubProblemCheckObservable) {
         self.size = size
         
         self.backgroundColor = .clear
@@ -34,7 +34,7 @@ class SubProblemCheckButton: UIButton {
         self.borderWidth = 1
         self.layer.borderColor = UIColor(.deepMint)?.cgColor
         self.layer.cornerRadius = size/2
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
         self.setTitleColor(UIColor(.deepMint), for: .normal)
         self.setTitle(Self.korLabels[index], for: .normal)
         
