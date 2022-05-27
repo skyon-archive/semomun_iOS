@@ -96,7 +96,6 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         super.viewWillDisappear(animated)
         print("4다선지 willDisappear")
         
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil

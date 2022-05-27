@@ -60,6 +60,7 @@ class PageVM {
     
     // TODO: 앱을 종료할때도 저장 가능하도록 수정
     func startTimeRecord() {
+        print("start time record")
         guard self.isTimeRecording == false else {
             assertionFailure("타이머가 중복 실행되려고합니다.")
             return
@@ -72,6 +73,7 @@ class PageVM {
     }
     
     func endTimeRecord() {
+        print("end time record")
         guard let startTime = startTime else { return }
 
         let timeSpentOnPage = Int64(startTime.timeIntervalSinceNow) * -1

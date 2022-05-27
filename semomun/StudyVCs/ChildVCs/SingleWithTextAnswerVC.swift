@@ -92,7 +92,6 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         super.viewWillDisappear(animated)
         print("객관식 willDisappear")
         
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.resultImageView.removeFromSuperview()
         self.imageView.image = nil

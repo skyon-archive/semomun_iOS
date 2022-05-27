@@ -36,7 +36,6 @@ class ConceptVC: FormZero {
         super.viewWillDisappear(animated)
         print("개념 willDisappear")
         
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.timerView.removeFromSuperview()
     }

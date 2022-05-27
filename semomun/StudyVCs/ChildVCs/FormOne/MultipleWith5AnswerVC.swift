@@ -83,7 +83,6 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         super.viewWillDisappear(animated)
         print("5다선지 좌우형 : willDisapplear")
         
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
