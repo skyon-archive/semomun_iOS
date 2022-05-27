@@ -58,7 +58,7 @@ class SingleWithSubProblemsVC: FormZero {
         // 부분문제 개수에 맞게 선택 버튼 추가
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for i in 0..<Int(subProblemCount) {
-            let button = SubProblemCheckButton(size: 32, index: i, delegate: self)
+            let button = SubProblemCheckButton(size: 32, fontSize: 16, index: i, delegate: self)
             self.stackView.addArrangedSubview(button)
             // 초기 UI: 첫번째 버튼이 클릭된 상태
             if problem.solved == nil && i == 0 {
