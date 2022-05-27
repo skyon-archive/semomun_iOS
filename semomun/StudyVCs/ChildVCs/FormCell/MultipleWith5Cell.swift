@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class MultipleWith5Cell: FormCell, CellLayoutable {
+final class MultipleWith5Cell: FormCell, CellLayoutable {
     static let identifier = "MultipleWith5Cell"
     static func topViewHeight(with problem: Problem_Core) -> CGFloat {
         return 51
@@ -17,14 +17,14 @@ class MultipleWith5Cell: FormCell, CellLayoutable {
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
-    @IBOutlet var checkNumbers: [UIButton]!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet var checkNumbers: [UIButton]!
     
     override var internalTopViewHeight: CGFloat {
         return 51
     }
     
-    lazy var checkImageView: UIImageView = {
+    private lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit

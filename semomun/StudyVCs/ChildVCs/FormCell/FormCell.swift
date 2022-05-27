@@ -14,32 +14,37 @@ protocol CellLayoutable {
 }
 
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
-    private let canvasView = PKCanvasView()
-    private let imageView = UIImageView()
-    private let background = UIView()
-    
-    var contentImage: UIImage?
+    private let canvasView: PKCanvasView = {
+        let canvasView = PKCanvasView()
+        canvasView.backgroundColor = .clear
+        return canvasView
+    }()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        return imageView
+    }()
+    private let background: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        return view
+    }()
+    private lazy var resultImageView: CorrectImageView = {
+        let imageView = CorrectImageView()
+        self.imageView.addSubview(imageView)
+        return imageView
+    }()
+    private var contentImage: UIImage?
+    private var toolPicker: PKToolPicker?
+    // 자식 cell 에서 사용 가능한 Property들
+    weak var delegate: CollectionCellDelegate?
     var problem: Problem_Core?
     var showTopShadow: Bool = false
-    
-    // 상속 전용
+    // 자식 cell 에서 override 해야 하는 Property들
     var internalTopViewHeight: CGFloat {
         assertionFailure()
         return 51
     }
-    
-    weak var delegate: CollectionCellDelegate?
-    
-    var toolPicker: PKToolPicker?
-    
-    private lazy var resultImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        self.imageView.addSubview(imageView)
-        imageView.isHidden = true
-        return imageView
-    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -75,11 +80,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
-        self.canvasView.backgroundColor = .clear
-        
-        self.imageView.backgroundColor = .white
-        
-        self.background.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     private func configureScrollView() {
@@ -156,9 +156,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     func showResultImage(to: Bool) {
-        let imageName: String = to ? "correct" : "wrong"
-        self.resultImageView.image = UIImage(named: imageName)
-        self.resultImageView.isHidden = false
+        self.resultImageView.show(isWrong: to)
     }
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
@@ -185,13 +183,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
-        if self.resultImageView.isHidden == false {
-            let imageViewWidth = self.imageView.frame.width
-            let resultImageWidth = imageViewWidth/5
-            let resultImageXOffset = imageViewWidth/10-resultImageWidth/2
-            let resultImageYOffset = imageViewWidth/100*13.5-resultImageWidth/2
-            self.resultImageView.frame = .init(resultImageXOffset, resultImageYOffset, resultImageWidth, resultImageWidth)
-        }
+        self.resultImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
     }
 }
 
