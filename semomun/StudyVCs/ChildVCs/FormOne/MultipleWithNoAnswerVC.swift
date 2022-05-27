@@ -79,7 +79,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         super.viewWillDisappear(animated)
         print("답없는 좌우형 : willDisapplear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.imageView.image = nil
         self.explanationView.removeFromSuperview()
         self.scrollViewBottomConstraint.constant = 0
@@ -309,5 +309,11 @@ extension MultipleWithNoAnswerVC: ExplanationRemover {
 extension MultipleWithNoAnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+}
+
+extension MultipleWithNoAnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

@@ -56,7 +56,7 @@ final class SingleWith5AnswerVC: FormZero {
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
         self.setViewToDefault()
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
     }
     
     override func viewDidLayoutSubviews() {
@@ -241,5 +241,11 @@ final class SingleWith5AnswerVC: FormZero {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
+    }
+}
+
+extension SingleWith5AnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }

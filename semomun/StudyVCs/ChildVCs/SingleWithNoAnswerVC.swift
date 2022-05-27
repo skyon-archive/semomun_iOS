@@ -78,7 +78,7 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         super.viewWillDisappear(animated)
         print("답없는 단일형 willDisappear")
         
-        self.viewModel?.endTimeRecord()
+        self.endTimeRecord()
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
         self.explanationView.removeFromSuperview()
@@ -294,5 +294,11 @@ extension SingleWithNoAnswerVC: ExplanationRemover {
 extension SingleWithNoAnswerVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.contentView
+    }
+}
+
+extension SingleWithNoAnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }
