@@ -70,7 +70,6 @@ class FormTwo: UIViewController {
         super.viewWillDisappear(animated)
         
         self.setViewToDefault()
-        CoreDataManager.saveCoreData()
     }
     
     // 아래 프로퍼티/메소드들은 override가 필요
