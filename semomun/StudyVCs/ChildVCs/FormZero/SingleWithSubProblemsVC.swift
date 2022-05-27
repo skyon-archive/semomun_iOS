@@ -104,8 +104,6 @@ class SingleWithSubProblemsVC: FormZero {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.timerView.removeFromSuperview()
     }

@@ -78,7 +78,6 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         super.viewWillDisappear(animated)
         print("답없는 단일형 willDisappear")
         
-        CoreDataManager.saveCoreData()
         self.viewModel?.endTimeRecord()
         self.imageView.image = nil
         self.timerView.removeFromSuperview()
