@@ -8,6 +8,9 @@
 import Foundation
 
 enum NetworkURL {
+    // MARK: 테스트 서버일 경우 ture 값으로 사용
+    static let forTest: Bool = true
+    
     enum scale: String {
         case small = "/64x64/"
         case normal = "/128x128/"
@@ -61,8 +64,7 @@ enum NetworkURL {
     }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-//    static let base: String = "https://api.semomun.com"
-    static let base: String = "https://dev.api.semomun.com"
+    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://api.semomun.com"
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"

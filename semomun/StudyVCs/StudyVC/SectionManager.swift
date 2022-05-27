@@ -241,6 +241,8 @@ final class SectionManager {
         }
         
         taskGroup.notify(queue: .main) {
+            // MARK: 아마도 section 나갈 때 최종 저장되는 부분
+            CoreDataManager.saveCoreData()
             if isDismiss {
                 self.delegate?.dismissSection()
             }
@@ -252,7 +254,6 @@ final class SectionManager {
         self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
             if status == .SUCCESS {
                 self?.section.setValue([], forKey: Section_Core.Attribute.uploadProblemQueue.rawValue)
-                CoreDataManager.saveCoreData()
             }
             completion()
         }
@@ -262,7 +263,6 @@ final class SectionManager {
         self.networkUsecase.postPageSubmissions(pages: uploadPages) { [weak self] status in
             if status == .SUCCESS {
                 self?.section.setValue([], forKey: Section_Core.Attribute.uploadPageQueue.rawValue)
-                CoreDataManager.saveCoreData()
             }
             completion()
         }
