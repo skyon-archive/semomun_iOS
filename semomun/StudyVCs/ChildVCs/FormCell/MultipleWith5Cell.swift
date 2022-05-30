@@ -35,7 +35,21 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
+    private var timerView: ProblemTimerView = {
+        let timerView = ProblemTimerView()
+        timerView.isHidden = true
+        return timerView
+    }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.configureTimerLayout()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.timerView.isHidden = true
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -100,11 +114,22 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     }
     
     // MARK: Configure
+    private func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
+    }
+    
     private func configureUI() {
         self.configureCheckButtons()
         self.configureStar()
         self.configureAnswer()
         self.configureExplanationBT()
+        self.configureTimer()
     }
     
     private func configureCheckButtons() {
@@ -130,7 +155,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             // 체크 이미지 표시
             self.showResultImage(to: problem.correct)
             self.createCheckImage(to: targetIndex-1)
-            self.configureTimerView()
         }
     }
     
@@ -145,20 +169,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 9),
             self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -9)
         ])
-    }
-    
-    private func configureTimerView() {
-        guard let time = self.problem?.time else { return }
-        
-        self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
-        
-        self.timerView.configureTime(to: time)
     }
     
     private func configureStar() {
@@ -181,6 +191,17 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        }
+    }
+    
+    private func configureTimer() {
+        guard let problem = self.problem else { return }
+        
+        if problem.terminated == true {
+            self.timerView.configureTime(to: problem.time)
+            self.timerView.isHidden = false
+        } else {
+            self.timerView.isHidden = true
         }
     }
 }
