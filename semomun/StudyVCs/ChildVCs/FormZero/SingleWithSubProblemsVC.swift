@@ -513,7 +513,6 @@ extension SingleWithSubProblemsVC {
     
     private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),

@@ -21,6 +21,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
     let timerView: ProblemTimerView = {
         let timerView = ProblemTimerView()
         timerView.isHidden = true
+        timerView.translatesAutoresizingMaskIntoConstraints = false
         return timerView
     }()
     
