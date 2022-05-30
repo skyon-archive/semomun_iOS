@@ -59,7 +59,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
         
         self.configureCanvasView()
         self.configureImageView()
-        self.configureTimer()
+        self.configureTimerView()
         self.showResultImage()
     }
     
@@ -201,7 +201,7 @@ extension FormZero {
         }
     }
     
-    private func configureTimer() {
+    private func configureTimerView() {
         if self.problemResult != nil, let time = self.time {
             self.timerView.configureTime(to: time)
             self.timerView.isHidden = false
