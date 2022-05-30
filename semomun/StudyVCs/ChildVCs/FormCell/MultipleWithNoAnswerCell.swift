@@ -65,7 +65,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     // MARK: Configure
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),

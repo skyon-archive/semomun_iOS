@@ -28,6 +28,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private lazy var answerView: AnswerView = {
@@ -106,7 +107,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     // MARK: Configure
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
@@ -150,7 +150,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     private func createCheckImage(to index: Int) {
         self.checkImageView.image = UIImage(named: "check")
         self.contentView.addSubview(self.checkImageView)
-        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
