@@ -51,7 +51,6 @@ class MultipleWith5AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVie
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
-        self.addCoreDataAlertObserver()
         self.configureScrollView()
         
         let cellIdentifier = MultipleWith5Cell.identifier

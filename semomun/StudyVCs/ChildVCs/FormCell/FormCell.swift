@@ -138,13 +138,13 @@ extension FormCell {
 // MARK: Rotation
 extension FormCell {
     private func adjustLayouts(rotate: Bool = false) {
-        let contentFrame = self.contentView.frame
+        let contentSize = self.contentView.frame.size
         guard let imageSize = self.imageView.image?.size else {
             assertionFailure("imageView 내 image 가 존재하지 않습니다.")
             return
         }
         // canvasView 크기 및 필기 ratio 조절
-        self.canvasView.updateFrameAndRatio(contentFrame: contentFrame, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+        self.canvasView.updateFrameAndRatio(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
         // 배경 뷰 위치 설정
         self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정

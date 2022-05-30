@@ -51,7 +51,6 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         self.configureDelegate()
         self.configureLoader()
         self.configureSwipeGesture()
-        self.addCoreDataAlertObserver()
         self.configureScrollView()
     }
     

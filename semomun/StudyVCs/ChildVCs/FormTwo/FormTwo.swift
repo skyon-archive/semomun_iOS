@@ -45,7 +45,6 @@ class FormTwo: UIViewController {
         self.configureScrollView()
         self.configureLoader()
         self.configureGesture()
-        self.addCoreDataAlertObserver()
         
         self.configureBasicUI()
         self.collectionView.showsVerticalScrollIndicator = false

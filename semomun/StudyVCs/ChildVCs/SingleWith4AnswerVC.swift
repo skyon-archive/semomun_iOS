@@ -68,7 +68,6 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
         
         self.configureLoader()
         self.configureSwipeGesture()
-        self.addCoreDataAlertObserver()
         self.configureScrollView()
     }
     
