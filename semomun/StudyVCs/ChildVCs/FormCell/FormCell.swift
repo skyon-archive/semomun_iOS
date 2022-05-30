@@ -31,11 +31,16 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         return imageView
     }()
     private var toolPicker: PKToolPicker?
-    // 자식 cell 에서 사용 가능한 Property들
+    
+    /* VC 에서 사용되는 property */
+    private var isCanvasDrawingLoaded: Bool = false
+    
+    /* 자식 cell 에서 사용 가능한 Property들 */
     weak var delegate: CollectionCellDelegate?
     var problem: Problem_Core?
     var showTopShadow: Bool = false
-    // 자식 cell 에서 override 해야 하는 Property들
+    
+    /* 자식 cell 에서 override 해야 하는 Property들 */
     var internalTopViewHeight: CGFloat {
         assertionFailure()
         return 51
@@ -51,6 +56,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func prepareForReuse() {
         self.canvasView.delegate = nil
         self.resultImageView.isHidden = true
+        self.isCanvasDrawingLoaded = false
     }
     
     func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
@@ -111,6 +117,18 @@ extension FormCell {
         self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
         self.toolPicker?.addObserver(self.canvasView)
     }
+    
+    private func configureCanvasViewDataAndDelegate() {
+        guard self.isCanvasDrawingLoaded == false else { return }
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+        defer { self.canvasView.delegate = self }
+        
+        let savedData = self.problem?.drawing
+        let lastWidth = self.problem?.drawingWidth
+        // 필기데이터 ratio 조절 후 표시
+        self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
+        self.isCanvasDrawingLoaded = true
+    }
 }
 
 // MARK: Rotation
@@ -129,17 +147,6 @@ extension FormCell {
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
         self.resultImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
-    }
-
-    private func configureCanvasViewDataAndDelegate() {
-        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer { self.canvasView.delegate = self }
-        
-        let savedData = self.problem?.drawing
-        let lastWidth = self.problem?.drawingWidth
-        let currentWidth = self.canvasView.frame.width
-        // 필기데이터 ratio 조절 후 표시
-        self.canvasView.updateDrawing(to: savedData, lastWidth: lastWidth, currentWidth: currentWidth)
     }
 }
 
