@@ -69,7 +69,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureProblem(problem)
         self.configureImageView(contentImage)
         self.configureToolpicker(toolPicker)
-        self.configureTimer()
+        self.configureTimerView()
     }
     
     // MARK: Rotation
@@ -137,7 +137,7 @@ extension FormCell {
         self.isCanvasDrawingLoaded = true
     }
     
-    private func configureTimer() {
+    private func configureTimerView() {
         guard let problem = self.problem else { return }
         
         if problem.terminated {
