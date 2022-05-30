@@ -33,12 +33,6 @@ final class SingleWith5AnswerVC: FormZero {
         return imageView
     }
     
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTimerViewLayout()

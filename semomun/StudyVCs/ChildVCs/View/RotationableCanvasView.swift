@@ -16,6 +16,11 @@ final class RotationableCanvasView: PKCanvasView {
     
     private func commonInit() {
         self.backgroundColor = .clear
+        self.minimumZoomScale = 0.5
+        self.maximumZoomScale = 2.0
+        self.isOpaque = false
+        self.becomeFirstResponder()
+        self.drawingPolicy = .pencilOnly
     }
     
     func updateFrameAndRatio(contentFrame: CGRect, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {

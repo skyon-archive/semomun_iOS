@@ -54,9 +54,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.configureBasicUI()
-        self.configureScrollView()
-        self.configureCanvasView()
+        self.configureSubViews()
     }
     
     override func prepareForReuse() {
@@ -69,7 +67,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         self.updateProblem(problem)
         self.updateImageView(contentImage)
-        self.updateToolpicker(toolPicker)
+        self.updateToolPicker(toolPicker)
         self.updateTimerView()
     }
     
@@ -83,25 +81,12 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
 
 // MARK: Configure
 extension FormCell {
-    private func configureBasicUI() {
+    private func configureSubViews() {
         self.contentView.addSubviews(self.canvasView, self.background)
-        self.contentView.sendSubviewToBack(self.canvasView)
-        self.contentView.sendSubviewToBack(self.background)
         
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
-    }
-    
-    private func configureScrollView() {
-        self.canvasView.minimumZoomScale = 0.5
-        self.canvasView.maximumZoomScale = 2.0
-    }
-    
-    private func configureCanvasView() {
-        self.canvasView.isOpaque = false
-        self.canvasView.becomeFirstResponder()
-        self.canvasView.drawingPolicy = .pencilOnly
     }
 }
 
@@ -120,7 +105,7 @@ extension FormCell {
         self.imageView.image = contentImage
     }
     
-    private func updateToolpicker(_ toolPicker: PKToolPicker?) {
+    private func updateToolPicker(_ toolPicker: PKToolPicker?) {
         self.toolPicker = toolPicker
         self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
         self.toolPicker?.addObserver(self.canvasView)
