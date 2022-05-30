@@ -26,7 +26,16 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.configureTimerLayout()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.timerView.isHidden = true
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -36,11 +45,6 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         } else {
             self.removeTopShadow()
         }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.timerView.removeFromSuperview()
     }
 
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -57,25 +61,18 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     }
     
     // MARK: Configure
-    private func configureUI() {
-        self.configureStar()
-        self.configureTimerView()
+    private func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
+        ])
     }
     
-    private func configureTimerView() {
-        guard let problem = self.problem else { return }
-        
-        if problem.terminated {
-            self.contentView.addSubview(self.timerView)
-            self.timerView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
-                self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
-            ])
-            
-            self.timerView.configureTime(to: problem.time)
-        }
+    private func configureUI() {
+        self.configureStar()
     }
     
     private func configureStar() {

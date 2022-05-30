@@ -30,6 +30,11 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.imageView.addSubview(imageView)
         return imageView
     }()
+    let timerView: ProblemTimerView = {
+        let timerView = ProblemTimerView()
+        timerView.isHidden = true
+        return timerView
+    }()
     private var toolPicker: PKToolPicker?
     
     /* VC 에서 사용되는 property */
@@ -56,6 +61,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func prepareForReuse() {
         self.canvasView.delegate = nil
         self.resultImageView.isHidden = true
+        self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
     }
     
@@ -63,6 +69,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureProblem(problem)
         self.configureImageView(contentImage)
         self.configureToolpicker(toolPicker)
+        self.configureTimer()
     }
     
     // MARK: Rotation
@@ -128,6 +135,17 @@ extension FormCell {
         // 필기데이터 ratio 조절 후 표시
         self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
         self.isCanvasDrawingLoaded = true
+    }
+    
+    private func configureTimer() {
+        guard let problem = self.problem else { return }
+        
+        if problem.terminated {
+            self.timerView.configureTime(to: problem.time)
+            self.timerView.isHidden = false
+        } else {
+            self.timerView.isHidden = true
+        }
     }
 }
 
