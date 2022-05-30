@@ -31,7 +31,7 @@ final class RotationableCanvasView: PKCanvasView {
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
     
-    func updateDrawing(to savedData: Data?, lastWidth: Double?, currentWidth: CGFloat) {
+    func loadDrawing(to savedData: Data?, lastWidth: Double?) {
         guard let savedData = savedData,
               let lastWidth = lastWidth else {
             self.drawing = PKDrawing()
@@ -49,6 +49,7 @@ final class RotationableCanvasView: PKCanvasView {
             return
         }
         
+        let currentWidth = self.frame.width
         let scale = currentWidth / CGFloat(lastWidth)
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         self.drawing = savedDrawing.transformed(using: transform)
