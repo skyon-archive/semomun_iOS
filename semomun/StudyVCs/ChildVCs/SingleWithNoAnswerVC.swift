@@ -50,7 +50,6 @@ class SingleWithNoAnswerVC: UIViewController, PKToolPickerObserver {
         
         self.configureLoader()
         self.configureSwipeGesture()
-        self.addCoreDataAlertObserver()
         self.configureScrollView()
     }
     
