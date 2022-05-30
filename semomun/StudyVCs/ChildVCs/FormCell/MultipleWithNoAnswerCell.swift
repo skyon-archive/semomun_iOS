@@ -57,8 +57,8 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
-    override func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        super.configureReuse(contentImage, problem, toolPicker)
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+        super.prepareForReuse(contentImage, problem, toolPicker)
         self.configureUI()
     }
     

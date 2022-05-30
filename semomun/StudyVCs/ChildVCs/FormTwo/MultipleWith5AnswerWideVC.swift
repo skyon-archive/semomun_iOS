@@ -53,7 +53,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
         let problem = self.viewModel?.problems[indexPath.item]
         
         cell.delegate = self
-        cell.configureReuse(contentImage, problem, toolPicker)
+        cell.prepareForReuse(contentImage, problem, toolPicker)
         cell.showTopShadow = indexPath.item == 0 ? false : true
         
         return cell

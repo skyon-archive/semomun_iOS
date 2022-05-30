@@ -66,11 +66,11 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.isCanvasDrawingLoaded = false
     }
     
-    func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        self.configureProblem(problem)
-        self.configureImageView(contentImage)
-        self.configureToolpicker(toolPicker)
-        self.configureTimerView()
+    func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+        self.updateProblem(problem)
+        self.updateImageView(contentImage)
+        self.updateToolpicker(toolPicker)
+        self.updateTimerView()
     }
     
     // MARK: Rotation
@@ -107,11 +107,11 @@ extension FormCell {
 
 // MARK: Configure Reuse
 extension FormCell {
-    private func configureProblem(_ problem: Problem_Core?) {
+    private func updateProblem(_ problem: Problem_Core?) {
         self.problem = problem
     }
     
-    private func configureImageView(_ contentImage: UIImage?) {
+    private func updateImageView(_ contentImage: UIImage?) {
         guard let contentImage = contentImage,
               contentImage.size.width > 0, contentImage.size.height > 0 else {
             self.imageView.image = UIImage(.warning)
@@ -120,7 +120,7 @@ extension FormCell {
         self.imageView.image = contentImage
     }
     
-    private func configureToolpicker(_ toolPicker: PKToolPicker?) {
+    private func updateToolpicker(_ toolPicker: PKToolPicker?) {
         self.toolPicker = toolPicker
         self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
         self.toolPicker?.addObserver(self.canvasView)
@@ -138,7 +138,7 @@ extension FormCell {
         self.isCanvasDrawingLoaded = true
     }
     
-    private func configureTimerView() {
+    private func updateTimerView() {
         guard let problem = self.problem else { return }
         
         if problem.terminated {
