@@ -79,13 +79,6 @@ extension UIViewController {
         view.endEditing(true)
     }
     
-    func addCoreDataAlertObserver() {
-        NotificationCenter.default.addObserver(forName: CoreDataManager.saveErrorNotificationName, object: nil, queue: .main) { [weak self] noti in
-            guard let errorMessage = noti.userInfo?["errorMessage"] as? String else { return }
-            self?.showAlertWithOK(title: "데이터 저장 실패", text: errorMessage)
-        }
-    }
-    
     func setShadow(with view: UIView) {
         view.layer.shadowOpacity = 0.25
         view.layer.shadowColor = UIColor.lightGray.cgColor

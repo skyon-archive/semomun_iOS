@@ -10,7 +10,6 @@ import CoreData
 
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
-    static let saveErrorNotificationName = Notification.Name("refresh")
     
     private init() {}
     
@@ -25,7 +24,6 @@ class CoreDataManager {
                 print("CoreData 저장 success")
             } catch let error {
                 print("CoreData 저장 에러 \(error.localizedDescription)")
-                NotificationCenter.default.post(name: saveErrorNotificationName, object: nil, userInfo: ["errorMessage": error.localizedDescription])
             }
         }
     }
