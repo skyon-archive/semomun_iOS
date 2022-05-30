@@ -54,6 +54,16 @@ final class ExplanationView: UIView {
         self.imageView.image = image
         self.adjustLayout()
     }
+    
+    func updateFrame(contentSize: CGSize, topHeight: CGFloat) {
+        if UIWindow.isLandscape {
+            let newSize = CGSize(width: contentSize.width/2, height: contentSize.height)
+            self.frame = .init(newSize.width, 0, newSize.width, newSize.height)
+        } else {
+            let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
+            self.frame = .init(0, newSize.height, newSize.width, newSize.height)
+        }
+    }
 }
 
 extension ExplanationView {

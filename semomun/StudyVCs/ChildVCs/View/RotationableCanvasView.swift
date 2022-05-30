@@ -23,13 +23,31 @@ final class RotationableCanvasView: PKCanvasView {
         self.drawingPolicy = .pencilOnly
     }
     
-    func updateFrameAndRatio(contentFrame: CGRect, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {
+    func updateFrameAndRatio(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
         
         if rotate {
-            let newSize = CGSize(width: contentFrame.width, height: contentFrame.height - topHeight)
+            let newSize = CGSize(width: contentSize.width, height: contentSize.height - topHeight)
             self.frame = .init(0, topHeight, newSize.width, newSize.height)
+        }
+        
+        let ratio = imageSize.height / imageSize.width
+        self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+    }
+    
+    func updateFrameAndRatioWithExp(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {
+        let previousSize = self.frame.size
+        let previousContentOffset = self.contentOffset
+        
+        if rotate {
+            if UIWindow.isLandscape {
+                let newSize = CGSize(width: contentSize.width/2, height: contentSize.height - topHeight)
+                self.frame = . init(0, topHeight, newSize.width, newSize.height)
+            } else {
+                let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
+                self.frame = . init(0, topHeight, newSize.width, newSize.height)
+            }
         }
         
         let ratio = imageSize.height / imageSize.width

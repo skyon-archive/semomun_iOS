@@ -105,47 +105,12 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
-    override var _topViewTrailingConstraint: NSLayoutConstraint? {
-        return self.topViewTrailingConstraint
+    override var problem: Problem_Core? {
+        return self.viewModel?.problem
     }
-    
-    override var topHeight: CGFloat {
-        self.topView.frame.height
-    }
-    
-    override var problemResult: Bool? {
-        if let problem = self.viewModel?.problem, problem.terminated && problem.answer != nil {
-            return problem.correct
-        } else {
-            return nil
-        }
-    }
-    
-    override var time: Int64? {
-        return self.viewModel?.problem?.time
-    }
-    
-    override var drawing: Data? {
-        self.viewModel?.problem?.drawing
-    }
-    
-    override var drawingWidth: CGFloat? {
-        CGFloat(self.viewModel?.problem?.drawingWidth ?? 0)
-    }
-    
-    override func previousPage() {
-        self.viewModel?.delegate?.beforePage()
-    }
-    
-    override func nextPage() {
-        self.viewModel?.delegate?.nextPage()
-    }
-    
-    override func savePencilData(data: Data, width: CGFloat) {
-        self.viewModel?.updatePencilData(to: data, width: Double(width))
-    }
-    
-    // MARK: - Configures
+}
+
+// MARK: - Configure
     private func setViewToDefault() {
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()

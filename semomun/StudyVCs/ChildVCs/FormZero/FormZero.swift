@@ -8,34 +8,30 @@
 import UIKit
 import PencilKit
 
-/// 상단에 바가 있는 form = 0
 class FormZero: UIViewController, PKToolPickerObserver {
-    private var canvasView = RotationableCanvasView()
-    private let imageView: UIImageView = {
+    var canvasView = RotationableCanvasView()
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         return imageView
     }()
-    private let loader: UIActivityIndicatorView = {
+    let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.translatesAutoresizingMaskIntoConstraints = false
         loader.color = UIColor.gray
         loader.startAnimating()
         return loader
     }()
-    private let explanationView: ExplanationView = {
+    let explanationView: ExplanationView = {
         let explanationView = ExplanationView()
         explanationView.alpha = 0
         return explanationView
     }()
-    private lazy var resultImageView: CorrectImageView = {
+    lazy var resultImageView: CorrectImageView = {
         let imageView = CorrectImageView()
         self.imageView.addSubview(imageView)
         return imageView
     }()
-    private var toolPicker: PKToolPicker?
-    
-    /* 자식 VC 에서 Layout 설정에 사용되는 View들 */
     let timerView: ProblemTimerView = {
         let timerView = ProblemTimerView()
         timerView.isHidden = true
@@ -54,11 +50,18 @@ class FormZero: UIViewController, PKToolPickerObserver {
         return imageView
     }()
     
-    /* VC 에서 사용되는 property */
-    private var showExplanation = false
+    private(set) var showExplanation = false
     
     /* 외부에서 주입 가능한 property */
+    var toolPicker: PKToolPicker?
     var image: UIImage?
+    
+    /* 자식 VC에서 override 해야 하는 Property들 */
+    var problem: Problem_Core? { return nil }
+    var internalTopViewHeight: CGFloat {
+        assertionFailure()
+        return 51
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,10 +71,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.configureCanvasView()
-        self.configureImageView()
-        self.configureTimerView()
+        self.updateImageView()
+        self.updateToolPicker()
+        self.updateTimerView()
         self.showResultImage()
     }
     
@@ -85,29 +87,20 @@ class FormZero: UIViewController, PKToolPickerObserver {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.canvasView.delegate = nil
+        self.resultImageView.isHidden = true
+        self.timerView.isHidden = true
         
         self.setViewToDefault()
     }
     
-    /// 상단 바 높이
-    var topHeight: CGFloat { return 0 }
-    
-    /// 채점 결과. nil이면 미채점
-    var problemResult: Bool? { return nil }
-    
-    /// 문제 풀이 소요 시간
-    var time: Int64? { return nil }
-    
-    var _topViewTrailingConstraint: NSLayoutConstraint? { return nil }
-    
-    var drawing: Data? { return nil }
-    
-    var drawingWidth: CGFloat? { return nil }
-    
-    func previousPage() { }
-    func nextPage() { }
-    
-    func savePencilData(data: Data, width: CGFloat) { }
+    // MARK: Rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate { _ in
+            self.adjustLayouts(rotate: true)
+        }
+    }
     
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
     private func setViewToDefault() {
@@ -127,9 +120,6 @@ class FormZero: UIViewController, PKToolPickerObserver {
         
         // 각종 subView들 제거
         self.explanationView.removeFromSuperview()
-        
-        self.resultImageView.isHidden = false
-        self.timerView.isHidden = true
     }
     
     /// View의 frame이 정해진 후 UI를 구성
@@ -160,6 +150,72 @@ extension FormZero {
         
         self.configureSwipeGesture()
     }
+    
+    private func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+    }
+}
+
+// MARK: Update
+extension FormZero {
+    private func updateImageView() {
+        guard let contentImage = self.image,
+              contentImage.size.width > 0, contentImage.size.height > 0 else {
+            self.imageView.image = UIImage(.warning)
+            return
+        }
+        self.imageView.image = contentImage
+    }
+    
+    private func updateToolPicker() {
+        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker?.addObserver(self.canvasView)
+    }
+    
+    private func updateTimerView() {
+        guard let problem = self.problem else { return }
+        
+        if problem.terminated {
+            self.timerView.configureTime(to: problem.time)
+            self.timerView.isHidden = false
+        } else {
+            self.timerView.isHidden = true
+        }
+    }
+}
+
+// MARK: Rotate
+extension FormZero {
+    private func adjustLayouts(rotate: Bool = false) {
+        // canvasView 크기 및 ratio 조절
+        self.updateCanvasViewFrame(rotate: rotate)
+        // explanation 크기 조절
+        self.updateExplanationViewFrame(rotate: rotate)
+        // 문제 이미지 크기 설정
+        self.imageView.frame.size = self.canvasView.contentSize
+        // 채점 이미지 크기 설정
+        self.resultImageView.adjustLayoutForZero(imageViewWidth: self.imageView.frame.width)
+    }
+    
+    private func updateCanvasViewFrame(rotate: Bool) {
+        let contentSize = self.view.frame.size
+        guard let imageSize = self.image?.size else {
+            assertionFailure("image 가 존재하지 않습니다.")
+            return
+        }
+        
+        if self.showExplanation {
+            self.canvasView.updateFrameAndRatioWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+        } else {
+            self.canvasView.updateFrameAndRatio(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+        }
+    }
+    
+    private func updateExplanationViewFrame(rotate: Bool) {
+        guard rotate && self.showExplanation else { return }
+        self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.internalTopViewHeight)
+    }
 }
 
 extension FormZero {
@@ -173,12 +229,6 @@ extension FormZero {
         let imageName = result ? "correct" : "wrong"
         self.resultImageView.image = UIImage(named: imageName)
         self.resultImageView.isHidden = false
-    }
-    
-    private func updateToolPicker(_ toolPicker: PKToolPicker?) {
-        self.toolPicker = toolPicker
-        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
-        self.toolPicker?.addObserver(self.canvasView)
     }
     
     private func configureCanvasViewData() {
@@ -208,41 +258,17 @@ extension FormZero {
         }
     }
     
-    private func configureImageView() {
-        guard let mainImage = self.image else { return }
-        
-        if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            self.imageView.image = mainImage
-        } else {
-            let warningImage = UIImage(.warning)
-            self.imageView.image = warningImage
-        }
-    }
-    
-    private func configureTimerView() {
-        if self.problemResult != nil, let time = self.time {
-            self.timerView.configureTime(to: time)
-            self.timerView.isHidden = false
-        } else {
-            self.timerView.isHidden = true
-        }
-    }
     
     
     
-    private func stopLoader() {
-        self.loader.isHidden = true
-        self.loader.stopAnimating()
-    }
+    
+    
+    
+    
 }
 
 // MARK: - 레이아웃 관련
 extension FormZero {
-    /// topView를 제외한 나머지 view의 사이즈
-    private var contentSize: CGSize {
-        return CGSize(self.view.frame.width, self.view.frame.height - self.topHeight)
-    }
-    
     func showExplanation(to image: UIImage?) {
         self.showExplanation = true
         
@@ -260,69 +286,11 @@ extension FormZero {
         }
     }
     
-    // 화면이 회전할 때 실행
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        // 회전 이전
-        let previousCanvasSize = self.canvasView.frame.size
-        let previousContentOffset = self.canvasView.contentOffset
-        
-        coordinator.animate { _ in
-            // 회전 도중
-            UIView.performWithoutAnimation {
-                if self.showExplanation {
-                    self.layoutExplanation()
-                } else {
-                    self.canvasView.frame.size = self.contentSize
-                    self._topViewTrailingConstraint?.constant = 0
-                }
-                self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-            }
-        }
-    }
     
-    /// ExplanationView의 frame을 상황에 맞게 수정
-    private func layoutExplanation() {
-        let width = self.contentSize.width
-        let height = self.contentSize.height
-        let topViewHeight = self.topHeight
-        
-        if UIWindow.isLandscape {
-            self.canvasView.frame.size.width = width/2
-            self.canvasView.frame.size.height = height
-            self._topViewTrailingConstraint?.constant = width/2
-            self.explanationView.frame = .init(width/2, 0, width/2, height+topViewHeight)
-        } else {
-            self.canvasView.frame.size.width = width
-            self.canvasView.frame.size.height = height/2
-            self._topViewTrailingConstraint?.constant = 0
-            self.explanationView.frame = .init(0, height/2+topViewHeight, width, height/2)
-        }
-    }
     
-    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
-    private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
-        guard let image = self.imageView.image else {
-            assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
-            return
-        }
-        
-        let ratio = image.size.height/image.size.width
-        self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
-        
-        // 문제 이미지 크기 설정
-        self.imageView.frame.size = self.canvasView.contentSize
-        
-        // 채점 이미지 크기 설정
-        if self.resultImageView.isHidden == false {
-            let imageViewWidth = self.imageView.frame.width
-            let resultImageWidth = imageViewWidth/5
-            let resultImageXOffset = imageViewWidth/100*19-resultImageWidth/2
-            let resultImageYOffset = imageViewWidth/10-resultImageWidth/2
-            self.resultImageView.frame = .init(resultImageXOffset, resultImageYOffset, resultImageWidth, resultImageWidth)
-        }
-    }
+    
+    
+    
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
     private func adjustLayout(_ action: (() -> ())? = nil) {
@@ -385,6 +353,6 @@ extension FormZero: UIScrollViewDelegate {
         return self.imageView
     }
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.adjustLayout()
+        self.adjustLayouts()
     }
 }
