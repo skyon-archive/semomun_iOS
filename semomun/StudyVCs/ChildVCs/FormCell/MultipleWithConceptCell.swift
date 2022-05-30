@@ -55,8 +55,8 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         self.delegate?.reload()
     }
     
-    override func configureReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        super.configureReuse(contentImage, problem, toolPicker)
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+        super.prepareForReuse(contentImage, problem, toolPicker)
         self.configureUI()
     }
     

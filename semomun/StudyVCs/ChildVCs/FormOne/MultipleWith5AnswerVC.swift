@@ -219,7 +219,7 @@ extension MultipleWith5AnswerVC: UICollectionViewDelegate, UICollectionViewDataS
         let problem = self.viewModel?.problems[indexPath.item]
         
         cell.delegate = self
-        cell.configureReuse(contentImage, problem, toolPicker)
+        cell.prepareForReuse(contentImage, problem, toolPicker)
         
         return cell
     }
