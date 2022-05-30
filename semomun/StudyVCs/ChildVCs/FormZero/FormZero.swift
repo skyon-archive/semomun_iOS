@@ -10,49 +10,60 @@ import PencilKit
 
 /// 상단에 바가 있는 form = 0
 class FormZero: UIViewController, PKToolPickerObserver {
-    private var canvasView = PKCanvasView()
-    private let imageView = UIImageView()
+    private var canvasView = RotationableCanvasView()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        return imageView
+    }()
+    private let loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView(style: .large)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        loader.color = UIColor.gray
+        loader.startAnimating()
+        return loader
+    }()
+    private let explanationView: ExplanationView = {
+        let explanationView = ExplanationView()
+        explanationView.alpha = 0
+        return explanationView
+    }()
+    private lazy var resultImageView: CorrectImageView = {
+        let imageView = CorrectImageView()
+        self.imageView.addSubview(imageView)
+        return imageView
+    }()
+    private var toolPicker: PKToolPicker?
     
-    var showExplanation = false
-    
-    var image: UIImage?
-    
-    private let toolPicker = PKToolPicker()
+    /* 자식 VC 에서 Layout 설정에 사용되는 View들 */
     let timerView: ProblemTimerView = {
         let timerView = ProblemTimerView()
         timerView.isHidden = true
         timerView.translatesAutoresizingMaskIntoConstraints = false
         return timerView
     }()
-    
-    lazy var resultImageView: UIImageView = {
+    let answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
+    let checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
-        imageView.isHidden = false
-        self.imageView.addSubview(imageView)
-        
         return imageView
     }()
-    private lazy var loader: UIActivityIndicatorView = {
-        let loader = UIActivityIndicatorView(style: .large)
-        loader.color = UIColor.gray
-        return loader
-    }()
-    private lazy var explanationView: ExplanationView = {
-        let explanationView = ExplanationView()
-        explanationView.alpha = 0
-        return explanationView
-    }()
+    
+    /* VC 에서 사용되는 property */
+    private var showExplanation = false
+    
+    /* 외부에서 주입 가능한 property */
+    var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.configureLoader()
-        self.configureGesture()
-        self.addCoreDataAlertObserver()
-        self.configureScrollView()
-        self.configureBasicUI()
+        self.configureSubViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,21 +139,31 @@ class FormZero: UIViewController, PKToolPickerObserver {
     }
 }
 
+// MARK: Configure
 extension FormZero {
-    /// 단 한 번만 필요한 UI 설정을 수행
-    private func configureBasicUI() {
+    private func configureLoader() {
+        self.view.addSubview(self.loader)
+        
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+    
+    private func configureSubViews() {
+        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
         self.view.addSubview(self.canvasView)
+        
+        self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
-        self.imageView.backgroundColor = .white
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        
+        self.configureSwipeGesture()
     }
-    
-    private func configureScrollView() {
-        self.canvasView.minimumZoomScale = 0.5
-        self.canvasView.maximumZoomScale = 2.0
-    }
-    
+}
+
+extension FormZero {
+    /// 단 한 번만 필요한 UI 설정을 수행
     private func showResultImage() {
         guard let result = self.problemResult else {
             self.resultImageView.isHidden = true
@@ -154,14 +175,10 @@ extension FormZero {
         self.resultImageView.isHidden = false
     }
     
-    private func configureCanvasView() {
-        self.canvasView.isOpaque = false
-        self.canvasView.backgroundColor = .clear
-        self.canvasView.becomeFirstResponder()
-        self.canvasView.drawingPolicy = .pencilOnly
-        
-        self.toolPicker.setVisible(true, forFirstResponder: canvasView)
-        self.toolPicker.addObserver(canvasView)
+    private func updateToolPicker(_ toolPicker: PKToolPicker?) {
+        self.toolPicker = toolPicker
+        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker?.addObserver(self.canvasView)
     }
     
     private func configureCanvasViewData() {
@@ -211,17 +228,7 @@ extension FormZero {
         }
     }
     
-    private func configureLoader() {
-        self.view.addSubview(self.loader)
-        self.loader.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
-        
-        self.loader.isHidden = false
-        self.loader.startAnimating()
-    }
+    
     
     private func stopLoader() {
         self.loader.isHidden = true
@@ -328,10 +335,7 @@ extension FormZero {
 
 // MARK: - 제스쳐 설정
 extension FormZero {
-    private func configureGesture() {
-        self.canvasView.addDoubleTabGesture()
-        self.configureSwipeGesture()
-    }
+    
     
     private func configureSwipeGesture() {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
