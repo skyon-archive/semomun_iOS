@@ -33,10 +33,10 @@ final class SingleWith5AnswerVC: FormZero {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureTimerViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,6 +129,10 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
+    override var time: Int64? {
+        return self.viewModel?.problem?.time
+    }
+    
     override var drawing: Data? {
         self.viewModel?.problem?.drawing
     }
@@ -184,7 +188,6 @@ final class SingleWith5AnswerVC: FormZero {
             if answer != "복수",
                let targetIndex = Int(answer) {
                 self.createCheckImage(to: targetIndex-1)
-                self.configureTimerView()
             }
         } else {
             self.answerBT.isHidden = false
@@ -204,9 +207,7 @@ final class SingleWith5AnswerVC: FormZero {
         ])
     }
     
-    private func configureTimerView() {
-        guard let time = self.viewModel?.problem?.time else { return }
-        
+    private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -214,8 +215,6 @@ final class SingleWith5AnswerVC: FormZero {
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
         ])
-        
-        self.timerView.configureTime(to: time)
     }
     
     private func configureStar() {
