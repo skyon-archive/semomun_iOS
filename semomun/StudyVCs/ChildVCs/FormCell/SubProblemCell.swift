@@ -76,7 +76,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -91,6 +90,8 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
         
         self.answerTF.addAccessibleShadow()
+        
+        self.configureTimerLayout()
     }
     
     override func layoutSubviews() {
@@ -108,7 +109,6 @@ class SubProblemCell: FormCell, CellLayoutable {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.answerBT.isHidden = false
-        self.timerView.removeFromSuperview()
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -191,26 +191,18 @@ class SubProblemCell: FormCell, CellLayoutable {
         if self.problem?.terminated == true {
             self.configureAfterTermination()
             self.showResultImage(to: self.problem?.correct ?? false)
+            self.answerBT.isHidden = true
         }
-        
-        self.configureTimerView()
     }
     
-    private func configureTimerView() {
-        guard let problem = self.problem else { return }
+    private func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
-        if problem.terminated {
-            self.answerBT.isHidden = true
-            self.contentView.addSubview(self.timerView)
-            self.timerView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-                self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-            ])
-            
-            self.timerView.configureTime(to: problem.time)
-        }
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
     }
     
     private func configureAfterTermination() {

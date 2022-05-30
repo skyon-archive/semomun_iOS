@@ -27,7 +27,11 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.configureTimerLayout()
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -59,14 +63,7 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     }
     
     // MARK: Configure
-    private func configureUI() {
-        self.configureStar()
-        self.configureExplanationBT()
-    }
-    
-    private func configureTimerView() {
-        guard let time = self.problem?.time else { return }
-        
+    private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,8 +71,11 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
-        
-        self.timerView.configureTime(to: time)
+    }
+    
+    private func configureUI() {
+        self.configureStar()
+        self.configureExplanationBT()
     }
     
     private func configureStar() {

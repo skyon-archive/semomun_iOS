@@ -35,20 +35,10 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         answerView.alpha = 0
         return answerView
     }()
-    private var timerView: ProblemTimerView = {
-        let timerView = ProblemTimerView()
-        timerView.isHidden = true
-        return timerView
-    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureTimerLayout()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.timerView.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -129,7 +119,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.configureStar()
         self.configureAnswer()
         self.configureExplanationBT()
-        self.configureTimer()
     }
     
     private func configureCheckButtons() {
@@ -191,17 +180,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
-        }
-    }
-    
-    private func configureTimer() {
-        guard let problem = self.problem else { return }
-        
-        if problem.terminated == true {
-            self.timerView.configureTime(to: problem.time)
-            self.timerView.isHidden = false
-        } else {
-            self.timerView.isHidden = true
         }
     }
 }
