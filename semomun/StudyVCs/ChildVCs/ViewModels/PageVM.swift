@@ -42,6 +42,13 @@ class PageVM {
             assertionFailure("문제수가 0인 페이지가 존재합니다.")
             return
         }
+        self.configureObservation()
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .saveCoreData, object: nil, queue: .main) { [weak self] _ in
+            self?.endTimeRecord()
+        }
     }
     
     /// - Returns: 사용자에게 보여주기 위한 answer값
@@ -97,6 +104,7 @@ class PageVM {
         self.isTimeRecording = false
         
         print("총 시간: \(timeSpentOnPage), 문제별 시간: \(self.timeSpentPerProblems)")
+        CoreDataManager.saveCoreData()
     }
     
     func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {

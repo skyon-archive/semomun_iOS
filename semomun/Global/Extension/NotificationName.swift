@@ -8,7 +8,6 @@
 import Foundation
 
 extension Notification.Name {
-    static let seconds = Self.init(rawValue: "seconds")
     static let updateCategory = Self.init(rawValue: "updateCategory")
     static let logined = Self.init(rawValue: "logined")
     static let goToMain = Self.init(rawValue: "goToMain")
@@ -27,4 +26,5 @@ extension Notification.Name {
     static let networkError = Self.init(rawValue: "networkError")
     static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
     static let goToBookShelf = Self.init(rawValue: "goToBookShelf")
+    static let saveCoreData = Self.init(rawValue: "saveCoreData")
 }
