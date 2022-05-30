@@ -45,6 +45,8 @@ class SingleWithSubProblemsVC: FormZero {
         
         self.savedAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
         self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
+        
+        self.configureTimerViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,8 +97,8 @@ class SingleWithSubProblemsVC: FormZero {
             self.showTextField(animation: false)
         }
         
+        self.answerBT.isHidden = problem.terminated
         self.configureStar()
-        self.configureTimerView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,7 +110,6 @@ class SingleWithSubProblemsVC: FormZero {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
         self.answerBT.isHidden = false
-        self.timerView.removeFromSuperview()
     }
     
     override var _topViewTrailingConstraint: NSLayoutConstraint? {
@@ -125,6 +126,10 @@ class SingleWithSubProblemsVC: FormZero {
         } else {
             return nil
         }
+    }
+
+    override var time: Int64? {
+        return self.viewModel?.problem?.time
     }
     
     override var drawing: Data? {
@@ -186,7 +191,6 @@ class SingleWithSubProblemsVC: FormZero {
         answerView.alpha = 0
         return answerView
     }()
-    private lazy var timerView = ProblemTimerView()
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -507,20 +511,13 @@ extension SingleWithSubProblemsVC {
         self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
-    private func configureTimerView() {
-        guard let problem = self.viewModel?.problem else { return }
+    private func configureTimerViewLayout() {
+        self.view.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
-        if problem.terminated {
-            self.answerBT.isHidden = true
-            self.view.addSubview(self.timerView)
-            self.timerView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-                self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
-            ])
-            
-            self.timerView.configureTime(to: problem.time)
-        }
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+        ])
     }
 }
