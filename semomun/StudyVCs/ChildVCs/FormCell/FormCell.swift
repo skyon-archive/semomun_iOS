@@ -33,6 +33,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     let timerView: ProblemTimerView = {
         let timerView = ProblemTimerView()
         timerView.isHidden = true
+        timerView.translatesAutoresizingMaskIntoConstraints = false
         return timerView
     }()
     private var toolPicker: PKToolPicker?

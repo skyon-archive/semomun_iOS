@@ -209,7 +209,6 @@ final class SingleWith5AnswerVC: FormZero {
     
     private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
