@@ -18,6 +18,11 @@ class FormZero: UIViewController, PKToolPickerObserver {
     var image: UIImage?
     
     private let toolPicker = PKToolPicker()
+    let timerView: ProblemTimerView = {
+        let timerView = ProblemTimerView()
+        timerView.isHidden = true
+        return timerView
+    }()
     
     lazy var resultImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,6 +59,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
         
         self.configureCanvasView()
         self.configureImageView()
+        self.configureTimer()
         self.showResultImage()
     }
     
@@ -76,6 +82,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
     
     /// 채점 결과. nil이면 미채점
     var problemResult: Bool? { return nil }
+    
+    /// 문제 풀이 소요 시간
+    var time: Int64? { return nil }
     
     var _topViewTrailingConstraint: NSLayoutConstraint? { return nil }
     
@@ -108,6 +117,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
         self.explanationView.removeFromSuperview()
         
         self.resultImageView.isHidden = false
+        self.timerView.isHidden = true
     }
     
     /// View의 frame이 정해진 후 UI를 구성
@@ -188,6 +198,15 @@ extension FormZero {
         } else {
             let warningImage = UIImage(.warning)
             self.imageView.image = warningImage
+        }
+    }
+    
+    private func configureTimer() {
+        if self.problemResult != nil, let time = self.time {
+            self.timerView.configureTime(to: time)
+            self.timerView.isHidden = false
+        } else {
+            self.timerView.isHidden = true
         }
     }
     

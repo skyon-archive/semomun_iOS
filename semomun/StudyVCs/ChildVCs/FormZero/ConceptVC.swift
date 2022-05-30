@@ -17,7 +17,10 @@ class ConceptVC: FormZero {
     @IBOutlet weak var topView: UIView!
     var viewModel: ConceptVM?
     
-    private lazy var timerView = ProblemTimerView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureTimerViewLayout()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,6 +65,10 @@ class ConceptVC: FormZero {
         }
     }
     
+    override var time: Int64? {
+        return self.viewModel?.problem?.time
+    }
+    
     override var drawing: Data? {
         return self.viewModel?.problem?.drawing
     }
@@ -86,23 +93,16 @@ class ConceptVC: FormZero {
 extension ConceptVC {
     private func configureUI() {
         self.configureStar()
-        self.configureTimerView()
     }
     
-    private func configureTimerView() {
-        guard let problem = self.viewModel?.problem else { return }
+    private func configureTimerViewLayout() {
+        self.view.addSubview(self.timerView)
+        self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
-        if problem.terminated {
-            self.view.addSubview(self.timerView)
-            self.timerView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
-                self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 15)
-            ])
-            
-            self.timerView.configureTime(to: problem.time)
-        }
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 15)
+        ])
     }
     
     private func configureStar() {
