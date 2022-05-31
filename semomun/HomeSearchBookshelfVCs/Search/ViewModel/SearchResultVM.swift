@@ -42,7 +42,12 @@ final class SearchResultVM {
                     self?.isLastPage = true
                     return
                 }
-                self?.searchResults += previews
+                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
+                if NetworkURL.forTest {
+                    self?.filteredSearchResults(with: previews)
+                } else {
+                    self?.searchResults += previews
+                }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -56,5 +61,16 @@ final class SearchResultVM {
         self.searchResults = []
         self.isLastPage = false
         self.isPaging = false
+    }
+}
+
+// MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
+extension SearchResultVM {
+    private func filteredSearchResults(with previews: [PreviewOfDB]) {
+        guard let testCompany = NetworkURL.testCompany else {
+            self.searchResults += previews
+            return
+        }
+        self.searchResults += previews.filter( { $0.publishCompany == testCompany })
     }
 }
