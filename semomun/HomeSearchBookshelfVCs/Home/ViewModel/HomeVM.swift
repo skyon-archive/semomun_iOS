@@ -163,8 +163,15 @@ final class HomeVM {
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
-                let count = min(10, workbooks.count)
-                self?.bestSellers = Array(workbooks.prefix(upTo: count))
+                // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
+                if NetworkURL.forTest {
+                    let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
+                    let count = min(10, filteredPreviews.count)
+                    self?.workbooksWithTags = Array(filteredPreviews.prefix(upTo: count))
+                } else {
+                    let count = min(10, workbooks.count)
+                    self?.workbooksWithTags = Array(workbooks.prefix(upTo: count))
+                }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -196,7 +203,7 @@ final class HomeVM {
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
                     let count = min(10, filteredPreviews.count)
-                    self?.workbooksWithTags = Array(previews.prefix(upTo: count))
+                    self?.workbooksWithTags = Array(filteredPreviews.prefix(upTo: count))
                 } else {
                     let count = min(10, previews.count)
                     self?.workbooksWithTags = Array(previews.prefix(upTo: count))
