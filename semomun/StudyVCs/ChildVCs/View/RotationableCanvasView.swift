@@ -22,12 +22,13 @@ final class RotationableCanvasView: PKCanvasView {
         self.becomeFirstResponder()
         self.drawingPolicy = .pencilOnly
     }
-    
-    func updateFrameAndRatio(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {
+    /// FormCell: 회전시, zoom 시 실행
+    /// FormZero: exp 없이 회전시, zoom 시 실행
+    func updateDrawingRatioAndFrame(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, frameUpdate: Bool = false) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
         
-        if rotate {
+        if frameUpdate {
             let newSize = CGSize(width: contentSize.width, height: contentSize.height - topHeight)
             self.frame = .init(0, topHeight, newSize.width, newSize.height)
         }
@@ -35,19 +36,38 @@ final class RotationableCanvasView: PKCanvasView {
         let ratio = imageSize.height / imageSize.width
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
-    
-    func updateFrameAndRatioWithExp(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, rotate: Bool = false) {
+    /// FormZero: exp 있는 상태로 회전시 실행
+    func updateDrawingRatioAndFrameWithExp(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
         
-        if rotate {
+        if UIWindow.isLandscape {
+            let newSize = CGSize(width: contentSize.width/2, height: contentSize.height - topHeight)
+            self.frame = .init(0, topHeight, newSize.width, newSize.height)
+        } else {
+            let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
+            self.frame = .init(0, topHeight, newSize.width, newSize.height)
+        }
+        
+        let ratio = imageSize.height / imageSize.width
+        self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+    }
+    /// FormZero: exp 표시시, 제거시 실행
+    func updateFrameForExp(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, isExplanation: Bool) {
+        let previousSize = self.frame.size
+        let previousContentOffset = self.contentOffset
+        
+        if isExplanation {
             if UIWindow.isLandscape {
                 let newSize = CGSize(width: contentSize.width/2, height: contentSize.height - topHeight)
-                self.frame = . init(0, topHeight, newSize.width, newSize.height)
+                self.frame = .init(0, topHeight, newSize.width, newSize.height)
             } else {
                 let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
-                self.frame = . init(0, topHeight, newSize.width, newSize.height)
+                self.frame = .init(0, topHeight, newSize.width, newSize.height)
             }
+        } else {
+            let newSize = CGSize(width: contentSize.width, height: contentSize.height - topHeight)
+            self.frame = .init(0, topHeight, newSize.width, newSize.height)
         }
         
         let ratio = imageSize.height / imageSize.width
