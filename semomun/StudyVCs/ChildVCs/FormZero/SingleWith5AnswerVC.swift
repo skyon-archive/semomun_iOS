@@ -77,7 +77,7 @@ final class SingleWith5AnswerVC: FormZero {
         let explanationImage = UIImage(data: imageData)
         self.showExplanation.toggle()
         
-        if self.showExplanation {
+        if self.shouldShowExplanation {
             self.showExplanation(to: explanationImage)
         } else {
             self.closeExplanation()

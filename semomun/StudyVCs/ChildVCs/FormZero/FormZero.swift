@@ -50,7 +50,7 @@ class FormZero: UIViewController, PKToolPickerObserver {
         return imageView
     }()
     
-    private(set) var showExplanation = false
+    private(set) var shouldShowExplanation = false
     
     /* 외부에서 주입 가능한 property */
     var toolPicker: PKToolPicker?
@@ -98,7 +98,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate { _ in
-            self.adjustLayouts(rotate: true)
+            UIView.performWithoutAnimation {
+                self.adjustLayouts(frameUpdate: true)
+            }
         }
     }
     
@@ -187,32 +189,36 @@ extension FormZero {
 
 // MARK: Rotate
 extension FormZero {
-    private func adjustLayouts(rotate: Bool = false) {
+    private func adjustLayouts(frameUpdate: Bool = false, showExplanation: Bool? = nil) {
+        if let showExplanation = showExplanation {
+            self.shouldShowExplanation = showExplanation
+        }
+
         // canvasView 크기 및 ratio 조절
-        self.updateCanvasViewFrame(rotate: rotate)
+        self.updateCanvasView(frameUpdate: frameUpdate)
         // explanation 크기 조절
-        self.updateExplanationViewFrame(rotate: rotate)
+        self.updateExplanationView(frameUpdate: frameUpdate)
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
         self.resultImageView.adjustLayoutForZero(imageViewWidth: self.imageView.frame.width)
     }
     
-    private func updateCanvasViewFrame(rotate: Bool) {
+    private func updateCanvasView(frameUpdate: Bool) {
         let contentSize = self.view.frame.size
         guard let imageSize = self.image?.size else {
             assertionFailure("image 가 존재하지 않습니다.")
             return
         }
         
-        if self.showExplanation {
-            self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: rotate)
+        if self.shouldShowExplanation && frameUpdate {
+            self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize)
         } else {
-            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: rotate)
+            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: frameUpdate)
         }
     }
     
-    private func updateExplanationViewFrame(rotate: Bool) {
+    private func updateExplanationView(frameUpdate: Bool) {
         guard rotate && self.showExplanation else { return }
         self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.internalTopViewHeight)
     }
@@ -270,7 +276,7 @@ extension FormZero {
 // MARK: - 레이아웃 관련
 extension FormZero {
     func showExplanation(to image: UIImage?) {
-        self.showExplanation = true
+        self.shouldShowExplanation = true
         
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
@@ -336,7 +342,7 @@ extension FormZero: PKCanvasViewDelegate {
 
 extension FormZero: ExplanationRemover {
     func closeExplanation() {
-        self.showExplanation = false
+        self.shouldShowExplanation = false
         
         self.explanationView.alpha = 0
         self.explanationView.removeFromSuperview()
