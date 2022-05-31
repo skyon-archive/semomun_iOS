@@ -192,8 +192,15 @@ final class HomeVM {
         self.networkUsecase.getPreviews(tags: self.tags, text: "", page: 1, limit: 10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
-                let count = min(10, previews.count)
-                self?.workbooksWithTags = Array(previews.prefix(upTo: count))
+                // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
+                if NetworkURL.forTest {
+                    let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
+                    let count = min(10, filteredPreviews.count)
+                    self?.workbooksWithTags = Array(previews.prefix(upTo: count))
+                } else {
+                    let count = min(10, previews.count)
+                    self?.workbooksWithTags = Array(previews.prefix(upTo: count))
+                }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -232,5 +239,15 @@ final class HomeVM {
         self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
             self?.workbookDTO = workbook
         }
+    }
+}
+
+// MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
+extension HomeVM {
+    private func filteredPreviews(with previews: [PreviewOfDB]) -> [PreviewOfDB] {
+        guard let testCompany = NetworkURL.testCompany else {
+            return previews
+        }
+        return previews.filter( { $0.publishCompany == testCompany })
     }
 }
