@@ -15,10 +15,9 @@ final class SingleWith5AnswerVC: FormZero {
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
-    @IBOutlet var checkNumbers: [UIButton]!
-    
-    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var checkNumbers: [UIButton]!
     
     var viewModel: SingleWith5AnswerVM?
     
@@ -221,5 +220,12 @@ final class SingleWith5AnswerVC: FormZero {
 extension SingleWith5AnswerVC: TimeRecordControllable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension SingleWith5AnswerVC {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data, width: Double(self.canvasView.frame.width))
     }
 }
