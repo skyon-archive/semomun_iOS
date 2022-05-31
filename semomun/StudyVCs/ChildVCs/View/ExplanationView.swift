@@ -15,7 +15,6 @@ final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemover?
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
-    
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
         return UIImage(.xmark, withConfiguration: largeConfig)
@@ -64,12 +63,22 @@ final class ExplanationView: UIView {
             self.frame = .init(0, newSize.height, newSize.width, newSize.height)
         }
     }
+    
+    func setDefaults() {
+        self.alpha = 0
+        self.scrollView.setContentOffset(.zero, animated: false)
+        self.scrollView.zoomScale = 1.0
+        self.scrollView.contentInset = .zero
+        self.delegate = nil
+    }
 }
 
 extension ExplanationView {
     private func configureUI() {
         self.backgroundColor = .white
         self.imageView.backgroundColor = .white
+        self.addShadow()
+        self.alpha = 0
     }
     
     private func configureScrollView() {

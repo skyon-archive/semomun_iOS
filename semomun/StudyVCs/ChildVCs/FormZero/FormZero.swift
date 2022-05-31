@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 import Alamofire
 
-class FormZero: UIViewController, PKToolPickerObserver {
+class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     var canvasView = RotationableCanvasView()
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,9 +23,9 @@ class FormZero: UIViewController, PKToolPickerObserver {
         loader.startAnimating()
         return loader
     }()
-    let explanationView: ExplanationView = {
+    lazy var explanationView: ExplanationView = {
         let explanationView = ExplanationView()
-        explanationView.alpha = 0
+        self.view.addSubview(self.explanationView)
         return explanationView
     }()
     lazy var resultImageView: CorrectImageView = {
@@ -89,10 +89,11 @@ class FormZero: UIViewController, PKToolPickerObserver {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
+        self.explanationView.setDefaults()
         self.resultImageView.isHidden = true
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
-        self.closeExplanation()
+        self.shouldShowExplanation = false
     }
     
     // MARK: Rotation
@@ -212,7 +213,7 @@ extension FormZero {
     }
     
     private func updateExplanationView(frameUpdate: Bool) {
-        guard rotate && self.showExplanation else { return }
+        guard self.shouldShowExplanation, frameUpdate else { return }
         self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.internalTopViewHeight)
     }
     
@@ -234,51 +235,22 @@ extension FormZero {
     func showResultImage(to: Bool) {
         self.resultImageView.show(isCorrect: to)
     }
-}
-
-// MARK: - 레이아웃 관련
-extension FormZero {
+    
     func showExplanation(to image: UIImage?) {
-        self.shouldShowExplanation = true
-        
         self.explanationView.configureDelegate(to: self)
-        self.view.addSubview(self.explanationView)
         self.explanationView.configureImage(to: image)
-        self.explanationView.addShadow()
-        
-        self.adjustLayout {
-            self.layoutExplanation()
-        }
-        
+        self.adjustLayouts(frameUpdate: true, showExplanation: true)
         UIView.animate(withDuration: 0.2) {
             self.explanationView.alpha = 1
         }
     }
 }
 
-// MARK: - 제스쳐 설정
-extension FormZero {
-    
-}
-
-// MARK: - Protocols
-extension FormZero: PKCanvasViewDelegate {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        let data = self.canvasView.drawing.dataRepresentation()
-        self.savePencilData(data: data, width: self.canvasView.frame.width)
-    }
-}
-
 extension FormZero: ExplanationRemover {
     func closeExplanation() {
-        self.shouldShowExplanation = false
-        
-        self.explanationView.alpha = 0
-        self.explanationView.removeFromSuperview()
-        self._topViewTrailingConstraint?.constant = 0
-        
-        self.adjustLayout {
-            self.canvasView.frame.size = self.contentSize
+        self.adjustLayouts(frameUpdate: true, showExplanation: false)
+        UIView.animate(withDuration: 0.2) {
+            self.explanationView.alpha = 0
         }
     }
 }
@@ -287,6 +259,7 @@ extension FormZero: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
+    
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.adjustLayouts()
     }
