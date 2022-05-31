@@ -65,13 +65,7 @@ final class SingleWith5AnswerVC: FormZero {
     
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.viewModel?.problem,
-              problem.terminated == false else { return }
-        
-        let input: Int = sender.tag
-        self.viewModel?.updateSolved(withSelectedAnswer: "\(input)")
-        
-        self.configureCheckButtons()
+        self.updateSelectedButtons(tag: sender.tag)
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -160,28 +154,51 @@ final class SingleWith5AnswerVC: FormZero {
         self.answerView.removeFromSuperview()
     }
     
+    private func updateSelectedButtons(tag: Int) {
+        guard let vm = self.viewModel else { return }
+        
+        if vm.shouldChooseMultipleAnswer {
+            self.checkNumbers[tag-1].isSelected.toggle()
+        } else {
+            self.checkNumbers.forEach { $0.isSelected = false }
+            self.checkNumbers[tag-1].isSelected = true
+        }
+        self.updateButtonUI()
+        
+        // Solved값 업데이트
+        let selectedButtonTags = self.checkNumbers.filter(\.isSelected).map(\.tag)
+        vm.updateSolved(withSelectedAnswers: selectedButtonTags)
+    }
+    
     private func configureUI() {
-        self.configureCheckButtons()
+        self.loadSelectedButtons()
         self.configureStar()
         self.configureAnswer()
         self.configureExplanation()
     }
     
-    private func configureCheckButtons() {
+    private func loadSelectedButtons() {
+        guard let solved = self.viewModel?.problem?.solved else { return }
+        
+        let selectedButtonIndices = IndexSet(
+            solved
+            .split(separator: ",")
+            .compactMap { Int($0) }
+            .map { $0 - 1}
+        )
+        
+        self.checkNumbers.forEach { $0.isSelected = false }
+        selectedButtonIndices.forEach { self.checkNumbers[$0].isSelected = true }
+        
+        self.updateButtonUI()
+        
+        self.updateUIIfTerminated()
+    }
+    
+    /// 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
+    private func updateUIIfTerminated() {
         guard let problem = self.viewModel?.problem else { return }
         
-        // 일단 모든 버튼 표시 구현
-        for bt in checkNumbers {
-            bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(.deepMint), for: .normal)
-        }
-        // 사용자 체크한 데이터 표시
-        if let solved = problem.solved {
-            guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.deepMint)
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
-        }
-        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
         if let answer = self.viewModel?.answer(),
            problem.terminated == true {
             self.answerBT.isHidden = true
@@ -191,6 +208,18 @@ final class SingleWith5AnswerVC: FormZero {
             }
         } else {
             self.answerBT.isHidden = false
+        }
+    }
+    
+    private func updateButtonUI() {
+        self.checkNumbers.forEach { button in
+            if button.isSelected {
+                button.backgroundColor = UIColor(.deepMint)
+                button.setTitleColor(UIColor.white, for: .normal)
+            } else {
+                button.backgroundColor = UIColor.white
+                button.setTitleColor(UIColor(.deepMint), for: .normal)
+            }
         }
     }
     
