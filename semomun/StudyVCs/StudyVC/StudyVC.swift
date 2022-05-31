@@ -11,8 +11,6 @@ import Combine
 
 protocol PageDelegate: AnyObject {
     func reload()
-    func nextPage()
-    func beforePage()
     func addScoring(pid: Int)
     func addUploadProblem(pid: Int)
     func addUploadPage(vid: Int)
