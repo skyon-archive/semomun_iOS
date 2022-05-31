@@ -58,7 +58,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     override func prepareForReuse() {
-        self.canvasView.delegate = nil
+        self.canvasView.setDefaults()
         self.resultImageView.isHidden = true
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false

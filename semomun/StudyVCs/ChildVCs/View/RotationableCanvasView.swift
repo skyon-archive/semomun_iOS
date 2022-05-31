@@ -78,4 +78,11 @@ final class RotationableCanvasView: PKCanvasView {
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         self.drawing = savedDrawing.transformed(using: transform)
     }
+    
+    func setDefaults() {
+        self.setContentOffset(.zero, animated: false)
+        self.zoomScale = 1.0
+        self.contentInset = .zero
+        self.delegate = nil
+    }
 }
