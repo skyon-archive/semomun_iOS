@@ -74,7 +74,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     // MARK: Rotation
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.adjustLayouts(rotate: true)
+        self.adjustLayouts(frameUpdate: true)
         self.configureCanvasViewDataAndDelegate()
     }
 }
@@ -137,14 +137,17 @@ extension FormCell {
 
 // MARK: Rotation
 extension FormCell {
-    private func adjustLayouts(rotate: Bool = false) {
+    private func adjustLayouts(frameUpdate: Bool = false) {
         let contentSize = self.contentView.frame.size
         guard let imageSize = self.imageView.image?.size else {
             assertionFailure("imageView 내 image 가 존재하지 않습니다.")
             return
         }
-        // canvasView 크기 및 필기 ratio 조절
-        self.canvasView.updateFrameAndRatio(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+        // canvasView 필기 ratio 조절 (frame 필요시 update)
+        self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize,
+                                            topHeight: self.internalTopViewHeight,
+                                            imageSize: imageSize,
+                                            frameUpdate: frameUpdate)
         // 배경 뷰 위치 설정
         self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정

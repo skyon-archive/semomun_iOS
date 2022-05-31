@@ -206,9 +206,9 @@ extension FormZero {
         }
         
         if self.showExplanation {
-            self.canvasView.updateFrameAndRatioWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+            self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: rotate)
         } else {
-            self.canvasView.updateFrameAndRatio(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, rotate: rotate)
+            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: rotate)
         }
     }
     
