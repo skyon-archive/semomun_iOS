@@ -178,20 +178,9 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     private func loadSelectedButtons() {
-        guard let solved = self.viewModel?.problem?.solved else { return }
-        
-        let selectedButtonIndices = IndexSet(
-            solved
-            .split(separator: ",")
-            .compactMap { Int($0) }
-            .map { $0 - 1}
-        )
-        
         self.checkNumbers.forEach { $0.isSelected = false }
-        selectedButtonIndices.forEach { self.checkNumbers[$0].isSelected = true }
-        
+        self.viewModel?.savedSolved.forEach { self.checkNumbers[$0].isSelected = true }
         self.updateButtonUI()
-        
         self.updateUIIfTerminated()
     }
     
@@ -199,12 +188,10 @@ final class SingleWith5AnswerVC: FormZero {
     private func updateUIIfTerminated() {
         guard let problem = self.viewModel?.problem else { return }
         
-        if let answer = self.viewModel?.answer(),
-           problem.terminated == true {
+        if problem.terminated {
             self.answerBT.isHidden = true
-            if answer != "복수",
-               let targetIndex = Int(answer) {
-                self.createCheckImage(to: targetIndex-1)
+            self.viewModel?.answer.forEach {
+                self.createCheckImage(to: $0-1)
             }
         } else {
             self.answerBT.isHidden = false

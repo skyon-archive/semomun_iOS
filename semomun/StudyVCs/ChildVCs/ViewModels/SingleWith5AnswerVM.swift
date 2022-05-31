@@ -38,5 +38,24 @@ final class SingleWith5AnswerVM: PageVM {
         }
     }
     
+    /// 다답형 유무
     let shouldChooseMultipleAnswer: Bool
+    
+    /// CoreData에 저장된, 유저가 선택한 선지들
+    var savedSolved: [Int] {
+        guard let solved = self.problem?.solved else { return [] }
+        return solved
+            .split(separator: ",")
+            .compactMap { Int($0) }
+            .map { $0 - 1}
+    }
+    
+    /// 문제의 정답. 복수 답안일 경우 제일 처음 것만 반환
+    var answer: [Int] {
+        guard let answer = self.problem?.answer else { return [] }
+        
+        let answers = answer.split(separator: "|").map { String($0) }
+        guard let firstAnswer = answers.first else { return [] }
+        return firstAnswer.split(separator: ",").compactMap { Int($0) }
+    }
 }
