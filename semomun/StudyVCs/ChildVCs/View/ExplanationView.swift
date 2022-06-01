@@ -60,16 +60,8 @@ final class ExplanationView: UIView {
             self.frame = .init(newSize.width, 0, newSize.width, newSize.height)
         } else {
             let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
-            self.frame = .init(0, newSize.height, newSize.width, newSize.height)
+            self.frame = .init(0, newSize.height + topHeight, newSize.width, newSize.height)
         }
-    }
-    
-    func setDefaults() {
-        self.alpha = 0
-        self.scrollView.setContentOffset(.zero, animated: false)
-        self.scrollView.zoomScale = 1.0
-        self.scrollView.contentInset = .zero
-        self.delegate = nil
     }
 }
 

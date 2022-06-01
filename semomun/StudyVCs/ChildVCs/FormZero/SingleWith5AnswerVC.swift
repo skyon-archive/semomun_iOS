@@ -98,8 +98,12 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
+    /* 상위 class를 위하여 override가 필요한 Property들 */
     override var problem: Problem_Core? {
         return self.viewModel?.problem
+    }
+    override var internalTopViewHeight: CGFloat {
+        return self.topView.frame.height
     }
 }
 

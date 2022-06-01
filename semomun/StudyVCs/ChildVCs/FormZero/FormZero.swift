@@ -10,40 +10,43 @@ import PencilKit
 import Alamofire
 
 class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
-    var canvasView = RotationableCanvasView()
-    let imageView: UIImageView = {
+    /* VC 내에서만 설정가능한 View 들*/
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         return imageView
     }()
-    let loader: UIActivityIndicatorView = {
+    private let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.translatesAutoresizingMaskIntoConstraints = false
         loader.color = UIColor.gray
         loader.startAnimating()
         return loader
     }()
-    lazy var explanationView: ExplanationView = {
+    private lazy var explanationView: ExplanationView = {
         let explanationView = ExplanationView()
-        self.view.addSubview(self.explanationView)
         return explanationView
     }()
-    lazy var resultImageView: CorrectImageView = {
-        let imageView = CorrectImageView()
-        self.imageView.addSubview(imageView)
-        return imageView
-    }()
+    /* 자식 VC에서 접근가능한 View */
+    private(set) var canvasView = RotationableCanvasView()
+    /* 자식 VC에서 설정가능한 View들 */
+    let answerView = AnswerView()
     let timerView: ProblemTimerView = {
         let timerView = ProblemTimerView()
         timerView.isHidden = true
         timerView.translatesAutoresizingMaskIntoConstraints = false
         return timerView
     }()
-    let answerView = AnswerView()
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    lazy var resultImageView: CorrectImageView = {
+        let imageView = CorrectImageView()
+        self.imageView.addSubview(imageView)
         return imageView
     }()
     
@@ -85,13 +88,13 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
-        self.explanationView.setDefaults()
         self.resultImageView.isHidden = true
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
         self.shouldShowExplanation = false
         self.answerView.alpha = 0
         self.checkImageView.removeFromSuperview()
+        self.closeExplanation()
     }
     
     // MARK: Rotation
@@ -236,9 +239,11 @@ extension FormZero {
     
     func showExplanation(to image: UIImage?) {
         self.explanationView.configureDelegate(to: self)
+        self.view.addSubview(self.explanationView)
         self.explanationView.configureImage(to: image)
         self.adjustLayouts(frameUpdate: true, showExplanation: true)
-        UIView.animate(withDuration: 0.2) {
+        
+        UIView.animate(withDuration: 0.15) {
             self.explanationView.alpha = 1
         }
     }
@@ -247,8 +252,10 @@ extension FormZero {
 extension FormZero: ExplanationRemover {
     func closeExplanation() {
         self.adjustLayouts(frameUpdate: true, showExplanation: false)
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.15) {
             self.explanationView.alpha = 0
+        } completion: { _ in
+            self.explanationView.removeFromSuperview()
         }
     }
 }
