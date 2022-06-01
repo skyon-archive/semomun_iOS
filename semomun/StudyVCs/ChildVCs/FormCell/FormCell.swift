@@ -83,6 +83,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
 extension FormCell {
     private func configureSubViews() {
         self.contentView.addSubviews(self.canvasView, self.background)
+        self.contentView.sendSubviewToBack(self.canvasView)
+        self.contentView.sendSubviewToBack(self.background)
         
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
