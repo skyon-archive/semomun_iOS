@@ -147,18 +147,6 @@ class SingleWithSubProblemsVC: FormZero {
         didSet { self.realAnswerView.reloadData() }
     }
     
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
