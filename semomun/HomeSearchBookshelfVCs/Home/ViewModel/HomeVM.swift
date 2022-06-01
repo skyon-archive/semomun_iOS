@@ -167,10 +167,10 @@ final class HomeVM {
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
                     let count = min(10, filteredPreviews.count)
-                    self?.workbooksWithTags = Array(filteredPreviews.prefix(upTo: count))
+                    self?.bestSellers = Array(filteredPreviews.prefix(upTo: count))
                 } else {
                     let count = min(10, workbooks.count)
-                    self?.workbooksWithTags = Array(workbooks.prefix(upTo: count))
+                    self?.bestSellers = Array(workbooks.prefix(upTo: count))
                 }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
