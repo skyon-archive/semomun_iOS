@@ -139,11 +139,11 @@ extension MultipleWith5AnswerVC {
     }
     
     @objc func rightDragged() {
-        self.viewModel?.delegate?.beforePage()
+//        self.viewModel?.delegate?.beforePage()
     }
     
     @objc func leftDragged() {
-        self.viewModel?.delegate?.nextPage()
+//        self.viewModel?.delegate?.nextPage()
     }
     
     private func configureScrollView() {

@@ -17,7 +17,7 @@ final class SingleWith5AnswerVC: FormZero {
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet var checkButtons: [UIButton]!
     
     var viewModel: SingleWith5AnswerVM?
     
@@ -36,50 +36,44 @@ final class SingleWith5AnswerVC: FormZero {
         super.viewDidLoad()
         self.configureTimerViewLayout()
         self.configureCheckButtonLayout()
+        self.configureAnswerViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setViewToDefault()
-        self.configureUI()
+        self.updateCheckButtons()
+        self.updateBookmarkBT()
+        self.updateAnswerBT()
+        self.updateExplanationBT()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("5다선지 didAppear")
-        
         self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("5다선지 willDisappear")
-        
-        self.setViewToDefault()
         self.endTimeRecord()
     }
     
-    // 객관식 1~5 클릭 부분
-    @IBAction func sol_click(_ sender: UIButton) {
+    @IBAction func selectAnswer(_ sender: UIButton) {
         guard self.viewModel?.problem?.terminated == false else { return }
         self.updateSelectedButton(tag: sender.tag)
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
-        let status = self.bookmarkBT.isSelected
-        self.viewModel?.updateStar(to: status)
+        self.viewModel?.updateStar(to: self.bookmarkBT.isSelected)
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-        let explanationImage = UIImage(data: imageData)
-        self.showExplanation.toggle()
-        
         if self.shouldShowExplanation {
-            self.showExplanation(to: explanationImage)
-        } else {
             self.closeExplanation()
+        } else {
+            guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+            let explanationImage = UIImage(data: imageData)
+            self.showExplanation(to: explanationImage)
         }
     }
     
@@ -110,6 +104,28 @@ final class SingleWith5AnswerVC: FormZero {
 }
 
 // MARK: - Configure
+extension SingleWith5AnswerVC {
+    private func configureTimerViewLayout() {
+        self.view.addSubview(self.timerView)
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+        ])
+    }
+    
+    private func configureAnswerViewLayout() {
+        self.view.addSubview(self.answerView)
+        
+        NSLayoutConstraint.activate([
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
+        ])
+    }
+}
+
+// MARK: Update
+extension SingleWith5AnswerVC {
     private func setViewToDefault() {
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
@@ -193,11 +209,11 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
-    private func configureStar() {
+    private func updateBookmarkBT() {
         self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
-    private func configureAnswer() {
+    private func updateAnswerBT() {
         self.answerBT.isUserInteractionEnabled = true
         self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.viewModel?.problem?.answer == nil {
@@ -206,7 +222,7 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
-    private func configureExplanation() {
+    private func updateExplanationBT() {
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
         self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
@@ -214,6 +230,21 @@ final class SingleWith5AnswerVC: FormZero {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
+    }
+}
+
+extension SingleWith5AnswerVC {
+    private func createCheckImage(to index: Int) {
+        self.checkImageView.image = UIImage(named: "check")
+        self.view.addSubview(self.checkImageView)
+        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
+            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 10),
+            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -10)
+        ])
     }
 }
 

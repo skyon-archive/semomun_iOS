@@ -39,11 +39,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         timerView.translatesAutoresizingMaskIntoConstraints = false
         return timerView
     }()
-    let answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
+    let answerView = AnswerView()
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
@@ -94,6 +90,8 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
         self.shouldShowExplanation = false
+        self.answerView.alpha = 0
+        self.checkImageView.removeFromSuperview()
     }
     
     // MARK: Rotation

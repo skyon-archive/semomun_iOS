@@ -38,6 +38,7 @@ final class AnswerView: UIView {
     convenience init() {
         self.init(frame: CGRect())
         self.configureLayout()
+        self.alpha = 0
     }
     
     private func configureLayout() {
