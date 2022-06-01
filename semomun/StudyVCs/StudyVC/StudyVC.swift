@@ -256,7 +256,7 @@ extension StudyVC: LayoutDelegate {
         switch pageData.layoutType {
         case SingleWith5AnswerVC.identifier:
             self.currentVC = self.singleWith5Answer
-            self.singleWith5Answer.viewModel = SingleWith5AnswerVM(delegate: self, pageData: pag eData)
+            self.singleWith5Answer.viewModel = SingleWith5AnswerVM(delegate: self, pageData: pageData)
             self.singleWith5Answer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case SingleWithTextAnswerVC.identifier:

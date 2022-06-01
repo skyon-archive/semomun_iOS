@@ -76,11 +76,11 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     }
     
     override func previousPage() {
-        self.viewModel?.delegate?.beforePage()
+//        self.viewModel?.delegate?.beforePage()
     }
     
     override func nextPage() {
-        self.viewModel?.delegate?.nextPage()
+//        self.viewModel?.delegate?.nextPage()
     }
     
     private func configureCollectionView() {
