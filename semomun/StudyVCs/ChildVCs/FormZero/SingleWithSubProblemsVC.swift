@@ -9,11 +9,9 @@ import UIKit
 import PencilKit
 import Kingfisher
 
-class SingleWithSubProblemsVC: FormZero {
+final class SingleWithSubProblemsVC: FormZero {
     static let identifier = "SingleWithSubProblemsVC"
     static let storyboardName = "Study"
-    
-    var viewModel: SingleWithSubProblemsVM?
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
@@ -33,6 +31,8 @@ class SingleWithSubProblemsVC: FormZero {
     @IBOutlet weak var returnButton: UIButton!
     
     @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
+    
+    var viewModel: SingleWithSubProblemsVM?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ class SingleWithSubProblemsVC: FormZero {
         
         if problem.terminated == true {
             self.configureAfterTermination()
-            self.resultImageView.isHidden = false
+            self.correctImageView.isHidden = false
             self.hideTextField(animation: true)
         } else {
             self.showTextField(animation: false)
@@ -110,13 +110,6 @@ class SingleWithSubProblemsVC: FormZero {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
         self.answerBT.isHidden = false
-    }
-    
-    override var problem: Problem_Core? {
-        return self.viewModel?.problem
-    }
-    override var topViewHeight: CGFloat {
-        return self.topView.frame.height
     }
     
     // textField 의 width 값
@@ -222,6 +215,17 @@ class SingleWithSubProblemsVC: FormZero {
                 button.deselect()
             }
         }
+    }
+    
+    /* 상위 class를 위하여 override가 필요한 Property들 */
+    override var problem: Problem_Core? {
+        return self.viewModel?.problem
+    }
+    override var topViewHeight: CGFloat {
+        return self.topView.frame.height
+    }
+    override var topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailing
     }
 }
 
