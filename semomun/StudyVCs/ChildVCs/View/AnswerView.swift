@@ -39,6 +39,7 @@ final class AnswerView: UIView {
         self.init(frame: CGRect())
         self.configureLayout()
         self.alpha = 0
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func configureLayout() {
