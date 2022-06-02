@@ -26,6 +26,8 @@ final class ProblemTimerView: UIView {
     
     convenience init() {
         self.init(frame: CGRect())
+        self.isHidden = true
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.configureLayout()
     }
     

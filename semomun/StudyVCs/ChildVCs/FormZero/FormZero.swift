@@ -31,12 +31,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     private(set) var canvasView = RotationableCanvasView()
     /* 자식 VC에서 설정가능한 View들 */
     let answerView = AnswerView()
-    let timerView: ProblemTimerView = {
-        let timerView = ProblemTimerView()
-        timerView.isHidden = true
-        timerView.translatesAutoresizingMaskIntoConstraints = false
-        return timerView
-    }()
+    let timerView = ProblemTimerView()
     let checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
