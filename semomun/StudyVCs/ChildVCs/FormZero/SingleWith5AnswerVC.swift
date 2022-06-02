@@ -68,6 +68,7 @@ final class SingleWith5AnswerVC: FormZero {
     
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
+        guard self.viewModel?.problem?.terminated == false else { return }
         self.updateSelectedButton(tag: sender.tag)
     }
     
