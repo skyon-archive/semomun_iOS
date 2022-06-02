@@ -32,7 +32,7 @@ class SingleWithSubProblemsVC: FormZero {
     @IBOutlet weak var realAnswerView: UICollectionView!
     @IBOutlet weak var returnButton: UIButton!
     
-    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +115,7 @@ class SingleWithSubProblemsVC: FormZero {
     override var problem: Problem_Core? {
         return self.viewModel?.problem
     }
-    override var internalTopViewHeight: CGFloat {
+    override var topViewHeight: CGFloat {
         return self.topView.frame.height
     }
     

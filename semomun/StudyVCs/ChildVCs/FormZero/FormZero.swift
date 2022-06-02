@@ -54,10 +54,11 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     
     /* 자식 VC에서 override 해야 하는 Property들 */
     var problem: Problem_Core? { return nil }
-    var internalTopViewHeight: CGFloat {
+    var topViewHeight: CGFloat {
         assertionFailure()
         return 51
     }
+    var topViewTrailingConstraint: NSLayoutConstraint? { return nil }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,6 +189,8 @@ extension FormZero {
         self.updateCanvasView(frameUpdate: frameUpdate)
         // explanation 크기 조절
         self.updateExplanationView(frameUpdate: frameUpdate)
+        // explanation 여부에 따른 topViewTrailing 조절
+        self.updateTopViewTrailing()
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
@@ -202,15 +205,23 @@ extension FormZero {
         }
         
         if self.shouldShowExplanation && frameUpdate {
-            self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize)
+            self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize)
         } else {
-            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.internalTopViewHeight, imageSize: imageSize, frameUpdate: frameUpdate)
+            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize, frameUpdate: frameUpdate)
         }
     }
     
     private func updateExplanationView(frameUpdate: Bool) {
         guard self.shouldShowExplanation, frameUpdate else { return }
-        self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.internalTopViewHeight)
+        self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.topViewHeight)
+    }
+    
+    private func updateTopViewTrailing() {
+        if self.shouldShowExplanation && UIWindow.isLandscape {
+            self.topViewTrailingConstraint?.constant = self.view.frame.width/2
+        } else {
+            self.topViewTrailingConstraint?.constant = 0
+        }
     }
     
     private func configureCanvasViewDataAndDelegate() {
