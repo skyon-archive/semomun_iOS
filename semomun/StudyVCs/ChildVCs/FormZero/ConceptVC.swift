@@ -8,13 +8,14 @@
 import UIKit
 import PencilKit
 
-class ConceptVC: FormZero {
+final class ConceptVC: FormZero {
     static let identifier = "ConceptVC" // form == 0 && type == -1
     static let storyboardName = "Study"
     
     @IBOutlet weak var bookmarkBT: UIButton!
-    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
+    
     var viewModel: ConceptVM?
     
     override func viewDidLoad() {
@@ -24,37 +25,39 @@ class ConceptVC: FormZero {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("개념 willAppear")
-        self.configureUI()
-        self.checkScoring()
+        self.updateBookmarkBT()
+        self.addScoring()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("개념 didAppear")
         self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("개념 willDisappear")
-        
         self.endTimeRecord()
-        self.timerView.removeFromSuperview()
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
-        let status = self.bookmarkBT.isSelected
-        self.viewModel?.updateStar(to: status)
+        self.viewModel?.updateStar(to: self.bookmarkBT.isSelected)
+    }
+    
+    /* 상위 class 를 위하여 override가 필요한 Property들 */
+    override var problem: Problem_Core? {
+        return self.viewModel?.problem
+    }
+    override var topViewHeight: CGFloat {
+        return self.topView.frame.height
+    }
+    override var topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailing
     }
 }
 
+// MARK: Configure
 extension ConceptVC {
-    private func configureUI() {
-        self.configureStar()
-    }
-    
     private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
         
@@ -63,18 +66,18 @@ extension ConceptVC {
             self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 15)
         ])
     }
-    
-    private func configureStar() {
+}
+
+// MARK: Update
+extension ConceptVC {
+    private func updateBookmarkBT() {
         self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
-    private func checkScoring() {
-        guard let problem = self.viewModel?.problem else { return }
-        let terminated = problem.terminated
-              
-        if terminated == false {
-            self.viewModel?.delegate?.addScoring(pid: Int(problem.pid))
-        }
+    private func addScoring() {
+        guard let problem = self.viewModel?.problem,
+              problem.terminated == false else { return }
+        self.viewModel?.delegate?.addScoring(pid: Int(problem.pid))
     }
 }
 

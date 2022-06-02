@@ -229,9 +229,7 @@ extension SingleWith5AnswerVC {
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
     }
-}
-
-extension SingleWith5AnswerVC {
+    
     private func createCheckImage(to index: Int) {
         self.checkImageView.image = UIImage(named: "check")
         self.view.addSubview(self.checkImageView)

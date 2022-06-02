@@ -7,7 +7,6 @@
 
 import UIKit
 import PencilKit
-import Alamofire
 
 class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     /* VC 내에서만 설정가능한 View 들*/
@@ -39,7 +38,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         return imageView
     }()
     
-    lazy var resultImageView: CorrectImageView = {
+    lazy var correctImageView: CorrectImageView = {
         let imageView = CorrectImageView()
         self.imageView.addSubview(imageView)
         return imageView
@@ -84,7 +83,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
-        self.resultImageView.isHidden = true
+        self.correctImageView.isHidden = true
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
         self.shouldShowExplanation = false
@@ -194,7 +193,7 @@ extension FormZero {
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
-        self.resultImageView.adjustLayoutForZero(imageViewWidth: self.imageView.frame.width)
+        self.correctImageView.adjustLayoutForZero(imageViewWidth: self.imageView.frame.width)
     }
     
     private func updateCanvasView(frameUpdate: Bool) {
@@ -240,7 +239,7 @@ extension FormZero {
 // MARK: Child Accessible
 extension FormZero {
     func showResultImage(to: Bool) {
-        self.resultImageView.show(isCorrect: to)
+        self.correctImageView.show(isCorrect: to)
     }
     
     func showExplanation(to image: UIImage?) {
