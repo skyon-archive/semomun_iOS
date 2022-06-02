@@ -183,7 +183,7 @@ final class SingleWith5AnswerVC: FormZero {
     
     private func loadSelectedButtons() {
         self.checkNumbers.forEach { $0.isSelected = false }
-        self.viewModel?.savedSolved.forEach { self.checkNumbers[$0].isSelected = true }
+        self.viewModel?.savedSolved.forEach { self.checkNumbers[$0-1].isSelected = true }
         self.updateButtonUI()
         self.updateUIIfTerminated()
     }
