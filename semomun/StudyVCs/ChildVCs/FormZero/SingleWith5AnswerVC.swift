@@ -21,7 +21,7 @@ final class SingleWith5AnswerVC: FormZero {
     
     var viewModel: SingleWith5AnswerVM?
     
-    private lazy var checkImageViews: [UIImageView] = (0..<self.checkNumbers.count).map { _ in
+    private lazy var checkImageViews: [UIImageView] = (0..<self.checkButtons.count).map { _ in
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
@@ -35,13 +35,13 @@ final class SingleWith5AnswerVC: FormZero {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTimerViewLayout()
-        self.configureCheckButtonLayout()
         self.configureAnswerViewLayout()
+        self.configureCheckButtonLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.updateCheckButtons()
+        self.updateCheckedButtons()
         self.updateBookmarkBT()
         self.updateAnswerBT()
         self.updateExplanationBT()
@@ -54,6 +54,7 @@ final class SingleWith5AnswerVC: FormZero {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.checkImageViews.forEach { $0.isHidden = true }
         self.endTimeRecord()
     }
     
@@ -72,13 +73,12 @@ final class SingleWith5AnswerVC: FormZero {
             self.closeExplanation()
         } else {
             guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-            let explanationImage = UIImage(data: imageData)
-            self.showExplanation(to: explanationImage)
+            self.showExplanation(to: UIImage(data: imageData))
         }
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer() else { return }
+        guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.configureAnswer(to: answer)
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.answerView.alpha = 1
@@ -101,6 +101,25 @@ final class SingleWith5AnswerVC: FormZero {
     }
 }
 
+// MARK: IBAction
+extension SingleWith5AnswerVC {
+    private func updateSelectedButton(tag: Int) {
+        guard let vm = self.viewModel else { return }
+        
+        if vm.shouldChooseMultipleAnswer {
+            self.checkButtons[tag-1].isSelected.toggle()
+        } else {
+            self.checkButtons.forEach { $0.isSelected = false }
+            self.checkButtons[tag-1].isSelected = true
+        }
+        self.updateButtonUI()
+        
+        // Solved값 업데이트
+        let selectedButtonTags = self.checkButtons.filter(\.isSelected).map(\.tag)
+        vm.updateSolved(withSelectedAnswers: selectedButtonTags)
+    }
+}
+
 // MARK: - Configure
 extension SingleWith5AnswerVC {
     private func configureTimerViewLayout() {
@@ -120,44 +139,39 @@ extension SingleWith5AnswerVC {
             self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
         ])
     }
+    
+    private func configureCheckButtonLayout() {
+        zip(self.checkButtons, self.checkImageViews).forEach { button, imageView in
+            button.addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 75),
+                imageView.heightAnchor.constraint(equalToConstant: 75),
+                imageView.centerXAnchor.constraint(equalTo: button.centerXAnchor, constant: 10),
+                imageView.centerYAnchor.constraint(equalTo: button.centerYAnchor, constant: -10)
+            ])
+        }
+    }
 }
 
 // MARK: Update
 extension SingleWith5AnswerVC {
-    private func setViewToDefault() {
-        self.timerView.removeFromSuperview()
-        self.answerView.removeFromSuperview()
-        self.checkImageViews.forEach { $0.isHidden = true }
-    }
-    
-    private func updateSelectedButton(tag: Int) {
-        guard let vm = self.viewModel else { return }
-        
-        if vm.shouldChooseMultipleAnswer {
-            self.checkNumbers[tag-1].isSelected.toggle()
-        } else {
-            self.checkNumbers.forEach { $0.isSelected = false }
-            self.checkNumbers[tag-1].isSelected = true
-        }
-        self.updateButtonUI()
-        
-        // Solved값 업데이트
-        let selectedButtonTags = self.checkNumbers.filter(\.isSelected).map(\.tag)
-        vm.updateSolved(withSelectedAnswers: selectedButtonTags)
-    }
-    
-    private func configureUI() {
-        self.loadSelectedButtons()
-        self.configureStar()
-        self.configureAnswer()
-        self.configureExplanation()
-    }
-    
-    private func loadSelectedButtons() {
-        self.checkNumbers.forEach { $0.isSelected = false }
-        self.viewModel?.savedSolved.forEach { self.checkNumbers[$0-1].isSelected = true }
+    private func updateCheckedButtons() {
+        self.checkButtons.forEach { $0.isSelected = false }
+        self.viewModel?.savedSolved.forEach { self.checkButtons[$0-1].isSelected = true }
         self.updateButtonUI()
         self.updateUIIfTerminated()
+    }
+    
+    private func updateButtonUI() {
+        self.checkButtons.forEach { button in
+            if button.isSelected {
+                button.backgroundColor = UIColor(.deepMint)
+                button.setTitleColor(UIColor.white, for: .normal)
+            } else {
+                button.backgroundColor = UIColor.white
+                button.setTitleColor(UIColor(.deepMint), for: .normal)
+            }
+        }
     }
     
     /// 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
@@ -169,41 +183,9 @@ extension SingleWith5AnswerVC {
             self.viewModel?.answer.forEach {
                 self.checkImageViews[$0-1].isHidden = false
             }
+            self.showResultImage(to: problem.correct)
         } else {
             self.answerBT.isHidden = false
-        }
-    }
-    
-    private func updateButtonUI() {
-        self.checkNumbers.forEach { button in
-            if button.isSelected {
-                button.backgroundColor = UIColor(.deepMint)
-                button.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(.deepMint), for: .normal)
-            }
-        }
-    }
-    
-    private func configureTimerViewLayout() {
-        self.view.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
-        ])
-    }
-    
-    private func configureCheckButtonLayout() {
-        zip(self.checkNumbers, self.checkImageViews).forEach { button, imageView in
-            button.addSubview(imageView)
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalToConstant: 75),
-                imageView.heightAnchor.constraint(equalToConstant: 75),
-                imageView.centerXAnchor.constraint(equalTo: button.centerXAnchor, constant: 10),
-                imageView.centerYAnchor.constraint(equalTo: button.centerYAnchor, constant: -10)
-            ])
         }
     }
     
@@ -228,19 +210,6 @@ extension SingleWith5AnswerVC {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         }
-    }
-    
-    private func createCheckImage(to index: Int) {
-        self.checkImageView.image = UIImage(named: "check")
-        self.view.addSubview(self.checkImageView)
-        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 10),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -10)
-        ])
     }
 }
 
