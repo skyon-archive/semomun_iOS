@@ -8,7 +8,7 @@
 import Foundation
 
 final class SingleWith4AnswerVM: PageVM {
-    override func answer(of problem: Problem_Core? = nil) -> String? {
+    override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         guard let answer = self.problem?.answer else { return nil }
         if answer.contains("|") {
             return "복수"
