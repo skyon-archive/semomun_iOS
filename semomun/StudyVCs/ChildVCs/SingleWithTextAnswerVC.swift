@@ -152,7 +152,7 @@ class SingleWithTextAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         NSLayoutConstraint.activate([
             self.answerView.widthAnchor.constraint(equalToConstant: 146),
             self.answerView.heightAnchor.constraint(equalToConstant: 61),
-            self.answerView.centerXAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
             self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor,constant: 5)
         ])
         UIView.animate(withDuration: 0.2) { [weak self] in
