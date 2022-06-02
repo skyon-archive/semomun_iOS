@@ -72,11 +72,11 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     }
     
     override func previousPage() {
-//        self.viewModel?.delegate?.beforePage()
+        NotificationCenter.default.post(name: .beforePage, object: nil)
     }
     
     override func nextPage() {
-//        self.viewModel?.delegate?.nextPage()
+        NotificationCenter.default.post(name: .nextPage, object: nil)
     }
     
     private func configureCollectionView() {

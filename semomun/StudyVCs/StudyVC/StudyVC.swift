@@ -163,6 +163,12 @@ extension StudyVC {
             self?.manager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
+        NotificationCenter.default.addObserver(forName: .beforePage, object: nil, queue: .main) { [weak self] _ in
+            self?.beforePage()
+        }
+        NotificationCenter.default.addObserver(forName: .nextPage, object: nil, queue: .main) { [weak self] _ in
+            self?.nextPage()
+        }
     }
 }
 
