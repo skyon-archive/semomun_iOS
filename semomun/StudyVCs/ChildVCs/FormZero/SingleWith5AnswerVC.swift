@@ -16,7 +16,7 @@ final class SingleWith5AnswerVC: FormZero {
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     @IBOutlet var checkButtons: [UIButton]!
     
     var viewModel: SingleWith5AnswerVM?
@@ -93,8 +93,11 @@ final class SingleWith5AnswerVC: FormZero {
     override var problem: Problem_Core? {
         return self.viewModel?.problem
     }
-    override var internalTopViewHeight: CGFloat {
+    override var topViewHeight: CGFloat {
         return self.topView.frame.height
+    }
+    override var topViewTrailingConstraint: NSLayoutConstraint? {
+        return self.topViewTrailing
     }
 }
 

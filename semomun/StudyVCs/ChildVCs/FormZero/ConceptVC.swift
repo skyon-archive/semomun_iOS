@@ -13,7 +13,7 @@ class ConceptVC: FormZero {
     static let storyboardName = "Study"
     
     @IBOutlet weak var bookmarkBT: UIButton!
-    @IBOutlet weak var topViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var topView: UIView!
     var viewModel: ConceptVM?
     
