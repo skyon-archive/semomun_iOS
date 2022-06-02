@@ -8,7 +8,7 @@
 import Foundation
 
 final class SingleWithTextAnswerVM: PageVM {
-    override func answer(of problem: Problem_Core? = nil) -> String? {
+    override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         return problem?.answer
     }
     override func isCorrect(input: String, answer: String) -> Bool {

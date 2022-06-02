@@ -52,7 +52,7 @@ class PageVM {
     }
     
     /// - Returns: 사용자에게 보여주기 위한 answer값
-    func answer(of problem: Problem_Core? = nil) -> String? {
+    func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         assertionFailure("override가 필요한 함수입니다.")
         return nil
     }

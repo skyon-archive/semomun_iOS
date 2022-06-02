@@ -13,7 +13,7 @@ final class SingleWith5AnswerVM: PageVM {
         super.init(delegate: delegate, pageData: pageData)
     }
     
-    override func answer(of problem: Problem_Core? = nil) -> String? {
+    override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         guard let answer = self.problem?.answer else { return nil }
         if answer.contains("|") {
             return "복수"
