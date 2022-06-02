@@ -90,7 +90,7 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer() else { return }
+        guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.removeFromSuperview()
         
         self.answerView.configureAnswer(to: answer)

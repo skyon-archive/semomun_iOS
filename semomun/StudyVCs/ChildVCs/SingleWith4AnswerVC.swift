@@ -150,7 +150,7 @@ class SingleWith4AnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewD
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.answer() else { return }
+        guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.removeFromSuperview()
         
         self.answerView.configureAnswer(to: answer)
@@ -239,7 +239,7 @@ extension SingleWith4AnswerVC {
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if let answer = self.viewModel?.answer(),
+        if let answer = self.viewModel?.answerStringForUser(),
            problem.terminated == true {
             self.answerBT.isHidden = true
             if answer != "복수",
