@@ -22,12 +22,17 @@ final class SingleWith5AnswerVC: FormZero {
     
     var viewModel: SingleWith5AnswerVM?
     
-    lazy var checkImageView: UIImageView = {
+    private lazy var checkImageViews: [UIImageView] = (0..<self.checkNumbers.count).map { _ in
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "check")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isHidden = true
+        
         return imageView
-    }()
+    }
+    
     private lazy var answerView: AnswerView = {
         let answerView = AnswerView()
         answerView.alpha = 0
@@ -37,6 +42,7 @@ final class SingleWith5AnswerVC: FormZero {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTimerViewLayout()
+        self.configureCheckButtonLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,17 +61,14 @@ final class SingleWith5AnswerVC: FormZero {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("5다선지 willDisappear")
+        
         self.setViewToDefault()
         self.endTimeRecord()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        self.updateSelectedButtons(tag: sender.tag)
+        self.updateSelectedButton(tag: sender.tag)
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -146,15 +149,15 @@ final class SingleWith5AnswerVC: FormZero {
     override func savePencilData(data: Data, width: CGFloat) {
         self.viewModel?.updatePencilData(to: data, width: Double(width))
     }
-
-// MARK: - Configures
+    
+    // MARK: - Configures
     private func setViewToDefault() {
-        self.checkImageView.removeFromSuperview()
         self.timerView.removeFromSuperview()
         self.answerView.removeFromSuperview()
+        self.checkImageViews.forEach { $0.isHidden = true }
     }
     
-    private func updateSelectedButtons(tag: Int) {
+    private func updateSelectedButton(tag: Int) {
         guard let vm = self.viewModel else { return }
         
         if vm.shouldChooseMultipleAnswer {
@@ -191,7 +194,7 @@ final class SingleWith5AnswerVC: FormZero {
         if problem.terminated {
             self.answerBT.isHidden = true
             self.viewModel?.answer.forEach {
-                self.createCheckImage(to: $0-1)
+                self.checkImageViews[$0-1].isHidden = false
             }
         } else {
             self.answerBT.isHidden = false
@@ -210,19 +213,6 @@ final class SingleWith5AnswerVC: FormZero {
         }
     }
     
-    private func createCheckImage(to index: Int) {
-        self.checkImageView.image = UIImage(named: "check")
-        self.view.addSubview(self.checkImageView)
-        self.checkImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.checkImageView.widthAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.heightAnchor.constraint(equalToConstant: 75),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 10),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -10)
-        ])
-    }
-    
     private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
         
@@ -230,6 +220,18 @@ final class SingleWith5AnswerVC: FormZero {
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
         ])
+    }
+    
+    private func configureCheckButtonLayout() {
+        zip(self.checkNumbers, self.checkImageViews).forEach { button, imageView in
+            button.addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 75),
+                imageView.heightAnchor.constraint(equalToConstant: 75),
+                imageView.centerXAnchor.constraint(equalTo: button.centerXAnchor, constant: 10),
+                imageView.centerYAnchor.constraint(equalTo: button.centerYAnchor, constant: -10)
+            ])
+        }
     }
     
     private func configureStar() {
