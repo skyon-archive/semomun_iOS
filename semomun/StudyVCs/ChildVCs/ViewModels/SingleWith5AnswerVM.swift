@@ -17,16 +17,13 @@ final class SingleWith5AnswerVM: PageVM {
         return solved
             .split(separator: ",")
             .compactMap { Int($0) }
-            .map { $0 - 1}
     }
     
-    /// 문제의 정답. 복수 답안일 경우 제일 처음 것만 반환
+    /// 문제의 정답.
     var answer: [Int] {
         guard let answer = self.problem?.answer else { return [] }
         
-        let answers = answer.split(separator: "|").map { String($0) }
-        guard let firstAnswer = answers.first else { return [] }
-        return firstAnswer.split(separator: ",").compactMap { Int($0) }
+        return answer.split(separator: ",").compactMap { Int($0) }
     }
     
     override init(delegate: PageDelegate, pageData: PageData) {
@@ -36,16 +33,14 @@ final class SingleWith5AnswerVM: PageVM {
     
     override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         guard let answer = self.problem?.answer else { return nil }
-        if answer.contains("|") {
-            return "복수"
-        } else {
-            return answer
-        }
+        
+        return answer
+            .split(separator: ",")
+            .joined(separator: ", ")
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {
-        let answers = answer.split(separator: "|").map { String($0) }
-        return answers.contains(input)
+        return input == answer
     }
     
     func updateSolved(withSelectedAnswers selectedAnswers: [Int], problem: Problem_Core? = nil) {
