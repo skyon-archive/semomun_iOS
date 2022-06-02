@@ -198,11 +198,11 @@ extension SingleWith4AnswerVC {
     }
     
     @objc func rightDragged() {
-//        self.viewModel?.delegate?.beforePage()
+        NotificationCenter.default.post(name: .beforePage, object: nil)
     }
     
     @objc func leftDragged() {
-//        self.viewModel?.delegate?.nextPage()
+        NotificationCenter.default.post(name: .nextPage, object: nil)
     }
     
     private func configureScrollView() {
