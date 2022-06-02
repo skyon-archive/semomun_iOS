@@ -38,7 +38,7 @@ extension UIScrollView {
         // imageView와 canvasView의 크기 조절
         self.contentSize = CGSize(width: canvasWidth * self.zoomScale, height: canvasWidth * contentRatio * self.zoomScale)
         
-        // 바뀐 크기에 맞게 이전과 같은 좌상단를 가지도록 contentOffset 조절
+        // 바뀐 크기에 맞게 이전과 같은 좌상단을 가지도록 contentOffset 조절
         if previousContentSize.height != 0 && previousContentSize.width != 0 {
             let relativeContentXOffset = previousContentOffset.x/previousContentSize.width
             let relativeContentYOffset = previousContentOffset.y/previousContentSize.height
@@ -47,9 +47,12 @@ extension UIScrollView {
             let contentYOffset = self.contentSize.height*relativeContentYOffset
             self.contentOffset = .init(contentXOffset, contentYOffset)
             
-            // 최하단에서 가로->세로 변경 시 여백이 보일 수 있는 점 고려
-            if self.zoomScale > 1 && self.contentOffset.y + self.frame.height > self.contentSize.height {
-                self.contentOffset.y = self.contentSize.height - self.frame.height
+            // 가로의 최하단 상태에서 세로로 변경 시, 좌상단이 그대로 고정되어있다면 하단에 여백이 보일 수 있는 것 처리
+            if self.zoomScale >= 1 && self.contentOffset.y + self.frame.height > self.contentSize.height {
+                let bottommostOffset = self.contentSize.height - self.frame.height
+                if bottommostOffset > 0 {
+                    self.contentOffset.y = bottommostOffset
+                }
             }
         }
         
