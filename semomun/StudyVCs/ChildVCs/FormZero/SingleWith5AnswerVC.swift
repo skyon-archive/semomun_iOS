@@ -36,6 +36,7 @@ final class SingleWith5AnswerVC: FormZero {
         super.viewDidLoad()
         self.configureTimerViewLayout()
         self.configureAnswerViewLayout()
+        // 5다선지 관련 configure
         self.configureCheckButtonLayout()
     }
     
@@ -120,7 +121,7 @@ extension SingleWith5AnswerVC {
     }
 }
 
-// MARK: - Configure
+// MARK: Configure
 extension SingleWith5AnswerVC {
     private func configureTimerViewLayout() {
         self.view.addSubview(self.timerView)
