@@ -1196,18 +1196,18 @@
                     </view>
                     <connections>
                         <outlet property="answerBT" destination="ymB-S0-bc7" id="wsQ-et-9IY"/>
-                        <outlet property="answerTF" destination="3t8-jP-GT4" id="B8p-dK-7KL"/>
+                        <outlet property="answerInputTextField" destination="3t8-jP-GT4" id="B8p-dK-7KL"/>
                         <outlet property="bookmarkBT" destination="jZR-A6-lzE" id="Gwg-vZ-fx8"/>
+                        <outlet property="checkButtonsStackView" destination="pym-2J-Qs0" id="5NY-jO-URA"/>
                         <outlet property="explanationBT" destination="CRA-uG-UXl" id="fnZ-tu-k0D"/>
-                        <outlet property="realAnswerView" destination="fXb-d0-jpB" id="4L1-ad-n7g"/>
-                        <outlet property="resultView" destination="xbG-tD-Q3m" id="npf-iZ-Xb2"/>
+                        <outlet property="resultAnswers" destination="fXb-d0-jpB" id="4L1-ad-n7g"/>
+                        <outlet property="resultFrameView" destination="xbG-tD-Q3m" id="npf-iZ-Xb2"/>
                         <outlet property="returnButton" destination="AMt-TX-diX" id="CDm-YR-dZf"/>
-                        <outlet property="savedAnswerLabel" destination="mWG-Ks-KO9" id="fBF-Pz-iMI"/>
-                        <outlet property="savedAnswerView" destination="IMn-8O-aKm" id="cqq-2k-X8L"/>
-                        <outlet property="savedAnswersTrailing" destination="0TB-Fp-tzt" id="ts8-46-OBS"/>
-                        <outlet property="stackView" destination="pym-2J-Qs0" id="5NY-jO-URA"/>
                         <outlet property="topView" destination="e0c-29-xNj" id="wvy-Hl-DJG"/>
                         <outlet property="topViewTrailing" destination="Uus-MX-mjD" id="V3x-VW-oUJ"/>
+                        <outlet property="userAnswers" destination="IMn-8O-aKm" id="cqq-2k-X8L"/>
+                        <outlet property="userAnswersLabel" destination="mWG-Ks-KO9" id="fBF-Pz-iMI"/>
+                        <outlet property="userAnswersTrailing" destination="0TB-Fp-tzt" id="ts8-46-OBS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzd-3n-SqM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
