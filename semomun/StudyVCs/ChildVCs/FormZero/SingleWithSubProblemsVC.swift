@@ -423,7 +423,6 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
         
         // 답안 저장. 엔터를 눌렀을 경우에만 updateSolved해야함.
         self.viewModel?.updateSolved(withSelectedAnswer: self.solvings)
-        self.updateCorrectPoints()
         // 현재문제 deselect
         guard let subCount = self.viewModel?.problem?.subProblemsCount,
               let currentButton = self.subProblemCheckButtons[safe: currentProblemIndex] else { return }
@@ -445,18 +444,6 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
 }
 
 extension SingleWithSubProblemsVC {
-    private func updateCorrectPoints() {
-        guard let answer = self.viewModel?.problem?.answer else {
-            self.viewModel?.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
-            return
-        }
-        let answers = answer.split(separator: "$").map { String($0) }
-        let points = zip(self.solvings, answers)
-            .filter { $0 == $1 }
-            .count
-        self.viewModel?.problem?.setValue(Int64(points), forKey: Problem_Core.Attribute.correctPoints.rawValue)
-    }
-    
     private func showTextField(animation: Bool = false) {
         UIView.animate(withDuration: animation ? 0.15 : 0) {
             self.userAnswersTrailing.constant = self.savedAnswerWidth
