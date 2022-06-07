@@ -37,5 +37,18 @@ final class SingleWithSubProblemsVM: PageVM {
         
         let answerConverted = selectedAnswer.map({$0 ?? ""}).joined(separator: "$")
         self.updateSolved(withSelectedAnswer: answerConverted)
+        self.updateCorrectPoints(selectedAnswers: selectedAnswer)
+    }
+    
+    private func updateCorrectPoints(selectedAnswers: [String?]) {
+        guard let answer = self.problem?.answer else {
+            self.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+            return
+        }
+        let answers = answer.split(separator: "$").map { String($0) }
+        let points = zip(selectedAnswers, answers)
+            .filter { $0 == $1 }
+            .count
+        self.problem?.setValue(Int64(points), forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
 }
