@@ -134,12 +134,10 @@ final class SingleWithSubProblemsVC: FormZero {
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.viewModel?.problem?.answer else { return }
+        guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.removeFromSuperview()
         
-        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
-        
-        self.answerView.configureAnswer(to: answerConverted)
+        self.answerView.configureAnswer(to: answer)
         self.view.addSubview(self.answerView)
         self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -390,14 +388,13 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard self.viewModel?.problem?.terminated == false else { return }
-        guard collectionView == self.userAnswers else { return }
-        
-        self.currentProblemIndex = indexPath.item
+        guard self.viewModel?.problem?.terminated == false,
+              collectionView == self.userAnswers else { return }
         
         self.showTextField(animation: true)
+        
         let subProblemIndex = self.getSolvingIndex(from: indexPath.item)
-        self.answerInputTextField.text = self.solvings[subProblemIndex]
+        self.currentProblemIndex = subProblemIndex
         
         let targetButton = self.subProblemCheckButtons[subProblemIndex]
         targetButton.isSelected = true
@@ -425,10 +422,7 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
         self.solvings[currentProblemIndex] = (self.answerInputTextField.text == "" ? nil : self.answerInputTextField.text)
         
         // 답안 저장. 엔터를 눌렀을 경우에만 updateSolved해야함.
-        let solvingConverted = self.solvings
-            .map { $0 ?? "" }
-            .joined(separator: "$")
-        self.viewModel?.updateSolved(withSelectedAnswer: solvingConverted)
+        self.viewModel?.updateSolved(withSelectedAnswer: self.solvings)
         self.updateCorrectPoints()
         // 현재문제 deselect
         guard let subCount = self.viewModel?.problem?.subProblemsCount,
