@@ -76,7 +76,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     }
     
     override func previousPage() {
-        NotificationCenter.default.post(name: .beforePage, object: nil)
+        NotificationCenter.default.post(name: .previousPage, object: nil)
     }
     
     override func nextPage() {

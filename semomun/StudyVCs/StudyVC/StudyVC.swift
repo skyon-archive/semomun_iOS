@@ -110,7 +110,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func beforePage(_ sender: Any) {
-        self.manager?.changeBeforePage()
+        self.manager?.changePreviousPage()
     }
     
     @IBAction func nextPage(_ sender: Any) {
@@ -163,8 +163,8 @@ extension StudyVC {
             self?.manager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
-        NotificationCenter.default.addObserver(forName: .beforePage, object: nil, queue: .main) { [weak self] _ in
-            self?.beforePage()
+        NotificationCenter.default.addObserver(forName: .previousPage, object: nil, queue: .main) { [weak self] _ in
+            self?.previousPage()
         }
         NotificationCenter.default.addObserver(forName: .nextPage, object: nil, queue: .main) { [weak self] _ in
             self?.nextPage()
@@ -374,8 +374,8 @@ extension StudyVC: PageDelegate {
         self.manager?.changeNextPage()
     }
     
-    func beforePage() {
-        self.manager?.changeBeforePage()
+    func previousPage() {
+        self.manager?.changePreviousPage()
     }
     
     func addScoring(pid: Int) {
