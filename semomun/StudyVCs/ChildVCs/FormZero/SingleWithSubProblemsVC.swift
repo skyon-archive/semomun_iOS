@@ -306,15 +306,29 @@ extension SingleWithSubProblemsVC: SubProblemCheckObservable {
         
         self.deselectCheckButtons(except: targetButton)
     }
-    
-    private func deselectCheckButtons(except button: SubProblemCheckButton) {
-        self.subProblemCheckButtons
-            .filter { $0 != button }
-            .forEach { $0.isSelected = false }
-    }
 }
 
 extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    private func textForCollectionView(_ collectionView: UICollectionView, itemIdx: Int) -> String {
+        if collectionView == self.userAnswers {
+            guard let problem = self.viewModel?.problem else { return "" }
+            if problem.terminated {
+                return self.getTermimatedUserAnswerCellTitle(at: itemIdx)
+            } else {
+                return self.getUserAnswerCellTitle(at: itemIdx)
+            }
+        } else {
+            return self.getResultCellTitle(at: itemIdx)
+        }
+    }
+    
+    private func getTermimatedUserAnswerCellTitle(at itemIdx: Int) -> String {
+        let button = self.subProblemCheckButtons[itemIdx]
+        let buttonTitle = button.titleLabel?.text ?? ""
+        let solved = self.solvings[itemIdx] ?? "미기입"
+        return "\(buttonTitle): \(solved)"
+    }
+    
     private func getUserAnswerCellTitle(at itemIdx: Int) -> String {
         /// 인덱스 변환 과정이 필요
         let subproblemName = self.getSubproblemName(from: itemIdx)
@@ -329,13 +343,6 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
             return ""
         }
         return "\(buttonTitle): \(self.answer[itemIdx])"
-    }
-    
-    private func getTermimatedUserAnswerCellTitle(at itemIdx: Int) -> String {
-        let button = self.subProblemCheckButtons[itemIdx]
-        let buttonTitle = button.titleLabel?.text ?? ""
-        let solved = self.solvings[itemIdx] ?? "미기입"
-        return "\(buttonTitle): \(solved)"
     }
     
     /// subProblemCheckButtons의 특정 인덱스의 버튼이 가지는 title값을 반환
@@ -356,11 +363,8 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.userAnswers {
-            if self.viewModel?.problem?.terminated == true {
-                return self.answer.count
-            } else {
-                return self.solvings.compactMap({$0}).count
-            }
+            guard let problem = self.viewModel?.problem else { return 0 }
+            return problem.terminated ? self.answer.count : self.solvings.compactMap({$0}).count
         } else {
             return self.answer.count
         }
@@ -369,24 +373,17 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedAnswerCell.identifier, for: indexPath) as? SavedAnswerCell else { return UICollectionViewCell() }
         
-        if collectionView == self.userAnswers {
-            if self.viewModel?.problem?.terminated == true {
-                let text = self.getTermimatedUserAnswerCellTitle(at: indexPath.item)
-                cell.configureText(to: text)
-                
-                if self.solvings[indexPath.item] != self.answer[indexPath.item] {
-                    cell.makeWrong()
-                } else {
-                    cell.makeCorrect()
-                }
+        let text = self.textForCollectionView(collectionView, itemIdx: indexPath.item)
+        cell.configureText(to: text)
+        
+        // 채점 이후 userAnswer 중 틀린 것 처리
+        if collectionView == self.userAnswers,
+           self.viewModel?.problem?.terminated == true {
+            if self.solvings[indexPath.item] != self.answer[indexPath.item] {
+                cell.makeWrong()
             } else {
-                let text = self.getUserAnswerCellTitle(at: indexPath.item)
                 cell.makeCorrect()
-                cell.configureText(to: text)
             }
-        } else if collectionView == self.resultAnswers {
-            let text = self.getResultCellTitle(at: indexPath.item)
-            cell.configureText(to: text)
         }
         
         return cell
@@ -395,28 +392,20 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard self.viewModel?.problem?.terminated == false else { return }
         guard collectionView == self.userAnswers else { return }
+        
         self.currentProblemIndex = indexPath.item
         
         self.showTextField(animation: true)
         let subProblemIndex = self.getSolvingIndex(from: indexPath.item)
         self.answerInputTextField.text = self.solvings[subProblemIndex]
+        
         let targetButton = self.subProblemCheckButtons[subProblemIndex]
         targetButton.isSelected = true
         self.deselectCheckButtons(except: targetButton)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text: String
-        if collectionView == self.userAnswers {
-            if self.viewModel?.problem?.terminated == true {
-                text = self.getTermimatedUserAnswerCellTitle(at: indexPath.item)
-            } else {
-                text = self.getUserAnswerCellTitle(at: indexPath.item)
-            }
-        } else {
-            text = self.getResultCellTitle(at: indexPath.item)
-        }
-        
+        let text = self.textForCollectionView(collectionView, itemIdx: indexPath.item)
         let itemSize = text.size(withAttributes: [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .medium)
         ])
@@ -468,14 +457,10 @@ extension SingleWithSubProblemsVC {
             return
         }
         let answers = answer.split(separator: "$").map { String($0) }
-        var points: Int64 = 0
-        for i in 0..<answers.count {
-            if let input = self.solvings[safe: i],
-               input == answers[i] {
-                points += 1
-            }
-        }
-        self.viewModel?.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
+        let points = zip(self.solvings, answers)
+            .filter { $0 == $1 }
+            .count
+        self.viewModel?.problem?.setValue(Int64(points), forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
     
     private func showTextField(animation: Bool = false) {
@@ -492,6 +477,12 @@ extension SingleWithSubProblemsVC {
             self.answerInputTextField.alpha = 0
             self.returnButton.alpha = 0
         }
+    }
+    
+    private func deselectCheckButtons(except button: SubProblemCheckButton) {
+        self.subProblemCheckButtons
+            .filter { $0 != button }
+            .forEach { $0.isSelected = false }
     }
 }
 
