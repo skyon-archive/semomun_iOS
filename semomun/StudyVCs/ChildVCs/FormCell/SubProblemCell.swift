@@ -164,7 +164,6 @@ class SubProblemCell: FormCell, CellLayoutable {
             // 초기 UI: 첫번째 버튼이 클릭된 상태
             if problem?.solved == nil && i == 0 {
                 button.isSelected = true
-                button.select()
             }
         }
         
@@ -227,7 +226,7 @@ class SubProblemCell: FormCell, CellLayoutable {
             if solving != zipped.1 {
                 button.wrong()
             } else {
-                button.deselect()
+                button.isSelected = false
             }
         }
     }
@@ -244,12 +243,10 @@ extension SubProblemCell: SubProblemCheckObservable {
         if targetButton.isSelected {
             // 켜짐
             self.currentProblemIndex = index
-            targetButton.select()
             self.showTextField(animation: true)
         } else {
             // 꺼짐
             self.currentProblemIndex = nil
-            targetButton.deselect()
             self.hideTextField(animation: true)
         }
         
@@ -276,7 +273,7 @@ extension SubProblemCell: SubProblemCheckObservable {
         self.stackView.arrangedSubviews
             .filter { $0 != button }
             .compactMap { $0 as? SubProblemCheckButton }
-            .forEach { $0.isSelected = false; $0.deselect() }
+            .forEach { $0.isSelected = false; }
     }
 }
 
@@ -379,7 +376,6 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         self.answerTF.text = self.solvings[subProblemIndex]
         guard let targetButton = self.stackView.arrangedSubviews[safe: subProblemIndex] as? SubProblemCheckButton else { return }
         targetButton.isSelected = true
-        targetButton.select()
         self.updateStackview(except: targetButton)
     }
     
@@ -423,13 +419,11 @@ extension SubProblemCell: UITextFieldDelegate {
         guard let subCount = self.problem?.subProblemsCount,
               let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
         currentButton.isSelected = false
-        currentButton.deselect()
         // 다음문제 있는 경우 다음문제 select
         if currentProblemIndex+1 < Int(subCount),
            let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
             self.currentProblemIndex = currentProblemIndex+1
             nextButton.isSelected = true
-            nextButton.select()
             self.updateStackview(except: nextButton)
         }
         // 마지막 문제인 경우 keyboard 내림

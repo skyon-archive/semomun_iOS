@@ -25,6 +25,19 @@ class SubProblemCheckButton: UIButton {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: self.size, height: self.size)
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.backgroundColor = UIColor(.deepMint)
+                self.setTitleColor(.white, for: .normal)
+                self.layoutIfNeeded()
+            } else {
+                self.backgroundColor = .clear
+                self.setTitleColor(UIColor(.deepMint), for: .normal)
+            }
+        }
+    }
 
     private func commonInit(size: CGFloat, fontSize: CGFloat, index: Int, delegate: SubProblemCheckObservable) {
         self.size = size
@@ -43,17 +56,6 @@ class SubProblemCheckButton: UIButton {
         self.addAction(UIAction(handler: { _ in
             delegate.checkButton(index: index)
         }), for: .touchUpInside)
-    }
-
-    func select() {
-        self.backgroundColor = UIColor(.deepMint)
-        self.setTitleColor(.white, for: .normal)
-        self.layoutIfNeeded()
-    }
-
-    func deselect() {
-        self.backgroundColor = .clear
-        self.setTitleColor(UIColor(.deepMint), for: .normal)
     }
     
     func wrong() {
