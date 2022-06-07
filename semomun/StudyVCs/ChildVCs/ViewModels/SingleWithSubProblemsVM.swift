@@ -15,6 +15,20 @@ final class SingleWithSubProblemsVM: PageVM {
         return answer.split(separator: ",").map { String($0) }
     }
     
+    // 유저가 입력한 정답.
+    var solved: [String?] {
+        if let savedSolved = self.problem?.solved {
+            return savedSolved
+                .split(separator: "$")
+                .map { $0 == "" ? nil : String($0) }
+        } else {
+            if let subProblemCount = self.problem?.subProblemsCount {
+                return Array(repeating: nil, count: Int(subProblemCount))
+            }
+            return []
+        }
+    }
+    
     override init(delegate: PageDelegate, pageData: PageData) {
         super.init(delegate: delegate, pageData: pageData)
     }
