@@ -22,10 +22,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         loader.startAnimating()
         return loader
     }()
-    private lazy var explanationView: ExplanationView = {
-        let explanationView = ExplanationView()
-        return explanationView
-    }()
+    private lazy var explanationView = ExplanationView()
     /* 자식 VC에서 접근가능한 View */
     private(set) var canvasView = RotationableCanvasView()
     /* 자식 VC에서 설정가능한 View들 */
