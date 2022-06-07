@@ -72,7 +72,7 @@ final class MultipleWithConceptWideVC: FormTwo {
     }
     
     override func previousPage() {
-        NotificationCenter.default.post(name: .beforePage, object: nil)
+        NotificationCenter.default.post(name: .previousPage, object: nil)
     }
     
     override func nextPage() {

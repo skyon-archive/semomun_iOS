@@ -27,6 +27,6 @@ extension Notification.Name {
     static let refreshBookshelf = Self.init(rawValue: "refreshBookshelf")
     static let goToBookShelf = Self.init(rawValue: "goToBookShelf")
     static let saveCoreData = Self.init(rawValue: "saveCoreData")
-    static let beforePage = Self.init(rawValue: "beforePage")
+    static let previousPage = Self.init(rawValue: "previousPage")
     static let nextPage = Self.init(rawValue: "nextPage")
 }
