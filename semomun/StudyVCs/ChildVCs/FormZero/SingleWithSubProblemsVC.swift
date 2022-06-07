@@ -87,7 +87,12 @@ final class SingleWithSubProblemsVC: FormZero {
         guard let problem = self.viewModel?.problem else { return }
         
         self.updateCheckButtonsStackView(solved: problem.solved, subProblemCount: Int(subProblemCount))
-        self.updateUserAnswer(saved: problem.solved, subProblemCount: Int(subProblemCount))
+        
+        if let solved = self.viewModel?.solved {
+            self.solvings = solved
+        }
+        
+        self.hideTextField()
         
         if problem.terminated {
             self.updateUIForTerminated()
@@ -222,23 +227,6 @@ extension SingleWithSubProblemsVC {
         if solved == nil, let firstButton = self.subProblemCheckButtons.first {
             firstButton.isSelected = true
         }
-    }
-    
-    /// 사용자 답안을 불러와서 적용
-    private func updateUserAnswer(saved: String?, subProblemCount: Int) {
-        self.solvings = .init(repeating: nil, count: Int(subProblemCount))
-        guard let saved = saved else { return }
-
-        let savedSolved = saved.components(separatedBy: "$").map { $0 == "" ? nil : $0 }
-        guard self.solvings.count == savedSolved.count else {
-            assertionFailure()
-            return
-        }
-        
-        for (n, x) in savedSolved.enumerated() {
-            self.solvings[n] = x
-        }
-        self.hideTextField() // viewWillDisappear로 이동?
     }
     
     private func updateUIForTerminated() {
@@ -411,7 +399,6 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension SingleWithSubProblemsVC: UITextFieldDelegate {
-    // TODO: 빈 문자열 입력시 입력된 답안 제거?
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.returnAction()
         return true
@@ -419,26 +406,29 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
     
     private func returnAction() {
         guard let currentProblemIndex = self.currentProblemIndex else { return }
+        guard self.solvings.indices.contains(currentProblemIndex) else { return }
+        
         self.solvings[currentProblemIndex] = (self.answerInputTextField.text == "" ? nil : self.answerInputTextField.text)
         
-        // 답안 저장. 엔터를 눌렀을 경우에만 updateSolved해야함.
+        // 답안 저장
         self.viewModel?.updateSolved(withSelectedAnswer: self.solvings)
+        
         // 현재문제 deselect
-        guard let subCount = self.viewModel?.problem?.subProblemsCount,
-              let currentButton = self.subProblemCheckButtons[safe: currentProblemIndex] else { return }
+        let currentButton = self.subProblemCheckButtons[currentProblemIndex]
         currentButton.isSelected = false
-        // 다음문제 있는 경우 다음문제 select
-        if currentProblemIndex+1 < Int(subCount),
-           let nextButton = self.subProblemCheckButtons[safe: currentProblemIndex] {
-            self.currentProblemIndex = currentProblemIndex+1
-            nextButton.isSelected = true
-            self.deselectCheckButtons(except: nextButton)
-        }
+        
         // 마지막 문제인 경우 keyboard 내림
-        else if currentProblemIndex+1 == Int(subCount) {
+        if currentProblemIndex == self.subProblemCheckButtons.indices.last! {
             self.currentProblemIndex = nil
             self.hideTextField(animation: true)
             self.view.endEditing(true)
+        }
+        // 다음문제 있는 경우 다음문제 select
+        else {
+            self.currentProblemIndex = currentProblemIndex + 1
+            let nextButton = self.subProblemCheckButtons[currentProblemIndex]
+            nextButton.isSelected = true
+            self.deselectCheckButtons(except: nextButton)
         }
     }
 }
