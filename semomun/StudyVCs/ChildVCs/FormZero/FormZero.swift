@@ -180,7 +180,7 @@ extension FormZero {
 
 // MARK: Rotate
 extension FormZero {
-    private func adjustLayouts(frameUpdate: Bool = false, showExplanation: Bool? = nil) {
+    private func adjustLayouts(frameUpdate: Bool, showExplanation: Bool? = nil) {
         if let showExplanation = showExplanation {
             self.shouldShowExplanation = showExplanation
         }
@@ -271,6 +271,6 @@ extension FormZero: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.adjustLayouts()
+        self.adjustLayouts(frameUpdate: false)
     }
 }
