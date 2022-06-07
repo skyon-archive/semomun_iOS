@@ -137,7 +137,7 @@ extension FormZero {
     }
     
     @objc func rightDragged() {
-        NotificationCenter.default.post(name: .beforePage, object: nil)
+        NotificationCenter.default.post(name: .previousPage, object: nil)
     }
     
     @objc func leftDragged() {

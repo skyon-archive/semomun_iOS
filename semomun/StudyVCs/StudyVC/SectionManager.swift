@@ -110,7 +110,7 @@ final class SectionManager {
         }
     }
     
-    func changeBeforePage() {
+    func changePreviousPage() {
         let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex
         while true {
