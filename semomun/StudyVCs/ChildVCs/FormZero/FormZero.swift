@@ -187,7 +187,9 @@ extension FormZero {
         // canvasView 크기 및 ratio 조절
         self.updateCanvasView(frameUpdate: frameUpdate)
         // explanation 크기 조절
-        self.updateExplanationView(frameUpdate: frameUpdate)
+        if self.shouldShowExplanation, frameUpdate {
+            self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.topViewHeight)
+        }
         // explanation 여부에 따른 topViewTrailing 조절
         self.updateTopViewTrailing()
         // 문제 이미지 크기 설정
@@ -211,8 +213,7 @@ extension FormZero {
     }
     
     private func updateExplanationView(frameUpdate: Bool) {
-        guard self.shouldShowExplanation, frameUpdate else { return }
-        self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.topViewHeight)
+        
     }
     
     private func updateTopViewTrailing() {
