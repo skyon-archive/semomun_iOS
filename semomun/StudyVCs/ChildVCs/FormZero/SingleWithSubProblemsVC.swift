@@ -267,12 +267,12 @@ extension SingleWithSubProblemsVC {
             let button = self.subProblemCheckButtons[idx]
             
             guard let solving = zipped.0 else {
-                button.wrong()
+                button.setWrongUI()
                 continue
             }
             
             if solving != zipped.1 {
-                button.wrong()
+                button.setWrongUI()
             } else {
                 button.isSelected = false
             }
@@ -297,19 +297,17 @@ extension SingleWithSubProblemsVC: SubProblemCheckObservable {
         targetButton.isSelected.toggle()
         
         if targetButton.isSelected {
-            // 켜짐
             self.currentProblemIndex = index
             self.showTextField(animation: true)
         } else {
-            // 꺼짐
             self.currentProblemIndex = nil
             self.hideTextField(animation: true)
         }
         
-        self.updateStackview(except: targetButton)
+        self.deselectCheckButtons(except: targetButton)
     }
     
-    private func updateStackview(except button: SubProblemCheckButton) {
+    private func deselectCheckButtons(except button: SubProblemCheckButton) {
         self.subProblemCheckButtons
             .filter { $0 != button }
             .forEach { $0.isSelected = false }
@@ -317,38 +315,15 @@ extension SingleWithSubProblemsVC: SubProblemCheckObservable {
 }
 
 extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    /// 내 답안 collectionview 인덱스 -> 실제 문제 인덱스
-    private func getSolvingIndex(from itemIdx: Int) -> Int {
-        var subProblemIdx = 0
-        var cnt = 0
-        for (n, x) in self.solvings.enumerated() {
-            if x != nil { cnt += 1 }
-            if cnt == itemIdx+1 {
-                subProblemIdx = n
-                break
-            }
-        }
-        return subProblemIdx
-    }
-    
-    private func getSubproblemName(from itemIdx: Int) -> String {
-        let subProblemIdx = self.getSolvingIndex(from: itemIdx)
-        let subproblemCheckButton = self.subProblemCheckButtons[subProblemIdx]
-        guard let subproblemName = subproblemCheckButton.titleLabel?.text else {
-            return ""
-        }
-        return subproblemName
-    }
-    
-    private func getSavedCellTitle(at itemIdx: Int) -> String {
+    private func getUserAnswerCellTitle(at itemIdx: Int) -> String {
+        /// 인덱스 변환 과정이 필요
         let subproblemName = self.getSubproblemName(from: itemIdx)
-        
         guard let solved = self.solvings.compactMap({$0})[safe: itemIdx] else { return "" }
         
         return "\(subproblemName): \(solved)"
     }
     
-    private func getAnswerCellTitle(at itemIdx: Int) -> String {
+    private func getResultCellTitle(at itemIdx: Int) -> String {
         let button = self.subProblemCheckButtons[itemIdx]
         guard let buttonTitle = button.titleLabel?.text else {
             return ""
@@ -356,11 +331,27 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
         return "\(buttonTitle): \(self.answer[itemIdx])"
     }
     
-    private func getSavedCellTitleAfterTermination(at itemIdx: Int) -> String {
+    private func getTermimatedUserAnswerCellTitle(at itemIdx: Int) -> String {
         let button = self.subProblemCheckButtons[itemIdx]
         let buttonTitle = button.titleLabel?.text ?? ""
         let solved = self.solvings[itemIdx] ?? "미기입"
         return "\(buttonTitle): \(solved)"
+    }
+    
+    /// subProblemCheckButtons의 특정 인덱스의 버튼이 가지는 title값을 반환
+    private func getSubproblemName(from itemIdx: Int) -> String {
+        let subProblemIdx = self.getSolvingIndex(from: itemIdx)
+        return self.subProblemCheckButtons[subProblemIdx].titleLabel?.text ?? ""
+    }
+    
+    /// userAnswers의 인덱스에서 실제 문제 인덱스로 변환
+    private func getSolvingIndex(from itemIdx: Int) -> Int {
+        var cnt = 0
+        for (n, x) in self.solvings.enumerated() where x != nil {
+            cnt += 1
+            if cnt == itemIdx+1 { return n }
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -380,7 +371,7 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
         
         if collectionView == self.userAnswers {
             if self.viewModel?.problem?.terminated == true {
-                let text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
+                let text = self.getTermimatedUserAnswerCellTitle(at: indexPath.item)
                 cell.configureText(to: text)
                 
                 if self.solvings[indexPath.item] != self.answer[indexPath.item] {
@@ -389,12 +380,12 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
                     cell.makeCorrect()
                 }
             } else {
-                let text = self.getSavedCellTitle(at: indexPath.item)
+                let text = self.getUserAnswerCellTitle(at: indexPath.item)
                 cell.makeCorrect()
                 cell.configureText(to: text)
             }
         } else if collectionView == self.resultAnswers {
-            let text = self.getAnswerCellTitle(at: indexPath.item)
+            let text = self.getResultCellTitle(at: indexPath.item)
             cell.configureText(to: text)
         }
         
@@ -411,19 +402,19 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
         self.answerInputTextField.text = self.solvings[subProblemIndex]
         let targetButton = self.subProblemCheckButtons[subProblemIndex]
         targetButton.isSelected = true
-        self.updateStackview(except: targetButton)
+        self.deselectCheckButtons(except: targetButton)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text: String
         if collectionView == self.userAnswers {
             if self.viewModel?.problem?.terminated == true {
-                text = self.getSavedCellTitleAfterTermination(at: indexPath.item)
+                text = self.getTermimatedUserAnswerCellTitle(at: indexPath.item)
             } else {
-                text = self.getSavedCellTitle(at: indexPath.item)
+                text = self.getUserAnswerCellTitle(at: indexPath.item)
             }
         } else {
-            text = self.getAnswerCellTitle(at: indexPath.item)
+            text = self.getResultCellTitle(at: indexPath.item)
         }
         
         let itemSize = text.size(withAttributes: [
@@ -459,7 +450,7 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
            let nextButton = self.subProblemCheckButtons[safe: currentProblemIndex] {
             self.currentProblemIndex = currentProblemIndex+1
             nextButton.isSelected = true
-            self.updateStackview(except: nextButton)
+            self.deselectCheckButtons(except: nextButton)
         }
         // 마지막 문제인 경우 keyboard 내림
         else if currentProblemIndex+1 == Int(subCount) {

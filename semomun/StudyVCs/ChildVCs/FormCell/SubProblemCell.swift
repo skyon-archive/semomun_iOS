@@ -219,12 +219,12 @@ class SubProblemCell: FormCell, CellLayoutable {
             guard let button = self.stackView.arrangedSubviews[idx] as? SubProblemCheckButton else { return }
             
             guard let solving = zipped.0 else {
-                button.wrong()
+                button.setWrongUI()
                 continue
             }
             
             if solving != zipped.1 {
-                button.wrong()
+                button.setWrongUI()
             } else {
                 button.isSelected = false
             }

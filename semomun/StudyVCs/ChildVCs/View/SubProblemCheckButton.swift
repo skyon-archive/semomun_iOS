@@ -31,7 +31,6 @@ class SubProblemCheckButton: UIButton {
             if isSelected {
                 self.backgroundColor = UIColor(.deepMint)
                 self.setTitleColor(.white, for: .normal)
-                self.layoutIfNeeded()
             } else {
                 self.backgroundColor = .clear
                 self.setTitleColor(UIColor(.deepMint), for: .normal)
@@ -58,7 +57,7 @@ class SubProblemCheckButton: UIButton {
         }), for: .touchUpInside)
     }
     
-    func wrong() {
+    func setWrongUI() {
         self.layer.borderColor = UIColor(.munRedColor)?.cgColor
         self.setTitleColor(UIColor(.munRedColor) ?? .red, for: .normal)
         self.backgroundColor = .clear
