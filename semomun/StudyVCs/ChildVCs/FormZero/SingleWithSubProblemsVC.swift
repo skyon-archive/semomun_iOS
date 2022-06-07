@@ -223,7 +223,6 @@ extension SingleWithSubProblemsVC {
         // 아무 문제도 풀리지 않았을 경우 첫번째 버튼이 선택되어있음.
         if solved == nil, let firstButton = self.subProblemCheckButtons.first {
             firstButton.isSelected = true
-            firstButton.select()
         }
     }
     
@@ -275,7 +274,7 @@ extension SingleWithSubProblemsVC {
             if solving != zipped.1 {
                 button.wrong()
             } else {
-                button.deselect()
+                button.isSelected = false
             }
         }
     }
@@ -300,12 +299,10 @@ extension SingleWithSubProblemsVC: SubProblemCheckObservable {
         if targetButton.isSelected {
             // 켜짐
             self.currentProblemIndex = index
-            targetButton.select()
             self.showTextField(animation: true)
         } else {
             // 꺼짐
             self.currentProblemIndex = nil
-            targetButton.deselect()
             self.hideTextField(animation: true)
         }
         
@@ -315,7 +312,7 @@ extension SingleWithSubProblemsVC: SubProblemCheckObservable {
     private func updateStackview(except button: SubProblemCheckButton) {
         self.subProblemCheckButtons
             .filter { $0 != button }
-            .forEach { $0.isSelected = false; $0.deselect() }
+            .forEach { $0.isSelected = false }
     }
 }
 
@@ -414,7 +411,6 @@ extension SingleWithSubProblemsVC: UICollectionViewDataSource, UICollectionViewD
         self.answerInputTextField.text = self.solvings[subProblemIndex]
         let targetButton = self.subProblemCheckButtons[subProblemIndex]
         targetButton.isSelected = true
-        targetButton.select()
         self.updateStackview(except: targetButton)
     }
     
@@ -456,15 +452,13 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
         self.updateCorrectPoints()
         // 현재문제 deselect
         guard let subCount = self.viewModel?.problem?.subProblemsCount,
-              let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
+              let currentButton = self.subProblemCheckButtons[safe: currentProblemIndex] else { return }
         currentButton.isSelected = false
-        currentButton.deselect()
         // 다음문제 있는 경우 다음문제 select
         if currentProblemIndex+1 < Int(subCount),
-           let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
+           let nextButton = self.subProblemCheckButtons[safe: currentProblemIndex] {
             self.currentProblemIndex = currentProblemIndex+1
             nextButton.isSelected = true
-            nextButton.select()
             self.updateStackview(except: nextButton)
         }
         // 마지막 문제인 경우 keyboard 내림
@@ -477,10 +471,6 @@ extension SingleWithSubProblemsVC: UITextFieldDelegate {
 }
 
 extension SingleWithSubProblemsVC {
-    private func subProblemButton(index: Int) -> SubProblemCheckButton? {
-        return self.subProblemCheckButtons[safe: index] as? SubProblemCheckButton ?? nil
-    }
-    
     private func updateCorrectPoints() {
         guard let answer = self.viewModel?.problem?.answer else {
             self.viewModel?.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
