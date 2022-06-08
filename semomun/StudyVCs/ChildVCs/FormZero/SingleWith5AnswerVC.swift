@@ -69,7 +69,7 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     @IBAction func showExplanation(_ sender: Any) {
-        if self.shouldShowExplanation {
+        if self.explanationShown {
             self.closeExplanation()
         } else {
             guard let imageData = self.viewModel?.problem?.explanationImage else { return }
