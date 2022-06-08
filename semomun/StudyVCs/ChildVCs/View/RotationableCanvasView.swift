@@ -22,17 +22,24 @@ final class RotationableCanvasView: PKCanvasView {
         self.becomeFirstResponder()
         self.drawingPolicy = .pencilOnly
     }
-    /// FormCell: 회전시, zoom 시 실행
-    /// FormZero: exp 없이 회전시, zoom 시 실행
-    /// FormZero: exp 제거시 실행
-    func updateDrawingRatioAndFrame(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize, frameUpdate: Bool = false) {
+    /// FormCell zoom 시 실행
+    /// FormZero zoom 시 실행
+    func updateDrawingRatio(imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
         
-        if frameUpdate {
-            let newSize = CGSize(width: contentSize.width, height: contentSize.height - topHeight)
-            self.frame = .init(origin: CGPoint(0, topHeight), size: newSize)
-        }
+        let ratio = imageSize.height / imageSize.width
+        self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+    }
+    /// FormCell 회전시 실행
+    /// FormZero exp 없이 회전시 실행
+    /// FormZero exp 제거시 실행
+    func updateDrawingRatioAndFrame(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize) {
+        let previousSize = self.frame.size
+        let previousContentOffset = self.contentOffset
+        
+        let newSize = CGSize(width: contentSize.width, height: contentSize.height - topHeight)
+        self.frame = .init(origin: CGPoint(0, topHeight), size: newSize)
         
         let ratio = imageSize.height / imageSize.width
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)

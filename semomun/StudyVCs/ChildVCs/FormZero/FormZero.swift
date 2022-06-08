@@ -42,7 +42,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     }()
     
     private(set) var shouldShowExplanation = false
-    private var isCanvasDrawingLoaded: Bool = false
+    private var canvasDrawingLoaded: Bool = false
     
     /* 외부에서 주입 가능한 property */
     var toolPicker: PKToolPicker?
@@ -82,7 +82,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.canvasView.setDefaults()
         self.correctImageView.isHidden = true
         self.timerView.isHidden = true
-        self.isCanvasDrawingLoaded = false
+        self.canvasDrawingLoaded = false
         self.shouldShowExplanation = false
         self.answerView.alpha = 0
         self.checkImageView.removeFromSuperview()
@@ -181,9 +181,9 @@ extension FormZero {
         if let showExplanation = showExplanation {
             self.shouldShowExplanation = showExplanation
         }
-        // canvasView 크기 및 ratio 조절
+        // canvasView 크기 및 ratio 조절 및 필요시 frame update
         self.updateCanvasView(frameUpdate: frameUpdate)
-        // explanation 크기 조절
+        // explanation 크기 및 ratio 조절
         if self.shouldShowExplanation, frameUpdate {
             self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.topViewHeight)
         }
@@ -205,12 +205,12 @@ extension FormZero {
         if self.shouldShowExplanation && frameUpdate {
             self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize)
         } else {
-            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize, frameUpdate: frameUpdate)
+            if frameUpdate {
+                self.canvasView.updateDrawingRatio(imageSize: imageSize)
+            } else {
+                self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize)
+            }
         }
-    }
-    
-    private func updateExplanationView(frameUpdate: Bool) {
-        
     }
     
     private func updateTopViewTrailing() {
@@ -222,7 +222,7 @@ extension FormZero {
     }
     
     private func configureCanvasViewDataAndDelegate() {
-        guard self.isCanvasDrawingLoaded == false else { return }
+        guard self.canvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
         defer { self.canvasView.delegate = self }
         
@@ -230,7 +230,7 @@ extension FormZero {
         let lastWidth = self.problem?.drawingWidth
         // 필기데이터 ratio 조절 후 표시
         self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
-        self.isCanvasDrawingLoaded = true
+        self.canvasDrawingLoaded = true
     }
 }
 

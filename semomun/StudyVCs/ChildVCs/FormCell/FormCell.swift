@@ -145,11 +145,15 @@ extension FormCell {
             assertionFailure("imageView 내 image 가 존재하지 않습니다.")
             return
         }
-        // canvasView 필기 ratio 조절 (frame 필요시 update)
-        self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize,
-                                            topHeight: self.internalTopViewHeight,
-                                            imageSize: imageSize,
-                                            frameUpdate: frameUpdate)
+        // canvasView 필기 ratio 조절 및 필요시 frame update
+        if frameUpdate {
+            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize,
+                                                topHeight: self.internalTopViewHeight,
+                                                imageSize: imageSize)
+        } else {
+            self.canvasView.updateDrawingRatio(imageSize: imageSize)
+        }
+        
         // 배경 뷰 위치 설정
         self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정
