@@ -41,7 +41,10 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         return imageView
     }()
     
-    private(set) var shouldShowExplanation = false
+    private var shouldShowExplanation = false
+    var explanationShown: Bool {
+        return self.shouldShowExplanation
+    }
     private var canvasDrawingLoaded: Bool = false
     
     /* 외부에서 주입 가능한 property */
@@ -55,6 +58,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         return 51
     }
     var topViewTrailingConstraint: NSLayoutConstraint? { return nil }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
