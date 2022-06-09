@@ -14,7 +14,6 @@ final class ConceptVC: FormZero {
     
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     
     var viewModel: ConceptVM?
     
@@ -52,7 +51,7 @@ final class ConceptVC: FormZero {
         return self.topView.frame.height
     }
     override var topViewTrailingConstraint: NSLayoutConstraint? {
-        return self.topViewTrailing
+        return nil
     }
 }
 

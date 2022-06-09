@@ -19,7 +19,7 @@ final class SingleWith5AnswerVM: PageVM {
             .compactMap { Int($0) }
     }
     
-    /// 문제의 정답.a
+    /// 문제의 정답
     var answer: [Int] {
         guard let answer = self.problem?.answer else { return [] }
         

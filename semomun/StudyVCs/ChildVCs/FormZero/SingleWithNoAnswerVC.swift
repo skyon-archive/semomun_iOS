@@ -26,6 +26,7 @@ final class SingleWithNoAnswerVC: FormZero {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateBookmarkBT()
+        self.updateExplanationBT()
         self.addScoring()
     }
     
@@ -81,6 +82,16 @@ extension SingleWithNoAnswerVC {
 extension SingleWithNoAnswerVC {
     private func updateBookmarkBT() {
         self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
+    }
+    
+    private func updateExplanationBT() {
+        self.explanationBT.isSelected = false
+        self.explanationBT.isUserInteractionEnabled = true
+        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        if self.viewModel?.problem?.explanationImage == nil {
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        }
     }
     
     private func addScoring() {
