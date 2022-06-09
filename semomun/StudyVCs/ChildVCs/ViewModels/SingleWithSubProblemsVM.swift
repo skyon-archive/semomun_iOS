@@ -6,31 +6,33 @@
 //
 
 import Foundation
+import Combine
 
 final class SingleWithSubProblemsVM: PageVM {
-    /// 문제의 정답.
-    var answer: [String] {
-        guard let answer = self.problem?.answer else { return [] }
-        
-        return answer.split(separator: ",").map { String($0) }
-    }
+    @Published private(set) var userAnswers: [String?] = []
+    @Published private(set) var resultAnswers: [String] = []
     
-    // 유저가 입력한 정답.
-    var solved: [String?] {
-        if let savedSolved = self.problem?.solved {
-            return savedSolved
-                .split(separator: "$")
-                .map { $0 == "" ? nil : String($0) }
-        } else {
-            if let subProblemCount = self.problem?.subProblemsCount {
-                return Array(repeating: nil, count: Int(subProblemCount))
-            }
-            return []
-        }
+    /// 답안이 입력된 문제가 없는지 유무
+    var noProblemSolved: Bool {
+        return userAnswers.allSatisfy { $0 == nil }
     }
     
     override init(delegate: PageDelegate, pageData: PageData) {
         super.init(delegate: delegate, pageData: pageData)
+        
+        if let savedSolved = self.problem?.solved {
+            self.userAnswers = savedSolved
+                .split(separator: "$")
+                .map { $0 == "" ? nil : String($0) }
+        } else {
+            if let subProblemCount = self.problem?.subProblemsCount {
+                self.userAnswers = Array(repeating: nil, count: Int(subProblemCount))
+            }
+        }
+        
+        if let answer = self.problem?.answer {
+            self.resultAnswers = answer.split(separator: ",").map { String($0) }
+        }
     }
     
     override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
@@ -43,24 +45,23 @@ final class SingleWithSubProblemsVM: PageVM {
         return input == answer
     }
     
-    func updateSolved(withSelectedAnswer selectedAnswer: [String?]) {
-        guard selectedAnswer.count == self.answer.count else {
+    func changeUserAnswer(at index: Int, to newAnswer: String?) {
+        guard self.userAnswers.indices.contains(index) else {
             assertionFailure()
             return
         }
-        
-        let answerConverted = selectedAnswer.map({$0 ?? ""}).joined(separator: "$")
-        self.updateSolved(withSelectedAnswer: answerConverted)
-        self.updateCorrectPoints(selectedAnswers: selectedAnswer)
+        self.userAnswers[index] = newAnswer == "" ? nil : newAnswer
+        self.updateSolved()
     }
     
-    private func updateCorrectPoints(selectedAnswers: [String?]) {
-        guard let answer = self.problem?.answer else {
-            self.problem?.setValue(0, forKey: Problem_Core.Attribute.correctPoints.rawValue)
-            return
-        }
-        let answers = answer.split(separator: "$").map { String($0) }
-        let points = zip(selectedAnswers, answers)
+    private func updateSolved() {
+        let answerConverted = userAnswers.map({$0 ?? ""}).joined(separator: "$")
+        self.updateSolved(withSelectedAnswer: answerConverted)
+        self.updateCorrectPoints()
+    }
+    
+    private func updateCorrectPoints() {
+        let points = zip(userAnswers, resultAnswers)
             .filter { $0 == $1 }
             .count
         self.problem?.setValue(Int64(points), forKey: Problem_Core.Attribute.correctPoints.rawValue)
