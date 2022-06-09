@@ -1,5 +1,5 @@
 //
-//  SingleWith5AnswerViewModel.swift
+//  SingleWith5AnswerVM.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -19,7 +19,7 @@ final class SingleWith5AnswerVM: PageVM {
             .compactMap { Int($0) }
     }
     
-    /// 문제의 정답.
+    /// 문제의 정답.a
     var answer: [Int] {
         guard let answer = self.problem?.answer else { return [] }
         
