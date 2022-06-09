@@ -16,8 +16,8 @@ class PageVM {
     private var startTime: Date?
     private var isTimeRecording = false
     
-    private let pageData: PageData
-    private let timeSpentPerProblems: [Int64]
+    private var pageData: PageData
+    private var timeSpentPerProblems: [Int64]
     
     /// - Note: 문제가 하나인 VC를 위한 편의 프로퍼티
     var problem: Problem_Core? {
@@ -38,11 +38,23 @@ class PageVM {
         self.pageData = pageData
         self.problems = pageData.problems
         self.timeSpentPerProblems = self.problems.map(\.time)
+        
         guard problems.isEmpty == false else {
             assertionFailure("문제수가 0인 페이지가 존재합니다.")
             return
         }
         self.configureObservation()
+    }
+    
+    func updatePageData(_ pageData: PageData) {
+        self.pageData = pageData
+        self.problems = pageData.problems
+        self.timeSpentPerProblems = self.problems.map(\.time)
+        
+        guard problems.isEmpty == false else {
+            assertionFailure("문제수가 0인 페이지가 존재합니다.")
+            return
+        }
     }
     
     private func configureObservation() {
