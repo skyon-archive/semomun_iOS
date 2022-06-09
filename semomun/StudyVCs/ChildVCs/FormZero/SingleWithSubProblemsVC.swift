@@ -111,16 +111,7 @@ final class SingleWithSubProblemsVC: FormZero {
     
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.viewModel?.answerStringForUser() else { return }
-        self.answerView.removeFromSuperview()
-        
         self.answerView.configureAnswer(to: answer)
-        self.view.addSubview(self.answerView)
-        self.answerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
-            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
-        ])
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.answerView.alpha = 1
         } completion: { [weak self] _ in
