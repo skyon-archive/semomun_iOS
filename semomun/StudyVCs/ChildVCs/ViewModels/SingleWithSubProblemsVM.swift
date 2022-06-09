@@ -10,7 +10,7 @@ import Combine
 
 final class SingleWithSubProblemsVM: PageVM {
     @Published private(set) var userAnswers: [String?] = []
-    @Published private(set) var resultAnswers: [String] = []
+    let resultAnswers: [String]
     
     /// 아무 문제도 풀지 않았으면 true
     var noProblemSolved: Bool {
@@ -18,27 +18,29 @@ final class SingleWithSubProblemsVM: PageVM {
     }
     
     override init(delegate: PageDelegate, pageData: PageData) {
+        if let answer = pageData.problems.first?.answer {
+            self.resultAnswers = answer.components(separatedBy: "$").map { String($0) }
+        } else {
+            self.resultAnswers = []
+        }
+        
         super.init(delegate: delegate, pageData: pageData)
         
         if let savedSolved = self.problem?.solved {
             self.userAnswers = savedSolved
-                .split(separator: "$")
+                .components(separatedBy: "$")
                 .map { $0 == "" ? nil : String($0) }
         } else {
             if let subProblemCount = self.problem?.subProblemsCount {
                 self.userAnswers = Array(repeating: nil, count: Int(subProblemCount))
             }
         }
-        
-        if let answer = self.problem?.answer {
-            self.resultAnswers = answer.split(separator: ",").map { String($0) }
-        }
     }
     
     override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         guard let answer = self.problem?.answer else { return nil }
         
-        return answer.split(separator: "$").joined(separator: ", ")
+        return answer.components(separatedBy: "$").joined(separator: ", ")
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {

@@ -137,6 +137,17 @@ final class SingleWithSubProblemsVC: FormZero {
     }
 }
 
+// MARK: public
+extension SingleWithSubProblemsVC {
+    func configureViewModel(delegate: PageDelegate, pageData: PageData) {
+        if self.viewModel == nil {
+            self.viewModel = .init(delegate: delegate, pageData: pageData)
+        } else {
+            self.viewModel?.updatePageData(pageData)
+        }
+    }
+}
+
 // MARK: Configure
 extension SingleWithSubProblemsVC {
     private func configureTimerViewLayout() {
@@ -189,7 +200,7 @@ extension SingleWithSubProblemsVC {
         
         // 아무 문제도 풀리지 않았을 경우 첫번째 버튼이 선택되어있음.
         if vm.noProblemSolved {
-            self.currentProblemIndex = 0
+            self.currentProblemIndex = self.viewModel?.userAnswers.indices.first
         }
     }
     
@@ -204,8 +215,9 @@ extension SingleWithSubProblemsVC {
             self.answerBT.isHidden = true
             
             self.updateCheckButtonTerminated()
+            self.userAnswersView.reloadData()
         } else {
-            self.currentProblemIndex = 0
+            self.currentProblemIndex = self.viewModel?.userAnswers.indices.first
             self.resultFrameView.isHidden = true
             self.showTextField(animation: false)
             self.answerBT.isHidden = false
@@ -450,7 +462,6 @@ extension SingleWithSubProblemsVC {
 extension SingleWithSubProblemsVC {
     private func bindAll() {
         self.bindUserAnswers()
-        self.bindResultAnswers()
     }
     
     private func bindUserAnswers() {
@@ -466,17 +477,8 @@ extension SingleWithSubProblemsVC {
              if let currentProblemIndex = self?.currentProblemIndex {
                  self?.answerInputTextField.text = userAnswers[currentProblemIndex]
              }
- 
+
              self?.userAnswersView.reloadData()
-         })
-         .store(in: &self.cancellables)
-    }
-    
-    private func bindResultAnswers() {
-        self.viewModel?.$resultAnswers
-         .receive(on: DispatchQueue.main)
-         .sink(receiveValue: { [weak self] userAnswers in
-             self?.resultAnswersView.reloadData()
          })
          .store(in: &self.cancellables)
     }
