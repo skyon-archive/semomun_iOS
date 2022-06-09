@@ -458,7 +458,7 @@ extension SingleWithSubProblemsVC {
 }
 
 extension SingleWithSubProblemsVC {
-    func bindAll() {
+    private func bindAll() {
         self.bindUserAnswers()
         self.bindResultAnswers()
     }
