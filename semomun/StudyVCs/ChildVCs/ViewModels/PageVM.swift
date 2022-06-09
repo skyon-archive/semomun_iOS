@@ -69,7 +69,8 @@ class PageVM {
     func startTimeRecord() {
         print("start time record")
         guard self.isTimeRecording == false else {
-            assertionFailure("타이머가 중복 실행되려고합니다.")
+            // TODO: 회사 아이패드에서 두 번 실행되는 문제 확인
+//            assertionFailure("타이머가 중복 실행되려고합니다.")
             return
         }
         // 모든 문제가 terminated 된 상태일 경우 timer를 반영 안한다

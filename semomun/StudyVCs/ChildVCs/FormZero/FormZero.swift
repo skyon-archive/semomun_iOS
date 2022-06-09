@@ -210,9 +210,9 @@ extension FormZero {
             self.canvasView.updateDrawingRatioAndFrameWithExp(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize)
         } else {
             if frameUpdate {
-                self.canvasView.updateDrawingRatio(imageSize: imageSize)
-            } else {
                 self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize, topHeight: self.topViewHeight, imageSize: imageSize)
+            } else {
+                self.canvasView.updateDrawingRatio(imageSize: imageSize)
             }
         }
     }
