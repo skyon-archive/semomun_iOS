@@ -28,13 +28,13 @@ final class ProblemTextResultView: UIView {
         self.configureLayout()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
+    }
+    
     private func configureLayout() {
         self.addSubviews(self.solvedAnswerLabel, self.answerLabel)
-        self.backgroundColor = .white
-        self.borderWidth = 1
-        self.borderColor = UIColor(.deepMint)
-        self.layer.cornerRadius = 5
-        self.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             self.solvedAnswerLabel.heightAnchor.constraint(equalToConstant: 20),
