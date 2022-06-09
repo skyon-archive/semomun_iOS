@@ -1300,7 +1300,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="sol_click:" destination="dtC-XT-npO" eventType="touchUpInside" id="1Ry-Bn-gfn"/>
+                                                    <action selector="selectAnswer:" destination="dtC-XT-npO" eventType="touchUpInside" id="vnp-3b-pLI"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xd-8W-PXH">
@@ -1326,7 +1326,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="sol_click:" destination="dtC-XT-npO" eventType="touchUpInside" id="4Fh-BH-txd"/>
+                                                    <action selector="selectAnswer:" destination="dtC-XT-npO" eventType="touchUpInside" id="sSC-JS-ccj"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mus-km-thP">
@@ -1352,7 +1352,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="sol_click:" destination="dtC-XT-npO" eventType="touchUpInside" id="uOx-fx-b6d"/>
+                                                    <action selector="selectAnswer:" destination="dtC-XT-npO" eventType="touchUpInside" id="zyV-gm-CVh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m3g-fD-D88">
@@ -1378,7 +1378,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="sol_click:" destination="dtC-XT-npO" eventType="touchUpInside" id="9NH-09-qm2"/>
+                                                    <action selector="selectAnswer:" destination="dtC-XT-npO" eventType="touchUpInside" id="MNs-Wp-qoD"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1393,79 +1393,25 @@
                                     <constraint firstItem="aJt-DX-iKa" firstAttribute="top" secondItem="HJx-61-f01" secondAttribute="top" constant="14" id="xPt-KA-xVS"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Heg-ZN-D5W">
-                                <rect key="frame" x="0.0" y="74" width="834" height="1100"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hO-iZ-wEC" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lt0-Su-5pH" customClass="PKCanvasView">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdM-7e-fgM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="834" height="700"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="700" id="dsB-gK-pSf"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="KdM-7e-fgM" firstAttribute="leading" secondItem="Lt0-Su-5pH" secondAttribute="leading" id="Rsg-ST-XMe"/>
-                                                    <constraint firstItem="KdM-7e-fgM" firstAttribute="centerX" secondItem="Lt0-Su-5pH" secondAttribute="centerX" id="Y1c-q6-vlz"/>
-                                                    <constraint firstAttribute="height" constant="700" id="hQZ-5L-L0g"/>
-                                                    <constraint firstItem="KdM-7e-fgM" firstAttribute="top" secondItem="Lt0-Su-5pH" secondAttribute="top" id="jAj-Du-dWt"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" name="gray_light"/>
-                                        <constraints>
-                                            <constraint firstItem="Lt0-Su-5pH" firstAttribute="leading" secondItem="4hO-iZ-wEC" secondAttribute="leading" id="3JX-Oc-18Y"/>
-                                            <constraint firstAttribute="bottom" secondItem="Lt0-Su-5pH" secondAttribute="bottom" id="NYA-ga-Tlp"/>
-                                            <constraint firstItem="Lt0-Su-5pH" firstAttribute="top" secondItem="4hO-iZ-wEC" secondAttribute="top" id="TPg-bf-cL7"/>
-                                            <constraint firstItem="Lt0-Su-5pH" firstAttribute="centerX" secondItem="4hO-iZ-wEC" secondAttribute="centerX" id="Vnt-Nt-xPI"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="4hO-iZ-wEC" firstAttribute="bottom" secondItem="taM-g7-7b5" secondAttribute="bottom" id="194-Kr-ij8"/>
-                                    <constraint firstItem="4hO-iZ-wEC" firstAttribute="trailing" secondItem="taM-g7-7b5" secondAttribute="trailing" id="NvT-WY-gsR"/>
-                                    <constraint firstItem="4hO-iZ-wEC" firstAttribute="width" secondItem="3o1-O9-Hbj" secondAttribute="width" id="sx0-H1-akG"/>
-                                    <constraint firstItem="4hO-iZ-wEC" firstAttribute="leading" secondItem="taM-g7-7b5" secondAttribute="leading" id="vfz-aa-5bv"/>
-                                    <constraint firstItem="4hO-iZ-wEC" firstAttribute="top" secondItem="taM-g7-7b5" secondAttribute="top" id="xNn-pp-wiG"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="taM-g7-7b5"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="3o1-O9-Hbj"/>
-                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QYc-iB-hzR"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Heg-ZN-D5W" firstAttribute="leading" secondItem="QYc-iB-hzR" secondAttribute="leading" id="7Ar-2g-WfU"/>
                             <constraint firstItem="HJx-61-f01" firstAttribute="leading" secondItem="QYc-iB-hzR" secondAttribute="leading" id="DEb-mX-6lU"/>
                             <constraint firstItem="QYc-iB-hzR" firstAttribute="trailing" secondItem="HJx-61-f01" secondAttribute="trailing" id="JUx-2d-u9b"/>
-                            <constraint firstItem="QYc-iB-hzR" firstAttribute="bottom" secondItem="Heg-ZN-D5W" secondAttribute="bottom" id="Nkd-41-lwg"/>
-                            <constraint firstItem="QYc-iB-hzR" firstAttribute="trailing" secondItem="Heg-ZN-D5W" secondAttribute="trailing" id="OMR-jT-sdf"/>
                             <constraint firstItem="QYc-iB-hzR" firstAttribute="top" secondItem="HJx-61-f01" secondAttribute="top" id="acR-FB-P08"/>
-                            <constraint firstItem="Heg-ZN-D5W" firstAttribute="top" secondItem="HJx-61-f01" secondAttribute="bottom" id="ffc-NP-eLu"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="answerBT" destination="5CS-qj-w2h" id="DdL-r3-qQz"/>
                         <outlet property="bookmarkBT" destination="3FI-3H-91O" id="QY1-TH-3FS"/>
-                        <outlet property="canvasHeight" destination="hQZ-5L-L0g" id="kHP-Uz-G5E"/>
-                        <outlet property="canvasView" destination="Lt0-Su-5pH" id="0bj-a6-Pgk"/>
-                        <outlet property="contentView" destination="4hO-iZ-wEC" id="XZ0-os-si1"/>
                         <outlet property="explanationBT" destination="cyz-7w-gwf" id="I2d-w7-PLR"/>
-                        <outlet property="imageHeight" destination="dsB-gK-pSf" id="Y1f-pK-6rZ"/>
-                        <outlet property="imageView" destination="KdM-7e-fgM" id="2cw-8U-vAk"/>
-                        <outlet property="scrollView" destination="Heg-ZN-D5W" id="hAe-Hz-5x2"/>
-                        <outlet property="scrollViewBottomConstraint" destination="Nkd-41-lwg" id="mNY-Hz-DfJ"/>
-                        <outletCollection property="checkNumbers" destination="Aha-JE-bgz" collectionClass="NSMutableArray" id="Do6-dn-IWB"/>
-                        <outletCollection property="checkNumbers" destination="0xd-8W-PXH" collectionClass="NSMutableArray" id="8lW-v0-Ttk"/>
-                        <outletCollection property="checkNumbers" destination="mus-km-thP" collectionClass="NSMutableArray" id="iLc-O5-zem"/>
-                        <outletCollection property="checkNumbers" destination="m3g-fD-D88" collectionClass="NSMutableArray" id="cbk-w4-pqf"/>
+                        <outlet property="topView" destination="HJx-61-f01" id="DSn-oJ-NfO"/>
+                        <outlet property="topViewTrailing" destination="JUx-2d-u9b" id="nWf-3T-zr1"/>
+                        <outletCollection property="checkButtons" destination="Aha-JE-bgz" collectionClass="NSMutableArray" id="gIX-dC-y8Y"/>
+                        <outletCollection property="checkButtons" destination="0xd-8W-PXH" collectionClass="NSMutableArray" id="MV4-Cy-yf5"/>
+                        <outletCollection property="checkButtons" destination="mus-km-thP" collectionClass="NSMutableArray" id="ghj-Cf-2qk"/>
+                        <outletCollection property="checkButtons" destination="m3g-fD-D88" collectionClass="NSMutableArray" id="hHp-5Z-T5A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="teS-YQ-skW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
