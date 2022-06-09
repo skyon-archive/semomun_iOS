@@ -28,12 +28,6 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     /* 자식 VC에서 설정가능한 View들 */
     let answerView = AnswerView()
     let timerView = ProblemTimerView()
-    let checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     
     lazy var correctImageView: CorrectImageView = {
         let imageView = CorrectImageView()
@@ -78,6 +72,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         super.viewDidAppear(animated)
         self.adjustLayouts(frameUpdate: true)
         self.configureCanvasViewDataAndDelegate()
+        self.answerView.isHidden = false
         self.stopLoader()
     }
     
@@ -88,8 +83,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.timerView.isHidden = true
         self.canvasDrawingLoaded = false
         self.shouldShowExplanation = false
-        self.answerView.alpha = 0
-        self.checkImageView.removeFromSuperview()
+        self.answerView.isHidden = true
         self.closeExplanation()
     }
     
