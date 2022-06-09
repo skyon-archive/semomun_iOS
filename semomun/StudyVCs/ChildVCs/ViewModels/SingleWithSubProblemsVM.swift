@@ -12,7 +12,7 @@ final class SingleWithSubProblemsVM: PageVM {
     @Published private(set) var userAnswers: [String?] = []
     @Published private(set) var resultAnswers: [String] = []
     
-    /// 답안이 입력된 문제가 없는지 유무
+    /// 아무 문제도 풀지 않았으면 true
     var noProblemSolved: Bool {
         return userAnswers.allSatisfy { $0 == nil }
     }
