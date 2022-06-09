@@ -98,8 +98,8 @@ class PageVM {
 
         let timeSpentOnPage = Int64(startTime.timeIntervalSinceNow) * -1
         if self.problems.count == 1 {
-            let time = self.timeSpentPerProblems[0] + timeSpentOnPage
-            self.problem?.setValue(time, forKey: "time")
+            self.timeSpentPerProblems[0] += timeSpentOnPage
+            self.problem?.setValue(self.timeSpentPerProblems[0], forKey: "time")
         } else {
             let targetProblemsCount = self.problems.filter({ $0.terminated == false }).count
             // MARK: ChangeVC 되기 전에 실행되는 경우 0으로 나뉠 수 있는 경우가 생김에 따라 코드 추가
@@ -109,8 +109,8 @@ class PageVM {
             let perTime = Int64(ceil(timeSpentPerProblems))
             
             for (idx, problem) in problems.enumerated() where problem.terminated == false {
-                let time = self.timeSpentPerProblems[idx] + perTime
-                problem.setValue(time, forKey: "time")
+                self.timeSpentPerProblems[idx] += perTime
+                problem.setValue(self.timeSpentPerProblems[idx], forKey: "time")
             }
         }
         self.startTime = nil
