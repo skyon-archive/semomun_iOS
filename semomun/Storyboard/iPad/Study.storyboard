@@ -2223,7 +2223,6 @@
                     <connections>
                         <outlet property="bookmarkBT" destination="M2c-cc-QWU" id="Hn0-2O-J92"/>
                         <outlet property="topView" destination="vhH-XY-3OI" id="Mwp-d6-mt2"/>
-                        <outlet property="topViewTrailing" destination="08F-59-GjV" id="h4D-XG-NEU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Igk-iZ-am9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
