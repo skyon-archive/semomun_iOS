@@ -102,11 +102,10 @@ final class SingleWithSubProblemsVC: FormZero {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.viewModel?.problem?.explanationImage,
             let image = UIImage(data: imageData) else { return }
-        self.explanationBT.isSelected.toggle()
-        if self.explanationBT.isSelected {
-            self.showExplanation(to: image)
-        } else {
+        if self.explanationShown {
             self.closeExplanation()
+        } else {
+            self.showExplanation(to: image)
         }
     }
     
