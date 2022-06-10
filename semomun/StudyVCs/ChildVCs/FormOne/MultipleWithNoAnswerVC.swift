@@ -8,186 +8,37 @@
 import UIKit
 import PencilKit
 
-class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
+class MultipleWithNoAnswerVC: FormOne {
     static let identifier = "MultipleWithNoAnswerVC" // form == 1 && type == 0
-    static let storyboardName = "Study"
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var canvasHeight: NSLayoutConstraint!
-    @IBOutlet weak var imageHeight: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var contentView: UIView!
-    
-    private var width: CGFloat!
-    private var height: CGFloat!
     private var explanationId: Int? // Cell 에서 받은 explanation 의 pid 저장
-    var mainImage: UIImage?
     var subImages: [UIImage?]?
     var viewModel: MultipleWithNoAnswerVM?
     
-    lazy var toolPicker: PKToolPicker = {
-        let toolPicker = PKToolPicker()
-        return toolPicker
-    }()
-    private lazy var loader: UIActivityIndicatorView = {
-        let loader = UIActivityIndicatorView(style: .large)
-        loader.color = UIColor.gray
-        return loader
-    }()
-    private lazy var explanationView: ExplanationView = {
-        let explanationView = ExplanationView()
-        explanationView.alpha = 0
-        return explanationView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("\(Self.identifier) didLoad")
-        
-        self.configureDelegate()
-        self.configureLoader()
-        self.addPageSwipeGesture()
-        self.configureScrollView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("답없는 좌우형 willAppear")
-        
-        self.scrollView.setContentOffset(.zero, animated: true)
-        self.collectionView.reloadData()
-        self.configureCanvasView()
-        self.configureCanvasViewData()
-        self.scrollView.zoomScale = 1.0
+        let cellIdentifier = MultipleWithNoCell.identifier
+        self.configureCellRegister(nibName: cellIdentifier, reuseIdentifier: cellIdentifier)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("답없는 좌우형 didAppear")
-        
-        self.stopLoader()
-        self.configureMainImageView()
         self.viewModel?.startTimeRecord()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("답없는 좌우형 : willDisapplear")
-        
         self.endTimeRecord()
-        self.imageView.image = nil
-        self.explanationView.removeFromSuperview()
-        self.scrollViewBottomConstraint.constant = 0
-        self.collectionViewBottomConstraint.constant = 0
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("답없는 좌우형 : disappear")
-    }
-    
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        print("답없는 좌우형 : willMove")
-    }
-    
-    deinit {
-        guard let canvasView = self.canvasView else { return }
-        toolPicker.setVisible(false, forFirstResponder: canvasView)
-        toolPicker.removeObserver(canvasView)
-        print("답없는 좌우형 deinit")
     }
 }
 
+// MARK: Overide
 extension MultipleWithNoAnswerVC {
-    func configureDelegate() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-    }
-    
-    func configureLoader() {
-        self.scrollView.addSubview(self.loader)
-        self.loader.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.loader.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
-            self.loader.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor)
-        ])
-        
-        self.loader.isHidden = false
-        self.loader.startAnimating()
-        self.canvasView.isHidden = true
-    }
-    
-    private func configureScrollView() {
-        self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 2.0
-        self.scrollView.delegate = self
-    }
-    
-    func stopLoader() {
-        self.loader.isHidden = true
-        self.loader.stopAnimating()
-        self.canvasView.isHidden = false
-    }
-    
-    func configureCanvasView() {
-        canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
-        canvasView.drawingPolicy = .pencilOnly
-        
-        canvasView.subviews[0].addSubview(imageView)
-        canvasView.subviews[0].sendSubviewToBack(imageView)
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
-        
-        canvasView.delegate = self
-    }
-    
-    func configureCanvasViewData() {
-        if let pkData = self.viewModel?.pagePencilData {
-            do {
-                try canvasView.drawing = PKDrawing.init(data: pkData)
-            } catch {
-                print("Error loading drawing object")
-            }
-        } else {
-            canvasView.drawing = PKDrawing()
-        }
-    }
-    
-    func configureMainImageView() {
-        width = canvasView.frame.width
-        guard let mainImage = self.mainImage else { return }
-        height = mainImage.size.height*(width/mainImage.size.width)
-        
-        if mainImage.size.width > 0 && mainImage.size.height > 0 {
-            imageView.image = mainImage
-        } else {
-            let worningImage = UIImage(.warning)
-            imageView.image = worningImage
-            height = worningImage.size.height*(width/worningImage.size.width)
-        }
-        
-        imageView.clipsToBounds = true
-        imageView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        imageHeight.constant = height
-        canvasView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        canvasHeight.constant = height
-    }
-}
-
-// MARK: - Configure MultipleWithNoCell
-extension MultipleWithNoAnswerVC: UICollectionViewDelegate, UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
@@ -199,10 +50,8 @@ extension MultipleWithNoAnswerVC: UICollectionViewDelegate, UICollectionViewData
         
         return cell
     }
-}
-
-extension MultipleWithNoAnswerVC: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = self.view.frame.width/2 - 10
         let solveInputFrameHeight: CGFloat = 6 + 45
         // imageView 높이값 가져오기
@@ -217,50 +66,16 @@ extension MultipleWithNoAnswerVC: UICollectionViewDelegateFlowLayout{
         
         return CGSize(width: width, height: height)
     }
-}
-
-extension MultipleWithNoAnswerVC {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        let data = self.canvasView.drawing.dataRepresentation()
-        self.viewModel?.updatePagePencilData(to: data, width: Double(self.canvasView.contentSize.width))
+    
+    override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: self.canvasViewContentWidth)
     }
 }
 
+// MARK: Protocol Conformance
 extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
     func reload() {
         self.viewModel?.delegate?.reload()
-    }
-    
-    func showExplanation(image: UIImage?, pid: Int) {
-        if let explanationId = self.explanationId {
-            if explanationId == pid {
-                self.closeExplanation()
-            } else {
-                self.explanationId = pid
-                self.explanationView.configureImage(to: image)
-            }
-        } else {
-            self.explanationId = pid
-            
-            self.explanationView.configureDelegate(to: self)
-            self.view.addSubview(self.explanationView)
-            self.explanationView.translatesAutoresizingMaskIntoConstraints = false
-            let height = self.view.frame.height/2
-            
-            NSLayoutConstraint.activate([
-                self.explanationView.heightAnchor.constraint(equalToConstant: height),
-                self.explanationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                self.explanationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-                self.explanationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            ])
-            self.explanationView.configureImage(to: image)
-            self.setShadow(with: self.explanationView)
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.scrollViewBottomConstraint.constant = height
-                self?.collectionViewBottomConstraint.constant = height
-                self?.explanationView.alpha = 1
-            }
-        }
     }
     
     func addScoring(pid: Int) {
@@ -269,25 +84,6 @@ extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
     
     func addUpload(pid: Int) {
         self.viewModel?.delegate?.addUploadProblem(pid: pid)
-    }
-}
-
-extension MultipleWithNoAnswerVC: ExplanationRemovable {
-    func closeExplanation() {
-        self.explanationId = nil
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.explanationView.alpha = 0
-            self?.scrollViewBottomConstraint.constant = 0
-            self?.collectionViewBottomConstraint.constant = 0
-        } completion: { [weak self] _ in
-            self?.explanationView.removeFromSuperview()
-        }
-    }
-}
-
-extension MultipleWithNoAnswerVC: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.contentView
     }
 }
 
