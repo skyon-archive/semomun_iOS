@@ -10,22 +10,19 @@ import PencilKit
 
 class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     var mainImage: UIImage?
-    var explanationShown: Bool {
-        self.explanationId != nil
-    }
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
     }
     var canvasViewContentWidth: CGFloat {
         return self.canvasView.contentSize.width
     }
+    let toolPicker = PKToolPicker()
     
-    private(set) var collectionView = SubproblemCollectionView()
-    private(set) var toolPicker = PKToolPicker()
     /// Cell 에서 받은 explanation 의 pid 저장
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
     
+    private let collectionView = SubproblemCollectionView()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -51,9 +48,8 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         super.viewDidLoad()
         self.configureLoader()
         self.configureSubViews()
-        self.addPageSwipeGesture()
         self.configureDelegate()
-        
+        self.addPageSwipeGesture()
         self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
@@ -103,6 +99,12 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     var pagePencilDataWidth: Double? {
         assertionFailure()
         return nil
+    }
+    
+    /* 자식에서 호출이 필요한 메소드 */
+    func configureCellRegister(nibName: String, reuseIdentifier: String) {
+        let cellNib = UINib(nibName: nibName, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: reuseIdentifier)
     }
 }
 
@@ -210,7 +212,7 @@ extension FormOne {
         if frameUpdate {
             self.collectionView.updateFrame(contentRect: self.view.frame)
             // explanation 크기 및 ratio 조절
-            if self.explanationShown {
+            if self.explanationId != nil {
                 self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: 0)
             }
         }
