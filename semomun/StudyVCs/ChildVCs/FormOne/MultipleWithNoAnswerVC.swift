@@ -17,7 +17,7 @@ class MultipleWithNoAnswerVC: FormOne {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellIdentifier = MultipleWithNoCell.identifier
+        let cellIdentifier = MultipleWithNoAnswerCell.identifier
         self.configureCellRegister(nibName: cellIdentifier, reuseIdentifier: cellIdentifier)
     }
     
@@ -39,14 +39,13 @@ extension MultipleWithNoAnswerVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoCell.identifier, for: indexPath) as? MultipleWithNoCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoAnswerCell.identifier, for: indexPath) as? MultipleWithNoAnswerCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
         let problem = self.viewModel?.problems[indexPath.item]
-        let superWidth = self.collectionView.frame.width
         
         cell.delegate = self
-        cell.configureReuse(contentImage, problem, superWidth, toolPicker)
+        cell.prepareForReuse(contentImage, problem, toolPicker)
         
         return cell
     }
@@ -73,7 +72,7 @@ extension MultipleWithNoAnswerVC {
 }
 
 // MARK: Protocol Conformance
-extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
+extension MultipleWithNoAnswerVC: CollectionCellDelegate {
     func reload() {
         self.viewModel?.delegate?.reload()
     }
