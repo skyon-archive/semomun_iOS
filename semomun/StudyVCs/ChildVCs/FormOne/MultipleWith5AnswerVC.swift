@@ -16,9 +16,7 @@ class MultipleWith5AnswerVC: FormOne  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellIdentifier = MultipleWith5Cell.identifier
-        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
+        self.configureCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -30,9 +28,17 @@ class MultipleWith5AnswerVC: FormOne  {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
     }
+    
+    override var pagePencilData: Data? {
+        return self.viewModel?.pagePencilData
+    }
+    
+    override var pagePencilDataWidth: Double? {
+        return self.viewModel?.pagePencilDataWidth
+    }
 }
 
-// MARK: - Configure MultipleWith5Cell
+// MARK: Override
 extension MultipleWith5AnswerVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
@@ -54,22 +60,26 @@ extension MultipleWith5AnswerVC {
         let width: CGFloat = self.view.frame.width/2 - 10
         let solveInputFrameHeight: CGFloat = 6 + 45
         // imageView 높이값 가져오기
-        guard var contentImage = subImages?[indexPath.row] else {
+        guard var contentImage = subImages?[indexPath.item] else {
             return CGSize(width: width, height: 300) }
-        if contentImage.size.width == 0 || contentImage.size.height == 0 {
+        if contentImage.size.hasValidSize == false {
             contentImage = UIImage(.warning)
         }
         let imgHeight: CGFloat = contentImage.size.height * (width/contentImage.size.width)
         
         let height: CGFloat = solveInputFrameHeight + imgHeight
-        print(width, height)
         return CGSize(width: width, height: height)
+    }
+    override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
     }
 }
 
 extension MultipleWith5AnswerVC {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
+    private func configureCollectionView() {
+        let cellIdentifier = MultipleWith5Cell.identifier
+        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
 }
 

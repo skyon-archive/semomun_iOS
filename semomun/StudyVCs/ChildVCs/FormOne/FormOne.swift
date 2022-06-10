@@ -50,26 +50,26 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLoader()
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
         self.configureSubViews()
         self.addPageSwipeGesture()
         self.configureDelegate()
+        
+        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.hideUpdatingViews()
         self.updateToolPicker()
-        self.updateCanvasViewDataAndDelegate()
         self.updateImage()
+        self.collectionView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.adjustLayouts(frameUpdate: true)
-        self.collectionView.reloadData()
         self.updateCanvasViewDataAndDelegate()
-        self.canvasView.isHidden = false
-        self.collectionView.isHidden = false
+        self.showUpdatingViews()
         self.stopLoader()
     }
     
@@ -77,12 +77,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
         self.collectionView.setDefaults()
-        
-        self.canvasDrawingLoaded = false
-        self.explanationId = nil
-        self.canvasView.isHidden = true
-        self.collectionView.isHidden = true
-        self.closeExplanation()
+        self.setDefaults()
     }
     
     // MARK: Rotation
@@ -91,7 +86,6 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         coordinator.animate { _ in
             UIView.performWithoutAnimation {
                 self.adjustLayouts(frameUpdate: true)
-                self.updateCanvasViewDataAndDelegate()
             }
         }
     }
@@ -102,19 +96,32 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     }
     
     /* 자식 VC에서 override 해야 하는 Property들 */
-    var problem: Problem_Core? { return nil }
+    var pagePencilData: Data? {
+        assertionFailure()
+        return nil
+    }
+    var pagePencilDataWidth: Double? {
+        assertionFailure()
+        return nil
+    }
 }
 
 // MARK: Override 필요
 extension FormOne: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        assertionFailure()
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        assertionFailure()
         return .init()
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        assertionFailure()
         return .zero
+    }
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        assertionFailure()
     }
 }
 
@@ -147,8 +154,6 @@ extension FormOne {
     private func stopLoader() {
         self.loader.isHidden = true
         self.loader.stopAnimating()
-        self.canvasView.isHidden = false
-        self.collectionView.isHidden = false
     }
 }
 
@@ -161,14 +166,14 @@ extension FormOne {
     
     private func updateCanvasViewDataAndDelegate() {
         guard self.canvasDrawingLoaded == false else { return }
-        guard let problem = self.problem else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
         defer {
             self.canvasView.delegate = self
             self.canvasDrawingLoaded = true
         }
         // 필기데이터 ratio 조절 후 표시
-        self.canvasView.loadDrawing(to: problem.drawing, lastWidth: problem.drawingWidth)
+        guard let drawing = self.pagePencilData, let width = self.pagePencilDataWidth else { return }
+        self.canvasView.loadDrawing(to: drawing, lastWidth: width)
     }
     
     private func updateImage() {
@@ -180,11 +185,27 @@ extension FormOne {
         }
         self.imageView.image = mainImage
     }
+    
+    private func hideUpdatingViews() {
+        self.collectionView.isHidden = true
+        self.canvasView.isHidden = true
+    }
+    
+    private func showUpdatingViews() {
+        self.collectionView.isHidden = false
+        self.canvasView.isHidden = false
+    }
+    
+    private func setDefaults() {
+        self.canvasDrawingLoaded = false
+        self.explanationId = nil
+        self.closeExplanation()
+    }
 }
 
 // MARK: LAYOUT
 extension FormOne {
-    private func adjustLayouts(frameUpdate: Bool, showExplanation: Bool? = nil) {
+    private func adjustLayouts(frameUpdate: Bool) {
         self.updateCanvasView(frameUpdate: frameUpdate)
         if frameUpdate {
             self.collectionView.updateFrame(contentRect: self.view.frame)
@@ -212,6 +233,7 @@ extension FormOne {
     }
 }
 
+// MARK: Protocol Conformanace
 extension FormOne: ExplanationRemovable {
     func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
