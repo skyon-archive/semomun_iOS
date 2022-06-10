@@ -79,6 +79,7 @@ extension MultipleWith5AnswerVC {
     }
 }
 
+// MARK: Protocol Conformance
 extension MultipleWith5AnswerVC: CollectionCellDelegate {
     func reload() {
         self.viewModel?.delegate?.reload()
