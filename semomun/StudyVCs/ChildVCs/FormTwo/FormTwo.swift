@@ -290,27 +290,7 @@ extension FormTwo: UIScrollViewDelegate {
 extension FormTwo {
     private func configureGesture() {
         self.canvasView.addDoubleTabGesture()
-        self.configureSwipeGesture()
-    }
-    
-    private func configureSwipeGesture() {
-        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
-        rightSwipeGesture.direction = .right
-        rightSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(rightSwipeGesture)
-        
-        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
-        leftSwipeGesture.direction = .left
-        leftSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(leftSwipeGesture)
-    }
-    
-    @objc func rightDragged() {
-        self.previousPage()
-    }
-    
-    @objc func leftDragged() {
-        self.nextPage()
+        self.addPageSwipeGesture()
     }
 }
 
@@ -322,8 +302,8 @@ extension FormTwo: PKCanvasViewDelegate {
     }
 }
 
-extension FormTwo: ExplanationRemover {
-    func toggleExplanation(image: UIImage?, pid: Int) {
+extension FormTwo: ExplanationRemovable {
+    func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
                 self.closeExplanation()

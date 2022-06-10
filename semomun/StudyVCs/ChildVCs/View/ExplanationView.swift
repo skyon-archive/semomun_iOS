@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol ExplanationRemover: AnyObject {
+protocol ExplanationRemovable: AnyObject {
     func closeExplanation()
 }
 
 final class ExplanationView: UIView {
-    private weak var delegate: ExplanationRemover?
+    private weak var delegate: ExplanationRemovable?
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
     private let xmarkImage: UIImage? = {
@@ -44,7 +44,7 @@ final class ExplanationView: UIView {
         self.adjustLayout()
     }
     
-    func configureDelegate(to delegate: ExplanationRemover) {
+    func configureDelegate(to delegate: ExplanationRemovable) {
         self.delegate = delegate
     }
     

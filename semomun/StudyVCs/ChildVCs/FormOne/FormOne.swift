@@ -52,7 +52,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.configureLoader()
         self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
         self.configureSubViews()
-        self.configureSwipeGesture()
+        self.addPageSwipeGesture()
         self.configureDelegate()
     }
     
@@ -144,26 +144,6 @@ extension FormOne {
         self.canvasView.sendSubviewToBack(self.imageView)
     }
     
-    private func configureSwipeGesture() {
-        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
-        rightSwipeGesture.direction = .right
-        rightSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(rightSwipeGesture)
-        
-        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
-        leftSwipeGesture.direction = .left
-        leftSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(leftSwipeGesture)
-    }
-    
-    @objc func rightDragged() {
-        NotificationCenter.default.post(name: .previousPage, object: nil)
-    }
-    
-    @objc func leftDragged() {
-        NotificationCenter.default.post(name: .nextPage, object: nil)
-    }
-    
     private func stopLoader() {
         self.loader.isHidden = true
         self.loader.stopAnimating()
@@ -205,20 +185,19 @@ extension FormOne {
 // MARK: LAYOUT
 extension FormOne {
     private func adjustLayouts(frameUpdate: Bool, showExplanation: Bool? = nil) {
-        // canvasView 크기 및 ratio 조절 및 필요시 frame update
         self.updateCanvasView(frameUpdate: frameUpdate)
-        // explanation 크기 및 ratio 조절
-        if self.explanationShown, frameUpdate {
-            self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: 0)
+        if frameUpdate {
+            self.collectionView.updateFrame(contentRect: self.view.frame)
+            // explanation 크기 및 ratio 조절
+            if self.explanationShown {
+                self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: 0)
+            }
         }
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
-        
-        if frameUpdate {
-            self.collectionView.updateFrame(contentRect: self.view.frame)
-        }
     }
     
+    /// canvasView 크기 및 ratio 조절 및 필요시 frame update
     private func updateCanvasView(frameUpdate: Bool) {
         guard let imageSize = self.mainImage?.size else {
             assertionFailure("image 가 존재하지 않습니다.")
@@ -233,8 +212,8 @@ extension FormOne {
     }
 }
 
-extension FormOne: ExplanationRemover {
-    func toggleExplanation(image: UIImage?, pid: Int) {
+extension FormOne: ExplanationRemovable {
+    func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
                 self.explanationId = nil
