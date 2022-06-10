@@ -13,10 +13,3 @@ protocol CollectionCellDelegate: AnyObject {
     func addScoring(pid: Int)
     func addUpload(pid: Int)
 }
-
-protocol CollectionCellWithNoAnswerDelegate: AnyObject {
-    func reload()
-    func selectExplanation(image: UIImage?, pid: Int)
-    func addScoring(pid: Int)
-    func addUpload(pid: Int)
-}

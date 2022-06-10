@@ -47,9 +47,7 @@ final class StudyVC: UIViewController {
     private lazy var singleWith4Answer: SingleWith4AnswerVC = {
         return UIStoryboard(name: SingleWith4AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith4AnswerVC.identifier) as? SingleWith4AnswerVC ?? SingleWith4AnswerVC()
     }()
-    private lazy var multipleWithNoAnswer: MultipleWithNoAnswerVC = {
-        return UIStoryboard(name: MultipleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWithNoAnswerVC.identifier) as? MultipleWithNoAnswerVC ?? MultipleWithNoAnswerVC()
-    }()
+    private lazy var multipleWithNoAnswer = MultipleWithNoAnswerVC()
     private lazy var concept: ConceptVC = {
         return UIStoryboard(name: ConceptVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ConceptVC.identifier) as? ConceptVC ?? ConceptVC()
     }()
@@ -280,7 +278,6 @@ extension StudyVC: LayoutDelegate {
             self.singleWith4Answer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWithNoAnswerVC.identifier:
-            self.multipleWithNoAnswer = UIStoryboard(name: MultipleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: MultipleWithNoAnswerVC.identifier) as? MultipleWithNoAnswerVC ?? MultipleWithNoAnswerVC()
             self.currentVC = self.multipleWithNoAnswer
             self.multipleWithNoAnswer.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
             self.multipleWithNoAnswer.mainImage = self.getImage(data: pageData.pageCore.materialImage)
