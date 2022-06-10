@@ -16,8 +16,12 @@ class SubproblemCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setDefaults() {
+        self.contentOffset = .zero
+    }
+    
     func updateFrame(contentRect: CGRect) {
         self.frame = .init(contentRect.width/2, 0, contentRect.width/2, contentRect.height)
-//         self.collectionViewLayout.invalidateLayout()
+        self.collectionViewLayout.invalidateLayout()
     }
 }

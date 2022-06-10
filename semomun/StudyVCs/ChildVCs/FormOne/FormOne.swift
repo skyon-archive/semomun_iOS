@@ -20,6 +20,12 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         return self.canvasView.contentSize.width
     }
     
+    private(set) var collectionView = SubproblemCollectionView()
+    private(set) var toolPicker = PKToolPicker()
+    /// Cell 에서 받은 explanation 의 pid 저장
+    private var explanationId: Int?
+    private var canvasDrawingLoaded = false
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -30,13 +36,6 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         view.addDoubleTabGesture()
         return view
     }()
-    private(set) var collectionView = SubproblemCollectionView()
-    private(set) var toolPicker = PKToolPicker()
-    
-    /// Cell 에서 받은 explanation 의 pid 저장
-    private var explanationId: Int?
-    private var canvasDrawingLoaded = false
-    
     private let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
@@ -77,6 +76,8 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
+        self.collectionView.setDefaults()
+        
         self.canvasDrawingLoaded = false
         self.explanationId = nil
         self.canvasView.isHidden = true
@@ -219,12 +220,11 @@ extension FormOne {
     }
     
     private func updateCanvasView(frameUpdate: Bool) {
-        let contentSize = self.view.frame.size
         guard let imageSize = self.mainImage?.size else {
             assertionFailure("image 가 존재하지 않습니다.")
             return
         }
-        
+        let contentSize = self.view.frame.size
         if frameUpdate {
             self.canvasView.updateDrawingRatioAndFrame(formOneContentSize: contentSize, imageSize: imageSize)
         } else {
@@ -234,7 +234,7 @@ extension FormOne {
 }
 
 extension FormOne: ExplanationRemover {
-    func showExplanation(image: UIImage?, pid: Int) {
+    func toggleExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
                 self.explanationId = nil

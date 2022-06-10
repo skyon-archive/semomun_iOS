@@ -122,7 +122,7 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.problem?.explanationImage,
               let pid = self.problem?.pid else { return }
-        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
+        self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
     @IBAction func showAnswer(_ sender: Any) {
