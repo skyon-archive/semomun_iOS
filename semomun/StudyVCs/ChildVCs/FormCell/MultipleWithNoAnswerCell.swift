@@ -54,7 +54,7 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.problem?.explanationImage,
               let pid = self.problem?.pid else { return }
-        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
+        self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {

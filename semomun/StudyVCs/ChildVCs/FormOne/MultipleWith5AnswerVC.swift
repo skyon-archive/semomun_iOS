@@ -46,6 +46,7 @@ extension MultipleWith5AnswerVC {
         
         cell.delegate = self
         cell.prepareForReuse(contentImage, problem, toolPicker)
+        cell.showTopShadow = indexPath.item != 0
         
         return cell
     }

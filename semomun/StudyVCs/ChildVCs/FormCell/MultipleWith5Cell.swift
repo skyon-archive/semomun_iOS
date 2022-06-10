@@ -74,7 +74,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     @IBAction func showExplanation(_ sender: Any) {
         guard let imageData = self.problem?.explanationImage,
               let pid = self.problem?.pid else { return }
-        self.delegate?.showExplanation(image: UIImage(data: imageData), pid: Int(pid))
+        self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
     @IBAction func showAnswer(_ sender: Any) {
@@ -101,7 +101,10 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
-        self.configureUI()
+        self.configureCheckButtons()
+        self.configureStar()
+        self.configureAnswer()
+        self.configureExplanationBT()
     }
     
     // MARK: Configure
@@ -112,13 +115,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
-    }
-    
-    private func configureUI() {
-        self.configureCheckButtons()
-        self.configureStar()
-        self.configureAnswer()
-        self.configureExplanationBT()
     }
     
     private func configureCheckButtons() {
@@ -144,6 +140,8 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             // 체크 이미지 표시
             self.showResultImage(to: problem.correct)
             self.createCheckImage(to: targetIndex-1)
+        } else {
+            self.checkImageView.removeFromSuperview()
         }
     }
     

@@ -323,7 +323,7 @@ extension FormTwo: PKCanvasViewDelegate {
 }
 
 extension FormTwo: ExplanationRemover {
-    func showExplanation(image: UIImage?, pid: Int) {
+    func toggleExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
                 self.closeExplanation()
