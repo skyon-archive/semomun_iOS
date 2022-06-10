@@ -62,6 +62,15 @@ final class RotationableCanvasView: PKCanvasView {
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
     
+    func updateDrawingRatioAndFrame(formOneContentSize contentSize: CGSize, imageSize: CGSize) {
+        let previousSize = self.frame.size
+        let previousContentOffset = self.contentOffset
+        
+        self.frame = .init(origin: .zero, size: .init(contentSize.width/2, contentSize.height))
+        let ratio = imageSize.height / imageSize.width
+        self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+    }
+    
     func loadDrawing(to savedData: Data?, lastWidth: Double?) {
         guard let savedData = savedData,
               let lastWidth = lastWidth else {
