@@ -59,6 +59,7 @@
 		2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */; };
 		2570543627FDB1CF005398F9 /* ChangeUserInfoVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */; };
 		2570543827FDB212005398F9 /* MockUserInfoVMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */; };
+		2571F6902853114B00D94524 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571F68F2853114B00D94524 /* CGSize.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
@@ -322,6 +323,7 @@
 		2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = semomunTests/ViewModels/Profile/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
 		2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeUserInfoVMTest.swift; path = SemomunTests/ViewModels/Profile/ChangeUserInfoVMTest.swift; sourceTree = SOURCE_ROOT; };
 		2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockUserInfoVMNetwork.swift; path = SemomunTests/Network/MockUserInfoVMNetwork.swift; sourceTree = SOURCE_ROOT; };
+		2571F68F2853114B00D94524 /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -1311,6 +1313,7 @@
 				25A950B227C760EC0084513E /* Collection.swift */,
 				87D0A56827CF1C5800449AAD /* CoreGraphics.swift */,
 				25622C4C283A53540056E0DF /* PKCanvasView.swift */,
+				2571F68F2853114B00D94524 /* CGSize.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1788,6 +1791,7 @@
 				25622C4F283A84330056E0DF /* FormZero.swift in Sources */,
 				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
+				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
