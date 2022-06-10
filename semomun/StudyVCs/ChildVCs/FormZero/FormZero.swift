@@ -58,7 +58,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         super.viewDidLoad()
         self.configureLoader()
         self.configureSubViews()
-        self.configureSwipeGesture()
+        self.addPageSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,26 +117,6 @@ extension FormZero {
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
-    }
-    
-    private func configureSwipeGesture() {
-        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
-        rightSwipeGesture.direction = .right
-        rightSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(rightSwipeGesture)
-        
-        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
-        leftSwipeGesture.direction = .left
-        leftSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(leftSwipeGesture)
-    }
-    
-    @objc func rightDragged() {
-        NotificationCenter.default.post(name: .previousPage, object: nil)
-    }
-    
-    @objc func leftDragged() {
-        NotificationCenter.default.post(name: .nextPage, object: nil)
     }
     
     private func stopLoader() {
@@ -250,7 +230,7 @@ extension FormZero {
     }
 }
 
-extension FormZero: ExplanationRemover {
+extension FormZero: ExplanationRemovable {
     func closeExplanation() {
         self.adjustLayouts(frameUpdate: true, showExplanation: false)
         UIView.animate(withDuration: 0.15) {

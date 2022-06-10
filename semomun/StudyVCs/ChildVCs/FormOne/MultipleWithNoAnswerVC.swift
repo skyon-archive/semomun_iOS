@@ -50,7 +50,7 @@ class MultipleWithNoAnswerVC: UIViewController, PKToolPickerObserver, PKCanvasVi
         
         self.configureDelegate()
         self.configureLoader()
-        self.configureSwipeGesture()
+        self.addPageSwipeGesture()
         self.configureScrollView()
     }
     
@@ -120,26 +120,6 @@ extension MultipleWithNoAnswerVC {
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.canvasView.isHidden = true
-    }
-    
-    func configureSwipeGesture() {
-        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
-        rightSwipeGesture.direction = .right
-        rightSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(rightSwipeGesture)
-        
-        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
-        leftSwipeGesture.direction = .left
-        leftSwipeGesture.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(leftSwipeGesture)
-    }
-    
-    @objc func rightDragged() {
-        NotificationCenter.default.post(name: .previousPage, object: nil)
-    }
-    
-    @objc func leftDragged() {
-        NotificationCenter.default.post(name: .nextPage, object: nil)
     }
     
     private func configureScrollView() {
@@ -292,7 +272,7 @@ extension MultipleWithNoAnswerVC: CollectionCellWithNoAnswerDelegate {
     }
 }
 
-extension MultipleWithNoAnswerVC: ExplanationRemover {
+extension MultipleWithNoAnswerVC: ExplanationRemovable {
     func closeExplanation() {
         self.explanationId = nil
         UIView.animate(withDuration: 0.2) { [weak self] in

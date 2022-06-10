@@ -108,6 +108,25 @@ extension UIViewController {
         }
     }
 
+    func addPageSwipeGesture() {
+        let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))
+        rightSwipeGesture.direction = .right
+        rightSwipeGesture.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(rightSwipeGesture)
+        
+        let leftSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(leftDragged))
+        leftSwipeGesture.direction = .left
+        leftSwipeGesture.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(leftSwipeGesture)
+    }
+    
+    @objc func rightDragged() {
+        NotificationCenter.default.post(name: .previousPage, object: nil)
+    }
+    
+    @objc func leftDragged() {
+        NotificationCenter.default.post(name: .nextPage, object: nil)
+    }
 }
 
 
