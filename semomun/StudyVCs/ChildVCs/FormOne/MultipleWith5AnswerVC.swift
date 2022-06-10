@@ -16,7 +16,8 @@ class MultipleWith5AnswerVC: FormOne  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCollectionView()
+        let cellIdentifier = MultipleWith5Cell.identifier
+        self.configureCellRegister(nibName: cellIdentifier, reuseIdentifier: cellIdentifier)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,30 +57,25 @@ extension MultipleWith5AnswerVC {
         
         return cell
     }
+    
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = self.view.frame.width/2 - 10
         let solveInputFrameHeight: CGFloat = 6 + 45
         // imageView 높이값 가져오기
         guard var contentImage = subImages?[indexPath.item] else {
-            return CGSize(width: width, height: 300) }
+            return CGSize(width: width, height: 300)
+        }
         if contentImage.size.hasValidSize == false {
             contentImage = UIImage(.warning)
         }
-        let imgHeight: CGFloat = contentImage.size.height * (width/contentImage.size.width)
         
+        let imgHeight: CGFloat = contentImage.size.height * (width/contentImage.size.width)
         let height: CGFloat = solveInputFrameHeight + imgHeight
         return CGSize(width: width, height: height)
     }
+    
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
-    }
-}
-
-extension MultipleWith5AnswerVC {
-    private func configureCollectionView() {
-        let cellIdentifier = MultipleWith5Cell.identifier
-        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
 }
 
