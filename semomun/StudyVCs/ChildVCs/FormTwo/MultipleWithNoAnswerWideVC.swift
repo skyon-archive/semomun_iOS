@@ -15,9 +15,13 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     
     private let cellType = MultipleWithNoAnswerCell.self
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureCellRegister()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configureCollectionView()
         self.viewModel?.startTimeRecord()
     }
     
@@ -78,11 +82,13 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     override func nextPage() {
         NotificationCenter.default.post(name: .nextPage, object: nil)
     }
-    
-    private func configureCollectionView() {
-        let cellIdentifier = self.cellType.identifier
-        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
+}
+
+// MARK: Configure
+extension MultipleWithNoAnswerWideVC {
+    private func configureCellRegister() {
+        let cellIdentifiers: [String] = [MultipleWithNoAnswerCell.identifier]
+        self.configureCellRegisters(identifiers: cellIdentifiers)
     }
 }
 
