@@ -23,12 +23,12 @@ class FormTwo: UIViewController {
     private var canvasDrawingLoaded = false
     /* VC 내에서만 접근가능한 View들 */
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private let imageView = UIImageView()
-    private let canvasView: RotationableCanvasView = {
-        let view = RotationableCanvasView()
-        view.addDoubleTabGesture()
-        return view
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .white
+        return imageView
     }()
+    private let canvasView = RotationableCanvasView()
     private let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
@@ -36,7 +36,6 @@ class FormTwo: UIViewController {
     }()
     private lazy var explanationView: ExplanationView = {
         let explanationView = ExplanationView()
-        explanationView.alpha = 0
         explanationView.configureDelegate(to: self)
         return explanationView
     }()
@@ -45,14 +44,10 @@ class FormTwo: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.configureCollectionView()
-        self.configureScrollView()
         self.configureLoader()
+        self.configureCollectionView()
         self.configureGesture()
-        
-        self.configureBasicUI()
-        self.collectionView.showsVerticalScrollIndicator = false
+        self.configureSubViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +94,38 @@ extension FormTwo {
     }
 }
 
+// MARK: Configure
+extension FormTwo {
+    private func configureLoader() {
+        self.view.addSubview(self.loader)
+        self.loader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.loader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.loader.topAnchor.constraint(equalTo: self.view.topAnchor)
+        ])
+        self.loader.startAnimating()
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.showsVerticalScrollIndicator = false
+    }
+    
+    private func configureGesture() {
+        self.canvasView.addDoubleTabGesture()
+        self.addPageSwipeGesture()
+    }
+    
+    private func configureSubViews() {
+        self.view.addSubviews(self.canvasView, self.collectionView)
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
+    }
+}
+
 // MARK: - FormTwo의 Cell 부분 동작을 위해 override가 필요
 extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,39 +162,11 @@ extension FormTwo {
         self.adjustLayout()
     }
     
-    private func configureBasicUI() {
-        // MARK: 디자인 확인 후 수정이 필요할 수 있는 부분
-        self.collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
-        
-        self.view.addSubviews(self.canvasView, self.collectionView)
-        //        self.view.sendSubviewToBack(self.canvasShadowView)
-        
-        self.canvasView.addSubview(self.imageView)
-        self.canvasView.sendSubviewToBack(self.imageView)
-        
-        self.imageView.backgroundColor = .white
-    }
     
-    private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-    }
     
-    private func configureLoader() {
-        self.canvasView.isHidden = true
-        self.collectionView.isHidden = true
-        
-        self.view.addSubview(self.loader)
-        self.loader.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            self.loader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.loader.topAnchor.constraint(equalTo: self.view.topAnchor)
-        ])
-        self.loader.isHidden = false
-        self.loader.startAnimating()
-    }
+    
+    
+    
     
     private func stopLoader() {
         self.canvasView.isHidden = false
@@ -175,11 +174,6 @@ extension FormTwo {
         
         self.loader.isHidden = true
         self.loader.stopAnimating()
-    }
-    
-    private func configureScrollView() {
-        self.canvasView.minimumZoomScale = 0.5
-        self.canvasView.maximumZoomScale = 2.0
     }
     
     private func configureCanvasView() {
@@ -304,10 +298,7 @@ extension FormTwo: UIScrollViewDelegate {
 
 // MARK: - 제스쳐
 extension FormTwo {
-    private func configureGesture() {
-        self.canvasView.addDoubleTabGesture()
-        self.addPageSwipeGesture()
-    }
+    
 }
 
 extension FormTwo: PKCanvasViewDelegate {
