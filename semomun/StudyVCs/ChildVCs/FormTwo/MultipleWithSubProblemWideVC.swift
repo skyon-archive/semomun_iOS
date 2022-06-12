@@ -17,7 +17,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCollectionView()
+        self.configureCellRegister()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,11 +82,13 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     override func nextPage() {
         NotificationCenter.default.post(name: .nextPage, object: nil)
     }
-    
-    private func configureCollectionView() {
-        let cellIdentifier = SubProblemCell.identifier
-        let cellNib = UINib(nibName: cellIdentifier, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellIdentifier)
+}
+
+// MARK: Configure
+extension MultipleWithSubProblemsWideVC {
+    private func configureCellRegister() {
+        let cellIdentifiers: [String] = [SubProblemCell.identifier]
+        self.configureCellRegisters(identifiers: cellIdentifiers)
     }
 }
 

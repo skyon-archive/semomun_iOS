@@ -9,34 +9,39 @@ import UIKit
 import PencilKit
 
 class FormTwo: UIViewController {
-    let canvasView = PKCanvasView()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    private let imageView = UIImageView()
-    
-    /// Cell에서 받은 explanation 의 pid
-    var explanationId: Int?
-    
+    /* 자식 VC에서 접근가능한 property들 */
     var mainImage: UIImage?
-    var subImages: [UIImage?]?
-    
-    lazy var toolPicker: PKToolPicker = {
-        let toolPicker = PKToolPicker()
-        return toolPicker
+    var canvasViewDrawing: Data {
+        return self.canvasView.drawing.dataRepresentation()
+    }
+    var canvasViewContentWidth: CGFloat {
+        return self.canvasView.contentSize.width
+    }
+    let toolPicker = PKToolPicker()
+    /* VC 내에서만 접근가능한 property들 */
+    private var explanationId: Int?
+    private var canvasDrawingLoaded = false
+    /* VC 내에서만 접근가능한 View들 */
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let imageView = UIImageView()
+    private let canvasView: RotationableCanvasView = {
+        let view = RotationableCanvasView()
+        view.addDoubleTabGesture()
+        return view
     }()
-    
-    private var loader: UIActivityIndicatorView = {
+    private let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
     }()
-    
-    lazy var explanationView: ExplanationView = {
+    private lazy var explanationView: ExplanationView = {
         let explanationView = ExplanationView()
         explanationView.alpha = 0
         explanationView.configureDelegate(to: self)
         return explanationView
     }()
+    // 추후 자식VC로 이동될 property
+    var subImages: [UIImage?]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +86,17 @@ class FormTwo: UIViewController {
     func previousPage() { }
     
     func nextPage() { }
+}
+
+// MARK: Public functions
+extension FormTwo {
+    // 추후 여러 cell 들을 등록하기 위한 아이디어
+    func configureCellRegisters(identifiers: [String]) {
+        identifiers.forEach { identifier in
+            let cellNib = UINib(nibName: identifier, bundle: nil)
+            self.collectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
+        }
+    }
 }
 
 // MARK: - FormTwo의 Cell 부분 동작을 위해 override가 필요
