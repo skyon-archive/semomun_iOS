@@ -9,5 +9,5 @@ import UIKit
 
 protocol CellLayoutable {
     static var identifier: String { get }
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat
+    static func topViewHeight(with problem: Problem_Core?) -> CGFloat
 }

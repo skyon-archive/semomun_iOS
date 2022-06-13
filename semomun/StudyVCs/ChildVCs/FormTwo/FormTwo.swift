@@ -18,11 +18,13 @@ class FormTwo: UIViewController {
         return self.canvasView.contentSize.width
     }
     let toolPicker = PKToolPicker()
+    /* 자식 VC에서 접근가능한 View들 */
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     /* VC 내에서만 접근가능한 property들 */
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
     /* VC 내에서만 접근가능한 View들 */
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -39,8 +41,6 @@ class FormTwo: UIViewController {
         explanationView.configureDelegate(to: self)
         return explanationView
     }()
-    // 추후 자식VC로 이동될 property
-    var subImages: [UIImage?]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +94,24 @@ extension FormTwo {
     }
 }
 
+// MARK: Override 필요한 functions
+extension FormTwo: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        assertionFailure("numberOfItemsInSection: override fail")
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        assertionFailure("cellForItemAt: override fail")
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        assertionFailure("sizeForItemAt: override fail")
+        return CGSize()
+    }
+}
+
 // MARK: Configure
 extension FormTwo {
     private func configureLoader() {
@@ -126,27 +144,6 @@ extension FormTwo {
     }
 }
 
-// MARK: - FormTwo의 Cell 부분 동작을 위해 override가 필요
-extension FormTwo: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-}
-
-extension FormTwo: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.collectionView.bounds.width
-        let image = subImages?[indexPath.row] ?? UIImage(.warning)
-        let height = image.size.height * (width/image.size.width)
-        
-        return CGSize(width: width, height: height)
-    }
-}
-
 // MARK: - Private 메소드
 extension FormTwo {
     /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
@@ -161,12 +158,6 @@ extension FormTwo {
         self.layoutSplitView()
         self.adjustLayout()
     }
-    
-    
-    
-    
-    
-    
     
     private func stopLoader() {
         self.canvasView.isHidden = false

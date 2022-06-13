@@ -12,6 +12,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     static let identifier = "MultipleWithNoAnswerWideVC"
     
     var viewModel: MultipleWithNoAnswerVM?
+    var subImages: [UIImage?]?
     
     private let cellType = MultipleWithNoAnswerCell.self
     

@@ -11,7 +11,7 @@ import PencilKit
 class MultipleWithConceptCell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "MultipleWithConceptCell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
+    static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return 51
     }
     override var internalTopViewHeight: CGFloat {
