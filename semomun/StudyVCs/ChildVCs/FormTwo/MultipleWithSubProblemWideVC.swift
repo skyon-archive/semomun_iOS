@@ -12,6 +12,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     static let identifier = "MultipleWithSubProblemsWideVC"
     
     var viewModel: MultipleWithSubProblemsVM?
+    var subImages: [UIImage?]?
     
     private let cellType = SubProblemCell.self
     

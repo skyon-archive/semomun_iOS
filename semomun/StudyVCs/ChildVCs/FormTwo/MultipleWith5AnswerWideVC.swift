@@ -10,10 +10,9 @@ import PencilKit
 
 final class MultipleWith5AnswerWideVC: FormTwo {
     static let identifier = "MultipleWith5AnswerWideVC"
-    
+    /* 외부에서 주입가능한 property들 */
     var viewModel: MultipleWith5AnswerVM?
-    
-    private let cellType = MultipleWith5Cell.self
+    var subImages: [UIImage?]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,35 +27,6 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let baseSize = super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
-        
-        guard let problem = self.viewModel?.problems[indexPath.item] else {
-            return baseSize
-        }
-        
-        let topViewHeight = self.cellType.topViewHeight(with: problem)
-        
-        return .init(baseSize.width, topViewHeight+baseSize.height)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.problems.count ?? 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
-        
-        let contentImage = self.subImages?[indexPath.item]
-        let problem = self.viewModel?.problems[indexPath.item]
-        
-        cell.delegate = self
-        cell.prepareForReuse(contentImage, problem, toolPicker)
-        cell.showTopShadow = indexPath.item == 0 ? false : true
-        
-        return cell
     }
     
     override var pagePencilData: Data? {
@@ -89,6 +59,37 @@ extension MultipleWith5AnswerWideVC {
     private func configureCellRegister() {
         let cellIdentifiers: [String] = [MultipleWith5Cell.identifier]
         self.configureCellRegisters(identifiers: cellIdentifiers)
+    }
+}
+
+// MARK: Override 필요한 functions
+extension MultipleWith5AnswerWideVC {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel?.problems.count ?? 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWith5Cell.identifier, for: indexPath) as? MultipleWith5Cell else { return UICollectionViewCell() }
+        
+        let contentImage = self.subImages?[indexPath.item]
+        let problem = self.viewModel?.problems[indexPath.item]
+        
+        cell.delegate = self
+        cell.prepareForReuse(contentImage, problem, toolPicker)
+        cell.showTopShadow = indexPath.item != 0
+        
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let image = self.subImages?[indexPath.row] ?? UIImage(.warning)
+        
+        let width: CGFloat = self.collectionView.bounds.width
+        let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
+        let imageHeight = image.size.height * (width/image.size.width)
+        let height = topViewHeight + imageHeight
+        
+        return CGSize(width: width, height: height)
     }
 }
 

@@ -11,7 +11,7 @@ import PencilKit
 class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "MultipleWithNoAnswerCell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
+    static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return 51
     }
     override var internalTopViewHeight: CGFloat {

@@ -12,6 +12,7 @@ final class MultipleWithConceptWideVC: FormTwo {
     static let identifier = "MultipleWithConceptWideVC"
     
     var viewModel: MultipleWithConceptWideVM?
+    var subImages: [UIImage?]?
     
     private let cellType = MultipleWithConceptCell.self
     

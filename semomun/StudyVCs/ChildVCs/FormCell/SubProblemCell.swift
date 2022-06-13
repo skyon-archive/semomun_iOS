@@ -11,8 +11,8 @@ import PencilKit
 class SubProblemCell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "SubProblemCell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
-        return 99 + (problem.terminated ? 30 : 0)
+    static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
+        return 99 + (problem!.terminated ? 30 : 0)
     }
     override var internalTopViewHeight: CGFloat {
         guard let problem = self.problem else { return 99 }
