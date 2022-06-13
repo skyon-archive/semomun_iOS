@@ -58,6 +58,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.canvasView.setDefaults()
         self.resultImageView.isHidden = true
         self.timerView.isHidden = true
@@ -116,13 +117,15 @@ extension FormCell {
     private func configureCanvasViewDataAndDelegate() {
         guard self.isCanvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer { self.canvasView.delegate = self }
+        defer {
+            self.canvasView.delegate = self
+            self.isCanvasDrawingLoaded = true
+        }
         
         let savedData = self.problem?.drawing
         let lastWidth = self.problem?.drawingWidth
         // 필기데이터 ratio 조절 후 표시
         self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
-        self.isCanvasDrawingLoaded = true
     }
     
     private func updateTimerView() {
@@ -147,9 +150,11 @@ extension FormCell {
         }
         // canvasView 필기 ratio 조절 및 필요시 frame update
         if frameUpdate {
-            self.canvasView.updateDrawingRatioAndFrame(contentSize: contentSize,
-                                                topHeight: self.internalTopViewHeight,
-                                                imageSize: imageSize)
+            self.canvasView.updateDrawingRatioAndFrame(
+                contentSize: contentSize,
+                topHeight: self.internalTopViewHeight,
+                imageSize: imageSize
+            )
         } else {
             self.canvasView.updateDrawingRatio(imageSize: imageSize)
         }

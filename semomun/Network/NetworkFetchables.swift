@@ -35,7 +35,7 @@ protocol NoticeFetchable {
     func getNotices(completion: @escaping (NetworkStatus, [UserNotice]) -> Void)
 }
 protocol S3ImageFetchable {
-    func getImageFromS3(uuid: UUID, type: NetworkURL.imageType, completion: @escaping (NetworkStatus, Data?) -> Void)
+    func getImageFromS3(uuid: UUID, type: NetworkURL.ImageType, completion: @escaping (NetworkStatus, Data?) -> Void)
 }
 protocol BannerFetchable {
     func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void)

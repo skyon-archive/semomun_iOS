@@ -57,7 +57,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         super.viewWillAppear(animated)
         self.hideUpdatingViews()
         self.updateToolPicker()
-        self.updateImage()
+        self.updateMainImage()
         self.collectionView.reloadData()
     }
     
@@ -132,7 +132,6 @@ extension FormOne {
     private func configureDelegate() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.canvasView.delegate = self
     }
     
     private func configureLoader() {
@@ -153,6 +152,12 @@ extension FormOne {
         self.canvasView.sendSubviewToBack(self.imageView)
     }
     
+    private func updateToolPicker() {
+        self.canvasView.becomeFirstResponder()
+        self.toolPicker.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker.addObserver(self.canvasView)
+    }
+    
     private func stopLoader() {
         self.loader.isHidden = true
         self.loader.stopAnimating()
@@ -161,11 +166,6 @@ extension FormOne {
 
 // MARK: UPDATES
 extension FormOne {
-    private func updateToolPicker() {
-        self.toolPicker.setVisible(true, forFirstResponder: canvasView)
-        self.toolPicker.addObserver(canvasView)
-    }
-    
     private func updateCanvasViewDataAndDelegate() {
         guard self.canvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
@@ -174,11 +174,10 @@ extension FormOne {
             self.canvasDrawingLoaded = true
         }
         // 필기데이터 ratio 조절 후 표시
-        guard let drawing = self.pagePencilData, let width = self.pagePencilDataWidth else { return }
-        self.canvasView.loadDrawing(to: drawing, lastWidth: width)
+        self.canvasView.loadDrawing(to: self.pagePencilData, lastWidth: self.pagePencilDataWidth)
     }
     
-    private func updateImage() {
+    private func updateMainImage() {
         guard let mainImage = self.mainImage,
               mainImage.size.width > 0, mainImage.size.height > 0 else {
             let warningImage = UIImage(.warning)
@@ -226,8 +225,8 @@ extension FormOne {
             assertionFailure("image 가 존재하지 않습니다.")
             return
         }
-        let contentSize = self.view.frame.size
         if frameUpdate {
+            let contentSize = self.view.frame.size
             self.canvasView.updateDrawingRatioAndFrame(formOneContentSize: contentSize, imageSize: imageSize)
         } else {
             self.canvasView.updateDrawingRatio(imageSize: imageSize)
@@ -248,15 +247,19 @@ extension FormOne: ExplanationRemovable {
             }
         } else {
             self.explanationId = pid
-            self.explanationView.configureDelegate(to: self)
-            self.view.addSubview(self.explanationView)
-            self.explanationView.configureImage(to: image)
-            self.explanationView.frame = self.canvasView.frame
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.explanationView.alpha = 1
-            }
+            self.showExplanation(image: image)
         }
     }
+    private func showExplanation(image: UIImage?) {
+        self.explanationView.configureDelegate(to: self)
+        self.view.addSubview(self.explanationView)
+        self.explanationView.configureImage(to: image)
+        self.explanationView.frame = self.canvasView.frame
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 1
+        }
+    }
+    
     func closeExplanation() {
         self.explanationId = nil
         UIView.animate(withDuration: 0.2) { [weak self] in

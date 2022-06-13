@@ -42,7 +42,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     private var canvasDrawingLoaded: Bool = false
     
     /* 외부에서 주입 가능한 property */
-    var toolPicker: PKToolPicker?
+    let toolPicker = PKToolPicker()
     var image: UIImage?
     
     /* 자식 VC에서 override 해야 하는 Property들 */
@@ -137,8 +137,9 @@ extension FormZero {
     }
     
     private func updateToolPicker() {
-        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
-        self.toolPicker?.addObserver(self.canvasView)
+        self.canvasView.becomeFirstResponder()
+        self.toolPicker.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker.addObserver(self.canvasView)
     }
     
     private func updateTimerView() {
