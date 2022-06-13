@@ -73,7 +73,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pNc-pv-b9l">
                                 <rect key="frame" x="338" y="10" width="190" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-1Y-IIp">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0L-1Y-IIp">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Sr5-YE-PPa"/>
@@ -99,7 +99,7 @@
                                             <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="ayh-df-382"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-ya-GGn">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-ya-GGn">
                                         <rect key="frame" x="40" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Hgo-t4-CUW"/>
@@ -125,7 +125,7 @@
                                             <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="31Z-Qf-0R4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-ei-khY">
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-ei-khY">
                                         <rect key="frame" x="80" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Hrb-NL-Dgk"/>
@@ -151,7 +151,7 @@
                                             <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="jSZ-pR-i15"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a71-SM-LlS">
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a71-SM-LlS">
                                         <rect key="frame" x="120" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="AdQ-Im-11W"/>
@@ -177,7 +177,7 @@
                                             <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="53s-cH-Wd4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7b-KE-1sM">
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7b-KE-1sM">
                                         <rect key="frame" x="160" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Ksh-2q-cxK"/>

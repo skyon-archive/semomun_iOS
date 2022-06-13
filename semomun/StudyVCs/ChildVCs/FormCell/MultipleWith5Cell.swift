@@ -125,6 +125,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             bt.backgroundColor = UIColor.white
             bt.setTitleColor(UIColor(.deepMint), for: .normal)
         }
+        
         // 사용자 체크한 데이터 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
@@ -141,13 +142,14 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             self.showResultImage(to: problem.correct)
             self.createCheckImage(to: targetIndex-1)
         } else {
+            self.answerBT.isHidden = false
             self.checkImageView.removeFromSuperview()
         }
     }
     
     private func createCheckImage(to index: Int) {
         self.checkImageView.image = UIImage(named: "check")
-        self.contentView.addSubview(self.checkImageView)
+        self.checkNumbers[index].addSubview(self.checkImageView)
         
         NSLayoutConstraint.activate([
             self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
@@ -162,21 +164,23 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     }
     
     private func configureAnswer() {
-        self.answerBT.isUserInteractionEnabled = true
-        self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.problem?.answer == nil {
             self.answerBT.isUserInteractionEnabled = false
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answerBT.isUserInteractionEnabled = true
+            self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
         }
     }
     
     private func configureExplanationBT() {
         self.explanationBT.isSelected = false
-        self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanationBT.isUserInteractionEnabled = true
+            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         }
     }
 }
