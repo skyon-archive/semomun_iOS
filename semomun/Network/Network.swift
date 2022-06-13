@@ -52,7 +52,7 @@ struct Network: NetworkFetchable {
         case .failure(let error):
             print("Network Fail \(statusCode)")
             if let data = response.data {
-                print("Data: \(String(data: data, encoding: .utf8)!)")
+                print("Data: \(optional: String(data: data, encoding: .utf8))")
             }
             return NetworkResult(data: response.data, statusCode: statusCode, error: error.underlyingError)
         }

@@ -9,7 +9,7 @@ import Foundation
 
 enum NetworkURL {
     // MARK: 테스트 서버일 경우 true 값으로 사용
-    static let forTest: Bool = true
+    static let forTest: Bool = false
     // MARK: 출판사 제공용 테스트일 경우 testCompany 명 수정, 사내용일 경우 nil값 설정
     static let testCompany: String? = nil
     
@@ -23,7 +23,7 @@ enum NetworkURL {
         case normal = "/128x128/"
         case large = "/256x256/"
     }
-    enum imageType: String {
+    enum ImageType: String {
         case bookcover
         case sectioncover
         case material = "passage"

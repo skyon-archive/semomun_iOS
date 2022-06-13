@@ -19,9 +19,9 @@ final class RotationableCanvasView: PKCanvasView {
         self.minimumZoomScale = 0.5
         self.maximumZoomScale = 2.0
         self.isOpaque = false
-        self.becomeFirstResponder()
         self.drawingPolicy = .pencilOnly
     }
+    
     /// FormCell zoom 시 실행
     /// FormZero zoom 시 실행
     func updateDrawingRatio(imageSize: CGSize) {
