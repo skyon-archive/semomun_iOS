@@ -1194,17 +1194,10 @@ Label</string>
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-uB-9VK">
-                                <rect key="frame" x="0.0" y="24" width="834" height="240"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="LVM-bE-Q5n"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-Y3-Ya4">
-                                <rect key="frame" x="0.0" y="304" width="834" height="870"/>
+                                <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="12" id="Hgg-hT-LRE">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Hgg-hT-LRE">
                                     <size key="itemSize" width="146" height="240"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1258,12 +1251,20 @@ Label</string>
                                             <outlet property="titleLabel" destination="ejn-YK-fn5" id="Lh0-0r-pO5"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="w6F-ao-GNd">
+                                        <rect key="frame" x="186" y="50" width="146" height="240"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kgN-dX-onV">
+                                            <rect key="frame" x="0.0" y="0.0" width="146" height="240"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestsHeaderView" id="sPi-OC-LeT" customClass="PracticeTestsHeaderView" customModule="semomun" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestsHeaderView" id="5Du-zj-8Q9" customClass="PracticeTestsHeaderView" customModule="semomun" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 실전 모의고사" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH4-3t-eIk">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 실전 모의고사" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVh-oZ-ZKr">
                                             <rect key="frame" x="29" y="14.5" width="133" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1271,11 +1272,11 @@ Label</string>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bH4-3t-eIk" firstAttribute="leading" secondItem="sPi-OC-LeT" secondAttribute="leading" constant="29" id="32q-4m-mDc"/>
-                                        <constraint firstItem="bH4-3t-eIk" firstAttribute="centerY" secondItem="sPi-OC-LeT" secondAttribute="centerY" id="S4Z-Dw-RPY"/>
+                                        <constraint firstItem="eVh-oZ-ZKr" firstAttribute="leading" secondItem="5Du-zj-8Q9" secondAttribute="leading" constant="29" id="bxc-vL-xua"/>
+                                        <constraint firstItem="eVh-oZ-ZKr" firstAttribute="centerY" secondItem="5Du-zj-8Q9" secondAttribute="centerY" id="xLq-bh-0Ke"/>
                                     </constraints>
                                     <connections>
-                                        <outlet property="headerText" destination="bH4-3t-eIk" id="LNf-tN-hZD"/>
+                                        <outlet property="headerText" destination="eVh-oZ-ZKr" id="PCJ-ha-IeG"/>
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
@@ -1283,12 +1284,9 @@ Label</string>
                         <viewLayoutGuide key="safeArea" id="y59-ww-zfv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="y59-ww-zfv" firstAttribute="trailing" secondItem="hxF-uB-9VK" secondAttribute="trailing" id="EJw-7O-gAD"/>
+                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="top" secondItem="y59-ww-zfv" secondAttribute="top" id="38k-yx-l4C"/>
                             <constraint firstItem="AHs-Y3-Ya4" firstAttribute="leading" secondItem="y59-ww-zfv" secondAttribute="leading" id="LBs-lZ-pvv"/>
-                            <constraint firstItem="hxF-uB-9VK" firstAttribute="leading" secondItem="y59-ww-zfv" secondAttribute="leading" id="Ppx-I1-ngm"/>
                             <constraint firstItem="y59-ww-zfv" firstAttribute="bottom" secondItem="AHs-Y3-Ya4" secondAttribute="bottom" id="Q3m-Dm-p8d"/>
-                            <constraint firstItem="hxF-uB-9VK" firstAttribute="top" secondItem="y59-ww-zfv" secondAttribute="top" id="R9K-4X-kiO"/>
-                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="top" secondItem="hxF-uB-9VK" secondAttribute="bottom" constant="40" id="TOR-gc-5SZ"/>
                             <constraint firstItem="y59-ww-zfv" firstAttribute="trailing" secondItem="AHs-Y3-Ya4" secondAttribute="trailing" id="lkL-qy-pXo"/>
                         </constraints>
                     </view>

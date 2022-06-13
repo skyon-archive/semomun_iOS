@@ -41,8 +41,8 @@ extension PracticeTestVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-        case 0: return 10
-        case 1: return 5
+        case 0: return 8
+        case 1: return 3
         default: return 0
         }
     }
@@ -64,8 +64,12 @@ extension PracticeTestVC: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PracticeTestsHeaderView.identifier, for: indexPath) as? PracticeTestsHeaderView else { return UICollectionReusableView() }
             
-            let headerTitle = indexPath.section == 0 ? "나의 실전 모의고사" : "실전 모의고사"
-            headerView.configure(to: headerTitle)
+            if self.numberOfSections(in: collectionView) == 1 {
+                headerView.configure(to: "실전 모의고사")
+            } else if self.numberOfSections(in: collectionView) == 2 {
+                let headerTitle = indexPath.section == 0 ? "나의 실전 모의고사" : "실전 모의고사"
+                headerView.configure(to: headerTitle)
+            }
             
             return headerView
         default:
