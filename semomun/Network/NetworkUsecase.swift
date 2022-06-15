@@ -26,8 +26,8 @@ class NetworkUsecase {
 
 // MARK: - Fetchable
 extension NetworkUsecase: VersionFetchable {
-    func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void) {
-        self.network.request(url: NetworkURL.appstoreVersion, method: .get, tokenRequired: false) { result in
+    func getAppstoreVersion(completion: @escaping (NetworkStatus, String?) -> Void) {
+        self.network.request(url: NetworkURL.tempBase, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
@@ -35,7 +35,7 @@ extension NetworkUsecase: VersionFetchable {
                           completion(.DECODEERROR, nil)
                           return
                       }
-                completion(.SUCCESS, appstoreVersion)
+                completion(.SUCCESS, appstoreVersion.latestVersion)
             default:
                 completion(.FAIL, nil)
             }

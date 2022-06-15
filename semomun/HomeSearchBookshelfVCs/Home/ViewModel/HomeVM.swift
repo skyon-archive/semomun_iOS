@@ -62,15 +62,15 @@ final class HomeVM {
     
     func checkVersion() { // VC 에서 불리는 함수
         guard NetworkStatusManager.isConnectedToInternet() else { return }
-        self.networkUsecase.getAppstoreVersion { [weak self] status, versionDTO in
+        self.networkUsecase.getAppstoreVersion { [weak self] status, appstoreVersion in
             switch status {
             case .SUCCESS:
                 guard let deviceVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
-                      let appstoreVersion = versionDTO?.results.first?.version else {
+                let appstoreVersion = appstoreVersion else {
                     assertionFailure()
                     return
                 }
-                
+
                 if deviceVersion.versionCompare(appstoreVersion) == .orderedAscending {
                     self?.updateToVersion = appstoreVersion
                 }
