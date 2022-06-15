@@ -9,47 +9,38 @@ import UIKit
 import PencilKit
 
 class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
+    // public
     var mainImage: UIImage?
+    var toolPicker: PKToolPicker? = PKToolPicker()
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
     }
     var canvasViewContentWidth: CGFloat {
         return self.canvasView.contentSize.width
     }
-    let toolPicker = PKToolPicker()
-    
-    /// Cell 에서 받은 explanation 의 pid 저장
+    // private
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
-    
     private let collectionView = SubproblemCollectionView()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
         return imageView
     }()
-    private let canvasView: RotationableCanvasView = {
-        let view = RotationableCanvasView()
-        view.addDoubleTabGesture()
-        return view
-    }()
+    private let canvasView = RotationableCanvasView()
     private let loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.color = UIColor.gray
         return loader
     }()
-    private lazy var explanationView: ExplanationView = {
-        let explanationView = ExplanationView()
-        explanationView.alpha = 0
-        return explanationView
-    }()
+    private lazy var explanationView = ExplanationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLoader()
         self.configureSubViews()
-        self.configureDelegate()
-        self.addPageSwipeGesture()
+        self.configureCollectionViewDelegate()
+        self.configureGesture()
         self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
     
@@ -59,6 +50,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.updateToolPicker()
         self.updateMainImage()
         self.collectionView.reloadData()
+        self.canvasView.becomeFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,7 +65,9 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
         self.collectionView.setDefaults()
-        self.setDefaults()
+        self.canvasDrawingLoaded = false
+        self.explanationId = nil
+        self.closeExplanation()
     }
     
     // MARK: Rotation
@@ -87,8 +81,8 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     }
     
     deinit {
-        self.toolPicker.setVisible(false, forFirstResponder: self.canvasView)
-        self.toolPicker.removeObserver(self.canvasView)
+        self.toolPicker?.setVisible(false, forFirstResponder: self.canvasView)
+        self.toolPicker?.removeObserver(self.canvasView)
     }
     
     /* 자식 VC에서 override 해야 하는 Property들 */
@@ -111,38 +105,38 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
 // MARK: Override 필요
 extension FormOne: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        assertionFailure()
+        assertionFailure("override error: numberOfItemsInSection")
         return 0
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        assertionFailure()
+        assertionFailure("override error: cellForItemAt")
         return .init()
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        assertionFailure()
+        assertionFailure("override error: sizeForItemAt")
         return .zero
     }
+    
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        assertionFailure()
+        assertionFailure("error: canvasViewDrawingDidChange")
     }
 }
 
 // MARK: CONFIGURES
 extension FormOne {
-    private func configureDelegate() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-    }
-    
     private func configureLoader() {
         self.view.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             self.loader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.loader.topAnchor.constraint(equalTo: self.view.topAnchor)
         ])
+        
         self.loader.startAnimating()
     }
     
@@ -152,10 +146,14 @@ extension FormOne {
         self.canvasView.sendSubviewToBack(self.imageView)
     }
     
-    private func updateToolPicker() {
-        self.canvasView.becomeFirstResponder()
-        self.toolPicker.setVisible(true, forFirstResponder: self.canvasView)
-        self.toolPicker.addObserver(self.canvasView)
+    private func configureCollectionViewDelegate() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
+    private func configureGesture() {
+        self.canvasView.addDoubleTabGesture()
+        self.addPageSwipeGesture()
     }
     
     private func stopLoader() {
@@ -166,15 +164,14 @@ extension FormOne {
 
 // MARK: UPDATES
 extension FormOne {
-    private func updateCanvasViewDataAndDelegate() {
-        guard self.canvasDrawingLoaded == false else { return }
-        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer {
-            self.canvasView.delegate = self
-            self.canvasDrawingLoaded = true
-        }
-        // 필기데이터 ratio 조절 후 표시
-        self.canvasView.loadDrawing(to: self.pagePencilData, lastWidth: self.pagePencilDataWidth)
+    private func hideUpdatingViews() {
+        self.collectionView.isHidden = true
+        self.canvasView.isHidden = true
+    }
+    
+    private func updateToolPicker() {
+        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker?.addObserver(self.canvasView)
     }
     
     private func updateMainImage() {
@@ -187,20 +184,20 @@ extension FormOne {
         self.imageView.image = mainImage
     }
     
-    private func hideUpdatingViews() {
-        self.collectionView.isHidden = true
-        self.canvasView.isHidden = true
+    private func updateCanvasViewDataAndDelegate() {
+        guard self.canvasDrawingLoaded == false else { return }
+        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+        defer {
+            self.canvasView.delegate = self
+            self.canvasDrawingLoaded = true
+        }
+        // 필기데이터 ratio 조절 후 표시
+        self.canvasView.loadDrawing(to: self.pagePencilData, lastWidth: self.pagePencilDataWidth)
     }
     
     private func showUpdatingViews() {
         self.collectionView.isHidden = false
         self.canvasView.isHidden = false
-    }
-    
-    private func setDefaults() {
-        self.canvasDrawingLoaded = false
-        self.explanationId = nil
-        self.closeExplanation()
     }
 }
 
@@ -225,6 +222,7 @@ extension FormOne {
             assertionFailure("image 가 존재하지 않습니다.")
             return
         }
+        
         if frameUpdate {
             let contentSize = self.view.frame.size
             self.canvasView.updateDrawingRatioAndFrame(formOneContentSize: contentSize, imageSize: imageSize)
@@ -276,6 +274,7 @@ extension FormOne: UIScrollViewDelegate {
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.adjustLayouts(frameUpdate: false)
     }
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
