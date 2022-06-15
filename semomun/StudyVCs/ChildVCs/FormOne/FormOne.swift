@@ -234,8 +234,18 @@ extension FormOne {
     }
 }
 
-// MARK: Protocol Conformanace
 extension FormOne: ExplanationRemovable {
+    func closeExplanation() {
+        self.explanationId = nil
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
+        }
+    }
+}
+
+extension FormOne: ExplanationSelectable {
     func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
@@ -250,6 +260,7 @@ extension FormOne: ExplanationRemovable {
             self.showExplanation(image: image)
         }
     }
+    
     private func showExplanation(image: UIImage?) {
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
@@ -257,15 +268,6 @@ extension FormOne: ExplanationRemovable {
         self.explanationView.frame = self.canvasView.frame
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 1
-        }
-    }
-    
-    func closeExplanation() {
-        self.explanationId = nil
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.explanationView.alpha = 0
-        } completion: { [weak self] _ in
-            self?.explanationView.removeFromSuperview()
         }
     }
 }

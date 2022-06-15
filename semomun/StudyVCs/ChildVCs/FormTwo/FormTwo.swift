@@ -303,6 +303,17 @@ extension FormTwo: PKCanvasViewDelegate {
 }
 
 extension FormTwo: ExplanationRemovable {
+    func closeExplanation() {
+        self.explanationId = nil
+        UIView.animate(withDuration: 0.2) {
+            self.explanationView.alpha = 0
+        } completion: { _ in
+            self.explanationView.removeFromSuperview()
+        }
+    }
+}
+
+extension FormTwo: ExplanationSelectable {
     func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
@@ -323,15 +334,6 @@ extension FormTwo: ExplanationRemovable {
             UIView.animate(withDuration: 0.2) { [weak self] in
                 self?.explanationView.alpha = 1
             }
-        }
-    }
-    
-    func closeExplanation() {
-        self.explanationId = nil
-        UIView.animate(withDuration: 0.2) {
-            self.explanationView.alpha = 0
-        } completion: { _ in
-            self.explanationView.removeFromSuperview()
         }
     }
 }

@@ -71,8 +71,7 @@ extension MultipleWithNoAnswerVC {
     }
 }
 
-// MARK: Protocol Conformance
-extension MultipleWithNoAnswerVC: CollectionCellDelegate {
+extension MultipleWithNoAnswerVC: FormCellControllable {
     func reload() {
         self.viewModel?.delegate?.reload()
     }

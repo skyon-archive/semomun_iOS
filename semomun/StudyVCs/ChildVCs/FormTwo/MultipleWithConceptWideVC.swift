@@ -86,7 +86,7 @@ final class MultipleWithConceptWideVC: FormTwo {
     }
 }
 
-extension MultipleWithConceptWideVC: CollectionCellDelegate {
+extension MultipleWithConceptWideVC: FormCellControllable {
     func reload() {
         self.viewModel?.delegate?.reload()
     }
