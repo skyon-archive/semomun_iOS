@@ -8,11 +8,6 @@
 import UIKit
 import PencilKit
 
-protocol CellLayoutable {
-    static var identifier: String { get }
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat
-}
-
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private let canvasView = RotationableCanvasView()
     private let imageView: UIImageView = {
