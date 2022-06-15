@@ -24,6 +24,11 @@ final class CorrectImageView: UIImageView {
         self.isHidden = false
     }
     
+    func hide() {
+        self.image = nil
+        self.isHidden = true
+    }
+    
     func adjustLayoutForCell(imageViewWidth: CGFloat) {
         guard self.isHidden == false else { return }
         let width = imageViewWidth/5

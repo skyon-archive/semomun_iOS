@@ -71,7 +71,7 @@ enum NetworkURL {
     }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://api.semomun.com"
+    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://d2qp2vqqyviv98.cloudfront.net"
     static let tempBase: String = "https://d2qp2vqqyviv98.cloudfront.net/"
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
