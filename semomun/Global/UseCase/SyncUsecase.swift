@@ -54,22 +54,19 @@ struct SyncUsecase {
     func syncUserDataFromDB(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
         self.networkUsecase.getUserInfo { status, userInfo in
             switch status {
-            case .SUCCESS where userInfo != nil:
-                self.saveUserInfoToCoreData(userInfo!)
-                self.networkUsecase.getUserSelectedTags { status, tags in
-                    guard status == .SUCCESS else {
-                        completion(.failure(.networkFail))
-                        return
-                    }
-                    
-                    do {
-                        let data = try PropertyListEncoder().encode(tags)
-                        UserDefaultsManager.favoriteTags = data
-                        NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
-                        completion(.success(userInfo!))
-                    } catch {
-                        print("Sync 실패: \(error)")
-                        completion(.failure(.tagOfDBEncodeFail))
+            case .SUCCESS:
+                guard let userInfo = userInfo else {
+                    completion(.failure(.networkFail))
+                    return
+                }
+
+                self.saveUserInfoToCoreData(userInfo)
+                self.syncTagOfDB { result in
+                    switch result {
+                    case .success(_):
+                        completion(.success(userInfo))
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
                 }
             case .TOKENEXPIRED:
@@ -77,6 +74,62 @@ struct SyncUsecase {
             default:
                 completion(.failure(.networkFail))
             }
+        }
+    }
+    
+    /// 로그인 이후 DB의 사용자 정보를 CoreData에 저장합니다. 토큰이 만료된 경우 tokenExpired Notification을 post하며, **이전에 로그인한 계정과 다른 계정으로 로그인한 경우에 CoreData를 제거합니다.**
+    func syncUserDataAfterLogin(completion: @escaping (Result<UserInfo, SyncError>) -> Void) {
+        self.networkUsecase.getUserInfo { status, userInfo in
+            switch status {
+            case .SUCCESS:
+                guard let userInfo = userInfo else {
+                    completion(.failure(.networkFail))
+                    return
+                }
+                self.deleteAllCoreDataIfNewUIDSync(uid: userInfo.uid)
+                self.saveUserInfoToCoreData(userInfo)
+                self.syncTagOfDB { result in
+                    switch result {
+                    case .success(_):
+                        completion(.success(userInfo))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+            case .TOKENEXPIRED:
+                NotificationCenter.default.post(name: .tokenExpired, object: nil)
+            default:
+                completion(.failure(.networkFail))
+            }
+        }
+    }
+    
+    private func syncTagOfDB(completion: @escaping (Result<Bool, SyncError>) -> Void) {
+        self.networkUsecase.getUserSelectedTags { status, tags in
+            guard status == .SUCCESS else {
+                completion(.failure(.networkFail))
+                return
+            }
+            
+            do {
+                let data = try PropertyListEncoder().encode(tags)
+                UserDefaultsManager.favoriteTags = data
+                NotificationCenter.default.post(name: .refreshFavoriteTags, object: nil)
+                completion(.success(true))
+            } catch {
+                print("Sync 실패: \(error)")
+                completion(.failure(.tagOfDBEncodeFail))
+            }
+        }
+    }
+    
+    private func deleteAllCoreDataIfNewUIDSync(uid: Int) {
+        let uidKeychain = KeychainItem(account: .semomunUID)
+        if let previousUID = try? uidKeychain.readItem() {
+            if previousUID != String(uid) {
+                CoreUsecase.deleteAllCoreData()
+            }
+            try? uidKeychain.deleteItem()
         }
     }
     

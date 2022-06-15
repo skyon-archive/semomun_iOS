@@ -8,17 +8,35 @@
 import Foundation
 import Alamofire
 
+/// - Note: CoreData는 로그인시 기존과 다른 UID를 가지는 경우에 삭제
 struct LogoutUsecase {
     static func logout() {
-        CoreUsecase.deleteAllCoreData()
+        Self.saveUID()
         Self.deleteKeychain()
         Self.deleteUserDefaults()
         Session.clearSession()
     }
     
+    static private func saveUID() {
+        guard let uid = CoreUsecase.fetchUserInfo()?.uid else { return }
+        do {
+            try KeychainItem(account: .semomunUID).saveItem(uid)
+        } catch {
+            print("UID save failed")
+        }
+    }
+    
     static private func deleteKeychain() {
-        KeychainItem.deleteAllItems()
-        print("keychain delete complete")
+        // UID를 제외한 모든 키체인 삭제
+        let items: [KeychainItem.Items] = [.accessToken, .refreshToken, .userIdentifier]
+        do {
+            try items
+                .map { KeychainItem(account: $0) }
+                .forEach { try $0.deleteItem() }
+            print("keychain delete complete")
+        } catch {
+            assertionFailure("keychain delete failed")
+        }
     }
     
     static private func deleteUserDefaults() {
