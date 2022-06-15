@@ -51,6 +51,7 @@ final class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.startBannerAdsAutoScroll()
+        self.viewModel?.checkVersion()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

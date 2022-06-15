@@ -8,10 +8,5 @@
 import Foundation
 
 struct AppstoreVersion: Decodable {
-    let resultCount: Int
-    let results: [AppStoreVersionResult]
-}
-
-struct AppStoreVersionResult: Decodable {
-    let version: String
+    let latestVersion: String
 }

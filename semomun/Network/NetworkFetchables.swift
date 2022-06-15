@@ -17,7 +17,7 @@ protocol NetworkFetchable {
 
 // MARK: - Fetchable
 protocol VersionFetchable {
-    func getAppstoreVersion(completion: @escaping (NetworkStatus, AppstoreVersion?) -> Void)
+    func getAppstoreVersion(completion: @escaping (NetworkStatus, String?) -> Void)
 }
 protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
