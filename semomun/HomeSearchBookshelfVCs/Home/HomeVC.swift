@@ -445,7 +445,7 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     private func searchWorkbook(wid: Int) {
-        if let book = CoreUsecase.fetchPreview(wid: wid) {
+        if UserDefaultsManager.isLogined, let book = CoreUsecase.fetchPreview(wid: wid) {
             self.showWorkbookDetailVC(book: book)
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
