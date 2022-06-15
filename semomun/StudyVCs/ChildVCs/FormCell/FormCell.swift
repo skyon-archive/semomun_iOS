@@ -9,7 +9,20 @@ import UIKit
 import PencilKit
 
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
-    private let canvasView = RotationableCanvasView()
+    /* public */
+    weak var delegate: (FormCellControllable&ExplanationSelectable)?
+    var problem: Problem_Core?
+    var showTopShadow: Bool = false
+    // MARK: canvasView의 위치 설정을 위해 override가 필요
+    var internalTopViewHeight: CGFloat {
+        assertionFailure("override error: internalTopViewHeight")
+        return 51
+    }
+    // MARK: 자식 클래스에서 배치가 필요
+    let timerView = ProblemTimerView()
+    /* private */
+    private var toolPicker: PKToolPicker?
+    private var isCanvasDrawingLoaded: Bool = false
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -20,32 +33,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         view.backgroundColor = UIColor(.lightGrayBackgroundColor)
         return view
     }()
-    private lazy var resultImageView: CorrectImageView = {
-        let imageView = CorrectImageView()
-        self.imageView.addSubview(imageView)
-        return imageView
-    }()
-    let timerView: ProblemTimerView = {
-        let timerView = ProblemTimerView()
-        timerView.isHidden = true
-        timerView.translatesAutoresizingMaskIntoConstraints = false
-        return timerView
-    }()
-    private var toolPicker: PKToolPicker?
-    
-    /* VC 에서 사용되는 property */
-    private var isCanvasDrawingLoaded: Bool = false
-    
-    /* 자식 cell 에서 사용 가능한 Property들 */
-    weak var delegate: (FormCellControllable&ExplanationSelectable)?
-    var problem: Problem_Core?
-    var showTopShadow: Bool = false
-    
-    /* 자식 cell 에서 override 해야 하는 Property들 */
-    var internalTopViewHeight: CGFloat {
-        assertionFailure()
-        return 51
-    }
+    private let correctImageView = CorrectImageView()
+    private let canvasView = RotationableCanvasView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,23 +44,44 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.canvasView.setDefaults()
-        self.resultImageView.isHidden = true
+        self.correctImageView.hide()
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
-    }
-    
-    func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        self.updateProblem(problem)
-        self.updateImageView(contentImage)
-        self.updateToolPicker(toolPicker)
-        self.updateTimerView()
     }
     
     // MARK: Rotation
     override func layoutSubviews() {
         super.layoutSubviews()
         self.adjustLayouts(frameUpdate: true)
-        self.configureCanvasViewDataAndDelegate()
+        self.updateCanvasViewDataAndDelegate()
+    }
+}
+
+// MARK: UICollectionView Accessible
+extension FormCell {
+    func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+        self.updateProblem(problem)
+        self.updateImageView(contentImage)
+        self.updateToolPicker(toolPicker)
+        self.updateTimerView()
+    }
+}
+
+// MARK: Child Accessible
+extension FormCell {
+    func updateSolved(input: String) {
+        guard let problem = self.problem else { return }
+        problem.setValue(input, forKey: Problem_Core.Attribute.solved.rawValue)
+        
+        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+            let correct = (input == answer)
+            problem.setValue(correct, forKey: Problem_Core.Attribute.correct.rawValue)
+        }
+        self.delegate?.addScoring(pid: Int(problem.pid))
+    }
+    
+    func showResultImage(to: Bool) {
+        self.correctImageView.show(isCorrect: to)
     }
 }
 
@@ -85,10 +95,12 @@ extension FormCell {
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
+        
+        self.imageView.addSubview(self.correctImageView)
     }
 }
 
-// MARK: Configure Reuse
+// MARK: Update
 extension FormCell {
     private func updateProblem(_ problem: Problem_Core?) {
         self.problem = problem
@@ -109,7 +121,18 @@ extension FormCell {
         self.toolPicker?.addObserver(self.canvasView)
     }
     
-    private func configureCanvasViewDataAndDelegate() {
+    private func updateTimerView() {
+        guard let problem = self.problem else { return }
+        
+        if problem.terminated {
+            self.timerView.configureTime(to: problem.time)
+            self.timerView.isHidden = false
+        } else {
+            self.timerView.isHidden = true
+        }
+    }
+    
+    private func updateCanvasViewDataAndDelegate() {
         guard self.isCanvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
         defer {
@@ -121,17 +144,6 @@ extension FormCell {
         let lastWidth = self.problem?.drawingWidth
         // 필기데이터 ratio 조절 후 표시
         self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
-    }
-    
-    private func updateTimerView() {
-        guard let problem = self.problem else { return }
-        
-        if problem.terminated {
-            self.timerView.configureTime(to: problem.time)
-            self.timerView.isHidden = false
-        } else {
-            self.timerView.isHidden = true
-        }
     }
 }
 
@@ -159,25 +171,7 @@ extension FormCell {
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
-        self.resultImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
-    }
-}
-
-// MARK: Child Accessible
-extension FormCell {
-    func updateSolved(input: String) {
-        guard let problem = self.problem else { return }
-        problem.setValue(input, forKey: Problem_Core.Attribute.solved.rawValue)
-        
-        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
-            let correct = (input == answer)
-            problem.setValue(correct, forKey: Problem_Core.Attribute.correct.rawValue)
-        }
-        self.delegate?.addScoring(pid: Int(problem.pid))
-    }
-    
-    func showResultImage(to: Bool) {
-        self.resultImageView.show(isCorrect: to)
+        self.correctImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
     }
 }
 
