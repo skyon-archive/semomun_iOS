@@ -90,7 +90,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     }
 }
 
-extension MultipleWithSubProblemsWideVC: CollectionCellDelegate {
+extension MultipleWithSubProblemsWideVC: FormCellControllable {
     func reload() {
         self.viewModel?.delegate?.reload()
     }

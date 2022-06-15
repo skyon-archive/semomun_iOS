@@ -86,7 +86,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
     }
 }
 
-extension MultipleWithNoAnswerWideVC: CollectionCellDelegate {
+extension MultipleWithNoAnswerWideVC: FormCellControllable {
     func reload() {
         self.viewModel?.delegate?.reload()
     }

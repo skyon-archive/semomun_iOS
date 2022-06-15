@@ -90,7 +90,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
     }
 }
 
-extension MultipleWith5AnswerWideVC: CollectionCellDelegate {
+extension MultipleWith5AnswerWideVC: FormCellControllable {
     func reload() {
         self.viewModel?.delegate?.reload()
     }

@@ -42,7 +42,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private var isCanvasDrawingLoaded: Bool = false
     
     /* 자식 cell 에서 사용 가능한 Property들 */
-    weak var delegate: CollectionCellDelegate?
+    weak var delegate: (FormCellControllable&ExplanationSelectable)?
     var problem: Problem_Core?
     var showTopShadow: Bool = false
     
