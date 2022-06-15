@@ -56,7 +56,7 @@ struct LoginSignupUsecase: LoginSignupLogic  {
 // MARK: Private
 extension LoginSignupUsecase {
     private func syncUserDataAndSaveKeychain(token: String, completion: @escaping (Bool) -> Void) {
-        self.syncUsecase.syncUserDataFromDB { result in
+        self.syncUsecase.syncUserDataAfterLogin { result in
             switch result {
             case .success(_):
                 let saveKeychainResult = self.saveUserIDToKeychain(token: token)

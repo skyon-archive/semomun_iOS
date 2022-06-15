@@ -13,6 +13,7 @@ struct KeychainItem {
         case userIdentifier = "userIdentifier"
         case accessToken = "accessToken"
         case refreshToken = "refreshToken"
+        case semomunUID = "semomunUID"
     }
     
     // MARK: Types
