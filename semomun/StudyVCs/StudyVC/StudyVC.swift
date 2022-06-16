@@ -10,7 +10,7 @@ import PencilKit
 import Combine
 
 protocol PageDelegate: AnyObject {
-    func reload()
+    func refreshPageButtons()
     func addScoring(pid: Int)
     func addUploadProblem(pid: Int)
     func addUploadPage(vid: Int)
@@ -359,7 +359,7 @@ extension StudyVC: LayoutDelegate {
 }
 
 extension StudyVC: PageDelegate {
-    func reload() {
+    func refreshPageButtons() {
         CoreDataManager.saveCoreData()
         self.reloadButtons()
     }

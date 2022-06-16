@@ -9,17 +9,52 @@ import UIKit
 import PencilKit
 
 class SubProblemCell: FormCell, CellLayoutable {
+    /* public */
     static let identifier = "SubProblemCell"
     static func topViewHeight(with problem: Problem_Core) -> CGFloat {
         return 99 + (problem.terminated ? 30 : 0)
     }
-    
     override var internalTopViewHeight: CGFloat {
         guard let problem = self.problem else { return 99 }
         
         return 99 + (problem.terminated ? 30 : 0)
     }
-    
+    /* private */
+    private var solvings: [String?] = [] {
+        didSet {
+            // 입력된 사용자 답안이 없는 경우 '내 답안' 라벨 숨김
+            self.savedAnswerLabel.isHidden = self.problem?.terminated != true && self.solvings.allSatisfy { $0 == nil }
+            
+            // 사용자가 쓴 답안에 맞게 UI 수정
+            if let currentProblemIndex = self.currentProblemIndex {
+                self.answerTF.text = solvings[currentProblemIndex]
+            }
+            
+            self.savedAnswerView.reloadData()
+        }
+    }
+    private var answer: [String] = [] {
+        didSet { self.realAnswerView.reloadData() }
+    }
+    private var currentProblemIndex: Int? = nil {
+        didSet {
+            guard let currentProblemIndex = self.currentProblemIndex else { return }
+            self.answerTF.text = solvings[currentProblemIndex]
+        }
+    }
+    /// textField 의 width 값
+    private let savedAnswerWidth: CGFloat = 250+10
+    lazy var checkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.clear
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    private lazy var answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
@@ -36,46 +71,6 @@ class SubProblemCell: FormCell, CellLayoutable {
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var realAnswerView: UICollectionView!
     @IBOutlet weak var returnButton: UIButton!
-    
-    // textField 의 width 값
-    private let savedAnswerWidth: CGFloat = 250+10
-    
-    private var currentProblemIndex: Int? = nil {
-        didSet {
-            guard let currentProblemIndex = self.currentProblemIndex else { return }
-            self.answerTF.text = solvings[currentProblemIndex]
-        }
-    }
-    
-    private var solvings: [String?] = [] {
-        didSet {
-            // 입력된 사용자 답안이 없는 경우 '내 답안' 라벨 숨김
-            self.savedAnswerLabel.isHidden = self.problem?.terminated != true && self.solvings.allSatisfy { $0 == nil }
-            
-            // 사용자가 쓴 답안에 맞게 UI 수정
-            if let currentProblemIndex = self.currentProblemIndex {
-                self.answerTF.text = solvings[currentProblemIndex]
-            }
-            
-            self.savedAnswerView.reloadData()
-        }
-    }
-    
-    private var answer: [String] = [] {
-        didSet { self.realAnswerView.reloadData() }
-    }
-    
-    lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -97,11 +92,6 @@ class SubProblemCell: FormCell, CellLayoutable {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutIfNeeded()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
         self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
         self.answerTF.clipAccessibleShadow(at: .exceptLeft)
     }
@@ -408,7 +398,6 @@ extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, 
 }
 
 extension SubProblemCell: UITextFieldDelegate {
-    // TODO: 빈 문자열 입력시 입력된 답안 제거?
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.returnAction()
         return true

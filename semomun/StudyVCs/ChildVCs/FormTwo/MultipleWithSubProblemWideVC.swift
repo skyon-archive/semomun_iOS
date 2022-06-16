@@ -92,7 +92,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
 
 extension MultipleWithSubProblemsWideVC: FormCellControllable {
     func reload() {
-        self.viewModel?.delegate?.reload()
+        self.viewModel?.delegate?.refreshPageButtons()
     }
     
     func addScoring(pid: Int) {
