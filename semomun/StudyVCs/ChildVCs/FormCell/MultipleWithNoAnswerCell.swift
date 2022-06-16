@@ -33,7 +33,7 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         let status = self.bookmarkBT.isSelected
         
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.reload()
+        self.delegate?.refreshPageButtons()
     }
     
     @IBAction func showExplanation(_ sender: Any) {

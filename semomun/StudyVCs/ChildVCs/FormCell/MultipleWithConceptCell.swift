@@ -32,7 +32,7 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         let status = self.bookmarkBT.isSelected
         
         self.problem?.setValue(status, forKey: "star")
-        self.delegate?.reload()
+        self.delegate?.refreshPageButtons()
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {

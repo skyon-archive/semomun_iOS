@@ -91,7 +91,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
 }
 
 extension MultipleWithSubProblemsWideVC: FormCellControllable {
-    func reload() {
+    func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
     

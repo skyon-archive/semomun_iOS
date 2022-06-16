@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FormCellControllable: AnyObject {
-    func reload()
+    func refreshPageButtons()
     func addScoring(pid: Int)
     func addUpload(pid: Int)
 }
