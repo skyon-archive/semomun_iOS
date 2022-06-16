@@ -139,7 +139,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
             self.answerBT.isHidden = true
             guard let targetIndex = Int(answer) else { return }
             // 체크 이미지 표시
-            self.showResultImage(to: problem.correct)
+            self.showResultImage(isCorrect: problem.correct)
             self.createCheckImage(to: targetIndex-1)
         } else {
             self.answerBT.isHidden = false

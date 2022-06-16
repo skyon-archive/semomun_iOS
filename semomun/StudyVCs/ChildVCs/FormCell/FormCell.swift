@@ -55,10 +55,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.adjustLayouts(frameUpdate: true)
         self.updateCanvasViewDataAndDelegate()
     }
-}
-
-// MARK: UICollectionView Accessible
-extension FormCell {
+ 
+    // MARK: cellForItemAt에서 데이터 주입을 위해 사용. 자식 클래스에서도 같은 목적으로 override하여 사용.
     func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         self.updateProblem(problem)
         self.updateImageView(contentImage)
@@ -69,19 +67,21 @@ extension FormCell {
 
 // MARK: Child Accessible
 extension FormCell {
+    /// 사용자가 문제가 풀었음을 input 답과 함께 저장.
+    /// answer값이 존재하는 경우 string 단순 비교를 통해 정답 여부도 저장.
     func updateSolved(input: String) {
         guard let problem = self.problem else { return }
         problem.setValue(input, forKey: Problem_Core.Attribute.solved.rawValue)
         
-        if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
+        if let answer = problem.answer {
             let correct = (input == answer)
             problem.setValue(correct, forKey: Problem_Core.Attribute.correct.rawValue)
         }
         self.delegate?.addScoring(pid: Int(problem.pid))
     }
     
-    func showResultImage(to: Bool) {
-        self.correctImageView.show(isCorrect: to)
+    func showResultImage(isCorrect: Bool) {
+        self.correctImageView.show(isCorrect: isCorrect)
     }
 }
 
@@ -102,13 +102,26 @@ extension FormCell {
 
 // MARK: Update
 extension FormCell {
+    private func updateCanvasViewDataAndDelegate() {
+        guard self.isCanvasDrawingLoaded == false else { return }
+        
+        defer {
+            // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
+            self.canvasView.delegate = self
+            self.isCanvasDrawingLoaded = true
+        }
+        
+        let savedData = self.problem?.drawing
+        let lastWidth = self.problem?.drawingWidth
+        self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
+    }
+    
     private func updateProblem(_ problem: Problem_Core?) {
         self.problem = problem
     }
     
     private func updateImageView(_ contentImage: UIImage?) {
-        guard let contentImage = contentImage,
-              contentImage.size.width > 0, contentImage.size.height > 0 else {
+        guard let contentImage = contentImage, contentImage.size.hasValidSize else {
             self.imageView.image = UIImage(.warning)
             return
         }
@@ -130,20 +143,6 @@ extension FormCell {
         } else {
             self.timerView.isHidden = true
         }
-    }
-    
-    private func updateCanvasViewDataAndDelegate() {
-        guard self.isCanvasDrawingLoaded == false else { return }
-        // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer {
-            self.canvasView.delegate = self
-            self.isCanvasDrawingLoaded = true
-        }
-        
-        let savedData = self.problem?.drawing
-        let lastWidth = self.problem?.drawingWidth
-        // 필기데이터 ratio 조절 후 표시
-        self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
     }
 }
 

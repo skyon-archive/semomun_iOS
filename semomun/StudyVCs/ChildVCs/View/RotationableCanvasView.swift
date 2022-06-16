@@ -22,8 +22,10 @@ final class RotationableCanvasView: PKCanvasView {
         self.drawingPolicy = .pencilOnly
     }
     
-    /// FormCell zoom 시 실행
-    /// FormZero zoom 시 실행
+    /**
+     - FormCell zoom 시 실행
+     - FormZero zoom 시 실행
+     */
     func updateDrawingRatio(imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
@@ -31,9 +33,12 @@ final class RotationableCanvasView: PKCanvasView {
         let ratio = imageSize.height / imageSize.width
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
-    /// FormCell 회전시 실행
-    /// FormZero exp 없이 회전시 실행
-    /// FormZero exp 제거시 실행
+    
+    /**
+     - FormCell 회전시 실행
+     - FormZero exp 없이 회전시 실행
+     - FormZero exp 제거시 실행
+    */
     func updateDrawingRatioAndFrame(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
@@ -44,8 +49,11 @@ final class RotationableCanvasView: PKCanvasView {
         let ratio = imageSize.height / imageSize.width
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
-    /// FormZero: exp 있는 상태로 회전시 실행
-    /// FormZero: exp 표시시 실행
+    
+    /**
+     - FormZero: exp 있는 상태로 회전시 실행
+     - FormZero: exp 표시시 실행
+     */
     func updateDrawingRatioAndFrameWithExp(contentSize: CGSize, topHeight: CGFloat, imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
@@ -62,6 +70,9 @@ final class RotationableCanvasView: PKCanvasView {
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
     
+    /**
+     - FormOne: 회전시 실행
+     */
     func updateDrawingRatioAndFrame(formOneContentSize contentSize: CGSize, imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
@@ -71,6 +82,7 @@ final class RotationableCanvasView: PKCanvasView {
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }
     
+    /// 현재와 이전 width값을 비교하여 필기데이터의 크기를 조절해 CanvasView에 적용합니다.
     func loadDrawing(to savedData: Data?, lastWidth: Double?) {
         guard let savedData = savedData,
               let lastWidth = lastWidth else {
