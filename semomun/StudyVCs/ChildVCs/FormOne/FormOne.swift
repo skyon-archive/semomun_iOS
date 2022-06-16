@@ -9,7 +9,7 @@ import UIKit
 import PencilKit
 
 class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
-    // public
+    /* public */
     var mainImage: UIImage?
     var toolPicker: PKToolPicker? = PKToolPicker()
     var canvasViewDrawing: Data {
@@ -18,7 +18,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     var canvasViewContentWidth: CGFloat {
         return self.canvasView.contentSize.width
     }
-    // private
+    /* private */
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
     private let collectionView = SubproblemCollectionView()
