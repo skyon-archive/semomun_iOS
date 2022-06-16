@@ -73,6 +73,7 @@
 		2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C227ACFC3C00023A73 /* UIColor.swift */; };
 		2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */; };
 		25841629285B2434003C6A21 /* AreaResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25841628285B2434003C6A21 /* AreaResultCell.swift */; };
+		2584162B285B3017003C6A21 /* AreaRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2584162A285B3017003C6A21 /* AreaRankCell.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
@@ -346,6 +347,7 @@
 		2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStringInterpolation.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25841628285B2434003C6A21 /* AreaResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaResultCell.swift; sourceTree = "<group>"; };
+		2584162A285B3017003C6A21 /* AreaRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaRankCell.swift; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 			children = (
 				251531AF28574281003EFB97 /* ComprehensiveReport.swift */,
 				25841628285B2434003C6A21 /* AreaResultCell.swift */,
+				2584162A285B3017003C6A21 /* AreaRankCell.swift */,
 			);
 			path = ComprehensiveReport;
 			sourceTree = "<group>";
@@ -1756,6 +1759,7 @@
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				2519C5D327BFC0E900F4320F /* BannerAdsFlowLayout.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
+				2584162B285B3017003C6A21 /* AreaRankCell.swift in Sources */,
 				8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */,
 				25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */,
 				2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */,

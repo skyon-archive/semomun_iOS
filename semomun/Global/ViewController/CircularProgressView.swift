@@ -47,7 +47,7 @@ final class CircularProgressView: UIView {
         animation.duration = duration
         animation.fromValue = from
         animation.toValue = value
-        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+//        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         progressLayer.strokeEnd = CGFloat(value)
         progressLayer.add(animation, forKey: "animateprogress")
     }
