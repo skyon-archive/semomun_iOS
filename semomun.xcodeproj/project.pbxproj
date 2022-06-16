@@ -727,6 +727,14 @@
 			path = Semopay;
 			sourceTree = "<group>";
 		};
+		25841625285ADC5F003C6A21 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				253FC519283CED340014EA4F /* SavedAnswerCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2593970127A3E18800BD5BD3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1377,12 +1385,12 @@
 		87E151622787DD160080D39A /* FormCell */ = {
 			isa = PBXGroup;
 			children = (
+				25841625285ADC5F003C6A21 /* View */,
 				2560BB98283B542500A32EC4 /* FormCell.swift */,
 				87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */,
 				877D90A7283D04BB00CE0D81 /* MultipleWithConceptCell.swift */,
 				87C85EBA276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift */,
 				2560BB9A283B7EA700A32EC4 /* SubProblemCell.swift */,
-				253FC519283CED340014EA4F /* SavedAnswerCell.swift */,
 				8766B1F4277C448300061CE6 /* Protocol */,
 			);
 			path = FormCell;

@@ -62,6 +62,15 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         self.configureUI()
     }
     
+    override func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    override func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
+    }
+    
     // MARK: Configure
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)

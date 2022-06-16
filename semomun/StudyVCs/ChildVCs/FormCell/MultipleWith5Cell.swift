@@ -8,22 +8,17 @@
 import UIKit
 import PencilKit
 
-final class MultipleWith5Cell: FormCell, CellLayoutable {
-    static let identifier = "MultipleWith5Cell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
-        return 51
-    }
-    
-    @IBOutlet weak var bookmarkBT: UIButton!
-    @IBOutlet weak var explanationBT: UIButton!
-    @IBOutlet weak var answerBT: UIButton!
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet var checkNumbers: [UIButton]!
-    
+final class MultipleWith5Cell: FormCell {
+    /* public */
     override var internalTopViewHeight: CGFloat {
         return 51
     }
-    
+    /* private */
+    private lazy var answerView: AnswerView = {
+        let answerView = AnswerView()
+        answerView.alpha = 0
+        return answerView
+    }()
     private lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
@@ -31,31 +26,21 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var explanationBT: UIButton!
+    @IBOutlet weak var answerBT: UIButton!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet var checkNumbers: [UIButton]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureTimerLayout()
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
-    }
 
     // 객관식 1~5 클릭 부분
     @IBAction func sol_click(_ sender: UIButton) {
-        guard let problem = self.problem else { return }
-        if problem.terminated { return }
+        guard let problem = self.problem,
+        problem.terminated == false else { return }
         
         let input: Int = sender.tag
         self.updateSolved(input: "\(input)")
@@ -107,7 +92,18 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.configureExplanationBT()
     }
     
-    // MARK: Configure
+    override func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    override func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
+    }
+}
+
+// MARK: Configure
+extension MultipleWith5Cell {
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         
@@ -185,13 +181,9 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     }
 }
 
-extension MultipleWith5Cell {
-    func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
+extension MultipleWith5Cell: CellLayoutable {
+    static let identifier = "MultipleWith5Cell"
+    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
+        return 51
     }
 }

@@ -36,16 +36,6 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         super.prepareForReuse()
         self.timerView.isHidden = true
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
-    }
 
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
@@ -58,6 +48,15 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
         self.configureUI()
+    }
+    
+    override func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    override func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
     }
     
     // MARK: Configure
@@ -79,15 +78,3 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
 }
-
-extension MultipleWithConceptCell {
-    func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
-    }
-}
-
