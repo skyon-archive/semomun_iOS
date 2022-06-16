@@ -8,8 +8,12 @@
 import UIKit
 import PencilKit
 
-final class MultipleWith5Cell: FormCell {
+final class MultipleWith5Cell: FormCell, CellLayoutable {
     /* public */
+    static let identifier = "MultipleWith5Cell"
+    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
+        return 51
+    }
     override var internalTopViewHeight: CGFloat {
         return 51
     }
@@ -137,10 +141,9 @@ extension MultipleWith5Cell {
     
     /// 정답 여부를 OX 이미지로 표시
     private func updateCorrectImage() {
-        guard let correct = self.problem?.correct else {
-            return
-        }
-        self.showCorrectImage(isCorrect: correct)
+        guard let problem = self.problem, problem.terminated else { return }
+        
+        self.showCorrectImage(isCorrect: problem.correct)
     }
     
     private func updateStar() {
@@ -183,12 +186,5 @@ extension MultipleWith5Cell {
     }
     private func hideCheckImage() {
         self.checkImageView.removeFromSuperview()
-    }
-}
-
-extension MultipleWith5Cell: CellLayoutable {
-    static let identifier = "MultipleWith5Cell"
-    static func topViewHeight(with problem: Problem_Core) -> CGFloat {
-        return 51
     }
 }

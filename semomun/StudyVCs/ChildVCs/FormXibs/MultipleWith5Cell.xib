@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -94,7 +96,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="ayh-df-382"/>
+                                            <action selector="selectAnswer:" destination="38K-IQ-2hf" eventType="touchUpInside" id="ss1-aH-4bk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-ya-GGn">
@@ -120,7 +122,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="31Z-Qf-0R4"/>
+                                            <action selector="selectAnswer:" destination="38K-IQ-2hf" eventType="touchUpInside" id="U0c-Ag-tUl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-ei-khY">
@@ -146,7 +148,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="jSZ-pR-i15"/>
+                                            <action selector="selectAnswer:" destination="38K-IQ-2hf" eventType="touchUpInside" id="5lK-Ib-bPa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a71-SM-LlS">
@@ -172,7 +174,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="53s-cH-Wd4"/>
+                                            <action selector="selectAnswer:" destination="38K-IQ-2hf" eventType="touchUpInside" id="mdg-rd-uWd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7b-KE-1sM">
@@ -198,7 +200,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="sol_click:" destination="38K-IQ-2hf" eventType="touchUpInside" id="dSq-8u-shv"/>
+                                            <action selector="selectAnswer:" destination="38K-IQ-2hf" eventType="touchUpInside" id="N87-oY-3Fo"/>
                                         </connections>
                                     </button>
                                 </subviews>

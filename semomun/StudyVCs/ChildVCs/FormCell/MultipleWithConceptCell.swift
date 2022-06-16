@@ -9,32 +9,22 @@ import UIKit
 import PencilKit
 
 class MultipleWithConceptCell: FormCell, CellLayoutable {
+    /* public */
     static let identifier = "MultipleWithConceptCell"
     static func topViewHeight(with problem: Problem_Core) -> CGFloat {
         return 51
     }
-    
-    @IBOutlet weak var bookmarkBT: UIButton!
-    @IBOutlet weak var topView: UIView!
-    
     override var internalTopViewHeight: CGFloat {
         return 51
     }
-    
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
+    /* private */
+    private lazy var answerView = AnswerView()
+    @IBOutlet weak var bookmarkBT: UIButton!
+    @IBOutlet weak var topView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureTimerLayout()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.timerView.isHidden = true
     }
 
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -47,7 +37,7 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
-        self.configureUI()
+        self.configureStar()
     }
     
     override func addTopShadow() {
@@ -58,8 +48,10 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     override func removeTopShadow() {
         self.topView.removeAccessibleShadow()
     }
-    
-    // MARK: Configure
+}
+
+// MARK: Configure
+extension MultipleWithConceptCell {
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,11 +61,10 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
             self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
         ])
     }
-    
-    private func configureUI() {
-        self.configureStar()
-    }
-    
+}
+
+// MARK: Update
+extension MultipleWithConceptCell {
     private func configureStar() {
         self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
