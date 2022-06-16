@@ -134,7 +134,7 @@ class PageVM {
     func updateStar(to status: Bool, problem: Problem_Core? = nil) {
         guard let problem = problem ?? self.problem else { return }
         problem.setValue(status, forKey: "star")
-        self.delegate?.reload()
+        self.delegate?.refreshPageButtons()
     }
     
     func updatePencilData(to data: Data, width: Double, problem: Problem_Core? = nil) {
