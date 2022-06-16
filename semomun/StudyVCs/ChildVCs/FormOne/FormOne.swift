@@ -12,6 +12,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     /* public */
     var mainImage: UIImage?
     var toolPicker: PKToolPicker? = PKToolPicker()
+    // MARK: 자식 클래스에서 접근이 필요한 canvasView의 속성들
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
     }
