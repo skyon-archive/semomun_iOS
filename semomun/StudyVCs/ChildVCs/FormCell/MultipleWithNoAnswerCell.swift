@@ -100,14 +100,3 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         }
     }
 }
-
-extension MultipleWithNoAnswerCell {
-    func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
-    }
-}

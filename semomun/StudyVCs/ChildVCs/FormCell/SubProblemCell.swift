@@ -189,7 +189,7 @@ class SubProblemCell: FormCell, CellLayoutable {
         
         if self.problem?.terminated == true {
             self.configureAfterTermination()
-            self.showResultImage(isCorrect: self.problem?.correct ?? false)
+            self.showCorrectImage(isCorrect: self.problem?.correct ?? false)
             self.answerBT.isHidden = true
         }
     }
