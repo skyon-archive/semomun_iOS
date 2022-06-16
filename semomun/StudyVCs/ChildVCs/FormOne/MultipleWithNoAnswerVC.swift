@@ -72,7 +72,7 @@ extension MultipleWithNoAnswerVC {
 }
 
 extension MultipleWithNoAnswerVC: FormCellControllable {
-    func reload() {
+    func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
     

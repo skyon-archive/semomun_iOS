@@ -80,7 +80,7 @@ extension MultipleWith5AnswerVC {
 }
 
 extension MultipleWith5AnswerVC: FormCellControllable {
-    func reload() {
+    func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
     

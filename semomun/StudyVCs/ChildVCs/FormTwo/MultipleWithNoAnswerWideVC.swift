@@ -87,7 +87,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
 }
 
 extension MultipleWithNoAnswerWideVC: FormCellControllable {
-    func reload() {
+    func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
     

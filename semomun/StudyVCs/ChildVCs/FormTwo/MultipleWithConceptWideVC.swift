@@ -87,7 +87,7 @@ final class MultipleWithConceptWideVC: FormTwo {
 }
 
 extension MultipleWithConceptWideVC: FormCellControllable {
-    func reload() {
+    func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
     
