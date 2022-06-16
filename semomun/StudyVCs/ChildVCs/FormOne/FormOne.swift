@@ -175,7 +175,7 @@ extension FormOne {
     
     private func updateMainImage() {
         guard let mainImage = self.mainImage,
-              mainImage.size.width > 0, mainImage.size.height > 0 else {
+              mainImage.size.hasValidSize else {
             let warningImage = UIImage(.warning)
             self.imageView.image = warningImage
             return
