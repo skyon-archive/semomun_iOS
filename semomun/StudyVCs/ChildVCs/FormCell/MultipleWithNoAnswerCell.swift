@@ -9,38 +9,23 @@ import UIKit
 import PencilKit
 
 class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
+    /* public */
     static let identifier = "MultipleWithNoAnswerCell"
     static func topViewHeight(with problem: Problem_Core) -> CGFloat {
         return 51
     }
-    
+    override var internalTopViewHeight: CGFloat {
+        return 51
+    }
+    /* private */
+    private lazy var answerView = AnswerView()
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var topView: UIView!
     
-    override var internalTopViewHeight: CGFloat {
-        return 51
-    }
-    
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureTimerLayout()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -59,7 +44,8 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
-        self.configureUI()
+        self.updateStar()
+        self.updateExplanationBT()
     }
     
     override func addTopShadow() {
@@ -70,8 +56,10 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     override func removeTopShadow() {
         self.topView.removeAccessibleShadow()
     }
-    
-    // MARK: Configure
+}
+
+// MARK: Configure
+extension MultipleWithNoAnswerCell {
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         
@@ -80,23 +68,22 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
     }
-    
-    private func configureUI() {
-        self.configureStar()
-        self.configureExplanationBT()
-    }
-    
-    private func configureStar() {
+}
+
+// MARK: Update
+extension MultipleWithNoAnswerCell {
+    private func updateStar() {
         self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
     
-    private func configureExplanationBT() {
+    private func updateExplanationBT() {
         self.explanationBT.isSelected = false
-        self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanationBT.isUserInteractionEnabled = true
+            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         }
     }
 }
