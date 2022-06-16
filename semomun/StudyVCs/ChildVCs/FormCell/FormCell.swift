@@ -54,7 +54,16 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         super.layoutSubviews()
         self.adjustLayouts(frameUpdate: true)
         self.updateCanvasViewDataAndDelegate()
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
     }
+    
+    // MARK: override 필수. 셀 상단 그림자 적용을 위한 함수.
+    func addTopShadow() { assertionFailure("override error: addTopShadow()") }
+    func removeTopShadow() { assertionFailure("override error: removeTopShadow()") }
  
     // MARK: cellForItemAt에서 데이터 주입을 위해 사용. 자식 클래스에서도 같은 목적으로 override하여 사용.
     func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {

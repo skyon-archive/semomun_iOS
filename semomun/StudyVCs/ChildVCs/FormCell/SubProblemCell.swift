@@ -194,6 +194,15 @@ class SubProblemCell: FormCell, CellLayoutable {
         }
     }
     
+    override func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    override func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
+    }
+    
     private func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         
@@ -454,16 +463,5 @@ extension SubProblemCell {
             }
         }
         self.problem?.setValue(points, forKey: Problem_Core.Attribute.correctPoints.rawValue)
-    }
-}
-
-extension SubProblemCell {
-    func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
     }
 }
