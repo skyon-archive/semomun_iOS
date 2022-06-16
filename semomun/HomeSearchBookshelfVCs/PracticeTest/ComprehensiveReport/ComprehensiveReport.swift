@@ -16,9 +16,11 @@ class ComprehensiveReport: UIViewController, StoryboardController {
     /* private */
     @IBOutlet weak var circularProgressView: CircularProgressView!
     @IBOutlet weak var rankLabel: UILabel!
+    @IBOutlet weak var areaResultTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureTableViewDelegate()
         self.configureCircularProgressView()
         self.configureRankLabel(to: "-")
     }
@@ -43,6 +45,11 @@ class ComprehensiveReport: UIViewController, StoryboardController {
 
 // MARK: Configure
 extension ComprehensiveReport {
+    private func configureTableViewDelegate() {
+        self.areaResultTableView.delegate = self
+        self.areaResultTableView.dataSource = self
+    }
+    
     private func configureCircularProgressView() {
         let size = self.circularProgressView.frame.size
         let center = CGPoint(size.width/2, size.height)
@@ -75,10 +82,13 @@ extension ComprehensiveReport: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: AreaResultCell.identifier) as? AreaResultCell else {
+            return UITableViewCell()
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
+        return 60
     }
 }

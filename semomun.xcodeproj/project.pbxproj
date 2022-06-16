@@ -72,6 +72,7 @@
 		258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */; };
 		2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C227ACFC3C00023A73 /* UIColor.swift */; };
 		2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */; };
+		25841629285B2434003C6A21 /* AreaResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25841628285B2434003C6A21 /* AreaResultCell.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
@@ -344,6 +345,7 @@
 		2582D6C227ACFC3C00023A73 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStringInterpolation.swift; sourceTree = "<group>"; };
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
+		25841628285B2434003C6A21 /* AreaResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaResultCell.swift; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
@@ -747,6 +749,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		25841627285B235D003C6A21 /* ComprehensiveReport */ = {
+			isa = PBXGroup;
+			children = (
+				251531AF28574281003EFB97 /* ComprehensiveReport.swift */,
+				25841628285B2434003C6A21 /* AreaResultCell.swift */,
+			);
+			path = ComprehensiveReport;
+			sourceTree = "<group>";
+		};
 		2593970127A3E18800BD5BD3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,6 +1068,7 @@
 		87231B86282508C0001CA2F7 /* PracticeTest */ = {
 			isa = PBXGroup;
 			children = (
+				25841627285B235D003C6A21 /* ComprehensiveReport */,
 				87231B8928250D21001CA2F7 /* View */,
 				87231B8728250B41001CA2F7 /* PracticeTestVC.swift */,
 			);
@@ -1686,6 +1698,7 @@
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
 				8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */,
 				25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */,
+				25841629285B2434003C6A21 /* AreaResultCell.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,
