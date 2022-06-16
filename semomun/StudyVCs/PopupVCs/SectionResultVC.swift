@@ -96,6 +96,7 @@ extension SectionResultVC {
     
     private func setProgress(total: Double, to: Double) {
         let percent = Float(to/total)
+        #warning("현재 main 브랜치에서도 작동 안함. viewDidAppear에서 임의의 percent값으로 실행하니 됨.")
         self.progressView.setProgressWithAnimation(duration: 0.5, value: percent, from: 0)
     }
 }
