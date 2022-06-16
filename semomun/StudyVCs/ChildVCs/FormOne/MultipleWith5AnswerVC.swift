@@ -18,6 +18,7 @@ class MultipleWith5AnswerVC: FormOne  {
         super.viewDidLoad()
         let cellIdentifier = MultipleWith5Cell.identifier
         self.configureCellRegister(nibName: cellIdentifier, reuseIdentifier: cellIdentifier)
+        self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,17 +30,9 @@ class MultipleWith5AnswerVC: FormOne  {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
     }
-    
-    override var pagePencilData: Data? {
-        return self.viewModel?.pagePencilData
-    }
-    
-    override var pagePencilDataWidth: Double? {
-        return self.viewModel?.pagePencilDataWidth
-    }
 }
 
-// MARK: Override
+// MARK: Override 필수인 것들 
 extension MultipleWith5AnswerVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0

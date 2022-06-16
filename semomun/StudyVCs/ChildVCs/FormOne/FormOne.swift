@@ -21,7 +21,9 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     /* private */
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
-    private let collectionView = SubproblemCollectionView()
+    private var pagePencilData: Data?
+    private var pagePencilDataWidth: Double?
+    private let subproblemCollectionView = SubproblemCollectionView()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -49,7 +51,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.hideUpdatingViews()
         self.updateToolPicker()
         self.updateMainImage()
-        self.collectionView.reloadData()
+        self.subproblemCollectionView.reloadData()
         self.canvasView.becomeFirstResponder()
     }
     
@@ -64,7 +66,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.canvasView.setDefaults()
-        self.collectionView.setDefaults()
+        self.subproblemCollectionView.setDefaults()
         self.canvasDrawingLoaded = false
         self.explanationId = nil
         self.closeExplanation()
@@ -85,20 +87,16 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.toolPicker?.removeObserver(self.canvasView)
     }
     
-    /* 자식 VC에서 override 해야 하는 Property들 */
-    var pagePencilData: Data? {
-        assertionFailure()
-        return nil
-    }
-    var pagePencilDataWidth: Double? {
-        assertionFailure()
-        return nil
-    }
-    
-    /* 자식에서 호출이 필요한 메소드 */
+    // MARK: 자식 클래스에서 설정 필수
     func configureCellRegister(nibName: String, reuseIdentifier: String) {
         let cellNib = UINib(nibName: nibName, bundle: nil)
-        self.collectionView.register(cellNib, forCellWithReuseIdentifier: reuseIdentifier)
+        self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    // MARK: 자식 클래스에서 설정 필수
+    func configurePagePencilData(data: Data?, width: Double?) {
+        self.pagePencilData = data
+        self.pagePencilDataWidth = width
     }
 }
 
@@ -124,7 +122,7 @@ extension FormOne: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
 }
 
-// MARK: CONFIGURES
+// MARK: Configure
 extension FormOne {
     private func configureLoader() {
         self.view.addSubview(self.loader)
@@ -141,14 +139,14 @@ extension FormOne {
     }
     
     private func configureSubViews() {
-        self.view.addSubviews(self.canvasView, self.collectionView)
+        self.view.addSubviews(self.canvasView, self.subproblemCollectionView)
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
     }
     
     private func configureCollectionViewDelegate() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        self.subproblemCollectionView.delegate = self
+        self.subproblemCollectionView.dataSource = self
     }
     
     private func configureGesture() {
@@ -162,10 +160,10 @@ extension FormOne {
     }
 }
 
-// MARK: UPDATES
+// MARK: Update
 extension FormOne {
     private func hideUpdatingViews() {
-        self.collectionView.isHidden = true
+        self.subproblemCollectionView.isHidden = true
         self.canvasView.isHidden = true
     }
     
@@ -196,7 +194,7 @@ extension FormOne {
     }
     
     private func showUpdatingViews() {
-        self.collectionView.isHidden = false
+        self.subproblemCollectionView.isHidden = false
         self.canvasView.isHidden = false
     }
 }
@@ -206,7 +204,7 @@ extension FormOne {
     private func adjustLayouts(frameUpdate: Bool) {
         self.updateCanvasView(frameUpdate: frameUpdate)
         if frameUpdate {
-            self.collectionView.updateFrame(contentRect: self.view.frame)
+            self.subproblemCollectionView.updateFrame(formOneContentRect: self.view.frame)
             // explanation 크기 및 ratio 조절
             if self.explanationId != nil {
                 self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: 0)
@@ -270,6 +268,7 @@ extension FormOne: ExplanationSelectable {
     }
 }
 
+// MARK: Zooming
 extension FormOne: UIScrollViewDelegate {
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.adjustLayouts(frameUpdate: false)

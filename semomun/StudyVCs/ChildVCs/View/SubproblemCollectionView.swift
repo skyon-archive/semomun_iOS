@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Cell이 포함된 Form들에서 Cell들을 표시하는 역할
 class SubproblemCollectionView: UICollectionView {
     init() {
         super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -20,8 +21,9 @@ class SubproblemCollectionView: UICollectionView {
         self.contentOffset = .zero
     }
     
-    func updateFrame(contentRect: CGRect) {
-        self.frame = .init(contentRect.width/2, 0, contentRect.width/2, contentRect.height)
+    /// - FormOne에서 우측 절반을 차지하도록 frame 설정
+    func updateFrame(formOneContentRect: CGRect) {
+        self.frame = .init(formOneContentRect.width/2, 0, formOneContentRect.width/2, formOneContentRect.height)
         self.collectionViewLayout.invalidateLayout()
     }
 }
