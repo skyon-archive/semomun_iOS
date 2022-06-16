@@ -11,7 +11,6 @@ import PencilKit
 class MultipleWithNoAnswerVC: FormOne {
     static let identifier = "MultipleWithNoAnswerVC" // form == 1 && type == 0
 
-    private var explanationId: Int? // Cell 에서 받은 explanation 의 pid 저장
     var subImages: [UIImage?]?
     var viewModel: MultipleWithNoAnswerVM?
     
@@ -57,13 +56,12 @@ extension MultipleWithNoAnswerVC {
         // imageView 높이값 가져오기
         guard var contentImage = subImages?[indexPath.row] else {
             return CGSize(width: width, height: 300) }
-        if contentImage.size.width == 0 || contentImage.size.height == 0 {
+        if contentImage.size.hasValidSize == false {
             contentImage = UIImage(.warning)
         }
+        
         let imgHeight: CGFloat = contentImage.size.height * (width/contentImage.size.width)
-        
         let height: CGFloat = solveInputFrameHeight + imgHeight
-        
         return CGSize(width: width, height: height)
     }
     
