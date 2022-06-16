@@ -32,6 +32,12 @@ class PracticeTestVC: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
+    private func showComprehensiveReport() {
+        let storyboard = UIStoryboard(controllerType: ComprehensiveReport.self)
+        let view = storyboard.instantiateViewController(withIdentifier: ComprehensiveReport.identifier)
+        self.navigationController?.pushViewController(view, animated: true)
+    }
 }
 
 extension PracticeTestVC: UICollectionViewDataSource {

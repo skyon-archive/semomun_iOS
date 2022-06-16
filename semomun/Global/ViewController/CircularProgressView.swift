@@ -47,9 +47,15 @@ final class CircularProgressView: UIView {
         animation.duration = duration
         animation.fromValue = from
         animation.toValue = value
-//        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTiming)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         progressLayer.strokeEnd = CGFloat(value)
         progressLayer.add(animation, forKey: "animateprogress")
+    }
+    
+    func changeCircleShape(center: CGPoint, startAngle: CGFloat, endAngle: CGFloat) {
+        let circlePath = UIBezierPath(arcCenter: center, radius: (frame.size.width-1.5)/2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        self.trackLayer.path = circlePath.cgPath
+        self.progressLayer.path = circlePath.cgPath
     }
     
     private func createCircularPath() {
@@ -60,17 +66,17 @@ final class CircularProgressView: UIView {
         trackLayer.path = circlePath.cgPath
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.strokeColor = trackColor.cgColor
-        trackLayer.lineWidth = 15.0
+        trackLayer.lineWidth = self.progressWidth
         trackLayer.strokeEnd = 1.0
+        trackLayer.lineCap = .round
         layer.addSublayer(trackLayer)
         
         progressLayer.path = circlePath.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.strokeColor = progressColor.cgColor
-        progressLayer.lineWidth = 15.0
+        progressLayer.lineWidth = self.progressWidth
         progressLayer.strokeEnd = 0.0
         progressLayer.lineCap = .round
         layer.addSublayer(progressLayer)
-         
     }
 }

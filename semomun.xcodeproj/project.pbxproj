@@ -18,6 +18,7 @@
 		25100CDC27D4C2E0002C18CB /* LogoutUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */; };
 		2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2511944828597E2B0028F743 /* ExplanationSelectable.swift */; };
 		251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251435CB2859A9500084ABA8 /* CellLayoutable.swift */; };
+		251531B028574281003EFB97 /* ComprehensiveReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReport.swift */; };
 		2519C5D327BFC0E900F4320F /* BannerAdsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519C5D227BFC0E900F4320F /* BannerAdsFlowLayout.swift */; };
 		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC47027B63F0800F1CE27 /* UIImage.swift */; };
@@ -286,6 +287,7 @@
 		25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUsecase.swift; sourceTree = "<group>"; };
 		2511944828597E2B0028F743 /* ExplanationSelectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationSelectable.swift; sourceTree = "<group>"; };
 		251435CB2859A9500084ABA8 /* CellLayoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLayoutable.swift; sourceTree = "<group>"; };
+		251531AF28574281003EFB97 /* ComprehensiveReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReport.swift; sourceTree = "<group>"; };
 		2519C5D227BFC0E900F4320F /* BannerAdsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdsFlowLayout.swift; sourceTree = "<group>"; };
 		251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredFrameLabel.swift; sourceTree = "<group>"; };
 		251DC47027B63F0800F1CE27 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
