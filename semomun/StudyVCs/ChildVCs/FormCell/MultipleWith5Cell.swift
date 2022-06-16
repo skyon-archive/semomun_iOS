@@ -14,11 +14,7 @@ final class MultipleWith5Cell: FormCell {
         return 51
     }
     /* private */
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
+    private lazy var answerView = AnswerView()
     private lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
@@ -36,16 +32,22 @@ final class MultipleWith5Cell: FormCell {
         super.awakeFromNib()
         self.configureTimerLayout()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        // AnswerView가 표시되는 중에 reuse될 수 있다고 생각하여 제거
+        self.answerView.removeFromSuperview()
+        self.hideCheckImage()
+    }
 
-    // 객관식 1~5 클릭 부분
-    @IBAction func sol_click(_ sender: UIButton) {
+    @IBAction func selectAnswer(_ sender: UIButton) {
         guard let problem = self.problem,
         problem.terminated == false else { return }
         
-        let input: Int = sender.tag
-        self.updateSolved(input: "\(input)")
+        let selectedAnswer: Int = sender.tag
+        self.updateSolved(input: "\(selectedAnswer)")
         
-        self.configureCheckButtons()
+        self.updateCheckButtons()
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -64,32 +66,25 @@ final class MultipleWith5Cell: FormCell {
     
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.problem?.answer else { return }
-        self.answerView.removeFromSuperview()
         
         let answerConverted = answer.split(separator: "$").joined(separator: ", ")
         self.answerView.configureAnswer(to: answerConverted)
-        self.contentView.addSubview(self.answerView)
-        self.answerView.translatesAutoresizingMaskIntoConstraints = false
         
+        self.contentView.addSubview(self.answerView)
         NSLayoutConstraint.activate([
             self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
             self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
         ])
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.answerView.alpha = 1
-        } completion: { [weak self] _ in
-            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
-                self?.answerView.alpha = 0
-            }
-        }
+        self.answerView.showShortTime()
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
-        self.configureCheckButtons()
-        self.configureStar()
-        self.configureAnswer()
-        self.configureExplanationBT()
+        self.updateCheckButtons()
+        self.updateCorrectImage()
+        self.updateStar()
+        self.updateAnswer()
+        self.updateExplanationBT()
     }
     
     override func addTopShadow() {
@@ -112,8 +107,11 @@ extension MultipleWith5Cell {
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
     }
-    
-    private func configureCheckButtons() {
+}
+
+// MARK: Update
+extension MultipleWith5Cell {
+    private func updateCheckButtons() {
         guard let problem = self.problem else { return }
         
         // 일단 모든 버튼 표시 구현
@@ -122,28 +120,57 @@ extension MultipleWith5Cell {
             bt.setTitleColor(UIColor(.deepMint), for: .normal)
         }
         
-        // 사용자 체크한 데이터 표시
+        // 사용자 체크한 버튼 선택 표시
         if let solved = problem.solved {
             guard let targetIndex = Int(solved) else { return }
             self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.deepMint)
             self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
         }
         
-        // 채점이 완료된 경우 && 틀린 경우 정답을 빨간색으로 표시
-        if let answer = problem.answer,
-           problem.terminated == true {
+        // 채점이 완료된 경우 해설 버튼 숨기고 정답에 체크 이미지 추가
+        if let answer = problem.answer, problem.terminated {
             self.answerBT.isHidden = true
             guard let targetIndex = Int(answer) else { return }
-            // 체크 이미지 표시
-            self.showResultImage(isCorrect: problem.correct)
-            self.createCheckImage(to: targetIndex-1)
-        } else {
-            self.answerBT.isHidden = false
-            self.checkImageView.removeFromSuperview()
+            self.showCheckImage(to: targetIndex-1)
         }
     }
     
-    private func createCheckImage(to index: Int) {
+    /// 정답 여부를 OX 이미지로 표시
+    private func updateCorrectImage() {
+        guard let correct = self.problem?.correct else {
+            return
+        }
+        self.showCorrectImage(isCorrect: correct)
+    }
+    
+    private func updateStar() {
+        self.bookmarkBT.isSelected = self.problem?.star ?? false
+    }
+    
+    private func updateAnswer() {
+        if self.problem?.answer == nil {
+            self.answerBT.isUserInteractionEnabled = false
+            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.answerBT.isUserInteractionEnabled = true
+            self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        }
+    }
+    
+    private func updateExplanationBT() {
+        self.explanationBT.isSelected = false
+        if self.problem?.explanationImage == nil {
+            self.explanationBT.isUserInteractionEnabled = false
+            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.explanationBT.isUserInteractionEnabled = true
+            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        }
+    }
+}
+
+extension MultipleWith5Cell {
+    private func showCheckImage(to index: Int) {
         self.checkImageView.image = UIImage(named: "check")
         self.checkNumbers[index].addSubview(self.checkImageView)
         
@@ -154,30 +181,8 @@ extension MultipleWith5Cell {
             self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -9)
         ])
     }
-    
-    private func configureStar() {
-        self.bookmarkBT.isSelected = self.problem?.star ?? false
-    }
-    
-    private func configureAnswer() {
-        if self.problem?.answer == nil {
-            self.answerBT.isUserInteractionEnabled = false
-            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answerBT.isUserInteractionEnabled = true
-            self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
-        }
-    }
-    
-    private func configureExplanationBT() {
-        self.explanationBT.isSelected = false
-        if self.problem?.explanationImage == nil {
-            self.explanationBT.isUserInteractionEnabled = false
-            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
-        }
+    private func hideCheckImage() {
+        self.checkImageView.removeFromSuperview()
     }
 }
 

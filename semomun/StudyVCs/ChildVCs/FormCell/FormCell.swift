@@ -89,7 +89,7 @@ extension FormCell {
         self.delegate?.addScoring(pid: Int(problem.pid))
     }
     
-    func showResultImage(isCorrect: Bool) {
+    func showCorrectImage(isCorrect: Bool) {
         self.correctImageView.show(isCorrect: isCorrect)
     }
 }

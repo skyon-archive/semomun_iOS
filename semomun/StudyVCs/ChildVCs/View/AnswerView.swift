@@ -42,6 +42,19 @@ final class AnswerView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    /// 뷰를 짧은 시간 보이고 상위 뷰에서 제거.
+    func showShortTime() {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.alpha = 1
+        } completion: { [weak self] _ in
+            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
+                self?.alpha = 0
+            } completion: { [weak self] _ in
+                self?.removeFromSuperview()
+            }
+        }
+    }
+    
     private func configureLayout() {
         self.addSubviews(self.answerLabel, self.blurBackground, self.triangle)
         self.sendSubviewToBack(self.blurBackground)
