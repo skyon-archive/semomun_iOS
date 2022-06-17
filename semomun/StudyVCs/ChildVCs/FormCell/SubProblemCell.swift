@@ -80,8 +80,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.realAnswerView.register(SavedAnswerCell.self, forCellWithReuseIdentifier: SavedAnswerCell.identifier)
         
         self.answerTF.addAccessibleShadow()
-        
-        self.configureTimerLayout()
     }
     
     override func layoutSubviews() {
@@ -179,6 +177,16 @@ class SubProblemCell: FormCell, CellLayoutable {
         }
     }
     
+    // MARK: override 구현
+    override func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
+    }
+    
     override func addTopShadow() {
         self.topView.addAccessibleShadow()
         self.topView.clipAccessibleShadow(at: .exceptTop)
@@ -186,15 +194,6 @@ class SubProblemCell: FormCell, CellLayoutable {
     
     override func removeTopShadow() {
         self.topView.removeAccessibleShadow()
-    }
-    
-    private func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
     }
     
     private func configureAfterTermination() {

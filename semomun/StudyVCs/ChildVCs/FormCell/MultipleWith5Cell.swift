@@ -31,11 +31,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     @IBOutlet weak var topView: UIView!
     @IBOutlet var checkNumbers: [UIButton]!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.configureTimerLayout()
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.hideCheckImage()
@@ -87,6 +82,16 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.updateExplanationBT()
     }
     
+    // MARK: override 구현
+    override func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
+    }
+    
     override func addTopShadow() {
         self.topView.addAccessibleShadow()
         self.topView.clipAccessibleShadow(at: .exceptTop)
@@ -99,14 +104,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
 
 // MARK: Configure
 extension MultipleWith5Cell {
-    private func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
-    }
+    
 }
 
 // MARK: Update

@@ -40,6 +40,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureSubViews()
+        self.configureTimerLayout()
     }
     
     override func prepareForReuse() {
@@ -61,6 +62,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }
     
     // MARK: override 필수. 셀 상단 그림자 적용을 위한 함수.
+    func configureTimerLayout() { assertionFailure("override error: configureTimerLayout()") }
     func addTopShadow() { assertionFailure("override error: addTopShadow()") }
     func removeTopShadow() { assertionFailure("override error: removeTopShadow()") }
  

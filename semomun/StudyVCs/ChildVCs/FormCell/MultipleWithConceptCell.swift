@@ -20,11 +20,6 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     /* private */
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var topView: UIView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.configureTimerLayout()
-    }
 
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
@@ -39,19 +34,8 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         self.configureStar()
     }
     
-    override func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    override func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
-    }
-}
-
-// MARK: Configure
-extension MultipleWithConceptCell {
-    private func configureTimerLayout() {
+    // MARK: override 구현
+    override func configureTimerLayout() {
         self.contentView.addSubview(self.timerView)
         self.timerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -59,6 +43,15 @@ extension MultipleWithConceptCell {
             self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
         ])
+    }
+    
+    override func addTopShadow() {
+        self.topView.addAccessibleShadow()
+        self.topView.clipAccessibleShadow(at: .exceptTop)
+    }
+    
+    override func removeTopShadow() {
+        self.topView.removeAccessibleShadow()
     }
 }
 
