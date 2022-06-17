@@ -267,6 +267,8 @@ extension StudyVC: LayoutDelegate {
             self.singleWithTextAnswer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWith5AnswerVC.identifier:
+            // Page 필기 겹치는 문제 때문에 Multiple계열 VC들은 모두 새로 객체를 생성. 
+            self.multipleWith5Answer = .init()
             self.currentVC = self.multipleWith5Answer
             self.multipleWith5Answer.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData)
             self.multipleWith5Answer.mainImage = self.getImage(data: pageData.pageCore.materialImage)
@@ -278,6 +280,7 @@ extension StudyVC: LayoutDelegate {
             self.singleWith4Answer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWithNoAnswerVC.identifier:
+            self.multipleWithNoAnswer = .init()
             self.currentVC = self.multipleWithNoAnswer
             self.multipleWithNoAnswer.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
             self.multipleWithNoAnswer.mainImage = self.getImage(data: pageData.pageCore.materialImage)
