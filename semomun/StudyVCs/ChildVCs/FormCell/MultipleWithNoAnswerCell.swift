@@ -47,6 +47,16 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         self.updateExplanationBT()
     }
     
+    // MARK: override 구현
+    override func configureTimerLayout() {
+        self.contentView.addSubview(self.timerView)
+        
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+        ])
+    }
+    
     override func addTopShadow() {
         self.topView.addAccessibleShadow()
         self.topView.clipAccessibleShadow(at: .exceptTop)
@@ -54,18 +64,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     
     override func removeTopShadow() {
         self.topView.removeAccessibleShadow()
-    }
-}
-
-// MARK: Configure
-extension MultipleWithNoAnswerCell {
-    private func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
     }
 }
 
