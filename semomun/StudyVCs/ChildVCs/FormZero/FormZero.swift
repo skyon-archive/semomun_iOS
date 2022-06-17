@@ -72,7 +72,6 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         super.viewDidAppear(animated)
         self.adjustLayouts(frameUpdate: true)
         self.configureCanvasViewDataAndDelegate()
-        self.answerView.isHidden = false
         self.stopLoader()
     }
     
@@ -83,8 +82,8 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.timerView.isHidden = true
         self.canvasDrawingLoaded = false
         self.shouldShowExplanation = false
-        self.answerView.isHidden = true
         self.closeExplanation()
+        self.answerView.removeFromSuperview()
     }
     
     // MARK: Rotation

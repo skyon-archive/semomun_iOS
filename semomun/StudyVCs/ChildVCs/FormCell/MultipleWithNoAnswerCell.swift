@@ -18,7 +18,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         return 51
     }
     /* private */
-    private lazy var answerView = AnswerView()
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var topView: UIView!

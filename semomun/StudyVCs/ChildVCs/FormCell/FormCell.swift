@@ -19,6 +19,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         return 51
     }
     // MARK: 자식 클래스에서 배치가 필요
+    let answerView = AnswerView()
     let timerView = ProblemTimerView()
     /* private */
     private var toolPicker: PKToolPicker?
@@ -47,6 +48,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.correctImageView.hide()
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
+        // AnswerView가 표시되는 중에 reuse될 수 있다고 생각하여 제거
+        self.answerView.removeFromSuperview()
     }
     
     // MARK: Rotation
@@ -54,11 +57,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         super.layoutSubviews()
         self.adjustLayouts(frameUpdate: true)
         self.updateCanvasViewDataAndDelegate()
-        if self.showTopShadow {
-            self.addTopShadow()
-        } else {
-            self.removeTopShadow()
-        }
+        self.updateTopShadow()
     }
     
     // MARK: override 필수. 셀 상단 그림자 적용을 위한 함수.
@@ -123,6 +122,14 @@ extension FormCell {
         let savedData = self.problem?.drawing
         let lastWidth = self.problem?.drawingWidth
         self.canvasView.loadDrawing(to: savedData, lastWidth: lastWidth)
+    }
+    
+    private func updateTopShadow() {
+        if self.showTopShadow {
+            self.addTopShadow()
+        } else {
+            self.removeTopShadow()
+        }
     }
     
     private func updateProblem(_ problem: Problem_Core?) {

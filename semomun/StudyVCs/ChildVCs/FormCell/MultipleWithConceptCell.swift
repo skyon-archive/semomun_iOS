@@ -18,7 +18,6 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         return 51
     }
     /* private */
-    private lazy var answerView = AnswerView()
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var topView: UIView!
     
