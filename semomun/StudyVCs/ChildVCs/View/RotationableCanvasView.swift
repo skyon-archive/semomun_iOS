@@ -25,6 +25,7 @@ final class RotationableCanvasView: PKCanvasView {
     /**
      - FormCell zoom 시 실행
      - FormZero zoom 시 실행
+     - FormOne zoom시 실행
      */
     func updateDrawingRatio(imageSize: CGSize) {
         let previousSize = self.frame.size
@@ -71,13 +72,32 @@ final class RotationableCanvasView: PKCanvasView {
     }
     
     /**
-     - FormOne: 회전시 실행
+     - FormOne: exp 없이 회전시 실행
+     - FormOne: exp 제거시 실행
      */
     func updateDrawingRatioAndFrame(formOneContentSize contentSize: CGSize, imageSize: CGSize) {
         let previousSize = self.frame.size
         let previousContentOffset = self.contentOffset
         
         self.frame = .init(origin: .zero, size: .init(contentSize.width/2, contentSize.height))
+        let ratio = imageSize.height / imageSize.width
+        self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
+    }
+    
+    /**
+     - FormOne: exp 있는 상태로 회전시 실행
+     - FormOne: exp 표시시 실행
+     */
+    func updateDrawingRatioAndFrameWithExp(formOneContentSize contentSize: CGSize, imageSize: CGSize) {
+        let previousSize = self.frame.size
+        let previousContentOffset = self.contentOffset
+        
+        if UIWindow.isLandscape {
+            self.frame = .init(origin: .zero, size: .init(contentSize.width/2, contentSize.height))
+        } else {
+            self.frame = .init(origin: .zero, size: .init(contentSize.width/2, contentSize.height/2))
+        }
+        
         let ratio = imageSize.height / imageSize.width
         self.adjustDrawingLayout(previousCanvasSize: previousSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
     }

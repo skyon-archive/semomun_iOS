@@ -54,6 +54,7 @@ final class ExplanationView: UIView {
         self.adjustLayout()
     }
     
+    /// FormZero에서 사용
     func updateFrame(contentSize: CGSize, topHeight: CGFloat) {
         if UIWindow.isLandscape {
             let newSize = CGSize(width: contentSize.width/2, height: contentSize.height)
@@ -61,6 +62,15 @@ final class ExplanationView: UIView {
         } else {
             let newSize = CGSize(width: contentSize.width, height: (contentSize.height - topHeight)/2)
             self.frame = .init(0, newSize.height + topHeight, newSize.width, newSize.height)
+        }
+    }
+    
+    /// FormOne에서 사용
+    func updateFrame(formOneContentSize contentSize: CGSize) {
+        if UIWindow.isLandscape {
+            self.frame = .init(0, 0, contentSize.width/2, contentSize.height)
+        } else {
+            self.frame = .init(0, contentSize.height/2, contentSize.width, contentSize.height/2)
         }
     }
 }
