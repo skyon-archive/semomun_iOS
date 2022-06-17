@@ -244,12 +244,12 @@ extension FormOne: ExplanationRemovable {
         self.explanationId = nil
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 0
-            // 가로모드일 때는 지문을 덮는 식이므로 다른 레이아웃을 업데이트 할 필요 없음.
-            if UIWindow.isLandscape == false {
-                self?.adjustLayouts(frameUpdate: true)
-            }
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
+        }
+        // 가로모드일 때는 지문을 덮는 식이므로 다른 레이아웃을 업데이트 할 필요 없음.
+        if UIWindow.isLandscape == false {
+            self.adjustLayouts(frameUpdate: true)
         }
     }
 }
