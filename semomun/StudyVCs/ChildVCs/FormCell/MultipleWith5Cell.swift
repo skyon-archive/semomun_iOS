@@ -18,7 +18,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         return 51
     }
     /* private */
-    private lazy var answerView = AnswerView()
     private lazy var checkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
@@ -39,8 +38,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        // AnswerView가 표시되는 중에 reuse될 수 있다고 생각하여 제거
-        self.answerView.removeFromSuperview()
         self.hideCheckImage()
     }
 
@@ -70,7 +67,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.problem?.answer else { return }
-        
         let answerConverted = answer.split(separator: "$").joined(separator: ", ")
         self.answerView.configureAnswer(to: answerConverted)
         

@@ -57,7 +57,6 @@ final class SingleWithSubProblemsVC: FormZero {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTimerViewLayout()
-        self.configureAnswerViewLayout()
         
         // SubProblem 관련 configure
         self.configureDataSources()
@@ -112,13 +111,13 @@ final class SingleWithSubProblemsVC: FormZero {
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.configureAnswer(to: answer)
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.answerView.alpha = 1
-        } completion: { [weak self] _ in
-            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
-                self?.answerView.alpha = 0
-            }
-        }
+        
+        self.view.addSubview(self.answerView)
+        NSLayoutConstraint.activate([
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
+        ])
+        self.answerView.showShortTime()
     }
     
     @IBAction func returnButtonAction(_ sender: Any) {
@@ -156,15 +155,6 @@ extension SingleWithSubProblemsVC {
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
-        ])
-    }
-    
-    private func configureAnswerViewLayout() {
-        self.view.addSubview(self.answerView)
-        
-        NSLayoutConstraint.activate([
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
-            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
         ])
     }
     

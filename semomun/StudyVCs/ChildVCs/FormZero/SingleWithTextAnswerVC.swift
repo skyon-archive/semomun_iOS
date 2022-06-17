@@ -33,7 +33,6 @@ class SingleWithTextAnswerVC: FormZero {
         super.viewDidLoad()
         self.configureTextField()
         self.configureTimerViewLayout()
-        self.configureAnswerViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,13 +88,13 @@ class SingleWithTextAnswerVC: FormZero {
     @IBAction func showAnswer(_ sender: Any) {
         guard let answer = self.viewModel?.answerStringForUser() else { return }
         self.answerView.configureAnswer(to: answer)
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.answerView.alpha = 1
-        } completion: { [weak self] _ in
-            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
-                self?.answerView.alpha = 0
-            }
-        }
+        
+        self.view.addSubview(self.answerView)
+        NSLayoutConstraint.activate([
+            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
+        ])
+        self.answerView.showShortTime()
     }
     
     /* 상위 class를 위하여 override가 필요한 Property들 */
@@ -124,15 +123,6 @@ extension SingleWithTextAnswerVC {
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
-        ])
-    }
-    
-    private func configureAnswerViewLayout() {
-        self.view.addSubview(self.answerView)
-        
-        NSLayoutConstraint.activate([
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
-            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor)
         ])
     }
 }

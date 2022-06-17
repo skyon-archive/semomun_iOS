@@ -50,11 +50,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    private lazy var answerView: AnswerView = {
-        let answerView = AnswerView()
-        answerView.alpha = 0
-        return answerView
-    }()
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
