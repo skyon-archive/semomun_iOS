@@ -71,7 +71,7 @@ enum NetworkURL {
     }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://d2qp2vqqyviv98.cloudfront.net"
+    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://api.semomun.com"
     static let tempBase: String = "https://d2qp2vqqyviv98.cloudfront.net/"
     static let workbooks: String = base + "/workbooks/"
     static let sections: String = base + "/sections/"
@@ -101,7 +101,6 @@ enum NetworkURL {
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
     static let errorReportOfApp: String = "https://forms.gle/suXByYKEied6RcSd8"
-    static let appstoreVersion: String = "https://itunes.apple.com/lookup?id=1601145709&country=kr"
     static let s3ImageDirectory: String = base + "/s3/presignedUrl"
     
     static let chargePay = "https://semomun.com/charge/tmp"
