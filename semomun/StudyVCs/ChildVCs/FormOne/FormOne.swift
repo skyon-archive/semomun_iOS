@@ -203,27 +203,35 @@ extension FormOne {
 // MARK: LAYOUT
 extension FormOne {
     private func adjustLayouts(frameUpdate: Bool) {
-        self.updateCanvasView(frameUpdate: frameUpdate)
+        let shouldShowExplanation = self.explanationId != nil
+        
+        self.updateCanvasView(frameUpdate: frameUpdate, shouldShowExplanation: shouldShowExplanation)
+        
         if frameUpdate {
-            self.subproblemCollectionView.updateFrame(formOneContentRect: self.view.frame)
-            // explanation 크기 및 ratio 조절
-            if self.explanationId != nil {
-                self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: 0)
+            if shouldShowExplanation {
+                // explanation 크기 및 ratio 조절
+                self.subproblemCollectionView.updateFrameWithExp(formOneContentRect: self.view.frame)
+                self.explanationView.updateFrame(formOneContentSize: self.view.frame.size)
+            } else {
+                self.subproblemCollectionView.updateFrame(formOneContentRect: self.view.frame)
             }
         }
+        
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
     }
     
     /// canvasView 크기 및 ratio 조절 및 필요시 frame update
-    private func updateCanvasView(frameUpdate: Bool) {
+    private func updateCanvasView(frameUpdate: Bool, shouldShowExplanation: Bool) {
         guard let imageSize = self.mainImage?.size else {
             assertionFailure("image 가 존재하지 않습니다.")
             return
         }
         
-        if frameUpdate {
-            let contentSize = self.view.frame.size
+        let contentSize = self.view.frame.size
+        if shouldShowExplanation && frameUpdate {
+            self.canvasView.updateDrawingRatioAndFrameWithExp(formOneContentSize: contentSize, imageSize: imageSize)
+        } else if frameUpdate {
             self.canvasView.updateDrawingRatioAndFrame(formOneContentSize: contentSize, imageSize: imageSize)
         } else {
             self.canvasView.updateDrawingRatio(imageSize: imageSize)
@@ -236,6 +244,10 @@ extension FormOne: ExplanationRemovable {
         self.explanationId = nil
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 0
+            // 가로모드일 때는 지문을 덮는 식이므로 다른 레이아웃을 업데이트 할 필요 없음.
+            if UIWindow.isLandscape == false {
+                self?.adjustLayouts(frameUpdate: true)
+            }
         } completion: { [weak self] _ in
             self?.explanationView.removeFromSuperview()
         }
@@ -261,8 +273,13 @@ extension FormOne: ExplanationSelectable {
     private func showExplanation(image: UIImage?) {
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
+        // 가로모드일 때는 지문을 덮는 식이므로 다른 레이아웃을 업데이트 할 필요 없음.
+        if UIWindow.isLandscape {
+            self.explanationView.updateFrame(formOneContentSize: self.view.frame.size)
+        } else {
+            self.adjustLayouts(frameUpdate: true)
+        }
         self.explanationView.configureImage(to: image)
-        self.explanationView.frame = self.canvasView.frame
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.explanationView.alpha = 1
         }
