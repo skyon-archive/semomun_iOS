@@ -203,16 +203,17 @@ extension FormOne {
 extension FormOne {
     private func adjustLayouts(frameUpdate: Bool) {
         let shouldShowExplanation = self.explanationId != nil
+        let contentRect = self.view.frame
         
         self.updateCanvasView(frameUpdate: frameUpdate, shouldShowExplanation: shouldShowExplanation)
         
         if frameUpdate {
             if shouldShowExplanation {
                 // explanation 크기 및 ratio 조절
-                self.subproblemCollectionView.updateFrameWithExp(formOneContentRect: self.view.frame)
-                self.explanationView.updateFrame(formOneContentSize: self.view.frame.size)
+                self.subproblemCollectionView.updateFrameWithExp(formOneContentRect: contentRect)
+                self.explanationView.updateFrame(formOneContentSize: contentRect.size)
             } else {
-                self.subproblemCollectionView.updateFrame(formOneContentRect: self.view.frame)
+                self.subproblemCollectionView.updateFrame(formOneContentRect: contentRect)
             }
         }
         
