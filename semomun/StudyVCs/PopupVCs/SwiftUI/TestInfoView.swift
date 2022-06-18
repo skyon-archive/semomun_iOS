@@ -125,7 +125,7 @@ extension TestInfoView {
 
 struct TestInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        let info = TestInfo(title: "2022년 1회차 고3 실전전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
+        let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
         if #available(iOS 15.0, *) {
             TestInfoView(info: info, delegate: StudyVC())
         } else {

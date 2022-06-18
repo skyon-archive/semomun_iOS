@@ -80,7 +80,7 @@ final class StudyVC: UIViewController {
         super.viewWillAppear(animated)
         guard self.isShowInfo else { return }
         
-        let info = TestInfo(title: "2022년 1회차 고3 실전전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
+        let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
         let hostingVC = UIHostingController(rootView: TestInfoView(info: info, delegate: self))
         hostingVC.modalPresentationStyle = .overFullScreen
         self.present(hostingVC, animated: true, completion: nil)
