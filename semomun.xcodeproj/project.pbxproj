@@ -14,11 +14,11 @@
 		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
+		250F22AD285DD1B000955AB7 /* ComprehensiveReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReport.swift */; };
 		25100CD627D4A9A8002C18CB /* Alamofire+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */; };
 		25100CDC27D4C2E0002C18CB /* LogoutUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */; };
 		2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2511944828597E2B0028F743 /* ExplanationSelectable.swift */; };
 		251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251435CB2859A9500084ABA8 /* CellLayoutable.swift */; };
-		251531B028574281003EFB97 /* ComprehensiveReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReport.swift */; };
 		2519C5D327BFC0E900F4320F /* BannerAdsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519C5D227BFC0E900F4320F /* BannerAdsFlowLayout.swift */; };
 		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC47027B63F0800F1CE27 /* UIImage.swift */; };
@@ -1886,6 +1886,7 @@
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
+				250F22AD285DD1B000955AB7 /* ComprehensiveReport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2089,6 +2090,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				CURRENT_PROJECT_VERSION = 8;
 				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 28;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2130,6 +2132,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				CURRENT_PROJECT_VERSION = 8;
 				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 28;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;

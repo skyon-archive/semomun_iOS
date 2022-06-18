@@ -13,7 +13,6 @@ final class HomeVM {
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
-    @Published private(set) var newWorkbooks: [PreviewOfDB] = [] // 2.1: 새롭게 추가된 문제집들
     @Published private(set) var practiceTests: [PreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var recentPurchased: [BookshelfInfo] = []
@@ -129,7 +128,6 @@ final class HomeVM {
         self.fetchAds()
         self.fetchBestSellers()
         self.fetchTags()
-        self.fetchNewWorkbooks()
         self.fetchPracticeTests()
         self.fetchPopup()
     }
@@ -244,10 +242,6 @@ final class HomeVM {
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
         }
-    }
-    
-    private func fetchNewWorkbooks() {
-        // TODO: network 연결로직 필요
     }
     
     private func fetchPracticeTests() {
