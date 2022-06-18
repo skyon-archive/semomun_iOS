@@ -257,7 +257,6 @@ extension FormOne: ExplanationSelectable {
     func selectExplanation(image: UIImage?, pid: Int) {
         if let explanationId = self.explanationId {
             if explanationId == pid {
-                self.explanationId = nil
                 self.closeExplanation()
             } else {
                 self.explanationId = pid
