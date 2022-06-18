@@ -84,7 +84,7 @@ extension MultipleWith5AnswerWideVC {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let image = self.subImages?[indexPath.row] ?? UIImage(.warning)
         
-        let width: CGFloat = self.collectionView.bounds.width
+        let width: CGFloat = self.subproblemCollectionView.bounds.width
         let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
         let imageHeight = image.size.height * (width/image.size.width)
         let height = topViewHeight + imageHeight

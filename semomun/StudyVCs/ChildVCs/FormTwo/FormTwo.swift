@@ -9,22 +9,22 @@ import UIKit
 import PencilKit
 
 class FormTwo: UIViewController {
-    /* 자식 VC에서 접근가능한 property들 */
+    /* public */
     var mainImage: UIImage?
+    var toolPicker: PKToolPicker? = PKToolPicker()
+    let subproblemCollectionView = SubproblemCollectionView()
+    // MARK: 자식 클래스에서 접근이 필요한 canvasView의 속성들
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
     }
     var canvasViewContentWidth: CGFloat {
         return self.canvasView.contentSize.width
     }
-    let toolPicker = PKToolPicker()
-    /* 자식 VC에서 접근가능한 View들 */
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    /* VC 내에서만 접근가능한 property들 */
+    /* private */
     private var explanationId: Int?
     private var canvasDrawingLoaded = false
-    /* VC 내에서만 접근가능한 View들 */
-    
+    private var pagePencilData: Data?
+    private var pagePencilDataWidth: Double?
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
@@ -36,25 +36,23 @@ class FormTwo: UIViewController {
         loader.color = UIColor.gray
         return loader
     }()
-    private lazy var explanationView: ExplanationView = {
-        let explanationView = ExplanationView()
-        explanationView.configureDelegate(to: self)
-        return explanationView
-    }()
+    private lazy var explanationView = ExplanationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLoader()
+        self.configureSubViews()
         self.configureCollectionView()
         self.configureGesture()
-        self.configureSubViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.configureCanvasView()
-        self.configureMainImageView() // MARK: width, height 를 제외한 이미지 반영만 있는 로직을 수정
+        self.hideUpdatingViews()
+        self.updateToolPicker()
+        self.updateMainImage()
+        self.subproblemCollectionView.reloadData()
+        self.canvasView.becomeFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,6 +60,7 @@ class FormTwo: UIViewController {
         
         self.configureUI()
         self.configureCanvasViewData() // 가로<->세로 모드 대응을 위해 현재 frame 사이즈가 필요하기에 configureUI 이후 실행
+        self.showUpdatingViews()
         self.stopLoader()
     }
     
@@ -70,11 +69,6 @@ class FormTwo: UIViewController {
         
         self.setViewToDefault()
     }
-    
-    // 아래 프로퍼티/메소드들은 override가 필요
-    var pagePencilData: Data? { return nil }
-    
-    var pagePencilDataWidth: CGFloat { return self.canvasView.frame.size.width }
     
     func updatePagePencilData(data: Data, width: CGFloat) { }
     
@@ -89,7 +83,7 @@ extension FormTwo {
     func configureCellRegisters(identifiers: [String]) {
         identifiers.forEach { identifier in
             let cellNib = UINib(nibName: identifier, bundle: nil)
-            self.collectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
+            self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
         }
     }
 }
@@ -117,19 +111,28 @@ extension FormTwo {
     private func configureLoader() {
         self.view.addSubview(self.loader)
         self.loader.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             self.loader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.loader.topAnchor.constraint(equalTo: self.view.topAnchor)
         ])
+        
         self.loader.startAnimating()
     }
     
+    private func configureSubViews() {
+        self.view.addSubviews(self.canvasView, self.subproblemCollectionView)
+        self.canvasView.addSubview(self.imageView)
+        self.canvasView.sendSubviewToBack(self.imageView)
+    }
+    
     private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.showsVerticalScrollIndicator = false
+        self.subproblemCollectionView.delegate = self
+        self.subproblemCollectionView.dataSource = self
+        // scroll indicator 필요할까?
+        // self.subproblemCollectionView.showsVerticalScrollIndicator = false
     }
     
     private func configureGesture() {
@@ -137,10 +140,37 @@ extension FormTwo {
         self.addPageSwipeGesture()
     }
     
-    private func configureSubViews() {
-        self.view.addSubviews(self.canvasView, self.collectionView)
-        self.canvasView.addSubview(self.imageView)
-        self.canvasView.sendSubviewToBack(self.imageView)
+    private func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
+    }
+}
+
+// MARK: Update
+extension FormTwo {
+    private func hideUpdatingViews() {
+        self.subproblemCollectionView.isHidden = true
+        self.canvasView.isHidden = true
+    }
+    
+    private func updateToolPicker() {
+        self.toolPicker?.setVisible(true, forFirstResponder: self.canvasView)
+        self.toolPicker?.addObserver(self.canvasView)
+    }
+    
+    private func updateMainImage() {
+        guard let mainImage = self.mainImage,
+              mainImage.size.hasValidSize else {
+            let warningImage = UIImage(.warning)
+            self.imageView.image = warningImage
+            return
+        }
+        self.imageView.image = mainImage
+    }
+    
+    private func showUpdatingViews() {
+        self.subproblemCollectionView.isHidden = false
+        self.canvasView.isHidden = false
     }
 }
 
@@ -157,24 +187,6 @@ extension FormTwo {
     private func configureUI() {
         self.layoutSplitView()
         self.adjustLayout()
-    }
-    
-    private func stopLoader() {
-        self.canvasView.isHidden = false
-        self.collectionView.isHidden = false
-        
-        self.loader.isHidden = true
-        self.loader.stopAnimating()
-    }
-    
-    private func configureCanvasView() {
-        canvasView.isOpaque = false
-        canvasView.backgroundColor = .clear
-        canvasView.becomeFirstResponder()
-        canvasView.drawingPolicy = .pencilOnly
-        
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
     }
     
     private func configureCanvasViewData() {
@@ -199,15 +211,7 @@ extension FormTwo {
         self.canvasView.drawing = drawingConverted
     }
     
-    private func configureMainImageView() {
-        guard let mainImage = self.mainImage,
-              mainImage.size.width > 0, mainImage.size.height > 0 else {
-            let warningImage = UIImage(.warning)
-            self.imageView.image = warningImage
-            return
-        }
-        self.imageView.image = mainImage
-    }
+    
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
     private func adjustLayout(_ action: (() -> ())? = nil) {
@@ -264,16 +268,16 @@ extension FormTwo {
             let canvasViewSize = CGSize((viewSize.width - marginBetweenView)/2, viewSize.height)
             let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
             self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
-            self.collectionView.frame = .init(origin: .init(canvasViewSize.width + marginBetweenView, 0), size: collectionViewSize)
+            self.subproblemCollectionView.frame = .init(origin: .init(canvasViewSize.width + marginBetweenView, 0), size: collectionViewSize)
         } else {
             let marginBetweenView: CGFloat = 13
             let canvasViewSize = CGSize(viewSize.width, (viewSize.height - marginBetweenView)/2)
             let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
             self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
-            self.collectionView.frame = .init(origin: .init(0, canvasViewSize.height + marginBetweenView), size: collectionViewSize)
+            self.subproblemCollectionView.frame = .init(origin: .init(0, canvasViewSize.height + marginBetweenView), size: collectionViewSize)
         }
         
-        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.subproblemCollectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
