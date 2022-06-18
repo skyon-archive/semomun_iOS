@@ -57,52 +57,81 @@ class FormTwo: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.configureUI()
-        self.configureCanvasViewData() // 가로<->세로 모드 대응을 위해 현재 frame 사이즈가 필요하기에 configureUI 이후 실행
+//        self.adjustLayouts(frameUpdate: true)
+        self.layoutSplitView() // 제거예정
+        self.adjustLayout() // 제거예정
+        self.updateCanvasViewDataAndDelegate()
         self.showUpdatingViews()
         self.stopLoader()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.setViewToDefault()
+        self.canvasView.setDefaults()
+        self.subproblemCollectionView.setDefaults()
+        self.canvasDrawingLoaded = false
+        self.closeExplanation()
     }
     
-    func updatePagePencilData(data: Data, width: CGFloat) { }
+    // MARK: Rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // 회전 이전
+        let previousCanvasSize = self.canvasView.frame.size
+        let previousContentOffset = self.canvasView.contentOffset
+        
+        coordinator.animate { _ in
+            // 회전 도중
+            UIView.performWithoutAnimation {
+                self.layoutSplitView()
+                self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+                
+                if self.explanationId != nil {
+                    // 답지 크기 설정
+                    self.explanationView.frame.size = self.canvasView.frame.size
+                }
+            }
+        }
+    }
     
-    func previousPage() { }
+    deinit {
+        self.toolPicker?.setVisible(false, forFirstResponder: self.canvasView)
+        self.toolPicker?.removeObserver(self.canvasView)
+    }
     
-    func nextPage() { }
-}
-
-// MARK: Public functions
-extension FormTwo {
-    // 추후 여러 cell 들을 등록하기 위한 아이디어
+    // MARK: 자식 클래스에서 설정 필수
     func configureCellRegisters(identifiers: [String]) {
         identifiers.forEach { identifier in
             let cellNib = UINib(nibName: identifier, bundle: nil)
             self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
         }
     }
+    // MARK: 자식 클래스에서 설정 필수
+    func configurePagePencilData(data: Data?, width: Double?) {
+        self.pagePencilData = data
+        self.pagePencilDataWidth = width
+    }
 }
 
-// MARK: Override 필요한 functions
-extension FormTwo: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+// MARK: Override 필요
+extension FormTwo: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PKCanvasViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        assertionFailure("numberOfItemsInSection: override fail")
+        assertionFailure("override error: numberOfItemsInSection")
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        assertionFailure("cellForItemAt: override fail")
+        assertionFailure("override error: cellForItemAt")
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        assertionFailure("sizeForItemAt: override fail")
+        assertionFailure("override error: sizeForItemAt")
         return CGSize()
+    }
+    
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        assertionFailure("error: canvasViewDrawingDidChange")
     }
 }
 
@@ -176,42 +205,16 @@ extension FormTwo {
 
 // MARK: - Private 메소드
 extension FormTwo {
-    /// 각 view들의 상태를 VC가 처음 보여졌을 때의 것으로 초기화
-    private func setViewToDefault() {
-        self.canvasView.setContentOffset(.zero, animated: false)
-        self.canvasView.zoomScale = 1.0
-        self.explanationView.removeFromSuperview()
-    }
-    
-    /// View의 frame이 정해진 후 UI를 구성
-    private func configureUI() {
-        self.layoutSplitView()
-        self.adjustLayout()
-    }
-    
-    private func configureCanvasViewData() {
+    private func updateCanvasViewDataAndDelegate() {
+        guard self.canvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
-        defer { self.canvasView.delegate = self }
-        
-        guard let pkData = self.pagePencilData,
-              self.pagePencilDataWidth > 0 else {
-            self.canvasView.drawing = PKDrawing()
-            return
+        defer {
+            self.canvasView.delegate = self
+            self.canvasDrawingLoaded = true
         }
-        
-        guard let drawing = try? PKDrawing(data: pkData) else {
-            print("Error loading drawing object")
-            self.canvasView.drawing = PKDrawing()
-            return
-        }
-        
-        let scale = self.canvasView.frame.width / self.pagePencilDataWidth
-        let transform = CGAffineTransform(scaleX: scale, y: scale)
-        let drawingConverted = drawing.transformed(using: transform)
-        self.canvasView.drawing = drawingConverted
+        // 필기데이터 ratio 조절 후 표시
+        self.canvasView.loadDrawing(to: self.pagePencilData, lastWidth: self.pagePencilDataWidth)
     }
-    
-    
     
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
     private func adjustLayout(_ action: (() -> ())? = nil) {
@@ -239,26 +242,7 @@ extension FormTwo {
 // MARK: - 레이아웃 관련
 extension FormTwo {
     // 화면이 회전할 때 실행
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        // 회전 이전
-        let previousCanvasSize = self.canvasView.frame.size
-        let previousContentOffset = self.canvasView.contentOffset
-        
-        coordinator.animate { _ in
-            // 회전 도중
-            UIView.performWithoutAnimation {
-                self.layoutSplitView()
-                self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-                
-                if self.explanationId != nil {
-                    // 답지 크기 설정
-                    self.explanationView.frame.size = self.canvasView.frame.size
-                }
-            }
-        }
-    }
+    
     
     private func layoutSplitView() {
         let viewSize = self.view.frame.size
@@ -288,19 +272,6 @@ extension FormTwo: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.adjustLayout()
-    }
-}
-
-// MARK: - 제스쳐
-extension FormTwo {
-    
-}
-
-extension FormTwo: PKCanvasViewDelegate {
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        let width = self.canvasView.frame.width
-        let data = self.canvasView.drawing.dataRepresentation()
-        self.updatePagePencilData(data: data, width: width)
     }
 }
 

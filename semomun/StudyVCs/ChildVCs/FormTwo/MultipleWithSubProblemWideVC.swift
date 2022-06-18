@@ -19,6 +19,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureCellRegister()
+        self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,28 +61,8 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
         return cell
     }
     
-    override var pagePencilData: Data? {
-        return self.viewModel?.pagePencilData
-    }
-    
-    override var pagePencilDataWidth: CGFloat {
-        if let width = self.viewModel?.pagePencilDataWidth {
-            return CGFloat(width)
-        } else {
-            return super.pagePencilDataWidth
-        }
-    }
-    
-    override func updatePagePencilData(data: Data, width: CGFloat) {
-        self.viewModel?.updatePagePencilData(to: data, width: Double(width))
-    }
-    
-    override func previousPage() {
-        NotificationCenter.default.post(name: .previousPage, object: nil)
-    }
-    
-    override func nextPage() {
-        NotificationCenter.default.post(name: .nextPage, object: nil)
+    override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
     }
 }
 

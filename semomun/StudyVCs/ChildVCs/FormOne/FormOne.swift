@@ -69,7 +69,6 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.canvasView.setDefaults()
         self.subproblemCollectionView.setDefaults()
         self.canvasDrawingLoaded = false
-        self.explanationId = nil
         self.closeExplanation()
     }
     
