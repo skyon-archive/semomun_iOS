@@ -1,5 +1,5 @@
 //
-//  ComprehensiveReport.swift
+//  ComprehensiveReportVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/06/13.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ComprehensiveReport: UIViewController, StoryboardController {
+class ComprehensiveReportVC: UIViewController, StoryboardController {
     /* public */
     static var identifier: String = "ComprehensiveReport"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [
@@ -26,14 +26,9 @@ class ComprehensiveReport: UIViewController, StoryboardController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureareaResultTableViewDelegate()
-        self.configureAreaRankCollectionViewDelegate()
+        self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
         self.configureRankLabel(to: "")
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = self.areaRankCellSpacing
-        self.areaRankCollectionView.collectionViewLayout = layout
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,30 +61,42 @@ class ComprehensiveReport: UIViewController, StoryboardController {
 }
 
 // MARK: Configure
-extension ComprehensiveReport {
+extension ComprehensiveReportVC {
     private func configureareaResultTableViewDelegate() {
         self.areaResultTableView.delegate = self
         self.areaResultTableView.dataSource = self
     }
     
-    private func configureAreaRankCollectionViewDelegate() {
+    private func configureAreaRankCollectionView() {
         self.areaRankCollectionView.delegate = self
         self.areaRankCollectionView.dataSource = self
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = self.areaRankCellSpacing
+        self.areaRankCollectionView.collectionViewLayout = layout
     }
     
     private func configureCircularProgressView() {
-        let size = self.circularProgressView.frame.size
-        let center = CGPoint(size.width/2, size.height)
-        self.circularProgressView.changeCircleShape(center: center, startAngle: -CGFloat.pi, endAngle: 0)
-        
         self.circularProgressView.progressWidth = 35
         self.circularProgressView.trackColor = UIColor(.lightMainColor) ?? .white
         self.circularProgressView.progressColor = UIColor(.mainColor) ?? .white
+        
+        let size = self.circularProgressView.frame.size
+        let center = CGPoint(size.width/2, size.height)
+        self.circularProgressView.changeCircleShape(center: center, startAngle: -CGFloat.pi, endAngle: 0)
     }
     
     private func configureRankLabel(to rank: String) {
-        let numberAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 70, weight: .heavy)]
-        let textAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
+        let numberAttribute = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 70, weight: .heavy)
+        ]
+        let textAttribute = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)
+        ]
+        
         let number = NSMutableAttributedString(string: rank, attributes: numberAttribute)
         let text = NSMutableAttributedString(string: "등급", attributes: textAttribute)
         number.append(text)
@@ -99,7 +106,7 @@ extension ComprehensiveReport {
 }
 
 
-extension ComprehensiveReport: UITableViewDelegate, UITableViewDataSource {
+extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -116,7 +123,7 @@ extension ComprehensiveReport: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ComprehensiveReport: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 15
     }
@@ -129,7 +136,7 @@ extension ComprehensiveReport: UICollectionViewDelegate, UICollectionViewDataSou
     }
 }
 
-extension ComprehensiveReport: UICollectionViewDelegateFlowLayout {
+extension ComprehensiveReportVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 110, height: 110)
     }

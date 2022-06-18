@@ -1298,10 +1298,10 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="3208.6330935251799" y="737.6884422110553"/>
         </scene>
-        <!--Comprehensive Report-->
+        <!--Comprehensive ReportVC-->
         <scene sceneID="Uv2-HA-IEi">
             <objects>
-                <viewController storyboardIdentifier="ComprehensiveReport" id="mDZ-QY-Hrc" customClass="ComprehensiveReport" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ComprehensiveReport" id="mDZ-QY-Hrc" customClass="ComprehensiveReportVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZQ4-h5-aA1">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

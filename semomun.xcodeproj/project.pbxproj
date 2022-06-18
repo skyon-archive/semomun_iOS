@@ -14,7 +14,8 @@
 		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
-		250F22AD285DD1B000955AB7 /* ComprehensiveReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReport.swift */; };
+		250F22AD285DD1B000955AB7 /* ComprehensiveReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReportVC.swift */; };
+		250F22AF285DD75000955AB7 /* ComprehensiveReportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F22AE285DD75000955AB7 /* ComprehensiveReportVM.swift */; };
 		25100CD627D4A9A8002C18CB /* Alamofire+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */; };
 		25100CDC27D4C2E0002C18CB /* LogoutUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */; };
 		2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2511944828597E2B0028F743 /* ExplanationSelectable.swift */; };
@@ -285,11 +286,12 @@
 		2502CEC727A593750072A037 /* PayHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryVM.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		250F22AE285DD75000955AB7 /* ComprehensiveReportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReportVM.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
 		25100CDB27D4C2E0002C18CB /* LogoutUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUsecase.swift; sourceTree = "<group>"; };
 		2511944828597E2B0028F743 /* ExplanationSelectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationSelectable.swift; sourceTree = "<group>"; };
 		251435CB2859A9500084ABA8 /* CellLayoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLayoutable.swift; sourceTree = "<group>"; };
-		251531AF28574281003EFB97 /* ComprehensiveReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReport.swift; sourceTree = "<group>"; };
+		251531AF28574281003EFB97 /* ComprehensiveReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReportVC.swift; sourceTree = "<group>"; };
 		2519C5D227BFC0E900F4320F /* BannerAdsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdsFlowLayout.swift; sourceTree = "<group>"; };
 		251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredFrameLabel.swift; sourceTree = "<group>"; };
 		251DC47027B63F0800F1CE27 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -754,7 +756,8 @@
 		25841627285B235D003C6A21 /* ComprehensiveReport */ = {
 			isa = PBXGroup;
 			children = (
-				251531AF28574281003EFB97 /* ComprehensiveReport.swift */,
+				251531AF28574281003EFB97 /* ComprehensiveReportVC.swift */,
+				250F22AE285DD75000955AB7 /* ComprehensiveReportVM.swift */,
 				25841628285B2434003C6A21 /* AreaResultCell.swift */,
 				2584162A285B3017003C6A21 /* AreaRankCell.swift */,
 			);
@@ -1886,7 +1889,8 @@
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
-				250F22AD285DD1B000955AB7 /* ComprehensiveReport.swift in Sources */,
+				250F22AD285DD1B000955AB7 /* ComprehensiveReportVC.swift in Sources */,
+				250F22AF285DD75000955AB7 /* ComprehensiveReportVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
