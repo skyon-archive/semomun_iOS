@@ -1298,8 +1298,6 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="3208.6330935251799" y="737.6884422110553"/>
         </scene>
-<<<<<<< HEAD
-=======
         <!--Comprehensive Report-->
         <scene sceneID="Uv2-HA-IEi">
             <objects>
@@ -1638,7 +1636,6 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="3947.4820143884895" y="737.6884422110553"/>
         </scene>
->>>>>>> 24205cd4 ([Feat] 종합성적표 화면의 전체 평균 등급 구현)
         <!--Workbook DetailVC-->
         <scene sceneID="skC-tp-odr">
             <objects>

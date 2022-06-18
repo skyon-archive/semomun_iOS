@@ -15,7 +15,6 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var bannerAds: UICollectionView!
     @IBOutlet weak var bestSellers: UICollectionView!
     @IBOutlet weak var workbooksWithTags: UICollectionView!
-    @IBOutlet weak var newWorkbooks: UICollectionView!
     @IBOutlet weak var practiceTests: UICollectionView!
     @IBOutlet weak var recentEntered: UICollectionView!
     @IBOutlet weak var recentPurchased: UICollectionView!
@@ -81,14 +80,12 @@ extension HomeVC {
     private func configureCollectionView() {
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
-        self.newWorkbooks.dataSource = self
         self.practiceTests.dataSource = self
         self.recentEntered.dataSource = self
         self.recentPurchased.dataSource = self
         
         self.bestSellers.delegate = self
         self.workbooksWithTags.delegate = self
-        self.newWorkbooks.delegate = self
         self.practiceTests.delegate = self
         self.recentEntered.delegate = self
         self.recentPurchased.delegate = self
@@ -213,7 +210,6 @@ extension HomeVC {
         self.bindWarning()
         self.bindPopup()
         self.bindMigrationLoading()
-        self.bindNewWorkbooks()
         self.bindPracticeTests()
     }
     
@@ -372,16 +368,6 @@ extension HomeVC {
                 } else {
                     self?.removeLoader()
                 }
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindNewWorkbooks() {
-        self.viewModel?.$newWorkbooks
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.newWorkbooks.reloadData()
             })
             .store(in: &self.cancellables)
     }

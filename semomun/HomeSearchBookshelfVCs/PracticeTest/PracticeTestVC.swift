@@ -17,10 +17,22 @@ class PracticeTestVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "실전 모의고사"
-        // 임시 로직
+        
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
         self.practiceTests.reloadData()
+        
+        let comprehensiveReportButton = UIButton()
+        comprehensiveReportButton.frame = .init(0, 0, 130, 42)
+        comprehensiveReportButton.borderColor = UIColor(.mainColor)
+        comprehensiveReportButton.borderWidth = 1
+        comprehensiveReportButton.cornerRadius = 5
+        comprehensiveReportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        comprehensiveReportButton.setTitleColor(UIColor(.mainColor), for: .normal)
+        comprehensiveReportButton.setTitle("종합성적표 확인", for: .normal)
+        comprehensiveReportButton.addAction(UIAction { [weak self] _ in self?.showComprehensiveReport()}, for: .touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
