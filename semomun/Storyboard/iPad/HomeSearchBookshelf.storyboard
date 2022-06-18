@@ -1571,7 +1571,7 @@ Label</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="110" height="90"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="화법과 작문" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FC2-1w-2Km">
-                                                                    <rect key="frame" x="18.5" y="10" width="73.5" height="19.5"/>
+                                                                    <rect key="frame" x="18.5" y="12" width="73.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" name="PretendardVariable-Medium" family="Pretendard Variable" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1587,8 +1587,8 @@ Label</string>
                                                             <constraints>
                                                                 <constraint firstItem="FC2-1w-2Km" firstAttribute="centerX" secondItem="X2m-7G-Rfr" secondAttribute="centerX" id="3oi-qJ-4TW"/>
                                                                 <constraint firstItem="PG9-he-YMQ" firstAttribute="centerX" secondItem="FC2-1w-2Km" secondAttribute="centerX" id="LDG-wB-if7"/>
-                                                                <constraint firstItem="FC2-1w-2Km" firstAttribute="top" secondItem="X2m-7G-Rfr" secondAttribute="top" constant="10" id="XH6-EO-tz2"/>
-                                                                <constraint firstItem="PG9-he-YMQ" firstAttribute="top" secondItem="FC2-1w-2Km" secondAttribute="bottom" constant="10" id="wKX-D9-6X3"/>
+                                                                <constraint firstItem="FC2-1w-2Km" firstAttribute="top" secondItem="X2m-7G-Rfr" secondAttribute="top" constant="12" id="XH6-EO-tz2"/>
+                                                                <constraint firstItem="PG9-he-YMQ" firstAttribute="top" secondItem="FC2-1w-2Km" secondAttribute="bottom" constant="8" id="wKX-D9-6X3"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

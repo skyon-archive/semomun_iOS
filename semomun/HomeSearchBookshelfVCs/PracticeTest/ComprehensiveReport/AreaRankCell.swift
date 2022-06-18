@@ -21,6 +21,6 @@ class AreaRankCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutIfNeeded()
-        self.roundedBackground.addAccessibleShadow()
+        self.roundedBackground.addAccessibleShadow(direction: .bottom, shadowRadius: 4)
     }
 }
