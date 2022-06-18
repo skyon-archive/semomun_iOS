@@ -12,7 +12,7 @@ class PracticeTestsHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var headerText: UILabel!
     
-    func configure(to text: String) {
+    func updateLabel(to text: String) {
         self.headerText.text = text
     }
 }

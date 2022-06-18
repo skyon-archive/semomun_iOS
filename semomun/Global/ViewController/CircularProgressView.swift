@@ -47,11 +47,12 @@ final class CircularProgressView: UIView {
         animation.duration = duration
         animation.fromValue = from
         animation.toValue = value
-//        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         progressLayer.strokeEnd = CGFloat(value)
         progressLayer.add(animation, forKey: "animateprogress")
     }
     
+    /// 뷰가 표현하는 원의 중심점과 시작점, 끝점을 변경
     func changeCircleShape(center: CGPoint, startAngle: CGFloat, endAngle: CGFloat) {
         let circlePath = UIBezierPath(arcCenter: center, radius: (frame.size.width-1.5)/2, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         self.trackLayer.path = circlePath.cgPath
