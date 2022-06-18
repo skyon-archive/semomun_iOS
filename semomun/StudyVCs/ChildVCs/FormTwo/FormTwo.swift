@@ -57,7 +57,7 @@ class FormTwo: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.adjustLayouts(frameUpdate: true)
+        self.adjustLayouts(frameUpdate: true)
         self.layoutSplitView() // 제거예정
         self.adjustLayout() // 제거예정
         self.updateCanvasViewDataAndDelegate()
@@ -197,14 +197,6 @@ extension FormTwo {
         self.imageView.image = mainImage
     }
     
-    private func showUpdatingViews() {
-        self.subproblemCollectionView.isHidden = false
-        self.canvasView.isHidden = false
-    }
-}
-
-// MARK: - Private 메소드
-extension FormTwo {
     private func updateCanvasViewDataAndDelegate() {
         guard self.canvasDrawingLoaded == false else { return }
         // 설정 중에 delegate가 호출되지 않도록 마지막에 지정
@@ -216,6 +208,21 @@ extension FormTwo {
         self.canvasView.loadDrawing(to: self.pagePencilData, lastWidth: self.pagePencilDataWidth)
     }
     
+    private func showUpdatingViews() {
+        self.subproblemCollectionView.isHidden = false
+        self.canvasView.isHidden = false
+    }
+}
+
+// MARK: Layout
+extension FormTwo {
+    private func adjustLayouts(frameUpdate: Bool) {
+        
+    }
+    
+    private func updateCanvasView(frameUpdate: Bool, shoudShowExplanation: Bool) {
+        
+    }
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
     private func adjustLayout(_ action: (() -> ())? = nil) {
         let previousCanvasSize = self.canvasView.frame.size
@@ -237,12 +244,6 @@ extension FormTwo {
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
     }
-}
-
-// MARK: - 레이아웃 관련
-extension FormTwo {
-    // 화면이 회전할 때 실행
-    
     
     private func layoutSplitView() {
         let viewSize = self.view.frame.size
@@ -265,23 +266,13 @@ extension FormTwo {
     }
 }
 
-extension FormTwo: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.canvasView
-    }
-    
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.adjustLayout()
-    }
-}
-
 extension FormTwo: ExplanationRemovable {
     func closeExplanation() {
         self.explanationId = nil
-        UIView.animate(withDuration: 0.2) {
-            self.explanationView.alpha = 0
-        } completion: { _ in
-            self.explanationView.removeFromSuperview()
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.explanationView.removeFromSuperview()
         }
     }
 }
@@ -293,20 +284,34 @@ extension FormTwo: ExplanationSelectable {
                 self.closeExplanation()
             } else {
                 self.explanationId = pid
-                self.explanationView.configureImage(to: image) // 이미지 바꿔치기
+                self.explanationView.configureImage(to: image)
             }
         } else {
-            // 새로 생성
             self.explanationId = pid
-            self.view.addSubview(self.explanationView)
-            self.explanationView.frame = self.canvasView.frame
-            
-            self.explanationView.configureImage(to: image)
-            self.explanationView.addShadow()
-            
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.explanationView.alpha = 1
-            }
+            self.showExplanation(image: image)
         }
+    }
+    
+    private func showExplanation(image: UIImage?) {
+        self.explanationView.configureDelegate(to: self)
+        self.view.addSubview(self.explanationView)
+        
+        self.explanationView.frame = self.canvasView.frame // layout 부분 수정 필요
+        
+        self.explanationView.configureImage(to: image)
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.explanationView.alpha = 1
+        }
+    }
+}
+
+// MARK: Zooming
+extension FormTwo: UIScrollViewDelegate {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        self.adjustLayouts(frameUpdate: false)
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
 }
