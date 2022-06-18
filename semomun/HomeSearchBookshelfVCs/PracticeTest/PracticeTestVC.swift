@@ -46,8 +46,8 @@ class PracticeTestVC: UIViewController {
     }
     
     private func showComprehensiveReport() {
-        let storyboard = UIStoryboard(controllerType: ComprehensiveReport.self)
-        let view = storyboard.instantiateViewController(withIdentifier: ComprehensiveReport.identifier)
+        let storyboard = UIStoryboard(controllerType: ComprehensiveReportVC.self)
+        let view = storyboard.instantiateViewController(withIdentifier: ComprehensiveReportVC.identifier)
         self.navigationController?.pushViewController(view, animated: true)
     }
 }
