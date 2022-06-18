@@ -58,8 +58,6 @@ class FormTwo: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.adjustLayouts(frameUpdate: true)
-        self.layoutSplitView() // 제거예정
-        self.adjustLayout() // 제거예정
         self.updateCanvasViewDataAndDelegate()
         self.showUpdatingViews()
         self.stopLoader()
@@ -75,21 +73,9 @@ class FormTwo: UIViewController {
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        // 회전 이전
-        let previousCanvasSize = self.canvasView.frame.size
-        let previousContentOffset = self.canvasView.contentOffset
-        
         coordinator.animate { _ in
-            // 회전 도중
             UIView.performWithoutAnimation {
-                self.layoutSplitView()
-                self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-                
-                if self.explanationId != nil {
-                    // 답지 크기 설정
-                    self.explanationView.frame.size = self.canvasView.frame.size
-                }
+                self.adjustLayouts(frameUpdate: true)
             }
         }
     }
@@ -217,12 +203,36 @@ extension FormTwo {
 // MARK: Layout
 extension FormTwo {
     private func adjustLayouts(frameUpdate: Bool) {
+        let shouldShowExplanation = self.explanationId != nil
+        let contentRect = self.view.frame
         
+        self.updateCanvasView(frameUpdate: frameUpdate)
+        if frameUpdate {
+            self.subproblemCollectionView.updateFrame(formTwoContentRect: contentRect)
+        }
+        
+//        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
+        
+        if self.explanationId != nil {
+            // 답지 크기 설정
+            self.explanationView.frame.size = self.canvasView.frame.size
+        }
     }
     
-    private func updateCanvasView(frameUpdate: Bool, shoudShowExplanation: Bool) {
+    private func updateCanvasView(frameUpdate: Bool) {
+        guard let imageSize = self.mainImage?.size else {
+            assertionFailure("image 가 존재하지 않습니다.")
+            return
+        }
         
+        let contentSize = self.view.frame.size
+        if frameUpdate {
+            self.canvasView.updateDrawingRatioAndFrame(formTwoContentSize: contentSize, imageSize: imageSize)
+        } else {
+            self.canvasView.updateDrawingRatio(imageSize: imageSize)
+        }
     }
+    
     /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
     private func adjustLayout(_ action: (() -> ())? = nil) {
         let previousCanvasSize = self.canvasView.frame.size
@@ -243,26 +253,6 @@ extension FormTwo {
         
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
-    }
-    
-    private func layoutSplitView() {
-        let viewSize = self.view.frame.size
-        
-        if UIWindow.isLandscape {
-            let marginBetweenView: CGFloat = 26
-            let canvasViewSize = CGSize((viewSize.width - marginBetweenView)/2, viewSize.height)
-            let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
-            self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
-            self.subproblemCollectionView.frame = .init(origin: .init(canvasViewSize.width + marginBetweenView, 0), size: collectionViewSize)
-        } else {
-            let marginBetweenView: CGFloat = 13
-            let canvasViewSize = CGSize(viewSize.width, (viewSize.height - marginBetweenView)/2)
-            let collectionViewSize = CGSize(canvasViewSize.width - 10, canvasViewSize.height)
-            self.canvasView.frame = .init(origin: .init(0, 0), size: canvasViewSize)
-            self.subproblemCollectionView.frame = .init(origin: .init(0, canvasViewSize.height + marginBetweenView), size: collectionViewSize)
-        }
-        
-        self.subproblemCollectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
