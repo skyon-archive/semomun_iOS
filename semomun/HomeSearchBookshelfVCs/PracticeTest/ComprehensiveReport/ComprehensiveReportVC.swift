@@ -33,22 +33,12 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
+        // 임시 로직, VM이 생기면 binding 쪽으로 이동될 것이라 예상
         self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
         self.configureRankLabel(to: "3")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let cellCount = self.collectionView(self.areaRankCollectionView, numberOfItemsInSection: 0)
-        self.areaRankCollectionView.scrollToItem(at: IndexPath(item: cellCount/2, section: 0), at: .centeredHorizontally, animated: false)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.updateAreaRankCollectionViewToCenter()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -105,6 +95,14 @@ extension ComprehensiveReportVC {
     }
 }
 
+// MARK: Update
+extension ComprehensiveReportVC {
+    private func updateAreaRankCollectionViewToCenter() {
+        let cellCount = self.collectionView(self.areaRankCollectionView, numberOfItemsInSection: 0)
+        self.areaRankCollectionView.scrollToItem(at: IndexPath(item: cellCount/2, section: 0), at: .centeredHorizontally, animated: false)
+    }
+}
+
 
 extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,6 +113,7 @@ extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: AreaResultCell.identifier) as? AreaResultCell else {
             return UITableViewCell()
         }
+        cell.prepareForReuse(index: indexPath.row+1, areaTitle: "화법과 작문", rawScore: 92, deviation: 128, percentile: 96)
         return cell
     }
     
@@ -145,14 +144,15 @@ extension ComprehensiveReportVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let cellCount = self.collectionView(collectionView, numberOfItemsInSection: section)
-        
         let totalCellWidth = self.areaRankCellSize.width * CGFloat(cellCount)
         let totalSpacingWidth = self.areaRankCellSpacing * CGFloat(cellCount - 1)
 
-        // 스크롤이 될 정도로 셀이 많은 경우에는 inset이 필요 없음.
-        let leftInset = max(0.0, (collectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2)
+        let leftInset = (collectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2
+        
+        // 스크롤이 될 정도로 셀이 많은 경우에는 따로 inset을 주지 않아도 updateAreaRankCollectionViewToCenter으로 충분
+        guard leftInset > 0 else { return .zero }
+        
         let rightInset = leftInset
-
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
     }
 }

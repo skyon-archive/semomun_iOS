@@ -12,16 +12,24 @@ class AreaResultCell: UITableViewCell {
     static let identifier = "AreaResultCell"
     /* private */
     @IBOutlet weak var roundedBackgroundView: UIView!
+    @IBOutlet weak var indexLabel: UILabel!
+    @IBOutlet weak var areaTitleLabel: UILabel!
+    @IBOutlet weak var rawScoreLabel: UILabel!
+    @IBOutlet weak var deviationLabel: UILabel!
+    @IBOutlet weak var percentileLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.roundedBackgroundView.cornerRadius = 10
     }
+}
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+extension AreaResultCell {
+    func prepareForReuse(index: Int, areaTitle: String, rawScore: Int, deviation: Int, percentile: Int) {
+        self.indexLabel.text = "\(index)."
+        self.areaTitleLabel.text = areaTitle
+        self.rawScoreLabel.text = "\(rawScore)"
+        self.deviationLabel.text = "\(deviation)"
+        self.percentileLabel.text = "\(percentile)"
     }
-
 }

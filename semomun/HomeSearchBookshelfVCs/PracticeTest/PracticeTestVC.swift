@@ -16,33 +16,40 @@ class PracticeTestVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configurePracticeTestsDelegate()
+        self.configureComprehensiveReportButton()
         self.title = "실전 모의고사"
-        
-        self.practiceTests.dataSource = self
-        self.practiceTests.delegate = self
-        self.practiceTests.reloadData()
-        
-        let comprehensiveReportButton = UIButton()
-        comprehensiveReportButton.frame = .init(0, 0, 130, 42)
-        comprehensiveReportButton.borderColor = UIColor(.mainColor)
-        comprehensiveReportButton.borderWidth = 1
-        comprehensiveReportButton.cornerRadius = 5
-        comprehensiveReportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        comprehensiveReportButton.setTitleColor(UIColor(.mainColor), for: .normal)
-        comprehensiveReportButton.setTitle("종합성적표 확인", for: .normal)
-        comprehensiveReportButton.addAction(UIAction { [weak self] _ in self?.showComprehensiveReport()}, for: .touchUpInside)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+}
+
+// MARK: Configure
+extension PracticeTestVC {
+    private func configurePracticeTestsDelegate() {
+        self.practiceTests.dataSource = self
+        self.practiceTests.delegate = self
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    private func configureComprehensiveReportButton() {
+        let comprehensiveReportButton = UIButton()
+        comprehensiveReportButton.frame = .init(0, 0, 130, 42)
+        
+        comprehensiveReportButton.borderColor = UIColor(.mainColor)
+        comprehensiveReportButton.borderWidth = 1
+        comprehensiveReportButton.cornerRadius = 5
+        
+        comprehensiveReportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        comprehensiveReportButton.setTitleColor(UIColor(.mainColor), for: .normal)
+        comprehensiveReportButton.setTitle("종합성적표 확인", for: .normal)
+        
+        let action = UIAction { [weak self] _ in self?.showComprehensiveReport() }
+        comprehensiveReportButton.addAction(action, for: .touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
     }
     
     private func showComprehensiveReport() {
@@ -83,10 +90,10 @@ extension PracticeTestVC: UICollectionViewDataSource {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PracticeTestsHeaderView.identifier, for: indexPath) as? PracticeTestsHeaderView else { return UICollectionReusableView() }
             
             if self.numberOfSections(in: collectionView) == 1 {
-                headerView.configure(to: "실전 모의고사")
+                headerView.updateLabel(to: "실전 모의고사")
             } else if self.numberOfSections(in: collectionView) == 2 {
                 let headerTitle = indexPath.section == 0 ? "나의 실전 모의고사" : "실전 모의고사"
-                headerView.configure(to: headerTitle)
+                headerView.updateLabel(to: headerTitle)
             }
             
             return headerView
