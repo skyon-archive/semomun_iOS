@@ -13,6 +13,7 @@
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
+		250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 250A4907285DF6F3008D0016 /* PretendardVariable.ttf */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		250F22AD285DD1B000955AB7 /* ComprehensiveReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* ComprehensiveReportVC.swift */; };
 		250F22AF285DD75000955AB7 /* ComprehensiveReportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F22AE285DD75000955AB7 /* ComprehensiveReportVM.swift */; };
@@ -285,6 +286,7 @@
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		2502CEC727A593750072A037 /* PayHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryVM.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		250A4907285DF6F3008D0016 /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PretendardVariable.ttf; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		250F22AE285DD75000955AB7 /* ComprehensiveReportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReportVM.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
@@ -572,6 +574,14 @@
 				2562772F27A17E00006F9370 /* MyPurchaseCell.swift */,
 			);
 			path = MyPurchases;
+			sourceTree = "<group>";
+		};
+		250A4906285DF6E2008D0016 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				250A4907285DF6F3008D0016 /* PretendardVariable.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		25100CD827D4ABC8002C18CB /* Codables */ = {
@@ -1311,6 +1321,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				250A4906285DF6E2008D0016 /* Font */,
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				87C85E3A276F66AB001C9C4A /* View */,
 				878C2EF327F33EAB0039258F /* Protocol */,
@@ -1631,6 +1642,7 @@
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				87FEBB3A27EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
+				250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
 				87FEBB3C27EB10D700B106F2 /* Profile_phone.storyboard in Resources */,
 				2560BBA3283B869700A32EC4 /* SubProblemCell.xib in Resources */,
@@ -2090,11 +2102,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
-				CURRENT_PROJECT_VERSION = 5;
-				CURRENT_PROJECT_VERSION = 8;
-				CURRENT_PROJECT_VERSION = 10;
-				CURRENT_PROJECT_VERSION = 28;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2132,11 +2139,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
-				CURRENT_PROJECT_VERSION = 5;
-				CURRENT_PROJECT_VERSION = 8;
-				CURRENT_PROJECT_VERSION = 10;
-				CURRENT_PROJECT_VERSION = 28;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -78,13 +78,12 @@ extension ComprehensiveReportVC {
     }
     
     private func configureRankLabel(to rank: String) {
+
         let numberAttribute = [
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 70, weight: .heavy)
+            NSAttributedString.Key.font: self.rankLabel.font.withSize(70)
         ]
         let textAttribute = [
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)
+            NSAttributedString.Key.font: self.rankLabel.font.withSize(30)
         ]
         
         let number = NSMutableAttributedString(string: rank, attributes: numberAttribute)
