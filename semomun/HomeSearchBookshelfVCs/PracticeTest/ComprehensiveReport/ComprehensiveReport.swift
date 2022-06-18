@@ -14,6 +14,9 @@ class ComprehensiveReport: UIViewController, StoryboardController {
         .pad: "HomeSearchBookshelf"
     ]
     /* private */
+    private let areaRankCellSize = CGSize(width: 110, height: 100)
+    private let areaRankCellSpacing: CGFloat = 16
+    
     @IBOutlet weak var circularProgressView: CircularProgressView!
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var areaResultTableView: UITableView!
@@ -26,17 +29,23 @@ class ComprehensiveReport: UIViewController, StoryboardController {
         self.configureAreaRankCollectionViewDelegate()
         self.configureCircularProgressView()
         self.configureRankLabel(to: "")
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = self.areaRankCellSpacing
+        self.areaRankCollectionView.collectionViewLayout = layout
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
+        self.configureRankLabel(to: "3")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
-        self.configureRankLabel(to: "3")
         
         let cellCount = self.collectionView(self.areaRankCollectionView, numberOfItemsInSection: 0)
         self.areaRankCollectionView.scrollToItem(at: IndexPath(item: cellCount/2, section: 0), at: .centeredHorizontally, animated: false)
@@ -47,6 +56,13 @@ class ComprehensiveReport: UIViewController, StoryboardController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.areaRankCollectionView.performBatchUpdates { [weak self] in
+                self?.areaRankCollectionView.collectionViewLayout.invalidateLayout()
+            }
+        })
+    }
 }
 
 // MARK: Configure
@@ -102,7 +118,7 @@ extension ComprehensiveReport: UITableViewDelegate, UITableViewDataSource {
 
 extension ComprehensiveReport: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 15
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -118,14 +134,16 @@ extension ComprehensiveReport: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 110, height: 110)
     }
     
-    // https://stackoverflow.com/questions/34267662/how-to-center-horizontally-uicollectionview-cells
+    // MARK: 셀 중앙 정렬
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         let cellCount = self.collectionView(collectionView, numberOfItemsInSection: section)
-        let totalCellWidth = 110 * cellCount
-        let totalSpacingWidth = 10 * (cellCount - 1)
+        
+        let totalCellWidth = self.areaRankCellSize.width * CGFloat(cellCount)
+        let totalSpacingWidth = self.areaRankCellSpacing * CGFloat(cellCount - 1)
 
-        let leftInset = max(0.0, (collectionView.bounds.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2)
+        // 스크롤이 될 정도로 셀이 많은 경우에는 inset이 필요 없음.
+        let leftInset = max(0.0, (collectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2)
         let rightInset = leftInset
 
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
