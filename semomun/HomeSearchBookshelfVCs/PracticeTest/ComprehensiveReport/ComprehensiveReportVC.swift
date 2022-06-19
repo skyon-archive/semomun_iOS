@@ -16,7 +16,6 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     /* private */
     private let areaRankCellSize = CGSize(width: 110, height: 100)
     private let areaRankCellSpacing: CGFloat = 16
-    
     @IBOutlet weak var circularProgressView: CircularProgressView!
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var areaResultTableView: UITableView!
@@ -28,7 +27,8 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         self.configureareaResultTableViewDelegate()
         self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
-        self.configureRankLabel(to: "")
+        // 초기 뷰의 레이아웃과 실제 값이 반영된 뷰의 레이아웃간 차이를 줄이기 위해 공백 삽입.
+        self.configureRankLabel(to: " ")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +78,6 @@ extension ComprehensiveReportVC {
     }
     
     private func configureRankLabel(to rank: String) {
-
         let numberAttribute = [
             NSAttributedString.Key.font: self.rankLabel.font.withSize(70)
         ]
@@ -101,7 +100,6 @@ extension ComprehensiveReportVC {
         self.areaRankCollectionView.scrollToItem(at: IndexPath(item: cellCount/2, section: 0), at: .centeredHorizontally, animated: false)
     }
 }
-
 
 extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,14 +141,13 @@ extension ComprehensiveReportVC: UICollectionViewDelegateFlowLayout {
     
     // MARK: 셀 중앙 정렬
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
         let cellCount = self.collectionView(collectionView, numberOfItemsInSection: section)
         let totalCellWidth = self.areaRankCellSize.width * CGFloat(cellCount)
         let totalSpacingWidth = self.areaRankCellSpacing * CGFloat(cellCount - 1)
 
         let leftInset = (collectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2
         
-        // 스크롤이 될 정도로 셀이 많은 경우에는 따로 inset을 주지 않아도 updateAreaRankCollectionViewToCenter으로 충분
+        // 스크롤이 될 정도로 셀이 많은 경우에는 따로 inset을 주지 않아도 updateAreaRankCollectionViewToCenter 메소드로 충분
         guard leftInset > 0 else { return .zero }
         
         let rightInset = leftInset
