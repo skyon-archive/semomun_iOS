@@ -33,7 +33,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
         // 임시 로직, VM이 생기면 binding 쪽으로 이동될 것이라 예상
         self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
