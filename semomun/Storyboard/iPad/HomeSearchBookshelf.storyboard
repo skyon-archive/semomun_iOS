@@ -1601,6 +1601,8 @@ Label</string>
                                                 </collectionViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
+                                                    <outlet property="areaRankLabel" destination="PG9-he-YMQ" id="KcM-Wo-ssr"/>
+                                                    <outlet property="areaTitleLabel" destination="FC2-1w-2Km" id="jUf-FF-KkR"/>
                                                     <outlet property="roundedBackground" destination="X2m-7G-Rfr" id="6KG-7r-lAD"/>
                                                 </connections>
                                             </collectionViewCell>
