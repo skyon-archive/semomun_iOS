@@ -504,8 +504,8 @@ extension HomeVC: UICollectionViewDelegate {
     
     private func showPracticeTestVC() {
         let storyboard = UIStoryboard(name: PracticeTestVC.storyboardName, bundle: nil)
-        guard let practiveTextVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
-        self.navigationController?.pushViewController(practiveTextVC, animated: true)
+        guard let practiveTestVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
+        self.navigationController?.pushViewController(practiveTestVC, animated: true)
     }
 }
 
