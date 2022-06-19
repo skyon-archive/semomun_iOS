@@ -73,6 +73,17 @@ final class ExplanationView: UIView {
             self.frame = .init(0, contentSize.height/2, contentSize.width, contentSize.height/2)
         }
     }
+    
+    /// FormTwo 에서 사용
+    func updateFrame(formTwoContentSize contentSize: CGSize) {
+        if UIWindow.isLandscape {
+            let marginBetweenView: CGFloat = 26
+            self.frame = .init(origin: .zero, size: .init((contentSize.width - marginBetweenView)/2, contentSize.height))
+        } else {
+            let marginBetweenView: CGFloat = 13
+            self.frame = .init(origin: .zero, size: .init(contentSize.width, (contentSize.height - marginBetweenView)/2))
+        }
+    }
 }
 
 extension ExplanationView {
