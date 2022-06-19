@@ -204,19 +204,19 @@ extension FormTwo {
 extension FormTwo {
     private func adjustLayouts(frameUpdate: Bool) {
         let shouldShowExplanation = self.explanationId != nil
-        let contentRect = self.view.frame
+        let contentSize = self.view.frame.size
         
         self.updateCanvasView(frameUpdate: frameUpdate)
+        
         if frameUpdate {
-            self.subproblemCollectionView.updateFrame(formTwoContentRect: contentRect)
+            self.subproblemCollectionView.updateFrame(formTwoContentSize: contentSize)
+            if shouldShowExplanation {
+                self.explanationView.updateFrame(formTwoContentSize: contentSize)
+            }
         }
         
-//        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-        
-        if self.explanationId != nil {
-            // 답지 크기 설정
-            self.explanationView.frame.size = self.canvasView.frame.size
-        }
+        // 문제 이미지 크기 설정
+        self.imageView.frame.size = self.canvasView.contentSize
     }
     
     private func updateCanvasView(frameUpdate: Bool) {
@@ -231,28 +231,6 @@ extension FormTwo {
         } else {
             self.canvasView.updateDrawingRatio(imageSize: imageSize)
         }
-    }
-    
-    /// action 전/후 레이아웃 변경을 저장해주는 편의 함수
-    private func adjustLayout(_ action: (() -> ())? = nil) {
-        let previousCanvasSize = self.canvasView.frame.size
-        let previousContentOffset = self.canvasView.contentOffset
-        action?()
-        self.adjustLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset)
-    }
-    
-    /// CanvasView의 크기가 바뀐 후 이에 맞게 필기/이미지 레이아웃을 수정
-    private func adjustLayout(previousCanvasSize: CGSize, previousContentOffset: CGPoint) {
-        guard let image = self.imageView.image else {
-            assertionFailure("CanvasView의 크기를 구할 이미지 정보 없음")
-            return
-        }
-        
-        let ratio = image.size.height/image.size.width
-        self.canvasView.adjustDrawingLayout(previousCanvasSize: previousCanvasSize, previousContentOffset: previousContentOffset, contentRatio: ratio)
-        
-        // 문제 이미지 크기 설정
-        self.imageView.frame.size = self.canvasView.contentSize
     }
 }
 
@@ -286,7 +264,7 @@ extension FormTwo: ExplanationSelectable {
         self.explanationView.configureDelegate(to: self)
         self.view.addSubview(self.explanationView)
         
-        self.explanationView.frame = self.canvasView.frame // layout 부분 수정 필요
+        self.adjustLayouts(frameUpdate: true)
         
         self.explanationView.configureImage(to: image)
         UIView.animate(withDuration: 0.2) { [weak self] in
