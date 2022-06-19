@@ -61,9 +61,10 @@ extension MultipleWithSubProblemsWideVC {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
+        let problem = self.viewModel?.problems[indexPath.item]
         
         let width: CGFloat = self.subproblemCollectionView.bounds.width
-        let topViewHeight: CGFloat = SubProblemCell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = SubProblemCell.topViewHeight(with: problem)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         
