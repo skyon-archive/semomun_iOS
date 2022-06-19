@@ -123,13 +123,15 @@ extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: AreaRankCell.identifier, for: indexPath) as? AreaRankCell else {
             return .init()
         }
+        
+        cell.prepareForReuse(areaTitle: "미적분", areaRank: 3)
         return cell
     }
 }

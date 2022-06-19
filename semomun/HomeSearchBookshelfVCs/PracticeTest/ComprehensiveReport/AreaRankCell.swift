@@ -12,6 +12,8 @@ class AreaRankCell: UICollectionViewCell {
     static let identifier = "AreaRankCell"
     /* private */
     @IBOutlet weak var roundedBackground: UIView!
+    @IBOutlet weak var areaTitleLabel: UILabel!
+    @IBOutlet weak var areaRankLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,5 +24,12 @@ class AreaRankCell: UICollectionViewCell {
         super.layoutSubviews()
         self.layoutIfNeeded()
         self.roundedBackground.addAccessibleShadow(direction: .bottom, shadowRadius: 4)
+    }
+}
+
+extension AreaRankCell {
+    func prepareForReuse(areaTitle: String, areaRank: Int) {
+        self.areaTitleLabel.text = areaTitle
+        self.areaRankLabel.text = "\(areaRank)"
     }
 }
