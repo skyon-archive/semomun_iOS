@@ -10,7 +10,7 @@ import PencilKit
 
 final class MultipleWith5AnswerWideVC: FormTwo {
     static let identifier = "MultipleWith5AnswerWideVC"
-    /* 외부에서 주입가능한 property들 */
+    /* public */
     var viewModel: MultipleWith5AnswerVM?
     var subImages: [UIImage?]?
     
@@ -39,7 +39,7 @@ extension MultipleWith5AnswerWideVC {
     }
 }
 
-// MARK: Override 필요한 functions
+// MARK: Override 필수인 것들
 extension MultipleWith5AnswerWideVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
@@ -59,11 +59,12 @@ extension MultipleWith5AnswerWideVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let image = self.subImages?[indexPath.row] ?? UIImage(.warning)
+        var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
+        if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = self.subproblemCollectionView.bounds.width
         let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
-        let imageHeight = image.size.height * (width/image.size.width)
+        let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         
         return CGSize(width: width, height: height)
