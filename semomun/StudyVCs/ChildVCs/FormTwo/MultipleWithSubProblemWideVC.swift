@@ -63,7 +63,7 @@ extension MultipleWithSubProblemsWideVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         let problem = self.viewModel?.problems[indexPath.item]
         
-        let width: CGFloat = self.subproblemCollectionView.bounds.width
+        let width: CGFloat = self.subproblemCollectionView.bounds.width - 10
         let topViewHeight: CGFloat = SubProblemCell.topViewHeight(with: problem)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
