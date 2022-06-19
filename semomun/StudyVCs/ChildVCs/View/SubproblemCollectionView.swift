@@ -25,7 +25,7 @@ class SubproblemCollectionView: UICollectionView {
      - FormOne exp 없을 때
      */
     func updateFrame(formOneContentSize contentSize: CGSize) {
-        self.frame = .init(contentSize.width/2, 0, contentSize.width/2, contentSize.height)
+        self.frame = .init(contentSize.width/2, 0, contentSize.width/2 - 10, contentSize.height)
         self.collectionViewLayout.invalidateLayout()
     }
     
@@ -34,9 +34,9 @@ class SubproblemCollectionView: UICollectionView {
      */
     func updateFrameWithExp(formOneContentSize contentSize: CGSize) {
         if UIWindow.isLandscape {
-            self.frame = .init(contentSize.width/2, 0, contentSize.width/2, contentSize.height)
+            self.frame = .init(contentSize.width/2, 0, contentSize.width/2 - 10, contentSize.height)
         } else {
-            self.frame = .init(contentSize.width/2, 0, contentSize.width/2, contentSize.height/2)
+            self.frame = .init(contentSize.width/2, 0, contentSize.width/2 - 10, contentSize.height/2)
         }
         self.collectionViewLayout.invalidateLayout()
     }
@@ -47,10 +47,10 @@ class SubproblemCollectionView: UICollectionView {
     func updateFrame(formTwoContentSize contentSize: CGSize) {
         if UIWindow.isLandscape {
             let marginBetweenView: CGFloat = 26
-            self.frame = .init(x: (contentSize.width - marginBetweenView)/2 + marginBetweenView, y: 0, width: (contentSize.width - marginBetweenView)/2, height: contentSize.height)
+            self.frame = .init(x: (contentSize.width - marginBetweenView)/2 + marginBetweenView, y: 0, width: (contentSize.width - marginBetweenView)/2 - 10, height: contentSize.height)
         } else {
             let marginBetweenView: CGFloat = 13
-            self.frame = .init(0, (contentSize.height - marginBetweenView)/2 + marginBetweenView, contentSize.width, (contentSize.height - marginBetweenView)/2)
+            self.frame = .init(0, (contentSize.height - marginBetweenView)/2 + marginBetweenView, contentSize.width - 10, (contentSize.height - marginBetweenView)/2)
         }
         self.collectionViewLayout.invalidateLayout()
     }

@@ -10,11 +10,9 @@ import PencilKit
 
 final class MultipleWithConceptWideVC: FormTwo {
     static let identifier = "MultipleWithConceptWideVC"
-    
+    /* public */
     var viewModel: MultipleWithConceptWideVM?
     var subImages: [UIImage?]?
-    
-    private let cellType = MultipleWithConceptCell.self
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,19 +29,18 @@ final class MultipleWithConceptWideVC: FormTwo {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let baseSize = super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
-        
-        guard let problem = self.viewModel?.problems[indexPath.item] else {
-            return baseSize
-        }
-        
-        let topViewHeight = self.cellType.topViewHeight(with: problem)
-        
-        return .init(baseSize.width, topViewHeight+baseSize.height)
+}
+
+// MARK: Configure
+extension MultipleWithConceptWideVC {
+    private func configureCellRegister() {
+        let cellIdentifiers: [String] = [MultipleWithConceptCell.identifier]
+        self.configureCellRegisters(identifiers: cellIdentifiers)
     }
-    
+}
+
+// MARK: Override 필수인 것들
+extension MultipleWithConceptWideVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
     }
@@ -56,21 +53,25 @@ final class MultipleWithConceptWideVC: FormTwo {
         
         cell.delegate = self
         cell.prepareForReuse(contentImage, problem, toolPicker)
-        cell.showTopShadow = indexPath.item == 0 ? false : true
+        cell.showTopShadow = indexPath.item != 0
         
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
+        if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
+        
+        let width: CGFloat = self.subproblemCollectionView.bounds.width
+        let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
+        let imageHeight = imageSize.height * (width/imageSize.width)
+        let height = topViewHeight + imageHeight
+        
+        return CGSize(width: width, height: height)
+    }
+    
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
-    }
-}
-
-// MARK: Configure
-extension MultipleWithConceptWideVC {
-    private func configureCellRegister() {
-        let cellIdentifiers: [String] = [MultipleWithConceptCell.identifier]
-        self.configureCellRegisters(identifiers: cellIdentifiers)
     }
 }
 

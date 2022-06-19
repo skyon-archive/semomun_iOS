@@ -146,8 +146,6 @@ extension FormTwo {
     private func configureCollectionView() {
         self.subproblemCollectionView.delegate = self
         self.subproblemCollectionView.dataSource = self
-        // scroll indicator 필요할까?
-        // self.subproblemCollectionView.showsVerticalScrollIndicator = false
     }
     
     private func configureGesture() {
