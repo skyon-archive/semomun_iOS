@@ -505,9 +505,9 @@ extension HomeVC: UICollectionViewDelegate {
     
     private func showPracticeTestVC(info: WorkbookGroupOfDB) {
         let storyboard = UIStoryboard(name: PracticeTestVC.storyboardName, bundle: nil)
-        guard let practiveTestVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
-        practiveTestVC.workbookGroupInfo = info
-        self.navigationController?.pushViewController(practiveTestVC, animated: true)
+        guard let practiceTestVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
+        practiceTestVC.workbookGroupInfo = info
+        self.navigationController?.pushViewController(practiceTestVC, animated: true)
     }
 }
 
