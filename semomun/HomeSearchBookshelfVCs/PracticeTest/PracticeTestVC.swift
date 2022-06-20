@@ -42,17 +42,7 @@ extension PracticeTestVC {
     }
     
     private func configureComprehensiveReportButton() {
-        let comprehensiveReportButton = UIButton()
-        comprehensiveReportButton.frame = .init(0, 0, 130, 42)
-        
-        comprehensiveReportButton.borderColor = UIColor(.mainColor)
-        comprehensiveReportButton.borderWidth = 1
-        comprehensiveReportButton.cornerRadius = 5
-        
-        comprehensiveReportButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        comprehensiveReportButton.setTitleColor(UIColor(.mainColor), for: .normal)
-        comprehensiveReportButton.setTitle("종합성적표 확인", for: .normal)
-        
+        let comprehensiveReportButton = ComprehensiveReportButton()
         let action = UIAction { [weak self] _ in self?.showComprehensiveReport() }
         comprehensiveReportButton.addAction(action, for: .touchUpInside)
         

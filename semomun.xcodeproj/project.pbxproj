@@ -246,6 +246,7 @@
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
 		87CF648F2860173700FA56BE /* TestResultInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */; };
+		87CF6491286039A900FA56BE /* ComprehensiveReportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF6490286039A900FA56BE /* ComprehensiveReportButton.swift */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0A56827CF1C5800449AAD /* CoreGraphics.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
@@ -523,6 +524,7 @@
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
 		87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultInfoOfDB.swift; sourceTree = "<group>"; };
+		87CF6490286039A900FA56BE /* ComprehensiveReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprehensiveReportButton.swift; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87D0A56827CF1C5800449AAD /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
@@ -1090,9 +1092,9 @@
 		87231B86282508C0001CA2F7 /* PracticeTest */ = {
 			isa = PBXGroup;
 			children = (
-				25841627285B235D003C6A21 /* ComprehensiveReport */,
-				87231B8928250D21001CA2F7 /* View */,
 				87231B8728250B41001CA2F7 /* PracticeTestVC.swift */,
+				87231B8928250D21001CA2F7 /* View */,
+				25841627285B235D003C6A21 /* ComprehensiveReport */,
 			);
 			path = PracticeTest;
 			sourceTree = "<group>";
@@ -1102,6 +1104,7 @@
 			children = (
 				87231B8A28250D3F001CA2F7 /* PracticeTestsHeaderView.swift */,
 				87231B8C28278278001CA2F7 /* PracticeTestCell.swift */,
+				87CF6490286039A900FA56BE /* ComprehensiveReportButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				2519C5D327BFC0E900F4320F /* BannerAdsFlowLayout.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
+				87CF6491286039A900FA56BE /* ComprehensiveReportButton.swift in Sources */,
 				2584162B285B3017003C6A21 /* TestRankCell.swift in Sources */,
 				8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */,
 				25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */,
