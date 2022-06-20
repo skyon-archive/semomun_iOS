@@ -13,6 +13,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [
         .pad: "HomeSearchBookshelf"
     ]
+    var workbookGroupInfo: WorkbookGroupOfDB?
     /* private */
     private let areaRankCellSpacing: CGFloat = 16
     @IBOutlet weak var circularProgressView: CircularProgressView!
@@ -38,7 +39,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
         self.configureRankLabel(to: "3")
         self.updateAreaRankCollectionViewToCenter()
-        self.title = "2022년 실전 모의고사 1회차 종합 성적표"
+        self.title = "\(self.workbookGroupInfo?.title ?? "") 종합 성적표"
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

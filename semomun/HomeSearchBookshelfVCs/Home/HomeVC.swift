@@ -461,7 +461,8 @@ extension HomeVC: UICollectionViewDelegate {
             self.searchWorkbook(wid: wid)
         case self.practiceTests:
             // TODO: Backend 와 소통 이후 로직작성 필요
-            self.showPracticeTestVC()
+            guard let info = self.viewModel?.practiceTests[indexPath.item] else { return }
+            self.showPracticeTestVC(info: info)
         default:
             return
         }
@@ -502,9 +503,10 @@ extension HomeVC: UICollectionViewDelegate {
         self.present(searchTagVC, animated: true, completion: nil)
     }
     
-    private func showPracticeTestVC() {
+    private func showPracticeTestVC(info: WorkbookGroupOfDB) {
         let storyboard = UIStoryboard(name: PracticeTestVC.storyboardName, bundle: nil)
         guard let practiveTestVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
+        practiveTestVC.workbookGroupInfo = info
         self.navigationController?.pushViewController(practiveTestVC, animated: true)
     }
 }
