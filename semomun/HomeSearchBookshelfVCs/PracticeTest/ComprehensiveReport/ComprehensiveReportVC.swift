@@ -68,8 +68,8 @@ extension ComprehensiveReportVC {
     
     private func configureCircularProgressView() {
         self.circularProgressView.progressWidth = 35
-        self.circularProgressView.trackColor = UIColor(.lightMainColor) ?? .white
-        self.circularProgressView.progressColor = UIColor(.mainColor) ?? .white
+        self.circularProgressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
+        self.circularProgressView.progressColor = UIColor(.mainColor) ?? .green
         
         let size = self.circularProgressView.frame.size
         let center = CGPoint(size.width/2, size.height)
