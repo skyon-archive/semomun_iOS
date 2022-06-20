@@ -108,7 +108,7 @@ extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: AreaResultCell.identifier) as? AreaResultCell else {
+        guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: TestResultCell.identifier) as? TestResultCell else {
             return UITableViewCell()
         }
         cell.prepareForReuse(index: indexPath.row+1, areaTitle: "화법과 작문", rawScore: 92, deviation: 128, percentile: 96)
@@ -126,7 +126,7 @@ extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: AreaRankCell.identifier, for: indexPath) as? AreaRankCell else {
+        guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: TestRankCell.identifier, for: indexPath) as? TestRankCell else {
             return .init()
         }
         

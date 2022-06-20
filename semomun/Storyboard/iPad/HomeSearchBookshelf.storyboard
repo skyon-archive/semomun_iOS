@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1058,20 +1058,20 @@ Label</string>
                                         <rect key="frame" x="0.0" y="16" width="614" height="1086"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="srP-BU-QSQ">
-                                            <rect key="frame" x="0.0" y="112" width="614" height="44"/>
+                                            <rect key="frame" x="0.0" y="123" width="614" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="uR7-JN-Wmd" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="614" height="45"/>
+                                                <rect key="frame" x="0.0" y="50" width="614" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uR7-JN-Wmd" id="KOh-nN-Xb8">
                                                     <rect key="frame" x="0.0" y="0.0" width="614" height="45"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSa-Ea-dg8">
-                                                            <rect key="frame" x="27" y="13" width="562" height="19.5"/>
+                                                            <rect key="frame" x="27" y="12.5" width="562" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1413,8 +1413,8 @@ Label</string>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LH-iq-0qP">
                                         <rect key="frame" x="14" y="87.5" width="352" height="262.5"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AreaResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="AreaResultCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="352" height="52"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestResultCell" customModule="semomun" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="50" width="352" height="52"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xDf-S1-qqJ" id="PtO-l3-cRN">
                                                     <rect key="frame" x="0.0" y="0.0" width="352" height="52"/>
@@ -1560,7 +1560,7 @@ Label</string>
                                             <inset key="sectionInset" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AreaRankCell" id="bWd-vs-b3P" customClass="AreaRankCell" customModule="semomun" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TestRankCell" id="bWd-vs-b3P" customClass="TestRankCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="40" width="110" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="giU-ma-Evo">
@@ -1671,7 +1671,7 @@ Label</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionCell" id="1TR-KH-WmL" customClass="SectionCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="778" height="50"/>
+                                        <rect key="frame" x="0.0" y="50" width="778" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1TR-KH-WmL" id="T0n-yi-JdQ">
                                             <rect key="frame" x="0.0" y="0.0" width="778" height="50"/>
@@ -1712,7 +1712,7 @@ Label</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C80-gK-z2p">
-                                                    <rect key="frame" x="94" y="15.5" width="30" height="19.5"/>
+                                                    <rect key="frame" x="94" y="15.5" width="30" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="PCJ-f3-F50"/>
                                                     </constraints>
@@ -2147,7 +2147,7 @@ Label</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="492" height="45"/>
+                                                <rect key="frame" x="0.0" y="50" width="492" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
                                                     <rect key="frame" x="0.0" y="0.0" width="492" height="45"/>
@@ -2504,12 +2504,12 @@ test</string>
     </scenes>
     <resources>
         <image name="bookshelf" width="32" height="32"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="home" width="32" height="32"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
