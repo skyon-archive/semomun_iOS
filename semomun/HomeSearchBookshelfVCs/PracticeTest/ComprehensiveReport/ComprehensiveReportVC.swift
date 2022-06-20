@@ -24,7 +24,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureareaResultTableViewDelegate()
+        self.configureareaResultTableView()
         self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
     }
@@ -51,7 +51,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
 
 // MARK: Configure
 extension ComprehensiveReportVC {
-    private func configureareaResultTableViewDelegate() {
+    private func configureareaResultTableView() {
         self.areaResultTableView.delegate = self
         self.areaResultTableView.dataSource = self
     }
