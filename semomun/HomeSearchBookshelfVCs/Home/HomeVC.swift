@@ -431,8 +431,8 @@ extension HomeVC: UICollectionViewDataSource {
                 guard let info = self.viewModel?.recentPurchased[indexPath.item] else { return cell }
                 cell.configure(with: info)
             case self.practiceTests:
-                guard let preview = self.viewModel?.practiceTests[indexPath.item] else { return cell }
-                cell.configure(with: preview)
+                guard let info = self.viewModel?.practiceTests[indexPath.item] else { return cell }
+                cell.configure(with: info)
             default:
                 return cell
             }
