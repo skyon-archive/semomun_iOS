@@ -18,7 +18,7 @@ final class PracticeTestVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurePracticeTestsDelegate()
+        self.configurePracticeTests()
         self.configureComprehensiveReportButton()
         self.title = self.workbookGroupInfo?.title ?? ""
     }
@@ -36,7 +36,7 @@ final class PracticeTestVC: UIViewController {
 
 // MARK: Configure
 extension PracticeTestVC {
-    private func configurePracticeTestsDelegate() {
+    private func configurePracticeTests() {
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
     }
@@ -113,7 +113,7 @@ extension PracticeTestVC: UICollectionViewDataSource {
 
 extension PracticeTestVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(146, 240)
+        return PracticeTestCell.cellSize
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 
 final class PracticeTestCell: UICollectionViewCell {
     static let identifer = "PracticeTestCell"
+    static let cellSize: CGSize = CGSize(146, 240)
     
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
