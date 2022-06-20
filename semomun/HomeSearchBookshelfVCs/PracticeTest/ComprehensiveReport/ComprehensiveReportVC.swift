@@ -14,7 +14,6 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         .pad: "HomeSearchBookshelf"
     ]
     /* private */
-    private let areaRankCellSize = CGSize(width: 110, height: 100)
     private let areaRankCellSpacing: CGFloat = 16
     @IBOutlet weak var circularProgressView: CircularProgressView!
     @IBOutlet weak var rankLabel: UILabel!
@@ -132,24 +131,26 @@ extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: TestRankCell.identifier, for: indexPath) as? TestRankCell else {
             return .init()
         }
-        
-        cell.prepareForReuse(areaTitle: "미적분", areaRank: 3)
+        // 임시로직
+        let info = TestResultInfoOfDB(id: 0, wid: 0, wgid: 0, title: "모의고사 1회차", detail: "", subject: "화법과 작문", area: "", cutoff: "", sovingTime: 3600, result: TestResultInfo(rank: 1, rawScore: 92, deviation: 128, percentile: 96))
+        cell.prepareForReuse(info: info)
         return cell
     }
 }
 
 extension ComprehensiveReportVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 110, height: 110)
+        return TestRankCell.cellSize
     }
     
     // MARK: 셀 중앙 정렬
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        // VM 을 통한 로직으로 수정 필요
         let cellCount = self.collectionView(collectionView, numberOfItemsInSection: section)
-        let totalCellWidth = self.areaRankCellSize.width * CGFloat(cellCount)
+        let totalCellWidth = TestRankCell.cellSize.width * CGFloat(cellCount)
         let totalSpacingWidth = self.areaRankCellSpacing * CGFloat(cellCount - 1)
 
-        let leftInset = (collectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2
+        let leftInset = (self.areaRankCollectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2
         
         // 스크롤이 될 정도로 셀이 많은 경우에는 따로 inset을 주지 않아도 updateAreaRankCollectionViewToCenter 메소드로 충분
         guard leftInset > 0 else { return .zero }
