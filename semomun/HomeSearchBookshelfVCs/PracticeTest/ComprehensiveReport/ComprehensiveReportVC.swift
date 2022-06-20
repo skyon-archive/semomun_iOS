@@ -40,6 +40,11 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         self.title = "\(self.workbookGroupInfo?.title ?? "") 종합 성적표"
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.areaRankCollectionView.reloadData() // Inset 시점문제로 다시 reload
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.areaRankCollectionView.performBatchUpdates { [weak self] in
