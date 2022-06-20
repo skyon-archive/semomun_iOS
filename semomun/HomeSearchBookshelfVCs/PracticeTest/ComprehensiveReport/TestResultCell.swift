@@ -7,9 +7,9 @@
 
 import UIKit
 
-class AreaResultCell: UITableViewCell {
+final class TestResultCell: UITableViewCell {
     /* public */
-    static let identifier = "AreaResultCell"
+    static let identifier = "TestResultCell"
     /* private */
     @IBOutlet weak var roundedBackgroundView: UIView!
     @IBOutlet weak var indexLabel: UILabel!
@@ -24,7 +24,7 @@ class AreaResultCell: UITableViewCell {
     }
 }
 
-extension AreaResultCell {
+extension TestResultCell {
     func prepareForReuse(index: Int, areaTitle: String, rawScore: Int, deviation: Int, percentile: Int) {
         self.indexLabel.text = "\(index)."
         self.areaTitleLabel.text = areaTitle
