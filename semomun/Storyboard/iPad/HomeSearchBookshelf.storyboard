@@ -1483,12 +1483,12 @@ Label</string>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
-                                                    <outlet property="areaTitleLabel" destination="3B0-Yi-3z4" id="F4H-73-E6g"/>
                                                     <outlet property="deviationLabel" destination="XTp-DM-bgr" id="iaR-m9-hG4"/>
                                                     <outlet property="indexLabel" destination="Zhj-Hg-JtA" id="V7A-bo-Mij"/>
                                                     <outlet property="percentileLabel" destination="ekw-lT-HWj" id="MRK-nX-Uci"/>
                                                     <outlet property="rawScoreLabel" destination="amR-a8-Hy0" id="a3x-fU-S9j"/>
                                                     <outlet property="roundedBackgroundView" destination="Owo-aI-3JP" id="mpb-p4-GBw"/>
+                                                    <outlet property="subjectLabel" destination="3B0-Yi-3z4" id="F4H-73-E6g"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

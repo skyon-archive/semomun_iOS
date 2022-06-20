@@ -13,7 +13,7 @@ final class TestResultCell: UITableViewCell {
     /* private */
     @IBOutlet weak var roundedBackgroundView: UIView!
     @IBOutlet weak var indexLabel: UILabel!
-    @IBOutlet weak var areaTitleLabel: UILabel!
+    @IBOutlet weak var subjectLabel: UILabel!
     @IBOutlet weak var rawScoreLabel: UILabel!
     @IBOutlet weak var deviationLabel: UILabel!
     @IBOutlet weak var percentileLabel: UILabel!
@@ -25,11 +25,11 @@ final class TestResultCell: UITableViewCell {
 }
 
 extension TestResultCell {
-    func prepareForReuse(index: Int, areaTitle: String, rawScore: Int, deviation: Int, percentile: Int) {
-        self.indexLabel.text = "\(index)."
-        self.areaTitleLabel.text = areaTitle
-        self.rawScoreLabel.text = "\(rawScore)"
-        self.deviationLabel.text = "\(deviation)"
-        self.percentileLabel.text = "\(percentile)"
+    func prepareForReuse(index: Int, info: TestResultInfoOfDB) {
+        self.indexLabel.text = "\(index)"
+        self.subjectLabel.text = info.subject
+        self.rawScoreLabel.text = "\(info.result.rawScore)"
+        self.deviationLabel.text = "\(info.result.deviation)"
+        self.percentileLabel.text = "\(info.result.percentile)"
     }
 }

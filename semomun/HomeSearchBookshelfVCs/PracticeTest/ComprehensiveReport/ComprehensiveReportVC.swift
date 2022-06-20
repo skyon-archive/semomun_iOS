@@ -111,7 +111,10 @@ extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: TestResultCell.identifier) as? TestResultCell else {
             return UITableViewCell()
         }
-        cell.prepareForReuse(index: indexPath.row+1, areaTitle: "화법과 작문", rawScore: 92, deviation: 128, percentile: 96)
+        // 임시로직
+        let info = TestResultInfoOfDB(id: 0, wid: 0, wgid: 0, title: "모의고사 1회차", detail: "", subject: "화법과 작문", area: "", cutoff: "", sovingTime: 3600, result: TestResultInfo(rank: 1, rawScore: 92, deviation: 128, percentile: 96))
+        cell.prepareForReuse(index: indexPath.row+1, info: info)
+        
         return cell
     }
     
