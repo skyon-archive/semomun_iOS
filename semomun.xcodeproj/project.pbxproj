@@ -102,6 +102,7 @@
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
+		870CC12B286001A100FBB8C4 /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */; };
 		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
 		8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92B279A5D9E00B33A5E /* Profile.storyboard */; };
@@ -379,6 +380,7 @@
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
 		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
 		8716E92B279A5D9E00B33A5E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				2562772D27A16C56006F9370 /* PayHistoryofDB.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 				257E133B28019EFC00368ACF /* Banner.swift */,
+				870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */,
 			);
 			path = Decodables;
 			sourceTree = "<group>";
@@ -1882,6 +1885,7 @@
 				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
 				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
+				870CC12B286001A100FBB8C4 /* WorkbookGroupOfDB.swift in Sources */,
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,

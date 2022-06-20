@@ -13,7 +13,7 @@ final class HomeVM {
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [PreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [PreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
-    @Published private(set) var practiceTests: [PreviewOfDB] = [] // 2.1: 실전 모의고사
+    @Published private(set) var practiceTests: [WorkbookGroupOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var recentPurchased: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
@@ -246,7 +246,7 @@ final class HomeVM {
     
     private func fetchPracticeTests() {
         // TODO: network 연결로직 필요
-        self.practiceTests = [PreviewOfDB(productID: 0, wid: 0, title: "22년 5월 1주차 모의고사", detail: "", isbn: "", author: "", publishedDate: Date(), publishMan: "", publishCompany: "", originalPrice: 0, bookcover: UUID(), createdDate: Date(), updatedDate: Date())]
+        self.practiceTests = [WorkbookGroupOfDB(wgid: 0, itemId: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())]
     }
     
     func fetchWorkbook(wid: Int) {
