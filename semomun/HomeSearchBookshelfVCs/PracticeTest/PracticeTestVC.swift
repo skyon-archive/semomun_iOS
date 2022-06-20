@@ -8,9 +8,11 @@
 import UIKit
 import Combine
 
-class PracticeTestVC: UIViewController {
+final class PracticeTestVC: UIViewController {
+    /* public */
     static let identifier = "PracticeTestVC"
     static let storyboardName = "HomeSearchBookshelf"
+    var workbookGroupInfo: WorkbookGroupOfDB?
     
     @IBOutlet weak var practiceTests: UICollectionView!
     
@@ -18,7 +20,7 @@ class PracticeTestVC: UIViewController {
         super.viewDidLoad()
         self.configurePracticeTestsDelegate()
         self.configureComprehensiveReportButton()
-        self.title = "실전 모의고사"
+        self.title = self.workbookGroupInfo?.title ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +61,9 @@ extension PracticeTestVC {
     
     private func showComprehensiveReport() {
         let storyboard = UIStoryboard(controllerType: ComprehensiveReportVC.self)
-        let view = storyboard.instantiateViewController(withIdentifier: ComprehensiveReportVC.identifier)
-        self.navigationController?.pushViewController(view, animated: true)
+        guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: ComprehensiveReportVC.identifier) as? ComprehensiveReportVC else { return }
+        comprehensiveReportVC.workbookGroupInfo = self.workbookGroupInfo
+        self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
     }
 }
 
