@@ -1327,18 +1327,33 @@ Label</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6i-ZN-y5d" customClass="CircularProgressView" customModule="semomun" customModuleProvider="target">
                                         <rect key="frame" x="40" y="87.5" width="300" height="150"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3등급" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmr-t8-b6O">
-                                                <rect key="frame" x="102.5" y="119.5" width="95.5" height="48"/>
-                                                <fontDescription key="fontDescription" name="PretendardVariable-Black" family="Pretendard Variable" pointSize="40"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-2H-zWO">
+                                                <rect key="frame" x="88.5" y="107.5" width="123.5" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmr-t8-b6O">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="bnn-Pj-jtf"/>
+                                                            <constraint firstAttribute="height" constant="60" id="jY8-dZ-Zz5"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="PretendardVariable-Black" family="Pretendard Variable" pointSize="70"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등급" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa1-Pm-I0M">
+                                                        <rect key="frame" x="54" y="12" width="69.5" height="48"/>
+                                                        <fontDescription key="fontDescription" name="PretendardVariable-Black" family="Pretendard Variable" pointSize="40"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="nmr-t8-b6O" firstAttribute="centerX" secondItem="L6i-ZN-y5d" secondAttribute="centerX" id="6fb-ou-EvU"/>
-                                            <constraint firstAttribute="bottom" secondItem="nmr-t8-b6O" secondAttribute="bottom" constant="-17.5" id="UTP-fU-G1T"/>
                                             <constraint firstAttribute="width" secondItem="L6i-ZN-y5d" secondAttribute="height" multiplier="2:1" id="ddj-eM-ELk"/>
+                                            <constraint firstAttribute="bottom" secondItem="jnF-2H-zWO" secondAttribute="bottom" constant="-17.5" id="fHy-cM-aPo"/>
+                                            <constraint firstItem="jnF-2H-zWO" firstAttribute="centerX" secondItem="L6i-ZN-y5d" secondAttribute="centerX" id="o8v-mb-uyf"/>
                                             <constraint firstAttribute="width" constant="300" id="wnl-43-G5A"/>
                                         </constraints>
                                     </view>
@@ -1384,13 +1399,13 @@ Label</string>
                                 <color key="backgroundColor" name="grayBackground"/>
                                 <constraints>
                                     <constraint firstItem="f7E-dx-IFS" firstAttribute="top" secondItem="L6i-ZN-y5d" secondAttribute="bottom" constant="22" id="6g9-7a-K5h"/>
+                                    <constraint firstItem="TY9-CU-FsM" firstAttribute="top" secondItem="jnF-2H-zWO" secondAttribute="bottom" constant="23" id="7xZ-C4-7Ek"/>
                                     <constraint firstItem="b6H-EE-B6B" firstAttribute="top" secondItem="L6i-ZN-y5d" secondAttribute="bottom" constant="22" id="AaS-3C-bzn"/>
                                     <constraint firstItem="TY9-CU-FsM" firstAttribute="centerX" secondItem="6MF-3D-eSY" secondAttribute="centerX" id="HGL-jQ-IMX"/>
                                     <constraint firstItem="f7E-dx-IFS" firstAttribute="leading" secondItem="L6i-ZN-y5d" secondAttribute="leading" constant="-17.5" id="Kyl-6b-zmB"/>
                                     <constraint firstAttribute="height" constant="350" id="LwG-Rm-Wg0"/>
                                     <constraint firstItem="9VJ-Qn-FpI" firstAttribute="top" secondItem="6MF-3D-eSY" secondAttribute="top" constant="17" id="RV2-Kk-DzW"/>
                                     <constraint firstItem="L6i-ZN-y5d" firstAttribute="centerX" secondItem="6MF-3D-eSY" secondAttribute="centerX" id="gyg-A9-CaD"/>
-                                    <constraint firstItem="TY9-CU-FsM" firstAttribute="top" secondItem="nmr-t8-b6O" secondAttribute="bottom" constant="23" id="jXc-g4-zR7"/>
                                     <constraint firstItem="9VJ-Qn-FpI" firstAttribute="leading" secondItem="6MF-3D-eSY" secondAttribute="leading" constant="12" id="mQk-ke-UdG"/>
                                     <constraint firstItem="L6i-ZN-y5d" firstAttribute="top" secondItem="9VJ-Qn-FpI" secondAttribute="bottom" constant="50" id="pEw-7G-BJ8"/>
                                     <constraint firstItem="b6H-EE-B6B" firstAttribute="trailing" secondItem="L6i-ZN-y5d" secondAttribute="trailing" constant="17.5" id="uHy-B6-4Kh"/>

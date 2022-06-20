@@ -27,8 +27,6 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         self.configureareaResultTableViewDelegate()
         self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
-        // 초기 뷰의 레이아웃과 실제 값이 반영된 뷰의 레이아웃간 차이를 줄이기 위해 공백 삽입.
-        self.configureRankLabel(to: " ")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +35,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
         
         // 임시 로직, VM이 생기면 binding 쪽으로 이동될 것이라 예상
         self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
-        self.configureRankLabel(to: "3")
+        self.configureRankLabel(to: 1)
         self.updateAreaRankCollectionViewToCenter()
         self.title = "\(self.workbookGroupInfo?.title ?? "") 종합 성적표"
     }
@@ -78,19 +76,8 @@ extension ComprehensiveReportVC {
         self.circularProgressView.changeCircleShape(center: center, startAngle: -CGFloat.pi, endAngle: 0)
     }
     
-    private func configureRankLabel(to rank: String) {
-        let numberAttribute = [
-            NSAttributedString.Key.font: self.rankLabel.font.withSize(70)
-        ]
-        let textAttribute = [
-            NSAttributedString.Key.font: self.rankLabel.font.withSize(30)
-        ]
-        
-        let number = NSMutableAttributedString(string: rank, attributes: numberAttribute)
-        let text = NSMutableAttributedString(string: "등급", attributes: textAttribute)
-        number.append(text)
-        
-        self.rankLabel.attributedText = number
+    private func configureRankLabel(to rank: Int) {
+        self.rankLabel.text = "\(rank)"
     }
 }
 
