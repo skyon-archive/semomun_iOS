@@ -10,7 +10,7 @@ import UIKit
 final class TestRankCell: UICollectionViewCell {
     /* public */
     static let identifier = "TestRankCell"
-    static let cellSize: CGSize = .init(110, 100)
+    static let cellSize: CGSize = .init(100, 100)
     /* private */
     @IBOutlet weak var roundedBackground: UIView!
     @IBOutlet weak var areaTitleLabel: UILabel!
