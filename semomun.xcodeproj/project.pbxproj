@@ -577,7 +577,10 @@
 			isa = PBXGroup;
 			children = (
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
+				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
 				2562772F27A17E00006F9370 /* MyPurchaseCell.swift */,
+				25B8C09227E2150C00AC500F /* Model */,
+				2556E03828616C76008FDEEA /* View */,
 			);
 			path = MyPurchases;
 			sourceTree = "<group>";
@@ -667,6 +670,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2556E03828616C76008FDEEA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		255D637D27ABC24D000991AB /* UserNotice */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,10 +747,11 @@
 		256A3746279DA7EC00455655 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				255D637D27ABC24D000991AB /* UserNotice */,
 				25D1BDDF279D46A700807196 /* SettingVC.swift */,
 				256A3747279DA80800455655 /* LoginedSettingTableVC.swift */,
 				256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */,
+				255D637D27ABC24D000991AB /* UserNotice */,
+				25627728279EE6AC006F9370 /* LongText */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -793,19 +805,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		2593970227A3E19900BD5BD3 /* Supporting */ = {
+		2593970227A3E19900BD5BD3 /* WaitingCharge */ = {
 			isa = PBXGroup;
 			children = (
-				25B8C09227E2150C00AC500F /* Model */,
-				25627728279EE6AC006F9370 /* LongText */,
-				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
 				8716E952279A620D00B33A5E /* WaitingChargeVC.swift */,
-				257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */,
 			);
-			path = Supporting;
+			path = WaitingCharge;
 			sourceTree = "<group>";
 		};
-		259C000E27914171005D432B /* WorkbookDetailVC */ = {
+		259C000E27914171005D432B /* WorkbookDetail */ = {
 			isa = PBXGroup;
 			children = (
 				259C000F27914191005D432B /* WorkbookDetailVC.swift */,
@@ -813,7 +821,7 @@
 				2560E1E627914D03003BDAC0 /* Cell */,
 				25A9B2B5279164A50087E774 /* Model */,
 			);
-			path = WorkbookDetailVC;
+			path = WorkbookDetail;
 			sourceTree = "<group>";
 		};
 		25A9B2B2279157F60087E774 /* ViewModel */ = {
@@ -879,14 +887,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		25D1BDDC279D3A3300807196 /* ProfileVC */ = {
+		25D1BDDC279D3A3300807196 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				8716E948279A611D00B33A5E /* ProfileVC.swift */,
 				25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */,
 				25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */,
 			);
-			path = ProfileVC;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		25D1BDE1279D741600807196 /* ChangeUserinfo */ = {
@@ -917,14 +925,14 @@
 			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
-		25E6FF1C279AA6ED00FEDCC1 /* BookshelfVC */ = {
+		25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */ = {
 			isa = PBXGroup;
 			children = (
 				8716E934279A5F7300B33A5E /* BookshelfVC.swift */,
 				87BC26A127A2975800F3418D /* ViewModel */,
 				87AC221C27A39FE900B48F9D /* Cell */,
 			);
-			path = BookshelfVC;
+			path = Bookshelf;
 			sourceTree = "<group>";
 		};
 		25F9049C28001BD100A517CC /* Encoder */ = {
@@ -971,20 +979,7 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		8716E92F279A5F1200B33A5E /* HomeSearchBookshelfVCs */ = {
-			isa = PBXGroup;
-			children = (
-				87231B86282508C0001CA2F7 /* WorkbookGroup */,
-				87F5826A279E84A700A2BD15 /* Home */,
-				8745855C279FB84700E331F1 /* Search */,
-				259C000E27914171005D432B /* WorkbookDetailVC */,
-				8745855D279FB85B00E331F1 /* Purchase */,
-				25E6FF1C279AA6ED00FEDCC1 /* BookshelfVC */,
-			);
-			path = HomeSearchBookshelfVCs;
-			sourceTree = "<group>";
-		};
-		8716E93A279A5FB900B33A5E /* StartLoginVCs */ = {
+		8716E93A279A5FB900B33A5E /* StartLogin */ = {
 			isa = PBXGroup;
 			children = (
 				8716E93B279A5FDE00B33A5E /* StartVC.swift */,
@@ -995,30 +990,17 @@
 				25E6FF16279A9B7000FEDCC1 /* Supporting Views */,
 				87C85E59276F6836001C9C4A /* UseCase */,
 			);
-			path = StartLoginVCs;
+			path = StartLogin;
 			sourceTree = "<group>";
 		};
-		8716E947279A602800B33A5E /* ProfileVCs */ = {
-			isa = PBXGroup;
-			children = (
-				25D1BDDC279D3A3300807196 /* ProfileVC */,
-				25D1BDE1279D741600807196 /* ChangeUserinfo */,
-				2502CEC927A6D7100072A037 /* MyPurchases */,
-				257AC7E627A5834A005E91EC /* Semopay */,
-				256A3746279DA7EC00455655 /* Setting */,
-				2593970227A3E19900BD5BD3 /* Supporting */,
-			);
-			path = ProfileVCs;
-			sourceTree = "<group>";
-		};
-		8716E954279A621A00B33A5E /* StudyVCs */ = {
+		8716E954279A621A00B33A5E /* StudyZone */ = {
 			isa = PBXGroup;
 			children = (
 				87A1C35B27C5E6B2009043BE /* StudyVC */,
-				87A1C35A27C5E675009043BE /* ChildVCs */,
-				87A1C35C27C5E6D0009043BE /* PopupVCs */,
+				87A1C35A27C5E675009043BE /* ChildVC */,
+				87A1C35C27C5E6D0009043BE /* PopupVC */,
 			);
-			path = StudyVCs;
+			path = StudyZone;
 			sourceTree = "<group>";
 		};
 		8716F336279CFFE100B7C8DD /* StartSetting */ = {
@@ -1074,10 +1056,20 @@
 				87C85E2A276F65B3001C9C4A /* Network */,
 				87EB46942783452100052BCE /* Secure */,
 				8716E926279A5D5D00B33A5E /* Storyboard */,
-				8716E93A279A5FB900B33A5E /* StartLoginVCs */,
-				8716E92F279A5F1200B33A5E /* HomeSearchBookshelfVCs */,
-				8716E947279A602800B33A5E /* ProfileVCs */,
-				8716E954279A621A00B33A5E /* StudyVCs */,
+				8716E93A279A5FB900B33A5E /* StartLogin */,
+				87F5826A279E84A700A2BD15 /* Home */,
+				8745855C279FB84700E331F1 /* Search */,
+				259C000E27914171005D432B /* WorkbookDetail */,
+				87231B86282508C0001CA2F7 /* WorkbookGroup */,
+				8745855D279FB85B00E331F1 /* Purchase */,
+				25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */,
+				25D1BDDC279D3A3300807196 /* Profile */,
+				25D1BDE1279D741600807196 /* ChangeUserinfo */,
+				2502CEC927A6D7100072A037 /* MyPurchases */,
+				257AC7E627A5834A005E91EC /* Semopay */,
+				256A3746279DA7EC00455655 /* Setting */,
+				2593970227A3E19900BD5BD3 /* WaitingCharge */,
+				8716E954279A621A00B33A5E /* StudyZone */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
@@ -1252,19 +1244,19 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		87A1C35A27C5E675009043BE /* ChildVCs */ = {
+		87A1C35A27C5E675009043BE /* ChildVC */ = {
 			isa = PBXGroup;
 			children = (
 				87273C182840B25E007B7092 /* Protocol */,
 				253E57F5283C914200E6A2F1 /* FormXibs */,
 				87E151622787DD160080D39A /* FormCell */,
-				25622C52283A8F850056E0DF /* FormTwo */,
-				25622C51283A8F810056E0DF /* FormOne */,
 				25622C50283A8F7A0056E0DF /* FormZero */,
+				25622C51283A8F810056E0DF /* FormOne */,
+				25622C52283A8F850056E0DF /* FormTwo */,
 				878766CA27AED255003B975E /* View */,
 				87C85EAB276F6C62001C9C4A /* ViewModels */,
 			);
-			path = ChildVCs;
+			path = ChildVC;
 			sourceTree = "<group>";
 		};
 		87A1C35B27C5E6B2009043BE /* StudyVC */ = {
@@ -1278,7 +1270,7 @@
 			path = StudyVC;
 			sourceTree = "<group>";
 		};
-		87A1C35C27C5E6D0009043BE /* PopupVCs */ = {
+		87A1C35C27C5E6D0009043BE /* PopupVC */ = {
 			isa = PBXGroup;
 			children = (
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
@@ -1291,7 +1283,7 @@
 				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
 				8703B099282A4EFA00DA5894 /* SwiftUI */,
 			);
-			path = PopupVCs;
+			path = PopupVC;
 			sourceTree = "<group>";
 		};
 		87AC221C27A39FE900B48F9D /* Cell */ = {
