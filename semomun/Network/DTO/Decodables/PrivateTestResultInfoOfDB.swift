@@ -24,6 +24,7 @@ struct PrivateTestResultInfoOfDB: Decodable {
     
     let rank: Int // 등급
     let rawScore: Int // 원점수
+    let perfectScore: Int // 만점 점수
     let deviation: Int // 표준 점수
     let percentile: Int // 백분위
     
@@ -32,7 +33,7 @@ struct PrivateTestResultInfoOfDB: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id, wid, wgid, sid, uid, title, subject, area, totalTime,
-             currentProblemCount, totalProblemCount, rank, rawScore, deviation, percentile
+             currentProblemCount, totalProblemCount, rank, rawScore, perfectScore, deviation, percentile
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
     }
