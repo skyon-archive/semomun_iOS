@@ -1,0 +1,155 @@
+{
+    "wgid": 1,
+    "id": 1,
+    "type": "",
+    "title": "모의고사 1회차",
+    "detail": "",
+    "groupCover": "c2bb38d2-1156-4677-9b44-f081a768d2f4",
+    "isGroupOnlyPurchasable": false,
+    "createdAt": "2022-06-13T06:50:14.000Z",
+    "updatedAt": "2022-06-13T06:50:14.000Z",
+    "workbooks": [
+    {
+        "id": 34,
+        "wid": 34,
+        "title": "2022학년도 대학수학능력시험 수학(미적분)영역",
+        "detail": "",
+        "isbn": "",
+        "author": "한국교육과정평가원",
+        "date": "2021-11-01T09:00:00.000Z",
+        "publishMan": "한국교육과정평가원",
+        "publishCompany": "한국교육과정평가원",
+        "originalPrice": 0,
+        "bookcover": "c2bb38d2-1156-4677-9b44-f081a768d2f4",
+        "createdAt": "2022-06-13T06:50:14.000Z",
+        "updatedAt": "2022-06-13T06:50:14.000Z",
+        "sections": [
+        {
+            "wid": 34,
+            "sid": 146,
+            "index": 1,
+            "title": "2022학년도 대학수학능력시험 수학(미적분)영역",
+            "detail": "",
+            "cutoff": {},
+            "sectioncover": "b9c07241-53b6-4140-bf90-e0a37cdd48ce",
+            "size": 43591392,
+            "audio": null,
+            "audioDetail": null,
+            "createdAt": "2022-06-13T06:50:15.000Z",
+            "updatedAt": "2022-06-13T06:50:16.000Z"
+        }
+        ],
+        "price": 0,
+        "sales": 0,
+        "tags": [
+        {
+            "tid": 2,
+            "name": "아시아",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 3,
+            "name": "한국",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 4,
+            "name": "고등",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 7,
+            "name": "고3",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 14,
+            "name": "수학",
+            "createdAt": "2022-05-31T11:06:58.000Z",
+            "updatedAt": "2022-05-31T11:06:58.000Z"
+        },
+        {
+            "tid": 20,
+            "name": "수능모의고사",
+            "createdAt": "2022-06-13T06:49:53.000Z",
+            "updatedAt": "2022-06-13T06:49:53.000Z"
+        }
+        ]
+    },
+    {
+        "id": 35,
+        "wid": 35,
+        "title": "2022학년도 대학수학능력시험 수학(확률과통계)영역",
+        "detail": "",
+        "isbn": "",
+        "author": "한국교육과정평가원",
+        "date": "2021-11-01T09:00:00.000Z",
+        "publishMan": "한국교육과정평가원",
+        "publishCompany": "한국교육과정평가원",
+        "originalPrice": 0,
+        "bookcover": "2313aa7a-4aa7-4bfc-bcbb-f52b97c08ff6",
+        "createdAt": "2022-06-13T06:50:18.000Z",
+        "updatedAt": "2022-06-13T06:50:18.000Z",
+        "sections": [
+        {
+            "wid": 35,
+            "sid": 147,
+            "index": 1,
+            "title": "2022학년도 대학수학능력시험 수학(확률과통계)영역",
+            "detail": "",
+            "cutoff": {},
+            "sectioncover": "0aedeabe-625e-4fdd-9898-69bfbf7db5f2",
+            "size": 39096530,
+            "audio": null,
+            "audioDetail": null,
+            "createdAt": "2022-06-13T06:50:18.000Z",
+            "updatedAt": "2022-06-13T06:50:19.000Z"
+        }
+        ],
+        "price": 0,
+        "sales": 1,
+        "tags": [
+        {
+            "tid": 2,
+            "name": "아시아",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 3,
+            "name": "한국",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 4,
+            "name": "고등",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 7,
+            "name": "고3",
+            "createdAt": "2022-05-26T10:29:10.000Z",
+            "updatedAt": "2022-05-26T10:29:10.000Z"
+        },
+        {
+            "tid": 14,
+            "name": "수학",
+            "createdAt": "2022-05-31T11:06:58.000Z",
+            "updatedAt": "2022-05-31T11:06:58.000Z"
+        },
+        {
+            "tid": 20,
+            "name": "수능모의고사",
+            "createdAt": "2022-06-13T06:49:53.000Z",
+            "updatedAt": "2022-06-13T06:49:53.000Z"
+        }
+        ]
+    }
+    ]
+}

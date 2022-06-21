@@ -187,8 +187,19 @@ extension NetworkUsecase: WorkbookGroupSearchable {
     
     func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void) {
         // MARK: network 로직 구현 필요
-        let dummySearchResult = WorkbookGroupOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date(), workbooks: [0])
-        completion(.SUCCESS, dummySearchResult)
+        let testFile = "TestWorkbookGroupOfDBJSON"
+        if let path = Bundle.main.path(forResource: testFile, ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                guard let workbookGroupOfDB: WorkbookGroupOfDB = self.decodeRequested(WorkbookGroupOfDB.self, from: data) else {
+                    completion(.FAIL, nil)
+                    return
+                }
+                completion(.SUCCESS, workbookGroupOfDB)
+            } catch {
+                completion(.FAIL, nil)
+            }
+        }
     }
 }
 

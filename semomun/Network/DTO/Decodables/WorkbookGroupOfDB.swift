@@ -17,7 +17,7 @@ struct WorkbookGroupOfDB: Decodable {
     let isGroupOnlyPurchasable: Bool
     let createdDate: Date
     let updatedDate: Date
-    let workbooks: [Int]
+    let workbooks: [WorkbookOfDB]
     
     enum CodingKeys: String, CodingKey {
         case wgid
