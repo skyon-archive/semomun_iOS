@@ -17,6 +17,7 @@
 		250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */; };
 		250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */; };
 		250ACFE22861A7900027B6A9 /* PracticeTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */; };
+		250ACFE42861B1B40027B6A9 /* PracticeTestResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE32861B1B40027B6A9 /* PracticeTestResultVC.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		250F22AD285DD1B000955AB7 /* WorkbookGroupResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* WorkbookGroupResultVC.swift */; };
 		250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */; };
@@ -299,6 +300,7 @@
 		250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTestResultOfDB.swift; sourceTree = "<group>"; };
 		250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResultVM.swift; sourceTree = "<group>"; };
 		250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResult.swift; sourceTree = "<group>"; };
+		250ACFE32861B1B40027B6A9 /* PracticeTestResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResultVC.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultVM.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 		250ACFDE28619EEC0027B6A9 /* PracticeTestResult */ = {
 			isa = PBXGroup;
 			children = (
+				250ACFE32861B1B40027B6A9 /* PracticeTestResultVC.swift */,
 				250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */,
 				250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */,
 			);
@@ -1773,6 +1776,7 @@
 				87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */,
 				8768B3AC2800596100E99BBD /* BookshelfFooterView.swift in Sources */,
 				8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */,
+				250ACFE42861B1B40027B6A9 /* PracticeTestResultVC.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */,
 				87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,

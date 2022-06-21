@@ -38,13 +38,60 @@ extension PracticeTestResultVM {
                 
                 guard let privateTestResultOfDB = privateTestResultOfDB,
                       let publicTestResultOfDB = publicTestResultOfDB else {
-                    // 단순 인터넷이 없는 상태가 아닌 기타 다른 문제가 생긴 경우
+                    // 단순 인터넷 연결이 없는 상태가 아닌 기타 다른 문제가 생긴 경우
                     self?.alert = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                     return
                 }
                 
-                self?.practiceTestResult = .init(privateTestResultOfDB: privateTestResultOfDB, publicTestResultOfDB: publicTestResultOfDB)
+                self?.practiceTestResult = self?.makeModel(privateTestResultOfDB: privateTestResultOfDB, publicTestResultOfDB: publicTestResultOfDB)
             }
         }
+    }
+}
+
+extension PracticeTestResultVM {
+    private func makeModel(privateTestResultOfDB: PrivateTestResultOfDB, publicTestResultOfDB: PublicTestResultOfDB) -> PracticeTestResult {
+        let title = self.formatTitle(fromWorkbookName: privateTestResultOfDB.title, subjectName: privateTestResultOfDB.subject)
+        
+        let correctProblemCount = privateTestResultOfDB.correctProblemCount
+        let totalProblemCount = privateTestResultOfDB.totalProblemCount
+        
+        let perfectScore = privateTestResultOfDB.perfectScore
+        let privateScoreResult: ScoreResult = .init(
+            rank: privateTestResultOfDB.rank,
+            rawScore: privateTestResultOfDB.rawScore,
+            deviation: privateTestResultOfDB.deviation,
+            percentile: privateTestResultOfDB.percentile,
+            perfectScore: perfectScore
+        )
+        let publicScoreResult: ScoreResult = .init(
+            rank: publicTestResultOfDB.rank,
+            rawScore: publicTestResultOfDB.rawScore,
+            deviation: publicTestResultOfDB.deviation,
+            percentile: publicTestResultOfDB.percentile,
+            perfectScore: perfectScore
+        )
+        
+        let totalTimeFormattedString = self.formatDateString(fromSeconds: privateTestResultOfDB.totalTime)
+        
+        return .init(
+            title: title,
+            correctProblemCount: correctProblemCount,
+            totalProblemCount: totalProblemCount,
+            totalTimeFormattedString: totalTimeFormattedString,
+            privateScoreResult: privateScoreResult,
+            publicScoreResult: publicScoreResult
+        )
+    }
+    
+    private func formatTitle(fromWorkbookName workbookName: String, subjectName: String) -> String {
+        return "\(workbookName) \(subjectName) 성적표"
+    }
+    
+    private func formatDateString(fromSeconds second: Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter.string(from: TimeInterval(second)) ?? "00-00-00"
     }
 }
