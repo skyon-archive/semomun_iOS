@@ -489,7 +489,7 @@ extension NetworkUsecase: UserTestResultFetchable {
     func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void) {
         // 임시 코드
         print("getPublicTestResult: wid \(wid)")
-        let result = PublicTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, rank: 1, rawScore: 92, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
+        let result = PublicTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, rank: 1, rawScore: 72, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
         completion(.SUCCESS, result)
     }
     
