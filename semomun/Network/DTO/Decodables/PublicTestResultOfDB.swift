@@ -1,5 +1,5 @@
 //
-//  PublicTestResultInfoOfDB.swift
+//  PublicTestResultOfDB.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/06/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PublicTestResultInfoOfDB: Decodable {
+struct PublicTestResultOfDB: Decodable {
     let id: Int
     let wid: Int
     let wgid: Int

@@ -100,8 +100,8 @@ protocol UserSubmissionSendable {
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserTestResultFetchable {
-    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultInfoOfDB) -> Void)
-    func getPrivateTestResult(wid: Int, completion: @escaping (NetworkStatus, PrivateTestResultInfoOfDB) -> Void)
+    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB) -> Void)
+    func getPrivateTestResult(wid: Int, completion: @escaping (NetworkStatus, PrivateTestResultOfDB) -> Void)
 }
 // MARK: - Reportable
 protocol ErrorReportable {

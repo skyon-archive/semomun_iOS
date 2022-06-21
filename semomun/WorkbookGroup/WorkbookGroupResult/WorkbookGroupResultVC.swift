@@ -104,7 +104,7 @@ extension WorkbookGroupResultVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         // 임시로직
-        let info = PrivateTestResultInfoOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, currentProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
+        let info = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, correctProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
         cell.prepareForReuse(index: indexPath.row+1, info: info)
         
         return cell
@@ -125,7 +125,7 @@ extension WorkbookGroupResultVC: UICollectionViewDelegate, UICollectionViewDataS
             return .init()
         }
         // 임시로직
-        let info = PrivateTestResultInfoOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, currentProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
+        let info = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, correctProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
         cell.prepareForReuse(info: info)
         return cell
     }

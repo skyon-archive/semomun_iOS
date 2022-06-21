@@ -486,17 +486,17 @@ extension NetworkUsecase: UserSubmissionSendable {
 }
 
 extension NetworkUsecase: UserTestResultFetchable {
-    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultInfoOfDB) -> Void) {
+    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB) -> Void) {
         // 임시 코드
         print("getPublicTestResult: wid -\(wid)")
-        let result = PublicTestResultInfoOfDB(id: 0, wid: 0, wgid: 0, sid: 0, rank: 1, rawScore: 92, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
+        let result = PublicTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, rank: 1, rawScore: 92, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
         completion(.SUCCESS, result)
     }
     
-    func getPrivateTestResult(wid: Int, completion: @escaping (NetworkStatus, PrivateTestResultInfoOfDB) -> Void) {
+    func getPrivateTestResult(wid: Int, completion: @escaping (NetworkStatus, PrivateTestResultOfDB) -> Void) {
         // 임시 코드
         print("getPrivateTestResult: wid -\(wid)")
-        let result = PrivateTestResultInfoOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회", subject: "미적분", area: "수학 영역", totalTime: 1234, currentProblemCount: 15, totalProblemCount: 20, rank: 2, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
+        let result = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회", subject: "미적분", area: "수학 영역", totalTime: 1234, correctProblemCount: 15, totalProblemCount: 20, rank: 2, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
         completion(.SUCCESS, result)
     }
 }
