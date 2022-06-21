@@ -757,6 +757,52 @@
             </objects>
             <point key="canvasLocation" x="1529" y="40"/>
         </scene>
+        <!--Practice Test ResultVC-->
+        <scene sceneID="hHe-W0-0aL">
+            <objects>
+                <viewController storyboardIdentifier="PracticeTestResultVC" id="rSS-Oy-QSz" customClass="PracticeTestResultVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9tn-9P-kjL">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-9R-6A0">
+                                <rect key="frame" x="117" y="199" width="600" height="800"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZm-dS-ceK">
+                                        <rect key="frame" x="540" y="10" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="95G-bV-Uig"/>
+                                            <constraint firstAttribute="width" constant="50" id="Kyp-Rb-2dn"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="xmark" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="NZm-dS-ceK" firstAttribute="top" secondItem="fS6-9R-6A0" secondAttribute="top" constant="10" id="ikO-80-4jv"/>
+                                    <constraint firstAttribute="trailing" secondItem="NZm-dS-ceK" secondAttribute="trailing" constant="10" id="nfx-1d-551"/>
+                                    <constraint firstAttribute="width" constant="600" id="rWd-D1-Ca8"/>
+                                    <constraint firstAttribute="height" priority="999" constant="800" id="xlR-gy-epW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fbP-Ki-UWL"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fbP-Ki-UWL" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fS6-9R-6A0" secondAttribute="bottom" constant="50" id="4x5-8q-P1r"/>
+                            <constraint firstItem="fS6-9R-6A0" firstAttribute="centerX" secondItem="fbP-Ki-UWL" secondAttribute="centerX" id="JQf-J1-uOh"/>
+                            <constraint firstItem="fS6-9R-6A0" firstAttribute="centerY" secondItem="fbP-Ki-UWL" secondAttribute="centerY" id="sOd-in-KDM"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jla-iS-yUa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2245" y="40"/>
+        </scene>
         <!--Single With5 AnswerVC-->
         <scene sceneID="52a-pP-VCm">
             <objects>

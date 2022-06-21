@@ -7,43 +7,14 @@
 
 import Foundation
 
-/// PracticeTestResultVM가 VC로 전달하는 모델
 struct PracticeTestResult {
     /* public */
-    let privateScoreResult: ScoreResult
-    let publicScoreResult: ScoreResult
+    let title: String
     let correctProblemCount: Int
     let totalProblemCount: Int
     let totalTimeFormattedString: String
-    /* private */
-    
-    init(privateTestResultOfDB: PrivateTestResultOfDB, publicTestResultOfDB: PublicTestResultOfDB) {
-        let perfectScore = privateTestResultOfDB.perfectScore
-        
-        self.privateScoreResult = .init(
-            rank: privateTestResultOfDB.rank,
-            rawScore: privateTestResultOfDB.rawScore,
-            deviation: privateTestResultOfDB.deviation,
-            percentile: privateTestResultOfDB.percentile,
-            perfectScore: perfectScore
-        )
-        
-        self.publicScoreResult = .init(
-            rank: publicTestResultOfDB.rank,
-            rawScore: publicTestResultOfDB.rawScore,
-            deviation: publicTestResultOfDB.deviation,
-            percentile: publicTestResultOfDB.percentile,
-            perfectScore: perfectScore
-        )
-        
-        self.correctProblemCount = privateTestResultOfDB.correctProblemCount
-        self.totalProblemCount = privateTestResultOfDB.totalProblemCount
-        
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        self.totalTimeFormattedString = formatter.string(from: TimeInterval(privateTestResultOfDB.totalTime)) ?? "00-00-00"
-    }
+    let privateScoreResult: ScoreResult
+    let publicScoreResult: ScoreResult
 }
 
 struct ScoreResult {
