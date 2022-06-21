@@ -1,5 +1,5 @@
 //
-//  PreviewOfDB.swift
+//  WorkbookPreviewOfDB.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct SearchPreviews: Decodable, CustomStringConvertible {
+struct SearchWorkbookPreviews: Decodable, CustomStringConvertible {
     var description: String {
         return "\(count), \(previews)"
     }
     
     let count: Int
-    let previews: [PreviewOfDB]
+    let previews: [WorkbookPreviewOfDB]
     
     enum CodingKeys: String, CodingKey {
         case count
@@ -21,7 +21,7 @@ struct SearchPreviews: Decodable, CustomStringConvertible {
     }
 }
 
-struct PreviewOfDB: Decodable {
+struct WorkbookPreviewOfDB: Decodable {
     let productID: Int //상품 식별자
     let wid: Int //문제집 고유 번호
     let title: String

@@ -11,9 +11,9 @@ import Combine
 final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
-    @Published private(set) var bestSellers: [PreviewOfDB] = []
-    @Published private(set) var workbooksWithTags: [PreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
-    @Published private(set) var workbookGroups: [WorkbookGroupOfDB] = [] // 2.1: 실전 모의고사
+    @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
+    @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
+    @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var recentPurchased: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
@@ -268,7 +268,7 @@ final class HomeVM {
 
 // MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
 extension HomeVM {
-    private func filteredPreviews(with previews: [PreviewOfDB]) -> [PreviewOfDB] {
+    private func filteredPreviews(with previews: [WorkbookPreviewOfDB]) -> [WorkbookPreviewOfDB] {
         guard let testCompany = NetworkURL.testCompany else {
             return previews
         }

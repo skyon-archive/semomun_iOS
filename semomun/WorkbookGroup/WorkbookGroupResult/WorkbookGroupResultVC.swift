@@ -13,7 +13,7 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [
         .pad: "HomeSearchBookshelf"
     ]
-    var workbookGroupInfo: WorkbookGroupOfDB?
+    var workbookGroupInfo: WorkbookGroupPreviewOfDB?
     /* private */
     private let areaRankCellSpacing: CGFloat = 16
     @IBOutlet weak var circularProgressView: CircularProgressView!

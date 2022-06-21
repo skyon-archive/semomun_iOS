@@ -43,12 +43,12 @@ extension NetworkUsecase: VersionFetchable {
     }
 }
 extension NetworkUsecase: BestSellersFetchable {
-    func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+    func getBestSellers(completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void) {
         self.network.request(url: NetworkURL.bestsellers, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let previews = self.decodeRequested([PreviewOfDB].self, from: data) else {
+                      let previews = self.decodeRequested([WorkbookPreviewOfDB].self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -146,7 +146,7 @@ extension NetworkUsecase: S3ImageFetchable {
 
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void) {
+    func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void) {
         let tids = tags.isEmpty ? nil : tags.map(\.tid) // tags가 빈배열일때 문제인가 싶어 nil로 시도
         let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: text)
         
@@ -154,7 +154,7 @@ extension NetworkUsecase: PreviewsSearchable {
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
-                      let searchPreviews: SearchPreviews = self.decodeRequested(SearchPreviews.self, from: data) else {
+                      let searchPreviews: SearchWorkbookPreviews = self.decodeRequested(SearchWorkbookPreviews.self, from: data) else {
                           completion(.DECODEERROR, [])
                           return
                       }
@@ -180,8 +180,14 @@ extension NetworkUsecase: WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void) {
         // MARK: network 로직 구현 필요
         let dummySearchResult = SearchWorkbookGroups(count: 1, workbookGroups: [
-            WorkbookGroupOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())
+            WorkbookGroupPreviewOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())
         ])
+        completion(.SUCCESS, dummySearchResult)
+    }
+    
+    func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void) {
+        // MARK: network 로직 구현 필요
+        let dummySearchResult = WorkbookGroupOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date(), workbooks: [0])
         completion(.SUCCESS, dummySearchResult)
     }
 }

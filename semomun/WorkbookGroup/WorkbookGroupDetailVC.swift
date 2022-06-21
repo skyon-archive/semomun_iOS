@@ -12,7 +12,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     /* public */
     static let identifier = "WorkbookGroupDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
-    var workbookGroupInfo: WorkbookGroupOfDB?
+    var workbookGroupInfo: WorkbookGroupPreviewOfDB?
     
     @IBOutlet weak var practiceTests: UICollectionView!
     

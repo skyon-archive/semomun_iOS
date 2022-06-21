@@ -20,7 +20,7 @@ protocol VersionFetchable {
     func getAppstoreVersion(completion: @escaping (NetworkStatus, String?) -> Void)
 }
 protocol BestSellersFetchable {
-    func getBestSellers(completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+    func getBestSellers(completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void)
 }
 protocol TagsFetchable {
     func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
@@ -45,13 +45,14 @@ protocol PopupFetchable {
 }
 // MARK: - Searchable
 protocol PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [PreviewOfDB]) -> Void)
+    func getPreviews(tags: [TagOfDB], text: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void)
 }
 protocol WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
 }
 protocol WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void)
+    func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void)
 }
 // MARK: - Downloadable
 protocol SectionDownloadable {
