@@ -25,7 +25,7 @@ final class TestSubjectResultCell: UITableViewCell {
 }
 
 extension TestSubjectResultCell {
-    func prepareForReuse(index: Int, info: PublicTestResultInfoOfDB) {
+    func prepareForReuse(index: Int, info: PrivateTestResultInfoOfDB) {
         self.indexLabel.text = "\(index)"
         self.subjectLabel.text = info.subject
         self.rawScoreLabel.text = "\(info.rawScore)"
