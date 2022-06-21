@@ -12,18 +12,18 @@ final class WorkbookGroupDetailVC: UIViewController {
     /* public */
     static let identifier = "WorkbookGroupDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
-    var workbookGroupInfo: WorkbookGroupPreviewOfDB?
-    /* private */
-    private var viewModel: WorkbookGroupDetailVM?
+    var viewModel: WorkbookGroupDetailVM?
     
+    /* private */
+    private var cancellables: Set<AnyCancellable> = []
     @IBOutlet weak var practiceTests: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureViewModel()
+        self.bindAll()
         self.configurePracticeTests()
         self.configureComprehensiveReportButton()
-        self.title = self.workbookGroupInfo?.title ?? ""
+        self.title = self.viewModel?.info?.title ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,12 +37,15 @@ final class WorkbookGroupDetailVC: UIViewController {
     }
 }
 
+// MARK: Public
+extension WorkbookGroupDetailVC {
+    func configureViewModel(to viewModel: WorkbookGroupDetailVM) {
+        self.viewModel = viewModel
+    }
+}
+
 // MARK: Configure
 extension WorkbookGroupDetailVC {
-    private func configureViewModel() {
-        self.viewModel = WorkbookGroupDetailVM()
-    }
-    
     private func configurePracticeTests() {
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
@@ -59,8 +62,29 @@ extension WorkbookGroupDetailVC {
     private func showComprehensiveReport() {
         let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
         guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
-        comprehensiveReportVC.workbookGroupInfo = self.workbookGroupInfo
+        comprehensiveReportVC.workbookGroupInfo = self.viewModel?.info
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
+    }
+}
+
+extension WorkbookGroupDetailVC {
+    private func bindAll() {
+        self.bindPurchasedWorkbooks()
+        self.bindNonPurchasedWorkbooks()
+    }
+    
+    private func bindPurchasedWorkbooks() {
+        
+    }
+    
+    private func bindNonPurchasedWorkbooks() {
+        self.viewModel?.$nonPurchasedWorkbooks
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] workbooks in
+                print(workbooks.count)
+                self?.practiceTests.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
 }
 

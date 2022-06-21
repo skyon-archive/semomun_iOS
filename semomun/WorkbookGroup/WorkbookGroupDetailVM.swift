@@ -9,37 +9,40 @@ import Foundation
 import Combine
 
 final class WorkbookGroupDetailVM {
+    /* public */
     @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
-    @Published private(set) var nonPurchasedWorkbooks: [WorkbookPreviewOfDB] = []
+    @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
+    @Published private(set) var info: WorkbookGroupPreviewOfDB?
+    /* private */
+    init(info: WorkbookGroupPreviewOfDB) {
+        self.info = info
+        if UserDefaultsManager.isLogined {
+            self.fetchPurchasedWorkbooks(wgid: info.wgid)
+        } else {
+            self.fetchNonPurchasedWorkbooks(wgid: info.wgid)
+        }
+    }
+    /// CoreData 에 저장되어 있는 해당 WorkbookGroup 에서 사용자가 구매한 Preview_Core 들 fetch
+    private func fetchPurchasedWorkbooks(wgid: Int) {
+        // CoreData 에서 Preview_Core fetch 후 purchasedWorkbooks 반영
+        // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
+        self.fetchNonPurchasedWorkbooks(wgid: wgid)
+    }
     
-    init() {
+    /// 해당 WorkbookGroup 에 속한 전체 WorkbookOfDB fetch
+    /// purchasedWorkbooks 가 존재할 경우 filter 된다.
+    private func fetchNonPurchasedWorkbooks(wgid: Int) {
         let networkUsecase = NetworkUsecase(network: Network())
-        networkUsecase.searchWorkbookGroup(wgid: 0) { status, workbookGroupOfDB in
+        let purchasedWids: [Int64] = self.purchasedWorkbooks.map(\.wid)
+        networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroupOfDB in
             switch status {
             case .SUCCESS:
-                guard let workbookGroupOfDB = workbookGroupOfDB else {
-                    return
-                }
-                dump(workbookGroupOfDB)
+                guard let workbookGroupOfDB = workbookGroupOfDB else { return }
+                self?.nonPurchasedWorkbooks = workbookGroupOfDB.workbooks
+                    .filter({ purchasedWids.contains(Int64($0.wid)) == false })
             default:
                 print("decoding error")
             }
         }
     }
-    // login 상태인 경우
-        // CoreData 상에 wgid 값을 토대로 [Workbook] fetch
-        // 2번 api 를 통해 전체 정보를 fetch
-        // [Workbook].count > 0 인 경우
-            // 나의 모의고사 section 생성, 정보 표시
-                // cell.configure(CoreData)
-        // 0개인 경우
-            // 실전 모의고사 영역에 정보 표시
-    
-    
-    // login 상태가 아닌 경우
-        // 2번 api 를 통해 전체 정보를 fetch
-        // 실전 모의고사 section 에 정보를 표시
-            // cell.configure(DTO)
-    
-    
 }
