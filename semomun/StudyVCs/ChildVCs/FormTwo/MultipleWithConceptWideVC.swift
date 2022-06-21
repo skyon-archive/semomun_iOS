@@ -62,7 +62,7 @@ extension MultipleWithConceptWideVC {
         var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
-        let width: CGFloat = self.subproblemCollectionView.bounds.width - 10
+        let width: CGFloat = collectionView.bounds.width - 10
         let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
