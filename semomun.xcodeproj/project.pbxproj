@@ -15,6 +15,7 @@
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
 		250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 250A4907285DF6F3008D0016 /* PretendardVariable.ttf */; };
 		250ACFDC28619BE60027B6A9 /* PublicTestResultInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDB28619BE60027B6A9 /* PublicTestResultInfoOfDB.swift */; };
+		250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		250F22AD285DD1B000955AB7 /* WorkbookGroupResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* WorkbookGroupResultVC.swift */; };
 		250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */; };
@@ -295,6 +296,7 @@
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		250A4907285DF6F3008D0016 /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PretendardVariable.ttf; sourceTree = "<group>"; };
 		250ACFDB28619BE60027B6A9 /* PublicTestResultInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTestResultInfoOfDB.swift; sourceTree = "<group>"; };
+		250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResultVM.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultVM.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
@@ -599,6 +601,14 @@
 				250A4907285DF6F3008D0016 /* PretendardVariable.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		250ACFDE28619EEC0027B6A9 /* PracticeTestResult */ = {
+			isa = PBXGroup;
+			children = (
+				250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */,
+			);
+			path = PracticeTestResult;
 			sourceTree = "<group>";
 		};
 		25100CD827D4ABC8002C18CB /* Codables */ = {
@@ -1300,6 +1310,7 @@
 				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
 				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
 				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
+				250ACFDE28619EEC0027B6A9 /* PracticeTestResult */,
 				8703B099282A4EFA00DA5894 /* SwiftUI */,
 			);
 			path = PopupVC;
@@ -1773,6 +1784,7 @@
 				87C85E48276F6726001C9C4A /* UIView.swift in Sources */,
 				87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */,
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
+				250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */,
 				8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */,
 				8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */,
 				253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */,
