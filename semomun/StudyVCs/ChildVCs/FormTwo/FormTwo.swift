@@ -12,7 +12,6 @@ class FormTwo: UIViewController {
     /* public */
     var mainImage: UIImage?
     var toolPicker: PKToolPicker? = PKToolPicker()
-    let subproblemCollectionView = SubproblemCollectionView()
     // MARK: 자식 클래스에서 접근이 필요한 canvasView의 속성들
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
@@ -25,6 +24,7 @@ class FormTwo: UIViewController {
     private var canvasDrawingLoaded = false
     private var pagePencilData: Data?
     private var pagePencilDataWidth: Double?
+    private let subproblemCollectionView = SubproblemCollectionView()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .white
