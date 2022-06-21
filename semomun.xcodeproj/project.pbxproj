@@ -103,6 +103,7 @@
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */; };
+		870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */; };
 		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
 		8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92B279A5D9E00B33A5E /* Profile.storyboard */; };
@@ -139,6 +140,7 @@
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9627A1294F00BA7294 /* SearchResultVC.swift */; };
 		871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */; };
+		871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
@@ -384,6 +386,7 @@
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupPreviewOfDB.swift; sourceTree = "<group>"; };
+		870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestWorkbookGroupOfDBJSON.json; sourceTree = "<group>"; };
 		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
 		8716E92B279A5D9E00B33A5E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -420,6 +423,7 @@
 		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
 		87182B9627A1294F00BA7294 /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
+		871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVM.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -973,6 +977,14 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
+		870D29BA2861A78F007E0C94 /* TestJSON */ = {
+			isa = PBXGroup;
+			children = (
+				870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */,
+			);
+			path = TestJSON;
+			sourceTree = "<group>";
+		};
 		8716E926279A5D5D00B33A5E /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -1088,6 +1100,7 @@
 			isa = PBXGroup;
 			children = (
 				87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */,
+				871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */,
 				87231B8928250D21001CA2F7 /* View */,
 				25841627285B235D003C6A21 /* WorkbookGroupResult */,
 			);
@@ -1447,6 +1460,7 @@
 		87C85EEC276F6EC9001C9C4A /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				870D29BA2861A78F007E0C94 /* TestJSON */,
 				25100CDA27D4AC0D002C18CB /* Decodables */,
 				25100CD927D4ABCD002C18CB /* Encodables */,
 				25100CD827D4ABC8002C18CB /* Codables */,
@@ -1654,6 +1668,7 @@
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
 				877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */,
+				870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */,
 				8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */,
 				8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */,
 				8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */,
@@ -1773,6 +1788,7 @@
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
+				871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */,
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,

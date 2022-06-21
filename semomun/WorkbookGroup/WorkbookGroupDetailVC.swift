@@ -13,11 +13,14 @@ final class WorkbookGroupDetailVC: UIViewController {
     static let identifier = "WorkbookGroupDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
     var workbookGroupInfo: WorkbookGroupPreviewOfDB?
+    /* private */
+    private var viewModel: WorkbookGroupDetailVM?
     
     @IBOutlet weak var practiceTests: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureViewModel()
         self.configurePracticeTests()
         self.configureComprehensiveReportButton()
         self.title = self.workbookGroupInfo?.title ?? ""
@@ -36,6 +39,10 @@ final class WorkbookGroupDetailVC: UIViewController {
 
 // MARK: Configure
 extension WorkbookGroupDetailVC {
+    private func configureViewModel() {
+        self.viewModel = WorkbookGroupDetailVM()
+    }
+    
     private func configurePracticeTests() {
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
