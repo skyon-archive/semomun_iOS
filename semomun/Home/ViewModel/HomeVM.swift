@@ -245,8 +245,18 @@ final class HomeVM {
     }
     
     private func fetchPracticeTests() {
-        // TODO: network 연결로직 필요
-        self.workbookGroups = [WorkbookGroupOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())]
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: nil) { [weak self] status, searchWorkbookGroups in
+            switch status {
+            case .SUCCESS:
+                guard let workbookGroups = searchWorkbookGroups?.workbookGroups else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                self?.workbookGroups = workbookGroups
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
     }
     
     func fetchWorkbook(wid: Int) {

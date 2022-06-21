@@ -50,6 +50,9 @@ protocol PreviewsSearchable {
 protocol WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
 }
+protocol WorkbookGroupSearchable {
+    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void)
+}
 // MARK: - Downloadable
 protocol SectionDownloadable {
     func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
