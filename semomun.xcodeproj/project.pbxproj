@@ -102,7 +102,7 @@
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
-		870CC12B286001A100FBB8C4 /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */; };
+		870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */; };
 		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
 		8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92B279A5D9E00B33A5E /* Profile.storyboard */; };
@@ -138,6 +138,7 @@
 		87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */; };
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9627A1294F00BA7294 /* SearchResultVC.swift */; };
+		871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */; };
 		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
@@ -239,7 +240,7 @@
 		87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift */; };
 		87C85EE9276F6E95001C9C4A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EE8276F6E95001C9C4A /* Network.swift */; };
 		87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */; };
-		87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */; };
+		87C85EEE276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EED276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift */; };
 		87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */; };
 		87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */; };
 		87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */; };
@@ -382,7 +383,7 @@
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
-		870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
+		870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupPreviewOfDB.swift; sourceTree = "<group>"; };
 		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
 		8716E92B279A5D9E00B33A5E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -418,6 +419,7 @@
 		87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVC.swift; sourceTree = "<group>"; };
 		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
 		87182B9627A1294F00BA7294 /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
+		871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -517,7 +519,7 @@
 		87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		87C85EE8276F6E95001C9C4A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		87C85EEA276F6EBB001C9C4A /* NetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUsecase.swift; sourceTree = "<group>"; };
-		87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewOfDB.swift; sourceTree = "<group>"; };
+		87C85EED276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookPreviewOfDB.swift; sourceTree = "<group>"; };
 		87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookOfDB.swift; sourceTree = "<group>"; };
 		87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderOfDB.swift; sourceTree = "<group>"; };
 		87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
@@ -621,8 +623,8 @@
 			isa = PBXGroup;
 			children = (
 				8733159327799B77004E4A98 /* Categorys.swift */,
+				87C85EED276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift */,
 				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
-				87C85EED276F6ED6001C9C4A /* PreviewOfDB.swift */,
 				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,
 				87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */,
 				87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */,
@@ -634,8 +636,9 @@
 				2562772D27A16C56006F9370 /* PayHistoryofDB.swift */,
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 				257E133B28019EFC00368ACF /* Banner.swift */,
-				870CC12A286001A100FBB8C4 /* WorkbookGroupOfDB.swift */,
+				870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */,
 				87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */,
+				871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */,
 			);
 			path = Decodables;
 			sourceTree = "<group>";
@@ -1814,6 +1817,7 @@
 				256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */,
 				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8781442E27C6175400C31104 /* SelectProblemsVM.swift in Sources */,
+				871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
 				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
@@ -1882,10 +1886,10 @@
 				25622C4F283A84330056E0DF /* FormZero.swift in Sources */,
 				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,
 				251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */,
-				87C85EEE276F6ED6001C9C4A /* PreviewOfDB.swift in Sources */,
+				87C85EEE276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift in Sources */,
 				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
-				870CC12B286001A100FBB8C4 /* WorkbookGroupOfDB.swift in Sources */,
+				870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */,
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,

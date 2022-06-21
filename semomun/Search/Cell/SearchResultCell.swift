@@ -29,7 +29,7 @@ class SearchResultCell: UICollectionViewCell {
         self.networkUsecase = usecase
     }
     
-    func configure(with preview: PreviewOfDB) {
+    func configure(with preview: WorkbookPreviewOfDB) {
         self.title.text = preview.title
         self.configureImage(uuid: preview.bookcover)
     }

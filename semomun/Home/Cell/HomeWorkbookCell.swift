@@ -32,7 +32,7 @@ class HomeWorkbookCell: UICollectionViewCell {
      - 베스트셀러
      - 나의 태그
      */
-    func configure(with preview: PreviewOfDB) {
+    func configure(with preview: WorkbookPreviewOfDB) {
         self.title.text = preview.title
         self.configureImage(uuid: preview.bookcover)
     }
@@ -49,7 +49,7 @@ class HomeWorkbookCell: UICollectionViewCell {
     /**
      - 실전 모의고사
      */
-    func configure(with testInfo: WorkbookGroupOfDB) {
+    func configure(with testInfo: WorkbookGroupPreviewOfDB) {
         // 임시코드
         self.title.text = testInfo.title
     }

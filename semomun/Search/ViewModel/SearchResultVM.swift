@@ -16,7 +16,7 @@ final class SearchResultVM {
     private var tags: [TagOfDB] = []
     private var text: String = ""
     private var isLastPage: Bool = false
-    @Published private(set) var searchResults: [PreviewOfDB] = []
+    @Published private(set) var searchResults: [WorkbookPreviewOfDB] = []
     @Published private(set) var warning: (String, String)?
     
     init(networkUsecase: NetworkUsecase) {
@@ -66,7 +66,7 @@ final class SearchResultVM {
 
 // MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
 extension SearchResultVM {
-    private func filteredSearchResults(with previews: [PreviewOfDB]) {
+    private func filteredSearchResults(with previews: [WorkbookPreviewOfDB]) {
         guard let testCompany = NetworkURL.testCompany else {
             self.searchResults += previews
             return

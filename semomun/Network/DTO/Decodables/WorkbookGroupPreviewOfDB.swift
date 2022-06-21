@@ -1,13 +1,18 @@
 //
-//  WorkbookGroupOfDB.swift
+//  WorkbookGroupPreviewOfDB.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/06/21.
+//  Created by Kang Minsang on 2022/06/20.
 //
 
 import Foundation
 
-struct WorkbookGroupOfDB: Decodable {
+struct SearchWorkbookGroups: Decodable {
+    let count: Int
+    let workbookGroups: [WorkbookGroupPreviewOfDB]
+}
+
+struct WorkbookGroupPreviewOfDB: Decodable {
     let wgid: Int
     let itemID: Int
     let type: String
@@ -17,7 +22,6 @@ struct WorkbookGroupOfDB: Decodable {
     let isGroupOnlyPurchasable: Bool
     let createdDate: Date
     let updatedDate: Date
-    let workbooks: [Int]
     
     enum CodingKeys: String, CodingKey {
         case wgid
@@ -25,6 +29,5 @@ struct WorkbookGroupOfDB: Decodable {
         case type, title, detail, groupCover, isGroupOnlyPurchasable
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
-        case workbooks
     }
 }

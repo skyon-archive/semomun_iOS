@@ -503,7 +503,7 @@ extension HomeVC: UICollectionViewDelegate {
         self.present(searchTagVC, animated: true, completion: nil)
     }
     
-    private func showPracticeTestVC(info: WorkbookGroupOfDB) {
+    private func showPracticeTestVC(info: WorkbookGroupPreviewOfDB) {
         let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
         guard let practiceTestVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
         practiceTestVC.workbookGroupInfo = info
