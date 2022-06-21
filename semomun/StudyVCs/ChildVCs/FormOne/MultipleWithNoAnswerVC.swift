@@ -51,17 +51,14 @@ extension MultipleWithNoAnswerVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = self.view.frame.width/2 - 10
-        let solveInputFrameHeight: CGFloat = 6 + 45
-        // imageView 높이값 가져오기
-        guard var contentImage = subImages?[indexPath.row] else {
-            return CGSize(width: width, height: 300) }
-        if contentImage.size.hasValidSize == false {
-            contentImage = UIImage(.warning)
-        }
+        var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
+        if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
-        let imgHeight: CGFloat = contentImage.size.height * (width/contentImage.size.width)
-        let height: CGFloat = solveInputFrameHeight + imgHeight
+        let width: CGFloat = collectionView.bounds.width - 10
+        let topViewHeight: CGFloat = MultipleWithNoAnswerCell.topViewHeight(with: nil)
+        let imageHeight = imageSize.height * (width/imageSize.width)
+        let height = topViewHeight + imageHeight
+        
         return CGSize(width: width, height: height)
     }
     
