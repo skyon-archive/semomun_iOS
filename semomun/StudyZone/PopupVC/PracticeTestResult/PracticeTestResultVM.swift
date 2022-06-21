@@ -15,3 +15,7 @@ class PracticeTestResultVM {
         self.networkUsecase = networkUsecase
     }
 }
+
+extension PracticeTestResultVM {
+    
+}

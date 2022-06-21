@@ -1,5 +1,5 @@
 //
-//  PrivateTestResultInfoOfDB.swift
+//  PrivateTestResultOfDB.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/06/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PrivateTestResultInfoOfDB: Decodable {
+struct PrivateTestResultOfDB: Decodable {
     let id: Int
     let wid: Int
     let wgid: Int
@@ -19,7 +19,7 @@ struct PrivateTestResultInfoOfDB: Decodable {
     let area: String // 영역명
     
     let totalTime: Int
-    let currentProblemCount: Int
+    let correctProblemCount: Int
     let totalProblemCount: Int
     
     let rank: Int // 등급
@@ -33,7 +33,7 @@ struct PrivateTestResultInfoOfDB: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id, wid, wgid, sid, uid, title, subject, area, totalTime,
-             currentProblemCount, totalProblemCount, rank, rawScore, perfectScore, deviation, percentile
+             correctProblemCount, totalProblemCount, rank, rawScore, perfectScore, deviation, percentile
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
     }
