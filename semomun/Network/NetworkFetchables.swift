@@ -89,6 +89,9 @@ protocol UserWorkbooksFetchable {
     func getUserBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
     func getUserBookshelfInfos(order: NetworkURL.PurchasesOrder, completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
 }
+protocol UserWorkbookGroupsFetchable {
+    func getUserWorkbookGroupInfos(wgid: Int, completion: @escaping (NetworkStatus, [Int]) -> Void)
+}
 protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)
 }
