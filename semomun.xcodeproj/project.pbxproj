@@ -248,7 +248,7 @@
 		87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */; };
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
-		87CF648F2860173700FA56BE /* TestResultInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */; };
+		87CF648F2860173700FA56BE /* PublicTestResultInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF648E2860173700FA56BE /* PublicTestResultInfoOfDB.swift */; };
 		87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0A56827CF1C5800449AAD /* CoreGraphics.swift */; };
@@ -529,7 +529,7 @@
 		87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
-		87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultInfoOfDB.swift; sourceTree = "<group>"; };
+		87CF648E2860173700FA56BE /* PublicTestResultInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTestResultInfoOfDB.swift; sourceTree = "<group>"; };
 		87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultButton.swift; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87D0A56827CF1C5800449AAD /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
@@ -641,7 +641,7 @@
 				87B4510827D78418008E262A /* BookshelfInfoOfDB.swift */,
 				257E133B28019EFC00368ACF /* Banner.swift */,
 				870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */,
-				87CF648E2860173700FA56BE /* TestResultInfoOfDB.swift */,
+				87CF648E2860173700FA56BE /* PublicTestResultInfoOfDB.swift */,
 				871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */,
 			);
 			path = Decodables;
@@ -1697,7 +1697,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8716E95A279A624A00B33A5E /* SectionResultVC.swift in Sources */,
-				87CF648F2860173700FA56BE /* TestResultInfoOfDB.swift in Sources */,
+				87CF648F2860173700FA56BE /* PublicTestResultInfoOfDB.swift in Sources */,
 				25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,

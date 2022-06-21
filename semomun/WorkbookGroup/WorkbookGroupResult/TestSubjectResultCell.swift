@@ -25,11 +25,11 @@ final class TestSubjectResultCell: UITableViewCell {
 }
 
 extension TestSubjectResultCell {
-    func prepareForReuse(index: Int, info: TestResultInfoOfDB) {
+    func prepareForReuse(index: Int, info: PublicTestResultInfoOfDB) {
         self.indexLabel.text = "\(index)"
         self.subjectLabel.text = info.subject
-        self.rawScoreLabel.text = "\(info.result.rawScore)"
-        self.deviationLabel.text = "\(info.result.deviation)"
-        self.percentileLabel.text = "\(info.result.percentile)"
+        self.rawScoreLabel.text = "\(info.rawScore)"
+        self.deviationLabel.text = "\(info.deviation)"
+        self.percentileLabel.text = "\(info.percentile)"
     }
 }
