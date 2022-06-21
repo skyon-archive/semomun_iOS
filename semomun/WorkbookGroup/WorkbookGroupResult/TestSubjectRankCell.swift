@@ -29,8 +29,8 @@ final class TestSubjectRankCell: UICollectionViewCell {
 }
 
 extension TestSubjectRankCell {
-    func prepareForReuse(info: TestResultInfoOfDB) {
+    func prepareForReuse(info: PublicTestResultInfoOfDB) {
         self.areaTitleLabel.text = info.subject
-        self.areaRankLabel.text = "\(info.result.rank)"
+        self.areaRankLabel.text = "\(info.rank)"
     }
 }
