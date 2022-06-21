@@ -393,6 +393,12 @@ extension NetworkUsecase: UserPurchaseable {
         }
     }
 }
+extension NetworkUsecase: UserWorkbookGroupsFetchable {
+    func getUserWorkbookGroupInfos(wgid: Int, completion: @escaping (NetworkStatus, [Int]) -> Void) {
+        // MARK: network 로직 구현 필요
+        completion(.SUCCESS, [35])
+    }
+}
 extension NetworkUsecase: UserWorkbooksFetchable {
     func getUserBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void) {
         self.network.request(url: NetworkURL.purchasedWorkbooks, method: .get, tokenRequired: true) { result in
