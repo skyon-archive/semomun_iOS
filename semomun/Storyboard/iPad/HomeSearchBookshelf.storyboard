@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -529,13 +529,13 @@
                         <outlet property="bannerAds" destination="JNx-BT-eY2" id="ysP-V9-Sds"/>
                         <outlet property="bestSellers" destination="Kkd-Ts-nYU" id="fVW-Rl-wCf"/>
                         <outlet property="navigationTitleView" destination="kxf-gW-fhA" id="WT2-C1-OKb"/>
-                        <outlet property="practiceTests" destination="uLr-EI-1NI" id="kj3-FK-WQT"/>
                         <outlet property="recentEntered" destination="aiU-wR-I4J" id="SLz-dq-veB"/>
                         <outlet property="recentEnteredHeight" destination="BQw-CJ-YSp" id="lLG-Vj-er0"/>
                         <outlet property="recentPurchased" destination="RJe-kD-aOx" id="XCV-wc-CgW"/>
                         <outlet property="recentPurchasedHeight" destination="w4C-c7-qoo" id="wKP-B4-uYw"/>
                         <outlet property="scrollView" destination="gIM-TK-By1" id="yvy-OI-Kva"/>
                         <outlet property="tagsStackView" destination="yTx-r1-fS9" id="K5C-R6-qeG"/>
+                        <outlet property="workbookGroups" destination="uLr-EI-1NI" id="kj3-FK-WQT"/>
                         <outlet property="workbooksWithTags" destination="M66-s7-lzJ" id="4Gy-vj-M1v"/>
                     </connections>
                 </viewController>
@@ -1058,13 +1058,13 @@ Label</string>
                                         <rect key="frame" x="0.0" y="16" width="614" height="1086"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="srP-BU-QSQ">
-                                            <rect key="frame" x="0.0" y="123" width="614" height="44"/>
+                                            <rect key="frame" x="0.0" y="112" width="614" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="uR7-JN-Wmd" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="50" width="614" height="45"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="614" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uR7-JN-Wmd" id="KOh-nN-Xb8">
                                                     <rect key="frame" x="0.0" y="0.0" width="614" height="45"/>
@@ -1195,10 +1195,10 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="2244.6043165467627" y="737.6884422110553"/>
         </scene>
-        <!--Practice TestVC-->
+        <!--Workbook Group DetailVC-->
         <scene sceneID="HLo-gx-Cl6">
             <objects>
-                <viewController storyboardIdentifier="PracticeTestVC" id="8yR-Z0-eKn" customClass="PracticeTestVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkbookGroupDetailVC" id="8yR-Z0-eKn" customClass="WorkbookGroupDetailVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M01-0P-tyG">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1213,7 +1213,7 @@ Label</string>
                                     <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestCell" id="IoM-JE-k4Z" customClass="PracticeTestCell" customModule="semomun" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TestSubjectCell" id="IoM-JE-k4Z" customClass="TestSubjectCell" customModule="semomun" customModuleProvider="target">
                                         <rect key="frame" x="28" y="50" width="146" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vDn-lj-ZN0">
@@ -1269,7 +1269,7 @@ Label</string>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PracticeTestsHeaderView" id="5Du-zj-8Q9" customClass="PracticeTestsHeaderView" customModule="semomun" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkbookGroupDetailHeaderView" id="5Du-zj-8Q9" customClass="WorkbookGroupDetailHeaderView" customModule="semomun" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -1307,10 +1307,10 @@ Label</string>
             </objects>
             <point key="canvasLocation" x="3208.6330935251799" y="737.6884422110553"/>
         </scene>
-        <!--Comprehensive ReportVC-->
+        <!--Workbook Group ResultVC-->
         <scene sceneID="Uv2-HA-IEi">
             <objects>
-                <viewController storyboardIdentifier="ComprehensiveReport" id="mDZ-QY-Hrc" customClass="ComprehensiveReportVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkbookGroupResultVC" id="mDZ-QY-Hrc" customClass="WorkbookGroupResultVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZQ4-h5-aA1">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1428,8 +1428,8 @@ Label</string>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LH-iq-0qP">
                                         <rect key="frame" x="14" y="87.5" width="366" height="262.5"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestResultCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="50" width="366" height="52"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestSubjectResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestSubjectResultCell" customModule="semomun" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="44.5" width="366" height="52"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xDf-S1-qqJ" id="PtO-l3-cRN">
                                                     <rect key="frame" x="0.0" y="0.0" width="366" height="52"/>
@@ -1575,7 +1575,7 @@ Label</string>
                                             <inset key="sectionInset" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TestRankCell" id="bWd-vs-b3P" customClass="TestRankCell" customModule="semomun" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TestSubjectRankCell" id="bWd-vs-b3P" customClass="TestSubjectRankCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="40" width="110" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="giU-ma-Evo">
@@ -1686,7 +1686,7 @@ Label</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionCell" id="1TR-KH-WmL" customClass="SectionCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="778" height="50"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="778" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1TR-KH-WmL" id="T0n-yi-JdQ">
                                             <rect key="frame" x="0.0" y="0.0" width="778" height="50"/>
@@ -2162,7 +2162,7 @@ Label</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="50" width="492" height="45"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="492" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
                                                     <rect key="frame" x="0.0" y="0.0" width="492" height="45"/>
@@ -2519,12 +2519,12 @@ test</string>
     </scenes>
     <resources>
         <image name="bookshelf" width="32" height="32"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="home" width="32" height="32"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

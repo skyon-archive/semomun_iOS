@@ -15,7 +15,7 @@ final class HomeVC: UIViewController {
     @IBOutlet weak var bannerAds: UICollectionView!
     @IBOutlet weak var bestSellers: UICollectionView!
     @IBOutlet weak var workbooksWithTags: UICollectionView!
-    @IBOutlet weak var practiceTests: UICollectionView!
+    @IBOutlet weak var workbookGroups: UICollectionView!
     @IBOutlet weak var recentEntered: UICollectionView!
     @IBOutlet weak var recentPurchased: UICollectionView!
     
@@ -80,13 +80,13 @@ extension HomeVC {
     private func configureCollectionView() {
         self.bestSellers.dataSource = self
         self.workbooksWithTags.dataSource = self
-        self.practiceTests.dataSource = self
+        self.workbookGroups.dataSource = self
         self.recentEntered.dataSource = self
         self.recentPurchased.dataSource = self
         
         self.bestSellers.delegate = self
         self.workbooksWithTags.delegate = self
-        self.practiceTests.delegate = self
+        self.workbookGroups.delegate = self
         self.recentEntered.delegate = self
         self.recentPurchased.delegate = self
     }
@@ -373,11 +373,11 @@ extension HomeVC {
     }
     
     private func bindPracticeTests() {
-        self.viewModel?.$practiceTests
+        self.viewModel?.$workbookGroups
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.practiceTests.reloadData()
+                self?.workbookGroups.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -397,8 +397,8 @@ extension HomeVC: UICollectionViewDataSource {
             return self.viewModel?.recentEntered.count ?? 0
         case self.recentPurchased:
             return self.viewModel?.recentPurchased.count ?? 0
-        case self.practiceTests:
-            return self.viewModel?.practiceTests.count ?? 0
+        case self.workbookGroups:
+            return self.viewModel?.workbookGroups.count ?? 0
         default:
             return 0
         }
@@ -430,8 +430,8 @@ extension HomeVC: UICollectionViewDataSource {
             case self.recentPurchased:
                 guard let info = self.viewModel?.recentPurchased[indexPath.item] else { return cell }
                 cell.configure(with: info)
-            case self.practiceTests:
-                guard let info = self.viewModel?.practiceTests[indexPath.item] else { return cell }
+            case self.workbookGroups:
+                guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return cell }
                 cell.configure(with: info)
             default:
                 return cell
@@ -459,9 +459,9 @@ extension HomeVC: UICollectionViewDelegate {
         case self.recentPurchased:
             guard let wid = self.viewModel?.recentPurchased[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
-        case self.practiceTests:
+        case self.workbookGroups:
             // TODO: Backend 와 소통 이후 로직작성 필요
-            guard let info = self.viewModel?.practiceTests[indexPath.item] else { return }
+            guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
             self.showPracticeTestVC(info: info)
         default:
             return
@@ -504,8 +504,8 @@ extension HomeVC: UICollectionViewDelegate {
     }
     
     private func showPracticeTestVC(info: WorkbookGroupOfDB) {
-        let storyboard = UIStoryboard(name: PracticeTestVC.storyboardName, bundle: nil)
-        guard let practiceTestVC = storyboard.instantiateViewController(withIdentifier: PracticeTestVC.identifier) as? PracticeTestVC else { return }
+        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
+        guard let practiceTestVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
         practiceTestVC.workbookGroupInfo = info
         self.navigationController?.pushViewController(practiceTestVC, animated: true)
     }

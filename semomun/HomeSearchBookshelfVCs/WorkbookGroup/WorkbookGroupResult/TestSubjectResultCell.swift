@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TestResultCell: UITableViewCell {
+final class TestSubjectResultCell: UITableViewCell {
     /* public */
-    static let identifier = "TestResultCell"
+    static let identifier = "TestSubjectResultCell"
     /* private */
     @IBOutlet weak var roundedBackgroundView: UIView!
     @IBOutlet weak var indexLabel: UILabel!
@@ -24,7 +24,7 @@ final class TestResultCell: UITableViewCell {
     }
 }
 
-extension TestResultCell {
+extension TestSubjectResultCell {
     func prepareForReuse(index: Int, info: TestResultInfoOfDB) {
         self.indexLabel.text = "\(index)"
         self.subjectLabel.text = info.subject

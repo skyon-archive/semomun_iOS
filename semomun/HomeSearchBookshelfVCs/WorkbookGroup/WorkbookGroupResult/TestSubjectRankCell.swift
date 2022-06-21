@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TestRankCell: UICollectionViewCell {
+final class TestSubjectRankCell: UICollectionViewCell {
     /* public */
-    static let identifier = "TestRankCell"
+    static let identifier = "TestSubjectRankCell"
     static let cellSize: CGSize = .init(100, 100)
     /* private */
     @IBOutlet weak var roundedBackground: UIView!
@@ -28,7 +28,7 @@ final class TestRankCell: UICollectionViewCell {
     }
 }
 
-extension TestRankCell {
+extension TestSubjectRankCell {
     func prepareForReuse(info: TestResultInfoOfDB) {
         self.areaTitleLabel.text = info.subject
         self.areaRankLabel.text = "\(info.result.rank)"

@@ -1,5 +1,5 @@
 //
-//  PracticeTestVC.swift
+//  WorkbookGroupDetailVC.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/05/06.
@@ -8,9 +8,9 @@
 import UIKit
 import Combine
 
-final class PracticeTestVC: UIViewController {
+final class WorkbookGroupDetailVC: UIViewController {
     /* public */
-    static let identifier = "PracticeTestVC"
+    static let identifier = "WorkbookGroupDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
     var workbookGroupInfo: WorkbookGroupOfDB?
     
@@ -35,14 +35,14 @@ final class PracticeTestVC: UIViewController {
 }
 
 // MARK: Configure
-extension PracticeTestVC {
+extension WorkbookGroupDetailVC {
     private func configurePracticeTests() {
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
     }
     
     private func configureComprehensiveReportButton() {
-        let comprehensiveReportButton = ComprehensiveReportButton()
+        let comprehensiveReportButton = WorkbookGroupResultButton()
         let action = UIAction { [weak self] _ in self?.showComprehensiveReport() }
         comprehensiveReportButton.addAction(action, for: .touchUpInside)
         
@@ -50,14 +50,14 @@ extension PracticeTestVC {
     }
     
     private func showComprehensiveReport() {
-        let storyboard = UIStoryboard(controllerType: ComprehensiveReportVC.self)
-        guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: ComprehensiveReportVC.identifier) as? ComprehensiveReportVC else { return }
+        let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
+        guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
         comprehensiveReportVC.workbookGroupInfo = self.workbookGroupInfo
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
     }
 }
 
-extension PracticeTestVC: UICollectionViewDataSource {
+extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
@@ -71,7 +71,7 @@ extension PracticeTestVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeTestCell.identifer, for: indexPath) as? PracticeTestCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
         
         // 임시용 로직
         if indexPath.section == 0 {
@@ -85,7 +85,7 @@ extension PracticeTestVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PracticeTestsHeaderView.identifier, for: indexPath) as? PracticeTestsHeaderView else { return UICollectionReusableView() }
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WorkbookGroupDetailHeaderView.identifier, for: indexPath) as? WorkbookGroupDetailHeaderView else { return UICollectionReusableView() }
             
             if self.numberOfSections(in: collectionView) == 1 {
                 headerView.updateLabel(to: "실전 모의고사")
@@ -101,13 +101,13 @@ extension PracticeTestVC: UICollectionViewDataSource {
     }
 }
 
-extension PracticeTestVC: UICollectionViewDelegateFlowLayout {
+extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return PracticeTestCell.cellSize
+        return TestSubjectCell.cellSize
     }
 }
 
-extension PracticeTestVC: UICollectionViewDelegate {
+extension WorkbookGroupDetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 임시 로직
         print(indexPath.section, indexPath.item)

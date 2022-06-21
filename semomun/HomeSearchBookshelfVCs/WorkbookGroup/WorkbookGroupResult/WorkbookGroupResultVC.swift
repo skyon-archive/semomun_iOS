@@ -1,5 +1,5 @@
 //
-//  ComprehensiveReportVC.swift
+//  WorkbookGroupResultVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/06/13.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ComprehensiveReportVC: UIViewController, StoryboardController {
+class WorkbookGroupResultVC: UIViewController, StoryboardController {
     /* public */
-    static var identifier: String = "ComprehensiveReport"
+    static var identifier: String = "WorkbookGroupResultVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [
         .pad: "HomeSearchBookshelf"
     ]
@@ -42,7 +42,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.areaRankCollectionView.reloadData() // Inset 시점문제로 다시 reload
+        self.areaRankCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -55,7 +55,7 @@ class ComprehensiveReportVC: UIViewController, StoryboardController {
 }
 
 // MARK: Configure
-extension ComprehensiveReportVC {
+extension WorkbookGroupResultVC {
     private func configureareaResultTableView() {
         self.areaResultTableView.delegate = self
         self.areaResultTableView.dataSource = self
@@ -87,20 +87,20 @@ extension ComprehensiveReportVC {
 }
 
 // MARK: Update
-extension ComprehensiveReportVC {
+extension WorkbookGroupResultVC {
     private func updateAreaRankCollectionViewToCenter() {
         let cellCount = self.collectionView(self.areaRankCollectionView, numberOfItemsInSection: 0)
         self.areaRankCollectionView.scrollToItem(at: IndexPath(item: cellCount/2, section: 0), at: .centeredHorizontally, animated: false)
     }
 }
 
-extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
+extension WorkbookGroupResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: TestResultCell.identifier) as? TestResultCell else {
+        guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: TestSubjectResultCell.identifier) as? TestSubjectResultCell else {
             return UITableViewCell()
         }
         // 임시로직
@@ -115,13 +115,13 @@ extension ComprehensiveReportVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension WorkbookGroupResultVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: TestRankCell.identifier, for: indexPath) as? TestRankCell else {
+        guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectRankCell.identifier, for: indexPath) as? TestSubjectRankCell else {
             return .init()
         }
         // 임시로직
@@ -131,16 +131,16 @@ extension ComprehensiveReportVC: UICollectionViewDelegate, UICollectionViewDataS
     }
 }
 
-extension ComprehensiveReportVC: UICollectionViewDelegateFlowLayout {
+extension WorkbookGroupResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return TestRankCell.cellSize
+        return TestSubjectRankCell.cellSize
     }
     
     // MARK: 셀 중앙 정렬
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         // VM 을 통한 로직으로 수정 필요
         let cellCount = self.collectionView(collectionView, numberOfItemsInSection: section)
-        let totalCellWidth = TestRankCell.cellSize.width * CGFloat(cellCount)
+        let totalCellWidth = TestSubjectRankCell.cellSize.width * CGFloat(cellCount)
         let totalSpacingWidth = self.areaRankCellSpacing * CGFloat(cellCount - 1)
 
         let leftInset = (self.areaRankCollectionView.bounds.width - totalCellWidth - totalSpacingWidth) / 2

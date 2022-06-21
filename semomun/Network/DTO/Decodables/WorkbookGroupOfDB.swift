@@ -14,7 +14,7 @@ struct SearchWorkbookGroups: Decodable {
 
 struct WorkbookGroupOfDB: Decodable {
     let wgid: Int
-    let itemId: Int
+    let itemID: Int
     let type: String
     let title: String
     let detail: String
@@ -25,7 +25,7 @@ struct WorkbookGroupOfDB: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case wgid
-        case itemId = "id"
+        case itemID = "id"
         case type, title, detail, groupCover, isGroupOnlyPurchasable
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"

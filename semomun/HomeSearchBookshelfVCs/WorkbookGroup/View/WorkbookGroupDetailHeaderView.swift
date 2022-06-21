@@ -1,5 +1,5 @@
 //
-//  PracticeTestsHeaderView.swift
+//  WorkbookGroupDetailHeaderView.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/05/06.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class PracticeTestsHeaderView: UICollectionReusableView {
-    static let identifier = "PracticeTestsHeaderView"
+class WorkbookGroupDetailHeaderView: UICollectionReusableView {
+    static let identifier = "WorkbookGroupDetailHeaderView"
     
     @IBOutlet weak var headerText: UILabel!
     

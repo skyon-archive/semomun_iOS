@@ -1,5 +1,5 @@
 //
-//  ComprehensiveReportButton.swift
+//  WorkbookGroupResultButton.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/06/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ComprehensiveReportButton: UIButton {
+final class WorkbookGroupResultButton: UIButton {
     convenience init() {
         self.init(frame: CGRect())
         self.commonInit()
