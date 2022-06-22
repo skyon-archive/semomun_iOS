@@ -20,12 +20,16 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
     /// 뷰가 나타나고 애니메이션을 실행시키기 위한 백업용 변수
     private var privateProgress: Float = 0
     private var publicProgress: Float = 0
+    private var progressAnimationComplete = false
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var correctProblemCountLabel: UILabel!
     @IBOutlet weak var totalProblemCountLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var privateProgressView: CircularProgressView!
     @IBOutlet weak var publicProgressView: CircularProgressView!
+    @IBOutlet weak var privateScoreResultView: ScoreResultView!
+    @IBOutlet weak var publicScoreResultView: ScoreResultView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,10 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.animateProgressView()
+        if progressAnimationComplete == false {
+            self.animateProgressView()
+            progressAnimationComplete = true
+        }
     }
 }
 
@@ -83,14 +90,9 @@ extension PracticeTestResultVC {
             .sink(receiveValue: { [weak self] practiceTestResult in
                 guard let practiceTestResult = practiceTestResult else { return }
                 
-                self?.titleLabel.text = practiceTestResult.title
-                self?.correctProblemCountLabel.text = "\(practiceTestResult.correctProblemCount)"
-                self?.totalProblemCountLabel.text = "\(practiceTestResult.totalProblemCount)"
-                self?.totalTimeLabel.text = "\(practiceTestResult.totalTimeFormattedString)"
-                
-                self?.privateProgress = Float(practiceTestResult.privateScoreResult.correctRatio)
-                self?.publicProgress = Float(practiceTestResult.publicScoreResult.correctRatio)
-                
+                self?.configureLabels(practiceTestResult: practiceTestResult)
+                self?.configureFutureAnimation(practiceTestResult: practiceTestResult)
+                self?.configureScoreResultView(practiceTestResult: practiceTestResult)
             })
             .store(in: &self.cancellables)
     }
@@ -114,5 +116,33 @@ extension PracticeTestResultVC {
                 print(notConnectedToInternet)
             })
             .store(in: &self.cancellables)
+    }
+}
+
+// MARK: Configure for Binding
+extension PracticeTestResultVC {
+    private func configureLabels(practiceTestResult: PracticeTestResult) {
+        self.titleLabel.text = practiceTestResult.title
+        self.correctProblemCountLabel.text = "\(practiceTestResult.correctProblemCount)"
+        self.totalProblemCountLabel.text = "\(practiceTestResult.totalProblemCount)"
+        self.totalTimeLabel.text = "\(practiceTestResult.totalTimeFormattedString)"
+    }
+    
+    private func configureFutureAnimation(practiceTestResult: PracticeTestResult) {
+        self.privateProgress = Float(practiceTestResult.privateScoreResult.correctRatio)
+        self.publicProgress = Float(practiceTestResult.publicScoreResult.correctRatio)
+    }
+    
+    private func configureScoreResultView(practiceTestResult: PracticeTestResult) {
+        self.privateScoreResultView.updateContent(
+            title: "나의 예상 등급",
+            scoreResult: practiceTestResult.privateScoreResult,
+            rankContainerBackgroundColor: UIColor(.mainColor) ?? .green
+        )
+        self.publicScoreResultView.updateContent(
+            title: "세모문 사용자 예상 등급",
+            scoreResult: practiceTestResult.publicScoreResult,
+            rankContainerBackgroundColor: UIColor(.munBlue) ?? .blue
+        )
     }
 }
