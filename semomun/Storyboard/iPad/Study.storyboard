@@ -970,15 +970,33 @@
                                                             <constraint firstItem="Ec2-iC-4Tz" firstAttribute="centerY" secondItem="aiy-G4-r1d" secondAttribute="centerY" id="jzi-Bh-EY3"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2du-Ge-bLf" customClass="ScoreResultView" customModule="semomun" customModuleProvider="target">
+                                                        <rect key="frame" x="28" y="469" width="544" height="140"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="140" id="M1o-t0-CCh"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvf-SS-X01" customClass="ScoreResultView" customModule="semomun" customModuleProvider="target">
+                                                        <rect key="frame" x="28" y="629" width="544" height="140"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="x52-na-Nuf" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="130" id="6BC-Gc-lMn"/>
                                                     <constraint firstItem="e64-Rj-4V1" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="8OP-1r-Fub"/>
+                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="height" secondItem="2du-Ge-bLf" secondAttribute="height" id="ADi-u3-lw9"/>
                                                     <constraint firstAttribute="height" constant="1000" id="C45-4T-zMB"/>
                                                     <constraint firstItem="1jg-mE-hbf" firstAttribute="top" secondItem="ihr-uN-Gj2" secondAttribute="top" constant="85" id="Fqh-zQ-xku"/>
+                                                    <constraint firstItem="2du-Ge-bLf" firstAttribute="centerX" secondItem="ihr-uN-Gj2" secondAttribute="centerX" id="G1j-sv-xOT"/>
+                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="centerX" secondItem="2du-Ge-bLf" secondAttribute="centerX" id="JgT-wa-L2s"/>
+                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="top" secondItem="2du-Ge-bLf" secondAttribute="bottom" constant="20" id="U1m-Ww-ncr"/>
+                                                    <constraint firstItem="2du-Ge-bLf" firstAttribute="top" secondItem="aiy-G4-r1d" secondAttribute="bottom" constant="60" id="a9n-WQ-hBm"/>
+                                                    <constraint firstItem="2du-Ge-bLf" firstAttribute="leading" secondItem="ihr-uN-Gj2" secondAttribute="leading" constant="28" id="aZ9-hY-ZKY"/>
                                                     <constraint firstItem="x52-na-Nuf" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="fLj-1l-A4G"/>
                                                     <constraint firstItem="e64-Rj-4V1" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="50" id="gwu-10-wNm"/>
+                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="width" secondItem="2du-Ge-bLf" secondAttribute="width" id="k0V-OX-Kcp"/>
                                                     <constraint firstItem="1jg-mE-hbf" firstAttribute="centerX" secondItem="ihr-uN-Gj2" secondAttribute="centerX" id="tSf-aX-drZ"/>
                                                 </constraints>
                                             </view>
@@ -2584,7 +2602,7 @@
             <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="munBlueColor">
-            <color red="0.011764705882352941" green="0.49411764705882355" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.012000000104308128" green="0.49399998784065247" blue="0.86699998378753662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="semoGray">
             <color red="0.64313725490196083" green="0.65098039215686276" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
