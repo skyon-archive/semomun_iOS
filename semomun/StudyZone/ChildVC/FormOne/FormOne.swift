@@ -17,7 +17,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         return self.canvasView.drawing.dataRepresentation()
     }
     var canvasViewContentWidth: CGFloat {
-        return self.canvasView.contentSize.width
+        return self.canvasView.frame.width
     }
     /* private */
     private var explanationId: Int?
