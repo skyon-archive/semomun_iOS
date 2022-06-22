@@ -17,10 +17,10 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
     /* private */
     private var viewModel: PracticeTestResultVM? = nil
     private var cancellables: Set<AnyCancellable> = []
-    /// 뷰가 나타나고 애니메이션을 실행시키기 위한 백업용 변수
+    /// 뷰가 나타나면 애니메이션을 실행시키기 위한 저장용 변수
+    private var progressAnimationComplete = false
     private var privateProgress: Float = 0
     private var publicProgress: Float = 0
-    private var progressAnimationComplete = false
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var correctProblemCountLabel: UILabel!
@@ -71,14 +71,6 @@ extension PracticeTestResultVC {
     }
 }
 
-// MARK: Animate
-extension PracticeTestResultVC {
-    private func animateProgressView() {
-        self.privateProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.privateProgress), from: 0)
-        self.publicProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.publicProgress), from: 0)
-    }
-}
-
 // MARK: Binding
 extension PracticeTestResultVC {
     private func bindAll() {
@@ -122,6 +114,7 @@ extension PracticeTestResultVC {
             .sink(receiveValue: { [weak self] notConnectedToInternet in
                 if notConnectedToInternet == true {
                     self?.publicScoreResultView.updateForNoInternet()
+                    
                     guard let publicProgess = self?.publicProgress else { return }
                     self?.publicProgressView.setProgressWithAnimation(duration: 0.5, value: 0, from: publicProgess)
                 }
@@ -130,7 +123,6 @@ extension PracticeTestResultVC {
     }
 }
 
-// MARK: Configure for Binding
 extension PracticeTestResultVC {
     private func configureLabels(practiceTestResult: PracticeTestResult) {
         self.titleLabel.text = practiceTestResult.title
@@ -156,5 +148,13 @@ extension PracticeTestResultVC {
             scoreResult: practiceTestResult.publicScoreResult,
             rankContainerBackgroundColor: UIColor(.munBlue) ?? .blue
         )
+    }
+}
+
+// MARK: Animate
+extension PracticeTestResultVC {
+    private func animateProgressView() {
+        self.privateProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.privateProgress), from: 0)
+        self.publicProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.publicProgress), from: 0)
     }
 }
