@@ -622,8 +622,7 @@
 				250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */,
 				250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */,
 				250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */,
-				250ACFE72861D9E50027B6A9 /* ScoreResultView.xib */,
-				250ACFE92861D9FA0027B6A9 /* ScoreResultView.swift */,
+				2577FC402862B7FF0006E011 /* ScoreResultView */,
 			);
 			path = PracticeTestResult;
 			sourceTree = "<group>";
@@ -801,6 +800,15 @@
 				2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		2577FC402862B7FF0006E011 /* ScoreResultView */ = {
+			isa = PBXGroup;
+			children = (
+				250ACFE72861D9E50027B6A9 /* ScoreResultView.xib */,
+				250ACFE92861D9FA0027B6A9 /* ScoreResultView.swift */,
+			);
+			path = ScoreResultView;
 			sourceTree = "<group>";
 		};
 		257AC7E627A5834A005E91EC /* Semopay */ = {

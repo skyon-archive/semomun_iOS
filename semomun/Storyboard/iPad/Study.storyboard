@@ -772,16 +772,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihr-uN-Gj2">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="744"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022년 1회차 고3 실전 모의고사 생명과학 성적표" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jg-mE-hbf">
-                                                        <rect key="frame" x="103.5" y="85" width="393" height="24"/>
+                                                        <rect key="frame" x="103.5" y="80" width="393" height="24"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e64-Rj-4V1">
-                                                        <rect key="frame" x="157" y="159" width="286.5" height="19.5"/>
+                                                        <rect key="frame" x="157" y="144" width="286.5" height="19.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoR-Ng-LNM" userLabel="CorrectCount">
                                                                 <rect key="frame" x="0.0" y="0.0" width="121.5" height="19.5"/>
@@ -863,7 +863,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x52-na-Nuf">
-                                                        <rect key="frame" x="140" y="239" width="320" height="170"/>
+                                                        <rect key="frame" x="140" y="224" width="320" height="170"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ec2-iC-4Tz">
                                                                 <rect key="frame" x="0.0" y="55.5" width="90" height="59"/>
@@ -971,31 +971,31 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2du-Ge-bLf" customClass="ScoreResultView" customModule="semomun" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="469" width="544" height="140"/>
+                                                        <rect key="frame" x="28" y="414" width="544" height="140"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="140" id="M1o-t0-CCh"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvf-SS-X01" customClass="ScoreResultView" customModule="semomun" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="629" width="544" height="140"/>
+                                                        <rect key="frame" x="28" y="584" width="544" height="140"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="x52-na-Nuf" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="130" id="6BC-Gc-lMn"/>
+                                                    <constraint firstItem="x52-na-Nuf" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="120" id="6BC-Gc-lMn"/>
                                                     <constraint firstItem="e64-Rj-4V1" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="8OP-1r-Fub"/>
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="height" secondItem="2du-Ge-bLf" secondAttribute="height" id="ADi-u3-lw9"/>
-                                                    <constraint firstAttribute="height" constant="1000" id="C45-4T-zMB"/>
-                                                    <constraint firstItem="1jg-mE-hbf" firstAttribute="top" secondItem="ihr-uN-Gj2" secondAttribute="top" constant="85" id="Fqh-zQ-xku"/>
+                                                    <constraint firstItem="1jg-mE-hbf" firstAttribute="top" secondItem="ihr-uN-Gj2" secondAttribute="top" constant="80" id="Fqh-zQ-xku"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="centerX" secondItem="ihr-uN-Gj2" secondAttribute="centerX" id="G1j-sv-xOT"/>
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="centerX" secondItem="2du-Ge-bLf" secondAttribute="centerX" id="JgT-wa-L2s"/>
-                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="top" secondItem="2du-Ge-bLf" secondAttribute="bottom" constant="20" id="U1m-Ww-ncr"/>
-                                                    <constraint firstItem="2du-Ge-bLf" firstAttribute="top" secondItem="aiy-G4-r1d" secondAttribute="bottom" constant="60" id="a9n-WQ-hBm"/>
+                                                    <constraint firstItem="dvf-SS-X01" firstAttribute="top" secondItem="2du-Ge-bLf" secondAttribute="bottom" constant="30" id="U1m-Ww-ncr"/>
+                                                    <constraint firstItem="2du-Ge-bLf" firstAttribute="top" secondItem="aiy-G4-r1d" secondAttribute="bottom" constant="20" id="a9n-WQ-hBm"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="leading" secondItem="ihr-uN-Gj2" secondAttribute="leading" constant="28" id="aZ9-hY-ZKY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dvf-SS-X01" secondAttribute="bottom" constant="20" id="bMf-eh-OwN"/>
                                                     <constraint firstItem="x52-na-Nuf" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="fLj-1l-A4G"/>
-                                                    <constraint firstItem="e64-Rj-4V1" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="50" id="gwu-10-wNm"/>
+                                                    <constraint firstItem="e64-Rj-4V1" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="40" id="gwu-10-wNm"/>
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="width" secondItem="2du-Ge-bLf" secondAttribute="width" id="k0V-OX-Kcp"/>
                                                     <constraint firstItem="1jg-mE-hbf" firstAttribute="centerX" secondItem="ihr-uN-Gj2" secondAttribute="centerX" id="tSf-aX-drZ"/>
                                                 </constraints>
@@ -1048,7 +1048,9 @@
                     <connections>
                         <outlet property="correctProblemCountLabel" destination="91p-le-J2c" id="bjX-i7-uXX"/>
                         <outlet property="privateProgressView" destination="aiy-G4-r1d" id="tsC-cT-E1O"/>
+                        <outlet property="privateScoreResultView" destination="2du-Ge-bLf" id="izb-ZC-PQ3"/>
                         <outlet property="publicProgressView" destination="MVf-9h-1D0" id="1rX-wW-w5e"/>
+                        <outlet property="publicScoreResultView" destination="dvf-SS-X01" id="sOa-hz-6dM"/>
                         <outlet property="titleLabel" destination="1jg-mE-hbf" id="Mmz-7X-MLi"/>
                         <outlet property="totalProblemCountLabel" destination="qxX-z0-MMj" id="m20-s4-gVw"/>
                         <outlet property="totalTimeLabel" destination="sa5-3U-i5d" id="OJw-U2-a71"/>
