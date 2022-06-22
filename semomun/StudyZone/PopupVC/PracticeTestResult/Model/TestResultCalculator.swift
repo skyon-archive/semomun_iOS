@@ -20,20 +20,19 @@ struct TestResultCalculator {
         
         // 평균이 0인 표준점수
         let zeroAverageDeviation = Double(rawScore - groupAverage) / Double(groupStandardDeviation)
-
-        let percentage = self.normalDistribution(x: zeroAverageDeviation)
-        
         // 평균과 폭이 조절된, 수능 시험지에서 사용하는 표준점수
         let deviation = self.standardDeviation(of: area) * zeroAverageDeviation + self.average(of: area)
+        // 백분위
+        let percentile = self.normalDistribution(x: zeroAverageDeviation) * 100
         
-        return .init(rank: rank, rawScore: rawScore, deviation: Int(deviation), percentile: Int(percentage*100), perfectScore: perfectScore)
+        return .init(rank: rank, rawScore: rawScore, deviation: Int(deviation), percentile: Int(percentile), perfectScore: perfectScore)
     }
 }
 
 // MARK: Private
 extension TestResultCalculator {
     private static func standardDeviation(of area: String) -> Double {
-        if ["과학", "사회", "외국", "한문"].firstIndex(where: { area.contains($0 )}) == nil {
+        if ["한국사", "과학", "사회", "직업", "외국", "한문"].firstIndex(where: { area.contains($0 )}) == nil {
             return 10
         } else {
             return 20
@@ -41,7 +40,7 @@ extension TestResultCalculator {
     }
     
     private static func average(of area: String) -> Double {
-        if ["과학", "사회", "외국", "한문"].firstIndex(where: { area.contains($0 )}) == nil {
+        if ["한국사", "과학", "사회", "직업", "외국", "한문"].firstIndex(where: { area.contains($0 )}) == nil {
             return 50
         } else {
             return 100
