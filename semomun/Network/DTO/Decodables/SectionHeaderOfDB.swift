@@ -13,7 +13,6 @@ struct SectionHeaderOfDB: Decodable {
     let sectionNum: Int //섹션 번호
     let title: String //section 명
     let detail: String //section 설명
-    let cutoff: Cutoff //json 형식의 커트라인
     let sectioncover: String //section 표시파일 uuid, 사용X
     let fileSize: Int //section 파일크기
     let audio: String? //음성파일 uuid
@@ -24,12 +23,10 @@ struct SectionHeaderOfDB: Decodable {
     enum CodingKeys: String, CodingKey {
         case wid, sid
         case sectionNum = "index"
-        case title, detail, cutoff, sectioncover
+        case title, detail, sectioncover
         case fileSize = "size"
         case audio, audioDetail
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
     }
 }
-
-struct Cutoff: Decodable {}

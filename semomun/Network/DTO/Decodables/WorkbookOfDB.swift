@@ -9,6 +9,7 @@ import Foundation
 
 struct WorkbookOfDB: Decodable {
     let productID: Int //상품 식별자
+    let wgid: Int? // new: workbookGroup 속한경우의 상위 wgid값
     let wid: Int //문제집 고유 번호
     let title: String
     let detail: String //문제집 정보
@@ -25,14 +26,21 @@ struct WorkbookOfDB: Decodable {
     let price: Int
     let tags: [TagOfDB]
     let sales: Int
+    /* 실전 모의고사용 추가 property들 */
+    let cutoff: [Cutoff] //등급계산을 위한 데이터
+    let subject: String //과목 이름
+    let area: String //영역 이름
+    let deviation: Int? //표준 편차
+    let averageScore: Int? //평균 점수
     
     enum CodingKeys: String, CodingKey {
         case productID = "id"
-        case wid, title, detail, isbn, author
+        case wgid, wid, title, detail, isbn, author
         case publishedDate = "date"
         case publishMan, publishCompany, originalPrice, bookcover
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case sections, price, tags, sales
+        case cutoff, subject, area, deviation, averageScore
     }
 }
