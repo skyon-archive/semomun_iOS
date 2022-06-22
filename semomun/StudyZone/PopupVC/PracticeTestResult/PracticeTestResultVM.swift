@@ -79,7 +79,6 @@ extension PracticeTestResultVM {
         let totalTime = 123456
         
         let title = self.formatTitle(fromWorkbookName: workbookTitle, subjectName: subject)
-        
         let privateScoreResult: ScoreResult = TestResultCalculator.getScoreResult(
             rawScore: rawScore,
             groupAverage: averageScore,
@@ -88,7 +87,6 @@ extension PracticeTestResultVM {
             rankCutoff: cutoff,
             perfectScore: perfectScore
         )
-        
         let publicScoreResult: ScoreResult = .init(
             rank: publicTestResultOfDB.rank,
             rawScore: publicTestResultOfDB.rawScore,
@@ -96,7 +94,6 @@ extension PracticeTestResultVM {
             percentile: publicTestResultOfDB.percentile,
             perfectScore: perfectScore
         )
-        
         let totalTimeFormattedString = self.formatDateString(fromSeconds: totalTime)
         
         return .init(
