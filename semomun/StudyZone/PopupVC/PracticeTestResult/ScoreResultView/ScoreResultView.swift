@@ -60,6 +60,7 @@ extension ScoreResultView {
         self.setupFromNib()
     }
     
+    /// - Note: UI업데이트와 content 설정을 동시에 하기 위해 updateForNoInternet과 달리 의도적으로 외부에서 접근 불가능하게 설정
     private func updateForInternet() {
         self.noInternetLabel.isHidden = true
         self.rankLabel.isHidden = false

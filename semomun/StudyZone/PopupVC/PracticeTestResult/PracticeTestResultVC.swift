@@ -79,7 +79,7 @@ extension PracticeTestResultVC {
 extension PracticeTestResultVC {
     private func bindAll() {
         self.bindPracticeTestResult()
-        self.bindAlert()
+        self.bindNetworkError()
         self.bindNotConnectedToInternet()
     }
     
@@ -97,13 +97,16 @@ extension PracticeTestResultVC {
             .store(in: &self.cancellables)
     }
     
-    private func bindAlert() {
-        self.viewModel?.$alert
+    private func bindNetworkError() {
+        self.viewModel?.$networkError
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] alertContent in
-                guard let alertContent = alertContent else { return }
-                self?.showAlertWithOK(title: alertContent.title, text: alertContent.message)
+            .sink(receiveValue: { [weak self] networkError in
+                guard networkError == true else { return }
+                
+                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요") {
+                    self?.dismiss(animated: true)
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -113,7 +116,9 @@ extension PracticeTestResultVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] notConnectedToInternet in
-                print(notConnectedToInternet)
+                if notConnectedToInternet == true {
+                    self?.publicScoreResultView.updateForNoInternet()
+                }
             })
             .store(in: &self.cancellables)
     }
