@@ -772,7 +772,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihr-uN-Gj2">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="744"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="784"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022년 1회차 고3 실전 모의고사 생명과학 성적표" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jg-mE-hbf">
                                                         <rect key="frame" x="103.5" y="80" width="393" height="24"/>
@@ -993,7 +993,7 @@
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="top" secondItem="2du-Ge-bLf" secondAttribute="bottom" constant="30" id="U1m-Ww-ncr"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="top" secondItem="aiy-G4-r1d" secondAttribute="bottom" constant="20" id="a9n-WQ-hBm"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="leading" secondItem="ihr-uN-Gj2" secondAttribute="leading" constant="28" id="aZ9-hY-ZKY"/>
-                                                    <constraint firstAttribute="bottom" secondItem="dvf-SS-X01" secondAttribute="bottom" constant="20" id="bMf-eh-OwN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dvf-SS-X01" secondAttribute="bottom" constant="60" id="bMf-eh-OwN"/>
                                                     <constraint firstItem="x52-na-Nuf" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="fLj-1l-A4G"/>
                                                     <constraint firstItem="e64-Rj-4V1" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="40" id="gwu-10-wNm"/>
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="width" secondItem="2du-Ge-bLf" secondAttribute="width" id="k0V-OX-Kcp"/>
