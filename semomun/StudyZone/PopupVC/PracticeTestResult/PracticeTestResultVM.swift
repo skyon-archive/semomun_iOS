@@ -36,19 +36,14 @@ extension PracticeTestResultVM {
         }
         
         // 위에서 네트워크 유무를 확인했기에 이곳에서의 실패는 기타 다른 문제
-        self.networkUsecase.getPrivateTestResult(wid: self.wid) { [weak self] privateStatus, privateTestResultOfDB in
-            guard let wid = self?.wid else { return }
+        self.networkUsecase.getPublicTestResult(wid: wid) { [weak self] _, publicTestResultOfDB in
             
-            self?.networkUsecase.getPublicTestResult(wid: wid) { [weak self] publicStatus, publicTestResultOfDB in
-                
-                guard let privateTestResultOfDB = privateTestResultOfDB,
-                      let publicTestResultOfDB = publicTestResultOfDB else {
-                    self?.networkError = true
-                    return
-                }
-                
-                self?.practiceTestResult = self?.makeModel(privateTestResultOfDB: privateTestResultOfDB, publicTestResultOfDB: publicTestResultOfDB)
+            guard let publicTestResultOfDB = publicTestResultOfDB else {
+                self?.networkError = true
+                return
             }
+            
+            self?.practiceTestResult = self?.makeModel(publicTestResultOfDB: publicTestResultOfDB)
         }
     }
 }
@@ -68,20 +63,32 @@ extension PracticeTestResultVM {
         }
     }
     
-    private func makeModel(privateTestResultOfDB: PrivateTestResultOfDB, publicTestResultOfDB: PublicTestResultOfDB) -> PracticeTestResult {
-        let title = self.formatTitle(fromWorkbookName: privateTestResultOfDB.title, subjectName: privateTestResultOfDB.subject)
+    private func makeModel(publicTestResultOfDB: PublicTestResultOfDB) -> PracticeTestResult {
+        // CoreData에서 workbook 가져오는 부분 생략된 임시 로직
+        let workbookTitle = "임시 workbook"
+        let cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
+        let subject = "미적분"
+        let area = "수학 영역"
+        let deviation = 30
+        let averageScore = 44
+        // 여기 아래는 CoreData를 바탕으로 따로 계산이 필요할 것 같은 변수들
+        let correctProblemCount = 41
+        let totalProblemCount = 45
+        let perfectScore = 100
+        let rawScore = 40
+        let totalTime = 123456
         
-        let correctProblemCount = privateTestResultOfDB.correctProblemCount
-        let totalProblemCount = privateTestResultOfDB.totalProblemCount
+        let title = self.formatTitle(fromWorkbookName: workbookTitle, subjectName: subject)
         
-        let perfectScore = privateTestResultOfDB.perfectScore
-        let privateScoreResult: ScoreResult = .init(
-            rank: privateTestResultOfDB.rank,
-            rawScore: privateTestResultOfDB.rawScore,
-            deviation: privateTestResultOfDB.deviation,
-            percentile: privateTestResultOfDB.percentile,
+        let privateScoreResult: ScoreResult = TestResultCalculator.getScoreResult(
+            rawScore: rawScore,
+            groupAverage: averageScore,
+            groupStandardDeviation: deviation,
+            area: area,
+            rankCutoff: cutoff,
             perfectScore: perfectScore
         )
+        
         let publicScoreResult: ScoreResult = .init(
             rank: publicTestResultOfDB.rank,
             rawScore: publicTestResultOfDB.rawScore,
@@ -90,7 +97,7 @@ extension PracticeTestResultVM {
             perfectScore: perfectScore
         )
         
-        let totalTimeFormattedString = self.formatDateString(fromSeconds: privateTestResultOfDB.totalTime)
+        let totalTimeFormattedString = self.formatDateString(fromSeconds: totalTime)
         
         return .init(
             title: title,

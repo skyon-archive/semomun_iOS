@@ -37,9 +37,9 @@ struct WorkbookPreviewOfDB: Decodable {
     let createdDate: Date //생성일자
     let updatedDate: Date //반영일자
     /* 실전 모의고사용 추가 property들 */
-    let cutoff: [Cutoff] //등급계산을 위한 데이터
-    let subject: String //과목 이름
-    let area: String //영역 이름
+    let cutoff: [Cutoff] = [] //등급계산을 위한 데이터
+    let subject: String = "" //과목 이름
+    let area: String = "" //영역 이름
     let deviation: Int? //표준 편차
     let averageScore: Int? //평균 점수
     

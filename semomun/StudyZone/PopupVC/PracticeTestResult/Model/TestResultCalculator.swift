@@ -20,12 +20,13 @@ struct TestResultCalculator {
         
         // 평균이 0인 표준점수
         let zeroAverageDeviation = Double(rawScore - groupAverage) / Double(groupStandardDeviation)
+
         let percentage = self.normalDistribution(x: zeroAverageDeviation)
         
         // 평균과 폭이 조절된, 수능 시험지에서 사용하는 표준점수
         let deviation = self.standardDeviation(of: area) * zeroAverageDeviation + self.average(of: area)
         
-        return .init(rank: rank, rawScore: rawScore, deviation: Int(deviation), percentile: Int(percentage), perfectScore: perfectScore)
+        return .init(rank: rank, rawScore: rawScore, deviation: Int(deviation), percentile: Int(percentage*100), perfectScore: perfectScore)
     }
 }
 
@@ -48,7 +49,7 @@ extension TestResultCalculator {
     }
     
     private static func normalDistribution(x: Double) -> Double {
-        return (1 + erfc(x / 0.5.squareRoot() )) / 2
+        return 0.5 * erfc(-x * 0.5.squareRoot())
     }
 }
 
