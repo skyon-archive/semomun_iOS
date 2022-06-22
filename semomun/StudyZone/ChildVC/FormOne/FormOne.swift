@@ -8,6 +8,35 @@
 import UIKit
 import PencilKit
 
+class SecretImageView: UIView {
+    let hiddenView: UIView = {
+        let textField = UITextField()
+        textField.isSecureTextEntry = true
+        let hiddenView = textField.layer.sublayers?.first?.delegate as! UIView
+        hiddenView.subviews.forEach { $0.removeFromSuperview() }
+        hiddenView.translatesAutoresizingMaskIntoConstraints = false
+        return hiddenView
+    }()
+    let imageView = UIImageView()
+    
+    var image: UIImage? {
+        get { return self.imageView.image }
+        set { self.imageView.image = newValue }
+    }
+    
+    convenience init() {
+        self.init(frame: .zero)
+        self.addSubview(self.hiddenView)
+        self.hiddenView.addSubview(self.imageView)
+    }
+    
+    func setFrame(_ frame: CGRect) {
+        self.frame = frame
+        self.hiddenView.frame = frame
+        self.imageView.frame = frame
+    }
+}
+
 class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     /* public */
     var mainImage: UIImage?
@@ -25,8 +54,8 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     private var pagePencilData: Data?
     private var pagePencilDataWidth: Double?
     private let subproblemCollectionView = SubproblemCollectionView()
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
+    private let imageView: SecretImageView = {
+        let imageView = SecretImageView()
         imageView.backgroundColor = .white
         return imageView
     }()
@@ -218,7 +247,7 @@ extension FormOne {
         }
         
         // 문제 이미지 크기 설정
-        self.imageView.frame.size = self.canvasView.contentSize
+        self.imageView.setFrame(.init(origin: .zero, size: self.canvasView.contentSize))
     }
     
     /// canvasView 크기 및 ratio 조절 및 필요시 frame update
