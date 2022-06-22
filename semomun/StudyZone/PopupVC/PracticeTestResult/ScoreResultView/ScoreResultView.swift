@@ -27,6 +27,11 @@ class ScoreResultView: UIView, NibLoadable {
         super.init(frame: frame)
         self.commonInit()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.rankContainerBackgroundView.addAccessibleShadow(direction: .bottom, shadowRadius: 5)
+    }
 }
 
 // MARK: Update - 네트워크 상황에 따라 표시 여부가 실시간으로 달라질 수 있음
@@ -37,7 +42,6 @@ extension ScoreResultView {
         self.sectionTitleLabel.text = title
         self.rankLabel.text = "\(scoreResult.rank)"
         self.rankContainerBackgroundView.backgroundColor = rankContainerBackgroundColor
-        
         self.rawScoreLabel.text = "\(scoreResult.rawScore)"
         self.deviationLabel.text = "\(scoreResult.deviation)"
         self.percentileLabel.text = "\(scoreResult.percentile)"
@@ -48,22 +52,16 @@ extension ScoreResultView {
         self.rankLabel.isHidden = true
         self.rankContainerBackgroundView.backgroundColor = UIColor(.lightGrayBackgroundColor)
     }
-    
-    private func updateForInternet() {
-        self.noInternetLabel.isHidden = true
-        self.rankLabel.isHidden = false
-    }
 }
 
 // MARK: Private
 extension ScoreResultView {
     private func commonInit() {
         self.setupFromNib()
-        self.configureRankContainerShadow()
     }
     
-    private func configureRankContainerShadow() {
-        self.rankContainerBackgroundView.addAccessibleShadow()
+    private func updateForInternet() {
+        self.noInternetLabel.isHidden = true
+        self.rankLabel.isHidden = false
     }
 }
-
