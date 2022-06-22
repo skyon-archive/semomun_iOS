@@ -41,16 +41,17 @@ extension ScoreResultView {
         
         self.sectionTitleLabel.text = title
         self.rankLabel.text = "\(scoreResult.rank)"
-        self.rankContainerBackgroundView.backgroundColor = rankContainerBackgroundColor
         self.rawScoreLabel.text = "\(scoreResult.rawScore)"
         self.deviationLabel.text = "\(scoreResult.deviation)"
         self.percentileLabel.text = "\(scoreResult.percentile)"
+        
+        self.setRankContainerBackgroundColor(to: rankContainerBackgroundColor)
     }
     
     func updateForNoInternet() {
         self.noInternetLabel.isHidden = false
         self.rankLabel.isHidden = true
-        self.rankContainerBackgroundView.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        self.setRankContainerBackgroundColor(to: UIColor(.semoLightGray))
     }
 }
 
@@ -64,5 +65,11 @@ extension ScoreResultView {
     private func updateForInternet() {
         self.noInternetLabel.isHidden = true
         self.rankLabel.isHidden = false
+    }
+    
+    private func setRankContainerBackgroundColor(to color: UIColor?) {
+        self.rankContainerBackgroundView.backgroundColor = color
+        // 배경색이 바뀌면 shadowLayer의 배경색도 바뀌어야 함
+        self.rankContainerBackgroundView.addAccessibleShadow(direction: .bottom, shadowRadius: 5)
     }
 }

@@ -45,6 +45,10 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
             progressAnimationComplete = true
         }
     }
+    
+    @IBAction func close(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
 }
 
 // MARK: 외부 설정용
@@ -118,6 +122,8 @@ extension PracticeTestResultVC {
             .sink(receiveValue: { [weak self] notConnectedToInternet in
                 if notConnectedToInternet == true {
                     self?.publicScoreResultView.updateForNoInternet()
+                    guard let publicProgess = self?.publicProgress else { return }
+                    self?.publicProgressView.setProgressWithAnimation(duration: 0.5, value: 0, from: publicProgess)
                 }
             })
             .store(in: &self.cancellables)
@@ -134,6 +140,7 @@ extension PracticeTestResultVC {
     }
     
     private func configureFutureAnimation(practiceTestResult: PracticeTestResult) {
+        self.progressAnimationComplete = false
         self.privateProgress = Float(practiceTestResult.privateScoreResult.correctRatio)
         self.publicProgress = Float(practiceTestResult.publicScoreResult.correctRatio)
     }
