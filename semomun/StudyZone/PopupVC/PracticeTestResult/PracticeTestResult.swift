@@ -16,20 +16,3 @@ struct PracticeTestResult {
     let privateScoreResult: ScoreResult
     let publicScoreResult: ScoreResult
 }
-
-struct ScoreResult {
-    let rank: Int
-    let rawScore: Int
-    let deviation: Int
-    let percentile: Int
-    /// 총점 대비 맞은 점수의 비율
-    let correctRatio: Double
-    
-    init(rank: Int, rawScore: Int, deviation: Int, percentile: Int, perfectScore: Int) {
-        self.rank = rank
-        self.rawScore = rawScore
-        self.deviation = deviation
-        self.percentile = percentile
-        self.correctRatio = Double(rawScore) / Double(perfectScore)
-    }
-}
