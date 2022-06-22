@@ -735,6 +735,16 @@
 			path = UserNotice;
 			sourceTree = "<group>";
 		};
+		255D9B722862FB8600A89422 /* SectionResult */ = {
+			isa = PBXGroup;
+			children = (
+				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
+				8784795727C87F18000C6307 /* SectionResultVM.swift */,
+				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
+			);
+			path = SectionResult;
+			sourceTree = "<group>";
+		};
 		2560E1E627914D03003BDAC0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1340,13 +1350,11 @@
 			isa = PBXGroup;
 			children = (
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
-				8716E959279A624A00B33A5E /* SectionResultVC.swift */,
-				8784795727C87F18000C6307 /* SectionResultVM.swift */,
-				87C85EBE276F6D26001C9C4A /* SectionResult.swift */,
 				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
 				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
 				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
 				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
+				255D9B722862FB8600A89422 /* SectionResult */,
 				250ACFDE28619EEC0027B6A9 /* PracticeTestResult */,
 				8703B099282A4EFA00DA5894 /* SwiftUI */,
 			);
