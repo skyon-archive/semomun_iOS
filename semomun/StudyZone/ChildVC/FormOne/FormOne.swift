@@ -9,6 +9,7 @@ import UIKit
 import PencilKit
 
 class SecretImageView: UIView {
+    var secret: Bool = true
     let hiddenView: UIView = {
         let textField = UITextField()
         textField.isSecureTextEntry = true
@@ -24,16 +25,23 @@ class SecretImageView: UIView {
         set { self.imageView.image = newValue }
     }
     
-    convenience init() {
+    convenience init(_ secret: Bool = true) {
         self.init(frame: .zero)
-        self.addSubview(self.hiddenView)
-        self.hiddenView.addSubview(self.imageView)
+        self.secret = secret
+        if secret {
+            self.addSubview(self.hiddenView)
+            self.hiddenView.addSubview(self.imageView)
+        } else {
+            self.addSubview(self.imageView)
+        }
     }
     
     func setFrame(_ frame: CGRect) {
         self.frame = frame
-        self.hiddenView.frame = frame
         self.imageView.frame = frame
+        if self.secret {
+            self.hiddenView.frame = frame
+        }
     }
 }
 
@@ -55,7 +63,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     private var pagePencilDataWidth: Double?
     private let subproblemCollectionView = SubproblemCollectionView()
     private let imageView: SecretImageView = {
-        let imageView = SecretImageView()
+        let imageView = SecretImageView(true)
         imageView.backgroundColor = .white
         return imageView
     }()

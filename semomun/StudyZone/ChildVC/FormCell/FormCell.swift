@@ -25,7 +25,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private var toolPicker: PKToolPicker?
     private var isCanvasDrawingLoaded: Bool = false
     private let imageView: SecretImageView = {
-        let imageView = SecretImageView()
+        let imageView = SecretImageView(true)
         imageView.backgroundColor = .white
         return imageView
     }()
