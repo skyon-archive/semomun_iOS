@@ -1,5 +1,5 @@
 //
-//  SectionOfDB.swift
+//  SectionHeaderOfDB.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Note: WorkbookDetailVC 내에 섹션 정보를 저장해 보이기 위한 DTO
 struct SectionHeaderOfDB: Decodable {
     let wid: Int //속한 workbook 값
     let sid: Int //식별값
