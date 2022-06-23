@@ -24,11 +24,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         case wid
         case sid
         case title
-        case sectionNum
-        case downloaded
-        case fileSize
-        case image
-        case time
+        case detail
         case lastIndex
         case terminated
         case scoringQueue
@@ -39,18 +35,16 @@ public class PracticeTestSection_Core: NSManagedObject {
         case audioDetail
         case problemCores
         case cutoff
-        case detail
+        case subject
+        case area
+        case deviation
+        case averageScore
     }
-    /* sectionHeader */
+    /* section */
     @NSManaged public var wid: Int64
     @NSManaged public var sid: Int64
     @NSManaged public var title: String?
-    @NSManaged public var sectionNum: Int64
-    @NSManaged public var downloaded: Bool
-    @NSManaged public var fileSize: Int64
-    @NSManaged public var image: Data?
-    /* section */
-    @NSManaged public var time: Int64
+    @NSManaged public var detail: String?
     @NSManaged public var lastIndex: Int64
     @NSManaged public var terminated: Bool
     @NSManaged public var scoringQueue: [Int]?
@@ -62,7 +56,29 @@ public class PracticeTestSection_Core: NSManagedObject {
     @NSManaged public var problemCores: [Problem_Core]?
     /* practiceTest */
     @NSManaged public var cutoff: String?
-    @NSManaged public var detail: String?
+    @NSManaged public var subject: String?
+    @NSManaged public var area: String?
+    @NSManaged public var deviation: Int64
+    @NSManaged public var averageScore: Int64
+    
+    func setValues(section: SectionOfDB, workbook: Preview_Core) {
+        /// section 정보 저장
+        self.setValue(Int64(section.wid), forKey: Attribute.wid.rawValue)
+        self.setValue(Int64(section.sid), forKey: Attribute.sid.rawValue)
+        self.setValue(section.title, forKey: Attribute.title.rawValue)
+        self.setValue(section.detail, forKey: Attribute.detail.rawValue)
+        self.setValue(nil, forKey: Attribute.cutoff.rawValue)
+        self.setValue(nil, forKey: Attribute.audio.rawValue)
+        self.setValue(nil, forKey: Attribute.audioDetail.rawValue)
+        self.setValue(section.updatedDate, forKey: Attribute.updatedDate.rawValue)
+        self.setValue(false, forKey: Attribute.terminated.rawValue)
+        /// practiceTest 정보 저장
+        self.setValue(workbook.cutoff, forKey: Attribute.cutoff.rawValue) //등급계산을 위한 데이터
+        self.setValue(workbook.subject, forKey: Attribute.subject.rawValue) //과목 이름
+        self.setValue(workbook.area, forKey: Attribute.area.rawValue) //영역 이름
+        self.setValue(workbook.deviation, forKey: Attribute.deviation.rawValue) //표준 편차
+        self.setValue(workbook.averageScore, forKey: Attribute.averageScore.rawValue) //평균 점수
+    }
 }
 
 // MARK: Generated accessors for problemCores

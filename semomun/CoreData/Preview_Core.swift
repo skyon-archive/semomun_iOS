@@ -56,6 +56,7 @@ extension Preview_Core {
     @NSManaged public var purchasedDate: Date? // NEW: 구매일자
     @NSManaged public var recentDate: Date? // NEW: 접근일
     @NSManaged public var progressCount: Int64 // NEW: 책장 진도율값
+    @NSManaged public var downloaded: Bool //부활: WorkbookGroup 내에서 사용
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var subject: String? //Deprecated(1.1.3)
@@ -67,8 +68,6 @@ extension Preview_Core {
     @NSManaged public var month: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var terminated: Bool //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var downloaded: Bool //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var grade: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")

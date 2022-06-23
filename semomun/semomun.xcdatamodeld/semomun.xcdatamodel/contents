@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.11" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Page_Core" representedClassName="Page_Core" syncable="YES">
         <attribute name="drawing" optional="YES" attributeType="Binary"/>
         <attribute name="drawingWidth" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -12,19 +12,18 @@
         <relationship name="problemCores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Problem_Core" inverseName="pageCore" inverseEntity="Problem_Core"/>
     </entity>
     <entity name="PracticeTestSection_Core" representedClassName="PracticeTestSection_Core" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="String"/>
         <attribute name="audio" optional="YES" attributeType="Binary"/>
         <attribute name="audioDetail" optional="YES" attributeType="String"/>
+        <attribute name="averageScore" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cutoff" optional="YES" attributeType="String"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
-        <attribute name="downloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="deviation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastIndex" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="scoringQueue" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
-        <attribute name="sectionNum" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subject" optional="YES" attributeType="String"/>
         <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uploadPageQueue" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
@@ -153,7 +152,7 @@
     </entity>
     <elements>
         <element name="Page_Core" positionX="0" positionY="0" width="128" height="164"/>
-        <element name="PracticeTestSection_Core" positionX="9" positionY="162" width="128" height="314"/>
+        <element name="PracticeTestSection_Core" positionX="9" positionY="162" width="128" height="299"/>
         <element name="Preview_Core" positionX="0" positionY="0" width="128" height="14"/>
         <element name="Problem_Core" positionX="0" positionY="0" width="128" height="359"/>
         <element name="Section_Core" positionX="0" positionY="0" width="128" height="254"/>

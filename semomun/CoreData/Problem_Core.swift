@@ -67,6 +67,7 @@ public class Problem_Core: NSManagedObject {
     
     @NSManaged public var point: Double //문제 배점
     @NSManaged public var sectionCore: Section_Core? //relation으로 인해 생긴 SectionCore
+    @NSManaged public var practiceSectionCore: PracticeTestSection_Core? //relation 으로 생긴 PracticeSectionCore
     @NSManaged public var pageCore: Page_Core? //relation으로 인해 생긴 PageCore
     
     @NSManaged public var time: Int64 //누적시간
