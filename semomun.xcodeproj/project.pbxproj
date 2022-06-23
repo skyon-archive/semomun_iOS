@@ -275,6 +275,9 @@
 		87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54A277EBEB000359BAE /* termsAndConditions.txt */; };
 		87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */; };
 		87EB46962783454700052BCE /* ScreenProtector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB46952783454700052BCE /* ScreenProtector.swift */; };
+		87EDCC7F286440DB0030066E /* TestUserWorkbookGroups.json in Resources */ = {isa = PBXBuildFile; fileRef = 87EDCC7E286440DB0030066E /* TestUserWorkbookGroups.json */; };
+		87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC802864495F0030066E /* CalculatedTestResult.swift */; };
+		87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */; };
 		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
 		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
@@ -568,6 +571,9 @@
 		87E7A54A277EBEB000359BAE /* termsAndConditions.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = termsAndConditions.txt; sourceTree = "<group>"; };
 		87E7A54E277EC64500359BAE /* personalInformationProcessingPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = personalInformationProcessingPolicy.txt; sourceTree = "<group>"; };
 		87EB46952783454700052BCE /* ScreenProtector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProtector.swift; sourceTree = "<group>"; };
+		87EDCC7E286440DB0030066E /* TestUserWorkbookGroups.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestUserWorkbookGroups.json; sourceTree = "<group>"; };
+		87EDCC802864495F0030066E /* CalculatedTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatedTestResult.swift; sourceTree = "<group>"; };
+		87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedWorkbookGroupInfoOfDB.swift; sourceTree = "<group>"; };
 		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
 		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
@@ -655,6 +661,7 @@
 				8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */,
 				25F96AC82805562F00A0FD5F /* ErrorReport.swift */,
 				25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */,
+				87EDCC802864495F0030066E /* CalculatedTestResult.swift */,
 			);
 			path = Encodables;
 			sourceTree = "<group>";
@@ -680,6 +687,7 @@
 				87CF648E2860173700FA56BE /* PrivateTestResultOfDB.swift */,
 				250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */,
 				871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */,
+				87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */,
 			);
 			path = Decodables;
 			sourceTree = "<group>";
@@ -1046,6 +1054,7 @@
 			isa = PBXGroup;
 			children = (
 				870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */,
+				87EDCC7E286440DB0030066E /* TestUserWorkbookGroups.json */,
 			);
 			path = TestJSON;
 			sourceTree = "<group>";
@@ -1735,6 +1744,7 @@
 				2560BBA3283B869700A32EC4 /* SubProblemCell.xib in Resources */,
 				25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */,
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
+				87EDCC7F286440DB0030066E /* TestUserWorkbookGroups.json in Resources */,
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
 				877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */,
 				870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */,
@@ -1806,6 +1816,7 @@
 				8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */,
 				25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */,
 				25841629285B2434003C6A21 /* TestSubjectResultCell.swift in Sources */,
+				87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,
@@ -1984,6 +1995,7 @@
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
 				870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */,
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
+				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
