@@ -152,7 +152,7 @@ extension WorkbookGroupResultVC {
             .sink(receiveValue: { [weak self] networkFailed in
                 if networkFailed == true {
                     self?.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하시기 바랍니다.") {
-                        self?.dismiss(animated: true)
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 }
             })

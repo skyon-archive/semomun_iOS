@@ -32,9 +32,9 @@ extension NetworkUsecase: VersionFetchable {
             case 200:
                 guard let data = result.data,
                       let appstoreVersion = self.decodeRequested(AppstoreVersion.self, from: data) else {
-                          completion(.DECODEERROR, nil)
-                          return
-                      }
+                    completion(.DECODEERROR, nil)
+                    return
+                }
                 completion(.SUCCESS, appstoreVersion.latestVersion)
             default:
                 completion(.FAIL, nil)
@@ -49,9 +49,9 @@ extension NetworkUsecase: BestSellersFetchable {
             case 200:
                 guard let data = result.data,
                       let previews = self.decodeRequested([WorkbookPreviewOfDB].self, from: data) else {
-                          completion(.DECODEERROR, [])
-                          return
-                      }
+                    completion(.DECODEERROR, [])
+                    return
+                }
                 completion(.SUCCESS, previews)
             default:
                 completion(.FAIL, [])
@@ -67,9 +67,9 @@ extension NetworkUsecase: TagsFetchable {
             case 200:
                 guard let data = result.data,
                       let searchTags: SearchTags = self.decodeRequested(SearchTags.self, from: data) else {
-                          completion(.DECODEERROR, [])
-                          return
-                      }
+                    completion(.DECODEERROR, [])
+                    return
+                }
                 completion(.SUCCESS, searchTags.tags)
             default:
                 completion(.FAIL, [])
@@ -82,9 +82,9 @@ extension NetworkUsecase: MajorFetchable {
         self.network.request(url: NetworkURL.majors, method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let majors: MajorFetched = self.decodeRequested(MajorFetched.self, from: data) else {
-                      completion(nil)
-                      return
-                  }
+                completion(nil)
+                return
+            }
             let wrapped = majors.major
             let unwrapped: [Major] = wrapped.compactMap { majorFetched in
                 guard let majorName = majorFetched.keys.first, let majorDetails = majorFetched[majorName] else { return nil }
@@ -100,9 +100,9 @@ extension NetworkUsecase: SchoolNamesFetchable {
         self.network.request(url: NetworkURL.schoolApi, param: param, method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let json = self.decodeRequested(CareerNetJSON.self, from: data) else {
-                      completion([])
-                      return
-                  }
+                completion([])
+                return
+            }
             print("학교 정보 다운로드 완료")
             let schoolNames = json.dataSearch.content.map(\.schoolName)
             completion(Array(Set(schoolNames)).sorted())
@@ -131,9 +131,9 @@ extension NetworkUsecase: S3ImageFetchable {
         self.network.request(url: NetworkURL.s3ImageDirectory, param: param, method: .get, tokenRequired: tokenRequired) { result in
             guard let data = result.data,
                   let imageURL: String = String(data: data, encoding: .utf8) else {
-                      completion(.FAIL, nil)
-                      return
-                  }
+                completion(.FAIL, nil)
+                return
+            }
             
             self.network.request(url: imageURL, method: .get, tokenRequired: false) { result in
                 let status: NetworkStatus = result.statusCode == 200 ? .SUCCESS : .FAIL
@@ -155,9 +155,9 @@ extension NetworkUsecase: PreviewsSearchable {
             case 200:
                 guard let data = result.data,
                       let searchPreviews: SearchWorkbookPreviews = self.decodeRequested(SearchWorkbookPreviews.self, from: data) else {
-                          completion(.DECODEERROR, [])
-                          return
-                      }
+                    completion(.DECODEERROR, [])
+                    return
+                }
                 completion(.SUCCESS, searchPreviews.previews)
             default:
                 completion(.FAIL, [])
@@ -170,8 +170,8 @@ extension NetworkUsecase: WorkbookSearchable {
         self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = self.decodeRequested(WorkbookOfDB.self, from: data) else {
-                      return
-                  }
+                return
+            }
             completion(workbookOfDB)
         }
     }
@@ -212,8 +212,8 @@ extension NetworkUsecase: SectionDownloadable {
         self.network.request(url: NetworkURL.sectionDirectory(sid), method: .get, tokenRequired: true) { result in
             guard let data = result.data,
                   let sectionOfDB = self.decodeRequested(SectionOfDB.self, from: data) else {
-                      return
-                  }
+                return
+            }
             completion(sectionOfDB)
         }
     }
@@ -227,9 +227,9 @@ extension NetworkUsecase: UsernameCheckable {
             if let statusCode = result.statusCode {
                 guard let data = result.data,
                       let isValid = self.decodeRequested(BooleanResult.self, from: data)?.result else {
-                          completion(.DECODEERROR, false)
-                          return
-                      }
+                    completion(.DECODEERROR, false)
+                    return
+                }
                 let networkStatus = NetworkStatus(statusCode: statusCode)
                 completion(networkStatus, isValid)
             } else {
@@ -263,9 +263,9 @@ extension NetworkUsecase: PhonenumVerifiable {
             
             guard let data = result.data,
                   let isValid = self.decodeRequested(BooleanResult.self, from: data)?.result else {
-                      completion(.DECODEERROR, nil)
-                      return
-                  }
+                completion(.DECODEERROR, nil)
+                return
+            }
             
             completion(networkStatus, isValid)
         }
@@ -314,9 +314,9 @@ extension NetworkUsecase: UserHistoryFetchable {
             
             guard let data = result.data,
                   let decoded = self.decodeRequested(PayHistoryGroupOfDB.self, from: data) else {
-                      completion(.DECODEERROR, nil)
-                      return
-                  }
+                completion(.DECODEERROR, nil)
+                return
+            }
             let payHistory = PayHistory(networkDTO: decoded)
             
             completion(NetworkStatus(statusCode: statusCode), payHistory)
@@ -351,9 +351,9 @@ extension NetworkUsecase: UserInfoFetchable {
             guard let statusCode = result.statusCode,
                   let data = result.data,
                   NetworkStatus(statusCode: statusCode) == .SUCCESS else {
-                      completion(.FAIL, nil)
-                      return
-                  }
+                completion(.FAIL, nil)
+                return
+            }
             
             if let userInfo = self.decodeRequested(UserInfo.self, from: data) {
                 completion(.SUCCESS, userInfo)
@@ -417,16 +417,16 @@ extension NetworkUsecase: UserWorkbooksFetchable {
             case 200:
                 guard let data = result.data,
                       let bookshelfInfos = self.decodeRequested([BookshelfInfoOfDB].self, from: data) else {
-                          completion(.DECODEERROR, [])
-                          return
-                      }
+                    completion(.DECODEERROR, [])
+                    return
+                }
                 completion(.SUCCESS, bookshelfInfos)
             default:
                 completion(.FAIL, [])
             }
         }
     }
-
+    
     func getUserBookshelfInfos(order: NetworkURL.PurchasesOrder, completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void) {
         let param = ["order": order.rawValue]
         self.network.request(url: NetworkURL.purchasedWorkbooks, param: param, method: .get, tokenRequired: true) { result in
@@ -434,9 +434,9 @@ extension NetworkUsecase: UserWorkbooksFetchable {
             case 200:
                 guard let data = result.data,
                       let bookshelfInfos = self.decodeRequested([BookshelfInfoOfDB].self, from: data) else {
-                          completion(.DECODEERROR, [])
-                          return
-                      }
+                    completion(.DECODEERROR, [])
+                    return
+                }
                 completion(.SUCCESS, bookshelfInfos)
             default:
                 completion(.FAIL, [])
@@ -495,9 +495,18 @@ extension NetworkUsecase: UserTestResultFetchable {
     
     func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]?) -> Void) {
         // 임시 코드
-        print("getPrivateTestResult: wid \(wgid)")
-        let result = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회", subject: "미적분", area: "수학 영역", totalTime: 1234, correctProblemCount: 15, totalProblemCount: 20, rank: 2, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
-        completion(.SUCCESS, Array(repeating: result, count: 5))
+        if let url = Bundle.main.url(forResource: "TestPrivateTestResultOfDBJSON", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoded = try JSONDecoder().decode([PrivateTestResultOfDB].self, from: data)
+                completion(.SUCCESS, decoded)
+            } catch {
+                print(error)
+                completion(.FAIL, nil)
+            }
+        } else {
+            completion(.FAIL, nil)
+        }
     }
 }
 
