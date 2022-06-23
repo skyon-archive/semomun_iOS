@@ -141,6 +141,17 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchWorkbookGroup(wgid: Int) -> WorkbookGroup_Core? {
+        let fetchRequest: NSFetchRequest<WorkbookGroup_Core> = WorkbookGroup_Core.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "wgid = %@", "\(wgid)")
+        if let workbookGroups = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return workbookGroups.last
+        } else {
+            print("Error: fetch workbookGroup")
+            return nil
+        }
+    }
+    
     static func fetchPreviews(subject: String, category: String) -> [Preview_Core]? {
         let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
         var filters: [NSPredicate] = []
@@ -149,6 +160,17 @@ struct CoreUsecase {
             filters.append(NSPredicate(format: "subject = %@", subject))
         }
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: filters)
+        
+        if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return previews
+        } else {
+            print("Error: fetch previews")
+            return nil
+        }
+    }
+    static func fetchPreviews(wgid: Int) -> [Preview_Core]? {
+        let fetchRequest: NSFetchRequest<Preview_Core> = Preview_Core.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "wgid = %@", "\(wgid)")
         
         if let previews = try? CoreDataManager.shared.context.fetch(fetchRequest) {
             return previews
