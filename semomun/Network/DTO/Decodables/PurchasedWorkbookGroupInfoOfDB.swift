@@ -11,12 +11,12 @@ struct PurchasedWorkbookGroupInfoOfDB: Decodable {
     let wgid: Int
     let recentDate: Date?
     let purchasedDate: Date?
-    let workbooks: [Int]
+    let wids: [Int]
     
     enum CodingKeys: String, CodingKey {
         case wgid
         case recentDate = "solve"
         case purchasedDate = "createdAt"
-        case workbooks
+        case wids = "workbooks"
     }
 }

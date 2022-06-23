@@ -63,6 +63,7 @@ extension Preview_Core {
     @NSManaged public var recentDate: Date? // 접근일
     @NSManaged public var progressCount: Int64 // 책장 진도율값
     @NSManaged public var downloaded: Bool // 부활: WorkbookGroup 내에서 사용
+    @NSManaged public var terminated: Bool // 부활: WorkbookGroup 진도율 계산에서 사용
     /* practiceTest */
     @NSManaged public var wgid: Int64 // NEW: 상위 group 정보값
     @NSManaged public var cutoff: String? // NEW: 등급컷
@@ -77,8 +78,6 @@ extension Preview_Core {
     @NSManaged public var year: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var month: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var terminated: Bool //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var grade: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
