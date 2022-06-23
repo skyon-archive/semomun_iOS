@@ -35,6 +35,7 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
         self.configureCircularProgressView()
         self.bindAll()
         self.viewModel?.fetchResult()
+        self.title = self.viewModel?.title ?? "임시 종합 성적표"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,21 +130,7 @@ extension WorkbookGroupResultVC {
                     assertionFailure("보여줄 성적이 없는 상태에서 WorkbookGroupResultVC가 표시되었습니다.")
                     return
                 }
-                guard let viewModel = self?.viewModel else {return }
-                
-                // MARK: 임시 로직, 이후 viewModel에 전달된 값을 사용
-                self?.title = "임시 종합 성적표"
-                
-                self?.configureRankLabel(to: viewModel.averageRank)
-
-                if self?.progressAnimateTried == true { // viewDidAppear가 끝난 상태
-                    self?.circularProgressView.setProgressWithAnimation(duration: 0.5, value: viewModel.normalizedAverageRank, from: 0)
-                } else { // viewDidAppear가 아직 불리지 않은 상태
-                    self?.progressToAnimate = viewModel.normalizedAverageRank
-                }
-                
-                self?.totalTimeLabel.text = viewModel.formattedTotalTime
-                
+                self?.configureData()
                 self?.areaResultTableView.reloadData()
                 self?.areaRankCollectionView.reloadData()
                 self?.updateAreaRankCollectionViewToCenter()
@@ -163,6 +150,24 @@ extension WorkbookGroupResultVC {
                 }
             })
             .store(in: &self.cancellables)
+    }
+    
+    private func configureData() {
+        guard let viewModel = self.viewModel else { return }
+        
+        self.configureRankLabel(to: viewModel.averageRank)
+        self.configureAnimation()
+        self.totalTimeLabel.text = viewModel.formattedTotalTime
+    }
+    
+    private func configureAnimation() {
+        guard let viewModel = self.viewModel else { return }
+        
+        if self.progressAnimateTried == true { // viewDidAppear가 끝난 상태
+            self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: viewModel.normalizedAverageRank, from: 0)
+        } else { // viewDidAppear가 아직 불리지 않은 상태
+            self.progressToAnimate = viewModel.normalizedAverageRank
+        }
     }
 }
 
