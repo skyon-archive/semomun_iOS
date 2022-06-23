@@ -24,8 +24,10 @@ class WorkbookGroupResultVM {
         return formatter.string(from: TimeInterval(second)) ?? "00:00:00"
     }
     
-    var averageRank: Int {
-        return self.sortedTestResults.reduce(0, { $0 + $1.rank }) / self.sortedTestResults.count
+    var averageRank: Double {
+        let rankSum = self.sortedTestResults.reduce(0.0, { $0 + Double($1.rank) })
+        let averageRank = rankSum / Double(self.sortedTestResults.count)
+        return (averageRank*10).rounded(.toNearestOrAwayFromZero)/10
     }
     
     /// 1/9(9등급)과 1(1등급) 사이의 값을 가지는 평균 등급의 정규화 값

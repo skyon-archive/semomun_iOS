@@ -100,7 +100,7 @@ extension WorkbookGroupResultVC {
         self.circularProgressView.changeCircleShape(center: center, startAngle: -CGFloat.pi, endAngle: 0)
     }
     
-    private func configureRankLabel(to rank: Int) {
+    private func configureRankLabel(to rank: Double) {
         self.rankLabel.text = "\(rank)"
     }
 }
