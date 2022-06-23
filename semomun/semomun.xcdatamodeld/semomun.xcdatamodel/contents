@@ -32,9 +32,13 @@
         <relationship name="problemCores" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Problem_Core" inverseName="practiceSectionCore" inverseEntity="Problem_Core"/>
     </entity>
     <entity name="Preview_Core" representedClassName="Preview_Core" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="String"/>
         <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="averageScore" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="cutoff" optional="YES" attributeType="String"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
+        <attribute name="deviation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="grade" optional="YES" attributeType="String"/>
@@ -64,6 +68,7 @@
         <attribute name="terminated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="wgid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="year" optional="YES" attributeType="String"/>
     </entity>
@@ -153,7 +158,7 @@
     <elements>
         <element name="Page_Core" positionX="0" positionY="0" width="128" height="164"/>
         <element name="PracticeTestSection_Core" positionX="9" positionY="162" width="128" height="299"/>
-        <element name="Preview_Core" positionX="0" positionY="0" width="128" height="14"/>
+        <element name="Preview_Core" positionX="0" positionY="0" width="128" height="614"/>
         <element name="Problem_Core" positionX="0" positionY="0" width="128" height="359"/>
         <element name="Section_Core" positionX="0" positionY="0" width="128" height="254"/>
         <element name="SectionHeader_Core" positionX="0" positionY="0" width="128" height="224"/>

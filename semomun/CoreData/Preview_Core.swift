@@ -35,31 +35,42 @@ extension Preview_Core {
         case purchasedDate
         case recentDate
         case progressCount
+        case wgid
+        case cutoff
+        case subject
+        case area
+        case deviation
+        case averageScore
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
     @NSManaged public var wid: Int64 // identifier
     @NSManaged public var title: String?
     @NSManaged public var detail: String? // 문제집 정보
-    @NSManaged public var isbn: String? // NEW: ISBN값
-    @NSManaged public var author: String? // NEW: 저자
+    @NSManaged public var isbn: String? // ISBN값
+    @NSManaged public var author: String? // 저자
     @NSManaged public var publisher: String? // 출판사 (publishCompany)
-    @NSManaged public var publishedDate: Date? // NEW: 발행일
-    @NSManaged public var publishMan: String? // NEW: 발행인
-    @NSManaged public var originalPrice: Int64 // NEW: 정가
-    @NSManaged public var updatedDate: Date? // NEW: 반영일자
+    @NSManaged public var publishedDate: Date? // 발행일
+    @NSManaged public var publishMan: String? // 발행인
+    @NSManaged public var originalPrice: Int64 // 정가
+    @NSManaged public var updatedDate: Date? // 반영일자
     @NSManaged public var sids: [Int] // Sections id
     @NSManaged public var price: Double // 가격
     @NSManaged public var tags: [String]
-    @NSManaged public var fileSize: Int64 // NEW: sections size 합산
+    @NSManaged public var fileSize: Int64 // sections size 합산
     @NSManaged public var image: Data? // Workbook Image
-    @NSManaged public var purchasedDate: Date? // NEW: 구매일자
-    @NSManaged public var recentDate: Date? // NEW: 접근일
-    @NSManaged public var progressCount: Int64 // NEW: 책장 진도율값
-    @NSManaged public var downloaded: Bool //부활: WorkbookGroup 내에서 사용
+    @NSManaged public var purchasedDate: Date? // 구매일자
+    @NSManaged public var recentDate: Date? // 접근일
+    @NSManaged public var progressCount: Int64 // 책장 진도율값
+    @NSManaged public var downloaded: Bool // 부활: WorkbookGroup 내에서 사용
+    /* practiceTest */
+    @NSManaged public var wgid: Int64 // NEW: 상위 group 정보값
+    @NSManaged public var cutoff: String? // NEW: 등급컷
+    @NSManaged public var subject: String? // 부활: 같은 명이나, 다른 역할로 부활
+    @NSManaged public var area: String? // NEW: 영역
+    @NSManaged public var deviation: Int64 // NEW: 표준 편차
+    @NSManaged public var averageScore: Int64 // NEW: 평균 점수
     
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var subject: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var category: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
@@ -115,6 +126,16 @@ public class Preview_Core: NSManagedObject{
         self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
         self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
         self.setValue(max(0, self.progressCount), forKey: Attribute.progressCount.rawValue)
+        /* PracticeTest 용 property 저장 */
+        let wgid = workbook.wgid != nil ? Int64(workbook.wgid!) : nil
+        let deviation = workbook.deviation != nil ? Int64(workbook.deviation!) : nil
+        let averageScore = workbook.averageScore != nil ? Int64(workbook.averageScore!) : nil
+        self.setValue(wgid, forKey: Attribute.wgid.rawValue)
+        self.setValue("", forKey: Attribute.cutoff.rawValue)
+        self.setValue(workbook.subject, forKey: Attribute.subject.rawValue)
+        self.setValue(workbook.area, forKey: Attribute.area.rawValue)
+        self.setValue(deviation, forKey: Attribute.deviation.rawValue)
+        self.setValue(averageScore, forKey: Attribute.averageScore.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
