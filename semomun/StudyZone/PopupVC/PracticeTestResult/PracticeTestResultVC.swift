@@ -171,7 +171,7 @@ extension PracticeTestResultVC {
 // MARK: Animation
 extension PracticeTestResultVC {
     /// 뷰가 맨 처음 보일 때의 progress 애니메이션을 수행
-    private func animateProgess() {
+    private func animateProgessView() {
         self.privateProgressView.setProgressWithAnimation(duration: 0.5, value: privateProgress, from: 0)
         if let publicProgress = self.publicProgress {
             self.publicProgressView.setProgressWithAnimation(duration: 0.5, value: publicProgress, from: 0)
