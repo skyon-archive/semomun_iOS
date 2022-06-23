@@ -7,10 +7,6 @@
 
 import Foundation
 
-fileprivate enum UserTestResultFetchError: Error {
-    case failed
-}
-
 class WorkbookGroupResultVM {
     /* public */
     @Published private(set) var sortedTestResults: [PrivateTestResultOfDB] = []
