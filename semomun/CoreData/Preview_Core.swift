@@ -130,7 +130,9 @@ public class Preview_Core: NSManagedObject{
         let deviation = workbook.deviation != nil ? Int64(workbook.deviation!) : nil
         let averageScore = workbook.averageScore != nil ? Int64(workbook.averageScore!) : nil
         self.setValue(wgid, forKey: Attribute.wgid.rawValue)
-        self.setValue("", forKey: Attribute.cutoff.rawValue)
+        if let jsonData = try? JSONEncoder().encode(workbook.cutoff) {
+            self.setValue(String(data: jsonData, encoding: .utf8), forKey: Attribute.cutoff.rawValue)
+        }
         self.setValue(workbook.subject, forKey: Attribute.subject.rawValue)
         self.setValue(workbook.area, forKey: Attribute.area.rawValue)
         self.setValue(deviation, forKey: Attribute.deviation.rawValue)
