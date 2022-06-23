@@ -62,7 +62,13 @@ extension WorkbookGroupDetailVC {
     private func showComprehensiveReport() {
         let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
         guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
-        comprehensiveReportVC.workbookGroupInfo = self.viewModel?.info
+        
+        // wgid 받아오는 임시 로직
+        let wgid = 1
+        
+        let networkUsecase = NetworkUsecase(network: Network())
+        let viewModel = WorkbookGroupResultVM(wgid: wgid, networkUsecase: networkUsecase)
+        comprehensiveReportVC.configureViewModel(viewModel)
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
     }
 }

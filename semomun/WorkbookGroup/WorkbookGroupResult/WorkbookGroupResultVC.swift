@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class WorkbookGroupResultVC: UIViewController, StoryboardController {
     /* public */
@@ -13,9 +14,14 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [
         .pad: "HomeSearchBookshelf"
     ]
-    var workbookGroupInfo: WorkbookGroupPreviewOfDB?
     /* private */
+    private var viewModel: WorkbookGroupResultVM?
+    private var cancellables: Set<AnyCancellable> = []
     private let areaRankCellSpacing: CGFloat = 16
+    /// viewDidAppear에서 애니메이션을 시도했는지 여부
+    private var progressAnimateTried = false
+    /// 애니메이션에 사용할 0과 1 사이의 progress값
+    private var progressToAnimate: Float?
     @IBOutlet weak var circularProgressView: CircularProgressView!
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var areaResultTableView: UITableView!
@@ -27,17 +33,21 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
         self.configureareaResultTableView()
         self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
+        self.bindAll()
+        self.viewModel?.fetchResult()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        // 임시 로직, VM이 생기면 binding 쪽으로 이동될 것이라 예상
-        self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: 0.8, from: 0)
-        self.configureRankLabel(to: 1)
-        self.updateAreaRankCollectionViewToCenter()
-        self.title = "\(self.workbookGroupInfo?.title ?? "") 종합 성적표"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.progressAnimateTried == false, let progressToAnimate = progressToAnimate {
+            self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: progressToAnimate, from: 0)
+            self.progressAnimateTried = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,6 +61,13 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
                 self?.areaRankCollectionView.collectionViewLayout.invalidateLayout()
             }
         })
+    }
+}
+
+// MARK: Public
+extension WorkbookGroupResultVC {
+    func configureViewModel(_ viewModel: WorkbookGroupResultVM) {
+        self.viewModel = viewModel
     }
 }
 
@@ -94,18 +111,69 @@ extension WorkbookGroupResultVC {
     }
 }
 
+// MARK: Binding
+extension WorkbookGroupResultVC {
+    private func bindAll() {
+        self.bindSortedTestResults()
+        self.bindNetworkFailed()
+    }
+    
+    private func bindSortedTestResults() {
+        self.viewModel?.$sortedTestResults
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] testResults in
+                guard testResults.isEmpty == false else {
+                    assertionFailure("보여줄 성적이 없는 상태에서 WorkbookGroupResultVC가 표시되었습니다.")
+                    return
+                }
+                
+                self?.title = "\(testResults.first!.title) 종합 성적표"
+                
+                let averageRank = testResults.reduce(0, { $0 + $1.rank }) / testResults.count
+                self?.configureRankLabel(to: averageRank)
+                
+                let progressToAnimate = (10-Float(averageRank))/9
+                if self?.progressAnimateTried == true { // viewDidAppear가 끝난 상태
+                    self?.circularProgressView.setProgressWithAnimation(duration: 0.5, value: progressToAnimate, from: 0)
+                } else { // viewDidAppear가 아직 불리지 않은 상태
+                    self?.progressToAnimate = progressToAnimate
+                }
+                
+                self?.updateAreaRankCollectionViewToCenter()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindNetworkFailed() {
+        self.viewModel?.$networkFailed
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] networkFailed in
+                if networkFailed == true {
+                    self?.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하시기 바랍니다.") {
+                        self?.dismiss(animated: true)
+                    }
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+}
+
 extension WorkbookGroupResultVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        guard let viewModel = self.viewModel else { return 0 }
+        
+        return viewModel.sortedTestResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.areaResultTableView.dequeueReusableCell(withIdentifier: TestSubjectResultCell.identifier) as? TestSubjectResultCell else {
             return UITableViewCell()
         }
-        // 임시로직
-        let info = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, correctProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
-        cell.prepareForReuse(index: indexPath.row+1, info: info)
+        guard let viewModel = self.viewModel else { return cell }
+        
+        cell.prepareForReuse(index: indexPath.row+1, info: viewModel.sortedTestResults[indexPath.row])
         
         return cell
     }
@@ -117,16 +185,19 @@ extension WorkbookGroupResultVC: UITableViewDelegate, UITableViewDataSource {
 
 extension WorkbookGroupResultVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        guard let viewModel = self.viewModel else { return 0 }
+        
+        return viewModel.sortedTestResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = self.areaRankCollectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectRankCell.identifier, for: indexPath) as? TestSubjectRankCell else {
             return .init()
         }
-        // 임시로직
-        let info = PrivateTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, uid: 0, title: "테스트 모의고사 1회차", subject: "화법과 작문", area: "국어 영역", totalTime: 3600, correctProblemCount: 10, totalProblemCount: 12, rank: 1, rawScore: 92, perfectScore: 100, deviation: 128, percentile: 96, createdDate: Date(), updatedDate: Date())
-        cell.prepareForReuse(info: info)
+        guard let viewModel = self.viewModel else { return cell }
+        
+        cell.prepareForReuse(info: viewModel.sortedTestResults[indexPath.row])
+        
         return cell
     }
 }
