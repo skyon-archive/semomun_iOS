@@ -203,6 +203,19 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchPracticeSection(sid: Int) -> PracticeTestSection_Core? {
+        let fetchRequest: NSFetchRequest<PracticeTestSection_Core> = PracticeTestSection_Core.fetchRequest()
+        let filter = NSPredicate(format: "sid = %@", "\(sid)")
+        fetchRequest.predicate = filter
+        
+        if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return fetches.last
+        } else {
+            print("Error: fetch section")
+            return nil
+        }
+    }
+    
     static func fetchSection(sid: Int) -> Section_Core? {
         let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
         let filter = NSPredicate(format: "sid = %@", "\(sid)")
