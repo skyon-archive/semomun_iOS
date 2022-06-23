@@ -53,6 +53,11 @@ final class ConceptVC: FormZero {
     override var topViewTrailingConstraint: NSLayoutConstraint? {
         return nil
     }
+    /* 상위 class를 위하여 override가 필요한 메소드들 */
+    override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        let data = self.canvasView.drawing.dataRepresentation()
+        self.viewModel?.updatePencilData(to: data, width: Double(self.canvasView.frame.width))
+    }
 }
 
 // MARK: Configure
