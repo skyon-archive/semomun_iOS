@@ -9,7 +9,7 @@ import Foundation
 
 struct WorkbookGroupOfDB: Decodable {
     let wgid: Int
-    let itemID: Int
+    let productID: Int
     let type: String
     let title: String
     let detail: String // 현재로썬 안쓰이는 값, 빈배열로 수신
@@ -21,7 +21,7 @@ struct WorkbookGroupOfDB: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case wgid
-        case itemID = "id"
+        case productID = "id"
         case type, title, detail, groupCover, isGroupOnlyPurchasable
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
