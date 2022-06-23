@@ -54,7 +54,7 @@ struct WorkbookPreviewOfDB: Decodable {
     }
 }
 
-struct Cutoff: Decodable {
+struct Cutoff: Codable {
     let rank: String
     let rawScore: Int
     let percentile: Int
