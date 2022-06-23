@@ -10,8 +10,8 @@ import PencilKit
 
 class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     /* VC 내에서만 설정가능한 View 들*/
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
+    private let imageView: SecretImageView = {
+        let imageView = SecretImageView(preventCapture: false)
         imageView.backgroundColor = .white
         return imageView
     }()

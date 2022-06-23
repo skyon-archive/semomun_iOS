@@ -25,8 +25,8 @@ class FormTwo: UIViewController {
     private var pagePencilData: Data?
     private var pagePencilDataWidth: Double?
     private let subproblemCollectionView = SubproblemCollectionView()
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
+    private let imageView: SecretImageView = {
+        let imageView = SecretImageView()
         imageView.backgroundColor = .white
         return imageView
     }()
