@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class SectionResultVC: UIViewController {
+final class SectionResultVC: UIViewController {
     static let identifier = "SectionResultVC"
     static let storyboardName = "Study"
     

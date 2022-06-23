@@ -10,11 +10,12 @@ import Combine
 
 final class PracticeTestResultVM {
     /* public */
-    @Published private(set) var practiceTestResult: PracticeTestResult? = nil
+    @Published private(set) var practiceTestResult: PracticeTestResult?
+    @Published private(set) var publicScoreResult: ScoreResult?
     /// 단순 인터넷 연결이 없는 상태가 아닌 기타 다른 문제가 생긴 경우
-    @Published private(set) var networkError: Bool? = nil
+    @Published private(set) var networkError: Bool?
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
-    @Published private(set) var notConnectedToInternet: Bool? = nil
+    @Published private(set) var notConnectedToInternet: Bool?
     /* private */
     private let networkUsecase: UserTestResultFetchable
     private let wid: Int
@@ -29,6 +30,8 @@ final class PracticeTestResultVM {
 // MARK: Public
 extension PracticeTestResultVM {
     func fetchResult() {
+        self.makePracticeTestResult()
+        
         // 네트워크 유무를 우선 확인
         guard NetworkStatusManager.isConnectedToInternet() else {
             self.notConnectedToInternet = true
@@ -43,7 +46,17 @@ extension PracticeTestResultVM {
                 return
             }
             
-            self?.practiceTestResult = self?.makeModel(publicTestResultOfDB: publicTestResultOfDB)
+            // CoreData에서 가져오는 임시 코드
+            let perfectScore = 100
+            
+            self?.publicScoreResult = .init(
+                rank: publicTestResultOfDB.rank,
+                rawScore: publicTestResultOfDB.rawScore,
+                deviation: publicTestResultOfDB.deviation,
+                percentile: publicTestResultOfDB.percentile,
+                perfectScore: perfectScore
+            )
+            
         }
     }
 }
@@ -63,7 +76,7 @@ extension PracticeTestResultVM {
         }
     }
     
-    private func makeModel(publicTestResultOfDB: PublicTestResultOfDB) -> PracticeTestResult {
+    private func makePracticeTestResult() {
         // CoreData에서 workbook 가져오는 부분 생략된 임시 로직
         let workbookTitle = "임시 workbook"
         let cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
@@ -87,22 +100,15 @@ extension PracticeTestResultVM {
             rankCutoff: cutoff,
             perfectScore: perfectScore
         )
-        let publicScoreResult: ScoreResult = .init(
-            rank: publicTestResultOfDB.rank,
-            rawScore: publicTestResultOfDB.rawScore,
-            deviation: publicTestResultOfDB.deviation,
-            percentile: publicTestResultOfDB.percentile,
-            perfectScore: perfectScore
-        )
+        
         let totalTimeFormattedString = self.formatDateString(fromSeconds: totalTime)
         
-        return .init(
+        self.practiceTestResult = .init(
             title: title,
             correctProblemCount: correctProblemCount,
             totalProblemCount: totalProblemCount,
             totalTimeFormattedString: totalTimeFormattedString,
-            privateScoreResult: privateScoreResult,
-            publicScoreResult: publicScoreResult
+            privateScoreResult: privateScoreResult
         )
     }
     
@@ -114,6 +120,6 @@ extension PracticeTestResultVM {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
-        return formatter.string(from: TimeInterval(second)) ?? "00-00-00"
+        return formatter.string(from: TimeInterval(second)) ?? "00:00:00"
     }
 }

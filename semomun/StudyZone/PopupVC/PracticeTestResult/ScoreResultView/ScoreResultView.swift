@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-class ScoreResultView: UIView, NibLoadable {
+final class ScoreResultView: UIView, NibLoadable {
     /* private */
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var rankLabel: UILabel!

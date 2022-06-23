@@ -14,5 +14,4 @@ struct PracticeTestResult {
     let totalProblemCount: Int
     let totalTimeFormattedString: String
     let privateScoreResult: ScoreResult
-    let publicScoreResult: ScoreResult
 }

@@ -15,12 +15,14 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
         .pad: "Study"
     ]
     /* private */
-    private var viewModel: PracticeTestResultVM? = nil
+    private var viewModel: PracticeTestResultVM?
     private var cancellables: Set<AnyCancellable> = []
-    /// 뷰가 나타나면 애니메이션을 실행시키기 위한 저장용 변수
-    private var progressAnimationComplete = false
+    // MARK: 뷰가 나타나면 애니메이션을 실행시키기 위한 저장용 변수들
+    /// viewDidAppear 이전에 값이 반드시 존재하므로 optional 아님
     private var privateProgress: Float = 0
-    private var publicProgress: Float = 0
+    /// viewDidAppear 이전에 값이 존재하지 않을 수 있으므로(네트워크 연결 필요) optional
+    private var publicProgress: Float?
+    private var initialAnimationEnded = false
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var correctProblemCountLabel: UILabel!
@@ -40,9 +42,8 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if progressAnimationComplete == false {
-            self.animateProgressView()
-            progressAnimationComplete = true
+        if self.initialAnimationEnded == false {
+            self.animateProgess()
         }
     }
     
@@ -75,6 +76,7 @@ extension PracticeTestResultVC {
 extension PracticeTestResultVC {
     private func bindAll() {
         self.bindPracticeTestResult()
+        self.bindPublicScoreResult()
         self.bindNetworkError()
         self.bindNotConnectedToInternet()
     }
@@ -86,9 +88,35 @@ extension PracticeTestResultVC {
             .sink(receiveValue: { [weak self] practiceTestResult in
                 guard let practiceTestResult = practiceTestResult else { return }
                 
+                self?.privateProgress = Float(practiceTestResult.privateScoreResult.correctRatio)
                 self?.configureLabels(practiceTestResult: practiceTestResult)
-                self?.configureFutureAnimation(practiceTestResult: practiceTestResult)
                 self?.configureScoreResultView(practiceTestResult: practiceTestResult)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPublicScoreResult() {
+        self.viewModel?.$publicScoreResult
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] publicScoreResult in
+                guard let publicScoreResult = publicScoreResult else { return }
+                
+                self?.publicScoreResultView.updateContent(
+                    title: "세모문 사용자 예상 등급",
+                    scoreResult: publicScoreResult,
+                    rankContainerBackgroundColor: UIColor(.munBlue) ?? .blue
+                )
+                
+                guard let initialAnimationEnded = self?.initialAnimationEnded else { return }
+                
+                self?.publicProgress = Float(publicScoreResult.correctRatio)
+                
+                // 네트워크에서 정보를 받아오기 전에 첫번째 viewDidAppear가 끝났거나, 인터넷이 재연결되어 publicScoreResult가 다시 할당된 경우
+                // 이 때는 뷰가 보여져있는 상태이므로 이곳에서 애니메이션을 수행해도 좋다.
+                if initialAnimationEnded {
+                    self?.publicProgressView.setProgressWithAnimation(duration: 0.5, value: Float(publicScoreResult.correctRatio), from: 0)
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -131,30 +159,23 @@ extension PracticeTestResultVC {
         self.totalTimeLabel.text = "\(practiceTestResult.totalTimeFormattedString)"
     }
     
-    private func configureFutureAnimation(practiceTestResult: PracticeTestResult) {
-        self.progressAnimationComplete = false
-        self.privateProgress = Float(practiceTestResult.privateScoreResult.correctRatio)
-        self.publicProgress = Float(practiceTestResult.publicScoreResult.correctRatio)
-    }
-    
     private func configureScoreResultView(practiceTestResult: PracticeTestResult) {
         self.privateScoreResultView.updateContent(
             title: "나의 예상 등급",
             scoreResult: practiceTestResult.privateScoreResult,
             rankContainerBackgroundColor: UIColor(.mainColor) ?? .green
         )
-        self.publicScoreResultView.updateContent(
-            title: "세모문 사용자 예상 등급",
-            scoreResult: practiceTestResult.publicScoreResult,
-            rankContainerBackgroundColor: UIColor(.munBlue) ?? .blue
-        )
     }
 }
 
-// MARK: Animate
+// MARK: Animation
 extension PracticeTestResultVC {
-    private func animateProgressView() {
-        self.privateProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.privateProgress), from: 0)
-        self.publicProgressView.setProgressWithAnimation(duration: 0.5, value: Float(self.publicProgress), from: 0)
+    /// 뷰가 맨 처음 보일 때의 progress 애니메이션을 수행
+    private func animateProgess() {
+        self.privateProgressView.setProgressWithAnimation(duration: 0.5, value: privateProgress, from: 0)
+        if let publicProgress = self.publicProgress {
+            self.publicProgressView.setProgressWithAnimation(duration: 0.5, value: publicProgress, from: 0)
+        }
+        self.initialAnimationEnded = true
     }
 }
