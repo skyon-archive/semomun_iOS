@@ -41,6 +41,8 @@ extension Preview_Core {
         case area
         case deviation
         case averageScore
+        case downloaded
+        case terminated
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
@@ -137,6 +139,8 @@ public class Preview_Core: NSManagedObject{
         self.setValue(workbook.area, forKey: Attribute.area.rawValue)
         self.setValue(deviation, forKey: Attribute.deviation.rawValue)
         self.setValue(averageScore, forKey: Attribute.averageScore.rawValue)
+        self.setValue(false, forKey: Attribute.downloaded.rawValue)
+        self.setValue(false, forKey: Attribute.terminated.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
