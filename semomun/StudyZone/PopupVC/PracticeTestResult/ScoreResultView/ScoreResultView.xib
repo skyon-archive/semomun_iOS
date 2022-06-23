@@ -132,7 +132,7 @@
                             </userDefinedRuntimeAttributes>
                         </stackView>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvB-er-yIV">
-                            <rect key="frame" x="176.5" y="84" width="357" height="51"/>
+                            <rect key="frame" x="176.5" y="83" width="357" height="52"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <string key="text">인터넷에 연결되면 
 세모문 사용자의 평균 등급을 확인 가능합니다.</string>
@@ -151,8 +151,8 @@
                         <constraint firstItem="hgx-a4-ntM" firstAttribute="top" secondItem="XLz-pb-rSv" secondAttribute="top" id="Qf4-2v-IhY"/>
                         <constraint firstItem="HvB-er-yIV" firstAttribute="centerX" secondItem="grh-8p-T3i" secondAttribute="centerX" id="fXP-Yj-xZ9"/>
                         <constraint firstAttribute="bottom" secondItem="uIh-Ql-Obf" secondAttribute="bottom" id="gVx-nr-irw"/>
-                        <constraint firstItem="HvB-er-yIV" firstAttribute="centerY" secondItem="grh-8p-T3i" secondAttribute="centerY" id="hd1-mI-FYg"/>
                         <constraint firstItem="uIh-Ql-Obf" firstAttribute="leading" secondItem="hgx-a4-ntM" secondAttribute="leading" constant="15" id="nBk-nO-3ez"/>
+                        <constraint firstItem="HvB-er-yIV" firstAttribute="top" secondItem="grh-8p-T3i" secondAttribute="top" constant="0.25" id="o5c-7p-qMn"/>
                         <constraint firstItem="HvB-er-yIV" firstAttribute="leading" secondItem="grh-8p-T3i" secondAttribute="leading" constant="1.5" id="sKE-ke-AuU"/>
                     </constraints>
                 </view>

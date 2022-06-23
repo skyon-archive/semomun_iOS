@@ -765,7 +765,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-9R-6A0">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-9R-6A0">
                                 <rect key="frame" x="117" y="199" width="600" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tc9-gY-2mp">
@@ -1042,6 +1042,11 @@
                                     <constraint firstItem="tc9-gY-2mp" firstAttribute="centerY" secondItem="fS6-9R-6A0" secondAttribute="centerY" id="sZF-ah-c7a"/>
                                     <constraint firstAttribute="height" priority="999" constant="800" id="xlR-gy-epW"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fbP-Ki-UWL"/>
