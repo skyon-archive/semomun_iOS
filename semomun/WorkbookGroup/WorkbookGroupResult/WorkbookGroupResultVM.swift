@@ -25,7 +25,7 @@ class WorkbookGroupResultVM {
     }
     
     var averageRank: Double {
-        let rankSum = self.sortedTestResults.reduce(0.0, { $0 + Double($1.rank) })
+        let rankSum = self.sortedTestResults.reduce(0.0, { $0 + (Double($1.rank) ?? 0) })
         let averageRank = rankSum / Double(self.sortedTestResults.count)
         return (averageRank*10).rounded(.toNearestOrAwayFromZero)/10
     }
