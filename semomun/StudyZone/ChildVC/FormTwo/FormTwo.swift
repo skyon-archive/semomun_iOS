@@ -16,8 +16,8 @@ class FormTwo: UIViewController {
     var canvasViewDrawing: Data {
         return self.canvasView.drawing.dataRepresentation()
     }
-    var canvasViewContentWidth: CGFloat {
-        return self.canvasView.contentSize.width
+    var canvasViewWidth: CGFloat {
+        return self.canvasView.frame.width
     }
     /* private */
     private var explanationId: Int?

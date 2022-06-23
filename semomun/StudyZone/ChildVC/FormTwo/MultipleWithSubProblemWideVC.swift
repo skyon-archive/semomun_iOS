@@ -72,7 +72,7 @@ extension MultipleWithSubProblemsWideVC {
     }
     
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewContentWidth))
+        self.viewModel?.updatePagePencilData(to: self.canvasViewDrawing, width: Double(self.canvasViewWidth))
     }
 }
 
