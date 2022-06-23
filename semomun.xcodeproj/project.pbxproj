@@ -85,6 +85,7 @@
 		2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2582D6C427ACFE9F00023A73 /* DefaultStringInterpolation.swift */; };
 		25841629285B2434003C6A21 /* TestSubjectResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25841628285B2434003C6A21 /* TestSubjectResultCell.swift */; };
 		2584162B285B3017003C6A21 /* TestSubjectRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2584162A285B3017003C6A21 /* TestSubjectRankCell.swift */; };
+		258FA11828642D4B0008701C /* SecretImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258FA11728642D4B0008701C /* SecretImageView.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
@@ -376,6 +377,7 @@
 		2583AC25277B1A8900619F03 /* schoolToken.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = schoolToken.xcconfig; sourceTree = "<group>"; };
 		25841628285B2434003C6A21 /* TestSubjectResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectResultCell.swift; sourceTree = "<group>"; };
 		2584162A285B3017003C6A21 /* TestSubjectRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectRankCell.swift; sourceTree = "<group>"; };
+		258FA11728642D4B0008701C /* SecretImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretImageView.swift; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
@@ -1285,6 +1287,7 @@
 				87273C1B2840E559007B7092 /* CorrectImageView.swift */,
 				87273C1D2841121B007B7092 /* RotationableCanvasView.swift */,
 				25ACC17E2852F06700A171C5 /* SubproblemCollectionView.swift */,
+				258FA11728642D4B0008701C /* SecretImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1952,6 +1955,7 @@
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
+				258FA11828642D4B0008701C /* SecretImageView.swift in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,

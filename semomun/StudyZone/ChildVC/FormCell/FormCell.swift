@@ -25,7 +25,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private var toolPicker: PKToolPicker?
     private var isCanvasDrawingLoaded: Bool = false
     private let imageView: SecretImageView = {
-        let imageView = SecretImageView(true)
+        let imageView = SecretImageView(preventCapture: false)
         imageView.backgroundColor = .white
         return imageView
     }()
@@ -186,7 +186,7 @@ extension FormCell {
         // 배경 뷰 위치 설정
         self.background.frame = self.canvasView.frame
         // 문제 이미지 크기 설정
-        self.imageView.setFrame(.init(origin: .zero, size: self.canvasView.contentSize))
+        self.imageView.frame = .init(origin: .zero, size: self.canvasView.contentSize)
         // 채점 이미지 크기 설정
         self.correctImageView.adjustLayoutForCell(imageViewWidth: self.imageView.frame.width)
     }
