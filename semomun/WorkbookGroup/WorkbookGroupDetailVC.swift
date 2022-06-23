@@ -53,13 +53,13 @@ extension WorkbookGroupDetailVC {
     
     private func configureComprehensiveReportButton() {
         let comprehensiveReportButton = WorkbookGroupResultButton()
-        let action = UIAction { [weak self] _ in self?.showComprehensiveReport() }
+        let action = UIAction { [weak self] _ in self?.showWorkbookGroupResultVC() }
         comprehensiveReportButton.addAction(action, for: .touchUpInside)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
     }
     
-    private func showComprehensiveReport() {
+    private func showWorkbookGroupResultVC() {
         let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
         guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
         
