@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SecretImageView: UIView {
+final class SecretImageView: UIView {
     private let preventCapture: Bool
     private let hiddenView: UIView = {
         let textField = UITextField()
