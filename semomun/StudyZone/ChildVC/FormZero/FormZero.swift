@@ -96,6 +96,11 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
             }
         }
     }
+    
+    /* 자식 VC에서 override해야하는 메소드*/
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        assertionFailure("error: canvasViewDrawingDidChange")
+    }
 }
 
 // MARK: Configure
