@@ -33,7 +33,7 @@ public class WorkbookGroup_Core: NSManagedObject {
 
     @NSManaged public var wgid: Int64
     @NSManaged public var productID: Int64
-    @NSManaged public var type: String?
+    @NSManaged public var type: String? // 실전 모의고사 등 WorkbookGroup 의 분기를 위한 값
     @NSManaged public var title: String?
     @NSManaged public var detail: String?
     @NSManaged public var image: Data?
@@ -52,6 +52,13 @@ public class WorkbookGroup_Core: NSManagedObject {
         self.setValue(purchasedInfo.recentDate, forKey: Attribute.recentDate.rawValue)
         self.setValue(purchasedInfo.wids, forKey: Attribute.wids.rawValue)
         self.setValue(0, forKey: Attribute.progressCount.rawValue)
+    }
+    
+    func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
+        networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover) { [weak self] status, data in
+            self?.setValue(data, forKey: Attribute.image.rawValue)
+            completion()
+        }
     }
     
     func updateInfos(purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
