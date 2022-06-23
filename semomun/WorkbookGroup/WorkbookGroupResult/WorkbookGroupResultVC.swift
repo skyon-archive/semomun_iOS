@@ -44,8 +44,10 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.progressAnimateTried == false, let progressToAnimate = progressToAnimate {
-            self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: progressToAnimate, from: 0)
+        if self.progressAnimateTried == false {
+            if let progressToAnimate = progressToAnimate {
+                self.circularProgressView.setProgressWithAnimation(duration: 0.5, value: progressToAnimate, from: 0)
+            }
             self.progressAnimateTried = true
         }
     }
@@ -127,19 +129,21 @@ extension WorkbookGroupResultVC {
                     assertionFailure("보여줄 성적이 없는 상태에서 WorkbookGroupResultVC가 표시되었습니다.")
                     return
                 }
+                guard let viewModel = self?.viewModel else {return }
                 
                 self?.title = "\(testResults.first!.title) 종합 성적표"
-                
-                let averageRank = testResults.reduce(0, { $0 + $1.rank }) / testResults.count
-                self?.configureRankLabel(to: averageRank)
-                
-                let progressToAnimate = (10-Float(averageRank))/9
+                self?.configureRankLabel(to: viewModel.averageRank)
+
                 if self?.progressAnimateTried == true { // viewDidAppear가 끝난 상태
-                    self?.circularProgressView.setProgressWithAnimation(duration: 0.5, value: progressToAnimate, from: 0)
+                    self?.circularProgressView.setProgressWithAnimation(duration: 0.5, value: viewModel.normalizedAverageRank, from: 0)
                 } else { // viewDidAppear가 아직 불리지 않은 상태
-                    self?.progressToAnimate = progressToAnimate
+                    self?.progressToAnimate = viewModel.normalizedAverageRank
                 }
                 
+                self?.totalTimeLabel.text = viewModel.formattedTotalTime
+                
+                self?.areaResultTableView.reloadData()
+                self?.areaRankCollectionView.reloadData()
                 self?.updateAreaRankCollectionViewToCenter()
             })
             .store(in: &self.cancellables)
