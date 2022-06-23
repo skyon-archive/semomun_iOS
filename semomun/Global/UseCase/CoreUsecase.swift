@@ -225,6 +225,16 @@ struct CoreUsecase {
         }
     }
     
+    static func fetchWorkbookGroups() -> [WorkbookGroup_Core]? {
+        let fetchRequest: NSFetchRequest<WorkbookGroup_Core> = WorkbookGroup_Core.fetchRequest()
+        if let workbookGroups = try? CoreDataManager.shared.context.fetch(fetchRequest) {
+            return workbookGroups
+        } else {
+            print("Error: fetch workbookGroups")
+            return nil
+        }
+    }
+    
     static func fetchWorkbookGroup(wgid: Int) -> WorkbookGroup_Core? {
         let fetchRequest: NSFetchRequest<WorkbookGroup_Core> = WorkbookGroup_Core.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "wgid = %@", "\(wgid)")
