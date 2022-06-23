@@ -131,7 +131,9 @@ extension WorkbookGroupResultVC {
                 }
                 guard let viewModel = self?.viewModel else {return }
                 
-                self?.title = "\(testResults.first!.title) 종합 성적표"
+                // MARK: 임시 로직, 이후 viewModel에 전달된 값을 사용
+                self?.title = "임시 종합 성적표"
+                
                 self?.configureRankLabel(to: viewModel.averageRank)
 
                 if self?.progressAnimateTried == true { // viewDidAppear가 끝난 상태
