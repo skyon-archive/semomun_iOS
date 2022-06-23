@@ -43,7 +43,7 @@ final class PracticeTestResultVC: UIViewController, StoryboardController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if self.initialAnimationEnded == false {
-            self.animateProgess()
+            self.animateProgessView()
         }
     }
     
