@@ -24,7 +24,7 @@ struct CoreUsecase {
         return nil
     }
     
-    static func savePages(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping (Section_Core?) -> Void) {
+    static func downloadSection(sid: Int, pages: [PageOfDB], loading: LoadingDelegate, completion: @escaping (Section_Core?) -> Void) {
         guard let sectionHeader = Self.fetchSectionHeader(sid: sid), pages.isEmpty == false else {
             completion(nil)
             return
@@ -97,6 +97,74 @@ struct CoreUsecase {
         }
     }
     
+    static func downloadPracticeSection(section: SectionOfDB, workbook: Preview_Core, loading: LoadingDelegate, completion: @escaping (PracticeTestSection_Core?) -> Void) {
+        let context = CoreDataManager.shared.context
+        let practiceTestSectionCore = PracticeTestSection_Core(context: context)
+        var pageCores: [Page_Core] = []
+        var problemCores: [Problem_Core] = []
+        
+        var pageUUIDs: [PageUUID] = []
+        var problemUUIDs: [ProblemUUID] = []
+        var problemIndex: Int = 0
+        
+        print("----------save start----------")
+        
+        section.pages.forEach { page in
+            let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
+            let pageCore = pageData.page
+            pageCores.append(pageCore)
+            pageUUIDs.append(pageData.result)
+            
+            page.problems.forEach { problem in
+                let problemData = CoreUsecase.createProblem(context: context, problem: problem, practiceTestSection: practiceTestSectionCore, page: pageCore, index: problemIndex)
+                let problemCore = problemData.problem
+                problemCores.append(problemCore)
+                problemUUIDs.append(problemData.result)
+                problemIndex += 1
+            }
+        }
+        
+        print("----------save end----------")
+        
+        let pageImageCount = pageUUIDs.filter({ $0.material != nil }).count // 지문이미지 수
+        let problemImageCount = problemUUIDs.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
+        let loadingCount: Int = pageImageCount + problemImageCount
+        var currentCount: Int = 0
+        loading.setCount(to: loadingCount)
+        
+        let networkUsecase = NetworkUsecase(network: Network())
+        DispatchQueue.global().async {
+            for idx in 0..<problemCores.count {
+                let problemCore = problemCores[idx]
+                let problemUUID = problemUUIDs[idx]
+                
+                problemCore.fetchImages(uuids: problemUUID, networkUsecase: networkUsecase) {
+                    loading.oneProgressDone()
+                    currentCount += 1
+                    print("\(currentCount)/\(loadingCount)")
+                    
+                    if currentCount == loadingCount {
+                        Self.terminateDownload(section: section, practiceTestSection: practiceTestSectionCore, workbook: workbook, completion: completion)
+                    }
+                }
+            }
+            
+            for idx in 0..<pageCores.count {
+                let pageCore = pageCores[idx]
+                let pageUUID = pageUUIDs[idx]
+                pageCore.setMaterial(uuid: pageUUID, networkUsecase: networkUsecase) {
+                    loading.oneProgressDone()
+                    currentCount += 1
+                    print("\(currentCount)/\(loadingCount)")
+                    
+                    if currentCount == loadingCount {
+                        Self.terminateDownload(section: section, practiceTestSection: practiceTestSectionCore, workbook: workbook, completion: completion)
+                    }
+                }
+            }
+        }
+    }
+    
     static private func createPage(context: NSManagedObjectContext, page: PageOfDB, type: Int) -> (page: Page_Core, result: PageUUID) {
         let pageCore = Page_Core(context: context)
         let pageResult = pageCore.setValues(page: page, type: type)
@@ -111,11 +179,27 @@ struct CoreUsecase {
         return (problem: problemCore, result: problemResult)
     }
     
+    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, practiceTestSection: PracticeTestSection_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemUUID) {
+        let problemCore = Problem_Core(context: context)
+        let problemResult = problemCore.setValues(prob: problem, index: index)
+        problemCore.pageCore = page
+        problemCore.practiceSectionCore = practiceTestSection
+        return (problem: problemCore, result: problemResult)
+    }
+    
     static private func terminateDownload(section: Section_Core, header: SectionHeader_Core, completion: ((Section_Core?) -> Void)) {
         print("----------download end----------")
         section.setValues(header: header)
         CoreDataManager.saveCoreData()
         completion(section)
+    }
+    
+    static private func terminateDownload(section: SectionOfDB, practiceTestSection: PracticeTestSection_Core, workbook: Preview_Core, completion: ((PracticeTestSection_Core?) -> Void)) {
+        print("----------download end----------")
+        practiceTestSection.setValues(section: section, workbook: workbook)
+        workbook.setValue(true, forKey: Preview_Core.Attribute.downloaded.rawValue)
+        CoreDataManager.saveCoreData()
+        completion(practiceTestSection)
     }
     
     static func fetchSectionHeader(sid: Int) -> SectionHeader_Core? {
