@@ -8,11 +8,6 @@
 import Foundation
 import CoreData
 
-extension WorkbookGroup_Core {
-
-    
-}
-
 @objc(WorkbookGroup_Core)
 public class WorkbookGroup_Core: NSManagedObject {
     public override var description: String {
@@ -33,6 +28,7 @@ public class WorkbookGroup_Core: NSManagedObject {
         case purchasedDate
         case recentDate
         case wids
+        case progressCount
     }
 
     @NSManaged public var wgid: Int64
@@ -44,13 +40,28 @@ public class WorkbookGroup_Core: NSManagedObject {
     @NSManaged public var purchasedDate: Date?
     @NSManaged public var recentDate: Date?
     @NSManaged public var wids: [Int]
+    @NSManaged public var progressCount: Int64 // 진도율 계산을 위한 푼 workbook 수
     
-    func setValues(workbookGroup: WorkbookGroupOfDB) {
+    func setValues(workbookGroup: WorkbookGroupOfDB, purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
         self.setValue(Int64(workbookGroup.wgid), forKey: Attribute.wgid.rawValue)
         self.setValue(Int64(workbookGroup.productID), forKey: Attribute.productID.rawValue)
         self.setValue(workbookGroup.type, forKey: Attribute.type.rawValue)
         self.setValue(workbookGroup.title, forKey: Attribute.title.rawValue)
         self.setValue(workbookGroup.detail, forKey: Attribute.detail.rawValue)
-        self.setValue(workbookGroup.createdDate, forKey: Attribute.purchasedDate.rawValue)
+        self.setValue(purchasedInfo.purchasedDate, forKey: Attribute.purchasedDate.rawValue)
+        self.setValue(purchasedInfo.recentDate, forKey: Attribute.recentDate.rawValue)
+        self.setValue(purchasedInfo.wids, forKey: Attribute.wids.rawValue)
+        self.setValue(0, forKey: Attribute.progressCount.rawValue)
+    }
+    
+    func updateInfos(purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
+        self.setValue(purchasedInfo.purchasedDate, forKey: Attribute.purchasedDate.rawValue)
+        self.setValue(purchasedInfo.recentDate, forKey: Attribute.recentDate.rawValue)
+        self.setValue(purchasedInfo.wids, forKey: Attribute.wids.rawValue)
+    }
+    
+    func updateProgress() {
+        let count = min(Int(self.progressCount)+1, self.wids.count)
+        self.setValue(count, forKey: Attribute.progressCount.rawValue)
     }
 }
