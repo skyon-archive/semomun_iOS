@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WorkbookGroupResultVM {
+final class WorkbookGroupResultVM {
     /* public */
     @Published private(set) var sortedTestResults: [PrivateTestResultOfDB] = []
     @Published private(set) var networkFailed: Bool?
@@ -31,11 +31,14 @@ class WorkbookGroupResultVM {
         return (10-Float(self.averageRank))/9
     }
     
+    let title: String
     /* private */
     private let wgid: Int
     private let networkUsecase: UserTestResultFetchable
     
     init(wgid: Int, networkUsecase: UserTestResultFetchable) {
+        // 임시 로직
+        self.title = "임시 종합 성적표"
         self.wgid = wgid
         self.networkUsecase = networkUsecase
     }
@@ -50,7 +53,9 @@ extension WorkbookGroupResultVM {
                 return
             }
 
-            self.sortedTestResults = testResults.sorted(by: { $0.percentile > $1.percentile })
+            self.sortedTestResults = testResults.sorted(by: {
+                $0.percentile > $1.percentile
+            })
         }
     }
 }
