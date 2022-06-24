@@ -10,29 +10,45 @@ import Combine
 
 final class WorkbookGroupDetailVM {
     /* public */
-    @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
+    var isPurchased: Bool {
+        return self.purchasedWorkbooks.isEmpty == false
+    }
+    @Published private(set) var purchasedWorkbooks: [Preview_Core] = [] {
+        didSet {
+            self.filteredNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
+        }
+    }
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
     @Published private(set) var info: WorkbookGroupInfo
+    @Published private(set) var warning: (title: String, text: String)?
+    /* private */
+    private let networkUsecase: WorkbookGroupSearchable
     
     /// DTO 를 통해 WorkbookGroupDetailVC 를 표시하는 경우
     /// 로그인 && 구매하지 않은 경우
     /// 로그인 상태가 아닌 경우
-    init(dtoInfo: WorkbookGroupPreviewOfDB) {
+    init(dtoInfo: WorkbookGroupPreviewOfDB, networkUsecase: WorkbookGroupSearchable) {
         self.info = dtoInfo.info
-        self.fetchNonPurchasedWorkbooks(wgid: dtoInfo.wgid)
+        self.networkUsecase = networkUsecase
+        self.fetchNonPurchasedWorkbooks(wgid: self.info.wgid)
     }
     
     /// CoreData 를 통해 WorkbookGroupDetailVC 를 표시하는 경우
     /// 로그인 && 구매한게 있는 경우
-    init(coreInfo: WorkbookGroup_Core) {
+    init(coreInfo: WorkbookGroup_Core, networkUsecase: WorkbookGroupSearchable) {
         self.info = coreInfo.info
-        // fetch workbooks
-        
-        self.fetchNonPurchasedWorkbooks(wgid: Int(coreInfo.wgid))
+        self.networkUsecase = networkUsecase
+        self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
     }
+    
     /// CoreData 에 저장되어 있는 해당 WorkbookGroup 에서 사용자가 구매한 Preview_Core 들 fetch
     private func fetchPurchasedWorkbooks(wgid: Int) {
         // CoreData 에서 Preview_Core fetch 후 purchasedWorkbooks 반영
+        guard let purchasedWorkbooks = CoreUsecase.fetchPreviews(wgid: wgid) else {
+            print("no purchased workbooks")
+            return
+        }
+        self.purchasedWorkbooks = purchasedWorkbooks
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
         self.fetchNonPurchasedWorkbooks(wgid: wgid)
     }
@@ -40,17 +56,22 @@ final class WorkbookGroupDetailVM {
     /// 해당 WorkbookGroup 에 속한 전체 WorkbookOfDB fetch
     /// purchasedWorkbooks 가 존재할 경우 filter 된다.
     private func fetchNonPurchasedWorkbooks(wgid: Int) {
-        let networkUsecase = NetworkUsecase(network: Network())
-        let purchasedWids: [Int64] = self.purchasedWorkbooks.map(\.wid)
-        networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroupOfDB in
+        self.networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroupOfDB in
             switch status {
             case .SUCCESS:
                 guard let workbookGroupOfDB = workbookGroupOfDB else { return }
-                self?.nonPurchasedWorkbooks = workbookGroupOfDB.workbooks
-                    .filter({ purchasedWids.contains(Int64($0.wid)) == false })
+                self?.filteredNonPurchasedWorkbooks(from: workbookGroupOfDB.workbooks)
+            case .DECODEERROR:
+                self?.warning = (title: "올바르지 않는 형식", text: "최신 버전으로 업데이트 해주세요")
             default:
-                print("decoding error")
+                self?.warning = (title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
+    }
+    
+    private func filteredNonPurchasedWorkbooks(from workbooks: [WorkbookOfDB]) {
+        let purchasedWids: [Int64] = self.purchasedWorkbooks.map(\.wid)
+        self.nonPurchasedWorkbooks = workbooks
+            .filter({ purchasedWids.contains(Int64($0.wid)) == false })
     }
 }
