@@ -29,47 +29,57 @@ class BookshelfVC: UIViewController {
     private var order: SortOrder = .purchase
     private var logined: Bool = false
     
-    private lazy var columnCount: CGFloat = {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return 3
-        } else {
-            
-            if self.view.frame.width == 1024 {
-                return 6
-            } else if self.view.frame.width == 744 {
-                return 4
-            } else {
-                return 5
-            }
+    private lazy var portraitColumnCount: Int = {
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        var horizontalCellCount: Int
+        switch screenWidth {
+            // 12인치의 경우 6개씩 표시
+        case 1024:
+            horizontalCellCount = 6
+            // 미니의 경우 4개씩 표시
+        case 744:
+            horizontalCellCount = 4
+        default:
+            // 기본의 경우 5개씩 표시
+            horizontalCellCount = 5
         }
+        if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
+            horizontalCellCount = 2
+        }
+        return horizontalCellCount
     }()
     
-    private lazy var imageFrameViewSize: CGSize = {
-        let horizontalMargin: CGFloat = 28
-        let horizontalTerm: CGFloat = 10
-        
-        let superWidth = self.books.frame.width - 2*horizontalMargin
-        let cellWidth = (superWidth - (horizontalTerm*(self.columnCount-1)))/self.columnCount
-        
-        let width = cellWidth - 10
-        let height = width*5/4
-        
-        return CGSize(width, height)
+    private lazy var landscapeColumnCount: Int = {
+        return self.portraitColumnCount + 2
     }()
     
-    private lazy var cellSize: CGSize = {
-        // MARK: phone 버전 대응은 추후 반영할 예정
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            let imageFrameViewSize = self.imageFrameViewSize
-            
-            let width = imageFrameViewSize.width + 10
-            let height = 10 + imageFrameViewSize.height + 42 + 30 + 10
-            
-            return CGSize(width: width, height: height)
-        } else {
-            return CGSize(width: self.books.frame.width, height: 182)
-        }
+    private var columnCount: Int {
+        return UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount
+    }
+    
+    private lazy var portraitImageFrameViewSize: CGSize = {
+        return self.getImageFrameViewSize(columnCount: self.portraitColumnCount)
     }()
+    
+    private lazy var landscapeImageFrameViewSize: CGSize = {
+        return self.getImageFrameViewSize(columnCount: self.landscapeColumnCount)
+    }()
+    
+    private var imageFrameViewSize: CGSize {
+        return UIWindow.isLandscape ? self.landscapeImageFrameViewSize : self.portraitImageFrameViewSize
+    }
+    
+    private lazy var portraitCellSize: CGSize = {
+        return self.getCellSize(imageFrameViewSize: self.portraitImageFrameViewSize)
+    }()
+    
+    private lazy var landscapeCellSize: CGSize = {
+        return self.getCellSize(imageFrameViewSize: self.landscapeImageFrameViewSize)
+    }()
+    
+    private var cellSize: CGSize {
+        return UIWindow.isLandscape ? self.landscapeCellSize : self.portraitCellSize
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +96,26 @@ class BookshelfVC: UIViewController {
         print("hi")
         guard UserDefaultsManager.isLogined else { return }
         self.reloadBookshelf()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.books.performBatchUpdates {
+            self.books.reloadData()
+        }
+    }
+    
+    // MARK: Rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard self.books != nil else { return }
+        
+        let oldSectionNum = self.numberOfSections(in: self.books)
+        coordinator.animate(alongsideTransition: { _ in
+            self.books.performBatchUpdates {
+                self.updateBooksSection(oldSectionNum: oldSectionNum)
+                self.books.reloadData()
+            }
+        })
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -269,10 +299,12 @@ extension BookshelfVC: UICollectionViewDataSource {
     /// section 개수 = columnCount 으로  나눈 몫값, 나머지가 있는 경우 +1
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if let booksCount = self.viewModel?.books.count {
-            var sectionCount = booksCount / Int(self.columnCount)
-            if booksCount % Int(self.columnCount) != 0 {
+            let columnCount = self.columnCount
+            var sectionCount = booksCount / columnCount
+            if booksCount % columnCount != 0 {
                 sectionCount += 1
             }
+            print(sectionCount)
             return sectionCount
         } else {
             return 0
@@ -330,5 +362,43 @@ extension BookshelfVC {
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
+}
+
+// MARK: Rotation Layout
+extension BookshelfVC {
+    private func getImageFrameViewSize(columnCount: Int) -> CGSize {
+        let horizontalMargin: CGFloat = 28
+        let horizontalTerm: CGFloat = 10
+        
+        let superWidth = self.books.frame.width - 2*horizontalMargin
+        let cellWidth = (superWidth - (horizontalTerm*CGFloat(columnCount-1)))/CGFloat(columnCount)
+        
+        let width = cellWidth - 10
+        let height = width*5/4
+        
+        return CGSize(width, height)
+    }
+    
+    private func getCellSize(imageFrameViewSize: CGSize) -> CGSize {
+        // MARK: phone 버전 대응은 추후 반영할 예정
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let width = imageFrameViewSize.width + 10
+            let height = 10 + imageFrameViewSize.height + 42 + 30 + 10
+            
+            return CGSize(width: width, height: height)
+        } else {
+            return CGSize(width: self.books.frame.width, height: 182)
+        }
+    }
+    
+    private func updateBooksSection(oldSectionNum: Int) {
+        // 섹션 개수의 변화를 반영
+        let newSectionNum = self.numberOfSections(in: self.books)
+        if newSectionNum > oldSectionNum {
+            self.books.insertSections(.init(integersIn: oldSectionNum..<newSectionNum))
+        } else {
+            self.books.deleteSections(.init(integersIn: newSectionNum..<oldSectionNum))
+        }
     }
 }

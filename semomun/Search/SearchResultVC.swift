@@ -17,7 +17,7 @@ final class SearchResultVC: UIViewController, StoryboardController {
     private weak var delegate: SearchControlable?
     private var viewModel: SearchResultVM?
     private var cancellables: Set<AnyCancellable> = []
-    private var horizontalCellCount: Int {
+    private lazy var portraitColumnCount: Int = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
         var horizontalCellCount: Int
         switch screenWidth {
@@ -34,10 +34,13 @@ final class SearchResultVC: UIViewController, StoryboardController {
         if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
             horizontalCellCount = 2
         }
-        if UIWindow.isLandscape {
-            horizontalCellCount += 2
-        }
         return horizontalCellCount
+    }()
+    private lazy var landscapeColumnCount: Int = {
+        return self.portraitColumnCount + 2
+    }()
+    private var columnCount: Int {
+        return UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount
     }
     
     override func viewDidLoad() {
@@ -47,9 +50,18 @@ final class SearchResultVC: UIViewController, StoryboardController {
         self.bindAll()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchResults.performBatchUpdates {
+            self.searchResults.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { _ in
-            self.searchResults.collectionViewLayout.invalidateLayout()
+            self.searchResults.performBatchUpdates {
+                self.searchResults.collectionViewLayout.invalidateLayout()
+            }
         })
     }
 }
@@ -62,7 +74,7 @@ extension SearchResultVC {
     
     func fetch(tags: [TagOfDB], text: String) {
         self.searchResults.setContentOffset(.zero, animated: true)
-        self.viewModel?.fetchSearchResults(tags: tags, text: text, rowCount: self.horizontalCellCount)
+        self.viewModel?.fetchSearchResults(tags: tags, text: text, rowCount: self.columnCount)
     }
     
     func removeAll() {
@@ -140,8 +152,7 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
         let superWidth = self.searchResults.frame.width - 2*horizontalMargin
         let textHeight: CGFloat = 34
         let textHeightTerm: CGFloat = 5
-
-        let width = (superWidth - (CGFloat(horizontalCellCount-1)*horizontalTerm))/CGFloat(horizontalCellCount)
+        let width = (superWidth - (CGFloat(self.columnCount-1)*horizontalTerm))/CGFloat(self.columnCount)
         let height = (width/4)*5 + textHeightTerm + textHeight
         
         return CGSize(width: width, height: height)
@@ -152,7 +163,7 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
 extension SearchResultVC {
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if self.searchResults.contentOffset.y >= (self.searchResults.contentSize.height - self.searchResults.bounds.size.height) {
-             self.viewModel?.fetchSearchResults(rowCount: self.horizontalCellCount)
+             self.viewModel?.fetchSearchResults(rowCount: self.columnCount)
          }
      }
     
