@@ -26,6 +26,7 @@ final class SectionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.resetCell()
+        self.configureDeleteButtonObserver()
     }
     
     override func prepareForReuse() {
@@ -83,6 +84,15 @@ extension SectionCell {
         self.configureDeleteButton(isEditing)
     }
     
+    private func configureDeleteButtonObserver() {
+        NotificationCenter.default.addObserver(forName: .showSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
+            self?.configureDeleteButton(true)
+        }
+        NotificationCenter.default.addObserver(forName: .hideSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
+            self?.configureDeleteButton(false)
+        }
+    }
+    
     private func configureButton() {
         guard let sectionHeader = self.sectionHeader else { return }
         if sectionHeader.downloaded {
@@ -101,7 +111,10 @@ extension SectionCell {
     
     private func configureDeleteButton(_ editing: Bool) {
         self.editingMode = editing
-        guard editing else { return }
+        guard editing else {
+            self.deleteButton.isHidden = true
+            return
+        }
         self.deleteButton.isHidden = false
         if self.sectionHeader?.downloaded ?? false {
             self.deleteEnable()
