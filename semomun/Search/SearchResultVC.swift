@@ -17,12 +17,40 @@ final class SearchResultVC: UIViewController, StoryboardController {
     private weak var delegate: SearchControlable?
     private var viewModel: SearchResultVM?
     private var cancellables: Set<AnyCancellable> = []
+    private var horizontalCellCount: Int {
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        var horizontalCellCount: Int
+        switch screenWidth {
+            // 12인치의 경우 6개씩 표시
+        case 1024:
+            horizontalCellCount = 6
+            // 미니의 경우 4개씩 표시
+        case 744:
+            horizontalCellCount = 4
+        default:
+            // 기본의 경우 5개씩 표시
+            horizontalCellCount = 5
+        }
+        if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
+            horizontalCellCount = 2
+        }
+        if UIWindow.isLandscape {
+            horizontalCellCount += 2
+        }
+        return horizontalCellCount
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViewModel()
         self.configureCollectionView()
         self.bindAll()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            self.searchResults.collectionViewLayout.invalidateLayout()
+        })
     }
 }
 
@@ -34,7 +62,7 @@ extension SearchResultVC {
     
     func fetch(tags: [TagOfDB], text: String) {
         self.searchResults.setContentOffset(.zero, animated: true)
-        self.viewModel?.fetchSearchResults(tags: tags, text: text)
+        self.viewModel?.fetchSearchResults(tags: tags, text: text, rowCount: self.horizontalCellCount)
     }
     
     func removeAll() {
@@ -112,17 +140,10 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
         let superWidth = self.searchResults.frame.width - 2*horizontalMargin
         let textHeight: CGFloat = 34
         let textHeightTerm: CGFloat = 5
-        var horizontalCellCount: CGFloat = 5 // 기본의 경우 5개씩 표시
-        if self.view.frame.width == 1024 { // 12인치의 경우 6개씩 표시
-            horizontalCellCount = 6
-        } else if self.view.frame.width == 744 { // 미니의 경우 4개씩 표시
-            horizontalCellCount = 4
-        }
-        if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
-            horizontalCellCount = 2
-        }
-        let width = (superWidth - ((horizontalCellCount-1)*horizontalTerm))/horizontalCellCount
+
+        let width = (superWidth - (CGFloat(horizontalCellCount-1)*horizontalTerm))/CGFloat(horizontalCellCount)
         let height = (width/4)*5 + textHeightTerm + textHeight
+        
         return CGSize(width: width, height: height)
     }
 }
@@ -131,7 +152,7 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
 extension SearchResultVC {
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if self.searchResults.contentOffset.y >= (self.searchResults.contentSize.height - self.searchResults.bounds.size.height) {
-             self.viewModel?.fetchSearchResults()
+             self.viewModel?.fetchSearchResults(rowCount: self.horizontalCellCount)
          }
      }
     
