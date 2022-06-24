@@ -40,7 +40,28 @@ final class WorkbookGroupDetailVM {
         self.networkUsecase = networkUsecase
         self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
     }
+}
+
+// MARK: Public
+extension WorkbookGroupDetailVM {
+    func selectCoreWorkbook(to index: Int) {
+        guard let selectedWorkbook = self.purchasedWorkbooks[safe: index] else {
+            assertionFailure("out of index Error")
+            return
+        }
+        // downloaded 상태에 따라 section show, download 로직 필요
+    }
     
+    func selectWorkbook(to index: Int) {
+        guard let selectedWorkbook = self.nonPurchasedWorkbooks[safe: index] else {
+            assertionFailure("out of index Error")
+            return
+        }
+        // 구매 로직
+    }
+}
+
+extension WorkbookGroupDetailVM {
     /// CoreData 에 저장되어 있는 해당 WorkbookGroup 에서 사용자가 구매한 Preview_Core 들 fetch
     private func fetchPurchasedWorkbooks(wgid: Int) {
         // CoreData 에서 Preview_Core fetch 후 purchasedWorkbooks 반영

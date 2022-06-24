@@ -158,7 +158,7 @@ extension NetworkUsecase: PreviewsSearchable {
                     completion(.DECODEERROR, [])
                     return
                 }
-                completion(.SUCCESS, searchPreviews.previews)
+                completion(.SUCCESS, searchPreviews.workbooks)
             default:
                 completion(.FAIL, [])
             }
