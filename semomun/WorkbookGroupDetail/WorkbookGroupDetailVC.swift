@@ -115,10 +115,17 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let isPurchased = self.viewModel?.isPurchased ?? false
+        let purchasedCount = self.viewModel?.purchasedWorkbooks.count ?? 0
+        let nonPurchasedCount = self.viewModel?.nonPurchasedWorkbooks.count ?? 0
+        
         switch section {
-        case 0: return 8
-        case 1: return 3
-        default: return 0
+        case 0:
+            return isPurchased ? purchasedCount : nonPurchasedCount
+        case 1:
+            return nonPurchasedCount
+        default:
+            return 0
         }
     }
     
