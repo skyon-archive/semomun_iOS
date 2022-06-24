@@ -23,6 +23,8 @@
         "bookcover": "c2bb38d2-1156-4677-9b44-f081a768d2f4",
         "createdAt": "2022-06-13T06:50:14.000Z",
         "updatedAt": "2022-06-13T06:50:14.000Z",
+        "subject": "문학",
+        "area": "국어",
         "sections": [
         {
             "wid": 34,
@@ -39,7 +41,7 @@
             "updatedAt": "2022-06-13T06:50:16.000Z"
         }
         ],
-        "price": 0,
+        "price": 10000,
         "sales": 0,
         "tags": [
         {
@@ -94,6 +96,8 @@
         "bookcover": "2313aa7a-4aa7-4bfc-bcbb-f52b97c08ff6",
         "createdAt": "2022-06-13T06:50:18.000Z",
         "updatedAt": "2022-06-13T06:50:18.000Z",
+        "subject": "문학",
+        "area": "국어",
         "sections": [
         {
             "wid": 35,
@@ -110,7 +114,7 @@
             "updatedAt": "2022-06-13T06:50:19.000Z"
         }
         ],
-        "price": 0,
+        "price": 10000,
         "sales": 1,
         "tags": [
         {

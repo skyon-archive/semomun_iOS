@@ -16,6 +16,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     
     /* private */
     private var cancellables: Set<AnyCancellable> = []
+    private var networkUsecase: S3ImageFetchable = NetworkUsecase(network: Network())
     @IBOutlet weak var practiceTests: UICollectionView!
     
     override func viewDidLoad() {
@@ -131,13 +132,27 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
+        let isPurchased = self.viewModel?.isPurchased ?? false
         
-        // 임시용 로직
-//        if indexPath.section == 0 {
-//            cell.configure(title: "국어(화법과 작문)")
-//        } else {
-//            cell.configure(title: "2021년도 국가직 9급 공무원 정보시스템 보안", price: "10,000원")
-//        }
+        switch indexPath.section {
+        case 0:
+            if isPurchased {
+                guard let coreInfo = self.viewModel?.purchasedWorkbooks[safe: indexPath.item] else { return cell
+                }
+                cell.configure(coreInfo: coreInfo)
+            } else {
+                guard let dtoInfo = self.viewModel?.nonPurchasedWorkbooks[safe: indexPath.item] else { return cell }
+                cell.configureNetworkUsecase(to: self.networkUsecase)
+                cell.configure(dtoInfo: dtoInfo)
+            }
+        case 1:
+            guard let dtoInfo = self.viewModel?.nonPurchasedWorkbooks[safe: indexPath.item] else { return cell }
+            cell.configureNetworkUsecase(to: self.networkUsecase)
+            cell.configure(dtoInfo: dtoInfo)
+        default:
+            assertionFailure("collectionView indexPath section error")
+        }
+
         return cell
     }
     
@@ -145,12 +160,15 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WorkbookGroupDetailHeaderView.identifier, for: indexPath) as? WorkbookGroupDetailHeaderView else { return UICollectionReusableView() }
+            let isPurchased = self.viewModel?.isPurchased ?? false
             
-            if self.numberOfSections(in: collectionView) == 1 {
+            switch indexPath.section {
+            case 0:
+                headerView.updateLabel(to: isPurchased ? "나의 실전 모의고사" : "실전 모의고사")
+            case 1:
                 headerView.updateLabel(to: "실전 모의고사")
-            } else if self.numberOfSections(in: collectionView) == 2 {
-                let headerTitle = indexPath.section == 0 ? "나의 실전 모의고사" : "실전 모의고사"
-                headerView.updateLabel(to: headerTitle)
+            default:
+                assertionFailure("collectionView indexPath section error")
             }
             
             return headerView
@@ -168,7 +186,18 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 임시 로직
-        print(indexPath.section, indexPath.item)
+        let isPurchased = self.viewModel?.isPurchased ?? false
+        switch indexPath.section {
+        case 0:
+            if isPurchased {
+                self.viewModel?.selectCoreWorkbook(to: indexPath.item)
+            } else {
+                self.viewModel?.selectWorkbook(to: indexPath.item)
+            }
+        case 1:
+            self.viewModel?.selectWorkbook(to: indexPath.item)
+        default:
+            assertionFailure("collectionView indexPath section error")
+        }
     }
 }
