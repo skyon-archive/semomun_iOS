@@ -550,3 +550,9 @@ extension CoreUsecase {
         print("MOCK SAVE COMPLETE")
     }
 }
+
+extension CoreUsecase {
+    static func downloadWorkbook(wid: Int, completion: @escaping (Bool) -> Void) {
+        // 구매내역 -> workbook 저장
+    }
+}
