@@ -39,6 +39,8 @@ public class PracticeTestSection_Core: NSManagedObject {
         case area
         case deviation
         case averageScore
+        case startedDate
+        case terminatedDate
     }
     /* section */
     @NSManaged public var wid: Int64
@@ -60,6 +62,8 @@ public class PracticeTestSection_Core: NSManagedObject {
     @NSManaged public var area: String?
     @NSManaged public var deviation: Int64
     @NSManaged public var averageScore: Int64
+    @NSManaged public var startedDate: Date? // 응시 시작시각, timer 기준값
+    @NSManaged public var terminatedDate: Date? // 응시 종료시각
     
     func setValues(section: SectionOfDB, workbook: Preview_Core) {
         /// section 정보 저장
@@ -78,6 +82,29 @@ public class PracticeTestSection_Core: NSManagedObject {
         self.setValue(workbook.area, forKey: Attribute.area.rawValue) //영역 이름
         self.setValue(workbook.deviation, forKey: Attribute.deviation.rawValue) //표준 편차
         self.setValue(workbook.averageScore, forKey: Attribute.averageScore.rawValue) //평균 점수
+        self.setValue(nil, forKey: Attribute.startedDate.rawValue)
+    }
+    
+    /// StudyVC 내에서 응시 시작시 Date 값을 받아와 startedDate 값에 저장
+    func startTest(startDate: Date) {
+        self.setValue(startedDate, forKey: Attribute.startedDate.rawValue)
+    }
+    
+    /// studyVC 에서 응시 종료시 종료시각 Date 값을 받아와 terminatedDate 값에 저장
+    /// 응시시간 계산의 경우 startedDate ~ terminatedDate 간으로 계산
+    func terminateTest(terminatedDate: Date) {
+        self.setValue(true, forKey: Attribute.terminated.rawValue)
+        self.setValue(terminatedDate, forKey: Attribute.terminatedDate.rawValue)
+    }
+    
+    /// 응시 시간값 (초)
+    var totalTime: Int {
+        guard let startedDate = self.startedDate else { return 0 } // 시작시각이 존재하지 않는 경우 0초 반환
+        if let terminatedDate = self.terminatedDate {
+            return Int(terminatedDate.timeIntervalSince(startedDate)) // 종료시각이 존재하는 경우 시간차 반환
+        } else {
+            return Int(Date().timeIntervalSince(startedDate)) // 종료시각이 존재하지 않는 경우 현재기준 시간차 반환
+        }
     }
 }
 
