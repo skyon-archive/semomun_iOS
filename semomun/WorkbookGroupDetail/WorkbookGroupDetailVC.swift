@@ -24,6 +24,7 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.bindAll()
         self.configurePracticeTests()
         self.configureComprehensiveReportButton()
+        self.configureAddObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +71,21 @@ extension WorkbookGroupDetailVC {
         let viewModel = WorkbookGroupResultVM(wgid: wgid, networkUsecase: networkUsecase)
         comprehensiveReportVC.configureViewModel(viewModel)
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
+    }
+    
+    private func configureAddObserver() {
+        NotificationCenter.default.addObserver(forName: .goToLogin, object: nil, queue: .main) { [weak self] _ in
+            self?.showLoginVC()
+        }
+        NotificationCenter.default.addObserver(forName: .goToUpdateUserinfo, object: nil, queue: .main) { [weak self] _ in
+            self?.showChangeUserinfoVC()
+        }
+        NotificationCenter.default.addObserver(forName: .goToCharge, object: nil, queue: .main) { [weak self] _ in
+            self?.showChargeVC()
+        }
+        NotificationCenter.default.addObserver(forName: .purchaseComplete, object: nil, queue: .main) { [weak self] _ in
+            self?.viewModel?.purchaseComplete()
+        }
     }
 }
 
@@ -121,9 +137,6 @@ extension WorkbookGroupDetailVC {
 //                    self?.startLoader()
                 } else {
 //                    self?.stopLoader()
-                    self?.navigationController?.popViewController(animated: true) {
-                        NotificationCenter.default.post(name: .purchaseBook, object: nil)
-                    }
                 }
             })
             .store(in: &self.cancellables)
@@ -263,5 +276,22 @@ extension WorkbookGroupDetailVC {
         popupVC.configureInfo(info: workbook)
         popupVC.configureCurrentMoney(money: credit)
         self.present(popupVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: ChangeVC
+extension WorkbookGroupDetailVC {
+    private func showChangeUserinfoVC() {
+        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
+        guard let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
+        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
+        changeUserinfoVC.configureVM(viewModel)
+        self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
+    }
+    
+    private func showChargeVC() {
+        let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
+        let waitingChargeVC = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
+        self.navigationController?.pushViewController(waitingChargeVC, animated: true)
     }
 }

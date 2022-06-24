@@ -80,6 +80,11 @@ extension WorkbookGroupDetailVM {
             }
         }
     }
+    
+    func purchaseComplete() {
+        // 구매내역, 또는 wid 정보를 fetch 하여 coreData 저장
+        // 저장완료 후 reload 로직 실행
+    }
 }
 
 // MARK: Fetch
