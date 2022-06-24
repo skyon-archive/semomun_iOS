@@ -133,11 +133,11 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
         
         // 임시용 로직
-        if indexPath.section == 0 {
-            cell.configure(title: "국어(화법과 작문)")
-        } else {
-            cell.configure(title: "2021년도 국가직 9급 공무원 정보시스템 보안", price: "10,000원")
-        }
+//        if indexPath.section == 0 {
+//            cell.configure(title: "국어(화법과 작문)")
+//        } else {
+//            cell.configure(title: "2021년도 국가직 9급 공무원 정보시스템 보안", price: "10,000원")
+//        }
         return cell
     }
     
