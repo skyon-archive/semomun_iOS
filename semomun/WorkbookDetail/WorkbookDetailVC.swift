@@ -69,7 +69,11 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     @IBAction func toggleEdit(_ sender: Any) {
         self.editSectionsButton.isSelected.toggle()
-        self.sectionListTableView.reloadData()
+        if self.editSectionsButton.isSelected {
+            NotificationCenter.default.post(name: .showSectionDeleteButton, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .hideSectionDeleteButton, object: nil)
+        }
     }
 }
 

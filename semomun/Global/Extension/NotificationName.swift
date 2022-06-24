@@ -29,4 +29,6 @@ extension Notification.Name {
     static let saveCoreData = Self.init(rawValue: "saveCoreData")
     static let previousPage = Self.init(rawValue: "previousPage")
     static let nextPage = Self.init(rawValue: "nextPage")
+    static let showSectionDeleteButton = Self.init(rawValue: "showSectionDeleteButton")
+    static let hideSectionDeleteButton = Self.init(rawValue: "hideSectionDeleteButton")
 }
