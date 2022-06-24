@@ -23,7 +23,6 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.bindAll()
         self.configurePracticeTests()
         self.configureComprehensiveReportButton()
-        self.title = self.viewModel?.info?.title ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,8 +74,18 @@ extension WorkbookGroupDetailVC {
 
 extension WorkbookGroupDetailVC {
     private func bindAll() {
+        self.bindWorkbookGroupInfo()
         self.bindPurchasedWorkbooks()
         self.bindNonPurchasedWorkbooks()
+    }
+    
+    private func bindWorkbookGroupInfo() {
+        self.viewModel?.$info
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] info in
+                self?.title = info.title
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindPurchasedWorkbooks() {

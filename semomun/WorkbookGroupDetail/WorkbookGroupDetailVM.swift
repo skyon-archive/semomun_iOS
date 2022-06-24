@@ -12,15 +12,23 @@ final class WorkbookGroupDetailVM {
     /* public */
     @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
-    @Published private(set) var info: WorkbookGroupPreviewOfDB?
-    /* private */
-    init(info: WorkbookGroupPreviewOfDB) {
-        self.info = info
-        if UserDefaultsManager.isLogined {
-            self.fetchPurchasedWorkbooks(wgid: info.wgid)
-        } else {
-            self.fetchNonPurchasedWorkbooks(wgid: info.wgid)
-        }
+    @Published private(set) var info: WorkbookGroupInfo
+    
+    /// DTO 를 통해 WorkbookGroupDetailVC 를 표시하는 경우
+    /// 로그인 && 구매하지 않은 경우
+    /// 로그인 상태가 아닌 경우
+    init(dtoInfo: WorkbookGroupPreviewOfDB) {
+        self.info = dtoInfo.info
+        self.fetchNonPurchasedWorkbooks(wgid: dtoInfo.wgid)
+    }
+    
+    /// CoreData 를 통해 WorkbookGroupDetailVC 를 표시하는 경우
+    /// 로그인 && 구매한게 있는 경우
+    init(coreInfo: WorkbookGroup_Core) {
+        self.info = coreInfo.info
+        // fetch workbooks
+        
+        self.fetchNonPurchasedWorkbooks(wgid: Int(coreInfo.wgid))
     }
     /// CoreData 에 저장되어 있는 해당 WorkbookGroup 에서 사용자가 구매한 Preview_Core 들 fetch
     private func fetchPurchasedWorkbooks(wgid: Int) {
