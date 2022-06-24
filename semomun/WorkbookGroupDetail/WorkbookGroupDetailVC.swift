@@ -89,7 +89,13 @@ extension WorkbookGroupDetailVC {
     }
     
     private func bindPurchasedWorkbooks() {
-        
+        self.viewModel?.$purchasedWorkbooks
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] purchases in
+                guard purchases.isEmpty == false else { return }
+                self?.practiceTests.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindNonPurchasedWorkbooks() {
@@ -105,7 +111,7 @@ extension WorkbookGroupDetailVC {
 
 extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return self.viewModel?.isPurchased ?? false ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
