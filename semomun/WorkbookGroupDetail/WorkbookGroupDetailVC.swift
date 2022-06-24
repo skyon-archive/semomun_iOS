@@ -73,11 +73,15 @@ extension WorkbookGroupDetailVC {
     }
 }
 
+// MARK: Binding
 extension WorkbookGroupDetailVC {
     private func bindAll() {
         self.bindWorkbookGroupInfo()
         self.bindPurchasedWorkbooks()
         self.bindNonPurchasedWorkbooks()
+        self.bindLoader()
+        self.bindPopupType()
+        self.bindPurchaseWorkbook()
     }
     
     private func bindWorkbookGroupInfo() {
@@ -103,13 +107,52 @@ extension WorkbookGroupDetailVC {
         self.viewModel?.$nonPurchasedWorkbooks
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] workbooks in
-                print(workbooks.count)
                 self?.practiceTests.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindLoader() {
+        self.viewModel?.$showLoader
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] showLoader in
+                if showLoader {
+//                    self?.startLoader()
+                } else {
+//                    self?.stopLoader()
+                    self?.navigationController?.popViewController(animated: true) {
+                        NotificationCenter.default.post(name: .purchaseBook, object: nil)
+                    }
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPopupType() {
+        self.viewModel?.$popupType
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] type in
+                guard let type = type else { return }
+                self?.showPopupVC(type: type)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPurchaseWorkbook() {
+        self.viewModel?.$purchaseWorkbook
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbook in
+                guard let workbook = workbook else { return }
+                self?.showPurchasePopupVC(workbook: workbook)
             })
             .store(in: &self.cancellables)
     }
 }
 
+// MARK: CollectionView
 extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.viewModel?.isPurchased ?? false ? 2 : 1
@@ -200,5 +243,25 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegate {
         default:
             assertionFailure("collectionView indexPath section error")
         }
+    }
+}
+
+// MARK: PopupVC
+extension WorkbookGroupDetailVC {
+    private func showPopupVC(type: WorkbookGroupDetailVM.PopupType) {
+        let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
+        guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
+        popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
+        self.present(popupVC, animated: true, completion: nil)
+    }
+    
+    private func showPurchasePopupVC(workbook: WorkbookOfDB) {
+        print("hello")
+        let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
+        guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }
+        guard let credit = self.viewModel?.credit else { return }
+        popupVC.configureInfo(info: workbook)
+        popupVC.configureCurrentMoney(money: credit)
+        self.present(popupVC, animated: true, completion: nil)
     }
 }
