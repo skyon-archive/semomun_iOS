@@ -33,6 +33,7 @@ class BookshelfVC: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return 3
         } else {
+            
             if self.view.frame.width == 1024 {
                 return 6
             } else if self.view.frame.width == 744 {

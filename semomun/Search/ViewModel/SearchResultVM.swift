@@ -23,19 +23,19 @@ final class SearchResultVM {
         self.networkUsecase = networkUsecase
     }
     
-    func fetchSearchResults(tags: [TagOfDB], text: String) {
+    func fetchSearchResults(tags: [TagOfDB], text: String, rowCount: Int) {
         self.tags = tags
         self.text = text
-        self.fetchSearchResults()
+        self.fetchSearchResults(rowCount: rowCount)
     }
     
-    func fetchSearchResults() {
+    func fetchSearchResults(rowCount: Int) {
         guard self.isLastPage == false,
               self.isPaging == false else { return }
         self.isPaging = true
         self.pageCount += 1
         // limit : 12인치의 6배수, 11인치의 5배수, 미니의 4배수의 LCM : 60
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: 60) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: rowCount*10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
