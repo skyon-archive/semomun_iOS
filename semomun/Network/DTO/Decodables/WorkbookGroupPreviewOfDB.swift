@@ -30,4 +30,8 @@ struct WorkbookGroupPreviewOfDB: Decodable {
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
     }
+    
+    var info: WorkbookGroupInfo {
+        return WorkbookGroupInfo(wgid: self.wgid, title: self.title)
+    }
 }

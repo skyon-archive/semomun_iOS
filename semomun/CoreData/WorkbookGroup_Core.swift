@@ -18,6 +18,10 @@ public class WorkbookGroup_Core: NSManagedObject {
         return NSFetchRequest<WorkbookGroup_Core>(entityName: "WorkbookGroup_Core")
     }
     
+    var info: WorkbookGroupInfo {
+        return WorkbookGroupInfo(wgid: Int(self.wgid), title: self.title ?? "")
+    }
+    
     enum Attribute: String {
         case wgid
         case productID

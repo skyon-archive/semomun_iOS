@@ -506,7 +506,7 @@ extension HomeVC: UICollectionViewDelegate {
     private func showPracticeTestVC(info: WorkbookGroupPreviewOfDB) {
         let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
         guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
-        let viewModel = WorkbookGroupDetailVM(info: info)
+        let viewModel = WorkbookGroupDetailVM(dtoInfo: info)
         workbookGroupDetailVC.configureViewModel(to: viewModel)
         self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
     }

@@ -280,6 +280,7 @@
 		87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC802864495F0030066E /* CalculatedTestResult.swift */; };
 		87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */; };
 		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
+		87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */; };
 		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87F9C16E27969E7E00B991B4 /* WorkbookTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */; };
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
@@ -577,6 +578,7 @@
 		87EDCC802864495F0030066E /* CalculatedTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatedTestResult.swift; sourceTree = "<group>"; };
 		87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedWorkbookGroupInfoOfDB.swift; sourceTree = "<group>"; };
 		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
+		87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupInfo.swift; sourceTree = "<group>"; };
 		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87F9C16D27969E7E00B991B4 /* WorkbookTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookTagCell.swift; sourceTree = "<group>"; };
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
@@ -1152,7 +1154,7 @@
 				87F5826A279E84A700A2BD15 /* Home */,
 				8745855C279FB84700E331F1 /* Search */,
 				259C000E27914171005D432B /* WorkbookDetail */,
-				87231B86282508C0001CA2F7 /* WorkbookGroup */,
+				87231B86282508C0001CA2F7 /* WorkbookGroupDetail */,
 				8745855D279FB85B00E331F1 /* Purchase */,
 				25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */,
 				25D1BDDC279D3A3300807196 /* Profile */,
@@ -1173,15 +1175,16 @@
 			path = semomun;
 			sourceTree = "<group>";
 		};
-		87231B86282508C0001CA2F7 /* WorkbookGroup */ = {
+		87231B86282508C0001CA2F7 /* WorkbookGroupDetail */ = {
 			isa = PBXGroup;
 			children = (
 				87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */,
 				871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */,
+				87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */,
 				87231B8928250D21001CA2F7 /* View */,
 				25841627285B235D003C6A21 /* WorkbookGroupResult */,
 			);
-			path = WorkbookGroup;
+			path = WorkbookGroupDetail;
 			sourceTree = "<group>";
 		};
 		87231B8928250D21001CA2F7 /* View */ = {
@@ -1880,6 +1883,7 @@
 				87182B9727A1294F00BA7294 /* SearchResultVC.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				2519C5D327BFC0E900F4320F /* BannerAdsFlowLayout.swift in Sources */,
+				87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
 				87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */,
 				250ACFE22861A7900027B6A9 /* PracticeTestResult.swift in Sources */,
