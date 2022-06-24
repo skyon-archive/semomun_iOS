@@ -180,6 +180,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 가로모드, 기기별, 그림자 처리 등 추후 수정 예정
         return TestSubjectCell.cellSize
     }
 }

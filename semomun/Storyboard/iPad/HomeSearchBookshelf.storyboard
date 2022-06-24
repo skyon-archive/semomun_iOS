@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1058,13 +1058,13 @@ Label</string>
                                         <rect key="frame" x="0.0" y="16" width="614" height="1086"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="srP-BU-QSQ">
-                                            <rect key="frame" x="0.0" y="112" width="614" height="44"/>
+                                            <rect key="frame" x="0.0" y="123" width="614" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="uR7-JN-Wmd" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="614" height="45"/>
+                                                <rect key="frame" x="0.0" y="50" width="614" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uR7-JN-Wmd" id="KOh-nN-Xb8">
                                                     <rect key="frame" x="0.0" y="0.0" width="614" height="45"/>
@@ -1220,14 +1220,14 @@ Label</string>
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="240"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-1N-2uS">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-1N-2uS">
                                                     <rect key="frame" x="0.0" y="0.0" width="146" height="182.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="VwB-1N-2uS" secondAttribute="height" multiplier="4:5" id="AFk-xl-1TS"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejn-YK-fn5">
-                                                    <rect key="frame" x="0.0" y="187" width="146" height="17"/>
+                                                    <rect key="frame" x="0.0" y="194.5" width="146" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="146" id="IcI-kt-bde"/>
                                                     </constraints>
@@ -1236,7 +1236,7 @@ Label</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA1-Ym-BKU">
-                                                    <rect key="frame" x="0.0" y="220.5" width="146" height="15"/>
+                                                    <rect key="frame" x="0.0" y="223.5" width="146" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1248,10 +1248,10 @@ Label</string>
                                                 <constraint firstItem="VwB-1N-2uS" firstAttribute="top" secondItem="vDn-lj-ZN0" secondAttribute="top" id="Uqz-xD-mZg"/>
                                                 <constraint firstItem="XA1-Ym-BKU" firstAttribute="leading" secondItem="vDn-lj-ZN0" secondAttribute="leading" id="Vcv-lc-Chb"/>
                                                 <constraint firstAttribute="trailing" secondItem="XA1-Ym-BKU" secondAttribute="trailing" id="ZxT-Mu-qD7"/>
-                                                <constraint firstItem="XA1-Ym-BKU" firstAttribute="top" secondItem="ejn-YK-fn5" secondAttribute="top" constant="33.5" id="k5f-GO-etH"/>
+                                                <constraint firstItem="XA1-Ym-BKU" firstAttribute="top" secondItem="ejn-YK-fn5" secondAttribute="bottom" constant="12" id="iZB-b6-6hR"/>
                                                 <constraint firstItem="VwB-1N-2uS" firstAttribute="centerX" secondItem="vDn-lj-ZN0" secondAttribute="centerX" id="mDY-fR-gqR"/>
                                                 <constraint firstItem="VwB-1N-2uS" firstAttribute="leading" secondItem="vDn-lj-ZN0" secondAttribute="leading" id="rv5-XD-0cX"/>
-                                                <constraint firstItem="ejn-YK-fn5" firstAttribute="top" secondItem="VwB-1N-2uS" secondAttribute="bottom" constant="4.5" id="yPU-xn-DuI"/>
+                                                <constraint firstItem="ejn-YK-fn5" firstAttribute="top" secondItem="VwB-1N-2uS" secondAttribute="bottom" constant="12" id="yPU-xn-DuI"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
@@ -1429,7 +1429,7 @@ Label</string>
                                         <rect key="frame" x="14" y="87.5" width="366" height="262.5"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestSubjectResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestSubjectResultCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="366" height="52"/>
+                                                <rect key="frame" x="0.0" y="50" width="366" height="52"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xDf-S1-qqJ" id="PtO-l3-cRN">
                                                     <rect key="frame" x="0.0" y="0.0" width="366" height="52"/>
@@ -1686,7 +1686,7 @@ Label</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionCell" id="1TR-KH-WmL" customClass="SectionCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="778" height="50"/>
+                                        <rect key="frame" x="0.0" y="50" width="778" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1TR-KH-WmL" id="T0n-yi-JdQ">
                                             <rect key="frame" x="0.0" y="0.0" width="778" height="50"/>
@@ -2162,7 +2162,7 @@ Label</string>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="492" height="45"/>
+                                                <rect key="frame" x="0.0" y="50" width="492" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
                                                     <rect key="frame" x="0.0" y="0.0" width="492" height="45"/>
@@ -2519,12 +2519,12 @@ test</string>
     </scenes>
     <resources>
         <image name="bookshelf" width="32" height="32"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="home" width="32" height="32"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
