@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MapKit
 
 final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
@@ -51,6 +52,15 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         super.viewWillDisappear(animated)
         guard self.navigationAnimation else { return }
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    // MARK: 회전
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            self.workbookInfosCollectionView.performBatchUpdates {
+                self.workbookInfosCollectionView.collectionViewLayout.invalidateLayout()
+            }
+        })
     }
     
     @IBAction func addWorkbook(_ sender: Any) {
