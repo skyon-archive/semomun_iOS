@@ -150,6 +150,14 @@ public class Preview_Core: NSManagedObject{
         }
     }
     
+    func setDownloadedSection() {
+        guard self.downloaded == false else {
+            assertionFailure("Error: 중복 확인 필요")
+            return
+        }
+        self.setValue(true, forKey: Attribute.downloaded.rawValue)
+    }
+    
     func updateDate(info: BookshelfInfo, networkUsecase: UserLogSendable) {
         if self.purchasedDate == nil {
             self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)

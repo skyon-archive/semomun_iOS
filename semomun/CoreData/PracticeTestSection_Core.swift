@@ -83,16 +83,26 @@ public class PracticeTestSection_Core: NSManagedObject {
         self.setValue(workbook.deviation, forKey: Attribute.deviation.rawValue) //표준 편차
         self.setValue(workbook.averageScore, forKey: Attribute.averageScore.rawValue) //평균 점수
         self.setValue(nil, forKey: Attribute.startedDate.rawValue)
+        self.setValue(nil, forKey: Attribute.terminatedDate.rawValue)
     }
     
     /// StudyVC 내에서 응시 시작시 Date 값을 받아와 startedDate 값에 저장
     func startTest(startDate: Date) {
+        guard self.startedDate == nil else {
+            assertionFailure("Error: 중복 확인 필요")
+            return
+        }
         self.setValue(startedDate, forKey: Attribute.startedDate.rawValue)
     }
     
     /// studyVC 에서 응시 종료시 종료시각 Date 값을 받아와 terminatedDate 값에 저장
     /// 응시시간 계산의 경우 startedDate ~ terminatedDate 간으로 계산
     func terminateTest(terminatedDate: Date) {
+        guard self.terminatedDate == nil,
+              self.terminated == false else {
+            assertionFailure("Error: 중복 확인 필요")
+            return
+        }
         self.setValue(true, forKey: Attribute.terminated.rawValue)
         self.setValue(terminatedDate, forKey: Attribute.terminatedDate.rawValue)
     }

@@ -197,7 +197,7 @@ struct CoreUsecase {
     static private func terminateDownload(section: SectionOfDB, practiceTestSection: PracticeTestSection_Core, workbook: Preview_Core, completion: ((PracticeTestSection_Core?) -> Void)) {
         print("----------download end----------")
         practiceTestSection.setValues(section: section, workbook: workbook)
-        workbook.setValue(true, forKey: Preview_Core.Attribute.downloaded.rawValue)
+        workbook.setDownloadedSection()
         CoreDataManager.saveCoreData()
         completion(practiceTestSection)
     }
