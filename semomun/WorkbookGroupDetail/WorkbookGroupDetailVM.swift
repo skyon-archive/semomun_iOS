@@ -82,8 +82,15 @@ extension WorkbookGroupDetailVM {
     }
     
     func purchaseComplete() {
-        // 구매내역, 또는 wid 정보를 fetch 하여 coreData 저장
-        // 저장완료 후 reload 로직 실행
+        guard let purchasedWid = self.purchaseWorkbook?.wid else { return }
+        CoreUsecase.downloadWorkbook(wid: purchasedWid) { [weak self] success in
+            guard let self = self, success else {
+                self?.warning = (title: "네트워크 에러", text: "구매내역 반영에 실패하였습니다")
+                return
+            }
+            
+            self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
+        }
     }
 }
 
@@ -98,7 +105,9 @@ extension WorkbookGroupDetailVM {
         }
         self.purchasedWorkbooks = purchasedWorkbooks
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
-        self.fetchNonPurchasedWorkbooks(wgid: wgid)
+        if self.nonPurchasedWorkbooks.isEmpty {
+            self.fetchNonPurchasedWorkbooks(wgid: wgid)
+        }
     }
     
     /// 해당 WorkbookGroup 에 속한 전체 WorkbookOfDB fetch
