@@ -1226,14 +1226,24 @@ Label</string>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-1N-2uS">
                                                             <rect key="frame" x="0.0" y="0.0" width="146" height="182.5"/>
                                                         </imageView>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRm-7u-LhM" customClass="CircularProgressView" customModule="semomun" customModuleProvider="target">
+                                                            <rect key="frame" x="55.5" y="74" width="35" height="35"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="35" id="qEb-4A-AvK"/>
+                                                                <constraint firstAttribute="height" constant="35" id="wke-3C-Wie"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="VwB-1N-2uS" firstAttribute="height" secondItem="q2i-Kw-QCd" secondAttribute="height" id="2GD-w6-b8e"/>
                                                         <constraint firstItem="VwB-1N-2uS" firstAttribute="centerY" secondItem="q2i-Kw-QCd" secondAttribute="centerY" id="cC5-90-KNg"/>
                                                         <constraint firstItem="VwB-1N-2uS" firstAttribute="width" secondItem="q2i-Kw-QCd" secondAttribute="width" id="cCm-9N-Xns"/>
+                                                        <constraint firstItem="fRm-7u-LhM" firstAttribute="centerX" secondItem="VwB-1N-2uS" secondAttribute="centerX" id="dWY-g5-F0a"/>
                                                         <constraint firstItem="VwB-1N-2uS" firstAttribute="centerX" secondItem="q2i-Kw-QCd" secondAttribute="centerX" id="dqV-st-Tw5"/>
                                                         <constraint firstAttribute="width" secondItem="q2i-Kw-QCd" secondAttribute="height" multiplier="4:5" id="nkM-RW-jBz"/>
+                                                        <constraint firstItem="fRm-7u-LhM" firstAttribute="centerY" secondItem="VwB-1N-2uS" secondAttribute="centerY" id="sMP-tS-eEr"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejn-YK-fn5">
@@ -1271,6 +1281,7 @@ Label</string>
                                         <connections>
                                             <outlet property="bookcover" destination="VwB-1N-2uS" id="SkI-eJ-qRb"/>
                                             <outlet property="bookcoverFrameView" destination="q2i-Kw-QCd" id="6rc-np-oOq"/>
+                                            <outlet property="downloadIndicator" destination="fRm-7u-LhM" id="dHP-4j-FPp"/>
                                             <outlet property="priceLabel" destination="XA1-Ym-BKU" id="WV9-mr-CO8"/>
                                             <outlet property="titleLabel" destination="ejn-YK-fn5" id="Lh0-0r-pO5"/>
                                         </connections>
