@@ -23,6 +23,7 @@ final class TestSubjectCell: UICollectionViewCell {
     private var coreInfo: Preview_Core? // section download 시 필요한 정보를 지니기 위함
     private var downloading: Bool = false
     private weak var delegate: TestSubjectCellObserber?
+    @IBOutlet weak var bookcoverFrameView: UIView!
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -64,6 +65,7 @@ extension TestSubjectCell {
         self.titleLabel.text = "\(info.subject ?? "")(\(info.area ?? ""))"
         self.priceLabel.text = ""
         self.configureImage(data: info.image)
+        self.configureShadow()
         
         if info.downloaded == false {
             self.notDownloadedUI()
@@ -74,6 +76,7 @@ extension TestSubjectCell {
         self.titleLabel.text = "\(info.subject)(\(info.area))"
         self.priceLabel.text = "\(info.price.withComma)원"
         self.configureImage(uuid: info.bookcover)
+        self.configureShadow()
     }
 }
 
@@ -107,6 +110,11 @@ extension TestSubjectCell {
         } else {
             self.bookcover.image = UIImage(.dummy_bookcover)
         }
+    }
+    
+    private func configureShadow() {
+        let shadowBound = CGRect(0, -0.2, self.bookcover.frame.width-12, self.bookcover.frame.height)
+        self.bookcoverFrameView.addAccessibleShadow(direction: .custom(0, 4.5), opacity: 0.15, shadowRadius: 6, bounds: shadowBound)
     }
     
     private func notDownloadedUI() {
