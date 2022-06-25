@@ -138,26 +138,4 @@ public class Problem_Core: NSManagedObject {
             }
         }
     } 
-    
-    func setMocks(pid: Int, type: Int, btName: String, imgName: String, expName: String? = nil, answer: String? = nil) {
-        self.setValue(Int64(pid), forKey: "pid")
-        self.setValue(btName, forKey: "pName")
-        self.setValue(Int64(0), forKey: "time")
-        self.setValue(answer, forKey: "answer")
-        self.setValue(false, forKey: "correct")
-        self.setValue(Int64(0), forKey: "rate")
-        self.setValue(nil, forKey: "drawing")
-        self.setValue(Int64(type), forKey: "type")
-        self.setValue(false, forKey: "star")
-        self.setValue(Double(5), forKey: "point")
-//        let imgData = UIImage(named: imgName)!.pngData()
-//        self.setValue(imgData, forKey: "contentImage")
-        if let _ = expName {
-//            let expData = UIImage(named: expName)!.pngData()
-//            self.setValue(expData, forKey: "explanationImage")
-        } else {
-            self.setValue(nil, forKey: "explanationImage")
-        }
-        print("MOCK Problem: \(pid) save complete")
-    }
 }

@@ -192,16 +192,6 @@ final class SectionManager {
         self.timer.invalidate()
     }
     
-    func configureMock() {
-        if let section = CoreUsecase.sectionOfCoreData(sid: -1) {
-            self.section = section
-            return
-        }
-        CoreUsecase.createMockDataForMulty()
-        guard let section = CoreUsecase.sectionOfCoreData(sid: -1) else { return }
-        self.section = section
-    }
-    
     func postProblemAndPageDatas(isDismiss: Bool) {
         let uploadProblemQueue = self.section.uploadProblemQueue ?? []
         let uploadPageQueue = self.section.uploadPageQueue ?? []

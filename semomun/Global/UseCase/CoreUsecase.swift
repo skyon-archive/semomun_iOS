@@ -445,114 +445,43 @@ struct CoreUsecase {
     }
 }
 
-
 extension CoreUsecase {
-    static func createMockDataForMulty() {
-        let context = CoreDataManager.shared.context
-        
-        //5Answer
-        let problemOfCore1 = Problem_Core(context: context)
-        problemOfCore1.setMocks(pid: -200, type: 5, btName: "1", imgName: "mock1", expName: "exp1", answer: "1")
-        let pageOfCore1 = Page_Core(context: context)
-        pageOfCore1.setMocks(vid: -50, form: 0, type: 5, pids: [-200], mateImgName: nil)
-        
-        let problemOfCore2 = Problem_Core(context: context)
-        problemOfCore2.setMocks(pid: -199, type: 5, btName: "2", imgName: "mock2", expName: "exp2", answer: "3")
-        let pageOfCore2 = Page_Core(context: context)
-        pageOfCore2.setMocks(vid: -49, form: 0, type: 5, pids: [-199], mateImgName: nil)
-        
-        let problemOfCore3 = Problem_Core(context: context)
-        problemOfCore3.setMocks(pid: -198, type: 5, btName: "3", imgName: "mock3", expName: "exp4", answer: "2")
-        let pageOfCore3 = Page_Core(context: context)
-        pageOfCore3.setMocks(vid: -48, form: 0, type: 5, pids: [-198], mateImgName: nil)
-        
-        let problemOfCore4 = Problem_Core(context: context)
-        problemOfCore4.setMocks(pid: -197, type: 5, btName: "4", imgName: "mock4", answer: "5")
-        let pageOfCore4 = Page_Core(context: context)
-        pageOfCore4.setMocks(vid: -47, form: 0, type: 5, pids: [-197], mateImgName: nil)
-        
-        //Text
-        let problemOfCore5 = Problem_Core(context: context)
-        problemOfCore5.setMocks(pid: -196, type: 1, btName: "5", imgName: "mock5", expName: "exp3", answer: "123")
-        let pageOfCore5 = Page_Core(context: context)
-        pageOfCore5.setMocks(vid: -46, form: 0, type: 1, pids: [-196], mateImgName: nil)
-        
-        //Multi 5
-        let problemOfCore6 = Problem_Core(context: context)
-        problemOfCore6.setMocks(pid: -195, type: 5, btName: "6", imgName: "mockImg11", expName: "exp1", answer: "1")
-        let problemOfCore7 = Problem_Core(context: context)
-        problemOfCore7.setMocks(pid: -194, type: 5, btName: "7", imgName: "mockImg12", expName: "exp2", answer: "5")
-        let problemOfCore8 = Problem_Core(context: context)
-        problemOfCore8.setMocks(pid: -193, type: 5, btName: "8", imgName: "mockImg13", answer: "3")
-        let problemOfCore9 = Problem_Core(context: context)
-        problemOfCore9.setMocks(pid: -192, type: 5, btName: "9", imgName: "mockImg14", answer: "4")
-        
-        let pageOfCore6 = Page_Core(context: context)
-        pageOfCore6.setMocks(vid: -45, form: 1, type: 5, pids: [-195, -194, -193, -192], mateImgName: "material1")
-        
-        let problemOfCore10 = Problem_Core(context: context)
-        problemOfCore10.setMocks(pid: -191, type: 5, btName: "10", imgName: "mockImg21", expName: "exp3", answer: "5")
-        let problemOfCore11 = Problem_Core(context: context)
-        problemOfCore11.setMocks(pid: -190, type: 5, btName: "11", imgName: "mockImg22", expName: "exp4", answer: "2")
-        let problemOfCore12 = Problem_Core(context: context)
-        problemOfCore12.setMocks(pid: -189, type: 5, btName: "12", imgName: "mockImg23", answer: "2")
-        let problemOfCore13 = Problem_Core(context: context)
-        problemOfCore13.setMocks(pid: -188, type: 5, btName: "13", imgName: "mockImg24", answer: "1")
-        
-        let pageOfCore7 = Page_Core(context: context)
-        pageOfCore7.setMocks(vid: -44, form: 1, type: 5, pids: [-191, -190, -189, -188], mateImgName: "material2")
-        
-        //4Answer
-        let problemOfCore14 = Problem_Core(context: context)
-        problemOfCore14.setMocks(pid: -187, type: 4, btName: "14", imgName: "mock1", expName: "exp1", answer: "1")
-        let pageOfCore8 = Page_Core(context: context)
-        pageOfCore8.setMocks(vid: -43, form: 0, type: 4, pids: [-187], mateImgName: nil)
-        
-        let problemOfCore15 = Problem_Core(context: context)
-        problemOfCore15.setMocks(pid: -186, type: 4, btName: "15", imgName: "mock2", expName: "exp2", answer: "3")
-        let pageOfCore9 = Page_Core(context: context)
-        pageOfCore9.setMocks(vid: -42, form: 0, type: 4, pids: [-186], mateImgName: nil)
-        
-        //Multi No
-        let problemOfCore16 = Problem_Core(context: context)
-        problemOfCore16.setMocks(pid: -185, type: 0, btName: "16", imgName: "mock1")
-        let problemOfCore17 = Problem_Core(context: context)
-        problemOfCore17.setMocks(pid: -184, type: 0, btName: "17", imgName: "mock2")
-        
-        let pageOfCore10 = Page_Core(context: context)
-        pageOfCore10.setMocks(vid: -41, form: 1, type: 0, pids: [-185, -184], mateImgName: "material1")
-        
-        // Concept
-        let problemOfCore18 = Problem_Core(context: context)
-        problemOfCore18.setMocks(pid: -183, type: -1, btName: "개념", imgName: "mock3")
-        let pageOfCore11 = Page_Core(context: context)
-        pageOfCore11.setMocks(vid: -40, form: 0, type: -1, pids: [-183], mateImgName: nil)
-        
-        // Single No Answer
-        let problemOfCore19 = Problem_Core(context: context)
-        problemOfCore19.setMocks(pid: -182, type: 0, btName: "기본", imgName: "mock4", expName: "exp1")
-        let pageOfCore12 = Page_Core(context: context)
-        pageOfCore12.setMocks(vid: -39, form: 0, type: 0, pids: [-182], mateImgName: nil)
-        
-        
-        //Section
-        let sectionCore = Section_Core(context: context)
-        let buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "개념", "기본"]
-        let dict = ["1": -50, "2": -49, "3": -48, "4": -47, "5": -46,
-                    "6": -45, "7": -45, "8": -45, "9": -45,
-                    "10": -44, "11": -44, "12": -44, "13": -44,
-                    "14": -43, "15": -42,
-                    "16": -41, "17": -41,
-                    "개념": -40, "기본": -39]
-        sectionCore.setMocks(sid: -1, buttons: buttons, dict: dict)
-        
-        do { try context.save() } catch let error { print(error.localizedDescription) }
-        print("MOCK SAVE COMPLETE")
-    }
-}
-
-extension CoreUsecase {
+    /// WorkbookGroupDetailVC 상에서 구매로직, 책장으로 넘어가지 않은 상태에서 저장로직이 필요
     static func downloadWorkbook(wid: Int, completion: @escaping (Bool) -> Void) {
+        // Preview_Core 존재하는 경우 Error
+        if let _ = Self.fetchPreview(wid: wid) {
+            print("duplicated workbook error")
+            completion(false)
+            return
+        }
         // 구매내역 -> workbook 저장
+        let networkUsecase = NetworkUsecase(network: Network())
+        print("fetch workbook infos")
+        
+        networkUsecase.getUserBookshelfInfos { status, infos in
+            // Network Error
+            guard status == .SUCCESS else {
+                completion(false)
+                return
+            }
+            // Purchased Workbook not exist
+            guard let targetInfo = infos.first(where: { $0.wid == wid }) else {
+                print("Purchased Workbook not exist")
+                completion(false)
+                return
+            }
+            // Fetch Workbook Info, save Preview_Core
+            // SectionHeader_Core 는 별도로 저장하지 않는다
+            networkUsecase.getWorkbook(wid: wid) { workbook in
+                let preview_Core = Preview_Core(context: CoreDataManager.shared.context)
+                preview_Core.setValues(workbook: workbook, info: BookshelfInfo(info: targetInfo))
+                preview_Core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: networkUsecase) {
+                    CoreDataManager.saveCoreData()
+                    print("save preview(\(wid)) complete")
+                    completion(true)
+                    return
+                }
+            }
+        }
     }
 }
