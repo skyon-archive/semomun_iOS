@@ -26,6 +26,8 @@ final class TestSubjectCell: UICollectionViewCell {
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    // 회색 view 추가
+    // progress 추가
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +37,7 @@ final class TestSubjectCell: UICollectionViewCell {
         super.prepareForReuse()
         self.coreInfo = nil
         self.downloading = false
+        self.downloadedUI()
     }
     
     override var isSelected: Bool {
@@ -61,6 +64,10 @@ extension TestSubjectCell {
         self.titleLabel.text = "\(info.subject ?? "")(\(info.area ?? ""))"
         self.priceLabel.text = ""
         self.configureImage(data: info.image)
+        
+        if info.downloaded == false {
+            self.notDownloadedUI()
+        }
     }
     
     func configure(dtoInfo info: WorkbookOfDB) {
@@ -102,6 +109,14 @@ extension TestSubjectCell {
         }
     }
     
+    private func notDownloadedUI() {
+        // 회색 표시
+    }
+    
+    private func downloadedUI() {
+        // 회색 제거
+    }
+    
     private func touchAction() {
         guard let workbook = self.coreInfo,
               self.downloading == false else { return }
@@ -110,9 +125,14 @@ extension TestSubjectCell {
         } else {
             guard workbook.sids.count == 1, let targetSid = workbook.sids.first else { return }
             // download section
-            self.downloading = true
+            self.startProgress()
             self.downloadSection(workbook: workbook, sid: targetSid)
         }
+    }
+    
+    private func startProgress() {
+        self.downloading = true
+        // progress 표시
     }
     
     private func downloadSection(workbook: Preview_Core, sid: Int) {
@@ -142,5 +162,7 @@ extension TestSubjectCell: LoadingDelegate {
     
     func terminate() {
         self.downloading = false
+        // progress 제거
+        self.downloadedUI()
     }
 }
