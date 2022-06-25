@@ -20,7 +20,7 @@ final class BookshelfVM {
     
     func reloadBookshelf(order: BookshelfVC.SortOrder) {
         print("reload Bookshelf, order: \(order)")
-        guard let previews = CoreUsecase.fetchPreviews() else {
+        guard let previews = CoreUsecase.fetchPreviews()?.filter({ $0.wgid != 0 }) else {
             print("no previews")
             return
         }

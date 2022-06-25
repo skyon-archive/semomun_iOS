@@ -98,6 +98,7 @@ extension WorkbookGroupDetailVC {
         self.bindLoader()
         self.bindPopupType()
         self.bindPurchaseWorkbook()
+        self.bindWarning()
     }
     
     private func bindWorkbookGroupInfo() {
@@ -160,6 +161,17 @@ extension WorkbookGroupDetailVC {
             .sink(receiveValue: { [weak self] workbook in
                 guard let workbook = workbook else { return }
                 self?.showPurchasePopupVC(workbook: workbook)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] error in
+                guard let error = error else { return }
+                self?.showAlertWithOK(title: error.title, text: error.text)
             })
             .store(in: &self.cancellables)
     }

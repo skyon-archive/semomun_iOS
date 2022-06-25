@@ -26,6 +26,7 @@ class BookshelfCell: UICollectionViewCell {
     }
     
     func configure(with book: Preview_Core, imageSize: CGSize) {
+        print("wid: \(book.wid)")
         self.title.text = book.title
         if let imageData = book.image {
             self.bookcover.image = UIImage(data: imageData)
