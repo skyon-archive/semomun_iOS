@@ -250,7 +250,16 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
 extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 가로모드, 기기별, 그림자 처리 등 추후 수정 예정
-        return TestSubjectCell.cellSize
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        print(screenWidth)
+        let portraitColumnCount: CGFloat = 5
+        let horizontalInset: CGFloat = 28
+        let horizontalTerm: CGFloat = 12
+        
+        let cellWidth = (screenWidth - (horizontalInset*2) - horizontalTerm*(portraitColumnCount-1)) / portraitColumnCount
+        let cellHeight = cellWidth*5/4 + 65
+        
+        return CGSize(cellWidth, cellHeight)
     }
 }
 
