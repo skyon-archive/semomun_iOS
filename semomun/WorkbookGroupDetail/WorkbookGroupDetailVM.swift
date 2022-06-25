@@ -53,14 +53,6 @@ final class WorkbookGroupDetailVM {
 
 // MARK: Public
 extension WorkbookGroupDetailVM {
-    func selectCoreWorkbook(to index: Int) {
-        guard let selectedWorkbook = self.purchasedWorkbooks[safe: index] else {
-            assertionFailure("out of index Error")
-            return
-        }
-        // downloaded 상태에 따라 section show, download 로직 필요
-    }
-    
     func selectWorkbook(to index: Int) {
         guard let selectedWorkbook = self.nonPurchasedWorkbooks[safe: index] else {
             assertionFailure("out of index Error")

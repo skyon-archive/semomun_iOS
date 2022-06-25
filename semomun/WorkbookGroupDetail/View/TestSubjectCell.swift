@@ -7,13 +7,22 @@
 
 import UIKit
 
+typealias TestSubjectNetworkUsecase = (S3ImageFetchable & SectionDownloadable)
+protocol TestSubjectCellObserber: AnyObject {
+    func showAlertDownloadSectionFail()
+    func showTestPracticeSection(workbook: Preview_Core)
+}
+
 final class TestSubjectCell: UICollectionViewCell {
     /* public */
     static let identifer = "TestSubjectCell"
     static let cellSize: CGSize = CGSize(146, 240)
     /* private */
-    private var networkUsecase: S3ImageFetchable?
+    private var networkUsecase: TestSubjectNetworkUsecase?
     private var requestedUUID: UUID?
+    private var coreInfo: Preview_Core? // section download 시 필요한 정보를 지니기 위함
+    private var downloading: Bool = false
+    private weak var delegate: TestSubjectCellObserber?
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -24,13 +33,31 @@ final class TestSubjectCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.coreInfo = nil
+        self.downloading = false
     }
     
-    func configureNetworkUsecase(to usecase: S3ImageFetchable?) {
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.touchAction()
+            }
+        }
+    }
+}
+
+// MARK: Public
+extension TestSubjectCell {
+    func configureNetworkUsecase(to usecase: TestSubjectNetworkUsecase?) {
         self.networkUsecase = usecase
     }
     
+    func configureDelegate(to delegate: TestSubjectCellObserber) {
+        self.delegate = delegate
+    }
+    
     func configure(coreInfo info: Preview_Core) {
+        self.coreInfo = info
         self.titleLabel.text = "\(info.subject ?? "")(\(info.area ?? ""))"
         self.priceLabel.text = ""
         self.configureImage(data: info.image)
@@ -41,7 +68,10 @@ final class TestSubjectCell: UICollectionViewCell {
         self.priceLabel.text = "\(info.price.withComma)원"
         self.configureImage(uuid: info.bookcover)
     }
-    
+}
+
+// MARK: Private
+extension TestSubjectCell {
     private func configureImage(uuid: UUID) {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.bookcover.image = cachedImage
@@ -70,5 +100,47 @@ final class TestSubjectCell: UICollectionViewCell {
         } else {
             self.bookcover.image = UIImage(.dummy_bookcover)
         }
+    }
+    
+    private func touchAction() {
+        guard let workbook = self.coreInfo,
+              self.downloading == false else { return }
+        if workbook.downloaded {
+            self.delegate?.showTestPracticeSection(workbook: workbook)
+        } else {
+            guard workbook.sids.count == 1, let targetSid = workbook.sids.first else { return }
+            // download section
+            self.downloading = true
+            self.downloadSection(workbook: workbook, sid: targetSid)
+        }
+    }
+    
+    private func downloadSection(workbook: Preview_Core, sid: Int) {
+        self.networkUsecase?.downloadSection(sid: sid) { section in
+            CoreUsecase.downloadPracticeSection(section: section, workbook: workbook, loading: self) { [weak self] sectionCore in
+                self?.downloading = false
+                // save section Error
+                if sectionCore == nil {
+                    self?.delegate?.showAlertDownloadSectionFail()
+                    return
+                }
+                // save section success
+                self?.terminate()
+            }
+        }
+    }
+}
+
+extension TestSubjectCell: LoadingDelegate {
+    func setCount(to: Int) {
+        //
+    }
+    
+    func oneProgressDone() {
+        //
+    }
+    
+    func terminate() {
+        self.downloading = false
     }
 }

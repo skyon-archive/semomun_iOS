@@ -16,7 +16,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     
     /* private */
     private var cancellables: Set<AnyCancellable> = []
-    private var networkUsecase: S3ImageFetchable = NetworkUsecase(network: Network())
+    private var networkUsecase = NetworkUsecase(network: Network())
     private lazy var loadingView = LoadingView()
     @IBOutlet weak var practiceTests: UICollectionView!
     
@@ -259,9 +259,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegate {
         let isPurchased = self.viewModel?.isPurchased ?? false
         switch indexPath.section {
         case 0:
-            if isPurchased {
-                self.viewModel?.selectCoreWorkbook(to: indexPath.item)
-            } else {
+            if isPurchased == false {
                 self.viewModel?.selectWorkbook(to: indexPath.item)
             }
         case 1:
@@ -326,5 +324,15 @@ extension WorkbookGroupDetailVC {
     private func stopLoader() {
         self.loadingView.stop()
         self.loadingView.removeFromSuperview()
+    }
+}
+
+extension WorkbookGroupDetailVC: TestSubjectCellObserber {
+    func showAlertDownloadSectionFail() {
+        self.showAlertWithOK(title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
+    }
+    
+    func showTestPracticeSection(workbook: Preview_Core) {
+        // studyVC 표시로직 필요
     }
 }
