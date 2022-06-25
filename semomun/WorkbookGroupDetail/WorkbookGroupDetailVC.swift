@@ -17,6 +17,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     /* private */
     private var cancellables: Set<AnyCancellable> = []
     private var networkUsecase: S3ImageFetchable = NetworkUsecase(network: Network())
+    private lazy var loadingView = LoadingView()
     @IBOutlet weak var practiceTests: UICollectionView!
     
     override func viewDidLoad() {
@@ -135,9 +136,9 @@ extension WorkbookGroupDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] showLoader in
                 if showLoader {
-//                    self?.startLoader()
+                    self?.startLoader()
                 } else {
-//                    self?.stopLoader()
+                    self?.stopLoader()
                 }
             })
             .store(in: &self.cancellables)
@@ -305,5 +306,25 @@ extension WorkbookGroupDetailVC {
         let storyboard = UIStoryboard(name: WaitingChargeVC.storyboardName, bundle: nil)
         let waitingChargeVC = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
         self.navigationController?.pushViewController(waitingChargeVC, animated: true)
+    }
+}
+
+// MARK: Loader
+extension WorkbookGroupDetailVC {
+    private func startLoader() {
+        self.view.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.loadingView.start()
+    }
+    
+    private func stopLoader() {
+        self.loadingView.stop()
+        self.loadingView.removeFromSuperview()
     }
 }
