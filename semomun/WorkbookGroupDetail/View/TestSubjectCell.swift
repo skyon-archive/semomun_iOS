@@ -17,22 +17,24 @@ final class TestSubjectCell: UICollectionViewCell {
     /* public */
     static let identifer = "TestSubjectCell"
     /* private */
-    private var networkUsecase: TestSubjectNetworkUsecase?
-    private var requestedUUID: UUID?
-    private var coreInfo: Preview_Core? // section download 시 필요한 정보를 지니기 위함
-    private var downloading: Bool = false
     private weak var delegate: TestSubjectCellObserber?
+    private var networkUsecase: TestSubjectNetworkUsecase?
+    private var coreInfo: Preview_Core? // section download 시 필요한 정보를 지니기 위함
+    private var requestedUUID: UUID?
+    private var downloading: Bool = false
+    private var totalCount: Int = 0
+    private var currentCount: Int = 0
     @IBOutlet weak var bookcoverFrameView: UIView!
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var downloadIndicator: CircularProgressView!
     private lazy var grayCoverView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.alpha = 0.3
         return view
     }()
-    // progress 추가
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -129,6 +131,7 @@ extension TestSubjectCell {
     }
     
     private func downloadedUI() {
+        self.downloadIndicator.isHidden = true
         self.grayCoverView.removeFromSuperview()
     }
     
@@ -147,7 +150,11 @@ extension TestSubjectCell {
     
     private func startProgress() {
         self.downloading = true
-        // progress 표시
+        self.downloadIndicator.isHidden = false
+        self.downloadIndicator.progressColor = .white
+        self.downloadIndicator.trackColor = .clear
+        self.downloadIndicator.progressWidth = 2
+        self.downloadIndicator.setProgressWithAnimation(duration: 0, value: 0, from: 0)
     }
     
     private func downloadSection(workbook: Preview_Core, sid: Int) {
@@ -167,17 +174,24 @@ extension TestSubjectCell {
 }
 
 extension TestSubjectCell: LoadingDelegate {
-    func setCount(to: Int) {
-        //
+    func setCount(to count: Int) {
+        self.totalCount = count
+        self.currentCount = 0
     }
     
     func oneProgressDone() {
-        //
+        self.currentCount += 1
+        let beforePer = Float(self.currentCount-1)/Float(self.totalCount)
+        let newPer = Float(self.currentCount)/Float(self.totalCount)
+        self.downloadIndicator.setProgressWithAnimation(duration: 0.2, value: newPer, from: beforePer)
+        
+        if self.currentCount >= self.totalCount {
+            self.terminate()
+        }
     }
     
     func terminate() {
         self.downloading = false
-        // progress 제거
         self.downloadedUI()
     }
 }
