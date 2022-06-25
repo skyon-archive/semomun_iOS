@@ -63,22 +63,6 @@ public class Section_Core: NSManagedObject {
         self.setValue(header.updatedDate, forKey: Attribute.updatedDate.rawValue)
         print("Section: \(header.sid) save complete")
     }
-    
-    func setMocks(sid: Int, buttons: [String], dict: [String: Int]) {
-        self.setValue(sid, forKey: "sid")
-        self.setValue("MOCK_DATA", forKey: "title")
-        self.setValue(0, forKey: "time")
-        self.setValue(buttons, forKey: "buttons")
-        let stars = Array(repeating: false, count: buttons.count)
-        let wrongs = Array(repeating: true, count: buttons.count)
-        let checks = Array(repeating: false, count: buttons.count)
-        self.setValue(stars, forKey: "stars")
-        self.setValue(wrongs, forKey: "wrongs")
-        self.setValue(dict, forKey: "dictionaryOfProblem")
-        self.setValue(dict[buttons[0]], forKey: "lastPageId")
-        self.setValue(checks, forKey: "checks")
-        print("MOCK Section: \(sid) save complete")
-    }
 }
 
 // MARK: Generated accessors for problemCores

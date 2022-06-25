@@ -86,7 +86,7 @@ public class Page_Core: NSManagedObject {
             case 5: return SingleWith5AnswerVC.identifier
             case 6: return SingleWithSubProblemsVC.identifier
             default:
-//                assertionFailure("form: 0, type: \(type)")
+                assertionFailure("form: 0, type: \(type)")
                 return SingleWith5AnswerVC.identifier
             }
         }
@@ -111,21 +111,6 @@ public class Page_Core: NSManagedObject {
             }
         }
         return SingleWith5AnswerVC.identifier
-    }
-    
-    func setMocks(vid: Int, form: Int, type: Int, pids: [Int], mateImgName: String?) {
-        self.setValue(Int64(vid), forKey: "vid")
-        self.setValue(getLayout(form: form, type: type), forKey: "layoutType")
-        self.setValue(pids, forKey: "problems")
-        self.setValue(nil, forKey: "drawing")
-        self.setValue(Int64(0), forKey: "time")
-        if let _ = mateImgName {
-//            let imgData = UIImage(named: mateImgName)!.pngData()
-//            self.setValue(imgData, forKey: "materialImage")
-        } else {
-            self.setValue(nil, forKey: "materialImage")
-        }
-        print("MOCK Page: \(vid) save complete")
     }
 }
 
