@@ -26,7 +26,12 @@ final class TestSubjectCell: UICollectionViewCell {
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    // 회색 view 추가
+    private lazy var grayCoverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.3
+        return view
+    }()
     // progress 추가
     
     override func awakeFromNib() {
@@ -119,11 +124,12 @@ extension TestSubjectCell {
     }
     
     private func notDownloadedUI() {
-        // 회색 표시
+        self.bookcover.addSubview(self.grayCoverView)
+        self.grayCoverView.frame = self.bookcover.frame
     }
     
     private func downloadedUI() {
-        // 회색 제거
+        self.grayCoverView.removeFromSuperview()
     }
     
     private func touchAction() {
