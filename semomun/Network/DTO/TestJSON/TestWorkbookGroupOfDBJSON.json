@@ -114,7 +114,7 @@
             "updatedAt": "2022-06-13T06:50:19.000Z"
         }
         ],
-        "price": 10000,
+        "price": 0,
         "sales": 1,
         "tags": [
         {
@@ -153,6 +153,298 @@
             "createdAt": "2022-06-13T06:49:53.000Z",
             "updatedAt": "2022-06-13T06:49:53.000Z"
         }
+        ]
+    },
+    {
+        "wid": 38,
+        "id": 38,
+        "title": "EBS 2023학년도 수능특강 과학탐구영역 물리학1",
+        "detail": "EBS 2023학년도 수능특강 과학탐구영역 물리학1",
+        "isbn": "",
+        "author": "EBS",
+        "date": "2022-01-01T09:00:00.000Z",
+        "publishMan": "없음",
+        "publishCompany": "EBS",
+        "originalPrice": 0,
+        "bookcover": "4529b590-d92d-4bc1-9352-65158e36ed43",
+        "createdAt": "2022-06-13T07:04:50.000Z",
+        "updatedAt": "2022-06-13T07:04:50.000Z",
+        "subject": "문학",
+        "area": "국어",
+        "sections": [
+            {
+                "sid": 150,
+                "wid": 38,
+                "index": 0,
+                "title": "서론",
+                "detail": "EBS 2023학년도 수능특강 과학탐구영역 물리학1",
+                "cutoff": {},
+                "sectioncover": "72597fc4-c133-433e-a8ba-c33b94912fe9",
+                "size": 3257296,
+                "audio": null,
+                "audioDetail": null,
+                "createdAt": "2022-06-13T07:04:50.000Z",
+                "updatedAt": "2022-06-13T07:04:52.000Z"
+            }
+        ],
+        "price": 0,
+        "sales": 3,
+        "tags": [
+            {
+                "tid": 2,
+                "name": "아시아",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 3,
+                "name": "한국",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 4,
+                "name": "고등",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 5,
+                "name": "수능대비",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 7,
+                "name": "고3",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 22,
+                "name": "과학",
+                "createdAt": "2022-06-13T06:50:05.000Z",
+                "updatedAt": "2022-06-13T06:50:05.000Z"
+            }
+        ]
+    },
+    {
+        "wid": 40,
+        "id": 40,
+        "title": "EBS 2023학년도 수능특강 과학탐구영역 생명과학1",
+        "detail": "",
+        "isbn": "",
+        "author": "EBS",
+        "date": "2022-01-01T09:00:00.000Z",
+        "publishMan": "없음",
+        "publishCompany": "EBS",
+        "originalPrice": 0,
+        "bookcover": "bfc6acdf-f001-458c-b14f-421e8506ebc0",
+        "createdAt": "2022-06-13T07:05:59.000Z",
+        "updatedAt": "2022-06-13T07:05:59.000Z",
+        "subject": "문학",
+        "area": "국어",
+        "sections": [
+            {
+                "sid": 176,
+                "wid": 40,
+                "index": 0,
+                "title": "서론",
+                "detail": "",
+                "cutoff": {},
+                "sectioncover": "a614d80a-1b41-4dec-8de5-c051dce952d7",
+                "size": 3542992,
+                "audio": null,
+                "audioDetail": null,
+                "createdAt": "2022-06-13T07:05:59.000Z",
+                "updatedAt": "2022-06-13T07:06:02.000Z"
+            }
+        ],
+        "price": 0,
+        "sales": 2,
+        "tags": [
+            {
+                "tid": 2,
+                "name": "아시아",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 3,
+                "name": "한국",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 4,
+                "name": "고등",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 5,
+                "name": "수능대비",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 7,
+                "name": "고3",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 22,
+                "name": "과학",
+                "createdAt": "2022-06-13T06:50:05.000Z",
+                "updatedAt": "2022-06-13T06:50:05.000Z"
+            }
+        ]
+    },
+    {
+        "wid": 42,
+        "id": 42,
+        "title": "EBS 2023학년도 수능특강 과학탐구영역 지구과학1",
+        "detail": "",
+        "isbn": "",
+        "author": "EBS",
+        "date": "2022-01-01T09:00:00.000Z",
+        "publishMan": "없음",
+        "publishCompany": "EBS",
+        "originalPrice": 0,
+        "bookcover": "ef7bd7a6-b972-4b7e-bde3-95a5003d8e3c",
+        "createdAt": "2022-06-13T07:07:12.000Z",
+        "updatedAt": "2022-06-13T07:07:12.000Z",
+        "subject": "문학",
+        "area": "국어",
+        "sections": [
+            {
+                "sid": 202,
+                "wid": 42,
+                "index": 0,
+                "title": "서론",
+                "detail": "",
+                "cutoff": {},
+                "sectioncover": "53b18fc2-6652-42cc-afa4-29bf5449c805",
+                "size": 3304014,
+                "audio": null,
+                "audioDetail": null,
+                "createdAt": "2022-06-13T07:07:13.000Z",
+                "updatedAt": "2022-06-13T07:07:15.000Z"
+            }
+        ],
+        "price": 0,
+        "sales": 2,
+        "tags": [
+            {
+                "tid": 2,
+                "name": "아시아",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 3,
+                "name": "한국",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 4,
+                "name": "고등",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 5,
+                "name": "수능대비",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 7,
+                "name": "고3",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 22,
+                "name": "과학",
+                "createdAt": "2022-06-13T06:50:05.000Z",
+                "updatedAt": "2022-06-13T06:50:05.000Z"
+            }
+        ]
+    },
+    {
+        "wid": 46,
+        "id": 46,
+        "title": "EBS 2023학년도 수능특강 국어영역 독서",
+        "detail": "",
+        "isbn": "",
+        "author": "EBS",
+        "date": "2022-01-01T09:00:00.000Z",
+        "publishMan": "없음",
+        "publishCompany": "EBS",
+        "originalPrice": 0,
+        "bookcover": "0216192d-6a54-4718-9d19-de628873b466",
+        "createdAt": "2022-06-13T07:09:36.000Z",
+        "updatedAt": "2022-06-13T07:09:36.000Z",
+        "subject": "문학",
+        "area": "국어",
+        "sections": [
+            {
+                "sid": 247,
+                "wid": 46,
+                "index": 0,
+                "title": "서론",
+                "detail": "",
+                "cutoff": {},
+                "sectioncover": "d0887e04-a056-4063-be63-e1c116b5e74e",
+                "size": 5746222,
+                "audio": null,
+                "audioDetail": null,
+                "createdAt": "2022-06-13T07:09:37.000Z",
+                "updatedAt": "2022-06-13T07:09:38.000Z"
+            }
+        ],
+        "price": 0,
+        "sales": 2,
+        "tags": [
+            {
+                "tid": 2,
+                "name": "아시아",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 3,
+                "name": "한국",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 4,
+                "name": "고등",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 5,
+                "name": "수능대비",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 6,
+                "name": "국어",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            },
+            {
+                "tid": 7,
+                "name": "고3",
+                "createdAt": "2022-05-26T10:29:10.000Z",
+                "updatedAt": "2022-05-26T10:29:10.000Z"
+            }
         ]
     }
     ]
