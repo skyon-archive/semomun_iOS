@@ -19,6 +19,38 @@ final class WorkbookGroupDetailVC: UIViewController {
     private var networkUsecase = NetworkUsecase(network: Network())
     private lazy var loadingView = LoadingView()
     @IBOutlet weak var practiceTests: UICollectionView!
+    // MARK: Cell Size
+    private lazy var portraitColumnCount: CGFloat = {
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        switch screenWidth {
+        case 744: return 4 // 미니
+        case 1024: return 6 // 12인치
+        default: return 5 // 11인치
+        }
+    }()
+    private lazy var landscapeColumCount: CGFloat = {
+        return self.portraitColumnCount + 2 // 세로개수 + 2
+    }()
+    private var portraitCellSize: CGSize {
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let columCount = self.portraitColumnCount
+        let horizontalInset: CGFloat = 28
+        let horizontalTerm: CGFloat = 12
+        let cellWidth: CGFloat = (screenWidth - (horizontalInset * 2) - (horizontalTerm * (columCount - 1))) / columCount
+        let cellHeight = cellWidth*5/4 + 65
+
+        return CGSize(cellWidth, cellHeight)
+    }
+    private var landscapeCellSize: CGSize {
+        let screenWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let columCount = self.landscapeColumCount
+        let horizontalInset: CGFloat = 28
+        let horizontalTerm: CGFloat = 12
+        let cellWidth: CGFloat = (screenWidth - (horizontalInset * 2) - (horizontalTerm * (columCount - 1))) / columCount
+        let cellHeight = cellWidth*5/4 + 65
+
+        return CGSize(cellWidth, cellHeight)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +68,14 @@ final class WorkbookGroupDetailVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.practiceTests.collectionViewLayout.invalidateLayout()
+        coordinator.animate { _ in
+            self.practiceTests.reloadData()
+        }
     }
 }
 
@@ -249,17 +289,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 가로모드, 기기별, 그림자 처리 등 추후 수정 예정
-        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        print(screenWidth)
-        let portraitColumnCount: CGFloat = 5
-        let horizontalInset: CGFloat = 28
-        let horizontalTerm: CGFloat = 12
-        
-        let cellWidth = (screenWidth - (horizontalInset*2) - horizontalTerm*(portraitColumnCount-1)) / portraitColumnCount
-        let cellHeight = cellWidth*5/4 + 65
-        
-        return CGSize(cellWidth, cellHeight)
+        return UIWindow.isLandscape ? self.landscapeCellSize : self.portraitCellSize
     }
 }
 

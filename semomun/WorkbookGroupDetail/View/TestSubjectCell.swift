@@ -16,7 +16,6 @@ protocol TestSubjectCellObserber: AnyObject {
 final class TestSubjectCell: UICollectionViewCell {
     /* public */
     static let identifer = "TestSubjectCell"
-    static let cellSize: CGSize = CGSize(146, 240)
     /* private */
     private var networkUsecase: TestSubjectNetworkUsecase?
     private var requestedUUID: UUID?
@@ -36,6 +35,8 @@ final class TestSubjectCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.bookcover.image = UIImage(.loadingBookcover)
+        self.requestedUUID = nil
         self.coreInfo = nil
         self.downloading = false
         self.downloadedUI()
