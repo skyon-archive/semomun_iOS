@@ -82,14 +82,25 @@ extension WorkbookGroupDetailVM {
     }
     
     func purchaseComplete() {
-        guard let purchasedWid = self.purchaseWorkbook?.wid else { return }
-        CoreUsecase.downloadWorkbook(wid: purchasedWid) { [weak self] success in
-            guard let self = self, success else {
-                self?.warning = (title: "네트워크 에러", text: "구매내역 반영에 실패하였습니다")
+        guard let purchasedWorkbook = self.purchaseWorkbook else { return }
+        self.showLoader = true
+        
+        self.networkUsecase.purchaseItem(productIDs: [purchasedWorkbook.productID]) { [weak self] status, credit in
+            guard status == .SUCCESS else {
+                self?.showLoader = false
+                self?.warning = (title: "구매반영 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
             
-            self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
+            CoreUsecase.downloadWorkbook(wid: purchasedWorkbook.wid) { [weak self] success in
+                self?.showLoader = false
+                guard let self = self, success else {
+                    self?.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                
+                self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
+            }
         }
     }
 }
@@ -103,6 +114,7 @@ extension WorkbookGroupDetailVM {
             print("no purchased workbooks")
             return
         }
+        dump(purchasedWorkbooks) // wgid 값 확인용 임시코드
         self.purchasedWorkbooks = purchasedWorkbooks
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
         if self.nonPurchasedWorkbooks.isEmpty {
