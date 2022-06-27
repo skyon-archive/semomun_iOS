@@ -97,10 +97,6 @@ class BookshelfVC: UIViewController {
         print("hi")
         guard UserDefaultsManager.isLogined else { return }
         self.reloadBookshelf()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.books.reloadData()
     }
     
@@ -365,7 +361,7 @@ extension BookshelfVC {
         let horizontalMargin: CGFloat = 28
         let horizontalTerm: CGFloat = 10
         
-        let superWidth = self.books.frame.width - 2*horizontalMargin
+        let superWidth = UIScreen.main.bounds.width - 2*horizontalMargin
         let cellWidth = (superWidth - (horizontalTerm*CGFloat(columnCount-1)))/CGFloat(columnCount)
         
         let width = cellWidth - 10

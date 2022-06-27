@@ -50,8 +50,8 @@ final class SearchResultVC: UIViewController, StoryboardController {
         self.bindAll()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.searchResults.reloadData()
     }
     
@@ -145,7 +145,7 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let horizontalTerm: CGFloat = 20
         let horizontalMargin: CGFloat = 28
-        let superWidth = self.searchResults.frame.width - 2*horizontalMargin
+        let superWidth = UIScreen.main.bounds.width - 2*horizontalMargin
         let textHeight: CGFloat = 34
         let textHeightTerm: CGFloat = 5
         let width = (superWidth - (CGFloat(self.columnCount-1)*horizontalTerm))/CGFloat(self.columnCount)
