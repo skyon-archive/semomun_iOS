@@ -147,6 +147,7 @@ extension WorkbookGroupDetailVC {
         self.bindPopupType()
         self.bindPurchaseWorkbook()
         self.bindWarning()
+        self.bindPopVC()
     }
     
     private func bindWorkbookGroupInfo() {
