@@ -19,25 +19,30 @@ final class BookshelfVM {
     }
     
     func reloadBookshelf(order: BookshelfVC.SortOrder) {
-        print("reload Bookshelf, order: \(order)")
-        guard let previews = CoreUsecase.fetchPreviews()?.filter({ $0.wgid == 0 }) else {
-            print("no previews")
-            return
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            print("reload Bookshelf, order: \(order)")
+            
+            guard let previews = CoreUsecase.fetchPreviews()?.filter({ $0.wgid == 0 }) else {
+                print("no previews")
+                return
+            }
+            
+            if NetworkStatusManager.isConnectedToInternet() {
+                NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+            }
+            
+            // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
+            switch order {
+            case .purchase:
+                self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.purchasedDate, $0, $1) })
+            case .recent:
+                self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.recentDate, $0, $1) })
+            case .alphabet:
+                self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.title, $1, $0) })
+            }
         }
         
-        if NetworkStatusManager.isConnectedToInternet() {
-            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
-        }
-        
-        // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch order {
-        case .purchase:
-            self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.purchasedDate, $0, $1) })
-        case .recent:
-            self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.recentDate, $0, $1) })
-        case .alphabet:
-            self.books = previews.sorted(by: { self.areBooksInDecreasingOrder(\.title, $1, $0) })
-        }
     }
     
     /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate의 최신순으로 정렬

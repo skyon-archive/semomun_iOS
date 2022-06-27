@@ -80,8 +80,9 @@ class BookshelfVC: UIViewController {
         self.configureObservation()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("hi")
         guard UserDefaultsManager.isLogined else { return }
         self.reloadBookshelf()
     }
