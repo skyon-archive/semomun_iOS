@@ -112,7 +112,7 @@ extension TestSubjectCell {
         if let imageData = data {
             self.bookcover.image = UIImage(data: imageData)
         } else {
-            self.bookcover.image = UIImage(.dummy_bookcover)
+            self.bookcover.image = UIImage(.loadingBookcover)
         }
     }
     
@@ -165,7 +165,7 @@ extension TestSubjectCell {
             CoreUsecase.downloadPracticeSection(section: section, workbook: workbook, loading: self) { [weak self] sectionCore in
                 self?.downloading = false
                 // save section Error
-                if sectionCore == nil {
+                guard sectionCore != nil else {
                     self?.delegate?.showAlertDownloadSectionFail()
                     return
                 }
