@@ -32,6 +32,7 @@ class BookshelfVC: UIViewController {
     private lazy var portraitColumnCount: Int = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
         var horizontalCellCount: Int
+        
         switch screenWidth {
             // 12인치의 경우 6개씩 표시
         case 1024:
@@ -57,25 +58,25 @@ class BookshelfVC: UIViewController {
         return UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount
     }
     
-    private lazy var portraitImageFrameViewSize: CGSize = {
+    private var portraitImageFrameViewSize: CGSize {
         return self.getImageFrameViewSize(columnCount: self.portraitColumnCount)
-    }()
+    }
     
-    private lazy var landscapeImageFrameViewSize: CGSize = {
+    private var landscapeImageFrameViewSize: CGSize {
         return self.getImageFrameViewSize(columnCount: self.landscapeColumnCount)
-    }()
+    }
     
     private var imageFrameViewSize: CGSize {
         return UIWindow.isLandscape ? self.landscapeImageFrameViewSize : self.portraitImageFrameViewSize
     }
     
-    private lazy var portraitCellSize: CGSize = {
+    private var portraitCellSize: CGSize {
         return self.getCellSize(imageFrameViewSize: self.portraitImageFrameViewSize)
-    }()
+    }
     
-    private lazy var landscapeCellSize: CGSize = {
+    private var landscapeCellSize: CGSize {
         return self.getCellSize(imageFrameViewSize: self.landscapeImageFrameViewSize)
-    }()
+    }
     
     private var cellSize: CGSize {
         return UIWindow.isLandscape ? self.landscapeCellSize : self.portraitCellSize
@@ -341,6 +342,7 @@ extension BookshelfVC: UICollectionViewDelegate {
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // (219.6, 354.0)
         return self.cellSize
     }
 }
