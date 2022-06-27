@@ -32,11 +32,9 @@ final class StudyVC: UIViewController {
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
-    var sectionHeaderCore: SectionHeader_Core?
-    var sectionCore: Section_Core?
-    var previewCore: Preview_Core?
     private var currentVC: UIViewController?
-    private var manager: SectionManager?
+    private var sectionManager: SectionManager?
+    private var practiceTestManager: PracticeTestManager?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var singleWith5Answer: SingleWith5AnswerVC = {
         return UIStoryboard(name: SingleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith5AnswerVC.identifier) as? SingleWith5AnswerVC ?? SingleWith5AnswerVC()
@@ -102,19 +100,19 @@ final class StudyVC: UIViewController {
         if let vc = self.currentVC as? TimeRecordControllable {
             vc.endTimeRecord()
         }
-        self.manager?.pauseSection()
-        self.manager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
+        self.sectionManager?.pauseSection()
+        self.sectionManager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
     }
     
     @IBAction func scoringSection(_ sender: Any) {
-        guard let section = self.manager?.section else { return }
+        guard let section = self.sectionManager?.section else { return }
         // 임시코드: 내부 VC.viewModel?.endTimeRecord 실행
         if let vc = self.currentVC as? TimeRecordControllable {
             vc.endTimeRecord()
         }
         
         if section.terminated {
-            self.manager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
+            self.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
             self.showResultViewController(section: section)
         } else {
             self.showSelectProblemsVC(section: section)
@@ -122,11 +120,23 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func beforePage(_ sender: Any) {
-        self.manager?.changePreviousPage()
+        self.sectionManager?.changePreviousPage()
     }
     
     @IBAction func nextPage(_ sender: Any) {
-        self.manager?.changeNextPage()
+        self.sectionManager?.changeNextPage()
+    }
+}
+
+// MARK: Public
+extension StudyVC {
+    /// 일반 section 의 관리자
+    func configureManager(_ manager: SectionManager) {
+        self.sectionManager = manager
+    }
+    /// 실전 모의고사 section 의 관리자
+    func configureManager(_ manager: PracticeTestManager) {
+        self.practiceTestManager = manager
     }
 }
 
@@ -137,7 +147,7 @@ extension StudyVC {
             self?.showReportView()
         }
         let showResultAction = UIAction(title: "결과보기", image: nil) { [weak self] _ in
-            guard let section = self?.manager?.section else { return }
+            guard let section = self?.sectionManager?.section else { return }
             self?.showResultViewController(section: section)
         }
         self.menuButton.menu = UIMenu(title: "", image: nil, children: [reportErrorAction, showResultAction])
@@ -145,12 +155,11 @@ extension StudyVC {
     }
     
     private func configureManager() {
-        guard let section = self.sectionCore,
-              let sectionHeader = self.sectionHeaderCore,
-              let preview = self.previewCore else { return }
-        
-        let networkUsecase = NetworkUsecase(network: Network())
-        self.manager = SectionManager(delegate: self, section: section, sectionHeader: sectionHeader, preview: preview, networkUsecase: networkUsecase)
+        if self.sectionManager != nil {
+            self.sectionManager?.configureDelegate(to: self)
+        } else {
+            self.practiceTestManager?.configureDelegate(to: self)
+        }
     }
     
     private func configureCollectionView() {
@@ -167,12 +176,12 @@ extension StudyVC {
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .showSectionResult, object: nil, queue: .current) { [weak self] _ in
-            guard let section = self?.manager?.section,
-                  let pageData = self?.manager?.currentPage else { return }
+            guard let section = self?.sectionManager?.section,
+                  let pageData = self?.sectionManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
             self?.reloadButtons()
-            self?.manager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
+            self?.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
         NotificationCenter.default.addObserver(forName: .previousPage, object: nil, queue: .main) { [weak self] _ in
@@ -187,13 +196,13 @@ extension StudyVC {
 extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.manager?.problems.count ?? 0
+        return self.sectionManager?.problems.count ?? 0
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        guard let manager = self.manager else { return cell }
+        guard let manager = self.sectionManager else { return cell }
         
         let num = manager.title(at: indexPath.item)
         let isStar = manager.isStar(at: indexPath.item)
@@ -208,7 +217,7 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.manager?.changePage(at: indexPath.item)
+        self.sectionManager?.changePage(at: indexPath.item)
     }
 }
 
@@ -250,8 +259,8 @@ extension StudyVC {
     }
     
     private func showReportView() {
-        guard let pageData = self.manager?.currentPage else { return }
-        guard let title = self.manager?.sectionTitle else { return }
+        guard let pageData = self.sectionManager?.currentPage else { return }
+        guard let title = self.sectionManager?.sectionTitle else { return }
         let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
         
         self.present(reportVC, animated: true, completion: nil)
@@ -396,24 +405,24 @@ extension StudyVC: PageDelegate {
     }
     
     func nextPage() {
-        self.manager?.changeNextPage()
+        self.sectionManager?.changeNextPage()
     }
     
     func previousPage() {
-        self.manager?.changePreviousPage()
+        self.sectionManager?.changePreviousPage()
     }
     
     func addScoring(pid: Int) {
-        self.manager?.addScoring(pid: pid)
+        self.sectionManager?.addScoring(pid: pid)
         self.reloadButtons()
     }
     
     func addUploadProblem(pid: Int) {
-        self.manager?.addUploadProblem(pid: pid)
+        self.sectionManager?.addUploadProblem(pid: pid)
     }
     
     func addUploadPage(vid: Int) {
-        self.manager?.addUploadPage(vid: vid)
+        self.sectionManager?.addUploadPage(vid: vid)
     }
 }
 
@@ -425,7 +434,7 @@ extension StudyVC {
     }
     
     private func bindTitle() {
-        self.manager?.$sectionTitle
+        self.sectionManager?.$sectionTitle
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] title in
                 self?.titleLabel.text = title
@@ -434,7 +443,7 @@ extension StudyVC {
     }
     
     private func bindTime() {
-        self.manager?.$currentTime
+        self.sectionManager?.$currentTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] time in
                 self?.backButton.setTitle(time.toTimeString, for: .normal)
@@ -443,7 +452,7 @@ extension StudyVC {
     }
     
     private func bindPage() {
-        self.manager?.$currentPage
+        self.sectionManager?.$currentPage
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }

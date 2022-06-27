@@ -192,6 +192,7 @@
 		8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* FormCellControllable.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
 		8768B3AC2800596100E99BBD /* BookshelfFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */; };
+		8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8778D28328695331002B1684 /* PracticeTestManager.swift */; };
 		877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
 		877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */; };
@@ -491,6 +492,7 @@
 		8766B1F5277C44A600061CE6 /* FormCellControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellControllable.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
 		8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfFooterView.swift; sourceTree = "<group>"; };
+		8778D28328695331002B1684 /* PracticeTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestManager.swift; sourceTree = "<group>"; };
 		877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptWideVM.swift; sourceTree = "<group>"; };
@@ -1373,6 +1375,7 @@
 			children = (
 				8716E955279A623500B33A5E /* StudyVC.swift */,
 				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
+				8778D28328695331002B1684 /* PracticeTestManager.swift */,
 				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
 				87C85EA9276F6C55001C9C4A /* Model */,
 			);
@@ -2020,6 +2023,7 @@
 				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */,
+				8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
 				87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
