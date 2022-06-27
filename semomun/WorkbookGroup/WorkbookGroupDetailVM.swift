@@ -24,6 +24,7 @@ final class WorkbookGroupDetailVM {
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
     @Published private(set) var info: WorkbookGroupInfo
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var popVC: (title: String, text: String)?
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     @Published private(set) var purchaseWorkbook: WorkbookOfDB?
@@ -117,6 +118,15 @@ extension WorkbookGroupDetailVM {
     /// 해당 WorkbookGroup 에 속한 전체 WorkbookOfDB fetch
     /// purchasedWorkbooks 가 존재할 경우 filter 된다.
     private func fetchNonPurchasedWorkbooks(wgid: Int) {
+        // dto 로 표시하는 상태이나 offline 의 경우 popVC 를 활성화
+        // core 로 표시하는 상태이나 offfline 의 경우 fetch 를 안한다 (경고 표시로직이 없어야 한다)
+        if NetworkStatusManager.isConnectedToInternet() == false {
+            if self.purchasedWorkbooks.isEmpty == true {
+                self.popVC = (title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+            return
+        }
+        
         self.networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroupOfDB in
             switch status {
             case .SUCCESS:
