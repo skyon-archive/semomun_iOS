@@ -207,6 +207,7 @@
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
 		879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879A52E027D0BE97000B4D97 /* NetworkResult.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
+		879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC219286955D4007E3508 /* LayoutDelegate.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemsVC.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
@@ -507,6 +508,7 @@
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		879A52E027D0BE97000B4D97 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
+		879CC219286955D4007E3508 /* LayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDelegate.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVC.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
@@ -1355,6 +1357,14 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		879CC218286955C4007E3508 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				879CC219286955D4007E3508 /* LayoutDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		87A1C35A27C5E675009043BE /* ChildVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1377,6 +1387,7 @@
 				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
 				8778D28328695331002B1684 /* PracticeTestManager.swift */,
 				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
+				879CC218286955C4007E3508 /* Protocol */,
 				87C85EA9276F6C55001C9C4A /* Model */,
 			);
 			path = StudyVC;
@@ -2036,6 +2047,7 @@
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */,
 				259E994127AD1093000012AF /* CALayer.swift in Sources */,
+				879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
