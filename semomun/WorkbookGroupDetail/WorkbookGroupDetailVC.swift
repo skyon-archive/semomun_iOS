@@ -362,6 +362,18 @@ extension WorkbookGroupDetailVC {
         let waitingChargeVC = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
         self.navigationController?.pushViewController(waitingChargeVC, animated: true)
     }
+    
+    private func showStudyVC(section: PracticeTestSection_Core, workbook: Preview_Core) {
+        guard let studyVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+        
+        let networkUsecase = NetworkUsecase(network: Network())
+        let manager = PracticeTestManager(section: section, workbook: workbook, networkUsecase: networkUsecase)
+        
+        studyVC.modalPresentationStyle = .fullScreen
+        studyVC.configureManager(manager)
+        
+        self.present(studyVC, animated: true, completion: nil)
+    }
 }
 
 // MARK: Loader
@@ -390,6 +402,13 @@ extension WorkbookGroupDetailVC: TestSubjectCellObserber {
     }
     
     func showPracticeTestSection(workbook: Preview_Core) {
-        // studyVC 표시로직 필요
+        guard workbook.sids.count == 1,
+              let sid = workbook.sids.first,
+              let practiceSection = CoreUsecase.fetchPracticeSection(sid: sid) else {
+            self.showAlertWithOK(title: "문제집 정보 에러", text: "")
+            return
+        }
+        
+        self.showStudyVC(section: practiceSection, workbook: workbook)
     }
 }

@@ -194,14 +194,16 @@ extension WorkbookDetailVC {
 
 // MARK: - Show VC
 extension WorkbookDetailVC {
-    private func showSolvingVC(section: Section_Core, preview: Preview_Core, sectionHeader: SectionHeader_Core) {
-        guard let solvingVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
-        solvingVC.modalPresentationStyle = .fullScreen
-        solvingVC.sectionCore = section
-        solvingVC.sectionHeaderCore = sectionHeader
-        solvingVC.previewCore = preview
+    private func showStudyVC(section: Section_Core, workbook: Preview_Core, sectionHeader: SectionHeader_Core) {
+        guard let studyVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
         
-        self.present(solvingVC, animated: true, completion: nil)
+        let networkUsecase = NetworkUsecase(network: Network())
+        let manager = SectionManager(section: section, sectionHeader: sectionHeader, workbook: workbook, networkUsecase: networkUsecase)
+        
+        studyVC.modalPresentationStyle = .fullScreen
+        studyVC.configureManager(manager)
+        
+        self.present(studyVC, animated: true, completion: nil)
     }
     
     private func showPopupVC(type: WorkbookDetailVM.PopupType) {
@@ -432,7 +434,7 @@ extension WorkbookDetailVC: WorkbookCellController {
         guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
         if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
             self.viewModel?.updateRecentDate()
-            self.showSolvingVC(section: section, preview: preview, sectionHeader: sectionHeader)
+            self.showStudyVC(section: section, workbook: preview, sectionHeader: sectionHeader)
         }
     }
     
