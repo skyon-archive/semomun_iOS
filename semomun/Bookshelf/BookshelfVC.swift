@@ -100,8 +100,8 @@ class BookshelfVC: UIViewController {
     
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         guard self.books != nil else { return }
-        
         coordinator.animate(alongsideTransition: { _ in
             self.books.reloadData()
         })
