@@ -61,9 +61,6 @@ final class StudyVC: UIViewController {
         return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
     }()
     
-    private var isShowInfo: Bool = true
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureMenu()
@@ -76,14 +73,6 @@ final class StudyVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 임시 로직
-        guard self.isShowInfo else { return }
-        let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
-        let hostingVC = UIHostingController(rootView: TestInfoView(info: info, delegate: self))
-        hostingVC.modalPresentationStyle = .overFullScreen
-        self.present(hostingVC, animated: true, completion: nil)
-        self.isShowInfo = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -465,6 +454,7 @@ extension StudyVC {
 
 extension StudyVC: TestStartable {
     func startTest() {
-        print("start")
+        // dismiss 로직
+        self.practiceTestManager?.startTest()
     }
 }
