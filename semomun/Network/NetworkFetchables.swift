@@ -56,7 +56,7 @@ protocol WorkbookGroupSearchable {
 }
 // MARK: - Downloadable
 protocol SectionDownloadable {
-    func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void)
+    func downloadSection(sid: Int, completion: @escaping (SectionOfDB?) -> Void)
 }
 // MARK: - Chackable
 protocol UsernameCheckable {

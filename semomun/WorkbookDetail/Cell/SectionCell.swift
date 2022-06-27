@@ -145,7 +145,14 @@ extension SectionCell {
         guard let sid = self.sectionHeader?.sid else { return }
         let networkUsecase = NetworkUsecase(network: Network())
         
-        networkUsecase.downloadSection(sid: Int(sid)) { section in
+        networkUsecase.downloadSection(sid: Int(sid)) { [weak self] section in
+            guard let self = self else { return }
+            guard let section = section else {
+                self.delegate?.showAlertDownloadSectionFail()
+                self.downloadButton.setTitle("다운실패", for: .normal)
+                return
+            }
+
             CoreUsecase.downloadSection(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
                 self?.downloading = false
                 if sectionCore == nil {

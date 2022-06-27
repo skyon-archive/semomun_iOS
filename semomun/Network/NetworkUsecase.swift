@@ -206,12 +206,13 @@ extension NetworkUsecase: WorkbookGroupSearchable {
 
 // MARK: - Downloadable
 extension NetworkUsecase: SectionDownloadable {
-    func downloadSection(sid: Int, completion: @escaping (SectionOfDB) -> Void) {
+    func downloadSection(sid: Int, completion: @escaping (SectionOfDB?) -> Void) {
         print("////token: \(String(describing: NetworkTokens()?.accessToken))")
         print("////URL: \(NetworkURL.sectionDirectory(sid))")
         self.network.request(url: NetworkURL.sectionDirectory(sid), method: .get, tokenRequired: true) { result in
             guard let data = result.data,
                   let sectionOfDB = self.decodeRequested(SectionOfDB.self, from: data) else {
+                completion(nil)
                 return
             }
             completion(sectionOfDB)
