@@ -100,21 +100,15 @@ class BookshelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.books.performBatchUpdates {
-            self.books.reloadData()
-        }
+        self.books.reloadData()
     }
     
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         guard self.books != nil else { return }
         
-        let oldSectionNum = self.numberOfSections(in: self.books)
         coordinator.animate(alongsideTransition: { _ in
-            self.books.performBatchUpdates {
-                self.updateBooksSection(oldSectionNum: oldSectionNum)
-                self.books.reloadData()
-            }
+            self.books.reloadData()
         })
     }
     
@@ -304,7 +298,6 @@ extension BookshelfVC: UICollectionViewDataSource {
             if booksCount % columnCount != 0 {
                 sectionCount += 1
             }
-            print(sectionCount)
             return sectionCount
         } else {
             return 0
@@ -389,16 +382,6 @@ extension BookshelfVC {
             return CGSize(width: width, height: height)
         } else {
             return CGSize(width: self.books.frame.width, height: 182)
-        }
-    }
-    
-    private func updateBooksSection(oldSectionNum: Int) {
-        // 섹션 개수의 변화를 반영
-        let newSectionNum = self.numberOfSections(in: self.books)
-        if newSectionNum > oldSectionNum {
-            self.books.insertSections(.init(integersIn: oldSectionNum..<newSectionNum))
-        } else {
-            self.books.deleteSections(.init(integersIn: newSectionNum..<oldSectionNum))
         }
     }
 }

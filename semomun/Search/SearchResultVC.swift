@@ -52,16 +52,12 @@ final class SearchResultVC: UIViewController, StoryboardController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.searchResults.performBatchUpdates {
-            self.searchResults.collectionViewLayout.invalidateLayout()
-        }
+        self.searchResults.reloadData()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { _ in
-            self.searchResults.performBatchUpdates {
-                self.searchResults.collectionViewLayout.invalidateLayout()
-            }
+            self.searchResults.reloadData()
         })
     }
 }
