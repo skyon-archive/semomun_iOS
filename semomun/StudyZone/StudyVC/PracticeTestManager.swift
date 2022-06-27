@@ -44,7 +44,9 @@ extension PracticeTestManager {
         self.section.startTest(startDate: startDate)
         CoreDataManager.saveCoreData()
         
-        // 화면 표시, 타이머 진행 로직
+        self.configureStartPage()
+        self.updateRecentTime()
+        self.startTimer()
     }
 }
 
@@ -60,10 +62,13 @@ extension PracticeTestManager {
             
             self.showTestInfo = TestInfo(title: title, area: area, subject: subject)
         } else {
+            self.configureStartPage()
+            self.updateRecentTime()
+            
             if self.section.terminated { // 채점완료 상태인 경우
-                
+                self.configureTerminated()
             } else { // 진행중인 경우
-                
+                self.startTimer()
             }
         }
     }
@@ -72,5 +77,28 @@ extension PracticeTestManager {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
             
         }
+    }
+    
+    private func configureStartPage() {
+        // 0번 인덱스 표시 로직 (마지막 index 를 표시할 경우 수정 필요)
+        let lastPageId = 0
+        self.changePage(at: lastPageId)
+    }
+    
+    private func updateRecentTime() {
+        // 남은시간 표시
+    }
+    
+    private func startTimer() {
+        // 1초간 반복되는 timer 로직, 내부에서 updateRecentTime 실행
+        // 만약 첫 실행시 updateRecentTime 불리는 경우 중복로직 제거 필요
+    }
+    
+    private func configureTerminated() {
+        // timer 정지, ui 수정 notification post,
+    }
+    
+    private func changePage(at: Int) {
+        
     }
 }
