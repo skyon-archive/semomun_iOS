@@ -202,17 +202,31 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        guard let problem = self.sectionManager?.problems[safe: indexPath.item],
-              let currentIndex = self.sectionManager?.currentIndex else { return cell }
+        guard let mode = self.mode else { return cell }
         
-        cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
+        switch mode {
+        case .default:
+            guard let problem = self.sectionManager?.problems[safe: indexPath.item],
+                  let currentIndex = self.sectionManager?.currentIndex else { return cell }
+            
+            cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
+        case .practiceTest:
+            guard let problem = self.practiceTestManager?.problems[safe: indexPath.item],
+                  let currentIndex = self.practiceTestManager?.currentIndex else { return cell }
+            
+            cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
+        }
         
         return cell
     }
     
     // 문제 버튼 클릭시
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.sectionManager?.changePage(at: indexPath.item)
+        guard let mode = self.mode else { return }
+        switch mode {
+        case .default: self.sectionManager?.changePage(at: indexPath.item)
+        case .practiceTest: self.practiceTestManager?.changePage(at: indexPath.item)
+        }
     }
 }
 
