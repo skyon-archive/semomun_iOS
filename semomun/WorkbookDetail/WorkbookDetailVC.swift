@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import MapKit
 
 final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"

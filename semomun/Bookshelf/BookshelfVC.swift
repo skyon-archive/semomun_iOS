@@ -293,9 +293,8 @@ extension BookshelfVC: UICollectionViewDataSource {
     /// section 개수 = columnCount 으로  나눈 몫값, 나머지가 있는 경우 +1
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if let booksCount = self.viewModel?.books.count {
-            let columnCount = self.columnCount
-            var sectionCount = booksCount / columnCount
-            if booksCount % columnCount != 0 {
+            var sectionCount = booksCount / self.columnCount
+            if booksCount % self.columnCount != 0 {
                 sectionCount += 1
             }
             return sectionCount
