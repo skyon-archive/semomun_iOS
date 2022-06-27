@@ -36,10 +36,10 @@ final class WorkbookGroupResultVM {
     private let wgid: Int
     private let networkUsecase: UserTestResultFetchable
     
-    init(wgid: Int, networkUsecase: UserTestResultFetchable) {
+    init(info: WorkbookGroupInfo, networkUsecase: UserTestResultFetchable) {
         // 임시 로직
-        self.title = "임시 종합 성적표"
-        self.wgid = wgid
+        self.title = info.title
+        self.wgid = info.wgid
         self.networkUsecase = networkUsecase
     }
 }
