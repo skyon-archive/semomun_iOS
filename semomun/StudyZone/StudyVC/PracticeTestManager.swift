@@ -98,7 +98,17 @@ extension PracticeTestManager {
         // timer 정지, ui 수정 notification post,
     }
     
-    private func changePage(at: Int) {
+    private func changePage(at index: Int) {
+        guard let page = self.problems[index].pageCore else { return }
+        self.currentIndex = index // 하단 button index update
         
+        if self.currentPage?.vid == Int(page.vid) {
+            self.delegate?.reloadButtons() // button index update 표시
+            return
+        }
+        
+        let pageData = PageData(page: page)
+        self.currentPage = pageData
+        self.section.setValue(index, forKey: PracticeTestSection_Core.Attribute.lastIndex.rawValue) // 사실상 의미없는 로직
     }
 }
