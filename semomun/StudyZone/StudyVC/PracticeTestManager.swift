@@ -40,6 +40,7 @@ final class PracticeTestManager {
 // MARK: Public
 extension PracticeTestManager {
     func startTest() {
+        // backend 에 post 하는게 필요하진 않을까?
         let startDate = Date()
         self.section.startTest(startDate: startDate)
         CoreDataManager.saveCoreData()
@@ -47,6 +48,7 @@ extension PracticeTestManager {
         self.configureStartPage()
         self.updateRecentTime()
         self.startTimer()
+        // tost 알림 설정 로직 필요 (5분전)
     }
     
     func changePage(at index: Int) {
@@ -89,26 +91,49 @@ extension PracticeTestManager {
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
-            
+            self?.configureTerminated()
+            let terminatedDate = Date()
+            self?.section.terminateTest(terminatedDate: terminatedDate)
+            CoreDataManager.saveCoreData()
+            // network post 정보가 필요
+            // binding 으로 완료 전파 필요
         }
     }
     
     private func configureStartPage() {
-        // 0번 인덱스 표시 로직 (마지막 index 를 표시할 경우 수정 필요)
-        let lastPageId = 0
+        let lastPageId = 0 // 0번 인덱스 표시 로직 (마지막 index 를 표시할 경우 수정 필요)
         self.changePage(at: lastPageId)
     }
     
     private func updateRecentTime() {
-        // 남은시간 표시
+        let timeLimit: Int64 = 6000
+        let recentTime = timeLimit - self.section.totalTime
+        self.recentTime = recentTime
+        
+        if recentTime <= 0 {
+            // 자동 terminate 로직 필요
+        }
     }
     
     private func startTimer() {
-        // 1초간 반복되는 timer 로직, 내부에서 updateRecentTime 실행
-        // 만약 첫 실행시 updateRecentTime 불리는 경우 중복로직 제거 필요
+        if self.section.terminated { return }
+        
+        DispatchQueue.global().async {
+            let runLoop = RunLoop.current
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                self?.updateRecentTime()
+            }
+            while self.isRunning {
+                runLoop.run(until: Date().addingTimeInterval(0.1))
+            }
+        }
     }
     
     private func configureTerminated() {
-        // timer 정지, ui 수정 notification post,
+        if self.section.terminated { return }
+        
+        self.isRunning = false
+        self.timer.invalidate()
+        // UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
     }
 }

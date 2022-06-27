@@ -109,12 +109,12 @@ public class PracticeTestSection_Core: NSManagedObject {
     }
     
     /// 응시 시간값 (초)
-    var totalTime: Int {
+    var totalTime: Int64 {
         guard let startedDate = self.startedDate else { return 0 } // 시작시각이 존재하지 않는 경우 0초 반환
         if let terminatedDate = self.terminatedDate {
-            return Int(terminatedDate.timeIntervalSince(startedDate)) // 종료시각이 존재하는 경우 시간차 반환
+            return Int64(terminatedDate.timeIntervalSince(startedDate)) // 종료시각이 존재하는 경우 시간차 반환
         } else {
-            return Int(Date().timeIntervalSince(startedDate)) // 종료시각이 존재하지 않는 경우 현재기준 시간차 반환
+            return Int64(Date().timeIntervalSince(startedDate)) // 종료시각이 존재하지 않는 경우 현재기준 시간차 반환
         }
     }
 }
