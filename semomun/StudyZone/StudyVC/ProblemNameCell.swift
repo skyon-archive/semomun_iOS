@@ -34,16 +34,18 @@ class ProblemNameCell: UICollectionViewCell {
         self.num.text = ""
     }
     
-    func configure(to num: String, isStar: Bool, isTerminated: Bool, isWrong: Bool, isCurrent: Bool) {
-        self.num.text = num
+    func configure(problem: Problem_Core, isCurrent: Bool) {
+        self.num.text = problem.pName ?? "-"
         
-        if isStar {
+        if problem.star {
             self.bookmark.isHidden = false
         }
         
-        if isTerminated {
+        let isWrong = problem.correct == false && problem.terminated
+        if problem.terminated {
             self.frameView.layer.borderWidth = 2
             self.num.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
             if isWrong {
                 self.frameView.layer.borderColor = UIColor(.munRedColor)?.cgColor
                 self.num.textColor = UIColor(.munRedColor)

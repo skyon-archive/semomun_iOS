@@ -72,18 +72,6 @@ final class SectionManager {
         self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
     }
     
-    func title(at index: Int) -> String {
-        return self.problems[index].pName ?? "-"
-    }
-    
-    func isStar(at index: Int) -> Bool {
-        return self.problems[index].star
-    }
-    
-    func isTerminated(at index: Int) -> Bool {
-        return self.problems[index].terminated
-    }
-    
     func isWrong(at index: Int) -> Bool {
         let problem = self.problems[index]
         return problem.correct == false && problem.terminated
