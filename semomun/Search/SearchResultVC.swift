@@ -18,30 +18,49 @@ final class SearchResultVC: UIViewController, StoryboardController {
     private var viewModel: SearchResultVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var portraitColumnCount: Int = {
+        guard UIDevice.current.userInterfaceIdiom != .phone else { // phone 일 경우 2개씩 표시
+            return 2
+        }
+        
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        var horizontalCellCount: Int
         switch screenWidth {
             // 12인치의 경우 6개씩 표시
         case 1024:
-            horizontalCellCount = 6
+            return 6
             // 미니의 경우 4개씩 표시
         case 744:
-            horizontalCellCount = 4
+            return 4
         default:
             // 기본의 경우 5개씩 표시
-            horizontalCellCount = 5
+            return 5
         }
-        if UIDevice.current.userInterfaceIdiom == .phone { // phone 일 경우 2개씩 표시
-            horizontalCellCount = 2
-        }
-        return horizontalCellCount
     }()
     private lazy var landscapeColumnCount: Int = {
         return self.portraitColumnCount + 2
     }()
-    private var columnCount: Int {
-        return UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount
-    }
+    private lazy var portraitCellSize: CGSize = {
+        let horizontalTerm: CGFloat = 20
+        let horizontalMargin: CGFloat = 28
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let superWidth = screenWidth - 2*horizontalMargin
+        let textHeight: CGFloat = 34
+        let textHeightTerm: CGFloat = 5
+        let width = (superWidth - (CGFloat(self.portraitColumnCount-1)*horizontalTerm))/CGFloat(self.portraitColumnCount)
+        let height = (width/4)*5 + textHeightTerm + textHeight
+        
+        return CGSize(width: width, height: height)
+    }()
+    private lazy var landscapeCellSize: CGSize = {
+        let horizontalTerm: CGFloat = 20
+        let horizontalMargin: CGFloat = 28
+        let screenWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let superWidth = screenWidth - 2*horizontalMargin
+        let textHeight: CGFloat = 34
+        let textHeightTerm: CGFloat = 5
+        let width = (superWidth - (CGFloat(self.landscapeColumnCount-1)*horizontalTerm))/CGFloat(self.landscapeColumnCount)
+        let height = (width/4)*5 + textHeightTerm + textHeight
+        return CGSize(width: width, height: height)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +75,7 @@ final class SearchResultVC: UIViewController, StoryboardController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
             self.searchResults.reloadData()
         })
@@ -70,7 +90,7 @@ extension SearchResultVC {
     
     func fetch(tags: [TagOfDB], text: String) {
         self.searchResults.setContentOffset(.zero, animated: true)
-        self.viewModel?.fetchSearchResults(tags: tags, text: text, rowCount: self.columnCount)
+        self.viewModel?.fetchSearchResults(tags: tags, text: text, rowCount: UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount)
     }
     
     func removeAll() {
@@ -143,15 +163,7 @@ extension SearchResultVC: UICollectionViewDelegate {
 
 extension SearchResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let horizontalTerm: CGFloat = 20
-        let horizontalMargin: CGFloat = 28
-        let superWidth = UIScreen.main.bounds.width - 2*horizontalMargin
-        let textHeight: CGFloat = 34
-        let textHeightTerm: CGFloat = 5
-        let width = (superWidth - (CGFloat(self.columnCount-1)*horizontalTerm))/CGFloat(self.columnCount)
-        let height = (width/4)*5 + textHeightTerm + textHeight
-        
-        return CGSize(width: width, height: height)
+        return UIWindow.isLandscape ? self.landscapeCellSize : self.portraitCellSize
     }
 }
 
@@ -159,7 +171,7 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
 extension SearchResultVC {
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if self.searchResults.contentOffset.y >= (self.searchResults.contentSize.height - self.searchResults.bounds.size.height) {
-             self.viewModel?.fetchSearchResults(rowCount: self.columnCount)
+             self.viewModel?.fetchSearchResults(rowCount: UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount)
          }
      }
     

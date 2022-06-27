@@ -55,6 +55,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     // MARK: 회전
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
             self.workbookInfosCollectionView.performBatchUpdates {
                 self.workbookInfosCollectionView.collectionViewLayout.invalidateLayout()
