@@ -263,6 +263,12 @@ extension StudyVC {
         
         self.present(selectProblemsVC, animated: true, completion: nil)
     }
+    
+    private func showTestInfoView(testInfo: TestInfo) {
+        let hostingVC = UIHostingController(rootView: TestInfoView(info: testInfo, delegate: self))
+        hostingVC.modalPresentationStyle = .overFullScreen
+        self.present(hostingVC, animated: true, completion: nil)
+    }
 }
 
 extension StudyVC: LayoutDelegate {
@@ -415,11 +421,14 @@ extension StudyVC: PageDelegate {
     }
 }
 
+// MARK: Binding
 extension StudyVC {
     private func bindAll() {
         self.bindTitle()
         self.bindTime()
         self.bindPage()
+        self.bindTestInfo()
+        self.bindWarning()
     }
     
     private func bindTitle() {
@@ -429,10 +438,22 @@ extension StudyVC {
                 self?.titleLabel.text = title
             })
             .store(in: &self.cancellables)
+        self.practiceTestManager?.$sectionTitle
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] title in
+                self?.titleLabel.text = title
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindTime() {
         self.sectionManager?.$currentTime
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] time in
+                self?.backButton.setTitle(time.toTimeString, for: .normal)
+            })
+            .store(in: &self.cancellables)
+        self.practiceTestManager?.$recentTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] time in
                 self?.backButton.setTitle(time.toTimeString, for: .normal)
@@ -449,12 +470,41 @@ extension StudyVC {
                 self?.reloadButtons()
             })
             .store(in: &self.cancellables)
+        self.practiceTestManager?.$currentPage
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] pageData in
+                guard let pageData = pageData else { return }
+                self?.changeVC(pageData: pageData)
+                self?.reloadButtons()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindTestInfo() {
+        self.practiceTestManager?.$showTestInfo
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] testInfo in
+                guard let testInfo = testInfo else { return }
+                self?.showTestInfoView(testInfo: testInfo)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.practiceTestManager?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning.title, text: warning.text)
+            })
+            .store(in: &self.cancellables)
     }
 }
 
 extension StudyVC: TestStartable {
     func startTest() {
-        // dismiss 로직
         self.practiceTestManager?.startTest()
     }
 }
