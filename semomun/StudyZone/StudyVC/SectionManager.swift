@@ -8,13 +8,6 @@
 import CoreData
 import Combine
 
-protocol LayoutDelegate: AnyObject {
-    func reloadButtons()
-    func showAlert(text: String)
-    func dismissSection()
-    func changeResultLabel()
-}
-
 final class SectionManager {
     @Published private(set) var sectionTitle: String = "title"
     @Published private(set) var currentTime: Int64 = 0
