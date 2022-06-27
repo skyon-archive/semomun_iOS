@@ -94,10 +94,8 @@ class BookshelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("hi")
         guard UserDefaultsManager.isLogined else { return }
         self.reloadBookshelf()
-        self.books.reloadData()
     }
     
     // MARK: Rotation
