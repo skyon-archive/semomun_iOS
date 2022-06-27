@@ -10,7 +10,7 @@ import UIKit
 typealias TestSubjectNetworkUsecase = (S3ImageFetchable & SectionDownloadable)
 protocol TestSubjectCellObserber: AnyObject {
     func showAlertDownloadSectionFail()
-    func showTestPracticeSection(workbook: Preview_Core)
+    func showPracticeTestSection(workbook: Preview_Core)
 }
 
 final class TestSubjectCell: UICollectionViewCell {
@@ -36,16 +36,12 @@ final class TestSubjectCell: UICollectionViewCell {
         return view
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.bookcover.image = UIImage(.loadingBookcover)
-        self.requestedUUID = nil
         self.coreInfo = nil
+        self.requestedUUID = nil
         self.downloading = false
+        self.bookcover.image = UIImage(.loadingBookcover)
         self.downloadedUI()
     }
     
@@ -138,8 +134,9 @@ extension TestSubjectCell {
     private func touchAction() {
         guard let workbook = self.coreInfo,
               self.downloading == false else { return }
+        
         if workbook.downloaded {
-            self.delegate?.showTestPracticeSection(workbook: workbook)
+            self.delegate?.showPracticeTestSection(workbook: workbook)
         } else {
             guard workbook.sids.count == 1, let targetSid = workbook.sids.first else { return }
             // download section
@@ -158,7 +155,13 @@ extension TestSubjectCell {
     }
     
     private func downloadSection(workbook: Preview_Core, sid: Int) {
-        self.networkUsecase?.downloadSection(sid: sid) { section in
+        self.networkUsecase?.downloadSection(sid: sid) { [weak self] section in
+            guard let self = self else { return }
+            guard let section = section else {
+                self.delegate?.showAlertDownloadSectionFail()
+                return
+            }
+
             CoreUsecase.downloadPracticeSection(section: section, workbook: workbook, loading: self) { [weak self] sectionCore in
                 self?.downloading = false
                 // save section Error

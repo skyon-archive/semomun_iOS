@@ -392,7 +392,7 @@ extension WorkbookGroupDetailVC: TestSubjectCellObserber {
         self.showAlertWithOK(title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
     }
     
-    func showTestPracticeSection(workbook: Preview_Core) {
+    func showPracticeTestSection(workbook: Preview_Core) {
         // studyVC 표시로직 필요
     }
 }
