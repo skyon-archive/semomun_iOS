@@ -70,6 +70,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         self.setValue(Int64(section.wid), forKey: Attribute.wid.rawValue)
         self.setValue(Int64(section.sid), forKey: Attribute.sid.rawValue)
         self.setValue(section.title, forKey: Attribute.title.rawValue)
+        self.setValue(0, forKey: Attribute.lastIndex.rawValue)
         self.setValue(section.detail, forKey: Attribute.detail.rawValue)
         self.setValue(nil, forKey: Attribute.cutoff.rawValue)
         self.setValue(nil, forKey: Attribute.audio.rawValue)
