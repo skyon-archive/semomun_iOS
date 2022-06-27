@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-// 임시용
-struct TestInfo {
-    let title: String
-    let subTitle: String
-}
-// 임시용
 protocol TestStartable: AnyObject {
     func startTest()
 }
@@ -63,7 +57,7 @@ extension TestInfoView {
             Text(self.info.title)
                 .font(.system(size: 30, weight: .semibold))
                 .padding(EdgeInsets(top: self.titleTopPadding, leading: 0, bottom: 5, trailing: 0))
-            Text(self.info.subTitle)
+            Text("\(self.info.area) 영역(\(self.info.subject))")
                 .font(.system(size: 50, weight: .bold))
         }
     }
@@ -125,9 +119,10 @@ extension TestInfoView {
 
 struct TestInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", subTitle: "사회탐구 영역 (윤리와 사상)")
+        let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", area: "사회탐구", subject: "윤리와 사상")
         if #available(iOS 15.0, *) {
             TestInfoView(info: info, delegate: StudyVC())
+                .previewInterfaceOrientation(.landscapeLeft)
         } else {
             // Fallback on earlier versions
         }

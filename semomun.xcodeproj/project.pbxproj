@@ -208,6 +208,7 @@
 		879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879A52E027D0BE97000B4D97 /* NetworkResult.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC219286955D4007E3508 /* LayoutDelegate.swift */; };
+		879CC21C286957FB007E3508 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC21B286957FB007E3508 /* TestInfo.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemsVC.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
@@ -509,6 +510,7 @@
 		879A52E027D0BE97000B4D97 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		879CC219286955D4007E3508 /* LayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDelegate.swift; sourceTree = "<group>"; };
+		879CC21B286957FB007E3508 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVC.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
@@ -1052,12 +1054,13 @@
 			path = LoginSelectVC;
 			sourceTree = "<group>";
 		};
-		8703B099282A4EFA00DA5894 /* SwiftUI */ = {
+		8703B099282A4EFA00DA5894 /* TestInfoView */ = {
 			isa = PBXGroup;
 			children = (
 				8703B09A282A4F1900DA5894 /* TestInfoView.swift */,
+				879CC21B286957FB007E3508 /* TestInfo.swift */,
 			);
-			path = SwiftUI;
+			path = TestInfoView;
 			sourceTree = "<group>";
 		};
 		8703EF12282B533E0001EF2D /* SwiftUI */ = {
@@ -1403,7 +1406,7 @@
 				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
 				255D9B722862FB8600A89422 /* SectionResult */,
 				250ACFDE28619EEC0027B6A9 /* PracticeTestResult */,
-				8703B099282A4EFA00DA5894 /* SwiftUI */,
+				8703B099282A4EFA00DA5894 /* TestInfoView */,
 			);
 			path = PopupVC;
 			sourceTree = "<group>";
@@ -1900,6 +1903,7 @@
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
 				87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
+				879CC21C286957FB007E3508 /* TestInfo.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */,
