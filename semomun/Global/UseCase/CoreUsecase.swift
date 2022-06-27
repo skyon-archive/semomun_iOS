@@ -447,7 +447,7 @@ struct CoreUsecase {
 
 extension CoreUsecase {
     /// WorkbookGroupDetailVC 상에서 구매로직, 책장으로 넘어가지 않은 상태에서 저장로직이 필요
-    static func downloadWorkbook(wid: Int, completion: @escaping (Bool) -> Void) {
+    static func downloadWorkbook(wid: Int, networkUsecase: (UserWorkbooksFetchable & WorkbookSearchable), completion: @escaping (Bool) -> Void) {
         // Preview_Core 존재하는 경우 Error
         if let _ = Self.fetchPreview(wid: wid) {
             print("duplicated workbook error")

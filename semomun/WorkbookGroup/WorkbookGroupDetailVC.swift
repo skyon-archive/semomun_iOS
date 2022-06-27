@@ -242,11 +242,11 @@ extension WorkbookGroupDetailVC {
 // MARK: CollectionView
 extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.viewModel?.isPurchased ?? false ? 2 : 1
+        return self.viewModel?.hasPurchasedWorkbook ?? false ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let isPurchased = self.viewModel?.isPurchased ?? false
+        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
         let purchasedCount = self.viewModel?.purchasedWorkbooks.count ?? 0
         let nonPurchasedCount = self.viewModel?.nonPurchasedWorkbooks.count ?? 0
         
@@ -262,7 +262,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
-        let isPurchased = self.viewModel?.isPurchased ?? false
+        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
         
         switch indexPath.section {
         case 0:
@@ -290,7 +290,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WorkbookGroupDetailHeaderView.identifier, for: indexPath) as? WorkbookGroupDetailHeaderView else { return UICollectionReusableView() }
-            let isPurchased = self.viewModel?.isPurchased ?? false
+            let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
             
             switch indexPath.section {
             case 0:
@@ -316,7 +316,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let isPurchased = self.viewModel?.isPurchased ?? false
+        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
         switch indexPath.section {
         case 0:
             if isPurchased == false {

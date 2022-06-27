@@ -8,19 +8,18 @@
 import Foundation
 import Combine
 
-typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable)
+typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable)
 
 final class WorkbookGroupDetailVM {
     /* public */
+    enum PopupType {
+        case login, updateUserinfo
+    }
     private(set) var credit: Int?
-    var isPurchased: Bool {
+    var hasPurchasedWorkbook: Bool {
         return self.purchasedWorkbooks.isEmpty == false
     }
-    @Published private(set) var purchasedWorkbooks: [Preview_Core] = [] {
-        didSet {
-            self.filteredNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
-        }
-    }
+    @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
     @Published private(set) var info: WorkbookGroupInfo
     @Published private(set) var warning: (title: String, text: String)?
@@ -29,9 +28,6 @@ final class WorkbookGroupDetailVM {
     @Published private(set) var popupType: PopupType?
     @Published private(set) var purchaseWorkbook: WorkbookOfDB?
     /* private */
-    enum PopupType {
-        case login, updateUserinfo
-    }
     private let networkUsecase: WorkbookGroupNetworkUsecase
     
     /// DTO 를 통해 WorkbookGroupDetailVC 를 표시하는 경우
@@ -85,7 +81,13 @@ extension WorkbookGroupDetailVM {
                 return
             }
             
-            CoreUsecase.downloadWorkbook(wid: purchasedWorkbook.wid) { [weak self] success in
+            guard let networkUsecase = self?.networkUsecase else {
+                self?.showLoader = false
+                assertionFailure("networkUsecase 문제 발생 ㅃㅣㅇㅛㅇ")
+                return
+            }
+            
+            CoreUsecase.downloadWorkbook(wid: purchasedWorkbook.wid, networkUsecase: networkUsecase) { [weak self] success in
                 self?.showLoader = false
                 guard let self = self, success else {
                     self?.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
@@ -109,18 +111,18 @@ extension WorkbookGroupDetailVM {
         }
         dump(purchasedWorkbooks) // wgid 값 확인용 임시코드
         self.purchasedWorkbooks = purchasedWorkbooks
+        self.filterNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
+        
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
-        if self.nonPurchasedWorkbooks.isEmpty {
-            self.fetchNonPurchasedWorkbooks(wgid: wgid)
-        }
+        self.fetchNonPurchasedWorkbooks(wgid: wgid)
     }
     
     /// 해당 WorkbookGroup 에 속한 전체 WorkbookOfDB fetch
     /// purchasedWorkbooks 가 존재할 경우 filter 된다.
     private func fetchNonPurchasedWorkbooks(wgid: Int) {
         // dto 로 표시하는 상태이나 offline 의 경우 popVC 를 활성화
-        // core 로 표시하는 상태이나 offfline 의 경우 fetch 를 안한다 (경고 표시로직이 없어야 한다)
-        if NetworkStatusManager.isConnectedToInternet() == false {
+        // core 로 표시하는 상태이나 offline 의 경우 fetch 를 안한다 (경고 표시로직이 없어야 한다)
+        guard NetworkStatusManager.isConnectedToInternet() == true else {
             if self.purchasedWorkbooks.isEmpty == true {
                 self.popVC = (title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
             }
@@ -131,7 +133,7 @@ extension WorkbookGroupDetailVM {
             switch status {
             case .SUCCESS:
                 guard let workbookGroupOfDB = workbookGroupOfDB else { return }
-                self?.filteredNonPurchasedWorkbooks(from: workbookGroupOfDB.workbooks)
+                self?.filterNonPurchasedWorkbooks(from: workbookGroupOfDB.workbooks)
             case .DECODEERROR:
                 self?.warning = (title: "올바르지 않는 형식", text: "최신 버전으로 업데이트 해주세요")
             default:
@@ -140,7 +142,7 @@ extension WorkbookGroupDetailVM {
         }
     }
     
-    private func filteredNonPurchasedWorkbooks(from workbooks: [WorkbookOfDB]) {
+    private func filterNonPurchasedWorkbooks(from workbooks: [WorkbookOfDB]) {
         let purchasedWids: [Int64] = self.purchasedWorkbooks.map(\.wid)
         self.nonPurchasedWorkbooks = workbooks
             .filter({ purchasedWids.contains(Int64($0.wid)) == false })
