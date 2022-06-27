@@ -13,7 +13,6 @@ final class WorkbookGroupDetailVC: UIViewController {
     static let identifier = "WorkbookGroupDetailVC"
     static let storyboardName = "HomeSearchBookshelf"
     var viewModel: WorkbookGroupDetailVM?
-    
     /* private */
     private var cancellables: Set<AnyCancellable> = []
     private var networkUsecase = NetworkUsecase(network: Network())
@@ -112,11 +111,11 @@ extension WorkbookGroupDetailVC {
         let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
         guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
         
-        // wgid 받아오는 임시 로직
-        let wgid = 1
+        guard let info = self.viewModel?.info else { return }
+        // MARK: info 를 넘기는 로직 필요
         
         let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = WorkbookGroupResultVM(wgid: wgid, networkUsecase: networkUsecase)
+        let viewModel = WorkbookGroupResultVM(info: info, networkUsecase: networkUsecase)
         comprehensiveReportVC.configureViewModel(viewModel)
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
     }
@@ -173,6 +172,7 @@ extension WorkbookGroupDetailVC {
         self.viewModel?.$nonPurchasedWorkbooks
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] workbooks in
+                guard workbooks.isEmpty == false else { return }
                 self?.practiceTests.reloadData()
             })
             .store(in: &self.cancellables)
@@ -242,17 +242,17 @@ extension WorkbookGroupDetailVC {
 // MARK: CollectionView
 extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.viewModel?.hasPurchasedWorkbook ?? false ? 2 : 1
+        return (self.viewModel?.hasPurchasedWorkbook ?? false) ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
+        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
         let purchasedCount = self.viewModel?.purchasedWorkbooks.count ?? 0
         let nonPurchasedCount = self.viewModel?.nonPurchasedWorkbooks.count ?? 0
         
         switch section {
         case 0:
-            return isPurchased ? purchasedCount : nonPurchasedCount
+            return hasPurchasedWorkbook ? purchasedCount : nonPurchasedCount
         case 1:
             return nonPurchasedCount
         default:
@@ -262,22 +262,20 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
-        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
+        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
+        cell.configureNetworkUsecase(to: self.networkUsecase)
         
         switch indexPath.section {
         case 0:
-            if isPurchased {
-                guard let coreInfo = self.viewModel?.purchasedWorkbooks[safe: indexPath.item] else { return cell
-                }
+            if hasPurchasedWorkbook {
+                guard let coreInfo = self.viewModel?.purchasedWorkbooks[safe: indexPath.item] else { return cell }
                 cell.configure(coreInfo: coreInfo)
             } else {
                 guard let dtoInfo = self.viewModel?.nonPurchasedWorkbooks[safe: indexPath.item] else { return cell }
-                cell.configureNetworkUsecase(to: self.networkUsecase)
                 cell.configure(dtoInfo: dtoInfo)
             }
         case 1:
             guard let dtoInfo = self.viewModel?.nonPurchasedWorkbooks[safe: indexPath.item] else { return cell }
-            cell.configureNetworkUsecase(to: self.networkUsecase)
             cell.configure(dtoInfo: dtoInfo)
         default:
             assertionFailure("collectionView indexPath section error")
@@ -290,11 +288,11 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WorkbookGroupDetailHeaderView.identifier, for: indexPath) as? WorkbookGroupDetailHeaderView else { return UICollectionReusableView() }
-            let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
+            let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
             
             switch indexPath.section {
             case 0:
-                headerView.updateLabel(to: isPurchased ? "나의 실전 모의고사" : "실전 모의고사")
+                headerView.updateLabel(to: hasPurchasedWorkbook ? "나의 실전 모의고사" : "실전 모의고사")
             case 1:
                 headerView.updateLabel(to: "실전 모의고사")
             default:
@@ -316,10 +314,10 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let isPurchased = self.viewModel?.hasPurchasedWorkbook ?? false
+        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
         switch indexPath.section {
         case 0:
-            if isPurchased == false {
+            if hasPurchasedWorkbook == false {
                 self.viewModel?.selectWorkbook(to: indexPath.item)
             }
         case 1:
@@ -336,17 +334,16 @@ extension WorkbookGroupDetailVC {
         let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
         guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
         popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
-        self.present(popupVC, animated: true, completion: nil)
+        self.present(popupVC, animated: true)
     }
     
     private func showPurchasePopupVC(workbook: WorkbookOfDB) {
-        print("hello")
         let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
         guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }
         guard let credit = self.viewModel?.credit else { return }
         popupVC.configureInfo(info: workbook)
         popupVC.configureCurrentMoney(money: credit)
-        self.present(popupVC, animated: true, completion: nil)
+        self.present(popupVC, animated: true)
     }
 }
 
