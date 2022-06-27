@@ -18,9 +18,13 @@ protocol PageDelegate: AnyObject {
 }
 
 final class StudyVC: UIViewController {
+    /* public */
     static let identifier = "StudyVC"
     static let storyboardName = "Study"
-    
+    /* private */
+    enum Mode {
+        case `default`, practiceTest
+    }
     @IBOutlet weak var headerFrameView: UIView!
     @IBOutlet weak var bottomFrameView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -32,6 +36,7 @@ final class StudyVC: UIViewController {
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
+    private var mode: Mode? // default, practiceTest
     private var currentVC: UIViewController?
     private var sectionManager: SectionManager?
     private var practiceTestManager: PracticeTestManager?
@@ -122,10 +127,12 @@ extension StudyVC {
     /// 일반 section 의 관리자
     func configureManager(_ manager: SectionManager) {
         self.sectionManager = manager
+        self.mode = .default
     }
     /// 실전 모의고사 section 의 관리자
     func configureManager(_ manager: PracticeTestManager) {
         self.practiceTestManager = manager
+        self.mode = .practiceTest
     }
 }
 
@@ -185,21 +192,20 @@ extension StudyVC {
 extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // 문제수 반환
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.sectionManager?.problems.count ?? 0
+        guard let mode = self.mode else { return 0 }
+        switch mode {
+        case .default: return self.sectionManager?.problems.count ?? 0
+        case .practiceTest: return self.practiceTestManager?.problems.count ?? 0
+        }
     }
     
     // 문제버튼 생성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        guard let manager = self.sectionManager else { return cell }
+        guard let problem = self.sectionManager?.problems[safe: indexPath.item],
+              let currentIndex = self.sectionManager?.currentIndex else { return cell }
         
-        let num = manager.title(at: indexPath.item)
-        let isStar = manager.isStar(at: indexPath.item)
-        let isTerminated = manager.isTerminated(at: indexPath.item)
-        let isWrong = manager.isWrong(at: indexPath.item)
-        let isCurrent = indexPath.item == manager.currentIndex
-        
-        cell.configure(to: num, isStar: isStar, isTerminated: isTerminated, isWrong: isWrong, isCurrent: isCurrent)
+        cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
         
         return cell
     }
