@@ -95,7 +95,14 @@ extension WorkbookGroupDetailVC {
     
     private func configureComprehensiveReportButton() {
         let comprehensiveReportButton = WorkbookGroupResultButton()
-        let action = UIAction { [weak self] _ in self?.showWorkbookGroupResultVC() }
+        // MARK: WorkbookGroup 에 해당되는 Workbook 의 풀이가 없을 경우 비활성화 UI 필요
+        let action = UIAction { [weak self] _ in
+            guard NetworkStatusManager.isConnectedToInternet() else {
+                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            self?.showWorkbookGroupResultVC()
+        }
         comprehensiveReportButton.addAction(action, for: .touchUpInside)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
@@ -213,6 +220,19 @@ extension WorkbookGroupDetailVC {
             .sink(receiveValue: { [weak self] error in
                 guard let error = error else { return }
                 self?.showAlertWithOK(title: error.title, text: error.text)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPopVC() {
+        self.viewModel?.$popVC
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] popVC in
+                guard let popVC = popVC else { return }
+                self?.showAlertWithOK(title: popVC.title, text: popVC.text, completion: {
+                    self?.navigationController?.popViewController(animated: true)
+                })
             })
             .store(in: &self.cancellables)
     }
