@@ -513,7 +513,20 @@ extension CoreUsecase {
             }
             // Fetch WorkbookGroup Info, save WorkbookGroup_Core
             networkUsecase.searchWorkbookGroup(wgid: wgid) { status, workbookGroup in
-                //
+                guard status == .SUCCESS, let workbookGroup = workbookGroup else {
+                    print("workbookGroup info fetch error")
+                    completion(false)
+                    return
+                }
+                
+                let workbookGroup_Core = WorkbookGroup_Core(context: CoreDataManager.shared.context)
+                workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: targetInfo)
+                workbookGroup_Core.fetchBookcover(uuid: workbookGroup.groupCover, networkUsecase: networkUsecase) {
+                    CoreDataManager.saveCoreData()
+                    print("save workbookGroup(\(wgid)) complete")
+                    completion(true)
+                    return
+                }
             }
         }
     }
