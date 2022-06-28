@@ -32,7 +32,7 @@ struct WorkbookOfDB: Decodable {
     let area: String //영역 이름
     let standardDeviation: Int? //표준 편차
     let averageScore: Int? //평균 점수
-    let timeLimit: Int? //제한시간
+    let timelimit: Int? //제한시간
     
     enum CodingKeys: String, CodingKey {
         case productID = "id"
@@ -44,6 +44,6 @@ struct WorkbookOfDB: Decodable {
         case updatedDate = "updatedAt"
         case sections, price, tags, sales
         case cutoff, subject, area
-        case standardDeviation, averageScore, timeLimit
+        case standardDeviation, averageScore, timelimit
     }
 }
