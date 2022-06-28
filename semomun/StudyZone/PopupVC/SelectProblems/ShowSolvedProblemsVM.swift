@@ -24,7 +24,27 @@ final class ShowSolvedProblemsVM {
         self.configureUploadQueue()
         self.configureScoreableTotalCount()
     }
-    
+}
+
+// MARK: Public
+extension ShowSolvedProblemsVM {
+    func startScoring(completion: @escaping (Bool) -> Void) {
+        // 모든 Problem -> terminate 처리
+        self.problems.forEach { problem in
+            problem.setValue(true, forKey: Problem_Core.Attribute.terminated.rawValue)
+        }
+        // scoringQueue = []
+        self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
+        // section.terminated
+        NotificationCenter.default.post(name: .sectionTerminated, object: nil)
+        // save section, VC: dismiss action
+        CoreDataManager.saveCoreData()
+        completion(true)
+    }
+}
+
+// MARK: Private
+extension ShowSolvedProblemsVM {
     private func configureTitle() {
         self.title = self.section.title ?? ""
     }
@@ -44,19 +64,5 @@ final class ShowSolvedProblemsVM {
     
     private func configureScoreableTotalCount() {
         self.scoreableTotalCount = self.problems.count
-    }
-    
-    func startScoring(completion: @escaping (Bool) -> Void) {
-        // 모든 Problem -> terminate 처리
-        self.problems.forEach { problem in
-            problem.setValue(true, forKey: Problem_Core.Attribute.terminated.rawValue)
-        }
-        // scoringQueue = []
-        self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
-        // section.terminated
-        NotificationCenter.default.post(name: .sectionTerminated, object: nil)
-        // save section, VC: dismiss action
-        CoreDataManager.saveCoreData()
-        completion(true)
     }
 }

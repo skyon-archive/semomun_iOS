@@ -24,28 +24,10 @@ final class SelectProblemsVM {
         self.configureUploadQueue()
         self.configureScoreableTotalCount()
     }
-    
-    private func configureTitle() {
-        self.title = self.section.title ?? ""
-    }
-    
-    private func configureProblems() {
-        self.problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex}) ?? []
-    }
-    
-    private func configureScoringQueue() {
-        self.scoringQueue = self.section.scoringQueue ?? []
-    }
-    
-    private func configureUploadQueue() {
-        self.uploadQueue = self.section.uploadProblemQueue ?? []
-        print("upload: \(self.uploadQueue)")
-    }
-    
-    private func configureScoreableTotalCount() {
-        self.scoreableTotalCount = self.problems.filter { !$0.terminated }.count
-    }
-    
+}
+
+// MARK: Public
+extension SelectProblemsVM {
     func isChecked(at index: Int) -> Bool {
         return self.scoringQueue.contains(Int(self.problems[index].pid))
     }
@@ -90,6 +72,30 @@ final class SelectProblemsVM {
         // save section, VC: dismiss action
         CoreDataManager.saveCoreData()
         completion(true)
+    }
+}
+
+// MARK: Private
+extension SelectProblemsVM {
+    private func configureTitle() {
+        self.title = self.section.title ?? ""
+    }
+    
+    private func configureProblems() {
+        self.problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex}) ?? []
+    }
+    
+    private func configureScoringQueue() {
+        self.scoringQueue = self.section.scoringQueue ?? []
+    }
+    
+    private func configureUploadQueue() {
+        self.uploadQueue = self.section.uploadProblemQueue ?? []
+        print("upload: \(self.uploadQueue)")
+    }
+    
+    private func configureScoreableTotalCount() {
+        self.scoreableTotalCount = self.problems.filter { !$0.terminated }.count
     }
     
     private func configureAllPids() {
