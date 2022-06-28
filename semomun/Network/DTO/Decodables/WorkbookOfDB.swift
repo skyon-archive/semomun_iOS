@@ -42,7 +42,7 @@ struct WorkbookOfDB: Decodable {
         case wgid, wid, title, detail, isbn, author
         case publishedDate = "date"
         case publishMan, publishCompany, bookcover
-        case originalPrice //= "paperbookPrice"
+        case originalPrice = "paperbookPrice"
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case sections, price, tags, sales
