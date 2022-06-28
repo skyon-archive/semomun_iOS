@@ -179,10 +179,10 @@ extension NetworkUsecase: WorkbookSearchable {
 extension NetworkUsecase: WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void) {
         // MARK: network 로직 구현 필요
-        let dummySearchResult = SearchWorkbookGroups(count: 1, workbookGroups: [
-            WorkbookGroupPreviewOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 1회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())
-        ])
-        completion(.SUCCESS, dummySearchResult.workbookGroups)
+        let groups = (0..<10).map {
+            WorkbookGroupPreviewOfDB(wgid: 0, itemID: 0, type: "", title: "모의고사 \($0)회차", detail: "", groupCover: UUID(), isGroupOnlyPurchasable: false, createdDate: Date(), updatedDate: Date())
+        }
+        completion(.SUCCESS, groups)
     }
     
     func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void) {

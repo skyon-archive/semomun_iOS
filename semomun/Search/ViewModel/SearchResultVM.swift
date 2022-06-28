@@ -63,13 +63,15 @@ final class SearchResultVM {
         }
     }
     
-    func fetchWorkbookGroupSearchResults(rowCount: Int) {
+    // MARK: 모의고사는 페이지네이션이 없기에 현재 VM 내부에서만 사용. 한번 요청에 모든 모의고사를 받아올 수 있음이 전제. 
+    private func fetchWorkbookGroupSearchResults(rowCount: Int) {
         guard self.isWorkbookGroupLastPage == false,
               self.isWorkbookGroupPaging == false else { return }
         self.isWorkbookGroupPaging = true
         self.workbookGroupPageCount += 1
         // limit : 12인치의 6배수, 11인치의 5배수, 미니의 4배수의 LCM : 60
-        self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: rowCount*10) { [weak self] status, previews in
+        // MARK: 페이지네이션 없이 25개를 요청
+        self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: 25) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
