@@ -17,11 +17,12 @@ final class PracticeTestManager {
     @Published private(set) var currentPage: PageData?
     @Published private(set) var showTestInfo: TestInfo?
     @Published private(set) var warning: (title: String, text: String)?
-    private(set) var problems: [Problem_Core] = []
     private(set) var section: PracticeTestSection_Core
+    private(set) var problems: [Problem_Core] = []
     private(set) var currentIndex: Int = 0
     /* private */
     private weak var delegate: LayoutDelegate?
+    private let workbookGroup: WorkbookGroup_Core
     private let workbook: Preview_Core
     private var timer: Timer!
     private var isRunning: Bool = true
@@ -31,8 +32,9 @@ final class PracticeTestManager {
     private let timeLimit: Int64 = 6000 // section.timeLimit 으로 변경될 예정
     
     /// WorkbookGroupDetailVC 에서 VM 생성
-    init(section: PracticeTestSection_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
+    init(section: PracticeTestSection_Core, workbookGroup: WorkbookGroup_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
         self.section = section
+        self.workbookGroup = workbookGroup
         self.workbook = workbook
         self.networkUsecase = networkUsecase
     }
@@ -242,6 +244,7 @@ extension PracticeTestManager {
         self.removeNotification()
         let terminatedDate = Date()
         self.section.terminateTest(terminatedDate: terminatedDate)
+        self.workbookGroup.updateProgress()
         CoreDataManager.saveCoreData()
     }
     

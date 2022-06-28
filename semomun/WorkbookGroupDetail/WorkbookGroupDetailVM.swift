@@ -16,6 +16,7 @@ final class WorkbookGroupDetailVM {
         case login, updateUserinfo
     }
     private(set) var credit: Int?
+    private(set) var workbookGroupCore: WorkbookGroup_Core?
     var hasPurchasedWorkbook: Bool {
         return self.purchasedWorkbooks.isEmpty == false
     }
@@ -43,6 +44,7 @@ final class WorkbookGroupDetailVM {
     /// 로그인 && 구매한게 있는 경우
     init(coreInfo: WorkbookGroup_Core, networkUsecase: WorkbookGroupNetworkUsecase) {
         self.info = coreInfo.info
+        self.workbookGroupCore = coreInfo
         self.networkUsecase = networkUsecase
         self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
     }

@@ -365,9 +365,10 @@ extension WorkbookGroupDetailVC {
     
     private func showStudyVC(section: PracticeTestSection_Core, workbook: Preview_Core) {
         guard let studyVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
+        guard let workbookGroup = self.viewModel?.workbookGroupCore else { return }
         
         let networkUsecase = NetworkUsecase(network: Network())
-        let manager = PracticeTestManager(section: section, workbook: workbook, networkUsecase: networkUsecase)
+        let manager = PracticeTestManager(section: section, workbookGroup: workbookGroup, workbook: workbook, networkUsecase: networkUsecase)
         
         studyVC.modalPresentationStyle = .fullScreen
         studyVC.configureManager(manager)
