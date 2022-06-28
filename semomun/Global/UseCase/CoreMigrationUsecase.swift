@@ -68,6 +68,11 @@ extension CoreUsecase {
             }
             // fetch productID -> append productID
             networkUsecase.getWorkbook(wid: Int(preview.wid)) { workbook in
+                guard let workbook = workbook else {
+                    completion(false)
+                    return
+                }
+
                 productIds.append(workbook.productID)
                 // POST /pay/orders 반영
                 if productIds.count == purchaseCount {
@@ -175,6 +180,12 @@ extension CoreUsecase {
             userPurchases.forEach { info in
                 taskGroup.enter()
                 networkUsecase.getWorkbook(wid: info.wid) { workbook in
+                    guard let workbook = workbook else {
+                        taskGroup.leave()
+                        completion(false)
+                        return
+                    }
+
                     /// 개발진행자의 경우 Coredata 상에 없는 구매한 workbook이 존재
                     /// 일반 사용자의 경우 아이폰용이 출시되기전까지 진행되지 않는다
                     guard let preview_core = (previews.first { $0.wid == Int64(info.wid) }) else {

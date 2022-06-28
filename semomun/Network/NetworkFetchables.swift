@@ -48,7 +48,7 @@ protocol PreviewsSearchable {
     func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void)
 }
 protocol WorkbookSearchable {
-    func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ())
+    func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB?) -> ())
 }
 protocol WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void)
@@ -90,6 +90,7 @@ protocol UserWorkbooksFetchable {
     func getUserBookshelfInfos(order: NetworkURL.PurchasesOrder, completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
 }
 protocol UserWorkbookGroupsFetchable {
+    func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void)
     func getUserWorkbookGroupInfos(wgid: Int, completion: @escaping (NetworkStatus, [Int]) -> Void)
 }
 protocol UserLogSendable {
