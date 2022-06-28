@@ -237,7 +237,7 @@ extension PracticeTestManager {
     }
     
     private func getRecentTime() -> Int64 {
-        return self.section.timeLimit - self.section.totalTime
+        return self.section.timelimit - self.section.totalTime
     }
     
     private func updateRecentTime() {
@@ -309,7 +309,7 @@ extension PracticeTestManager {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "시험 종료 5분전 입니다."
         notificationContent.sound = UNNotificationSound.default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.section.timeLimit - 300), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.section.timelimit - 300), repeats: false)
         let request = UNNotificationRequest(identifier: PracticeTestManager.practiceTest5min, content: notificationContent, trigger: trigger)
         self.userNotificationCenter.add(request) { error in
             if let error = error {

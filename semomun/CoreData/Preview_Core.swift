@@ -43,7 +43,7 @@ extension Preview_Core {
         case averageScore
         case downloaded
         case terminated
-        case timeLimit
+        case timelimit
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
@@ -74,7 +74,7 @@ extension Preview_Core {
     @NSManaged public var area: String? // NEW: 영역
     @NSManaged public var deviation: Int64 // NEW: 표준 편차
     @NSManaged public var averageScore: Int64 // NEW: 평균 점수
-    @NSManaged public var timeLimit: Int64 // NEW: 제한시간
+    @NSManaged public var timelimit: Int64 // NEW: 제한시간
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var category: String? //Deprecated(1.1.3)
@@ -143,7 +143,7 @@ public class Preview_Core: NSManagedObject{
         self.setValue(averageScore, forKey: Attribute.averageScore.rawValue)
         self.setValue(false, forKey: Attribute.downloaded.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
-        self.setValue(workbook.timeLimit, forKey: Attribute.timeLimit.rawValue)
+        self.setValue(workbook.timelimit, forKey: Attribute.timelimit.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
