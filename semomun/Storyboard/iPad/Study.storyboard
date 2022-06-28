@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -550,8 +550,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allSelectButton" destination="a0P-62-9wQ" id="25s-IS-8Re"/>
                         <outlet property="allSelectIndicator" destination="DJl-GQ-CHi" id="yIH-EA-2WT"/>
                         <outlet property="checkingProblemsCountLabel" destination="dSi-za-KCc" id="HVp-bM-5og"/>
+                        <outlet property="problemCountLabel" destination="aTj-UB-ZPh" id="wQp-Lz-Udw"/>
                         <outlet property="problems" destination="2pT-vH-PIF" id="qTB-xX-6sg"/>
                         <outlet property="sectionTitleLabel" destination="6nZ-eK-bUW" id="aU3-Yj-Tdf"/>
                         <outlet property="startScoringBT" destination="uEa-gr-sTV" id="DA2-S6-YzO"/>
@@ -2596,14 +2598,14 @@
     </scenes>
     <resources>
         <image name="bookmark" width="48" height="48"/>
-        <image name="bookmark.fill" catalog="system" width="112" height="128"/>
+        <image name="bookmark.fill" catalog="system" width="110" height="128"/>
         <image name="bookmarkFill" width="48" height="48"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="circle" catalog="system" width="128" height="121"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="return" catalog="system" width="128" height="101"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="circle" catalog="system" width="128" height="123"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
+        <image name="return" catalog="system" width="128" height="102"/>
         <image name="submit" width="23" height="23"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="deepMint">
