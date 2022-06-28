@@ -14,7 +14,6 @@ final class SearchVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var workbook: WorkbookOfDB?
-    @Published private(set) var workbookGroup: WorkbookGroupOfDB?
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase

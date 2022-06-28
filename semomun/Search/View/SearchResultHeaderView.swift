@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultHeaderView: UICollectionReusableView {
+final class SearchResultHeaderView: UICollectionReusableView {
     static let identifier = "SearchResultHeaderView"
     
     @IBOutlet weak var headerText: UILabel!
