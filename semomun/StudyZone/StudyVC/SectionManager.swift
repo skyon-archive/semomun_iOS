@@ -72,11 +72,6 @@ final class SectionManager {
         self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
     }
     
-    func isWrong(at index: Int) -> Bool {
-        let problem = self.problems[index]
-        return problem.correct == false && problem.terminated
-    }
-    
     func changeNextPage() {
         let currentVid = self.currentPage?.vid
         var tempIndex = self.currentIndex

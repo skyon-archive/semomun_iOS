@@ -39,6 +39,7 @@ final class PracticeTestManager {
     /// StudyVC 내에서 delegate 설정 및 configure 로직 수행
     func configureDelegate(to delegate: LayoutDelegate) {
         self.delegate = delegate
+        self.sectionTitle = self.section.title ?? "title"
         self.checkStartTestable()
         self.configureObservation()
         self.requestNotificationAuthorization()
@@ -54,6 +55,7 @@ extension PracticeTestManager {
         self.section.startTest(startDate: startDate)
         CoreDataManager.saveCoreData()
         
+        self.configureProblems()
         self.configureStartPage()
         self.updateRecentTime()
         self.startTimer()
@@ -81,6 +83,67 @@ extension PracticeTestManager {
         self.isRunning = false
         self.timer.invalidate()
     }
+    
+    func changeNextPage() {
+        let currentVid = self.currentPage?.vid
+        var tempIndex = self.currentIndex
+        while true {
+            if tempIndex == self.problems.count-1 {
+                self.delegate?.showAlert(text: "마지막 페이지 입니다.")
+                break
+            }
+            
+            tempIndex += 1
+            let nextVid = Int(self.problems[tempIndex].pageCore?.vid ?? 0)
+            if nextVid != currentVid {
+                self.changePage(at: tempIndex)
+                break
+            }
+        }
+    }
+    
+    func changePreviousPage() {
+        let currentVid = self.currentPage?.vid
+        var tempIndex = self.currentIndex
+        while true {
+            if tempIndex == 0 {
+                self.delegate?.showAlert(text: "첫 페이지 입니다.")
+                break
+            }
+            
+            tempIndex -= 1
+            let beforeVid = Int(self.problems[tempIndex].pageCore?.vid ?? 0)
+            if beforeVid != currentVid {
+                self.changePage(at: tempIndex)
+                break
+            }
+        }
+    }
+    
+    func addScoring(pid: Int) {
+        var scoringQueue = self.section.scoringQueue ?? []
+        if scoringQueue.contains(pid) { return }
+        
+        scoringQueue.append(pid)
+        self.section.setValue(scoringQueue, forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
+        self.addUploadProblem(pid: pid)
+    }
+    
+    func addUploadProblem(pid: Int) {
+        var uploadQueue = self.section.uploadProblemQueue ?? []
+        if uploadQueue.contains(pid) { return }
+        
+        uploadQueue.append(pid)
+        self.section.setValue(uploadQueue, forKey: PracticeTestSection_Core.Attribute.uploadProblemQueue.rawValue)
+    }
+    
+    func addUploadPage(vid: Int) {
+        var uploadQueue = self.section.uploadPageQueue ?? []
+        if uploadQueue.contains(vid) { return }
+        
+        uploadQueue.append(vid)
+        self.section.setValue(uploadQueue, forKey: PracticeTestSection_Core.Attribute.uploadPageQueue.rawValue)
+    }
 }
 
 // MARK: Privagte
@@ -107,14 +170,15 @@ extension PracticeTestManager {
             
             self.showTestInfo = TestInfo(title: title, area: area, subject: subject)
         } else {
+            self.configureProblems()
             self.configureStartPage()
             self.updateRecentTime()
             
             if self.section.terminated { // 채점완료 상태인 경우
-                self.configureTerminated()
+                self.terminatedUI()
             } else { // 진행중인 경우
                 guard self.getRecentTime() > 0 else {
-                    self.configureTerminated()
+                    self.sectionTerminate()
                     return
                 }
                 self.startTimer() // 시험 계속 응시
@@ -124,7 +188,7 @@ extension PracticeTestManager {
     /// 채점 완료 수신
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
-            self?.configureTerminated()
+            self?.sectionTerminate()
         }
     }
     
@@ -140,8 +204,16 @@ extension PracticeTestManager {
     private func updateRecentTime() {
         self.recentTime = self.getRecentTime()
         if recentTime <= 0 {
-            self.configureTerminated()
+            self.sectionTerminate()
         }
+    }
+    
+    private func configureProblems() {
+        guard let problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
+            print("error: fetch problems")
+            return
+        }
+        self.problems = problems
     }
     
     private func startTimer() {
@@ -159,18 +231,27 @@ extension PracticeTestManager {
     }
     
     /**
-     - 응시 종료로직 (종료 이후 UI 표시)
-     - 진입시 응시 종료 이후 다시 들어오는 경우
-     - 진입시 응시 진행중에 시간이 지나고서 들어오는 경우
-     - 응시 진행중에 시간이 다된 경우
-     - 응시 진행중에 채점완료를 한 경우
+     - 응시 종료로직 (단 한번만 불리는 로직)
+     - case 1: 진입시 응시 진행중에 시간이 지나고서 들어오는 경우
+     - case 2: 응시 진행중에 시간이 다된 경우
+     - case 3: 응시 진행중에 채점완료를 한 경우
      */
-    private func configureTerminated() {
-        self.stopTimer()
+    private func sectionTerminate() {
+        self.terminatedUI()
+        // 아래 로직은 단 한번만 실행되는 것들
         self.removeNotification()
         let terminatedDate = Date()
         self.section.terminateTest(terminatedDate: terminatedDate)
         CoreDataManager.saveCoreData()
+    }
+    
+    /**
+     - 응시 종료 UI 표시 (여러번 불릴 수 있는 로직)
+     - case 1: sectionTerminate 로 불리는 경우
+     - case 2: 진입시 응시 종료 이후 다시 들어오는 경우
+     */
+    private func terminatedUI() {
+        self.stopTimer()
         // MARK: UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
         // MARK: network post 정보가 필요
         // MARK: binding 으로 완료 전파 필요
