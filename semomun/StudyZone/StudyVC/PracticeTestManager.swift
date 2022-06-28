@@ -27,6 +27,8 @@ final class PracticeTestManager {
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
     private let userNotificationCenter = UNUserNotificationCenter.current()
+    // 임시 변수
+    private let timeLimit: Int64 = 6000 // section.timeLimit 으로 변경될 예정
     
     /// WorkbookGroupDetailVC 에서 VM 생성
     init(section: PracticeTestSection_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -45,6 +47,7 @@ final class PracticeTestManager {
 
 // MARK: Public
 extension PracticeTestManager {
+    /// 해당 응시에서 단 한번만 실행되는 로직
     func startTest() {
         // backend 에 post 하는게 필요하진 않을까?
         let startDate = Date()
@@ -54,10 +57,9 @@ extension PracticeTestManager {
         self.configureStartPage()
         self.updateRecentTime()
         self.startTimer()
-        // tost 알림 설정 로직 필요 (5분전)
-        self.setNotificationAlert()
+        self.setNotificationAlert() // 5분전 알림 설정, 최초 응시 시작시만 설정
     }
-    
+    /// 화면전환 로직
     func changePage(at index: Int) {
         guard let page = self.problems[index].pageCore else { return }
         self.currentIndex = index // 하단 button index update
@@ -71,10 +73,19 @@ extension PracticeTestManager {
         self.currentPage = pageData
         self.section.setValue(index, forKey: PracticeTestSection_Core.Attribute.lastIndex.rawValue) // 사실상 의미없는 로직
     }
+    
+    /// 응시 도중 나가는 경우 로직
+    func stopTimer() {
+        if self.section.terminated { return }
+        
+        self.isRunning = false
+        self.timer.invalidate()
+    }
 }
 
 // MARK: Privagte
 extension PracticeTestManager {
+    /// 응시 시작시
     private func requestNotificationAuthorization() {
         let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
         
@@ -84,7 +95,7 @@ extension PracticeTestManager {
             }
         }
     }
-    
+    /// 응시 전, 응시 진행중, 응시 완료를 확인
     private func checkStartTestable() {
         if self.section.startedDate == nil { // 응시 전 상태인 경우
             guard let title = self.workbook.title,
@@ -102,19 +113,18 @@ extension PracticeTestManager {
             if self.section.terminated { // 채점완료 상태인 경우
                 self.configureTerminated()
             } else { // 진행중인 경우
-                self.startTimer()
+                guard self.getRecentTime() > 0 else {
+                    self.configureTerminated()
+                    return
+                }
+                self.startTimer() // 시험 계속 응시
             }
         }
     }
-    
+    /// 채점 완료 수신
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .sectionTerminated, object: nil, queue: .current) { [weak self] _ in
             self?.configureTerminated()
-            let terminatedDate = Date()
-            self?.section.terminateTest(terminatedDate: terminatedDate)
-            CoreDataManager.saveCoreData()
-            // network post 정보가 필요
-            // binding 으로 완료 전파 필요
         }
     }
     
@@ -123,13 +133,14 @@ extension PracticeTestManager {
         self.changePage(at: lastPageId)
     }
     
+    private func getRecentTime() -> Int64 {
+        return self.timeLimit - self.section.totalTime
+    }
+    
     private func updateRecentTime() {
-        let timeLimit: Int64 = 6000
-        let recentTime = timeLimit - self.section.totalTime
-        self.recentTime = recentTime
-        
+        self.recentTime = self.getRecentTime()
         if recentTime <= 0 {
-            // 자동 terminate 로직 필요
+            self.configureTerminated()
         }
     }
     
@@ -147,24 +158,29 @@ extension PracticeTestManager {
         }
     }
     
+    /**
+     - 응시 종료로직 (종료 이후 UI 표시)
+     - 진입시 응시 종료 이후 다시 들어오는 경우
+     - 진입시 응시 진행중에 시간이 지나고서 들어오는 경우
+     - 응시 진행중에 시간이 다된 경우
+     - 응시 진행중에 채점완료를 한 경우
+     */
     private func configureTerminated() {
-        if self.section.terminated { return }
-        
-        self.isRunning = false
-        self.timer.invalidate()
+        self.stopTimer()
         self.removeNotification()
-        // UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
+        let terminatedDate = Date()
+        self.section.terminateTest(terminatedDate: terminatedDate)
+        CoreDataManager.saveCoreData()
+        // MARK: UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
+        // MARK: network post 정보가 필요
+        // MARK: binding 으로 완료 전파 필요
     }
     
     private func setNotificationAlert() {
-        // MARK: timeLimit 값을 section 에서 가져오는 로직이 필요
-        // MARK: title, body 내용 확인 필요
-        let timeLimit = 6000
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "title"
-        notificationContent.body = "body"
+        notificationContent.title = "시험 종료 5분전 입니다."
         notificationContent.sound = UNNotificationSound.default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(timeLimit - 300), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.timeLimit - 300), repeats: false)
         let request = UNNotificationRequest(identifier: PracticeTestManager.practiceTest5min, content: notificationContent, trigger: trigger)
         self.userNotificationCenter.add(request) { error in
             if let error = error {
@@ -174,6 +190,7 @@ extension PracticeTestManager {
     }
     
     private func removeNotification() {
+        // 응시가 종료된 경우만 불린다
         self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PracticeTestManager.practiceTest5min])
     }
 }
