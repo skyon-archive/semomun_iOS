@@ -64,6 +64,12 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // MARK: reload 로직 필요 (workbook terminated 상태 최신화)
+        self.practiceTests.reloadData()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
