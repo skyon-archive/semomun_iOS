@@ -78,12 +78,9 @@ extension PracticeTestManager {
         self.section.setValue(index, forKey: PracticeTestSection_Core.Attribute.lastIndex.rawValue) // 사실상 의미없는 로직
     }
     
-    /// 응시 도중 나가는 경우 로직
-    func stopTimer() {
-        if self.section.terminated { return }
-        
-        self.isRunning = false
-        self.timer.invalidate()
+    func pauseSection() {
+        self.stopTimer()
+        CoreDataManager.saveCoreData()
     }
     
     func changeNextPage() {
@@ -145,6 +142,48 @@ extension PracticeTestManager {
         
         uploadQueue.append(vid)
         self.section.setValue(uploadQueue, forKey: PracticeTestSection_Core.Attribute.uploadPageQueue.rawValue)
+    }
+    
+    func postProblemAndPageDatas(isDismiss: Bool) {
+        let uploadProblemQueue = self.section.uploadProblemQueue ?? []
+        let uploadPageQueue = self.section.uploadPageQueue ?? []
+        if uploadProblemQueue.isEmpty && uploadPageQueue.isEmpty {
+            if isDismiss {
+                self.delegate?.dismissSection()
+            }
+            return
+        }
+        
+        let taskGroup = DispatchGroup()
+        
+        if uploadProblemQueue.isEmpty == false {
+            taskGroup.enter()
+            let uploadProblems = self.problems
+                .filter { uploadProblemQueue.contains(Int($0.pid)) }
+                .map { SubmissionProblem(problem: $0) }
+            self.postProblemDatas(uploadProblems: uploadProblems) {
+                taskGroup.leave()
+            }
+        }
+        
+        if uploadPageQueue.isEmpty == false {
+            taskGroup.enter()
+            let uploadPages = Array(Set(self.problems.compactMap(\.pageCore)
+                .filter { uploadPageQueue.contains(Int($0.vid)) }
+                .map { SubmissionPage(page: $0) }))
+            self.postPageDatas(uploadPages: uploadPages) {
+                taskGroup.leave()
+            }
+        }
+        
+        taskGroup.notify(queue: .main) {
+            // MARK: 아마도 section 나갈 때 최종 저장되는 부분
+            CoreDataManager.saveCoreData()
+            if isDismiss {
+                self.delegate?.dismissSection()
+            }
+            return
+        }
     }
 }
 
@@ -260,6 +299,13 @@ extension PracticeTestManager {
         // MARK: binding 으로 완료 전파 필요
     }
     
+    private func stopTimer() {
+        if self.section.terminated { return }
+        
+        self.isRunning = false
+        self.timer.invalidate()
+    }
+    
     private func setNotificationAlert() {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "시험 종료 5분전 입니다."
@@ -276,5 +322,26 @@ extension PracticeTestManager {
     private func removeNotification() {
         // 응시가 종료된 경우만 불린다
         self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PracticeTestManager.practiceTest5min])
+    }
+}
+
+// MARK: Network post
+extension PracticeTestManager {
+    private func postProblemDatas(uploadProblems: [SubmissionProblem], completion: @escaping (() -> Void)) {
+        self.networkUsecase.postProblemSubmissions(problems: uploadProblems) { [weak self] status in
+            if status == .SUCCESS {
+                self?.section.setValue([], forKey: PracticeTestSection_Core.Attribute.uploadProblemQueue.rawValue)
+            }
+            completion()
+        }
+    }
+    
+    private func postPageDatas(uploadPages: [SubmissionPage], completion: @escaping (() -> Void)) {
+        self.networkUsecase.postPageSubmissions(pages: uploadPages) { [weak self] status in
+            if status == .SUCCESS {
+                self?.section.setValue([], forKey: PracticeTestSection_Core.Attribute.uploadPageQueue.rawValue)
+            }
+            completion()
+        }
     }
 }
