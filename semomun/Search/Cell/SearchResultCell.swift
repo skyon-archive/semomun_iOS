@@ -34,6 +34,11 @@ class SearchResultCell: UICollectionViewCell {
         self.configureImage(uuid: preview.bookcover)
     }
     
+    func configure(with preview: WorkbookGroupPreviewOfDB) {
+        self.title.text = preview.title
+        self.configureImage(uuid: preview.groupCover)
+    }
+    
     private func configureImage(uuid: UUID) {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.bookcover.image = cachedImage

@@ -175,15 +175,19 @@ extension SearchResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return UICollectionViewCell() }
         
+        cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
+        
         if self.practiceTestSectionExist && indexPath.section == 0 { // 모의고사 셀
+            guard let preview = self.viewModel?.workbookGroupSearchResults[indexPath.item] else { return cell }
+            cell.configure(with: preview)
             
+            return cell
         } else { // 문제집 셀
             guard let preview = self.viewModel?.workbookSearchResults[indexPath.item] else { return cell }
-            cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
             cell.configure(with: preview)
+            
+            return cell
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
