@@ -27,13 +27,10 @@ struct WorkbookOfDB: Decodable {
     let tags: [TagOfDB]
     let sales: Int
     /* 실전 모의고사용 추가 property들 */
-    var _cutoff: [Cutoff]? //등급계산을 위한 데이터
-    var cutoff: [Cutoff] { _cutoff ?? [] }
-    var _subject: String? //과목 이름
-    var subject: String { _subject ?? "없음" }
-    var _area: String? //영역 이름
-    var area: String { _area ?? "없음" }
-    let deviation: Int? //표준 편차
+    let cutoff: [Cutoff]? //등급계산을 위한 데이터
+    let subject: String //과목 이름
+    let area: String //영역 이름
+    let standardDeviation: Int? //표준 편차
     let averageScore: Int? //평균 점수
     let timeLimit: Int? //제한시간
     
@@ -46,9 +43,7 @@ struct WorkbookOfDB: Decodable {
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case sections, price, tags, sales
-        case _cutoff = "cutoff"
-        case _subject = "subject"
-        case _area = "area"
-        case deviation, averageScore, timeLimit
+        case cutoff, subject, area
+        case standardDeviation, averageScore, timeLimit
     }
 }
