@@ -26,7 +26,7 @@ final class PracticeTestManager {
     private weak var delegate: LayoutDelegate?
     private let workbookGroup: WorkbookGroup_Core
     private let workbook: Preview_Core
-    private var timer: Timer!
+    private var timer: Timer?
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
     private let userNotificationCenter = UNUserNotificationCenter.current()
@@ -60,8 +60,8 @@ extension PracticeTestManager {
             return
         }
         // backend 에 post 하는게 필요하진 않을까?
-        let startDate = Date()
-        self.section.startTest(startDate: startDate)
+        let startedDate = Date()
+        self.section.startTest(startedDate: startedDate)
         CoreDataManager.saveCoreData()
         
         self.configureProblems()
@@ -258,14 +258,13 @@ extension PracticeTestManager {
     }
     
     private func startTimer() {
-        if self.section.terminated { return }
+        guard self.section.terminated == false else { return }
         
         DispatchQueue.global().async {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 self?.updateRecentTime()
-                guard let recentTime = self?.recentTime else { return }
-                if recentTime <= 0 {
+                if let recentTime = self?.recentTime, recentTime <= 0 {
                     self?.sectionTerminate()
                 }
             }
@@ -308,7 +307,7 @@ extension PracticeTestManager {
         if self.section.terminated { return }
         
         self.isRunning = false
-        self.timer.invalidate()
+        self.timer?.invalidate()
     }
     
     private func setNotificationAlert() {
