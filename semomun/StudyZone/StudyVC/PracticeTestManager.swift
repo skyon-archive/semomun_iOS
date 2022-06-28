@@ -28,8 +28,6 @@ final class PracticeTestManager {
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
     private let userNotificationCenter = UNUserNotificationCenter.current()
-    // 임시 변수
-    private let timeLimit: Int64 = 6000 // section.timeLimit 으로 변경될 예정
     
     /// WorkbookGroupDetailVC 에서 VM 생성
     init(section: PracticeTestSection_Core, workbookGroup: WorkbookGroup_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -239,7 +237,7 @@ extension PracticeTestManager {
     }
     
     private func getRecentTime() -> Int64 {
-        return self.timeLimit - self.section.totalTime
+        return self.section.timeLimit - self.section.totalTime
     }
     
     private func updateRecentTime() {
@@ -311,7 +309,7 @@ extension PracticeTestManager {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "시험 종료 5분전 입니다."
         notificationContent.sound = UNNotificationSound.default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.timeLimit - 300), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.section.timeLimit - 300), repeats: false)
         let request = UNNotificationRequest(identifier: PracticeTestManager.practiceTest5min, content: notificationContent, trigger: trigger)
         self.userNotificationCenter.add(request) { error in
             if let error = error {
