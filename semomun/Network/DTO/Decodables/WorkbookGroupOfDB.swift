@@ -9,7 +9,7 @@ import Foundation
 
 struct WorkbookGroupOfDB: Decodable {
     let wgid: Int
-    let productID: Int
+    let productID: Int?
     let type: String
     let title: String
     let detail: String // 현재로썬 안쓰이는 값, 빈배열로 수신

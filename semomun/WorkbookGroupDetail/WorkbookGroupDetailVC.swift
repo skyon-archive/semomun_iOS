@@ -276,6 +276,7 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
             if hasPurchasedWorkbook {
                 guard let coreInfo = self.viewModel?.purchasedWorkbooks[safe: indexPath.item] else { return cell }
                 cell.configure(coreInfo: coreInfo)
+                cell.configureDelegate(to: self)
             } else {
                 guard let dtoInfo = self.viewModel?.nonPurchasedWorkbooks[safe: indexPath.item] else { return cell }
                 cell.configure(dtoInfo: dtoInfo)

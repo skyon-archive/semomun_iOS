@@ -162,13 +162,13 @@ extension WorkbookGroupDetailVM {
 // MARK: CoreData Download
 extension WorkbookGroupDetailVM {
     private func downloadWorkbookGroup() {
-        CoreUsecase.downloadWorkbookGroup(wgid: self.info.wgid, networkUsecase: self.networkUsecase) { success in
-            guard success else {
+        CoreUsecase.downloadWorkbookGroup(wgid: self.info.wgid, networkUsecase: self.networkUsecase) { workbookGroup in
+            guard let workbookGroup = workbookGroup else {
                 self.showLoader = false
                 self.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
-            
+            self.workbookGroupCore = workbookGroup
             self.downloadWorkbook()
         }
     }

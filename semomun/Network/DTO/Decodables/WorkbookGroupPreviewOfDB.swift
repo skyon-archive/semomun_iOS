@@ -14,7 +14,7 @@ struct SearchWorkbookGroups: Decodable {
 
 struct WorkbookGroupPreviewOfDB: Decodable {
     let wgid: Int
-    let itemID: Int
+    let itemID: Int?
     let type: String
     let title: String
     let detail: String // 현재로썬 안쓰이는 값, 빈배열로 수신

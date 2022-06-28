@@ -179,7 +179,7 @@ extension NetworkUsecase: WorkbookSearchable {
 }
 extension NetworkUsecase: WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void) {
-        let tids = tags != nil ? tags!.map(\.tid) : nil
+        let tids  = tags?.map(\.tid)
         let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword)
         
         self.network.request(url: NetworkURL.workbookGroups, param: param, method: .get, tokenRequired: false) { result in

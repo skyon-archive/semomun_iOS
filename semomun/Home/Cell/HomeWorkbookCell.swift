@@ -51,8 +51,8 @@ class HomeWorkbookCell: UICollectionViewCell {
      - 실전 모의고사
      */
     func configure(with testInfo: WorkbookGroupPreviewOfDB) {
-        // 임시코드
         self.title.text = testInfo.title
+        self.configureImage(uuid: testInfo.groupCover)
     }
     
     private func configureImage(uuid: UUID) {

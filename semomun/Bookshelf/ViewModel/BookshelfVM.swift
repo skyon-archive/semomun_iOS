@@ -108,6 +108,7 @@ final class BookshelfVM {
                         print("fetch preview(\(info.wid)) error")
                         CoreDataManager.saveCoreData()
                         self?.loading = false
+                        self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
                         return
                     }
                     
