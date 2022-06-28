@@ -91,7 +91,7 @@ public class PracticeTestSection_Core: NSManagedObject {
     }
     
     /// StudyVC 내에서 응시 시작시 Date 값을 받아와 startedDate 값에 저장
-    func startTest(startDate: Date) {
+    func startTest(startedDate: Date) {
         guard self.startedDate == nil else {
             assertionFailure("Error: 중복 확인 필요")
             return

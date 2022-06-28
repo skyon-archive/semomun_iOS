@@ -103,7 +103,6 @@ extension TestInfoView {
     
     var StartTestButton: some View {
         Button(action: {
-            self.startTest = true
             self.delegate?.startTest()
             self.presentationMode.wrappedValue.dismiss()
         }) {
