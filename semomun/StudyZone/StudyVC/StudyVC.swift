@@ -90,26 +90,45 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        // 임시코드: 내부 VC.viewModel?.endTimeRecord 실행
         if let vc = self.currentVC as? TimeRecordControllable {
             vc.endTimeRecord()
         }
-        self.sectionManager?.pauseSection()
-        self.sectionManager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
+        guard let mode = self.mode else { return }
+        
+        switch mode {
+        case .default:
+            self.sectionManager?.pauseSection()
+            self.sectionManager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
+        case .practiceTest:
+            self.practiceTestManager?.pauseSection()
+            self.practiceTestManager?.postProblemAndPageDatas(isDismiss: true) // 나가기 전에 submission
+        }
     }
     
     @IBAction func scoringSection(_ sender: Any) {
-        guard let section = self.sectionManager?.section else { return }
-        // 임시코드: 내부 VC.viewModel?.endTimeRecord 실행
         if let vc = self.currentVC as? TimeRecordControllable {
             vc.endTimeRecord()
         }
-        
-        if section.terminated {
-            self.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
-            self.showResultViewController(section: section)
-        } else {
-            self.showSelectProblemsVC(section: section)
+        guard let mode = self.mode else { return }
+    
+        switch mode {
+        case .default:
+            guard let section = self.sectionManager?.section else { return }
+            if section.terminated {
+                self.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
+                self.showResultViewController(section: section)
+            } else {
+                self.showSelectProblemsVC(section: section)
+            }
+        case .practiceTest:
+            guard let practiceSection = self.practiceTestManager?.section else { return }
+            if practiceSection.terminated {
+                self.practiceTestManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
+                // MARK: 실모결과창 표시 로직 필요
+//                self.showResultViewController(section: section)
+            } else {
+                self.showSelectProblemsVC(practiceSection: practiceSection)
+            }
         }
     }
     
@@ -279,6 +298,15 @@ extension StudyVC {
         let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
         guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
         let viewModel = SelectProblemsVM(section: section)
+        selectProblemsVC.configureViewModel(viewModel: viewModel)
+        
+        self.present(selectProblemsVC, animated: true, completion: nil)
+    }
+    
+    private func showSelectProblemsVC(practiceSection: PracticeTestSection_Core) {
+        let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
+        guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
+        let viewModel = ShowSolvedProblemsVM(practiceSection: practiceSection)
         selectProblemsVC.configureViewModel(viewModel: viewModel)
         
         self.present(selectProblemsVC, animated: true, completion: nil)

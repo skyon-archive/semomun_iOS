@@ -269,6 +269,7 @@
 		87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0A56827CF1C5800449AAD /* CoreGraphics.swift */; };
+		87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
@@ -571,6 +572,7 @@
 		87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultButton.swift; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87D0A56827CF1C5800449AAD /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
+		87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSolvedProblemsVM.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
@@ -1401,9 +1403,7 @@
 			children = (
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
 				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
-				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
-				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
-				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
+				87D45C75286AEE1600FD7608 /* SelectProblems */,
 				255D9B722862FB8600A89422 /* SectionResult */,
 				250ACFDE28619EEC0027B6A9 /* PracticeTestResult */,
 				8703B099282A4EFA00DA5894 /* TestInfoView */,
@@ -1577,6 +1577,17 @@
 				25100CD827D4ABC8002C18CB /* Codables */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		87D45C75286AEE1600FD7608 /* SelectProblems */ = {
+			isa = PBXGroup;
+			children = (
+				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
+				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
+				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
+				87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */,
+			);
+			path = SelectProblems;
 			sourceTree = "<group>";
 		};
 		87E151612787DBE20080D39A /* ViewController */ = {
@@ -1854,6 +1865,7 @@
 				87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
+				87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */,
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
 				2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */,

@@ -90,7 +90,6 @@ protocol UserWorkbooksFetchable {
 }
 protocol UserWorkbookGroupsFetchable {
     func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void)
-    func getUserWorkbookGroupInfos(wgid: Int, completion: @escaping (NetworkStatus, [Int]) -> Void)
 }
 protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)
