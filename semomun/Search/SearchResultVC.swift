@@ -125,10 +125,7 @@ extension SearchResultVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                guard let practiceTestSectionExist = self?.practiceTestSectionExist else { return }
-                
-                let workbookSection: IndexSet = practiceTestSectionExist ? .init(integer: 1) : .init(integer: 0)
-                self?.searchResults.reloadSections(workbookSection)
+                self?.searchResults.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -138,10 +135,7 @@ extension SearchResultVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                guard self?.practiceTestSectionExist == true else { return }
-                
-                let workbookGroupSection = IndexSet(integer: 0)
-                self?.searchResults.reloadSections(workbookGroupSection)
+                self?.searchResults.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -182,16 +176,14 @@ extension SearchResultVC: UICollectionViewDataSource {
         cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
         
         if self.practiceTestSectionExist && indexPath.section == 0 { // 모의고사 셀
-            guard let preview = self.viewModel?.workbookGroupSearchResults[indexPath.item] else { return cell }
+            guard let preview = self.viewModel?.workbookGroupSearchResults[safe: indexPath.item] else { return cell }
             cell.configure(with: preview)
-            
-            return cell
         } else { // 문제집 셀
-            guard let preview = self.viewModel?.workbookSearchResults[indexPath.item] else { return cell }
+            guard let preview = self.viewModel?.workbookSearchResults[safe: indexPath.item] else { return cell }
             cell.configure(with: preview)
-            
-            return cell
         }
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
