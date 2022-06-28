@@ -166,10 +166,11 @@ extension NetworkUsecase: PreviewsSearchable {
     }
 }
 extension NetworkUsecase: WorkbookSearchable {
-    func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB) -> ()) {
+    func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB?) -> ()) {
         self.network.request(url: NetworkURL.workbookDirectory(wid), method: .get, tokenRequired: false) { result in
             guard let data = result.data,
                   let workbookOfDB: WorkbookOfDB = self.decodeRequested(WorkbookOfDB.self, from: data) else {
+                completion(nil)
                 return
             }
             completion(workbookOfDB)
@@ -406,6 +407,23 @@ extension NetworkUsecase: UserPurchaseable {
     }
 }
 extension NetworkUsecase: UserWorkbookGroupsFetchable {
+    func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void) {
+        // MARK: network 로직 구현 필요
+        let testFile = "TestUserWorkbookGroups"
+        if let path = Bundle.main.path(forResource: testFile, ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                guard let workbookGroupInfos: [PurchasedWorkbookGroupInfoOfDB] = self.decodeRequested([PurchasedWorkbookGroupInfoOfDB].self, from: data) else {
+                    completion(.FAIL, [])
+                    return
+                }
+                completion(.SUCCESS, workbookGroupInfos)
+            } catch {
+                completion(.FAIL, [])
+            }
+        }
+    }
+    
     func getUserWorkbookGroupInfos(wgid: Int, completion: @escaping (NetworkStatus, [Int]) -> Void) {
         // MARK: network 로직 구현 필요
         completion(.SUCCESS, [35])

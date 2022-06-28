@@ -447,7 +447,7 @@ struct CoreUsecase {
 
 extension CoreUsecase {
     /// WorkbookGroupDetailVC 상에서 구매로직, 책장으로 넘어가지 않은 상태에서 저장로직이 필요
-    static func downloadWorkbook(wid: Int, networkUsecase: (UserWorkbooksFetchable & WorkbookSearchable), completion: @escaping (Bool) -> Void) {
+    static func downloadWorkbook(wid: Int, networkUsecase: (UserWorkbooksFetchable & WorkbookSearchable & S3ImageFetchable), completion: @escaping (Bool) -> Void) {
         // Preview_Core 존재하는 경우 Error
         if let _ = Self.fetchPreview(wid: wid) {
             print("duplicated workbook error")
@@ -455,9 +455,7 @@ extension CoreUsecase {
             return
         }
         // 구매내역 -> workbook 저장
-        let networkUsecase = NetworkUsecase(network: Network())
         print("fetch workbook infos")
-        
         networkUsecase.getUserBookshelfInfos { status, infos in
             // Network Error
             guard status == .SUCCESS else {
@@ -473,6 +471,12 @@ extension CoreUsecase {
             // Fetch Workbook Info, save Preview_Core
             // SectionHeader_Core 는 별도로 저장하지 않는다
             networkUsecase.getWorkbook(wid: wid) { workbook in
+                guard let workbook = workbook else {
+                    print("workbook info fetch error")
+                    completion(false)
+                    return
+                }
+
                 let preview_Core = Preview_Core(context: CoreDataManager.shared.context)
                 preview_Core.setValues(workbook: workbook, info: BookshelfInfo(info: targetInfo))
                 preview_Core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: networkUsecase) {
@@ -485,7 +489,32 @@ extension CoreUsecase {
         }
     }
     
-    static func downloadWorkbookGroup(wgid: Int, networkUsecase: (UserWorkbookGroupsFetchable & WorkbookGroupSearchable), completion: @escaping (Bool) -> Void) {
-        // 개발 필요..
+    /// WorkbookGroupDetailVC 상에서 구매로직, 책장으로 넘어가지 않은 상태에서 저장로직이 필요
+    static func downloadWorkbookGroup(wgid: Int, networkUsecase: (UserWorkbookGroupsFetchable & WorkbookGroupSearchable & S3ImageFetchable), completion: @escaping (Bool) -> Void) {
+        // WorkbookGroup_Core 존재하는 경우 Error
+        if let _ = Self.fetchWorkbookGroup(wgid: wgid) {
+            print("duplicated workbook error")
+            completion(false)
+            return
+        }
+        // 구매내역 -> workbookGroup 저장
+        print("fetch workbookGroup infos")
+        networkUsecase.getUserWorkbookGroupInfos { status, infos in
+            // network Error
+            guard status == .SUCCESS else {
+                completion(false)
+                return
+            }
+            // Purchased Workbook not exist
+            guard let targetInfo = infos.first(where: { $0.wgid == wgid }) else {
+                print("Purchased WorkbookGroup not exist")
+                completion(false)
+                return
+            }
+            // Fetch WorkbookGroup Info, save WorkbookGroup_Core
+            networkUsecase.searchWorkbookGroup(wgid: wgid) { status, workbookGroup in
+                //
+            }
+        }
     }
 }

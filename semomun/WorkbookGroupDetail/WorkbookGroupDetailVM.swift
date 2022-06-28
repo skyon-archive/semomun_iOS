@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable)
+typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable & S3ImageFetchable)
 
 final class WorkbookGroupDetailVM {
     /* public */

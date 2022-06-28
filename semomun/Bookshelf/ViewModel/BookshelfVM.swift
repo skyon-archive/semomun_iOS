@@ -104,6 +104,13 @@ final class BookshelfVM {
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
                 self.networkUsecse.getWorkbook(wid: info.wid) { [weak self] workbook in
+                    guard let workbook = workbook else {
+                        print("fetch preview(\(info.wid)) error")
+                        CoreDataManager.saveCoreData()
+                        self?.loading = false
+                        return
+                    }
+                    
                     let preview_core = Preview_Core(context: CoreDataManager.shared.context)
                     preview_core.setValues(workbook: workbook, info: info)
                     workbook.sections.forEach { section in

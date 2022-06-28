@@ -42,6 +42,7 @@ class HomeWorkbookCell: UICollectionViewCell {
      */
     func configure(with info: BookshelfInfo) {
         self.networkUsecase?.getWorkbook(wid: info.wid, completion: { [weak self] workbook in
+            guard let workbook = workbook else { return }
             self?.title.text = workbook.title
             self?.configureImage(uuid: workbook.bookcover)
         })
