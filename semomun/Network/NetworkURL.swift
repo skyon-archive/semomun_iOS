@@ -74,6 +74,7 @@ enum NetworkURL {
     static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://api.semomun.com"
     static let tempBase: String = "https://d2qp2vqqyviv98.cloudfront.net/"
     static let workbooks: String = base + "/workbooks/"
+    static let workbookGroups: String = base + "/workbookGroups"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
     static let majors: String = base + "/info/major"

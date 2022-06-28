@@ -112,15 +112,28 @@ extension SearchResultVC {
 // MARK: - Binding
 extension SearchResultVC {
     private func bindAll() {
-        self.bindSearchResults()
+        self.bindWorkbookSearchResults()
+        self.bindWorkbookGroupSearchResults()
         self.bindWarning()
     }
     
-    private func bindSearchResults() {
-        self.viewModel?.$searchResults
+    private func bindWorkbookSearchResults() {
+        self.viewModel?.$workbookSearchResults
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
+                // 해당 섹션만 reload하는 로직 필요
+                self?.searchResults.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbookGroupSearchResults() {
+        self.viewModel?.$workbookGroupSearchResults
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                // 해당 섹션만 reload하는 로직 필요
                 self?.searchResults.reloadData()
             })
             .store(in: &self.cancellables)
@@ -141,12 +154,12 @@ extension SearchResultVC {
 // MARK: - CollectionView
 extension SearchResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.searchResults.count ?? 0
+        return self.viewModel?.workbookSearchResults.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return UICollectionViewCell() }
-        guard let preview = self.viewModel?.searchResults[indexPath.item] else { return cell }
+        guard let preview = self.viewModel?.workbookSearchResults[indexPath.item] else { return cell }
         cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
         cell.configure(with: preview)
         
@@ -156,7 +169,7 @@ extension SearchResultVC: UICollectionViewDataSource {
 
 extension SearchResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let target = self.viewModel?.searchResults[indexPath.item] else { return }
+        guard let target = self.viewModel?.workbookSearchResults[indexPath.item] else { return }
         self.delegate?.showWorkbookDetail(wid: target.wid)
     }
 }
@@ -171,11 +184,11 @@ extension SearchResultVC: UICollectionViewDelegateFlowLayout {
 extension SearchResultVC {
      func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if self.searchResults.contentOffset.y >= (self.searchResults.contentSize.height - self.searchResults.bounds.size.height) {
-             self.viewModel?.fetchSearchResults(rowCount: UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount)
+             self.viewModel?.fetchWorkbookSearchResults(rowCount: UIWindow.isLandscape ? self.landscapeColumnCount : self.portraitColumnCount)
          }
      }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.viewModel?.isPaging = false
+        self.viewModel?.isWorkbookPaging = false
     }
  }
