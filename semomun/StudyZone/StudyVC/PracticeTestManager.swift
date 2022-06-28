@@ -11,7 +11,9 @@ import UserNotifications
 
 final class PracticeTestManager {
     /* public */
-    static let practiceTest5min = "practiceTest5min"
+    enum PushNotification {
+        static let practiceTest5min = "practiceTest5min"
+    }
     @Published private(set) var sectionTitle: String = "title"
     @Published private(set) var recentTime: Int64 = 0
     @Published private(set) var currentPage: PageData?
@@ -28,6 +30,9 @@ final class PracticeTestManager {
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
     private let userNotificationCenter = UNUserNotificationCenter.current()
+    private var remainingTime: Int64 {
+        return self.section.timelimit - self.section.totalTime
+    }
     
     /// WorkbookGroupDetailVC 에서 VM 생성
     init(section: PracticeTestSection_Core, workbookGroup: WorkbookGroup_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -50,6 +55,10 @@ final class PracticeTestManager {
 extension PracticeTestManager {
     /// 해당 응시에서 단 한번만 실행되는 로직
     func startTest() {
+        guard self.section.startedDate != nil else {
+            self.warning = (title: "응시 불가", text: "최신버전으로 업데이트 해주세요")
+            return
+        }
         // backend 에 post 하는게 필요하진 않을까?
         let startDate = Date()
         self.section.startTest(startDate: startDate)
@@ -185,7 +194,7 @@ extension PracticeTestManager {
     }
 }
 
-// MARK: Privagte
+// MARK: Private
 extension PracticeTestManager {
     /// 응시 시작시
     private func requestNotificationAuthorization() {
@@ -216,7 +225,7 @@ extension PracticeTestManager {
             if self.section.terminated { // 채점완료 상태인 경우
                 self.terminatedUI()
             } else { // 진행중인 경우
-                guard self.getRecentTime() > 0 else {
+                guard self.remainingTime > 0 else {
                     self.sectionTerminate()
                     return
                 }
@@ -236,15 +245,8 @@ extension PracticeTestManager {
         self.changePage(at: lastPageId)
     }
     
-    private func getRecentTime() -> Int64 {
-        return self.section.timelimit - self.section.totalTime
-    }
-    
     private func updateRecentTime() {
-        self.recentTime = self.getRecentTime()
-        if recentTime <= 0 {
-            self.sectionTerminate()
-        }
+        self.recentTime = self.remainingTime
     }
     
     private func configureProblems() {
@@ -262,6 +264,10 @@ extension PracticeTestManager {
             let runLoop = RunLoop.current
             self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 self?.updateRecentTime()
+                guard let recentTime = self?.recentTime else { return }
+                if recentTime <= 0 {
+                    self?.sectionTerminate()
+                }
             }
             while self.isRunning {
                 runLoop.run(until: Date().addingTimeInterval(0.1))
@@ -310,7 +316,7 @@ extension PracticeTestManager {
         notificationContent.title = "시험 종료 5분전 입니다."
         notificationContent.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.section.timelimit - 300), repeats: false)
-        let request = UNNotificationRequest(identifier: PracticeTestManager.practiceTest5min, content: notificationContent, trigger: trigger)
+        let request = UNNotificationRequest(identifier: PushNotification.practiceTest5min, content: notificationContent, trigger: trigger)
         self.userNotificationCenter.add(request) { error in
             if let error = error {
                 print("Notification Error: \(error)")
@@ -320,7 +326,7 @@ extension PracticeTestManager {
     
     private func removeNotification() {
         // 응시가 종료된 경우만 불린다
-        self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PracticeTestManager.practiceTest5min])
+        self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PushNotification.practiceTest5min])
     }
 }
 
