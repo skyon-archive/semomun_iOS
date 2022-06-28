@@ -215,8 +215,13 @@ extension SearchResultVC: UICollectionViewDataSource {
 
 extension SearchResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let target = self.viewModel?.workbookSearchResults[indexPath.item] else { return }
-        self.delegate?.showWorkbookDetail(wid: target.wid)
+        if self.practiceTestSectionExist && indexPath.section == 0 { // 실전 모의고사
+            guard let target = self.viewModel?.workbookGroupSearchResults[indexPath.item] else { return }
+            self.delegate?.showWorkbookGroupDetail(dtoInfo: target)
+        } else { // 문제집
+            guard let target = self.viewModel?.workbookSearchResults[indexPath.item] else { return }
+            self.delegate?.showWorkbookDetail(wid: target.wid)
+        }
     }
 }
 
