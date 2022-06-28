@@ -125,8 +125,10 @@ extension SearchResultVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                // 해당 섹션만 reload하는 로직 필요
-                self?.searchResults.reloadData()
+                guard let practiceTestSectionExist = self?.practiceTestSectionExist else { return }
+                
+                let workbookSection: IndexSet = practiceTestSectionExist ? .init(integer: 1) : .init(integer: 0)
+                self?.searchResults.reloadSections(workbookSection)
             })
             .store(in: &self.cancellables)
     }
@@ -136,8 +138,10 @@ extension SearchResultVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                // 해당 섹션만 reload하는 로직 필요
-                self?.searchResults.reloadData()
+                guard self?.practiceTestSectionExist == true else { return }
+                
+                let workbookGroupSection = IndexSet(integer: 0)
+                self?.searchResults.reloadSections(workbookGroupSection)
             })
             .store(in: &self.cancellables)
     }
