@@ -33,6 +33,7 @@ final class SearchResultVM {
         self.tags = tags
         self.text = text
         self.fetchWorkbookSearchResults(rowCount: rowCount)
+        self.fetchWorkbookGroupSearchResults(rowCount: rowCount)
     }
     
     func fetchWorkbookSearchResults(rowCount: Int) {

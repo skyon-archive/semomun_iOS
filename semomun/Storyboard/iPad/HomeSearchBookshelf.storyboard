@@ -1130,13 +1130,13 @@ Label</string>
                                 <color key="backgroundColor" name="lightGrayBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="32" minimumInteritemSpacing="20" id="sH5-Ah-8sn">
                                     <size key="itemSize" width="155" height="253"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="28" minY="10" maxX="28" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="28" minY="20" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="0uK-RQ-jrh" customClass="SearchResultCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="28" y="10" width="155" height="253"/>
+                                        <rect key="frame" x="28" y="70" width="155" height="253"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uBP-Dr-Ngk">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="253"/>
@@ -1176,6 +1176,25 @@ Label</string>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SearchResultHeaderView" id="erc-L4-r3r" customClass="SearchResultHeaderView" customModule="semomun" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문제집" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gre-u8-fNn">
+                                            <rect key="frame" x="29" y="29" width="47" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="gre-u8-fNn" firstAttribute="leading" secondItem="erc-L4-r3r" secondAttribute="leading" constant="29" id="I47-50-BqY"/>
+                                        <constraint firstAttribute="bottom" secondItem="gre-u8-fNn" secondAttribute="bottom" id="d4M-vY-irw"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="headerText" destination="gre-u8-fNn" id="jjx-Rm-kTR"/>
+                                    </connections>
+                                </collectionReusableView>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IyP-F8-VS0"/>

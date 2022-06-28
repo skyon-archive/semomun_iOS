@@ -61,6 +61,9 @@ final class SearchResultVC: UIViewController, StoryboardController {
         let height = (width/4)*5 + textHeightTerm + textHeight
         return CGSize(width: width, height: height)
     }()
+    private var practiceTestSectionExist: Bool {
+        return self.viewModel?.workbookGroupSearchResults.isEmpty == false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,17 +156,56 @@ extension SearchResultVC {
 
 // MARK: - CollectionView
 extension SearchResultVC: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.practiceTestSectionExist ? 2 : 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.workbookSearchResults.count ?? 0
+        if self.practiceTestSectionExist {
+            if section == 0 {
+                return self.viewModel?.workbookGroupSearchResults.count ?? 0
+            } else {
+                return self.viewModel?.workbookSearchResults.count ?? 0
+            }
+        } else {
+            return self.viewModel?.workbookSearchResults.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return UICollectionViewCell() }
-        guard let preview = self.viewModel?.workbookSearchResults[indexPath.item] else { return cell }
-        cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
-        cell.configure(with: preview)
+        
+        if self.practiceTestSectionExist && indexPath.section == 0 { // 모의고사 셀
+            
+        } else { // 문제집 셀
+            guard let preview = self.viewModel?.workbookSearchResults[indexPath.item] else { return cell }
+            cell.configureNetworkUsecase(to: self.viewModel?.networkUsecase)
+            cell.configure(with: preview)
+        }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return .init()
+        }
+        
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultHeaderView.identifier, for: indexPath) as? SearchResultHeaderView else {
+            return .init()
+        }
+        
+        if self.practiceTestSectionExist {
+            if indexPath.section == 0 {
+                headerView.updateLabel(to: "실전 모의고사")
+            } else {
+                headerView.updateLabel(to: "문제집")
+            }
+        } else {
+            headerView.updateLabel(to: "문제집")
+        }
+        
+        return headerView
     }
 }
 
