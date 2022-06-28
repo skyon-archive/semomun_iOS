@@ -460,7 +460,6 @@ extension HomeVC: UICollectionViewDelegate {
             guard let wid = self.viewModel?.recentPurchased[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         case self.workbookGroups:
-            // TODO: Backend 와 소통 이후 로직작성 필요
             guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
             self.showPracticeTestVC(info: info)
         default:
