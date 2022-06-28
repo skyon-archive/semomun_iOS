@@ -8,8 +8,8 @@
 import Foundation
 
 struct WorkbookSearchParam: Encodable {
-    let page: Int
-    let limit: Int
+    let page: Int?
+    let limit: Int?
     let tids: [Int]?
-    let keyword: String
+    let keyword: String?
 }
