@@ -76,10 +76,6 @@ final class StudyVC: UIViewController {
         self.configureObservation()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.subviews.forEach { $0.removeFromSuperview() }
@@ -170,10 +166,10 @@ extension StudyVC {
     }
     
     private func configureManager() {
-        if self.sectionManager != nil {
-            self.sectionManager?.configureDelegate(to: self)
-        } else {
-            self.practiceTestManager?.configureDelegate(to: self)
+        guard let mode = self.mode else { return }
+        switch mode {
+        case .default: self.sectionManager?.configureDelegate(to: self)
+        case .practiceTest: self.practiceTestManager?.configureDelegate(to: self)
         }
     }
     
