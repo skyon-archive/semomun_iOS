@@ -66,7 +66,6 @@ protocol UsernameCheckable {
 }
 protocol PhonenumVerifiable {
     func requestVerification(of phoneNumber: String, completion: @escaping (NetworkStatus) -> ())
-
     func checkValidity(phoneNumber: String, code: String, completion: @escaping (NetworkStatus, Bool?) -> Void)
 }
 // MARK: - UserAccessable
