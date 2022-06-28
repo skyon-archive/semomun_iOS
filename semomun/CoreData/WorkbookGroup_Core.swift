@@ -48,7 +48,7 @@ public class WorkbookGroup_Core: NSManagedObject {
     
     func setValues(workbookGroup: WorkbookGroupOfDB, purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
         self.setValue(Int64(workbookGroup.wgid), forKey: Attribute.wgid.rawValue)
-        self.setValue(Int64(workbookGroup.productID), forKey: Attribute.productID.rawValue)
+        self.setValue(Int64(workbookGroup.productID ?? -1), forKey: Attribute.productID.rawValue)
         self.setValue(workbookGroup.type, forKey: Attribute.type.rawValue)
         self.setValue(workbookGroup.title, forKey: Attribute.title.rawValue)
         self.setValue(workbookGroup.detail, forKey: Attribute.detail.rawValue)

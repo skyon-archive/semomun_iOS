@@ -191,6 +191,7 @@ extension CoreUsecase {
                     guard let preview_core = (previews.first { $0.wid == Int64(info.wid) }) else {
                         print("CoreData 상에 없는 Workbook")
                         taskGroup.leave()
+                        completion(false)
                         return
                     }
                     

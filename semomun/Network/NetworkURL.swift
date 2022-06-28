@@ -109,5 +109,5 @@ enum NetworkURL {
     
     static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-    static var workbookGroupDirectory: (Int) -> String = { workbookGroups + "\($0)" }
+    static var workbookGroupDirectory: (Int) -> String = { workbookGroups + "/\($0)" }
 }

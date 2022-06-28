@@ -527,7 +527,6 @@ extension StudyVC {
     private func bindTestInfo() {
         self.practiceTestManager?.$showTestInfo
             .receive(on: DispatchQueue.main)
-            .dropFirst()
             .sink(receiveValue: { [weak self] testInfo in
                 guard let testInfo = testInfo else { return }
                 self?.showTestInfoView(testInfo: testInfo)
@@ -538,7 +537,6 @@ extension StudyVC {
     private func bindWarning() {
         self.practiceTestManager?.$warning
             .receive(on: DispatchQueue.main)
-            .dropFirst()
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
                 self?.showAlertWithOK(title: warning.title, text: warning.text)
