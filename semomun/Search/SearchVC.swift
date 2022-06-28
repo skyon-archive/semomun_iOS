@@ -13,6 +13,7 @@ protocol SearchControlable: AnyObject {
     func changeToSearchFavoriteTagsVC()
     func changeToSearchTagsFromTextVC()
     func showWorkbookDetail(wid: Int)
+    func showWorkbookGroupDetail(dtoInfo: WorkbookGroupPreviewOfDB) 
 }
 
 class SearchVC: UIViewController {
@@ -226,6 +227,22 @@ extension SearchVC {
         workbookDetailVC.configureIsCoreData(to: true)
         self.navigationController?.pushViewController(workbookDetailVC, animated: true)
     }
+    
+    private func showWorkbookGroupDetailVC(dtoInfo: WorkbookGroupPreviewOfDB) {
+        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
+        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
+        let viewModel = WorkbookGroupDetailVM(dtoInfo: dtoInfo, networkUsecase: NetworkUsecase(network: Network()))
+        workbookGroupDetailVC.configureViewModel(to: viewModel)
+        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
+    }
+    
+    private func showWorkbookGroupDetailVC(coreInfo: WorkbookGroup_Core) {
+        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
+        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
+        let viewModel = WorkbookGroupDetailVM(coreInfo: coreInfo, networkUsecase: NetworkUsecase(network: Network()))
+        workbookGroupDetailVC.configureViewModel(to: viewModel)
+        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
+    }
 }
 
 // MARK: - ConfigureUI {
@@ -263,6 +280,14 @@ extension SearchVC: SearchControlable {
             self.showWorkbookDetailVC(book: book)
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
+        }
+    }
+    
+    func showWorkbookGroupDetail(dtoInfo: WorkbookGroupPreviewOfDB) {
+        if let coreInfo = CoreUsecase.fetchWorkbookGroup(wgid: dtoInfo.wgid) {
+            self.showWorkbookGroupDetailVC(coreInfo: coreInfo)
+        } else {
+            self.showWorkbookGroupDetailVC(dtoInfo: dtoInfo)
         }
     }
 }
