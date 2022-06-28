@@ -7,8 +7,11 @@
 
 import Foundation
 import Combine
+import UserNotifications
 
 final class PracticeTestManager {
+    /* public */
+    static let practiceTest5min = "practiceTest5min"
     @Published private(set) var sectionTitle: String = "title"
     @Published private(set) var recentTime: Int64 = 0
     @Published private(set) var currentPage: PageData?
@@ -17,11 +20,13 @@ final class PracticeTestManager {
     private(set) var problems: [Problem_Core] = []
     private(set) var section: PracticeTestSection_Core
     private(set) var currentIndex: Int = 0
+    /* private */
     private weak var delegate: LayoutDelegate?
     private let workbook: Preview_Core
     private var timer: Timer!
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
+    private let userNotificationCenter = UNUserNotificationCenter.current()
     
     /// WorkbookGroupDetailVC 에서 VM 생성
     init(section: PracticeTestSection_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -34,6 +39,7 @@ final class PracticeTestManager {
         self.delegate = delegate
         self.checkStartTestable()
         self.configureObservation()
+        self.requestNotificationAuthorization()
     }
 }
 
@@ -49,6 +55,7 @@ extension PracticeTestManager {
         self.updateRecentTime()
         self.startTimer()
         // tost 알림 설정 로직 필요 (5분전)
+        self.setNotificationAlert()
     }
     
     func changePage(at index: Int) {
@@ -66,7 +73,18 @@ extension PracticeTestManager {
     }
 }
 
+// MARK: Privagte
 extension PracticeTestManager {
+    private func requestNotificationAuthorization() {
+        let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
+        
+        self.userNotificationCenter.requestAuthorization(options: authOptions) { success, error in
+            if let error = error {
+                print("Error: \(error)")
+            }
+        }
+    }
+    
     private func checkStartTestable() {
         if self.section.startedDate == nil { // 응시 전 상태인 경우
             guard let title = self.workbook.title,
@@ -134,6 +152,28 @@ extension PracticeTestManager {
         
         self.isRunning = false
         self.timer.invalidate()
+        self.removeNotification()
         // UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
+    }
+    
+    private func setNotificationAlert() {
+        // MARK: timeLimit 값을 section 에서 가져오는 로직이 필요
+        // MARK: title, body 내용 확인 필요
+        let timeLimit = 6000
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "title"
+        notificationContent.body = "body"
+        notificationContent.sound = UNNotificationSound.default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(timeLimit - 300), repeats: false)
+        let request = UNNotificationRequest(identifier: PracticeTestManager.practiceTest5min, content: notificationContent, trigger: trigger)
+        self.userNotificationCenter.add(request) { error in
+            if let error = error {
+                print("Notification Error: \(error)")
+            }
+        }
+    }
+    
+    private func removeNotification() {
+        self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PracticeTestManager.practiceTest5min])
     }
 }
