@@ -198,23 +198,21 @@ extension NetworkUsecase: WorkbookGroupSearchable {
     }
     
     func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void) {
-        // MARK: network 로직 구현 필요
-        let testFile = "TestWorkbookGroupOfDBJSON"
-        if let path = Bundle.main.path(forResource: testFile, ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                guard let workbookGroupOfDB: WorkbookGroupOfDB = self.decodeRequested(WorkbookGroupOfDB.self, from: data) else {
-                    completion(.FAIL, nil)
+        self.network.request(url: NetworkURL.workbookGroupDirectory(wgid), method: .get, tokenRequired: false) { result in
+            switch result.statusCode {
+            case 200:
+                guard let data = result.data,
+                      let workbookGroup: WorkbookGroupOfDB = self.decodeRequested(WorkbookGroupOfDB.self, from: data) else {
+                    completion(.DECODEERROR, nil)
                     return
                 }
-                completion(.SUCCESS, workbookGroupOfDB)
-            } catch {
+                completion(.SUCCESS, workbookGroup)
+            default:
                 completion(.FAIL, nil)
             }
         }
     }
 }
-
 
 // MARK: - Downloadable
 extension NetworkUsecase: SectionDownloadable {
