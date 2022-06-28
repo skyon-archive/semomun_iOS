@@ -198,7 +198,7 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getPreviews(tags: self.tags, text: "", page: 1, limit: 10) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: 10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
@@ -248,11 +248,7 @@ final class HomeVM {
         self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: nil) { [weak self] status, searchWorkbookGroups in
             switch status {
             case .SUCCESS:
-                guard let workbookGroups = searchWorkbookGroups?.workbookGroups else {
-                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                self?.workbookGroups = workbookGroups
+                self?.workbookGroups = searchWorkbookGroups
             default:
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }

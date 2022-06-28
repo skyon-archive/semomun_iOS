@@ -9,14 +9,20 @@ import Foundation
 import Combine
 
 final class SearchResultVM {
-    var isPaging: Bool = false
-    private let searchResultQueue = OperationQueue()
+    /* public */
+    var isWorkbookPaging: Bool = false
+    var isWorkbookGroupPaging: Bool = false
+    /* private */
     private(set) var networkUsecase: NetworkUsecase
-    private var pageCount: Int = 0
     private var tags: [TagOfDB] = []
     private var text: String = ""
-    private var isLastPage: Bool = false
-    @Published private(set) var searchResults: [WorkbookPreviewOfDB] = []
+    // MARK: Pagination 관려
+    private var workbookPageCount: Int = 0
+    private var workbookGroupPageCount: Int = 0
+    private var isWorkbookLastPage: Bool = false
+    private var isWorkbookGroupLastPage: Bool = false
+    @Published private(set) var workbookSearchResults: [WorkbookPreviewOfDB] = []
+    @Published private(set) var workbookGroupSearchResults: [WorkbookGroupPreviewOfDB] = []
     @Published private(set) var warning: (String, String)?
     
     init(networkUsecase: NetworkUsecase) {
@@ -26,27 +32,54 @@ final class SearchResultVM {
     func fetchSearchResults(tags: [TagOfDB], text: String, rowCount: Int) {
         self.tags = tags
         self.text = text
-        self.fetchSearchResults(rowCount: rowCount)
+        self.fetchWorkbookSearchResults(rowCount: rowCount)
     }
     
-    func fetchSearchResults(rowCount: Int) {
-        guard self.isLastPage == false,
-              self.isPaging == false else { return }
-        self.isPaging = true
-        self.pageCount += 1
+    func fetchWorkbookSearchResults(rowCount: Int) {
+        guard self.isWorkbookLastPage == false,
+              self.isWorkbookPaging == false else { return }
+        self.isWorkbookPaging = true
+        self.workbookPageCount += 1
         // limit : 12인치의 6배수, 11인치의 5배수, 미니의 4배수의 LCM : 60
-        self.networkUsecase.getPreviews(tags: self.tags, text: self.text, page: self.pageCount, limit: rowCount*10) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: self.text, page: self.workbookPageCount, limit: rowCount*10) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
-                    self?.isLastPage = true
+                    self?.isWorkbookLastPage = true
                     return
                 }
                 // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
                 if NetworkURL.forTest {
-                    self?.filteredSearchResults(with: previews)
+                    self?.filterWorkbookSearchResults(with: previews)
                 } else {
-                    self?.searchResults += previews
+                    self?.workbookSearchResults += previews
+                }
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
+    }
+    
+    func fetchWorkbookGroupSearchResults(rowCount: Int) {
+        guard self.isWorkbookGroupLastPage == false,
+              self.isWorkbookGroupPaging == false else { return }
+        self.isWorkbookGroupPaging = true
+        self.workbookGroupPageCount += 1
+        // limit : 12인치의 6배수, 11인치의 5배수, 미니의 4배수의 LCM : 60
+        self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: rowCount*10) { [weak self] status, previews in
+            switch status {
+            case .SUCCESS:
+                if previews.isEmpty {
+                    self?.isWorkbookGroupLastPage = true
+                    return
+                }
+                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
+                if NetworkURL.forTest {
+                    self?.filterWorkbookGroupSearchResults(with: previews)
+                } else {
+                    self?.workbookGroupSearchResults += previews
                 }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
@@ -57,20 +90,28 @@ final class SearchResultVM {
     }
     
     func removeAll() {
-        self.pageCount = 0
-        self.searchResults = []
-        self.isLastPage = false
-        self.isPaging = false
+        self.workbookPageCount = 0
+        self.workbookSearchResults = []
+        self.isWorkbookLastPage = false
+        self.isWorkbookPaging = false
     }
 }
 
 // MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
 extension SearchResultVM {
-    private func filteredSearchResults(with previews: [WorkbookPreviewOfDB]) {
+    private func filterWorkbookSearchResults(with previews: [WorkbookPreviewOfDB]) {
         guard let testCompany = NetworkURL.testCompany else {
-            self.searchResults += previews
+            self.workbookSearchResults += previews
             return
         }
-        self.searchResults += previews.filter( { $0.publishCompany == testCompany })
+        self.workbookSearchResults += previews.filter( { $0.publishCompany == testCompany })
+    }
+    
+    private func filterWorkbookGroupSearchResults(with previews: [WorkbookGroupPreviewOfDB]) {
+        guard NetworkURL.testCompany != nil else {
+            self.workbookGroupSearchResults += previews
+            return
+        }
+        self.workbookGroupSearchResults = []
     }
 }
