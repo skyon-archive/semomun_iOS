@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable)
+typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable)
 
 final class WorkbookGroupDetailVM {
     /* public */
@@ -77,26 +77,19 @@ extension WorkbookGroupDetailVM {
         self.showLoader = true
         
         self.networkUsecase.purchaseItem(productIDs: [purchasedWorkbook.productID]) { [weak self] status, credit in
+            guard let self = self else { return }
+            
             guard status == .SUCCESS else {
-                self?.showLoader = false
-                self?.warning = (title: "구매반영 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                self.showLoader = false
+                self.warning = (title: "구매반영 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
             
-            guard let networkUsecase = self?.networkUsecase else {
-                self?.showLoader = false
-                assertionFailure("networkUsecase 문제 발생 ㅃㅣㅇㅛㅇ")
-                return
-            }
-            
-            CoreUsecase.downloadWorkbook(wid: purchasedWorkbook.wid, networkUsecase: networkUsecase) { [weak self] success in
-                self?.showLoader = false
-                guard let self = self, success else {
-                    self?.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                
-                self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
+            // WorkbookGroup_Core 정보가 없는 경우 먼저 저장 (PracticeTestManager 로 전달이 필요하기에)
+            if CoreUsecase.fetchWorkbookGroup(wgid: self.info.wgid) == nil {
+                self.downloadWorkbookGroup()
+            } else {
+                self.downloadWorkbook()
             }
         }
     }
@@ -162,6 +155,34 @@ extension WorkbookGroupDetailVM {
             default:
                 self?.warning = (title: "잔액조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
+        }
+    }
+}
+
+// MARK: CoreData Download
+extension WorkbookGroupDetailVM {
+    private func downloadWorkbookGroup() {
+        CoreUsecase.downloadWorkbookGroup(wgid: self.info.wgid, networkUsecase: self.networkUsecase) { success in
+            guard success else {
+                self.showLoader = false
+                self.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            
+            self.downloadWorkbook()
+        }
+    }
+    
+    private func downloadWorkbook() {
+        guard let purchasedWorkbook = self.purchaseWorkbook else { return }
+        CoreUsecase.downloadWorkbook(wid: purchasedWorkbook.wid, networkUsecase: self.networkUsecase) { success in
+            self.showLoader = false
+            guard success else {
+                self.warning = (title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            
+            self.fetchPurchasedWorkbooks(wgid: self.info.wgid)
         }
     }
 }
