@@ -284,6 +284,7 @@ extension PracticeTestManager {
         let terminatedDate = Date()
         self.section.terminateTest(terminatedDate: terminatedDate)
         self.workbookGroup.updateProgress()
+        self.workbook.setTerminatedSection()
         CoreDataManager.saveCoreData()
     }
     

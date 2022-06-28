@@ -158,6 +158,14 @@ public class Preview_Core: NSManagedObject{
         self.setValue(true, forKey: Attribute.downloaded.rawValue)
     }
     
+    func setTerminatedSection() {
+        guard self.terminated == false else {
+            assertionFailure("Error: 중복 확인 필요")
+            return
+        }
+        self.setValue(true, forKey: Attribute.terminated.rawValue)
+    }
+    
     func updateDate(info: BookshelfInfo, networkUsecase: UserLogSendable) {
         if self.purchasedDate == nil {
             self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
