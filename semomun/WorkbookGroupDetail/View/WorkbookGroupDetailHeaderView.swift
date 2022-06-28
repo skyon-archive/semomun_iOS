@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WorkbookGroupDetailHeaderView: UICollectionReusableView {
+final class WorkbookGroupDetailHeaderView: UICollectionReusableView {
     static let identifier = "WorkbookGroupDetailHeaderView"
     
     @IBOutlet weak var headerText: UILabel!
