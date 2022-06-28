@@ -1154,7 +1154,7 @@
 				87F5826A279E84A700A2BD15 /* Home */,
 				8745855C279FB84700E331F1 /* Search */,
 				259C000E27914171005D432B /* WorkbookDetail */,
-				87231B86282508C0001CA2F7 /* WorkbookGroup */,
+				87231B86282508C0001CA2F7 /* WorkbookGroupDetail */,
 				8745855D279FB85B00E331F1 /* Purchase */,
 				25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */,
 				25D1BDDC279D3A3300807196 /* Profile */,
@@ -1175,7 +1175,7 @@
 			path = semomun;
 			sourceTree = "<group>";
 		};
-		87231B86282508C0001CA2F7 /* WorkbookGroup */ = {
+		87231B86282508C0001CA2F7 /* WorkbookGroupDetail */ = {
 			isa = PBXGroup;
 			children = (
 				87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */,
@@ -1184,7 +1184,7 @@
 				87231B8928250D21001CA2F7 /* View */,
 				25841627285B235D003C6A21 /* WorkbookGroupResult */,
 			);
-			path = WorkbookGroup;
+			path = WorkbookGroupDetail;
 			sourceTree = "<group>";
 		};
 		87231B8928250D21001CA2F7 /* View */ = {
