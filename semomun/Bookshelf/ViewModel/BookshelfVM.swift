@@ -83,7 +83,7 @@ extension BookshelfVM {
             switch status {
             case .SUCCESS:
                 if infos.isEmpty == false {
-//                    self?.syncWorkbooks(infos: infos)
+                    self?.syncWorkbookGroups(infos: infos)
                     self?.loading = false
                 } else {
                     self?.loading = false
@@ -157,8 +157,58 @@ extension BookshelfVM {
         }
     }
     
+    private func syncWorkbookGroups(infos userPurchases: [PurchasedWorkbookGroupInfoOfDB]) {
+        print("sync workbookGroups")
+        let localWorkbookGroupWgids = self.workbookGroups.map(\.wgid)
+        // Local 내에 없는 book 정보들의 수를 센다
+        let fetchCount: Int = userPurchases.filter { localWorkbookGroupWgids.contains(Int64($0.wgid)) == false }.count
+        var currentCount: Int = 0
+        print("---------- sync workbookGroups ----------")
+        userPurchases.forEach { info in
+            // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
+            // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
+            if localWorkbookGroupWgids.contains(Int64(info.wgid)) {
+                let targetWorkbookGroup = self.workbookGroups.first { $0.wgid == Int64(info.wgid) }
+                targetWorkbookGroup?.updateInfos(purchasedInfo: info)
+                print("local workbookGroup(\(info.wgid)) update complete")
+            }
+            // Local 내에 없는 경우 필요정보를 받아와 저장한다
+            else {
+                self.networkUsecse.searchWorkbookGroup(wgid: info.wgid) { [weak self] status, workbookGroup in
+                    guard status == .SUCCESS, let workbookGroup = workbookGroup else {
+                        print("fetch workbookGroup(\(info.wgid)) error")
+                        CoreDataManager.saveCoreData()
+                        self?.loading = false
+                        self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
+                        return
+                    }
+                    
+                    let workbookGroup_Core = WorkbookGroup_Core(context: CoreDataManager.shared.context)
+                    workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: info)
+                    // workbookGroup 내 workbook 들은 아래 syncWorkbooks 를 통해 save 된다
+                    
+                    workbookGroup_Core.fetchBookcover(uuid: workbookGroup.groupCover, networkUsecase: self?.networkUsecse) { [weak self] in
+                        print("save workbookGroup(\(info.wgid)) complete")
+                        currentCount += 1
+                        
+                        if currentCount == fetchCount {
+                            CoreDataManager.saveCoreData()
+                            self?.loading = false
+                        }
+                    }
+                }
+            }
+        }
+        
+        // fetch 할 정보가 없을 경우 loading 종료
+        if fetchCount == 0 {
+            CoreDataManager.saveCoreData()
+            self.loading = false
+        }
+    }
+    
     private func syncWorkbooks(infos: [BookshelfInfoOfDB]) {
-        print("sync Bookshelf")
+        print("sync workbooks")
         let localBookWids = self.workbooks.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
         let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
         // Local 내에 없는 book 정보들의 수를 센다
