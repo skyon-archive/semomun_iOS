@@ -23,16 +23,16 @@ struct WorkbookOfDB: Decodable {
     let createdDate: Date //생성일자
     let updatedDate: Date //반영일자
     let sections: [SectionHeaderOfDB]
-    let price: Int = 0
-    let tags: [TagOfDB] = []
-    let sales: Int = 0
+    let price: Int
+    let tags: [TagOfDB]
+    let sales: Int
     /* 실전 모의고사용 추가 property들 */
-    let cutoff: [Cutoff]? = []//등급계산을 위한 데이터
+    let cutoff: [Cutoff]? //등급계산을 위한 데이터
     let subject: String //과목 이름
     let area: String //영역 이름
     let standardDeviation: Int? //표준 편차
     let averageScore: Int? //평균 점수
-    let timelimit: Int? = 360//제한시간
+    let timelimit: Int? //제한시간
     
     enum CodingKeys: String, CodingKey {
         case productID = "id"

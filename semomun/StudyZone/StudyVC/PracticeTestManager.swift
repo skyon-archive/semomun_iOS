@@ -55,7 +55,7 @@ final class PracticeTestManager {
 extension PracticeTestManager {
     /// 해당 응시에서 단 한번만 실행되는 로직
     func startTest() {
-        guard self.section.startedDate != nil else {
+        guard self.section.startedDate == nil else {
             self.warning = (title: "응시 불가", text: "최신버전으로 업데이트 해주세요")
             return
         }
