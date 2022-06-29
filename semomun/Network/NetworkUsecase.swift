@@ -417,17 +417,16 @@ extension NetworkUsecase: UserPurchaseable {
 }
 extension NetworkUsecase: UserWorkbookGroupsFetchable {
     func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void) {
-        // MARK: network 로직 구현 필요
-        let testFile = "TestUserWorkbookGroups"
-        if let path = Bundle.main.path(forResource: testFile, ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                guard let workbookGroupInfos: [PurchasedWorkbookGroupInfoOfDB] = self.decodeRequested([PurchasedWorkbookGroupInfoOfDB].self, from: data) else {
-                    completion(.FAIL, [])
+        self.network.request(url: NetworkURL.purchasedWorkbookGroups, method: .get, tokenRequired: true) { result in
+            switch result.statusCode {
+            case 200:
+                guard let data = result.data,
+                      let purchasedWorkbookGroupsInfos = self.decodeRequested([PurchasedWorkbookGroupInfoOfDB].self, from: data) else {
+                    completion(.DECODEERROR, [])
                     return
                 }
-                completion(.SUCCESS, workbookGroupInfos)
-            } catch {
+                completion(.SUCCESS, purchasedWorkbookGroupsInfos)
+            default:
                 completion(.FAIL, [])
             }
         }
