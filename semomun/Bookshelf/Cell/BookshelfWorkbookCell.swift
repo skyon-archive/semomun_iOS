@@ -7,8 +7,8 @@
 
 import UIKit
 
-class BookshelfCell: UICollectionViewCell {
-    static let identifier = "BookshelfCell"
+final class BookshelfWorkbookCell: UICollectionViewCell {
+    static let identifier = "BookshelfWorkbookCell"
     @IBOutlet weak var bookcoverFrameView: UIView!
     @IBOutlet weak var bookcover: UIImageView!
     @IBOutlet weak var title: UILabel!

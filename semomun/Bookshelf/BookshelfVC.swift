@@ -312,7 +312,7 @@ extension BookshelfVC: UICollectionViewDataSource {
     }
     /// cell.index = section*columnCount + row
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWorkbookCell.identifier, for: indexPath) as? BookshelfWorkbookCell else { return UICollectionViewCell() }
         let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
         guard let book = self.viewModel?.books[bookIndex] else { return cell }
         
