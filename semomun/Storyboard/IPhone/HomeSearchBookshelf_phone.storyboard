@@ -911,10 +911,10 @@ Title</string>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bookCountLabel" destination="U60-NC-WM0" id="dAJ-By-XVR"/>
-                        <outlet property="books" destination="vlE-9x-Qes" id="zI3-bv-3Ke"/>
                         <outlet property="navigationTitleView" destination="sno-dK-tsw" id="kwh-df-G8s"/>
-                        <outlet property="refreshBT" destination="3Sz-9l-kHr" id="bIM-Jf-eGG"/>
-                        <outlet property="sortSelector" destination="cT2-XL-wEr" id="V4K-b4-riu"/>
+                        <outlet property="workbooks" destination="vlE-9x-Qes" id="zI3-bv-3Ke"/>
+                        <outlet property="workbooksRefreshBT" destination="3Sz-9l-kHr" id="bIM-Jf-eGG"/>
+                        <outlet property="workbooksSortSelector" destination="cT2-XL-wEr" id="V4K-b4-riu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYv-TG-Fwg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

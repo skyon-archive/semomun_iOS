@@ -18,10 +18,15 @@ class BookshelfVC: UIViewController {
     }
     
     @IBOutlet weak var navigationTitleView: UIView!
-    @IBOutlet weak var bookCountLabel: UILabel!
-    @IBOutlet weak var refreshBT: UIButton!
-    @IBOutlet weak var sortSelector: UIButton!
-    @IBOutlet weak var books: UICollectionView!
+    // workbookGroups
+    @IBOutlet weak var workbookGroupsRefreshBT: UIButton!
+    @IBOutlet weak var workbookGroupsSortSelector: UIButton!
+    @IBOutlet weak var workbookGroups: UICollectionView!
+    @IBOutlet weak var workbookGroupsHeight: NSLayoutConstraint! // 회전, 디바이스별 크기에 따른 설정 필요
+    // workbooks
+    @IBOutlet weak var workbooksRefreshBT: UIButton!
+    @IBOutlet weak var workbooksSortSelector: UIButton!
+    @IBOutlet weak var workbooks: UICollectionView!
     
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
@@ -101,13 +106,17 @@ class BookshelfVC: UIViewController {
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        guard self.books != nil else { return }
+        guard self.workbooks != nil else { return }
         coordinator.animate(alongsideTransition: { _ in
-            self.books.reloadData()
+            self.workbooks.reloadData()
         })
     }
     
-    @IBAction func refresh(_ sender: Any) {
+    @IBAction func workbookGroupsRefresh(_ sender: Any) {
+        self.spinAnimation(refreshButton: self.workbookGroupsRefreshBT)
+    }
+    
+    @IBAction func workbooksRefresh(_ sender: Any) {
         self.logined = UserDefaultsManager.isLogined
         guard NetworkStatusManager.isConnectedToInternet() else {
             self.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하시기 바랍니다.")
@@ -116,19 +125,19 @@ class BookshelfVC: UIViewController {
         if self.logined {
             self.syncBookshelf()
         } else {
-            self.spinAnimation()
+            self.spinAnimation(refreshButton: self.workbooksRefreshBT)
             // login 없는 상태, 표시할 팝업이 있다면?
         }
     }
     
-    private func spinAnimation() {
+    private func spinAnimation(refreshButton: UIButton) {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1) {
-            self.refreshBT.transform = CGAffineTransform(rotationAngle: ((180.0 * .pi) / 180.0) * -1)
-            self.refreshBT.transform = CGAffineTransform(rotationAngle: ((0.0 * .pi) / 360.0) * -1)
+            refreshButton.transform = CGAffineTransform(rotationAngle: ((180.0 * .pi) / 180.0) * -1)
+            refreshButton.transform = CGAffineTransform(rotationAngle: ((0.0 * .pi) / 360.0) * -1)
             self.view.layoutIfNeeded()
         } completion: { _ in
-            self.refreshBT.transform = CGAffineTransform.identity
+            refreshButton.transform = CGAffineTransform.identity
         }
     }
 }
@@ -137,10 +146,6 @@ extension BookshelfVC {
     private func configureUI() {
         self.view.layoutIfNeeded()
         self.setShadow(with: navigationTitleView)
-        self.sortSelector.layer.borderWidth = 1
-        self.sortSelector.layer.borderColor = UIColor.lightGray.cgColor
-        self.sortSelector.clipsToBounds = true
-        self.sortSelector.layer.cornerRadius = 3
         self.configureMenu()
     }
     
@@ -163,14 +168,14 @@ extension BookshelfVC {
         if let order = UserDefaultsManager.bookshelfOrder {
             self.order = SortOrder(rawValue: order) ?? .purchase
         }
-        self.sortSelector.setTitle(self.order.rawValue, for: .normal)
-        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
-        self.sortSelector.showsMenuAsPrimaryAction = true
+        self.workbooksSortSelector.setTitle(self.order.rawValue, for: .normal)
+        self.workbooksSortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.workbooksSortSelector.showsMenuAsPrimaryAction = true
     }
     
     private func configureCollectionView() {
-        self.books.dataSource = self
-        self.books.delegate = self
+        self.workbooks.dataSource = self
+        self.workbooks.delegate = self
     }
     
     private func checkSyncBookshelf() {
@@ -219,7 +224,7 @@ extension BookshelfVC {
 extension BookshelfVC {
     private func changeSort(to order: SortOrder) {
         self.order = order
-        self.sortSelector.setTitle(order.rawValue, for: .normal)
+        self.workbooksSortSelector.setTitle(order.rawValue, for: .normal)
         UserDefaultsManager.bookshelfOrder = order.rawValue
         
         if self.logined {
@@ -234,7 +239,7 @@ extension BookshelfVC {
     }
     
     private func syncBookshelf() {
-        self.spinAnimation()
+        self.spinAnimation(refreshButton: self.workbooksRefreshBT)
         self.viewModel?.fetchBooksFromNetwork()
     }
 }
@@ -252,8 +257,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] books in
-                self?.bookCountLabel.text = "\(books.count)권"
-                self?.books.reloadData()
+                self?.workbooks.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -376,7 +380,7 @@ extension BookshelfVC {
             
             return CGSize(width: width, height: height)
         } else {
-            return CGSize(width: self.books.frame.width, height: 182)
+            return CGSize(width: self.workbooks.frame.width, height: 182)
         }
     }
 }
