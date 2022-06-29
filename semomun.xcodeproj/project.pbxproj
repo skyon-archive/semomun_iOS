@@ -276,6 +276,9 @@
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
 		87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941227BA6D93008F6105 /* LoadingView.swift */; };
 		87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */; };
+		87DE9BE0286C3C2B009DBB86 /* BookshelfHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */; };
+		87DE9BE3286C3C8A009DBB86 /* BookshelfOrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE9BE2286C3C8A009DBB86 /* BookshelfOrderController.swift */; };
+		87DE9BE6286C3D1A009DBB86 /* BookshelfSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE9BE5286C3D1A009DBB86 /* BookshelfSortOrder.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -580,6 +583,9 @@
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
 		87DC941227BA6D93008F6105 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningOfflineStatusView.swift; sourceTree = "<group>"; };
+		87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHeaderView.swift; sourceTree = "<group>"; };
+		87DE9BE2286C3C8A009DBB86 /* BookshelfOrderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfOrderController.swift; sourceTree = "<group>"; };
+		87DE9BE5286C3D1A009DBB86 /* BookshelfSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfSortOrder.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -1033,7 +1039,9 @@
 			isa = PBXGroup;
 			children = (
 				8716E934279A5F7300B33A5E /* BookshelfVC.swift */,
-				87BC26A127A2975800F3418D /* ViewModel */,
+				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
+				87DE9BE5286C3D1A009DBB86 /* BookshelfSortOrder.swift */,
+				87DE9BE1286C3C75009DBB86 /* Protocol */,
 				87AC221C27A39FE900B48F9D /* Cell */,
 			);
 			path = Bookshelf;
@@ -1419,6 +1427,7 @@
 				87AC221D27A39FF900B48F9D /* BookshelfWorkbookCell.swift */,
 				8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */,
 				87CB8B42286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift */,
+				87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1437,14 +1446,6 @@
 				87B6F0BE2782C40100E6FF8A /* SemomunImage.swift */,
 			);
 			path = SemomunImage;
-			sourceTree = "<group>";
-		};
-		87BC26A127A2975800F3418D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		87C85E28276F65A0001C9C4A /* Global */ = {
@@ -1591,6 +1592,14 @@
 				87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */,
 			);
 			path = SelectProblems;
+			sourceTree = "<group>";
+		};
+		87DE9BE1286C3C75009DBB86 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				87DE9BE2286C3C8A009DBB86 /* BookshelfOrderController.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		87E151612787DBE20080D39A /* ViewController */ = {
@@ -1845,6 +1854,7 @@
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
+				87DE9BE0286C3C2B009DBB86 /* BookshelfHeaderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
@@ -1902,6 +1912,7 @@
 				87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */,
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
 				250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */,
+				87DE9BE3286C3C8A009DBB86 /* BookshelfOrderController.swift in Sources */,
 				8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */,
 				8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */,
 				253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */,
@@ -2066,6 +2077,7 @@
 				87BC26A027A2387300F3418D /* SearchResultVM.swift in Sources */,
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */,
+				87DE9BE6286C3D1A009DBB86 /* BookshelfSortOrder.swift in Sources */,
 				259E994127AD1093000012AF /* CALayer.swift in Sources */,
 				879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,

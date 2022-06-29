@@ -11,11 +11,6 @@ import Combine
 class BookshelfVC: UIViewController {
     static let identifier = "BookshelfVC"
     static let storyboardName = "HomeSearchBookshelf"
-    enum SortOrder: String {
-        case purchase = "최근 구매일 순"
-        case recent = "최근 읽은 순"
-        case alphabet = "제목 가나다 순"
-    }
     
     @IBOutlet weak var navigationTitleView: UIView!
     // workbookGroups
@@ -23,12 +18,12 @@ class BookshelfVC: UIViewController {
     @IBOutlet weak var workbookGroupsSortSelector: UIButton!
     @IBOutlet weak var workbookGroups: UICollectionView!
     @IBOutlet weak var workbookGroupsHeight: NSLayoutConstraint! // 회전, 디바이스별 크기에 따른 설정 필요
-    private var workbookGroupsOrder: SortOrder = .purchase
+    private var workbookGroupsOrder: BookshelfSortOrder = .purchase
     // workbooks
     @IBOutlet weak var workbooksRefreshBT: UIButton!
     @IBOutlet weak var workbooksSortSelector: UIButton!
     @IBOutlet weak var workbooks: UICollectionView!
-    private var workbooksOrder: SortOrder = .purchase
+    private var workbooksOrder: BookshelfSortOrder = .purchase
     
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
@@ -145,17 +140,6 @@ class BookshelfVC: UIViewController {
             // login 없는 상태, 표시할 팝업이 있다면?
         }
     }
-    
-    private func spinAnimation(refreshButton: UIButton) {
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 1) {
-            refreshButton.transform = CGAffineTransform(rotationAngle: ((180.0 * .pi) / 180.0) * -1)
-            refreshButton.transform = CGAffineTransform(rotationAngle: ((0.0 * .pi) / 360.0) * -1)
-            self.view.layoutIfNeeded()
-        } completion: { _ in
-            refreshButton.transform = CGAffineTransform.identity
-        }
-    }
 }
 
 extension BookshelfVC {
@@ -173,17 +157,17 @@ extension BookshelfVC {
     }
     
     private func configureWorkbookGroupsMenu() {
-        let purchaseAction = UIAction(title: SortOrder.purchase.rawValue, image: nil) { [weak self] _ in
+        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbookGroupsSort(to: .purchase)
         }
-        let recentAction = UIAction(title: SortOrder.recent.rawValue, image: nil) { [weak self] _ in
+        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbookGroupsSort(to: .recent)
         }
-        let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
+        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbookGroupsSort(to: .alphabet)
         }
         if let order = UserDefaultsManager.workbookGroupsOrder {
-            self.workbookGroupsOrder = SortOrder(rawValue: order) ?? .purchase
+            self.workbookGroupsOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
         }
         self.workbookGroupsSortSelector.setTitle(self.workbookGroupsOrder.rawValue, for: .normal)
         self.workbookGroupsSortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
@@ -191,17 +175,17 @@ extension BookshelfVC {
     }
     
     private func configureWorkbooksMenu() {
-        let purchaseAction = UIAction(title: SortOrder.purchase.rawValue, image: nil) { [weak self] _ in
+        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbooksSort(to: .purchase)
         }
-        let recentAction = UIAction(title: SortOrder.recent.rawValue, image: nil) { [weak self] _ in
+        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbooksSort(to: .recent)
         }
-        let alphabetAction = UIAction(title: SortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
+        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
             self?.changeWorkbooksSort(to: .alphabet)
         }
         if let order = UserDefaultsManager.bookshelfOrder {
-            self.workbooksOrder = SortOrder(rawValue: order) ?? .purchase
+            self.workbooksOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
         }
         self.workbooksSortSelector.setTitle(self.workbooksOrder.rawValue, for: .normal)
         self.workbooksSortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
@@ -261,47 +245,8 @@ extension BookshelfVC {
 
 // MARK: Refresh Bookshelf
 extension BookshelfVC {
-    private func changeWorkbookGroupsSort(to order: SortOrder) {
-        self.workbookGroupsOrder = order
-        self.workbookGroupsSortSelector.setTitle(order.rawValue, for: .normal)
-        UserDefaultsManager.workbookGroupsOrder = order.rawValue
-        
-        if self.logined {
-            self.reloadWorkbookGroups()
-        } else {
-            // login 없는 상태, 표시할 팝업이 있다면?
-        }
-    }
     
-    private func changeWorkbooksSort(to order: SortOrder) {
-        self.workbooksOrder = order
-        self.workbooksSortSelector.setTitle(order.rawValue, for: .normal)
-        UserDefaultsManager.bookshelfOrder = order.rawValue
-        
-        if self.logined {
-            self.reloadWorkbooks()
-        } else {
-            // login 없는 상태, 표시할 팝업이 있다면?
-        }
-    }
     
-    private func reloadWorkbookGroups() {
-        self.viewModel?.reloadWorkbookGroups(order: self.workbooksOrder)
-    }
-    
-    private func reloadWorkbooks() {
-        self.viewModel?.reloadWorkbooks(order: self.workbooksOrder)
-    }
-    
-    private func syncWorkbookGroups() {
-        self.spinAnimation(refreshButton: self.workbookGroupsRefreshBT)
-        self.viewModel?.fetchWorkbookGroupsFromNetwork()
-    }
-    
-    private func syncWorkbooks() {
-        self.spinAnimation(refreshButton: self.workbooksRefreshBT)
-        self.viewModel?.fetchWorkbooksFromNetwork()
-    }
 }
 
 // MARK: binding
@@ -484,5 +429,27 @@ extension BookshelfVC {
         } else {
             return CGSize(width: self.workbooks.frame.width, height: 182)
         }
+    }
+}
+
+extension BookshelfVC: BookshelfOrderController {
+    func reloadWorkbookGroups() {
+        self.viewModel?.reloadWorkbookGroups(order: self.workbooksOrder)
+    }
+    
+    func syncWorkbookGroups() {
+        self.viewModel?.fetchWorkbookGroupsFromNetwork()
+    }
+    
+    func reloadWorkbooks() {
+        self.viewModel?.reloadWorkbooks(order: self.workbooksOrder)
+    }
+    
+    func syncWorkbooks() {
+        self.viewModel?.fetchWorkbooksFromNetwork()
+    }
+    
+    func showWarning(title: String, text: String) {
+        self.showAlertWithOK(title: title, text: text)
     }
 }
