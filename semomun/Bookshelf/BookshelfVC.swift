@@ -235,12 +235,12 @@ extension BookshelfVC {
     }
     
     private func reloadBookshelf() {
-        self.viewModel?.reloadBookshelf(order: self.order)
+        self.viewModel?.reloadWorkbooks(order: self.order)
     }
     
     private func syncBookshelf() {
         self.spinAnimation(refreshButton: self.workbooksRefreshBT)
-        self.viewModel?.fetchBooksFromNetwork()
+        self.viewModel?.fetchWorkbooksFromNetwork()
     }
 }
 
@@ -253,7 +253,7 @@ extension BookshelfVC {
     }
     
     private func bindBooks() {
-        self.viewModel?.$books
+        self.viewModel?.$workbooks
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] books in
@@ -291,7 +291,7 @@ extension BookshelfVC {
 extension BookshelfVC: UICollectionViewDataSource {
     /// section 개수 = columnCount 으로  나눈 몫값, 나머지가 있는 경우 +1
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if let booksCount = self.viewModel?.books.count {
+        if let booksCount = self.viewModel?.workbooks.count {
             var sectionCount = booksCount / self.columnCount
             if booksCount % self.columnCount != 0 {
                 sectionCount += 1
@@ -303,7 +303,7 @@ extension BookshelfVC: UICollectionViewDataSource {
     }
     /// 해당 section의 cell 개수 = 전체 - (section+1)*columnCount 값이 0 이상 -> column수, 아닐 경우 나머지값
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let booksCount = self.viewModel?.books.count ?? 0
+        let booksCount = self.viewModel?.workbooks.count ?? 0
         if booksCount - (section+1)*Int(self.columnCount) >= 0 {
             return Int(self.columnCount)
         } else {
@@ -314,7 +314,7 @@ extension BookshelfVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWorkbookCell.identifier, for: indexPath) as? BookshelfWorkbookCell else { return UICollectionViewCell() }
         let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-        guard let book = self.viewModel?.books[bookIndex] else { return cell }
+        guard let book = self.viewModel?.workbooks[bookIndex] else { return cell }
         
         cell.configure(with: book, imageSize: self.imageFrameViewSize)
         
@@ -332,7 +332,7 @@ extension BookshelfVC: UICollectionViewDataSource {
 extension BookshelfVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-        guard let book = self.viewModel?.books[bookIndex] else { return }
+        guard let book = self.viewModel?.workbooks[bookIndex] else { return }
         
         self.showWorkbookDetailVC(book: book)
     }
