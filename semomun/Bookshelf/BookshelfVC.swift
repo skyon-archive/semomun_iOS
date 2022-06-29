@@ -8,27 +8,21 @@
 import UIKit
 import Combine
 
-class BookshelfVC: UIViewController {
+final class BookshelfVC: UIViewController {
+    /* public */
     static let identifier = "BookshelfVC"
     static let storyboardName = "HomeSearchBookshelf"
-    
+    /* private */
     @IBOutlet weak var navigationTitleView: UIView!
-    // workbookGroups
-    @IBOutlet weak var workbookGroupsRefreshBT: UIButton!
-    @IBOutlet weak var workbookGroupsSortSelector: UIButton!
-    @IBOutlet weak var workbookGroups: UICollectionView!
-    @IBOutlet weak var workbookGroupsHeight: NSLayoutConstraint! // 회전, 디바이스별 크기에 따른 설정 필요
-    private var workbookGroupsOrder: BookshelfSortOrder = .purchase
-    // workbooks
-    @IBOutlet weak var workbooksRefreshBT: UIButton!
-    @IBOutlet weak var workbooksSortSelector: UIButton!
-    @IBOutlet weak var workbooks: UICollectionView!
-    private var workbooksOrder: BookshelfSortOrder = .purchase
+    @IBOutlet weak var books: UICollectionView!
     
     private var viewModel: BookshelfVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loadingView = LoadingView()
-    private var logined: Bool = false
+    
+    private var hasWorkbookGroups: Bool {
+        return self.viewModel?.workbookGroups.isEmpty == false
+    }
     
     private lazy var portraitColumnCount: Int = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
@@ -103,42 +97,10 @@ class BookshelfVC: UIViewController {
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        guard self.workbookGroups != nil, self.workbooks != nil else { return }
+        guard self.books != nil else { return }
         coordinator.animate(alongsideTransition: { _ in
-            self.workbookGroups.reloadData()
-            self.workbooks.reloadData()
+            self.books.reloadData()
         })
-    }
-    
-    @IBAction func workbookGroupsRefresh(_ sender: Any) {
-        self.logined = UserDefaultsManager.isLogined
-        guard NetworkStatusManager.isConnectedToInternet() else {
-            self.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하세요")
-            return
-        }
-        
-        if UserDefaultsManager.isLogined {
-            self.reloadWorkbookGroups()
-            self.syncWorkbookGroups()
-        } else {
-            self.spinAnimation(refreshButton: self.workbookGroupsRefreshBT)
-            // login 없는 상태, 표시할 팝업이 있다면?
-        }
-    }
-    
-    @IBAction func workbooksRefresh(_ sender: Any) {
-        guard NetworkStatusManager.isConnectedToInternet() else {
-            self.showAlertWithOK(title: "오프라인 상태입니다", text: "네트워크 연결을 확인 후 다시 시도하세요")
-            return
-        }
-        
-        if UserDefaultsManager.isLogined {
-            self.reloadWorkbooks()
-            self.syncWorkbooks()
-        } else {
-            self.spinAnimation(refreshButton: self.workbooksRefreshBT)
-            // login 없는 상태, 표시할 팝업이 있다면?
-        }
     }
 }
 
@@ -146,8 +108,6 @@ extension BookshelfVC {
     private func configureUI() {
         self.view.layoutIfNeeded()
         self.setShadow(with: navigationTitleView)
-        self.configureWorkbookGroupsMenu()
-        self.configureWorkbooksMenu()
     }
     
     private func configureViewModel() {
@@ -156,52 +116,13 @@ extension BookshelfVC {
         self.viewModel = BookshelfVM(networkUsecse: networkUsecase)
     }
     
-    private func configureWorkbookGroupsMenu() {
-        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbookGroupsSort(to: .purchase)
-        }
-        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbookGroupsSort(to: .recent)
-        }
-        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbookGroupsSort(to: .alphabet)
-        }
-        if let order = UserDefaultsManager.workbookGroupsOrder {
-            self.workbookGroupsOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
-        }
-        self.workbookGroupsSortSelector.setTitle(self.workbookGroupsOrder.rawValue, for: .normal)
-        self.workbookGroupsSortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
-        self.workbookGroupsSortSelector.showsMenuAsPrimaryAction = true
-    }
-    
-    private func configureWorkbooksMenu() {
-        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbooksSort(to: .purchase)
-        }
-        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbooksSort(to: .recent)
-        }
-        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
-            self?.changeWorkbooksSort(to: .alphabet)
-        }
-        if let order = UserDefaultsManager.bookshelfOrder {
-            self.workbooksOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
-        }
-        self.workbooksSortSelector.setTitle(self.workbooksOrder.rawValue, for: .normal)
-        self.workbooksSortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
-        self.workbooksSortSelector.showsMenuAsPrimaryAction = true
-    }
-    
     private func configureCollectionView() {
-        self.workbookGroups.dataSource = self
-        self.workbookGroups.delegate = self
-        self.workbooks.dataSource = self
-        self.workbooks.delegate = self
+        self.books.dataSource = self
+        self.books.delegate = self
     }
     
     private func checkSyncBookshelf() {
-        self.logined = UserDefaultsManager.isLogined
-        if self.logined {
+        if UserDefaultsManager.isLogined {
             self.reloadWorkbookGroups()
             self.reloadWorkbooks()
             self.syncWorkbookGroups()
@@ -213,11 +134,9 @@ extension BookshelfVC {
     
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
-            self?.logined = true
             self?.checkSyncBookshelf()
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
-            self?.logined = true
             self?.checkSyncBookshelf()
         }
     }
@@ -243,12 +162,6 @@ extension BookshelfVC {
     }
 }
 
-// MARK: Refresh Bookshelf
-extension BookshelfVC {
-    
-    
-}
-
 // MARK: binding
 extension BookshelfVC {
     private func bindAll() {
@@ -262,8 +175,8 @@ extension BookshelfVC {
         self.viewModel?.$workbookGroups
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] workbookGroups in
-                self?.workbookGroups.reloadData()
+            .sink(receiveValue: { [weak self] _ in
+                self?.books.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -273,7 +186,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.workbooks.reloadData()
+                self?.books.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -306,70 +219,81 @@ extension BookshelfVC {
 }
 
 extension BookshelfVC: UICollectionViewDataSource {
-    /// section 개수 = columnCount 으로  나눈 몫값, 나머지가 있는 경우 +1
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == self.workbookGroups {
-            return 1
-        } else {
-            if let booksCount = self.viewModel?.filteredWorkbooks.count {
-                var sectionCount = booksCount / self.columnCount
-                if booksCount % self.columnCount != 0 {
-                    sectionCount += 1
-                }
-                return sectionCount
-            } else {
-                return 0
-            }
-        }
+        return self.hasWorkbookGroups ? 2 : 1
     }
-    /// 해당 section의 cell 개수 = 전체 - (section+1)*columnCount 값이 0 이상 -> column수, 아닐 경우 나머지값
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.workbookGroups {
-            return self.viewModel?.workbookGroups.count ?? 0
-        } else {
-            let booksCount = self.viewModel?.filteredWorkbooks.count ?? 0
-            if booksCount - (section+1)*Int(self.columnCount) >= 0 {
-                return Int(self.columnCount)
+        switch section {
+        case 0:
+            if self.hasWorkbookGroups {
+                return self.viewModel?.workbookGroups.count ?? 0
             } else {
-                return booksCount % Int(self.columnCount)
+                return self.viewModel?.filteredWorkbooks.count ?? 0
             }
+        default:
+            return self.viewModel?.filteredWorkbooks.count ?? 0
         }
     }
-    /// cell.index = section*columnCount + row
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.workbookGroups {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWorkbookGroupCell.identifier, for: indexPath) as? BookshelfWorkbookGroupCell else { return UICollectionViewCell() }
-            guard let workbookGroup = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
-            
-            cell.configure(with: workbookGroup, imageSize: self.imageFrameViewSize)
-            
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWorkbookCell.identifier, for: indexPath) as? BookshelfWorkbookCell else { return UICollectionViewCell() }
-            let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-            guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return cell }
-            
-            cell.configure(with: book, imageSize: self.imageFrameViewSize)
-            
-            return cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
+        switch indexPath.section {
+        case 0:
+            if self.hasWorkbookGroups {
+                guard let workbookGroup = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
+                cell.configure(with: workbookGroup, imageSize: self.imageFrameViewSize)
+            } else {
+                guard let workbook = self.viewModel?.filteredWorkbooks[safe: indexPath.item] else { return cell }
+                cell.configure(with: workbook, imageSize: self.imageFrameViewSize)
+            }
+        default:
+            guard let workbook = self.viewModel?.filteredWorkbooks[safe: indexPath.item] else { return cell }
+            cell.configure(with: workbook, imageSize: self.imageFrameViewSize)
         }
         
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionFooter {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfHeaderView.identifier, for: indexPath) as? BookshelfHeaderView else { return UICollectionReusableView() }
+            
+            switch indexPath.section {
+            case 0:
+                if self.hasWorkbookGroups {
+                    header.configure(title: "나의 실전 모의고사", isWorkbookGroup: true, delegate: self)
+                } else {
+                    header.configure(title: "나의 문제집", isWorkbookGroup: false, delegate: self)
+                }
+            default:
+                header.configure(title: "나의 문제집", isWorkbookGroup: false, delegate: self)
+            }
+            
+            return header
+        } else if kind == UICollectionView.elementKindSectionFooter {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfFooterView.identifier, for: indexPath)
             return footer
-        } else { return UICollectionReusableView() }
+        } else {
+            return UICollectionReusableView()
+        }
     }
 }
 
 extension BookshelfVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.workbookGroups {
-            guard let workbookGroupCore = self.viewModel?.workbookGroups[safe: indexPath.item] else { return }
-            self.showWorkbookGroupDetailVC(coreInfo: workbookGroupCore)
-        } else {
+        switch indexPath.section {
+        case 0:
+            if self.hasWorkbookGroups {
+                guard let workbookGroupCore = self.viewModel?.workbookGroups[safe: indexPath.item] else { return }
+                self.showWorkbookGroupDetailVC(coreInfo: workbookGroupCore)
+            } else {
+                let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
+                guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return }
+                
+                self.showWorkbookDetailVC(book: book)
+            }
+        default:
             let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
             guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return }
             
@@ -427,22 +351,40 @@ extension BookshelfVC {
             
             return CGSize(width: width, height: height)
         } else {
-            return CGSize(width: self.workbooks.frame.width, height: 182)
+            return CGSize(width: self.books.frame.width, height: 182)
+        }
+    }
+}
+
+extension BookshelfVC {
+    func reloadWorkbookGroups() {
+        if let order = UserDefaultsManager.workbookGroupsOrder {
+            self.viewModel?.reloadWorkbookGroups(order: BookshelfSortOrder(rawValue: order) ?? .purchase)
+        } else {
+            self.viewModel?.reloadWorkbookGroups(order: .purchase)
+        }
+    }
+    
+    func reloadWorkbooks() {
+        if let order = UserDefaultsManager.bookshelfOrder {
+            self.viewModel?.reloadWorkbooks(order: BookshelfSortOrder(rawValue: order) ?? .purchase)
+        } else {
+            self.viewModel?.reloadWorkbooks(order: .purchase)
         }
     }
 }
 
 extension BookshelfVC: BookshelfOrderController {
-    func reloadWorkbookGroups() {
-        self.viewModel?.reloadWorkbookGroups(order: self.workbooksOrder)
+    func reloadWorkbookGroups(order: BookshelfSortOrder) {
+        self.viewModel?.reloadWorkbookGroups(order: order)
     }
     
     func syncWorkbookGroups() {
         self.viewModel?.fetchWorkbookGroupsFromNetwork()
     }
     
-    func reloadWorkbooks() {
-        self.viewModel?.reloadWorkbooks(order: self.workbooksOrder)
+    func reloadWorkbooks(order: BookshelfSortOrder) {
+        self.viewModel?.reloadWorkbooks(order: order)
     }
     
     func syncWorkbooks() {

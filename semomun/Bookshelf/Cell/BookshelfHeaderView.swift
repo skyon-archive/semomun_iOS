@@ -27,7 +27,7 @@ final class BookshelfHeaderView: UICollectionReusableView {
         self.spinAnimation()
         if UserDefaultsManager.isLogined {
             if self.isWorkbookGroup {
-                self.delegate?.reloadWorkbookGroups()
+                self.delegate?.reloadWorkbookGroups(order: self.currentOrder)
             } else {
                 self.delegate?.syncWorkbookGroups()
             }
@@ -41,8 +41,14 @@ final class BookshelfHeaderView: UICollectionReusableView {
         
         if isWorkbookGroup {
             self.configureWorkbookGroupsMenu()
+            if UserDefaultsManager.isLogined {
+                self.delegate?.reloadWorkbookGroups(order: self.currentOrder)
+            }
         } else {
             self.configureWorkbooksMenu()
+            if UserDefaultsManager.isLogined {
+                self.delegate?.reloadWorkbooks(order: self.currentOrder)
+            }
         }
     }
     
@@ -105,9 +111,9 @@ final class BookshelfHeaderView: UICollectionReusableView {
         
         if UserDefaultsManager.isLogined {
             if isWorkbookGroup {
-                self.delegate?.reloadWorkbookGroups()
+                self.delegate?.reloadWorkbookGroups(order: order)
             } else {
-                self.delegate?.reloadWorkbooks()
+                self.delegate?.reloadWorkbooks(order: order)
             }
         }
     }

@@ -8,9 +8,9 @@
 import Foundation
 
 protocol BookshelfOrderController: AnyObject {
-    func reloadWorkbookGroups()
+    func reloadWorkbookGroups(order: BookshelfSortOrder)
     func syncWorkbookGroups()
-    func reloadWorkbooks()
+    func reloadWorkbooks(order: BookshelfSortOrder)
     func syncWorkbooks()
     func showWarning(title: String, text: String)
 }

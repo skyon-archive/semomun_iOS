@@ -785,7 +785,7 @@
                                             <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfWorkbookCell" id="9Ud-K1-YF9" customClass="BookshelfWorkbookCell" customModule="semomun" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfCell" id="9Ud-K1-YF9" customClass="BookshelfCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="28" y="50" width="155" height="270"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8eV-iw-lCo">
@@ -976,8 +976,8 @@ Label</string>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="books" destination="UT5-i4-gH1" id="hHS-12-Fj5"/>
                         <outlet property="navigationTitleView" destination="WX2-IL-AaG" id="zWW-Py-hfN"/>
-                        <outlet property="workbooks" destination="UT5-i4-gH1" id="hHS-12-Fj5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBe-2R-Guu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

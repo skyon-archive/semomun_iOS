@@ -787,7 +787,7 @@ Label</string>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfCell" id="DmP-vm-2B5" customClass="BookshelfWorkbookCell" customModule="semomun" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfCell" id="DmP-vm-2B5" customClass="BookshelfCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="105" y="0.0" width="390" height="182"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ijY-To-rzo">
@@ -911,8 +911,8 @@ Title</string>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bookCountLabel" destination="U60-NC-WM0" id="dAJ-By-XVR"/>
+                        <outlet property="books" destination="vlE-9x-Qes" id="zI3-bv-3Ke"/>
                         <outlet property="navigationTitleView" destination="sno-dK-tsw" id="kwh-df-G8s"/>
-                        <outlet property="workbooks" destination="vlE-9x-Qes" id="zI3-bv-3Ke"/>
                         <outlet property="workbooksRefreshBT" destination="3Sz-9l-kHr" id="bIM-Jf-eGG"/>
                         <outlet property="workbooksSortSelector" destination="cT2-XL-wEr" id="V4K-b4-riu"/>
                     </connections>
