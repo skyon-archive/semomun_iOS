@@ -37,6 +37,9 @@ struct UserDefaultsManager {
     @UserDefault(key: "favoriteTags", defaultValue: nil)
     static var favoriteTags: Data?
     
+    @UserDefault(key: "workbookGroupsOrder", defaultValue: nil)
+    static var workbookGroupsOrder: String?
+    
     @UserDefault(key: "bookshelfOrder", defaultValue: nil)
     static var bookshelfOrder: String?
     
