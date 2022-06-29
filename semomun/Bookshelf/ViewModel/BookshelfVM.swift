@@ -84,6 +84,7 @@ extension BookshelfVM {
             case .SUCCESS:
                 if infos.isEmpty == false {
 //                    self?.syncWorkbooks(infos: infos)
+                    self?.loading = false
                 } else {
                     self?.loading = false
                 }
