@@ -41,14 +41,8 @@ final class BookshelfHeaderView: UICollectionReusableView {
         
         if isWorkbookGroup {
             self.configureWorkbookGroupsMenu()
-            if UserDefaultsManager.isLogined {
-                self.delegate?.reloadWorkbookGroups(order: self.currentOrder)
-            }
         } else {
             self.configureWorkbooksMenu()
-            if UserDefaultsManager.isLogined {
-                self.delegate?.reloadWorkbooks(order: self.currentOrder)
-            }
         }
     }
     

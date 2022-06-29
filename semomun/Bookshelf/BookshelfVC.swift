@@ -288,16 +288,12 @@ extension BookshelfVC: UICollectionViewDelegate {
                 guard let workbookGroupCore = self.viewModel?.workbookGroups[safe: indexPath.item] else { return }
                 self.showWorkbookGroupDetailVC(coreInfo: workbookGroupCore)
             } else {
-                let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-                guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return }
-                
-                self.showWorkbookDetailVC(book: book)
+                guard let workbook = self.viewModel?.filteredWorkbooks[safe: indexPath.item] else { return }
+                self.showWorkbookDetailVC(book: workbook)
             }
         default:
-            let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-            guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return }
-            
-            self.showWorkbookDetailVC(book: book)
+            guard let workbook = self.viewModel?.filteredWorkbooks[safe: indexPath.item] else { return }
+            self.showWorkbookDetailVC(book: workbook)
         }
     }
 }
