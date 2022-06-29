@@ -129,11 +129,11 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func beforePage(_ sender: Any) {
-        self.sectionManager?.changePreviousPage()
+        self.mode == .default ? self.sectionManager?.changePreviousPage() : self.practiceTestManager?.changePreviousPage()
     }
     
     @IBAction func nextPage(_ sender: Any) {
-        self.sectionManager?.changeNextPage()
+        self.mode == .default ? self.sectionManager?.changeNextPage() : self.practiceTestManager?.changeNextPage()
     }
 }
 
@@ -161,7 +161,9 @@ extension StudyVC {
             guard let section = self?.sectionManager?.section else { return }
             self?.showResultViewController(section: section)
         }
-        self.menuButton.menu = UIMenu(title: "", image: nil, children: [reportErrorAction, showResultAction])
+        // MARK: 실모의 경우 결과보기를 없애는게 맞지 않을까?
+        let children = self.mode == .default ? [reportErrorAction, showResultAction] : [reportErrorAction]
+        self.menuButton.menu = UIMenu(title: "", image: nil, children: children)
         self.menuButton.showsMenuAsPrimaryAction = true
     }
     
@@ -186,7 +188,9 @@ extension StudyVC {
     }
     
     private func configureObservation() {
+        /// 채점 이후 결과창 표시를 위한 observer
         NotificationCenter.default.addObserver(forName: .showSectionResult, object: nil, queue: .current) { [weak self] _ in
+            // MARK: Mode 에 따른 분기처리가 필요, 또는 다른 Noti를 사용하는 식으로
             guard let section = self?.sectionManager?.section,
                   let pageData = self?.sectionManager?.currentPage else { return }
             
@@ -444,11 +448,11 @@ extension StudyVC: PageDelegate {
     }
     
     func nextPage() {
-        self.sectionManager?.changeNextPage()
+        self.mode == .default ? self.sectionManager?.changeNextPage() : self.practiceTestManager?.changeNextPage()
     }
     
     func previousPage() {
-        self.sectionManager?.changePreviousPage()
+        self.mode == .default ? self.sectionManager?.changePreviousPage() : self.practiceTestManager?.changePreviousPage()
     }
     
     func addScoring(pid: Int) {
