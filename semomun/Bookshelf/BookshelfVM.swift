@@ -24,7 +24,7 @@ final class BookshelfVM {
 
 // MARK: Public
 extension BookshelfVM {
-    func reloadWorkbookGroups(order: BookshelfVC.SortOrder) {
+    func reloadWorkbookGroups(order: BookshelfSortOrder) {
         print("reload workbookGroups, order: \(order)")
         
         guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
@@ -47,7 +47,7 @@ extension BookshelfVM {
         }
     }
      
-    func reloadWorkbooks(order: BookshelfVC.SortOrder) {
+    func reloadWorkbooks(order: BookshelfSortOrder) {
         print("reload workbooks, order: \(order)")
         
         guard let workbooks = CoreUsecase.fetchPreviews() else {
