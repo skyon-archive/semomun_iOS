@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable & S3ImageFetchable)
+typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable & S3ImageFetchable & UserLogSendable)
 
 final class WorkbookGroupDetailVM {
     /* public */
@@ -92,6 +92,14 @@ extension WorkbookGroupDetailVM {
                 self.downloadWorkbook()
             }
         }
+    }
+    
+    func updateRecentDate(workbook: Preview_Core) {
+        let updateDate = Date()
+        workbook.setValue(updateDate, forKey: Preview_Core.Attribute.recentDate.rawValue)
+        self.workbookGroupCore?.setValue(updateDate, forKey: WorkbookGroup_Core.Attribute.recentDate.rawValue)
+        self.networkUsecase.sendWorkbookEnterLog(wid: Int(workbook.wid), datetime: updateDate)
+        CoreDataManager.saveCoreData()
     }
 }
 

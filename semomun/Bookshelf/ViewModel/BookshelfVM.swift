@@ -9,12 +9,14 @@ import Foundation
 import Combine
 
 final class BookshelfVM {
+    /* public */
     private(set) var networkUsecse: NetworkUsecase
     @Published private(set) var workbookGroups: [WorkbookGroup_Core] = []
-    @Published private(set) var workbooks: [Preview_Core] = []
+    @Published private(set) var filteredWorkbooks: [Preview_Core] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var loading: Bool = false
-    
+    /* private */
+    private var workbooks: [Preview_Core] = []
     init(networkUsecse: NetworkUsecase) {
         self.networkUsecse = networkUsecse
     }
@@ -23,54 +25,50 @@ final class BookshelfVM {
 // MARK: Public
 extension BookshelfVM {
     func reloadWorkbookGroups(order: BookshelfVC.SortOrder) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            print("reload Bookshelf, order: \(order)")
-            
-            guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
-                print("no workbookGoups")
-                return
-            }
-            
-            if NetworkStatusManager.isConnectedToInternet() {
-                NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
-            }
-            
-            // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-            switch order {
-            case .purchase:
-                self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.purchasedDate, $0, $1) })
-            case .recent:
-                self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.recentDate, $0, $1) })
-            case .alphabet:
-                self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.title, $1, $0) })
-            }
+        print("reload workbookGroups, order: \(order)")
+        
+        guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
+            print("no workbookGoups")
+            return
+        }
+        
+        if NetworkStatusManager.isConnectedToInternet() {
+            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+        }
+        
+        // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
+        switch order {
+        case .purchase:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.purchasedDate, $0, $1) })
+        case .recent:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.recentDate, $0, $1) })
+        case .alphabet:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.title, $1, $0) })
         }
     }
      
     func reloadWorkbooks(order: BookshelfVC.SortOrder) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            print("reload Bookshelf, order: \(order)")
-            
-            guard let workbooks = CoreUsecase.fetchPreviews()?.filter({ $0.wgid == 0 }) else {
-                print("no workbooks")
-                return
-            }
-            
-            if NetworkStatusManager.isConnectedToInternet() {
-                NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
-            }
-            
-            // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-            switch order {
-            case .purchase:
-                self.workbooks = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) })
-            case .recent:
-                self.workbooks = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) })
-            case .alphabet:
-                self.workbooks = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) })
-            }
+        print("reload workbooks, order: \(order)")
+        
+        guard let workbooks = CoreUsecase.fetchPreviews() else {
+            print("no workbooks")
+            return
+        }
+        self.workbooks = workbooks
+        let filteredWorkbooks = workbooks.filter({ $0.wgid == 0 })
+        
+        if NetworkStatusManager.isConnectedToInternet() {
+            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+        }
+        
+        // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
+        switch order {
+        case .purchase:
+            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) })
+        case .recent:
+            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) })
+        case .alphabet:
+            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) })
         }
     }
     
@@ -84,7 +82,6 @@ extension BookshelfVM {
             case .SUCCESS:
                 if infos.isEmpty == false {
                     self?.syncWorkbookGroups(infos: infos)
-                    self?.loading = false
                 } else {
                     self?.loading = false
                 }

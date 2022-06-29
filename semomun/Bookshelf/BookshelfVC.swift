@@ -108,8 +108,9 @@ class BookshelfVC: UIViewController {
     // MARK: Rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        guard self.workbooks != nil else { return }
+        guard self.workbookGroups != nil, self.workbooks != nil else { return }
         coordinator.animate(alongsideTransition: { _ in
+            self.workbookGroups.reloadData()
             self.workbooks.reloadData()
         })
     }
@@ -122,6 +123,7 @@ class BookshelfVC: UIViewController {
         }
         
         if UserDefaultsManager.isLogined {
+            self.reloadWorkbookGroups()
             self.syncWorkbookGroups()
         } else {
             self.spinAnimation(refreshButton: self.workbookGroupsRefreshBT)
@@ -136,6 +138,7 @@ class BookshelfVC: UIViewController {
         }
         
         if UserDefaultsManager.isLogined {
+            self.reloadWorkbooks()
             self.syncWorkbooks()
         } else {
             self.spinAnimation(refreshButton: self.workbooksRefreshBT)
@@ -227,8 +230,7 @@ extension BookshelfVC {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
-            self?.syncWorkbookGroups()
-            self?.syncWorkbooks()
+            self?.checkSyncBookshelf()
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
@@ -322,7 +324,7 @@ extension BookshelfVC {
     }
     
     private func bindWorkbooks() {
-        self.viewModel?.$workbooks
+        self.viewModel?.$filteredWorkbooks
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -351,6 +353,7 @@ extension BookshelfVC {
                 } else {
                     self?.removeLoader()
                     self?.reloadWorkbookGroups()
+                    self?.reloadWorkbooks()
                 }
             })
             .store(in: &self.cancellables)
@@ -363,7 +366,7 @@ extension BookshelfVC: UICollectionViewDataSource {
         if collectionView == self.workbookGroups {
             return 1
         } else {
-            if let booksCount = self.viewModel?.workbooks.count {
+            if let booksCount = self.viewModel?.filteredWorkbooks.count {
                 var sectionCount = booksCount / self.columnCount
                 if booksCount % self.columnCount != 0 {
                     sectionCount += 1
@@ -379,7 +382,7 @@ extension BookshelfVC: UICollectionViewDataSource {
         if collectionView == self.workbookGroups {
             return self.viewModel?.workbookGroups.count ?? 0
         } else {
-            let booksCount = self.viewModel?.workbooks.count ?? 0
+            let booksCount = self.viewModel?.filteredWorkbooks.count ?? 0
             if booksCount - (section+1)*Int(self.columnCount) >= 0 {
                 return Int(self.columnCount)
             } else {
@@ -399,7 +402,7 @@ extension BookshelfVC: UICollectionViewDataSource {
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWorkbookCell.identifier, for: indexPath) as? BookshelfWorkbookCell else { return UICollectionViewCell() }
             let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-            guard let book = self.viewModel?.workbooks[bookIndex] else { return cell }
+            guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return cell }
             
             cell.configure(with: book, imageSize: self.imageFrameViewSize)
             
@@ -423,7 +426,7 @@ extension BookshelfVC: UICollectionViewDelegate {
             self.showWorkbookGroupDetailVC(coreInfo: workbookGroupCore)
         } else {
             let bookIndex = Int(self.columnCount)*indexPath.section + indexPath.row
-            guard let book = self.viewModel?.workbooks[bookIndex] else { return }
+            guard let book = self.viewModel?.filteredWorkbooks[bookIndex] else { return }
             
             self.showWorkbookDetailVC(book: book)
         }

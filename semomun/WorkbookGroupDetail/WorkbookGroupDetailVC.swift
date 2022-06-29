@@ -416,7 +416,7 @@ extension WorkbookGroupDetailVC: TestSubjectCellObserber {
             self.showAlertWithOK(title: "문제집 정보 에러", text: "")
             return
         }
-        
+        self.viewModel?.updateRecentDate(workbook: workbook)
         self.showStudyVC(section: practiceSection, workbook: workbook)
     }
 }
