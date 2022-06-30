@@ -1059,6 +1059,7 @@
                         <outlet property="phoneNumberAuthTextField" destination="YTV-Mg-fvh" id="86p-38-VDx"/>
                         <outlet property="requestAgainButton" destination="1C1-EZ-pjO" id="EgV-lh-Wy7"/>
                         <outlet property="schoolFinder" destination="dy7-2y-TUQ" id="tY4-Xx-KiJ"/>
+                        <outlet property="scrollView" destination="BsL-vW-GjC" id="YaX-eu-4I6"/>
                         <outlet property="submitButton" destination="3yR-c5-Bh3" id="Ub1-2R-kix"/>
                     </connections>
                 </viewController>
