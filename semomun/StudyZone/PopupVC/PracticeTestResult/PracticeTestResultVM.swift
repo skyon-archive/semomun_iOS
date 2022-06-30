@@ -18,11 +18,50 @@ final class PracticeTestResultVM {
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
     private let networkUsecase: UserTestResultFetchable
-    private let wid: Int64
+    // CoreData값을 가져옴
+    let wid: Int64
+    let title: String
+    let subject: String
+    let cutoff: [Int]
+    let area: String
+    let deviation: Int64
+    let averageScore: Int64
+    // CoreData값에서 계산함
+    let correctProblemCount: Int
+    let totalProblemCount: Int
+    let perfectScore: Int64
+    let rawScore: Int64
+    let totalTime: Int64
     
-    init(wid: Int64, networkUsecase: UserTestResultFetchable) {
+    init(practiceTestSection: PracticeTestSection_Core, networkUsecase: UserTestResultFetchable) {
         self.networkUsecase = networkUsecase
-        self.wid = wid
+        
+        self.wid = practiceTestSection.wid
+        self.title = practiceTestSection.title ?? ""
+        self.subject = practiceTestSection.subject ?? ""
+        
+        if let cutoffData = practiceTestSection.cutoff,
+            let decodedCutoff = try? JSONDecoder().decode([Cutoff].self, from: cutoffData) {
+                self.cutoff = decodedCutoff.map(\.rawScore).sorted()
+        } else {
+            self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
+        }
+        
+        self.area = practiceTestSection.area ?? ""
+        self.deviation = practiceTestSection.deviation
+        self.averageScore = practiceTestSection.averageScore
+        
+        self.correctProblemCount = practiceTestSection.problemCores?
+            .filter { $0.correct }
+            .count ?? 0
+        self.totalProblemCount = practiceTestSection.problemCores?.count ?? 0
+        self.perfectScore = practiceTestSection.problemCores?
+            .reduce(0, { $0 + $1.correctPoints }) ?? 0
+        self.rawScore = practiceTestSection.problemCores?
+            .reduce(0, { $0 + ($1.correct ? 0 : $1.correctPoints) }) ?? 0
+        self.totalTime = practiceTestSection.problemCores?
+            .reduce(0, { $0 + $1.time }) ?? 0
+        
         self.listenNetworkState()
     }
 }
@@ -39,24 +78,19 @@ extension PracticeTestResultVM {
         }
         
         // 위에서 네트워크 유무를 확인했기에 이곳에서의 실패는 기타 다른 문제
-        self.networkUsecase.getPublicTestResult(wid: Int(wid)) { [weak self] _, publicTestResultOfDB in
-            
+        self.networkUsecase.getPublicTestResult(wid: Int(self.wid)) { [weak self] _, publicTestResultOfDB in
             guard let publicTestResultOfDB = publicTestResultOfDB else {
                 self?.networkError = true
                 return
             }
-            
-            // CoreData에서 가져오는 임시 코드
-            let perfectScore = 100
             
             self?.publicScoreResult = .init(
                 rank: publicTestResultOfDB.rank,
                 rawScore: publicTestResultOfDB.rawScore,
                 deviation: publicTestResultOfDB.deviation,
                 percentile: publicTestResultOfDB.percentile,
-                perfectScore: perfectScore
+                perfectScore: Int(self?.perfectScore ?? 0)
             )
-            
         }
     }
 }
@@ -77,46 +111,29 @@ extension PracticeTestResultVM {
     }
     
     private func makePracticeTestResult() {
-        // CoreData에서 workbook 가져오는 부분 생략된 임시 로직
-        let workbookTitle = "임시 workbook"
-        let cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
-        let subject = "미적분"
-        let area = "수학 영역"
-        let deviation = 30
-        let averageScore = 44
-        // 여기 아래는 CoreData를 바탕으로 따로 계산이 필요할 것 같은 변수들
-        let correctProblemCount = 41
-        let totalProblemCount = 45
-        let perfectScore = 100
-        let rawScore = 40
-        let totalTime = 123456
-        
-        let title = self.formatTitle(fromWorkbookName: workbookTitle, subjectName: subject)
         let privateScoreResult: ScoreResult = TestResultCalculator.getScoreResult(
-            rawScore: rawScore,
-            groupAverage: averageScore,
-            groupStandardDeviation: deviation,
-            area: area,
-            rankCutoff: cutoff,
-            perfectScore: perfectScore
+            rawScore: Int(self.rawScore),
+            groupAverage: Int(self.averageScore),
+            groupStandardDeviation: Int(self.deviation),
+            area: self.area,
+            rankCutoff: self.cutoff,
+            perfectScore: Int(self.perfectScore)
         )
         
-        let totalTimeFormattedString = self.formatDateString(fromSeconds: totalTime)
+        let title = "\(self.title) \(self.subject) 성적표"
+        let totalTimeFormattedString = self.formatDateString(fromSeconds: self.totalTime)
         
         self.practiceTestResult = .init(
             title: title,
-            correctProblemCount: correctProblemCount,
-            totalProblemCount: totalProblemCount,
+            correctProblemCount: self.correctProblemCount,
+            totalProblemCount: self.totalProblemCount,
             totalTimeFormattedString: totalTimeFormattedString,
             privateScoreResult: privateScoreResult
         )
     }
+
     
-    private func formatTitle(fromWorkbookName workbookName: String, subjectName: String) -> String {
-        return "\(workbookName) \(subjectName) 성적표"
-    }
-    
-    private func formatDateString(fromSeconds second: Int) -> String {
+    private func formatDateString(fromSeconds second: Int64) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
