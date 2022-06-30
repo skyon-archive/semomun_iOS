@@ -148,6 +148,11 @@ public class Preview_Core: NSManagedObject{
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
         networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover) { [weak self] status, data in
+            guard status == .SUCCESS, let data = data else {
+                print("Error: fetchBookcover")
+                completion()
+                return
+            }
             self?.setValue(data, forKey: Attribute.image.rawValue)
             completion()
         }

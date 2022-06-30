@@ -23,6 +23,9 @@ final class BookshelfVC: UIViewController {
     private var hasWorkbookGroups: Bool {
         return self.viewModel?.workbookGroups.isEmpty == false
     }
+    private var hasWorkbooks: Bool {
+        return self.viewModel?.filteredWorkbooks.isEmpty == false
+    }
     
     private lazy var portraitColumnCount: Int = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
@@ -89,9 +92,9 @@ final class BookshelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard UserDefaultsManager.isLogined else { return }
-        self.reloadWorkbookGroups()
-        self.reloadWorkbooks()
+//        guard UserDefaultsManager.isLogined else { return }
+//        self.reloadWorkbookGroups()
+//        self.reloadWorkbooks()
     }
     
     // MARK: Rotation
@@ -123,12 +126,9 @@ extension BookshelfVC {
     
     private func checkSyncBookshelf() {
         if UserDefaultsManager.isLogined {
-            self.reloadWorkbookGroups()
-            self.reloadWorkbooks()
-            self.syncWorkbookGroups()
-            self.syncWorkbooks()
-        } else {
-            // login 없는 상태, 뭔가 UI적으로 표시할 게 있다면?
+            self.reloadWorkbookGroups() // 동기
+            self.reloadWorkbooks() // 동기
+            self.syncBookshelf() // 두 비동기를 묶음
         }
     }
     
@@ -220,7 +220,7 @@ extension BookshelfVC {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.hasWorkbookGroups ? 2 : 1
+        return self.hasWorkbookGroups && self.hasWorkbooks ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -375,16 +375,12 @@ extension BookshelfVC: BookshelfOrderController {
         self.viewModel?.reloadWorkbookGroups(order: order)
     }
     
-    func syncWorkbookGroups() {
-        self.viewModel?.fetchWorkbookGroupsFromNetwork()
+    func syncBookshelf() {
+        self.viewModel?.fetchBookshelf()
     }
     
     func reloadWorkbooks(order: BookshelfSortOrder) {
         self.viewModel?.reloadWorkbooks(order: order)
-    }
-    
-    func syncWorkbooks() {
-        self.viewModel?.fetchWorkbooksFromNetwork()
     }
     
     func showWarning(title: String, text: String) {

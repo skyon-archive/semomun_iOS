@@ -24,13 +24,9 @@ final class BookshelfHeaderView: UICollectionReusableView {
             return
         }
         
-        self.spinAnimation()
+//        self.spinAnimation()
         if UserDefaultsManager.isLogined {
-            if self.isWorkbookGroup {
-                self.delegate?.reloadWorkbookGroups(order: self.currentOrder)
-            } else {
-                self.delegate?.syncWorkbookGroups()
-            }
+            self.delegate?.syncBookshelf()
         }
     }
     
