@@ -16,6 +16,10 @@ struct TestResultCalculator {
     ///   - rankCutoff: 1등급부터의 등급컷을 표현하는 길이 8의 배열. 9등급의 등급컷은 의미 없기 때문.
     ///   - perfectScore: 시험의 만점
     static func getScoreResult(rawScore: Int, groupAverage: Int, groupStandardDeviation: Int, area: String, rankCutoff: [Int], perfectScore: Int) -> ScoreResult {
+        guard groupStandardDeviation > 0 else {
+            return .init(rank: 0, rawScore: 0, deviation: 0, percentile: 0, perfectScore: 0)
+        }
+
         let rank = (rankCutoff.firstIndex(where: { rawScore >= $0 }) ?? 8) + 1
         
         // 평균이 0인 표준점수

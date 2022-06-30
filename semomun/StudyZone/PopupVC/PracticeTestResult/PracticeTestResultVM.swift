@@ -29,8 +29,8 @@ final class PracticeTestResultVM {
     // CoreData값에서 계산함
     let correctProblemCount: Int
     let totalProblemCount: Int
-    let perfectScore: Int64
-    let rawScore: Int64
+    let perfectScore: Double
+    let rawScore: Double
     let totalTime: Int64
     
     init(practiceTestSection: PracticeTestSection_Core, networkUsecase: UserTestResultFetchable) {
@@ -42,7 +42,7 @@ final class PracticeTestResultVM {
         
         if let cutoffData = practiceTestSection.cutoff,
             let decodedCutoff = try? JSONDecoder().decode([Cutoff].self, from: cutoffData) {
-                self.cutoff = decodedCutoff.map(\.rawScore).sorted()
+            self.cutoff = decodedCutoff.map(\.rawScore).sorted(by: >)
         } else {
             self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
         }
@@ -56,9 +56,9 @@ final class PracticeTestResultVM {
             .count ?? 0
         self.totalProblemCount = practiceTestSection.problemCores?.count ?? 0
         self.perfectScore = practiceTestSection.problemCores?
-            .reduce(0, { $0 + $1.correctPoints }) ?? 0
+            .reduce(0, { $0 + $1.point }) ?? 0
         self.rawScore = practiceTestSection.problemCores?
-            .reduce(0, { $0 + ($1.correct ? 0 : $1.correctPoints) }) ?? 0
+            .reduce(0, { $0 + ($1.correct ? $1.point : 0) }) ?? 0
         self.totalTime = practiceTestSection.problemCores?
             .reduce(0, { $0 + $1.time }) ?? 0
         

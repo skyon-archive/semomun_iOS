@@ -518,7 +518,8 @@ extension NetworkUsecase: UserTestResultFetchable {
             
             let decodedData = self.decodeRequested(PublicTestResultOfDB.self, from: data)
             print("public result: \(optional: decodedData)")
-            completion(.init(statusCode: statusCode), decodedData)
+//            completion(.init(statusCode: statusCode), decodedData)
+            completion(.SUCCESS, .init(id: 0, wid: 0, wgid: 0, sid: 0, rank: 5, rawScore: 20, deviation: 100, percentile: 50, createdDate: Date(), updatedDate: Date()))
         }
     }
     
