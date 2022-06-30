@@ -19,28 +19,32 @@ final class PracticeTestResultVM {
     /* private */
     private let wgid: Int64
     private let networkUsecase: (UserTestResultFetchable & UserTestResultSendable)
+    private let checkTestResultPosted: () -> ()
     // CoreData값을 가져옴
-    let wid: Int64
-    let sid: Int64
-    let title: String
-    let subject: String
-    let cutoff: [Int]
-    let area: String
-    let deviation: Int64
-    let averageScore: Int64
+    private let testResultPosted: Bool
+    private let wid: Int64
+    private let sid: Int64
+    private let title: String
+    private let subject: String
+    private let cutoff: [Int]
+    private let area: String
+    private let deviation: Int64
+    private let averageScore: Int64
     // CoreData값에서 계산함
-    let correctProblemCount: Int
-    let totalProblemCount: Int
-    let perfectScore: Double
-    let rawScore: Double
-    let totalTime: Int64
+    private let correctProblemCount: Int
+    private let totalProblemCount: Int
+    private let perfectScore: Double
+    private let rawScore: Double
+    private let totalTime: Int64
     
     init(wgid: Int64, practiceTestSection: PracticeTestSection_Core, networkUsecase: (UserTestResultFetchable & UserTestResultSendable)) {
         self.wgid = wgid
-        self.sid = practiceTestSection.sid
         self.networkUsecase = networkUsecase
+        self.checkTestResultPosted = { practiceTestSection.setValue(true, forKey: PracticeTestSection_Core.Attribute.testResultPosted.rawValue )}
         
+        self.testResultPosted = practiceTestSection.testResultPosted
         self.wid = practiceTestSection.wid
+        self.sid = practiceTestSection.sid
         self.title = practiceTestSection.title ?? ""
         self.subject = practiceTestSection.subject ?? ""
         
@@ -146,6 +150,8 @@ extension PracticeTestResultVM {
     }
     
     private func postTestResult() {
+        guard self.testResultPosted == false else { return }
+        
         guard let scoreResult = self.practiceTestResult?.privateScoreResult else { return }
         let calculatedTestResult = CalculatedTestResult(
             wgid: Int(self.wgid), wid: Int(self.wid), sid: Int(self.sid),
@@ -156,9 +162,11 @@ extension PracticeTestResultVM {
         )
         
         self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
-            if result != .SUCCESS {
+            guard result == .SUCCESS else {
                 self.networkError = true
+                return
             }
+            self.checkTestResultPosted()
         }
     }
 }
