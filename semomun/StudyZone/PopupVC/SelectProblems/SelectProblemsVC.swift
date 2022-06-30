@@ -47,12 +47,20 @@ final class SelectProblemsVC: UIViewController {
     }
     
     @IBAction func startScoring(_ sender: Any) {
-        self.selectProblemsVM?.startScoring() { [weak self] success in
-            guard success == true else { return }
-            self?.presentingViewController?.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: .showSectionResult, object: nil)
+        if self.mode == .default {
+            self.selectProblemsVM?.startScoring() { [weak self] success in
+                guard success == true else { return }
+                self?.presentingViewController?.dismiss(animated: true, completion: {
+                    NotificationCenter.default.post(name: .showSectionResult, object: nil)
+                })
+            }
+        } else {
+            NotificationCenter.default.post(name: .sectionTerminated, object: nil)
+            self.presentingViewController?.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: .showPracticeTestResult, object: nil)
             })
         }
+        
     }
 }
 
