@@ -456,16 +456,37 @@ extension StudyVC: PageDelegate {
     }
     
     func addScoring(pid: Int) {
-        self.sectionManager?.addScoring(pid: pid)
+        switch self.mode {
+        case .default:
+            self.sectionManager?.addScoring(pid: pid)
+        case .practiceTest:
+            self.practiceTestManager?.addScoring(pid: pid)
+        default:
+            return
+        }
         self.reloadButtons()
     }
     
     func addUploadProblem(pid: Int) {
-        self.sectionManager?.addUploadProblem(pid: pid)
+        switch self.mode {
+        case .default:
+            self.sectionManager?.addUploadProblem(pid: pid)
+        case .practiceTest:
+            self.practiceTestManager?.addUploadProblem(pid: pid)
+        default:
+            return
+        }
     }
     
     func addUploadPage(vid: Int) {
-        self.sectionManager?.addUploadPage(vid: vid)
+        switch self.mode {
+        case .default:
+            self.sectionManager?.addUploadPage(vid: vid)
+        case .practiceTest:
+            self.practiceTestManager?.addUploadPage(vid: vid)
+        default:
+            return
+        }
     }
 }
 
