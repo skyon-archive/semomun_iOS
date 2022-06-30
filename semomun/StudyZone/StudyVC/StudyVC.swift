@@ -602,4 +602,7 @@ extension StudyVC: TestStartable {
     func startTest() {
         self.practiceTestManager?.startTest()
     }
+    func dismiss() {
+        self.dismiss(animated: true)
+    }
 }
