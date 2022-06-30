@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -776,7 +776,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihr-uN-Gj2">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="764"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022년 1회차 고3 실전 모의고사 생명과학 성적표" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jg-mE-hbf">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022년 1회차 고3 실전 모의고사 생명과학 성적표" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jg-mE-hbf">
                                                         <rect key="frame" x="103.5" y="60" width="393" height="24"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
@@ -999,6 +999,7 @@
                                                     <constraint firstItem="dvf-SS-X01" firstAttribute="top" secondItem="2du-Ge-bLf" secondAttribute="bottom" constant="30" id="U1m-Ww-ncr"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="top" secondItem="aiy-G4-r1d" secondAttribute="bottom" constant="20" id="a9n-WQ-hBm"/>
                                                     <constraint firstItem="2du-Ge-bLf" firstAttribute="leading" secondItem="ihr-uN-Gj2" secondAttribute="leading" constant="28" id="aZ9-hY-ZKY"/>
+                                                    <constraint firstItem="1jg-mE-hbf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ihr-uN-Gj2" secondAttribute="leading" constant="30" id="alJ-GZ-l5V"/>
                                                     <constraint firstAttribute="bottom" secondItem="dvf-SS-X01" secondAttribute="bottom" constant="60" id="bMf-eh-OwN"/>
                                                     <constraint firstItem="x52-na-Nuf" firstAttribute="centerX" secondItem="1jg-mE-hbf" secondAttribute="centerX" id="fLj-1l-A4G"/>
                                                     <constraint firstItem="e64-Rj-4V1" firstAttribute="top" secondItem="1jg-mE-hbf" secondAttribute="bottom" constant="40" id="gwu-10-wNm"/>
@@ -2598,14 +2599,14 @@
     </scenes>
     <resources>
         <image name="bookmark" width="48" height="48"/>
-        <image name="bookmark.fill" catalog="system" width="110" height="128"/>
+        <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="bookmarkFill" width="48" height="48"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="chevron.left" catalog="system" width="97" height="128"/>
-        <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <image name="circle" catalog="system" width="128" height="123"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
-        <image name="return" catalog="system" width="128" height="102"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="return" catalog="system" width="128" height="101"/>
         <image name="submit" width="23" height="23"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="deepMint">
