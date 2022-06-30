@@ -30,6 +30,7 @@ final class ChangeUserInfoVC: UIViewController {
     }
     
     @IBOutlet weak var bodyFrame: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var nicknameFrame: UIView!
     @IBOutlet weak var nickname: UITextField!
@@ -56,6 +57,7 @@ final class ChangeUserInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureDelegate()
+        self.configureNotification()
         self.bindAll()
         self.viewModel?.fetchData()
         self.configureUI()
@@ -181,6 +183,14 @@ extension ChangeUserInfoVC {
         ])
     }
 }
+
+// MARK: Configure Notification
+ extension ChangeUserInfoVC {
+     private func configureNotification() {
+         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+         NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+     }
+ }
 
 // MARK: Configure delegates
 extension ChangeUserInfoVC {
@@ -434,4 +444,21 @@ extension ChangeUserInfoVC: UITextFieldDelegate {
             return true
         }
     }
+}
+
+// MARK: 키보드가 TextField 가리지 않도록
+extension ChangeUserInfoVC {
+    @objc func keyboardWillChangeFrame(notification: Notification) {
+         guard let userInfo = notification.userInfo,
+               let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+             return
+         }
+
+         let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+         self.scrollView.contentInset = contentInset
+     }
+
+     @objc func keyboardWillHide(notification: Notification) {
+         self.scrollView.contentInset = UIEdgeInsets.zero
+     }
 }
