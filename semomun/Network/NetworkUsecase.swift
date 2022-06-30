@@ -509,28 +509,28 @@ extension NetworkUsecase: UserSubmissionSendable {
 
 extension NetworkUsecase: UserTestResultFetchable {
     func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void) {
-        // 임시 코드
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            print("getPublicTestResult: wid \(wid)")
-            let result = PublicTestResultOfDB(id: 0, wid: 0, wgid: 0, sid: 0, rank: 1, rawScore: 72, deviation: 128, percentile: 96, createdDate: Date().addingTimeInterval(-1000), updatedDate: Date())
-            completion(.SUCCESS, result)
+        self.network.request(url: NetworkURL.workbookResult, param: ["type": "public"], method: .get, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode,
+                  let data = result.data else {
+                completion(.FAIL, nil)
+                return
+            }
+            
+            let decodedData = self.decodeRequested(PublicTestResultOfDB.self, from: data)
+            completion(.init(statusCode: statusCode), decodedData)
         }
     }
     
-    func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]?) -> Void) {
-        // 임시 코드
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            if let url = Bundle.main.url(forResource: "TestPrivateTestResultOfDBJSON", withExtension: "json") {
-                do {
-                    let data = try Data(contentsOf: url)
-                    let decoded = try JSONDecoder().decode([PrivateTestResultOfDB].self, from: data)
-                    completion(.SUCCESS, decoded)
-                } catch {
-                    completion(.FAIL, nil)
-                }
-            } else {
-                completion(.FAIL, nil)
+    func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]) -> Void) {
+        self.network.request(url: NetworkURL.workbookResult, param: ["type": "private"], method: .get, tokenRequired: true) { result in
+            guard let statusCode = result.statusCode,
+                  let data = result.data else {
+                completion(.FAIL, [])
+                return
             }
+            
+            let decodedData = self.decodeRequested([PrivateTestResultOfDB].self, from: data)
+            completion(.init(statusCode: statusCode), decodedData ?? [])
         }
     }
 }

@@ -75,6 +75,7 @@ enum NetworkURL {
     static let tempBase: String = "https://d2qp2vqqyviv98.cloudfront.net/"
     static let workbooks: String = base + "/workbooks/"
     static let workbookGroups: String = base + "/workbookgroups"
+    static let workbookResult: String = base + "/result/workbooks"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
     static let majors: String = base + "/info/major"
