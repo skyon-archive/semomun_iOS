@@ -26,6 +26,7 @@ final class BookshelfVC: UIViewController {
     private var hasWorkbooks: Bool {
         return self.viewModel?.filteredWorkbooks.isEmpty == false
     }
+    private var sectionCount: Int = 1
     
     private lazy var portraitColumnCount: Int = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
@@ -177,6 +178,7 @@ extension BookshelfVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookGroups in
                 guard workbookGroups.isEmpty == false else { return }
+                self?.checkSectionCount()
                 let indexes = (0..<workbookGroups.count).map { IndexPath(row: $0, section: 0) }
                 UIView.performWithoutAnimation {
                     self?.books.reloadItems(at: indexes)
@@ -191,6 +193,7 @@ extension BookshelfVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
                 guard workbooks.isEmpty == false else { return }
+                self?.checkSectionCount()
                 let section = self?.hasWorkbookGroups ?? false ? 1 : 0
                 let indexes = (0..<workbooks.count).map { IndexPath(row: $0, section: section) }
                 UIView.performWithoutAnimation {
@@ -224,6 +227,15 @@ extension BookshelfVC {
                 }
             })
             .store(in: &self.cancellables)
+    }
+    
+    /// section 개수가 변경되는 경우 reload가 필요
+    private func checkSectionCount() {
+        let newSectionCount = self.hasWorkbookGroups && self.hasWorkbooks ? 2 : 1
+        if self.sectionCount != newSectionCount {
+            self.sectionCount = newSectionCount
+            self.books.reloadData()
+        }
     }
 }
 
