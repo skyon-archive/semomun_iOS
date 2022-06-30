@@ -19,6 +19,7 @@ final class LoginSignupVC: UIViewController {
     private var coloredFrameLabels: [ColoredFrameLabel] = []
     
     @IBOutlet weak var bodyFrame: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var nicknameFrame: UIView!
     @IBOutlet weak var nickname: UITextField!
@@ -50,6 +51,7 @@ final class LoginSignupVC: UIViewController {
         self.configureUI()
         self.configureTableViewDelegate()
         self.configureTextFieldDelegate()
+        self.configureNotification()
         self.bindAll()
         self.phoneNumTextFieldTrailingMargin = self.phoneNumTextFieldTrailingConstraint.constant
     }
@@ -133,6 +135,14 @@ extension LoginSignupVC {
             label.leadingAnchor.constraint(equalTo: frame.leadingAnchor),
             label.topAnchor.constraint(equalTo: frame.bottomAnchor, constant: 3)
         ])
+    }
+}
+
+// MARK: Configure Notification
+extension LoginSignupVC {
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 }
 
@@ -409,5 +419,19 @@ extension LoginSignupVC: UITextFieldDelegate {
             return false
         }
         return true
+    }
+    
+    @objc func keyboardWillChangeFrame(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        self.scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        self.scrollView.contentInset = UIEdgeInsets.zero
     }
 }

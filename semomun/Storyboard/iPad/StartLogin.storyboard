@@ -1358,6 +1358,7 @@
                         <outlet property="phonenumTextField" destination="hZu-1p-3dC" id="8kP-EF-lAP"/>
                         <outlet property="requestAgainButton" destination="mGL-iX-xxF" id="kvr-m9-sfJ"/>
                         <outlet property="schoolFinder" destination="ZP8-lu-fR6" id="Opb-Ez-F7q"/>
+                        <outlet property="scrollView" destination="OUH-Uk-Sqa" id="eR7-UP-HCI"/>
                         <outlet property="submitButton" destination="gx0-Tf-OVs" id="4d0-vi-7ce"/>
                         <outlet property="verifyAuthNumButton" destination="1uJ-54-InD" id="f0r-u4-d7i"/>
                     </connections>
