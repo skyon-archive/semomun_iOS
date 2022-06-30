@@ -42,6 +42,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         case startedDate
         case terminatedDate
         case timelimit
+        case testResultPosted
     }
     /* section */
     @NSManaged public var wid: Int64
@@ -66,6 +67,7 @@ public class PracticeTestSection_Core: NSManagedObject {
     @NSManaged public var startedDate: Date? // 응시 시작시각, timer 기준값
     @NSManaged public var terminatedDate: Date? // 응시 종료시각
     @NSManaged public var timelimit: Int64 // 제한시간
+    @NSManaged public var testResultPosted: Bool // DB에 성적 제출 여부
     
     func setValues(section: SectionOfDB, workbook: Preview_Core) {
         /// section 정보 저장
@@ -88,6 +90,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         self.setValue(nil, forKey: Attribute.startedDate.rawValue)
         self.setValue(nil, forKey: Attribute.terminatedDate.rawValue)
         self.setValue(workbook.timelimit, forKey: Attribute.timelimit.rawValue)
+        self.setValue(false, forKey: Attribute.testResultPosted.rawValue)
     }
     
     /// StudyVC 내에서 응시 시작시 Date 값을 받아와 startedDate 값에 저장
