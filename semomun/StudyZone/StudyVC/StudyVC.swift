@@ -416,24 +416,12 @@ extension StudyVC: LayoutDelegate {
     }
     
     func showResultViewController(section: Section_Core) {
-        #warning("테스트용 로직")
-        if true {
-            let storyboard = UIStoryboard(name: PracticeTestResultVC.storyboardName, bundle: nil)
-            guard let practiceTestResultVC = storyboard.instantiateViewController(withIdentifier: PracticeTestResultVC.identifier) as? PracticeTestResultVC else { return }
-            
-            let networkUsecase = NetworkUsecase(network: Network())
-            let viewModel = PracticeTestResultVM(wid: 123, networkUsecase: networkUsecase)
-            practiceTestResultVC.configureViewModel(viewModel)
-            
-            self.present(practiceTestResultVC, animated: true, completion: nil)
-        } else {
-            let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
-            guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
-            let viewModel = SectionResultVM(section: section)
-            sectionResultVC.configureViewModel(viewModel: viewModel)
-            
-            self.present(sectionResultVC, animated: true, completion: nil)
-        }
+        let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
+        guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
+        let viewModel = SectionResultVM(section: section)
+        sectionResultVC.configureViewModel(viewModel: viewModel)
+        
+        self.present(sectionResultVC, animated: true, completion: nil)
     }
     
     func changeResultLabel() {
@@ -498,6 +486,7 @@ extension StudyVC {
         self.bindPage()
         self.bindTestInfo()
         self.bindWarning()
+        self.bindTernimate()
     }
     
     private func bindTitle() {
@@ -565,6 +554,20 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] warning in
                 guard let warning = warning else { return }
                 self?.showAlertWithOK(title: warning.title, text: warning.text)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindTernimate() {
+        self.practiceTestManager?.$practiceTestTernimate
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] ternimnate in
+                guard ternimnate else { return }
+                guard let pageData = self?.practiceTestManager?.currentPage else { return }
+                
+                self?.changeVC(pageData: pageData)
+                self?.reloadButtons()
+                self?.showPracticeTestResultVC()
             })
             .store(in: &self.cancellables)
     }

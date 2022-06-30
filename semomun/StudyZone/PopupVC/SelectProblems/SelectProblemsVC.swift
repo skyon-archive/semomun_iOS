@@ -56,11 +56,8 @@ final class SelectProblemsVC: UIViewController {
             }
         } else {
             NotificationCenter.default.post(name: .sectionTerminated, object: nil)
-            self.presentingViewController?.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: .showPracticeTestResult, object: nil)
-            })
+            self.presentingViewController?.dismiss(animated: true)
         }
-        
     }
 }
 

@@ -19,6 +19,7 @@ final class PracticeTestManager {
     @Published private(set) var currentPage: PageData?
     @Published private(set) var showTestInfo: TestInfo?
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var practiceTestTernimate: Bool = false
     private(set) var section: PracticeTestSection_Core
     private(set) var problems: [Problem_Core] = []
     private(set) var currentIndex: Int = 0
@@ -281,14 +282,25 @@ extension PracticeTestManager {
      - case 3: 응시 진행중에 채점완료를 한 경우
      */
     private func sectionTerminate() {
+        self.terminateProblems()
         self.terminatedUI()
-        // 아래 로직은 단 한번만 실행되는 것들
         self.removeNotification()
         let terminatedDate = Date()
         self.section.terminateTest(terminatedDate: terminatedDate)
         self.workbookGroup.updateProgress()
         self.workbook.setTerminatedSection()
         CoreDataManager.saveCoreData()
+    }
+    
+    private func terminateProblems() {
+        // scoringQueue 모든 Problem -> terminate 처리
+        self.problems.forEach { problem in
+            problem.setValue(true, forKey: Problem_Core.Attribute.terminated.rawValue)
+        }
+        // scoringQueue = []
+        self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
+        CoreDataManager.saveCoreData()
+        self.practiceTestTernimate = true
     }
     
     /**
