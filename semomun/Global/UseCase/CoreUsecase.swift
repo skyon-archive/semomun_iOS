@@ -476,7 +476,6 @@ extension CoreUsecase {
                     completion(false)
                     return
                 }
-                dump(workbook)
 
                 let preview_Core = Preview_Core(context: CoreDataManager.shared.context)
                 preview_Core.setValues(workbook: workbook, info: BookshelfInfo(info: targetInfo))
