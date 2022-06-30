@@ -102,6 +102,9 @@ protocol UserTestResultFetchable {
     func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void)
     func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]) -> Void)
 }
+protocol UserTestResultSendable {
+    func sendUserTestResult(testResult: CalculatedTestResult, completion: @escaping (NetworkStatus) -> Void)
+}
 // MARK: - Reportable
 protocol ErrorReportable {
     func postProblemError(error: ErrorReport, completion: @escaping (NetworkStatus) -> Void)

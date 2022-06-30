@@ -17,9 +17,11 @@ final class PracticeTestResultVM {
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
-    private let networkUsecase: UserTestResultFetchable
+    private let wgid: Int64
+    private let networkUsecase: (UserTestResultFetchable & UserTestResultSendable)
     // CoreData값을 가져옴
     let wid: Int64
+    let sid: Int64
     let title: String
     let subject: String
     let cutoff: [Int]
@@ -33,7 +35,9 @@ final class PracticeTestResultVM {
     let rawScore: Double
     let totalTime: Int64
     
-    init(practiceTestSection: PracticeTestSection_Core, networkUsecase: UserTestResultFetchable) {
+    init(wgid: Int64, practiceTestSection: PracticeTestSection_Core, networkUsecase: (UserTestResultFetchable & UserTestResultSendable)) {
+        self.wgid = wgid
+        self.sid = practiceTestSection.sid
         self.networkUsecase = networkUsecase
         
         self.wid = practiceTestSection.wid
@@ -130,13 +134,31 @@ extension PracticeTestResultVM {
             totalTimeFormattedString: totalTimeFormattedString,
             privateScoreResult: privateScoreResult
         )
+        
+        self.postTestResult()
     }
 
-    
     private func formatDateString(fromSeconds second: Int64) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
         return formatter.string(from: TimeInterval(second)) ?? "00:00:00"
+    }
+    
+    private func postTestResult() {
+        guard let scoreResult = self.practiceTestResult?.privateScoreResult else { return }
+        let calculatedTestResult = CalculatedTestResult(
+            wgid: Int(self.wgid), wid: Int(self.wid), sid: Int(self.sid),
+            rank: String(scoreResult.rank), rawScore: scoreResult.rawScore,
+            perfectScore: Int(self.perfectScore), deviation: Int(self.deviation), percentile: scoreResult.percentile,
+            correctProblemCount: self.correctProblemCount, totalProblemCount: self.totalProblemCount,
+            totalTime: Int(self.totalTime), subject: self.subject
+        )
+        
+        self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
+            if result != .SUCCESS {
+                self.networkError = true
+            }
+        }
     }
 }

@@ -100,6 +100,7 @@ enum NetworkURL {
     static let banners = base + "/banners"
     static let popup = base + "/popups"
     static let errorReportOfProblem = base + "/error-reports"
+    static let scoringResult = base + "/result/scoring"
     
     static let schoolApi: String = "https://www.career.go.kr/cnet/openapi/getOpenApi"
     static let customerService: String = "http://pf.kakao.com/_JAxdGb"
