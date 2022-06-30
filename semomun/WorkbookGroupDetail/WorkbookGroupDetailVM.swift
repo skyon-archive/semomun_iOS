@@ -20,6 +20,9 @@ final class WorkbookGroupDetailVM {
     var hasPurchasedWorkbook: Bool {
         return self.purchasedWorkbooks.isEmpty == false
     }
+    var hasTerminatedWorkbook: Bool {
+        return self.purchasedWorkbooks.firstIndex(where: { $0.terminated }) != nil
+    }
     @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
     @Published private(set) var info: WorkbookGroupInfo

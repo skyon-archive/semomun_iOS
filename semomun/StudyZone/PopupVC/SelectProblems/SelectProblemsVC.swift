@@ -203,7 +203,6 @@ extension SelectProblemsVC: UICollectionViewDataSource {
         default:
             return cell
         }
-        
     }
 }
 

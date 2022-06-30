@@ -16,7 +16,7 @@
         <attribute name="audio" optional="YES" attributeType="Binary"/>
         <attribute name="audioDetail" optional="YES" attributeType="String"/>
         <attribute name="averageScore" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="cutoff" optional="YES" attributeType="String"/>
+        <attribute name="cutoff" optional="YES" attributeType="Binary"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="deviation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastIndex" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -40,7 +40,7 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="averageScore" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="category" optional="YES" attributeType="String"/>
-        <attribute name="cutoff" optional="YES" attributeType="String"/>
+        <attribute name="cutoff" optional="YES" attributeType="Binary"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="deviation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -121,7 +121,7 @@
     <entity name="SectionHeader_Core" representedClassName="SectionHeader_Core" syncable="YES">
         <attribute name="audio" optional="YES" attributeType="Binary"/>
         <attribute name="audioDetail" optional="YES" attributeType="String"/>
-        <attribute name="cutoff" optional="YES" attributeType="String"/>
+        <attribute name="cutoff" optional="YES" attributeType="Binary"/>
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="downloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

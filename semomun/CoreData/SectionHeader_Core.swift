@@ -40,7 +40,7 @@ extension SectionHeader_Core {
     @NSManaged public var audio: Data? //NEW: audio 파일
     @NSManaged public var audioDetail: String? //NEW: audio 파일의 timestemp 값
     @NSManaged public var updatedDate: Date? //NEW: 반영일자
-    @NSManaged public var cutoff: String? // json 형식의 커트라인
+    @NSManaged public var cutoff: Data? // json 형식의 커트라인
     
     @NSManaged public var downloaded: Bool
     @NSManaged public var terminated: Bool

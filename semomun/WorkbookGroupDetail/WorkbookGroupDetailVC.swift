@@ -55,7 +55,7 @@ final class WorkbookGroupDetailVC: UIViewController {
         super.viewDidLoad()
         self.bindAll()
         self.configurePracticeTests()
-        self.configureComprehensiveReportButton()
+        self.configureWorkbookGroupResultButton()
         self.configureAddObserver()
     }
     
@@ -98,19 +98,24 @@ extension WorkbookGroupDetailVC {
         self.practiceTests.delegate = self
     }
     
-    private func configureComprehensiveReportButton() {
-        let comprehensiveReportButton = WorkbookGroupResultButton()
+    private func configureWorkbookGroupResultButton() {
+        let workbookGroupResultButton = WorkbookGroupResultButton()
         // MARK: WorkbookGroup 에 해당되는 Workbook 의 풀이가 없을 경우 비활성화 UI 필요
-        let action = UIAction { [weak self] _ in
-            guard NetworkStatusManager.isConnectedToInternet() else {
-                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
-                return
-            }
-            self?.showWorkbookGroupResultVC()
-        }
-        comprehensiveReportButton.addAction(action, for: .touchUpInside)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: comprehensiveReportButton)
+        if self.viewModel?.hasPurchasedWorkbook == true {
+            let action = UIAction { [weak self] _ in
+                guard NetworkStatusManager.isConnectedToInternet() else {
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                self?.showWorkbookGroupResultVC()
+            }
+            workbookGroupResultButton.addAction(action, for: .touchUpInside)
+        } else {
+            workbookGroupResultButton.configureDisabledUI()
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: workbookGroupResultButton)
     }
     
     private func showWorkbookGroupResultVC() {

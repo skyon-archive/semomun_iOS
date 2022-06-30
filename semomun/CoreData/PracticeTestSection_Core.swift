@@ -59,7 +59,7 @@ public class PracticeTestSection_Core: NSManagedObject {
     @NSManaged public var audioDetail: String?
     @NSManaged public var problemCores: [Problem_Core]?
     /* practiceTest */
-    @NSManaged public var cutoff: String?
+    @NSManaged public var cutoff: Data?
     @NSManaged public var subject: String?
     @NSManaged public var area: String?
     @NSManaged public var deviation: Int64

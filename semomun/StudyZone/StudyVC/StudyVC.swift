@@ -120,7 +120,7 @@ final class StudyVC: UIViewController {
             guard let practiceSection = self.practiceTestManager?.section else { return }
             if practiceSection.terminated {
                 self.practiceTestManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
-                self.showPracticeTestResultVC(wid: practiceSection.wid)
+                self.showPracticeTestResultVC()
             } else {
                 self.showSelectProblemsVC(practiceSection: practiceSection)
             }
@@ -199,13 +199,12 @@ extension StudyVC {
             self?.showResultViewController(section: section)
         }
         NotificationCenter.default.addObserver(forName: .showPracticeTestResult, object: nil, queue: .main) { [weak self] _ in
-            guard let wid = self?.practiceTestManager?.section.wid,
-                  let pageData = self?.practiceTestManager?.currentPage else { return }
+            guard let pageData = self?.practiceTestManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
             self?.reloadButtons()
             self?.practiceTestManager?.postProblemAndPageDatas(isDismiss: false)
-            self?.showPracticeTestResultVC(wid: wid)
+            self?.showPracticeTestResultVC()
         }
         NotificationCenter.default.addObserver(forName: .previousPage, object: nil, queue: .main) { [weak self] _ in
             self?.previousPage()
@@ -335,12 +334,17 @@ extension StudyVC {
         self.present(sectionResultVC, animated: true, completion: nil)
     }
     
-    private func showPracticeTestResultVC(wid: Int64) {
+    private func showPracticeTestResultVC() {
+        guard let section = self.practiceTestManager?.section else { return }
+        
         let storyboard = UIStoryboard(name: PracticeTestResultVC.storyboardName, bundle: nil)
         guard let practiceTestResultVC = storyboard.instantiateViewController(withIdentifier: PracticeTestResultVC.identifier) as? PracticeTestResultVC else { return }
         
         let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = PracticeTestResultVM(wid: wid, networkUsecase: networkUsecase)
+        let viewModel = PracticeTestResultVM(
+            practiceTestSection: section,
+            networkUsecase: networkUsecase
+        )
         practiceTestResultVC.configureViewModel(viewModel)
         
         self.present(practiceTestResultVC, animated: true, completion: nil)
@@ -586,7 +590,7 @@ extension StudyVC {
                 
                 self?.changeVC(pageData: pageData)
                 self?.reloadButtons()
-                self?.showPracticeTestResultVC(wid: 1)
+                self?.showPracticeTestResultVC()
             })
             .store(in: &self.cancellables)
     }

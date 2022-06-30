@@ -69,7 +69,7 @@ extension Preview_Core {
     @NSManaged public var terminated: Bool // 부활: WorkbookGroup 진도율 계산에서 사용
     /* practiceTest */
     @NSManaged public var wgid: Int64 // NEW: 상위 group 정보값
-    @NSManaged public var cutoff: String? // NEW: 등급컷
+    @NSManaged public var cutoff: Data? // NEW: 등급컷
     @NSManaged public var subject: String? // 부활: 같은 명이나, 다른 역할로 부활
     @NSManaged public var area: String? // NEW: 영역
     @NSManaged public var deviation: Int64 // NEW: 표준 편차
@@ -135,7 +135,7 @@ public class Preview_Core: NSManagedObject{
         let averageScore = workbook.averageScore != nil ? Int64(workbook.averageScore!) : nil
         self.setValue(wgid, forKey: Attribute.wgid.rawValue)
         if let jsonData = try? JSONEncoder().encode(workbook.cutoff) {
-            self.setValue(String(data: jsonData, encoding: .utf8), forKey: Attribute.cutoff.rawValue)
+            self.setValue(jsonData, forKey: Attribute.cutoff.rawValue)
         }
         self.setValue(workbook.subject, forKey: Attribute.subject.rawValue)
         self.setValue(workbook.area, forKey: Attribute.area.rawValue)
