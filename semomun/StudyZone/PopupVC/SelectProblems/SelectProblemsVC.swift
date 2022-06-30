@@ -109,6 +109,7 @@ extension SelectProblemsVC {
     }
     
     private func bindProblems() {
+        /// 총 문제 수
         self.selectProblemsVM?.$problems
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] problems in
@@ -151,19 +152,7 @@ extension SelectProblemsVC {
             .sink(receiveValue: { [weak self] scoringQueue in
                 self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
                 self?.problems.reloadData()
-                
-                if scoringQueue.isEmpty {
-                    self?.preventScoring()
-                } else {
-                    self?.activeScoring()
-                }
-                
-                guard let totalCount = self?.selectProblemsVM?.scoreableTotalCount else { return }
-                if scoringQueue.count == totalCount {
-                    self?.allSelectIndicator.isSelected = true
-                } else {
-                    self?.allSelectIndicator.isSelected = false
-                }
+                self?.activeScoring()
             })
             .store(in: &self.cancellables)
     }
@@ -183,21 +172,39 @@ extension SelectProblemsVC {
 
 extension SelectProblemsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.selectProblemsVM?.problems.count ?? 0
+        switch self.mode {
+        case .default: return self.selectProblemsVM?.problems.count ?? 0
+        case .practiceTest: return self.showSolvedProblemsVM?.problems.count ?? 0
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemSelectCell.identifier, for: indexPath) as? ProblemSelectCell else { return UICollectionViewCell() }
-        guard let problem = self.selectProblemsVM?.problems[indexPath.item] else { return cell }
-        guard let isChecked = self.selectProblemsVM?.isChecked(at: indexPath.item) else { return cell }
         
-        cell.configure(problem: problem, isChecked: isChecked)
-        return cell
+        switch self.mode {
+        case .default:
+            guard let problem = self.selectProblemsVM?.problems[safe: indexPath.item] else { return cell }
+            guard let isChecked = self.selectProblemsVM?.isChecked(at: indexPath.item) else { return cell }
+            
+            cell.configure(problem: problem, isChecked: isChecked)
+            return cell
+        case .practiceTest:
+            guard let problem = self.showSolvedProblemsVM?.problems[safe: indexPath.item] else { return cell }
+            guard let isSolved = self.showSolvedProblemsVM?.isSolved(at: indexPath.item) else { return cell }
+            
+            cell.configure(problem: problem, isChecked: isSolved)
+            return cell
+        default:
+            return cell
+        }
+        
     }
 }
 
 extension SelectProblemsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard self.mode == .default else { return }
         self.selectProblemsVM?.toggle(at: indexPath.item)
     }
 }
