@@ -28,17 +28,25 @@ final class ShowSolvedProblemsVM {
 
 // MARK: Public
 extension ShowSolvedProblemsVM {
+    func isSolved(at index: Int) -> Bool {
+        return self.scoringQueue.contains(Int(self.problems[index].pid))
+    }
+    
     func startScoring(completion: @escaping (Bool) -> Void) {
-        // 모든 Problem -> terminate 처리
-        self.problems.forEach { problem in
-            problem.setValue(true, forKey: Problem_Core.Attribute.terminated.rawValue)
-        }
-        // scoringQueue = []
-        self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
-        // section.terminated
+//        // 모든 Problem -> terminate 처리
+//        self.problems.forEach { problem in
+//            problem.setValue(true, forKey: Problem_Core.Attribute.terminated.rawValue)
+//        }
+//        // scoringQueue = []
+//        self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
+//        // section.terminated
+//        NotificationCenter.default.post(name: .sectionTerminated, object: nil)
+//        // save section, VC: dismiss action
+//        CoreDataManager.saveCoreData()
+//        completion(true)
+        
+        /// ternimated 및 관련 로직은 PracticeTestManager 에서 수신받아 실행
         NotificationCenter.default.post(name: .sectionTerminated, object: nil)
-        // save section, VC: dismiss action
-        CoreDataManager.saveCoreData()
         completion(true)
     }
 }

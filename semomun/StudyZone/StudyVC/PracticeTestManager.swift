@@ -298,6 +298,7 @@ extension PracticeTestManager {
      */
     private func terminatedUI() {
         self.stopTimer()
+        print("///////////// terminated!!!!!!!!!")
         // MARK: UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
         // MARK: network post 정보가 필요
         // MARK: binding 으로 완료 전파 필요
