@@ -128,7 +128,7 @@ extension BookshelfVC {
         if UserDefaultsManager.isLogined {
             self.reloadWorkbookGroups() // 동기
             self.reloadWorkbooks() // 동기
-            self.syncBookshelf() // 두 비동기를 묶음
+            self.viewModel?.fetchBookshelf()
         }
     }
     
@@ -376,7 +376,7 @@ extension BookshelfVC: BookshelfOrderController {
     }
     
     func syncBookshelf() {
-        self.viewModel?.fetchBookshelf()
+        self.checkSyncBookshelf()
     }
     
     func reloadWorkbooks(order: BookshelfSortOrder) {

@@ -112,7 +112,7 @@ extension WorkbookGroupDetailVM {
             print("no purchased workbooks")
             return
         }
-        dump(purchasedWorkbooks) // wgid 값 확인용 임시코드
+        
         self.purchasedWorkbooks = purchasedWorkbooks
         self.filterNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
         
