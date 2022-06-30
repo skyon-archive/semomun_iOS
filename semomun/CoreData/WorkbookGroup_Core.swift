@@ -58,8 +58,13 @@ public class WorkbookGroup_Core: NSManagedObject {
         self.setValue(0, forKey: Attribute.progressCount.rawValue)
     }
     
-    func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
+    func fetchGroupcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
         networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover) { [weak self] status, data in
+            guard status == .SUCCESS, let data = data else {
+                print("Error: fetchGroupcover")
+                completion()
+                return
+            }
             self?.setValue(data, forKey: Attribute.image.rawValue)
             completion()
         }

@@ -522,7 +522,7 @@ extension CoreUsecase {
                 
                 let workbookGroup_Core = WorkbookGroup_Core(context: CoreDataManager.shared.context)
                 workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: targetInfo)
-                workbookGroup_Core.fetchBookcover(uuid: workbookGroup.groupCover, networkUsecase: networkUsecase) {
+                workbookGroup_Core.fetchGroupcover(uuid: workbookGroup.groupCover, networkUsecase: networkUsecase) {
                     CoreDataManager.saveCoreData()
                     print("save workbookGroup(\(wgid)) complete")
                     completion(workbookGroup_Core)

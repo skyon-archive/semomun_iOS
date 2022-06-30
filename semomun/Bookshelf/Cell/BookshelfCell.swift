@@ -23,6 +23,7 @@ final class BookshelfCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.progressView.setProgress(0, animated: false)
+        self.bookcover.image = UIImage(.loadingBookcover)
     }
     
     func configure(with book: Preview_Core, imageSize: CGSize) {
