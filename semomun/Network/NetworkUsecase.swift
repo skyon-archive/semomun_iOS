@@ -532,7 +532,7 @@ extension NetworkUsecase: UserTestResultFetchable {
             }
             
             let decodedData = self.decodeRequested([PrivateTestResultOfDB].self, from: data)
-            print("public result: \(optional: decodedData)")
+            print("private result: \(optional: decodedData)")
             completion(.init(statusCode: statusCode), decodedData ?? [])
         }
     }
