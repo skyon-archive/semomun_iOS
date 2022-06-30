@@ -9,6 +9,7 @@ import SwiftUI
 
 protocol TestStartable: AnyObject {
     func startTest()
+    func dismiss()
 }
 
 struct TestInfoView: View {
@@ -65,6 +66,7 @@ extension TestInfoView {
     var CloseButton: some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
+            self.delegate?.dismiss()
         }) {
             Image(systemName: "xmark")
                 .resizable()
