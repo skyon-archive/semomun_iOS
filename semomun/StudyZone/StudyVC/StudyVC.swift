@@ -120,8 +120,7 @@ final class StudyVC: UIViewController {
             guard let practiceSection = self.practiceTestManager?.section else { return }
             if practiceSection.terminated {
                 self.practiceTestManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
-                // MARK: 실모결과창 표시 로직 필요
-//                self.showResultViewController(section: section)
+                self.showPracticeTestResultVC(wid: practiceSection.wid)
             } else {
                 self.showSelectProblemsVC(practiceSection: practiceSection)
             }
@@ -200,8 +199,12 @@ extension StudyVC {
             self?.showResultViewController(section: section)
         }
         NotificationCenter.default.addObserver(forName: .showPracticeTestResult, object: nil, queue: .main) { [weak self] _ in
-            guard let wid = self?.practiceTestManager?.wid else { return }
+            guard let wid = self?.practiceTestManager?.section.wid,
+                  let pageData = self?.practiceTestManager?.currentPage else { return }
             
+            self?.changeVC(pageData: pageData)
+            self?.reloadButtons()
+            self?.practiceTestManager?.postProblemAndPageDatas(isDismiss: false)
             self?.showPracticeTestResultVC(wid: wid)
         }
         NotificationCenter.default.addObserver(forName: .previousPage, object: nil, queue: .main) { [weak self] _ in
