@@ -23,9 +23,6 @@ final class PracticeTestManager {
     private(set) var section: PracticeTestSection_Core
     private(set) var problems: [Problem_Core] = []
     private(set) var currentIndex: Int = 0
-    var wid: Int64 {
-        return self.workbook.wid
-    }
     /* private */
     private weak var delegate: LayoutDelegate?
     private let workbookGroup: WorkbookGroup_Core
