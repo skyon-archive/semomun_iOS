@@ -24,7 +24,7 @@ final class BookshelfHeaderView: UICollectionReusableView {
             return
         }
         
-//        self.spinAnimation()
+        self.spinAnimation()
         if UserDefaultsManager.isLogined {
             self.delegate?.syncBookshelf()
         }

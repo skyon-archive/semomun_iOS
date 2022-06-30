@@ -92,9 +92,9 @@ final class BookshelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        guard UserDefaultsManager.isLogined else { return }
-//        self.reloadWorkbookGroups()
-//        self.reloadWorkbooks()
+        guard UserDefaultsManager.isLogined else { return }
+        self.reloadWorkbookGroups()
+        self.reloadWorkbooks()
     }
     
     // MARK: Rotation
@@ -175,8 +175,12 @@ extension BookshelfVC {
         self.viewModel?.$workbookGroups
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.books.reloadData()
+            .sink(receiveValue: { [weak self] workbookGroups in
+                guard let workbookGroups = workbookGroups, workbookGroups.isEmpty == false else { return }
+                let indexes = (0..<workbookGroups.count).map { IndexPath(row: $0, section: 0) }
+                UIView.performWithoutAnimation {
+                    self?.books.reloadItems(at: indexes)
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -185,8 +189,13 @@ extension BookshelfVC {
         self.viewModel?.$filteredWorkbooks
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.books.reloadData()
+            .sink(receiveValue: { [weak self] workbooks in
+                guard let workbooks = workbooks, workbooks.isEmpty == false else { return }
+                let section = self?.hasWorkbookGroups ?? false ? 1 : 0
+                let indexes = (0..<workbooks.count).map { IndexPath(row: $0, section: section) }
+                UIView.performWithoutAnimation {
+                    self?.books.reloadItems(at: indexes)
+                }
             })
             .store(in: &self.cancellables)
     }
