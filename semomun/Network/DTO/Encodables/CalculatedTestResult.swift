@@ -16,8 +16,8 @@ struct CalculatedTestResult: Encodable {
     let perfectScore: Int // 만점 점수
     let deviation: Int // 표준 점수
     let percentile: Int // 백분위
-    let correctCount: Int // 맞은 개수 (웹 + 동기화를 위함)
-    let totalCount: Int // 전체 개수 (웹 + 동기화를 위함)
+    let correctProblemCount: Int // 맞은 개수 (웹 + 동기화를 위함)
+    let totalProblemCount: Int // 전체 개수 (웹 + 동기화를 위함)
     let totalTime: Int // 시간
     let subject: String // 과목명
 }
