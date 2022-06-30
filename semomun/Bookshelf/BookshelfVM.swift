@@ -10,7 +10,7 @@ import Combine
 
 final class BookshelfVM {
     /* public */
-    private(set) var networkUsecse: NetworkUsecase
+    private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var workbookGroups: [WorkbookGroup_Core] = []
     @Published private(set) var filteredWorkbooks: [Preview_Core] = []
     @Published private(set) var warning: (title: String, text: String)?
@@ -19,7 +19,7 @@ final class BookshelfVM {
     private var workbooks: [Preview_Core] = []
     
     init(networkUsecse: NetworkUsecase) {
-        self.networkUsecse = networkUsecse
+        self.networkUsecase = networkUsecse
     }
 }
 
@@ -40,11 +40,11 @@ extension BookshelfVM {
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
         case .purchase:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.purchasedDate, $0, $1) })
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) })
         case .recent:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.recentDate, $0, $1) })
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) })
         case .alphabet:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGoupsInDecreasingOrder(\.title, $1, $0) })
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) })
         }
     }
      
@@ -99,7 +99,7 @@ extension BookshelfVM {
     }
     
     func fetchWorkbookGroupsFromNetwork(completion: @escaping (() -> Void)) {
-        self.networkUsecse.getUserWorkbookGroupInfos { [weak self] status, infos in
+        self.networkUsecase.getUserWorkbookGroupInfos { [weak self] status, infos in
             switch status {
             case .SUCCESS:
                 if infos.isEmpty == false {
@@ -115,7 +115,7 @@ extension BookshelfVM {
     }
     
     func fetchWorkbooksFromNetwork(completion: @escaping (() -> Void)) {
-        self.networkUsecse.getUserBookshelfInfos { [weak self] status, infos in
+        self.networkUsecase.getUserBookshelfInfos { [weak self] status, infos in
             switch status {
             case .SUCCESS:
                 if infos.isEmpty == false {
@@ -134,7 +134,7 @@ extension BookshelfVM {
 // MARK: Private
 extension BookshelfVM {
     /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate의 최신순으로 정렬
-    private func areWorkbookGoupsInDecreasingOrder<Value: Comparable>(_ path: KeyPath<WorkbookGroup_Core, Value?>, _ leftGroup: WorkbookGroup_Core, _ rightGroup: WorkbookGroup_Core) -> Bool {
+    private func areWorkbookGroupsInDecreasingOrder<Value: Comparable>(_ path: KeyPath<WorkbookGroup_Core, Value?>, _ leftGroup: WorkbookGroup_Core, _ rightGroup: WorkbookGroup_Core) -> Bool {
         switch (leftGroup[keyPath: path], rightGroup[keyPath: path]) {
         case (let lhs?, let rhs?):
             return lhs > rhs
@@ -189,7 +189,7 @@ extension BookshelfVM {
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
-                self.networkUsecse.searchWorkbookGroup(wgid: info.wgid) { [weak self] status, workbookGroup in
+                self.networkUsecase.searchWorkbookGroup(wgid: info.wgid) { [weak self] status, workbookGroup in
                     guard status == .SUCCESS, let workbookGroup = workbookGroup else {
                         print("fetch workbookGroup(\(info.wgid)) error")
                         self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
@@ -201,7 +201,7 @@ extension BookshelfVM {
                     workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: info)
                     // workbookGroup 내 workbook 들은 아래 syncWorkbooks 를 통해 save 된다
                     
-                    workbookGroup_Core.fetchGroupcover(uuid: workbookGroup.groupCover, networkUsecase: self?.networkUsecse) {
+                    workbookGroup_Core.fetchGroupcover(uuid: workbookGroup.groupCover, networkUsecase: self?.networkUsecase) {
                         print("save workbookGroup(\(info.wgid)) complete")
                         currentCount += 1
                         
@@ -232,12 +232,12 @@ extension BookshelfVM {
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localBookWids.contains(Int64(info.wid)) {
                 let targetWorkbook = self.workbooks.first { $0.wid == Int64(info.wid) }
-                targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecse)
+                targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecase)
                 print("local preview(\(info.wid)) update complete")
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
-                self.networkUsecse.getWorkbook(wid: info.wid) { [weak self] workbook in
+                self.networkUsecase.getWorkbook(wid: info.wid) { [weak self] workbook in
                     guard let workbook = workbook else {
                         print("fetch preview(\(info.wid)) error")
                         self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
@@ -252,7 +252,7 @@ extension BookshelfVM {
                         sectionHeader_core.setValues(section: section)
                     }
                     
-                    preview_core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecse) {
+                    preview_core.fetchBookcover(uuid: workbook.bookcover, networkUsecase: self?.networkUsecase) {
                         print("save preview(\(info.wid)) complete")
                         currentCount += 1
                         

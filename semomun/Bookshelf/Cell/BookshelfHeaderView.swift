@@ -54,38 +54,32 @@ final class BookshelfHeaderView: UICollectionReusableView {
     }
     
     private func configureWorkbookGroupsMenu() {
-        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .purchase)
+        let actions = [BookshelfSortOrder.purchase, .recent, .alphabet].map { order in
+            UIAction(title: order.rawValue, image: nil) { [weak self] _ in
+                self?.changeSort(to: order)
+            }
         }
-        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .recent)
-        }
-        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .alphabet)
-        }
+        
         if let order = UserDefaultsManager.workbookGroupsOrder {
             self.currentOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
         }
         self.sortSelector.setTitle(self.currentOrder.rawValue, for: .normal)
-        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: actions)
         self.sortSelector.showsMenuAsPrimaryAction = true
     }
     
     private func configureWorkbooksMenu() {
-        let purchaseAction = UIAction(title: BookshelfSortOrder.purchase.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .purchase)
+        let actions = [BookshelfSortOrder.purchase, .recent, .alphabet].map { order in
+            UIAction(title: order.rawValue, image: nil) { [weak self] _ in
+                self?.changeSort(to: order)
+            }
         }
-        let recentAction = UIAction(title: BookshelfSortOrder.recent.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .recent)
-        }
-        let alphabetAction = UIAction(title: BookshelfSortOrder.alphabet.rawValue, image: nil) { [weak self] _ in
-            self?.changeSort(to: .alphabet)
-        }
+        
         if let order = UserDefaultsManager.bookshelfOrder {
             self.currentOrder = BookshelfSortOrder(rawValue: order) ?? .purchase
         }
         self.sortSelector.setTitle(self.currentOrder.rawValue, for: .normal)
-        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: [purchaseAction, recentAction, alphabetAction])
+        self.sortSelector.menu = UIMenu(title: "정렬 리스트", image: nil, children: actions)
         self.sortSelector.showsMenuAsPrimaryAction = true
     }
     

@@ -176,7 +176,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookGroups in
-                guard let workbookGroups = workbookGroups, workbookGroups.isEmpty == false else { return }
+                guard workbookGroups.isEmpty == false else { return }
                 let indexes = (0..<workbookGroups.count).map { IndexPath(row: $0, section: 0) }
                 UIView.performWithoutAnimation {
                     self?.books.reloadItems(at: indexes)
@@ -190,7 +190,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
-                guard let workbooks = workbooks, workbooks.isEmpty == false else { return }
+                guard workbooks.isEmpty == false else { return }
                 let section = self?.hasWorkbookGroups ?? false ? 1 : 0
                 let indexes = (0..<workbooks.count).map { IndexPath(row: $0, section: section) }
                 UIView.performWithoutAnimation {
@@ -317,7 +317,7 @@ extension BookshelfVC {
     private func showWorkbookDetailVC(book: Preview_Core) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
         guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        guard let networkUsecase = self.viewModel?.networkUsecse else { return }
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
         let viewModel = WorkbookDetailVM(previewCore: book, networkUsecase: networkUsecase)
         workbookDetailVC.configureViewModel(to: viewModel)
         workbookDetailVC.configureIsCoreData(to: true)
