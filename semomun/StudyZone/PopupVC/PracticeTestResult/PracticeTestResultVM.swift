@@ -18,9 +18,9 @@ final class PracticeTestResultVM {
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
     private let networkUsecase: UserTestResultFetchable
-    private let wid: Int
+    private let wid: Int64
     
-    init(wid: Int, networkUsecase: UserTestResultFetchable) {
+    init(wid: Int64, networkUsecase: UserTestResultFetchable) {
         self.networkUsecase = networkUsecase
         self.wid = wid
         self.listenNetworkState()
@@ -39,7 +39,7 @@ extension PracticeTestResultVM {
         }
         
         // 위에서 네트워크 유무를 확인했기에 이곳에서의 실패는 기타 다른 문제
-        self.networkUsecase.getPublicTestResult(wid: wid) { [weak self] _, publicTestResultOfDB in
+        self.networkUsecase.getPublicTestResult(wid: Int(wid)) { [weak self] _, publicTestResultOfDB in
             
             guard let publicTestResultOfDB = publicTestResultOfDB else {
                 self?.networkError = true

@@ -187,8 +187,8 @@ extension StudyVC {
         self.nextFrameView.addShadow(direction: .left)
     }
     
+    /// 채점 이후 결과창 표시를 위한 observer
     private func configureObservation() {
-        /// 채점 이후 결과창 표시를 위한 observer
         NotificationCenter.default.addObserver(forName: .showSectionResult, object: nil, queue: .current) { [weak self] _ in
             // MARK: Mode 에 따른 분기처리가 필요, 또는 다른 Noti를 사용하는 식으로
             guard let section = self?.sectionManager?.section,
@@ -198,6 +198,11 @@ extension StudyVC {
             self?.reloadButtons()
             self?.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
+        }
+        NotificationCenter.default.addObserver(forName: .showPracticeTestResult, object: nil, queue: .main) { [weak self] _ in
+            guard let wid = self?.practiceTestManager?.wid else { return }
+            
+            self?.showPracticeTestResultVC(wid: wid)
         }
         NotificationCenter.default.addObserver(forName: .previousPage, object: nil, queue: .main) { [weak self] _ in
             self?.previousPage()
@@ -317,6 +322,26 @@ extension StudyVC {
         hostingVC.modalPresentationStyle = .overFullScreen
         self.present(hostingVC, animated: true, completion: nil)
     }
+    
+    private func showResultViewController(section: Section_Core) {
+        let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
+        guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
+        let viewModel = SectionResultVM(section: section)
+        sectionResultVC.configureViewModel(viewModel: viewModel)
+        
+        self.present(sectionResultVC, animated: true, completion: nil)
+    }
+    
+    private func showPracticeTestResultVC(wid: Int64) {
+        let storyboard = UIStoryboard(name: PracticeTestResultVC.storyboardName, bundle: nil)
+        guard let practiceTestResultVC = storyboard.instantiateViewController(withIdentifier: PracticeTestResultVC.identifier) as? PracticeTestResultVC else { return }
+        
+        let networkUsecase = NetworkUsecase(network: Network())
+        let viewModel = PracticeTestResultVM(wid: wid, networkUsecase: networkUsecase)
+        practiceTestResultVC.configureViewModel(viewModel)
+        
+        self.present(practiceTestResultVC, animated: true, completion: nil)
+    }
 }
 
 extension StudyVC: LayoutDelegate {
@@ -413,15 +438,6 @@ extension StudyVC: LayoutDelegate {
     
     func dismissSection() {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func showResultViewController(section: Section_Core) {
-        let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
-        guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
-        let viewModel = SectionResultVM(section: section)
-        sectionResultVC.configureViewModel(viewModel: viewModel)
-        
-        self.present(sectionResultVC, animated: true, completion: nil)
     }
     
     func changeResultLabel() {
@@ -567,7 +583,7 @@ extension StudyVC {
                 
                 self?.changeVC(pageData: pageData)
                 self?.reloadButtons()
-                self?.showPracticeTestResultVC()
+                self?.showPracticeTestResultVC(wid: 1)
             })
             .store(in: &self.cancellables)
     }
