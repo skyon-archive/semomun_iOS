@@ -180,7 +180,10 @@ extension SingleWith5AnswerVC {
             self.viewModel?.answer.forEach {
                 self.checkImageViews[$0-1].isHidden = false
             }
-            self.showResultImage(to: problem.correct)
+            
+            if problem.answer != nil {
+                self.showResultImage(to: problem.correct)
+            }
         } else {
             self.answerBT.isHidden = false
         }
