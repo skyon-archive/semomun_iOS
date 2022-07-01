@@ -45,6 +45,8 @@ final class SingleWith5AnswerVC: FormZero {
         self.updateBookmarkBT()
         self.updateAnswerBT()
         self.updateExplanationBT()
+        self.updateUIIfTerminated()
+        self.updateModeUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -155,7 +157,6 @@ extension SingleWith5AnswerVC {
         self.checkButtons.forEach { $0.isSelected = false }
         self.viewModel?.savedSolved.forEach { self.checkButtons[$0-1].isSelected = true }
         self.updateButtonUI()
-        self.updateUIIfTerminated()
     }
     
     private func updateButtonUI() {
@@ -190,6 +191,7 @@ extension SingleWith5AnswerVC {
     }
     
     private func updateAnswerBT() {
+        self.answerBT.isHidden = false
         self.answerBT.isUserInteractionEnabled = true
         self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.viewModel?.problem?.answer == nil {
@@ -199,12 +201,26 @@ extension SingleWith5AnswerVC {
     }
     
     private func updateExplanationBT() {
+        self.explanationBT.isHidden = false
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
         self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
+        }
+    }
+    
+    private func updateModeUI() {
+        guard let terminated = self.viewModel?.problem?.terminated, terminated == false,
+              let mode = self.viewModel?.mode else { return }
+        
+        switch mode {
+        case .default:
+            return
+        case.practiceTest:
+            self.explanationBT.isHidden = true
+            self.answerBT.isHidden = true
         }
     }
 }
