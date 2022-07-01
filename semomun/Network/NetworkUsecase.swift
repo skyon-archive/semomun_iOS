@@ -522,7 +522,7 @@ extension NetworkUsecase: UserTestResultFetchable {
     }
     
     func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.workbookResult, param: ["type": "private"], method: .get, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.workbookGroupResultsDirectory(wgid), method: .get, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
                   let data = result.data else {
                 completion(.FAIL, [])
