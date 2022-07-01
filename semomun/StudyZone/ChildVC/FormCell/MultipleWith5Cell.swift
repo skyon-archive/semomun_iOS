@@ -73,8 +73,8 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.answerView.showShortTime()
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
-        super.prepareForReuse(contentImage, problem, toolPicker)
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
+        super.prepareForReuse(contentImage, problem, toolPicker, mode)
         self.updateCheckButtons()
         self.updateCorrectImage()
         self.updateStar()

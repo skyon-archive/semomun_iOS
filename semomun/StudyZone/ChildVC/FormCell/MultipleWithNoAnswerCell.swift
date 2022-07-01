@@ -41,7 +41,7 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
         super.prepareForReuse(contentImage, problem, toolPicker)
         self.updateStar()
         self.updateExplanationBT()

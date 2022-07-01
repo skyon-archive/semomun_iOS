@@ -29,7 +29,7 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         self.delegate?.refreshPageButtons()
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
         super.prepareForReuse(contentImage, problem, toolPicker)
         self.configureStar()
     }
