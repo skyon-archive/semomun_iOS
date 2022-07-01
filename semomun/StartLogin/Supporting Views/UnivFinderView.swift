@@ -70,10 +70,9 @@ struct UnivFinderView: View {
             let schoolSearchUseCase = SchoolSearchUseCase(networkUseCase: networkUseCase)
             schoolSearchUseCase.request(schoolKey: schoolType.key) { downloaded in
                 self.univList = downloaded
-                filterList()
+                self.filterList()
             }
         }
-        .ignoresSafeArea(.keyboard)
     }
 }
 
