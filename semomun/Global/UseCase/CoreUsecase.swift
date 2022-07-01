@@ -376,21 +376,39 @@ struct CoreUsecase {
     }
     
     static func deleteAllCoreData() {
+        guard let allWorkbookGroups = CoreUsecase.fetchWorkbookGroups() else {
+            print("Error: fetch all workbookGroup")
+            return
+        }
         guard let allPreviews = CoreUsecase.fetchPreviews() else {
             print("Error: fetch all preview")
             return
-        }
-        
-        allPreviews.forEach { preview in
-            CoreUsecase.deletePreview(wid: Int(preview.wid))
         }
         guard let userInfo = CoreUsecase.fetchUserInfo() else {
             print("Error: fetch userinfo")
             return
         }
+        
+        allWorkbookGroups.forEach { workbookGroup in
+            CoreUsecase.deleteWorkbookGroup(wgid: Int(workbookGroup.wgid))
+        }
+        allPreviews.forEach { preview in
+            CoreUsecase.deletePreview(wid: Int(preview.wid))
+        }
+        
         CoreDataManager.shared.context.delete(userInfo)
         CoreDataManager.saveCoreData()
         print("CoreData delete complete")
+    }
+    
+    static func deleteWorkbookGroup(wgid: Int) {
+        guard let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: wgid) else {
+            print("Error: fetch workbookGroup")
+            return
+        }
+        
+        CoreDataManager.shared.context.delete(targetWorkbookGroup)
+        print("workbookGroup delete complete")
     }
     
     static func deletePreview(wid: Int) {

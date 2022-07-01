@@ -29,7 +29,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var topView: UIView!
-    @IBOutlet var checkNumbers: [UIButton]!
+    @IBOutlet var checkButtons: [UIButton]!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -43,7 +43,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         let selectedAnswer: Int = sender.tag
         self.updateSolved(input: "\(selectedAnswer)")
         
-        self.updateCheckButtons()
+        self.updateCheckedButtons()
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
@@ -75,11 +75,12 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
         super.prepareForReuse(contentImage, problem, toolPicker, mode)
-        self.updateCheckButtons()
-        self.updateCorrectImage()
-        self.updateStar()
-        self.updateAnswer()
+        self.updateCheckedButtons()
+        self.updateBookmarkBT()
+        self.updateAnswerBT()
         self.updateExplanationBT()
+        self.updateUIIfTerminated()
+        self.updateModeUI()
     }
     
     // MARK: override 구현
@@ -102,49 +103,51 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     }
 }
 
-// MARK: Configure
-extension MultipleWith5Cell {
-    
-}
-
 // MARK: Update
 extension MultipleWith5Cell {
-    private func updateCheckButtons() {
+    private func updateCheckedButtons() {
+        self.checkButtons.forEach { $0.isSelected = false }
+        if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
+            self.checkButtons[solvedIndex-1].isSelected = true
+        }
+        self.updateButtonUI()
+    }
+    
+    private func updateButtonUI() {
+        self.checkButtons.forEach { button in
+            if button.isSelected {
+                button.backgroundColor = UIColor(.deepMint)
+                button.setTitleColor(UIColor.white, for: .normal)
+            } else {
+                button.backgroundColor = UIColor.white
+                button.setTitleColor(UIColor(.deepMint), for: .normal)
+            }
+        }
+    }
+    
+    private func updateUIIfTerminated() {
         guard let problem = self.problem else { return }
         
-        // 일단 모든 버튼 표시 구현
-        for bt in checkNumbers {
-            bt.backgroundColor = UIColor.white
-            bt.setTitleColor(UIColor(.deepMint), for: .normal)
-        }
-        
-        // 사용자 체크한 버튼 선택 표시
-        if let solved = problem.solved {
-            guard let targetIndex = Int(solved) else { return }
-            self.checkNumbers[targetIndex-1].backgroundColor = UIColor(.deepMint)
-            self.checkNumbers[targetIndex-1].setTitleColor(UIColor.white, for: .normal)
-        }
-        
-        // 채점이 완료된 경우 해설 버튼 숨기고 정답에 체크 이미지 추가
-        if let answer = problem.answer, problem.terminated {
+        if problem.terminated {
             self.answerBT.isHidden = true
-            guard let targetIndex = Int(answer) else { return }
-            self.showCheckImage(to: targetIndex-1)
+            if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
+                self.showCheckImage(to: solvedIndex-1)
+            }
+            
+            if problem.answer != nil {
+                self.showCorrectImage(isCorrect: problem.correct)
+            }
+        } else {
+            self.answerBT.isHidden = false
         }
     }
     
-    /// 정답 여부를 OX 이미지로 표시
-    private func updateCorrectImage() {
-        guard let problem = self.problem, problem.terminated else { return }
-        
-        self.showCorrectImage(isCorrect: problem.correct)
-    }
-    
-    private func updateStar() {
+    private func updateBookmarkBT() {
         self.bookmarkBT.isSelected = self.problem?.star ?? false
     }
     
-    private func updateAnswer() {
+    private func updateAnswerBT() {
+        self.answerBT.isHidden = false
         if self.problem?.answer == nil {
             self.answerBT.isUserInteractionEnabled = false
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
@@ -155,6 +158,7 @@ extension MultipleWith5Cell {
     }
     
     private func updateExplanationBT() {
+        self.explanationBT.isHidden = false
         self.explanationBT.isSelected = false
         if self.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
@@ -164,18 +168,30 @@ extension MultipleWith5Cell {
             self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
         }
     }
+    
+    private func updateModeUI() {
+        guard let terminated = self.problem?.terminated, terminated == false else { return }
+        
+        switch self.mode {
+        case .default:
+            return
+        case.practiceTest:
+            self.explanationBT.isHidden = true
+            self.answerBT.isHidden = true
+        }
+    }
 }
 
 extension MultipleWith5Cell {
     private func showCheckImage(to index: Int) {
         self.checkImageView.image = UIImage(named: "check")
-        self.checkNumbers[index].addSubview(self.checkImageView)
+        self.checkButtons[index].addSubview(self.checkImageView)
         
         NSLayoutConstraint.activate([
             self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
             self.checkImageView.heightAnchor.constraint(equalToConstant: 70),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkNumbers[index].centerXAnchor, constant: 9),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkNumbers[index].centerYAnchor, constant: -9)
+            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 9),
+            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -9)
         ])
     }
     private func hideCheckImage() {

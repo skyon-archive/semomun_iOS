@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -228,11 +226,11 @@
                 <outlet property="bookmarkBT" destination="daa-NS-YLI" id="6lV-fy-c8i"/>
                 <outlet property="explanationBT" destination="Hlc-nV-Vs2" id="EUf-0D-iES"/>
                 <outlet property="topView" destination="eRT-0H-Iup" id="Z86-O9-YRA"/>
-                <outletCollection property="checkNumbers" destination="i0L-1Y-IIp" collectionClass="NSMutableArray" id="zYG-x0-b8x"/>
-                <outletCollection property="checkNumbers" destination="SwT-ya-GGn" collectionClass="NSMutableArray" id="SbS-h3-XIA"/>
-                <outletCollection property="checkNumbers" destination="TAX-ei-khY" collectionClass="NSMutableArray" id="1s3-hh-kcO"/>
-                <outletCollection property="checkNumbers" destination="a71-SM-LlS" collectionClass="NSMutableArray" id="ogy-gZ-wvq"/>
-                <outletCollection property="checkNumbers" destination="E7b-KE-1sM" collectionClass="NSMutableArray" id="IZn-ke-8ck"/>
+                <outletCollection property="checkButtons" destination="i0L-1Y-IIp" collectionClass="NSMutableArray" id="zYG-x0-b8x"/>
+                <outletCollection property="checkButtons" destination="SwT-ya-GGn" collectionClass="NSMutableArray" id="SbS-h3-XIA"/>
+                <outletCollection property="checkButtons" destination="TAX-ei-khY" collectionClass="NSMutableArray" id="1s3-hh-kcO"/>
+                <outletCollection property="checkButtons" destination="a71-SM-LlS" collectionClass="NSMutableArray" id="ogy-gZ-wvq"/>
+                <outletCollection property="checkButtons" destination="E7b-KE-1sM" collectionClass="NSMutableArray" id="IZn-ke-8ck"/>
             </connections>
             <point key="canvasLocation" x="1231.8840579710145" y="112.83482142857142"/>
         </collectionViewCell>
