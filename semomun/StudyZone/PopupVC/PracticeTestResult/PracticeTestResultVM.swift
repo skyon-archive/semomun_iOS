@@ -53,7 +53,7 @@ final class PracticeTestResultVM {
             self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
         }
         self.area = practiceTestSection.area ?? ""
-        self.deviation = Int(practiceTestSection.deviation)
+        self.deviation = Int(practiceTestSection.standardDeviation)
         self.averageScore = Int(practiceTestSection.averageScore)
         
         guard let problemCores = practiceTestSection.problemCores else {

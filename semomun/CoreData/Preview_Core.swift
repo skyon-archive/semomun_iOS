@@ -39,7 +39,7 @@ extension Preview_Core {
         case cutoff
         case subject
         case area
-        case deviation
+        case standardDeviation
         case averageScore
         case downloaded
         case terminated
@@ -72,7 +72,7 @@ extension Preview_Core {
     @NSManaged public var cutoff: Data? // NEW: 등급컷
     @NSManaged public var subject: String? // 부활: 같은 명이나, 다른 역할로 부활
     @NSManaged public var area: String? // NEW: 영역
-    @NSManaged public var deviation: Int64 // NEW: 표준 편차
+    @NSManaged public var standardDeviation: Int64 // NEW: 표준 편차
     @NSManaged public var averageScore: Int64 // NEW: 평균 점수
     @NSManaged public var timelimit: Int64 // NEW: 제한시간
     
@@ -139,7 +139,7 @@ public class Preview_Core: NSManagedObject{
         }
         self.setValue(workbook.subject, forKey: Attribute.subject.rawValue)
         self.setValue(workbook.area, forKey: Attribute.area.rawValue)
-        self.setValue(deviation, forKey: Attribute.deviation.rawValue)
+        self.setValue(deviation, forKey: Attribute.standardDeviation.rawValue)
         self.setValue(averageScore, forKey: Attribute.averageScore.rawValue)
         self.setValue(false, forKey: Attribute.downloaded.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
