@@ -149,12 +149,8 @@ extension PracticeTestResultVM {
     }
     
     private func postTestResult() {
-        guard self.testResultPosted == false else {
-            print("채점 결과 POST 되어있음")
-            return
-        }
+        guard self.testResultPosted == false else { return }
         
-        print("채점 결과 POST 시작")
         guard let scoreResult = self.practiceTestResult?.privateScoreResult else {
             return
         }
@@ -174,7 +170,6 @@ extension PracticeTestResultVM {
             subject: self.subject
         )
         self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
-            print("채점결과 POST: \(result)")
             guard result == .SUCCESS else { return }
             self.checkTestResultPosted()
         }
