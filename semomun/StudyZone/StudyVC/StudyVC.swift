@@ -21,10 +21,10 @@ final class StudyVC: UIViewController {
     /* public */
     static let identifier = "StudyVC"
     static let storyboardName = "Study"
-    /* private */
     enum Mode {
         case `default`, practiceTest
     }
+    /* private */
     @IBOutlet weak var headerFrameView: UIView!
     @IBOutlet weak var bottomFrameView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -360,75 +360,75 @@ extension StudyVC: LayoutDelegate {
         switch pageData.layoutType {
         case SingleWith5AnswerVC.identifier:
             self.currentVC = self.singleWith5Answer
-            self.singleWith5Answer.viewModel = SingleWith5AnswerVM(delegate: self, pageData: pageData)
+            self.singleWith5Answer.viewModel = SingleWith5AnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWith5Answer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case SingleWithTextAnswerVC.identifier:
             self.currentVC = self.singleWithTextAnswer
-            self.singleWithTextAnswer.viewModel = SingleWithTextAnswerVM(delegate: self, pageData: pageData)
+            self.singleWithTextAnswer.viewModel = SingleWithTextAnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWithTextAnswer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWith5AnswerVC.identifier:
             // Page 필기 겹치는 문제 때문에 Multiple계열 VC들은 모두 새로 객체를 생성. 
             self.multipleWith5Answer = .init()
             self.currentVC = self.multipleWith5Answer
-            self.multipleWith5Answer.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData)
+            self.multipleWith5Answer.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWith5Answer.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWith5Answer.subImages = self.getImages(problems: pageData.problems)
             
         case SingleWith4AnswerVC.identifier:
             self.currentVC = self.singleWith4Answer
-            self.singleWith4Answer.viewModel = SingleWith4AnswerVM(delegate: self, pageData: pageData)
+            self.singleWith4Answer.viewModel = SingleWith4AnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWith4Answer.image = self.getImage(data: pageData.problems[0].contentImage)
             
         case MultipleWithNoAnswerVC.identifier:
             self.multipleWithNoAnswer = .init()
             self.currentVC = self.multipleWithNoAnswer
-            self.multipleWithNoAnswer.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
+            self.multipleWithNoAnswer.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWithNoAnswer.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithNoAnswer.subImages = self.getImages(problems: pageData.problems)
             
         case ConceptVC.identifier:
             self.currentVC = self.concept
-            self.concept.viewModel = ConceptVM(delegate: self, pageData: pageData)
+            self.concept.viewModel = ConceptVM(delegate: self, pageData: pageData, mode: self.mode)
             self.concept.image = self.getImage(data: pageData.problems[0].contentImage)
         
         case SingleWithNoAnswerVC.identifier:
             self.currentVC = self.singleWithNoAnswer
-            self.singleWithNoAnswer.viewModel = SingleWithNoAnswerVM(delegate: self, pageData: pageData)
+            self.singleWithNoAnswer.viewModel = SingleWithNoAnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWithNoAnswer.image = self.getImage(data: pageData.problems[0].contentImage)
         
         case MultipleWith5AnswerWideVC.identifier:
             self.multipleWith5AnswerWide = .init()
             self.currentVC = self.multipleWith5AnswerWide
-            self.multipleWith5AnswerWide.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData)
+            self.multipleWith5AnswerWide.viewModel = MultipleWith5AnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWith5AnswerWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWith5AnswerWide.subImages = self.getImages(problems: pageData.problems)
             
         case MultipleWithSubProblemsWideVC.identifier:
             self.multipleWithSubProblemsWide = .init()
             self.currentVC = self.multipleWithSubProblemsWide
-            self.multipleWithSubProblemsWide.viewModel = MultipleWithSubProblemsVM(delegate: self, pageData: pageData)
+            self.multipleWithSubProblemsWide.viewModel = MultipleWithSubProblemsVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWithSubProblemsWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithSubProblemsWide.subImages = self.getImages(problems: pageData.problems)
             
         case MultipleWithConceptWideVC.identifier:
             self.multipleWithConceptWide = .init()
             self.currentVC = self.multipleWithConceptWide
-            self.multipleWithConceptWide.viewModel = MultipleWithConceptWideVM(delegate: self, pageData: pageData)
+            self.multipleWithConceptWide.viewModel = MultipleWithConceptWideVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWithConceptWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithConceptWide.subImages = self.getImages(problems: pageData.problems)
             
         case MultipleWithNoAnswerWideVC.identifier:
             self.multipleWithNoAnswerWide = .init()
             self.currentVC = self.multipleWithNoAnswerWide
-            self.multipleWithNoAnswerWide.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData)
+            self.multipleWithNoAnswerWide.viewModel = MultipleWithNoAnswerVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWithNoAnswerWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithNoAnswerWide.subImages = self.getImages(problems: pageData.problems)
             
         case SingleWithSubProblemsVC.identifier:
             self.currentVC = self.singleWithSubProblems
-            self.singleWithSubProblems.configureViewModel(delegate: self, pageData: pageData)
+            self.singleWithSubProblems.configureViewModel(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWithSubProblems.image = self.getImage(data: pageData.problems[0].contentImage)
         
         default:

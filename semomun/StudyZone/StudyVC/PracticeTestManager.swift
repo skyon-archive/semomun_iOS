@@ -225,7 +225,7 @@ extension PracticeTestManager {
             self.updateRecentTime()
             
             if self.section.terminated { // 채점완료 상태인 경우
-                self.terminatedUI()
+                self.stopTimer()
             } else { // 진행중인 경우
                 guard self.remainingTime > 0 else {
                     self.sectionTerminate()
@@ -284,7 +284,7 @@ extension PracticeTestManager {
      */
     private func sectionTerminate() {
         self.terminateProblems()
-        self.terminatedUI()
+        self.stopTimer()
         self.removeNotification()
         let terminatedDate = Date()
         self.section.terminateTest(terminatedDate: terminatedDate)
@@ -302,19 +302,6 @@ extension PracticeTestManager {
         self.section.setValue([], forKey: PracticeTestSection_Core.Attribute.scoringQueue.rawValue)
         CoreDataManager.saveCoreData()
         self.practiceTestTernimate = true
-    }
-    
-    /**
-     - 응시 종료 UI 표시 (여러번 불릴 수 있는 로직)
-     - case 1: sectionTerminate 로 불리는 경우
-     - case 2: 진입시 응시 종료 이후 다시 들어오는 경우
-     */
-    private func terminatedUI() {
-        self.stopTimer()
-        print("///////////// terminated!!!!!!!!!")
-        // MARK: UI 수정 notification 필요 및 각 VC 에서 어떤식으로 분기처리를 할 것인지가 고민 포인트
-        // MARK: network post 정보가 필요
-        // MARK: binding 으로 완료 전파 필요
     }
     
     private func stopTimer() {

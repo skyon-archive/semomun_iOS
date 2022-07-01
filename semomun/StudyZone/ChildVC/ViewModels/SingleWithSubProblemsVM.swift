@@ -17,14 +17,14 @@ final class SingleWithSubProblemsVM: PageVM {
         return userAnswers.allSatisfy { $0 == nil }
     }
     
-    override init(delegate: PageDelegate, pageData: PageData) {
+    override init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
         if let answer = pageData.problems.first?.answer {
             self.resultAnswers = answer.components(separatedBy: "$").map { String($0) }
         } else {
             self.resultAnswers = []
         }
         
-        super.init(delegate: delegate, pageData: pageData)
+        super.init(delegate: delegate, pageData: pageData, mode: mode)
         
         if let savedSolved = self.problem?.solved {
             self.userAnswers = savedSolved

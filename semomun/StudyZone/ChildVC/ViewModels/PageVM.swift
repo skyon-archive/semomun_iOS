@@ -9,10 +9,11 @@ import Foundation
 
 /// - Note: pageData.pageCore.time를 어떻게 사용하는지 확인 필요
 class PageVM {
+    /* public */
     weak var delegate: PageDelegate?
-    
     private(set) var problems: [Problem_Core]
-    
+    private(set) var mode: StudyVC.Mode = .default
+    /* private */
     private var startTime: Date?
     private var isTimeRecording = false
     
@@ -33,10 +34,11 @@ class PageVM {
         return pageData.pageCore.drawingWidth
     }
     
-    init(delegate: PageDelegate, pageData: PageData) {
+    init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
         self.delegate = delegate
-        self.pageData = pageData
         self.problems = pageData.problems
+        self.mode = mode ?? .default
+        self.pageData = pageData
         self.timeSpentPerProblems = self.problems.map(\.time)
         
         guard problems.isEmpty == false else {

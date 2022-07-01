@@ -143,9 +143,9 @@ final class SingleWithSubProblemsVC: FormZero {
 
 // MARK: public
 extension SingleWithSubProblemsVC {
-    func configureViewModel(delegate: PageDelegate, pageData: PageData) {
+    func configureViewModel(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
         if self.viewModel == nil {
-            self.viewModel = .init(delegate: delegate, pageData: pageData)
+            self.viewModel = .init(delegate: delegate, pageData: pageData, mode: mode)
         } else {
             self.viewModel?.updatePageData(pageData)
         }
