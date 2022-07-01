@@ -8,7 +8,7 @@
 import Foundation
 
 enum NetworkStatus {
-    case SUCCESS //200
+    case SUCCESS // 200..<300
     case TOOMANYREQUESTS // 429
     case INSPECTION //504 : 서버 점검 진행중 상태
     case OTHERS(statusCode: Int)
@@ -21,7 +21,7 @@ enum NetworkStatus {
 extension NetworkStatus {
     init(statusCode: Int) {
         switch statusCode {
-        case 200:
+        case 200..<300:
             self = .SUCCESS
         case 429:
             self = .TOOMANYREQUESTS
