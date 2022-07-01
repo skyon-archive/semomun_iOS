@@ -73,6 +73,7 @@ struct UnivFinderView: View {
                 filterList()
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
