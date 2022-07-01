@@ -291,6 +291,7 @@ extension PracticeTestManager {
         self.workbookGroup.updateProgress()
         self.workbook.setTerminatedSection()
         CoreDataManager.saveCoreData()
+        self.postProblemAndPageDatas(isDismiss: false) // network 에 정보 post
     }
     
     private func terminateProblems() {
