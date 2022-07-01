@@ -240,7 +240,7 @@ extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let problem = self.practiceTestManager?.problems[safe: indexPath.item],
                   let currentIndex = self.practiceTestManager?.currentIndex else { return cell }
             
-            cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
+            cell.configureForPracticeTest(problem: problem, isCurrent: currentIndex == indexPath.item)
         }
         
         return cell
