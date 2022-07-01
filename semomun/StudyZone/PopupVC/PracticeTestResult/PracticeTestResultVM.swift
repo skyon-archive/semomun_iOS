@@ -12,8 +12,6 @@ final class PracticeTestResultVM {
     /* public */
     @Published private(set) var practiceTestResult: PracticeTestResult?
     @Published private(set) var publicScoreResult: ScoreResult?
-    /// 단순 인터넷 연결이 없는 상태가 아닌 기타 다른 문제가 생긴 경우
-    @Published private(set) var networkError: Bool?
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
@@ -85,10 +83,9 @@ extension PracticeTestResultVM {
             return
         }
         
-        // 위에서 네트워크 유무를 확인했기에 이곳에서의 실패는 기타 다른 문제
         self.networkUsecase.getPublicTestResult(wid: Int(self.wid)) { [weak self] _, publicTestResultOfDB in
             guard let publicTestResultOfDB = publicTestResultOfDB else {
-                self?.networkError = true
+                self?.notConnectedToInternet = true
                 return
             }
             
