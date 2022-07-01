@@ -177,7 +177,7 @@ extension LoginSignupVC {
     private func configureSchoolButtonMenu() {
         let menuItems: [UIAction] = SchoolSearchUseCase.SchoolType.allCases.map { schoolType in
             UIAction(title: schoolType.rawValue, image: nil, handler: { [weak self] _ in
-                self?.schoolSearchView = UIHostingController(rootView: LoginSchoolSearchView(delegate: self, schoolType: schoolType))
+                self?.schoolSearchView = UIHostingController(rootView: LoginSchoolSearchView(delegate: self, schoolType: schoolType), ignoreSafeArea: true)
                 self?.schoolSearchView?.view.backgroundColor = .clear
                 if let view = self?.schoolSearchView {
                     self?.present(view, animated: true, completion: nil)
