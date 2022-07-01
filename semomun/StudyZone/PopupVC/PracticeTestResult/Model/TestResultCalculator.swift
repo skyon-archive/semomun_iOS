@@ -17,7 +17,7 @@ struct TestResultCalculator {
     ///   - perfectScore: 시험의 만점
     static func getScoreResult(rawScore: Int, groupAverage: Int, groupStandardDeviation: Int, area: String, rankCutoff: [Int], perfectScore: Int) -> ScoreResult {
         guard groupStandardDeviation > 0 else {
-            return .init(rank: 0, rawScore: 0, standardScore: 0, percentile: 0, perfectScore: 0)
+            return .init(rank: 0, rawScore: rawScore, standardScore: 0, percentile: 0, perfectScore: perfectScore)
         }
 
         let rank = (rankCutoff.firstIndex(where: { rawScore >= $0 }) ?? 8) + 1

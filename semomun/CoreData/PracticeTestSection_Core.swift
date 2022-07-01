@@ -37,7 +37,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         case cutoff
         case subject
         case area
-        case deviation
+        case standardDeviation
         case averageScore
         case startedDate
         case terminatedDate
@@ -62,7 +62,7 @@ public class PracticeTestSection_Core: NSManagedObject {
     @NSManaged public var cutoff: Data?
     @NSManaged public var subject: String?
     @NSManaged public var area: String?
-    @NSManaged public var deviation: Int64
+    @NSManaged public var standardDeviation: Int64
     @NSManaged public var averageScore: Int64
     @NSManaged public var startedDate: Date? // 응시 시작시각, timer 기준값
     @NSManaged public var terminatedDate: Date? // 응시 종료시각
@@ -85,7 +85,7 @@ public class PracticeTestSection_Core: NSManagedObject {
         self.setValue(workbook.cutoff, forKey: Attribute.cutoff.rawValue) //등급계산을 위한 데이터
         self.setValue(workbook.subject, forKey: Attribute.subject.rawValue) //과목 이름
         self.setValue(workbook.area, forKey: Attribute.area.rawValue) //영역 이름
-        self.setValue(workbook.deviation, forKey: Attribute.deviation.rawValue) //표준 편차
+        self.setValue(workbook.standardDeviation, forKey: Attribute.standardDeviation.rawValue) //표준 편차
         self.setValue(workbook.averageScore, forKey: Attribute.averageScore.rawValue) //평균 점수
         self.setValue(nil, forKey: Attribute.startedDate.rawValue)
         self.setValue(nil, forKey: Attribute.terminatedDate.rawValue)
