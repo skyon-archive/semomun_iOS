@@ -134,7 +134,7 @@ class SubProblemCell: FormCell, CellLayoutable {
         self.returnAction()
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
         super.prepareForReuse(contentImage, problem, toolPicker)
         
         guard let subProblemCount = problem?.subProblemsCount, subProblemCount > 0 else { return }

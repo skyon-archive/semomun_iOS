@@ -13,6 +13,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     weak var delegate: (FormCellControllable&ExplanationSelectable)?
     var problem: Problem_Core?
     var showTopShadow: Bool = false
+    var mode: StudyVC.Mode = .default
     // MARK: canvasView의 위치 설정을 위해 override가 필요
     var internalTopViewHeight: CGFloat {
         assertionFailure("override error: internalTopViewHeight")
@@ -67,7 +68,8 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     func removeTopShadow() { assertionFailure("override error: removeTopShadow()") }
  
     // MARK: cellForItemAt에서 데이터 주입을 위해 사용. 자식 클래스에서도 같은 목적으로 override하여 사용.
-    func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
+    func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
+        self.mode = mode ?? .default
         self.updateProblem(problem)
         self.updateImageView(contentImage)
         self.updateToolPicker(toolPicker)
