@@ -294,11 +294,22 @@ extension StudyVC {
     }
     
     private func showReportView() {
-        guard let pageData = self.sectionManager?.currentPage else { return }
-        guard let title = self.sectionManager?.sectionTitle else { return }
-        let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
-        
-        self.present(reportVC, animated: true, completion: nil)
+        switch self.mode {
+        case .default:
+            guard let pageData = self.sectionManager?.currentPage else { return }
+            guard let title = self.sectionManager?.sectionTitle else { return }
+            let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
+            
+            self.present(reportVC, animated: true, completion: nil)
+        case .practiceTest:
+            guard let pageData = self.practiceTestManager?.currentPage else { return }
+            guard let title = self.practiceTestManager?.sectionTitle else { return }
+            let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
+            
+            self.present(reportVC, animated: true, completion: nil)
+        default:
+            return
+        }
     }
     
     private func showSelectProblemsVC(section: Section_Core) {
