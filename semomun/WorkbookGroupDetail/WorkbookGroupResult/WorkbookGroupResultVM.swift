@@ -48,6 +48,10 @@ final class WorkbookGroupResultVM {
 extension WorkbookGroupResultVM {
     func fetchResult() {
         self.networkUsecase.getPrivateTestResults(wgid: wgid) { _, testResults in
+            guard testResults.isEmpty == false else {
+                self.networkFailed = true
+                return
+            }
             self.sortedTestResults = testResults.sorted(by: {
                 $0.percentile > $1.percentile
             })
