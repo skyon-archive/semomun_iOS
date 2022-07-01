@@ -15,66 +15,85 @@ final class PracticeTestResultVM {
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
-    private let wgid: Int64
+    private let wgid: Int
     private let networkUsecase: (UserTestResultFetchable & UserTestResultSendable)
+    /// 채점 결과의 POST가 완료되었음을 CoreData에 저장하는 함수
     private let checkTestResultPosted: () -> ()
-    // CoreData값을 가져옴
+    // CoreData값에서 그대로 가져오는 프로퍼티
     private let testResultPosted: Bool
-    private let wid: Int64
-    private let sid: Int64
+    private let wid: Int
+    private let sid: Int
     private let title: String
     private let subject: String
     private let cutoff: [Int]
     private let area: String
-    private let deviation: Int64
-    private let averageScore: Int64
-    // CoreData값에서 계산함
+    private let deviation: Int
+    private let averageScore: Int
+    // CoreData값에서 따로 계산되어야하는 프로퍼티
     private let correctProblemCount: Int
     private let totalProblemCount: Int
     private let perfectScore: Double
     private let rawScore: Double
-    private let totalTime: Int64
+    private let totalTime: Int
     
     init(wgid: Int64, practiceTestSection: PracticeTestSection_Core, networkUsecase: (UserTestResultFetchable & UserTestResultSendable)) {
-        self.wgid = wgid
+        self.wgid = Int(wgid)
         self.networkUsecase = networkUsecase
         self.checkTestResultPosted = { practiceTestSection.setValue(true, forKey: PracticeTestSection_Core.Attribute.testResultPosted.rawValue )}
         
         self.testResultPosted = practiceTestSection.testResultPosted
-        self.wid = practiceTestSection.wid
-        self.sid = practiceTestSection.sid
+        self.wid = Int(practiceTestSection.wid)
+        self.sid = Int(practiceTestSection.sid)
         self.title = practiceTestSection.title ?? ""
         self.subject = practiceTestSection.subject ?? ""
-        
         if let cutoffData = practiceTestSection.cutoff,
-            let decodedCutoff = try? JSONDecoder().decode([Cutoff].self, from: cutoffData) {
+           let decodedCutoff = try? JSONDecoder().decode([Cutoff].self, from: cutoffData) {
             self.cutoff = decodedCutoff.map(\.rawScore).sorted(by: >)
         } else {
             self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
         }
-        
         self.area = practiceTestSection.area ?? ""
-        self.deviation = practiceTestSection.deviation
-        self.averageScore = practiceTestSection.averageScore
+        self.deviation = Int(practiceTestSection.deviation)
+        self.averageScore = Int(practiceTestSection.averageScore)
         
-        self.correctProblemCount = practiceTestSection.problemCores?
-            .filter { $0.correct }
-            .count ?? 0
-        self.totalProblemCount = practiceTestSection.problemCores?.count ?? 0
-        self.perfectScore = practiceTestSection.problemCores?
-            .reduce(0, { $0 + $1.point }) ?? 0
-        self.rawScore = practiceTestSection.problemCores?
-            .reduce(0, { $0 + ($1.correct ? $1.point : 0) }) ?? 0
-        self.totalTime = practiceTestSection.problemCores?
-            .reduce(0, { $0 + $1.time }) ?? 0
+        guard let problemCores = practiceTestSection.problemCores else {
+            self.correctProblemCount = 0
+            self.totalProblemCount = 0
+            self.perfectScore = 100
+            self.rawScore = 0
+            self.totalTime = 0
+            return
+        }
         
-        self.listenNetworkState()
+        self.correctProblemCount = problemCores.filter(\.correct).count
+        self.totalProblemCount = problemCores.count
+        self.perfectScore = problemCores.reduce(0, { $0 + $1.point })
+        self.rawScore = problemCores.reduce(0, { $0 + ($1.correct ? $1.point : 0) })
+        self.totalTime = problemCores.reduce(0, { $0 + Int($1.time) })
     }
 }
 
 // MARK: Public
 extension PracticeTestResultVM {
     func fetchResult() {
+        self.listenNetworkState()
+        NetworkStatusManager.state()
+    }
+}
+
+// MARK: Private
+extension PracticeTestResultVM {
+    private func listenNetworkState() {
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
+            self?.notConnectedToInternet = false
+            self?.makeResult()
+        }
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
+            self?.notConnectedToInternet = true
+        }
+    }
+    
+    private func makeResult() {
         self.makePracticeTestResult()
         
         // 네트워크 유무를 우선 확인
@@ -96,22 +115,6 @@ extension PracticeTestResultVM {
                 percentile: publicTestResultOfDB.percentile,
                 perfectScore: Int(self?.perfectScore ?? 0)
             )
-        }
-    }
-}
-
-// MARK: Private
-extension PracticeTestResultVM {
-    private func listenNetworkState() {
-        NetworkStatusManager.state()
-        
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
-            self?.notConnectedToInternet = false
-            // 인터넷 연결이 재개될 경우 다시 fetch
-            self?.fetchResult()
-        }
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
-            self?.notConnectedToInternet = true
         }
     }
     
@@ -138,8 +141,8 @@ extension PracticeTestResultVM {
         
         self.postTestResult()
     }
-
-    private func formatDateString(fromSeconds second: Int64) -> String {
+    
+    private func formatDateString(fromSeconds second: Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
@@ -147,17 +150,32 @@ extension PracticeTestResultVM {
     }
     
     private func postTestResult() {
-        guard self.testResultPosted == false else { return }
+        guard self.testResultPosted == false else {
+            print("채점 결과 POST 되어있음")
+            return
+        }
         
-        guard let scoreResult = self.practiceTestResult?.privateScoreResult else { return }
+        print("채점 결과 POST 시작")
+        guard let scoreResult = self.practiceTestResult?.privateScoreResult else {
+            return
+        }
+        
         let calculatedTestResult = CalculatedTestResult(
-            wgid: Int(self.wgid), wid: Int(self.wid), sid: Int(self.sid),
-            rank: String(scoreResult.rank), rawScore: scoreResult.rawScore,
-            perfectScore: Int(self.perfectScore), standardScore: Int(self.deviation), percentile: scoreResult.percentile,
-            correctProblemCount: self.correctProblemCount, totalProblemCount: self.totalProblemCount,
-            totalTime: Int(self.totalTime), subject: self.subject
+            wgid: self.wgid,
+            wid: self.wid,
+            sid: self.sid,
+            rank: String(scoreResult.rank),
+            rawScore: scoreResult.rawScore,
+            perfectScore: Int(self.perfectScore),
+            standardScore: self.deviation,
+            percentile: scoreResult.percentile,
+            correctProblemCount: self.correctProblemCount,
+            totalProblemCount: self.totalProblemCount,
+            totalTime: self.totalTime,
+            subject: self.subject
         )
         self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
+            print("채점결과 POST: \(result)")
             guard result == .SUCCESS else { return }
             self.checkTestResultPosted()
         }
