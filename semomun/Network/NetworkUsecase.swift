@@ -509,7 +509,7 @@ extension NetworkUsecase: UserSubmissionSendable {
 
 extension NetworkUsecase: UserTestResultFetchable {
     func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void) {
-        self.network.request(url: NetworkURL.workbookResult, param: ["type": "public"], method: .get, tokenRequired: true) { result in
+        self.network.request(url: NetworkURL.workbookResultDirectory(wid), param: ["type": "public"], method: .get, tokenRequired: true) { result in
             guard let statusCode = result.statusCode,
                   let data = result.data else {
                 completion(.FAIL, nil)

@@ -114,5 +114,6 @@ enum NetworkURL {
     static let workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
     static let sectionDirectory: (Int) -> String = { sections + "\($0)" }
     static let workbookGroupDirectory: (Int) -> String = { workbookGroups + "/\($0)" }
+    static let workbookResultDirectory: (Int) -> String = { Self.workbookResult + "/\($0)" }
     static let workbookGroupResultsDirectory: (Int) -> String = { Self.workbookGroupResults + "/\($0)" }
 }
