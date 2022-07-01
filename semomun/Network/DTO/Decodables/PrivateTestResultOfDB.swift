@@ -14,10 +14,10 @@ struct PrivateTestResultOfDB: Decodable {
     
     let rank: String // 등급
     let rawScore: Int // 원점수
-    let deviation: Int // 표준 점수
+    let standardDeviation: Int // 표준 점수
     let percentile: Int // 백분위
     
     enum CodingKeys: String, CodingKey {
-        case subject, totalTime, rank, rawScore, deviation, percentile
+        case subject, totalTime, rank, rawScore, standardDeviation, percentile
     }
 }

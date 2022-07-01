@@ -76,6 +76,7 @@ enum NetworkURL {
     static let workbooks: String = base + "/workbooks/"
     static let workbookGroups: String = base + "/workbookgroups"
     static let workbookResult: String = base + "/result/workbooks"
+    static let workbookGroupResults: String = base + "/result/workbookgroups"
     static let sections: String = base + "/sections/"
     static let images: String = base + "/images"
     static let majors: String = base + "/info/major"
@@ -110,7 +111,8 @@ enum NetworkURL {
     static let chargePay = "https://semomun.com/charge/tmp"
     static let removeAccount = "https://semomun.com" // MARK: - 2.0 은 사용중이지 않는 상태
     
-    static var workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
-    static var sectionDirectory: (Int) -> String = { sections + "\($0)" }
-    static var workbookGroupDirectory: (Int) -> String = { workbookGroups + "/\($0)" }
+    static let workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
+    static let sectionDirectory: (Int) -> String = { sections + "\($0)" }
+    static let workbookGroupDirectory: (Int) -> String = { workbookGroups + "/\($0)" }
+    static let workbookGroupResultsDirectory: (Int) -> String = { Self.workbookGroupResults + "/\($0)" }
 }
