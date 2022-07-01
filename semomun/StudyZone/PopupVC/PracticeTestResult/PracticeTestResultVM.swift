@@ -126,7 +126,7 @@ extension PracticeTestResultVM {
             perfectScore: Int(self.perfectScore)
         )
         
-        let title = "\(self.title) \(self.subject) 성적표"
+        let title = "\(self.title) 성적표"
         let totalTimeFormattedString = self.formatDateString(fromSeconds: self.totalTime)
         
         self.practiceTestResult = .init(
