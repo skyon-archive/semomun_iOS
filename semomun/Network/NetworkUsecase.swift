@@ -516,8 +516,11 @@ extension NetworkUsecase: UserTestResultFetchable {
                 return
             }
             
-            let decodedData = self.decodeRequested(PublicTestResultOfDB.self, from: data)
-            completion(.init(statusCode: statusCode), decodedData)
+            if let decodedData = self.decodeRequested(PublicTestResultOfDB.self, from: data) {
+                completion(.init(statusCode: statusCode), decodedData)
+            } else {
+                completion(.DECODEERROR, nil)
+            }
         }
     }
     
@@ -529,8 +532,11 @@ extension NetworkUsecase: UserTestResultFetchable {
                 return
             }
             
-            let decodedData = self.decodeRequested([PrivateTestResultOfDB].self, from: data)
-            completion(.init(statusCode: statusCode), decodedData ?? [])
+            if let decodedData = self.decodeRequested([PrivateTestResultOfDB].self, from: data) {
+                completion(.init(statusCode: statusCode), decodedData)
+            } else {
+                completion(.DECODEERROR, [])
+            }
         }
     }
 }
