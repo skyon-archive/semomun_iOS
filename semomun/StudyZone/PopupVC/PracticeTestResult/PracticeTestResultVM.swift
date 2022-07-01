@@ -29,12 +29,12 @@ final class PracticeTestResultVM {
     private let area: String
     private let deviation: Int
     private let averageScore: Int
+    private let totalTime: Int
     // CoreData값에서 따로 계산되어야하는 프로퍼티
     private let correctProblemCount: Int
     private let totalProblemCount: Int
     private let perfectScore: Double
     private let rawScore: Double
-    private let totalTime: Int
     
     init(wgid: Int64, practiceTestSection: PracticeTestSection_Core, networkUsecase: (UserTestResultFetchable & UserTestResultSendable)) {
         self.wgid = Int(wgid)
@@ -55,13 +55,13 @@ final class PracticeTestResultVM {
         self.area = practiceTestSection.area ?? ""
         self.deviation = Int(practiceTestSection.standardDeviation)
         self.averageScore = Int(practiceTestSection.averageScore)
+        self.totalTime = Int(practiceTestSection.totalTime)
         
         guard let problemCores = practiceTestSection.problemCores else {
             self.correctProblemCount = 0
             self.totalProblemCount = 0
             self.perfectScore = 100
             self.rawScore = 0
-            self.totalTime = 0
             return
         }
         
@@ -69,7 +69,6 @@ final class PracticeTestResultVM {
         self.totalProblemCount = problemCores.count
         self.perfectScore = problemCores.reduce(0, { $0 + $1.point })
         self.rawScore = problemCores.reduce(0, { $0 + ($1.correct ? $1.point : 0) })
-        self.totalTime = problemCores.reduce(0, { $0 + Int($1.time) })
     }
 }
 
