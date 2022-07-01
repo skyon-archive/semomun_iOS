@@ -17,7 +17,7 @@ struct TestResultCalculator {
     ///   - perfectScore: 시험의 만점
     static func getScoreResult(rawScore: Int, groupAverage: Int, groupStandardDeviation: Int, area: String, rankCutoff: [Int], perfectScore: Int) -> ScoreResult {
         guard groupStandardDeviation > 0 else {
-            return .init(rank: 0, rawScore: 0, deviation: 0, percentile: 0, perfectScore: 0)
+            return .init(rank: 0, rawScore: 0, standardScore: 0, percentile: 0, perfectScore: 0)
         }
 
         let rank = (rankCutoff.firstIndex(where: { rawScore >= $0 }) ?? 8) + 1
@@ -29,7 +29,7 @@ struct TestResultCalculator {
         // 백분위
         let percentile = self.normalDistribution(x: zeroAverageDeviation) * 100
         
-        return .init(rank: rank, rawScore: rawScore, deviation: Int(deviation), percentile: Int(percentile), perfectScore: perfectScore)
+        return .init(rank: rank, rawScore: rawScore, standardScore: Int(deviation), percentile: Int(percentile), perfectScore: perfectScore)
     }
 }
 

@@ -42,7 +42,7 @@ extension ScoreResultView {
         self.sectionTitleLabel.text = title
         self.rankLabel.text = "\(scoreResult.rank)"
         self.rawScoreLabel.text = "\(scoreResult.rawScore)"
-        self.deviationLabel.text = "\(scoreResult.deviation)"
+        self.deviationLabel.text = "\(scoreResult.standardScore)"
         self.percentileLabel.text = "\(scoreResult.percentile)"
         
         self.setRankContainerBackgroundColor(to: rankContainerBackgroundColor)
