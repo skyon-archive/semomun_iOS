@@ -107,11 +107,10 @@ extension PracticeTestResultVM {
                 self?.notConnectedToInternet = true
                 return
             }
-            
             self?.publicScoreResult = .init(
                 rank: publicTestResultOfDB.rank,
                 rawScore: publicTestResultOfDB.rawScore,
-                deviation: publicTestResultOfDB.deviation,
+                standardScore: publicTestResultOfDB.standardScore,
                 percentile: publicTestResultOfDB.percentile,
                 perfectScore: Int(self?.perfectScore ?? 0)
             )
@@ -167,7 +166,7 @@ extension PracticeTestResultVM {
             rank: String(scoreResult.rank),
             rawScore: scoreResult.rawScore,
             perfectScore: Int(self.perfectScore),
-            standardScore: self.deviation,
+            standardScore: scoreResult.standardScore,
             percentile: scoreResult.percentile,
             correctProblemCount: self.correctProblemCount,
             totalProblemCount: self.totalProblemCount,
