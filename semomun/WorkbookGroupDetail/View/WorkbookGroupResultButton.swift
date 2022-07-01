@@ -13,9 +13,16 @@ final class WorkbookGroupResultButton: UIButton {
         self.commonInit()
     }
     
-    func configureDisabledUI() {
-        self.borderColor = UIColor(.semoLightGray)
-        self.setTitleColor(UIColor(.semoLightGray), for: .normal)
+    override var isEnabled: Bool {
+        didSet {
+            if self.isEnabled {
+                self.borderColor = UIColor(.mainColor)
+                self.setTitleColor(UIColor(.mainColor), for: .normal)
+            } else {
+                self.borderColor = UIColor(.semoLightGray)
+                self.setTitleColor(UIColor(.semoLightGray), for: .normal)
+            }
+        }
     }
     
     private func commonInit() {
