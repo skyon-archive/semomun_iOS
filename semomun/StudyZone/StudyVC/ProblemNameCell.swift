@@ -59,4 +59,35 @@ class ProblemNameCell: UICollectionViewCell {
             self.frameView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }
     }
+    
+    func configureForPracticeTest(problem: Problem_Core, isCurrent: Bool) {
+        self.num.text = problem.pName ?? "-"
+        
+        if problem.star {
+            self.bookmark.isHidden = false
+        }
+        
+        if problem.terminated {
+            self.frameView.layer.borderWidth = 2
+            self.num.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+            
+            if problem.correct == false {
+                self.frameView.layer.borderColor = UIColor(.munRedColor)?.cgColor
+                self.num.textColor = UIColor(.munRedColor)
+            } else {
+                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
+                self.num.textColor = UIColor(.deepMint)
+            }
+        } else {
+            // 사용자가 문제입력을 한 경우 deepMint 로 표시
+            if problem.solved != nil {
+                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
+                self.num.textColor = UIColor(.deepMint)
+            }
+        }
+        
+        if isCurrent {
+            self.frameView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }
+    }
 }
