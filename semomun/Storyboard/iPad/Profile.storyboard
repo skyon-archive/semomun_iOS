@@ -1135,11 +1135,11 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="4Wv-6R-WWm">
-                                                    <rect key="frame" x="205" y="50" width="84" height="118"/>
+                                                    <rect key="frame" x="205" y="50" width="94.5" height="118"/>
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="118" id="Irk-Kv-EUU"/>
-                                                        <constraint firstAttribute="width" constant="84" id="RbD-Tp-86r"/>
+                                                        <constraint firstAttribute="width" secondItem="4Wv-6R-WWm" secondAttribute="height" multiplier="4:5" id="WbV-Qt-8IT"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구매완료" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uN-Eb-aIt">
@@ -1149,19 +1149,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022.01.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3i-mB-Pnk">
-                                                    <rect key="frame" x="305" y="50" width="66" height="16"/>
+                                                    <rect key="frame" x="315.5" y="50" width="66" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" name="grayTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="유튜버 연고맨의 전투수학" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-h1-w1t">
-                                                    <rect key="frame" x="305" y="70" width="151" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="유튜버 연고맨의 전투수학" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-h1-w1t">
+                                                    <rect key="frame" x="315.5" y="70" width="372.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,000 원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3f-Tg-kIb">
-                                                    <rect key="frame" x="305" y="146.5" width="80" height="21.5"/>
+                                                    <rect key="frame" x="315.5" y="146.5" width="80" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1179,6 +1179,7 @@
                                                 <constraint firstItem="bqb-h1-w1t" firstAttribute="leading" secondItem="O3i-mB-Pnk" secondAttribute="leading" id="W0P-gk-0pI"/>
                                                 <constraint firstItem="D3f-Tg-kIb" firstAttribute="bottom" secondItem="4Wv-6R-WWm" secondAttribute="bottom" id="c07-14-9NH"/>
                                                 <constraint firstItem="4Wv-6R-WWm" firstAttribute="top" secondItem="qga-ey-rAe" secondAttribute="top" constant="40" id="gFg-Za-DMM"/>
+                                                <constraint firstItem="qga-ey-rAe" firstAttribute="trailing" secondItem="bqb-h1-w1t" secondAttribute="trailing" constant="16" id="qVS-tx-k3V"/>
                                                 <constraint firstItem="O3i-mB-Pnk" firstAttribute="top" secondItem="4Wv-6R-WWm" secondAttribute="top" id="uos-29-Mh5"/>
                                                 <constraint firstItem="qga-ey-rAe" firstAttribute="centerY" secondItem="X0k-6h-hsG" secondAttribute="centerY" id="wnz-gv-1X2"/>
                                                 <constraint firstItem="9uN-Eb-aIt" firstAttribute="leading" secondItem="4Wv-6R-WWm" secondAttribute="leading" id="yEC-Iz-zOJ"/>
