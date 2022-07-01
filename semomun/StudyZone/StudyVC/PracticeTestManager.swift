@@ -31,7 +31,6 @@ final class PracticeTestManager {
     private var timer: Timer?
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
-    private let userNotificationCenter = UNUserNotificationCenter.current()
     private var remainingTime: Int64 {
         return self.section.timelimit - self.section.totalTime
     }
@@ -49,7 +48,6 @@ final class PracticeTestManager {
         self.sectionTitle = self.section.title ?? "title"
         self.checkStartTestable()
         self.configureObservation()
-        self.requestNotificationAuthorization()
     }
 }
 
@@ -202,7 +200,7 @@ extension PracticeTestManager {
     private func requestNotificationAuthorization() {
         let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
         
-        self.userNotificationCenter.requestAuthorization(options: authOptions) { success, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { success, error in
             if let error = error {
                 print("Error: \(error)")
             }
@@ -318,7 +316,7 @@ extension PracticeTestManager {
         notificationContent.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.section.timelimit - 300), repeats: false)
         let request = UNNotificationRequest(identifier: PushNotification.practiceTest5min, content: notificationContent, trigger: trigger)
-        self.userNotificationCenter.add(request) { error in
+        UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Notification Error: \(error)")
             }
@@ -327,7 +325,7 @@ extension PracticeTestManager {
     
     private func removeNotification() {
         // 응시가 종료된 경우만 불린다
-        self.userNotificationCenter.removeDeliveredNotifications(withIdentifiers: [PushNotification.practiceTest5min])
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [PushNotification.practiceTest5min])
     }
 }
 
