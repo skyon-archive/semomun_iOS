@@ -14,7 +14,7 @@ struct CalculatedTestResult: Encodable {
     let rank: String // 등급
     let rawScore: Int // 원점수
     let perfectScore: Int // 만점 점수
-    let deviation: Int // 표준 점수
+    let standardScore: Int // 표준 점수
     let percentile: Int // 백분위
     let correctProblemCount: Int // 맞은 개수 (웹 + 동기화를 위함)
     let totalProblemCount: Int // 전체 개수 (웹 + 동기화를 위함)

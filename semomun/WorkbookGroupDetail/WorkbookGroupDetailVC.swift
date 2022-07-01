@@ -17,6 +17,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
     private var networkUsecase = NetworkUsecase(network: Network())
     private lazy var loadingView = LoadingView()
+    private let workbookGroupResultButton = WorkbookGroupResultButton()
     @IBOutlet weak var practiceTests: UICollectionView!
     // MARK: Cell Size
     private lazy var portraitColumnCount: CGFloat = {
@@ -61,12 +62,12 @@ final class WorkbookGroupDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.updateWorkbookGroupResultButtonState()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // MARK: reload 로직 필요 (workbook terminated 상태 최신화)
         self.practiceTests.reloadData()
     }
     
@@ -99,21 +100,14 @@ extension WorkbookGroupDetailVC {
     }
     
     private func configureWorkbookGroupResultButton() {
-        let workbookGroupResultButton = WorkbookGroupResultButton()
-        
-        if self.viewModel?.hasTerminatedWorkbook == true {
-            let action = UIAction { [weak self] _ in
-                guard NetworkStatusManager.isConnectedToInternet() else {
-                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                self?.showWorkbookGroupResultVC()
+        let action = UIAction { [weak self] _ in
+            guard NetworkStatusManager.isConnectedToInternet() else {
+                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
+                return
             }
-            workbookGroupResultButton.addAction(action, for: .touchUpInside)
-        } else {
-            workbookGroupResultButton.configureDisabledUI()
+            self?.showWorkbookGroupResultVC()
         }
-        
+        self.workbookGroupResultButton.addAction(action, for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: workbookGroupResultButton)
     }
     
@@ -143,6 +137,13 @@ extension WorkbookGroupDetailVC {
         NotificationCenter.default.addObserver(forName: .purchaseComplete, object: nil, queue: .main) { [weak self] _ in
             self?.viewModel?.purchaseComplete()
         }
+    }
+}
+
+// MARK: Update
+extension WorkbookGroupDetailVC {
+    private func updateWorkbookGroupResultButtonState() {
+        self.workbookGroupResultButton.isEnabled = (self.viewModel?.hasTerminatedWorkbook == true)
     }
 }
 

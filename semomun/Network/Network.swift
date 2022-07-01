@@ -12,27 +12,27 @@ struct Network: NetworkFetchable {
     func request(url: String, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         
         let session = tokenRequired ? Session.sessionWithToken : Session.default
-//        print("\(method): \(url)")
+        //        print("\(method): \(url)")
         
         session.request(url, method: method) { $0.timeoutInterval = .infinity }
-        .validate(statusCode: [200])
-        .responseData { response in
-            let networkResult = self.makeNetworkResult(with: response)
-            completion(networkResult)
-        }.resume()
+            .validate()
+            .responseData { response in
+                let networkResult = self.makeNetworkResult(with: response)
+                completion(networkResult)
+            }.resume()
     }
     
     func request<T: Encodable>(url: String, param: T, method: HTTPMethod, tokenRequired: Bool, completion: @escaping (NetworkResult) -> Void) {
         let session = tokenRequired ? Session.sessionWithToken : Session.default
         let encoder = self.getEncoder(for: method)
-//        print("\(method): \(url), \(param)")
+        //        print("\(method): \(url), \(param)")
         
         session.request(url, method: method, parameters: param, encoder: encoder)  { $0.timeoutInterval = .infinity }
-        .validate(statusCode: [200])
-        .responseData { response in
-            let networkResult = self.makeNetworkResult(with: response)
-            completion(networkResult)
-        }.resume()
+            .validate()
+            .responseData { response in
+                let networkResult = self.makeNetworkResult(with: response)
+                completion(networkResult)
+            }.resume()
     }
     
     private func makeNetworkResult(with response: AFDataResponse<Data>) -> NetworkResult {
@@ -44,11 +44,11 @@ struct Network: NetworkFetchable {
         
         switch response.result {
             
-        // Validate로 인해 status code == 200
+            // Validate로 인해 status code는 200..<300
         case .success(let data):
             return NetworkResult(data: data, statusCode: statusCode, error: nil)
             
-        // Validate로 인해 status code != 200
+            // Validate로 인해 status code는 200..<300 제외
         case .failure(let error):
             print("Network Fail \(statusCode)")
             if let data = response.data {

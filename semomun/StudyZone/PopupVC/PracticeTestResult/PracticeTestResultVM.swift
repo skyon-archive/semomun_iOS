@@ -156,16 +156,12 @@ extension PracticeTestResultVM {
         let calculatedTestResult = CalculatedTestResult(
             wgid: Int(self.wgid), wid: Int(self.wid), sid: Int(self.sid),
             rank: String(scoreResult.rank), rawScore: scoreResult.rawScore,
-            perfectScore: Int(self.perfectScore), deviation: Int(self.deviation), percentile: scoreResult.percentile,
+            perfectScore: Int(self.perfectScore), standardScore: Int(self.deviation), percentile: scoreResult.percentile,
             correctProblemCount: self.correctProblemCount, totalProblemCount: self.totalProblemCount,
             totalTime: Int(self.totalTime), subject: self.subject
         )
-        
         self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
-            guard result == .SUCCESS else {
-                self.networkError = true
-                return
-            }
+            guard result == .SUCCESS else { return }
             self.checkTestResultPosted()
         }
     }
