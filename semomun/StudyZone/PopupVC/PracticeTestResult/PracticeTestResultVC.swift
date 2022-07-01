@@ -77,7 +77,6 @@ extension PracticeTestResultVC {
     private func bindAll() {
         self.bindPracticeTestResult()
         self.bindPublicScoreResult()
-        self.bindNetworkError()
         self.bindNotConnectedToInternet()
     }
     
@@ -116,20 +115,6 @@ extension PracticeTestResultVC {
                 // 이 때는 뷰가 보여져있는 상태이므로 이곳에서 애니메이션을 수행해도 좋다.
                 if initialAnimationEnded {
                     self?.publicProgressView.setProgressWithAnimation(duration: 0.5, value: Float(publicScoreResult.correctRatio), from: 0)
-                }
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindNetworkError() {
-        self.viewModel?.$networkError
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] networkError in
-                guard networkError == true else { return }
-                
-                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요") {
-                    self?.dismiss(animated: true)
                 }
             })
             .store(in: &self.cancellables)
