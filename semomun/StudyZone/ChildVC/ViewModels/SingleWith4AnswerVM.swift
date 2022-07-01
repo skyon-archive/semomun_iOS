@@ -26,9 +26,9 @@ final class SingleWith4AnswerVM: PageVM {
         return answer.split(separator: ",").compactMap { Int($0) }
     }
     
-    override init(delegate: PageDelegate, pageData: PageData) {
+    override init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
         self.shouldChooseMultipleAnswer = (pageData.problems.first?.answer?.contains(",") == true)
-        super.init(delegate: delegate, pageData: pageData)
+        super.init(delegate: delegate, pageData: pageData, mode: mode)
     }
     
     override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
