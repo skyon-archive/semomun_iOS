@@ -8,19 +8,18 @@
 import UIKit
 import PencilKit
 
-class SingleWithTextAnswerVC: FormZero {
+final class SingleWithTextAnswerVC: FormZero {
+    /* public */
     static let identifier = "SingleWithTextAnswerVC" // form == 0 && type == 1
     static let storyboardName = "Study"
-    
+    var viewModel: SingleWithTextAnswerVM?
+    /* private */
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var solveInput: UITextField!
-    
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
-    
-    var viewModel: SingleWithTextAnswerVM?
     
     private lazy var answerResultView: ProblemTextResultView = {
         let answerResultView = ProblemTextResultView()
@@ -38,10 +37,11 @@ class SingleWithTextAnswerVC: FormZero {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateSolved()
-        self.updateUIIfTerminated()
-        self.updateBookmark()
+        self.updateBookmarkBT()
         self.updateAnswerBT()
         self.updateExplanationBT()
+        self.updateUIIfTerminated()
+        self.updateModeUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,6 +53,7 @@ class SingleWithTextAnswerVC: FormZero {
         super.viewWillDisappear(animated)
         self.solveInput.isHidden = false
         self.answerBT.isHidden = false
+        self.explanationBT.isHidden = false
         self.answerResultView.removeFromSuperview()
         self.endTimeRecord()
     }
@@ -149,12 +150,13 @@ extension SingleWithTextAnswerVC {
         }
     }
     
-    private func updateBookmark() {
+    private func updateBookmarkBT() {
         self.bookmarkBT.isSelected = self.viewModel?.problem?.star ?? false
     }
     
     private func updateAnswerBT() {
         if self.viewModel?.problem?.answer == nil {
+            self.answerBT.isHidden = false
             self.answerBT.isUserInteractionEnabled = false
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
@@ -165,11 +167,25 @@ extension SingleWithTextAnswerVC {
     
     private func updateExplanationBT() {
         if self.viewModel?.problem?.explanationImage == nil {
+            self.explanationBT.isHidden = false
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanationBT.isUserInteractionEnabled = true
             self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        }
+    }
+    
+    private func updateModeUI() {
+        guard let terminated = self.viewModel?.problem?.terminated, terminated == false,
+              let mode = self.viewModel?.mode else { return }
+        
+        switch mode {
+        case .default:
+            return
+        case.practiceTest:
+            self.explanationBT.isHidden = true
+            self.answerBT.isHidden = true
         }
     }
 }

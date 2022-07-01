@@ -9,17 +9,17 @@ import UIKit
 import PencilKit
 
 final class SingleWith5AnswerVC: FormZero {
+    /* public */
     static let identifier = "SingleWith5AnswerVC" // form == 0 && type == 5
     static let storyboardName = "Study"
-    
+    var viewModel: SingleWith5AnswerVM?
+    /* private */
     @IBOutlet weak var bookmarkBT: UIButton!
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var answerBT: UIButton!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewTrailing: NSLayoutConstraint!
     @IBOutlet var checkButtons: [UIButton]!
-    
-    var viewModel: SingleWith5AnswerVM?
     
     private lazy var checkImageViews: [UIImageView] = (0..<self.checkButtons.count).map { _ in
         let imageView = UIImageView()
