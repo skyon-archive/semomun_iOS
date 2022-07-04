@@ -325,7 +325,7 @@ extension PracticeTestManager {
     
     private func removeNotification() {
         // 응시가 종료된 경우만 불린다
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [PushNotification.practiceTest5min])
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
 
