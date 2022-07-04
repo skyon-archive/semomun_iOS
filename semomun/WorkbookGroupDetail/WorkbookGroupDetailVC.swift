@@ -250,7 +250,7 @@ extension WorkbookGroupDetailVC {
         self.viewModel?.$testResults
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] testResults in  
+            .sink(receiveValue: { [weak self] testResults in
                 self?.workbookGroupResultButton.isEnabled = (testResults.isEmpty == false)
             })
             .store(in: &self.cancellables)
