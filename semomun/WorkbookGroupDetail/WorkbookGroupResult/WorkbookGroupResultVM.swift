@@ -9,8 +9,8 @@ import Foundation
 
 final class WorkbookGroupResultVM {
     /* public */
-    @Published private(set) var sortedTestResults: [PrivateTestResultOfDB] = []
-    @Published private(set) var networkFailed: Bool?
+    let sortedTestResults: [PrivateTestResultOfDB]
+    let title: String
     
     var formattedTotalTime: String {
         let second = self.sortedTestResults.reduce(0, { $0 + $1.totalTime })
@@ -31,30 +31,8 @@ final class WorkbookGroupResultVM {
         return (10-Float(self.averageRank))/9
     }
     
-    let title: String
-    /* private */
-    private let wgid: Int
-    private let networkUsecase: UserTestResultFetchable
-    
-    init(info: WorkbookGroupInfo, networkUsecase: UserTestResultFetchable) {
-        // 임시 로직
-        self.title = info.title
-        self.wgid = info.wgid
-        self.networkUsecase = networkUsecase
-    }
-}
-
-// MARK: Public
-extension WorkbookGroupResultVM {
-    func fetchResult() {
-        self.networkUsecase.getPrivateTestResults(wgid: wgid) { _, testResults in
-            guard testResults.isEmpty == false else {
-                self.networkFailed = true
-                return
-            }
-            self.sortedTestResults = testResults.sorted(by: {
-                $0.percentile > $1.percentile
-            })
-        }
+    init(workbookGroupInfo: WorkbookGroupInfo, testResults: [PrivateTestResultOfDB]) {
+        self.title = workbookGroupInfo.title
+        self.sortedTestResults = testResults.sorted(by: { $0.percentile > $1.percentile })
     }
 }

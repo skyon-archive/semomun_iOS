@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable & S3ImageFetchable & UserLogSendable)
+typealias WorkbookGroupNetworkUsecase = (WorkbookGroupSearchable & UserPurchaseable & UserInfoFetchable & UserWorkbooksFetchable & WorkbookSearchable & UserWorkbookGroupsFetchable & S3ImageFetchable & UserLogSendable & UserTestResultFetchable)
 
 final class WorkbookGroupDetailVM {
     /* public */
@@ -22,6 +22,7 @@ final class WorkbookGroupDetailVM {
     }
     @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
+    @Published private(set) var testResults: [PrivateTestResultOfDB] = []
     @Published private(set) var info: WorkbookGroupInfo
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var popVC: (title: String, text: String)?
@@ -100,6 +101,13 @@ extension WorkbookGroupDetailVM {
         self.workbookGroupCore?.setValue(updateDate, forKey: WorkbookGroup_Core.Attribute.recentDate.rawValue)
         self.networkUsecase.sendWorkbookEnterLog(wid: Int(workbook.wid), datetime: updateDate)
         CoreDataManager.saveCoreData()
+    }
+    
+    func fetchTestResults() {
+        let wgid = self.info.wgid
+        self.networkUsecase.getPrivateTestResults(wgid: wgid) { [weak self] _, testResults in
+            self?.testResults = testResults
+        }
     }
 }
 
