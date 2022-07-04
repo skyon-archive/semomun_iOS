@@ -69,7 +69,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.updateWorkbookGroupResultButtonState()
+        self.viewModel?.fetchTestResults()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -108,13 +108,10 @@ extension WorkbookGroupDetailVC {
     
     private func configureWorkbookGroupResultButton() {
         let action = UIAction { [weak self] _ in
-            guard NetworkStatusManager.isConnectedToInternet() else {
-                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크 연결을 확인 후 다시 시도하세요")
-                return
-            }
             self?.showWorkbookGroupResultVC()
         }
         self.workbookGroupResultButton.addAction(action, for: .touchUpInside)
+        self.workbookGroupResultButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: workbookGroupResultButton)
     }
     
@@ -122,12 +119,11 @@ extension WorkbookGroupDetailVC {
         let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
         guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
         
-        guard let info = self.viewModel?.info else { return }
-        // MARK: info 를 넘기는 로직 필요
+        guard let viewModel = self.viewModel else { return }
         
-        let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = WorkbookGroupResultVM(info: info, networkUsecase: networkUsecase)
-        comprehensiveReportVC.configureViewModel(viewModel)
+        let workbookGroupVM = WorkbookGroupResultVM(workbookGroupInfo: viewModel.info, testResults: viewModel.testResults)
+        comprehensiveReportVC.configureViewModel(workbookGroupVM)
+        
         self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
     }
     
@@ -147,13 +143,6 @@ extension WorkbookGroupDetailVC {
     }
 }
 
-// MARK: Update
-extension WorkbookGroupDetailVC {
-    private func updateWorkbookGroupResultButtonState() {
-        self.workbookGroupResultButton.isEnabled = (self.viewModel?.hasTerminatedWorkbook == true)
-    }
-}
-
 // MARK: Binding
 extension WorkbookGroupDetailVC {
     private func bindAll() {
@@ -165,6 +154,7 @@ extension WorkbookGroupDetailVC {
         self.bindPurchaseWorkbook()
         self.bindWarning()
         self.bindPopVC()
+        self.bindTestResults()
     }
     
     private func bindWorkbookGroupInfo() {
@@ -252,6 +242,16 @@ extension WorkbookGroupDetailVC {
                 self?.showAlertWithOK(title: popVC.title, text: popVC.text, completion: {
                     self?.navigationController?.popViewController(animated: true)
                 })
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindTestResults() {
+        self.viewModel?.$testResults
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] testResults in  
+                self?.workbookGroupResultButton.isEnabled = (testResults.isEmpty == false)
             })
             .store(in: &self.cancellables)
     }
