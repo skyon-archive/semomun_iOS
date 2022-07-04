@@ -58,6 +58,7 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.configurePracticeTests()
         self.configureWorkbookGroupResultButton()
         self.configureAddObserver()
+        self.navigationItem.backButtonTitle = "뒤로"
     }
     
     override func viewWillAppear(_ animated: Bool) {

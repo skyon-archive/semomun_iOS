@@ -33,7 +33,6 @@ class WorkbookGroupResultVC: UIViewController, StoryboardController {
         self.configureareaResultTableView()
         self.configureAreaRankCollectionView()
         self.configureCircularProgressView()
-        self.configureBackButton()
         self.bindAll()
         self.viewModel?.fetchResult()
         self.title = self.viewModel?.title ?? "임시 종합 성적표"
@@ -100,11 +99,6 @@ extension WorkbookGroupResultVC {
         let size = self.circularProgressView.frame.size
         let center = CGPoint(size.width/2, size.height)
         self.circularProgressView.changeCircleShape(center: center, startAngle: -CGFloat.pi, endAngle: 0)
-    }
-    
-    private func configureBackButton() {
-        let backBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func configureRankLabel(to rank: Double) {
