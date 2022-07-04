@@ -29,7 +29,7 @@ extension TestSubjectResultCell {
         self.indexLabel.text = "\(index)"
         self.subjectLabel.text = info.subject
         self.rawScoreLabel.text = "\(info.rawScore)"
-        self.deviationLabel.text = "\(info.standardDeviation)"
+        self.deviationLabel.text = "\(info.standardScore)"
         self.percentileLabel.text = "\(info.percentile)"
     }
 }

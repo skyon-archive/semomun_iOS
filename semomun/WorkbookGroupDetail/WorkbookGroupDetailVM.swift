@@ -17,9 +17,6 @@ final class WorkbookGroupDetailVM {
     }
     private(set) var credit: Int?
     private(set) var workbookGroupCore: WorkbookGroup_Core?
-    var hasTerminatedWorkbook: Bool {
-        return self.purchasedWorkbooks.firstIndex(where: { $0.terminated }) != nil
-    }
     @Published private(set) var purchasedWorkbooks: [Preview_Core] = []
     @Published private(set) var nonPurchasedWorkbooks: [WorkbookOfDB] = []
     @Published private(set) var testResults: [PrivateTestResultOfDB] = []
@@ -106,6 +103,7 @@ extension WorkbookGroupDetailVM {
     func fetchTestResults() {
         let wgid = self.info.wgid
         self.networkUsecase.getPrivateTestResults(wgid: wgid) { [weak self] _, testResults in
+            print(testResults)
             self?.testResults = testResults
         }
     }
