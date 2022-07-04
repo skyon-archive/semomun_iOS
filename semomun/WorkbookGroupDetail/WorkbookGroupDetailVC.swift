@@ -19,6 +19,12 @@ final class WorkbookGroupDetailVC: UIViewController {
     private lazy var loadingView = LoadingView()
     private let workbookGroupResultButton = WorkbookGroupResultButton()
     @IBOutlet weak var practiceTests: UICollectionView!
+    private var hasPurchasedWorkbook: Bool {
+        return self.viewModel?.purchasedWorkbooks.isEmpty == false
+    }
+    private var noMorePurchaseable: Bool {
+        return self.viewModel?.nonPurchasedWorkbooks.isEmpty == true
+    }
     // MARK: Cell Size
     private lazy var portraitColumnCount: CGFloat = {
         let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
@@ -254,17 +260,16 @@ extension WorkbookGroupDetailVC {
 // MARK: CollectionView
 extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return (self.viewModel?.hasPurchasedWorkbook ?? false) ? 2 : 1
+        return (self.hasPurchasedWorkbook && self.noMorePurchaseable == false) ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
         let purchasedCount = self.viewModel?.purchasedWorkbooks.count ?? 0
         let nonPurchasedCount = self.viewModel?.nonPurchasedWorkbooks.count ?? 0
         
         switch section {
         case 0:
-            return hasPurchasedWorkbook ? purchasedCount : nonPurchasedCount
+            return self.hasPurchasedWorkbook ? purchasedCount : nonPurchasedCount
         case 1:
             return nonPurchasedCount
         default:
@@ -274,12 +279,11 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestSubjectCell.identifer, for: indexPath) as? TestSubjectCell else { return UICollectionViewCell() }
-        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
         cell.configureNetworkUsecase(to: self.networkUsecase)
         
         switch indexPath.section {
         case 0:
-            if hasPurchasedWorkbook {
+            if self.hasPurchasedWorkbook {
                 guard let coreInfo = self.viewModel?.purchasedWorkbooks[safe: indexPath.item] else { return cell }
                 cell.configure(coreInfo: coreInfo)
                 cell.configureDelegate(to: self)
@@ -301,11 +305,10 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: WorkbookGroupDetailHeaderView.identifier, for: indexPath) as? WorkbookGroupDetailHeaderView else { return UICollectionReusableView() }
-            let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
             
             switch indexPath.section {
             case 0:
-                headerView.updateLabel(to: hasPurchasedWorkbook ? "나의 실전 모의고사" : "실전 모의고사")
+                headerView.updateLabel(to: self.hasPurchasedWorkbook ? "나의 실전 모의고사" : "실전 모의고사")
             case 1:
                 headerView.updateLabel(to: "실전 모의고사")
             default:
@@ -327,10 +330,9 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let hasPurchasedWorkbook = self.viewModel?.hasPurchasedWorkbook ?? false
         switch indexPath.section {
         case 0:
-            if hasPurchasedWorkbook == false {
+            if self.hasPurchasedWorkbook == false {
                 self.viewModel?.selectWorkbook(to: indexPath.item)
             }
         case 1:

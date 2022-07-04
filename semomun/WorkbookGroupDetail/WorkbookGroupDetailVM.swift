@@ -17,9 +17,6 @@ final class WorkbookGroupDetailVM {
     }
     private(set) var credit: Int?
     private(set) var workbookGroupCore: WorkbookGroup_Core?
-    var hasPurchasedWorkbook: Bool {
-        return self.purchasedWorkbooks.isEmpty == false
-    }
     var hasTerminatedWorkbook: Bool {
         return self.purchasedWorkbooks.firstIndex(where: { $0.terminated }) != nil
     }
