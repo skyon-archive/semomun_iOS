@@ -108,7 +108,7 @@ enum NetworkURL {
     static let errorReportOfApp: String = "https://forms.gle/suXByYKEied6RcSd8"
     static let s3ImageDirectory: String = base + "/s3/presignedUrl"
     
-    static let chargePay = "https://www.semomun.com/admin/login"
+    static let chargePay = "https://www.semomun.com/charge"
     static let removeAccount = "https://semomun.com" // MARK: - 2.0 은 사용중이지 않는 상태
     
     static let workbookDirectory: (Int) -> String = { workbooks + "\($0)" }
