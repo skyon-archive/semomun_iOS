@@ -2,12 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>PretendardVariable.ttf</string>
-	</array>
+    <key>CFBundleDevelopmentRegion</key>
+        <string>ko_KR</string>
 	<key>API_ACCESS_KEY1</key>
 	<string>${API_ACCESS_KEY1}</string>
 	<key>CFBundleURLTypes</key>
@@ -50,6 +46,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PretendardVariable.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

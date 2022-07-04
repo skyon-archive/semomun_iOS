@@ -148,9 +148,9 @@ final class RotationableCanvasView: PKCanvasView {
     }
     
     func setDefaults() {
-        self.setContentOffset(.zero, animated: false)
         self.zoomScale = 1.0
         self.contentInset = .zero
         self.delegate = nil
+        self.setContentOffset(.zero, animated: false)
     }
 }
