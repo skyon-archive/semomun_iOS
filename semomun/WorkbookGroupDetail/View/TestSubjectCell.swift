@@ -38,8 +38,10 @@ final class TestSubjectCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.bookcoverFrameView.cornerRadius = CGFloat.cornerRadius12
-        self.bookcoverFrameView.clipsToBounds = true
+        self.clipsToBounds = false
+        self.contentView.clipsToBounds = false
+        self.bookcoverFrameView.addShadowToFrameView(cornerRadius: .cornerRadius12)
+        self.bookcover.cornerRadius = CGFloat.cornerRadius12
     }
     
     override func prepareForReuse() {
@@ -49,12 +51,6 @@ final class TestSubjectCell: UICollectionViewCell {
         self.downloading = false
         self.bookcover.image = UIImage(.loadingBookcover)
         self.downloadedUI()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layoutIfNeeded()
-        self.bookcoverFrameView.addAccessibleShadow()
     }
     
     override var isSelected: Bool {
