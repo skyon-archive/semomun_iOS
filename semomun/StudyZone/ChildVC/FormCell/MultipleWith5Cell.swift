@@ -116,11 +116,11 @@ extension MultipleWith5Cell {
     private func updateButtonUI() {
         self.checkButtons.forEach { button in
             if button.isSelected {
-                button.backgroundColor = UIColor(.deepMint)
+                button.backgroundColor = UIColor(.blueRegular)
                 button.setTitleColor(UIColor.white, for: .normal)
             } else {
                 button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(.deepMint), for: .normal)
+                button.setTitleColor(UIColor(.blueRegular), for: .normal)
             }
         }
     }
@@ -153,7 +153,7 @@ extension MultipleWith5Cell {
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answerBT.isUserInteractionEnabled = true
-            self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
+            self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         }
     }
     
@@ -165,7 +165,7 @@ extension MultipleWith5Cell {
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+            self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         }
     }
     

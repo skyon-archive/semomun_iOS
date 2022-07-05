@@ -44,7 +44,7 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.configureSubViews()
         self.configureCollectionViewDelegate()
         self.configureGesture()
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        self.view.backgroundColor = UIColor(.lightGray)
     }
     
     override func viewWillAppear(_ animated: Bool) {

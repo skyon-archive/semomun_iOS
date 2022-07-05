@@ -14,7 +14,7 @@ class SmallTagCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.contentView.layer.borderColor = UIColor(.blueRegular)?.cgColor
         self.contentView.clipsToBounds = true
         self.contentView.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .phone ? 13.5 : 15
     }

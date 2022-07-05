@@ -51,7 +51,7 @@ extension ScoreResultView {
     func updateForNoInternet() {
         self.noInternetLabel.isHidden = false
         self.rankLabel.isHidden = true
-        self.setRankContainerBackgroundColor(to: UIColor(.semoLightGray))
+        self.setRankContainerBackgroundColor(to: UIColor(.lightGray))
     }
 }
 

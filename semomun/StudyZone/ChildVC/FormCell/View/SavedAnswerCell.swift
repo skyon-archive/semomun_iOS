@@ -13,7 +13,7 @@ class SavedAnswerCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.layer.borderColor = UIColor(.blueRegular)?.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 3
         
@@ -27,7 +27,7 @@ class SavedAnswerCell: UICollectionViewCell {
         ])
         
         self.label.font = .systemFont(ofSize: 12, weight: .medium)
-        self.label.textColor = UIColor(.deepMint) ?? .black
+        self.label.textColor = UIColor(.blueRegular) ?? .black
         self.label.textAlignment = .center
     }
     
@@ -41,12 +41,12 @@ class SavedAnswerCell: UICollectionViewCell {
     }
     
     func makeWrong() {
-        self.layer.borderColor = UIColor(.munRedColor)?.cgColor
-        self.label.textColor = UIColor(.munRedColor) ?? .red
+        self.layer.borderColor = UIColor(.orangeRegular)?.cgColor
+        self.label.textColor = UIColor(.orangeRegular) ?? .red
     }
     
     func makeCorrect() {
-        self.layer.borderColor = UIColor(.deepMint)?.cgColor
-        self.label.textColor = UIColor(.deepMint) ?? .black
+        self.layer.borderColor = UIColor(.blueRegular)?.cgColor
+        self.label.textColor = UIColor(.blueRegular) ?? .black
     }
 }

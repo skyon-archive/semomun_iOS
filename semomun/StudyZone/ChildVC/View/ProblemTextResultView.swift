@@ -30,7 +30,7 @@ final class ProblemTextResultView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
+        self.layer.addBorder([.bottom], color: UIColor(.blueRegular) ?? .black, width: 1)
     }
     
     private func configureLayout() {

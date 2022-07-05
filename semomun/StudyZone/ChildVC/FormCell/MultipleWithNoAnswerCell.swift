@@ -80,7 +80,7 @@ extension MultipleWithNoAnswerCell {
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+            self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         }
     }
 }

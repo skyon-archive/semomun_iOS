@@ -62,12 +62,12 @@ extension PracticeTestResultVC {
 // MARK: Configure
 extension PracticeTestResultVC {
     private func configureProgressView() {
-        self.publicProgressView.progressColor = UIColor(.munBlue) ?? .blue
-        self.publicProgressView.trackColor = UIColor(.munLightBlue) ?? .lightGray
+        self.publicProgressView.progressColor = UIColor(.blueRegular) ?? .blue
+        self.publicProgressView.trackColor = UIColor(.blueRegular) ?? .lightGray
         self.publicProgressView.progressWidth = 22
         
         self.privateProgressView.progressColor = UIColor(.blueRegular) ?? .green
-        self.privateProgressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
+        self.privateProgressView.trackColor = UIColor(.blueRegular) ?? .lightGray
         self.privateProgressView.progressWidth = 22
     }
 }
@@ -104,7 +104,7 @@ extension PracticeTestResultVC {
                 self?.publicScoreResultView.updateContent(
                     title: "세모문 사용자 예상 등급",
                     scoreResult: publicScoreResult,
-                    rankContainerBackgroundColor: UIColor(.munBlue) ?? .blue
+                    rankContainerBackgroundColor: UIColor(.blueRegular) ?? .blue
                 )
                 
                 guard let initialAnimationEnded = self?.initialAnimationEnded else { return }

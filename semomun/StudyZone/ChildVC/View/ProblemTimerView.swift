@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProblemTimerView: UIView {
-    private let color = UIColor(.deepMint)
+    private let color = UIColor(.blueRegular)
     
     private lazy var clockImageView: UIImageView = {
         let imageView = UIImageView()

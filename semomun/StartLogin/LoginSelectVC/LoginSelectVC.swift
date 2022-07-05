@@ -154,7 +154,7 @@ extension LoginSelectVC {
     private func makeGoogleLabel() -> UILabel {
         let text = UILabel()
         text.text = self.isSignup ? "Google로 등록" : "Google로 로그인"
-        text.textColor = UIColor(.grayTextColor)
+        text.textColor = UIColor(.lightGray)
         text.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         return text
     }

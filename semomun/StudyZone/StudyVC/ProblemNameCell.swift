@@ -25,12 +25,12 @@ class ProblemNameCell: UICollectionViewCell {
     }
     
     private func resetUI() {
-        self.frameView.layer.borderColor = UIColor(.semoGray)?.cgColor
+        self.frameView.layer.borderColor = UIColor(.lightGray)?.cgColor
         self.frameView.layer.borderWidth = 1
         self.frameView.transform = CGAffineTransform.identity
         self.bookmark.isHidden = true
         self.num.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        self.num.textColor = UIColor(.semoGray)
+        self.num.textColor = UIColor(.lightGray)
         self.num.text = ""
     }
     
@@ -47,11 +47,11 @@ class ProblemNameCell: UICollectionViewCell {
             self.num.font = UIFont.systemFont(ofSize: 20, weight: .medium)
             
             if isWrong {
-                self.frameView.layer.borderColor = UIColor(.munRedColor)?.cgColor
-                self.num.textColor = UIColor(.munRedColor)
+                self.frameView.layer.borderColor = UIColor(.orangeRegular)?.cgColor
+                self.num.textColor = UIColor(.orangeRegular)
             } else {
-                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
-                self.num.textColor = UIColor(.deepMint)
+                self.frameView.layer.borderColor = UIColor(.blueRegular)?.cgColor
+                self.num.textColor = UIColor(.blueRegular)
             }
         }
         
@@ -72,17 +72,17 @@ class ProblemNameCell: UICollectionViewCell {
             self.num.font = UIFont.systemFont(ofSize: 20, weight: .medium)
             
             if problem.correct == false {
-                self.frameView.layer.borderColor = UIColor(.munRedColor)?.cgColor
-                self.num.textColor = UIColor(.munRedColor)
+                self.frameView.layer.borderColor = UIColor(.orangeRegular)?.cgColor
+                self.num.textColor = UIColor(.orangeRegular)
             } else {
-                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
-                self.num.textColor = UIColor(.deepMint)
+                self.frameView.layer.borderColor = UIColor(.blueRegular)?.cgColor
+                self.num.textColor = UIColor(.blueRegular)
             }
         } else {
             // 사용자가 문제입력을 한 경우 deepMint 로 표시
             if problem.solved != nil {
-                self.frameView.layer.borderColor = UIColor(.deepMint)?.cgColor
-                self.num.textColor = UIColor(.deepMint)
+                self.frameView.layer.borderColor = UIColor(.blueRegular)?.cgColor
+                self.num.textColor = UIColor(.blueRegular)
             }
         }
         

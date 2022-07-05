@@ -162,11 +162,11 @@ extension SingleWith5AnswerVC {
     private func updateButtonUI() {
         self.checkButtons.forEach { button in
             if button.isSelected {
-                button.backgroundColor = UIColor(.deepMint)
+                button.backgroundColor = UIColor(.blueRegular)
                 button.setTitleColor(UIColor.white, for: .normal)
             } else {
                 button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(.deepMint), for: .normal)
+                button.setTitleColor(UIColor(.blueRegular), for: .normal)
             }
         }
     }
@@ -196,7 +196,7 @@ extension SingleWith5AnswerVC {
     private func updateAnswerBT() {
         self.answerBT.isHidden = false
         self.answerBT.isUserInteractionEnabled = true
-        self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         if self.viewModel?.problem?.answer == nil {
             self.answerBT.isUserInteractionEnabled = false
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
@@ -207,7 +207,7 @@ extension SingleWith5AnswerVC {
         self.explanationBT.isHidden = false
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)

@@ -115,11 +115,11 @@ extension LoginServicePopupVC {
             button.tintColor = UIColor(.blueRegular)
         } else {
             button.setImage(check, for: .normal)
-            button.tintColor = UIColor(.grayDefaultColor)
+            button.tintColor = UIColor(.lightGray)
         }
     }
     
     private func updateUIOfRegisterButton() {
-        self.registerButton.backgroundColor = self.canRegister ? UIColor(.blueRegular) : UIColor(.semoLightGray)
+        self.registerButton.backgroundColor = self.canRegister ? UIColor(.blueRegular) : UIColor(.lightGray)
     }
 }

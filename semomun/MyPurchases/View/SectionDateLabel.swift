@@ -40,6 +40,6 @@ final class SectionDateLabelFrame: UIView {
         label.textAlignment = .center
         label.layer.cornerRadius = 14
         label.textColor = .white
-        label.backgroundColor = UIColor(.deepMint)
+        label.backgroundColor = UIColor(.blueRegular)
     }
 }
