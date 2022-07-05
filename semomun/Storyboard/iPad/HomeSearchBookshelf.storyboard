@@ -1288,13 +1288,13 @@ Label</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="40" minimumInteritemSpacing="12" id="Hgg-hT-LRE">
                                     <size key="itemSize" width="146" height="260"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="50" height="40"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="28" minY="0.0" maxX="28" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TestSubjectCell" id="IoM-JE-k4Z" customClass="TestSubjectCell" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="28" y="50" width="146" height="260"/>
+                                        <rect key="frame" x="28" y="40" width="146" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vDn-lj-ZN0">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="260"/>
@@ -1367,7 +1367,7 @@ Label</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="w6F-ao-GNd">
-                                        <rect key="frame" x="186" y="50" width="146" height="260"/>
+                                        <rect key="frame" x="186" y="40" width="146" height="260"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kgN-dX-onV">
                                             <rect key="frame" x="0.0" y="0.0" width="146" height="260"/>
@@ -1376,19 +1376,19 @@ Label</string>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkbookGroupDetailHeaderView" id="5Du-zj-8Q9" customClass="WorkbookGroupDetailHeaderView" customModule="semomun" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="834" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 실전 모의고사" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVh-oZ-ZKr">
-                                            <rect key="frame" x="29" y="14.5" width="133" height="21"/>
+                                            <rect key="frame" x="32" y="3" width="133" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="eVh-oZ-ZKr" firstAttribute="leading" secondItem="5Du-zj-8Q9" secondAttribute="leading" constant="29" id="bxc-vL-xua"/>
-                                        <constraint firstItem="eVh-oZ-ZKr" firstAttribute="centerY" secondItem="5Du-zj-8Q9" secondAttribute="centerY" id="xLq-bh-0Ke"/>
+                                        <constraint firstAttribute="bottom" secondItem="eVh-oZ-ZKr" secondAttribute="bottom" constant="16" id="4Hj-Gr-ofI"/>
+                                        <constraint firstItem="eVh-oZ-ZKr" firstAttribute="leading" secondItem="5Du-zj-8Q9" secondAttribute="leading" constant="32" id="bxc-vL-xua"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="headerText" destination="eVh-oZ-ZKr" id="PCJ-ha-IeG"/>
@@ -1425,13 +1425,13 @@ Label</string>
                                 <rect key="frame" x="28" y="52" width="380" height="350"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전체 평균 등급" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VJ-Qn-FpI">
-                                        <rect key="frame" x="12" y="17" width="96.5" height="20.5"/>
+                                        <rect key="frame" x="12" y="17" width="98" height="20"/>
                                         <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6i-ZN-y5d" customClass="CircularProgressView" customModule="semomun" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="87.5" width="260" height="130"/>
+                                        <rect key="frame" x="60" y="87" width="260" height="130"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-2H-zWO">
                                                 <rect key="frame" x="44" y="87.5" width="172.5" height="60"/>
@@ -1447,7 +1447,7 @@ Label</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등급" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa1-Pm-I0M">
-                                                        <rect key="frame" x="103" y="12" width="69.5" height="48"/>
+                                                        <rect key="frame" x="103" y="13" width="69.5" height="47"/>
                                                         <fontDescription key="fontDescription" name="PretendardVariable-Black" family="Pretendard Variable" pointSize="40"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1464,28 +1464,28 @@ Label</string>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9등급" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7E-dx-IFS">
-                                        <rect key="frame" x="42.5" y="239.5" width="33" height="17"/>
+                                        <rect key="frame" x="42.5" y="239" width="32.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1등급" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6H-EE-B6B">
-                                        <rect key="frame" x="307" y="239.5" width="30.5" height="17"/>
+                                        <rect key="frame" x="305" y="239" width="32.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TY9-CU-FsM">
-                                        <rect key="frame" x="122.5" y="258" width="135" height="19.5"/>
+                                        <rect key="frame" x="124.5" y="257.5" width="131" height="19"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 풀이 시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3v-A9-6Oz">
-                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="78.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQp-41-RoR">
-                                                <rect key="frame" x="89.5" y="0.0" width="45.5" height="19.5"/>
+                                                <rect key="frame" x="90.5" y="0.0" width="40.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1526,13 +1526,13 @@ Label</string>
                                 <rect key="frame" x="426" y="52" width="380" height="350"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="과목별 점수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4C4-Ha-u2L">
-                                        <rect key="frame" x="12" y="17" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="12" y="17" width="78.5" height="20"/>
                                         <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LH-iq-0qP">
-                                        <rect key="frame" x="14" y="87.5" width="366" height="262.5"/>
+                                        <rect key="frame" x="14" y="87" width="366" height="263"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestSubjectResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestSubjectResultCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44.5" width="366" height="52"/>
@@ -1545,34 +1545,34 @@ Label</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="366" height="44"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-Hg-JtA">
-                                                                    <rect key="frame" x="24" y="12.5" width="11.5" height="19.5"/>
+                                                                    <rect key="frame" x="24" y="12.5" width="13.5" height="19"/>
                                                                     <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="화법과 작문" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3B0-Yi-3z4">
-                                                                    <rect key="frame" x="50.5" y="12.5" width="73.5" height="19.5"/>
+                                                                    <rect key="frame" x="52.5" y="12.5" width="74" height="19"/>
                                                                     <fontDescription key="fontDescription" name="PretendardVariable-Medium" family="Pretendard Variable" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="J7W-rj-OhI">
-                                                                    <rect key="frame" x="166" y="12" width="200" height="20.5"/>
+                                                                    <rect key="frame" x="166" y="12" width="200" height="20"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amR-a8-Hy0">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="66.5" height="20.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="66.5" height="20"/>
                                                                             <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTp-DM-bgr">
-                                                                            <rect key="frame" x="66.5" y="0.0" width="67" height="20.5"/>
+                                                                            <rect key="frame" x="66.5" y="0.0" width="67" height="20"/>
                                                                             <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekw-lT-HWj">
-                                                                            <rect key="frame" x="133.5" y="0.0" width="66.5" height="20.5"/>
+                                                                            <rect key="frame" x="133.5" y="0.0" width="66.5" height="20"/>
                                                                             <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -1615,7 +1615,7 @@ Label</string>
                                         </prototypes>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hg4-ot-0RL">
-                                        <rect key="frame" x="180" y="59.5" width="200" height="17"/>
+                                        <rect key="frame" x="180" y="59" width="200" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="원점수" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxA-dp-iGW">
                                                 <rect key="frame" x="0.0" y="0.0" width="66.5" height="17"/>
@@ -1663,7 +1663,7 @@ Label</string>
                                 <rect key="frame" x="28" y="412" width="778" height="244"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="과목 등급" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnY-PM-jFR">
-                                        <rect key="frame" x="12" y="17" width="63" height="20.5"/>
+                                        <rect key="frame" x="12" y="17" width="64" height="20"/>
                                         <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1692,13 +1692,13 @@ Label</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="110" height="90"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="화법과 작문" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FC2-1w-2Km">
-                                                                    <rect key="frame" x="18.5" y="12" width="73.5" height="19.5"/>
+                                                                    <rect key="frame" x="18" y="12" width="74" height="19"/>
                                                                     <fontDescription key="fontDescription" name="PretendardVariable-Medium" family="Pretendard Variable" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PG9-he-YMQ">
-                                                                    <rect key="frame" x="44.5" y="39.5" width="21.5" height="54"/>
+                                                                    <rect key="frame" x="42.5" y="39" width="25.5" height="52.5"/>
                                                                     <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="45"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>

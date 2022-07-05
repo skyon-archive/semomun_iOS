@@ -14,5 +14,6 @@ final class WorkbookGroupDetailHeaderView: UICollectionReusableView {
     
     func updateLabel(to text: String) {
         self.headerText.text = text
+        self.headerText.font = .heading3
     }
 }
