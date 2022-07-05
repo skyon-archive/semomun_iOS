@@ -100,13 +100,12 @@ extension WorkbookGroupResultVC {
         self.configureRankLabel(to: viewModel.averageRank)
         self.totalTimeLabel.text = viewModel.formattedTotalTime
         self.title = viewModel.title
-        self.progressToAnimate = Float((10-viewModel.averageRank)/9)
+        self.progressToAnimate = viewModel.normalizedAverageRank
     }
     
     private func configureRankLabel(to rank: Double) {
         self.rankLabel.text = "\(rank)"
     }
-    
 }
 
 // MARK: Update
