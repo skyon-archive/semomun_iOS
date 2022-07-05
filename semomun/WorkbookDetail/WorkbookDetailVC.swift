@@ -12,15 +12,14 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
-    @IBOutlet weak var workbookInfoView: UIView!
-    @IBOutlet weak var bookCoverImageViewFrameView: UIView!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
-    @IBOutlet weak var sectionNumberLabel: UILabel!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
-    @IBOutlet weak var workbookInfosCollectionView: UICollectionView!
     @IBOutlet weak var sectionListTableView: UITableView!
-    @IBOutlet weak var periodLabel: UILabel!
+    
+    @IBOutlet weak var downloadAllSectionsButton: UIButton!
+    @IBOutlet weak var selectedCountLabel: UILabel!
+    @IBOutlet weak var deleteSectionsButton: UIButton!
     @IBOutlet weak var editSectionsButton: UIButton!
     
     private var isCoreData: Bool = false
@@ -51,16 +50,6 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         super.viewWillDisappear(animated)
         guard self.navigationAnimation else { return }
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    // MARK: 회전
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { _ in
-            self.workbookInfosCollectionView.performBatchUpdates {
-                self.workbookInfosCollectionView.collectionViewLayout.invalidateLayout()
-            }
-        })
     }
     
     @IBAction func addWorkbook(_ sender: Any) {

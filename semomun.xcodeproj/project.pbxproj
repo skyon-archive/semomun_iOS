@@ -216,6 +216,7 @@
 		879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC219286955D4007E3508 /* LayoutDelegate.swift */; };
 		879CC21C286957FB007E3508 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC21B286957FB007E3508 /* TestInfo.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemsVC.swift */; };
+		87A376A228741FAC00399DF2 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A376A128741FAC00399DF2 /* TagCell.xib */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
 		87AC217B2862FD0F00613609 /* WorkbookGroup_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */; };
@@ -528,6 +529,7 @@
 		879CC219286955D4007E3508 /* LayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDelegate.swift; sourceTree = "<group>"; };
 		879CC21B286957FB007E3508 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVC.swift; sourceTree = "<group>"; };
+		87A376A128741FAC00399DF2 /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
 		87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroup_Core.swift; sourceTree = "<group>"; };
@@ -1440,6 +1442,22 @@
 			path = PopupVC;
 			sourceTree = "<group>";
 		};
+		87A3769F28741F6300399DF2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				87A376A028741F6700399DF2 /* Xib */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		87A376A028741F6700399DF2 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				87A376A128741FAC00399DF2 /* TagCell.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
 		87AC221C27A39FE900B48F9D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1471,6 +1489,7 @@
 			isa = PBXGroup;
 			children = (
 				25A6791C28748068009F76DF /* UICollectionViewCell */,
+				87A3769F28741F6300399DF2 /* UI */,
 				250A4906285DF6E2008D0016 /* Font */,
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -1818,6 +1837,7 @@
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				258FA11A286446CA0008701C /* TestPrivateTestResultOfDBJSON.json in Resources */,
 				87FEBB3A27EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard in Resources */,
+				87A376A228741FAC00399DF2 /* TagCell.xib in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,

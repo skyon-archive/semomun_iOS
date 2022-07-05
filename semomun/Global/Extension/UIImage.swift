@@ -9,8 +9,9 @@ import UIKit
 
 extension UIImage {
     convenience init(_ semomunImage: SemomunImage, withConfiguration configuration: UIImage.SymbolConfiguration? = nil) {
-        if let _ = UIImage(named: semomunImage.rawValue) {
-            self.init(named: semomunImage.rawValue)!
+        let imageName = semomunImage.rawValue
+        if let _ = UIImage(named: imageName) {
+            self.init(named: imageName)!
         } else {
             self.init(named: "warning")!
         }
