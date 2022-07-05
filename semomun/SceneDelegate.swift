@@ -42,46 +42,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .main) { [weak self] _ in
             self?.showStartVC()
         }
+        
+        self.configureNavigationBarColor()
 
         self.window?.makeKeyAndVisible()
     }
     
-    private func changeRootViewController() {
-        let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
-        guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-        
-        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        mainViewController.view.addSubview(snapshot)
-        
-        self.window?.rootViewController = mainViewController
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview()
-        })
-    }
-    
-    private func showStartVC() {
-        let storyboard = UIStoryboard(controllerType: StartVC.self)
-        let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
-        
-        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        startVC.view.addSubview(snapshot)
-        
-        self.window?.rootViewController = startVC
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview()
-        })
-    }
-
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -122,6 +88,59 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
+
+// MARK: Private
+extension SceneDelegate {
+    private func changeRootViewController() {
+        let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
+        guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
+        
+        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
+        mainViewController.view.addSubview(snapshot)
+        
+        self.window?.rootViewController = mainViewController
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview()
+        })
+    }
+    
+    private func showStartVC() {
+        let storyboard = UIStoryboard(controllerType: StartVC.self)
+        let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
+        
+        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
+        startVC.view.addSubview(snapshot)
+        
+        self.window?.rootViewController = startVC
+        
+        UIView.animate(withDuration: 0.3, animations: {() in
+            snapshot.layer.opacity = 0;
+            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        }, completion: {
+            (value: Bool) in
+            snapshot.removeFromSuperview()
+        })
+    }
+    
+    private func configureNavigationBarColor() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(.background)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.shadowColor = .clear
+        
+        UINavigationBar.appearance().tintColor = UIColor(.orangeRegular)
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+
 }
 
 /// UIDevice.current.orientation 값이 부정확하므로 Window 의 UI의 값을 통한 가로모드인지 여부 값
