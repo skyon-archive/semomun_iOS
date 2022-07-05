@@ -69,6 +69,8 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.practiceTests.layer.cornerRadius = .cornerRadius24
         self.practiceTests.layer.masksToBounds = true
         self.practiceTests.backgroundColor = .white
+        
+        self.practiceTests.configureDefaultDesign()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -330,7 +332,13 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
 
 extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return UIWindow.isLandscape ? self.landscapeCellSize : self.portraitCellSize
+        return UICollectionView.bookcoverCellSize
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return UICollectionView.lineSpacingInSection
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: UICollectionView.gridPadding, bottom: UICollectionView.sectionVerticalSpacing, right: UICollectionView.gridPadding)
     }
 }
 

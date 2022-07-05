@@ -101,9 +101,7 @@ extension WorkbookGroupDetailVM {
     }
     
     func fetchTestResults() {
-        guard UserDefaultsManager.isLogined == true else {
-            return
-        }
+        guard UserDefaultsManager.isLogined == true else { return }
         
         let wgid = self.info.wgid
         self.networkUsecase.getPrivateTestResults(wgid: wgid) { [weak self] _, testResults in
@@ -122,7 +120,7 @@ extension WorkbookGroupDetailVM {
             return
         }
         
-        self.purchasedWorkbooks = purchasedWorkbooks
+        self.purchasedWorkbooks = Array(repeating: purchasedWorkbooks, count: 5).flatMap({$0})
         self.filterNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
         
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
