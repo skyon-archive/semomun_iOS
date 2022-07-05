@@ -92,7 +92,7 @@ extension SingleWithNoAnswerVC {
     private func updateExplanationBT() {
         self.explanationBT.isSelected = false
         self.explanationBT.isUserInteractionEnabled = true
-        self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+        self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         if self.viewModel?.problem?.explanationImage == nil {
             self.explanationBT.isUserInteractionEnabled = false
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)

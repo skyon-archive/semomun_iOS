@@ -104,7 +104,7 @@ extension StartSettingVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 if tags.count == 0 {
-                    self?.startBT.backgroundColor = UIColor(.semoLightGray)
+                    self?.startBT.backgroundColor = UIColor(.lightGray)
                 } else {
                     self?.startBT.backgroundColor = UIColor(.blueRegular)
                 }

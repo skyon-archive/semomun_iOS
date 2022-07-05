@@ -60,7 +60,7 @@ final class SingleWithTextAnswerVC: FormZero {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.solveInput.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
+        self.solveInput.layer.addBorder([.bottom], color: UIColor(.blueRegular) ?? .black, width: 1)
     }
     
     // 주관식 입력 부분
@@ -161,7 +161,7 @@ extension SingleWithTextAnswerVC {
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answerBT.isUserInteractionEnabled = true
-            self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
+            self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         }
     }
     
@@ -172,7 +172,7 @@ extension SingleWithTextAnswerVC {
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+            self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
         }
     }
     

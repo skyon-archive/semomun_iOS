@@ -46,7 +46,7 @@ final class SectionResultVC: UIViewController {
     
     private func configureUI() {
         self.progressView.progressWidth = 30
-        self.progressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
+        self.progressView.trackColor = UIColor(.blueRegular) ?? .lightGray
         self.progressView.progressColor = UIColor(.blueRegular) ?? .black
     }
 }

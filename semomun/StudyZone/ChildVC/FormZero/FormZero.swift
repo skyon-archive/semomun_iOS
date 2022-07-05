@@ -115,7 +115,7 @@ extension FormZero {
     }
     
     private func configureSubViews() {
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        self.view.backgroundColor = UIColor(.lightGray)
         self.view.addSubview(self.canvasView)
         
         self.canvasView.addDoubleTabGesture()

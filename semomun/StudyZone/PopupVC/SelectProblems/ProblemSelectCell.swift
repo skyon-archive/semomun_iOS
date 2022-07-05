@@ -36,19 +36,19 @@ final class ProblemSelectCell: UICollectionViewCell {
 extension ProblemSelectCell {
     private func unCheckedUI() {
         self.contentView.backgroundColor = .white
-        self.contentView.layer.borderColor = UIColor(.deepMint)?.cgColor
-        self.title.textColor = UIColor(.deepMint)
+        self.contentView.layer.borderColor = UIColor(.blueRegular)?.cgColor
+        self.title.textColor = UIColor(.blueRegular)
     }
     
     private func checkedUI() {
-        self.contentView.backgroundColor = UIColor(.deepMint)
-        self.contentView.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.contentView.backgroundColor = UIColor(.blueRegular)
+        self.contentView.layer.borderColor = UIColor(.blueRegular)?.cgColor
         self.title.textColor = .white
     }
     
     private func terminatedUI() {
-        self.contentView.backgroundColor = UIColor(.semoGray)
-        self.contentView.layer.borderColor = UIColor(.semoGray)?.cgColor
+        self.contentView.backgroundColor = UIColor(.lightGray)
+        self.contentView.layer.borderColor = UIColor(.lightGray)?.cgColor
         self.title.textColor = .white
     }
 }

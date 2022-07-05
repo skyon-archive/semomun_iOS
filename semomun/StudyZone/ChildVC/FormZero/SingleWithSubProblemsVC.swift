@@ -87,7 +87,7 @@ final class SingleWithSubProblemsVC: FormZero {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.answerInputTextField.addAccessibleShadow()
-        let borderColor = UIColor(.deepMint) ?? .green
+        let borderColor = UIColor(.blueRegular) ?? .green
         self.answerInputTextField.layer.addBorder([.bottom], color: borderColor, width: 1)
         self.answerInputTextField.clipAccessibleShadow(at: .exceptLeft)
     }
@@ -252,7 +252,7 @@ extension SingleWithSubProblemsVC {
              self.answerBT.setTitleColor(UIColor.gray, for: .normal)
          } else {
              self.answerBT.isUserInteractionEnabled = true
-             self.answerBT.setTitleColor(UIColor(.deepMint), for: .normal)
+             self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
          }
      }
 
@@ -262,7 +262,7 @@ extension SingleWithSubProblemsVC {
              self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
          } else {
              self.explanationBT.isUserInteractionEnabled = true
-             self.explanationBT.setTitleColor(UIColor(.deepMint), for: .normal)
+             self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
          }
      }
 }

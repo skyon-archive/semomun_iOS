@@ -48,11 +48,11 @@ final class ColoredFrameLabel: UIView {
         switch type {
         case .success(let string):
             imageSystemName = .circleCheckmark
-            tintColor = UIColor(.greenColor) ?? .green
+            tintColor = UIColor(.blueRegular) ?? .green
             message = string
         case .warning(let string):
             imageSystemName = .exclamationmarkTriangle
-            tintColor = UIColor(.redColor) ?? .red
+            tintColor = UIColor(.orangeRegular) ?? .red
             message = string
         }
         

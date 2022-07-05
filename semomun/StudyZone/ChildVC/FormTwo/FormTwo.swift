@@ -44,7 +44,7 @@ class FormTwo: UIViewController {
         self.configureSubViews()
         self.configureCollectionView()
         self.configureGesture()
-        self.view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        self.view.backgroundColor = UIColor(.lightGray)
     }
     
     override func viewWillAppear(_ animated: Bool) {

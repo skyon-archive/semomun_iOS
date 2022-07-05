@@ -251,7 +251,7 @@ extension LoginSignupVC {
                 case .userInfoComplete:
                     self?.submitButton.backgroundColor = UIColor(.blueRegular)
                 case .userInfoIncomplete:
-                    self?.submitButton.backgroundColor = UIColor(.semoLightGray)
+                    self?.submitButton.backgroundColor = UIColor(.lightGray)
                     
                 case .none:
                     break

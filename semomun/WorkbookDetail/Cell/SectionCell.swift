@@ -125,16 +125,16 @@ extension SectionCell {
     
     private func deleteEnable() {
         self.deleteButton.isUserInteractionEnabled = true
-        self.deleteButton.backgroundColor = UIColor(.munRedColor)
-        self.deleteButton.layer.borderColor = UIColor(.munRedColor)?.cgColor
+        self.deleteButton.backgroundColor = UIColor(.orangeRegular)
+        self.deleteButton.layer.borderColor = UIColor(.orangeRegular)?.cgColor
         self.deleteButton.setTitleColor(.white, for: .normal)
     }
     
     private func deleteUnable() {
         self.deleteButton.isUserInteractionEnabled = false
         self.deleteButton.backgroundColor = .white
-        self.deleteButton.layer.borderColor = UIColor(.semoLightGray)?.cgColor
-        self.deleteButton.setTitleColor(UIColor(.semoLightGray), for: .normal)
+        self.deleteButton.layer.borderColor = UIColor(.lightGray)?.cgColor
+        self.deleteButton.setTitleColor(UIColor(.lightGray), for: .normal)
     }
     
     private func configureWhite() {

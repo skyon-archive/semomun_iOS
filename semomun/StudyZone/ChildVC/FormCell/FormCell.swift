@@ -32,7 +32,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }()
     private let background: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(.lightGrayBackgroundColor)
+        view.backgroundColor = UIColor(.lightGray)
         return view
     }()
     private let correctImageView = CorrectImageView()

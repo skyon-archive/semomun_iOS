@@ -19,8 +19,8 @@ final class WorkbookGroupResultButton: UIButton {
                 self.borderColor = UIColor(.blueRegular)
                 self.setTitleColor(UIColor(.blueRegular), for: .normal)
             } else {
-                self.borderColor = UIColor(.semoLightGray)
-                self.setTitleColor(UIColor(.semoLightGray), for: .normal)
+                self.borderColor = UIColor(.lightGray)
+                self.setTitleColor(UIColor(.lightGray), for: .normal)
             }
         }
     }

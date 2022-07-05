@@ -29,11 +29,11 @@ class SubProblemCheckButton: UIButton {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                self.backgroundColor = UIColor(.deepMint)
+                self.backgroundColor = UIColor(.blueRegular)
                 self.setTitleColor(.white, for: .normal)
             } else {
                 self.backgroundColor = .clear
-                self.setTitleColor(UIColor(.deepMint), for: .normal)
+                self.setTitleColor(UIColor(.blueRegular), for: .normal)
             }
         }
     }
@@ -44,10 +44,10 @@ class SubProblemCheckButton: UIButton {
         self.backgroundColor = .clear
         
         self.borderWidth = 1
-        self.layer.borderColor = UIColor(.deepMint)?.cgColor
+        self.layer.borderColor = UIColor(.blueRegular)?.cgColor
         self.layer.cornerRadius = size/2
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-        self.setTitleColor(UIColor(.deepMint), for: .normal)
+        self.setTitleColor(UIColor(.blueRegular), for: .normal)
         self.setTitle(Self.korLabels[index], for: .normal)
         
         self.tag = index
@@ -58,8 +58,8 @@ class SubProblemCheckButton: UIButton {
     }
     
     func setWrongUI() {
-        self.layer.borderColor = UIColor(.munRedColor)?.cgColor
-        self.setTitleColor(UIColor(.munRedColor) ?? .red, for: .normal)
+        self.layer.borderColor = UIColor(.orangeRegular)?.cgColor
+        self.setTitleColor(UIColor(.orangeRegular) ?? .red, for: .normal)
         self.backgroundColor = .clear
     }
 }

@@ -130,7 +130,7 @@ extension ChangeUserInfoVC {
         self.configureColoredFrameLabels()
     }
     private func configureButtonUI(button: UIButton, isFilled: Bool) {
-        let buttonColor = UIColor(.deepMint)
+        let buttonColor = UIColor(.blueRegular)
         if isFilled {
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = buttonColor
@@ -317,7 +317,7 @@ extension ChangeUserInfoVC {
                 case .userInfoComplete:
                     self?.submitButton.backgroundColor = UIColor(.blueRegular)
                 case .userInfoIncomplete:
-                    self?.submitButton.backgroundColor = UIColor(.semoLightGray)
+                    self?.submitButton.backgroundColor = UIColor(.lightGray)
                     
                 case .none:
                     break

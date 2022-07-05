@@ -85,7 +85,7 @@ class SubProblemCell: FormCell, CellLayoutable {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layoutIfNeeded()
-        self.answerTF.layer.addBorder([.bottom], color: UIColor(.deepMint) ?? .black, width: 1)
+        self.answerTF.layer.addBorder([.bottom], color: UIColor(.blueRegular) ?? .black, width: 1)
         self.answerTF.clipAccessibleShadow(at: .exceptLeft)
     }
     

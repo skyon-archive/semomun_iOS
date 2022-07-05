@@ -20,7 +20,7 @@ struct LoginSchoolSearchView: View {
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
                 Image(systemName: SemomunImage.xmark.rawValue.name)
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color(UIColor(.grayDefaultColor) ?? .gray))
+                    .foregroundColor(Color(UIColor(.lightGray) ?? .gray))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.trailing, 27)
