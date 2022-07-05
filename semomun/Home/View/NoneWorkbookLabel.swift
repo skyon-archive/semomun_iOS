@@ -16,7 +16,7 @@ class NoneWorkbookLabel: UILabel {
     private func commonInit() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .clear
-        self.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        self.font = UIFont.heading5
         self.textColor = .black
         self.textAlignment = .left
         self.numberOfLines = 2
