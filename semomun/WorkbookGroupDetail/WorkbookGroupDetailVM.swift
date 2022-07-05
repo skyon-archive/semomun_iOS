@@ -103,7 +103,6 @@ extension WorkbookGroupDetailVM {
     func fetchTestResults() {
         let wgid = self.info.wgid
         self.networkUsecase.getPrivateTestResults(wgid: wgid) { [weak self] _, testResults in
-            print(testResults)
             self?.testResults = testResults
         }
     }
