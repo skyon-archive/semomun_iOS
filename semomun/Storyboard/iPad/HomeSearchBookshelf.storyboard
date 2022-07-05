@@ -518,9 +518,9 @@
                             <constraint firstItem="v6m-4Z-gTz" firstAttribute="bottom" secondItem="gIM-TK-By1" secondAttribute="bottom" id="qqD-Mb-hBZ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="홈" image="home" selectedImage="home" id="eXw-km-Ntt">
+                    <tabBarItem key="tabBarItem" title="홈" image="homeSolid" selectedImage="homeSolid" id="eXw-km-Ntt">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
-                        <color key="badgeColor" name="mainColor"/>
+                        <color key="badgeColor" name="blueRegular"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="M9k-rE-0hB"/>
@@ -542,6 +542,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVL-Cv-bpp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="828.77697841726626" y="39.698492462311556"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e5z-JV-XAY">
+            <objects>
+                <navigationController storyboardIdentifier="HomeVCNavigation" id="tfJ-o3-CLP" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DWx-72-CnS">
+                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="orangeRegular"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bAq-Pq-D0s" kind="relationship" relationship="rootViewController" id="aWJ-XI-WTu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="htI-4E-UMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="-609"/>
         </scene>
         <!--검색-->
         <scene sceneID="ff4-A3-eWd">
@@ -727,6 +744,7 @@
                         <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="keE-ff-okb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cancelSearchBT" destination="iDI-Md-b5T" id="rug-5e-CvF"/>
@@ -742,6 +760,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tco-6X-cTQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1533.8129496402878" y="39.698492462311556"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="spo-c1-ow1">
+            <objects>
+                <navigationController storyboardIdentifier="SearchVCNavigation" id="82K-a4-9GQ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xk8-9b-Pyh">
+                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2BD-WC-27W" kind="relationship" relationship="rootViewController" id="Ann-zC-B4o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZL-em-OYb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1534" y="-609"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pwQ-Xo-hTB">
+            <objects>
+                <navigationController storyboardIdentifier="BookshelfVCNavigation" id="quJ-fb-fBy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NEn-Fd-GLK">
+                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Zyx-OH-eto" kind="relationship" relationship="rootViewController" id="3Ww-wF-8A9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L8n-Mc-Sc7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2245" y="-609"/>
         </scene>
         <!--책장-->
         <scene sceneID="gh7-kP-Slv">
@@ -974,6 +1024,7 @@ Label</string>
                         <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="pS7-Py-XF1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="books" destination="UT5-i4-gH1" id="hHS-12-Fj5"/>
@@ -2579,13 +2630,16 @@ test</string>
         <image name="bookshelf" width="32" height="32"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="home" width="32" height="32"/>
+        <image name="homeSolid" width="20" height="20"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="blueRegular">
+            <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
@@ -2600,6 +2654,9 @@ test</string>
         </namedColor>
         <namedColor name="mainColor">
             <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="orangeRegular">
+            <color red="0.94901960784313721" green="0.45098039215686275" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="redColor">
             <color red="0.86699998378753662" green="0.016000000759959221" blue="0.016000000759959221" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
