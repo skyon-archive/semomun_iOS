@@ -33,11 +33,11 @@ final class SectionCell: UITableViewCell {
         super.prepareForReuse()
         self.resetCell()
     }
-    
+    /// DTO 상태에서 표시되는 UI
     private func resetCell() {
         self.titleLabel.text = ""
-        self.sectionNumber.textColor = UIColor(.black)
-        self.titleLabel.textColor = UIColor(.black)
+        self.sectionNumber.textColor = UIColor.getSemomunColor(.black)
+        self.titleLabel.textColor = UIColor.getSemomunColor(.black)
         self.controlButton.isHidden = true
         self.progressLabel.isHidden = true
         self.rightIcon.isHidden = true
@@ -73,64 +73,101 @@ extension SectionCell {
         
         self.sectionHeader = sectionHeader
         self.configureButton()
-        self.configureDeleteButton(isEditing, isSelected)
+        
+        if isEditing {
+            self.configureEditing(isSelected)
+        }
     }
     
     private func configureDeleteButtonObserver() {
         NotificationCenter.default.addObserver(forName: .showSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
-            self?.configureDeleteButton(true)
+            self?.configureEditing(false)
         }
         NotificationCenter.default.addObserver(forName: .hideSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
-            self?.configureDeleteButton(false)
+            self?.restoreEditing()
         }
     }
-    
+    /// reload 시점에서 DTO 상태 UI 기준 추가 UI 설정
     private func configureButton() {
         guard let sectionHeader = self.sectionHeader else { return }
+        
         if sectionHeader.downloaded {
-            self.configureNoneWhite()
+            // MARK: 진행률 로직 필요
+            self.configureDownloadedUI()
+            
             if sectionHeader.terminated {
-                self.terminatedImageView.isHidden = false
-                self.controlButton.setTitle("채점완료", for: .normal)
-            } else {
-                self.controlButton.setTitle("문제풀기", for: .normal)
+                self.controlButton.setImage(UIImage(.badgeCheckSolid), for: .normal)
+                self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.orangeRegular))
             }
         } else {
-            self.configureWhite()
-            self.controlButton.setTitle("다운로드", for: .normal)
+            self.configureNonDownloadedUI()
         }
     }
-    
-    private func configureDeleteButton(_ editing: Bool, _ isSelected: Bool) {
-        if editing {
-            self.progressLabel.isHidden = true
-            self.rightIcon.isHidden = true
-            
-            guard self.sectionHeader?.downloaded == true else {
-                self.sectionNumber.textColor = UIColor(.lightGray)
-                self.titleLabel.textColor = UIColor(.lightGray)
-                return
-            }
-            
-            if isSelected {
-                self.controlButton.setImage(UIImage(.checkCircleSolid), for: .normal)
-            } else {
-                self.controlButton.setImage(UIImage(.warning), for: .normal)
-            }
-            self.controlButton.isHidden = false
-        } else {
-            
-        }
-        guard editing else {
-            self.deleteButton.isHidden = true
+    /// DTO 상태 UI 기준 download 상태 UI 설정
+    private func configureDownloadedUI() {
+        self.progressLabel.isHidden = false
+        self.rightIcon.isHidden = false
+    }
+    /// DTO 상태 UI 기준 not download 상태 UI 설정
+    private func configureNonDownloadedUI() {
+        self.controlButton.setImage(UIImage(.cloudDownloadOutline), for: .normal)
+        self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
+        self.controlButton.isHidden = false
+        self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
+        self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
+    }
+    /// downloaded 여부에 따른 UI 기준 editing 활성화 상태 UI 설정
+    private func configureEditing(_ isSelected: Bool) {
+        self.progressLabel.isHidden = true
+        self.rightIcon.isHidden = true
+        
+        guard self.sectionHeader?.downloaded == true else {
+            self.controlButton.isHidden = true
+            self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
+            self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
             return
         }
-        self.deleteButton.isHidden = false
-        if self.sectionHeader?.downloaded ?? false {
-            self.deleteEnable()
+        
+        if isSelected {
+            self.controlButton.setImage(UIImage(.checkCircleSolid), for: .normal)
+            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
         } else {
-            self.deleteUnable()
+            self.controlButton.setImage(UIImage(.warning), for: .normal)
+            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.lightGray))
         }
+        
+        self.controlButton.isHidden = false
+        
+        
+//        guard editing else {
+//            self.deleteButton.isHidden = true
+//            return
+//        }
+//        self.deleteButton.isHidden = false
+//        if self.sectionHeader?.downloaded ?? false {
+//            self.deleteEnable()
+//        } else {
+//            self.deleteUnable()
+//        }
+    }
+    
+    private func restoreEditing() {
+        guard self.sectionHeader?.downloaded == true else {
+            self.controlButton.setImage(UIImage(.cloudDownloadOutline), for: .normal)
+            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
+            self.controlButton.isHidden = false
+            self.progressLabel.isHidden = true
+            self.rightIcon.isHidden = true
+            self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
+            self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
+            return
+        }
+        
+        self.controlButton.isHidden = true
+        self.sectionNumber.textColor = UIColor.getSemomunColor(.black)
+        
+        self.progressLabel.isHidden = false
+        self.rightIcon.isHidden = false
     }
     
     private func deleteEnable() {
