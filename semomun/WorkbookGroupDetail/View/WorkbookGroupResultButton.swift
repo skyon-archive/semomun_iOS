@@ -25,17 +25,12 @@ final class WorkbookGroupResultButton: UIButton {
     
     private func commonInit() {
         self.frame = .init(0, 0, 130, 42)
-        
         self.titleLabel?.font = .heading5
         self.setTitle("종합성적표", for: .normal)
-        
         let image = UIImage(.clipboardCheckOutline).withRenderingMode(.alwaysTemplate)
         self.setImage(image, for: .normal)
-        
         self.contentEdgeInsets = .zero
-        
         self.sizeToFit()
-        
         self.isEnabled = false
     }
 }
