@@ -134,6 +134,7 @@ extension SceneDelegate {
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.shadowColor = .clear
+        appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.heading4]
         
         UINavigationBar.appearance().tintColor = UIColor(.orangeRegular)
         UINavigationBar.appearance().standardAppearance = appearance
