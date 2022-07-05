@@ -315,7 +315,7 @@ extension ChangeUserInfoVC {
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                     
                 case .userInfoComplete:
-                    self?.submitButton.backgroundColor = UIColor(.mainColor)
+                    self?.submitButton.backgroundColor = UIColor(.blueRegular)
                 case .userInfoIncomplete:
                     self?.submitButton.backgroundColor = UIColor(.semoLightGray)
                     

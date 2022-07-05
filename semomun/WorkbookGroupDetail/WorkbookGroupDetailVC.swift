@@ -110,6 +110,7 @@ extension WorkbookGroupDetailVC {
         let action = UIAction { [weak self] _ in
             self?.showWorkbookGroupResultVC()
         }
+        
         self.workbookGroupResultButton.addAction(action, for: .touchUpInside)
         self.workbookGroupResultButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: workbookGroupResultButton)
@@ -251,6 +252,7 @@ extension WorkbookGroupDetailVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] testResults in
+
                 self?.workbookGroupResultButton.isEnabled = (testResults.isEmpty == false)
             })
             .store(in: &self.cancellables)

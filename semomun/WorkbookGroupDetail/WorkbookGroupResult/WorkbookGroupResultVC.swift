@@ -87,7 +87,7 @@ extension WorkbookGroupResultVC {
     private func configureCircularProgressView() {
         self.circularProgressView.progressWidth = 35
         self.circularProgressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
-        self.circularProgressView.progressColor = UIColor(.mainColor) ?? .green
+        self.circularProgressView.progressColor = UIColor(.blueRegular) ?? .green
         
         let size = self.circularProgressView.frame.size
         let center = CGPoint(size.width/2, size.height)

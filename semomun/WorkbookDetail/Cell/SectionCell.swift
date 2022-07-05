@@ -143,7 +143,7 @@ extension SectionCell {
     }
     
     private func configureNoneWhite() {
-        self.downloadButton.backgroundColor = UIColor(.mainColor)
+        self.downloadButton.backgroundColor = UIColor(.blueRegular)
         self.downloadButton.setTitleColor(.white, for: .normal)
     }
 }

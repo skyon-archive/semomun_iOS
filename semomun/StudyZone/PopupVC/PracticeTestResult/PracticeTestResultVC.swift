@@ -66,7 +66,7 @@ extension PracticeTestResultVC {
         self.publicProgressView.trackColor = UIColor(.munLightBlue) ?? .lightGray
         self.publicProgressView.progressWidth = 22
         
-        self.privateProgressView.progressColor = UIColor(.mainColor) ?? .green
+        self.privateProgressView.progressColor = UIColor(.blueRegular) ?? .green
         self.privateProgressView.trackColor = UIColor(.lightMainColor) ?? .lightGray
         self.privateProgressView.progressWidth = 22
     }
@@ -148,7 +148,7 @@ extension PracticeTestResultVC {
         self.privateScoreResultView.updateContent(
             title: "나의 예상 등급",
             scoreResult: practiceTestResult.privateScoreResult,
-            rankContainerBackgroundColor: UIColor(.mainColor) ?? .green
+            rankContainerBackgroundColor: UIColor(.blueRegular) ?? .green
         )
     }
 }

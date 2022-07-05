@@ -8,7 +8,6 @@
 import Foundation
 
 enum SemomunColor: String {
-    case mainColor = "mainColor"
     case redColor = "redColor"
     case yellowColor = "yellowColor"
     case greenColor = "greenColor"
@@ -29,4 +28,15 @@ enum SemomunColor: String {
     case semoLightGray = "semoLightGray"
     case munBlue = "munBlueColor"
     case munLightBlue = "munLightBlueColor"
+    
+    
+    
+    case background
+    case black
+    case blueRegular
+    case border
+    case darkGray
+    case lightGray
+    case orangeRegular
+    case white
 }

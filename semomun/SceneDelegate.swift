@@ -35,7 +35,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
             let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(.mainColor)
+            navigationController.navigationBar.tintColor = UIColor(.blueRegular)
             navigationController.isNavigationBarHidden = true
             self.window?.rootViewController = navigationController
         }
@@ -54,7 +54,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(.mainColor)
+        navigationController.navigationBar.tintColor = UIColor(.blueRegular)
         navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
@@ -75,7 +75,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIStoryboard(controllerType: StartVC.self)
         let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
         let navigationController = UINavigationController(rootViewController: startVC)
-        navigationController.navigationBar.tintColor = UIColor(.mainColor)
+        navigationController.navigationBar.tintColor = UIColor(.blueRegular)
         navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!

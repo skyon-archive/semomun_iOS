@@ -13,7 +13,11 @@ extension UIImage {
         if imageName.isSFSymbol {
             self.init(systemName: imageName.name, withConfiguration: configuration)!
         } else {
-            self.init(named: imageName.name)!
+            if let _ = UIImage(named: imageName.name) {
+                self.init(named: imageName.name)!
+            } else {
+                self.init(named: "warning")!
+            }
         }
     }
 }
