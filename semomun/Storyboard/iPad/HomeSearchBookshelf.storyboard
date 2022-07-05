@@ -518,9 +518,9 @@
                             <constraint firstItem="v6m-4Z-gTz" firstAttribute="bottom" secondItem="gIM-TK-By1" secondAttribute="bottom" id="qqD-Mb-hBZ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="홈" image="homeOutline" selectedImage="homeSolid" id="eXw-km-Ntt">
+                    <tabBarItem key="tabBarItem" title="홈" image="home" selectedImage="home" id="eXw-km-Ntt">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
-                        <color key="badgeColor" name="blueRegular"/>
+                        <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="M9k-rE-0hB"/>
@@ -2579,17 +2579,13 @@ test</string>
         <image name="bookshelf" width="32" height="32"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="homeOutline" width="24" height="24"/>
-        <image name="homeSolid" width="20" height="20"/>
+        <image name="home" width="32" height="32"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="search" width="32" height="32"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
-        <namedColor name="blueRegular">
-            <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

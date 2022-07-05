@@ -21,6 +21,7 @@
 		250ACFE62861D9CE0027B6A9 /* ScoreResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */; };
 		250ACFE82861D9E50027B6A9 /* ScoreResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 250ACFE72861D9E50027B6A9 /* ScoreResultView.xib */; };
 		250ACFEA2861D9FA0027B6A9 /* ScoreResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE92861D9FA0027B6A9 /* ScoreResultView.swift */; };
+		250B2857287405B2000578BC /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B2856287405B2000578BC /* UIFont.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		250F22AD285DD1B000955AB7 /* WorkbookGroupResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* WorkbookGroupResultVC.swift */; };
 		250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */; };
@@ -327,6 +328,7 @@
 		250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResult.swift; sourceTree = "<group>"; };
 		250ACFE72861D9E50027B6A9 /* ScoreResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreResultView.xib; sourceTree = "<group>"; };
 		250ACFE92861D9FA0027B6A9 /* ScoreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResultView.swift; sourceTree = "<group>"; };
+		250B2856287405B2000578BC /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultVM.swift; sourceTree = "<group>"; };
 		25100CD527D4A9A8002C18CB /* Alamofire+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Extensions.swift"; sourceTree = "<group>"; };
@@ -1529,6 +1531,7 @@
 				87D0A56827CF1C5800449AAD /* CoreGraphics.swift */,
 				25622C4C283A53540056E0DF /* PKCanvasView.swift */,
 				2571F68F2853114B00D94524 /* CGSize.swift */,
+				250B2856287405B2000578BC /* UIFont.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1992,6 +1995,7 @@
 				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
 				25622C4D283A53540056E0DF /* PKCanvasView.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
+				250B2857287405B2000578BC /* UIFont.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
