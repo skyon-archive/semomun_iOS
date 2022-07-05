@@ -12,7 +12,7 @@ final class ProblemTimerView: UIView {
     
     private lazy var clockImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(.clock)
+        imageView.image = UIImage(.warning)
         imageView.tintColor = self.color
         return imageView
     }()

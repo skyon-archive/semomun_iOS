@@ -17,12 +17,11 @@ final class SectionCell: UITableViewCell {
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var rightIcon: UIImageView!
     
+    private weak var delegate: WorkbookCellController?
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var downloading: Bool = false
-    private var editingMode: Bool = false
-    private weak var delegate: WorkbookCellController?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,16 +36,16 @@ final class SectionCell: UITableViewCell {
     
     private func resetCell() {
         self.titleLabel.text = ""
-        self.terminatedImageView.isHidden = true
-        self.deleteButton.isHidden = true
-        self.controlButton.isHidden = false
-        self.numberLeading.constant = 94
-        self.controlButton.setTitle("다운로드", for: .normal)
+        self.sectionNumber.textColor = UIColor(.black)
+        self.titleLabel.textColor = UIColor(.black)
+        self.controlButton.isHidden = true
+        self.progressLabel.isHidden = true
+        self.rightIcon.isHidden = true
         self.downloading = false
-        self.editingMode = false
     }
     
     @IBAction func controlAction(_ sender: Any) {
+        // MARK: download, select, deSelect, terminated 상태 표시
         guard let downloaded = self.sectionHeader?.downloaded else { return }
         if downloaded {
             self.showSection()
@@ -61,8 +60,6 @@ extension SectionCell {
     // MARK: - Configure from Search
     func configureCell(sectionDTO: SectionHeaderOfDB) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionDTO.sectionNum))
-        self.controlButton.isHidden = true
-        self.numberLeading.constant = 0
         self.titleLabel.text = sectionDTO.title
     }
     // MARK: - Configure from CoreData
@@ -70,12 +67,13 @@ extension SectionCell {
         self.delegate = delegate
     }
     
-    func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false) {
+    func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false, isSelected: Bool = false) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionHeader.sectionNum))
-        self.sectionHeader = sectionHeader
         self.titleLabel.text = sectionHeader.title
+        
+        self.sectionHeader = sectionHeader
         self.configureButton()
-        self.configureDeleteButton(isEditing)
+        self.configureDeleteButton(isEditing, isSelected)
     }
     
     private func configureDeleteButtonObserver() {
@@ -103,8 +101,26 @@ extension SectionCell {
         }
     }
     
-    private func configureDeleteButton(_ editing: Bool) {
-        self.editingMode = editing
+    private func configureDeleteButton(_ editing: Bool, _ isSelected: Bool) {
+        if editing {
+            self.progressLabel.isHidden = true
+            self.rightIcon.isHidden = true
+            
+            guard self.sectionHeader?.downloaded == true else {
+                self.sectionNumber.textColor = UIColor(.lightGray)
+                self.titleLabel.textColor = UIColor(.lightGray)
+                return
+            }
+            
+            if isSelected {
+                self.controlButton.setImage(UIImage(.checkCircleSolid), for: .normal)
+            } else {
+                self.controlButton.setImage(UIImage(.warning), for: .normal)
+            }
+            self.controlButton.isHidden = false
+        } else {
+            
+        }
         guard editing else {
             self.deleteButton.isHidden = true
             return

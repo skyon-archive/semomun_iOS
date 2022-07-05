@@ -17,7 +17,7 @@ final class ExplanationView: UIView {
     private let scrollView = UIScrollView()
     private let xmarkImage: UIImage? = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(.xmark, withConfiguration: largeConfig)
+        return UIImage(.warning, withConfiguration: largeConfig)
     }()
     
     private lazy var closeButton: UIButton = {
