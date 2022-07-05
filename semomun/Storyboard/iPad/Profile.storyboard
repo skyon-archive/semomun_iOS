@@ -218,10 +218,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-UW-kvw">
-                                <rect key="frame" x="0.0" y="214" width="834" height="915"/>
+                                <rect key="frame" x="0.0" y="264" width="834" height="865"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Tw-ngC">
-                                <rect key="frame" x="0.0" y="4" width="834" height="210"/>
+                                <rect key="frame" x="0.0" y="54" width="834" height="210"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu4-tq-aPw">
                                         <rect key="frame" x="28" y="42" width="78" height="36"/>
@@ -236,16 +236,16 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personCircle" translatesAutoresizingMaskIntoConstraints="NO" id="FjB-o2-7Ra" userLabel="Person Circle">
-                                <rect key="frame" x="107" y="143" width="41" height="41"/>
+                                <rect key="frame" x="107" y="193" width="41" height="41"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHv-VQ-Ze5">
-                                <rect key="frame" x="167" y="151.5" width="52" height="24"/>
+                                <rect key="frame" x="167" y="201.5" width="52" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" name="defaultText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEK-xF-hYe">
-                                <rect key="frame" x="634.5" y="148.5" width="92.5" height="30"/>
+                                <rect key="frame" x="634.5" y="198.5" width="92.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="gAS-kx-aQ8"/>
                                 </constraints>
@@ -261,7 +261,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngq-F7-SIo">
-                                <rect key="frame" x="651" y="148.5" width="76" height="30"/>
+                                <rect key="frame" x="651" y="198.5" width="76" height="30"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="Kb3-vo-yOc"/>
@@ -313,6 +313,7 @@
                         <color key="badgeColor" name="mainColor"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="MUH-av-YSI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="changeUserInfoButton" destination="vEK-xF-hYe" id="7QN-In-jK4"/>
@@ -1742,6 +1743,22 @@
                 </label>
             </objects>
             <point key="canvasLocation" x="-1263" y="40"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="U1w-eT-qa1">
+            <objects>
+                <navigationController storyboardIdentifier="ProfileVCNavigation" id="3MH-Zr-BqQ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1JB-1B-IbG">
+                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="C3N-K5-Uhc" kind="relationship" relationship="rootViewController" id="YQH-ac-WBX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9fo-o6-sch" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1915" y="-1303"/>
         </scene>
         <!--Unlogined Profile TableVC-->
         <scene sceneID="aHO-vV-FsM">

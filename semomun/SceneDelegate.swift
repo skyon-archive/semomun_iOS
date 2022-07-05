@@ -28,16 +28,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if isInitial == true || tagsData == nil {
             let storyboard = UIStoryboard(controllerType: StartVC.self)
-            let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
-            let navigationController = UINavigationController(rootViewController: startVC)
-            self.window?.rootViewController = navigationController
+            let startVC = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = startVC
         } else {
             let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
             guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-            let navigationController = UINavigationController(rootViewController: mainViewController)
-            navigationController.navigationBar.tintColor = UIColor(.blueRegular)
-            navigationController.isNavigationBarHidden = true
-            self.window?.rootViewController = navigationController
+            self.window?.rootViewController = mainViewController
         }
         
         NotificationCenter.default.addObserver(forName: .goToMain, object: nil, queue: .main) { [weak self] _ in
@@ -53,14 +49,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func changeRootViewController() {
         let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-        let navigationController = UINavigationController(rootViewController: mainViewController)
-        navigationController.navigationBar.tintColor = UIColor(.blueRegular)
-        navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        navigationController.view.addSubview(snapshot)
+        mainViewController.view.addSubview(snapshot)
         
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = mainViewController
         
         UIView.animate(withDuration: 0.3, animations: {() in
             snapshot.layer.opacity = 0;
@@ -74,14 +67,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func showStartVC() {
         let storyboard = UIStoryboard(controllerType: StartVC.self)
         let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
-        let navigationController = UINavigationController(rootViewController: startVC)
-        navigationController.navigationBar.tintColor = UIColor(.blueRegular)
-        navigationController.isNavigationBarHidden = true
         
         let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        navigationController.view.addSubview(snapshot)
+        startVC.view.addSubview(snapshot)
         
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = startVC
         
         UIView.animate(withDuration: 0.3, animations: {() in
             snapshot.layer.opacity = 0;

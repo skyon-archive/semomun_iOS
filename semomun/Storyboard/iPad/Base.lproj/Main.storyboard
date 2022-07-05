@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" name="mainColor"/>
-                        <color key="selectedImageTintColor" name="mainColor"/>
+                        <color key="tintColor" name="blueRegular"/>
+                        <color key="selectedImageTintColor" name="blueRegular"/>
                     </tabBar>
                     <connections>
                         <segue destination="zVL-kD-oUC" kind="relationship" relationship="viewControllers" id="PoZ-Ao-3ce"/>
@@ -30,41 +30,43 @@
             </objects>
             <point key="canvasLocation" x="-275" y="3339"/>
         </scene>
-        <!--SearchVC-->
+        <!--SearchVCNavigation-->
         <scene sceneID="01t-Je-imf">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="SearchVC" id="VzD-ug-sh1" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="SearchVCNavigation" id="VzD-ug-sh1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="검색" id="5Jb-M3-t4L"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ShG-Md-SuJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-367" y="3725"/>
         </scene>
-        <!--BookshelfVC-->
+        <!--BookshelfVCNavigation-->
         <scene sceneID="rNB-Kc-jif">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="BookshelfVC" id="6wI-TF-t2l" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="BookshelfVCNavigation" id="6wI-TF-t2l" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="내 책장" id="0JK-Rn-rB1"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tkc-u2-jRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-187" y="3725"/>
         </scene>
-        <!--ProfileVC-->
+        <!--ProfileVCNavigation-->
         <scene sceneID="T0X-Ra-yfa">
             <objects>
-                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileVC" id="b6I-dt-urs" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="ProfileVCNavigation" id="b6I-dt-urs" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="마이" id="Phw-VG-FCa"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pG2-sA-dPy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9" y="3725"/>
         </scene>
-        <!--HomeVC-->
+        <!--HomeVCNavigation-->
         <scene sceneID="N94-ID-KWe">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVC" id="zVL-kD-oUC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="홈" id="HHO-hq-gWp"/>
+                <viewControllerPlaceholder storyboardName="HomeSearchBookshelf" referencedIdentifier="HomeVCNavigation" id="zVL-kD-oUC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="홈" image="homeSolid" id="HHO-hq-gWp">
+                        <color key="badgeColor" name="blueRegular"/>
+                    </tabBarItem>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UsP-CM-w9W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,8 +74,9 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="mainColor">
-            <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <image name="homeSolid" width="20" height="20"/>
+        <namedColor name="blueRegular">
+            <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>
