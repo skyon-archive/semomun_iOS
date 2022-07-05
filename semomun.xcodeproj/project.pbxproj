@@ -24,7 +24,6 @@
 		250B2857287405B2000578BC /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B2856287405B2000578BC /* UIFont.swift */; };
 		250B28592874080A000578BC /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B28582874080A000578BC /* CGFloat.swift */; };
 		250B285B28740860000578BC /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B285A28740860000578BC /* UICollectionView.swift */; };
-		250B285D28742FE2000578BC /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B285C28742FE2000578BC /* UINavigationBar.swift */; };
 		250B285F287435CA000578BC /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B285E287435CA000578BC /* UIImageView.swift */; };
 		250D82432772C43400AF1A46 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D82422772C43400AF1A46 /* String.swift */; };
 		250F22AD285DD1B000955AB7 /* WorkbookGroupResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251531AF28574281003EFB97 /* WorkbookGroupResultVC.swift */; };
@@ -334,7 +333,6 @@
 		250B2856287405B2000578BC /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		250B28582874080A000578BC /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		250B285A28740860000578BC /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
-		250B285C28742FE2000578BC /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 		250B285E287435CA000578BC /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		250D82422772C43400AF1A46 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultVM.swift; sourceTree = "<group>"; };
@@ -1539,7 +1537,6 @@
 				250B2856287405B2000578BC /* UIFont.swift */,
 				250B28582874080A000578BC /* CGFloat.swift */,
 				250B285A28740860000578BC /* UICollectionView.swift */,
-				250B285C28742FE2000578BC /* UINavigationBar.swift */,
 				250B285E287435CA000578BC /* UIImageView.swift */,
 			);
 			path = Extension;
@@ -1869,7 +1866,6 @@
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
-				250B285D28742FE2000578BC /* UINavigationBar.swift in Sources */,
 				87DE9BE0286C3C2B009DBB86 /* BookshelfHeaderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,

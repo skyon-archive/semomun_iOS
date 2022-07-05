@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImageView {
-    func changeImageColor(to color: UIColor) {
+    func setSVGTintColor(to color: UIColor) {
         self.image = self.image?.withRenderingMode(.alwaysTemplate)
         self.tintColor = color
     }
