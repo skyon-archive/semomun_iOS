@@ -73,6 +73,17 @@ extension UIView {
         self.layer.removeShadow()
     }
     
+    /// 그림자를 위한 frameView에 그림자를 추가합니다.
+    func addShadowToFrameView(cornerRadius: CGFloat) {
+        self.clipsToBounds = false
+        self.layer.masksToBounds = false
+        self.layer.cornerRadius = cornerRadius
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.layer.shadowOpacity = 0.05
+        self.layer.shadowRadius = 8
+    }
+    
     /// - Note: Rasterize가 적용된 그림자가 추가됩니다.
     /// - Warning: sublayer를 추가하기 때문에 viewDidLoad가 아닌 viewDidLayoutSubview등에서 호출해야합니다.
     func addAccessibleShadow(direction: CALayer.ShadowDirection = .center, opacity: Float = 0.3, shadowRadius: CGFloat = 5, bounds: CGRect? = nil) {
