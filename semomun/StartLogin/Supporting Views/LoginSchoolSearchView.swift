@@ -18,7 +18,7 @@ struct LoginSchoolSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                Image(systemName: SemomunImage.xmark.rawValue.name)
+                Image(systemName: "xmark") // HeroIcons로 변경 필요
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(Color(UIColor(.lightGray) ?? .gray))
             }

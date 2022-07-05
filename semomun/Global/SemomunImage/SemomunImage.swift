@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SemomunImage: ImageName {
+enum SemomunImage: String {
     case addButton = "/addButton"
     case warning = "/warning"
     case empty = "/empty"
@@ -27,19 +27,6 @@ enum SemomunImage: ImageName {
     case noticeImage = "/noticeImage"
     case wrong = "/wrong"
     case correct = "/correct"
-}
-
-struct ImageName: Equatable, ExpressibleByStringLiteral {
-    let isSFSymbol: Bool
-    let name: String
     
-    init(stringLiteral value: String) {
-        if value.hasPrefix("/") {
-            self.isSFSymbol = false
-            self.name = String(value.dropFirst())
-        } else {
-            self.isSFSymbol = true
-            self.name = value
-        }
-    }
+    case clipboardCheckOutline
 }
