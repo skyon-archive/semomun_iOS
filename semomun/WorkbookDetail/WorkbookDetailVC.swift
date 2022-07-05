@@ -12,15 +12,18 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
     
+    @IBOutlet weak var sectionTitleLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var publishCompanyLabel: UILabel!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
-    @IBOutlet weak var sectionListTableView: UITableView!
     
     @IBOutlet weak var downloadAllSectionsButton: UIButton!
     @IBOutlet weak var selectedCountLabel: UILabel!
     @IBOutlet weak var deleteSectionsButton: UIButton!
     @IBOutlet weak var editSectionsButton: UIButton!
+    @IBOutlet weak var sectionListTableView: UITableView!
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookDetailVM?

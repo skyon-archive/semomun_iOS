@@ -8,14 +8,15 @@
 import UIKit
 
 final class SectionCell: UITableViewCell {
+    /* public */
     static let identifier = "SectionCell"
-    
-    @IBOutlet weak var downloadButton: UIButton!
+    /* private */
+    @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var sectionNumber: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var numberLeading: NSLayoutConstraint!
-    @IBOutlet weak var terminatedImageView: UIImageView!
-    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var rightIcon: UIImageView!
+    
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
@@ -35,17 +36,17 @@ final class SectionCell: UITableViewCell {
     }
     
     private func resetCell() {
-        self.nameLabel.text = ""
+        self.titleLabel.text = ""
         self.terminatedImageView.isHidden = true
         self.deleteButton.isHidden = true
-        self.downloadButton.isHidden = false
+        self.controlButton.isHidden = false
         self.numberLeading.constant = 94
-        self.downloadButton.setTitle("다운로드", for: .normal)
+        self.controlButton.setTitle("다운로드", for: .normal)
         self.downloading = false
         self.editingMode = false
     }
     
-    @IBAction func download(_ sender: Any) {
+    @IBAction func controlAction(_ sender: Any) {
         guard let downloaded = self.sectionHeader?.downloaded else { return }
         if downloaded {
             self.showSection()
@@ -54,22 +55,15 @@ final class SectionCell: UITableViewCell {
             self.downloadSection()
         }
     }
-    
-    @IBAction func deleteSection(_ sender: Any) {
-        let sectionTitle = self.sectionHeader?.title
-        self.delegate?.showAlertDeletePopup(sectionTitle: sectionTitle, completion: { [weak self] in
-            self?.deleteSection()
-        })
-    }
 }
 
 extension SectionCell {
     // MARK: - Configure from Search
     func configureCell(sectionDTO: SectionHeaderOfDB) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionDTO.sectionNum))
-        self.downloadButton.isHidden = true
+        self.controlButton.isHidden = true
         self.numberLeading.constant = 0
-        self.nameLabel.text = sectionDTO.title
+        self.titleLabel.text = sectionDTO.title
     }
     // MARK: - Configure from CoreData
     func configureDelegate(to delegate: WorkbookCellController) {
@@ -79,7 +73,7 @@ extension SectionCell {
     func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionHeader.sectionNum))
         self.sectionHeader = sectionHeader
-        self.nameLabel.text = sectionHeader.title
+        self.titleLabel.text = sectionHeader.title
         self.configureButton()
         self.configureDeleteButton(isEditing)
     }
@@ -99,13 +93,13 @@ extension SectionCell {
             self.configureNoneWhite()
             if sectionHeader.terminated {
                 self.terminatedImageView.isHidden = false
-                self.downloadButton.setTitle("채점완료", for: .normal)
+                self.controlButton.setTitle("채점완료", for: .normal)
             } else {
-                self.downloadButton.setTitle("문제풀기", for: .normal)
+                self.controlButton.setTitle("문제풀기", for: .normal)
             }
         } else {
             self.configureWhite()
-            self.downloadButton.setTitle("다운로드", for: .normal)
+            self.controlButton.setTitle("다운로드", for: .normal)
         }
     }
     
@@ -138,13 +132,13 @@ extension SectionCell {
     }
     
     private func configureWhite() {
-        self.downloadButton.backgroundColor = .white
-        self.downloadButton.setTitleColor(.black, for: .normal)
+        self.controlButton.backgroundColor = .white
+        self.controlButton.setTitleColor(.black, for: .normal)
     }
     
     private func configureNoneWhite() {
-        self.downloadButton.backgroundColor = UIColor(.blueRegular)
-        self.downloadButton.setTitleColor(.white, for: .normal)
+        self.controlButton.backgroundColor = UIColor(.blueRegular)
+        self.controlButton.setTitleColor(.white, for: .normal)
     }
 }
 
@@ -162,7 +156,7 @@ extension SectionCell {
             guard let self = self else { return }
             guard let section = section else {
                 self.delegate?.showAlertDownloadSectionFail()
-                self.downloadButton.setTitle("다운실패", for: .normal)
+                self.controlButton.setTitle("다운실패", for: .normal)
                 return
             }
 
@@ -170,7 +164,7 @@ extension SectionCell {
                 self?.downloading = false
                 if sectionCore == nil {
                     self?.delegate?.showAlertDownloadSectionFail()
-                    self?.downloadButton.setTitle("다운실패", for: .normal)
+                    self?.controlButton.setTitle("다운실패", for: .normal)
                     return
                 }
                 self?.sectionHeader?.setValue(true, forKey: "downloaded")
@@ -187,7 +181,7 @@ extension SectionCell {
         if CoreUsecase.fetchSection(sid: Int(sid)) == nil {
             self.sectionHeader?.setValue(false, forKey: "downloaded")
             self.configureWhite()
-            self.downloadButton.setTitle("다운로드", for: .normal)
+            self.controlButton.setTitle("다운로드", for: .normal)
             self.deleteUnable()
             CoreDataManager.saveCoreData()
         }
@@ -198,7 +192,7 @@ extension SectionCell {
             guard let self = self else { return }
             // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
             let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
-            self.downloadButton.setTitle("\(percent)%", for: .normal)
+            self.controlButton.setTitle("\(percent)%", for: .normal)
         }
     }
 }
@@ -221,7 +215,7 @@ extension SectionCell: LoadingDelegate {
     
     func terminate() {
         DispatchQueue.main.async { [weak self] in
-            self?.downloadButton.setTitle("문제풀기", for: .normal)
+            self?.controlButton.setTitle("문제풀기", for: .normal)
             self?.configureNoneWhite()
         }
     }

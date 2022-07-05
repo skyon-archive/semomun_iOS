@@ -1231,11 +1231,11 @@ Label</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="downloadButton" destination="IWK-tV-kyB" id="2Hi-K5-uDb"/>
-                                            <outlet property="nameLabel" destination="HKF-Xw-EYa" id="s1h-YA-LDr"/>
+                                            <outlet property="controlButton" destination="IWK-tV-kyB" id="2Hi-K5-uDb"/>
                                             <outlet property="numberLeading" destination="9Nt-zg-PsQ" id="y4I-os-hh1"/>
                                             <outlet property="sectionNumber" destination="gp7-La-m2P" id="bhW-l4-eNR"/>
                                             <outlet property="terminatedImageView" destination="8Os-NY-LFV" id="hRa-Gg-hV8"/>
+                                            <outlet property="titleLabel" destination="HKF-Xw-EYa" id="s1h-YA-LDr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
