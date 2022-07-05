@@ -65,6 +65,10 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.configureWorkbookGroupResultButton()
         self.configureAddObserver()
         self.navigationItem.backButtonTitle = "뒤로"
+        
+        self.practiceTests.layer.cornerRadius = .cornerRadius24
+        self.practiceTests.layer.masksToBounds = true
+        self.practiceTests.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -310,9 +314,9 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
             
             switch indexPath.section {
             case 0:
-                headerView.updateLabel(to: self.hasPurchasedWorkbook ? "나의 실전 모의고사" : "실전 모의고사")
+                headerView.updateLabel(to: self.hasPurchasedWorkbook ? "구매한 과목" : "구매하지 않은 과목")
             case 1:
-                headerView.updateLabel(to: "실전 모의고사")
+                headerView.updateLabel(to: "구매한 과목")
             default:
                 assertionFailure("collectionView indexPath section error")
             }

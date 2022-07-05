@@ -1284,7 +1284,7 @@ Label</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-Y3-Ya4">
-                                <rect key="frame" x="0.0" y="40" width="834" height="1134"/>
+                                <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="40" minimumInteritemSpacing="12" id="Hgg-hT-LRE">
                                     <size key="itemSize" width="146" height="260"/>
@@ -1397,9 +1397,9 @@ Label</string>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y59-ww-zfv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background"/>
                         <constraints>
-                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="top" secondItem="y59-ww-zfv" secondAttribute="top" constant="16" id="38k-yx-l4C"/>
+                            <constraint firstItem="AHs-Y3-Ya4" firstAttribute="top" secondItem="y59-ww-zfv" secondAttribute="top" id="38k-yx-l4C"/>
                             <constraint firstItem="AHs-Y3-Ya4" firstAttribute="leading" secondItem="y59-ww-zfv" secondAttribute="leading" id="LBs-lZ-pvv"/>
                             <constraint firstItem="y59-ww-zfv" firstAttribute="bottom" secondItem="AHs-Y3-Ya4" secondAttribute="bottom" id="Q3m-Dm-p8d"/>
                             <constraint firstItem="y59-ww-zfv" firstAttribute="trailing" secondItem="AHs-Y3-Ya4" secondAttribute="trailing" id="lkL-qy-pXo"/>
@@ -2634,6 +2634,9 @@ test</string>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="searchSolid" width="20" height="20"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="background">
+            <color red="0.98431372549019602" green="0.96862745098039216" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="blueRegular">
             <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
