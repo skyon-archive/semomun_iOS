@@ -9,34 +9,33 @@ import UIKit
 
 final class WorkbookGroupResultButton: UIButton {
     convenience init() {
-        self.init(frame: CGRect())
+        self.init(type: .custom)
         self.commonInit()
     }
     
     override var isEnabled: Bool {
         didSet {
-            if self.isEnabled {
-                self.borderColor = UIColor(.blueRegular)
-                self.setTitleColor(UIColor(.blueRegular), for: .normal)
-            } else {
-                self.borderColor = UIColor(.lightGray)
-                self.setTitleColor(UIColor(.lightGray), for: .normal)
-            }
+            let semomunColor: SemomunColor = self.isEnabled ? .blueRegular : .lightGray
+            let color = UIColor.getSemomunColor(semomunColor)
+            
+            self.setTitleColor(color, for: .normal)
+            self.tintColor = color
         }
     }
     
     private func commonInit() {
         self.frame = .init(0, 0, 130, 42)
-        self.borderColor = UIColor(.blueRegular)
-        self.borderWidth = 1
-        self.cornerRadius = 5
         
-        let clipboardImage = UIImage(.clipboardCheckOutline)
-        let clipboardImageView = UIImageView(image: clipboardImage)
-        clipboardImageView.changeImageColor(to: UIColor.getSemomunColor(.blueRegular))
+        self.titleLabel?.font = .heading5
+        self.setTitle("종합성적표", for: .normal)
         
-        self.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        self.setTitleColor(UIColor(.blueRegular), for: .normal)
-        self.setTitle("종합성적표 확인", for: .normal)
+        let image = UIImage(.clipboardCheckOutline).withRenderingMode(.alwaysTemplate)
+        self.setImage(image, for: .normal)
+        
+        self.contentEdgeInsets = .zero
+        
+        self.sizeToFit()
+        
+        self.isEnabled = false
     }
 }
