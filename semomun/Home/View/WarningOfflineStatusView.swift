@@ -10,7 +10,7 @@ import UIKit
 final class WarningOfflineStatusView: UIView {
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(.cloud)
+        imageView.image = UIImage(.warning)
         return imageView
     }()
     private lazy var warningTitleLabel: UILabel = {
@@ -49,7 +49,7 @@ final class WarningOfflineStatusView: UIView {
         button.setTitle(" 다시시도", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        button.setImage(UIImage(.refresh), for: .normal)
+        button.setImage(UIImage(.warning), for: .normal)
         
         button.addAction(UIAction(handler: { _ in
             NotificationCenter.default.post(name: .checkHomeNetworkFetchable, object: nil)

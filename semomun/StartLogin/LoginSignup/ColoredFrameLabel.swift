@@ -47,7 +47,7 @@ final class ColoredFrameLabel: UIView {
         
         switch type {
         case .success(let string):
-            imageSystemName = .circleCheckmark
+            imageSystemName = .warning
             tintColor = UIColor(.blueRegular) ?? .green
             message = string
         case .warning(let string):

@@ -12,7 +12,7 @@ final class NoticePopupVC: UIViewController {
     
     private let xmarkImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(.xmark, withConfiguration: largeConfig)
+        return UIImage(.warning, withConfiguration: largeConfig)
     }()
     
     private lazy var noticeImageView: UIImageView = {
@@ -21,7 +21,7 @@ final class NoticePopupVC: UIViewController {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(.noticeImage)
+        imageView.image = UIImage(.warning)
         return imageView
     }()
     

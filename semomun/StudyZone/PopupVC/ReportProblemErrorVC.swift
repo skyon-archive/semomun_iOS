@@ -17,11 +17,11 @@ final class ReportProblemErrorVC: UIViewController {
     private var errors: [String] = ["단순오탈자 혹은 한글 맞춤법 위배", "수식 오류"]
     private let xmarkImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(.xmark, withConfiguration: largeConfig)
+        return UIImage(.warning, withConfiguration: largeConfig)
     }()
     private let circleImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .medium, scale: .default)
-        return UIImage(.circle, withConfiguration: largeConfig)
+        return UIImage(.warning, withConfiguration: largeConfig)
     }()
     private lazy var frameView: UIView = {
         let view = UIView()
