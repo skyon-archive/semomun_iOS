@@ -96,6 +96,8 @@
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
 		25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25A31F5627E9E79300411987 /* termsOfElectronicTransaction.txt */; };
+		25A6791E2874807C009F76DF /* BookcoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A6791D2874807C009F76DF /* BookcoverCell.swift */; };
+		25A67920287487A4009F76DF /* TestSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A6791F287487A4009F76DF /* TestSubjectCell.swift */; };
 		25A950B327C760EC0084513E /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A950B227C760EC0084513E /* Collection.swift */; };
 		25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B3279158020087E774 /* WorkbookDetailVM.swift */; };
 		25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9B2B6279164B80087E774 /* WorkbookInfo.swift */; };
@@ -171,7 +173,6 @@
 		8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8720B035278E7A2200B8775F /* GoogleService-Info.plist */; };
 		87231B8828250B41001CA2F7 /* WorkbookGroupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */; };
 		87231B8B28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */; };
-		87231B8D28278278001CA2F7 /* TestSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8C28278278001CA2F7 /* TestSubjectCell.swift */; };
 		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
 		87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C192840B2A7007B7092 /* TimeRecordControllable.swift */; };
 		87273C1C2840E559007B7092 /* CorrectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C1B2840E559007B7092 /* CorrectImageView.swift */; };
@@ -408,6 +409,8 @@
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		25A31F5627E9E79300411987 /* termsOfElectronicTransaction.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = termsOfElectronicTransaction.txt; sourceTree = "<group>"; };
+		25A6791D2874807C009F76DF /* BookcoverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookcoverCell.swift; sourceTree = "<group>"; };
+		25A6791F287487A4009F76DF /* TestSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectCell.swift; sourceTree = "<group>"; };
 		25A950B227C760EC0084513E /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		25A9B2B3279158020087E774 /* WorkbookDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVM.swift; sourceTree = "<group>"; };
 		25A9B2B6279164B80087E774 /* WorkbookInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfo.swift; sourceTree = "<group>"; };
@@ -481,7 +484,6 @@
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVC.swift; sourceTree = "<group>"; };
 		87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailHeaderView.swift; sourceTree = "<group>"; };
-		87231B8C28278278001CA2F7 /* TestSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectCell.swift; sourceTree = "<group>"; };
 		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		87273C192840B2A7007B7092 /* TimeRecordControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRecordControllable.swift; sourceTree = "<group>"; };
 		87273C1B2840E559007B7092 /* CorrectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectImageView.swift; sourceTree = "<group>"; };
@@ -942,6 +944,14 @@
 			path = WorkbookDetail;
 			sourceTree = "<group>";
 		};
+		25A6791C28748068009F76DF /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				25A6791D2874807C009F76DF /* BookcoverCell.swift */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
 		25A9B2B2279157F60087E774 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1229,8 +1239,8 @@
 			isa = PBXGroup;
 			children = (
 				87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */,
-				87231B8C28278278001CA2F7 /* TestSubjectCell.swift */,
 				87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */,
+				25A6791F287487A4009F76DF /* TestSubjectCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1460,6 +1470,7 @@
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				25A6791C28748068009F76DF /* UICollectionViewCell */,
 				250A4906285DF6E2008D0016 /* Font */,
 				2583AC25277B1A8900619F03 /* schoolToken.xcconfig */,
 				87C85E3A276F66AB001C9C4A /* View */,
@@ -2012,6 +2023,7 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87273C1E2841121B007B7092 /* RotationableCanvasView.swift in Sources */,
+				25A6791E2874807C009F76DF /* BookcoverCell.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
@@ -2037,7 +2049,6 @@
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				2562452127FDE7AA00DB3D22 /* Session+Extensions.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
-				87231B8D28278278001CA2F7 /* TestSubjectCell.swift in Sources */,
 				25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */,
 				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
 				8716E956279A623500B33A5E /* StudyVC.swift in Sources */,
@@ -2060,6 +2071,7 @@
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				2560BB9F283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift in Sources */,
+				25A67920287487A4009F76DF /* TestSubjectCell.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,
 				87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */,

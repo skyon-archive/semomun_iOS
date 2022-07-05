@@ -2,7 +2,7 @@
 //  TestSubjectCell.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/05/08.
+//  Created by SEONG YEOL YI on 2022/07/05.
 //
 
 import UIKit
@@ -13,22 +13,22 @@ protocol TestSubjectCellObserber: AnyObject {
     func showPracticeTestSection(workbook: Preview_Core)
 }
 
-final class TestSubjectCell: UICollectionViewCell {
+class TestSubjectCell: BookcoverCell {
     /* public */
     static let identifer = "TestSubjectCell"
     /* private */
     private weak var delegate: TestSubjectCellObserber?
     private var networkUsecase: TestSubjectNetworkUsecase?
     private var coreInfo: Preview_Core? // section download 시 필요한 정보를 지니기 위함
-    private var requestedUUID: UUID?
     private var downloading: Bool = false
     private var totalCount: Int = 0
     private var currentCount: Int = 0
-    @IBOutlet weak var bookcoverFrameView: UIView!
-    @IBOutlet weak var bookcover: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var downloadIndicator: CircularProgressView!
+    private lazy var downloadIndicator: CircularProgressView = {
+        let view = CircularProgressView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
     private lazy var grayCoverView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -36,20 +36,10 @@ final class TestSubjectCell: UICollectionViewCell {
         return view
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.clipsToBounds = false
-        self.contentView.clipsToBounds = false
-        self.bookcoverFrameView.addShadowToFrameView(cornerRadius: .cornerRadius12)
-        self.bookcover.cornerRadius = CGFloat.cornerRadius12
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.coreInfo = nil
-        self.requestedUUID = nil
         self.downloading = false
-        self.bookcover.image = UIImage(.loadingBookcover)
         self.downloadedUI()
     }
     
@@ -64,8 +54,8 @@ final class TestSubjectCell: UICollectionViewCell {
 
 // MARK: Public
 extension TestSubjectCell {
-    func configureNetworkUsecase(to usecase: TestSubjectNetworkUsecase?) {
-        self.networkUsecase = usecase
+    func configureNetworkUsecase(to networkUsecase: TestSubjectNetworkUsecase?) {
+        self.networkUsecase = networkUsecase
     }
     
     func configureDelegate(to delegate: TestSubjectCellObserber) {
@@ -74,10 +64,9 @@ extension TestSubjectCell {
     
     func configure(coreInfo info: Preview_Core) {
         self.coreInfo = info
-        self.titleLabel.text = "\(info.subject ?? "")(\(info.area ?? ""))"
-        self.priceLabel.text = ""
+        let bookTitle = "\(info.subject ?? "")(\(info.area ?? ""))"
+        self.configureReuse(bookTitle: bookTitle, publishCompany: info.publisher ?? "")
         self.configureImage(data: info.image)
-        self.configureShadow()
         
         if info.downloaded == false {
             self.notDownloadedUI()
@@ -85,53 +74,19 @@ extension TestSubjectCell {
     }
     
     func configure(dtoInfo info: WorkbookOfDB) {
-        self.titleLabel.text = "\(info.subject)(\(info.area))"
-        self.priceLabel.text = "\(info.price.withComma)원"
-        self.configureImage(uuid: info.bookcover)
-        self.configureShadow()
+        guard let networkUsecase = self.networkUsecase else { return }
+        
+        let bookTitle = "\(info.subject)(\(info.area))"
+        self.configureReuse(bookTitle: bookTitle, publishCompany: info.publishCompany)
+        self.configureImage(uuid: info.bookcover, networkUsecase: networkUsecase)
     }
 }
 
 // MARK: Private
 extension TestSubjectCell {
-    private func configureImage(uuid: UUID) {
-        if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
-            self.bookcover.image = cachedImage
-        } else {
-            self.requestedUUID = uuid
-            self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in
-                switch status {
-                case .SUCCESS:
-                    guard let imageData = imageData,
-                          let image = UIImage(data: imageData) else { return }
-                    DispatchQueue.main.async { [weak self] in
-                        ImageCacheManager.shared.saveImage(uuid: uuid, image: image)
-                        guard self?.requestedUUID == uuid else { return }
-                        self?.bookcover.image = image
-                    }
-                default:
-                    print("HomeWorkbookCell: GET image fail")
-                }
-            })
-        }
-    }
-    
-    private func configureImage(data: Data?) {
-        if let imageData = data {
-            self.bookcover.image = UIImage(data: imageData)
-        } else {
-            self.bookcover.image = UIImage(.loadingBookcover)
-        }
-    }
-    
-    private func configureShadow() {
-        let shadowBound = CGRect(0, -0.2, self.bookcover.frame.width-12, self.bookcover.frame.height)
-        self.bookcoverFrameView.addAccessibleShadow(direction: .custom(0, 4.5), opacity: 0.15, shadowRadius: 6, bounds: shadowBound)
-    }
-    
     private func notDownloadedUI() {
-        self.bookcover.addSubview(self.grayCoverView)
-        self.grayCoverView.frame = self.bookcover.frame
+        self.bookcoverImageView.addSubview(self.grayCoverView)
+        self.grayCoverView.frame = self.bookcoverImageView.frame
     }
     
     private func downloadedUI() {
