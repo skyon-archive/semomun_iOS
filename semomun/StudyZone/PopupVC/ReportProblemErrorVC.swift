@@ -125,7 +125,7 @@ final class ReportProblemErrorVC: UIViewController {
     private lazy var reportErrorButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(.mainColor)
+        button.backgroundColor = UIColor(.blueRegular)
         button.clipsToBounds = true
         button.layer.cornerRadius = 5
         button.setTitle("보내기", for: .normal)

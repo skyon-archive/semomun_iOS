@@ -249,7 +249,7 @@ extension LoginSignupVC {
                     self?.configureUIForAuthComplete()
                     
                 case .userInfoComplete:
-                    self?.submitButton.backgroundColor = UIColor(.mainColor)
+                    self?.submitButton.backgroundColor = UIColor(.blueRegular)
                 case .userInfoIncomplete:
                     self?.submitButton.backgroundColor = UIColor(.semoLightGray)
                     

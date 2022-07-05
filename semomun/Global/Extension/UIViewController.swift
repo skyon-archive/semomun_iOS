@@ -25,7 +25,7 @@ extension UIViewController {
     func showLoginVC() {
         let startLoginVC = UIStoryboard(name: LoginStartVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginStartVC.identifier) 
         let navigationVC = UINavigationController(rootViewController: startLoginVC)
-        navigationVC.navigationBar.tintColor = UIColor(.mainColor)
+        navigationVC.navigationBar.tintColor = UIColor(.blueRegular)
         navigationVC.modalPresentationStyle = .fullScreen
         self.present(navigationVC, animated: true, completion: nil)
     }

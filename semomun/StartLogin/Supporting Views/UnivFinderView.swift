@@ -39,7 +39,7 @@ struct UnivFinderView: View {
             }
             Divider()
                 .frame(height: 2)
-                .background(Color(UIColor(.mainColor) ?? .black))
+                .background(Color(UIColor(.blueRegular) ?? .black))
             ScrollView {
                 LazyVStack(spacing: 0) {
                     ForEach(filteredUnivList, id: \.self) { univ in

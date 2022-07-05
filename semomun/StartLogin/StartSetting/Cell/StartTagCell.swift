@@ -29,7 +29,7 @@ final class StartTagCell: UICollectionViewCell {
     }
     
     func didSelect() {
-        self.contentView.backgroundColor = UIColor(.mainColor)
+        self.contentView.backgroundColor = UIColor(.blueRegular)
         self.contentView.layer.borderColor = UIColor.clear.cgColor
         self.title.textColor = UIColor.white
         self.title.font = UIFont.systemFont(ofSize: 15, weight: .bold)

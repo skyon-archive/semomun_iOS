@@ -112,7 +112,7 @@ extension LoginServicePopupVC {
         let checkFilled = UIImage(.circleCheckmarkFilled) 
         if self.isChecked[button.tag] {
             button.setImage(checkFilled, for: .normal)
-            button.tintColor = UIColor(.mainColor)
+            button.tintColor = UIColor(.blueRegular)
         } else {
             button.setImage(check, for: .normal)
             button.tintColor = UIColor(.grayDefaultColor)
@@ -120,6 +120,6 @@ extension LoginServicePopupVC {
     }
     
     private func updateUIOfRegisterButton() {
-        self.registerButton.backgroundColor = self.canRegister ? UIColor(.mainColor) : UIColor(.semoLightGray)
+        self.registerButton.backgroundColor = self.canRegister ? UIColor(.blueRegular) : UIColor(.semoLightGray)
     }
 }

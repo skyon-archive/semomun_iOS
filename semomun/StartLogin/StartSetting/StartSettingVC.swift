@@ -106,7 +106,7 @@ extension StartSettingVC {
                 if tags.count == 0 {
                     self?.startBT.backgroundColor = UIColor(.semoLightGray)
                 } else {
-                    self?.startBT.backgroundColor = UIColor(.mainColor)
+                    self?.startBT.backgroundColor = UIColor(.blueRegular)
                 }
                 self?.tags.reloadData()
             })

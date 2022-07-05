@@ -32,7 +32,7 @@ final class FavoriteCategoryCell: UICollectionViewCell {
     
     func didSelected() {
         self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.backgroundColor = UIColor(.mainColor)
+        self.contentView.backgroundColor = UIColor(.blueRegular)
         self.title.textColor = UIColor.white
     }
     

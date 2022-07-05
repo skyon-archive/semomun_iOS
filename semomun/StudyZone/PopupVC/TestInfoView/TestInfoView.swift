@@ -113,7 +113,7 @@ extension TestInfoView {
                 .frame(width: 345, height: 54)
         }
         .foregroundColor(.white)
-        .background(RoundedRectangle(cornerRadius: 5).fill(Color(SemomunColor.mainColor.rawValue)))
+        .background(RoundedRectangle(cornerRadius: 5).fill(Color(SemomunColor.blueRegular.rawValue)))
         .padding(.bottom, self.startButtonBottomPadding)
     }
 }

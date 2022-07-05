@@ -45,7 +45,7 @@ final class WarningOfflineStatusView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.layer.cornerRadius = 3
-        button.backgroundColor = UIColor(.mainColor)
+        button.backgroundColor = UIColor(.blueRegular)
         button.setTitle(" 다시시도", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -61,7 +61,7 @@ final class WarningOfflineStatusView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.layer.cornerRadius = 3
-        button.backgroundColor = UIColor(.mainColor)
+        button.backgroundColor = UIColor(.blueRegular)
         button.setTitle("책장으로 가기", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
