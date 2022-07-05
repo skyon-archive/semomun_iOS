@@ -31,6 +31,10 @@ final class WorkbookGroupResultButton: UIButton {
         self.borderWidth = 1
         self.cornerRadius = 5
         
+        let clipboardImage = UIImage(.clipboardCheckOutline)
+        let clipboardImageView = UIImageView(image: clipboardImage)
+        clipboardImageView.changeImageColor(to: UIColor.getSemomunColor(.blueRegular))
+        
         self.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         self.setTitleColor(UIColor(.blueRegular), for: .normal)
         self.setTitle("종합성적표 확인", for: .normal)

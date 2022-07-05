@@ -9,15 +9,10 @@ import UIKit
 
 extension UIImage {
     convenience init(_ semomunImage: SemomunImage, withConfiguration configuration: UIImage.SymbolConfiguration? = nil) {
-        let imageName = semomunImage.rawValue
-        if imageName.isSFSymbol {
-            self.init(systemName: imageName.name, withConfiguration: configuration)!
+        if let _ = UIImage(named: semomunImage.rawValue) {
+            self.init(named: semomunImage.rawValue)!
         } else {
-            if let _ = UIImage(named: imageName.name) {
-                self.init(named: imageName.name)!
-            } else {
-                self.init(named: "warning")!
-            }
+            self.init(named: "warning")!
         }
     }
 }
