@@ -546,9 +546,8 @@
         <!--Navigation Controller-->
         <scene sceneID="e5z-JV-XAY">
             <objects>
-                <navigationController storyboardIdentifier="HomeVCNavigation" id="tfJ-o3-CLP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeVCNavigation" navigationBarHidden="YES" id="tfJ-o3-CLP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DWx-72-CnS">
-                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="orangeRegular"/>
                     </navigationBar>
@@ -764,9 +763,8 @@
         <!--Navigation Controller-->
         <scene sceneID="spo-c1-ow1">
             <objects>
-                <navigationController storyboardIdentifier="SearchVCNavigation" id="82K-a4-9GQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SearchVCNavigation" navigationBarHidden="YES" id="82K-a4-9GQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xk8-9b-Pyh">
-                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -780,9 +778,8 @@
         <!--Navigation Controller-->
         <scene sceneID="pwQ-Xo-hTB">
             <objects>
-                <navigationController storyboardIdentifier="BookshelfVCNavigation" id="quJ-fb-fBy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BookshelfVCNavigation" navigationBarHidden="YES" id="quJ-fb-fBy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NEn-Fd-GLK">
-                        <rect key="frame" x="0.0" y="24" width="834" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
