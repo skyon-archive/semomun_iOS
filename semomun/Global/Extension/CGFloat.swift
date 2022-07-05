@@ -8,8 +8,8 @@
 import UIKit
 
 extension CGFloat {
-    static let cornerRadiusLevel1: CGFloat = 24
-    static let cornerRadiusLevel2: CGFloat = 16
-    static let cornerRadiusLevel3: CGFloat = 12
-    static let cornerRadiusLevel4: CGFloat = 4
+    static let cornerRadius24: CGFloat = 24
+    static let cornerRadius16: CGFloat = 16
+    static let cornerRadius12: CGFloat = 12
+    static let cornerRadius4: CGFloat = 4
 }

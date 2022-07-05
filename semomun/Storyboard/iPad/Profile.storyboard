@@ -209,7 +209,7 @@
             </objects>
             <point key="canvasLocation" x="-605" y="-649"/>
         </scene>
-        <!--프로필-->
+        <!--더 보기-->
         <scene sceneID="eNM-s0-iM9">
             <objects>
                 <viewController storyboardIdentifier="ProfileVC" id="C3N-K5-Uhc" customClass="ProfileVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
@@ -309,9 +309,9 @@
                             <constraint firstItem="ngq-F7-SIo" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="wbi-en-Mzq"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="프로필" image="profile" selectedImage="profile" id="SqW-G1-Yw3">
-                        <color key="badgeColor" name="mainColor"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                    <tabBarItem key="tabBarItem" title="더 보기" image="dotsHorizontalSolid" selectedImage="dotsHorizontalSolid" id="SqW-G1-Yw3">
+                        <color key="badgeColor" name="blueRegular"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="MUH-av-YSI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -1863,10 +1863,13 @@
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="dotsHorizontalSolid" width="20" height="20"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="personCircle" width="41" height="41"/>
-        <image name="profile" width="32" height="32"/>
+        <namedColor name="blueRegular">
+            <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

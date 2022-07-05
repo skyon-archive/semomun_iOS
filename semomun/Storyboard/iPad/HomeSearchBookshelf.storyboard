@@ -521,7 +521,7 @@
                     <tabBarItem key="tabBarItem" title="홈" image="homeSolid" selectedImage="homeSolid" id="eXw-km-Ntt">
                         <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
                         <color key="badgeColor" name="blueRegular"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="M9k-rE-0hB"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -740,9 +740,9 @@
                             <constraint firstItem="IPD-Dk-Y6f" firstAttribute="leading" secondItem="B5k-Gr-cV1" secondAttribute="leading" id="zAf-3B-v9D"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="검색" image="search" selectedImage="search" id="VTk-2B-Q9k">
-                        <color key="badgeColor" name="mainColor"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                    <tabBarItem key="tabBarItem" title="검색" image="searchSolid" selectedImage="searchSolid" id="VTk-2B-Q9k">
+                        <color key="badgeColor" name="blueRegular"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="keE-ff-okb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -1020,9 +1020,9 @@ Label</string>
                             <constraint firstItem="M2W-wN-elj" firstAttribute="leading" secondItem="zlU-Vk-Rc3" secondAttribute="leading" id="yUa-By-D2r"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="책장" image="bookshelf" selectedImage="bookshelf" id="9CP-UO-49J">
-                        <color key="badgeColor" name="mainColor"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                    <tabBarItem key="tabBarItem" title="책장" image="bookmarkAltSolid" selectedImage="bookmarkAltSolid" id="9CP-UO-49J">
+                        <color key="badgeColor" name="blueRegular"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="pS7-Py-XF1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -2627,7 +2627,7 @@ test</string>
         </scene>
     </scenes>
     <resources>
-        <image name="bookshelf" width="32" height="32"/>
+        <image name="bookmarkAltSolid" width="20" height="20"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="homeSolid" width="20" height="20"/>
@@ -2635,7 +2635,7 @@ test</string>
         <image name="loop" width="48" height="48"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="search" width="32" height="32"/>
+        <image name="searchSolid" width="20" height="20"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="blueRegular">
             <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
