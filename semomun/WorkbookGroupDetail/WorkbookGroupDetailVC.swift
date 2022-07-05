@@ -79,7 +79,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.practiceTests.reloadData()
+        self.practiceTests.reloadData()        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
