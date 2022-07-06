@@ -28,9 +28,11 @@ final class WorkbookDetailVM {
     @Published private(set) var showLoader: Bool = false
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverData: Data?
+    @Published private(set) var goToBookshelf: Bool = false
     
     @Published private(set) var selectedSectionsForDelete: [Int] = []
     @Published private(set) var downloadQueue: [Int] = []
+    @Published private(set) var deleteFinished: Bool = false
     
     init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: WorkbookVMNetworkUsecaes) {
         self.networkUsecase = networkUsecase
@@ -103,6 +105,7 @@ final class WorkbookDetailVM {
                     userInfo.updateCredit(credit)
                 }
                 self?.showLoader = false
+                self?.goToBookshelf = true
             default:
                 self?.warning = (title: "구매반영 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
@@ -151,15 +154,8 @@ final class WorkbookDetailVM {
     }
 }
 
+// MARK: Delete 관련 functions
 extension WorkbookDetailVM {
-    var downloadableCount: Int {
-        return self.sectionHeaders.filter({ $0.downloaded == false }).count
-    }
-    
-    func downloadSuccess(index: Int) {
-        // 모두 다운로드 상태인 경우 다음 download 로직 실행
-    }
-    
     func selectSection(index: Int) {
         if self.selectedSectionsForDelete.contains(index) {
             self.selectedSectionsForDelete.removeAll{ $0 == index }
@@ -182,11 +178,34 @@ extension WorkbookDetailVM {
         self.selectedSectionsForDelete = selectedIndexes
     }
     
+    func deleteSelectedSections() {
+        self.showLoader = true
+        DispatchQueue.global().sync {
+            self.selectedSectionsForDelete.forEach { targetIndex in
+                let targetSectionHeader = self.sectionHeaders[targetIndex]
+                let targetSid = targetSectionHeader.sid
+                CoreUsecase.deleteSection(sid: Int(targetSid))
+                targetSectionHeader.setValue(false, forKey: SectionHeader_Core.Attribute.downloaded.rawValue)
+                CoreDataManager.saveCoreData()
+            }
+            self.showLoader = false
+            self.deleteFinished = true
+            self.selectedSectionsForDelete = []
+        }
+    }
+}
+
+// MARK: Download 관련 functions
+extension WorkbookDetailVM {
+    var downloadableCount: Int {
+        return self.sectionHeaders.filter({ $0.downloaded == false }).count
+    }
+    
     func downloadAllSections() {
         
     }
     
-    func deleteSelectedSections() {
-        
+    func downloadSuccess(index: Int) {
+        // 모두 다운로드 상태인 경우 다음 download 로직 실행
     }
 }

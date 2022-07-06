@@ -30,9 +30,28 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     private var isCoreData: Bool = false
     private var viewModel: WorkbookDetailVM?
     private var cancellables: Set<AnyCancellable> = []
-    private lazy var loader = self.makeLoaderWithoutPercentage()
+    private lazy var loadingView = LoadingView()
     private var navigationAnimation: Bool = true
-    private var editingMode: Bool = false
+    private var editingMode: Bool = false {
+        didSet {
+            if editingMode == true {
+                self.selectAllSectionButton.setTitle("전체 선택", for: .normal)
+                self.selectedCountLabel.isHidden = false
+                self.editSectionsButton.setTitle("취소", for: .normal)
+                self.deleteSectionsButton.isHidden = false
+                
+                NotificationCenter.default.post(name: .showSectionDeleteButton, object: nil)
+            } else {
+                self.updateDownloadbleCount()
+                
+                self.selectedCountLabel.isHidden = true
+                self.editSectionsButton.setTitle("편집", for: .normal)
+                self.deleteSectionsButton.isHidden = true
+                
+                NotificationCenter.default.post(name: .hideSectionDeleteButton, object: nil)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,22 +82,6 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     @IBAction func toggleEdit(_ sender: Any) {
         self.editingMode.toggle()
-        if self.editingMode == true {
-            self.selectAllSectionButton.setTitle("전체 선택", for: .normal)
-            self.selectedCountLabel.isHidden = false
-            self.editSectionsButton.setTitle("취소", for: .normal)
-            self.deleteSectionsButton.isHidden = false
-            
-            NotificationCenter.default.post(name: .showSectionDeleteButton, object: nil)
-        } else {
-            self.updateDownloadbleCount()
-            
-            self.selectedCountLabel.isHidden = true
-            self.editSectionsButton.setTitle("편집", for: .normal)
-            self.deleteSectionsButton.isHidden = true
-            
-            NotificationCenter.default.post(name: .hideSectionDeleteButton, object: nil)
-        }
     }
     
     @IBAction func deleteSections(_ sender: Any) {
@@ -104,7 +107,6 @@ extension WorkbookDetailVC {
     }
     
     private func configureUI() {
-        self.configureLoader()
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
         // 구매 전 UI
@@ -116,16 +118,6 @@ extension WorkbookDetailVC {
         }
         // 구매 후 UI
         self.purchaseWorkbookButton.isHidden = true
-    }
-    
-    private func configureLoader() {
-        self.view.addSubview(self.loader)
-        self.loader.translatesAutoresizingMaskIntoConstraints = false
-        self.loader.layer.zPosition = CGFloat.greatestFiniteMagnitude
-        NSLayoutConstraint.activate([
-            self.loader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.loader.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
     }
     
     private func configureTags() {
@@ -194,16 +186,21 @@ extension WorkbookDetailVC {
         }
     }
     
-    private func startLoader() {
-        self.loader.isHidden = false
-        self.loader.startAnimating()
-        self.view.isUserInteractionEnabled = false
+    private func showLoader() {
+        self.view.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        self.loadingView.start()
     }
     
-    private func stopLoader() {
-        self.loader.isHidden = true
-        self.loader.stopAnimating()
-        self.view.isUserInteractionEnabled = true
+    private func removeLoader() {
+        self.loadingView.stop()
+        self.loadingView.removeFromSuperview()
     }
 }
 
@@ -265,7 +262,9 @@ extension WorkbookDetailVC {
         self.bindPopupType()
         self.bindBookcover()
         self.bindTags()
+        self.bindGoToBookshelf()
         self.bindSelectedSectionsForDelete()
+        self.bindDeleteFinished()
     }
     
     private func bindWarning() {
@@ -318,12 +317,9 @@ extension WorkbookDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] showLoader in
                 if showLoader {
-                    self?.startLoader()
+                    self?.showLoader()
                 } else {
-                    self?.stopLoader()
-                    self?.navigationController?.popViewController(animated: true) {
-                        NotificationCenter.default.post(name: .purchaseBook, object: nil)
-                    }
+                    self?.removeLoader()
                 }
             })
             .store(in: &self.cancellables)
@@ -359,12 +355,34 @@ extension WorkbookDetailVC {
             .store(in: &self.cancellables)
     }
     
+    private func bindGoToBookshelf() {
+        self.viewModel?.$goToBookshelf
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] goToBookshelf in
+                guard goToBookshelf == true else { return }
+                self?.navigationController?.popViewController(animated: true) {
+                    NotificationCenter.default.post(name: .purchaseBook, object: nil)
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
     private func bindSelectedSectionsForDelete() {
         self.viewModel?.$selectedSectionsForDelete
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] _ in
                 self?.updateDeleteableCount()
                 self?.sectionListTableView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindDeleteFinished() {
+        self.viewModel?.$deleteFinished
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] deleteFinished in
+                guard deleteFinished == true else { return }
+                self?.editingMode = false
             })
             .store(in: &self.cancellables)
     }

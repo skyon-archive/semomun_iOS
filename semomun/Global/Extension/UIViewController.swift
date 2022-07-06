@@ -54,13 +54,6 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func makeLoaderWithoutPercentage(_ tag: Int = 123) -> UIActivityIndicatorView {
-        let loader = UIActivityIndicatorView(style: .large)
-        loader.color = UIColor.white
-        loader.tag = tag
-        return loader
-    }
-    
     func startLoading(count: Int = 0) -> LoadingDelegate {
         let loadingIndicator = self.storyboard?.instantiateViewController(withIdentifier: LoadingIndicator.identifier) as! LoadingIndicator
         loadingIndicator.loadViewIfNeeded()
