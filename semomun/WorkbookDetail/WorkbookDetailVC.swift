@@ -135,6 +135,7 @@ extension WorkbookDetailVC {
     private func configureSections() {
         self.sectionListTableView.delegate = self
         self.sectionListTableView.dataSource = self
+        self.sectionListTableView.separatorInset.left = 0
     }
     
     private func configureAddObserver() {
@@ -367,8 +368,7 @@ extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
 // MARK: - TableView
 extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
-        return 0
+        return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
