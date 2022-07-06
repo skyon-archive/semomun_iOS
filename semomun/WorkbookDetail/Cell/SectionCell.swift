@@ -12,7 +12,7 @@ protocol WorkbookCellController: AnyObject {
     func showAlertDownloadSectionFail()
     func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
     func downloadSuccess(index: Int)
-    func selectSection(selected: Bool, index: Int)
+    func selectSection(index: Int)
 }
 
 final class SectionCell: UITableViewCell {
@@ -86,14 +86,7 @@ final class SectionCell: UITableViewCell {
         if self.sectionHeader?.downloaded == true,
            self.editingMode == true,
            self.downloading == false {
-            self.sectionSelected.toggle()
-            self.delegate?.selectSection(selected: self.sectionSelected, index: self.index)
-            
-            if self.sectionSelected {
-                self.setControlButtonImage(to: UIImage(.checkCircleSolid), color: .blueRegular)
-            } else {
-                self.setControlButtonImage(to: UIImage(.circle), color: .lightGray)
-            }
+            self.delegate?.selectSection(index: self.index)
             return
         }
     }

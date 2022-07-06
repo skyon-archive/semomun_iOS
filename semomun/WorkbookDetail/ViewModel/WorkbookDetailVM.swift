@@ -29,6 +29,9 @@ final class WorkbookDetailVM {
     @Published private(set) var popupType: PopupType?
     @Published private(set) var bookcoverData: Data?
     
+    @Published private(set) var selectedSectionsForDelete: [Int] = []
+    @Published private(set) var downloadQueue: [Int] = []
+    
     init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: WorkbookVMNetworkUsecaes) {
         self.networkUsecase = networkUsecase
         self.previewCore = previewCore
@@ -157,7 +160,33 @@ extension WorkbookDetailVM {
         // 모두 다운로드 상태인 경우 다음 download 로직 실행
     }
     
-    func selectSection(selected: Bool, index: Int) {
+    func selectSection(index: Int) {
+        if self.selectedSectionsForDelete.contains(index) {
+            self.selectedSectionsForDelete.removeAll{ $0 == index }
+        } else {
+            self.selectedSectionsForDelete.append(index)
+        }
+    }
+    
+    func selectAllSectionsForDelete() {
+        /// 전체 선택 해제
+        guard self.selectedSectionsForDelete.isEmpty == true else {
+            self.selectedSectionsForDelete = []
+            return
+        }
+        /// 전체 선택
+        var selectedIndexes: [Int] = []
+        for (idx, section) in self.sectionHeaders.enumerated() {
+            if section.downloaded { selectedIndexes.append(idx) }
+        }
+        self.selectedSectionsForDelete = selectedIndexes
+    }
+    
+    func downloadAllSections() {
+        
+    }
+    
+    func deleteSelectedSections() {
         
     }
 }

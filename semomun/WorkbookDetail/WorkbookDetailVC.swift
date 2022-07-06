@@ -82,13 +82,15 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     }
     
     @IBAction func deleteSections(_ sender: Any) {
-        // MARK: VM 내부에서 삭제하는 로직으로 연결 필요
+        self.viewModel?.deleteSelectedSections()
     }
     
     @IBAction func downloadAllSections(_ sender: Any) {
-        // MARK: VM 내부에서 다운로드 하는 로직으로 연결 필요
-        // MARK: 또는 reload 시 다운로드 여부값을 전달하여 cell 내부에서 다운로드 하는 로직 연결 필요
-        // MARK: editingMode == true 인 경우 전체선택 삭제 버튼의 로직이 필요
+        if self.editingMode == true {
+            self.viewModel?.selectAllSectionsForDelete()
+        } else {
+            self.viewModel?.downloadAllSections()
+        }
     }
 }
 
@@ -143,6 +145,11 @@ extension WorkbookDetailVC {
         let downloadableCount = self.viewModel?.downloadableCount ?? 0
         let downloadButtonTitle = downloadableCount > 0 ? "모두 다운로드(\(downloadableCount)개)" : ""
         self.selectAllSectionButton.setTitle(downloadButtonTitle, for: .normal)
+    }
+    
+    private func updateDeleteableCount() {
+        let deleteableCount = self.viewModel?.selectedSectionsForDelete.count ?? 0
+        self.selectedCountLabel.text = "\(deleteableCount)개 선택됨"
     }
     
     private func configureAddObserver() {
@@ -258,6 +265,7 @@ extension WorkbookDetailVC {
         self.bindPopupType()
         self.bindBookcover()
         self.bindTags()
+        self.bindSelectedSectionsForDelete()
     }
     
     private func bindWarning() {
@@ -350,6 +358,16 @@ extension WorkbookDetailVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindSelectedSectionsForDelete() {
+        self.viewModel?.$selectedSectionsForDelete
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.updateDeleteableCount()
+                self?.sectionListTableView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - CollectionView
@@ -386,9 +404,9 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
         
         if self.isCoreData {
             guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
-            let isEditing = self.editSectionsButton.isSelected
+            let isSelected = self.viewModel?.selectedSectionsForDelete.contains(indexPath.row) ?? false
             cell.configureDelegate(to: self)
-            cell.configureCell(sectionHeader: sectionHeader, isEditing: isEditing, index: indexPath.row)
+            cell.configureCell(sectionHeader: sectionHeader, isEditing: self.editingMode, isSelected: isSelected, index: indexPath.row)
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
             cell.configureCell(sectionDTO: sectionDTO)
@@ -424,7 +442,7 @@ extension WorkbookDetailVC: WorkbookCellController {
         self.sectionListTableView.reloadData()
     }
     
-    func selectSection(selected: Bool, index: Int) {
-        self.viewModel?.selectSection(selected: selected, index: index)
+    func selectSection(index: Int) {
+        self.viewModel?.selectSection(index: index)
     }
 }
