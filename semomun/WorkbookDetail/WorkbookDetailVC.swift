@@ -52,6 +52,9 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
             }
         }
     }
+    private var cellAccessable: Bool {
+        return self.viewModel?.downloadQueue.isEmpty ?? false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,14 +84,17 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     }
     
     @IBAction func toggleEdit(_ sender: Any) {
+        guard self.cellAccessable == true else { return }
         self.editingMode.toggle()
     }
     
     @IBAction func deleteSections(_ sender: Any) {
+        guard self.cellAccessable == true else { return }
         self.viewModel?.deleteSelectedSections()
     }
     
     @IBAction func downloadAllSections(_ sender: Any) {
+        guard self.cellAccessable == true else { return }
         if self.editingMode == true {
             self.viewModel?.selectAllSectionsForDelete()
         } else {
@@ -265,6 +271,7 @@ extension WorkbookDetailVC {
         self.bindGoToBookshelf()
         self.bindSelectedSectionsForDelete()
         self.bindDeleteFinished()
+        self.bindDownloadQueue()
     }
     
     private func bindWarning() {
@@ -386,6 +393,16 @@ extension WorkbookDetailVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindDownloadQueue() {
+        self.viewModel?.$downloadQueue
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] queue in
+                guard queue.isEmpty == false else { return }
+                self?.sectionListTableView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 // MARK: - CollectionView
@@ -422,9 +439,14 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
         
         if self.isCoreData {
             guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
+            
             let isSelected = self.viewModel?.selectedSectionsForDelete.contains(indexPath.row) ?? false
             cell.configureDelegate(to: self)
             cell.configureCell(sectionHeader: sectionHeader, isEditing: self.editingMode, isSelected: isSelected, index: indexPath.row)
+            
+            if self.cellAccessable == false, self.viewModel?.downloadQueue.first == indexPath.row {
+                cell.downloadSection()
+            }
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
             cell.configureCell(sectionDTO: sectionDTO)
@@ -436,6 +458,8 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
 
 extension WorkbookDetailVC: WorkbookCellController {
     func showSection(sid: Int) {
+        guard self.cellAccessable == true else { return }
+        
         self.navigationAnimation = false
         guard let preview = self.viewModel?.previewCore else { return }
         guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
@@ -457,7 +481,6 @@ extension WorkbookDetailVC: WorkbookCellController {
     func downloadSuccess(index: Int) {
         self.viewModel?.downloadSuccess(index: index)
         self.updateDownloadbleCount()
-        self.sectionListTableView.reloadData()
     }
     
     func selectSection(index: Int) {

@@ -202,10 +202,14 @@ extension WorkbookDetailVM {
     }
     
     func downloadAllSections() {
-        
+        var downloadableIndexed: [Int] = []
+        for (idx, section) in self.sectionHeaders.enumerated() {
+            if section.downloaded == false { downloadableIndexed.append(idx) }
+        }
+        self.downloadQueue = downloadableIndexed
     }
     
     func downloadSuccess(index: Int) {
-        // 모두 다운로드 상태인 경우 다음 download 로직 실행
+        self.downloadQueue.removeAll{ $0 == index }
     }
 }
