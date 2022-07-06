@@ -13,10 +13,13 @@ enum SemomunImage: String {
     case googleLogo
     case wrong
     case correct
-    case circle
     
     case cloudDownloadOutline
     case badgeCheckSolid
     case checkCircleSolid
     case clipboardCheckOutline
+}
+
+enum SystemImage: String {
+    case circle
 }

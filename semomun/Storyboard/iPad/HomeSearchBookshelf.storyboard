@@ -1932,8 +1932,11 @@ Label</string>
                                                                 <constraint firstAttribute="width" constant="24" id="T2C-B1-Bgg"/>
                                                                 <constraint firstAttribute="height" constant="24" id="oTI-ch-hHP"/>
                                                             </constraints>
+                                                            <color key="tintColor" name="lightGray"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" image="cloudDownloadOutline"/>
+                                                            <state key="normal" image="circle" catalog="system">
+                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                                            </state>
                                                             <connections>
                                                                 <action selector="controlAction:" destination="dcQ-r9-cdF" eventType="touchUpInside" id="xDy-hH-mRZ"/>
                                                             </connections>
@@ -2573,7 +2576,7 @@ test</string>
         <image name="bookmarkAltSolid" width="20" height="20"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevronRightSolid" width="24" height="24"/>
-        <image name="cloudDownloadOutline" width="24" height="24"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="homeSolid" width="20" height="20"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="loop" width="48" height="48"/>

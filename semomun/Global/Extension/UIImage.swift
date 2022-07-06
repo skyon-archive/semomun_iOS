@@ -16,4 +16,13 @@ extension UIImage {
             self.init(named: "warning")!
         }
     }
+    
+    convenience init(_ systemImage: SystemImage, withConfiguration configuration: UIImage.SymbolConfiguration? = nil) {
+        let imageName = systemImage.rawValue
+        if let _ = UIImage.init(systemName: imageName) {
+            self.init(systemName: imageName)!
+        } else {
+            self.init(named: "warning")!
+        }
+    }
 }
