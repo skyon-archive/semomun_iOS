@@ -7,7 +7,9 @@
 
 import UIKit
 
-class TagCell: UICollectionViewCell {
+final class TagCell: UICollectionViewCell {
+    static let identifier = "TagCell"
+    
     @IBOutlet weak var tagNameLabel: UILabel!
     
     override func prepareForReuse() {
