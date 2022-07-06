@@ -105,7 +105,7 @@ extension WorkbookDetailVC {
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
         // 구매 전 UI
-        guard self.isCoreData == false else {
+        guard self.isCoreData == true else {
             self.selectAllSectionButton.isHidden = true
             self.editSectionsButton.isHidden = true
             self.tableViewTopConstraint.constant = 12
@@ -128,6 +128,8 @@ extension WorkbookDetailVC {
     private func configureTags() {
         self.workbookTagsCollectionView.delegate = self
         self.workbookTagsCollectionView.dataSource = self
+        let tagCellNib = UINib(nibName: WorkbookTagCell.reuseIdentifier, bundle: nil)
+        self.workbookTagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: WorkbookTagCell.reuseIdentifier)
     }
     
     private func configureSections() {
@@ -347,7 +349,7 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.reuseIdentifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
         guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
         cell.configure(tag: tag)
         
@@ -357,8 +359,8 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
 
 extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
-        return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 32) }
+        return CGSize(width: tag.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
     }
 }
 

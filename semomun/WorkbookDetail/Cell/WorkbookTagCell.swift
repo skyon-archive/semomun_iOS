@@ -7,24 +7,11 @@
 
 import UIKit
 
-class WorkbookTagCell: UICollectionViewCell {
+final class WorkbookTagCell: TagCell {
+    static let reuseIdentifier = "TagCell"
     static let identifier = "WorkbookTagCell"
-    
-    @IBOutlet weak var tagNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.layer.cornerRadius = 15
-        self.contentView.layer.borderWidth = 1
-        self.contentView.layer.borderColor = UIColor(.blueRegular)?.cgColor
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.tagNameLabel.text = "#"
-    }
-    
-    func configure(tag: String) {
-        self.tagNameLabel.text = "#\(tag)"
     }
 }
