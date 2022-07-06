@@ -18,6 +18,7 @@ enum SemomunImage: String {
     case badgeCheckSolid
     case checkCircleSolid
     case clipboardCheckOutline
+    case sortDescendingOutline
 }
 
 enum SystemImage: String {
