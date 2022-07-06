@@ -19,6 +19,7 @@ enum SemomunImage: String {
     case checkCircleSolid
     case clipboardCheckOutline
     case sortDescendingOutline
+    case chevronDownOutline
 }
 
 enum SystemImage: String {
