@@ -128,8 +128,8 @@ extension WorkbookDetailVC {
     private func configureTags() {
         self.workbookTagsCollectionView.delegate = self
         self.workbookTagsCollectionView.dataSource = self
-        let tagCellNib = UINib(nibName: WorkbookTagCell.reuseIdentifier, bundle: nil)
-        self.workbookTagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: WorkbookTagCell.reuseIdentifier)
+        let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        self.workbookTagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
     }
     
     private func configureSections() {
@@ -350,7 +350,7 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.reuseIdentifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
         guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
         cell.configure(tag: tag)
         

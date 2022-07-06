@@ -16,6 +16,7 @@ final class SectionCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var rightIcon: UIImageView!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     private weak var delegate: WorkbookCellController?
     private var sectionHeader: SectionHeader_Core?
@@ -25,14 +26,12 @@ final class SectionCell: UITableViewCell {
     private var downloading: Bool = false {
         didSet {
             if downloading {
-                self.showLoader()
+                self.loader.startAnimating()
             } else {
-                self.removeLoader()
+                self.loader.stopAnimating()
             }
         }
     }
-    
-    private lazy var loadingView = LoadingView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -243,23 +242,5 @@ extension SectionCell: LoadingDelegate {
         self.setBlackLabels()
         self.updateProgress()
         self.showPercent()
-    }
-}
-
-// MARK: Loader
-extension SectionCell {
-    private func showLoader() {
-        self.contentView.addSubview(self.loadingView)
-        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.loadingView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            self.loadingView.rightAnchor.constraint(equalTo: self.sectionNumber.leadingAnchor, constant: 16)
-        ])
-        self.loadingView.start()
-    }
-    
-    private func removeLoader() {
-        self.loadingView.stop()
-        self.loadingView.removeFromSuperview()
     }
 }

@@ -1970,6 +1970,9 @@ Label</string>
                                                             <color key="textColor" name="lightGray"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="jXs-ag-Zk2">
+                                                            <rect key="frame" x="2" y="14" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="GEr-Vn-xNw" firstAttribute="centerY" secondItem="hIz-El-YCK" secondAttribute="centerY" id="7lV-BQ-ASj"/>
@@ -1982,11 +1985,14 @@ Label</string>
                                                         <constraint firstItem="n5T-kc-59A" firstAttribute="centerY" secondItem="hIz-El-YCK" secondAttribute="centerY" id="QKA-sK-Bgg"/>
                                                         <constraint firstItem="L1o-E7-1cB" firstAttribute="leading" secondItem="GEr-Vn-xNw" secondAttribute="trailing" constant="4" id="dTb-c9-I5g"/>
                                                         <constraint firstAttribute="trailing" secondItem="L1o-E7-1cB" secondAttribute="trailing" id="fDc-VE-qE4"/>
+                                                        <constraint firstItem="jXs-ag-Zk2" firstAttribute="centerX" secondItem="n5T-kc-59A" secondAttribute="centerX" id="hyT-rN-duV"/>
+                                                        <constraint firstItem="jXs-ag-Zk2" firstAttribute="centerY" secondItem="n5T-kc-59A" secondAttribute="centerY" id="liY-jK-2ey"/>
                                                         <constraint firstItem="L1o-E7-1cB" firstAttribute="centerY" secondItem="hIz-El-YCK" secondAttribute="centerY" id="wyD-sb-9vt"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="controlButton" destination="n5T-kc-59A" id="0g3-n4-d7N"/>
+                                                    <outlet property="loader" destination="jXs-ag-Zk2" id="771-c8-oyk"/>
                                                     <outlet property="progressLabel" destination="GEr-Vn-xNw" id="kbv-hC-F87"/>
                                                     <outlet property="rightIcon" destination="L1o-E7-1cB" id="z1b-ca-qrQ"/>
                                                     <outlet property="sectionNumber" destination="ePs-bt-iiD" id="XTg-GW-dOo"/>
