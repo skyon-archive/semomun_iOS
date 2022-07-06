@@ -89,6 +89,15 @@ final class BookshelfVC: UIViewController {
         self.bindAll()
         self.checkSyncBookshelf()
         self.configureObservation()
+        
+        let button = DropdownOrderButton()
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 144),
+            button.heightAnchor.constraint(equalToConstant: 36),
+            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
