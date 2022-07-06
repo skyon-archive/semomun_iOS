@@ -379,7 +379,7 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
             guard let sectionHeader = self.viewModel?.sectionHeaders[indexPath.row] else { return cell }
             let isEditing = self.editSectionsButton.isSelected
             cell.configureDelegate(to: self)
-            cell.configureCell(sectionHeader: sectionHeader, isEditing: isEditing)
+            cell.configureCell(sectionHeader: sectionHeader, isEditing: isEditing, index: indexPath.row)
         } else {
             guard let sectionDTO = self.viewModel?.sectionDTOs[indexPath.row] else { return cell }
             cell.configureCell(sectionDTO: sectionDTO)

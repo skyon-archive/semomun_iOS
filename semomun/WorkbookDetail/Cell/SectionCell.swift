@@ -23,6 +23,8 @@ final class SectionCell: UITableViewCell {
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var editingMode: Bool = false
+    private var sectionSelected: Bool = false
+    private var index: Int = 0
     private var downloading: Bool = false {
         didSet {
             if downloading {
@@ -35,6 +37,7 @@ final class SectionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.rightIcon.setSVGTintColor(to: UIColor.getSemomunColor(.lightGray))
         self.resetCell()
         self.configureDeleteButtonObserver()
     }
@@ -42,6 +45,16 @@ final class SectionCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.resetCell()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            guard self.sectionHeader?.downloaded == true,
+                  self.downloading == false,
+                  self.editingMode == false else { return }
+            self.showSection()
+        }
     }
     /// DTO 상태에서 표시되는 UI
     private func resetCell() {
@@ -53,15 +66,27 @@ final class SectionCell: UITableViewCell {
     }
     
     @IBAction func controlAction(_ sender: Any) {
-        // MARK: download, select, deSelect, terminated 상태 표시
-        // MARK: editingMode 값에 따라 로직 분기 필요
-        guard let downloaded = self.sectionHeader?.downloaded else { return }
-        if downloaded {
-            self.showSection()
-        } else if downloading == false {
+        // download 를 위한 action
+        if self.sectionHeader?.downloaded == false,
+           self.editingMode == false,
+           self.downloading == false {
             self.controlButton.isHidden = true
             self.downloading = true
             self.downloadSection()
+            return
+        }
+        
+        // 삭제 선택을 위한 action 필요
+        if self.sectionHeader?.downloaded == true,
+           self.editingMode == true,
+           self.downloading == false {
+            self.sectionSelected.toggle() // delegate 로 index 값, selected 전달 필요
+            if self.sectionSelected {
+                self.setControlButtonImage(to: UIImage(.checkCircleSolid), color: .blueRegular)
+            } else {
+                self.setControlButtonImage(to: UIImage(.circle), color: .lightGray)
+            }
+            return
         }
     }
 }
@@ -77,22 +102,24 @@ extension SectionCell {
         self.delegate = delegate
     }
     
-    func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false, isSelected: Bool = false) {
+    func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false, isSelected: Bool = false, index: Int) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionHeader.sectionNum))
         self.titleLabel.text = sectionHeader.title
         
         self.sectionHeader = sectionHeader
         self.editingMode = isEditing
+        self.sectionSelected = isSelected
+        self.index = index
         self.configureButton()
         
         if isEditing {
-            self.configureEditing(isSelected)
+            self.configureEditing()
         }
     }
     
     private func configureDeleteButtonObserver() {
         NotificationCenter.default.addObserver(forName: .showSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
-            self?.configureEditing(false)
+            self?.configureEditing()
         }
         NotificationCenter.default.addObserver(forName: .hideSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
             self?.restoreEditing()
@@ -107,10 +134,10 @@ extension SectionCell {
             self.showProgressLabels()
             
             if sectionHeader.terminated {
-                self.setControlButtonImage(to: .badgeCheckSolid, color: .orangeRegular)
+                self.setControlButtonImage(to: UIImage(.badgeCheckSolid), color: .orangeRegular)
             }
         } else {
-            self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
+            self.setControlButtonImage(to: UIImage(.cloudDownloadOutline), color: .blueRegular)
             self.setGrayLabels()
         }
     }
@@ -135,9 +162,8 @@ extension SectionCell {
         self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
     }
     
-    private func setControlButtonImage(to image: SemomunImage, color: SemomunColor) {
-        self.controlButton.setImage(UIImage(image), for: .normal)
-        self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(color))
+    private func setControlButtonImage(to image: UIImage, color: SemomunColor) {
+        self.controlButton.setImageWithSVGTintColor(image: image, color: color)
         self.controlButton.isHidden = false
     }
     
@@ -146,7 +172,8 @@ extension SectionCell {
         self.progressLabel.text = "100% 채점"
     }
     
-    private func configureEditing(_ isSelected: Bool) {
+    private func configureEditing() {
+        self.editingMode = true
         self.hideProgressLabels()
         
         guard self.sectionHeader?.downloaded == true else {
@@ -155,17 +182,18 @@ extension SectionCell {
             return
         }
         
-        if isSelected {
-            self.setControlButtonImage(to: .checkCircleSolid, color: .blueRegular)
+        if self.sectionSelected {
+            self.setControlButtonImage(to: UIImage(.checkCircleSolid), color: .blueRegular)
         } else {
-            self.setControlButtonImage(to: .circle, color: .lightGray)
+            self.setControlButtonImage(to: UIImage(.circle), color: .lightGray)
         }
     }
     
     private func restoreEditing() {
         self.editingMode = false
+        self.sectionSelected = false
         guard self.sectionHeader?.downloaded == true else {
-            self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
+            self.setControlButtonImage(to: UIImage(.cloudDownloadOutline), color: .blueRegular)
             self.setGrayLabels()
             self.hideProgressLabels()
             return
@@ -175,7 +203,7 @@ extension SectionCell {
         self.setBlackLabels()
         
         if self.sectionHeader?.terminated == true {
-            self.setControlButtonImage(to: .badgeCheckSolid, color: .orangeRegular)
+            self.setControlButtonImage(to: UIImage(.badgeCheckSolid), color: .orangeRegular)
         } else {
             self.controlButton.isHidden = true
         }
