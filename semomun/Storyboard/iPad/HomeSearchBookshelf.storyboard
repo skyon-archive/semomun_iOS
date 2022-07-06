@@ -1781,7 +1781,7 @@ Label</string>
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2zX-js-0lc">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadingBookcover" translatesAutoresizingMaskIntoConstraints="NO" id="2zX-js-0lc">
                                 <rect key="frame" x="32" y="48" width="220" height="275"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="HW8-O4-3aO"/>
@@ -1854,6 +1854,9 @@ Label</string>
                                         <real key="value" value="14"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="purchaseWorkbook:" destination="lLn-wl-FgN" eventType="touchUpInside" id="3Zd-ny-E88"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="태그" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsD-Vp-XdR">
                                 <rect key="frame" x="276" y="259.5" width="28" height="19.5"/>
@@ -1875,6 +1878,9 @@ Label</string>
                                         <state key="normal" title="편집">
                                             <color key="titleColor" name="black"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toggleEdit:" destination="lLn-wl-FgN" eventType="touchUpInside" id="ySB-ds-n14"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edb-0e-OCB">
                                         <rect key="frame" x="32" y="16" width="76" height="42"/>
@@ -1886,6 +1892,9 @@ Label</string>
                                         <state key="normal" title="모두 다운로드">
                                             <color key="titleColor" name="blueRegular"/>
                                         </state>
+                                        <connections>
+                                            <action selector="downloadAllSections:" destination="lLn-wl-FgN" eventType="touchUpInside" id="QNi-l8-OpH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yjr-7Q-SWe">
                                         <rect key="frame" x="737" y="16" width="35" height="42"/>
@@ -1898,6 +1907,9 @@ Label</string>
                                         <state key="normal" title="삭제">
                                             <color key="titleColor" systemColor="systemPinkColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="deleteSections:" destination="lLn-wl-FgN" eventType="touchUpInside" id="XKr-SF-YCq"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0개 선택됨" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOY-rc-Z4d">
                                         <rect key="frame" x="382.5" y="27.5" width="69" height="19.5"/>
@@ -2059,13 +2071,14 @@ Label</string>
                         <outlet property="authorLabel" destination="R9P-fz-cBJ" id="qeg-PR-yC0"/>
                         <outlet property="bookCoverImageView" destination="2zX-js-0lc" id="tey-yK-TL0"/>
                         <outlet property="deleteSectionsButton" destination="Yjr-7Q-SWe" id="fdt-H4-zJj"/>
-                        <outlet property="downloadAllSectionsButton" destination="edb-0e-OCB" id="4Q9-nb-yOE"/>
                         <outlet property="editSectionsButton" destination="qeZ-G8-hCJ" id="L75-s8-fZd"/>
                         <outlet property="publishCompanyLabel" destination="Hgb-cA-aUe" id="ZJZ-4w-EH1"/>
                         <outlet property="purchaseWorkbookButton" destination="lxj-lQ-TWf" id="L3J-z4-Uj1"/>
                         <outlet property="sectionListTableView" destination="anc-pp-pOc" id="adK-rg-Tk8"/>
                         <outlet property="sectionTitleLabel" destination="7j3-uR-AIy" id="Ce0-pk-iD2"/>
+                        <outlet property="selectAllSectionButton" destination="edb-0e-OCB" id="4Q9-nb-yOE"/>
                         <outlet property="selectedCountLabel" destination="gOY-rc-Z4d" id="643-Pj-MQh"/>
+                        <outlet property="tableViewTopConstraint" destination="b01-u8-JE7" id="ZEe-of-GPc"/>
                         <outlet property="workbookTagsCollectionView" destination="x0t-JS-Uqh" id="OaE-Zc-R86"/>
                     </connections>
                 </viewController>
