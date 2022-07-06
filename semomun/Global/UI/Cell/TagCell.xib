@@ -16,7 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TOk-wv-b6R">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TagCell" id="TOk-wv-b6R" customClass="TagCell" customModule="semomun" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="90" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="T70-Wg-zpb">
@@ -49,6 +49,9 @@
                 </userDefinedRuntimeAttributes>
             </collectionViewCellContentView>
             <size key="customSize" width="90" height="32"/>
+            <connections>
+                <outlet property="tagNameLabel" destination="xfM-Pv-ebE" id="ayZ-Ed-o9N"/>
+            </connections>
             <point key="canvasLocation" x="-101.44927536231884" y="67.633928571428569"/>
         </collectionViewCell>
     </objects>

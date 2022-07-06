@@ -93,15 +93,17 @@ extension SearchFavoriteTagsVC {
 // MARK: - CollectionView
 extension SearchFavoriteTagsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.tags.count ?? 0
+//        return self.viewModel?.tags.count ?? 0
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.tags[indexPath.item] else { return cell }
-        cell.configure(tag: tag.name)
-        
-        return cell
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
+//        guard let tag = self.viewModel?.tags[indexPath.item] else { return cell }
+//        cell.configure(tag: tag.name)
+//
+//        return cell
+        return UICollectionViewCell()
     }
 }
 

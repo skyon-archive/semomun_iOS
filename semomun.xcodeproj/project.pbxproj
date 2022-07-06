@@ -1311,7 +1311,6 @@
 		8745856027A000BA00E331F1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
 				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
 				87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */,
 				87BC269D27A2374A00F3418D /* SearchResultCell.swift */,
@@ -1447,17 +1446,18 @@
 		87A3769F28741F6300399DF2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				87A376A028741F6700399DF2 /* Xib */,
+				87A376A028741F6700399DF2 /* Cell */,
 			);
 			path = UI;
 			sourceTree = "<group>";
 		};
-		87A376A028741F6700399DF2 /* Xib */ = {
+		87A376A028741F6700399DF2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				87A376A128741FAC00399DF2 /* TagCell.xib */,
+				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
 			);
-			path = Xib;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		87AC221C27A39FE900B48F9D /* Cell */ = {
