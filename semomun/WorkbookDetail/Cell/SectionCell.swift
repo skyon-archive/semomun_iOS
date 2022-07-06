@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol WorkbookCellController: AnyObject {
+    func showSection(sid: Int)
+    func showAlertDownloadSectionFail()
+    func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
+    func downloadSuccess(index: Int)
+    func selectSection(selected: Bool, index: Int)
+}
+
 final class SectionCell: UITableViewCell {
     /* public */
     static let identifier = "SectionCell"
@@ -70,8 +78,6 @@ final class SectionCell: UITableViewCell {
         if self.sectionHeader?.downloaded == false,
            self.editingMode == false,
            self.downloading == false {
-            self.controlButton.isHidden = true
-            self.downloading = true
             self.downloadSection()
             return
         }
@@ -80,7 +86,9 @@ final class SectionCell: UITableViewCell {
         if self.sectionHeader?.downloaded == true,
            self.editingMode == true,
            self.downloading == false {
-            self.sectionSelected.toggle() // delegate 로 index 값, selected 전달 필요
+            self.sectionSelected.toggle()
+            self.delegate?.selectSection(selected: self.sectionSelected, index: self.index)
+            
             if self.sectionSelected {
                 self.setControlButtonImage(to: UIImage(.checkCircleSolid), color: .blueRegular)
             } else {
@@ -215,9 +223,11 @@ extension SectionCell {
         guard let sid = self.sectionHeader?.sid else { return }
         self.delegate?.showSection(sid: Int(sid))
     }
-    
+    /// 모두 다운로드를 통해 불릴 수 있다.
     private func downloadSection() {
         guard let sid = self.sectionHeader?.sid else { return }
+        self.controlButton.isHidden = true
+        self.downloading = true
         let networkUsecase = NetworkUsecase(network: Network())
         
         networkUsecase.downloadSection(sid: Int(sid)) { [weak self] section in
@@ -270,5 +280,6 @@ extension SectionCell: LoadingDelegate {
         self.setBlackLabels()
         self.updateProgress()
         self.showPercent()
+        self.delegate?.downloadSuccess(index: self.index)
     }
 }
