@@ -21,6 +21,7 @@ final class SectionCell: UITableViewCell {
     private var sectionHeader: SectionHeader_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
+    private var editingMode: Bool = false
     private var downloading: Bool = false
     
     override func awakeFromNib() {
@@ -36,16 +37,15 @@ final class SectionCell: UITableViewCell {
     /// DTO 상태에서 표시되는 UI
     private func resetCell() {
         self.titleLabel.text = ""
-        self.sectionNumber.textColor = UIColor.getSemomunColor(.black)
-        self.titleLabel.textColor = UIColor.getSemomunColor(.black)
         self.controlButton.isHidden = true
-        self.progressLabel.isHidden = true
-        self.rightIcon.isHidden = true
+        self.setBlackLabels()
+        self.hideProgressLabels()
         self.downloading = false
     }
     
     @IBAction func controlAction(_ sender: Any) {
         // MARK: download, select, deSelect, terminated 상태 표시
+        // MARK: editingMode 값에 따라 로직 분기 필요
         guard let downloaded = self.sectionHeader?.downloaded else { return }
         if downloaded {
             self.showSection()
@@ -72,6 +72,7 @@ extension SectionCell {
         self.titleLabel.text = sectionHeader.title
         
         self.sectionHeader = sectionHeader
+        self.editingMode = isEditing
         self.configureButton()
         
         if isEditing {
@@ -93,105 +94,80 @@ extension SectionCell {
         
         if sectionHeader.downloaded {
             // MARK: 진행률 로직 필요
-            self.configureDownloadedUI()
+            self.showProgressLabels()
             
             if sectionHeader.terminated {
-                self.controlButton.setImage(UIImage(.badgeCheckSolid), for: .normal)
-                self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.orangeRegular))
+                self.setControlButtonImage(to: .badgeCheckSolid, color: .orangeRegular)
             }
         } else {
             self.configureNonDownloadedUI()
         }
     }
-    /// DTO 상태 UI 기준 download 상태 UI 설정
-    private func configureDownloadedUI() {
+    
+    private func showProgressLabels() {
         self.progressLabel.isHidden = false
         self.rightIcon.isHidden = false
     }
-    /// DTO 상태 UI 기준 not download 상태 UI 설정
-    private func configureNonDownloadedUI() {
-        self.controlButton.setImage(UIImage(.cloudDownloadOutline), for: .normal)
-        self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
-        self.controlButton.isHidden = false
+    
+    private func hideProgressLabels() {
+        self.progressLabel.isHidden = true
+        self.rightIcon.isHidden = true
+    }
+    
+    private func setBlackLabels() {
+        self.sectionNumber.textColor = UIColor.getSemomunColor(.black)
+        self.titleLabel.textColor = UIColor.getSemomunColor(.black)
+    }
+    
+    private func setGrayLabels() {
         self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
         self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
     }
-    /// downloaded 여부에 따른 UI 기준 editing 활성화 상태 UI 설정
+    
+    private func setControlButtonImage(to image: SemomunImage, color: SemomunColor) {
+        self.controlButton.setImage(UIImage(image), for: .normal)
+        self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(color))
+        self.controlButton.isHidden = false
+    }
+    
+    private func configureNonDownloadedUI() {
+        self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
+        self.setGrayLabels()
+    }
+    
     private func configureEditing(_ isSelected: Bool) {
-        self.progressLabel.isHidden = true
-        self.rightIcon.isHidden = true
+        self.hideProgressLabels()
         
         guard self.sectionHeader?.downloaded == true else {
             self.controlButton.isHidden = true
-            self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
-            self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
+            self.setGrayLabels()
             return
         }
         
         if isSelected {
-            self.controlButton.setImage(UIImage(.checkCircleSolid), for: .normal)
-            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
+            self.setControlButtonImage(to: .checkCircleSolid, color: .blueRegular)
         } else {
-            self.controlButton.setImage(UIImage(.warning), for: .normal)
-            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.lightGray))
+            self.setControlButtonImage(to: .circle, color: .lightGray)
         }
-        
-        self.controlButton.isHidden = false
-        
-        
-//        guard editing else {
-//            self.deleteButton.isHidden = true
-//            return
-//        }
-//        self.deleteButton.isHidden = false
-//        if self.sectionHeader?.downloaded ?? false {
-//            self.deleteEnable()
-//        } else {
-//            self.deleteUnable()
-//        }
     }
     
     private func restoreEditing() {
+        self.editingMode = false
         guard self.sectionHeader?.downloaded == true else {
-            self.controlButton.setImage(UIImage(.cloudDownloadOutline), for: .normal)
-            self.controlButton.setSVGTintColor(to: UIColor.getSemomunColor(.blueRegular))
-            self.controlButton.isHidden = false
-            self.progressLabel.isHidden = true
-            self.rightIcon.isHidden = true
-            self.sectionNumber.textColor = UIColor.getSemomunColor(.lightGray)
-            self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
+            self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
+            self.setGrayLabels()
+            self.hideProgressLabels()
             return
         }
         
-        self.controlButton.isHidden = true
-        self.sectionNumber.textColor = UIColor.getSemomunColor(.black)
+        self.showProgressLabels()
+        self.setBlackLabels()
         
-        self.progressLabel.isHidden = false
-        self.rightIcon.isHidden = false
-    }
-    
-    private func deleteEnable() {
-        self.deleteButton.isUserInteractionEnabled = true
-        self.deleteButton.backgroundColor = UIColor(.orangeRegular)
-        self.deleteButton.layer.borderColor = UIColor(.orangeRegular)?.cgColor
-        self.deleteButton.setTitleColor(.white, for: .normal)
-    }
-    
-    private func deleteUnable() {
-        self.deleteButton.isUserInteractionEnabled = false
-        self.deleteButton.backgroundColor = .white
-        self.deleteButton.layer.borderColor = UIColor(.lightGray)?.cgColor
-        self.deleteButton.setTitleColor(UIColor(.lightGray), for: .normal)
-    }
-    
-    private func configureWhite() {
-        self.controlButton.backgroundColor = .white
-        self.controlButton.setTitleColor(.black, for: .normal)
-    }
-    
-    private func configureNoneWhite() {
-        self.controlButton.backgroundColor = UIColor(.blueRegular)
-        self.controlButton.setTitleColor(.white, for: .normal)
+        if self.sectionHeader?.terminated == true {
+            self.setControlButtonImage(to: .badgeCheckSolid, color: .orangeRegular)
+        } else {
+            self.controlButton.isHidden = true
+        }
     }
 }
 
