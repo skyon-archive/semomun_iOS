@@ -22,7 +22,17 @@ final class SectionCell: UITableViewCell {
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var editingMode: Bool = false
-    private var downloading: Bool = false
+    private var downloading: Bool = false {
+        didSet {
+            if downloading {
+                self.showLoader()
+            } else {
+                self.removeLoader()
+            }
+        }
+    }
+    
+    private lazy var loadingView = LoadingView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,6 +60,7 @@ final class SectionCell: UITableViewCell {
         if downloaded {
             self.showSection()
         } else if downloading == false {
+            self.controlButton.isHidden = true
             self.downloading = true
             self.downloadSection()
         }
@@ -93,14 +104,15 @@ extension SectionCell {
         guard let sectionHeader = self.sectionHeader else { return }
         
         if sectionHeader.downloaded {
-            // MARK: 진행률 로직 필요
+            self.updateProgress()
             self.showProgressLabels()
             
             if sectionHeader.terminated {
                 self.setControlButtonImage(to: .badgeCheckSolid, color: .orangeRegular)
             }
         } else {
-            self.configureNonDownloadedUI()
+            self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
+            self.setGrayLabels()
         }
     }
     
@@ -130,9 +142,9 @@ extension SectionCell {
         self.controlButton.isHidden = false
     }
     
-    private func configureNonDownloadedUI() {
-        self.setControlButtonImage(to: .cloudDownloadOutline, color: .blueRegular)
-        self.setGrayLabels()
+    private func updateProgress() {
+        // MARK: 내부 로직 구현 필요
+        self.progressLabel.text = "100% 채점"
     }
     
     private func configureEditing(_ isSelected: Bool) {
@@ -185,7 +197,6 @@ extension SectionCell {
             guard let self = self else { return }
             guard let section = section else {
                 self.delegate?.showAlertDownloadSectionFail()
-                self.controlButton.setTitle("다운실패", for: .normal)
                 return
             }
 
@@ -193,26 +204,12 @@ extension SectionCell {
                 self?.downloading = false
                 if sectionCore == nil {
                     self?.delegate?.showAlertDownloadSectionFail()
-                    self?.controlButton.setTitle("다운실패", for: .normal)
                     return
                 }
                 self?.sectionHeader?.setValue(true, forKey: "downloaded")
                 CoreDataManager.saveCoreData()
                 self?.terminate()
-                self?.configureDeleteButton(self?.editingMode ?? false)
             }
-        }
-    }
-    
-    private func deleteSection() {
-        guard let sid = self.sectionHeader?.sid else { return }
-        CoreUsecase.deleteSection(sid: Int(sid))
-        if CoreUsecase.fetchSection(sid: Int(sid)) == nil {
-            self.sectionHeader?.setValue(false, forKey: "downloaded")
-            self.configureWhite()
-            self.controlButton.setTitle("다운로드", for: .normal)
-            self.deleteUnable()
-            CoreDataManager.saveCoreData()
         }
     }
     
@@ -221,7 +218,8 @@ extension SectionCell {
             guard let self = self else { return }
             // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
             let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
-            self.controlButton.setTitle("\(percent)%", for: .normal)
+            // MARK: 다운로드 표시 로직 물어보기
+            print("\(percent)%")
         }
     }
 }
@@ -230,7 +228,6 @@ extension SectionCell: LoadingDelegate {
     func setCount(to count: Int) {
         self.totalCount = count
         self.currentCount = 0
-        self.configureWhite()
         self.showPercent()
     }
     
@@ -243,9 +240,26 @@ extension SectionCell: LoadingDelegate {
     }
     
     func terminate() {
-        DispatchQueue.main.async { [weak self] in
-            self?.controlButton.setTitle("문제풀기", for: .normal)
-            self?.configureNoneWhite()
-        }
+        self.setBlackLabels()
+        self.updateProgress()
+        self.showPercent()
+    }
+}
+
+// MARK: Loader
+extension SectionCell {
+    private func showLoader() {
+        self.contentView.addSubview(self.loadingView)
+        self.loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.loadingView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            self.loadingView.rightAnchor.constraint(equalTo: self.sectionNumber.leadingAnchor, constant: 16)
+        ])
+        self.loadingView.start()
+    }
+    
+    private func removeLoader() {
+        self.loadingView.stop()
+        self.loadingView.removeFromSuperview()
     }
 }
