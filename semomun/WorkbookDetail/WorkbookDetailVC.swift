@@ -71,7 +71,8 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
             
             NotificationCenter.default.post(name: .showSectionDeleteButton, object: nil)
         } else {
-            self.selectAllSectionButton.setTitle("모두 다운로드", for: .normal) // 개수 표시 로직 고민 필요
+            self.updateDownloadbleCount()
+            
             self.selectedCountLabel.isHidden = true
             self.editSectionsButton.setTitle("편집", for: .normal)
             self.deleteSectionsButton.isHidden = true
@@ -136,6 +137,12 @@ extension WorkbookDetailVC {
         self.sectionListTableView.delegate = self
         self.sectionListTableView.dataSource = self
         self.sectionListTableView.separatorInset.left = 0
+    }
+    
+    private func updateDownloadbleCount() {
+        let downloadableCount = self.viewModel?.downloadableCount ?? 0
+        let downloadButtonTitle = downloadableCount > 0 ? "모두 다운로드(\(downloadableCount)개)" : ""
+        self.selectAllSectionButton.setTitle(downloadButtonTitle, for: .normal)
     }
     
     private func configureAddObserver() {
@@ -270,6 +277,7 @@ extension WorkbookDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookInfo in
                 guard let workbookInfo = workbookInfo else { return }
+                self?.updateDownloadbleCount()
                 self?.configureBookInfo(workbookInfo: workbookInfo)
             })
             .store(in: &self.cancellables)
@@ -280,6 +288,7 @@ extension WorkbookDetailVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
+                self?.updateDownloadbleCount()
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -389,12 +398,6 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-protocol WorkbookCellController: AnyObject {
-    func showSection(sid: Int)
-    func showAlertDownloadSectionFail()
-    func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
-}
-
 extension WorkbookDetailVC: WorkbookCellController {
     func showSection(sid: Int) {
         self.navigationAnimation = false
@@ -413,5 +416,15 @@ extension WorkbookDetailVC: WorkbookCellController {
     func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void)) {
         let title = sectionTitle != nil ? sectionTitle! : "섹션정보 삭제"
         self.showAlertWithCancelAndOK(title: title, text: "필기와 이미지 데이터가 제거됩니다.", completion: completion)
+    }
+    
+    func downloadSuccess(index: Int) {
+        self.viewModel?.downloadSuccess(index: index)
+        self.updateDownloadbleCount()
+        self.sectionListTableView.reloadData()
+    }
+    
+    func selectSection(selected: Bool, index: Int) {
+        self.viewModel?.selectSection(selected: selected, index: index)
     }
 }

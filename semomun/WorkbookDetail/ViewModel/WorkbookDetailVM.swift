@@ -147,3 +147,17 @@ final class WorkbookDetailVM {
         self.workbookCellInfos = infos
     }
 }
+
+extension WorkbookDetailVM {
+    var downloadableCount: Int {
+        return self.sectionHeaders.filter({ $0.downloaded == false }).count
+    }
+    
+    func downloadSuccess(index: Int) {
+        // 모두 다운로드 상태인 경우 다음 download 로직 실행
+    }
+    
+    func selectSection(selected: Bool, index: Int) {
+        
+    }
+}
