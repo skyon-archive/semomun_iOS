@@ -457,16 +457,13 @@ extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WorkbookDetailVC: WorkbookCellController {
-    func showSection(sid: Int) {
+    func showSection(sectionHeader: SectionHeader_Core, section: Section_Core) {
         guard self.cellAccessable == true else { return }
         
         self.navigationAnimation = false
         guard let preview = self.viewModel?.previewCore else { return }
-        guard let sectionHeader = self.viewModel?.sectionHeaders.first(where: { Int($0.sid) == sid }) else { return }
-        if let section = CoreUsecase.sectionOfCoreData(sid: sid) {
-            self.viewModel?.updateRecentDate()
-            self.showStudyVC(section: section, workbook: preview, sectionHeader: sectionHeader)
-        }
+        self.viewModel?.updateRecentDate()
+        self.showStudyVC(section: section, workbook: preview, sectionHeader: sectionHeader)
     }
     
     func showAlertDownloadSectionFail() {

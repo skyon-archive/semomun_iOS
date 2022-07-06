@@ -63,6 +63,17 @@ public class Section_Core: NSManagedObject {
         self.setValue(header.updatedDate, forKey: Attribute.updatedDate.rawValue)
         print("Section: \(header.sid) save complete")
     }
+    
+    var progressPersent: Int {
+        guard let problems = self.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
+            print("error: fetch problems")
+            return 0
+        }
+        let totalCount = problems.count
+        let ternimatedCount = problems.filter { $0.terminated }.count
+        
+        return Int(round(Double(ternimatedCount)/Double(totalCount)*100))
+    }
 }
 
 // MARK: Generated accessors for problemCores

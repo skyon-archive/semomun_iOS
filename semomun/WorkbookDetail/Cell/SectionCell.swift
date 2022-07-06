@@ -8,7 +8,7 @@
 import UIKit
 
 protocol WorkbookCellController: AnyObject {
-    func showSection(sid: Int)
+    func showSection(sectionHeader: SectionHeader_Core, section: Section_Core)
     func showAlertDownloadSectionFail()
     func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
     func downloadSuccess(index: Int)
@@ -28,6 +28,7 @@ final class SectionCell: UITableViewCell {
     
     private weak var delegate: WorkbookCellController?
     private var sectionHeader: SectionHeader_Core?
+    private var section: Section_Core?
     private var totalCount: Int = 0
     private var currentCount: Int = 0
     private var editingMode: Bool = false
@@ -66,6 +67,9 @@ final class SectionCell: UITableViewCell {
     }
     /// DTO 상태에서 표시되는 UI
     private func resetCell() {
+        self.delegate = nil
+        self.sectionHeader = nil
+        self.section = nil
         self.titleLabel.text = ""
         self.controlButton.isHidden = true
         self.setBlackLabels()
@@ -169,8 +173,10 @@ extension SectionCell {
     }
     
     private func updateProgress() {
-        // MARK: 내부 로직 구현 필요
-        self.progressLabel.text = "100% 채점"
+        guard let sid = self.sectionHeader?.sid,
+              let section = CoreUsecase.fetchSection(sid: Int(sid)) else { return }
+        self.section = section
+        self.progressLabel.text = "\(section.progressPersent)% 채점"
     }
     
     private func configureEditing() {
@@ -213,8 +219,9 @@ extension SectionCell {
 
 extension SectionCell {
     private func showSection() {
-        guard let sid = self.sectionHeader?.sid else { return }
-        self.delegate?.showSection(sid: Int(sid))
+        guard let sectionHeader = self.sectionHeader,
+              let section = self.section else { return }
+        self.delegate?.showSection(sectionHeader: sectionHeader, section: section)
     }
     /// 모두 다운로드를 통해 불릴 수 있다.
     func downloadSection() {
@@ -271,6 +278,7 @@ extension SectionCell: LoadingDelegate {
     
     func terminate() {
         self.setBlackLabels()
+        self.showProgressLabels()
         self.updateProgress()
         self.showPercent()
         self.delegate?.downloadSuccess(index: self.index)
