@@ -180,7 +180,8 @@ extension WorkbookDetailVM {
     
     func deleteSelectedSections() {
         self.showLoader = true
-        DispatchQueue.global().sync {
+        DispatchQueue.global().sync { [weak self] in
+            guard let self = self else { return }
             self.selectedSectionsForDelete.forEach { targetIndex in
                 let targetSectionHeader = self.sectionHeaders[targetIndex]
                 let targetSid = targetSectionHeader.sid
