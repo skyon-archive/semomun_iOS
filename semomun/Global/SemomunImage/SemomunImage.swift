@@ -18,4 +18,5 @@ enum SemomunImage: String {
     case cloudDownloadOutline
     case badgeCheckSolid
     case checkCircleSolid
+    case clipboardCheckOutline
 }

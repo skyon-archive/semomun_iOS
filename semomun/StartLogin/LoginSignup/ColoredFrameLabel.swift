@@ -51,7 +51,7 @@ final class ColoredFrameLabel: UIView {
             tintColor = UIColor(.blueRegular) ?? .green
             message = string
         case .warning(let string):
-            imageSystemName = .exclamationmarkTriangle
+            imageSystemName = .warning
             tintColor = UIColor(.orangeRegular) ?? .red
             message = string
         }

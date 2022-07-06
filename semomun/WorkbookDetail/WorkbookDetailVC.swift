@@ -11,32 +11,34 @@ import Combine
 final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
-    
+    // topView
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var publishCompanyLabel: UILabel!
     @IBOutlet weak var bookCoverImageView: UIImageView!
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
-    
-    @IBOutlet weak var downloadAllSectionsButton: UIButton!
+    // tableView
+    @IBOutlet weak var selectAllSectionButton: UIButton!
     @IBOutlet weak var selectedCountLabel: UILabel!
     @IBOutlet weak var deleteSectionsButton: UIButton!
     @IBOutlet weak var editSectionsButton: UIButton!
     @IBOutlet weak var sectionListTableView: UITableView!
+    // tableView layout
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookDetailVM?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var loader = self.makeLoaderWithoutPercentage()
     private var navigationAnimation: Bool = true
+    private var editingMode: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
         self.configureTags()
-        self.configureInfos()
-        self.configureTableViewDelegate()
+        self.configureSections()
         self.bindAll()
         self.configureAddObserver()
     }
@@ -55,17 +57,37 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    @IBAction func addWorkbook(_ sender: Any) {
+    @IBAction func purchaseWorkbook(_ sender: Any) {
         self.viewModel?.switchPurchase()
     }
     
     @IBAction func toggleEdit(_ sender: Any) {
-        self.editSectionsButton.isSelected.toggle()
-        if self.editSectionsButton.isSelected {
+        self.editingMode.toggle()
+        if self.editingMode == true {
+            self.selectAllSectionButton.setTitle("전체 선택", for: .normal)
+            self.selectedCountLabel.isHidden = false
+            self.editSectionsButton.setTitle("취소", for: .normal)
+            self.deleteSectionsButton.isHidden = false
+            
             NotificationCenter.default.post(name: .showSectionDeleteButton, object: nil)
         } else {
+            self.selectAllSectionButton.setTitle("모두 다운로드", for: .normal) // 개수 표시 로직 고민 필요
+            self.selectedCountLabel.isHidden = true
+            self.editSectionsButton.setTitle("편집", for: .normal)
+            self.deleteSectionsButton.isHidden = true
+            
             NotificationCenter.default.post(name: .hideSectionDeleteButton, object: nil)
         }
+    }
+    
+    @IBAction func deleteSections(_ sender: Any) {
+        // MARK: VM 내부에서 삭제하는 로직으로 연결 필요
+    }
+    
+    @IBAction func downloadAllSections(_ sender: Any) {
+        // MARK: VM 내부에서 다운로드 하는 로직으로 연결 필요
+        // MARK: 또는 reload 시 다운로드 여부값을 전달하여 cell 내부에서 다운로드 하는 로직 연결 필요
+        // MARK: editingMode == true 인 경우 전체선택 삭제 버튼의 로직이 필요
     }
 }
 
@@ -79,26 +101,18 @@ extension WorkbookDetailVC {
     }
     
     private func configureUI() {
-        self.configureShadow()
         self.configureLoader()
-        
-        if self.isCoreData {
-            self.purchaseWorkbookButton.isHidden = true
-        } else {
+        self.selectedCountLabel.isHidden = true
+        self.deleteSectionsButton.isHidden = true
+        // 구매 전 UI
+        guard self.isCoreData == false else {
+            self.selectAllSectionButton.isHidden = true
             self.editSectionsButton.isHidden = true
+            self.tableViewTopConstraint.constant = 12
+            return
         }
-    }
-    
-    private func configureShadow() {
-        self.bookCoverImageViewFrameView.layer.shadowOpacity = 0.25
-        self.bookCoverImageViewFrameView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.bookCoverImageViewFrameView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        self.bookCoverImageViewFrameView.layer.shadowRadius = 5
-        
-        self.workbookInfoView.layer.shadowOpacity = 0.35
-        self.workbookInfoView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.workbookInfoView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.workbookInfoView.layer.shadowRadius = 7
+        // 구매 후 UI
+        self.purchaseWorkbookButton.isHidden = true
     }
     
     private func configureLoader() {
@@ -116,12 +130,7 @@ extension WorkbookDetailVC {
         self.workbookTagsCollectionView.dataSource = self
     }
     
-    private func configureInfos() {
-        self.workbookInfosCollectionView.delegate = self
-        self.workbookInfosCollectionView.dataSource = self
-    }
-    
-    private func configureTableViewDelegate() {
+    private func configureSections() {
         self.sectionListTableView.delegate = self
         self.sectionListTableView.dataSource = self
     }
@@ -152,8 +161,10 @@ extension WorkbookDetailVC {
     }
     
     private func configureBookInfo(workbookInfo: WorkbookInfo) {
-        self.title = workbookInfo.title
-        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원 구매하기", for: .normal)
+        self.sectionTitleLabel.text = workbookInfo.title
+        self.authorLabel.text = workbookInfo.author
+        self.publishCompanyLabel.text = workbookInfo.publisher
+        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
         
         if let imageData = workbookInfo.imageData {
             self.bookCoverImageView.image = UIImage(data: imageData)
@@ -164,11 +175,6 @@ extension WorkbookDetailVC {
                 self.viewModel?.fetchBookcoverImage(bookcover: uuid)
             }
         }
-    }
-    
-    private func configureSectionNumber() {
-        guard let sectionCount = self.viewModel?.count(isCoreData: self.isCoreData) else { return }
-        self.sectionNumberLabel.text = "총 \(sectionCount)단원"
     }
     
     private func startLoader() {
@@ -236,7 +242,6 @@ extension WorkbookDetailVC {
     private func bindAll() {
         self.bindWarning()
         self.bindWorkbookInfo()
-        self.bindInfos()
         self.bindSectionHeaders()
         self.bindSectionDTOs()
         self.bindLoader()
@@ -267,22 +272,11 @@ extension WorkbookDetailVC {
             .store(in: &self.cancellables)
     }
     
-    private func bindInfos() {
-        self.viewModel?.$workbookCellInfos
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.workbookInfosCollectionView.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
     private func bindSectionHeaders() {
         self.viewModel?.$sectionHeaders
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.configureSectionNumber()
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -293,7 +287,6 @@ extension WorkbookDetailVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.configureSectionNumber()
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -350,49 +343,30 @@ extension WorkbookDetailVC {
 // MARK: - CollectionView
 extension WorkbookDetailVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.workbookInfosCollectionView {
-            return self.viewModel?.workbookCellInfos.count ?? 0
-        } else {
-            return self.viewModel?.tags.count ?? 0
-        }
+        return self.viewModel?.tags.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.workbookInfosCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookInfoCell.identifier, for: indexPath) as? WorkbookInfoCell else { return UICollectionViewCell() }
-            guard let info = self.viewModel?.workbookCellInfos[indexPath.item] else { return cell }
-            cell.configure(title: info.title, text: info.text)
-            if indexPath.item == 0 {
-                cell.hideSeparator()
-            }
-            
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
-            guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
-            cell.configure(tag: tag)
-            
-            return cell
-        }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkbookTagCell.identifier, for: indexPath) as? WorkbookTagCell else { return UICollectionViewCell() }
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
+        cell.configure(tag: tag)
+        
+        return cell
     }
 }
 
 extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.workbookInfosCollectionView {
-            let superWidth = self.workbookInfosCollectionView.bounds.width
-            return CGSize(width: superWidth/5, height: 68)
-        } else {
-            guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
-            return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
-        }
+        guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 30) }
+        return CGSize(width: "#\(tag)".size(withAttributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]).width + 20, height: 30)
     }
 }
 
 // MARK: - TableView
 extension WorkbookDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
+//        return self.viewModel?.count(isCoreData: self.isCoreData) ?? 0
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
