@@ -90,13 +90,12 @@ final class BookshelfVC: UIViewController {
         self.checkSyncBookshelf()
         self.configureObservation()
         
-        let button = DropdownOrderButton()
+        let button = DropdownOrderButton(order: .recentUpload)
         self.view.addSubview(button)
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 144),
             button.heightAnchor.constraint(equalToConstant: 36),
-            button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
+            button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32)
         ])
     }
     
