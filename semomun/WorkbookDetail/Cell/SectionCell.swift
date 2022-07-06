@@ -217,7 +217,7 @@ extension SectionCell {
         self.delegate?.showSection(sid: Int(sid))
     }
     /// 모두 다운로드를 통해 불릴 수 있다.
-    private func downloadSection() {
+    func downloadSection() {
         guard let sid = self.sectionHeader?.sid else { return }
         self.controlButton.isHidden = true
         self.downloading = true
