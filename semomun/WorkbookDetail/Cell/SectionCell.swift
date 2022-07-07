@@ -11,6 +11,7 @@ protocol WorkbookCellController: AnyObject {
     func showSection(sectionHeader: SectionHeader_Core, section: Section_Core)
     func showAlertDownloadSectionFail()
     func showAlertDeletePopup(sectionTitle: String?, completion: @escaping (() -> Void))
+    func downloadStartInSection(index: Int)
     func downloadSuccess(index: Int)
     func selectSection(index: Int)
 }
@@ -71,7 +72,7 @@ final class SectionCell: UITableViewCell {
         if self.sectionHeader?.downloaded == false,
            self.editingMode == false,
            self.downloading == false {
-            self.downloadSection()
+            self.delegate?.downloadStartInSection(index: self.index)
             return
         }
         
@@ -269,9 +270,6 @@ extension SectionCell: LoadingDelegate {
     }
     
     func terminate() {
-        self.setBlackLabels()
-        self.showProgressLabels()
-        self.updateProgress()
         self.delegate?.downloadSuccess(index: self.index)
     }
 }
