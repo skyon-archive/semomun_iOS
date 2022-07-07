@@ -120,7 +120,7 @@ extension WorkbookGroupDetailVM {
             return
         }
         
-        self.purchasedWorkbooks = Array(repeating: purchasedWorkbooks, count: 10).flatMap({$0})
+        self.purchasedWorkbooks = purchasedWorkbooks
         self.filterNonPurchasedWorkbooks(from: self.nonPurchasedWorkbooks)
         
         // fetch 완료된 후 fetchNonPurchasedWorkbooks fetch
