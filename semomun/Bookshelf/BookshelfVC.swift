@@ -36,14 +36,14 @@ final class BookshelfVC: UIViewController {
         self.configureCollectionView()
         self.configureViewModel()
         self.bindAll()
-        self.checkSyncBookshelf()
-        self.configureObservation()
+//        self.checkSyncBookshelf()
+//        self.configureObservation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard UserDefaultsManager.isLogined else { return }
-        self.reloadCollectionView()
+//        self.reloadCollectionView()
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
@@ -118,11 +118,11 @@ extension BookshelfVC: UICollectionViewDelegate {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        return UICollectionViewCell()
     }
 }
 
