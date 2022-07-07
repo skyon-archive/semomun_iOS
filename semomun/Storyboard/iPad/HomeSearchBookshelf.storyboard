@@ -924,66 +924,6 @@
             </objects>
             <point key="canvasLocation" x="2245.3237410071943" y="39.698492462311556"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="gUW-bN-qSp">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yPW-qN-vTX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController id="GmQ-6O-8cI" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3a3-vU-Qtr">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5xQ-nD-BtU">
-                                <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZxR-gT-b22">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="50" height="40"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aiK-cU-43k">
-                                    <rect key="frame" x="0.0" y="0.0" width="834" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근에 푼 문제집" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uv-0a-V0s">
-                                            <rect key="frame" x="32" y="0.0" width="131" height="24"/>
-                                            <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="20"/>
-                                            <color key="textColor" name="black"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3jI-8Q-t4Y">
-                                            <rect key="frame" x="750" y="-2.5" width="52" height="29"/>
-                                            <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="모두 보기">
-                                                <color key="titleColor" name="orangeRegular"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="5uv-0a-V0s" secondAttribute="bottom" constant="16" id="0XW-Ix-kG0"/>
-                                        <constraint firstAttribute="trailing" secondItem="3jI-8Q-t4Y" secondAttribute="trailing" constant="32" id="5Xh-5M-bVH"/>
-                                        <constraint firstItem="5uv-0a-V0s" firstAttribute="leading" secondItem="aiK-cU-43k" secondAttribute="leading" constant="32" id="U9y-ow-IWT"/>
-                                        <constraint firstItem="3jI-8Q-t4Y" firstAttribute="centerY" secondItem="5uv-0a-V0s" secondAttribute="centerY" id="kfh-pi-e6d"/>
-                                    </constraints>
-                                </collectionReusableView>
-                            </collectionView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="vwM-90-tqg"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="5xQ-nD-BtU" firstAttribute="leading" secondItem="vwM-90-tqg" secondAttribute="leading" id="Jhp-oM-8P5"/>
-                            <constraint firstItem="5xQ-nD-BtU" firstAttribute="top" secondItem="vwM-90-tqg" secondAttribute="top" id="KyF-qq-spP"/>
-                            <constraint firstItem="vwM-90-tqg" firstAttribute="bottom" secondItem="5xQ-nD-BtU" secondAttribute="bottom" id="W6o-9y-lC6"/>
-                            <constraint firstItem="vwM-90-tqg" firstAttribute="trailing" secondItem="5xQ-nD-BtU" secondAttribute="trailing" id="qdw-hb-7J4"/>
-                        </constraints>
-                    </view>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="3208.6330935251799" y="39.698492462311556"/>
-        </scene>
         <!--Search Favorite TagsVC-->
         <scene sceneID="krD-lw-th2">
             <objects>
