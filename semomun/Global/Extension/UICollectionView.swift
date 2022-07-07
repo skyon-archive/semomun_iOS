@@ -40,5 +40,6 @@ extension UICollectionView {
     /// 기본 그리드 시스템에 맞추기 위해서 viewDidLoad에서 호출해야 함. 
     func configureDefaultDesign() {
         self.contentInset = .init(top: Self.gridPadding, left: 0, bottom: Self.gridPadding, right: 0)
+        self.backgroundColor = .clear
     }
 }

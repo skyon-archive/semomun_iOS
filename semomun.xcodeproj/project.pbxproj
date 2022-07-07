@@ -70,6 +70,8 @@
 		2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistoryofDB.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
 		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
+		2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */; };
+		2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */; };
 		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
 		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
@@ -384,6 +386,8 @@
 		2562772D27A16C56006F9370 /* PayHistoryofDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryofDB.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
 		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
+		2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackgroundFlowLayout.swift; sourceTree = "<group>"; };
+		2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
 		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
@@ -1693,6 +1697,8 @@
 			isa = PBXGroup;
 			children = (
 				87F58268279E654E00A2BD15 /* TagsLayout.swift */,
+				2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */,
+				2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */,
 			);
 			path = CollectionViewFlowLayout;
 			sourceTree = "<group>";
@@ -1922,6 +1928,7 @@
 				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
 				8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */,
 				87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */,
+				2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */,
 				8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */,
 				259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
@@ -2107,6 +2114,7 @@
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,
 				87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */,
 				87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */,
+				2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */,
 				87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */,
 				250D82432772C43400AF1A46 /* String.swift in Sources */,
 				87FD58A828744930005E8E12 /* UIButton.swift in Sources */,
