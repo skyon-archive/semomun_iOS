@@ -187,6 +187,8 @@
 		873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */; };
 		873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */; };
 		873BCE532876D186005A6189 /* BookshelfDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */; };
+		873BCE562876E8FA005A6189 /* WorkbookCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE552876E8FA005A6189 /* WorkbookCellInfo.swift */; };
+		873BCE582876E935005A6189 /* WorkbookGroupCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE572876E935005A6189 /* WorkbookGroupCellInfo.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
 		87458554279E86B100E331F1 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458553279E86B100E331F1 /* HomeVM.swift */; };
 		87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */; };
@@ -506,6 +508,8 @@
 		873BCE4F2876CF0C005A6189 /* BookshelfDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfDetailHeaderView.xib; sourceTree = "<group>"; };
 		873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeHeaderView.swift; sourceTree = "<group>"; };
 		873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailHeaderView.swift; sourceTree = "<group>"; };
+		873BCE552876E8FA005A6189 /* WorkbookCellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookCellInfo.swift; sourceTree = "<group>"; };
+		873BCE572876E935005A6189 /* WorkbookGroupCellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupCellInfo.swift; sourceTree = "<group>"; };
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		87458553279E86B100E331F1 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
@@ -1070,6 +1074,7 @@
 		25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */ = {
 			isa = PBXGroup;
 			children = (
+				873BCE542876E8EF005A6189 /* Model */,
 				8716E934279A5F7300B33A5E /* BookshelfVC.swift */,
 				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
 				87DE9BE5286C3D1A009DBB86 /* BookshelfSortOrder.swift */,
@@ -1275,6 +1280,15 @@
 				87273C192840B2A7007B7092 /* TimeRecordControllable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		873BCE542876E8EF005A6189 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				873BCE552876E8FA005A6189 /* WorkbookCellInfo.swift */,
+				873BCE572876E935005A6189 /* WorkbookGroupCellInfo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		87458552279E86A100E331F1 /* ViewModel */ = {
@@ -1931,6 +1945,7 @@
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
+				873BCE562876E8FA005A6189 /* WorkbookCellInfo.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,
 				257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */,
@@ -1989,6 +2004,7 @@
 				87DE9BE3286C3C8A009DBB86 /* BookshelfOrderController.swift in Sources */,
 				8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */,
 				873BCE532876D186005A6189 /* BookshelfDetailHeaderView.swift in Sources */,
+				873BCE582876E935005A6189 /* WorkbookGroupCellInfo.swift in Sources */,
 				8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */,
 				253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */,
 				25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */,
