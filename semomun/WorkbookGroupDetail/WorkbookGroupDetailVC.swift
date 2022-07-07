@@ -33,12 +33,6 @@ final class WorkbookGroupDetailVC: UIViewController {
         self.configureWorkbookGroupResultButton()
         self.configureAddObserver()
         self.navigationItem.backButtonTitle = "뒤로"
-        
-        self.practiceTests.layer.cornerRadius = .cornerRadius24
-        self.practiceTests.layer.masksToBounds = true
-        self.practiceTests.backgroundColor = .white
-        
-        self.practiceTests.configureDefaultDesign()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,14 +50,6 @@ final class WorkbookGroupDetailVC: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        self.practiceTests.collectionViewLayout.invalidateLayout()
-        coordinator.animate { _ in
-            self.practiceTests.reloadData()
-        }
-    }
 }
 
 // MARK: Public
@@ -76,9 +62,12 @@ extension WorkbookGroupDetailVC {
 // MARK: Configure
 extension WorkbookGroupDetailVC {
     private func configurePracticeTests() {
+        let flowLayout = ScrollingBackgroundFlowLayout()
+        self.practiceTests.collectionViewLayout = flowLayout
         self.practiceTests.register(TestSubjectCell.self, forCellWithReuseIdentifier: TestSubjectCell.identifer)
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
+        self.practiceTests.configureDefaultDesign()
     }
     
     private func configureWorkbookGroupResultButton() {
@@ -296,18 +285,6 @@ extension WorkbookGroupDetailVC: UICollectionViewDataSource {
         default:
             return UICollectionReusableView()
         }
-    }
-}
-
-extension WorkbookGroupDetailVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return UICollectionView.bookcoverCellSize
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return UICollectionView.lineSpacingInSection
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: UICollectionView.gridPadding, bottom: UICollectionView.sectionVerticalSpacing, right: UICollectionView.gridPadding)
     }
 }
 
