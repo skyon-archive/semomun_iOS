@@ -32,7 +32,7 @@ final class WorkbookDetailVM {
     
     @Published private(set) var selectedSectionsForDelete: [Int] = []
     @Published private(set) var downloadQueue: [Int] = []
-    @Published private(set) var deleteFinished: Bool = false
+    @Published private(set) var deleteFinished: Bool = true
     
     init(previewCore: Preview_Core? = nil, workbookDTO: WorkbookOfDB? = nil, networkUsecase: WorkbookVMNetworkUsecaes) {
         self.networkUsecase = networkUsecase
@@ -177,6 +177,7 @@ extension WorkbookDetailVM {
     
     func deleteSelectedSections() {
         self.showLoader = true
+        self.deleteFinished = false
         DispatchQueue.global().sync { [weak self] in
             guard let self = self else { return }
             self.selectedSectionsForDelete.forEach { targetIndex in
