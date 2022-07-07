@@ -165,17 +165,14 @@ extension WorkbookDetailVM {
     }
     
     func selectAllSectionsForDelete() {
+        let selectableTotalSectionIndexes = self.sectionHeaders.enumerated().filter({ $0.element.downloaded == true }).map{ $0.offset }
         /// 전체 선택 해제
-        guard self.selectedSectionsForDelete.isEmpty == true else {
+        if selectableTotalSectionIndexes.count == self.selectedSectionsForDelete.count {
             self.selectedSectionsForDelete = []
             return
         }
         /// 전체 선택
-        var selectedIndexes: [Int] = []
-        for (idx, section) in self.sectionHeaders.enumerated() {
-            if section.downloaded { selectedIndexes.append(idx) }
-        }
-        self.selectedSectionsForDelete = selectedIndexes
+        self.selectedSectionsForDelete = selectableTotalSectionIndexes
     }
     
     func deleteSelectedSections() {
@@ -203,11 +200,11 @@ extension WorkbookDetailVM {
     }
     
     func downloadAllSections() {
-        var downloadableIndexed: [Int] = []
-        for (idx, section) in self.sectionHeaders.enumerated() {
-            if section.downloaded == false { downloadableIndexed.append(idx) }
-        }
-        self.downloadQueue = downloadableIndexed
+        self.downloadQueue = self.sectionHeaders.enumerated().filter({ $0.element.downloaded == false }).map{ $0.offset }
+    }
+    
+    func downloadSection(index: Int) {
+        self.downloadQueue = [index]
     }
     
     func downloadSuccess(index: Int) {

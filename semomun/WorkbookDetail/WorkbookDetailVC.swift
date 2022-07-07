@@ -398,7 +398,6 @@ extension WorkbookDetailVC {
         self.viewModel?.$downloadQueue
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] queue in
-                guard queue.isEmpty == false else { return }
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -482,5 +481,9 @@ extension WorkbookDetailVC: WorkbookCellController {
     
     func selectSection(index: Int) {
         self.viewModel?.selectSection(index: index)
+    }
+    
+    func downloadStartInSection(index: Int) {
+        self.viewModel?.downloadSection(index: index)
     }
 }
