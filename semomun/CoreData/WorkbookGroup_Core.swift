@@ -80,4 +80,8 @@ public class WorkbookGroup_Core: NSManagedObject {
         let count = min(Int(self.progressCount)+1, self.wids.count)
         self.setValue(count, forKey: Attribute.progressCount.rawValue)
     }
+    
+    var cellInfo: WorkbookGroupCellInfo {
+        return WorkbookGroupCellInfo(core: self)
+    }
 }
