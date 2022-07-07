@@ -25,39 +25,7 @@ final class WorkbookGroupDetailVC: UIViewController {
     private var noMorePurchaseable: Bool {
         return self.viewModel?.nonPurchasedWorkbooks.isEmpty == true
     }
-    // MARK: Cell Size
-    private lazy var portraitColumnCount: CGFloat = {
-        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        switch screenWidth {
-        case 744: return 4 // 미니
-        case 1024: return 6 // 12인치
-        default: return 5 // 11인치
-        }
-    }()
-    private lazy var landscapeColumCount: CGFloat = {
-        return self.portraitColumnCount + 2 // 세로개수 + 2
-    }()
-    private var portraitCellSize: CGSize {
-        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        let columCount = self.portraitColumnCount
-        let horizontalInset: CGFloat = 28
-        let horizontalTerm: CGFloat = 12
-        let cellWidth: CGFloat = (screenWidth - (horizontalInset * 2) - (horizontalTerm * (columCount - 1))) / columCount
-        let cellHeight = cellWidth*5/4 + 65
 
-        return CGSize(cellWidth, cellHeight)
-    }
-    private var landscapeCellSize: CGSize {
-        let screenWidth = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
-        let columCount = self.landscapeColumCount
-        let horizontalInset: CGFloat = 28
-        let horizontalTerm: CGFloat = 12
-        let cellWidth: CGFloat = (screenWidth - (horizontalInset * 2) - (horizontalTerm * (columCount - 1))) / columCount
-        let cellHeight = cellWidth*5/4 + 65
-
-        return CGSize(cellWidth, cellHeight)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindAll()
