@@ -9,6 +9,7 @@ import UIKit
 
 class BookcoverCell: UICollectionViewCell {
     /* public */
+    static let identifier = "BookcoverCell"
     let bookcoverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
