@@ -208,7 +208,7 @@ extension SectionCell {
         guard let sid = self.sectionHeader?.sid,
               let section = CoreUsecase.fetchSection(sid: Int(sid)) else { return }
         self.section = section
-        self.progressLabel.text = "\(section.progressPersent)% 채점"
+        self.progressLabel.text = "\(section.progressPercent)% 채점"
     }
     
     private func configureEditing() {

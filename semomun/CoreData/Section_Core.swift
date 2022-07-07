@@ -64,8 +64,8 @@ public class Section_Core: NSManagedObject {
         print("Section: \(header.sid) save complete")
     }
     
-    var progressPersent: Int {
-        guard let problems = self.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) else {
+    var progressPercent: Int {
+        guard let problems = self.problemCores else {
             print("error: fetch problems")
             return 0
         }
