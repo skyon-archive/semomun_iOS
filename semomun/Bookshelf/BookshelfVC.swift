@@ -67,6 +67,49 @@ extension BookshelfVC {
         self.collectionView.register(homeHeaderNib, forCellWithReuseIdentifier: BookshelfHeaderView.identifier)
         self.collectionView.register(detailHeaderNib, forCellWithReuseIdentifier: BookshelfDetailHeaderView.identifier)
     }
+    
+    private func configureViewModel() {
+        let network = Network()
+        let networkUsecase = NetworkUsecase(network: network)
+        self.viewModel = BookshelfVM(networkUsecse: networkUsecase)
+    }
+}
+
+extension BookshelfVC {
+    private func bindAll() {
+        self.bindWorkbooksForRecent()
+        self.bindWorkbooks()
+        self.bindWorkbookGroups()
+        self.bindWarning()
+    }
+    /// Home : 최근에 푼 문제집 섹션 표시용
+    private func bindWorkbooksForRecent() {
+        
+    }
+    /// Home : 최근에 구매한 문제집 섹션 표시용
+    /// Detail : 문제집 탭 표시용
+    /// Detail : 최근에 구매한 문제집 모두보기 표시용
+    private func bindWorkbooks() {
+        
+    }
+    
+    /// Home: 실전 모의고사 섹션 표시용
+    /// Detail : 실전 모의고사 탭 표시용
+    /// Detail : 실전 모의고사 모두보기 표시용
+    private func bindWorkbookGroups() {
+        
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning.title, text: warning.text)
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 extension BookshelfVC: UICollectionViewDelegate {
