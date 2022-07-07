@@ -87,4 +87,12 @@ final class DropdownOrderButton: UIButton {
         }
         self.menu = UIMenu(title: "정렬 기준", image: nil, children: actions)
     }
+    
+    func changeOrder(to order: BookshelfOrder) {
+        self.setTitle(order.rawValue, for: .normal)
+    }
+    
+    func changeOrder(to order: SearchOrder) {
+        self.setTitle(order.rawValue, for: .normal)
+    }
 }
