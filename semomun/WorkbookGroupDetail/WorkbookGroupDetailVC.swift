@@ -64,10 +64,11 @@ extension WorkbookGroupDetailVC {
     private func configurePracticeTests() {
         let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
         self.practiceTests.collectionViewLayout = flowLayout
+        self.practiceTests.configureDefaultDesign()
+        
         self.practiceTests.register(TestSubjectCell.self, forCellWithReuseIdentifier: TestSubjectCell.identifer)
         self.practiceTests.dataSource = self
         self.practiceTests.delegate = self
-        self.practiceTests.configureDefaultDesign()
     }
     
     private func configureWorkbookGroupResultButton() {
