@@ -53,7 +53,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         }
     }
     private var cellAccessable: Bool {
-        return self.viewModel?.downloadQueue.isEmpty ?? false
+        return (self.viewModel?.downloadQueue.isEmpty ?? false) && (self.viewModel?.deleteFinished ?? false)
     }
     
     override func viewDidLoad() {
@@ -484,6 +484,7 @@ extension WorkbookDetailVC: WorkbookCellController {
     }
     
     func downloadStartInSection(index: Int) {
+        guard self.cellAccessable == true else { return }
         self.viewModel?.downloadSection(index: index)
     }
 }
