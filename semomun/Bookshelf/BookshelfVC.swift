@@ -90,13 +90,19 @@ final class BookshelfVC: UIViewController {
         self.checkSyncBookshelf()
         self.configureObservation()
         
-        let button = DropdownOrderButton(order: .recentUpload)
+        let button = DropdownOrderButton(order: .recentRead)
         self.view.addSubview(button)
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 36),
             button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
             button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32)
         ])
+        button.configureBookshelfMenu(action: { [weak self] order in
+            self?.changeOrder(to: order)
+        })
+    }
+    
+    private func changeOrder(to order: DropdownOrderButton.BookshelfOrder) {
+        print(order.rawValue)
     }
     
     override func viewDidAppear(_ animated: Bool) {
