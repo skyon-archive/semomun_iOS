@@ -13,7 +13,7 @@ protocol TestSubjectCellObserber: AnyObject {
     func showPracticeTestSection(workbook: Preview_Core)
 }
 
-class TestSubjectCell: BookcoverCell {
+final class TestSubjectCell: BookcoverCell {
     /* public */
     static let identifer = "TestSubjectCell"
     /* private */
