@@ -65,17 +65,6 @@ final class SectionCell: UITableViewCell {
             self.showSection()
         }
     }
-    /// DTO 상태에서 표시되는 UI
-    private func resetCell() {
-        self.delegate = nil
-        self.sectionHeader = nil
-        self.section = nil
-        self.titleLabel.text = ""
-        self.controlButton.isHidden = true
-        self.setBlackLabels()
-        self.hideProgressLabels()
-        self.downloading = false
-    }
     
     @IBAction func controlAction(_ sender: Any) {
         // download 를 위한 action
@@ -96,17 +85,15 @@ final class SectionCell: UITableViewCell {
     }
 }
 
+// MARK: Public
 extension SectionCell {
     // MARK: - Configure from Search
     func configureCell(sectionDTO: SectionHeaderOfDB) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionDTO.sectionNum))
         self.titleLabel.text = sectionDTO.title
     }
-    // MARK: - Configure from CoreData
-    func configureDelegate(to delegate: WorkbookCellController) {
-        self.delegate = delegate
-    }
     
+    // MARK: - Configure from CoreData
     func configureCell(sectionHeader: SectionHeader_Core, isEditing: Bool = false, isSelected: Bool = false, index: Int) {
         self.sectionNumber.text = String(format: "%02d", Int(sectionHeader.sectionNum))
         self.titleLabel.text = sectionHeader.title
@@ -122,12 +109,57 @@ extension SectionCell {
         }
     }
     
+    func configureDelegate(to delegate: WorkbookCellController) {
+        self.delegate = delegate
+    }
+    
+    /// 모두 다운로드를 통해 불릴 수 있다.
+    func downloadSection() {
+        guard let sid = self.sectionHeader?.sid else { return }
+        self.controlButton.isHidden = true
+        self.downloading = true
+        let networkUsecase = NetworkUsecase(network: Network())
+        
+        networkUsecase.downloadSection(sid: Int(sid)) { [weak self] section in
+            guard let self = self else { return }
+            guard let section = section else {
+                self.delegate?.showAlertDownloadSectionFail()
+                return
+            }
+
+            CoreUsecase.downloadSection(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
+                self?.downloading = false
+                if sectionCore == nil {
+                    self?.delegate?.showAlertDownloadSectionFail()
+                    return
+                }
+                self?.sectionHeader?.setValue(true, forKey: "downloaded")
+                CoreDataManager.saveCoreData()
+                self?.terminate()
+            }
+        }
+    }
+}
+
+extension SectionCell {
+    /// DTO 상태에서 표시되는 UI
+    private func resetCell() {
+        self.delegate = nil
+        self.sectionHeader = nil
+        self.section = nil
+        self.titleLabel.text = ""
+        self.controlButton.isHidden = true
+        self.setBlackLabels()
+        self.hideProgressLabels()
+        self.downloading = false
+    }
+    
     private func configureDeleteButtonObserver() {
         NotificationCenter.default.addObserver(forName: .showSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
             self?.configureEditing()
         }
         NotificationCenter.default.addObserver(forName: .hideSectionDeleteButton, object: nil, queue: .main) { [weak self] _ in
-            self?.restoreEditing()
+            self?.terminateEditing()
         }
     }
     /// reload 시점에서 DTO 상태 UI 기준 추가 UI 설정
@@ -196,7 +228,7 @@ extension SectionCell {
         }
     }
     
-    private func restoreEditing() {
+    private func terminateEditing() {
         self.editingMode = false
         self.sectionSelected = false
         guard self.sectionHeader?.downloaded == true else {
@@ -215,49 +247,11 @@ extension SectionCell {
             self.controlButton.isHidden = true
         }
     }
-}
-
-extension SectionCell {
+    
     private func showSection() {
         guard let sectionHeader = self.sectionHeader,
               let section = self.section else { return }
         self.delegate?.showSection(sectionHeader: sectionHeader, section: section)
-    }
-    /// 모두 다운로드를 통해 불릴 수 있다.
-    func downloadSection() {
-        guard let sid = self.sectionHeader?.sid else { return }
-        self.controlButton.isHidden = true
-        self.downloading = true
-        let networkUsecase = NetworkUsecase(network: Network())
-        
-        networkUsecase.downloadSection(sid: Int(sid)) { [weak self] section in
-            guard let self = self else { return }
-            guard let section = section else {
-                self.delegate?.showAlertDownloadSectionFail()
-                return
-            }
-
-            CoreUsecase.downloadSection(sid: Int(sid), pages: section.pages, loading: self) { [weak self] sectionCore in
-                self?.downloading = false
-                if sectionCore == nil {
-                    self?.delegate?.showAlertDownloadSectionFail()
-                    return
-                }
-                self?.sectionHeader?.setValue(true, forKey: "downloaded")
-                CoreDataManager.saveCoreData()
-                self?.terminate()
-            }
-        }
-    }
-    
-    private func showPercent() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            // 소수점*100 -> 퍼센트 -> 반올림 -> Int형
-            let percent = Int(round(Double(self.currentCount)/Double(self.totalCount)*100))
-            // MARK: 다운로드 표시 로직 물어보기
-            print("\(percent)%")
-        }
     }
 }
 
@@ -265,12 +259,10 @@ extension SectionCell: LoadingDelegate {
     func setCount(to count: Int) {
         self.totalCount = count
         self.currentCount = 0
-        self.showPercent()
     }
     
     func oneProgressDone() {
         self.currentCount += 1
-        self.showPercent()
         if self.currentCount >= self.totalCount {
             self.terminate()
         }
@@ -280,7 +272,6 @@ extension SectionCell: LoadingDelegate {
         self.setBlackLabels()
         self.showProgressLabels()
         self.updateProgress()
-        self.showPercent()
         self.delegate?.downloadSuccess(index: self.index)
     }
 }
