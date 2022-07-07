@@ -7,10 +7,14 @@
 
 import UIKit
 
+/// 섹션 헤더가 전혀 존재하지 않거나, 있다면 모든 섹션 상단에 높이 40의 섹션 헤더가 존재함을 가정
 class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
     static let elementKindRoundedBackground = "background"
     
-    override init() {
+    private let sectionHeaderExist: Bool
+    
+    init(sectionHeaderExist: Bool) {
+        self.sectionHeaderExist = sectionHeaderExist
         super.init()
         self.register(ScrollingBackground.self, forDecorationViewOfKind: Self.elementKindRoundedBackground)
         self.sectionInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: UICollectionView.sectionVerticalSpacing, right: UICollectionView.gridPadding)
@@ -27,13 +31,15 @@ class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var attributes = super.layoutAttributesForElements(in: rect)
         
-        let sectionCount = self.collectionView?.numberOfSections ?? 0
-        attributes?.append(contentsOf: (0..<sectionCount).compactMap {
-            self.layoutAttributesForSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                at: .init(item: 0, section: $0)
-            )
-        })
+        if self.sectionHeaderExist {
+            let sectionCount = self.collectionView?.numberOfSections ?? 0
+            attributes?.append(contentsOf: (0..<sectionCount).compactMap {
+                self.layoutAttributesForSupplementaryView(
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    at: .init(item: 0, section: $0)
+                )
+            })
+        }
         
         if let decorationViewAttribute = self.layoutAttributesForDecorationView(ofKind: Self.elementKindRoundedBackground, at: .init(item: 0, section: 0)) {
             attributes?.append(decorationViewAttribute)
@@ -56,6 +62,8 @@ class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard self.sectionHeaderExist else { return nil }
+        
         let attrs = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
         
         if elementKind == UICollectionView.elementKindSectionHeader {
