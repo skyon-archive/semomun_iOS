@@ -130,11 +130,11 @@ extension BookcoverCell {
             self.bookTitleLabel.trailingAnchor.constraint(equalTo: self.borderView.trailingAnchor),
             self.bookTitleLabel.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor, constant: 8),
             self.bookTitleLabel.topAnchor.constraint(equalTo: self.bookcoverImageView.bottomAnchor, constant: 8),
-            self.bookTitleLabel.bottomAnchor.constraint(greaterThanOrEqualTo: self.publishCompanyLabel.topAnchor, constant: -8),
             
-            self.publishCompanyLabel.trailingAnchor.constraint(equalTo: self.borderView.trailingAnchor, constant: -8),
+            self.publishCompanyLabel.trailingAnchor.constraint(equalTo: self.bookTitleLabel.trailingAnchor),
             self.publishCompanyLabel.bottomAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: -8),
-            self.publishCompanyLabel.leadingAnchor.constraint(equalTo: self.bookTitleLabel.leadingAnchor)
+            self.publishCompanyLabel.leadingAnchor.constraint(equalTo: self.bookTitleLabel.leadingAnchor),
+            self.publishCompanyLabel.topAnchor.constraint(equalTo: self.bookTitleLabel.bottomAnchor, constant: 8)
         ])
     }
 }

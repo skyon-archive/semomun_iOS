@@ -12,8 +12,12 @@ final class WorkbookGroupDetailHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var headerText: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.headerText.font = .heading3
+    }
+    
     func updateLabel(to text: String) {
         self.headerText.text = text
-        self.headerText.font = .heading3
     }
 }
