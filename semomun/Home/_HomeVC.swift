@@ -6,16 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 struct HomeVCSectionInfo {
     let title: String
-    let workbookTapAction: ((Int) -> Void)?
-    let workbookGroupTapAction: ((WorkbookGroupPreviewOfDB) -> Void)?
-    let isWorkbookGroup: Bool
-    
-    let getWorkbookPreviewOfDB: (() -> [WorkbookPreviewOfDB])?
-    let getBookshelfInfo: (() -> [BookshelfInfo])?
-    let getWorkbookGroupPreviewOfDB: (() -> [WorkbookGroupPreviewOfDB])?
+    let onTapAction: ((IndexPath) -> ())?
+    let getCellData: (IndexPath) -> (title: String, publishCompany: String?, imageUUID: UUID?, imageData: Data?)
+    let numberOfCell: () -> Int
 }
 
 class _HomeVC: UIViewController {
@@ -31,44 +28,74 @@ class _HomeVC: UIViewController {
         //        case popularTag2
     }
     private var viewModel: HomeVM?
-    private var sectionCollectionViews: [UICollectionView] = []
+    private var sectionViews: [SectionType: HomeVCSectionView] = [:]
+    private var cancellables: Set<AnyCancellable> = []
     private lazy var sectionInfo: [SectionType: HomeVCSectionInfo] = {
+        let defaultCellData: (String, String?, UUID?, Data?) = ("", nil, nil, nil)
+        
+        func fetchWorkbook(wid: Int, networkUsecase: NetworkUsecase) async -> WorkbookOfDB? {
+            await withCheckedContinuation { continuation in
+                networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
+                    continuation.resume(with: .success(workbook))
+                }
+            }
+        }
+        
         return [
             .bestseller: .init(
                 title: "베스트셀러",
-                workbookTapAction: { self.searchWorkbook(wid: $0) },
-                workbookGroupTapAction: nil,
-                isWorkbookGroup: false,
-                getWorkbookPreviewOfDB: { self.viewModel?.bestSellers ?? [] },
-                getBookshelfInfo: nil,
-                getWorkbookGroupPreviewOfDB: nil
+                onTapAction: {
+                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
+                    self.searchWorkbook(wid: wid)
+                },
+                getCellData: {
+                    guard let preview = self.viewModel?.bestSellers[$0.item] else { return defaultCellData }
+                    return (preview.title, preview.publishCompany, preview.bookcover, nil)
+                },
+                numberOfCell: {
+                    return self.viewModel?.bestSellers.count ?? 0
+                }
             ),
             .recent: .init(
                 title: "최근에 푼 문제집",
-                workbookTapAction: { self.searchWorkbook(wid: $0) },
-                workbookGroupTapAction: nil,
-                isWorkbookGroup: false,
-                getWorkbookPreviewOfDB: nil,
-                getBookshelfInfo: { self.viewModel?.recentPurchased ?? [] },
-                getWorkbookGroupPreviewOfDB: nil
+                onTapAction: {
+                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
+                    self.searchWorkbook(wid: wid)
+                },
+                getCellData: {
+                    guard let info = self.viewModel?.recentEntered[$0.item] else { return defaultCellData }
+                    return defaultCellData
+                },
+                numberOfCell: {
+                    return self.viewModel?.recentEntered.count ?? 0
+                }
             ),
             .tag: .init(
                 title: "나의 태그",
-                workbookTapAction: { self.searchWorkbook(wid: $0) },
-                workbookGroupTapAction: nil,
-                isWorkbookGroup: false,
-                getWorkbookPreviewOfDB: { self.viewModel?.workbooksWithTags ?? [] },
-                getBookshelfInfo: nil,
-                getWorkbookGroupPreviewOfDB: nil
+                onTapAction: {
+                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
+                    self.searchWorkbook(wid: wid)
+                },
+                getCellData: {
+                    guard let preview = self.viewModel?.workbooksWithTags[$0.item] else { return defaultCellData }
+                    return (preview.title, preview.publishCompany, preview.bookcover, nil)
+                },
+                numberOfCell: {
+                    return self.viewModel?.workbooksWithTags.count ?? 0
+                }
             ),
             .workbookGroup: .init(
                 title: "실전 모의고사",
-                workbookTapAction: nil,
-                workbookGroupTapAction: { self.searchWorkbookGroup(info: $0) },
-                isWorkbookGroup: true,
-                getWorkbookPreviewOfDB: nil,
-                getBookshelfInfo: nil,
-                getWorkbookGroupPreviewOfDB: { self.viewModel?.workbookGroups ?? [] }
+                onTapAction: {
+                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
+                    self.searchWorkbook(wid: wid)
+                },
+                getCellData: { _ in
+                    return defaultCellData
+                },
+                numberOfCell: {
+                    return self.viewModel?.workbookGroups.count ?? 0
+                }
             )
         ]
     }()
@@ -112,6 +139,9 @@ class _HomeVC: UIViewController {
         self.configureStackViewLayout()
         
         self.configureStackViewContent()
+        
+        self.configureViewModel()
+        self.bindAll()
     }
 }
 
@@ -162,13 +192,19 @@ extension _HomeVC {
     }
     
     private func configureStackViewContent() {
-        SectionType.allCases.forEach { sectionOrder in
+        SectionType.allCases.forEach { sectionType in
             let sectionView = HomeVCSectionView()
-            sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
-            guard let sectionInfo = self.sectionInfo[sectionOrder] else { return }
-            sectionView.configureContent(title: sectionInfo.title, collectionViewTag: sectionOrder.rawValue, delegate: self, seeAllAction: { })
             self.stackView.addArrangedSubview(sectionView)
+            sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
+            guard let sectionInfo = self.sectionInfo[sectionType] else { return }
+            sectionView.configureContent(title: sectionInfo.title, collectionViewTag: sectionType.rawValue, delegate: self, seeAllAction: { })
+            self.sectionViews[sectionType] = sectionView
         }
+    }
+    
+    private func configureViewModel() {
+        let networkUsecase = NetworkUsecase(network: Network())
+        self.viewModel = HomeVM(networkUsecase: networkUsecase)
     }
     
     private func searchWorkbook(wid: Int) {
@@ -236,20 +272,220 @@ extension _HomeVC {
 
 extension _HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sectionType = SectionType(rawValue: collectionView.tag) else { return 0 }
+        guard let sectionType = SectionType(rawValue: collectionView.tag),
+              let sectionInfo = self.sectionInfo[sectionType] else {
+            return 0
+        }
         
-        let sectionInfo = self.sectionInfo[sectionType]
-        
-        
+        return sectionInfo.numberOfCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return .init()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookcoverCell.identifier, for: indexPath) as? BookcoverCell else { return .init() }
+        
+        guard let sectionType = SectionType(rawValue: collectionView.tag),
+              let sectionInfo = self.sectionInfo[sectionType],
+              let networkUsecase = self.viewModel?.networkUsecase else {
+            return cell
+        }
+        
+        let cellData = sectionInfo.getCellData(indexPath)
+        cell.configureReuse(bookTitle: cellData.title, publishCompany: cellData.publishCompany)
+        if let uuid = cellData.imageUUID {
+            cell.configureImage(uuid: uuid, networkUsecase: networkUsecase)
+        } else if let data = cellData.imageData {
+            cell.configureImage(data: data)
+        }
+        
+        return cell
     }
 }
 
-extension _HomeVC: UICollectionViewDelegate {
+extension _HomeVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return UICollectionView.bookcoverCellSize
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return UICollectionView.gutterWidth
+    }
+}
+
+// MARK: - Binding
+extension _HomeVC {
+    private func bindAll() {
+        self.bindTags()
+        self.bindAds()
+        self.bindBestSellers()
+        self.bindRecent()
+        self.bindWorkbookDTO()
+        self.bindOfflineStatus()
+        self.bindLogined()
+        self.bindVersion()
+        self.bindWarning()
+        self.bindPopup()
+        self.bindMigrationLoading()
+        self.bindPracticeTests()
+    }
+    
+    private func bindTags() {
+        self.viewModel?.$tags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] tags in
+                //                self?.configureTags(with: tags.map(\.name))
+            })
+            .store(in: &self.cancellables)
+        
+        self.viewModel?.$workbooksWithTags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.sectionViews[.tag]?.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindAds() {
+        self.viewModel?.$banners
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] banners in
+                //                guard banners.isEmpty == false else { return }
+                //                self?.configureBannerAdsStartIndex()
+                //                self?.bannerAds.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindBestSellers() {
+        self.viewModel?.$bestSellers
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.sectionViews[.bestseller]?.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindRecent() {
+        self.viewModel?.$recentEntered
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.sectionViews[.recent]?.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbookDTO() {
+        self.viewModel?.$workbookDTO
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookDTO in
+                guard let workbookDTO = workbookDTO else { return }
+                self?.showWorkbookDetailVC(workbook: workbookDTO)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindOfflineStatus() {
+        self.viewModel?.$offlineStatus
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] offline in
+                //                if offline {
+                //                    self?.showOfflineAlert()
+                //                } else {
+                //                    self?.warningOfflineView.removeFromSuperview()
+                //                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindLogined() {
+        self.viewModel?.$logined
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] logined in
+                //                if logined == false {
+                //                    self?.configureLoginTextView()
+                //                } else {
+                //                    self?.noLoginedLabel1.removeFromSuperview()
+                //                    self?.noLoginedLabel2.removeFromSuperview()
+                //                    self?.recentEnteredHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
+                //                    self?.recentPurchasedHeight.constant = UIDevice.current.userInterfaceIdiom == .phone ? 200 : 232
+                //                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindVersion() {
+        self.viewModel?.$updateToVersion
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] version in
+                guard let version = version else { return }
+                self?.showAlertWithOK(title: "업데이트 후 사용해주세요", text: "앱스토어의 \(version) 버전을 다운받아주세요") {
+                    if let url = URL(string: NetworkURL.appstore),
+                       UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:])
+                        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            exit(0)
+                        }
+                    }
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.viewModel?.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning.title, text: warning.text)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPopup() {
+        self.viewModel?.$popupURL
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] url in
+                guard let url = url else { return }
+                let noticeVC = NoticePopupVC(url: url)
+                self?.present(noticeVC, animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindMigrationLoading() {
+        self.viewModel?.$isMigration
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] isLoading in
+                if isLoading {
+                    //                    self?.showLoader()
+                } else {
+                    //                    self?.removeLoader()
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPracticeTests() {
+        self.viewModel?.$workbookGroups
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                self?.sectionViews[.workbookGroup]?.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 
@@ -334,9 +570,13 @@ class HomeVCSectionView: UIView {
         return button
     }()
     private let collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(BookcoverCell.self, forCellWithReuseIdentifier: BookcoverCell.identifier)
+        view.showsHorizontalScrollIndicator = false
+        view.clipsToBounds = false
         
         return view
     }()
@@ -360,11 +600,16 @@ class HomeVCSectionView: UIView {
         self.seeAllButton.addAction(UIAction { _ in seeAllAction() }, for: .touchUpInside)
     }
     
+    func reloadData() {
+        self.collectionView.reloadData()
+    }
+    
     private func configureLayout() {
         self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
         
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 270.75),
+            // 29는 섹션 타이틀 높이, 16은 타이틀에서 UICollectionView까지의 거리
+            self.heightAnchor.constraint(equalToConstant: 29+16+UICollectionView.bookcoverCellSize.height),
             
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
