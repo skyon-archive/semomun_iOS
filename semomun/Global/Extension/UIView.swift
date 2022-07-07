@@ -152,4 +152,11 @@ extension UIView {
         guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
         shadowLayer.mask = nil
     }
+    
+    func configureTopCorner(radius: CGFloat) {
+        self.clipsToBounds = true
+        self.layer.cornerCurve = .continuous
+        self.layer.cornerRadius = radius
+        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+    }
 }
