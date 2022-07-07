@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable)
-typealias WorkbookCellInfo = (title: String, text: String)
 
 final class WorkbookDetailVM {
     enum PopupType {
@@ -21,7 +20,6 @@ final class WorkbookDetailVM {
     private(set) var credit: Int?
     @Published private(set) var tags: [String] = []
     @Published private(set) var workbookInfo: WorkbookInfo?
-    @Published private(set) var workbookCellInfos: [WorkbookCellInfo] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var sectionHeaders: [SectionHeader_Core] = []
     @Published private(set) var sectionDTOs: [SectionHeaderOfDB] = []
@@ -58,7 +56,6 @@ final class WorkbookDetailVM {
             self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
             self.tags = workbookDTO.tags.map(\.name)
         }
-        self.configureWorkbookCellInfos()
     }
     
     func fetchBookcoverImage(bookcover: UUID) {
@@ -137,20 +134,6 @@ final class WorkbookDetailVM {
                 self?.warning = (title: "잔액조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
         }
-    }
-    
-    private func configureWorkbookCellInfos() {
-        guard let workbookInfo = self.workbookInfo else { return }
-        
-        var infos: [WorkbookCellInfo] = []
-        infos.append(WorkbookCellInfo("저자", workbookInfo.author))
-        infos.append(WorkbookCellInfo("출판사", workbookInfo.publisher))
-        infos.append(WorkbookCellInfo("출간일", workbookInfo.releaseDate))
-        infos.append(WorkbookCellInfo("파일크기", workbookInfo.fileSize))
-        if workbookInfo.isbn != "" {
-            infos.append(WorkbookCellInfo("ISBN", workbookInfo.isbn))
-        }
-        self.workbookCellInfos = infos
     }
 }
 

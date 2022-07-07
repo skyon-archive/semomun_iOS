@@ -192,4 +192,8 @@ public class Preview_Core: NSManagedObject{
         let count = min(Int(self.progressCount)+1, self.sids.count)
         self.setValue(count, forKey: Attribute.progressCount.rawValue)
     }
+    
+    var cellInfo: WorkbookCellInfo {
+        return WorkbookCellInfo(core: self)
+    }
 }
