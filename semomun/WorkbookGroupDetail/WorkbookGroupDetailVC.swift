@@ -62,7 +62,7 @@ extension WorkbookGroupDetailVC {
 // MARK: Configure
 extension WorkbookGroupDetailVC {
     private func configurePracticeTests() {
-        let flowLayout = ScrollingBackgroundFlowLayout()
+        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
         self.practiceTests.collectionViewLayout = flowLayout
         self.practiceTests.register(TestSubjectCell.self, forCellWithReuseIdentifier: TestSubjectCell.identifer)
         self.practiceTests.dataSource = self
