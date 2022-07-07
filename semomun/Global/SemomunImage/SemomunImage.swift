@@ -20,6 +20,7 @@ enum SemomunImage: String {
     case clipboardCheckOutline
     case sortDescendingOutline
     case chevronDownOutline
+    case refreshOutline
 }
 
 enum SystemImage: String {

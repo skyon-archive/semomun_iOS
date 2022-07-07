@@ -15,11 +15,11 @@ final class BookshelfVC: UIViewController {
     
     @IBOutlet var bookshelfTabButtons: [UIButton]!
     @IBOutlet var bookshelfTabUnderlines: [UIView]!
-    @IBOutlet weak var childFrameView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.childFrameView.configureTopCorner(radius: CGFloat.cornerRadius24)
+        
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
