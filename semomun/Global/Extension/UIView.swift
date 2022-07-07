@@ -10,38 +10,38 @@ import UIKit
 
 extension UIView {
     static let shadowLayerName = "ShadowLayer"
-
+    
     @IBInspectable
     public var cornerRadius: CGFloat
     {
         set (radius) {
             self.layer.cornerRadius = radius
         }
-
+        
         get {
             return self.layer.cornerRadius
         }
     }
-
+    
     @IBInspectable
     public var borderWidth: CGFloat
     {
         set (borderWidth) {
             self.layer.borderWidth = borderWidth
         }
-
+        
         get {
             return self.layer.borderWidth
         }
     }
-
+    
     @IBInspectable
     public var borderColor:UIColor?
     {
         set (color) {
             self.layer.borderColor = color?.cgColor
         }
-
+        
         get {
             if let color = self.layer.borderColor
             {
