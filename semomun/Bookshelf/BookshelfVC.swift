@@ -104,7 +104,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
-                let count = max(workbooks.count, UICollectionView.columnCount)
+                let count = min(workbooks.count, UICollectionView.columnCount)
                 var section: Int = 0
                 switch self?.currentTab {
                 case .home: section = 1
@@ -127,7 +127,7 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookGroups in
-                let count = max(workbookGroups.count, UICollectionView.columnCount)
+                let count = min(workbookGroups.count, UICollectionView.columnCount)
                 var section: Int = 0
                 switch self?.currentTab {
                 case .home: section = 2
@@ -159,8 +159,42 @@ extension BookshelfVC: UICollectionViewDelegate {
 }
 
 extension BookshelfVC: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        switch self.currentTab {
+        case .home: return 3
+        default: return 1
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        switch section {
+        case 0:
+            if self.currentTab == .home {
+                return min(self.viewModel?.workbooksForRecent.count ?? 0, UICollectionView.columnCount)
+            } else if self.currentTab == .workbook {
+                return self.viewModel?.workbooks.count ?? 0
+            } else if self.currentTab == .practiceTest {
+                return self.viewModel?.workbookGroups.count ?? 0
+            } else {
+                assertionFailure("numberOfItemsInSection Error")
+                return 0
+            }
+        case 1:
+            guard self.currentTab == .home else {
+                assertionFailure("numberOfItemsInSection Error")
+                return 0
+            }
+            return min(self.viewModel?.workbooksForRecent.count ?? 0, UICollectionView.columnCount)
+        case 2:
+            guard self.currentTab == .home else {
+                assertionFailure("numberOfItemsInSection Error")
+                return 0
+            }
+            return min(self.viewModel?.workbookGroups.count ?? 0, UICollectionView.columnCount)
+        default:
+            assertionFailure("numberOfItemsInSection Error")
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
