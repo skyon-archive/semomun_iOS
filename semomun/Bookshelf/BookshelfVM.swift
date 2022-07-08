@@ -35,6 +35,7 @@ extension BookshelfVM {
             self.currentWorkbooksOrder = .recentPurchase
             self.currentWorkbookGroupsOrder = .recentRead
             self.reloadWorkbooks()
+            self.reloadWorkbooksForRecent()
             self.reloadWorkbookGroups()
         case .workbook:
             self.reloadWorkbooks()
@@ -91,6 +92,10 @@ extension BookshelfVM {
         case .titleAscending:
             self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo } // MARK: 오름차순 로직 구현 필요
         }
+    }
+    
+    func reloadWorkbooksForRecent() {
+        self.workbooksForRecent = self.workbooks.filter { $0.recentDate != nil }.sorted(by: { $0.recentDate! > $1.recentDate! })
     }
     
     /// 두 API, API 내 wgid, wid 개수별 fetch 로직이 비동기로 이뤄진 후 saveCore 할 경우 데이터가 비정상적으로 저장되는 이슈가 발생
