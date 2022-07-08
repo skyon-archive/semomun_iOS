@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol BookshelfCellController: AnyObject {
+protocol BookshelfCellDelegate: AnyObject {
     func showWorkbookDetailVC(wid: Int)
     func showWorkbookGroupDetailVC(wgid: Int)
 }
@@ -20,7 +20,7 @@ final class BookshelfCell: BookcoverCell {
     /* public */
     static let identifier = "BookshelfCell"
     /* private */
-    private weak var delegate: BookshelfCellController?
+    private weak var delegate: BookshelfCellDelegate?
     private var infoType: InfoType = .workbook
     private var workbookInfo: WorkbookCellInfo?
     private var workbookGroupInfo: WorkbookGroupCellInfo?
