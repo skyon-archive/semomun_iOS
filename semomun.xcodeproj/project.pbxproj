@@ -83,6 +83,9 @@
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
 		2577FC3F2862B3D20006E011 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577FC3E2862B3D20006E011 /* NibLoadable.swift */; };
+		257AB2D42877C32B00771382 /* HomeBookcoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */; };
+		257AB2D62877C91900771382 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AB2D52877C91900771382 /* HomeHeaderView.swift */; };
+		257AB2D82877C93F00771382 /* HomeVCSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AB2D72877C93F00771382 /* HomeVCSectionView.swift */; };
 		257AC2D127A9592400008DD9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D027A9592400008DD9 /* Date.swift */; };
 		257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */; };
 		257AC7E527A4F834005E91EC /* ChangeUserInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */; };
@@ -402,6 +405,9 @@
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
 		2577FC3E2862B3D20006E011 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookcoverCell.swift; sourceTree = "<group>"; };
+		257AB2D52877C91900771382 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		257AB2D72877C93F00771382 /* HomeVCSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCSectionView.swift; sourceTree = "<group>"; };
 		257AC2D027A9592400008DD9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		257AC2D227A9709E00008DD9 /* SectionDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDateLabel.swift; sourceTree = "<group>"; };
 		257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVM.swift; sourceTree = "<group>"; };
@@ -1298,6 +1304,7 @@
 			children = (
 				87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */,
 				87458558279EA86600E331F1 /* HomeAdCell.swift */,
+				257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1386,6 +1393,8 @@
 				8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */,
 				2519C5D227BFC0E900F4320F /* BannerAdsFlowLayout.swift */,
 				87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */,
+				257AB2D52877C91900771382 /* HomeHeaderView.swift */,
+				257AB2D72877C93F00771382 /* HomeVCSectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1965,6 +1974,7 @@
 				2568CDBF2876CEEF008F34ED /* _HomeVC.swift in Sources */,
 				2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */,
 				25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */,
+				257AB2D42877C32B00771382 /* HomeBookcoverCell.swift in Sources */,
 				2560BB99283B542500A32EC4 /* FormCell.swift in Sources */,
 				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
 				87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */,
@@ -1973,6 +1983,7 @@
 				250B285B28740860000578BC /* UICollectionView.swift in Sources */,
 				250ACFE42861B1B40027B6A9 /* PracticeTestResultVC.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */,
+				257AB2D82877C93F00771382 /* HomeVCSectionView.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
 				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
@@ -2025,6 +2036,7 @@
 				8716E95C279A625B00B33A5E /* ConceptVC.swift in Sources */,
 				87BED5B72863F3E30045DC84 /* PracticeTestSection_Core.swift in Sources */,
 				87C85ED1276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift in Sources */,
+				257AB2D62877C91900771382 /* HomeHeaderView.swift in Sources */,
 				25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */,
 				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
 				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,

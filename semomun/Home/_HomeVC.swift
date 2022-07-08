@@ -8,13 +8,6 @@
 import UIKit
 import Combine
 
-struct HomeVCSectionInfo {
-    let title: String
-    let onTapAction: ((IndexPath) -> ())?
-    let getCellData: (IndexPath) -> (title: String, publishCompany: String?, imageUUID: UUID?, imageData: Data?)
-    let numberOfCell: () -> Int
-}
-
 class _HomeVC: UIViewController {
     enum SectionDataType {
         case workbook, workbookGroup, bookshelf
@@ -24,81 +17,11 @@ class _HomeVC: UIViewController {
         case recent
         case tag
         case workbookGroup
-        //        case popularTag1
-        //        case popularTag2
     }
     private var viewModel: HomeVM?
-    private var sectionViews: [SectionType: HomeVCSectionView] = [:]
+    private var fixedSectionViews: [SectionType: HomeVCSectionView] = [:]
+    private var popularTagSectionViews: [HomeVCSectionView] = []
     private var cancellables: Set<AnyCancellable> = []
-    private lazy var sectionInfo: [SectionType: HomeVCSectionInfo] = {
-        let defaultCellData: (String, String?, UUID?, Data?) = ("", nil, nil, nil)
-        
-        func fetchWorkbook(wid: Int, networkUsecase: NetworkUsecase) async -> WorkbookOfDB? {
-            await withCheckedContinuation { continuation in
-                networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
-                    continuation.resume(with: .success(workbook))
-                }
-            }
-        }
-        
-        return [
-            .bestseller: .init(
-                title: "베스트셀러",
-                onTapAction: {
-                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
-                    self.searchWorkbook(wid: wid)
-                },
-                getCellData: {
-                    guard let preview = self.viewModel?.bestSellers[$0.item] else { return defaultCellData }
-                    return (preview.title, preview.publishCompany, preview.bookcover, nil)
-                },
-                numberOfCell: {
-                    return self.viewModel?.bestSellers.count ?? 0
-                }
-            ),
-            .recent: .init(
-                title: "최근에 푼 문제집",
-                onTapAction: {
-                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
-                    self.searchWorkbook(wid: wid)
-                },
-                getCellData: {
-                    guard let info = self.viewModel?.recentEntered[$0.item] else { return defaultCellData }
-                    return defaultCellData
-                },
-                numberOfCell: {
-                    return self.viewModel?.recentEntered.count ?? 0
-                }
-            ),
-            .tag: .init(
-                title: "나의 태그",
-                onTapAction: {
-                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
-                    self.searchWorkbook(wid: wid)
-                },
-                getCellData: {
-                    guard let preview = self.viewModel?.workbooksWithTags[$0.item] else { return defaultCellData }
-                    return (preview.title, preview.publishCompany, preview.bookcover, nil)
-                },
-                numberOfCell: {
-                    return self.viewModel?.workbooksWithTags.count ?? 0
-                }
-            ),
-            .workbookGroup: .init(
-                title: "실전 모의고사",
-                onTapAction: {
-                    guard let wid = self.viewModel?.bestSellers[$0.item].wid else { return }
-                    self.searchWorkbook(wid: wid)
-                },
-                getCellData: { _ in
-                    return defaultCellData
-                },
-                numberOfCell: {
-                    return self.viewModel?.workbookGroups.count ?? 0
-                }
-            )
-        ]
-    }()
     
     private let headerView: HomeHeaderView = {
         let view = HomeHeaderView()
@@ -128,23 +51,30 @@ class _HomeVC: UIViewController {
         
         return stackView
     }()
+    private let sectionTitles: [SectionType: String] = [
+        .bestseller: "베스트셀러",
+        .recent: "최근에 푼 문제집",
+        .tag: "나의 태그",
+        .workbookGroup: "실전 모의고사"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureHomeHeaderView()
-        
         self.configureScrollViewLayout()
         self.configureScrollViewBackground()
         self.configureStackViewLayout()
         
-        self.configureStackViewContent()
-        
         self.configureViewModel()
         self.bindAll()
+        
+        self.configureStackViewContent()
     }
 }
 
+// MARK: Configure
 extension _HomeVC {
     private func configureHomeHeaderView() {
         self.view.addSubview(headerView)
@@ -186,25 +116,114 @@ extension _HomeVC {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 32),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32),
             self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 32),
         ])
     }
     
     private func configureStackViewContent() {
         SectionType.allCases.forEach { sectionType in
-            let sectionView = HomeVCSectionView()
-            self.stackView.addArrangedSubview(sectionView)
-            sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
-            guard let sectionInfo = self.sectionInfo[sectionType] else { return }
-            sectionView.configureContent(title: sectionInfo.title, collectionViewTag: sectionType.rawValue, delegate: self, seeAllAction: { })
-            self.sectionViews[sectionType] = sectionView
+            let sectionView = self.addNewSectionView()
+            let sectionTitle = self.sectionTitles[sectionType] ?? ""
+            sectionView.configureContent(collectionViewTag: sectionType.rawValue, delegate: self, seeAllAction: { }, title: sectionTitle)
+            self.fixedSectionViews[sectionType] = sectionView
         }
+        
+        guard let viewModel = self.viewModel else { return }
+        self.popularTagSectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
+            let sectionView = self.addNewSectionView()
+            sectionView.configureContent(collectionViewTag: SectionType.allCases.count + idx, delegate: self, seeAllAction: { })
+            return sectionView
+        }
+    }
+    
+    private func addNewSectionView() -> HomeVCSectionView {
+        let sectionView = HomeVCSectionView()
+        self.stackView.addArrangedSubview(sectionView)
+        sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
+        
+        return sectionView
     }
     
     private func configureViewModel() {
         let networkUsecase = NetworkUsecase(network: Network())
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
+    }
+}
+
+extension _HomeVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let sectionType = SectionType(rawValue: collectionView.tag) {
+            switch sectionType {
+            case .bestseller:
+                return self.viewModel?.bestSellers.count ?? 0
+            case .recent:
+                return self.viewModel?.recentEntered.count ?? 0
+            case .tag:
+                return self.viewModel?.workbooksWithTags.count ?? 0
+            case .workbookGroup:
+                return self.viewModel?.workbookGroups.count ?? 0
+            }
+        } else { // 인기 태그 섹션들
+            let tagSectionIndex = collectionView.tag - SectionType.allCases.count
+            let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex]
+            return tagContent?.content.count ?? 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeBookcoverCell.identifier, for: indexPath) as? HomeBookcoverCell else { return .init() }
+        guard let networkUsecase = self.viewModel?.networkUsecase else { return cell }
+        
+        if let sectionType = SectionType(rawValue: collectionView.tag) {
+            switch sectionType {
+            case .bestseller:
+                guard let preview = self.viewModel?.bestSellers[indexPath.item] else { return cell }
+                cell.configure(with: preview, networkUsecase: networkUsecase)
+            case .recent:
+                guard let info = self.viewModel?.recentEntered[indexPath.item] else { return cell }
+                cell.configure(with: info, networkUsecase: networkUsecase)
+            case .tag:
+                guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
+                cell.configure(with: preview, networkUsecase: networkUsecase)
+            case .workbookGroup:
+                guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return cell }
+                cell.configure(with: info, networkUsecase: networkUsecase)
+            }
+        } else {
+            let tagSectionIndex = collectionView.tag - SectionType.allCases.count
+            guard let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex] else { return cell }
+            let content = tagContent.content[indexPath.item]
+            cell.configure(with: content, networkUsecase: networkUsecase)
+        }
+        
+        return cell
+    }
+}
+
+extension _HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let sectionType = SectionType(rawValue: collectionView.tag) {
+            switch sectionType {
+            case .bestseller:
+                guard let wid = self.viewModel?.bestSellers[indexPath.item].wid else { return }
+                self.searchWorkbook(wid: wid)
+            case .tag:
+                guard let wid = self.viewModel?.workbooksWithTags[indexPath.item].wid else { return }
+                self.searchWorkbook(wid: wid)
+            case .recent:
+                guard let wid = self.viewModel?.recentEntered[indexPath.item].wid else { return }
+                self.searchWorkbook(wid: wid)
+            case .workbookGroup:
+                guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
+                self.searchWorkbookGroup(info: info)
+            }
+        } else {
+            let popularTagSectionIndex = collectionView.tag - SectionType.allCases.count
+            guard let wid = self.viewModel?.popularTagContents[popularTagSectionIndex].content[indexPath.item].wid else { return }
+            self.searchWorkbook(wid: wid)
+        }
     }
     
     private func searchWorkbook(wid: Int) {
@@ -224,7 +243,7 @@ extension _HomeVC {
     }
 }
 
-// MARK: 새로운 VC 이동 관련
+// MARK: Navigation 관련
 extension _HomeVC {
     private func showWorkbookDetailVC(workbook: WorkbookOfDB) {
         let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
@@ -270,37 +289,6 @@ extension _HomeVC {
     }
 }
 
-extension _HomeVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sectionType = SectionType(rawValue: collectionView.tag),
-              let sectionInfo = self.sectionInfo[sectionType] else {
-            return 0
-        }
-        
-        return sectionInfo.numberOfCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookcoverCell.identifier, for: indexPath) as? BookcoverCell else { return .init() }
-        
-        guard let sectionType = SectionType(rawValue: collectionView.tag),
-              let sectionInfo = self.sectionInfo[sectionType],
-              let networkUsecase = self.viewModel?.networkUsecase else {
-            return cell
-        }
-        
-        let cellData = sectionInfo.getCellData(indexPath)
-        cell.configureReuse(bookTitle: cellData.title, publishCompany: cellData.publishCompany)
-        if let uuid = cellData.imageUUID {
-            cell.configureImage(uuid: uuid, networkUsecase: networkUsecase)
-        } else if let data = cellData.imageData {
-            cell.configureImage(data: data)
-        }
-        
-        return cell
-    }
-}
-
 extension _HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return UICollectionView.bookcoverCellSize
@@ -326,6 +314,7 @@ extension _HomeVC {
         self.bindPopup()
         self.bindMigrationLoading()
         self.bindPracticeTests()
+        self.bindPopularTagContent()
     }
     
     private func bindTags() {
@@ -341,7 +330,7 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.sectionViews[.tag]?.reloadData()
+                self?.fixedSectionViews[.tag]?.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -363,7 +352,7 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.sectionViews[.bestseller]?.reloadData()
+                self?.fixedSectionViews[.bestseller]?.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -373,7 +362,7 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.sectionViews[.recent]?.reloadData()
+                self?.fixedSectionViews[.recent]?.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -482,145 +471,22 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.sectionViews[.workbookGroup]?.reloadData()
+                self?.fixedSectionViews[.workbookGroup]?.reloadData()
             })
             .store(in: &self.cancellables)
     }
-}
-
-
-class HomeHeaderView: UIView {
-    private let logoImageView: UIImageView = {
-        let view = UIImageView()
-        // 임시 코드
-        view.image = UIImage(.cloudDownloadOutline)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 48),
-            view.heightAnchor.constraint(equalToConstant: 38.99),
-        ])
-        
-        return view
-    }()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .heading2
-        label.text = "세모문"
-        label.textColor = UIColor.getSemomunColor(.blueRegular)
-        
-        return label
-    }()
-    
-    private let greetingLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .heading5
-        label.text = "반가워요:)\n오늘도 함께 공부해봐요"
-        label.numberOfLines = 2
-        label.textAlignment = .right
-        
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.configureLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureLayout() {
-        self.addSubviews(self.logoImageView, self.titleLabel, self.greetingLabel)
-        
-        NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: 66),
-            
-            self.logoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.logoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
-            
-            self.titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.logoImageView.trailingAnchor, constant: 12),
-            
-            self.greetingLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.greetingLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32)
-        ])
-    }
-}
-
-class HomeVCSectionView: UIView {
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .heading2
-        label.textColor = UIColor.getSemomunColor(.black)
-        
-        return label
-    }()
-    private let seeAllButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = .heading5
-        button.setTitleColor(UIColor.getSemomunColor(.orangeRegular), for: .normal)
-        button.setTitle("모두 보기", for: .normal)
-        
-        return button
-    }()
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(BookcoverCell.self, forCellWithReuseIdentifier: BookcoverCell.identifier)
-        view.showsHorizontalScrollIndicator = false
-        view.clipsToBounds = false
-        
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.configureLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureContent(title: String, collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), seeAllAction: @escaping () -> Void) {
-        self.titleLabel.text = title
-        self.collectionView.tag = collectionViewTag
-        self.collectionView.dataSource = delegate
-        self.collectionView.delegate = delegate
-        self.seeAllButton.addAction(UIAction { _ in seeAllAction() }, for: .touchUpInside)
-    }
-    
-    func reloadData() {
-        self.collectionView.reloadData()
-    }
-    
-    private func configureLayout() {
-        self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
-        
-        NSLayoutConstraint.activate([
-            // 29는 섹션 타이틀 높이, 16은 타이틀에서 UICollectionView까지의 거리
-            self.heightAnchor.constraint(equalToConstant: 29+16+UICollectionView.bookcoverCellSize.height),
-            
-            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            
-            self.seeAllButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
-            self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
-            
-            self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
-            self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        ])
+    private func bindPopularTagContent() {
+        self.viewModel?.$popularTagContents
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] content in
+                content.enumerated().forEach { idx, content in
+                    let sectionView = self?.popularTagSectionViews[safe: idx]
+                    sectionView?.configureTitle(to: content.tagName)
+                    sectionView?.reloadData()
+                }
+            })
+            .store(in: &self.cancellables)
     }
 }

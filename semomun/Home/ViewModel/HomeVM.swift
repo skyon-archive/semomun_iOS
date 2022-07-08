@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 final class HomeVM {
+    /* public */
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
     @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
-    @Published private(set) var recentPurchased: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var workbookDTO: WorkbookOfDB?
@@ -24,44 +24,26 @@ final class HomeVM {
     @Published private(set) var updateToVersion: String?
     @Published private(set) var popupURL: URL?
     @Published private(set) var isMigration: Bool = false
+    @Published private(set) var popularTagContents: [(tagName: String, content: [WorkbookPreviewOfDB])] = []
+    let popularTagSectionCount = 15
+    /* private */
+    private let sectionSize = 15
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
         NetworkStatusManager.state()
+        self.popularTagContents = .init(repeating: ("", []), count: self.popularTagSectionCount)
     }
-    
-    private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
-            self?.fetchTags()
-        }
-        // MARK: - NetworkStatusManager.state() 메소드를 실행함에 따라 온라인일 경우 항상 한번 이상 실행된다.
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
-            self?.fetch()
-        }
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
-            self?.offlineStatus = true // 온라인 -> 오프라인으로 변화시 동작
-        }
-        NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
-            self?.fetch()
-        }
-        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
-            self?.logined = true
-            self?.fetchLogined()
-        }
-        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
-            self?.fetchLogined()
-        }
-        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
-            self?.fetchLogined()
-        }
-    }
-    
-    func checkLogined() { // VC 에서 불리는 함수
+}
+
+// MARK: Public
+extension HomeVM {
+    func checkLogined() {
         self.logined = UserDefaultsManager.isLogined
     }
     
-    func checkVersion() { // VC 에서 불리는 함수
+    func checkVersion() {
         guard NetworkStatusManager.isConnectedToInternet() else { return }
         self.networkUsecase.getAppstoreVersion { [weak self] status, appstoreVersion in
             switch status {
@@ -92,6 +74,41 @@ final class HomeVM {
         }
     }
     
+    func fetchWorkbook(wid: Int) {
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
+            self?.workbookDTO = workbook
+        }
+    }
+}
+
+// MARK: Private
+extension HomeVM {
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchTags()
+        }
+        // MARK: - NetworkStatusManager.state() 메소드를 실행함에 따라 온라인일 경우 항상 한번 이상 실행된다.
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
+            self?.fetch()
+        }
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
+            self?.offlineStatus = true // 온라인 -> 오프라인으로 변화시 동작
+        }
+        NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
+            self?.fetch()
+        }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
+            self?.logined = true
+            self?.fetchLogined()
+        }
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchLogined()
+        }
+        NotificationCenter.default.addObserver(forName: .refreshBookshelf, object: nil, queue: .current) { [weak self] _ in
+            self?.fetchLogined()
+        }
+    }
+    
     private func migration() {
         CoreUsecase.migration { [weak self] migrationSuccess in
             guard migrationSuccess else {
@@ -105,7 +122,10 @@ final class HomeVM {
             self?.fetchLogined()
         }
     }
-    
+}
+
+// MARK: Network Fetch
+extension HomeVM {
     private func fetch() {
         self.offlineStatus = NetworkStatusManager.isConnectedToInternet() == false
         self.fetchNonLogined()
@@ -130,11 +150,11 @@ final class HomeVM {
         self.fetchTags()
         self.fetchPracticeTests()
         self.fetchPopup()
+        self.fetchPopularTagContents()
     }
     
     private func fetchLogined() {
         self.fetchRecentEnters()
-        self.fetchPurchased()
     }
     
     private func fetchTags() {
@@ -165,14 +185,14 @@ final class HomeVM {
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
+                guard let sectionSize = self?.sectionSize else { return }
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
-                    let count = min(10, filteredPreviews.count)
-                    self?.bestSellers = Array(filteredPreviews.prefix(upTo: count))
+
+                    self?.bestSellers = Array(filteredPreviews.prefix(sectionSize))
                 } else {
-                    let count = min(10, workbooks.count)
-                    self?.bestSellers = Array(workbooks.prefix(upTo: count))
+                    self?.bestSellers = Array(workbooks.prefix(sectionSize))
                 }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
@@ -198,17 +218,16 @@ final class HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: 10) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.sectionSize) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
+                guard let sectionSize = self?.sectionSize else { return }
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
-                    let count = min(10, filteredPreviews.count)
-                    self?.workbooksWithTags = Array(filteredPreviews.prefix(upTo: count))
+                    self?.workbooksWithTags = Array(filteredPreviews.prefix(sectionSize))
                 } else {
-                    let count = min(10, previews.count)
-                    self?.workbooksWithTags = Array(previews.prefix(upTo: count))
+                    self?.workbooksWithTags = Array(previews.prefix(sectionSize))
                 }
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
@@ -222,22 +241,9 @@ final class HomeVM {
         self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
             switch status {
             case .SUCCESS:
+                guard let sectionSize = self?.sectionSize else { return }
                 let infos = infos.map { BookshelfInfo(info: $0) }.filter { $0.recentDate != nil }
-                let count = min(10, infos.count)
-                self?.recentEntered = Array(infos.prefix(upTo: count))
-            default:
-                self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
-            }
-        }
-    }
-    
-    private func fetchPurchased() {
-        self.networkUsecase.getUserBookshelfInfos(order: .purchase) { [weak self] status, infos in
-            switch status {
-            case .SUCCESS:
-                let infos = infos.map { BookshelfInfo(info: $0) }
-                let count = min(10, infos.count)
-                self?.recentPurchased = Array(infos.prefix(upTo: count))
+                self?.recentEntered = Array(infos.prefix(sectionSize))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
             }
@@ -245,7 +251,7 @@ final class HomeVM {
     }
     
     private func fetchPracticeTests() {
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: nil) { [weak self] status, searchWorkbookGroups in
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.sectionSize) { [weak self] status, searchWorkbookGroups in
             switch status {
             case .SUCCESS:
                 self?.workbookGroups = searchWorkbookGroups
@@ -255,9 +261,25 @@ final class HomeVM {
         }
     }
     
-    func fetchWorkbook(wid: Int) {
-        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
-            self?.workbookDTO = workbook
+    private func fetchPopularTagContents() {
+        var temp = self.popularTagContents
+        let group = DispatchGroup()
+        self.networkUsecase.getTags(order: .popularity) { [weak self] _, tags in
+            guard let sectionSize = self?.sectionSize,
+                  let popularTagSectionCount = self?.popularTagSectionCount else {
+                return
+            }
+            tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
+                group.enter()
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize) { _, preview in
+                    temp[idx] = (tag.name, preview)
+                    group.leave()
+                }
+            }
+            group.notify(queue: .main) {
+                print(temp)
+                self?.popularTagContents = temp
+            }
         }
     }
 }
