@@ -7,58 +7,61 @@
 
 import UIKit
 
-final class BookshelfCell: UICollectionViewCell {
-    static let identifier = "BookshelfCell"
-    @IBOutlet weak var bookcoverFrameView: UIView!
-    @IBOutlet weak var bookcover: UIImageView!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var progressPercentLabel: UILabel!
-    @IBOutlet weak var bookcoverHeight: NSLayoutConstraint!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+protocol BookshelfCellController: AnyObject {
+    func showWorkbookDetailVC(wid: Int)
+    func showWorkbookGroupDetailVC(wgid: Int)
+}
+
+final class BookshelfCell: BookcoverCell {
+    enum InfoType {
+        case workbook
+        case workbookGroup
     }
+    /* public */
+    static let identifier = "BookshelfCell"
+    /* private */
+    private weak var delegate: BookshelfCellController?
+    private var infoType: InfoType = .workbook
+    private var workbookInfo: WorkbookCellInfo?
+    private var workbookGroupInfo: WorkbookGroupCellInfo?
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.progressView.setProgress(0, animated: false)
-        self.bookcover.image = UIImage(.loadingBookcover)
+        self.delegate = nil
+        self.workbookInfo = nil
+        self.workbookGroupInfo = nil
     }
     
-    func configure(with book: Preview_Core, imageSize: CGSize) {
-        print("wid: \(book.wid)")
-        self.title.text = book.title
-        if let imageData = book.image {
-            self.bookcover.image = UIImage(data: imageData)
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.touchAction()
+            }
         }
-        
-        let percent: Float = book.sids.isEmpty ? 0 : Float(book.progressCount)/Float(book.sids.count)
-        self.progressView.setProgress(percent, animated: false)
-        self.progressPercentLabel.text = "\(Int(percent*100))%"
-        
-        self.bookcoverHeight.constant = imageSize.height
-        self.layoutIfNeeded()
-        // TODO: 0.2 없애기
-        let shadowBound = CGRect(-0.2, -0.2, self.bookcover.frame.width, self.bookcover.frame.height)
-        self.bookcoverFrameView.addAccessibleShadow(direction: .custom(1.5, 3.5), opacity: 0.4, shadowRadius: 3, bounds: shadowBound)
     }
     
-    func configure(with workbookGroup: WorkbookGroup_Core, imageSize: CGSize) {
-        print("wgid: \(workbookGroup.wgid)")
-        self.title.text = workbookGroup.title
-        if let imageData = workbookGroup.image {
-            self.bookcover.image = UIImage(data: imageData)
+    func configure(with workbookInfo: WorkbookCellInfo) {
+        self.infoType = .workbook
+        self.workbookInfo = workbookInfo
+        self.configureReuse(bookTitle: workbookInfo.title, publishCompany: workbookInfo.publisher)
+        self.configureImage(data: workbookInfo.imageData)
+    }
+    
+    func configure(with workbookGroupInfo: WorkbookGroupCellInfo) {
+        self.infoType = .workbookGroup
+        self.workbookGroupInfo = workbookGroupInfo
+        self.configureReuse(bookTitle: workbookGroupInfo.title, publishCompany: workbookGroupInfo.publisher)
+        self.configureImage(data: workbookGroupInfo.imageData)
+    }
+    
+    private func touchAction() {
+        switch self.infoType {
+        case .workbook:
+            guard let wid = self.workbookInfo?.wid else { return }
+            self.delegate?.showWorkbookDetailVC(wid: wid)
+        case .workbookGroup:
+            guard let wgid = self.workbookGroupInfo?.wgid else { return }
+            self.delegate?.showWorkbookGroupDetailVC(wgid: wgid)
         }
-        
-        let percent: Float = workbookGroup.wids.isEmpty ? 0 : Float(workbookGroup.progressCount)/Float(workbookGroup.wids.count)
-        self.progressView.setProgress(percent, animated: false)
-        self.progressPercentLabel.text = "\(Int(percent*100))%"
-        
-        self.bookcoverHeight.constant = imageSize.height
-        self.layoutIfNeeded()
-        // TODO: 0.2 없애기
-        let shadowBound = CGRect(-0.2, -0.2, self.bookcover.frame.width, self.bookcover.frame.height)
-        self.bookcoverFrameView.addAccessibleShadow(direction: .custom(1.5, 3.5), opacity: 0.4, shadowRadius: 3, bounds: shadowBound)
     }
 }
