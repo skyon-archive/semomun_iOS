@@ -28,10 +28,10 @@ final class BookshelfVC: UIViewController {
     private var currentTab: Tab = .home {
         didSet {
             self.changeTabUI()
+            self.collectionView.reloadData() // section 개수 변동
             if currentTab == .home {
                 self.viewModel?.refresh(tab: .home) // home order 반영
             }
-            self.collectionView.reloadData() // section 개수 변동
         }
     }
     
@@ -43,7 +43,7 @@ final class BookshelfVC: UIViewController {
         self.viewModel?.refresh(tab: .home)
         self.viewModel?.fetchBookshelf()
 //        self.checkSyncBookshelf()
-//        self.configureObservation()
+        self.configureObservation()
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
@@ -72,6 +72,19 @@ extension BookshelfVC {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
         self.viewModel = BookshelfVM(networkUsecse: networkUsecase)
+    }
+    
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
+            self?.viewModel?.reloadWorkbooks()
+            self?.viewModel?.reloadWorkbookGroups()
+            self?.viewModel?.fetchBookshelf()
+        }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
+            self?.viewModel?.reloadWorkbooks()
+            self?.viewModel?.reloadWorkbookGroups()
+            self?.viewModel?.fetchBookshelf()
+        }
     }
 }
 
@@ -104,11 +117,15 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
-                let count = min(workbooks.count, UICollectionView.columnCount)
+                var count = 0
                 var section: Int = 0
                 switch self?.currentTab {
-                case .home: section = 1
-                case .workbook: section = 0
+                case .home:
+                    section = 1
+                    count = min(workbooks.count, UICollectionView.columnCount)
+                case .workbook:
+                    section = 0
+                    count = workbooks.count
                 default: return
                 }
                 let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
@@ -127,11 +144,15 @@ extension BookshelfVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookGroups in
-                let count = min(workbookGroups.count, UICollectionView.columnCount)
+                var count = 0
                 var section: Int = 0
                 switch self?.currentTab {
-                case .home: section = 2
-                case .practiceTest: section = 0
+                case .home:
+                    section = 2
+                    count = min(workbookGroups.count, UICollectionView.columnCount)
+                case .practiceTest:
+                    section = 0
+                    count = workbookGroups.count
                 default: return
                 }
                 let indexes = (0..<count).map { IndexPath(row: $0, section: section) }

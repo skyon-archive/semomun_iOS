@@ -96,6 +96,7 @@ extension BookshelfVM {
     /// 두 API, API 내 wgid, wid 개수별 fetch 로직이 비동기로 이뤄진 후 saveCore 할 경우 데이터가 비정상적으로 저장되는 이슈가 발생
     /// 따라서 두 API 의 내부 wgid, wid 를 통한 fetch 까지 모두 끝난 경우를 인지하여 한번의 saveCoreData 수행, collectionView.reload 로 연결
     func fetchBookshelf() {
+        guard UserDefaultsManager.isLogined == true else { return }
         guard NetworkStatusManager.isConnectedToInternet() else { return }
         let taskGroup = DispatchGroup()
         
