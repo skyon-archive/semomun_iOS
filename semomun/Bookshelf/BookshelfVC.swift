@@ -37,14 +37,9 @@ final class BookshelfVC: UIViewController {
         self.configureCollectionView()
         self.configureViewModel()
         self.bindAll()
+        self.viewModel?.refresh(tab: .home)
 //        self.checkSyncBookshelf()
 //        self.configureObservation()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard UserDefaultsManager.isLogined else { return }
-        self.viewModel?.refresh(tab: self.currentTab)
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
@@ -181,7 +176,7 @@ extension BookshelfVC: UICollectionViewDataSource {
                 assertionFailure("numberOfItemsInSection Error")
                 return 0
             }
-            return min(self.viewModel?.workbooksForRecent.count ?? 0, UICollectionView.columnCount)
+            return min(self.viewModel?.workbooks.count ?? 0, UICollectionView.columnCount)
         case 2:
             guard self.currentTab == .home else {
                 assertionFailure("numberOfItemsInSection Error")
