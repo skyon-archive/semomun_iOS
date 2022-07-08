@@ -16,6 +16,7 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     /* public*/
     static let identifier = "BookshelfDetailHeaderView"
     /* private */
+    @IBOutlet weak var refreshButton: UIButton!
     private weak var delegate: BookshelfDetailDelegate?
     private lazy var orderButton = DropdownOrderButton(order: .recentRead)
     private var section: Int = 0
@@ -44,7 +45,7 @@ extension BookshelfDetailHeaderView {
     private func configureOrderButton() {
         self.addSubview(self.orderButton)
         NSLayoutConstraint.activate([
-            self.orderButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.orderButton.centerYAnchor.constraint(equalTo: self.refreshButton.centerYAnchor),
             self.orderButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32)
         ])
         self.orderButton.configureBookshelfMenu(action: { [weak self] order in

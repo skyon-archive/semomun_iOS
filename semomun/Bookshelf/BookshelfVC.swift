@@ -233,7 +233,8 @@ extension BookshelfVC: UICollectionViewDataSource {
             return header
         } else {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfDetailHeaderView.identifier, for: indexPath) as? BookshelfDetailHeaderView else { return UICollectionReusableView() }
-            header.configure(delegate: self, order: .recentPurchase) // MARK: order 값을 가져와 설정하는 로직 필요
+            guard let order = self.currentTab == .workbook ? self.viewModel?.currentWorkbooksOrder : self.viewModel?.currentWorkbookGroupsOrder else { return header }
+            header.configure(delegate: self, order: order)
             return header
         }
     }
@@ -241,6 +242,13 @@ extension BookshelfVC: UICollectionViewDataSource {
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
     // MARK: 0개인 경우 UI 표시 분기처리 로직 필요
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if self.currentTab == .home {
+            return CGSize(collectionView.bounds.width, 40)
+        } else {
+            return CGSize(collectionView.bounds.width, 66)
+        }
+    }
 }
 
 extension BookshelfVC {
@@ -260,18 +268,18 @@ extension BookshelfVC {
 
 extension BookshelfVC: BookshelfHomeDelegate {
     func showAllRecentWorkbooks() {
+        self.viewModel?.currentWorkbooksOrder = .recentRead
         self.currentTab = .workbook
-        // MARK: ordering 전달 로직 고민 필요
     }
     
     func showAllRecentPurchaseWorkbooks() {
+        self.viewModel?.currentWorkbooksOrder = .recentPurchase
         self.currentTab = .workbook
-        // MARK: ordering 전달 로직 고민 필요
     }
     
     func showAllPracticeTests() {
+        self.viewModel?.currentWorkbookGroupsOrder = .recentRead
         self.currentTab = .practiceTest
-        // MARK: ordering 전달 로직 고민 필요
     }
 }
 
