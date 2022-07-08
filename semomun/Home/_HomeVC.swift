@@ -163,7 +163,15 @@ extension _HomeVC {
     
     private func configureStackViewContent() {
         FixedSectionType.allCases.forEach { sectionType in
-            let sectionView = self.addNewSectionView()
+            let sectionView: HomeVCSectionView
+            if sectionType == .tag {
+                sectionView = self.addNewSectionView(hasTagList: true)
+                sectionView.tagList.configureEditButtonAction { [weak self] in
+                    self?.showSearchTagVC()
+                }
+            } else {
+                sectionView = self.addNewSectionView(hasTagList: false)
+            }
             let sectionTitle = self.sectionTitles[sectionType] ?? ""
             sectionView.configureContent(collectionViewTag: sectionType.rawValue, delegate: self, seeAllAction: { }, title: sectionTitle)
             self.fixedSectionViews[sectionType] = sectionView
@@ -171,15 +179,15 @@ extension _HomeVC {
         
         guard let viewModel = self.viewModel else { return }
         self.popularTagSectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
-            let sectionView = self.addNewSectionView()
+            let sectionView = self.addNewSectionView(hasTagList: false)
             sectionView.configureContent(collectionViewTag: FixedSectionType.allCases.count + idx, delegate: self, seeAllAction: { })
             return sectionView
         }
     }
     
     /// UIStackView 내에 HomeVCSectionView를 추가 후 레이아웃을 맞춘 뒤 리턴
-    private func addNewSectionView() -> HomeVCSectionView {
-        let sectionView = HomeVCSectionView()
+    private func addNewSectionView(hasTagList: Bool) -> HomeVCSectionView {
+        let sectionView = HomeVCSectionView(hasTagList: hasTagList)
         self.stackView.addArrangedSubview(sectionView)
         sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
         return sectionView
@@ -384,7 +392,8 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
-                //                self?.configureTags(with: tags.map(\.name))
+                let tagSectionView = self?.fixedSectionViews[.tag]
+                tagSectionView?.tagList.updateTagList(tagNames: tags.map(\.name))
             })
             .store(in: &self.cancellables)
         

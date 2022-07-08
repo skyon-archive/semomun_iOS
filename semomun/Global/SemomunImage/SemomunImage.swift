@@ -13,6 +13,7 @@ enum SemomunImage: String {
     case googleLogo
     case wrong
     case correct
+    case logo
     
     case cloudDownloadOutline
     case badgeCheckSolid
@@ -21,6 +22,7 @@ enum SemomunImage: String {
     case sortDescendingOutline
     case chevronDownOutline
     case refreshOutline
+    case pencilSolid
 }
 
 enum SystemImage: String {
