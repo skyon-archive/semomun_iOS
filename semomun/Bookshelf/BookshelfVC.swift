@@ -42,8 +42,16 @@ final class BookshelfVC: UIViewController {
         self.bindAll()
         self.viewModel?.refresh(tab: .home)
         self.viewModel?.fetchBookshelf()
-//        self.checkSyncBookshelf()
         self.configureObservation()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard self.collectionView != nil else { return }
+//        self.collectionView.collectionViewLayout.invalidateLayout()
+        coordinator.animate(alongsideTransition: { _ in
+            self.collectionView.reloadData()
+        })
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
@@ -102,7 +110,8 @@ extension BookshelfVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
                 guard self?.currentTab == .home else { return }
-                let indexes = (0..<workbooks.count).map { IndexPath(row: $0, section: 0) }
+                let count = min(workbooks.count, UICollectionView.columnCount)
+                let indexes = (0..<count).map { IndexPath(row: $0, section: 0) }
                 UIView.performWithoutAnimation {
                     self?.collectionView.reloadItems(at: indexes)
                 }
@@ -289,6 +298,7 @@ extension BookshelfVC {
 extension BookshelfVC: BookshelfHomeDelegate {
     func showAllRecentWorkbooks() {
         self.viewModel?.currentWorkbooksOrder = .recentRead
+        self.viewModel?.reloadWorkbooks()
         self.currentTab = .workbook
     }
     

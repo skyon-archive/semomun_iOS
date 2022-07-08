@@ -75,32 +75,6 @@ extension Preview_Core {
     @NSManaged public var standardDeviation: Int64 // NEW: 표준 편차
     @NSManaged public var averageScore: Int64 // NEW: 평균 점수
     @NSManaged public var timelimit: Int64 // NEW: 제한시간
-    
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var category: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var year: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var month: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var grade: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var isHide: Bool //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var isReproduction: Bool //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var isNotFree: Bool //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var maxCategory: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var largeLargeCategory: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var largeCategory: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var mediumCategory: String? //Deprecated(1.1.3)
-    @available(*, deprecated, message: "이전 버전의 CoreData")
-    @NSManaged public var smallCategory: String? //Deprecated(1.1.3)
-    
 }
 
 @objc(Preview_Core)
