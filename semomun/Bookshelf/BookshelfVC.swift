@@ -34,6 +34,15 @@ final class BookshelfVC: UIViewController {
             }
         }
     }
+    private var hasRecentWorkbooks: Bool {
+        return self.viewModel?.workbooksForRecent.isEmpty == false
+    }
+    private var hasWorkbooks: Bool {
+        return self.viewModel?.workbooks.isEmpty == false
+    }
+    private var hasWorkbookGroups: Bool {
+        return self.viewModel?.workbookGroups.isEmpty == false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +81,7 @@ extension BookshelfVC {
         self.collectionView.delegate = self
         
         self.collectionView.register(BookshelfCell.self, forCellWithReuseIdentifier: BookshelfCell.identifier)
+        self.collectionView.register(BookshelfHomeWarningCell.self, forCellWithReuseIdentifier: BookshelfHomeWarningCell.identifier)
         
         let homeHeaderNib = UINib(nibName: BookshelfHomeHeaderView.identifier, bundle: nil)
         let detailHeaderNib = UINib(nibName: BookshelfDetailHeaderView.identifier, bundle: nil)
@@ -199,30 +209,35 @@ extension BookshelfVC: UICollectionViewDataSource {
         switch section {
         case 0:
             if self.currentTab == .home {
-                return min(self.viewModel?.workbooksForRecent.count ?? 0, UICollectionView.columnCount)
+                let rawCount = min(self.viewModel?.workbooksForRecent.count ?? 1, UICollectionView.columnCount)
+                return max(1, rawCount)
             } else if self.currentTab == .workbook {
-                return self.viewModel?.workbooks.count ?? 0
+                let rawCount = self.viewModel?.workbooks.count ?? 1
+                return max(1, rawCount)
             } else if self.currentTab == .practiceTest {
-                return self.viewModel?.workbookGroups.count ?? 0
+                let rawCount = self.viewModel?.workbookGroups.count ?? 1
+                return max(1, rawCount)
             } else {
                 assertionFailure("numberOfItemsInSection Error")
-                return 0
+                return 1
             }
         case 1:
             guard self.currentTab == .home else {
                 assertionFailure("numberOfItemsInSection Error")
-                return 0
+                return 1
             }
-            return min(self.viewModel?.workbooks.count ?? 0, UICollectionView.columnCount)
+            let rawCount = min(self.viewModel?.workbooks.count ?? 1, UICollectionView.columnCount)
+            return max(1, rawCount)
         case 2:
             guard self.currentTab == .home else {
                 assertionFailure("numberOfItemsInSection Error")
-                return 0
+                return 1
             }
-            return min(self.viewModel?.workbookGroups.count ?? 0, UICollectionView.columnCount)
+            let rawCount = min(self.viewModel?.workbookGroups.count ?? 1, UICollectionView.columnCount)
+            return max(1, rawCount)
         default:
             assertionFailure("numberOfItemsInSection Error")
-            return 0
+            return 1
         }
     }
     
@@ -231,22 +246,37 @@ extension BookshelfVC: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             if self.currentTab == .home {
+                guard self.hasRecentWorkbooks else {
+                    return self.warningCell(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
+                }
                 guard let info = self.viewModel?.workbooksForRecent[safe: indexPath.item] else { return cell }
                 cell.configure(with: info, delegate: self)
             } else if self.currentTab == .workbook {
+                guard self.hasWorkbooks else {
+                    return self.warningCell(collectionView: collectionView, indexPath: indexPath, sectionName: "구매한 문제집") ?? UICollectionViewCell()
+                }
                 guard let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
                 cell.configure(with: info, delegate: self)
             } else if self.currentTab == .practiceTest {
+                guard self.hasWorkbookGroups else {
+                    return self.warningCell(collectionView: collectionView, indexPath: indexPath, sectionName: "구매한 실전 모의고사") ?? UICollectionViewCell()
+                }
                 guard let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
                 cell.configure(with: info, delegate: self)
             } else {
                 assertionFailure("cellForItemAt Error")
             }
         case 1:
+            guard self.hasWorkbooks else {
+                return self.warningCell(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
+            }
             guard self.currentTab == .home,
                   let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
             cell.configure(with: info, delegate: self)
         case 2:
+            guard self.hasWorkbookGroups else {
+                return self.warningCell(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
+            }
             guard self.currentTab == .home,
                   let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
             cell.configure(with: info, delegate: self)
@@ -254,6 +284,18 @@ extension BookshelfVC: UICollectionViewDataSource {
             assertionFailure("cellForItemAt Error")
         }
         return cell
+    }
+    
+    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath) -> BookshelfHomeWarningCell? {
+        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfHomeWarningCell.identifier, for: indexPath) as? BookshelfHomeWarningCell else { return nil }
+        warningCell.configureTitle(section: indexPath.section)
+        return warningCell
+    }
+    
+    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath, sectionName: String) -> BookshelfHomeWarningCell? {
+        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfHomeWarningCell.identifier, for: indexPath) as? BookshelfHomeWarningCell else { return nil }
+        warningCell.configureTitle(sectionName: sectionName)
+        return warningCell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -273,13 +315,33 @@ extension BookshelfVC: UICollectionViewDataSource {
 }
 
 extension BookshelfVC: UICollectionViewDelegateFlowLayout {
-    // MARK: 0개인 경우 UI 표시 분기처리 로직 필요
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch indexPath.section {
+        case 0:
+            if self.currentTab == .home {
+                return self.hasRecentWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+            } else if self.currentTab == .workbook {
+                return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
+            } else {
+                return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
+            }
+        case 1:
+            return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+        default:
+            return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if self.currentTab == .home {
             return CGSize(collectionView.bounds.width, 40)
         } else {
             return CGSize(collectionView.bounds.width, 66)
         }
+    }
+    
+    private var warningCellWidth: CGFloat {
+        return self.collectionView.bounds.width - UICollectionView.gridPadding*2
     }
 }
 
