@@ -48,7 +48,10 @@ final class BookshelfVC: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         guard self.collectionView != nil else { return }
-//        self.collectionView.collectionViewLayout.invalidateLayout()
+        guard self.currentTab == .home else {
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            return
+        }
         coordinator.animate(alongsideTransition: { _ in
             self.collectionView.reloadData()
         })
