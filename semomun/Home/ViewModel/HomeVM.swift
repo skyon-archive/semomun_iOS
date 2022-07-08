@@ -277,7 +277,6 @@ extension HomeVM {
                 }
             }
             group.notify(queue: .main) {
-                print(temp)
                 self?.popularTagContents = temp
             }
         }

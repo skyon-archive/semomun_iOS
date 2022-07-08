@@ -656,7 +656,8 @@ extension NetworkUsecase: BannerFetchable {
                 return
             }
             
-            completion(NetworkStatus(statusCode: statusCode), banners)
+//            completion(NetworkStatus(statusCode: statusCode), banners)
+            completion(.SUCCESS, Array(repeating: .init(image: .init(string: "https://www.apple.com/v/iphone-13/g/images/overview/hero/hero_1_static__feiuc1zaeiaa_large_2x.jpg")!, url: .init(string: "https://www.apple.com/v/iphone-13/g/images/overview/hero/hero_1_static__feiuc1zaeiaa_large_2x.jpg")!), count: 10))
         }
     }
 }
