@@ -77,6 +77,10 @@ class HomeVCSectionView: UIView {
     func reloadData() {
         self.collectionView.reloadData()
     }
+    
+    func updateItemSize() {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
 }
 
 // MARK: Private
