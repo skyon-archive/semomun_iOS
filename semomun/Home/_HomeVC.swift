@@ -8,21 +8,20 @@
 import UIKit
 import Combine
 
+/// - Note: HomeVCSectionView의 태그값은 UIStackView내의 순서와 같다(0에서 시작)
 class _HomeVC: UIViewController {
-    enum SectionDataType {
-        case workbook, workbookGroup, bookshelf
-    }
-    enum SectionType: Int, CaseIterable {
+    /// 상단에 위치한 고정된 섹션 종류
+    /// 각 case의 rawValue가 대응되는 collectionview의 태그값
+    private enum FixedSectionType: Int, CaseIterable {
         case bestseller
         case recent
         case tag
         case workbookGroup
     }
     private var viewModel: HomeVM?
-    private var fixedSectionViews: [SectionType: HomeVCSectionView] = [:]
+    private var fixedSectionViews: [FixedSectionType: HomeVCSectionView] = [:]
     private var popularTagSectionViews: [HomeVCSectionView] = []
     private var cancellables: Set<AnyCancellable> = []
-    
     private let headerView: HomeHeaderView = {
         let view = HomeHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +42,18 @@ class _HomeVC: UIViewController {
         
         return roundedBackground
     }()
+    private let bannerAdCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.decelerationRate = .fast
+        view.register(HomeAdCell.self, forCellWithReuseIdentifier: HomeAdCell.identifier)
+        view.showsHorizontalScrollIndicator = false
+        
+        return view
+    }()
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +62,7 @@ class _HomeVC: UIViewController {
         
         return stackView
     }()
-    private let sectionTitles: [SectionType: String] = [
+    private let sectionTitles: [FixedSectionType: String] = [
         .bestseller: "베스트셀러",
         .recent: "최근에 푼 문제집",
         .tag: "나의 태그",
@@ -60,17 +71,28 @@ class _HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // 레이아웃 설정
         self.view.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureHomeHeaderView()
         self.configureScrollViewLayout()
         self.configureScrollViewBackground()
+        self.configureBannerAdLayout()
         self.configureStackViewLayout()
-        
+        // VM 설정
         self.configureViewModel()
         self.bindAll()
+        self.viewModel?.checkLogined()
+        self.viewModel?.checkVersion()
+        self.viewModel?.checkMigration()
+        
+        self.configureBannerAd()
         
         self.configureStackViewContent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.checkVersion()
     }
 }
 
@@ -110,19 +132,36 @@ extension _HomeVC {
         ])
     }
     
+    private func configureBannerAdLayout() {
+        self.roundedBackground.addSubview(self.bannerAdCollectionView)
+        
+        NSLayoutConstraint.activate([
+            self.bannerAdCollectionView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 32),
+            self.bannerAdCollectionView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor, constant: 0),
+            self.bannerAdCollectionView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 32),
+            self.bannerAdCollectionView.heightAnchor.constraint(equalToConstant: 64)
+        ])
+    }
+    
     private func configureStackViewLayout() {
         self.roundedBackground.addSubview(self.stackView)
         
         NSLayoutConstraint.activate([
-            self.stackView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 32),
+            self.stackView.topAnchor.constraint(equalTo: self.bannerAdCollectionView.bottomAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32),
             self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 32),
         ])
     }
     
+    private func configureBannerAd() {
+        self.bannerAdCollectionView.delegate = self
+        self.bannerAdCollectionView.dataSource = self
+        self.bannerAdCollectionView.decelerationRate = .fast
+    }
+    
     private func configureStackViewContent() {
-        SectionType.allCases.forEach { sectionType in
+        FixedSectionType.allCases.forEach { sectionType in
             let sectionView = self.addNewSectionView()
             let sectionTitle = self.sectionTitles[sectionType] ?? ""
             sectionView.configureContent(collectionViewTag: sectionType.rawValue, delegate: self, seeAllAction: { }, title: sectionTitle)
@@ -132,11 +171,12 @@ extension _HomeVC {
         guard let viewModel = self.viewModel else { return }
         self.popularTagSectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
             let sectionView = self.addNewSectionView()
-            sectionView.configureContent(collectionViewTag: SectionType.allCases.count + idx, delegate: self, seeAllAction: { })
+            sectionView.configureContent(collectionViewTag: FixedSectionType.allCases.count + idx, delegate: self, seeAllAction: { })
             return sectionView
         }
     }
     
+    /// UIStackView 내에 HomeVCSectionView를 추가 후 레이아웃을 맞춘 뒤 리턴
     private func addNewSectionView() -> HomeVCSectionView {
         let sectionView = HomeVCSectionView()
         self.stackView.addArrangedSubview(sectionView)
@@ -153,7 +193,11 @@ extension _HomeVC {
 
 extension _HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let sectionType = SectionType(rawValue: collectionView.tag) {
+        guard collectionView != self.bannerAdCollectionView else {
+            return self.viewModel?.banners.count ?? 0
+        }
+        
+        if let sectionType = FixedSectionType(rawValue: collectionView.tag) { // 고정 섹션
             switch sectionType {
             case .bestseller:
                 return self.viewModel?.bestSellers.count ?? 0
@@ -165,17 +209,28 @@ extension _HomeVC: UICollectionViewDataSource {
                 return self.viewModel?.workbookGroups.count ?? 0
             }
         } else { // 인기 태그 섹션들
-            let tagSectionIndex = collectionView.tag - SectionType.allCases.count
+            let tagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
             let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex]
             return tagContent?.content.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // 광고 배너
+        guard collectionView != self.bannerAdCollectionView else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
+            guard let count = self.viewModel?.banners.count else { return cell }
+            guard let banner = self.viewModel?.banners[indexPath.item % count] else { return cell }
+            
+            cell.configureContent(imageURL: banner.image, url: banner.url)
+            
+            return cell
+        }
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeBookcoverCell.identifier, for: indexPath) as? HomeBookcoverCell else { return .init() }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return cell }
         
-        if let sectionType = SectionType(rawValue: collectionView.tag) {
+        if let sectionType = FixedSectionType(rawValue: collectionView.tag) { // 고정 섹션
             switch sectionType {
             case .bestseller:
                 guard let preview = self.viewModel?.bestSellers[indexPath.item] else { return cell }
@@ -190,8 +245,8 @@ extension _HomeVC: UICollectionViewDataSource {
                 guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return cell }
                 cell.configure(with: info, networkUsecase: networkUsecase)
             }
-        } else {
-            let tagSectionIndex = collectionView.tag - SectionType.allCases.count
+        } else { // 인기 태그 섹션들
+            let tagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
             guard let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex] else { return cell }
             let content = tagContent.content[indexPath.item]
             cell.configure(with: content, networkUsecase: networkUsecase)
@@ -203,8 +258,10 @@ extension _HomeVC: UICollectionViewDataSource {
 
 extension _HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 광고 배너
+        guard collectionView != self.bannerAdCollectionView else { return }
         
-        if let sectionType = SectionType(rawValue: collectionView.tag) {
+        if let sectionType = FixedSectionType(rawValue: collectionView.tag) { // 고정 섹션
             switch sectionType {
             case .bestseller:
                 guard let wid = self.viewModel?.bestSellers[indexPath.item].wid else { return }
@@ -219,8 +276,8 @@ extension _HomeVC: UICollectionViewDelegate {
                 guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
                 self.searchWorkbookGroup(info: info)
             }
-        } else {
-            let popularTagSectionIndex = collectionView.tag - SectionType.allCases.count
+        } else { // 인기 태그 섹션들
+            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
             guard let wid = self.viewModel?.popularTagContents[popularTagSectionIndex].content[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         }
@@ -291,7 +348,12 @@ extension _HomeVC {
 
 extension _HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return UICollectionView.bookcoverCellSize
+        if collectionView == self.bannerAdCollectionView {
+            // BookcoverCell 두개 크기
+            return .init((UICollectionView.bookcoverCellSize.width*2)+UICollectionView.gutterWidth, 64)
+        } else {
+            return UICollectionView.bookcoverCellSize
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -340,9 +402,7 @@ extension _HomeVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] banners in
-                //                guard banners.isEmpty == false else { return }
-                //                self?.configureBannerAdsStartIndex()
-                //                self?.bannerAds.reloadData()
+                self?.bannerAdCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }

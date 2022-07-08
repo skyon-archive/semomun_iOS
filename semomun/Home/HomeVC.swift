@@ -57,7 +57,6 @@ final class HomeVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.stopBannerAdsAutoScroll()
     }
     
     @IBAction func appendTags(_ sender: Any) {
@@ -98,10 +97,7 @@ extension HomeVC {
     }
     
     private func configureBannerAdsStartIndex() {
-        let bannerAdsFlowLayout = BannerAdsFlowLayout(autoScrollStopper: self)
-        
         self.bannerAds.reloadData()
-        self.bannerAds.collectionViewLayout = bannerAdsFlowLayout
         
         guard let adDataNum = self.viewModel?.banners.count, adDataNum > 0 else { return }
         let adRepeatTime = self.collectionView(self.bannerAds, numberOfItemsInSection: 0) / adDataNum
@@ -548,13 +544,6 @@ extension HomeVC {
         
         let nextIndex = visibleItemIndexes[visibleItemIndexes.count/2 + 1]
         self.bannerAds.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: true)
-    }
-}
-
-extension HomeVC: BannerAdsAutoScrollStoppable {
-    func stopBannerAdsAutoScroll() {
-        self.bannerAdsAutoScrollTimer?.invalidate()
-        self.bannerAdsAutoScrollTimer = nil
     }
 }
 
