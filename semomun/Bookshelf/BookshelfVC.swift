@@ -44,7 +44,7 @@ final class BookshelfVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard UserDefaultsManager.isLogined else { return }
-//        self.reloadCollectionView()
+        self.viewModel?.refresh(tab: self.currentTab)
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
@@ -200,24 +200,24 @@ extension BookshelfVC: UICollectionViewDataSource {
         case 0:
             if self.currentTab == .home {
                 guard let info = self.viewModel?.workbooksForRecent[safe: indexPath.item] else { return cell }
-                cell.configure(with: info)
+                cell.configure(with: info, delegate: self)
             } else if self.currentTab == .workbook {
                 guard let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
-                cell.configure(with: info)
+                cell.configure(with: info, delegate: self)
             } else if self.currentTab == .practiceTest {
                 guard let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
-                cell.configure(with: info)
+                cell.configure(with: info, delegate: self)
             } else {
                 assertionFailure("cellForItemAt Error")
             }
         case 1:
             guard self.currentTab == .home,
                   let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
-            cell.configure(with: info)
+            cell.configure(with: info, delegate: self)
         case 2:
             guard self.currentTab == .home,
                   let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
-            cell.configure(with: info)
+            cell.configure(with: info, delegate: self)
         default:
             assertionFailure("cellForItemAt Error")
         }
@@ -280,7 +280,8 @@ extension BookshelfVC: BookshelfDetailDelegate {
         self.viewModel?.refresh(tab: self.currentTab)
     }
     
-    func changeOrder(to: DropdownOrderButton.BookshelfOrder) {
+    func changeOrder(to order: DropdownOrderButton.BookshelfOrder) {
+        print(order)
         // MARK: ordering 전달 로직 고민 필요
     }
 }

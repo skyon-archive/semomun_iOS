@@ -40,14 +40,16 @@ final class BookshelfCell: BookcoverCell {
         }
     }
     
-    func configure(with workbookInfo: WorkbookCellInfo) {
+    func configure(with workbookInfo: WorkbookCellInfo, delegate: BookshelfCellDelegate) {
+        self.delegate = delegate
         self.infoType = .workbook
         self.workbookInfo = workbookInfo
         self.configureReuse(bookTitle: workbookInfo.title, publishCompany: workbookInfo.publisher)
         self.configureImage(data: workbookInfo.imageData)
     }
     
-    func configure(with workbookGroupInfo: WorkbookGroupCellInfo) {
+    func configure(with workbookGroupInfo: WorkbookGroupCellInfo, delegate: BookshelfCellDelegate) {
+        self.delegate = delegate
         self.infoType = .workbookGroup
         self.workbookGroupInfo = workbookGroupInfo
         self.configureReuse(bookTitle: workbookGroupInfo.title, publishCompany: workbookGroupInfo.publisher)
