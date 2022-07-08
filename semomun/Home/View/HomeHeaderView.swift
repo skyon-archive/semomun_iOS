@@ -10,8 +10,8 @@ import UIKit
 class HomeHeaderView: UIView {
     private let logoImageView: UIImageView = {
         let view = UIImageView()
-        // 임시 코드
-        view.image = UIImage(.cloudDownloadOutline)
+        
+        view.image = UIImage(.logo)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: 48),

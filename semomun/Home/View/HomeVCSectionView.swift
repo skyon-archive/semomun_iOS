@@ -8,6 +8,14 @@
 import UIKit
 
 class HomeVCSectionView: UIView {
+    /* public */
+    lazy private(set) var tagList: UserTagListView = {
+        let view = UserTagListView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    }()
+    /* private */
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,11 +47,14 @@ class HomeVCSectionView: UIView {
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(hasTagList: Bool) {
+        super.init(frame: .zero)
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.configureLayout()
+        if hasTagList {
+            self.configureTagList()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +77,10 @@ class HomeVCSectionView: UIView {
     func reloadData() {
         self.collectionView.reloadData()
     }
-    
+}
+
+// MARK: Private
+extension HomeVCSectionView {
     private func configureLayout() {
         self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
         
@@ -84,6 +98,17 @@ class HomeVCSectionView: UIView {
             self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        ])
+    }
+    
+    private func configureTagList() {
+        self.addSubview(self.tagList)
+        
+        NSLayoutConstraint.activate([
+            self.tagList.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
+            self.tagList.trailingAnchor.constraint(equalTo: self.seeAllButton.leadingAnchor, constant: -12),
+            self.tagList.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 12),
+            self.tagList.heightAnchor.constraint(equalToConstant: 32)
         ])
     }
 }
