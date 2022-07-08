@@ -36,7 +36,6 @@ extension BookshelfVM {
             self.currentWorkbookGroupsOrder = .recentRead
             self.reloadWorkbooks()
             self.reloadWorkbookGroups()
-            self.fetchBookshelf()
         case .workbook:
             self.reloadWorkbooks()
             self.fetchWorkbooks()
@@ -57,7 +56,7 @@ extension BookshelfVM {
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch self.currentWorkbooksOrder {
+        switch self.currentWorkbookGroupsOrder {
         case .recentPurchase:
             self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
         case .recentRead:
@@ -82,7 +81,7 @@ extension BookshelfVM {
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch self.currentWorkbookGroupsOrder {
+        switch self.currentWorkbooksOrder {
         case .recentPurchase:
             self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
         case .recentRead:
