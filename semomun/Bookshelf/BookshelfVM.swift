@@ -28,7 +28,9 @@ final class BookshelfVM {
 extension BookshelfVM {
     func refresh(tab: BookshelfVC.Tab) {
         switch tab {
-        case .home: return
+        case .home:
+            self.reloadWorkbooks(order: .recentPurchase)
+            self.reloadWorkbookGroups(order: .recentPurchase)
         case .workbook:
             print("refresh workbook")
         case .practiceTest:

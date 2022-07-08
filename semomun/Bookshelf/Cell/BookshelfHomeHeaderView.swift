@@ -21,6 +21,11 @@ final class BookshelfHomeHeaderView: UICollectionReusableView {
     private weak var delegate: BookshelfHomeDelegate?
     private var section: Int = 0
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.delegate = nil
+    }
+    
     @IBAction func showAllCells(_ sender: Any) {
         switch section {
         case 0:
@@ -35,6 +40,7 @@ final class BookshelfHomeHeaderView: UICollectionReusableView {
     }
     
     func configure(delegate: BookshelfHomeDelegate, section: Int) {
+        self.delegate = delegate
         self.section = section
         switch section {
         case 0:
