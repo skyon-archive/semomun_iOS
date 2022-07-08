@@ -87,13 +87,27 @@ class _HomeVC: UIViewController {
         self.viewModel?.checkMigration()
         
         self.configureBannerAd()
-        
         self.configureStackViewContent()
+        self.configureAddObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel?.checkVersion()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(
+            alongsideTransition: { [weak self] _ in
+                self?.fixedSectionViews.values.forEach {
+                    $0.updateItemSize()
+                }
+                self?.popularTagSectionViews.forEach {
+                    $0.updateItemSize()
+                }
+            }
+        )
     }
 }
 
@@ -196,6 +210,21 @@ extension _HomeVC {
     private func configureViewModel() {
         let networkUsecase = NetworkUsecase(network: Network())
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
+    }
+    
+    private func configureAddObserver() {
+        NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .main) { [weak self] _ in
+            self?.tabBarController?.selectedIndex = 2
+        }
+        NotificationCenter.default.addObserver(forName: .goToBookShelf, object: nil, queue: .main) { [weak self] _ in
+            self?.tabBarController?.selectedIndex = 2
+        }
+        NotificationCenter.default.addObserver(forName: .tokenExpired, object: nil, queue: .main) { [weak self] _ in
+            self?.showAlertWithOK(title: "세션이 만료되었습니다.", text: "다시 로그인 해주시기 바랍니다.") {
+                LogoutUsecase.logout()
+                NotificationCenter.default.post(name: .logout, object: nil)
+            }
+        }
     }
 }
 

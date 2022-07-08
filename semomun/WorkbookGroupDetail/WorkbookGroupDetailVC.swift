@@ -50,6 +50,15 @@ final class WorkbookGroupDetailVC: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(
+            alongsideTransition: { [weak self] _ in
+                self?.practiceTests.collectionViewLayout.invalidateLayout()
+            }
+        )
+    }
 }
 
 // MARK: Public

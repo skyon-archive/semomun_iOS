@@ -20,6 +20,7 @@ class UserTagListView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
         view.spacing = 12
+        view.distribution = .equalSpacing
         
         return view
     }()
@@ -28,8 +29,8 @@ class UserTagListView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImageWithSVGTintColor(image: UIImage(.pencilSolid), color: .black)
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 24),
-            button.heightAnchor.constraint(equalToConstant: 24),
+            button.widthAnchor.constraint(equalToConstant: 32),
+            button.heightAnchor.constraint(equalToConstant: 32)
         ])
         
         return button
@@ -53,6 +54,7 @@ class UserTagListView: UIView {
             let tagCell = self.makeTagCell(withName: name)
             self.stackView.addArrangedSubview(tagCell)
         }
+        self.stackView.addArrangedSubview(self.editButton)
     }
     
     // MARK: 반드시 호출해야하는 메소드
@@ -76,10 +78,7 @@ extension UserTagListView {
             self.stackView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
-            
-            self.editButton.centerYAnchor.constraint(equalTo: self.stackView.centerYAnchor),
-            self.editButton.leadingAnchor.constraint(equalTo: self.stackView.trailingAnchor, constant: 12),
-            self.editButton.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -12)
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor)
         ])
     }
     

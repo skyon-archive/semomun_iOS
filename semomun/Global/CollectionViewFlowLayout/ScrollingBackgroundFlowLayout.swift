@@ -28,6 +28,11 @@ class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func invalidateLayout() {
+        self.itemSize = UICollectionView.bookcoverCellSize
+        super.invalidateLayout()
+    }
+    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var attributes = super.layoutAttributesForElements(in: rect)
         
