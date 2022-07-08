@@ -17,7 +17,7 @@ final class BookshelfVM {
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var loading: Bool = false
     /* private */
-    private var workbookCores: [Preview_Core] = []
+    private var workbooksNotFiltered: [WorkbookCellInfo] = []
     
     init(networkUsecse: NetworkUsecase) {
         self.networkUsecase = networkUsecse
@@ -36,51 +36,55 @@ extension BookshelfVM {
         }
     }
     
-    func reloadWorkbookGroups(order: BookshelfSortOrder) {
+    func reloadWorkbookGroups(order: DropdownOrderButton.BookshelfOrder) {
         print("reload workbookGroups, order: \(order)")
         
         guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
             print("no workbookGoups")
             return
-        }
+        } // 이 함수를 빠져나가면 workbookGroups 는 제거되어야 한다.
         
         if NetworkStatusManager.isConnectedToInternet() {
-            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+            NotificationCenter.default.post(name: .refreshBookshelf, object: nil) // HomeVM 에서 수신받아 reload 후 표시 연결
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
-        case .purchase:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) })
-        case .recent:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) })
-        case .alphabet:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) })
+        case .recentPurchase:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
+        case .recentRead:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
+        case .titleDescending:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+        case .titleAscending:
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo } // MARK: 오름차순 로직 구현 필요
         }
     }
      
-    func reloadWorkbooks(order: BookshelfSortOrder) {
+    func reloadWorkbooks(order: DropdownOrderButton.BookshelfOrder) {
         print("reload workbooks, order: \(order)")
         
         guard let workbooks = CoreUsecase.fetchPreviews() else {
             print("no workbooks")
             return
         }
-        self.workbookCores = workbooks
+        self.workbooksNotFiltered = workbooks.map { $0.cellInfo }
         let filteredWorkbooks = workbooks.filter({ $0.wgid == 0 })
         
         if NetworkStatusManager.isConnectedToInternet() {
-            NotificationCenter.default.post(name: .refreshBookshelf, object: nil)
+            NotificationCenter.default.post(name: .refreshBookshelf, object: nil) // HomeVM 에서 수신받아 reload 후 표시 연결
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch order {
-        case .purchase:
-            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) })
-        case .recent:
-            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) })
-        case .alphabet:
-            self.filteredWorkbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) })
+        case .recentPurchase:
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
+        case .recentRead:
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
+        case .titleDescending:
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+        case .titleAscending:
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo } // MARK: 오름차순 로직 구현 필요
         }
     }
     
@@ -187,14 +191,14 @@ extension BookshelfVM {
         print("sync workbookGroups")
         let localWorkbookGroupWgids = self.workbookGroups.map(\.wgid)
         // Local 내에 없는 book 정보들의 수를 센다
-        let fetchCount: Int = userPurchases.filter { localWorkbookGroupWgids.contains(Int64($0.wgid)) == false }.count
+        let fetchCount: Int = userPurchases.filter { localWorkbookGroupWgids.contains($0.wgid) == false }.count
         var currentCount: Int = 0
         print("---------- sync workbookGroups ----------")
         userPurchases.forEach { info in
             // Local 내에 있는 WorkbookGroup 의 경우 recentDate 최신화 작업을 진행한다
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
-            if localWorkbookGroupWgids.contains(Int64(info.wgid)) {
-                let targetWorkbookGroup = self.workbookGroups.first { $0.wgid == Int64(info.wgid) }
+            if localWorkbookGroupWgids.contains(info.wgid) {
+                let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid)
                 targetWorkbookGroup?.updateInfos(purchasedInfo: info)
                 print("local workbookGroup(\(info.wgid)) update complete")
             }
@@ -232,17 +236,17 @@ extension BookshelfVM {
     
     private func syncWorkbooks(infos: [BookshelfInfoOfDB], completion: @escaping (() -> Void)) {
         print("sync workbooks")
-        let localBookWids = self.workbookCores.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
+        let localBookWids = self.workbooksNotFiltered.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
         let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
         // Local 내에 없는 workbook 정보들의 수를 센다
-        let fetchCount: Int = userPurchases.filter { localBookWids.contains(Int64($0.wid)) == false }.count
+        let fetchCount: Int = userPurchases.filter { localBookWids.contains($0.wid) == false }.count
         var currentCount: Int = 0
         print("---------- sync bookshelf ----------")
         userPurchases.forEach { info in
             // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
-            if localBookWids.contains(Int64(info.wid)) {
-                let targetWorkbook = self.workbookCores.first { $0.wid == Int64(info.wid) }
+            if localBookWids.contains(info.wid) {
+                let targetWorkbook = CoreUsecase.fetchPreview(wid: info.wid)
                 targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecase)
                 print("local preview(\(info.wid)) update complete")
             }
