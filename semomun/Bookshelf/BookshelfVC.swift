@@ -28,6 +28,9 @@ final class BookshelfVC: UIViewController {
     private var currentTab: Tab = .home {
         didSet {
             self.changeTabUI()
+            if currentTab == .home {
+                self.viewModel?.refresh(tab: .home) // home order 반영
+            }
             self.collectionView.reloadData() // section 개수 변동
         }
     }
@@ -38,6 +41,7 @@ final class BookshelfVC: UIViewController {
         self.configureViewModel()
         self.bindAll()
         self.viewModel?.refresh(tab: .home)
+        self.viewModel?.fetchBookshelf()
 //        self.checkSyncBookshelf()
 //        self.configureObservation()
     }
@@ -284,8 +288,13 @@ extension BookshelfVC: BookshelfDetailDelegate {
     }
     
     func changeOrder(to order: DropdownOrderButton.BookshelfOrder) {
-        print(order)
-        // MARK: ordering 전달 로직 고민 필요
+        if self.currentTab == .workbook {
+            self.viewModel?.currentWorkbooksOrder = order
+            self.viewModel?.reloadWorkbooks()
+        } else {
+            self.viewModel?.currentWorkbookGroupsOrder = order
+            self.viewModel?.reloadWorkbookGroups()
+        }
     }
 }
 
