@@ -27,6 +27,7 @@ final class BookshelfVC: UIViewController {
     private lazy var loadingView = LoadingView()
     private var currentTab: Tab = .home {
         didSet {
+            self.changeTabUI()
             self.collectionView.reloadData() // section 개수 변동
         }
     }
@@ -47,9 +48,7 @@ final class BookshelfVC: UIViewController {
     }
     
     @IBAction func changeTab(_ sender: UIButton) {
-        let index = sender.tag
-        self.changeTabUI(index: index)
-        self.currentTab = Tab(rawValue: index) ?? .home
+        self.currentTab = Tab(rawValue: sender.tag) ?? .home
     }
 }
 
@@ -228,12 +227,27 @@ extension BookshelfVC: UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else { return UICollectionReusableView() }
+        
+        if self.currentTab == .home {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfHomeHeaderView.identifier, for: indexPath) as? BookshelfHomeHeaderView else { return UICollectionReusableView() }
+            header.configure(delegate: self, section: indexPath.section)
+            return header
+        } else {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfDetailHeaderView.identifier, for: indexPath) as? BookshelfDetailHeaderView else { return UICollectionReusableView() }
+            header.configure(delegate: self, order: .recentPurchase) // MARK: order 값을 가져와 설정하는 로직 필요
+            return header
+        }
+    }
 }
 
 extension BookshelfVC {
-    private func changeTabUI(index: Int) {
+    private func changeTabUI() {
+        let tabIndex = self.currentTab.rawValue
         for (idx, button) in self.bookshelfTabButtons.enumerated() {
-            if button.tag == index {
+            if button.tag == tabIndex {
                 button.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
                 self.bookshelfTabUnderlines[idx].alpha = 1
             } else {
@@ -244,3 +258,29 @@ extension BookshelfVC {
     }
 }
 
+extension BookshelfVC: BookshelfHomeDelegate {
+    func showAllRecentWorkbooks() {
+        self.currentTab = .workbook
+        // MARK: ordering 전달 로직 고민 필요
+    }
+    
+    func showAllRecentPurchaseWorkbooks() {
+        self.currentTab = .workbook
+        // MARK: ordering 전달 로직 고민 필요
+    }
+    
+    func showAllPracticeTests() {
+        self.currentTab = .practiceTest
+        // MARK: ordering 전달 로직 고민 필요
+    }
+}
+
+extension BookshelfVC: BookshelfDetailDelegate {
+    func refreshWorkbooks() {
+        self.viewModel?.refresh(tab: self.currentTab)
+    }
+    
+    func changeOrder(to: DropdownOrderButton.BookshelfOrder) {
+        // MARK: ordering 전달 로직 고민 필요
+    }
+}
