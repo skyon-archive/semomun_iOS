@@ -28,22 +28,25 @@ final class BookshelfVM {
 
 // MARK: Public
 extension BookshelfVM {
-    // 탭 전환시 내부 coredata fetch 및 정렬
     func refresh(tab: BookshelfVC.Tab) {
+        guard UserDefaultsManager.isLogined == true else { return }
         switch tab {
         case .home:
-            self.reloadWorkbooks(order: .recentPurchase)
-            self.reloadWorkbookGroups(order: .recentPurchase)
+            self.currentWorkbooksOrder = .recentPurchase
+            self.currentWorkbookGroupsOrder = .recentRead
+            self.reloadWorkbooks()
+            self.reloadWorkbookGroups()
+            self.fetchBookshelf()
         case .workbook:
-            print("refresh workbook")
+            self.reloadWorkbooks()
+            self.fetchWorkbooks()
         case .practiceTest:
-            print("refresh workbookGroup")
+            self.reloadWorkbookGroups()
+            self.fetchWorkbookGroups()
         }
     }
     
-    func reloadWorkbookGroups(order: DropdownOrderButton.BookshelfOrder) {
-        print("reload workbookGroups, order: \(order)")
-        
+    func reloadWorkbookGroups() {
         guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
             print("no workbookGoups")
             return
@@ -54,7 +57,7 @@ extension BookshelfVM {
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch order {
+        switch self.currentWorkbooksOrder {
         case .recentPurchase:
             self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
         case .recentRead:
@@ -66,9 +69,7 @@ extension BookshelfVM {
         }
     }
      
-    func reloadWorkbooks(order: DropdownOrderButton.BookshelfOrder) {
-        print("reload workbooks, order: \(order)")
-        
+    func reloadWorkbooks() {
         guard let workbooks = CoreUsecase.fetchPreviews() else {
             print("no workbooks")
             return
@@ -81,7 +82,7 @@ extension BookshelfVM {
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch order {
+        switch self.currentWorkbookGroupsOrder {
         case .recentPurchase:
             self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
         case .recentRead:
@@ -97,9 +98,6 @@ extension BookshelfVM {
     /// 따라서 두 API 의 내부 wgid, wid 를 통한 fetch 까지 모두 끝난 경우를 인지하여 한번의 saveCoreData 수행, collectionView.reload 로 연결
     func fetchBookshelf() {
         guard NetworkStatusManager.isConnectedToInternet() else { return }
-        
-        self.loading = true
-        print("loading start")
         let taskGroup = DispatchGroup()
         
         taskGroup.enter()
@@ -114,7 +112,24 @@ extension BookshelfVM {
         
         taskGroup.notify(queue: .main) {
             CoreDataManager.saveCoreData()
-            self.loading = false
+            self.reloadWorkbookGroups()
+            self.reloadWorkbooks()
+        }
+    }
+    
+    func fetchWorkbooks() {
+        guard NetworkStatusManager.isConnectedToInternet() else { return }
+        self.fetchWorkbooksFromNetwork { [weak self] in
+            CoreDataManager.saveCoreData()
+            self?.reloadWorkbooks()
+        }
+    }
+    
+    func fetchWorkbookGroups() {
+        guard NetworkStatusManager.isConnectedToInternet() else { return }
+        self.fetchWorkbookGroupsFromNetwork { [weak self] in
+            CoreDataManager.saveCoreData()
+            self?.reloadWorkbookGroups()
         }
     }
     
@@ -203,9 +218,10 @@ extension BookshelfVM {
             // Local 내에 있는 WorkbookGroup 의 경우 recentDate 최신화 작업을 진행한다
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localWorkbookGroupWgids.contains(info.wgid) {
-                let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid)
-                targetWorkbookGroup?.updateInfos(purchasedInfo: info)
-                print("local workbookGroup(\(info.wgid)) update complete")
+                if let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
+                    targetWorkbookGroup.updateInfos(purchasedInfo: info)
+                    print("local workbookGroup(\(info.wgid)) update complete")
+                }
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
@@ -251,9 +267,10 @@ extension BookshelfVM {
             // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localBookWids.contains(info.wid) {
-                let targetWorkbook = CoreUsecase.fetchPreview(wid: info.wid)
-                targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecase)
-                print("local preview(\(info.wid)) update complete")
+                if let targetWorkbook = CoreUsecase.fetchPreview(wid: info.wid) {
+                    targetWorkbook.updateDate(info: info, networkUsecase: self.networkUsecase)
+                    print("local preview(\(info.wid)) update complete")
+                }
             }
             // Local 내에 없는 경우 필요정보를 받아와 저장한다
             else {
