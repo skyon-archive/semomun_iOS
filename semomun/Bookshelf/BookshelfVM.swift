@@ -11,12 +11,13 @@ import Combine
 final class BookshelfVM {
     /* public */
     private(set) var networkUsecase: NetworkUsecase
-    @Published private(set) var workbookGroups: [WorkbookGroup_Core] = []
-    @Published private(set) var filteredWorkbooks: [Preview_Core] = []
+    @Published private(set) var workbooksForRecent: [WorkbookCellInfo] = []
+    @Published private(set) var workbooks: [WorkbookCellInfo] = []
+    @Published private(set) var workbookGroups: [WorkbookGroupCellInfo] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var loading: Bool = false
     /* private */
-    private var workbooks: [Preview_Core] = []
+    private var workbookCores: [Preview_Core] = []
     
     init(networkUsecse: NetworkUsecase) {
         self.networkUsecase = networkUsecse
@@ -55,7 +56,7 @@ extension BookshelfVM {
             print("no workbooks")
             return
         }
-        self.workbooks = workbooks
+        self.workbookCores = workbooks
         let filteredWorkbooks = workbooks.filter({ $0.wgid == 0 })
         
         if NetworkStatusManager.isConnectedToInternet() {
@@ -221,7 +222,7 @@ extension BookshelfVM {
     
     private func syncWorkbooks(infos: [BookshelfInfoOfDB], completion: @escaping (() -> Void)) {
         print("sync workbooks")
-        let localBookWids = self.workbooks.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
+        let localBookWids = self.workbookCores.map(\.wid) // Local 내 저장되어있는 Workbook 의 wid 배열
         let userPurchases = infos.map { BookshelfInfo(info: $0) } // Network 에서 받은 사용자가 구매한 Workbook 들의 정보들
         // Local 내에 없는 workbook 정보들의 수를 센다
         let fetchCount: Int = userPurchases.filter { localBookWids.contains(Int64($0.wid)) == false }.count
@@ -231,7 +232,7 @@ extension BookshelfVM {
             // Local 내에 있는 Workbook 의 경우 recentDate 최신화 작업을 진행한다
             // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
             if localBookWids.contains(Int64(info.wid)) {
-                let targetWorkbook = self.workbooks.first { $0.wid == Int64(info.wid) }
+                let targetWorkbook = self.workbookCores.first { $0.wid == Int64(info.wid) }
                 targetWorkbook?.updateDate(info: info, networkUsecase: self.networkUsecase)
                 print("local preview(\(info.wid)) update complete")
             }

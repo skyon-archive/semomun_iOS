@@ -27,7 +27,7 @@ final class BookshelfVC: UIViewController {
     private lazy var loadingView = LoadingView()
     private var currentTab: Tab = .home {
         didSet {
-            self.collectionView.reloadData()
+            self.collectionView.reloadData() // section 개수 변동
         }
     }
     
@@ -84,20 +84,62 @@ extension BookshelfVC {
     }
     /// Home : 최근에 푼 문제집 섹션 표시용
     private func bindWorkbooksForRecent() {
-        
+        self.viewModel?.$workbooksForRecent
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbooks in
+                guard self?.currentTab == .home else { return }
+                let indexes = (0..<workbooks.count).map { IndexPath(row: $0, section: 0) }
+                UIView.performWithoutAnimation {
+                    self?.collectionView.reloadItems(at: indexes)
+                }
+            })
+            .store(in: &self.cancellables)
     }
     /// Home : 최근에 구매한 문제집 섹션 표시용
     /// Detail : 문제집 탭 표시용
     /// Detail : 최근에 구매한 문제집 모두보기 표시용
     private func bindWorkbooks() {
-        
+        self.viewModel?.$workbooks
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbooks in
+                let count = max(workbooks.count, UICollectionView.columnCount)
+                var section: Int = 0
+                switch self?.currentTab {
+                case .home: section = 1
+                case .workbook: section = 0
+                default: return
+                }
+                let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
+                UIView.performWithoutAnimation {
+                    self?.collectionView.reloadItems(at: indexes)
+                }
+            })
+            .store(in: &self.cancellables)
     }
     
     /// Home: 실전 모의고사 섹션 표시용
     /// Detail : 실전 모의고사 탭 표시용
     /// Detail : 실전 모의고사 모두보기 표시용
     private func bindWorkbookGroups() {
-        
+        self.viewModel?.$workbookGroups
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookGroups in
+                let count = max(workbookGroups.count, UICollectionView.columnCount)
+                var section: Int = 0
+                switch self?.currentTab {
+                case .home: section = 2
+                case .practiceTest: section = 0
+                default: return
+                }
+                let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
+                UIView.performWithoutAnimation {
+                    self?.collectionView.reloadItems(at: indexes)
+                }
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindWarning() {
