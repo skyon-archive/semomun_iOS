@@ -202,7 +202,6 @@ extension HomeVC {
         self.bindAds()
         self.bindBestSellers()
         self.bindRecent()
-        self.bindNewest()
         self.bindWorkbookDTO()
         self.bindOfflineStatus()
         self.bindLogined()
@@ -259,16 +258,6 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.recentEntered.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindNewest() {
-        self.viewModel?.$recentPurchased
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.recentPurchased.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -396,7 +385,8 @@ extension HomeVC: UICollectionViewDataSource {
         case self.recentEntered:
             return self.viewModel?.recentEntered.count ?? 0
         case self.recentPurchased:
-            return self.viewModel?.recentPurchased.count ?? 0
+            return 0
+//            return self.viewModel?.recentPurchased.count ?? 0
         case self.workbookGroups:
             return self.viewModel?.workbookGroups.count ?? 0
         default:
@@ -428,8 +418,9 @@ extension HomeVC: UICollectionViewDataSource {
                 guard let info = self.viewModel?.recentEntered[indexPath.item] else { return cell }
                 cell.configure(with: info)
             case self.recentPurchased:
-                guard let info = self.viewModel?.recentPurchased[indexPath.item] else { return cell }
-                cell.configure(with: info)
+//                guard let info = self.viewModel?.recentPurchased[indexPath.item] else { return cell }
+//                cell.configure(with: info)
+                break
             case self.workbookGroups:
                 guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return cell }
                 cell.configure(with: info)
@@ -457,8 +448,9 @@ extension HomeVC: UICollectionViewDelegate {
             guard let wid = self.viewModel?.recentEntered[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         case self.recentPurchased:
-            guard let wid = self.viewModel?.recentPurchased[indexPath.item].wid else { return }
-            self.searchWorkbook(wid: wid)
+            break
+//            guard let wid = self.viewModel?.recentPurchased[indexPath.item].wid else { return }
+//            self.searchWorkbook(wid: wid)
         case self.workbookGroups:
             guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
             self.searchWorkbookGroup(info: info)
