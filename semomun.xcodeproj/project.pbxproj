@@ -204,7 +204,6 @@
 		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* FormCellControllable.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
-		8768B3AC2800596100E99BBD /* BookshelfFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */; };
 		8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8778D28328695331002B1684 /* PracticeTestManager.swift */; };
 		877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
@@ -278,7 +277,6 @@
 		87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */; };
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
-		87CB8B43286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB8B42286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift */; };
 		87CF648F2860173700FA56BE /* PrivateTestResultOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF648E2860173700FA56BE /* PrivateTestResultOfDB.swift */; };
 		87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
@@ -290,7 +288,6 @@
 		87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941227BA6D93008F6105 /* LoadingView.swift */; };
 		87DD0FCB2875B5C300070F8F /* DropdownOrderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DD0FCA2875B5C300070F8F /* DropdownOrderButton.swift */; };
 		87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */; };
-		87DE9BE0286C3C2B009DBB86 /* BookshelfHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */; };
 		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
@@ -302,6 +299,7 @@
 		87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */; };
 		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
 		87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */; };
+		87F4394B2877E047003C7498 /* BookshelfDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */; };
 		87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F58268279E654E00A2BD15 /* TagsLayout.swift */; };
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
@@ -503,7 +501,6 @@
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfHomeHeaderView.xib; sourceTree = "<group>"; };
-		873BCE4F2876CF0C005A6189 /* BookshelfDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfDetailHeaderView.xib; sourceTree = "<group>"; };
 		873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeHeaderView.swift; sourceTree = "<group>"; };
 		873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailHeaderView.swift; sourceTree = "<group>"; };
 		873BCE552876E8FA005A6189 /* WorkbookCellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookCellInfo.swift; sourceTree = "<group>"; };
@@ -524,7 +521,6 @@
 		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* FormCellControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellControllable.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
-		8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfFooterView.swift; sourceTree = "<group>"; };
 		8778D28328695331002B1684 /* PracticeTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestManager.swift; sourceTree = "<group>"; };
 		877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -598,7 +594,6 @@
 		87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
-		87CB8B42286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfWorkbookGroupCell.swift; sourceTree = "<group>"; };
 		87CF648E2860173700FA56BE /* PrivateTestResultOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateTestResultOfDB.swift; sourceTree = "<group>"; };
 		87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultButton.swift; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
@@ -610,7 +605,6 @@
 		87DC941227BA6D93008F6105 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		87DD0FCA2875B5C300070F8F /* DropdownOrderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownOrderButton.swift; sourceTree = "<group>"; };
 		87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningOfflineStatusView.swift; sourceTree = "<group>"; };
-		87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHeaderView.swift; sourceTree = "<group>"; };
 		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
@@ -622,6 +616,7 @@
 		87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedWorkbookGroupInfoOfDB.swift; sourceTree = "<group>"; };
 		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
 		87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupInfo.swift; sourceTree = "<group>"; };
+		87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfDetailHeaderView.xib; sourceTree = "<group>"; };
 		87F58268279E654E00A2BD15 /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
 		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
@@ -1074,7 +1069,6 @@
 				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
 				873BCE542876E8EF005A6189 /* Model */,
 				87AC221C27A39FE900B48F9D /* Cell */,
-				87F439492877CF8C003C7498 /* 레거시 */,
 			);
 			path = Bookshelf;
 			sourceTree = "<group>";
@@ -1485,9 +1479,9 @@
 			children = (
 				87AC221D27A39FF900B48F9D /* BookshelfCell.swift */,
 				873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */,
-				873BCE4F2876CF0C005A6189 /* BookshelfDetailHeaderView.xib */,
 				873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */,
 				873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */,
+				87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1702,17 +1696,6 @@
 			path = Secure;
 			sourceTree = "<group>";
 		};
-		87F439492877CF8C003C7498 /* 레거시 */ = {
-			isa = PBXGroup;
-			children = (
-				8768B3AB2800596100E99BBD /* BookshelfFooterView.swift */,
-				87CB8B42286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift */,
-				87DE9BDF286C3C2B009DBB86 /* BookshelfHeaderView.swift */,
-			);
-			name = "레거시";
-			path = "레거시";
-			sourceTree = "<group>";
-		};
 		87F58267279E653100A2BD15 /* CollectionViewFlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1883,6 +1866,7 @@
 				25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */,
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
 				87EDCC7F286440DB0030066E /* TestUserWorkbookGroups.json in Resources */,
+				87F4394B2877E047003C7498 /* BookshelfDetailHeaderView.xib in Resources */,
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
 				873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */,
 				877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */,
@@ -1935,7 +1919,6 @@
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
-				87DE9BE0286C3C2B009DBB86 /* BookshelfHeaderView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
@@ -1978,7 +1961,6 @@
 				2560BB99283B542500A32EC4 /* FormCell.swift in Sources */,
 				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
 				87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */,
-				8768B3AC2800596100E99BBD /* BookshelfFooterView.swift in Sources */,
 				873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */,
 				8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */,
 				250B285B28740860000578BC /* UICollectionView.swift in Sources */,
@@ -2062,7 +2044,6 @@
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
-				87CB8B43286BF76600FD2D5B /* BookshelfWorkbookGroupCell.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */,
 				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,

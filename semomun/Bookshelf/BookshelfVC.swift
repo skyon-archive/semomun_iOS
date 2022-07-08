@@ -63,10 +63,10 @@ extension BookshelfVC {
         
         self.collectionView.register(BookshelfCell.self, forCellWithReuseIdentifier: BookshelfCell.identifier)
         
-        let homeHeaderNib = UINib(nibName: BookshelfHeaderView.identifier, bundle: nil)
+        let homeHeaderNib = UINib(nibName: BookshelfHomeHeaderView.identifier, bundle: nil)
         let detailHeaderNib = UINib(nibName: BookshelfDetailHeaderView.identifier, bundle: nil)
-        self.collectionView.register(homeHeaderNib, forCellWithReuseIdentifier: BookshelfHeaderView.identifier)
-        self.collectionView.register(detailHeaderNib, forCellWithReuseIdentifier: BookshelfDetailHeaderView.identifier)
+        self.collectionView.register(homeHeaderNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: BookshelfHomeHeaderView.identifier)
+        self.collectionView.register(detailHeaderNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: BookshelfDetailHeaderView.identifier)
     }
     
     private func configureViewModel() {
