@@ -26,6 +26,16 @@ final class BookshelfVM {
 
 // MARK: Public
 extension BookshelfVM {
+    func refresh(tab: BookshelfVC.Tab) {
+        switch tab {
+        case .home: return
+        case .workbook:
+            print("refresh workbook")
+        case .practiceTest:
+            print("refresh workbookGroup")
+        }
+    }
+    
     func reloadWorkbookGroups(order: BookshelfSortOrder) {
         print("reload workbookGroups, order: \(order)")
         
