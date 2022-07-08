@@ -16,6 +16,8 @@ final class BookshelfVM {
     @Published private(set) var workbookGroups: [WorkbookGroupCellInfo] = []
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var loading: Bool = false
+    var currentWorkbooksOrder: DropdownOrderButton.BookshelfOrder = .recentPurchase
+    var currentWorkbookGroupsOrder: DropdownOrderButton.BookshelfOrder = .recentRead
     /* private */
     private var workbooksNotFiltered: [WorkbookCellInfo] = []
     
@@ -26,6 +28,7 @@ final class BookshelfVM {
 
 // MARK: Public
 extension BookshelfVM {
+    // 탭 전환시 내부 coredata fetch 및 정렬
     func refresh(tab: BookshelfVC.Tab) {
         switch tab {
         case .home:
