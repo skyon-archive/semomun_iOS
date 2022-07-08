@@ -51,6 +51,7 @@ class _HomeVC: UIViewController {
         view.decelerationRate = .fast
         view.register(HomeAdCell.self, forCellWithReuseIdentifier: HomeAdCell.identifier)
         view.showsHorizontalScrollIndicator = false
+        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
         
         return view
     }()
@@ -138,7 +139,7 @@ extension _HomeVC {
         NSLayoutConstraint.activate([
             self.bannerAdCollectionView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 32),
             self.bannerAdCollectionView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor, constant: 0),
-            self.bannerAdCollectionView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 32),
+            self.bannerAdCollectionView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
             self.bannerAdCollectionView.heightAnchor.constraint(equalToConstant: 64)
         ])
     }
@@ -150,7 +151,7 @@ extension _HomeVC {
             self.stackView.topAnchor.constraint(equalTo: self.bannerAdCollectionView.bottomAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32),
-            self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 32),
+            self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
         ])
     }
     
@@ -181,7 +182,6 @@ extension _HomeVC {
         let sectionView = HomeVCSectionView()
         self.stackView.addArrangedSubview(sectionView)
         sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
-        
         return sectionView
     }
     

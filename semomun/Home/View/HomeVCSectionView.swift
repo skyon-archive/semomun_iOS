@@ -34,6 +34,7 @@ class HomeVCSectionView: UIView {
         view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
         view.showsHorizontalScrollIndicator = false
         view.clipsToBounds = false
+        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
         
         return view
     }()
@@ -74,7 +75,7 @@ class HomeVCSectionView: UIView {
             self.heightAnchor.constraint(equalToConstant: 29+16+UICollectionView.bookcoverCellSize.height),
             
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UICollectionView.gridPadding),
             
             self.seeAllButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
             self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
