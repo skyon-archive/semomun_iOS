@@ -62,6 +62,8 @@ extension BookshelfVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
+        self.collectionView.register(BookshelfCell.self, forCellWithReuseIdentifier: BookshelfCell.identifier)
+        
         let homeHeaderNib = UINib(nibName: BookshelfHeaderView.identifier, bundle: nil)
         let detailHeaderNib = UINib(nibName: BookshelfDetailHeaderView.identifier, bundle: nil)
         self.collectionView.register(homeHeaderNib, forCellWithReuseIdentifier: BookshelfHeaderView.identifier)
@@ -198,7 +200,33 @@ extension BookshelfVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfCell.identifier, for: indexPath) as? BookshelfCell else { return UICollectionViewCell() }
+        switch indexPath.section {
+        case 0:
+            if self.currentTab == .home {
+                guard let info = self.viewModel?.workbooksForRecent[safe: indexPath.item] else { return cell }
+                cell.configure(with: info)
+            } else if self.currentTab == .workbook {
+                guard let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
+                cell.configure(with: info)
+            } else if self.currentTab == .practiceTest {
+                guard let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
+                cell.configure(with: info)
+            } else {
+                assertionFailure("cellForItemAt Error")
+            }
+        case 1:
+            guard self.currentTab == .home,
+                  let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
+            cell.configure(with: info)
+        case 2:
+            guard self.currentTab == .home,
+                  let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
+            cell.configure(with: info)
+        default:
+            assertionFailure("cellForItemAt Error")
+        }
+        return cell
     }
 }
 
