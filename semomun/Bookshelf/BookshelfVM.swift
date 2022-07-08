@@ -47,6 +47,7 @@ extension BookshelfVM {
     }
     
     func reloadWorkbookGroups() {
+        guard UserDefaultsManager.isLogined == true else { return }
         guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
             print("no workbookGoups")
             return
@@ -70,6 +71,7 @@ extension BookshelfVM {
     }
      
     func reloadWorkbooks() {
+        guard UserDefaultsManager.isLogined == true else { return }
         guard let workbooks = CoreUsecase.fetchPreviews() else {
             print("no workbooks")
             return
@@ -119,6 +121,7 @@ extension BookshelfVM {
             CoreDataManager.saveCoreData()
             self.reloadWorkbookGroups()
             self.reloadWorkbooks()
+            self.reloadWorkbooksForRecent()
         }
     }
     

@@ -170,6 +170,7 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
+		872045F12878160A00BDCACB /* BookshelfHomeWarningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872045F02878160A00BDCACB /* BookshelfHomeWarningCell.swift */; };
 		8720B032278E775800B8775F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B031278E775800B8775F /* FirebaseAnalytics */; };
 		8720B034278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B033278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8720B035278E7A2200B8775F /* GoogleService-Info.plist */; };
@@ -488,6 +489,7 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		872045F02878160A00BDCACB /* BookshelfHomeWarningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeWarningCell.swift; sourceTree = "<group>"; };
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVC.swift; sourceTree = "<group>"; };
 		87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -1482,6 +1484,7 @@
 				873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */,
 				873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */,
 				87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */,
+				872045F02878160A00BDCACB /* BookshelfHomeWarningCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2107,6 +2110,7 @@
 				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
+				872045F12878160A00BDCACB /* BookshelfHomeWarningCell.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				258FA11828642D4B0008701C /* SecretImageView.swift in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
