@@ -64,11 +64,11 @@ extension BookshelfVM {
         case .recentRead:
             self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
         case .titleDescending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $0, $1) }).map { $0.cellInfo }
         case .titleAscending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo } // MARK: 오름차순 로직 구현 필요
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
         }
-    }
+                                                        }
      
     func reloadWorkbooks() {
         guard UserDefaultsManager.isLogined == true else { return }
@@ -90,9 +90,9 @@ extension BookshelfVM {
         case .recentRead:
             self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
         case .titleDescending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map { $0.cellInfo }
         case .titleAscending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo } // MARK: 오름차순 로직 구현 필요
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
         }
     }
     
