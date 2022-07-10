@@ -16,18 +16,26 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfDetailHeaderView" id="aTr-Av-3dk" customClass="BookshelfDetailHeaderView" customModuleProvider="target">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookshelfDetailHeaderView" id="aTr-Av-3dk" customClass="BookshelfDetailHeaderView" customModule="semomun" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="938" height="66"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refreshOutline" translatesAutoresizingMaskIntoConstraints="NO" id="ypw-uK-WuO">
+                    <rect key="frame" x="32" y="10" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="Bgy-9u-jJB"/>
+                        <constraint firstAttribute="width" constant="24" id="uT5-oJ-4HH"/>
+                    </constraints>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDh-0w-v4f">
-                    <rect key="frame" x="26" y="10" width="75" height="24"/>
+                    <rect key="frame" x="32" y="10" width="75" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="1sB-cV-add"/>
                         <constraint firstAttribute="width" constant="75" id="Hw3-d9-Nh8"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                    <state key="normal" title="새로고침" image="refreshOutline">
+                    <inset key="contentEdgeInsets" minX="26" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="새로고침">
                         <color key="titleColor" name="black"/>
                     </state>
                     <connections>
@@ -37,11 +45,14 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="x9q-SO-vt0"/>
             <constraints>
+                <constraint firstItem="ypw-uK-WuO" firstAttribute="leading" secondItem="x9q-SO-vt0" secondAttribute="leading" constant="32" id="5cL-Yl-qcj"/>
                 <constraint firstItem="gDh-0w-v4f" firstAttribute="top" secondItem="aTr-Av-3dk" secondAttribute="top" constant="10" id="JVo-2m-3ft"/>
-                <constraint firstItem="gDh-0w-v4f" firstAttribute="leading" secondItem="x9q-SO-vt0" secondAttribute="leading" constant="26" id="vM0-vM-Hfq"/>
+                <constraint firstItem="ypw-uK-WuO" firstAttribute="centerY" secondItem="gDh-0w-v4f" secondAttribute="centerY" id="OSq-XW-TiE"/>
+                <constraint firstItem="gDh-0w-v4f" firstAttribute="leading" secondItem="x9q-SO-vt0" secondAttribute="leading" constant="32" id="vM0-vM-Hfq"/>
             </constraints>
             <connections>
                 <outlet property="refreshButton" destination="gDh-0w-v4f" id="bew-HB-hmh"/>
+                <outlet property="refreshIcon" destination="ypw-uK-WuO" id="c1X-Tc-exZ"/>
             </connections>
             <point key="canvasLocation" x="647.82608695652175" y="133.92857142857142"/>
         </collectionReusableView>

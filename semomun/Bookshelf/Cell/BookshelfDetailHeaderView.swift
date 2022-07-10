@@ -17,6 +17,7 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     static let identifier = "BookshelfDetailHeaderView"
     /* private */
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var refreshIcon: UIImageView!
     private weak var delegate: BookshelfDetailDelegate?
     private lazy var orderButton = DropdownOrderButton(order: .recentRead)
     private var section: Int = 0
@@ -24,6 +25,7 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureOrderButton()
+        self.configureRefreshIcon()
     }
     
     override func prepareForReuse() {
@@ -32,6 +34,7 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     }
     
     @IBAction func refresh(_ sender: Any) {
+        self.spinAnimation()
         self.delegate?.refreshWorkbooks()
     }
     
@@ -51,5 +54,22 @@ extension BookshelfDetailHeaderView {
         self.orderButton.configureBookshelfMenu(action: { [weak self] order in
             self?.delegate?.changeOrder(to: order)
         })
+    }
+    
+    private func configureRefreshIcon() {
+        self.refreshIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
+    }
+    
+    private func spinAnimation() {
+        self.layoutIfNeeded()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1) {
+                self.refreshIcon.transform = CGAffineTransform(rotationAngle: ((180.0 * .pi) / 180.0) * -1)
+                self.refreshIcon.transform = CGAffineTransform(rotationAngle: ((0.0 * .pi) / 360.0) * -1)
+                self.layoutIfNeeded()
+            } completion: { _ in
+                self.refreshIcon.transform = CGAffineTransform.identity
+            }
+        }
     }
 }
