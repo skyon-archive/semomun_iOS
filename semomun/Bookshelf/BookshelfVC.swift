@@ -54,6 +54,11 @@ final class BookshelfVC: UIViewController {
         self.configureObservation()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel?.refresh(tab: currentTab)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         guard self.collectionView != nil else { return }

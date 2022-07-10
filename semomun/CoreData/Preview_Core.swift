@@ -151,6 +151,7 @@ public class Preview_Core: NSManagedObject{
     func updateDate(info: BookshelfInfo, networkUsecase: UserLogSendable) {
         if self.purchasedDate == nil {
             self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
+            return
         }
         
         if let recentDate = self.recentDate,
