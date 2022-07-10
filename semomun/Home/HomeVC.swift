@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-/// - Note: HomeSectionView들의 태그값은 UIStackView내에서의 순서와 같다(0에서 시작)
+/// - Note: HomeSectionView들의 태그값은 UIStackView내에서의 순서와 같다(zero-based)
 class HomeVC: UIViewController {
     /* private */
     /// 고정된 섹션 종류. 각 case의 rawValue는 대응되는 collectionview의 태그값과 같다.
@@ -19,7 +19,7 @@ class HomeVC: UIViewController {
         case workbookGroup
     }
     private var fixedSectionViews: [FixedSectionType: HomeSectionView] = [:]
-    /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열. 배열 내의 순서는 실제 순서와 같다.
+    /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열
     private var popularTagSectionViews: [HomeSectionView] = []
     private var viewModel: HomeVM?
     private lazy var loadingView: LoadingView = {
@@ -482,6 +482,16 @@ extension HomeVC {
         self.bindPopularTagContent()
     }
     
+    private func bindAds() {
+        self.viewModel?.$banners
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] banners in
+                self?.bannerAdCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
     private func bindTags() {
         self.viewModel?.$tags
             .receive(on: DispatchQueue.main)
@@ -497,16 +507,6 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.fixedSectionViews[.tag]?.collectionView.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindAds() {
-        self.viewModel?.$banners
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] banners in
-                self?.bannerAdCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -645,15 +645,18 @@ extension HomeVC {
     }
     
     private func bindPopularTagContent() {
-        self.viewModel?.$popularTagContents
+        self.viewModel?.$updatedPopularTagIndex
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] content in
-                content.enumerated().forEach { idx, content in
-                    let sectionView = self?.popularTagSectionViews[safe: idx]
-                    sectionView?.configureTitle(to: content.tagName)
-                    sectionView?.collectionView.reloadData()
+            .sink(receiveValue: { [weak self] idx in
+                guard let idx = idx,
+                      let sectionView = self?.popularTagSectionViews[safe: idx],
+                      let sectionName = self?.viewModel?.popularTagContents[safe: idx]?.tagName else {
+                    return
                 }
+                
+                sectionView.configureTitle(to: sectionName)
+                sectionView.collectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }

@@ -21,6 +21,8 @@ class HomeSectionView: UIView {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        // 셀 그림자 잘림 방지
+        view.clipsToBounds = false
         view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
         view.showsHorizontalScrollIndicator = false
         view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)

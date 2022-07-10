@@ -13,8 +13,7 @@ final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
-    /// workbooksWithTags의 element 중 DB에서 값을 받아온 것의 인덱스
-    @Published private(set) var updatedPopularTagIndex: Int? = nil
+    @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
@@ -25,11 +24,12 @@ final class HomeVM {
     @Published private(set) var updateToVersion: String?
     @Published private(set) var popupURL: URL?
     @Published private(set) var isMigration: Bool = false
-    @Published private(set) var popularTagContents: [(tagName: String, content: [WorkbookPreviewOfDB])] = []
-    private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []
+    /// popularTagContents의 element 중 DB에서 값을 받아온 것의 인덱스
+    @Published private(set) var updatedPopularTagIndex: Int? = nil
+    private(set) var popularTagContents: [(tagName: String, content: [WorkbookPreviewOfDB])] = []
     let popularTagSectionCount = 15
     /* private */
-    private let sectionSize = 15
+    private let cellPerSection = 15
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
@@ -187,7 +187,7 @@ extension HomeVM {
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
-                guard let sectionSize = self?.sectionSize else { return }
+                guard let sectionSize = self?.cellPerSection else { return }
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
@@ -220,10 +220,10 @@ extension HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.sectionSize) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.cellPerSection) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
-                guard let sectionSize = self?.sectionSize else { return }
+                guard let sectionSize = self?.cellPerSection else { return }
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
@@ -243,7 +243,7 @@ extension HomeVM {
         self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
             switch status {
             case .SUCCESS:
-                guard let sectionSize = self?.sectionSize else { return }
+                guard let sectionSize = self?.cellPerSection else { return }
                 let infos = infos.map { BookshelfInfo(info: $0) }.filter { $0.recentDate != nil }
                 self?.recentEntered = Array(infos.prefix(sectionSize))
             default:
@@ -253,7 +253,7 @@ extension HomeVM {
     }
     
     private func fetchPracticeTests() {
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.sectionSize) { [weak self] status, searchWorkbookGroups in
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.cellPerSection) { [weak self] status, searchWorkbookGroups in
             switch status {
             case .SUCCESS:
                 self?.workbookGroups = searchWorkbookGroups
@@ -264,22 +264,16 @@ extension HomeVM {
     }
     
     private func fetchPopularTagContents() {
-        var temp = self.popularTagContents
-        let group = DispatchGroup()
         self.networkUsecase.getTags(order: .popularity) { [weak self] _, tags in
-            guard let sectionSize = self?.sectionSize,
+            guard let sectionSize = self?.cellPerSection,
                   let popularTagSectionCount = self?.popularTagSectionCount else {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                group.enter()
                 self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize) { _, preview in
-                    temp[idx] = (tag.name, preview)
-                    group.leave()
+                    self?.popularTagContents[idx] = (tag.name, preview)
+                    self?.updatedPopularTagIndex = idx
                 }
-            }
-            group.notify(queue: .main) {
-                self?.popularTagContents = temp
             }
         }
     }
