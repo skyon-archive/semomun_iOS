@@ -13,7 +13,8 @@ final class HomeVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
-    @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = [] // MARR: 추후 각 tag 별로 section 이 분리되어 표시할 예정
+    /// workbooksWithTags의 element 중 DB에서 값을 받아온 것의 인덱스
+    @Published private(set) var updatedPopularTagIndex: Int? = nil
     @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
@@ -25,6 +26,7 @@ final class HomeVM {
     @Published private(set) var popupURL: URL?
     @Published private(set) var isMigration: Bool = false
     @Published private(set) var popularTagContents: [(tagName: String, content: [WorkbookPreviewOfDB])] = []
+    private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []
     let popularTagSectionCount = 15
     /* private */
     private let sectionSize = 15
