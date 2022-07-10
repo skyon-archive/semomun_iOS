@@ -130,13 +130,13 @@ extension SceneDelegate {
     
     private func configureNavigationBarColor() {
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(.background)
+        appearance.backgroundColor = UIColor.getSemomunColor(.background)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.shadowColor = .clear
         appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.heading4]
         
-        UINavigationBar.appearance().tintColor = UIColor(.orangeRegular)
+        UINavigationBar.appearance().tintColor = UIColor.getSemomunColor(.orangeRegular)
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance

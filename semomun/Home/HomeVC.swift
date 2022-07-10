@@ -143,7 +143,8 @@ extension HomeVC {
         
         NSLayoutConstraint.activate([
             self.roundedBackground.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
-            self.roundedBackground.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
+            // 아래방향 스크롤 overflow가 일어나도 흰색 배경이 보이도록 여백 설정
+            self.roundedBackground.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 500),
             self.roundedBackground.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
             self.roundedBackground.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
             self.scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: self.roundedBackground.widthAnchor),
@@ -167,7 +168,8 @@ extension HomeVC {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(equalTo: self.bannerAdCollectionView.bottomAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32),
+            // configureScrollViewBackgroundLayout에서 설정한 여백 값만큼 아래 여백을 설정
+            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32-500),
             self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
         ])
     }
