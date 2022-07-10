@@ -112,9 +112,9 @@ extension SceneDelegate {
     
     private func showStartVC() {
         let storyboard = UIStoryboard(controllerType: StartVC.self)
-        let startVC = storyboard.instantiateViewController(withIdentifier: StartVC.identifier)
+        guard let startVC = storyboard.instantiateInitialViewController() else { return }
         
-        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
+        let snapshot: UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
         startVC.view.addSubview(snapshot)
         
         self.window?.rootViewController = startVC
