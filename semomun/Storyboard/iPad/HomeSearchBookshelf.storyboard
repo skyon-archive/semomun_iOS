@@ -24,7 +24,7 @@
         <!--홈-->
         <scene sceneID="o0J-hJ-FYM">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="bAq-Pq-D0s" customClass="_HomeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="bAq-Pq-D0s" customClass="HomeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b07-Ii-4L3">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

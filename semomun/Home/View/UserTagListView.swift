@@ -47,8 +47,9 @@ class UserTagListView: UIView {
     
     // MARK: 반드시 호출해야하는 메소드
     func updateTagList(tagNames: [String]) {
-        self.stackView.arrangedSubviews.forEach {
-            self.stackView.removeArrangedSubview($0)
+        self.stackView.arrangedSubviews.forEach { view in
+            self.stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
         tagNames.forEach { name in
             let tagCell = self.makeTagCell(withName: name)
@@ -100,7 +101,7 @@ extension UserTagListView {
         
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: width),
-            view.heightAnchor.constraint(equalToConstant: 32),
+            view.heightAnchor.constraint(equalToConstant: 32)
         ])
         
         return view

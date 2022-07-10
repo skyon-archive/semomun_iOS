@@ -1,5 +1,5 @@
 //
-//  HomeVCSectionView.swift
+//  HomeSectionView.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/08.
@@ -7,12 +7,24 @@
 
 import UIKit
 
-class HomeVCSectionView: UIView {
+class HomeSectionView: UIView {
     /* public */
     lazy private(set) var tagList: UserTagListView = {
         let view = UserTagListView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
+        return view
+    }()
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
+        view.showsHorizontalScrollIndicator = false
+        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
+        
         return view
     }()
     /* private */
@@ -33,19 +45,6 @@ class HomeVCSectionView: UIView {
         
         return button
     }()
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
-        view.showsHorizontalScrollIndicator = false
-        view.clipsToBounds = false
-        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
-        
-        return view
-    }()
     
     init(hasTagList: Bool) {
         super.init(frame: .zero)
@@ -53,7 +52,7 @@ class HomeVCSectionView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.configureLayout()
         if hasTagList {
-            self.configureTagList()
+            self.configureTagListLayout()
         }
     }
     
@@ -73,18 +72,10 @@ class HomeVCSectionView: UIView {
     func configureTitle(to title: String) {
         self.titleLabel.text = title
     }
-    
-    func reloadData() {
-        self.collectionView.reloadData()
-    }
-    
-    func updateItemSize() {
-        self.collectionView.collectionViewLayout.invalidateLayout()
-    }
 }
 
 // MARK: Private
-extension HomeVCSectionView {
+extension HomeSectionView {
     private func configureLayout() {
         self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
         
@@ -105,7 +96,7 @@ extension HomeVCSectionView {
         ])
     }
     
-    private func configureTagList() {
+    private func configureTagListLayout() {
         self.addSubview(self.tagList)
         
         NSLayoutConstraint.activate([
