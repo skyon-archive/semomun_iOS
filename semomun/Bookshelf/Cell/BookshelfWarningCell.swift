@@ -1,5 +1,5 @@
 //
-//  BookshelfHomeWarningCell.swift
+//  BookshelfWarningCell.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/08.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class BookshelfHomeWarningCell: UICollectionViewCell {
-    static let identifier = "BookshelfHomeWarningCell"
+final class BookshelfWarningCell: UICollectionViewCell {
+    static let identifier = "BookshelfWarningCell"
     static let cellHeight: CGFloat = UICollectionView.bookcoverCellSize.height
     private var warningLabel: UILabel = {
         let label = UILabel()
@@ -29,7 +29,6 @@ final class BookshelfHomeWarningCell: UICollectionViewCell {
     }
     
     private func configureLayout() {
-        super.awakeFromNib()
         self.contentView.clipsToBounds = true
         self.contentView.layer.cornerCurve = .continuous
         self.contentView.layer.cornerRadius = CGFloat.cornerRadius12
@@ -44,6 +43,7 @@ final class BookshelfHomeWarningCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.contentView.layer.borderColor = UIColor.clear.cgColor
     }
     

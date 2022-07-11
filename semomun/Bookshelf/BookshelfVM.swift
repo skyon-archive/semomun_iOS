@@ -15,7 +15,6 @@ final class BookshelfVM {
     @Published private(set) var workbooks: [WorkbookCellInfo] = []
     @Published private(set) var workbookGroups: [WorkbookGroupCellInfo] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var loading: Bool = false
     var currentWorkbooksOrder: DropdownOrderButton.BookshelfOrder = .recentPurchase
     var currentWorkbookGroupsOrder: DropdownOrderButton.BookshelfOrder = .recentRead
     /* private */
@@ -28,6 +27,7 @@ final class BookshelfVM {
 
 // MARK: Public
 extension BookshelfVM {
+    /// tab 이 변경될 때 내부 CoreData 를 fetch 및 정렬해서 표시
     func refresh(tab: BookshelfVC.Tab) {
         guard UserDefaultsManager.isLogined == true else { return }
         switch tab {
@@ -60,13 +60,13 @@ extension BookshelfVM {
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch self.currentWorkbookGroupsOrder {
         case .recentPurchase:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
         case .recentRead:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
         case .titleDescending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $0, $1) }).map { $0.cellInfo }
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
         case .titleAscending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
         }
                                                         }
      
@@ -86,13 +86,13 @@ extension BookshelfVM {
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
         switch self.currentWorkbooksOrder {
         case .recentPurchase:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map { $0.cellInfo }
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
         case .recentRead:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map { $0.cellInfo }
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
         case .titleDescending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map { $0.cellInfo }
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
         case .titleAscending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map { $0.cellInfo }
+            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
         }
     }
     

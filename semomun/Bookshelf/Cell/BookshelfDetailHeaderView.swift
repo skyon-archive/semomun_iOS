@@ -20,7 +20,6 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     @IBOutlet weak var refreshIcon: UIImageView!
     private weak var delegate: BookshelfDetailDelegate?
     private lazy var orderButton = DropdownOrderButton(order: .recentRead)
-    private var section: Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
