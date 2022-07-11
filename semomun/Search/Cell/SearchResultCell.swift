@@ -7,57 +7,25 @@
 
 import UIKit
 
-class SearchResultCell: UICollectionViewCell {
+final class SearchResultCell: BookcoverCell {
     static let identifier = "SearchResultCell"
-    @IBOutlet weak var bookcover: UIImageView!
-    @IBOutlet weak var title: UILabel!
-    private var networkUsecase: S3ImageFetchable?
-    private var requestedUUID: UUID?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.bookcover.image = UIImage(.loadingBookcover)
+    // 로그인 상태와 상관 없는 configure
+    func configure(with preview: WorkbookPreviewOfDB, networkUsecase: S3ImageFetchable) {
+        self.configureReuse(bookTitle: preview.title, publishCompany: preview.publishCompany)
+        self.configureImage(uuid: preview.bookcover, networkUsecase: networkUsecase)
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.requestedUUID = nil
-        self.bookcover.image = UIImage(.loadingBookcover)
+    func configure(with groupInfo: WorkbookGroupPreviewOfDB, networkUsecase: S3ImageFetchable) {
+        self.configureReuse(bookTitle: groupInfo.title, publishCompany: "실전 모의고사")
+        self.configureImage(uuid: groupInfo.groupCover, networkUsecase: networkUsecase)
     }
-    
-    func configureNetworkUsecase(to usecase: S3ImageFetchable?) {
-        self.networkUsecase = usecase
-    }
-    
-    func configure(with preview: WorkbookPreviewOfDB) {
-        self.title.text = preview.title
-        self.configureImage(uuid: preview.bookcover)
-    }
-    
-    func configure(with preview: WorkbookGroupPreviewOfDB) {
-        self.title.text = preview.title
-        self.configureImage(uuid: preview.groupCover)
-    }
-    
-    private func configureImage(uuid: UUID) {
-        if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
-            self.bookcover.image = cachedImage
-        } else {
-            self.requestedUUID = uuid
-            self.networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover, completion: { [weak self] status, imageData in
-                switch status {
-                case .SUCCESS:
-                    guard let imageData = imageData,
-                          let image = UIImage(data: imageData) else { return }
-                    DispatchQueue.main.async { [weak self] in
-                        ImageCacheManager.shared.saveImage(uuid: uuid, image: image)
-                        guard self?.requestedUUID == uuid else { return }
-                        self?.bookcover.image = image
-                    }
-                default:
-                    print("SearchResultCell: GET image fail")
-                }
-            })
+    // 로그인 상태에 구매내역을 통한 configure
+    func configure(with info: BookshelfInfo, networkUsecase: (WorkbookSearchable & S3ImageFetchable)) {
+        networkUsecase.getWorkbook(wid: info.wid) { workbookOfDB in
+            guard let workbookOfDB = workbookOfDB else { return }
+            
+            self.configureReuse(bookTitle: workbookOfDB.title, publishCompany: workbookOfDB.publishCompany)
+            self.configureImage(uuid: workbookOfDB.bookcover, networkUsecase: networkUsecase)
         }
     }
 }

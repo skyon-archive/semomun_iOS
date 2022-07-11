@@ -350,12 +350,18 @@ final class SearchVC: UIViewController {
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
                 self.searchTextField.text = ""
+                self.viewModel?.removeAllSelectedTags()
+                self.viewModel?.resetSearchInfos()
                 self.viewModel?.fetchFavoriteTags()
+                self.mainCollectionView.reloadData()
             case .searching:
                 self.showCancelSearchButton()
             case .searchResult:
                 self.showCancelSearchButton()
                 self.showSearchResultHeaderFrameView()
+                let keywoard = self.searchTextField.text ?? ""
+                self.viewModel?.search(keyword: keywoard, rowCount: UICollectionView.columnCount, type: self.searchType)
+                self.dismissKeyboard()
             }
         }
     }
@@ -373,7 +379,7 @@ final class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureSearchResultHeaderView()
-        self.hideSearchResultHeaderFrameView()
+//        self.hideSearchResultHeaderFrameView()
         self.configureTintColor()
         self.configureRadius()
         self.configureCollectionView()
@@ -393,7 +399,6 @@ final class SearchVC: UIViewController {
     
     @IBAction func searchCancel(_ sender: Any) {
         self.status = .default
-        self.viewModel?.removeAll()
     }
 }
 
@@ -425,7 +430,6 @@ extension SearchVC {
     
     private func configureRadius() {
         self.collectionViewBackgroundFrameView.configureTopCorner(radius: .cornerRadius24)
-        self.mainCollectionView.configureTopCorner(radius: .cornerRadius24)
     }
     
     private func configureCollectionView() {
@@ -434,10 +438,15 @@ extension SearchVC {
         self.mainCollectionView.dataSource = self
         self.mainCollectionView.delegate = self
         
+        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
+        self.mainCollectionView.collectionViewLayout = flowLayout
+        self.mainCollectionView.configureDefaultDesign()
+        
         let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
         let removeableTagCellNib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
         self.tagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
         self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
+        self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
     }
     
     private func configureTextField() {
@@ -470,6 +479,8 @@ extension SearchVC {
     private func bindAll() {
         self.bindFavoriteTags()
         self.bindSelectedTags()
+        self.bindWorkbooks()
+        self.bindWorkbookGroups()
     }
     
     private func bindFavoriteTags() {
@@ -498,8 +509,30 @@ extension SearchVC {
             .store(in: &self.cancellables)
     }
     
-    private func bindSearchResults() {
-        
+    private func bindWorkbooks() {
+        self.viewModel?.$searchResultWorkbooks
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbooks in
+                guard self?.status == .searchResult,
+                      self?.searchType == .workbook,
+                      workbooks.isEmpty == false else { return }
+                self?.mainCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbookGroups() {
+        self.viewModel?.$searchResultWorkbookGroups
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookGroups in
+                guard self?.status == .searchResult,
+                      self?.searchType == .workbookGroup,
+                      workbookGroups.isEmpty == false else { return }
+                self?.mainCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
     }
 }
 
@@ -508,10 +541,10 @@ extension SearchVC: UICollectionViewDelegate {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let selectedFavoriteTag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return }
-                self.viewModel?.append(tag: selectedFavoriteTag)
+                self.viewModel?.appendSelectedTag(selectedFavoriteTag)
                 self.status = .searchResult
             } else {
-                self.viewModel?.removeTag(index: indexPath.item)
+                self.viewModel?.removeSelectedTag(at: indexPath.item)
             }
             return
         }
@@ -527,6 +560,7 @@ extension SearchVC: UICollectionViewDataSource {
         }
         
         guard self.status == .searchResult else {
+            // 검색전 cell UI 확인
             return 0
         }
         
@@ -534,6 +568,7 @@ extension SearchVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        /// tagsCollectionView
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
@@ -547,9 +582,17 @@ extension SearchVC: UICollectionViewDataSource {
                 return cell
             }
         }
-        
-        // mainCollectionView 의 cell 반환
-        return .init()
+        /// mainCollectionView
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return .init() }
+        guard let viewModel = self.viewModel else { return cell }
+        if self.searchType == .workbook {
+            guard let info = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return cell }
+            cell.configure(with: info, networkUsecase: viewModel.networkUsecase)
+        } else {
+            guard let info = self.viewModel?.searchResultWorkbookGroups[safe: indexPath.item] else { return cell }
+            cell.configure(with: info, networkUsecase: viewModel.networkUsecase)
+        }
+        return cell
     }
 }
 
@@ -618,9 +661,6 @@ extension SearchVC: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.status = .searchResult
-//        self.searchResultVC.removeAll()
-//        self.searchWorkbooks()
-//        self.dismissKeyboard()
         return true
     }
 }
