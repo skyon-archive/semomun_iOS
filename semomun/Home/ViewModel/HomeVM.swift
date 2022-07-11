@@ -96,9 +96,6 @@ extension HomeVM {
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.offlineStatus = true // 온라인 -> 오프라인으로 변화시 동작
         }
-        NotificationCenter.default.addObserver(forName: .checkHomeNetworkFetchable, object: nil, queue: .current) { [weak self] _ in
-            self?.fetch()
-        }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.logined = true
             self?.fetchLogined()
