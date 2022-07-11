@@ -66,7 +66,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5L3-Ll-4fk">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5L3-Ll-4fk">
                                 <rect key="frame" x="765" y="54" width="41" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9IV-q3-5I7"/>
@@ -77,6 +77,9 @@
                                 <state key="normal" title="취소">
                                     <color key="titleColor" name="darkGray"/>
                                 </state>
+                                <connections>
+                                    <action selector="searchCancel:" destination="2BD-WC-27W" eventType="touchUpInside" id="nK7-mW-TKh"/>
+                                </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLS-aD-5ug" userLabel="searchFrameView">
                                 <rect key="frame" x="32" y="54" width="770" height="36"/>
@@ -87,7 +90,7 @@
                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-IE-bgT">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-IE-bgT">
                                         <rect key="frame" x="738" y="6" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="Ja0-uy-mch"/>
@@ -95,6 +98,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="xOutline"/>
+                                        <connections>
+                                            <action selector="resetText:" destination="2BD-WC-27W" eventType="touchUpInside" id="hew-nb-IGN"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchOutline" translatesAutoresizingMaskIntoConstraints="NO" id="VY4-r8-uo0">
                                         <rect key="frame" x="8" y="6" width="24" height="24"/>
@@ -179,6 +185,7 @@
                         <outlet property="searchCancelButton" destination="5L3-Ll-4fk" id="sz2-zb-sD2"/>
                         <outlet property="searchFrameTrailingConstraint" destination="54a-kI-jDr" id="LdI-2K-lYd"/>
                         <outlet property="searchFrameView" destination="PLS-aD-5ug" id="X62-BT-knv"/>
+                        <outlet property="searchTextField" destination="Ixg-1a-L3j" id="mhs-XX-zeE"/>
                         <outlet property="tagsCollectionView" destination="hXG-f6-G91" id="ntk-to-In8"/>
                         <outlet property="textResetXButton" destination="7ac-IE-bgT" id="OkN-Ls-9zq"/>
                     </connections>
