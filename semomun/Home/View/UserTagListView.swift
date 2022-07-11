@@ -56,7 +56,6 @@ final class UserTagListView: UIView {
             let tagView = self.makeTagView(withName: name)
             self.stackView.addArrangedSubview(tagView)
         }
-        self.stackView.addArrangedSubview(self.editButton)
     }
     
     // MARK: 반드시 호출해야하는 메소드
@@ -67,20 +66,28 @@ final class UserTagListView: UIView {
 
 extension UserTagListView {
     private func configureLayout() {
-        self.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.stackView, self.editButton)
+        self.addSubviews(self.scrollView, self.editButton)
+        self.scrollView.addSubview(self.stackView)
+        
+        let editButtonLeadingConstraint = self.editButton.leadingAnchor.constraint(equalTo: self.stackView.trailingAnchor, constant: 12)
+        editButtonLeadingConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.topAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            // editButton의 width(32)만큼의 여백을 추가로 남김
+            self.scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12-32),
             self.scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: self.heightAnchor),
             
             self.stackView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
-            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor)
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
+            
+            self.editButton.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor),
+            self.editButton.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor),
+            editButtonLeadingConstraint
         ])
     }
     
