@@ -61,7 +61,8 @@ final class WarningOfflineStatusView: UIView {
             self.warningTextLabel.topAnchor.constraint(equalTo: self.iconImageView.bottomAnchor, constant: 8),
             self.warningTextLabel.centerXAnchor.constraint(equalTo: frameView.centerXAnchor),
             self.warningTextLabel.leadingAnchor.constraint(equalTo: frameView.leadingAnchor),
-            self.warningTextLabel.trailingAnchor.constraint(equalTo: frameView.trailingAnchor)
+            self.warningTextLabel.trailingAnchor.constraint(equalTo: frameView.trailingAnchor),
+            self.warningTextLabel.bottomAnchor.constraint(equalTo: frameView.bottomAnchor),
         ]
         
         self.layoutConstraintActivates(frameViewLayouts, iconImageViewLayouts, warningTextLabelLayouts)

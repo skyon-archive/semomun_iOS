@@ -26,7 +26,7 @@ final class HomeVM {
     @Published private(set) var isMigration: Bool = false
     /// popularTagContents의 element 중 DB에서 값을 받아온 것의 인덱스
     @Published private(set) var updatedPopularTagIndex: Int? = nil
-    private(set) var popularTagContents: [(tagName: String, content: [WorkbookPreviewOfDB])] = []
+    private(set) var popularTagContents: [(tagName: String, previews: [WorkbookPreviewOfDB])] = []
     let popularTagSectionCount = 15
     /* private */
     private let cellPerSection = 15

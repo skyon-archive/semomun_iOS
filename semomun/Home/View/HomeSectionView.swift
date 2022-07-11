@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeSectionView: UIView {
+final class HomeSectionView: UIView {
     /* public */
     lazy private(set) var tagList: UserTagListView = {
         let view = UserTagListView()
@@ -80,18 +80,21 @@ class HomeSectionView: UIView {
 extension HomeSectionView {
     private func configureLayout() {
         self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
+        let titleLabelHeight: CGFloat = 29
+        let verticalMargin: CGFloat = 16
         
         NSLayoutConstraint.activate([
             // 29는 섹션 타이틀 높이, 16은 타이틀에서 UICollectionView까지의 거리
-            self.heightAnchor.constraint(equalToConstant: 29+16+UICollectionView.bookcoverCellSize.height),
+            self.heightAnchor.constraint(equalToConstant: titleLabelHeight+verticalMargin+UICollectionView.bookcoverCellSize.height),
             
+            self.titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight),
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UICollectionView.gridPadding),
             
             self.seeAllButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
-            self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
+            self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -UICollectionView.gridPadding),
             
-            self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
+            self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: verticalMargin),
             self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor)

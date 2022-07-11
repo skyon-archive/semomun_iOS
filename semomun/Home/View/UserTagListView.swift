@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserTagListView: UIView {
+final class UserTagListView: UIView {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,8 @@ class UserTagListView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.configureLayout()
     }
     
     // MARK: 반드시 호출해야하는 메소드
@@ -52,8 +53,8 @@ class UserTagListView: UIView {
             view.removeFromSuperview()
         }
         tagNames.forEach { name in
-            let tagCell = self.makeTagCell(withName: name)
-            self.stackView.addArrangedSubview(tagCell)
+            let tagView = self.makeTagView(withName: name)
+            self.stackView.addArrangedSubview(tagView)
         }
         self.stackView.addArrangedSubview(self.editButton)
     }
@@ -83,7 +84,7 @@ extension UserTagListView {
         ])
     }
     
-    private func makeTagCell(withName name: String) -> UIView {
+    private func makeTagView(withName name: String) -> UIView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = .heading5
@@ -97,7 +98,7 @@ extension UserTagListView {
         view.layer.cornerCurve = .continuous
         
         // 16은 텍스트 양쪽에서 셀 가장자리까지의 거리
-        let width = name.size(withAttributes: [.font: UIFont.heading5]).width + 16 * 2
+        let width = name.size(withAttributes: [.font: UIFont.heading5]).width + (16 * 2)
         
         NSLayoutConstraint.activate([
             view.widthAnchor.constraint(equalToConstant: width),
