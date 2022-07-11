@@ -306,11 +306,6 @@
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 		87FD58A828744930005E8E12 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD58A728744930005E8E12 /* UIButton.swift */; };
-		87FEBB3627EB074400B106F2 /* Main_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3527EB074400B106F2 /* Main_phone.storyboard */; };
-		87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */; };
-		87FEBB3A27EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3927EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard */; };
-		87FEBB3C27EB10D700B106F2 /* Profile_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3B27EB10D700B106F2 /* Profile_phone.storyboard */; };
-		87FEBB3E27EB116500B106F2 /* Study_phone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FEBB3D27EB116500B106F2 /* Study_phone.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -625,11 +620,6 @@
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
 		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
 		87FD58A728744930005E8E12 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
-		87FEBB3527EB074400B106F2 /* Main_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main_phone.storyboard; sourceTree = "<group>"; };
-		87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin_phone.storyboard; sourceTree = "<group>"; };
-		87FEBB3927EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf_phone.storyboard; sourceTree = "<group>"; };
-		87FEBB3B27EB10D700B106F2 /* Profile_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile_phone.storyboard; sourceTree = "<group>"; };
-		87FEBB3D27EB116500B106F2 /* Study_phone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study_phone.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1128,7 +1118,6 @@
 			isa = PBXGroup;
 			children = (
 				87FEBB3327EB070B00B106F2 /* iPad */,
-				87FEBB3427EB071E00B106F2 /* IPhone */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1737,18 +1726,6 @@
 			path = iPad;
 			sourceTree = "<group>";
 		};
-		87FEBB3427EB071E00B106F2 /* IPhone */ = {
-			isa = PBXGroup;
-			children = (
-				87FEBB3527EB074400B106F2 /* Main_phone.storyboard */,
-				87FEBB3727EB078300B106F2 /* StartLogin_phone.storyboard */,
-				87FEBB3927EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard */,
-				87FEBB3B27EB10D700B106F2 /* Profile_phone.storyboard */,
-				87FEBB3D27EB116500B106F2 /* Study_phone.storyboard */,
-			);
-			path = IPhone;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1856,18 +1833,13 @@
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
 				2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
-				87FEBB3E27EB116500B106F2 /* Study_phone.storyboard in Resources */,
-				87FEBB3827EB078300B106F2 /* StartLogin_phone.storyboard in Resources */,
-				87FEBB3627EB074400B106F2 /* Main_phone.storyboard in Resources */,
 				8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */,
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				258FA11A286446CA0008701C /* TestPrivateTestResultOfDBJSON.json in Resources */,
-				87FEBB3A27EB107100B106F2 /* HomeSearchBookshelf_phone.storyboard in Resources */,
 				87A376A228741FAC00399DF2 /* TagCell.xib in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
-				87FEBB3C27EB10D700B106F2 /* Profile_phone.storyboard in Resources */,
 				2560BBA3283B869700A32EC4 /* SubProblemCell.xib in Resources */,
 				25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */,
 				87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */,
