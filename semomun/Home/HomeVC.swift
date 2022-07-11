@@ -82,15 +82,16 @@ final class HomeVC: UIViewController {
         self.configureScrollViewBackgroundLayout()
         self.configureBannerAdLayout()
         self.configureStackViewLayout()
-        // VM 설정
-        self.configureViewModel()
-        self.bindAll()
-        self.viewModel?.checkLogined()
-        self.viewModel?.checkMigration()
         
+        self.configureViewModel()
         self.configureBannerAd()
         self.configureStackViewContent()
         self.configureAddObserver()
+        
+        self.bindAll()
+        self.viewModel?.checkLogined()
+        self.viewModel?.checkMigration()
+        self.viewModel?.checkNetworkStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -455,6 +456,12 @@ extension HomeVC {
             self.warningOfflineView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.warningOfflineView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+        self.scrollView.isHidden = true
+    }
+    
+    private func hideOfflineAlert() {
+        self.warningOfflineView.removeFromSuperview()
+        self.scrollView.isHidden = false
     }
 }
 
@@ -545,7 +552,7 @@ extension HomeVC {
                 if offline {
                     self?.showOfflineAlert()
                 } else {
-                    self?.warningOfflineView.removeFromSuperview()
+                    self?.hideOfflineAlert()
                 }
             })
             .store(in: &self.cancellables)
