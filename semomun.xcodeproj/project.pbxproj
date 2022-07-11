@@ -45,6 +45,7 @@
 		254C7F07287BFC320038ACA0 /* HomeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */; };
 		254C7F09287BFC380038ACA0 /* HomeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */; };
 		254C7F0B287BFED40038ACA0 /* HomeBookcoverConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */; };
+		254C7F0D287C19910038ACA0 /* HomeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
 		25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */; };
@@ -364,6 +365,7 @@
 		254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVC.swift; sourceTree = "<group>"; };
 		254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVM.swift; sourceTree = "<group>"; };
 		254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookcoverConfigurable.swift; sourceTree = "<group>"; };
+		254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailHeaderView.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
 		25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhoneAuthenticatorTest.swift; path = SemomunTests/Models/PhoneAuthenticatorTest.swift; sourceTree = SOURCE_ROOT; };
@@ -774,6 +776,7 @@
 			children = (
 				254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */,
 				254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */,
+				254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */,
 			);
 			path = HomeDetail;
 			sourceTree = "<group>";
@@ -2130,6 +2133,7 @@
 				2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */,
 				87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */,
 				250D82432772C43400AF1A46 /* String.swift in Sources */,
+				254C7F0D287C19910038ACA0 /* HomeDetailHeaderView.swift in Sources */,
 				87FD58A828744930005E8E12 /* UIButton.swift in Sources */,
 				25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */,
 				25622C4F283A84330056E0DF /* FormZero.swift in Sources */,
