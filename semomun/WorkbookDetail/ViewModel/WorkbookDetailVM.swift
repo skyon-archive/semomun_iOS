@@ -175,6 +175,10 @@ extension WorkbookDetailVM {
             self.selectedSectionsForDelete = []
         }
     }
+    
+    func resetSelectedSectionsForDelete() {
+        self.selectedSectionsForDelete = []
+    }
 }
 
 // MARK: Download 관련 functions
