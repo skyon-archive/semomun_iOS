@@ -350,6 +350,7 @@ final class SearchVC: UIViewController {
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
                 self.searchTextField.text = ""
+                self.searchOrder = .recentUpload
                 self.viewModel?.removeAllSelectedTags()
                 self.viewModel?.resetSearchInfos()
                 self.viewModel?.fetchFavoriteTags()
@@ -359,8 +360,7 @@ final class SearchVC: UIViewController {
             case .searchResult:
                 self.showCancelSearchButton()
                 self.showSearchResultHeaderFrameView()
-                let keywoard = self.searchTextField.text ?? ""
-                self.viewModel?.search(keyword: keywoard, rowCount: UICollectionView.columnCount, type: self.searchType)
+                self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
         }
@@ -372,14 +372,17 @@ final class SearchVC: UIViewController {
     }
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload {
         didSet {
-            // 정렬값에 따라 API 요청
+            guard self.status == .searchResult else { return }
+            self.mainCollectionView.setContentOffset(.zero, animated: true)
+            self.viewModel?.resetSearchInfos()
+            self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureSearchResultHeaderView()
-//        self.hideSearchResultHeaderFrameView()
+        self.hideSearchResultHeaderFrameView()
         self.configureTintColor()
         self.configureRadius()
         self.configureCollectionView()
@@ -438,7 +441,7 @@ extension SearchVC {
         self.mainCollectionView.dataSource = self
         self.mainCollectionView.delegate = self
         
-        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
+        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: false)
         self.mainCollectionView.collectionViewLayout = flowLayout
         self.mainCollectionView.configureDefaultDesign()
         
@@ -664,3 +667,20 @@ extension SearchVC: UITextFieldDelegate {
         return true
     }
 }
+
+extension SearchVC {
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         guard self.status == .searchResult else { return }
+         guard self.mainCollectionView.contentOffset.y >= (self.mainCollectionView.contentSize.height - self.mainCollectionView.bounds.size.height) else { return }
+         
+         if self.searchType == .workbook {
+             self.viewModel?.fetchWorkbooks(rowCount: UICollectionView.columnCount, order: self.searchOrder)
+         } else {
+             self.viewModel?.fetchWorkbookGroups(rowCount: UICollectionView.columnCount, order: self.searchOrder)
+         }
+     }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.viewModel?.isPaging = false
+    }
+ }
