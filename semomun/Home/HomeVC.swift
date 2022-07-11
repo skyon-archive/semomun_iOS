@@ -527,8 +527,13 @@ extension HomeVC {
         self.viewModel?.$recentEntered
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.fixedSectionViews[.recent]?.collectionView.reloadData()
+            .sink(receiveValue: { [weak self] recentEntered in
+                if recentEntered.isEmpty {
+                    self?.fixedSectionViews[.recent]?.isHidden = true
+                } else {
+                    self?.fixedSectionViews[.recent]?.isHidden = false
+                    self?.fixedSectionViews[.recent]?.collectionView.reloadData()
+                }
             })
             .store(in: &self.cancellables)
     }
