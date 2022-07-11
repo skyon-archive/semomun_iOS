@@ -21,7 +21,6 @@ final class HomeVC: UIViewController {
     private var fixedSectionViews: [FixedSectionType: HomeSectionView] = [:]
     /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열
     private var popularTagSectionViews: [HomeSectionView] = []
-    private var viewModel: HomeVM?
     private lazy var loadingView: LoadingView = {
         let view = LoadingView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,6 @@ final class HomeVC: UIViewController {
         view.configureTopCorner(radius: .cornerRadius24)
         return view
     }()
-    private var cancellables: Set<AnyCancellable> = []
     private let headerView: HomeHeaderView = {
         let view = HomeHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +41,14 @@ final class HomeVC: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
+    }()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 40
+        
+        return stackView
     }()
     private let roundedBackground: UIView = {
         let roundedBackground = UIView()
@@ -64,14 +70,8 @@ final class HomeVC: UIViewController {
         
         return view
     }()
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 40
-        
-        return stackView
-    }()
+    private var viewModel: HomeVM?
+    private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +86,6 @@ final class HomeVC: UIViewController {
         self.configureViewModel()
         self.bindAll()
         self.viewModel?.checkLogined()
-        self.viewModel?.checkVersion()
         self.viewModel?.checkMigration()
         
         self.configureBannerAd()
@@ -127,7 +126,6 @@ extension HomeVC {
     
     private func configureScrollViewLayout() {
         self.view.addSubview(scrollView)
-        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor),
@@ -155,7 +153,7 @@ extension HomeVC {
         self.roundedBackground.addSubview(self.bannerAdCollectionView)
         
         NSLayoutConstraint.activate([
-            self.bannerAdCollectionView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 32),
+            self.bannerAdCollectionView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: UICollectionView.gridPadding),
             self.bannerAdCollectionView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor, constant: 0),
             self.bannerAdCollectionView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
             self.bannerAdCollectionView.heightAnchor.constraint(equalToConstant: 64)
@@ -169,7 +167,7 @@ extension HomeVC {
             self.stackView.topAnchor.constraint(equalTo: self.bannerAdCollectionView.bottomAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
             // configureScrollViewBackgroundLayout에서 설정한 여백 값만큼 아래 여백을 설정
-            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -32-500),
+            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -UICollectionView.gridPadding-500),
             self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
         ])
     }
@@ -255,9 +253,6 @@ extension HomeVC {
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .main) { [weak self] _ in
             self?.tabBarController?.selectedIndex = 2
         }
-        NotificationCenter.default.addObserver(forName: .goToBookShelf, object: nil, queue: .main) { [weak self] _ in
-            self?.tabBarController?.selectedIndex = 2
-        }
         NotificationCenter.default.addObserver(forName: .tokenExpired, object: nil, queue: .main) { [weak self] _ in
             self?.showAlertWithOK(title: "세션이 만료되었습니다.", text: "다시 로그인 해주시기 바랍니다.") {
                 LogoutUsecase.logout()
@@ -294,12 +289,9 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 광고 배너
         guard collectionView != self.bannerAdCollectionView else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return UICollectionViewCell() }
-            guard let count = self.viewModel?.banners.count else { return cell }
-            guard let banner = self.viewModel?.banners[indexPath.item % count] else { return cell }
-            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return .init() }
+            guard let banner = self.viewModel?.banners[safe: indexPath.item] else { return cell }
             cell.configureContent(imageURL: banner.image, url: banner.url)
-            
             return cell
         }
         
@@ -469,19 +461,20 @@ extension HomeVC {
 // MARK: - Binding
 extension HomeVC {
     private func bindAll() {
-        self.bindTags()
         self.bindAds()
         self.bindBestSellers()
         self.bindRecent()
-        self.bindWorkbookDTO()
+        self.bindTags()
+        self.bindPracticeTests()
+        self.bindPopularTagContent()
+        
         self.bindOfflineStatus()
         self.bindLogined()
         self.bindVersion()
         self.bindWarning()
         self.bindPopup()
         self.bindMigrationLoading()
-        self.bindPracticeTests()
-        self.bindPopularTagContent()
+        self.bindWorkbookDTO()
     }
     
     private func bindAds() {
@@ -571,9 +564,7 @@ extension HomeVC {
                 } else {
                     changingSections
                         .compactMap { self?.fixedSectionViews[$0] }
-                        .forEach { sectionView in
-                            sectionView.isHidden = true
-                        }
+                        .forEach { $0.isHidden = true }
                 }
             })
             .store(in: &self.cancellables)

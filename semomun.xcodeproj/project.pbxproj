@@ -195,7 +195,6 @@
 		873BCE582876E935005A6189 /* WorkbookGroupCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE572876E935005A6189 /* WorkbookGroupCellInfo.swift */; };
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
 		87458554279E86B100E331F1 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458553279E86B100E331F1 /* HomeVM.swift */; };
-		87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */; };
 		87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458558279EA86600E331F1 /* HomeAdCell.swift */; };
 		8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */; };
 		8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */; };
@@ -516,7 +515,6 @@
 		8742544727795D3900D60264 /* QueryListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryListButton.swift; sourceTree = "<group>"; };
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		87458553279E86B100E331F1 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
-		87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorkbookCell.swift; sourceTree = "<group>"; };
 		87458558279EA86600E331F1 /* HomeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdCell.swift; sourceTree = "<group>"; };
 		8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneWorkbookLabel.swift; sourceTree = "<group>"; };
 		8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVC.swift; sourceTree = "<group>"; };
@@ -1300,7 +1298,6 @@
 		87458555279E86C300E331F1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				87458556279E9A4D00E331F1 /* HomeWorkbookCell.swift */,
 				87458558279EA86600E331F1 /* HomeAdCell.swift */,
 				257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */,
 			);
@@ -1943,7 +1940,6 @@
 				8703EF14282B53510001EF2D /* View+Extension.swift in Sources */,
 				25B514BE27F9D0060047FC16 /* OAuthAuthenticator.swift in Sources */,
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
-				87458557279E9A4D00E331F1 /* HomeWorkbookCell.swift in Sources */,
 				8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */,
 				87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */,
 				2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */,
