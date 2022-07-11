@@ -12,3 +12,5 @@ protocol HomeBookcoverConfigurable {
     var publishCompany: String { get }
     var fetchBookcoverUUID: ((UUID) -> Void) -> Void { get }
 }
+
+
