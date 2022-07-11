@@ -56,7 +56,7 @@ final class BookshelfVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.viewModel?.refresh(tab: currentTab)
+        self.viewModel?.refresh(tab: self.currentTab)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -86,7 +86,7 @@ extension BookshelfVC {
         self.collectionView.delegate = self
         
         self.collectionView.register(BookshelfCell.self, forCellWithReuseIdentifier: BookshelfCell.identifier)
-        self.collectionView.register(BookshelfHomeWarningCell.self, forCellWithReuseIdentifier: BookshelfHomeWarningCell.identifier)
+        self.collectionView.register(BookshelfWarningCell.self, forCellWithReuseIdentifier: BookshelfWarningCell.identifier)
         
         let homeHeaderNib = UINib(nibName: BookshelfHomeHeaderView.identifier, bundle: nil)
         let detailHeaderNib = UINib(nibName: BookshelfDetailHeaderView.identifier, bundle: nil)
@@ -153,7 +153,7 @@ extension BookshelfVC {
                 case .workbook:
                     section = 0
                     count = workbooks.count
-                default: return
+                case .practiceTest, .none: return
                 }
                 let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
                 UIView.performWithoutAnimation {
@@ -180,7 +180,7 @@ extension BookshelfVC {
                 case .practiceTest:
                     section = 0
                     count = workbookGroups.count
-                default: return
+                case .workbook, .none: return
                 }
                 let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
                 UIView.performWithoutAnimation {
@@ -204,10 +204,7 @@ extension BookshelfVC {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch self.currentTab {
-        case .home: return 3
-        default: return 1
-        }
+        return self.currentTab == .home ? 3 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -291,14 +288,14 @@ extension BookshelfVC: UICollectionViewDataSource {
         return cell
     }
     
-    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath) -> BookshelfHomeWarningCell? {
-        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfHomeWarningCell.identifier, for: indexPath) as? BookshelfHomeWarningCell else { return nil }
+    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath) -> BookshelfWarningCell? {
+        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWarningCell.identifier, for: indexPath) as? BookshelfWarningCell else { return nil }
         warningCell.configureTitle(section: indexPath.section)
         return warningCell
     }
     
-    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath, sectionName: String) -> BookshelfHomeWarningCell? {
-        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfHomeWarningCell.identifier, for: indexPath) as? BookshelfHomeWarningCell else { return nil }
+    private func warningCell(collectionView: UICollectionView, indexPath: IndexPath, sectionName: String) -> BookshelfWarningCell? {
+        guard let warningCell = collectionView.dequeueReusableCell(withReuseIdentifier: BookshelfWarningCell.identifier, for: indexPath) as? BookshelfWarningCell else { return nil }
         warningCell.configureTitle(sectionName: sectionName)
         return warningCell
     }
@@ -324,16 +321,16 @@ extension BookshelfVC: UICollectionViewDelegateFlowLayout {
         switch indexPath.section {
         case 0:
             if self.currentTab == .home {
-                return self.hasRecentWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+                return self.hasRecentWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfWarningCell.cellHeight)
             } else if self.currentTab == .workbook {
                 return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
             } else {
                 return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
             }
         case 1:
-            return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+            return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfWarningCell.cellHeight)
         default:
-            return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfHomeWarningCell.cellHeight)
+            return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfWarningCell.cellHeight)
         }
     }
     
