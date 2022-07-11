@@ -378,6 +378,7 @@ final class SearchVC: UIViewController {
     
     @IBAction func searchCancel(_ sender: Any) {
         self.status = .default
+        self.viewModel?.removeAll()
     }
 }
 
@@ -395,7 +396,9 @@ extension SearchVC {
         self.mainCollectionView.delegate = self
         
         let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        let removeableTagCellNib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
         self.tagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
+        self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
     }
     
     private func configureTextField() {
@@ -427,6 +430,7 @@ extension SearchVC {
 extension SearchVC {
     private func bindAll() {
         self.bindFavoriteTags()
+        self.bindSelectedTags()
     }
     
     private func bindFavoriteTags() {
@@ -440,6 +444,17 @@ extension SearchVC {
             .store(in: &self.cancellables)
     }
     
+    private func bindSelectedTags() {
+        self.viewModel?.$selectedTags
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] tags in
+                guard self?.status == .searchResult else { return }
+                self?.tagsCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
     private func bindSearchResults() {
         
     }
@@ -448,9 +463,13 @@ extension SearchVC {
 extension SearchVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard collectionView == self.mainCollectionView else {
-            guard let selectedFavoriteTag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return }
-            self.viewModel?.append(tag: selectedFavoriteTag)
-            self.status = .searchResult
+            if self.status == .default {
+                guard let selectedFavoriteTag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return }
+                self.viewModel?.append(tag: selectedFavoriteTag)
+                self.status = .searchResult
+            } else {
+                self.viewModel?.removeTag(index: indexPath.item)
+            }
             return
         }
         // cell 클릭
@@ -473,10 +492,17 @@ extension SearchVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard collectionView == self.mainCollectionView else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
-            guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return cell }
-            cell.configure(tag: tagName)
-            return cell
+            if self.status == .default {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
+                guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return cell }
+                cell.configure(tag: tagName)
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
+                guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return cell }
+                cell.configure(tag: tagName)
+                return cell
+            }
         }
         
         // mainCollectionView 의 cell 반환
@@ -487,8 +513,13 @@ extension SearchVC: UICollectionViewDataSource {
 extension SearchVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard collectionView == self.mainCollectionView else {
-            guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
-            return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
+            if self.status == .default {
+                guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
+                return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
+            } else {
+                guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
+                return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
+            }
         }
         
         // mainCollectionView 의 cell 반환
