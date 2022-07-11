@@ -196,7 +196,6 @@
 		8742544827795D3900D60264 /* QueryListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742544727795D3900D60264 /* QueryListButton.swift */; };
 		87458554279E86B100E331F1 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458553279E86B100E331F1 /* HomeVM.swift */; };
 		87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87458558279EA86600E331F1 /* HomeAdCell.swift */; };
-		8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */; };
 		8745855F27A000AF00E331F1 /* SearchFavoriteTagsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */; };
 		8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */; };
 		874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874600D5278C06E5001EB091 /* NetworkURL.swift */; };
@@ -516,7 +515,6 @@
 		8745569C27701BB700E3CBEE /* semomun.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = semomun.entitlements; sourceTree = "<group>"; };
 		87458553279E86B100E331F1 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		87458558279EA86600E331F1 /* HomeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdCell.swift; sourceTree = "<group>"; };
-		8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneWorkbookLabel.swift; sourceTree = "<group>"; };
 		8745855E27A000AF00E331F1 /* SearchFavoriteTagsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVC.swift; sourceTree = "<group>"; };
 		8745856227A000E800E331F1 /* SearchFavoriteTagsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFavoriteTagsVM.swift; sourceTree = "<group>"; };
 		874600D5278C06E5001EB091 /* NetworkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkURL.swift; sourceTree = "<group>"; };
@@ -1385,7 +1383,6 @@
 		878766CB27AED290003B975E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8745855A279FA83800E331F1 /* NoneWorkbookLabel.swift */,
 				87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */,
 				257AB2D52877C91900771382 /* HomeHeaderView.swift */,
 				257AB2D72877C93F00771382 /* HomeSectionView.swift */,
@@ -2115,7 +2112,6 @@
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */,
-				8745855B279FA83800E331F1 /* NoneWorkbookLabel.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				872045F12878160A00BDCACB /* BookshelfWarningCell.swift in Sources */,
