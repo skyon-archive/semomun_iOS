@@ -47,6 +47,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
                 self.selectedCountLabel.isHidden = true
                 self.editSectionsButton.setTitle("편집", for: .normal)
                 self.deleteSectionsButton.isHidden = true
+                self.viewModel?.resetSelectedSectionsForDelete()
                 
                 NotificationCenter.default.post(name: .hideSectionDeleteButton, object: nil)
             }
