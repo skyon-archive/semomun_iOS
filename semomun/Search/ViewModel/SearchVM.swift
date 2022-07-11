@@ -86,17 +86,17 @@ extension SearchVM {
         }
     }
     
-    func search(keyword: String, rowCount: Int, type: SearchVC.SearchType) {
+    func search(keyword: String, rowCount: Int, type: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
         self.keyword = keyword
         switch type {
         case .workbook:
-            self.fetchWorkbooks(rowCount: rowCount)
+            self.fetchWorkbooks(rowCount: rowCount, order: order)
         case .workbookGroup:
-            self.fetchWorkbookGroups(rowCount: rowCount)
+            self.fetchWorkbookGroups(rowCount: rowCount, order: order)
         }
     }
     
-    func fetchWorkbooks(rowCount: Int) {
+    func fetchWorkbooks(rowCount: Int, order: DropdownOrderButton.SearchOrder) {
         guard self.isLastPage == false,
               self.isPaging == false else { return }
         self.isPaging = true
@@ -124,7 +124,7 @@ extension SearchVM {
     }
     
     // MARK: 모의고사는 페이지네이션이 없기에 현재 VM 내부에서만 사용. 한번 요청에 모든 모의고사를 받아올 수 있음이 전제.
-    private func fetchWorkbookGroups(rowCount: Int) {
+    func fetchWorkbookGroups(rowCount: Int, order: DropdownOrderButton.SearchOrder) {
         guard self.isLastPage == false,
               self.isPaging == false else { return }
         self.isPaging = true
