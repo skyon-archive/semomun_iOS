@@ -34,8 +34,12 @@ final class HomeVM {
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        NetworkStatusManager.state()
         self.popularTagContents = .init(repeating: ("", []), count: self.popularTagSectionCount)
+    }
+    
+    // MARK: VC에서 바인딩 연결 완료 후 호출
+    func checkNetworkStatus() {
+        NetworkStatusManager.state()
     }
 }
 
@@ -261,9 +265,13 @@ extension HomeVM {
     }
     
     private func fetchPopularTagContents() {
-        self.networkUsecase.getTags(order: .popularity) { [weak self] _, tags in
+        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             guard let sectionSize = self?.cellPerSection,
                   let popularTagSectionCount = self?.popularTagSectionCount else {
+                return
+            }
+            guard status == .SUCCESS else {
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
