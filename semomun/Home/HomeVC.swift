@@ -250,28 +250,28 @@ extension HomeVC {
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchBestSellers
             )
-            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
             self.navigationController?.pushViewController(vc, animated: true)
         case .recent:
             let vm = HomeDetailVM<WorkbookOfDB>(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchRecentEnters
             )
-            let vc = HomeDetailVC<WorkbookOfDB>(viewModel: vm, title: sectionTitle)
+            let vc = HomeDetailVC<WorkbookOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
             self.navigationController?.pushViewController(vc, animated: true)
         case .tag:
             let vm = HomeDetailVM<WorkbookPreviewOfDB>(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchTags
             )
-            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: true)
             self.navigationController?.pushViewController(vc, animated: true)
         case .workbookGroup:
             let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchWorkbookGroups
             )
-            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -672,7 +672,7 @@ extension HomeVC {
                         networkUsecase: viewModel.networkUsecase,
                         cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, page: $0, completion: $1)}
                     )
-                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name)
+                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name, hasTagList: false)
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })

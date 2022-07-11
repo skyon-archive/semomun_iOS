@@ -56,8 +56,12 @@ class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
         if elementKind == Self.elementKindRoundedBackground {
             let attrs = UICollectionViewLayoutAttributes(forDecorationViewOfKind: elementKind, with: indexPath)
             // 하단 스크롤 overflow에서도 흰색 배경이 보이게 하기 위해 충분히 큰 높이값 설정
-            let decorationViewHeight = (self.collectionView?.frame.height ?? self.collectionViewContentSize.height) * 2
-            attrs.frame = .init(origin: .init(0, -UICollectionView.gridPadding), size: .init(self.collectionViewContentSize.width, decorationViewHeight))
+            let decorationViewHeight = max(
+                (self.collectionView?.frame.height ?? 0),
+                self.collectionViewContentSize.height
+            ) * 2
+            let topInset = self.collectionView?.contentInset.top ?? UICollectionView.gridPadding
+            attrs.frame = .init(origin: .init(0, -topInset), size: .init(self.collectionViewContentSize.width, decorationViewHeight))
             // 셀보다 뒤로 가도록 설정
             attrs.zIndex = -999
             

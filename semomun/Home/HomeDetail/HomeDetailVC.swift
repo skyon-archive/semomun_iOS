@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     /* private */
     private var viewModel: HomeDetailVM<T>
     private var cancellables: Set<AnyCancellable> = []
@@ -17,14 +17,16 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.collectionViewLayout = flowLayout
+        view.configureDefaultDesign(topInset: 24)
+        view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
+        view.register(HomeDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeDetailHeaderView.identifier)
         
         return view
     }()
     
-    init(viewModel: HomeDetailVM<T>, title: String) {
+    init(viewModel: HomeDetailVM<T>, title: String, hasTagList: Bool) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.navigationItem.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +35,8 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = title
+        self.view.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureLayout()
         self.configureCollectionView()
         self.bindAll()
@@ -71,6 +75,16 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeDetailHeaderView.identifier, for: indexPath) as? HomeDetailHeaderView else { return .init() }
+        
+        return view
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(self.collectionView.frame.width, 66)
+    }
+    
     // MARK: Pagination 을 위한 코드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height) {
@@ -89,10 +103,10 @@ extension HomeDetailVC {
         self.view.addSubview(self.collectionView)
         
         NSLayoutConstraint.activate([
-            self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+            self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
 }
@@ -102,7 +116,6 @@ extension HomeDetailVC {
     private func configureCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
     }
 }
 
