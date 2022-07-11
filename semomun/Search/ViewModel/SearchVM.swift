@@ -9,40 +9,62 @@ import Foundation
 import Combine
 
 final class SearchVM {
-    private let searchQueue = OperationQueue()
+    /* public */
+    var isPaging: Bool = false
     private(set) var selectedWid: Int?
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var favoriteTags: [TagOfDB] = []
     @Published private(set) var selectedTags: [TagOfDB] = []
     @Published private(set) var searchResultWorkbooks: [WorkbookPreviewOfDB] = []
     @Published private(set) var searchResultWorkbookGroups: [WorkbookGroupPreviewOfDB] = []
-    @Published private(set) var workbook: WorkbookOfDB?
+    @Published private(set) var workbookDetailInfo: WorkbookOfDB?
+    @Published private(set) var workbookGroupDetailInfo: WorkbookGroupOfDB?
     @Published private(set) var warning: (title: String, text: String)?
+    /* private */
+    private var keyword: String = "" // 사용자 입력값
+    private var pageCount: Int = 0
+    private var isLastPage: Bool = false
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
-    
-    func append(tag: TagOfDB) {
+}
+
+// MARK: Public
+extension SearchVM {
+    func appendSelectedTag(_ tag: TagOfDB) {
         self.selectedTags.append(tag)
     }
     
-    func removeTag(index: Int) {
+    func removeSelectedTag(at index: Int) {
         guard index < self.selectedTags.count else { return }
         self.selectedTags.remove(at: index)
     }
     
-    func removeAll() {
+    func removeAllSelectedTags() {
         self.selectedTags.removeAll()
     }
     
-    func selectWorkbook(to wid: Int) {
-        self.selectedWid = wid
+    func fetchWorkbookDetailInfo(wid: Int) {
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
+            guard let workbook = workbook else {
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            self?.workbookDetailInfo = workbook
+        }
     }
     
-    func fetchWorkbook(wid: Int) {
-        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
-            self?.workbook = workbook
+    func fetchWorkbookGroupDetailInfo(wgid: Int) {
+        self.networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroup in
+            switch status {
+            case .SUCCESS:
+                self?.workbookGroupDetailInfo = workbookGroup
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
         }
     }
     
@@ -62,5 +84,99 @@ final class SearchVM {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
+    }
+    
+    func search(keyword: String, rowCount: Int, type: SearchVC.SearchType) {
+        self.keyword = keyword
+        switch type {
+        case .workbook:
+            self.fetchWorkbooks(rowCount: rowCount)
+        case .workbookGroup:
+            self.fetchWorkbookGroups(rowCount: rowCount)
+        }
+    }
+    
+    func fetchWorkbooks(rowCount: Int) {
+        guard self.isLastPage == false,
+              self.isPaging == false else { return }
+        self.isPaging = true
+        self.pageCount += 1
+        
+        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6) { [weak self] status, workbooks in
+            switch status {
+            case .SUCCESS:
+                if workbooks.isEmpty {
+                    self?.isLastPage = true
+                    return
+                }
+                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
+                if NetworkURL.forTest {
+                    self?.filterWorkbooks(with: workbooks)
+                } else {
+                    self?.searchResultWorkbooks += workbooks
+                }
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
+    }
+    
+    // MARK: 모의고사는 페이지네이션이 없기에 현재 VM 내부에서만 사용. 한번 요청에 모든 모의고사를 받아올 수 있음이 전제.
+    private func fetchWorkbookGroups(rowCount: Int) {
+        guard self.isLastPage == false,
+              self.isPaging == false else { return }
+        self.isPaging = true
+        self.pageCount += 1
+        
+        // MARK: 페이지네이션 없이 25개를 요청
+        self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6) { [weak self] status, workbookGroups in
+            switch status {
+            case .SUCCESS:
+                if workbookGroups.isEmpty {
+                    self?.isLastPage = true
+                    return
+                }
+                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
+                if NetworkURL.forTest {
+                    self?.filterWorkbookGroups(with: workbookGroups)
+                } else {
+                    self?.searchResultWorkbookGroups += workbookGroups
+                }
+            case .DECODEERROR:
+                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
+            default:
+                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+            }
+        }
+    }
+    
+    func resetSearchInfos() {
+        self.pageCount = 0
+        self.keyword = ""
+        self.searchResultWorkbooks = []
+        self.searchResultWorkbookGroups = []
+        self.isLastPage = false
+        self.isPaging = false
+    }
+}
+
+// MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
+extension SearchVM {
+    private func filterWorkbooks(with previews: [WorkbookPreviewOfDB]) {
+        guard let testCompany = NetworkURL.testCompany else {
+            self.searchResultWorkbooks += previews
+            return
+        }
+        self.searchResultWorkbooks += previews.filter( { $0.publishCompany == testCompany })
+    }
+    
+    private func filterWorkbookGroups(with previews: [WorkbookGroupPreviewOfDB]) {
+        guard NetworkURL.testCompany != nil else {
+            self.searchResultWorkbookGroups += previews
+            return
+        }
+        self.searchResultWorkbookGroups = []
     }
 }
