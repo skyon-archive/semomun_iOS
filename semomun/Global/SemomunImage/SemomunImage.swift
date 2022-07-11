@@ -24,6 +24,7 @@ enum SemomunImage: String {
     case refreshOutline
     case pencilSolid
     case statusOfflineSolid
+    case xOutline
 }
 
 enum SystemImage: String {
