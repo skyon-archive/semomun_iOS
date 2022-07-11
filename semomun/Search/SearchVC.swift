@@ -446,7 +446,15 @@ extension SearchVC {
 }
 
 extension SearchVC: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView == self.mainCollectionView else {
+            guard let selectedFavoriteTag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return }
+            self.viewModel?.append(tag: selectedFavoriteTag)
+            self.status = .searchResult
+            return
+        }
+        // cell 클릭
+    }
 }
 
 extension SearchVC: UICollectionViewDataSource {
