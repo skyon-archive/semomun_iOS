@@ -20,8 +20,7 @@ class ScrollingBackgroundFlowLayout: UICollectionViewFlowLayout {
         self.sectionInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: UICollectionView.sectionVerticalSpacing, right: UICollectionView.gridPadding)
         self.minimumLineSpacing = UICollectionView.lineSpacingInSection
         self.itemSize = UICollectionView.bookcoverCellSize
-        // 임시 기본값
-        self.headerReferenceSize = .init(500, 40)
+        self.headerReferenceSize = self.sectionHeaderExist ? .init(self.collectionView?.bounds.width ?? 500, 40) : .zero
     }
     
     required init?(coder: NSCoder) {
