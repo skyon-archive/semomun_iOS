@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
 
-class HomeAdCell: UICollectionViewCell {
+final class HomeAdCell: UICollectionViewCell {
     static let identifier = "HomeAdCell"
     private let imageView: UIImageView = {
         let view = UIImageView()

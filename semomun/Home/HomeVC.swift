@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 /// - Note: HomeSectionView들의 태그값은 UIStackView내에서의 순서와 같다(zero-based)
-class HomeVC: UIViewController {
+final class HomeVC: UIViewController {
     /* private */
     /// 고정된 섹션 종류. 각 case의 rawValue는 대응되는 collectionview의 태그값과 같다.
     private enum FixedSectionType: Int, CaseIterable {
@@ -285,9 +285,9 @@ extension HomeVC: UICollectionViewDataSource {
                 return self.viewModel?.workbookGroups.count ?? 0
             }
         } else { // 인기 태그 섹션들
-            let tagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex]
-            return tagContent?.content.count ?? 0
+            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
+            let tagContent = self.viewModel?.popularTagContents[safe: popularTagSectionIndex]
+            return tagContent?.previews.count ?? 0
         }
     }
     
@@ -322,10 +322,10 @@ extension HomeVC: UICollectionViewDataSource {
                 cell.configure(with: info, networkUsecase: networkUsecase)
             }
         } else { // 인기 태그 섹션들
-            let tagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let tagContent = self.viewModel?.popularTagContents[safe: tagSectionIndex] else { return cell }
-            let content = tagContent.content[indexPath.item]
-            cell.configure(with: content, networkUsecase: networkUsecase)
+            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
+            guard let tagContent = self.viewModel?.popularTagContents[safe: popularTagSectionIndex] else { return cell }
+            let preview = tagContent.previews[indexPath.item]
+            cell.configure(with: preview, networkUsecase: networkUsecase)
         }
         
         return cell
@@ -354,7 +354,7 @@ extension HomeVC: UICollectionViewDelegate {
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let wid = self.viewModel?.popularTagContents[popularTagSectionIndex].content[indexPath.item].wid else { return }
+            guard let wid = self.viewModel?.popularTagContents[popularTagSectionIndex].previews[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         }
     }
