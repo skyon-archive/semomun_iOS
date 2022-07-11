@@ -42,6 +42,9 @@
 		2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2549D182283B3020005878E2 /* MultipleWith5Cell.xib */; };
 		254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
+		254C7F07287BFC320038ACA0 /* HomeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */; };
+		254C7F09287BFC380038ACA0 /* HomeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */; };
+		254C7F0B287BFED40038ACA0 /* HomeBookcoverConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
 		25532DA727F70FF000D3603C /* PhoneAuthenticatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */; };
@@ -358,6 +361,9 @@
 		2549D182283B3020005878E2 /* MultipleWith5Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleWith5Cell.xib; sourceTree = "<group>"; };
 		254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultCalculator.swift; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
+		254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVC.swift; sourceTree = "<group>"; };
+		254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVM.swift; sourceTree = "<group>"; };
+		254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookcoverConfigurable.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
 		25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhoneAuthenticatorTest.swift; path = SemomunTests/Models/PhoneAuthenticatorTest.swift; sourceTree = SOURCE_ROOT; };
@@ -761,6 +767,15 @@
 				254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		254C7F05287BFC1F0038ACA0 /* HomeDetail */ = {
+			isa = PBXGroup;
+			children = (
+				254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */,
+				254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */,
+			);
+			path = HomeDetail;
 			sourceTree = "<group>";
 		};
 		25532DA327F70F9D00D3603C /* Models */ = {
@@ -1290,6 +1305,7 @@
 			children = (
 				87458558279EA86600E331F1 /* HomeAdCell.swift */,
 				257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */,
+				254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1713,6 +1729,7 @@
 				2568CDBE2876CEEF008F34ED /* HomeVC.swift */,
 				87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */,
 				87319F9227E8D6230040108A /* NoticePopupVC.swift */,
+				254C7F05287BFC1F0038ACA0 /* HomeDetail */,
 				87458552279E86A100E331F1 /* ViewModel */,
 				87458555279E86C300E331F1 /* Cell */,
 				878766CB27AED290003B975E /* View */,
@@ -1925,6 +1942,7 @@
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
 				8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */,
 				25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */,
+				254C7F07287BFC320038ACA0 /* HomeDetailVC.swift in Sources */,
 				25841629285B2434003C6A21 /* TestSubjectResultCell.swift in Sources */,
 				87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
@@ -2039,6 +2057,7 @@
 				871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
+				254C7F0B287BFED40038ACA0 /* HomeBookcoverConfigurable.swift in Sources */,
 				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
 				25622C4D283A53540056E0DF /* PKCanvasView.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
@@ -2062,6 +2081,7 @@
 				8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */,
 				87AC217B2862FD0F00613609 /* WorkbookGroup_Core.swift in Sources */,
 				875862A327B274D50035FF22 /* Double.swift in Sources */,
+				254C7F09287BFC380038ACA0 /* HomeDetailVM.swift in Sources */,
 				25100CD627D4A9A8002C18CB /* Alamofire+Extensions.swift in Sources */,
 				250B28592874080A000578BC /* CGFloat.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
