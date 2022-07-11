@@ -326,15 +326,19 @@ final class SearchVC: UIViewController {
         case workbookGroup
     }
     @IBOutlet weak var leftSearchIcon: UIImageView!
+    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var textResetXButton: UIButton! // text.count > 0 인 경우 표시
     @IBOutlet weak var searchCancelButton: UIButton! // search 모드인 경우 표시
     @IBOutlet weak var searchFrameView: UIView!
     @IBOutlet weak var tagsCollectionView: UICollectionView!
+    
+    @IBOutlet weak var collectionViewBackgroundFrameView: UIView!
+    @IBOutlet weak var searchResultHeaderFrameView: UIView!
     @IBOutlet weak var mainCollectionView: UICollectionView!
-    @IBOutlet weak var searchTextField: UITextField!
     // Layout
     @IBOutlet weak var searchFrameTrailingConstraint: NSLayoutConstraint!
     
+    private let orderButton = DropdownOrderButton(order: .recentUpload)
     private var viewModel: SearchVM?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -342,12 +346,16 @@ final class SearchVC: UIViewController {
         didSet {
             switch self.status {
             case .default:
-                self.viewModel?.fetchFavoriteTags()
-                self.searchTextField.text = ""
+                self.hideSearchResultHeaderFrameView()
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
-            case .searching, .searchResult:
+                self.searchTextField.text = ""
+                self.viewModel?.fetchFavoriteTags()
+            case .searching:
                 self.showCancelSearchButton()
+            case .searchResult:
+                self.showCancelSearchButton()
+                self.showSearchResultHeaderFrameView()
             }
         }
     }
@@ -364,11 +372,18 @@ final class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureUI()
+        self.configureSearchResultHeaderView()
+        self.hideSearchResultHeaderFrameView()
+        self.configureTintColor()
+        self.configureRadius()
         self.configureCollectionView()
         self.configureTextField()
         self.configureViewModel()
         self.bindAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.viewModel?.fetchFavoriteTags()
     }
     
@@ -383,9 +398,33 @@ final class SearchVC: UIViewController {
 }
 
 extension SearchVC {
-    private func configureUI() {
+    private func configureSearchResultHeaderView() {
+        self.configureSearchTypeButton()
+        self.configureOrderButton()
+    }
+    
+    private func configureSearchTypeButton() {
+        // MARK: workbook, workbookGroup 선택하는 버튼 생성 로직 필요
+    }
+    
+    private func configureOrderButton() {
+        self.searchResultHeaderFrameView.addSubview(self.orderButton)
+        NSLayoutConstraint.activate([
+            self.orderButton.centerYAnchor.constraint(equalTo: self.searchResultHeaderFrameView.centerYAnchor),
+            self.orderButton.trailingAnchor.constraint(equalTo: self.searchResultHeaderFrameView.trailingAnchor, constant: -32)
+        ])
+        self.orderButton.configureSearchMenu { [weak self] order in
+            self?.searchOrder = order
+        }
+    }
+    
+    private func configureTintColor() {
         self.leftSearchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.lightGray))
         self.textResetXButton.setImageWithSVGTintColor(image: UIImage(.xOutline), color: .lightGray)
+    }
+    
+    private func configureRadius() {
+        self.collectionViewBackgroundFrameView.configureTopCorner(radius: .cornerRadius24)
         self.mainCollectionView.configureTopCorner(radius: .cornerRadius24)
     }
     
@@ -450,6 +489,10 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 guard self?.status == .searchResult else { return }
+                guard tags.isEmpty == false else {
+                    self?.status = .default
+                    return
+                }
                 self?.tagsCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -554,6 +597,14 @@ extension SearchVC {
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    func hideSearchResultHeaderFrameView() {
+        self.searchResultHeaderFrameView.isHidden = true
+    }
+    
+    func showSearchResultHeaderFrameView() {
+        self.searchResultHeaderFrameView.isHidden = false
     }
 }
 
