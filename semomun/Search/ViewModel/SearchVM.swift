@@ -28,6 +28,7 @@ final class SearchVM {
     }
     
     func removeTag(index: Int) {
+        guard index < self.selectedTags.count else { return }
         self.selectedTags.remove(at: index)
     }
     
