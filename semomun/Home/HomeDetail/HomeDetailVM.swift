@@ -8,18 +8,22 @@
 import Foundation
 import Combine
 
-final class HomeDetailVM<T: HomeBookcoverConfigurable> {
+class HomeDetailVM<T: HomeBookcoverConfigurable> {
     /* public */
+    typealias CellDataCompletion = ([T]?) -> Void
     /// Int값은 페이지네이션에서 page값으로 사용
-    typealias CellDataFetcher = (Int, @escaping ([T]?) -> Void) -> Void
+    typealias CellDataFetcher = (Int, DropdownOrderButton.SearchOrder, @escaping CellDataCompletion) -> Void
+    
     var isPaging = false
     /// VC에서 cell을 만들 때 가져다 사용하기 위한 프로퍼티
     private(set) var networkUsecase: S3ImageFetchable
     @Published private(set) var cellData: [T] = []
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var tags: [String] = []
     /* private */
     private var page = 1
-    private let cellDataFetcher: CellDataFetcher
+    private var cellDataFetcher: CellDataFetcher
+    private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload
     
     init(networkUsecase: S3ImageFetchable, cellDataFetcher: @escaping CellDataFetcher) {
         self.networkUsecase = networkUsecase
@@ -27,7 +31,8 @@ final class HomeDetailVM<T: HomeBookcoverConfigurable> {
     }
     
     func fetch() {
-        self.cellDataFetcher(self.page) { [weak self] data in
+        self.page = 1
+        self.cellDataFetcher(self.page, self.searchOrder) { [weak self] data in
             guard let data = data else {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
@@ -41,7 +46,7 @@ final class HomeDetailVM<T: HomeBookcoverConfigurable> {
         guard self.isPaging == false else { return }
         
         self.isPaging = true
-        self.cellDataFetcher(self.page) { [weak self] data in
+        self.cellDataFetcher(self.page, self.searchOrder) { [weak self] data in
             guard let data = data else {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
@@ -49,5 +54,10 @@ final class HomeDetailVM<T: HomeBookcoverConfigurable> {
             self?.cellData.append(contentsOf: data)
             self?.page += 1
         }
+    }
+    
+    func changeSearchOrder(to order: DropdownOrderButton.SearchOrder) {
+        self.searchOrder = order
+        self.fetch()
     }
 }

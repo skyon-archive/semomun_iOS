@@ -43,6 +43,7 @@ final class BookshelfVC: UIViewController {
     private var hasWorkbookGroups: Bool {
         return self.viewModel?.workbookGroups.isEmpty == false
     }
+    private var shouldOpenRecentWorkbook = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,16 @@ final class BookshelfVC: UIViewController {
         self.viewModel?.refresh(tab: .home)
         self.viewModel?.fetchBookshelf()
         self.configureObservation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.shouldOpenRecentWorkbook {
+            self.viewModel?.currentWorkbooksOrder = .recentRead
+            self.viewModel?.reloadWorkbooks()
+            self.currentTab = .workbook
+            self.shouldOpenRecentWorkbook = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,6 +80,11 @@ final class BookshelfVC: UIViewController {
         coordinator.animate(alongsideTransition: { _ in
             self.collectionView.reloadData()
         })
+    }
+    
+    // HomeVC에서 탭을 바꿀 때 사용
+    func openRecentWorkbook() {
+        self.shouldOpenRecentWorkbook = true
     }
     
     @IBAction func changeTab(_ sender: UIButton) {

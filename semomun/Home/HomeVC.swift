@@ -248,30 +248,28 @@ extension HomeVC {
         case .bestseller:
             let vm = HomeDetailVM<WorkbookPreviewOfDB>(
                 networkUsecase: viewModel.networkUsecase,
-                cellDataFetcher: viewModel.fetchBestSellers
+                cellDataFetcher: { viewModel.fetchBestSellers(page: $0, completion: $2) }
             )
-            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         case .recent:
-            let vm = HomeDetailVM<WorkbookOfDB>(
-                networkUsecase: viewModel.networkUsecase,
-                cellDataFetcher: viewModel.fetchRecentEnters
-            )
-            let vc = HomeDetailVC<WorkbookOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
-            self.navigationController?.pushViewController(vc, animated: true)
+            guard let navigationController = self.tabBarController?.viewControllers?[2] as? UINavigationController else { return }
+            guard let bookshelfVC = navigationController.viewControllers.first as? BookshelfVC else { return }
+            bookshelfVC.openRecentWorkbook()
+            self.tabBarController?.selectedIndex = 2
         case .tag:
             let vm = HomeDetailVM<WorkbookPreviewOfDB>(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchTags
             )
-            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: true)
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         case .workbookGroup:
             let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchWorkbookGroups
             )
-            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle, hasTagList: false)
+            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -670,9 +668,9 @@ extension HomeVC {
                 sectionView.configureSeeAllAction { [weak self] in
                     let vm = HomeDetailVM<WorkbookPreviewOfDB>(
                         networkUsecase: viewModel.networkUsecase,
-                        cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, page: $0, completion: $1)}
+                        cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, order: $1, page: $0, completion: $2)}
                     )
-                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name, hasTagList: false)
+                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name)
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
