@@ -335,7 +335,11 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return collectionView == self.mainCollectionView ? CGSize(collectionView.bounds.width, 66) : CGSize.zero
+        guard collectionView == self.mainCollectionView,
+              self.status == .searchResult else {
+            return CGSize.zero
+        }
+        return CGSize(collectionView.bounds.width, 66)
     }
 }
 
