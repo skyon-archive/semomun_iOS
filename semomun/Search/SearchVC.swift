@@ -34,7 +34,6 @@ final class SearchVC: UIViewController {
     @IBOutlet weak var tagsCollectionView: UICollectionView!
     
     @IBOutlet weak var collectionViewBackgroundFrameView: UIView!
-    @IBOutlet weak var searchResultHeaderFrameView: UIView!
     @IBOutlet weak var mainCollectionView: UICollectionView!
     // Layout
     @IBOutlet weak var searchFrameTrailingConstraint: NSLayoutConstraint!
@@ -47,7 +46,6 @@ final class SearchVC: UIViewController {
         didSet {
             switch self.status {
             case .default:
-                self.hideSearchResultHeaderFrameView()
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
                 self.searchTextField.text = ""
@@ -60,8 +58,6 @@ final class SearchVC: UIViewController {
                 self.showCancelSearchButton()
             case .searchResult:
                 self.showCancelSearchButton()
-                self.showSearchResultHeaderFrameView()
-                self.mainCollectionView.setContentOffset(.zero, animated: true)
                 self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
@@ -81,11 +77,9 @@ final class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureSearchResultHeaderView()
-        self.hideSearchResultHeaderFrameView()
+        self.configureCollectionView()
         self.configureTintColor()
         self.configureRadius()
-        self.configureCollectionView()
         self.configureTextField()
         self.configureViewModel()
         self.bindAll()
@@ -106,26 +100,6 @@ final class SearchVC: UIViewController {
 }
 
 extension SearchVC {
-    private func configureSearchResultHeaderView() {
-        self.configureSearchTypeButton()
-        self.configureOrderButton()
-    }
-    
-    private func configureSearchTypeButton() {
-        // MARK: workbook, workbookGroup 선택하는 버튼 생성 로직 필요
-    }
-    
-    private func configureOrderButton() {
-        self.searchResultHeaderFrameView.addSubview(self.orderButton)
-        NSLayoutConstraint.activate([
-            self.orderButton.centerYAnchor.constraint(equalTo: self.searchResultHeaderFrameView.centerYAnchor),
-            self.orderButton.trailingAnchor.constraint(equalTo: self.searchResultHeaderFrameView.trailingAnchor, constant: -32)
-        ])
-        self.orderButton.configureSearchMenu { [weak self] order in
-            self?.searchOrder = order
-        }
-    }
-    
     private func configureTintColor() {
         self.leftSearchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.lightGray))
         self.textResetXButton.setImageWithSVGTintColor(image: UIImage(.xOutline), color: .lightGray)
@@ -133,6 +107,7 @@ extension SearchVC {
     
     private func configureRadius() {
         self.collectionViewBackgroundFrameView.configureTopCorner(radius: .cornerRadius24)
+        self.mainCollectionView.configureTopCorner(radius: .cornerRadius24)
     }
     
     private func configureCollectionView() {
@@ -141,15 +116,16 @@ extension SearchVC {
         self.mainCollectionView.dataSource = self
         self.mainCollectionView.delegate = self
         
-        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: false)
+        let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
         self.mainCollectionView.collectionViewLayout = flowLayout
-        self.mainCollectionView.configureDefaultDesign()
+        self.mainCollectionView.configureDefaultDesign(topInset: 24)
         
         let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
         let removeableTagCellNib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
         self.tagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
         self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
         self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
+        self.mainCollectionView.register(SearchResultHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchResultHeaderView.identifier)
     }
     
     private func configureTextField() {
@@ -328,6 +304,18 @@ extension SearchVC: UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultHeaderView.identifier, for: indexPath) as? SearchResultHeaderView else { return .init() }
+        guard collectionView == self.mainCollectionView,
+              self.status == .searchResult else {
+            header.isHidden = true
+            return header
+        }
+        header.isHidden = false
+        header.configure(delegate: self)
+        return header
+    }
 }
 
 extension SearchVC: UICollectionViewDelegateFlowLayout {
@@ -344,6 +332,10 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
         
         // mainCollectionView 의 cell 반환
         return UICollectionView.bookcoverCellSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return collectionView == self.mainCollectionView ? CGSize(collectionView.bounds.width, 66) : CGSize.zero
     }
 }
 
@@ -374,14 +366,6 @@ extension SearchVC {
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }
-    }
-    
-    func hideSearchResultHeaderFrameView() {
-        self.searchResultHeaderFrameView.isHidden = true
-    }
-    
-    func showSearchResultHeaderFrameView() {
-        self.searchResultHeaderFrameView.isHidden = false
     }
 }
 
@@ -415,3 +399,13 @@ extension SearchVC {
         self.viewModel?.isPaging = false
     }
  }
+
+extension SearchVC: SearchOrderDelegate {
+    func changeOrder(to order: DropdownOrderButton.SearchOrder) {
+        self.searchOrder = order
+    }
+    
+    func changeType(to type: SearchType) {
+        self.searchType = type
+    }
+}

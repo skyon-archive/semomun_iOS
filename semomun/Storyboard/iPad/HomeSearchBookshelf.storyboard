@@ -147,36 +147,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cF-CM-eVC" userLabel="collectionViewBackgroundFrameView">
                                 <rect key="frame" x="0.0" y="158" width="834" height="971"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yr6-v7-L1a">
-                                        <rect key="frame" x="0.0" y="24" width="834" height="947"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdV-S3-oA9" userLabel="searchHeaderFrameView">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="42"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="42" id="OCN-hi-kM2"/>
-                                                </constraints>
-                                            </view>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-ua-sR6">
-                                                <rect key="frame" x="0.0" y="42" width="834" height="905"/>
-                                                <color key="backgroundColor" name="white"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9ps-5s-wQE">
-                                                    <size key="itemSize" width="128" height="128"/>
-                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                </collectionViewFlowLayout>
-                                                <cells/>
-                                            </collectionView>
-                                        </subviews>
-                                    </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h5h-ua-sR6">
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="971"/>
+                                        <color key="backgroundColor" name="white"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9ps-5s-wQE">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" name="white"/>
                                 <constraints>
-                                    <constraint firstItem="Yr6-v7-L1a" firstAttribute="leading" secondItem="9cF-CM-eVC" secondAttribute="leading" id="9PO-Rh-zK5"/>
-                                    <constraint firstItem="Yr6-v7-L1a" firstAttribute="top" secondItem="9cF-CM-eVC" secondAttribute="top" constant="24" id="FBu-7R-5hD"/>
-                                    <constraint firstAttribute="trailing" secondItem="Yr6-v7-L1a" secondAttribute="trailing" id="P9x-kL-RfV"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yr6-v7-L1a" secondAttribute="bottom" id="TeL-sI-srD"/>
+                                    <constraint firstAttribute="trailing" secondItem="h5h-ua-sR6" secondAttribute="trailing" id="VlD-1M-H9t"/>
+                                    <constraint firstItem="h5h-ua-sR6" firstAttribute="top" secondItem="9cF-CM-eVC" secondAttribute="top" id="che-RG-qFv"/>
+                                    <constraint firstAttribute="bottom" secondItem="h5h-ua-sR6" secondAttribute="bottom" id="e73-qQ-M7y"/>
+                                    <constraint firstItem="h5h-ua-sR6" firstAttribute="leading" secondItem="9cF-CM-eVC" secondAttribute="leading" id="zYf-6l-uOd"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -210,7 +198,6 @@
                         <outlet property="searchCancelButton" destination="5L3-Ll-4fk" id="sz2-zb-sD2"/>
                         <outlet property="searchFrameTrailingConstraint" destination="54a-kI-jDr" id="LdI-2K-lYd"/>
                         <outlet property="searchFrameView" destination="PLS-aD-5ug" id="X62-BT-knv"/>
-                        <outlet property="searchResultHeaderFrameView" destination="mdV-S3-oA9" id="8n2-fu-knr"/>
                         <outlet property="searchTextField" destination="Ixg-1a-L3j" id="mhs-XX-zeE"/>
                         <outlet property="tagsCollectionView" destination="hXG-f6-G91" id="ntk-to-In8"/>
                         <outlet property="textResetXButton" destination="7ac-IE-bgT" id="OkN-Ls-9zq"/>
@@ -604,7 +591,7 @@ Label</string>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SearchResultHeaderView" id="erc-L4-r3r" customClass="SearchResultHeaderView" customModule="semomun" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="erc-L4-r3r">
                                     <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
