@@ -16,6 +16,10 @@ final class SearchResultHeaderView: UICollectionReusableView {
     /* public */
     static let identifier = "SearchResultHeaderView"
     /* private */
+    private lazy var segmentedControl = SegmentedControlView(buttons: [
+        SegmentedButtonInfo(title: "문제집", count: 0),
+        SegmentedButtonInfo(title: "실전 모의고사", count: 5)
+    ])
     private lazy var orderButton = DropdownOrderButton(order: .recentUpload)
     private weak var delegate: SearchOrderDelegate?
     
@@ -30,6 +34,7 @@ final class SearchResultHeaderView: UICollectionReusableView {
     }
     
     private func commonInit() {
+        self.configureSegmentedControlView()
         self.configureOrderButton()
     }
     
@@ -44,6 +49,15 @@ final class SearchResultHeaderView: UICollectionReusableView {
 }
 
 extension SearchResultHeaderView {
+    private func configureSegmentedControlView() {
+        self.addSubview(self.segmentedControl)
+        NSLayoutConstraint.activate([
+            self.segmentedControl.topAnchor.constraint(equalTo: self.topAnchor, constant: 3),
+            self.segmentedControl.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32)
+        ])
+        self.segmentedControl.selectIndex(to: 1)
+    }
+    
     private func configureOrderButton() {
         self.addSubview(self.orderButton)
         NSLayoutConstraint.activate([
