@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-class HomeDetailVM<T: HomeBookcoverConfigurable> {
+typealias HomeDetailVMNetworkUsecase = (S3ImageFetchable & WorkbookSearchable)
+
+class HomeDetailVM<T: HomeBookcoverCellInfo> {
     /* public */
     typealias CellDataCompletion = ([T]?) -> Void
     /// Int값은 페이지네이션에서 page값으로 사용
@@ -16,16 +18,17 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
     
     var isPaging = false
     /// VC에서 cell을 만들 때 가져다 사용하기 위한 프로퍼티
-    private(set) var networkUsecase: S3ImageFetchable
+    private(set) var networkUsecase: HomeDetailVMNetworkUsecase
     @Published private(set) var cellData: [T] = []
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var workbookDTO: WorkbookOfDB?
     /* private */
     private var page = 1
-    var cellDataFetcher: CellDataFetcher
+    private var cellDataFetcher: CellDataFetcher
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload
     private var isLastPage = false
     
-    init(networkUsecase: S3ImageFetchable, cellDataFetcher: @escaping CellDataFetcher) {
+    init(networkUsecase: HomeDetailVMNetworkUsecase, cellDataFetcher: @escaping CellDataFetcher) {
         self.networkUsecase = networkUsecase
         self.cellDataFetcher = cellDataFetcher
     }
@@ -62,5 +65,11 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
     func changeSearchOrder(to order: DropdownOrderButton.SearchOrder) {
         self.searchOrder = order
         self.fetch()
+    }
+    
+    func fetchWorkbook(wid: Int) {
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
+            self?.workbookDTO = workbook
+        }
     }
 }

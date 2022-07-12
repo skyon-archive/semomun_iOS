@@ -10,7 +10,7 @@ import UIKit
 final class HomeBookcoverCell: BookcoverCell {
     static let identifier = "HomeBookcoverCell"
     
-    func configure(_ configurable: HomeBookcoverConfigurable, networkUsecase: S3ImageFetchable) {
+    func configure(_ configurable: HomeBookcoverCellInfo, networkUsecase: S3ImageFetchable) {
         self.configureReuse(bookTitle: configurable.title, publishCompany: configurable.publishCompany)
         self.configureImage(uuid: configurable.bookcover, networkUsecase: networkUsecase)
     }

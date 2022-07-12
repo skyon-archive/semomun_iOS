@@ -36,7 +36,11 @@ struct WorkbookGroupPreviewOfDB: Decodable {
     }
 }
 
-extension WorkbookGroupPreviewOfDB: HomeBookcoverConfigurable {
+extension WorkbookGroupPreviewOfDB: HomeBookcoverCellInfo {
+    var workbookDetailInfo: (wid: Int?, workbookGroupPreviewOfDB: WorkbookGroupPreviewOfDB?) {
+        return (nil, self)
+    }
+    
     var publishCompany: String {
         return "실전 모의고사"
     }

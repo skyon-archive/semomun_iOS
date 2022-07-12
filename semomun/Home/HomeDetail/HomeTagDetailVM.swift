@@ -11,21 +11,21 @@ final class HomeTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
     /* public */
     @Published private(set) var tags: [String] = []
     
-    override init(networkUsecase: S3ImageFetchable, cellDataFetcher: @escaping CellDataFetcher) {
+    override init(networkUsecase: HomeDetailVMNetworkUsecase, cellDataFetcher: @escaping CellDataFetcher) {
         super.init(networkUsecase: networkUsecase, cellDataFetcher: cellDataFetcher)
         self.configureTagObserver()
     }
     
-    func refreshFavoriteTag() {
+    override func fetch() {
         self.tags = self.getFavoriteTag().map(\.name)
-        self.fetch()
+        super.fetch()
     }
 }
 
 extension HomeTagDetailVM {
     private func configureTagObserver() {
         NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
-            self?.refreshFavoriteTag()
+            self?.fetch()
         }
     }
     

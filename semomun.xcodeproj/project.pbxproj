@@ -44,7 +44,7 @@
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		254C7F07287BFC320038ACA0 /* HomeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */; };
 		254C7F09287BFC380038ACA0 /* HomeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */; };
-		254C7F0B287BFED40038ACA0 /* HomeBookcoverConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */; };
+		254C7F0B287BFED40038ACA0 /* HomeBookcoverCellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0A287BFED40038ACA0 /* HomeBookcoverCellInfo.swift */; };
 		254C7F0D287C19910038ACA0 /* HomeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */; };
 		25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB327D10CA400CC6015 /* NetworkTokens.swift */; };
 		25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */; };
@@ -366,7 +366,7 @@
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVC.swift; sourceTree = "<group>"; };
 		254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVM.swift; sourceTree = "<group>"; };
-		254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookcoverConfigurable.swift; sourceTree = "<group>"; };
+		254C7F0A287BFED40038ACA0 /* HomeBookcoverCellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookcoverCellInfo.swift; sourceTree = "<group>"; };
 		254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailHeaderView.swift; sourceTree = "<group>"; };
 		25520FB327D10CA400CC6015 /* NetworkTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTokens.swift; sourceTree = "<group>"; };
 		25520FB727D10D5C00CC6015 /* SignupUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUserInfo.swift; sourceTree = "<group>"; };
@@ -956,13 +956,6 @@
 			path = WaitingCharge;
 			sourceTree = "<group>";
 		};
-		259585F2286AE38A003BC98C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		259C000E27914171005D432B /* WorkbookDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1314,7 +1307,7 @@
 			children = (
 				87458558279EA86600E331F1 /* HomeAdCell.swift */,
 				257AB2D32877C32B00771382 /* HomeBookcoverCell.swift */,
-				254C7F0A287BFED40038ACA0 /* HomeBookcoverConfigurable.swift */,
+				254C7F0A287BFED40038ACA0 /* HomeBookcoverCellInfo.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1328,7 +1321,6 @@
 				87182B9627A1294F00BA7294 /* SearchResultVC.swift */,
 				8745856127A000C300E331F1 /* ViewModel */,
 				8745856027A000BA00E331F1 /* Cell */,
-				259585F2286AE38A003BC98C /* View */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2068,7 +2060,7 @@
 				871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */,
 				8745856327A000E800E331F1 /* SearchFavoriteTagsVM.swift in Sources */,
 				87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */,
-				254C7F0B287BFED40038ACA0 /* HomeBookcoverConfigurable.swift in Sources */,
+				254C7F0B287BFED40038ACA0 /* HomeBookcoverCellInfo.swift in Sources */,
 				87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */,
 				25622C4D283A53540056E0DF /* PKCanvasView.swift in Sources */,
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,

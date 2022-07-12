@@ -66,12 +66,11 @@ final class HomeSectionView: UIView {
     }
     
     /// title과 seeAllAction는 인기 태그 섹션의 경우 configure 시점에 알 수 없기 때문에 nil
-    func configureContent(collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), seeAllAction: (() -> Void)?, title: String? = nil) {
+    func configureContent(collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), title: String? = nil) {
         self.titleLabel.text = title
         self.collectionView.tag = collectionViewTag
         self.collectionView.dataSource = delegate
         self.collectionView.delegate = delegate
-        self.seeAllButton.addAction(UIAction { _ in seeAllAction?() }, for: .touchUpInside)
     }
     
     func configureTitle(to title: String) {

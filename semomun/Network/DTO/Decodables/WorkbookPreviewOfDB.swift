@@ -41,4 +41,8 @@ struct Cutoff: Codable {
     let percentile: Int
 }
 
-extension WorkbookPreviewOfDB: HomeBookcoverConfigurable {}
+extension WorkbookPreviewOfDB: HomeBookcoverCellInfo {
+    var workbookDetailInfo: (wid: Int?, workbookGroupPreviewOfDB: WorkbookGroupPreviewOfDB?) {
+        return (self.wid, nil)
+    }
+}
