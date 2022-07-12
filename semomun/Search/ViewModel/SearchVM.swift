@@ -89,7 +89,7 @@ extension SearchVM {
         self.isPaging = true
         self.pageCount += 1
         
-        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6) { [weak self] status, workbooks in
+        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 if workbooks.isEmpty {
@@ -117,7 +117,7 @@ extension SearchVM {
         self.pageCount += 1
         
         // MARK: 페이지네이션 없이 25개를 요청
-        self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6) { [weak self] status, workbookGroups in
+        self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbookGroups in
             switch status {
             case .SUCCESS:
                 if workbookGroups.isEmpty {
