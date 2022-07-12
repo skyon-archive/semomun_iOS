@@ -19,11 +19,11 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
     private(set) var networkUsecase: S3ImageFetchable
     @Published private(set) var cellData: [T] = []
     @Published private(set) var warning: (title: String, text: String)?
-    @Published private(set) var tags: [String] = []
     /* private */
     private var page = 1
-    private var cellDataFetcher: CellDataFetcher
+    var cellDataFetcher: CellDataFetcher
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload
+    private var isLastPage = false
     
     init(networkUsecase: S3ImageFetchable, cellDataFetcher: @escaping CellDataFetcher) {
         self.networkUsecase = networkUsecase
@@ -32,18 +32,21 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
     
     func fetch() {
         self.page = 1
+        self.isPaging = true
         self.cellDataFetcher(self.page, self.searchOrder) { [weak self] data in
+            
             guard let data = data else {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
+            self?.isLastPage = data.isEmpty
             self?.cellData = data
             self?.page += 1
         }
     }
     
     func fetchMore() {
-        guard self.isPaging == false else { return }
+        guard self.isPaging == false, self.isLastPage == false else { return }
         
         self.isPaging = true
         self.cellDataFetcher(self.page, self.searchOrder) { [weak self] data in
@@ -51,6 +54,7 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
+            self?.isLastPage = data.isEmpty
             self?.cellData.append(contentsOf: data)
             self?.page += 1
         }

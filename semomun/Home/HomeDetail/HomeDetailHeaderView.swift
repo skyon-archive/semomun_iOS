@@ -8,14 +8,15 @@
 import UIKit
 
 class HomeDetailHeaderView: UICollectionReusableView {
+    /* public */
     static let identifier = "HomeDetailHeaderView"
-    private let orderButton: DropdownOrderButton = DropdownOrderButton(order: .recentUpload)
-    private lazy var tagList: UserTagListView = {
+    lazy var tagList: UserTagListView = {
         let view = UserTagListView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
+    /* private */
+    private let orderButton: DropdownOrderButton = DropdownOrderButton(order: .recentUpload)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,8 +28,8 @@ class HomeDetailHeaderView: UICollectionReusableView {
     }
     
     func configureTagList(editAction: @escaping () -> Void) {
+        self.tagList.configureEditButtonAction(action: editAction)
         self.addSubview(self.tagList)
-        
         NSLayoutConstraint.activate([
             self.tagList.centerYAnchor.constraint(equalTo: self.orderButton.centerYAnchor),
             self.tagList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32)
@@ -47,8 +48,5 @@ extension HomeDetailHeaderView {
             self.orderButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 3),
             self.orderButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32)
         ])
-        self.orderButton.configureBookshelfMenu { [weak self] order in
-            
-        }
     }
 }

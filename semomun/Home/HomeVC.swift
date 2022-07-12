@@ -201,7 +201,6 @@ extension HomeVC {
                 case .workbookGroup: sectionTitle = "실전 모의고사"
             }
             
-            // MARK: 모두 보기 관련 로직 없음
             sectionView.configureContent(
                 collectionViewTag: sectionType.rawValue,
                 delegate: self,
@@ -258,11 +257,11 @@ extension HomeVC {
             bookshelfVC.openRecentWorkbook()
             self.tabBarController?.selectedIndex = 2
         case .tag:
-            let vm = HomeDetailVM<WorkbookPreviewOfDB>(
+            let vm = HomeTagDetailVM(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchTags
             )
-            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            let vc = HomeTagDetailVC(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         case .workbookGroup:
             let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(

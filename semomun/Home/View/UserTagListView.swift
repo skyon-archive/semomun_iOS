@@ -73,6 +73,8 @@ extension UserTagListView {
         editButtonLeadingConstraint.priority = .defaultLow
         
         NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 32),
+            
             self.scrollView.topAnchor.constraint(equalTo: self.topAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
