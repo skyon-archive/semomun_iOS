@@ -253,12 +253,10 @@ extension HomeVC {
             let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         case .recent:
-            guard let navigationController = self.tabBarController?.viewControllers?[2] as? UINavigationController else { return }
-            guard let bookshelfVC = navigationController.viewControllers.first as? BookshelfVC else { return }
-            bookshelfVC.openRecentWorkbook()
             self.tabBarController?.selectedIndex = 2
-//            self.tabBarController?.selectedIndex = 2
-//            NotificationCenter.post(.openRecentWorkbook)
+            Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                NotificationCenter.default.post(name: .showRecentWorkbooks, object: nil)
+            }
         case .tag:
             let vm = HomeTagDetailVM(
                 networkUsecase: viewModel.networkUsecase,
