@@ -221,7 +221,7 @@ extension HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.cellPerSection) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.cellPerSection, order: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 guard let sectionSize = self?.cellPerSection else { return }
@@ -254,7 +254,7 @@ extension HomeVM {
     }
     
     private func fetchPracticeTests() {
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.cellPerSection) { [weak self] status, searchWorkbookGroups in
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.cellPerSection, order: nil) { [weak self] status, searchWorkbookGroups in
             switch status {
             case .SUCCESS:
                 self?.workbookGroups = searchWorkbookGroups
@@ -275,7 +275,7 @@ extension HomeVM {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize) { _, preview in
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { _, preview in
                     self?.popularTagContents[idx] = (tag.name, preview)
                     self?.updatedPopularTagIndex = idx
                 }

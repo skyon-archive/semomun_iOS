@@ -12,4 +12,5 @@ struct WorkbookSearchParam: Encodable {
     let limit: Int?
     let tids: [Int]?
     let keyword: String?
+    let order: String?
 }

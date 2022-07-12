@@ -147,9 +147,9 @@ extension NetworkUsecase: S3ImageFetchable {
 
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void) {
+    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void) {
         let tids = tags.isEmpty ? nil : tags.map(\.tid) // tags가 빈배열일때 문제인가 싶어 nil로 시도
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword)
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
         
         self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
@@ -179,9 +179,9 @@ extension NetworkUsecase: WorkbookSearchable {
     }
 }
 extension NetworkUsecase: WorkbookGroupSearchable {
-    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void) {
+    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void) {
         let tids = tags?.map(\.tid)
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword)
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
         
         self.network.request(url: NetworkURL.workbookGroups, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
