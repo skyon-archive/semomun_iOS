@@ -10,6 +10,13 @@ import UIKit
 struct SegmentedButtonInfo {
     let title: String
     let count: Int
+    var action: () -> Void
+    
+    init(title: String, count: Int, action: @escaping () -> Void) {
+        self.title = title
+        self.count = count
+        self.action = action
+    }
 }
 
 final class SegmentedControlView: UIView {
@@ -28,9 +35,12 @@ final class SegmentedControlView: UIView {
     }
     
     private func commonInit(_ buttonInfos: [SegmentedButtonInfo]) {
-        buttonInfos.forEach { info in
-            self.stackView.addArrangedSubview(SegmentedButton(info: info))
+        for (idx, info) in buttonInfos.enumerated() {
+            self.stackView.addArrangedSubview(SegmentedButton(info: info, action: { [weak self] in
+                self?.selectIndex(to: idx)
+            }))
         }
+        self.selectIndex(to: 0)
         self.addSubview(self.stackView)
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -45,7 +55,7 @@ final class SegmentedControlView: UIView {
         self.backgroundColor = UIColor.getSemomunColor(.background)
     }
     
-    func selectIndex(to index: Int) {
+    private func selectIndex(to index: Int) {
         for (idx, button) in self.stackView.subviews.enumerated() {
             if let button = button as? SegmentedButton {
                 if idx == index {
@@ -82,12 +92,12 @@ final class SegmentedButton: UIView {
         return stackView
     }()
     
-    convenience init(info: SegmentedButtonInfo) {
+    convenience init(info: SegmentedButtonInfo, action: @escaping () -> Void) {
         self.init(frame: CGRect())
-        self.commonInit(info)
+        self.commonInit(info, action)
     }
     
-    private func commonInit(_ info: SegmentedButtonInfo) {
+    private func commonInit(_ info: SegmentedButtonInfo, _ action: @escaping () -> Void) {
         self.titleLabel.text = info.title
         self.countLabel.text = "\(info.count)"
         
@@ -104,6 +114,13 @@ final class SegmentedButton: UIView {
         self.layer.cornerRadius = 14
         self.layer.cornerCurve = .continuous
         self.backgroundColor = UIColor.clear
+        
+        self.isUserInteractionEnabled = true
+        let click = ClickListener {
+            info.action()
+            action()
+        }
+        self.addGestureRecognizer(click)
     }
     
     func updateCount(to count: Int) {
@@ -120,5 +137,19 @@ final class SegmentedButton: UIView {
         self.titleLabel.textColor = UIColor.getSemomunColor(.lightGray)
         self.countLabel.textColor = UIColor.getSemomunColor(.lightGray)
         self.backgroundColor = UIColor.clear
+    }
+}
+
+final class ClickListener: UITapGestureRecognizer {
+    private var action: () -> Void
+
+    init(_ action: @escaping () -> Void) {
+        self.action = action
+        super.init(target: nil, action: nil)
+        self.addTarget(self, action: #selector(execute))
+    }
+
+    @objc private func execute() {
+        action()
     }
 }
