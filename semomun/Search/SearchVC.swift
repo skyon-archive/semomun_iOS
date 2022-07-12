@@ -360,6 +360,7 @@ final class SearchVC: UIViewController {
             case .searchResult:
                 self.showCancelSearchButton()
                 self.showSearchResultHeaderFrameView()
+                self.mainCollectionView.setContentOffset(.zero, animated: true)
                 self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
@@ -373,9 +374,7 @@ final class SearchVC: UIViewController {
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload {
         didSet {
             guard self.status == .searchResult else { return }
-            self.mainCollectionView.setContentOffset(.zero, animated: true)
-            self.viewModel?.resetSearchInfos()
-            self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
+            self.status = .searchResult
         }
     }
     
