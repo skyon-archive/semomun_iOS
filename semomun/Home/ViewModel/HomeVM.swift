@@ -275,8 +275,8 @@ extension HomeVM {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize) { _, preview in
-                    self?.popularTagContents[idx] = (tag, preview)
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { _, preview in
+                    self?.popularTagContents[idx] = (tag.name, preview)
                     self?.updatedPopularTagIndex = idx
                 }
             }
