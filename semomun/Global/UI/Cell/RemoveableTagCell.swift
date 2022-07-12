@@ -9,7 +9,7 @@ import UIKit
 
 final class RemoveableTagCell: UICollectionViewCell {
     static let identifier = "RemoveableTagCell"
-    static let horizontalMargin: CGFloat = 16 + 40
+    static let horizontalMargin: CGFloat = 16 + 40 // left margin + xMark 영역을 포함한 right margin
     
     @IBOutlet weak var tagNameLabel: UILabel!
     @IBOutlet weak var xIcon: UIImageView!

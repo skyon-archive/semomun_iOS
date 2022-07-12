@@ -97,7 +97,6 @@
 		2584162B285B3017003C6A21 /* TestSubjectRankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2584162A285B3017003C6A21 /* TestSubjectRankCell.swift */; };
 		258FA11828642D4B0008701C /* SecretImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258FA11728642D4B0008701C /* SecretImageView.swift */; };
 		258FA11A286446CA0008701C /* TestPrivateTestResultOfDBJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 258FA119286446CA0008701C /* TestPrivateTestResultOfDBJSON.json */; };
-		259585F4286AE3A8003BC98C /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259585F3286AE3A8003BC98C /* SearchResultHeaderView.swift */; };
 		25978AF727A3D347007CBD57 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25978AF627A3D346007CBD57 /* UITableView.swift */; };
 		259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259C000F27914191005D432B /* WorkbookDetailVC.swift */; };
 		259E994127AD1093000012AF /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259E994027AD1093000012AF /* CALayer.swift */; };
@@ -206,6 +205,7 @@
 		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* FormCellControllable.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
+		87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */; };
 		8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8778D28328695331002B1684 /* PracticeTestManager.swift */; };
 		877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */; };
 		877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877CCB0127B0C26B006F82C9 /* AnswerView.swift */; };
@@ -414,7 +414,6 @@
 		2584162A285B3017003C6A21 /* TestSubjectRankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectRankCell.swift; sourceTree = "<group>"; };
 		258FA11728642D4B0008701C /* SecretImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretImageView.swift; sourceTree = "<group>"; };
 		258FA119286446CA0008701C /* TestPrivateTestResultOfDBJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestPrivateTestResultOfDBJSON.json; sourceTree = "<group>"; };
-		259585F3286AE3A8003BC98C /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
 		25978AF627A3D346007CBD57 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		259C000F27914191005D432B /* WorkbookDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookDetailVC.swift; sourceTree = "<group>"; };
 		259E994027AD1093000012AF /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
@@ -522,6 +521,7 @@
 		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* FormCellControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellControllable.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
+		87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
 		8778D28328695331002B1684 /* PracticeTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestManager.swift; sourceTree = "<group>"; };
 		877B1E3027CBC4B000AC8B84 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 		877CCB0127B0C26B006F82C9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -935,7 +935,6 @@
 		259585F2286AE38A003BC98C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				259585F3286AE3A8003BC98C /* SearchResultHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1324,6 +1323,7 @@
 				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
 				87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */,
 				87BC269D27A2374A00F3418D /* SearchResultCell.swift */,
+				87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2010,7 +2010,6 @@
 				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,
 				87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */,
 				2560BBA1283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift in Sources */,
-				259585F4286AE3A8003BC98C /* SearchResultHeaderView.swift in Sources */,
 				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
 				874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */,
@@ -2046,6 +2045,7 @@
 				250B2857287405B2000578BC /* UIFont.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
+				87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
