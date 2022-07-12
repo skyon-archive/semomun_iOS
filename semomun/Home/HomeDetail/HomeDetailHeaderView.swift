@@ -12,6 +12,7 @@ class HomeDetailHeaderView: UICollectionReusableView {
     private let orderButton: DropdownOrderButton = DropdownOrderButton(order: .recentUpload)
     private lazy var tagList: UserTagListView = {
         let view = UserTagListView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -24,6 +25,19 @@ class HomeDetailHeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configureTagList(editAction: @escaping () -> Void) {
+        self.addSubview(self.tagList)
+        
+        NSLayoutConstraint.activate([
+            self.tagList.centerYAnchor.constraint(equalTo: self.orderButton.centerYAnchor),
+            self.tagList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32)
+        ])
+    }
+    
+    func configureOrderButtonAction(action: @escaping (DropdownOrderButton.SearchOrder) -> Void) {
+        self.orderButton.configureSearchMenu(action: action)
+    }
 }
 
 extension HomeDetailHeaderView {
@@ -33,8 +47,8 @@ extension HomeDetailHeaderView {
             self.orderButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 3),
             self.orderButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32)
         ])
-        self.orderButton.configureBookshelfMenu(action: { [weak self] order in
+        self.orderButton.configureBookshelfMenu { [weak self] order in
             
-        })
+        }
     }
 }

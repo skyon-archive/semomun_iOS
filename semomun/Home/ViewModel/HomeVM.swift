@@ -276,7 +276,7 @@ extension HomeVM {
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
                 self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { _, preview in
-                    self?.popularTagContents[idx] = (tag.name, preview)
+                    self?.popularTagContents[idx] = (tag, preview)
                     self?.updatedPopularTagIndex = idx
                 }
             }
@@ -296,41 +296,13 @@ extension HomeVM {
 
 // MARK: HomeDetailVM에서 사용하기 위한 메소드들
 extension HomeVM {
-    func fetchRecentEnters(page: Int, completion: @escaping ([WorkbookOfDB]?) -> Void) {
-        guard page == 1 else {
-            completion([])
-            return
-        }
-        self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
-            guard status == .SUCCESS else {
-                completion(nil)
-                return
-            }
-            let infos = infos
-                .map { BookshelfInfo(info: $0) }
-                .filter { $0.recentDate != nil }
-            
-            let group = DispatchGroup()
-            var temp: [WorkbookOfDB?] = Array(repeating: nil, count: infos.count)
-            infos.map(\.wid).enumerated().forEach { index, wid in
-                group.enter()
-                self?.networkUsecase.getWorkbook(wid: wid) { workbookOfDB in
-                    temp[index] = workbookOfDB
-                    group.leave()
-                }
-            }
-            group.notify(queue: .main) {
-                completion(temp.compactMap({$0}))
-            }
-        }
-    }
-    func fetchTags(page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
+    func fetchTags(page: Int, order: DropdownOrderButton.SearchOrder, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
         guard let tagsData = UserDefaultsManager.favoriteTags,
               let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) else {
             return
         }
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30, order: order.param) { [weak self] status, previews in
             guard status == .SUCCESS else {
                 completion(nil)
                 return
@@ -360,9 +332,9 @@ extension HomeVM {
         }
     }
     
-    func fetchWorkbookGroups(page: Int, completion: @escaping ([WorkbookGroupPreviewOfDB]?) -> Void) {
+    func fetchWorkbookGroups(page: Int, order: DropdownOrderButton.SearchOrder, completion: @escaping ([WorkbookGroupPreviewOfDB]?) -> Void) {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: page, limit: 30) { status, searchWorkbookGroups in
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: page, limit: 30, order: order.param) { status, searchWorkbookGroups in
             guard status == .SUCCESS else {
                 completion(nil)
                 return
@@ -371,9 +343,9 @@ extension HomeVM {
         }
     }
     
-    func fetchTagContent(tagOfDB: TagOfDB, page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
+    func fetchTagContent(tagOfDB: TagOfDB, order: DropdownOrderButton.SearchOrder, page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30) { status, preview in
+        self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param) { status, preview in
             guard status == .SUCCESS else {
                 completion(nil)
                 return

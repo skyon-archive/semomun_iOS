@@ -10,7 +10,7 @@ import Combine
 
 final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     /* private */
-    private var viewModel: HomeDetailVM<T>
+    private let viewModel: HomeDetailVM<T>
     private var cancellables: Set<AnyCancellable> = []
     private let collectionView: UICollectionView = {
         let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
@@ -24,9 +24,10 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
         return view
     }()
     
-    init(viewModel: HomeDetailVM<T>, title: String, hasTagList: Bool) {
+    init(viewModel: HomeDetailVM<T>, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.navigationItem.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +36,6 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = title
         self.view.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureLayout()
         self.configureCollectionView()
@@ -77,6 +77,10 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeDetailHeaderView.identifier, for: indexPath) as? HomeDetailHeaderView else { return .init() }
+        
+        view.configureOrderButtonAction { [weak self] in
+            self?.viewModel.changeSearchOrder(to: $0)
+        }
         
         return view
     }

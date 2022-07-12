@@ -116,6 +116,7 @@
 		25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B514BF27F9D0270047FC16 /* OAuthCredential.swift */; };
 		25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */; };
 		25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */; };
+		25BF7B74287D145B00A5F6E1 /* HomeTagDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BF7B73287D145B00A5F6E1 /* HomeTagDetailVM.swift */; };
 		25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CBB18B286EE996004F5740 /* UIHostingController.swift */; };
 		25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */; };
 		25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */; };
@@ -437,6 +438,7 @@
 		25B514BF27F9D0270047FC16 /* OAuthCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthCredential.swift; sourceTree = "<group>"; };
 		25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVM.swift; sourceTree = "<group>"; };
 		25B7B0C427D863F40012F0FF /* PhoneAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthenticator.swift; sourceTree = "<group>"; };
+		25BF7B73287D145B00A5F6E1 /* HomeTagDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTagDetailVM.swift; sourceTree = "<group>"; };
 		25CBB18B286EE996004F5740 /* UIHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHostingController.swift; sourceTree = "<group>"; };
 		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPurchasesVMTest.swift; path = semomunTests/ViewModels/Profile/MyPurchasesVMTest.swift; sourceTree = SOURCE_ROOT; };
@@ -776,6 +778,7 @@
 			children = (
 				254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */,
 				254C7F08287BFC380038ACA0 /* HomeDetailVM.swift */,
+				25BF7B73287D145B00A5F6E1 /* HomeTagDetailVM.swift */,
 				254C7F0C287C19910038ACA0 /* HomeDetailHeaderView.swift */,
 			);
 			path = HomeDetail;
@@ -2030,6 +2033,7 @@
 				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
 				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,
 				87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */,
+				25BF7B74287D145B00A5F6E1 /* HomeTagDetailVM.swift in Sources */,
 				2560BBA1283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift in Sources */,
 				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
