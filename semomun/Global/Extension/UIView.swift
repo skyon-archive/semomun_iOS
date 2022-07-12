@@ -107,7 +107,7 @@ extension UIView {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, opacity: opacity, shadowRadius: shadowRadius, bounds: bounds ?? self.layer.bounds, shouldRasterize: true)
-        if self.layer.sublayers?.contains(shadowLayer) == false {
+        if self.layer.sublayers?.contains(shadowLayer) != true {
             self.layer.insertSublayer(shadowLayer, at: 0)
         }
     }
