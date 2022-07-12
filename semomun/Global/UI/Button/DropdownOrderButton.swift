@@ -12,6 +12,14 @@ final class DropdownOrderButton: UIButton {
         case recentUpload = "최근 등록순"
         case titleDescending = "제목 내림차순"
         case titleAscending = "제목 오름차순"
+        
+        var param : String {
+            switch self {
+            case .recentUpload: return "recentUpload"
+            case .titleDescending: return "titleDescending"
+            case .titleAscending: return "titleAscending"
+            }
+        }
     }
     enum BookshelfOrder: String, CaseIterable {
         case recentRead = "최근 읽은 순"
