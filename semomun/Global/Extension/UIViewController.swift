@@ -122,4 +122,38 @@ extension UIViewController {
     }
 }
 
-
+extension UIViewController {
+    func showWorkbookDetailVC(workbookDTO: WorkbookOfDB) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookDetailVM(workbookDTO: workbookDTO, networkUsecase: NetworkUsecase(network: Network()))
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: false)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
+    
+    func showWorkbookDetailVC(workbookCore: Preview_Core) {
+        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
+        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
+        let viewModel = WorkbookDetailVM(previewCore: workbookCore, networkUsecase: NetworkUsecase(network: Network()))
+        workbookDetailVC.configureViewModel(to: viewModel)
+        workbookDetailVC.configureIsCoreData(to: true)
+        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+    }
+    
+    func showWorkbookGroupDetailVC(workbookGroupDTO: WorkbookGroupPreviewOfDB) {
+        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
+        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
+        let viewModel = WorkbookGroupDetailVM(dtoInfo: workbookGroupDTO, networkUsecase: NetworkUsecase(network: Network()))
+        workbookGroupDetailVC.configureViewModel(to: viewModel)
+        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
+    }
+    
+    func showWorkbookGroupDetailVC(workbookGroupCore: WorkbookGroup_Core) {
+        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
+        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
+        let viewModel = WorkbookGroupDetailVM(coreInfo: workbookGroupCore, networkUsecase: NetworkUsecase(network: Network()))
+        workbookGroupDetailVC.configureViewModel(to: viewModel)
+        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
+    }
+}

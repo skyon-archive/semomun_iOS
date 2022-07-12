@@ -399,22 +399,11 @@ extension BookshelfVC: BookshelfDetailDelegate {
 extension BookshelfVC: BookshelfCellDelegate {
     func showWorkbookDetailVC(wid: Int) {
         guard let workbook = CoreUsecase.fetchPreview(wid: wid) else { return }
-        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
-        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        
-        let viewModel = WorkbookDetailVM(previewCore: workbook, networkUsecase: NetworkUsecase(network: Network()))
-        workbookDetailVC.configureViewModel(to: viewModel)
-        workbookDetailVC.configureIsCoreData(to: true)
-        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
+        self.showWorkbookDetailVC(workbookCore: workbook)
     }
     
     func showWorkbookGroupDetailVC(wgid: Int) {
         guard let workbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: wgid) else { return }
-        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
-        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
-        
-        let viewModel = WorkbookGroupDetailVM(coreInfo: workbookGroup, networkUsecase: NetworkUsecase(network: Network()))
-        workbookGroupDetailVC.configureViewModel(to: viewModel)
-        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
+        self.showWorkbookGroupDetailVC(workbookGroupCore: workbookGroup)
     }
 }
