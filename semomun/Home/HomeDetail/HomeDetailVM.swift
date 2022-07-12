@@ -34,7 +34,6 @@ class HomeDetailVM<T: HomeBookcoverConfigurable> {
         self.page = 1
         self.isPaging = true
         self.cellDataFetcher(self.page, self.searchOrder) { [weak self] data in
-            
             guard let data = data else {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return

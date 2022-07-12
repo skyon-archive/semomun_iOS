@@ -76,12 +76,27 @@ extension UIView {
     /// 그림자를 위한 frameView에 그림자를 추가합니다.
     func addShadowToFrameView(cornerRadius: CGFloat) {
         self.clipsToBounds = false
-        self.layer.masksToBounds = false
-        self.layer.cornerRadius = cornerRadius
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-        self.layer.shadowOpacity = 0.08
-        self.layer.shadowRadius = 8
+        let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
+        shadowLayer.name = Self.shadowLayerName
+        shadowLayer.backgroundColor = UIColor.getSemomunColor(.white).cgColor
+        shadowLayer.masksToBounds = false
+        shadowLayer.cornerRadius = cornerRadius
+        shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 1)
+        shadowLayer.shadowOpacity = 0.08
+        shadowLayer.shadowRadius = 8
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.cornerRadius).cgPath
+        shadowLayer.frame = self.bounds
+        
+        if self.layer.sublayers?.contains(shadowLayer) != true {
+            self.layer.insertSublayer(shadowLayer, at: 0)
+        }
+    }
+    
+    func updateShadowFrame() {
+        guard let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) else { return }
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.cornerRadius).cgPath
+        shadowLayer.frame = self.bounds
     }
     
     /// - Note: Rasterize가 적용된 그림자가 추가됩니다.

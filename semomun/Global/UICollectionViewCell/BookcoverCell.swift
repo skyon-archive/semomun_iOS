@@ -71,6 +71,11 @@ class BookcoverCell: UICollectionViewCell {
         self.publishCompanyLabel.text = publishCompany
         self.bookTitleLabel.sizeToFit()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.updateShadowFrame()
+    }
 }
 
 // MARK: Public
