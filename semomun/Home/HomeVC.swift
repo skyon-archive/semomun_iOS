@@ -354,7 +354,7 @@ extension HomeVC: UICollectionViewDelegate {
     
     private func searchWorkbook(wid: Int) {
         if UserDefaultsManager.isLogined, let book = CoreUsecase.fetchPreview(wid: wid) {
-            self.showWorkbookDetailVC(book: book)
+            self.showWorkbookDetailVC(workbookCore: book)
         } else {
             self.viewModel?.fetchWorkbook(wid: wid)
         }
@@ -362,56 +362,20 @@ extension HomeVC: UICollectionViewDelegate {
     
     private func searchWorkbookGroup(info: WorkbookGroupPreviewOfDB) {
         if UserDefaultsManager.isLogined, let coreInfo = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
-            self.showWorkbookGroupDetailVC(coreInfo: coreInfo)
+            self.showWorkbookGroupDetailVC(workbookGroupCore: coreInfo)
         } else {
-            self.showWorkbookGroupDetailVC(dtoInfo: info)
+            self.showWorkbookGroupDetailVC(workbookGroupDTO: info)
         }
     }
 }
 
 // MARK: Navigation 관련
 extension HomeVC {
-    private func showWorkbookDetailVC(workbook: WorkbookOfDB) {
-        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
-        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookDetailVM(workbookDTO: workbook, networkUsecase: networkUsecase)
-        workbookDetailVC.configureViewModel(to: viewModel)
-        workbookDetailVC.configureIsCoreData(to: false)
-        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
-    }
-    
-    private func showWorkbookDetailVC(book: Preview_Core) {
-        let storyboard = UIStoryboard(name: WorkbookDetailVC.storyboardName, bundle: nil)
-        guard let workbookDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookDetailVC.identifier) as? WorkbookDetailVC else { return }
-        guard let networkUsecase = self.viewModel?.networkUsecase else { return }
-        let viewModel = WorkbookDetailVM(previewCore: book, networkUsecase: networkUsecase)
-        workbookDetailVC.configureViewModel(to: viewModel)
-        workbookDetailVC.configureIsCoreData(to: true)
-        self.navigationController?.pushViewController(workbookDetailVC, animated: true)
-    }
-    
     private func showSearchTagVC() {
         let storyboard = UIStoryboard(name: SearchTagVC.storyboardName, bundle: nil)
         guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
         
         self.present(searchTagVC, animated: true, completion: nil)
-    }
-    
-    private func showWorkbookGroupDetailVC(dtoInfo: WorkbookGroupPreviewOfDB) {
-        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
-        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
-        let viewModel = WorkbookGroupDetailVM(dtoInfo: dtoInfo, networkUsecase: NetworkUsecase(network: Network()))
-        workbookGroupDetailVC.configureViewModel(to: viewModel)
-        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
-    }
-    
-    private func showWorkbookGroupDetailVC(coreInfo: WorkbookGroup_Core) {
-        let storyboard = UIStoryboard(name: WorkbookGroupDetailVC.storyboardName, bundle: nil)
-        guard let workbookGroupDetailVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupDetailVC.identifier) as? WorkbookGroupDetailVC else { return }
-        let viewModel = WorkbookGroupDetailVM(coreInfo: coreInfo, networkUsecase: NetworkUsecase(network: Network()))
-        workbookGroupDetailVC.configureViewModel(to: viewModel)
-        self.navigationController?.pushViewController(workbookGroupDetailVC, animated: true)
     }
 }
 
@@ -544,7 +508,7 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookDTO in
                 guard let workbookDTO = workbookDTO else { return }
-                self?.showWorkbookDetailVC(workbook: workbookDTO)
+                self?.showWorkbookDetailVC(workbookDTO: workbookDTO)
             })
             .store(in: &self.cancellables)
     }
