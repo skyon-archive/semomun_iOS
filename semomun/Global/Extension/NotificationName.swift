@@ -30,4 +30,5 @@ extension Notification.Name {
     static let nextPage = Self.init(rawValue: "nextPage")
     static let showSectionDeleteButton = Self.init(rawValue: "showSectionDeleteButton")
     static let hideSectionDeleteButton = Self.init(rawValue: "hideSectionDeleteButton")
+    static let showRecentWorkbooks = Self.init(rawValue: "showRecentWorkbooks")
 }
