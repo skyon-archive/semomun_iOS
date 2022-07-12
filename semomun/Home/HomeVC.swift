@@ -240,7 +240,7 @@ extension HomeVC {
     
     private func showHomeDetailVC(sectionType: FixedSectionType) {
         guard let viewModel = self.viewModel,
-              let sectionTitle = self.fixedSectionViews[sectionType]?.sectionTitle else {
+              let sectionTitle = self.fixedSectionViews[sectionType]?.title else {
             return
         }
         

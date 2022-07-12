@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeDetailHeaderView: UICollectionReusableView {
+final class HomeDetailHeaderView: UICollectionReusableView {
     /* public */
     static let identifier = "HomeDetailHeaderView"
     lazy var tagList: UserTagListView = {
@@ -32,7 +32,8 @@ class HomeDetailHeaderView: UICollectionReusableView {
         self.addSubview(self.tagList)
         NSLayoutConstraint.activate([
             self.tagList.centerYAnchor.constraint(equalTo: self.orderButton.centerYAnchor),
-            self.tagList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32)
+            self.tagList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            self.tagList.trailingAnchor.constraint(equalTo: self.orderButton.leadingAnchor, constant: -12)
         ])
     }
     
