@@ -87,6 +87,7 @@ extension SearchVM {
     }
     
     func search(keyword: String, rowCount: Int, type: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
+        self.resetSearchInfos()
         self.keyword = keyword
         switch type {
         case .workbook:
