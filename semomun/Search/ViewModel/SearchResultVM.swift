@@ -42,7 +42,7 @@ final class SearchResultVM {
         self.isWorkbookPaging = true
         self.workbookPageCount += 1
         
-        self.networkUsecase.getPreviews(tags: self.tags, keyword: self.text, page: self.workbookPageCount, limit: rowCount*10) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: self.text, page: self.workbookPageCount, limit: rowCount*10, order: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
@@ -71,7 +71,7 @@ final class SearchResultVM {
         self.workbookGroupPageCount += 1
         
         // MARK: 페이지네이션 없이 25개를 요청
-        self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: 25) { [weak self] status, previews in
+        self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: 25, order: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 if previews.isEmpty {
