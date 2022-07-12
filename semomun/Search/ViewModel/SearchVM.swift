@@ -18,7 +18,6 @@ final class SearchVM {
     @Published private(set) var searchResultWorkbooks: [WorkbookPreviewOfDB] = []
     @Published private(set) var searchResultWorkbookGroups: [WorkbookGroupPreviewOfDB] = []
     @Published private(set) var workbookDetailInfo: WorkbookOfDB?
-    @Published private(set) var workbookGroupDetailInfo: WorkbookGroupOfDB?
     @Published private(set) var warning: (title: String, text: String)?
     /* private */
     private var keyword: String = "" // 사용자 입력값
@@ -52,19 +51,6 @@ extension SearchVM {
                 return
             }
             self?.workbookDetailInfo = workbook
-        }
-    }
-    
-    func fetchWorkbookGroupDetailInfo(wgid: Int) {
-        self.networkUsecase.searchWorkbookGroup(wgid: wgid) { [weak self] status, workbookGroup in
-            switch status {
-            case .SUCCESS:
-                self?.workbookGroupDetailInfo = workbookGroup
-            case .DECODEERROR:
-                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
-            default:
-                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-            }
         }
     }
     
@@ -124,7 +110,6 @@ extension SearchVM {
         }
     }
     
-    // MARK: 모의고사는 페이지네이션이 없기에 현재 VM 내부에서만 사용. 한번 요청에 모든 모의고사를 받아올 수 있음이 전제.
     func fetchWorkbookGroups(rowCount: Int, order: DropdownOrderButton.SearchOrder) {
         guard self.isLastPage == false,
               self.isPaging == false else { return }
