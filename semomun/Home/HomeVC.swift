@@ -204,9 +204,11 @@ extension HomeVC {
             sectionView.configureContent(
                 collectionViewTag: sectionType.rawValue,
                 delegate: self,
-                seeAllAction: { [weak self] in self?.showHomeDetailVC(sectionType: sectionType) },
                 title: sectionTitle
             )
+            sectionView.configureSeeAllAction { [weak self] in
+                self?.showHomeDetailVC(sectionType: sectionType)
+            }
             
             self.fixedSectionViews[sectionType] = sectionView
         }
@@ -223,8 +225,7 @@ extension HomeVC {
             let tag = FixedSectionType.allCases.count + idx
             sectionView.configureContent(
                 collectionViewTag: tag,
-                delegate: self,
-                seeAllAction: { }
+                delegate: self
             )
             
             return sectionView
@@ -256,6 +257,8 @@ extension HomeVC {
             guard let bookshelfVC = navigationController.viewControllers.first as? BookshelfVC else { return }
             bookshelfVC.openRecentWorkbook()
             self.tabBarController?.selectedIndex = 2
+//            self.tabBarController?.selectedIndex = 2
+//            NotificationCenter.post(.openRecentWorkbook)
         case .tag:
             let vm = HomeTagDetailVM(
                 networkUsecase: viewModel.networkUsecase,

@@ -11,7 +11,7 @@ import Combine
 final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
     private var tags: [String] = []
     
-    override init(viewModel: HomeDetailVM<WorkbookPreviewOfDB>, title: String) {
+    init(viewModel: HomeTagDetailVM, title: String) {
         super.init(viewModel: viewModel, title: title)
     }
     
@@ -22,8 +22,7 @@ final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindTag()
-        guard let viewModel = self.viewModel as? HomeTagDetailVM else { return }
-        viewModel.refreshFavoriteTag()
+        self.viewModel.fetch()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

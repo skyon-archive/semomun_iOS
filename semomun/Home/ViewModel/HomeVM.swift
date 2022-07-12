@@ -10,7 +10,7 @@ import Combine
 
 final class HomeVM {
     /* public */
-    private(set) var networkUsecase: NetworkUsecase
+    let networkUsecase: NetworkUsecase
     @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []

@@ -8,7 +8,10 @@
 import UIKit
 import Combine
 
-class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+typealias HomeDetailVCDelegates = (UIViewController & UICollectionViewDelegate & UICollectionViewDataSource & UICollectionViewDelegateFlowLayout)
+
+class HomeDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVCDelegates {
+    /* public */
     var cancellables: Set<AnyCancellable> = []
     let viewModel: HomeDetailVM<T>
     let collectionView: UICollectionView = {
@@ -55,7 +58,9 @@ class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollection
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
-            self.collectionView.collectionViewLayout.invalidateLayout()
+            UIView.performWithoutAnimation {
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
         })
     }
     
@@ -72,6 +77,16 @@ class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollection
         cell.configure(data, networkUsecase: s3ImageFetchable)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cellData = self.viewModel.cellData[safe: indexPath.item] else { return }
+        
+        if let wid = cellData.workbookDetailInfo.wid {
+            self.searchWorkbook(wid: wid)
+        } else if let info = cellData.workbookDetailInfo.workbookGroupPreviewOfDB {
+            self.searchWorkbookGroup(info: info)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -127,6 +142,7 @@ extension HomeDetailVC {
     private func bindAll() {
         self.bindData()
         self.bindWarning()
+        self.bindWorkbookDTO()
     }
     
     private func bindData() {
@@ -148,5 +164,33 @@ extension HomeDetailVC {
                 self?.showAlertWithOK(title: warning.title, text: warning.text)
             })
             .store(in: &self.cancellables)
+    }
+    private func bindWorkbookDTO() {
+        self.viewModel.$workbookDTO
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookDTO in
+                guard let workbookDTO = workbookDTO else { return }
+                self?.showWorkbookDetailVC(workbookDTO: workbookDTO)
+            })
+            .store(in: &self.cancellables)
+    }
+}
+
+extension HomeDetailVC {
+    private func searchWorkbook(wid: Int) {
+        if UserDefaultsManager.isLogined, let book = CoreUsecase.fetchPreview(wid: wid) {
+            self.showWorkbookDetailVC(workbookCore: book)
+        } else {
+            self.viewModel.fetchWorkbook(wid: wid)
+        }
+    }
+    
+    private func searchWorkbookGroup(info: WorkbookGroupPreviewOfDB) {
+        if UserDefaultsManager.isLogined, let coreInfo = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
+            self.showWorkbookGroupDetailVC(workbookGroupCore: coreInfo)
+        } else {
+            self.showWorkbookGroupDetailVC(workbookGroupDTO: info)
+        }
     }
 }

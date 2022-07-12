@@ -48,4 +48,8 @@ struct WorkbookOfDB: Decodable {
     }
 }
 
-extension WorkbookOfDB: HomeBookcoverConfigurable { }
+extension WorkbookOfDB: HomeBookcoverCellInfo {
+    var workbookDetailInfo: (wid: Int?, workbookGroupPreviewOfDB: WorkbookGroupPreviewOfDB?) {
+        return (self.wid, nil)
+    }
+}
