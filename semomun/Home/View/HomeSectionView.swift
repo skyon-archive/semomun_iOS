@@ -29,9 +29,7 @@ final class HomeSectionView: UIView {
         
         return view
     }()
-    var sectionTitle: String? {
-        return self.titleLabel.text
-    }
+    private(set) var title: String?
     /* private */
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -68,6 +66,7 @@ final class HomeSectionView: UIView {
     /// title과 seeAllAction는 인기 태그 섹션의 경우 configure 시점에 알 수 없기 때문에 nil
     func configureContent(collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), title: String? = nil) {
         self.titleLabel.text = title
+        self.title = title
         self.collectionView.tag = collectionViewTag
         self.collectionView.dataSource = delegate
         self.collectionView.delegate = delegate
@@ -75,6 +74,7 @@ final class HomeSectionView: UIView {
     
     func configureTitle(to title: String) {
         self.titleLabel.text = title
+        self.title = title
     }
     
     func configureSeeAllAction(action: @escaping () -> Void) {

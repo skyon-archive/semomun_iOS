@@ -75,8 +75,10 @@ extension UIView {
     
     /// 그림자를 위한 frameView에 그림자를 추가합니다.
     func addShadowToFrameView(cornerRadius: CGFloat) {
+        guard self.layer.sublayers?.contains(where: { $0.name == Self.shadowLayerName }) != true else { return }
+        
         self.clipsToBounds = false
-        let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
+        let shadowLayer = CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.backgroundColor = UIColor.getSemomunColor(.white).cgColor
         shadowLayer.masksToBounds = false
@@ -105,7 +107,7 @@ extension UIView {
         let shadowLayer = self.layer.sublayers?.first(where: { $0.name == Self.shadowLayerName }) ?? CAShapeLayer()
         shadowLayer.name = Self.shadowLayerName
         shadowLayer.configureShadow(direction: direction, cornerRadius: self.layer.cornerRadius, backgroundColor: self.backgroundColor?.cgColor, opacity: opacity, shadowRadius: shadowRadius, bounds: bounds ?? self.layer.bounds, shouldRasterize: true)
-        if self.layer.sublayers?.contains(shadowLayer) != true {
+        if self.layer.sublayers?.contains(shadowLayer) == false {
             self.layer.insertSublayer(shadowLayer, at: 0)
         }
     }
