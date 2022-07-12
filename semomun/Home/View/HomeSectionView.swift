@@ -29,6 +29,9 @@ final class HomeSectionView: UIView {
         
         return view
     }()
+    var sectionTitle: String? {
+        return self.titleLabel.text
+    }
     /* private */
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -62,17 +65,22 @@ final class HomeSectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// title은 인기 태그 섹션의 경우 configure 시점에 알 수 없기 때문에 nil
-    func configureContent(collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), seeAllAction: @escaping () -> Void, title: String? = nil) {
+    /// title과 seeAllAction는 인기 태그 섹션의 경우 configure 시점에 알 수 없기 때문에 nil
+    func configureContent(collectionViewTag: Int, delegate: (UICollectionViewDelegate & UICollectionViewDataSource), seeAllAction: (() -> Void)?, title: String? = nil) {
         self.titleLabel.text = title
         self.collectionView.tag = collectionViewTag
         self.collectionView.dataSource = delegate
         self.collectionView.delegate = delegate
-        self.seeAllButton.addAction(UIAction { _ in seeAllAction() }, for: .touchUpInside)
+        self.seeAllButton.addAction(UIAction { _ in seeAllAction?() }, for: .touchUpInside)
     }
     
     func configureTitle(to title: String) {
         self.titleLabel.text = title
+    }
+    
+    func configureSeeAllAction(action: @escaping () -> Void) {
+        self.seeAllButton.removeTarget(nil, action: nil, for: .allEvents)
+        self.seeAllButton.addAction(UIAction { _ in action() }, for: .touchUpInside)
     }
 }
 

@@ -47,3 +47,5 @@ struct WorkbookOfDB: Decodable {
         case standardDeviation, averageScore, timelimit
     }
 }
+
+extension WorkbookOfDB: HomeBookcoverConfigurable { }
