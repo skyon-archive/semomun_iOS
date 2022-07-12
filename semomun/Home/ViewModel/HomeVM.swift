@@ -317,7 +317,7 @@ extension HomeVM {
     }
     
     func fetchBestSellers(page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
-        guard page != 1 else { return }
+        guard page == 1 else { return }
         self.networkUsecase.getBestSellers { [weak self] status, workbooks in
             guard status == .SUCCESS else {
                 completion(nil)

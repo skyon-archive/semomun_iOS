@@ -8,11 +8,10 @@
 import UIKit
 import Combine
 
-final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    /* private */
-    private let viewModel: HomeDetailVM<T>
-    private var cancellables: Set<AnyCancellable> = []
-    private let collectionView: UICollectionView = {
+class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var cancellables: Set<AnyCancellable> = []
+    let viewModel: HomeDetailVM<T>
+    let collectionView: UICollectionView = {
         let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +90,7 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
     
     // MARK: Pagination 을 위한 코드
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height) {
+        if self.collectionView.contentOffset.y > (self.collectionView.contentSize.height - self.collectionView.bounds.size.height) {
             self.viewModel.fetchMore()
         }
     }
