@@ -10,7 +10,5 @@ import Foundation
 protocol HomeBookcoverConfigurable {
     var title: String { get }
     var publishCompany: String { get }
-    var fetchBookcoverUUID: ((UUID) -> Void) -> Void { get }
+    var bookcover: UUID { get }
 }
-
-

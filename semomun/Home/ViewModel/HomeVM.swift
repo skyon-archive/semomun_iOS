@@ -26,7 +26,7 @@ final class HomeVM {
     @Published private(set) var isMigration: Bool = false
     /// popularTagContents의 element 중 DB에서 값을 받아온 것의 인덱스
     @Published private(set) var updatedPopularTagIndex: Int? = nil
-    private(set) var popularTagContents: [(tagName: String, previews: [WorkbookPreviewOfDB])] = []
+    private(set) var popularTagContents: [(tag: TagOfDB, previews: [WorkbookPreviewOfDB])] = []
     let popularTagSectionCount = 15
     /* private */
     private let cellPerSection = 15
@@ -34,7 +34,7 @@ final class HomeVM {
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.popularTagContents = .init(repeating: ("", []), count: self.popularTagSectionCount)
+        self.popularTagContents = .init(repeating: (.init(tid: 0, name: ""), []), count: self.popularTagSectionCount)
     }
     
     // MARK: VC에서 바인딩 연결 완료 후 호출
@@ -55,11 +55,11 @@ extension HomeVM {
             switch status {
             case .SUCCESS:
                 guard let deviceVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
-                let appstoreVersion = appstoreVersion else {
+                      let appstoreVersion = appstoreVersion else {
                     assertionFailure()
                     return
                 }
-
+                
                 if deviceVersion.versionCompare(appstoreVersion) == .orderedAscending {
                     self?.updateToVersion = appstoreVersion
                 }
@@ -192,7 +192,7 @@ extension HomeVM {
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
-
+                    
                     self?.bestSellers = Array(filteredPreviews.prefix(sectionSize))
                 } else {
                     self?.bestSellers = Array(workbooks.prefix(sectionSize))
@@ -275,8 +275,8 @@ extension HomeVM {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { _, preview in
-                    self?.popularTagContents[idx] = (tag.name, preview)
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize) { _, preview in
+                    self?.popularTagContents[idx] = (tag, preview)
                     self?.updatedPopularTagIndex = idx
                 }
             }
@@ -291,5 +291,94 @@ extension HomeVM {
             return previews
         }
         return previews.filter( { $0.publishCompany == testCompany })
+    }
+}
+
+// MARK: HomeDetailVM에서 사용하기 위한 메소드들
+extension HomeVM {
+    func fetchRecentEnters(page: Int, completion: @escaping ([WorkbookOfDB]?) -> Void) {
+        guard page == 1 else {
+            completion([])
+            return
+        }
+        self.networkUsecase.getUserBookshelfInfos(order: .solve) { [weak self] status, infos in
+            guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            let infos = infos
+                .map { BookshelfInfo(info: $0) }
+                .filter { $0.recentDate != nil }
+            
+            let group = DispatchGroup()
+            var temp: [WorkbookOfDB?] = Array(repeating: nil, count: infos.count)
+            infos.map(\.wid).enumerated().forEach { index, wid in
+                group.enter()
+                self?.networkUsecase.getWorkbook(wid: wid) { workbookOfDB in
+                    temp[index] = workbookOfDB
+                    group.leave()
+                }
+            }
+            group.notify(queue: .main) {
+                completion(temp.compactMap({$0}))
+            }
+        }
+    }
+    func fetchTags(page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
+        guard let tagsData = UserDefaultsManager.favoriteTags,
+              let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) else {
+            return
+        }
+        // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
+        self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30) { [weak self] status, previews in
+            guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            if NetworkURL.forTest {
+                let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
+                completion(filteredPreviews)
+            } else {
+                completion(previews)
+            }
+        }
+    }
+    
+    func fetchBestSellers(page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
+        guard page != 1 else { return }
+        self.networkUsecase.getBestSellers { [weak self] status, workbooks in
+            guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            if NetworkURL.forTest {
+                let filteredPreviews = self?.filteredPreviews(with: workbooks) ?? []
+                completion(filteredPreviews)
+            } else {
+                completion(workbooks)
+            }
+        }
+    }
+    
+    func fetchWorkbookGroups(page: Int, completion: @escaping ([WorkbookGroupPreviewOfDB]?) -> Void) {
+        // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
+        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: page, limit: 30) { status, searchWorkbookGroups in
+            guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            completion(searchWorkbookGroups)
+        }
+    }
+    
+    func fetchTagContent(tagOfDB: TagOfDB, page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
+        // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
+        self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30) { status, preview in
+            guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            completion(preview)
+        }
     }
 }

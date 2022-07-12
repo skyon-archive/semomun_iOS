@@ -205,7 +205,7 @@ extension HomeVC {
             sectionView.configureContent(
                 collectionViewTag: sectionType.rawValue,
                 delegate: self,
-                seeAllAction: { },
+                seeAllAction: { [weak self] in self?.showHomeDetailVC(sectionType: sectionType) },
                 title: sectionTitle
             )
             
@@ -236,6 +236,44 @@ extension HomeVC {
     private func addSectionToStackView(_ sectionView: HomeSectionView) {
         self.stackView.addArrangedSubview(sectionView)
         sectionView.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
+    }
+    
+    private func showHomeDetailVC(sectionType: FixedSectionType) {
+        guard let viewModel = self.viewModel,
+              let sectionTitle = self.fixedSectionViews[sectionType]?.sectionTitle else {
+            return
+        }
+        
+        switch sectionType {
+        case .bestseller:
+            let vm = HomeDetailVM<WorkbookPreviewOfDB>(
+                networkUsecase: viewModel.networkUsecase,
+                cellDataFetcher: viewModel.fetchBestSellers
+            )
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            self.navigationController?.pushViewController(vc, animated: true)
+        case .recent:
+            let vm = HomeDetailVM<WorkbookOfDB>(
+                networkUsecase: viewModel.networkUsecase,
+                cellDataFetcher: viewModel.fetchRecentEnters
+            )
+            let vc = HomeDetailVC<WorkbookOfDB>(viewModel: vm, title: sectionTitle)
+            self.navigationController?.pushViewController(vc, animated: true)
+        case .tag:
+            let vm = HomeDetailVM<WorkbookPreviewOfDB>(
+                networkUsecase: viewModel.networkUsecase,
+                cellDataFetcher: viewModel.fetchTags
+            )
+            let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            self.navigationController?.pushViewController(vc, animated: true)
+        case .workbookGroup:
+            let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(
+                networkUsecase: viewModel.networkUsecase,
+                cellDataFetcher: viewModel.fetchWorkbookGroups
+            )
+            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -620,12 +658,23 @@ extension HomeVC {
             .sink(receiveValue: { [weak self] idx in
                 guard let idx = idx,
                       let sectionView = self?.popularTagSectionViews[safe: idx],
-                      let sectionName = self?.viewModel?.popularTagContents[safe: idx]?.tagName else {
+                      let tagContent = self?.viewModel?.popularTagContents[safe: idx] else {
                     return
                 }
                 
-                sectionView.configureTitle(to: sectionName)
+                sectionView.configureTitle(to: tagContent.tag.name)
                 sectionView.collectionView.reloadData()
+                
+                guard let viewModel = self?.viewModel else { return }
+                
+                sectionView.configureSeeAllAction { [weak self] in
+                    let vm = HomeDetailVM<WorkbookPreviewOfDB>(
+                        networkUsecase: viewModel.networkUsecase,
+                        cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, page: $0, completion: $1)}
+                    )
+                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name)
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
             })
             .store(in: &self.cancellables)
     }

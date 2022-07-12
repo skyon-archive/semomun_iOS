@@ -14,16 +14,17 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
     private var cancellables: Set<AnyCancellable> = []
     private let collectionView: UICollectionView = {
         let flowLayout = ScrollingBackgroundFlowLayout(sectionHeaderExist: true)
-        let view = UICollectionView()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.collectionViewLayout = flowLayout
         
         return view
     }()
     
-    init(viewModel: HomeDetailVM<T>) {
+    init(viewModel: HomeDetailVM<T>, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.navigationItem.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -34,12 +35,18 @@ final class HomeDetailVC<T: HomeBookcoverConfigurable>: UIViewController, UIColl
         super.viewDidLoad()
         self.configureLayout()
         self.configureCollectionView()
-        self.bindData()
+        self.bindAll()
+        self.viewModel.fetch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.fetch()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -101,12 +108,28 @@ extension HomeDetailVC {
 
 // MARK: Binding
 extension HomeDetailVC {
+    private func bindAll() {
+        self.bindData()
+        self.bindWarning()
+    }
+    
     private func bindData() {
         self.viewModel.$cellData
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
                 self?.collectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWarning() {
+        self.viewModel.$warning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] warning in
+                guard let warning = warning else { return }
+                self?.showAlertWithOK(title: warning.title, text: warning.text)
             })
             .store(in: &self.cancellables)
     }

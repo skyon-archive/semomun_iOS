@@ -35,3 +35,13 @@ struct WorkbookGroupPreviewOfDB: Decodable {
         return WorkbookGroupInfo(wgid: self.wgid, title: self.title)
     }
 }
+
+extension WorkbookGroupPreviewOfDB: HomeBookcoverConfigurable {
+    var publishCompany: String {
+        return "실전 모의고사"
+    }
+    
+    var bookcover: UUID {
+        return self.groupCover
+    }
+}

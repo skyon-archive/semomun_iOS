@@ -12,9 +12,7 @@ final class HomeBookcoverCell: BookcoverCell {
     
     func configure(_ configurable: HomeBookcoverConfigurable, networkUsecase: S3ImageFetchable) {
         self.configureReuse(bookTitle: configurable.title, publishCompany: configurable.publishCompany)
-        configurable.fetchBookcoverUUID { [weak self] uuid in
-            self?.configureImage(uuid: uuid, networkUsecase: networkUsecase)
-        }
+        self.configureImage(uuid: configurable.bookcover, networkUsecase: networkUsecase)
     }
     
     // 로그인 상태와 상관 없는 configure

@@ -40,3 +40,5 @@ struct Cutoff: Codable {
     let rawScore: Int
     let percentile: Int
 }
+
+extension WorkbookPreviewOfDB: HomeBookcoverConfigurable {}
