@@ -483,6 +483,7 @@ extension SearchVC {
         self.bindSelectedTags()
         self.bindWorkbooks()
         self.bindWorkbookGroups()
+        self.bindWorkbookDetail()
     }
     
     private func bindFavoriteTags() {
@@ -536,10 +537,24 @@ extension SearchVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindWorkbookDetail() {
+        self.viewModel?.$workbookDetailInfo
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbookDTO in
+                guard let workbookDTO = workbookDTO,
+                      self?.status == .searchResult,
+                      self?.searchType == .workbook else { return }
+                self?.showWorkbookDetailVC(workbookDTO: workbookDTO)
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 extension SearchVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        /// tagsCollectionView
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let selectedFavoriteTag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return }
@@ -550,7 +565,23 @@ extension SearchVC: UICollectionViewDelegate {
             }
             return
         }
-        // cell 클릭
+        /// mainCollectionView
+        guard self.status == .searchResult else { return }
+        if self.searchType == .workbook {
+            guard let workbook = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return }
+            if let workbookCore = CoreUsecase.fetchPreview(wid: workbook.wid) {
+                self.showWorkbookDetailVC(workbookCore: workbookCore)
+            } else {
+                self.viewModel?.fetchWorkbookDetailInfo(wid: workbook.wid)
+            }
+        } else {
+            guard let workbookGroup = self.viewModel?.searchResultWorkbookGroups[safe: indexPath.item] else { return }
+            if let workbookGroupCore = CoreUsecase.fetchWorkbookGroup(wgid: workbookGroup.wgid) {
+                self.showWorkbookGroupDetailVC(workbookGroupCore: workbookGroupCore)
+            } else {
+                self.showWorkbookGroupDetailVC(workbookGroupDTO: workbookGroup)
+            }
+        }
     }
 }
 
