@@ -147,7 +147,7 @@ extension NetworkUsecase: S3ImageFetchable {
 
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void) {
+    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookPreviews?) -> Void) {
         let tids = tags.isEmpty ? nil : tags.map(\.tid) // tags가 빈배열일때 문제인가 싶어 nil로 시도
         let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
         
@@ -156,12 +156,12 @@ extension NetworkUsecase: PreviewsSearchable {
             case 200:
                 guard let data = result.data,
                       let searchPreviews: SearchWorkbookPreviews = self.decodeRequested(SearchWorkbookPreviews.self, from: data) else {
-                    completion(.DECODEERROR, [])
+                    completion(.DECODEERROR, nil)
                     return
                 }
-                completion(.SUCCESS, searchPreviews.workbooks)
+                completion(.SUCCESS, searchPreviews)
             default:
-                completion(.FAIL, [])
+                completion(.FAIL, nil)
             }
         }
     }
@@ -179,7 +179,7 @@ extension NetworkUsecase: WorkbookSearchable {
     }
 }
 extension NetworkUsecase: WorkbookGroupSearchable {
-    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void) {
+    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void) {
         let tids = tags?.map(\.tid)
         let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
         
@@ -188,12 +188,12 @@ extension NetworkUsecase: WorkbookGroupSearchable {
             case 200:
                 guard let data = result.data,
                       let searchWorkbookGroups: SearchWorkbookGroups = self.decodeRequested(SearchWorkbookGroups.self, from: data) else {
-                    completion(.DECODEERROR, [])
+                    completion(.DECODEERROR, nil)
                     return
                 }
-                completion(.SUCCESS, searchWorkbookGroups.workbookGroups)
+                completion(.SUCCESS, searchWorkbookGroups)
             default:
-                completion(.FAIL, [])
+                completion(.FAIL, nil)
             }
         }
     }
