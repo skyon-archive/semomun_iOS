@@ -15,6 +15,8 @@ final class SearchVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var favoriteTags: [TagOfDB] = []
     @Published private(set) var selectedTags: [TagOfDB] = []
+    @Published private(set) var workbooksCount: Int = 0
+    @Published private(set) var workbookGroupsCount: Int = 0
     @Published private(set) var searchResultWorkbooks: [WorkbookPreviewOfDB] = []
     @Published private(set) var searchResultWorkbookGroups: [WorkbookGroupPreviewOfDB] = []
     @Published private(set) var workbookDetailInfo: WorkbookOfDB?
@@ -75,7 +77,7 @@ extension SearchVM {
     func search(keyword: String, rowCount: Int, type: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
         self.resetSearchInfos()
         self.keyword = keyword
-        self.fetchCounts(rowCount: rowCount)
+        self.fetchAnotherCount(currentType: type, limit: rowCount*6)
         switch type {
         case .workbook:
             self.fetchWorkbooks(rowCount: rowCount, order: order)
@@ -93,6 +95,7 @@ extension SearchVM {
         self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
+                self?.workbooksCount = workbooks?.count ?? 0
                 guard let workbooks = workbooks?.workbooks else {
                     self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                     return
@@ -125,10 +128,12 @@ extension SearchVM {
         self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbookGroups in
             switch status {
             case .SUCCESS:
+                self?.workbookGroupsCount = workbookGroups?.count ?? 0
                 guard let workbookGroups = workbookGroups?.workbookGroups else {
                     self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                     return
                 }
+                
                 if workbookGroups.isEmpty {
                     self?.isLastPage = true
                     return
@@ -146,13 +151,25 @@ extension SearchVM {
             }
         }
     }
-    /// pageCount 와 관련해 위 함수와 별개로 동일 API 를 쓰는 또다른 함수로 분리
-    func fetchCounts(rowCount: Int) {
-//        let taskGroup = DispatchGroup()
-//        taskGroup.enter()
-//        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: rowCount*6, order: nil) { [weak self] status, <#[WorkbookPreviewOfDB]#> in
-//            <#code#>
-//        }
+    
+    func fetchAnotherCount(currentType: SearchVC.SearchType, limit: Int) {
+        if currentType == .workbook {
+            self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil) { [weak self] status, workbookGroupInfo in
+                guard status == .SUCCESS else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                self?.workbookGroupsCount = workbookGroupInfo?.count ?? 0
+            }
+        } else {
+            self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil) { [weak self] status, workbookInfo in
+                guard status == .SUCCESS else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                self?.workbooksCount = workbookInfo?.count ?? 0
+            }
+        }
     }
     
     func resetSearchInfos() {

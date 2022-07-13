@@ -55,7 +55,7 @@ final class SegmentedControlView: UIView {
         self.backgroundColor = UIColor.getSemomunColor(.background)
     }
     
-    private func selectIndex(to index: Int) {
+    func selectIndex(to index: Int) {
         for (idx, button) in self.stackView.subviews.enumerated() {
             if let button = button as? SegmentedButton {
                 if idx == index {

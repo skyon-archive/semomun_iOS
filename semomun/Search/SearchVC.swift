@@ -49,6 +49,7 @@ final class SearchVC: UIViewController {
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
                 self.searchTextField.text = ""
+                self.searchType = .workbook
                 self.searchOrder = .recentUpload
                 self.viewModel?.removeAllSelectedTags()
                 self.viewModel?.resetSearchInfos()
@@ -163,6 +164,7 @@ extension SearchVC {
         self.bindWorkbooks()
         self.bindWorkbookGroups()
         self.bindWorkbookDetail()
+        self.bindCounts()
     }
     
     private func bindFavoriteTags() {
@@ -226,6 +228,25 @@ extension SearchVC {
                       self?.status == .searchResult,
                       self?.searchType == .workbook else { return }
                 self?.showWorkbookDetailVC(workbookDTO: workbookDTO)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindCounts() {
+        self.viewModel?.$workbooksCount
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                guard self?.status == .searchResult else { return }
+                self?.mainCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+        self.viewModel?.$workbookGroupsCount
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] _ in
+                guard self?.status == .searchResult else { return }
+                self?.mainCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }
@@ -314,8 +335,10 @@ extension SearchVC: UICollectionViewDataSource {
             header.isHidden = true
             return header
         }
+        let workbookCount = self.viewModel?.workbooksCount ?? 0
+        let workbookGroupCount = self.viewModel?.workbookGroupsCount ?? 0
         header.isHidden = false
-        header.configure(delegate: self, workbookCount: 30, workbookGroupCount: 5)
+        header.configure(delegate: self, workbookCount: workbookCount, workbookGroupCount: workbookGroupCount, currentType: self.searchType)
         return header
     }
 }
