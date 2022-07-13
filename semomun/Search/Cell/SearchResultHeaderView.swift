@@ -47,8 +47,9 @@ final class SearchResultHeaderView: UICollectionReusableView {
         self.delegate = nil
     }
     
-    func configure(delegate: SearchOrderDelegate, workbookCount: Int, workbookGroupCount: Int, currentType: SearchVC.SearchType) {
+    func configure(delegate: SearchOrderDelegate, workbookCount: Int, workbookGroupCount: Int, currentType: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
         self.delegate = delegate
+        self.orderButton.changeOrder(to: order)
         self.segmentedControl.updateCount(index: 0, to: workbookCount)
         self.segmentedControl.updateCount(index: 1, to: workbookGroupCount)
         if currentType == .workbook {

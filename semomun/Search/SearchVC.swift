@@ -78,8 +78,9 @@ final class SearchVC: UIViewController {
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload {
         didSet {
             print("searchOrder: \(searchOrder)")
-            guard self.status == .searchResult else { return }
-            self.status = .searchResult
+            if self.status == .searchResult {
+                self.status = .searchResult // order 변경 후 재검색
+            }
         }
     }
     
@@ -385,7 +386,7 @@ extension SearchVC: UICollectionViewDataSource {
         let workbookCount = self.viewModel?.workbooksCount ?? 0
         let workbookGroupCount = self.viewModel?.workbookGroupsCount ?? 0
         header.isHidden = false
-        header.configure(delegate: self, workbookCount: workbookCount, workbookGroupCount: workbookGroupCount, currentType: self.searchType)
+        header.configure(delegate: self, workbookCount: workbookCount, workbookGroupCount: workbookGroupCount, currentType: self.searchType, order: self.searchOrder)
         return header
     }
 }
