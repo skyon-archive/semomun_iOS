@@ -45,13 +45,13 @@ protocol PopupFetchable {
 }
 // MARK: - Searchable
 protocol PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void)
+    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookPreviews?) -> Void)
 }
 protocol WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB?) -> ())
 }
 protocol WorkbookGroupSearchable {
-    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, [WorkbookGroupPreviewOfDB]) -> Void)
+    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void)
     func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void)
 }
 // MARK: - Downloadable

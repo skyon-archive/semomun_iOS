@@ -45,6 +45,10 @@ final class SearchResultVM {
         self.networkUsecase.getPreviews(tags: self.tags, keyword: self.text, page: self.workbookPageCount, limit: rowCount*10, order: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
+                guard let previews = previews?.workbooks else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
                 if previews.isEmpty {
                     self?.isWorkbookLastPage = true
                     return
@@ -74,6 +78,10 @@ final class SearchResultVM {
         self.networkUsecase.searchWorkbookGroup(tags: self.tags, keyword: self.text, page: self.workbookGroupPageCount, limit: 25, order: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
+                guard let previews = previews?.workbookGroups else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
                 if previews.isEmpty {
                     self?.isWorkbookGroupLastPage = true
                     return

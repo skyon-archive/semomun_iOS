@@ -75,6 +75,7 @@ extension SearchVM {
     func search(keyword: String, rowCount: Int, type: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
         self.resetSearchInfos()
         self.keyword = keyword
+        self.fetchCounts(rowCount: rowCount)
         switch type {
         case .workbook:
             self.fetchWorkbooks(rowCount: rowCount, order: order)
@@ -92,6 +93,10 @@ extension SearchVM {
         self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
+                guard let workbooks = workbooks?.workbooks else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
                 if workbooks.isEmpty {
                     self?.isLastPage = true
                     return
@@ -120,6 +125,10 @@ extension SearchVM {
         self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbookGroups in
             switch status {
             case .SUCCESS:
+                guard let workbookGroups = workbookGroups?.workbookGroups else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
                 if workbookGroups.isEmpty {
                     self?.isLastPage = true
                     return
@@ -136,6 +145,14 @@ extension SearchVM {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
+    }
+    /// pageCount 와 관련해 위 함수와 별개로 동일 API 를 쓰는 또다른 함수로 분리
+    func fetchCounts(rowCount: Int) {
+//        let taskGroup = DispatchGroup()
+//        taskGroup.enter()
+//        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: rowCount*6, order: nil) { [weak self] status, <#[WorkbookPreviewOfDB]#> in
+//            <#code#>
+//        }
     }
     
     func resetSearchInfos() {

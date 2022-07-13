@@ -225,6 +225,7 @@ extension HomeVM {
             switch status {
             case .SUCCESS:
                 guard let sectionSize = self?.cellPerSection else { return }
+                guard let previews = previews?.workbooks else { return }
                 // MARK: test용 서버에서 filter 여부에 따라 previews 로직 분기처리
                 if NetworkURL.forTest {
                     let filteredPreviews = self?.filteredPreviews(with: previews) ?? []
@@ -257,6 +258,10 @@ extension HomeVM {
         self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.cellPerSection, order: nil) { [weak self] status, searchWorkbookGroups in
             switch status {
             case .SUCCESS:
+                guard let searchWorkbookGroups = searchWorkbookGroups?.workbookGroups else {
+                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
                 self?.workbookGroups = searchWorkbookGroups
             default:
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
@@ -275,9 +280,17 @@ extension HomeVM {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { _, preview in
-                    self?.popularTagContents[idx] = (tag, preview)
-                    self?.updatedPopularTagIndex = idx
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { [weak self] status, preview in
+                    if status == .SUCCESS {
+                        guard let preview = preview?.workbooks else {
+                            self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                            return
+                        }
+                        self?.popularTagContents[idx] = (tag, preview)
+                        self?.updatedPopularTagIndex = idx
+                    } else {
+                        self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    }
                 }
             }
         }
@@ -304,6 +317,10 @@ extension HomeVM {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
         self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30, order: order.param) { [weak self] status, previews in
             guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            guard let previews = previews?.workbooks else {
                 completion(nil)
                 return
             }
@@ -339,6 +356,11 @@ extension HomeVM {
                 completion(nil)
                 return
             }
+            guard let searchWorkbookGroups = searchWorkbookGroups?.workbookGroups else {
+                completion(nil)
+                return
+            }
+
             completion(searchWorkbookGroups)
         }
     }
@@ -347,6 +369,10 @@ extension HomeVM {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
         self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param) { status, preview in
             guard status == .SUCCESS else {
+                completion(nil)
+                return
+            }
+            guard let preview = preview?.workbooks else {
                 completion(nil)
                 return
             }
