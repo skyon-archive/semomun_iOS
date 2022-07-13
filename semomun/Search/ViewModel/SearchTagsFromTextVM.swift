@@ -10,7 +10,6 @@ import Combine
 
 final class SearchTagsFromTextVM {
     private let networkUsecase: NetworkUsecase
-    private let searchQueue = OperationQueue()
     private var totalTags: [TagOfDB] = []
     private var userSelected: [TagOfDB] = []
     @Published private(set) var filteredTags: [TagOfDB] = []
@@ -23,7 +22,7 @@ final class SearchTagsFromTextVM {
     }
     
     private func configureObservation() {
-        NotificationCenter.default.addObserver(forName: .fetchTagsFromSearch, object: nil, queue: self.searchQueue) { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: .fetchTagsFromSearch, object: nil, queue: .current) { [weak self] notification in
             guard let text = notification.userInfo?["text"] as? String else { return }
             if text == "" {
                 self?.refresh()
