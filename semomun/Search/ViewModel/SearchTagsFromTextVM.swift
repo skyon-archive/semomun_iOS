@@ -33,7 +33,7 @@ final class SearchTagsFromTextVM {
     }
     
     func fetchTags() {
-        self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 self?.totalTags = tags

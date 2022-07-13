@@ -41,7 +41,7 @@ extension SearchTagsFromTextVC {
         
         let layout = TagsLayout()
         layout.minimumInteritemSpacing = 4
-        layout.minimumLineSpacing = 4
+        layout.minimumLineSpacing = 8
         self.collectionView.collectionViewLayout = layout
     }
     
