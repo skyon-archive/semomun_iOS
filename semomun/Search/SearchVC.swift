@@ -65,6 +65,8 @@ final class SearchVC: UIViewController {
     }
     private var searchType: SearchType = .workbook {
         didSet {
+            guard self.status == .searchResult else { return }
+            self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
             self.mainCollectionView.reloadData()
         }
     }
@@ -313,7 +315,7 @@ extension SearchVC: UICollectionViewDataSource {
             return header
         }
         header.isHidden = false
-        header.configure(delegate: self)
+        header.configure(delegate: self, workbookCount: 30, workbookGroupCount: 5)
         return header
     }
 }
