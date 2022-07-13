@@ -180,7 +180,15 @@ extension WorkbookDetailVC {
         self.sectionTitleLabel.text = workbookInfo.title
         self.authorLabel.text = workbookInfo.author
         self.publishCompanyLabel.text = workbookInfo.publisher
-        self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
+        if workbookInfo.price == 0 {
+            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 23.5, bottom: 5.5, right: 23.5)
+            self.purchaseWorkbookButton.setTitle("무료", for: .normal)
+            
+        } else {
+            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)
+            self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
+        }
+        
         
         if let imageData = workbookInfo.imageData {
             self.bookCoverImageView.image = UIImage(data: imageData)
