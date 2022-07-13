@@ -39,8 +39,6 @@ final class WarningOfflineStatusView: UIView {
     }
     
     private func configureLayout() {
-        self.backgroundColor = .white
-        
         let frameView = UIView()
         self.addSubview(frameView)
         

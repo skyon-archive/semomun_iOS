@@ -21,6 +21,7 @@ final class SearchVM {
     @Published private(set) var searchResultWorkbookGroups: [WorkbookGroupPreviewOfDB] = []
     @Published private(set) var workbookDetailInfo: WorkbookOfDB?
     @Published private(set) var warning: (title: String, text: String)?
+    @Published private(set) var offlineStatus: Bool = false
     /* private */
     private var keyword: String = "" // 사용자 입력값
     private var pageCount: Int = 0
@@ -28,6 +29,12 @@ final class SearchVM {
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
+        self.configureObservation()
+    }
+    
+    // MARK: VC에서 바인딩 연결 완료 후 호출
+    func checkNetworkStatus() {
+        NetworkStatusManager.state()
     }
 }
 
@@ -179,6 +186,17 @@ extension SearchVM {
         self.searchResultWorkbookGroups = []
         self.isLastPage = false
         self.isPaging = false
+    }
+}
+
+extension SearchVM {
+    private func configureObservation() {
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
+            self?.offlineStatus = false
+        }
+        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
+            self?.offlineStatus = true
+        }
     }
 }
 

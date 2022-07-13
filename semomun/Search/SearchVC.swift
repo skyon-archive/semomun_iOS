@@ -37,6 +37,11 @@ final class SearchVC: UIViewController {
     private lazy var searchTagsFromTextVC: SearchTagsFromTextVC = {
         return self.storyboard?.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC ?? SearchTagsFromTextVC()
     }()
+    private lazy var warningOfflineView: WarningOfflineStatusView = {
+        let view = WarningOfflineStatusView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private var isNoResults: Bool {
         if self.searchType == .workbook {
             return (self.viewModel?.searchResultWorkbooks.count ?? 0) == 0
@@ -99,6 +104,7 @@ final class SearchVC: UIViewController {
         self.configureTextField()
         self.configureViewModel()
         self.bindAll()
+        self.viewModel?.checkNetworkStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,6 +215,21 @@ extension SearchVC {
             self.tagsCollectionViewHeight.constant = 32
         }
     }
+    
+    private func showOfflineAlert() {
+        self.warningOfflineView.backgroundColor = UIColor.getSemomunColor(.background)
+        self.view.addSubview(self.warningOfflineView)
+        NSLayoutConstraint.activate([
+            self.warningOfflineView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.warningOfflineView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.warningOfflineView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.warningOfflineView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    
+    private func hideOfflineAlert() {
+        self.warningOfflineView.removeFromSuperview()
+    }
 }
 
 extension SearchVC {
@@ -219,6 +240,7 @@ extension SearchVC {
         self.bindWorkbookGroups()
         self.bindWorkbookDetail()
         self.bindCounts()
+        self.bindOfflineStatus()
     }
     
     private func bindFavoriteTags() {
@@ -303,6 +325,21 @@ extension SearchVC {
             .sink(receiveValue: { [weak self] _ in
                 guard self?.status == .searchResult else { return }
                 self?.mainCollectionView.reloadData()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindOfflineStatus() {
+        self.viewModel?.$offlineStatus
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] offline in
+                if offline {
+                    self?.showOfflineAlert()
+                } else {
+                    self?.hideOfflineAlert()
+                    self?.viewModel?.fetchFavoriteTags()
+                }
             })
             .store(in: &self.cancellables)
     }
