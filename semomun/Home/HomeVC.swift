@@ -449,6 +449,7 @@ extension HomeVC {
     }
     
     private func showOfflineAlert() {
+        self.warningOfflineView.backgroundColor = .white
         self.view.addSubview(self.warningOfflineView)
         NSLayoutConstraint.activate([
             self.warningOfflineView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor),
