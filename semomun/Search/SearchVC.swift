@@ -37,6 +37,13 @@ final class SearchVC: UIViewController {
     private lazy var searchTagsFromTextVC: SearchTagsFromTextVC = {
         return self.storyboard?.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC ?? SearchTagsFromTextVC()
     }()
+    private var isNoResults: Bool {
+        if self.searchType == .workbook {
+            return (self.viewModel?.searchResultWorkbooks.count ?? 0) == 0
+        } else {
+            return (self.viewModel?.searchResultWorkbookGroups.count ?? 0) == 0
+        }
+    }
     
     private var status: SearchStatus = .default {
         didSet {
@@ -134,6 +141,7 @@ extension SearchVC {
         self.tagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
         self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
         self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
+        self.mainCollectionView.register(SearchWarningCell.self, forCellWithReuseIdentifier: SearchWarningCell.identifier)
         self.mainCollectionView.register(SearchResultHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchResultHeaderView.identifier)
     }
     
@@ -313,6 +321,7 @@ extension SearchVC: UICollectionViewDelegate {
             }
             return
         }
+        guard self.isNoResults == false else { return }
         /// mainCollectionView
         guard self.status == .searchResult else { return }
         if self.searchType == .workbook {
@@ -344,8 +353,8 @@ extension SearchVC: UICollectionViewDataSource {
             // 검색전 cell UI 확인
             return 0
         }
-        
-        return self.searchType == .workbook ? viewModel.searchResultWorkbooks.count : viewModel.searchResultWorkbookGroups.count
+        let rawCount = self.searchType == .workbook ? viewModel.searchResultWorkbooks.count : viewModel.searchResultWorkbookGroups.count
+        return max(1, rawCount)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -362,6 +371,11 @@ extension SearchVC: UICollectionViewDataSource {
                 cell.configure(tag: tagName)
                 return cell
             }
+        }
+        /// warning cell
+        guard self.isNoResults == false else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchWarningCell.identifier, for: indexPath) as? SearchWarningCell else { return .init() }
+            return cell
         }
         /// mainCollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return .init() }
@@ -402,7 +416,10 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
             }
         }
-        
+        // warningCell 의 cell 반환
+        guard self.isNoResults == false else {
+            return CGSize(self.mainCollectionView.bounds.width - UICollectionView.gridPadding*2, CGFloat(60))
+        }
         // mainCollectionView 의 cell 반환
         return UICollectionView.bookcoverCellSize
     }
