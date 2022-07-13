@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -200,6 +200,7 @@
                         <outlet property="searchFrameView" destination="PLS-aD-5ug" id="X62-BT-knv"/>
                         <outlet property="searchTextField" destination="Ixg-1a-L3j" id="mhs-XX-zeE"/>
                         <outlet property="tagsCollectionView" destination="hXG-f6-G91" id="ntk-to-In8"/>
+                        <outlet property="tagsCollectionViewHeight" destination="PPK-7c-zOg" id="Qmf-pd-Ao4"/>
                         <outlet property="textResetXButton" destination="7ac-IE-bgT" id="OkN-Ls-9zq"/>
                     </connections>
                 </viewController>
@@ -694,7 +695,7 @@
                                         <rect key="frame" x="14" y="87.5" width="366" height="262.5"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TestSubjectResultCell" rowHeight="52" id="xDf-S1-qqJ" customClass="TestSubjectResultCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="366" height="52"/>
+                                                <rect key="frame" x="0.0" y="50" width="366" height="52"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xDf-S1-qqJ" id="PtO-l3-cRN">
                                                     <rect key="frame" x="0.0" y="0.0" width="366" height="52"/>
@@ -1083,7 +1084,7 @@
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionCell" id="dcQ-r9-cdF" customClass="SectionCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="770" height="48"/>
+                                                <rect key="frame" x="0.0" y="50" width="770" height="48"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dcQ-r9-cdF" id="hIz-El-YCK">
                                                     <rect key="frame" x="0.0" y="0.0" width="770" height="48"/>
@@ -1380,7 +1381,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchResultTagCell" id="klI-rb-4nz" customClass="SearchResultTagCell" customModule="semomun" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="492" height="45"/>
+                                                <rect key="frame" x="0.0" y="50" width="492" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klI-rb-4nz" id="slk-XO-dTA">
                                                     <rect key="frame" x="0.0" y="0.0" width="492" height="45"/>
@@ -1738,10 +1739,10 @@ test</string>
     <resources>
         <image name="bookmarkAltSolid" width="20" height="20"/>
         <image name="chevronRightSolid" width="24" height="24"/>
-        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="123"/>
         <image name="homeSolid" width="20" height="20"/>
         <image name="loadingBookcover" width="146" height="190"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="searchOutline" width="24" height="24"/>
         <image name="searchSolid" width="20" height="20"/>
         <image name="xOutline" width="24" height="24"/>

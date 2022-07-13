@@ -10,8 +10,8 @@ import UIKit
 final class DropdownOrderButton: UIButton {
     enum SearchOrder: String, CaseIterable {
         case recentUpload = "최근 등록순"
-        case titleDescending = "제목 내림차순"
         case titleAscending = "제목 오름차순"
+        case titleDescending = "제목 내림차순"
         
         var param : String {
             switch self {
@@ -24,8 +24,8 @@ final class DropdownOrderButton: UIButton {
     enum BookshelfOrder: String, CaseIterable {
         case recentRead = "최근 읽은 순"
         case recentPurchase = "최근 구매일순"
-        case titleDescending = "제목 내림차순"
         case titleAscending = "제목 오름차순"
+        case titleDescending = "제목 내림차순"
     }
     
     private lazy var rightIcon: UIImageView = {
