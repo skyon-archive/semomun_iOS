@@ -17,14 +17,11 @@ final class SearchResultHeaderView: UICollectionReusableView {
     static let identifier = "SearchResultHeaderView"
     /* private */
     private lazy var segmentedControl = SegmentedControlView(buttons: [
-        SegmentedButtonInfo(title: "문제집", count: 0) {
-            print("문제집")
+        SegmentedButtonInfo(title: "문제집", count: 0) { [weak self] in
+            self?.delegate?.changeType(to: .workbook)
         },
-        SegmentedButtonInfo(title: "실전 모의고사", count: 5) {
-            print("실전 모의고사")
-        },
-        SegmentedButtonInfo(title: "퇴근가능하기", count: 5) {
-            print("퇴근")
+        SegmentedButtonInfo(title: "실전 모의고사", count: 0) { [weak self] in
+            self?.delegate?.changeType(to: .workbookGroup)
         }
     ])
     private lazy var orderButton = DropdownOrderButton(order: .recentUpload)
@@ -50,8 +47,10 @@ final class SearchResultHeaderView: UICollectionReusableView {
         self.delegate = nil
     }
     
-    func configure(delegate: SearchOrderDelegate) {
+    func configure(delegate: SearchOrderDelegate, workbookCount: Int, workbookGroupCount: Int) {
         self.delegate = delegate
+        self.segmentedControl.updateCount(index: 0, to: workbookCount)
+        self.segmentedControl.updateCount(index: 1, to: workbookGroupCount)
     }
 }
 

@@ -66,6 +66,12 @@ final class SegmentedControlView: UIView {
             }
         }
     }
+    
+    func updateCount(index: Int, to count: Int) {
+        if let targetButton = self.stackView.subviews[safe: index] as? SegmentedButton {
+            targetButton.updateCount(to: count)
+        }
+    }
 }
 
 final class SegmentedButton: UIView {
