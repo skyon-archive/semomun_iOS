@@ -16,11 +16,11 @@ final class SearchResultHeaderView: UICollectionReusableView {
     /* public */
     static let identifier = "SearchResultHeaderView"
     /* private */
-    private lazy var segmentedControl = SegmentedControlView(buttons: [
-        SegmentedButtonInfo(title: "문제집", count: 0) { [weak self] in
+    private lazy var segmentedControl = SegmentedControlWithCountView(buttons: [
+        SegmentedCountButtonInfo(title: "문제집", count: 0) { [weak self] in
             self?.delegate?.changeType(to: .workbook)
         },
-        SegmentedButtonInfo(title: "실전 모의고사", count: 0) { [weak self] in
+        SegmentedCountButtonInfo(title: "실전 모의고사", count: 0) { [weak self] in
             self?.delegate?.changeType(to: .workbookGroup)
         }
     ])
