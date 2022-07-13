@@ -28,6 +28,7 @@ final class SearchVC: UIViewController {
     @IBOutlet weak var collectionViewBackgroundFrameView: UIView!
     @IBOutlet weak var mainCollectionView: UICollectionView!
     // Layout
+    @IBOutlet weak var tagsCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var searchFrameTrailingConstraint: NSLayoutConstraint!
     
     private let orderButton = DropdownOrderButton(order: .recentUpload)
@@ -60,6 +61,7 @@ final class SearchVC: UIViewController {
                 self.mainCollectionView.reloadData()
             case .searchResult:
                 self.showCancelSearchButton()
+                self.configureTagsCollectionViewHeight()
                 self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
@@ -190,6 +192,14 @@ extension SearchVC {
             self.searchTagsFromTextVC.removeFromParent()
         }
     }
+    
+    private func configureTagsCollectionViewHeight() {
+        if self.viewModel?.selectedTags.isEmpty == true {
+            self.tagsCollectionViewHeight.constant = 0
+        } else {
+            self.tagsCollectionViewHeight.constant = 32
+        }
+    }
 }
 
 extension SearchVC {
@@ -208,6 +218,7 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 guard self?.status == .default else { return }
+                self?.tagsCollectionViewHeight.constant = 32
                 self?.tagsCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
