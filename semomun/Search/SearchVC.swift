@@ -39,6 +39,7 @@ final class SearchVC: UIViewController {
     
     private var status: SearchStatus = .default {
         didSet {
+            print("status: \(status)")
             switch self.status {
             case .default:
                 self.hideResetTextButton()
@@ -50,13 +51,15 @@ final class SearchVC: UIViewController {
                 self.viewModel?.resetSearchInfos()
                 self.viewModel?.fetchFavoriteTags()
                 self.hideSearchTagsFromTextVC()
+                self.dismissKeyboard()
                 self.mainCollectionView.reloadData()
             case .searching:
                 self.showCancelSearchButton()
                 self.showSearchTagsFromTextVC()
+                self.viewModel?.resetSearchInfos()
+                self.mainCollectionView.reloadData()
             case .searchResult:
                 self.showCancelSearchButton()
-                self.hideSearchTagsFromTextVC()
                 self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
@@ -64,6 +67,7 @@ final class SearchVC: UIViewController {
     }
     private var searchType: SearchType = .workbook {
         didSet {
+            print("searchType: \(searchType)")
             guard self.status == .searchResult else { return }
             self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
             self.mainCollectionView.reloadData()
@@ -71,6 +75,7 @@ final class SearchVC: UIViewController {
     }
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload {
         didSet {
+            print("searchOrder: \(searchOrder)")
             guard self.status == .searchResult else { return }
             self.status = .searchResult
         }
@@ -172,12 +177,18 @@ extension SearchVC {
             self.searchTagsFromTextVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.searchTagsFromTextVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+        self.searchTagsFromTextVC.view.alpha = 1
     }
     
     private func hideSearchTagsFromTextVC() {
         self.tagsCollectionView.isHidden = false
-        self.searchTagsFromTextVC.view.removeFromSuperview()
-        self.searchTagsFromTextVC.removeFromParent()
+        UIView.animate(withDuration: 0.15) {
+            self.searchTagsFromTextVC.view.alpha = 0
+        } completion: { _ in
+            self.searchTagsFromTextVC.refresh()
+            self.searchTagsFromTextVC.view.removeFromSuperview()
+            self.searchTagsFromTextVC.removeFromParent()
+        }
     }
 }
 
@@ -208,9 +219,10 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 guard self?.status == .searchResult else { return }
-                guard tags.isEmpty == false else {
+                if tags.isEmpty == true {
                     self?.status = .default
-                    return
+                } else {
+                    self?.status = .searchResult
                 }
                 self?.tagsCollectionView.reloadData()
             })
@@ -425,6 +437,8 @@ extension SearchVC {
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.status = .searchResult
+        self.tagsCollectionView.reloadData()
+        self.hideSearchTagsFromTextVC()
         return true
     }
 }
@@ -460,5 +474,6 @@ extension SearchVC: SearchTagsDelegate {
     func selectTag(_ tag: TagOfDB) {
         self.viewModel?.appendSelectedTag(tag)
         self.status = .searchResult
+        self.hideSearchTagsFromTextVC()
     }
 }
