@@ -85,8 +85,8 @@ extension UIView {
         shadowLayer.cornerRadius = cornerRadius
         shadowLayer.shadowColor = UIColor.black.cgColor
         shadowLayer.shadowOffset = CGSize(width: 0, height: 1)
-        shadowLayer.shadowOpacity = 0.08
-        shadowLayer.shadowRadius = 8
+        shadowLayer.shadowOpacity = 0.05
+        shadowLayer.shadowRadius = 12
         shadowLayer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.frame = self.bounds
         
