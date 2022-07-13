@@ -8,14 +8,6 @@
 import UIKit
 import Combine
 
-protocol SearchControlable: AnyObject {
-    func append(tag: TagOfDB)
-    func changeToSearchFavoriteTagsVC()
-    func changeToSearchTagsFromTextVC()
-    func showWorkbookDetail(wid: Int)
-    func showWorkbookGroupDetail(dtoInfo: WorkbookGroupPreviewOfDB)
-}
-
 final class SearchVC: UIViewController {
     enum SearchStatus {
         case `default`
@@ -41,6 +33,9 @@ final class SearchVC: UIViewController {
     private let orderButton = DropdownOrderButton(order: .recentUpload)
     private var viewModel: SearchVM?
     private var cancellables: Set<AnyCancellable> = []
+    private lazy var searchTagsFromTextVC: SearchTagsFromTextVC = {
+        return self.storyboard?.instantiateViewController(withIdentifier: SearchTagsFromTextVC.identifier) as? SearchTagsFromTextVC ?? SearchTagsFromTextVC()
+    }()
     
     private var status: SearchStatus = .default {
         didSet {
@@ -54,11 +49,14 @@ final class SearchVC: UIViewController {
                 self.viewModel?.removeAllSelectedTags()
                 self.viewModel?.resetSearchInfos()
                 self.viewModel?.fetchFavoriteTags()
+                self.hideSearchTagsFromTextVC()
                 self.mainCollectionView.reloadData()
             case .searching:
                 self.showCancelSearchButton()
+                self.showSearchTagsFromTextVC()
             case .searchResult:
                 self.showCancelSearchButton()
+                self.hideSearchTagsFromTextVC()
                 self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
                 self.dismissKeyboard()
             }
@@ -144,16 +142,42 @@ extension SearchVC {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
+        NotificationCenter.default.post(name: .fetchTagsFromSearch, object: nil, userInfo: ["text": textField.text ?? ""])
         guard textField.text?.count ?? 0 > 0 else {
             self.hideResetTextButton()
             return
         }
         self.showResetTextButton()
-        self.status = .searching
+        
+        if self.status != .searching {
+            self.status = .searching
+        }
     }
 
     @objc func textFieldDidTap() {
         self.status = .searching
+    }
+}
+
+extension SearchVC {
+    private func showSearchTagsFromTextVC() {
+        self.tagsCollectionView.isHidden = true
+        self.searchTagsFromTextVC.configureDelegate(delegate: self)
+        self.view.addSubview(self.searchTagsFromTextVC.view)
+        self.searchTagsFromTextVC.didMove(toParent: self)
+        self.searchTagsFromTextVC.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.searchTagsFromTextVC.view.topAnchor.constraint(equalTo: self.searchFrameView.bottomAnchor, constant: 16),
+            self.searchTagsFromTextVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.searchTagsFromTextVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.searchTagsFromTextVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    
+    private func hideSearchTagsFromTextVC() {
+        self.tagsCollectionView.isHidden = false
+        self.searchTagsFromTextVC.view.removeFromSuperview()
+        self.searchTagsFromTextVC.removeFromParent()
     }
 }
 
@@ -399,13 +423,6 @@ extension SearchVC {
 }
 
 extension SearchVC: UITextFieldDelegate {
-//    private func searchWorkbooks() {
-//        self.removeChildVC()
-//        self.changeChildVC(to: self.searchResultVC)
-//        self.fetchResults()
-//        self.isSearchTagsFromTextVC = false
-//    }
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.status = .searchResult
         return true
@@ -436,5 +453,12 @@ extension SearchVC: SearchOrderDelegate {
     
     func changeType(to type: SearchType) {
         self.searchType = type
+    }
+}
+
+extension SearchVC: SearchTagsDelegate {
+    func selectTag(_ tag: TagOfDB) {
+        self.viewModel?.appendSelectedTag(tag)
+        self.status = .searchResult
     }
 }

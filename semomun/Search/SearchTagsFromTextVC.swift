@@ -8,34 +8,41 @@
 import UIKit
 import Combine
 
-final class SearchTagsFromTextVC: UIViewController, StoryboardController {
+protocol SearchTagsDelegate: AnyObject {
+    func selectTag(_ tag: TagOfDB)
+}
+
+final class SearchTagsFromTextVC: UIViewController {
     static let identifier = "SearchTagsFromTextVC"
-    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
-    
-    @IBOutlet weak var frameView: UIView!
-    @IBOutlet weak var tags: UITableView!
-    private weak var delegate: SearchControlable?
+    @IBOutlet weak var collectionView: UICollectionView!
+    private weak var delegate: SearchTagsDelegate?
     private var viewModel: SearchTagsFromTextVM?
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureUI()
+        self.configureCollectionView()
         self.configureViewModel()
-        self.configureTableView()
         self.bindAll()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel?.fetchTags()
     }
 }
 
-// MARK: - Configure
 extension SearchTagsFromTextVC {
-    func configureDelegate(delegate: SearchControlable) {
+    func configureDelegate(delegate: SearchTagsDelegate) {
         self.delegate = delegate
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        
+        let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        self.collectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
+        
+        let layout = TagsLayout()
+        layout.minimumInteritemSpacing = 4
+        layout.minimumLineSpacing = 4
+        self.collectionView.collectionViewLayout = layout
     }
     
     func refresh() {
@@ -49,25 +56,13 @@ extension SearchTagsFromTextVC {
         self.viewModel?.updateSelectedTags(tags: tags)
     }
     
-    private func configureUI() {
-        self.frameView.clipsToBounds = true
-        self.frameView.layer.cornerRadius = 5
-    }
-    
     private func configureViewModel() {
         let network = Network()
         let networkUsecase = NetworkUsecase(network: network)
         self.viewModel = SearchTagsFromTextVM(networkUsecase: networkUsecase)
     }
-    
-    private func configureTableView() {
-        self.tags.separatorInset.left = 0
-        self.tags.dataSource = self
-        self.tags.delegate = self
-    }
 }
 
-// MARK: - Binding
 extension SearchTagsFromTextVC {
     private func bindAll() {
         self.bindTags()
@@ -78,32 +73,37 @@ extension SearchTagsFromTextVC {
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
-                self?.tags.setContentOffset(.zero, animated: true)
-                self?.tags.reloadData()
+                self?.collectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }
 }
 
-// MARK: - TableView
-extension SearchTagsFromTextVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension SearchTagsFromTextVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let tag = self.viewModel?.filteredTags[safe: indexPath.item] else { return }
+        self.delegate?.selectTag(tag)
+        self.viewModel?.refresh()
+    }
+}
+
+extension SearchTagsFromTextVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.filteredTags.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
-        guard let tag = self.viewModel?.filteredTags[indexPath.row] else { return cell }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
+        guard let tag = self.viewModel?.filteredTags[safe: indexPath.item] else { return cell }
         cell.configure(tag: tag.name)
         
         return cell
     }
 }
 
-extension SearchTagsFromTextVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tag = self.viewModel?.filteredTags[indexPath.row] else { return }
-        self.delegate?.append(tag: tag)
-        self.viewModel?.refresh()
+extension SearchTagsFromTextVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let tagName = self.viewModel?.filteredTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
+        return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
     }
 }
