@@ -178,7 +178,7 @@
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
-		871CD436287D48F500FD9308 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CD435287D48F500FD9308 /* SegmentedControlView.swift */; };
+		871CD436287D48F500FD9308 /* SegmentedControlWithCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CD435287D48F500FD9308 /* SegmentedControlWithCountView.swift */; };
 		872045F12878160A00BDCACB /* BookshelfWarningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872045F02878160A00BDCACB /* BookshelfWarningCell.swift */; };
 		8720B032278E775800B8775F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B031278E775800B8775F /* FirebaseAnalytics */; };
 		8720B034278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 8720B033278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -502,7 +502,7 @@
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		871CD435287D48F500FD9308 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
+		871CD435287D48F500FD9308 /* SegmentedControlWithCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlWithCountView.swift; sourceTree = "<group>"; };
 		872045F02878160A00BDCACB /* BookshelfWarningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfWarningCell.swift; sourceTree = "<group>"; };
 		8720B035278E7A2200B8775F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVC.swift; sourceTree = "<group>"; };
@@ -1249,7 +1249,7 @@
 		871CD434287D48E500FD9308 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				871CD435287D48F500FD9308 /* SegmentedControlView.swift */,
+				871CD435287D48F500FD9308 /* SegmentedControlWithCountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2008,7 +2008,7 @@
 				254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
 				2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */,
-				871CD436287D48F500FD9308 /* SegmentedControlView.swift in Sources */,
+				871CD436287D48F500FD9308 /* SegmentedControlWithCountView.swift in Sources */,
 				8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,

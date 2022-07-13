@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct SegmentedButtonInfo {
+struct SegmentedCountButtonInfo {
     let title: String
     let count: Int
     var action: () -> Void
@@ -19,7 +19,7 @@ struct SegmentedButtonInfo {
     }
 }
 
-final class SegmentedControlView: UIView {
+final class SegmentedControlWithCountView: UIView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,14 +29,14 @@ final class SegmentedControlView: UIView {
         return stackView
     }()
     
-    convenience init(buttons: [SegmentedButtonInfo]) {
+    convenience init(buttons: [SegmentedCountButtonInfo]) {
         self.init(frame: CGRect())
         self.commonInit(buttons)
     }
     
-    private func commonInit(_ buttonInfos: [SegmentedButtonInfo]) {
+    private func commonInit(_ buttonInfos: [SegmentedCountButtonInfo]) {
         for (idx, info) in buttonInfos.enumerated() {
-            self.stackView.addArrangedSubview(SegmentedButton(info: info, action: { [weak self] in
+            self.stackView.addArrangedSubview(SegmentedCountButton(info: info, action: { [weak self] in
                 self?.selectIndex(to: idx)
             }))
         }
@@ -57,7 +57,7 @@ final class SegmentedControlView: UIView {
     
     func selectIndex(to index: Int) {
         for (idx, button) in self.stackView.subviews.enumerated() {
-            if let button = button as? SegmentedButton {
+            if let button = button as? SegmentedCountButton {
                 if idx == index {
                     button.select()
                 } else {
@@ -68,13 +68,13 @@ final class SegmentedControlView: UIView {
     }
     
     func updateCount(index: Int, to count: Int) {
-        if let targetButton = self.stackView.subviews[safe: index] as? SegmentedButton {
+        if let targetButton = self.stackView.subviews[safe: index] as? SegmentedCountButton {
             targetButton.updateCount(to: count)
         }
     }
 }
 
-final class SegmentedButton: UIView {
+final class SegmentedCountButton: UIView {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,12 +98,12 @@ final class SegmentedButton: UIView {
         return stackView
     }()
     
-    convenience init(info: SegmentedButtonInfo, action: @escaping () -> Void) {
+    convenience init(info: SegmentedCountButtonInfo, action: @escaping () -> Void) {
         self.init(frame: CGRect())
         self.commonInit(info, action)
     }
     
-    private func commonInit(_ info: SegmentedButtonInfo, _ action: @escaping () -> Void) {
+    private func commonInit(_ info: SegmentedCountButtonInfo, _ action: @escaping () -> Void) {
         self.titleLabel.text = info.title
         self.countLabel.text = "\(info.count)"
         
