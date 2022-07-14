@@ -164,6 +164,8 @@
 		8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F338279D001400B7C8DD /* StartSettingVM.swift */; };
 		8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F33B279D302C00B7C8DD /* StartTagCell.swift */; };
 		87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */; };
+		8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F338279D001400B7C8DD /* StartSettingVM.swift */; };
+		8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F33B279D302C00B7C8DD /* StartTagCell.swift */; };
 		87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */; };
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */; };
@@ -486,6 +488,8 @@
 		8716F338279D001400B7C8DD /* StartSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVM.swift; sourceTree = "<group>"; };
 		8716F33B279D302C00B7C8DD /* StartTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTagCell.swift; sourceTree = "<group>"; };
 		87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTagCell.swift; sourceTree = "<group>"; };
+		8716F338279D001400B7C8DD /* StartSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVM.swift; sourceTree = "<group>"; };
+		8716F33B279D302C00B7C8DD /* StartTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTagCell.swift; sourceTree = "<group>"; };
 		87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVC.swift; sourceTree = "<group>"; };
 		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
 		871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
