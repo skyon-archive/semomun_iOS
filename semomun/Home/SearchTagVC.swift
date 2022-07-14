@@ -11,6 +11,7 @@ import Combine
 final class SearchTagVC: UIViewController {
     /* private */
     private var cancellables: Set<AnyCancellable> = []
+    private var previousUserTagCount: Int?
     private let searchTagView = SearchTagView()
     private let viewModel: SearchTagVM
     
@@ -131,6 +132,18 @@ extension SearchTagVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] userTags in
                 self?.searchTagView.searchTagCollectionView.reloadData()
+                
+                // 아이템이 추가된 경우면 오른쪽 끝으로 스크롤
+                if let previousUserTagCount = self?.previousUserTagCount,
+                   let currentUserTagCount = self?.viewModel.userTags.count {
+                    if previousUserTagCount < currentUserTagCount {
+                        self?.searchTagView.searchTagCollectionView.scrollToItem(at: IndexPath(item: currentUserTagCount-1, section: 0), at: .right, animated: true)
+                    }
+                    self?.previousUserTagCount = currentUserTagCount
+                }
+                
+                self?.previousUserTagCount = self?.viewModel.userTags.count
+                
                 if userTags.isEmpty {
                     self?.searchTagView.disableConfirmButton()
                 } else {
