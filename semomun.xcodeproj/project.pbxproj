@@ -143,7 +143,6 @@
 		8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E932279A5F5D00B33A5E /* SearchVC.swift */; };
 		8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E934279A5F7300B33A5E /* BookshelfVC.swift */; };
 		8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */; };
-		8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E93F279A5FF600B33A5E /* LoginStartVC.swift */; };
 		8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E941279A600200B33A5E /* LoginSignupVC.swift */; };
 		8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E943279A600B00B33A5E /* LoginSelectVC.swift */; };
 		8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E945279A601700B33A5E /* LoginServicePopupVC.swift */; };
@@ -467,7 +466,6 @@
 		8716E932279A5F5D00B33A5E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		8716E934279A5F7300B33A5E /* BookshelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVC.swift; sourceTree = "<group>"; };
 		8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePopupVC.swift; sourceTree = "<group>"; };
-		8716E93F279A5FF600B33A5E /* LoginStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStartVC.swift; sourceTree = "<group>"; };
 		8716E941279A600200B33A5E /* LoginSignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVC.swift; sourceTree = "<group>"; };
 		8716E943279A600B00B33A5E /* LoginSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectVC.swift; sourceTree = "<group>"; };
 		8716E945279A601700B33A5E /* LoginServicePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServicePopupVC.swift; sourceTree = "<group>"; };
@@ -1098,11 +1096,11 @@
 		25FC119227B16BD800B88F70 /* LoginSelectVC */ = {
 			isa = PBXGroup;
 			children = (
-				87AE2FEF287FEA6000C83AF1 /* View */,
 				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 				25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */,
 				256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */,
+				87AE2FEF287FEA6000C83AF1 /* View */,
 			);
 			path = LoginSelectVC;
 			sourceTree = "<group>";
@@ -1148,7 +1146,6 @@
 			children = (
 				25FC119227B16BD800B88F70 /* LoginSelectVC */,
 				251DC46F27B3B6FA00F1CE27 /* LoginSignup */,
-				8716E93F279A5FF600B33A5E /* LoginStartVC.swift */,
 				25E6FF16279A9B7000FEDCC1 /* Supporting Views */,
 				87C85E59276F6836001C9C4A /* UseCase */,
 			);
@@ -1929,7 +1926,6 @@
 				87C85EE9276F6E95001C9C4A /* Network.swift in Sources */,
 				87BC269E27A2374A00F3418D /* SearchResultCell.swift in Sources */,
 				2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */,
-				8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */,
 				259C001027914191005D432B /* WorkbookDetailVC.swift in Sources */,
 				87C85E46276F6717001C9C4A /* NotificationName.swift in Sources */,
 				879B172A2772C6F70042478F /* UserCoreData.swift in Sources */,
