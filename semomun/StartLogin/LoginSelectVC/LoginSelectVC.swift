@@ -122,20 +122,7 @@ extension LoginSelectVC {
 extension LoginSelectVC {
     private func configureSignInWithGoogleButton() {
         let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 125 : 145
-        let button = makeGoogleButton()
-        let contentContainer = self.makeGoogleButtonContentContainer()
-        let googleIcon = self.makeGoogleIcon()
-        let text = self.makeGoogleLabel()
-        
-        self.doNotTranslateAutoresizingMaskIntoConstraints(
-            of: button, contentContainer, googleIcon, text
-        )
-        button.addSubviews(contentContainer, googleIcon, text)
-
-        self.layoutGoogleButtonContentContainer(button: button, container: contentContainer)
-        self.layoutGoogleIcon(contentContainer: contentContainer, icon: googleIcon)
-        self.layoutGoogleLabel(contentContainer: contentContainer, label: text, icon: googleIcon)
-        
+        let button = GoogleLoginButton()
         self.configureButtonAction(button, loginMethod: .google)
         self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
     }
