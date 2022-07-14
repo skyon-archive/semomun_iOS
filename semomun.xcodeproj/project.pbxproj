@@ -35,6 +35,8 @@
 		251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251435CB2859A9500084ABA8 /* CellLayoutable.swift */; };
 		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC47027B63F0800F1CE27 /* UIImage.swift */; };
+		251E2F7B287FC7E1005FBDC4 /* SearchBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E2F7A287FC7E1005FBDC4 /* SearchBarTextField.swift */; };
+		251E2F7E287FDE24005FBDC4 /* SearchTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E2F7D287FDE24005FBDC4 /* SearchTagView.swift */; };
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE427F1D5B50097F678 /* StoryboardController.swift */; };
 		25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE827F1DC7F0097F678 /* UIStoryboard.swift */; };
@@ -355,6 +357,8 @@
 		251531AF28574281003EFB97 /* WorkbookGroupResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultVC.swift; sourceTree = "<group>"; };
 		251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredFrameLabel.swift; sourceTree = "<group>"; };
 		251DC47027B63F0800F1CE27 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		251E2F7A287FC7E1005FBDC4 /* SearchBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTextField.swift; sourceTree = "<group>"; };
+		251E2F7D287FDE24005FBDC4 /* SearchTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagView.swift; sourceTree = "<group>"; };
 		25263BE427F1D5B50097F678 /* StoryboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardController.swift; sourceTree = "<group>"; };
 		25263BE827F1DC7F0097F678 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
@@ -1374,6 +1378,8 @@
 				257AB2D52877C91900771382 /* HomeHeaderView.swift */,
 				257AB2D72877C93F00771382 /* HomeSectionView.swift */,
 				2511296328780425008A0EF9 /* UserTagListView.swift */,
+				251E2F7A287FC7E1005FBDC4 /* SearchBarTextField.swift */,
+				251E2F7D287FDE24005FBDC4 /* SearchTagView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2085,6 +2091,7 @@
 				877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */,
 				87EF2F54287C1C4E007BC217 /* RemoveableTagCell.swift in Sources */,
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
+				251E2F7B287FC7E1005FBDC4 /* SearchBarTextField.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
 				87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */,
 				2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */,
@@ -2111,6 +2118,7 @@
 				25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */,
 				25622C4F283A84330056E0DF /* FormZero.swift in Sources */,
 				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,
+				251E2F7E287FDE24005FBDC4 /* SearchTagView.swift in Sources */,
 				251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */,
 				87C85EEE276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift in Sources */,
 				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
