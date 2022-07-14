@@ -59,7 +59,7 @@ final class LoginSelectVC: UIViewController {
         super.viewDidLoad()
         self.configureViewModel()
         self.configureView()
-        self.configureVerticalConstraiint()
+        self.configureVerticalConstraint()
         self.checkReviewButton()
         self.bindAll()
     }
@@ -77,7 +77,7 @@ final class LoginSelectVC: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate { [weak self] _ in
             UIView.performWithoutAnimation {
-                self?.configureVerticalConstraiint()
+                self?.configureVerticalConstraint()
             }
         }
     }
@@ -199,7 +199,7 @@ extension LoginSelectVC {
         return button
     }
     
-    private func configureVerticalConstraiint() {
+    private func configureVerticalConstraint() {
         if UIWindow.isLandscape {
             self.verticalConstraint?.constant = 100
         } else {
