@@ -12,7 +12,7 @@ import GoogleSignIn
 
 final class LoginSelectVC: UIViewController, StoryboardController {
     static let identifier = "LoginSelectVC"
-    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
     
     @IBOutlet weak var semomunTitle: UILabel!
     @IBOutlet weak var reviewButton: UIButton!
@@ -39,6 +39,11 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         self.configureSignInWithGoogleButton()
         self.configureReviewButton()
         self.bindAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func configureReviewButton() {

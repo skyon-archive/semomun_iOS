@@ -103,9 +103,6 @@ extension WorkbookGroupDetailVC {
     }
     
     private func configureAddObserver() {
-        NotificationCenter.default.addObserver(forName: .goToLogin, object: nil, queue: .main) { [weak self] _ in
-            self?.showLoginVC()
-        }
         NotificationCenter.default.addObserver(forName: .goToUpdateUserinfo, object: nil, queue: .main) { [weak self] _ in
             self?.showChangeUserinfoVC()
         }

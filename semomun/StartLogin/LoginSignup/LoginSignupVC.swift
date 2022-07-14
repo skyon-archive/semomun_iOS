@@ -11,7 +11,7 @@ import SwiftUI
 
 final class LoginSignupVC: UIViewController {
     static let identifier = "LoginSignupVC"
-    static let storyboardName = "StartLogin"
+    static let storyboardName = "Login"
     
     private var viewModel: LoginSignupVM?
     private var schoolSearchView: UIHostingController<LoginSchoolSearchView>?

@@ -9,12 +9,17 @@ import UIKit
 
 final class LoginStartVC: UIViewController, StoryboardController, UINavigationControllerDelegate {
     static let identifier = "LoginStartVC"
-    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "StartLogin", .phone: "StartLogin_phone"]
+    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
     var isAnimation: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @IBAction func login(_ sender: Any) {
