@@ -13,8 +13,6 @@ import GoogleSignIn
 final class LoginSelectVC: UIViewController, StoryboardController {
     static let identifier = "LoginSelectVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
-    
-//    @IBOutlet weak var reviewButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     private var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -52,6 +50,7 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         return stackView
     }()
     private var verticalConstraint: NSLayoutConstraint?
+    private var appleLoginButton = AppleLoginButton()
     
     var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
@@ -73,13 +72,17 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         self.configureViewModel()
         self.configureView()
         self.configureVerticalConstraiint()
-        self.configureReviewButton()
+        self.checkReviewButton()
         self.bindAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -91,44 +94,22 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         }
     }
     
-    private func configureReviewButton() {
-//        let version = String.currentVersion
-//        let url = NetworkURL.base + "/status/review"
-//        let param = ["version": version]
-//
-//        Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
-//            guard let data = result.data,
-//                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
-//                self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
-//                return
-//            }
-//
-//            if status.result == true {
-//                self?.reviewButton.isHidden = false
-//            }
-//        }
-    }
-    
-    @IBAction func reviewLogin(_ sender: Any) {
-        // 누르면 popup 으로 id, password 입력
-        let alert = UIAlertController(title: "Semomun Acount Login", message: "Please Enter ID, PASSWORD", preferredStyle: .alert)
-        let login = UIAlertAction(title: "Login", style: .default) { [weak self] _ in
-            let password = alert.textFields?[1].text ?? "none"
-            self?.requestReviewLogin(password: password)
+    private func checkReviewButton() {
+        let version = String.currentVersion
+        let url = NetworkURL.base + "/status/review"
+        let param = ["version": version]
+
+        Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
+            guard let data = result.data,
+                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
+                self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
+                return
+            }
+            
+            if status.result == true {
+                self?.configureReviewButton()
+            }
         }
-        
-        alert.addTextField { id in
-            id.placeholder = "ID"
-            id.textAlignment = .center
-        }
-        alert.addTextField { password in
-            password.placeholder = "PASSWORD"
-            password.textAlignment = .center
-            password.isSecureTextEntry = true
-        }
-        alert.addAction(login)
-        
-        self.present(alert, animated: true)
     }
     
     private func requestReviewLogin(password: String) {
@@ -145,6 +126,8 @@ extension LoginSelectVC {
 
 extension LoginSelectVC {
     private func configureView() {
+        self.cancelButton.setImageWithSVGTintColor(image: UIImage(.xOutline), color: .black)
+        
         let frameView = UIView()
         frameView.translatesAutoresizingMaskIntoConstraints = false
         frameView.addSubview(self.logoImageView)
@@ -173,11 +156,9 @@ extension LoginSelectVC {
         ])
     }
     
-    
     private func configureLoginWithAppleButton() -> UIButton {
-        let button = AppleLoginButton()
-        self.configureButtonAction(button, loginMethod: .apple)
-        return button
+        self.configureButtonAction(self.appleLoginButton, loginMethod: .apple)
+        return self.appleLoginButton
     }
     
     private func configureLoginWithGoogleButton() -> UIButton {
@@ -200,6 +181,19 @@ extension LoginSelectVC {
         } else {
             self.verticalConstraint?.constant = 232
         }
+    }
+    
+    private func configureReviewButton() {
+        let button = SemomunReviewButton()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.showLoginForReview()
+        }), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: self.appleLoginButton.topAnchor, constant: -16),
+            button.centerXAnchor.constraint(equalTo: self.appleLoginButton.centerXAnchor)
+        ])
     }
 }
 
@@ -363,5 +357,27 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
 extension LoginSelectVC {
     private func startSignup() {
         print("hi")
+    }
+    
+    private func showLoginForReview() {
+        // 누르면 popup 으로 id, password 입력
+        let alert = UIAlertController(title: "Semomun Acount Login", message: "Please Enter ID, PASSWORD", preferredStyle: .alert)
+        let login = UIAlertAction(title: "Login", style: .default) { [weak self] _ in
+            let password = alert.textFields?[1].text ?? "none"
+            self?.requestReviewLogin(password: password)
+        }
+        
+        alert.addTextField { id in
+            id.placeholder = "ID"
+            id.textAlignment = .center
+        }
+        alert.addTextField { password in
+            password.placeholder = "PASSWORD"
+            password.textAlignment = .center
+            password.isSecureTextEntry = true
+        }
+        alert.addAction(login)
+        
+        self.present(alert, animated: true)
     }
 }

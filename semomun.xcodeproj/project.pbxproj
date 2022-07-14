@@ -283,6 +283,7 @@
 		87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */; };
 		87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */; };
 		87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */; };
+		87CD7AC028800F37003EA8FB /* SemomunReviewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CD7ABF28800F37003EA8FB /* SemomunReviewButton.swift */; };
 		87CF648F2860173700FA56BE /* PrivateTestResultOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF648E2860173700FA56BE /* PrivateTestResultOfDB.swift */; };
 		87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */; };
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
@@ -604,6 +605,7 @@
 		87C85EF3276F6EFE001C9C4A /* SectionOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfDB.swift; sourceTree = "<group>"; };
 		87C85EF5276F6F0C001C9C4A /* ProblemOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemOfDB.swift; sourceTree = "<group>"; };
 		87C85EFA276F7055001C9C4A /* semomun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = semomun.xcdatamodel; sourceTree = "<group>"; };
+		87CD7ABF28800F37003EA8FB /* SemomunReviewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemomunReviewButton.swift; sourceTree = "<group>"; };
 		87CF648E2860173700FA56BE /* PrivateTestResultOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateTestResultOfDB.swift; sourceTree = "<group>"; };
 		87CF6490286039A900FA56BE /* WorkbookGroupResultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupResultButton.swift; sourceTree = "<group>"; };
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
@@ -1489,6 +1491,7 @@
 				87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */,
 				87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */,
 				8775EFF5287FFBC800D3665B /* SignupButton.swift */,
+				87CD7ABF28800F37003EA8FB /* SemomunReviewButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2112,6 +2115,7 @@
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
 				87C85E4E276F67AD001C9C4A /* LoadingIndicator.swift in Sources */,
 				2560BB9F283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift in Sources */,
+				87CD7AC028800F37003EA8FB /* SemomunReviewButton.swift in Sources */,
 				25A67920287487A4009F76DF /* TestSubjectCell.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
 				87B4510927D78418008E262A /* BookshelfInfoOfDB.swift in Sources */,
