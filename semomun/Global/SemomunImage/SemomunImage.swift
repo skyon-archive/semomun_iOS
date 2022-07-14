@@ -10,10 +10,11 @@ import Foundation
 enum SemomunImage: String {
     case warning
     case loadingBookcover
-    case googleLogo
     case wrong
     case correct
     case logo
+    case GoogleLogo
+    case AppleLogo
     
     case cloudDownloadOutline
     case badgeCheckSolid

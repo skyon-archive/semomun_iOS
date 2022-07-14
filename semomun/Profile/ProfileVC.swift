@@ -62,12 +62,7 @@ final class ProfileVC: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        let storyboard = UIStoryboard(controllerType: LoginStartVC.self)
-        let nextVC = storyboard.instantiateViewController(withIdentifier: LoginStartVC.identifier)
-        let navigationVC = UINavigationController(rootViewController: nextVC)
-        navigationVC.navigationBar.tintColor = UIColor(named: "mainColor")
-        navigationVC.modalPresentationStyle = .fullScreen
-        self.present(navigationVC, animated: true)
+        NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
     }
 }
 

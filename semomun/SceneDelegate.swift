@@ -80,7 +80,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     private func showLoginVC() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        guard let loginVC = storyboard.instantiateViewController(withIdentifier: LoginStartVC.identifier) as? LoginStartVC else { return }
+        guard let loginVC = storyboard.instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         let navigationVC = UINavigationController(rootViewController: loginVC)
         navigationVC.navigationBar.tintColor = UIColor.getSemomunColor(.blueRegular)
         navigationVC.modalPresentationStyle = .fullScreen

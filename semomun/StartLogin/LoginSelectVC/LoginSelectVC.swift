@@ -15,7 +15,8 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
     
     @IBOutlet weak var semomunTitle: UILabel!
-    @IBOutlet weak var reviewButton: UIButton!
+//    @IBOutlet weak var reviewButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
@@ -47,21 +48,21 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     }
     
     private func configureReviewButton() {
-        let version = String.currentVersion
-        let url = NetworkURL.base + "/status/review"
-        let param = ["version": version]
-        
-        Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
-            guard let data = result.data,
-                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
-                self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
-                return
-            }
-            
-            if status.result == true {
-                self?.reviewButton.isHidden = false
-            }
-        }
+//        let version = String.currentVersion
+//        let url = NetworkURL.base + "/status/review"
+//        let param = ["version": version]
+//
+//        Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
+//            guard let data = result.data,
+//                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
+//                self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
+//                return
+//            }
+//
+//            if status.result == true {
+//                self?.reviewButton.isHidden = false
+//            }
+//        }
     }
     
     @IBAction func reviewLogin(_ sender: Any) {
@@ -103,7 +104,7 @@ extension LoginSelectVC {
     
     private func configureSignInWithAppleButton() {
         let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 64 : 73
-        let button = self.makeAppleButton()
+        let button = AppleLoginButton()
         self.configureButtonAction(button, loginMethod: .apple)
         self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
     }
@@ -151,7 +152,7 @@ extension LoginSelectVC {
     }
     
     private func makeGoogleIcon() -> UIImageView {
-        let googleIconImg = UIImage(.googleLogo)
+        let googleIconImg = UIImage(.GoogleLogo)
         let googleIcon = UIImageView(image: googleIconImg)
         return googleIcon
     }
