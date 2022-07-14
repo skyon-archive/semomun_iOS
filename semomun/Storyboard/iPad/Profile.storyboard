@@ -213,117 +213,12 @@
         <scene sceneID="eNM-s0-iM9">
             <objects>
                 <viewController storyboardIdentifier="ProfileVC" id="C3N-K5-Uhc" customClass="ProfileVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oX9-Jv-Zvq">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ati-UW-kvw">
-                                <rect key="frame" x="0.0" y="264" width="834" height="865"/>
-                            </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Tw-ngC">
-                                <rect key="frame" x="0.0" y="54" width="834" height="210"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu4-tq-aPw">
-                                        <rect key="frame" x="28" y="42" width="78" height="36"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                        <color key="textColor" name="defaultText"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="210" id="Yk0-SG-2EA"/>
-                                </constraints>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personCircle" translatesAutoresizingMaskIntoConstraints="NO" id="FjB-o2-7Ra" userLabel="Person Circle">
-                                <rect key="frame" x="107" y="193" width="41" height="41"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHv-VQ-Ze5">
-                                <rect key="frame" x="167" y="201.5" width="52" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" name="defaultText"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEK-xF-hYe">
-                                <rect key="frame" x="634.5" y="198.5" width="92.5" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="gAS-kx-aQ8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                <color key="tintColor" name="grayTextColor"/>
-                                <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="개인정보 수정">
-                                    <color key="titleColor" name="grayTextColor"/>
-                                    <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
-                                </state>
-                                <connections>
-                                    <action selector="openChangeAccountInfoView:" destination="C3N-K5-Uhc" eventType="touchUpInside" id="Nme-Gl-fi7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngq-F7-SIo">
-                                <rect key="frame" x="651" y="198.5" width="76" height="30"/>
-                                <color key="backgroundColor" name="mainColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="76" id="Kb3-vo-yOc"/>
-                                    <constraint firstAttribute="height" constant="30" id="u49-Ky-CtH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="로그인"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="login:" destination="C3N-K5-Uhc" eventType="touchUpInside" id="YHe-5H-yyk"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="TAC-R5-80x"/>
-                        <color key="backgroundColor" name="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="WHv-VQ-Ze5" firstAttribute="leading" secondItem="FjB-o2-7Ra" secondAttribute="leading" constant="60" id="1dd-OT-75P"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="vEK-xF-hYe" secondAttribute="trailing" constant="107" id="1eY-Wa-JyB"/>
-                            <constraint firstItem="FjB-o2-7Ra" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="107" id="74b-eV-m12"/>
-                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="top" secondItem="TAC-R5-80x" secondAttribute="top" constant="-20" id="9Vo-W6-x9N"/>
-                            <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="Pfu-Tw-ngC" secondAttribute="bottom" id="Brp-OX-n1f"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="bottom" secondItem="Ati-UW-kvw" secondAttribute="bottom" id="IQI-kR-R6Y"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Ati-UW-kvw" secondAttribute="trailing" id="K94-Rb-UWh"/>
-                            <constraint firstItem="Ati-UW-kvw" firstAttribute="top" secondItem="FjB-o2-7Ra" secondAttribute="bottom" constant="30" id="Vfb-8m-9sx"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="leading" secondItem="Ati-UW-kvw" secondAttribute="leading" id="Wj5-24-AUt"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="ngq-F7-SIo" secondAttribute="trailing" constant="107" id="awn-YT-UIk"/>
-                            <constraint firstItem="vEK-xF-hYe" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="o6Q-PM-f63"/>
-                            <constraint firstItem="Pfu-Tw-ngC" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" id="rb8-Ms-MmX"/>
-                            <constraint firstItem="eu4-tq-aPw" firstAttribute="top" secondItem="TAC-R5-80x" secondAttribute="top" constant="22" id="slS-vY-zFq"/>
-                            <constraint firstItem="eu4-tq-aPw" firstAttribute="leading" secondItem="TAC-R5-80x" secondAttribute="leading" constant="28" id="t4e-w4-owO"/>
-                            <constraint firstItem="TAC-R5-80x" firstAttribute="trailing" secondItem="Pfu-Tw-ngC" secondAttribute="trailing" id="uMv-tI-BqY"/>
-                            <constraint firstItem="WHv-VQ-Ze5" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="uTV-NG-QAe"/>
-                            <constraint firstItem="ngq-F7-SIo" firstAttribute="centerY" secondItem="FjB-o2-7Ra" secondAttribute="centerY" id="wbi-en-Mzq"/>
-                        </constraints>
-                    </view>
                     <tabBarItem key="tabBarItem" title="더 보기" image="dotsHorizontalSolid" selectedImage="dotsHorizontalSolid" id="SqW-G1-Yw3">
                         <color key="badgeColor" name="blueRegular"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="MUH-av-YSI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="changeUserInfoButton" destination="vEK-xF-hYe" id="7QN-In-jK4"/>
-                        <outlet property="containerView" destination="Ati-UW-kvw" id="qTy-ra-pyS"/>
-                        <outlet property="loginButton" destination="ngq-F7-SIo" id="6h1-Xb-vPb"/>
-                        <outlet property="name" destination="WHv-VQ-Ze5" id="isP-zb-IGU"/>
-                        <outlet property="nameToCircleLeading" destination="1dd-OT-75P" id="ar6-0T-q6W"/>
-                        <outlet property="navigationTitleView" destination="Pfu-Tw-ngC" id="EgF-ze-rkU"/>
-                        <outlet property="profileImage" destination="FjB-o2-7Ra" id="btT-bZ-TGH"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxF-MK-qmb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1862,11 +1757,9 @@
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="dotsHorizontalSolid" width="20" height="20"/>
         <image name="loadingBookcover" width="146" height="190"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="personCircle" width="41" height="41"/>
         <namedColor name="blueRegular">
             <color red="0.1803921568627451" green="0.1803921568627451" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

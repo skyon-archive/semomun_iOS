@@ -8,57 +8,72 @@
 import UIKit
 
 final class ProfileVC: UIViewController {
-    @IBOutlet weak var navigationTitleView: UIView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var changeUserInfoButton: UIButton!
-    @IBOutlet weak var loginButton: UIButton!
-    /// 유저 닉네임과 프로필 사진간 수평 거리
-    @IBOutlet weak var nameToCircleLeading: NSLayoutConstraint!
-    @IBOutlet weak var containerView: UIView!
-    
-    private var isLoginUI = false {
-        didSet {
-            if isLoginUI == true {
-                self.configureUIForLogined()
-            } else {
-                self.configureUIForNotLogined()
-            }
-        }
+    lazy var profileView: ProfileView = {
+        let view = ProfileView(isLogined: true)
+        return view
+    }()
+    override func loadView() {
+        self.view = self.profileView
     }
-    
-    private lazy var tableViewBeforeLogin: UIViewController = {
-        let storyboard = UIStoryboard(controllerType: UnloginedProfileTableVC.self)
-        return storyboard.instantiateViewController(withIdentifier: UnloginedProfileTableVC.identifier)
-    }()
-    
-    private lazy var tableViewAfterLogin: UIViewController = {
-        let storyboard = UIStoryboard(controllerType: LoginedProfileTableVC.self)
-        guard let loginedProfileTableVC = storyboard.instantiateViewController(withIdentifier: LoginedProfileTableVC.identifier) as? LoginedProfileTableVC else {
-            return LoginedProfileTableVC()
-        }
-        loginedProfileTableVC.configureNetworkUsecase(NetworkUsecase(network: Network()))
-        return loginedProfileTableVC
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationTitleView.addShadow(direction: .bottom)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.profileView.updateUsername(to: "asd")
+        self.profileView.tableView.delegate = self
+        self.profileView.tableView.dataSource = self
+    }
+}
+
+extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if UserDefaultsManager.isLogined {
+            return 3
+        } else {
+            return 0
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.isLoginUI = UserDefaultsManager.isLogined
-        self.configureUserInfoUI()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if UserDefaultsManager.isLogined {
+            return [1, 4, 5][section]
+        } else {
+            return 0
+        }
     }
-
-    @IBAction func openChangeAccountInfoView(_ sender: Any) {
-        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
-        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
-        nextVC.configureVM(viewModel)
-        self.navigationController?.pushViewController(nextVC, animated: true)
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableCell.identifier, for: indexPath) as? ProfileTableCell else { return .init() }
+        if UserDefaultsManager.isLogined {
+            let content = [
+                ["구매 내역"],
+                ["공지사항", "고객센터", "오류 신고", "회원탈퇴"],
+                ["버전정보", "이용약관", "개인정보 처리 방침", "마케팅 수신 동의", "전자금융거래 이용약관"]
+            ]
+            cell.changeText(to: content[indexPath.section][indexPath.item])
+        } else {
+            
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if UserDefaultsManager.isLogined {
+            return [nil, " ", "앱정보 및 이용약관"][section]
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if UserDefaultsManager.isLogined {
+            return 66
+        } else {
+            return 0
+        }
     }
     
     @IBAction func login(_ sender: Any) {
@@ -66,42 +81,21 @@ final class ProfileVC: UIViewController {
     }
 }
 
-extension ProfileVC {
-    private func configureUIForLogined() {
-        self.nameToCircleLeading.constant = 60
-        self.changeUserInfoButton.isHidden = false
-        self.loginButton.isHidden = true
-        self.profileImage.isHidden = false
-        self.configureTableView()
+final class ProfileTableCell: UITableViewCell {
+    static let identifier = "ProfileTableCell"
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.accessoryType = .disclosureIndicator
     }
     
-    private func configureUIForNotLogined() {
-        self.nameToCircleLeading.constant = 0
-        self.changeUserInfoButton.isHidden = true
-        self.loginButton.isHidden = false
-        self.profileImage.isHidden = true
-        self.configureTableView()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureTableView() {
-        let toRemove = self.isLoginUI ? tableViewBeforeLogin : tableViewAfterLogin
-        toRemove.willMove(toParent: nil)
-        toRemove.view.removeFromSuperview()
-        toRemove.removeFromParent()
-        
-        let target = self.isLoginUI ? tableViewAfterLogin : tableViewBeforeLogin
-        target.view.frame = self.containerView.bounds
-        self.containerView.addSubview(target.view)
-        self.addChild(target)
-        target.didMove(toParent: self)
-    }
-    
-    private func configureUserInfoUI() {
-        if isLoginUI {
-            guard let userInfo = CoreUsecase.fetchUserInfo() else { return }
-            self.name.text = userInfo.nickName
-        } else {
-            self.name.text = "로그인이 필요합니다"
-        }
+    func changeText(to text: String) {
+        var configuration = self.defaultContentConfiguration()
+        configuration.text = text
+        configuration.textProperties.font = .largeStyleParagraph
+        self.contentConfiguration = configuration
     }
 }
