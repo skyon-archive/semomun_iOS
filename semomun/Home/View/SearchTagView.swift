@@ -13,7 +13,7 @@ class SearchTagView: UIView {
         // 하단 버튼이 '취소'/'적용'으로 구성됨
         case home
         // 하단 버튼이 '다음'으로 구성됨
-        case login
+        case signup
     }
     let searchBarTextField = SearchBarTextField()
     let searchTagCollectionView: UICollectionView = {
@@ -122,7 +122,7 @@ class SearchTagView: UIView {
             self.buttonStackView.addArrangedSubview(self.cancelButton)
             self.buttonStackView.addArrangedSubview(self.confirmButton)
             self.confirmButton.setTitle("적용", for: .normal)
-        case .login:
+        case .signup:
             self.buttonStackView.addArrangedSubview(self.confirmButton)
             self.confirmButton.setTitle("다음", for: .normal)
         }
