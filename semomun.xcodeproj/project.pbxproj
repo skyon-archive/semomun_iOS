@@ -238,6 +238,7 @@
 		87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221D27A39FF900B48F9D /* BookshelfCell.swift */; };
 		87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
+		87AE2FF1287FEA6C00C83AF1 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */; };
 		87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */; };
 		87B17A1C2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */; };
 		87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */; };
@@ -562,6 +563,7 @@
 		87AC221D27A39FF900B48F9D /* BookshelfCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCell.swift; sourceTree = "<group>"; };
 		87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWarningPopupVC.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
+		87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
 		87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptWideVC.swift; sourceTree = "<group>"; };
 		87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerWideVC.swift; sourceTree = "<group>"; };
 		87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithSubProblemsVC.swift; sourceTree = "<group>"; };
@@ -1102,6 +1104,7 @@
 		25FC119227B16BD800B88F70 /* LoginSelectVC */ = {
 			isa = PBXGroup;
 			children = (
+				87AE2FEF287FEA6000C83AF1 /* View */,
 				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				8716E945279A601700B33A5E /* LoginServicePopupVC.swift */,
 				25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */,
@@ -1486,6 +1489,14 @@
 				872045F02878160A00BDCACB /* BookshelfWarningCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		87AE2FEF287FEA6000C83AF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		87B6F0BA2782BC7300E6FF8A /* SemomunColor */ = {
@@ -2084,6 +2095,7 @@
 				25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */,
 				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
 				8716E956279A623500B33A5E /* StudyVC.swift in Sources */,
+				87AE2FF1287FEA6C00C83AF1 /* AppleLoginButton.swift in Sources */,
 				877D90AB283D0E5400CE0D81 /* MultipleWithNoAnswerWideVC.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerVM.swift in Sources */,
 				25ACC17F2852F06700A171C5 /* SubproblemCollectionView.swift in Sources */,
