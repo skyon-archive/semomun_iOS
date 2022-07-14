@@ -31,5 +31,6 @@ final class GoogleLoginButton: UIButton {
             self.widthAnchor.constraint(equalToConstant: 345),
             self.heightAnchor.constraint(equalToConstant: 54)
         ])
+        self.addShadow(direction: .bottom)
     }
 }

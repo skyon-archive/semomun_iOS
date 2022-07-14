@@ -14,9 +14,44 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     static let identifier = "LoginSelectVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
     
-    @IBOutlet weak var semomunTitle: UILabel!
 //    @IBOutlet weak var reviewButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    private var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(.logo)
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 197),
+            imageView.heightAnchor.constraint(equalToConstant: 160)
+        ])
+        return imageView
+    }()
+    private var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "지금 로그인하고\n세상의 모든 문제집을 만나보세요"
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.font = UIFont.heading1
+        label.textColor = UIColor.getSemomunColor(.black)
+        return label
+    }()
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 16
+        stackView.clipsToBounds = false
+        stackView.backgroundColor = .clear
+        
+        stackView.addArrangedSubview(self.configureLoginWithAppleButton())
+        stackView.addArrangedSubview(self.configureLoginWithGoogleButton())
+        stackView.addArrangedSubview(self.configureSignupButton())
+        
+        return stackView
+    }()
+    private var verticalConstraint: NSLayoutConstraint?
     
     var signupInfo: SignupUserInfo?
     private var isSignup: Bool {
@@ -36,15 +71,24 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViewModel()
-        self.configureSignInWithAppleButton()
-        self.configureSignInWithGoogleButton()
+        self.configureView()
+        self.configureVerticalConstraiint()
         self.configureReviewButton()
         self.bindAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate { [weak self] _ in
+            UIView.performWithoutAnimation {
+                self?.configureVerticalConstraiint()
+            }
+        }
     }
     
     private func configureReviewButton() {
@@ -99,116 +143,63 @@ extension LoginSelectVC {
     }
 }
 
-// MARK: Apple로 로그인 버튼
 extension LoginSelectVC {
+    private func configureView() {
+        let frameView = UIView()
+        frameView.translatesAutoresizingMaskIntoConstraints = false
+        frameView.addSubview(self.logoImageView)
+        NSLayoutConstraint.activate([
+            self.logoImageView.topAnchor.constraint(equalTo: frameView.topAnchor),
+            self.logoImageView.centerXAnchor.constraint(equalTo: frameView.centerXAnchor)
+        ])
+        frameView.addSubview(self.descriptionLabel)
+        NSLayoutConstraint.activate([
+            self.descriptionLabel.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 37),
+            self.descriptionLabel.leadingAnchor.constraint(equalTo: frameView.leadingAnchor),
+            self.descriptionLabel.trailingAnchor.constraint(equalTo: frameView.trailingAnchor)
+        ])
+        frameView.addSubview(self.stackView)
+        self.verticalConstraint = self.stackView.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 232)
+        self.verticalConstraint?.isActive = true
+        NSLayoutConstraint.activate([
+            self.stackView.centerXAnchor.constraint(equalTo: frameView.centerXAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: frameView.bottomAnchor)
+        ])
+        
+        self.view.addSubview(frameView)
+        NSLayoutConstraint.activate([
+            frameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            frameView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
     
-    private func configureSignInWithAppleButton() {
-        let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 64 : 73
+    
+    private func configureLoginWithAppleButton() -> UIButton {
         let button = AppleLoginButton()
         self.configureButtonAction(button, loginMethod: .apple)
-        self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
+        return button
     }
     
-    private func makeAppleButton() -> ASAuthorizationAppleIDButton {
-        if self.isSignup {
-            return ASAuthorizationAppleIDButton(type: .signUp, style: .black)
-        } else {
-            return ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        }
-    }
-}
-
-// MARK: Google로 로그인 버튼
-extension LoginSelectVC {
-    private func configureSignInWithGoogleButton() {
-        let verticalTerm: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 125 : 145
+    private func configureLoginWithGoogleButton() -> UIButton {
         let button = GoogleLoginButton()
         self.configureButtonAction(button, loginMethod: .google)
-        self.configureButtonUI(button, verticalSpaceToSemomunTitle: verticalTerm)
+        return button
     }
     
-    private func makeGoogleButton() -> UIControl {
-        let signInWithGoogleButton = UIControl()
-        signInWithGoogleButton.backgroundColor = .white
-        return signInWithGoogleButton
+    private func configureSignupButton() -> UIButton {
+        let button = SignupButton()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.startSignup()
+        }), for: .touchUpInside)
+        return button
     }
     
-    private func makeGoogleButtonContentContainer() -> UIView {
-        let buttonContentContainer = UIView()
-        return buttonContentContainer
-    }
-    
-    private func makeGoogleIcon() -> UIImageView {
-        let googleIconImg = UIImage(.GoogleLogo)
-        let googleIcon = UIImageView(image: googleIconImg)
-        return googleIcon
-    }
-    
-    private func makeGoogleLabel() -> UILabel {
-        let text = UILabel()
-        text.text = self.isSignup ? "Google로 등록" : "Google로 로그인"
-        text.textColor = UIColor(.lightGray)
-        text.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
-        return text
-    }
-    
-    private func layoutGoogleButtonContentContainer(button: UIView, container: UIView) {
-        NSLayoutConstraint.activate([
-            container.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            container.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-        ])
-    }
-    
-    private func layoutGoogleIcon(contentContainer: UIView, icon: UIView) {
-        NSLayoutConstraint.activate([
-            icon.widthAnchor.constraint(equalToConstant: 20),
-            icon.heightAnchor.constraint(equalToConstant: 20),
-            icon.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor),
-            icon.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor)
-        ])
-    }
-    
-    private func layoutGoogleLabel(contentContainer: UIView, label: UIView, icon: UIView) {
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 5),
-            label.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor)
-        ])
-    }
-    
-    private func doNotTranslateAutoresizingMaskIntoConstraints(of views: UIView...) {
-        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = true }
-    }
-}
-
-// MARK: 버튼 configure 공통
-extension LoginSelectVC {
-    private func configureButtonAction(_ button: UIControl, loginMethod: LoginMethod) {
-        let action = UIAction { [weak self] _ in
-            self?.signInButtonAction(loginMethod: loginMethod)
+    private func configureVerticalConstraiint() {
+        if UIWindow.isLandscape {
+            self.verticalConstraint?.constant = 100
+        } else {
+            self.verticalConstraint?.constant = 232
         }
-        button.addAction(action, for: .touchUpInside)
-    }
-    
-    private func configureButtonUI(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
-        self.configureButtonLayer(button)
-        self.configureButtonLayout(button, verticalSpaceToSemomunTitle: verticalSpaceToSemomunTitle)
-    }
-    
-    private func configureButtonLayer(_ button: UIView) {
-        button.layer.cornerRadius = Self.ButtonUIConstants.buttonRadius
-        button.addShadow(direction: .bottom)
-    }
-    
-    private func configureButtonLayout(_ button: UIView, verticalSpaceToSemomunTitle: CGFloat) {
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: Self.ButtonUIConstants.buttonWidth),
-            button.heightAnchor.constraint(equalToConstant: Self.ButtonUIConstants.buttonHeight),
-            button.topAnchor.constraint(equalTo: self.semomunTitle.bottomAnchor, constant: verticalSpaceToSemomunTitle),
-            button.centerXAnchor.constraint(equalTo: self.semomunTitle.centerXAnchor)
-        ])
     }
 }
 
@@ -280,6 +271,13 @@ extension LoginSelectVC {
 extension LoginSelectVC {
     private enum LoginMethod {
         case apple, google
+    }
+    
+    private func configureButtonAction(_ button: UIControl, loginMethod: LoginMethod) {
+        let action = UIAction { [weak self] _ in
+            self?.signInButtonAction(loginMethod: loginMethod)
+        }
+        button.addAction(action, for: .touchUpInside)
     }
     
     private func signInButtonAction(loginMethod: LoginMethod) {
@@ -359,5 +357,11 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         } else {
             self.viewModel?.login(userIDToken: userIDToken)
         }
+    }
+}
+
+extension LoginSelectVC {
+    private func startSignup() {
+        print("hi")
     }
 }
