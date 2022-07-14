@@ -8,6 +8,8 @@
 import UIKit
 
 extension UIFont {
+    static let fontName: String = "PretendardVariable"
+    static let boldFont: String = fontName+"-Bold"
     static let heading1 = UIFont(name: "PretendardVariable-Bold", size: 36) ?? .systemFont(ofSize: 36, weight: .bold)
     static let heading2 = UIFont(name: "PretendardVariable-Bold", size: 24) ?? .systemFont(ofSize: 24, weight: .bold)
     static let heading3 = UIFont(name: "PretendardVariable-Bold", size: 20) ?? .systemFont(ofSize: 20, weight: .bold)
