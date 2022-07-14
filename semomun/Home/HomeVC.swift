@@ -410,7 +410,7 @@ extension HomeVC {
     private func showSearchTagVC() {
         let networkUsecase = NetworkUsecase(network: Network())
         let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-        let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .login)
+        let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .home)
         self.present(searchTagVC, animated: true, completion: nil)
     }
 }
