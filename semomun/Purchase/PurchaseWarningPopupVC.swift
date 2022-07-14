@@ -34,7 +34,7 @@ final class PurchaseWarningPopupVC: UIViewController {
         switch type {
         case .login:
             self.presentingViewController?.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: .goToLogin, object: nil)
+                NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
             })
         case .updateUserinfo:
             self.presentingViewController?.dismiss(animated: true, completion: {

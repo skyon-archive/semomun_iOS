@@ -12,7 +12,7 @@ typealias LoginServicePopupNetworkUsecase = UserInfoSendable
 
 class LoginServicePopupVC: UIViewController {
     static let identifier = "LoginServicePopupVC"
-    static let storyboardName = "StartLogin"
+    static let storyboardName = "Login"
     
     @IBOutlet var checkButtons: [UIButton]!
     @IBOutlet var longTextButtons: [UIButton]!

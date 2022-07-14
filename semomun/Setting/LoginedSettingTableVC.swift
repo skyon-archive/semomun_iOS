@@ -35,21 +35,16 @@ final class LoginedSettingTableVC: UITableViewController, StoryboardController {
 // MARK: - 로그아웃 로직
 extension LoginedSettingTableVC {
     private func showLogoutedAlert() {
-        self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "필기와 이미지 데이터가 제거되며, 구매내역은 유지됩니다.") {
-            self.logout()
+        self.showAlertWithCancelAndOK(title: "정말로 로그아웃 하시겠어요?", text: "필기와 이미지 데이터는 앱 내에 유지됩니다.") {
+            LogoutUsecase.logout()
         }
-    }
-    
-    private func logout() {
-        LogoutUsecase.logout()
-        NotificationCenter.default.post(name: .logout, object: nil)
     }
     
     private func showResignAlert() {
         self.showAlertWithCancelAndOK(title: "정말로 탈퇴하시겠어요?", text: "세모페이와 구매 및 사용내역이 제거됩니다.") { [weak self] in
             self?.networkUsecase.resign(completion: { status in
                 if status == .SUCCESS {
-                    self?.logout()
+                    LogoutUsecase.logout()
                 } else {
                     self?.showAlertWithOK(title: "탈퇴 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
                 }

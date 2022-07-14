@@ -70,7 +70,7 @@ extension SettingVC {
         NotificationCenter.default.addObserver(forName: .tokenExpired, object: nil, queue: .main) { [weak self] _ in
             self?.showAlertWithOK(title: "세션이 만료되었습니다.", text: "다시 로그인 해주시기 바랍니다.") {
                 LogoutUsecase.logout()
-                NotificationCenter.default.post(name: .logout, object: nil)
+                NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
             }
         }
     }

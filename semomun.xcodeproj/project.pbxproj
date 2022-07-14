@@ -134,15 +134,13 @@
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */; };
 		870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */; };
-		8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* StartLogin.storyboard */; };
+		8716E928279A5D8400B33A5E /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E927279A5D8400B33A5E /* Login.storyboard */; };
 		8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */; };
 		8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92B279A5D9E00B33A5E /* Profile.storyboard */; };
 		8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8716E92D279A5DAA00B33A5E /* Study.storyboard */; };
 		8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E932279A5F5D00B33A5E /* SearchVC.swift */; };
 		8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E934279A5F7300B33A5E /* BookshelfVC.swift */; };
 		8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */; };
-		8716E93C279A5FDE00B33A5E /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E93B279A5FDE00B33A5E /* StartVC.swift */; };
-		8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E93D279A5FEB00B33A5E /* StartSettingVC.swift */; };
 		8716E940279A5FF600B33A5E /* LoginStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E93F279A5FF600B33A5E /* LoginStartVC.swift */; };
 		8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E941279A600200B33A5E /* LoginSignupVC.swift */; };
 		8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E943279A600B00B33A5E /* LoginSelectVC.swift */; };
@@ -162,8 +160,6 @@
 		8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */; };
 		8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */; };
 		8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */; };
-		8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F338279D001400B7C8DD /* StartSettingVM.swift */; };
-		8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F33B279D302C00B7C8DD /* StartTagCell.swift */; };
 		87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */; };
 		87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */; };
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
@@ -458,15 +454,13 @@
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupPreviewOfDB.swift; sourceTree = "<group>"; };
 		870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestWorkbookGroupOfDBJSON.json; sourceTree = "<group>"; };
-		8716E927279A5D8400B33A5E /* StartLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartLogin.storyboard; sourceTree = "<group>"; };
+		8716E927279A5D8400B33A5E /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeSearchBookshelf.storyboard; sourceTree = "<group>"; };
 		8716E92B279A5D9E00B33A5E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8716E92D279A5DAA00B33A5E /* Study.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Study.storyboard; sourceTree = "<group>"; };
 		8716E932279A5F5D00B33A5E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		8716E934279A5F7300B33A5E /* BookshelfVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVC.swift; sourceTree = "<group>"; };
 		8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePopupVC.swift; sourceTree = "<group>"; };
-		8716E93B279A5FDE00B33A5E /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
-		8716E93D279A5FEB00B33A5E /* StartSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVC.swift; sourceTree = "<group>"; };
 		8716E93F279A5FF600B33A5E /* LoginStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStartVC.swift; sourceTree = "<group>"; };
 		8716E941279A600200B33A5E /* LoginSignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVC.swift; sourceTree = "<group>"; };
 		8716E943279A600B00B33A5E /* LoginSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectVC.swift; sourceTree = "<group>"; };
@@ -486,8 +480,6 @@
 		8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVC.swift; sourceTree = "<group>"; };
 		8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerVC.swift; sourceTree = "<group>"; };
 		8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerVC.swift; sourceTree = "<group>"; };
-		8716F338279D001400B7C8DD /* StartSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVM.swift; sourceTree = "<group>"; };
-		8716F33B279D302C00B7C8DD /* StartTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTagCell.swift; sourceTree = "<group>"; };
 		87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTagCell.swift; sourceTree = "<group>"; };
 		87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVC.swift; sourceTree = "<group>"; };
 		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
@@ -1145,8 +1137,6 @@
 		8716E93A279A5FB900B33A5E /* StartLogin */ = {
 			isa = PBXGroup;
 			children = (
-				8716E93B279A5FDE00B33A5E /* StartVC.swift */,
-				8716F336279CFFE100B7C8DD /* StartSetting */,
 				25FC119227B16BD800B88F70 /* LoginSelectVC */,
 				251DC46F27B3B6FA00F1CE27 /* LoginSignup */,
 				8716E93F279A5FF600B33A5E /* LoginStartVC.swift */,
@@ -1164,32 +1154,6 @@
 				87A1C35C27C5E6D0009043BE /* PopupVC */,
 			);
 			path = StudyZone;
-			sourceTree = "<group>";
-		};
-		8716F336279CFFE100B7C8DD /* StartSetting */ = {
-			isa = PBXGroup;
-			children = (
-				8716E93D279A5FEB00B33A5E /* StartSettingVC.swift */,
-				8716F337279D000000B7C8DD /* ViewModel */,
-				8716F33A279D300C00B7C8DD /* Cell */,
-			);
-			path = StartSetting;
-			sourceTree = "<group>";
-		};
-		8716F337279D000000B7C8DD /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				8716F338279D001400B7C8DD /* StartSettingVM.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		8716F33A279D300C00B7C8DD /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				8716F33B279D302C00B7C8DD /* StartTagCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		871B6E44276EE48D008CEEBA = {
@@ -1750,7 +1714,7 @@
 			isa = PBXGroup;
 			children = (
 				871B6E56276EE48D008CEEBA /* Main.storyboard */,
-				8716E927279A5D8400B33A5E /* StartLogin.storyboard */,
+				8716E927279A5D8400B33A5E /* Login.storyboard */,
 				8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */,
 				8716E92B279A5D9E00B33A5E /* Profile.storyboard */,
 				8716E92D279A5DAA00B33A5E /* Study.storyboard */,
@@ -1882,7 +1846,7 @@
 				877D90A9283D0AD900CE0D81 /* MultipleWithConceptCell.xib in Resources */,
 				870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */,
 				87EF2F52287C1B39007BC217 /* RemoveableTagCell.xib in Resources */,
-				8716E928279A5D8400B33A5E /* StartLogin.storyboard in Resources */,
+				8716E928279A5D8400B33A5E /* Login.storyboard in Resources */,
 				8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */,
 				8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */,
 			);
@@ -1975,7 +1939,6 @@
 				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
 				87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */,
 				873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */,
-				8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */,
 				250B285B28740860000578BC /* UICollectionView.swift in Sources */,
 				250ACFE42861B1B40027B6A9 /* PracticeTestResultVC.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */,
@@ -2001,7 +1964,6 @@
 				87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */,
-				8716E93C279A5FDE00B33A5E /* StartVC.swift in Sources */,
 				254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
 				2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */,
@@ -2061,7 +2023,6 @@
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */,
-				8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */,
 				256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */,
 				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8781442E27C6175400C31104 /* SelectProblemsVM.swift in Sources */,
@@ -2155,7 +2116,6 @@
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
 				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
-				8716E93E279A5FEB00B33A5E /* StartSettingVC.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */,
 				8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */,

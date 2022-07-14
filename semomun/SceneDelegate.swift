@@ -22,29 +22,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
-
-        let isInitial = UserDefaultsManager.isInitial // 앱 최초로딩 여부
-        let tagsData = UserDefaultsManager.favoriteTags // 나의 태그값 유무
         
-        if isInitial == true || tagsData == nil {
-            let storyboard = UIStoryboard(controllerType: StartVC.self)
-            let startVC = storyboard.instantiateInitialViewController()
-            self.window?.rootViewController = startVC
-        } else {
-            let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
-            guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-            self.window?.rootViewController = mainViewController
+        NotificationCenter.default.addObserver(forName: .showLoginStartVC, object: nil, queue: .main) { [weak self] _ in
+            self?.showLoginVC()
         }
         
-        NotificationCenter.default.addObserver(forName: .goToMain, object: nil, queue: .main) { [weak self] _ in
-            self?.changeRootViewController()
-        }
-        NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .main) { [weak self] _ in
-            self?.showStartVC()
-        }
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
+        self.window?.rootViewController = mainViewController
         self.configureNavigationBarColor()
-
         self.window?.makeKeyAndVisible()
     }
     
@@ -92,40 +78,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 // MARK: Private
 extension SceneDelegate {
-    private func changeRootViewController() {
-        let storyboard = UIDevice.current.userInterfaceIdiom == .phone ? UIStoryboard(name: "Main_phone", bundle: nil) : UIStoryboard(name: "Main", bundle: nil)
-        guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
-        
-        let snapshot:UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        mainViewController.view.addSubview(snapshot)
-        
-        self.window?.rootViewController = mainViewController
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview()
-        })
-    }
-    
-    private func showStartVC() {
-        let storyboard = UIStoryboard(controllerType: StartVC.self)
-        guard let startVC = storyboard.instantiateInitialViewController() else { return }
-        
-        let snapshot: UIView = (self.window?.snapshotView(afterScreenUpdates: true))!
-        startVC.view.addSubview(snapshot)
-        
-        self.window?.rootViewController = startVC
-        
-        UIView.animate(withDuration: 0.3, animations: {() in
-            snapshot.layer.opacity = 0;
-            snapshot.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-        }, completion: {
-            (value: Bool) in
-            snapshot.removeFromSuperview()
-        })
+    private func showLoginVC() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let loginVC = storyboard.instantiateViewController(withIdentifier: LoginStartVC.identifier) as? LoginStartVC else { return }
+        let navigationVC = UINavigationController(rootViewController: loginVC)
+        navigationVC.navigationBar.tintColor = UIColor.getSemomunColor(.blueRegular)
+        navigationVC.modalPresentationStyle = .fullScreen
+        let rootVC = UIApplication.shared.windows.first!.rootViewController
+        rootVC?.present(navigationVC, animated: true)
     }
     
     private func configureNavigationBarColor() {
@@ -141,7 +101,6 @@ extension SceneDelegate {
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-
 }
 
 /// UIDevice.current.orientation 값이 부정확하므로 Window 의 UI의 값을 통한 가로모드인지 여부 값

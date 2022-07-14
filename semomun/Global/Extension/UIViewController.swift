@@ -13,21 +13,13 @@ extension UIViewController {
     func showLoginAlert() {
         let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
-        let login = UIAlertAction(title: "로그인하기", style: .default) { [weak self] _ in
-            self?.showLoginVC()
+        let login = UIAlertAction(title: "로그인하기", style: .default) { _ in
+            NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
         }
         
         alert.addAction(cancel)
         alert.addAction(login)
         present(alert, animated: true, completion: nil)
-    }
-    
-    func showLoginVC() {
-        let startLoginVC = UIStoryboard(name: LoginStartVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginStartVC.identifier) 
-        let navigationVC = UINavigationController(rootViewController: startLoginVC)
-        navigationVC.navigationBar.tintColor = UIColor(.blueRegular)
-        navigationVC.modalPresentationStyle = .fullScreen
-        self.present(navigationVC, animated: true, completion: nil)
     }
     
     func showAlertWithCancelAndOK(title: String, text: String, completion: @escaping () -> Void) {
