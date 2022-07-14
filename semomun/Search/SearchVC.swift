@@ -112,6 +112,16 @@ final class SearchVC: UIViewController {
         self.viewModel?.fetchFavoriteTags()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            UIView.performWithoutAnimation {
+                guard let mainCollectionView = self?.mainCollectionView else { return }
+                mainCollectionView.collectionViewLayout.invalidateLayout()
+            }
+        })
+    }
+    
     @IBAction func resetText(_ sender: Any) {
         self.searchTextField.text = ""
     }
