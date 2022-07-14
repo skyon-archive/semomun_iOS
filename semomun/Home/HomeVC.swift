@@ -408,9 +408,7 @@ extension HomeVC: UICollectionViewDelegate {
 // MARK: Navigation 관련
 extension HomeVC {
     private func showSearchTagVC() {
-        let storyboard = UIStoryboard(name: SearchTagVC.storyboardName, bundle: nil)
-        guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
-        
+        let searchTagVC = SearchTagVC()
         self.present(searchTagVC, animated: true, completion: nil)
     }
 }

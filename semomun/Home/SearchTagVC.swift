@@ -9,143 +9,158 @@ import UIKit
 import Combine
 
 final class SearchTagVC: UIViewController {
-    static let identifier = "SearchTagVC"
-    static let storyboardName = "HomeSearchBookshelf"
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.background)
+        view.layer.cornerRadius = .cornerRadius24
+        view.layer.cornerCurve = .continuous
+        view.clipsToBounds = true
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 472),
+            view.heightAnchor.constraint(equalToConstant: 499)
+        ])
+        
+        return view
+    }()
+    private let contentFrameView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.white)
+        
+        return view
+    }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .heading3
+        label.textColor = UIColor.getSemomunColor(.black)
+        label.text = "나의 태그"
+        
+        return label
+    }()
+    private let searchBarTextField = SearchBarTextField()
     
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var selectedTags: UICollectionView!
-    @IBOutlet weak var searchTagResults: UITableView!
-    private var cancellables: Set<AnyCancellable> = []
-    private var viewModel: SearchTagVM?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.configureCollectionView()
-        self.configureTableView()
-        self.configureTextField()
-        self.configureViewModel()
-        self.bindAll()
-    }
-    
-    @IBAction func close(_ sender: Any) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+        self.configureBackgroundLayout()
+        self.configureContentFrameViewLayout()
+        self.configureLabelLayout()
+        self.configureSearchBarTextFieldLayout()
     }
 }
 
 extension SearchTagVC {
-    private func configureCollectionView() {
-        self.selectedTags.dataSource = self
-        self.selectedTags.delegate = self
+    private func configureBackgroundLayout() {
+        self.view.addSubview(self.backgroundView)
+        NSLayoutConstraint.activate([
+            self.backgroundView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.backgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
     }
-    
-    private func configureTableView() {
-        self.searchTagResults.cellLayoutMarginsFollowReadableWidth = false
-        self.searchTagResults.separatorInset.left = 0
-        self.searchTagResults.dataSource = self
-        self.searchTagResults.delegate = self
+    private func configureContentFrameViewLayout() {
+        self.backgroundView.addSubview(self.contentFrameView)
+        NSLayoutConstraint.activate([
+            self.contentFrameView.widthAnchor.constraint(equalTo: self.backgroundView.widthAnchor),
+            self.contentFrameView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor),
+            self.contentFrameView.heightAnchor.constraint(equalToConstant: 339)
+        ])
     }
-    
-    private func configureTextField() {
-        self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-        self.searchTextField.delegate = self
+    private func configureLabelLayout() {
+        self.view.addSubview(self.titleLabel)
+        NSLayoutConstraint.activate([
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor, constant: 24),
+            self.titleLabel.topAnchor.constraint(equalTo: self.backgroundView.topAnchor, constant: 24),
+        ])
     }
-    
-    private func configureViewModel() {
-        let network = Network()
-        let networkUsecase = NetworkUsecase(network: network)
-        self.viewModel = SearchTagVM(networkUsecase: networkUsecase)
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else {return }
-        self.viewModel?.searchTags(text: text)
-    }
-}
-
-extension SearchTagVC {
-    private func bindAll() {
-        self.bindTags()
-        self.bindSearchResults()
-        self.bindWarning()
-    }
-    
-    private func bindTags() {
-        self.viewModel?.$userTags
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.selectedTags.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindSearchResults() {
-        self.viewModel?.$filteredTags
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.searchTagResults.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindWarning() {
-        self.viewModel?.$warning
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] warning in
-                guard let warning = warning else { return }
-                self?.showAlertWithOK(title: warning.title, text: warning.text, completion: nil)
-            })
-            .store(in: &self.cancellables)
+    private func configureSearchBarTextFieldLayout() {
+        self.view.addSubview(self.searchBarTextField)
+        NSLayoutConstraint.activate([
+            self.searchBarTextField.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
+            self.searchBarTextField.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
+            self.searchBarTextField.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: -24),
+        ])
     }
 }
 
-extension SearchTagVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.userTags.count ?? 0
-    }
+
+
+
+
+final class SearchBarTextField: UITextField {
+    let commonInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallTagCell.identifier, for: indexPath) as? SmallTagCell else { return UICollectionViewCell() }
-        guard let tag = self.viewModel?.userTags[indexPath.item] else { return cell }
-        cell.configure(tag: tag.name)
+    init() {
+        super.init(frame: .zero)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = UIColor.getSemomunColor(.white)
+        self.layer.cornerRadius = .cornerRadius12
+        self.layer.cornerCurve = .continuous
+        self.font = .largeStyleParagraph
+        self.attributedPlaceholder = NSAttributedString(string: "태그, 제목, 출판사", attributes: [
+            .foregroundColor: UIColor.getSemomunColor(.lightGray),
+            .font: UIFont.largeStyleParagraph
+        ])
+        self.textColor = UIColor.getSemomunColor(.black)
+        self.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
-        return cell
-    }
-}
-
-extension SearchTagVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.viewModel?.removeTag(index: indexPath.item)
-    }
-}
-
-extension SearchTagVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.filteredTags.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTagCell.identifier, for: indexPath) as? SearchResultTagCell else { return UITableViewCell() }
-        guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return cell }
-        cell.configure(tag: tag.name)
+        let searchImage = UIImage(.searchOutline)
+        let searchImageView = UIImageView(image: searchImage)
+        searchImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchImageView.widthAnchor.constraint(equalToConstant: 24),
+            searchImageView.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        self.leftView = searchImageView
+        self.leftViewMode = .always
         
-        return cell
+        let clearButtonImage = UIImage(.xOutline)
+        let clearButton = UIButton(type: .custom)
+        clearButton.isHidden = true
+        clearButton.setImage(clearButtonImage, for: .normal)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            clearButton.widthAnchor.constraint(equalToConstant: 24),
+            clearButton.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        
+        self.rightView = clearButton
+        self.rightViewMode = .always
+        
+        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        self.addTarget(self, action: #selector(self.displayClearButtonIfNeeded), for: .editingChanged)
     }
-}
-
-extension SearchTagVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tag = self.viewModel?.filteredTags[indexPath.item] else { return }
-        self.viewModel?.appendTag(tag)
-        self.searchTextField.text = ""
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension SearchTagVC: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return super.textRect(forBounds: bounds).inset(by: self.commonInset)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return super.editingRect(forBounds: bounds).inset(by: self.commonInset)
+    }
+    
+    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+        var leftViewRect = super.leftViewRect(forBounds: bounds)
+        leftViewRect.origin.x += 8
+        return leftViewRect
+    }
+    
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        var rightViewRect = super.rightViewRect(forBounds: bounds)
+        rightViewRect.origin.x -= 8
+        return rightViewRect
+    }
+    
+    @objc private func displayClearButtonIfNeeded() {
+        self.rightView?.isHidden = (self.text?.isEmpty) ?? true
+    }
+    
+    @objc private func clear(sender: AnyObject) {
+        self.text = ""
+        self.sendActions(for: .editingChanged)
     }
 }

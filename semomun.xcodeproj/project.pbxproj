@@ -161,6 +161,8 @@
 		8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */; };
 		8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */; };
 		87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */; };
+		8716F339279D001400B7C8DD /* StartSettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F338279D001400B7C8DD /* StartSettingVM.swift */; };
+		8716F33C279D302C00B7C8DD /* StartTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716F33B279D302C00B7C8DD /* StartTagCell.swift */; };
 		87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */; };
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */; };
@@ -203,7 +205,6 @@
 		8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755ABD527731E7600752745 /* ProblemTimerView.swift */; };
 		875862A327B274D50035FF22 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875862A227B274D50035FF22 /* Double.swift */; };
 		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
-		87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF627A10FFB00E27042 /* SmallTagCell.swift */; };
 		8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* FormCellControllable.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
 		87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */; };
@@ -481,6 +482,8 @@
 		8716E965279A62B400B33A5E /* MultipleWith5AnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerVC.swift; sourceTree = "<group>"; };
 		8716E967279A62C400B33A5E /* MultipleWithNoAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerVC.swift; sourceTree = "<group>"; };
 		87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTagCell.swift; sourceTree = "<group>"; };
+		8716F338279D001400B7C8DD /* StartSettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSettingVM.swift; sourceTree = "<group>"; };
+		8716F33B279D302C00B7C8DD /* StartTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTagCell.swift; sourceTree = "<group>"; };
 		87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVC.swift; sourceTree = "<group>"; };
 		87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsFromTextVM.swift; sourceTree = "<group>"; };
 		871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
@@ -521,7 +524,6 @@
 		8755ABD527731E7600752745 /* ProblemTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTimerView.swift; sourceTree = "<group>"; };
 		875862A227B274D50035FF22 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
-		87599FF627A10FFB00E27042 /* SmallTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTagCell.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* FormCellControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellControllable.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
 		87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
@@ -1307,8 +1309,6 @@
 		8745856027A000BA00E331F1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				87599FF627A10FFB00E27042 /* SmallTagCell.swift */,
-				87182B9027A117EF00BA7294 /* SearchResultTagCell.swift */,
 				87BC269D27A2374A00F3418D /* SearchResultCell.swift */,
 				87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */,
 				87F13F28287EB3BC00AD80C0 /* SearchWarningCell.swift */,
@@ -1945,7 +1945,6 @@
 				257AB2D82877C93F00771382 /* HomeSectionView.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
-				87599FF727A10FFB00E27042 /* SmallTagCell.swift in Sources */,
 				2562773227A19E52006F9370 /* SemopayCell.swift in Sources */,
 				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
@@ -2060,7 +2059,6 @@
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
 				8716E942279A600200B33A5E /* LoginSignupVC.swift in Sources */,
 				2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */,
-				87182B9127A117EF00BA7294 /* SearchResultTagCell.swift in Sources */,
 				255EDB69283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift in Sources */,
 				87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */,
 				250ACFEA2861D9FA0027B6A9 /* ScoreResultView.swift in Sources */,

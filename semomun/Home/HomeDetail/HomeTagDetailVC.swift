@@ -29,8 +29,7 @@ final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
         guard let view = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath) as? HomeDetailHeaderView else { return .init() }
         
         view.configureTagList(editAction: { [weak self] in
-            let storyboard = UIStoryboard(name: SearchTagVC.storyboardName, bundle: nil)
-            guard let searchTagVC = storyboard.instantiateViewController(withIdentifier: SearchTagVC.identifier) as? SearchTagVC else { return }
+            let searchTagVC = SearchTagVC()
             self?.present(searchTagVC, animated: true, completion: nil)
         })
         view.tagList.updateTagList(tagNames: self.tags)
