@@ -239,6 +239,7 @@
 		87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87AE2FF1287FEA6C00C83AF1 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */; };
+		87AE2FF3287FEDCA00C83AF1 /* GoogleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */; };
 		87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */; };
 		87B17A1C2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */; };
 		87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */; };
@@ -564,6 +565,7 @@
 		87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWarningPopupVC.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
+		87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginButton.swift; sourceTree = "<group>"; };
 		87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithConceptWideVC.swift; sourceTree = "<group>"; };
 		87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5AnswerWideVC.swift; sourceTree = "<group>"; };
 		87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithSubProblemsVC.swift; sourceTree = "<group>"; };
@@ -1495,6 +1497,7 @@
 			isa = PBXGroup;
 			children = (
 				87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */,
+				87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1912,6 +1915,7 @@
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
 				87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */,
 				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
+				87AE2FF3287FEDCA00C83AF1 /* GoogleLoginButton.swift in Sources */,
 				2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */,
 				87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */,
 				87C85E92276F6B16001C9C4A /* CoreUsecase.swift in Sources */,
