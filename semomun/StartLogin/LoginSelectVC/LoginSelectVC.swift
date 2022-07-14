@@ -10,9 +10,8 @@ import Combine
 import AuthenticationServices
 import GoogleSignIn
 
-final class LoginSelectVC: UIViewController, StoryboardController {
+final class LoginSelectVC: UIViewController {
     static let identifier = "LoginSelectVC"
-    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Login"]
     @IBOutlet weak var cancelButton: UIButton!
     private var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -52,20 +51,9 @@ final class LoginSelectVC: UIViewController, StoryboardController {
     private var verticalConstraint: NSLayoutConstraint?
     private var appleLoginButton = AppleLoginButton()
     
-    var signupInfo: SignupUserInfo?
-    private var isSignup: Bool {
-        return self.signupInfo != nil
-    }
-    
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
     private var viewModel: LoginSelectVM?
     private var cancellables: Set<AnyCancellable> = []
-    
-    private enum ButtonUIConstants {
-        static let buttonWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 240 : 345
-        static let buttonHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 45 : 60
-        static let buttonRadius: CGFloat = 10
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +81,10 @@ final class LoginSelectVC: UIViewController, StoryboardController {
             }
         }
     }
-    
+}
+
+// MARK: 심사용 로직
+extension LoginSelectVC {
     private func checkReviewButton() {
         let version = String.currentVersion
         let url = NetworkURL.base + "/status/review"
@@ -112,19 +103,52 @@ final class LoginSelectVC: UIViewController, StoryboardController {
         }
     }
     
+    private func configureReviewButton() {
+        let button = SemomunReviewButton()
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.showLoginForReview()
+        }), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: self.appleLoginButton.topAnchor, constant: -16),
+            button.centerXAnchor.constraint(equalTo: self.appleLoginButton.centerXAnchor)
+        ])
+    }
+    
+    private func showLoginForReview() {
+        let alert = UIAlertController(title: "Semomun Acount Login", message: "Please Enter ID, PASSWORD", preferredStyle: .alert)
+        let login = UIAlertAction(title: "Login", style: .default) { [weak self] _ in
+            let password = alert.textFields?[1].text ?? "none"
+            self?.requestReviewLogin(password: password)
+        }
+        
+        alert.addTextField { id in
+            id.placeholder = "ID"
+            id.textAlignment = .center
+        }
+        alert.addTextField { password in
+            password.placeholder = "PASSWORD"
+            password.textAlignment = .center
+            password.isSecureTextEntry = true
+        }
+        alert.addAction(login)
+        
+        self.present(alert, animated: true)
+    }
+    
     private func requestReviewLogin(password: String) {
         self.viewModel?.login(userIDToken: .review(password))
     }
 }
 
+// MARK: configure
 extension LoginSelectVC {
     private func configureViewModel() {
         let networkUsecase = NetworkUsecase(network: Network())
         self.viewModel = LoginSelectVM(networkUsecase: networkUsecase, usecase: LoginSignupUsecase(networkUsecase: networkUsecase))
     }
-}
-
-extension LoginSelectVC {
+    
     private func configureView() {
         self.cancelButton.setImageWithSVGTintColor(image: UIImage(.xOutline), color: .black)
         
@@ -182,19 +206,6 @@ extension LoginSelectVC {
             self.verticalConstraint?.constant = 232
         }
     }
-    
-    private func configureReviewButton() {
-        let button = SemomunReviewButton()
-        button.addAction(UIAction(handler: { [weak self] _ in
-            self?.showLoginForReview()
-        }), for: .touchUpInside)
-        
-        self.view.addSubview(button)
-        NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: self.appleLoginButton.topAnchor, constant: -16),
-            button.centerXAnchor.constraint(equalTo: self.appleLoginButton.centerXAnchor)
-        ])
-    }
 }
 
 // MARK: Bindings
@@ -220,8 +231,6 @@ extension LoginSelectVC {
                 switch status {
                 case .userNotExist:
                     self?.showUserNotExistAlert()
-                case .userAlreadyExist:
-                    self?.showUserAlreadyExistAlert()
                 case .complete:
                     self?.showCompleteAlert()
                 case .none:
@@ -233,24 +242,8 @@ extension LoginSelectVC {
     
     private func showUserNotExistAlert() {
         self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+            self?.startSignup()
         }
-    }
-    
-    private func showUserAlreadyExistAlert() {
-        let alertController = UIAlertController(title: "이미 존재하는 계정", message: "방금 입력하신 정보로 계정 정보를 덮어씌울까요?", preferredStyle: .alert)
-        let alertActions = [
-            UIAlertAction(title: "취소", style: .default),
-            UIAlertAction(title: "덮어씌우기", style: .default) { [weak self] _ in
-                guard let signupUserInfo = self?.signupInfo else {
-                    assertionFailure()
-                    return
-                }
-                self?.viewModel?.pasteUserInfo(signupUserInfo: signupUserInfo)
-            }
-        ]
-        alertActions.forEach { alertController.addAction($0) }
-        self.present(alertController, animated: true)
     }
     
     private func showCompleteAlert() {
@@ -269,36 +262,12 @@ extension LoginSelectVC {
     
     private func configureButtonAction(_ button: UIControl, loginMethod: LoginMethod) {
         let action = UIAction { [weak self] _ in
-            self?.signInButtonAction(loginMethod: loginMethod)
+            switch loginMethod {
+            case .apple: self?.appleSignInButtonPressed()
+            case .google: self?.googleSignInButtonPressed()
+            }
         }
         button.addAction(action, for: .touchUpInside)
-    }
-    
-    private func signInButtonAction(loginMethod: LoginMethod) {
-        if self.isSignup {
-            self.showServiceInfoView(loginMethod: loginMethod)
-        } else {
-            self.askLoginTo(loginMethod: loginMethod)
-        }
-    }
-    
-    private func showServiceInfoView(loginMethod: LoginMethod) {
-        guard let serviceInfoVC = UIStoryboard(name: LoginServicePopupVC.storyboardName, bundle: nil)
-                .instantiateViewController(withIdentifier: LoginServicePopupVC.identifier) as? LoginServicePopupVC else { return }
-        serviceInfoVC.configureConfirmAction { [weak self] marketingAgreed in
-            self?.signupInfo?.marketing = marketingAgreed
-            self?.askLoginTo(loginMethod: loginMethod)
-        }
-        self.present(serviceInfoVC, animated: true, completion: nil)
-    }
-    
-    private func askLoginTo(loginMethod: LoginMethod) {
-        switch loginMethod {
-        case .apple:
-            self.appleSignInButtonPressed()
-        case .google:
-            self.googleSignInButtonPressed()
-        }
     }
     
     private func appleSignInButtonPressed() {
@@ -331,53 +300,25 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             guard let tokenData = appleIDCredential.identityToken, // 할때마다 생성되는 token 값 (변동있음)
                   let token = String(data: tokenData, encoding: .utf8) else { return }
-            self.continueAccountSetting(userIDToken: .apple(token))
+            self.viewModel?.login(userIDToken: .apple(token))
         default: break
         }
     }
     
-    func authorizationGoogleController(user: GIDGoogleUser) {
+    private func authorizationGoogleController(user: GIDGoogleUser) {
         user.authentication.do { authentication, error in
             guard error == nil else { return }
             guard let authentication = authentication,
                   let idToken = authentication.idToken else { return }
-            self.continueAccountSetting(userIDToken: .google(idToken))
-        }
-    }
-    
-    private func continueAccountSetting(userIDToken: NetworkURL.UserIDToken) {
-        if let signupInfo = self.signupInfo {
-            self.viewModel?.signup(userIDToken: userIDToken, userInfo: signupInfo)
-        } else {
-            self.viewModel?.login(userIDToken: userIDToken)
+            self.viewModel?.login(userIDToken: .google(idToken))
         }
     }
 }
-
+// MARK: Signup
 extension LoginSelectVC {
     private func startSignup() {
-        print("hi")
-    }
-    
-    private func showLoginForReview() {
-        // 누르면 popup 으로 id, password 입력
-        let alert = UIAlertController(title: "Semomun Acount Login", message: "Please Enter ID, PASSWORD", preferredStyle: .alert)
-        let login = UIAlertAction(title: "Login", style: .default) { [weak self] _ in
-            let password = alert.textFields?[1].text ?? "none"
-            self?.requestReviewLogin(password: password)
-        }
-        
-        alert.addTextField { id in
-            id.placeholder = "ID"
-            id.textAlignment = .center
-        }
-        alert.addTextField { password in
-            password.placeholder = "PASSWORD"
-            password.textAlignment = .center
-            password.isSecureTextEntry = true
-        }
-        alert.addAction(login)
-        
-        self.present(alert, animated: true)
+        // 생성 예정
+        guard let nextVC = UIStoryboard(name: LoginSignupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSignupVC.identifier) as? LoginSignupVC else { return }
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
