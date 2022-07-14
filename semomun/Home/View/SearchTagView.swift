@@ -9,6 +9,12 @@ import UIKit
 
 class SearchTagView: UIView {
     /* public */
+    enum Mode {
+        // 하단 버튼이 '취소'/'적용'으로 구성됨
+        case home
+        // 하단 버튼이 '다음'으로 구성됨
+        case login
+    }
     let searchBarTextField = SearchBarTextField()
     let searchTagCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -51,7 +57,6 @@ class SearchTagView: UIView {
     lazy var confirmButton: UIButton = {
         let button = self.makeBottomButton()
         button.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
-        button.setTitle("확인", for: .normal)
         button.backgroundColor = UIColor.getSemomunColor(.blueRegular)
         return button
     }()
@@ -95,16 +100,36 @@ class SearchTagView: UIView {
         
         return label
     }()
+    private let buttonStackView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.spacing = 8
+        
+        return view
+    }()
     
-    convenience init() {
-        self.init(frame: .zero)
+    init(mode: Mode) {
+        super.init(frame: .zero)
         self.configureBackgroundLayout()
         self.configureContentFrameViewLayout()
         self.configureLabelLayout()
         self.configureSearchBarTextFieldLayout()
         self.configureSearchTagCollectionViewLayout()
         self.configureSearchResultCollectionViewLayout()
-        self.configureButtonLayout()
+        self.configureButtonStackViewLayout()
+        switch mode {
+        case .home:
+            self.buttonStackView.addArrangedSubview(self.cancelButton)
+            self.buttonStackView.addArrangedSubview(self.confirmButton)
+            self.confirmButton.setTitle("적용", for: .normal)
+        case .login:
+            self.buttonStackView.addArrangedSubview(self.confirmButton)
+            self.confirmButton.setTitle("다음", for: .normal)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func enableConfirmButton() {
@@ -178,13 +203,14 @@ extension SearchTagView {
             self.searchResultCollectionView.trailingAnchor.constraint(equalTo: self.contentFrameView.trailingAnchor, constant: -24),
         ])
     }
-    private func configureButtonLayout() {
-        self.contentFrameView.addSubviews(self.cancelButton, self.confirmButton)
+    
+    private func configureButtonStackViewLayout() {
+        self.contentFrameView.addSubview(self.buttonStackView)
         NSLayoutConstraint.activate([
-            self.cancelButton.leadingAnchor.constraint(equalTo: self.searchResultCollectionView.leadingAnchor),
-            self.cancelButton.topAnchor.constraint(equalTo: self.searchResultCollectionView.bottomAnchor, constant: 12),
-            self.confirmButton.trailingAnchor.constraint(equalTo: self.searchResultCollectionView.trailingAnchor),
-            self.confirmButton.topAnchor.constraint(equalTo: self.searchResultCollectionView.bottomAnchor, constant: 12),
+            self.buttonStackView.leadingAnchor.constraint(equalTo: self.searchResultCollectionView.leadingAnchor),
+            self.buttonStackView.trailingAnchor.constraint(equalTo: self.searchResultCollectionView.trailingAnchor),
+            self.buttonStackView.topAnchor.constraint(equalTo: self.searchResultCollectionView.bottomAnchor, constant: 12),
+            self.buttonStackView.heightAnchor.constraint(equalToConstant: 43)
         ])
     }
 }

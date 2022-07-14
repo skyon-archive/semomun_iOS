@@ -31,7 +31,7 @@ final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
         view.configureTagList(editAction: { [weak self] in
             let networkUsecase = NetworkUsecase(network: Network())
             let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-            let searchTagVC = SearchTagVC(viewModel: viewModel)
+            let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .home)
             self?.present(searchTagVC, animated: true, completion: nil)
         })
         view.tagList.updateTagList(tagNames: self.tags)

@@ -12,10 +12,11 @@ final class SearchTagVC: UIViewController {
     /* private */
     private var cancellables: Set<AnyCancellable> = []
     private var previousUserTagCount: Int?
-    private let searchTagView = SearchTagView()
+    private let searchTagView: SearchTagView
     private let viewModel: SearchTagVM
     
-    init(viewModel: SearchTagVM) {
+    init(viewModel: SearchTagVM, mode: SearchTagView.Mode) {
+        self.searchTagView = SearchTagView(mode: mode)
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
 
