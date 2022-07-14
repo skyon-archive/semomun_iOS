@@ -37,7 +37,7 @@ final class SearchTagVM {
     }
     
     func addUserTag(_ newElement: TagOfDB) {
-        guard self.userTags.count <= 10 else { return }
+        guard self.userTags.count < 10 else { return }
         self.userTags.append(newElement)
     }
     
