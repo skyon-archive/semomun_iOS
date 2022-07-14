@@ -408,7 +408,9 @@ extension HomeVC: UICollectionViewDelegate {
 // MARK: Navigation 관련
 extension HomeVC {
     private func showSearchTagVC() {
-        let searchTagVC = SearchTagVC()
+        let networkUsecase = NetworkUsecase(network: Network())
+        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
+        let searchTagVC = SearchTagVC(viewModel: viewModel)
         self.present(searchTagVC, animated: true, completion: nil)
     }
 }

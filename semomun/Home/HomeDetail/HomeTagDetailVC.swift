@@ -29,7 +29,9 @@ final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
         guard let view = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath) as? HomeDetailHeaderView else { return .init() }
         
         view.configureTagList(editAction: { [weak self] in
-            let searchTagVC = SearchTagVC()
+            let networkUsecase = NetworkUsecase(network: Network())
+            let viewModel = SearchTagVM(networkUsecase: networkUsecase)
+            let searchTagVC = SearchTagVC(viewModel: viewModel)
             self?.present(searchTagVC, animated: true, completion: nil)
         })
         view.tagList.updateTagList(tagNames: self.tags)
