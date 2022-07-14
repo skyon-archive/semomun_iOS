@@ -37,11 +37,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        let isInitial = UserDefaultsManager.isInitial // 앱 최초로딩 여부
         let isLogined = UserDefaultsManager.isLogined
         let coreVersion = UserDefaultsManager.coreVersion
         
-        if isInitial {
+        if isLogined == false {
             KeychainItem.deleteAllItems()
         }
         
