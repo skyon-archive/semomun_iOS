@@ -82,7 +82,7 @@ extension SceneDelegate {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         guard let loginVC = storyboard.instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
         let navigationVC = UINavigationController(rootViewController: loginVC)
-        navigationVC.navigationBar.tintColor = UIColor.getSemomunColor(.blueRegular)
+        navigationVC.navigationBar.tintColor = UIColor.getSemomunColor(.orangeRegular)
         navigationVC.modalPresentationStyle = .fullScreen
         let rootVC = UIApplication.shared.windows.first!.rootViewController
         rootVC?.present(navigationVC, animated: true)
