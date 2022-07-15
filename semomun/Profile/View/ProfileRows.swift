@@ -30,7 +30,7 @@ class ProfileSectionRow: UIView {
     }
 }
 
-class ProfileLinkRow: UIControl {
+class ProfileDisclosureRow: UIControl {
     let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

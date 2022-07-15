@@ -134,34 +134,34 @@ extension ProfileView {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
         
         [
-            ProfileLinkRow(text: "구매 내역", action: { [weak self] in
+            ProfileDisclosureRow(text: "구매 내역", action: { [weak self] in
                 self?.delegate?.showMyPurchases()
             }),
             ProfileSectionRow(text: ""),
-            ProfileLinkRow(text: "공지사항", action: { [weak self] in
+            ProfileDisclosureRow(text: "공지사항", action: { [weak self] in
                 self?.delegate?.showNotice()
             }),
-            ProfileLinkRow(text: "고객센터", action: { [weak self] in
+            ProfileDisclosureRow(text: "고객센터", action: { [weak self] in
                 self?.delegate?.showServiceCenter()
             }),
-            ProfileLinkRow(text: "오류 신고", action: { [weak self] in
+            ProfileDisclosureRow(text: "오류 신고", action: { [weak self] in
                 self?.delegate?.showErrorReport()
             }),
-            ProfileLinkRow(text: "회원탈퇴", action: { [weak self] in
+            ProfileDisclosureRow(text: "회원탈퇴", action: { [weak self] in
                 self?.delegate?.resignAccount()
             }),
             ProfileSectionRow(text: "앱정보 및 이용약관"),
             ProfileRowWithSubtitle(title: "버전정보", subtitle: version),
-            ProfileLinkRow(text: "이용약관", action: { [weak self] in
+            ProfileDisclosureRow(text: "이용약관", action: { [weak self] in
                 self?.delegate?.showTermsAndCondition()
             }),
-            ProfileLinkRow(text: "개인정보 처리 방침", action: { [weak self] in
+            ProfileDisclosureRow(text: "개인정보 처리 방침", action: { [weak self] in
                 self?.delegate?.showPrivacyPolicy()
             }),
-            ProfileLinkRow(text: "마케팅 수신 동의", action: { [weak self] in
+            ProfileDisclosureRow(text: "마케팅 수신 동의", action: { [weak self] in
                 self?.delegate?.showMarketingAgree()
             }),
-            ProfileLinkRow(text: "전자금융거래 이용약관", action: { [weak self] in
+            ProfileDisclosureRow(text: "전자금융거래 이용약관", action: { [weak self] in
                 self?.delegate?.showTermsOfTransaction()
             })
         ].forEach { view in
