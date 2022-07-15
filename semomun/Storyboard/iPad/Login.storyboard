@@ -322,8 +322,8 @@
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5u-R1-5IM" userLabel="sectionOne">
                                                 <rect key="frame" x="0.0" y="0.0" width="744" height="264"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oIJ-kk-gxx">
-                                                        <rect key="frame" x="20" y="20" width="680" height="220"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oIJ-kk-gxx">
+                                                        <rect key="frame" x="32" y="20" width="680" height="220"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wi6-ep-3yV" userLabel="phoneHeader">
                                                                 <rect key="frame" x="0.0" y="0.0" width="680" height="48"/>
@@ -358,7 +358,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="전화번호를 입력해주세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u99-Je-Sc5">
-                                                                        <rect key="frame" x="0.0" y="29" width="522" height="48"/>
+                                                                        <rect key="frame" x="0.0" y="29" width="540" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="Ap1-7f-T5g"/>
                                                                         </constraints>
@@ -367,7 +367,7 @@
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2L-hp-kjs">
-                                                                        <rect key="frame" x="538" y="39" width="124" height="28"/>
+                                                                        <rect key="frame" x="556" y="39" width="124" height="28"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="124" id="bU4-Pi-zwk"/>
@@ -405,7 +405,7 @@
                                                                     <constraint firstItem="u99-Je-Sc5" firstAttribute="leading" secondItem="wLc-sB-OGa" secondAttribute="leading" id="LDx-CF-eRy"/>
                                                                     <constraint firstItem="PjO-75-jBC" firstAttribute="leading" secondItem="wLc-sB-OGa" secondAttribute="leading" id="fGL-fa-nPc"/>
                                                                     <constraint firstItem="hJ2-k9-nM3" firstAttribute="top" secondItem="wLc-sB-OGa" secondAttribute="top" constant="12" id="hMb-ef-rHN"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="G2L-hp-kjs" secondAttribute="trailing" constant="18" id="sNn-62-9vg"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="G2L-hp-kjs" secondAttribute="trailing" id="sNn-62-9vg"/>
                                                                     <constraint firstItem="G2L-hp-kjs" firstAttribute="centerY" secondItem="u99-Je-Sc5" secondAttribute="centerY" id="wNi-Gx-nMI"/>
                                                                     <constraint firstItem="hJ2-k9-nM3" firstAttribute="leading" secondItem="wLc-sB-OGa" secondAttribute="leading" id="yFj-4Y-WI8"/>
                                                                 </constraints>
@@ -444,7 +444,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="인증번호를 입력해주세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vF8-EZ-XzY">
-                                                                        <rect key="frame" x="0.0" y="29" width="522" height="48"/>
+                                                                        <rect key="frame" x="0.0" y="29" width="540" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="CX8-L1-7Wc"/>
                                                                         </constraints>
@@ -453,7 +453,7 @@
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4B-9e-bxD">
-                                                                        <rect key="frame" x="538" y="39" width="124" height="28"/>
+                                                                        <rect key="frame" x="556" y="39" width="124" height="28"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="28" id="dry-A6-YvX"/>
@@ -487,7 +487,7 @@
                                                                     <constraint firstItem="KQB-rd-Cwg" firstAttribute="top" secondItem="vF8-EZ-XzY" secondAttribute="bottom" id="6D4-A0-WKv"/>
                                                                     <constraint firstItem="c4B-9e-bxD" firstAttribute="leading" secondItem="vF8-EZ-XzY" secondAttribute="trailing" constant="16" id="Arr-kb-4Ai"/>
                                                                     <constraint firstItem="vF8-EZ-XzY" firstAttribute="leading" secondItem="ue0-qx-mHg" secondAttribute="leading" id="Gs1-dl-wYu"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="c4B-9e-bxD" secondAttribute="trailing" constant="18" id="QdI-NX-4qb"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="c4B-9e-bxD" secondAttribute="trailing" id="QdI-NX-4qb"/>
                                                                     <constraint firstAttribute="trailing" secondItem="KQB-rd-Cwg" secondAttribute="trailing" id="WvM-ed-ERb"/>
                                                                     <constraint firstItem="c4B-9e-bxD" firstAttribute="centerY" secondItem="vF8-EZ-XzY" secondAttribute="centerY" id="f7R-Ef-2z7"/>
                                                                     <constraint firstItem="KQB-rd-Cwg" firstAttribute="leading" secondItem="ue0-qx-mHg" secondAttribute="leading" id="ntg-j5-zob"/>
@@ -535,12 +535,374 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGT-6v-yvy" userLabel="sectionTwo">
+                                                <rect key="frame" x="0.0" y="280" width="744" height="384"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="uiB-WA-Y3E">
+                                                        <rect key="frame" x="32" y="20" width="680" height="340"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drb-Kp-bP7" userLabel="userHeader">
+                                                                <rect key="frame" x="0.0" y="0.0" width="680" height="40"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보 입력" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZZ-7X-rOQ">
+                                                                        <rect key="frame" x="0.0" y="8" width="108.5" height="24"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="24" id="056-aH-kw3"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="20"/>
+                                                                        <color key="textColor" name="black"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="white"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="mZZ-7X-rOQ" firstAttribute="leading" secondItem="Drb-Kp-bP7" secondAttribute="leading" id="1qN-eI-5Pz"/>
+                                                                    <constraint firstItem="mZZ-7X-rOQ" firstAttribute="top" secondItem="Drb-Kp-bP7" secondAttribute="top" constant="8" id="5GD-Vg-udv"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="mZZ-7X-rOQ" secondAttribute="bottom" constant="8" id="Eok-ht-R82"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2J-K2-WIe" userLabel="idInput">
+                                                                <rect key="frame" x="0.0" y="56" width="680" height="96"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CFZ-MM-3Ph">
+                                                                        <rect key="frame" x="0.0" y="8" width="36.5" height="17"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="17" id="Epc-jU-6J9"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                                        <color key="textColor" name="black"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="아이디를 입력해주세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="26y-xJ-ggB">
+                                                                        <rect key="frame" x="0.0" y="25" width="564" height="48"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="48" id="KGt-AC-Puh"/>
+                                                                        </constraints>
+                                                                        <color key="textColor" name="darkGray"/>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-aT-GB0">
+                                                                        <rect key="frame" x="580" y="35" width="100" height="28"/>
+                                                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="28" id="Ddw-nx-eZZ"/>
+                                                                            <constraint firstAttribute="width" constant="100" id="Yom-4B-vWD"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" title="중복 확인">
+                                                                            <color key="titleColor" name="white"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="14"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="postAuthNumber:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="GyC-c3-u29"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cq-gJ-8nc" userLabel="phoneStatusLine">
+                                                                        <rect key="frame" x="0.0" y="73" width="680" height="1"/>
+                                                                        <color key="backgroundColor" name="border"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="XpD-9Y-kdF"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5~20자의 숫자와 영문자, 언더바(_)의 조합" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdj-6i-kZa">
+                                                                        <rect key="frame" x="0.0" y="82" width="680" height="14"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="14" id="vB9-hH-u82"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="12"/>
+                                                                        <color key="textColor" name="darkGray"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="white"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="26y-xJ-ggB" firstAttribute="leading" secondItem="s2J-K2-WIe" secondAttribute="leading" id="8Hc-Sk-Le9"/>
+                                                                    <constraint firstItem="bdj-6i-kZa" firstAttribute="top" secondItem="5cq-gJ-8nc" secondAttribute="bottom" constant="8" id="8tO-Hp-itc"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="bdj-6i-kZa" secondAttribute="bottom" id="AFA-3A-hpk"/>
+                                                                    <constraint firstItem="fGc-aT-GB0" firstAttribute="centerY" secondItem="26y-xJ-ggB" secondAttribute="centerY" id="Des-Jf-s8B"/>
+                                                                    <constraint firstItem="bdj-6i-kZa" firstAttribute="leading" secondItem="s2J-K2-WIe" secondAttribute="leading" id="FQ1-8e-K2W"/>
+                                                                    <constraint firstItem="26y-xJ-ggB" firstAttribute="top" secondItem="CFZ-MM-3Ph" secondAttribute="bottom" id="FVr-Sb-NEI"/>
+                                                                    <constraint firstItem="5cq-gJ-8nc" firstAttribute="top" secondItem="26y-xJ-ggB" secondAttribute="bottom" id="GbA-8q-KaT"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="bdj-6i-kZa" secondAttribute="trailing" id="KTA-SW-AEO"/>
+                                                                    <constraint firstItem="CFZ-MM-3Ph" firstAttribute="leading" secondItem="s2J-K2-WIe" secondAttribute="leading" id="Qmh-Rv-hxg"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="fGc-aT-GB0" secondAttribute="trailing" id="WAo-Uw-IbR"/>
+                                                                    <constraint firstItem="fGc-aT-GB0" firstAttribute="leading" secondItem="26y-xJ-ggB" secondAttribute="trailing" constant="16" id="aA1-ki-o1y"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="5cq-gJ-8nc" secondAttribute="trailing" id="aO2-ZS-hZL"/>
+                                                                    <constraint firstItem="5cq-gJ-8nc" firstAttribute="leading" secondItem="s2J-K2-WIe" secondAttribute="leading" id="deC-SW-kqI"/>
+                                                                    <constraint firstItem="CFZ-MM-3Ph" firstAttribute="top" secondItem="s2J-K2-WIe" secondAttribute="top" constant="8" id="wlD-DY-W8W"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWZ-It-kYx" userLabel="majorInput">
+                                                                <rect key="frame" x="0.0" y="168" width="680" height="78"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계열" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRR-dx-tQY">
+                                                                        <rect key="frame" x="0.0" y="8" width="24.5" height="17"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="17" id="0Ve-me-yn4"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                                        <color key="textColor" name="black"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="b6h-WS-vXm">
+                                                                        <rect key="frame" x="0.0" y="41" width="342" height="37"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mA-Jf-RUF">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="106" id="J1L-HZ-h5X"/>
+                                                                                    <constraint firstAttribute="height" constant="37" id="nye-ju-7AD"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="문과 계열">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJJ-dy-zzJ">
+                                                                                <rect key="frame" x="118" y="0.0" width="106" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="37" id="of6-9l-5qS"/>
+                                                                                    <constraint firstAttribute="width" constant="106" id="pFG-z2-OgJ"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="이과 계열">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnZ-cy-NaF">
+                                                                                <rect key="frame" x="236" y="0.0" width="106" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="106" id="GQA-KO-iNM"/>
+                                                                                    <constraint firstAttribute="height" constant="37" id="ce5-Lc-ETK"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="예체능 계열">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="white"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="qRR-dx-tQY" firstAttribute="top" secondItem="uWZ-It-kYx" secondAttribute="top" constant="8" id="MCt-dk-Ml2"/>
+                                                                    <constraint firstItem="qRR-dx-tQY" firstAttribute="leading" secondItem="uWZ-It-kYx" secondAttribute="leading" id="Nyg-Nq-Hin"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="b6h-WS-vXm" secondAttribute="bottom" id="hgf-e3-hiP"/>
+                                                                    <constraint firstItem="b6h-WS-vXm" firstAttribute="top" secondItem="qRR-dx-tQY" secondAttribute="bottom" constant="16" id="nON-vt-37R"/>
+                                                                    <constraint firstItem="b6h-WS-vXm" firstAttribute="leading" secondItem="uWZ-It-kYx" secondAttribute="leading" id="vrg-1K-Yt1"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVv-AY-KvN" userLabel="majorDetailInput">
+                                                                <rect key="frame" x="0.0" y="262" width="680" height="78"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전공" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmD-db-9Qs">
+                                                                        <rect key="frame" x="0.0" y="8" width="24.5" height="17"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="17" id="gvz-3U-lPQ"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                                        <color key="textColor" name="black"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="iG0-Nr-D5f">
+                                                                        <rect key="frame" x="0.0" y="41" width="488" height="37"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNB-b1-sJU">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="88" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="37" id="ay0-0X-7J1"/>
+                                                                                    <constraint firstAttribute="width" constant="88" id="bMU-y9-6ms"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="인문">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxF-J0-2Tq">
+                                                                                <rect key="frame" x="100" y="0.0" width="88" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="88" id="SMb-7r-hsd"/>
+                                                                                    <constraint firstAttribute="height" constant="37" id="xD7-6G-m8i"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="상경">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="br7-Kz-G7V">
+                                                                                <rect key="frame" x="200" y="0.0" width="88" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="88" id="Re0-Mq-BCv"/>
+                                                                                    <constraint firstAttribute="height" constant="37" id="acj-Fv-PLo"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="사회">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-cU-bpu">
+                                                                                <rect key="frame" x="300" y="0.0" width="88" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="88" id="CBB-nI-YU4"/>
+                                                                                    <constraint firstAttribute="height" constant="37" id="ydd-jg-DZV"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="교육">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OGy-Ez-LtQ">
+                                                                                <rect key="frame" x="400" y="0.0" width="88" height="37"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="37" id="OF8-CY-m4x"/>
+                                                                                    <constraint firstAttribute="width" constant="88" id="r0p-qs-FC9"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="기타">
+                                                                                    <color key="titleColor" name="lightGray"/>
+                                                                                </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                        <real key="value" value="4"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                        <real key="value" value="1"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                        <color key="value" name="border"/>
+                                                                                    </userDefinedRuntimeAttribute>
+                                                                                </userDefinedRuntimeAttributes>
+                                                                            </button>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" name="white"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="tmD-db-9Qs" firstAttribute="top" secondItem="YVv-AY-KvN" secondAttribute="top" constant="8" id="5Pl-cR-Tgw"/>
+                                                                    <constraint firstItem="iG0-Nr-D5f" firstAttribute="leading" secondItem="YVv-AY-KvN" secondAttribute="leading" id="6E5-PD-Khn"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="iG0-Nr-D5f" secondAttribute="bottom" id="EQ4-A0-ija"/>
+                                                                    <constraint firstItem="iG0-Nr-D5f" firstAttribute="top" secondItem="tmD-db-9Qs" secondAttribute="bottom" constant="16" id="ke4-Mw-jOm"/>
+                                                                    <constraint firstItem="tmD-db-9Qs" firstAttribute="leading" secondItem="YVv-AY-KvN" secondAttribute="leading" id="yDc-nX-ABU"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="white"/>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="uiB-WA-Y3E" secondAttribute="trailing" constant="32" id="6jw-pc-LG3"/>
+                                                    <constraint firstItem="uiB-WA-Y3E" firstAttribute="leading" secondItem="uGT-6v-yvy" secondAttribute="leading" constant="32" id="LRU-gW-C6N"/>
+                                                    <constraint firstItem="uiB-WA-Y3E" firstAttribute="top" secondItem="uGT-6v-yvy" secondAttribute="top" constant="20" id="Xq2-Lq-aV2"/>
+                                                    <constraint firstItem="uiB-WA-Y3E" firstAttribute="centerX" secondItem="uGT-6v-yvy" secondAttribute="centerX" id="s5w-Rp-YVS"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uiB-WA-Y3E" secondAttribute="bottom" constant="24" id="wGz-b4-uIZ"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="24"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="background"/>
                                         <constraints>
                                             <constraint firstItem="G5u-R1-5IM" firstAttribute="leading" secondItem="Ayn-ve-DFU" secondAttribute="leading" id="4N3-bC-emo"/>
+                                            <constraint firstItem="uGT-6v-yvy" firstAttribute="leading" secondItem="Ayn-ve-DFU" secondAttribute="leading" id="5dm-CW-a90"/>
                                             <constraint firstItem="G5u-R1-5IM" firstAttribute="top" secondItem="Ayn-ve-DFU" secondAttribute="top" id="QxN-Cn-8dt"/>
                                             <constraint firstAttribute="trailing" secondItem="G5u-R1-5IM" secondAttribute="trailing" id="Zob-QL-fn6"/>
+                                            <constraint firstItem="uGT-6v-yvy" firstAttribute="top" secondItem="G5u-R1-5IM" secondAttribute="bottom" constant="16" id="hIB-Rn-cVK"/>
+                                            <constraint firstAttribute="trailing" secondItem="uGT-6v-yvy" secondAttribute="trailing" id="iD4-lV-AXw"/>
                                             <constraint firstAttribute="height" constant="800" id="pLa-z8-L1h"/>
                                         </constraints>
                                     </view>
@@ -1278,6 +1640,9 @@
         </namedColor>
         <namedColor name="grayDefaultColor">
             <color red="0.59999999999999998" green="0.60392156862745094" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="lightGray">
+            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="mainColor">
             <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
