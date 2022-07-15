@@ -8,8 +8,8 @@
 import UIKit
 
 final class PayStatusView: UIView {
-    /* public */
-    class BottomButton: UIButton {
+    /* private */
+    private class BottomButton: UIButton {
         init(title: String, action: @escaping () -> Void) {
             super.init(frame: .zero)
             self.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +23,7 @@ final class PayStatusView: UIView {
             fatalError("init(coder:) has not been implemented")
         }
     }
-    class Divider: UIView {
+    private class Divider: UIView {
         convenience init() {
             self.init(frame: .zero)
             self.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,15 @@ final class PayStatusView: UIView {
             ])
         }
     }
-    /* private */
+    private let borderView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = .cornerRadius16
+        view.layer.cornerCurve = .continuous
+        view.clipsToBounds = true
+        return view
+    }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,16 +72,19 @@ final class PayStatusView: UIView {
     convenience init() {
         self.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .white
         self.layer.cornerRadius = .cornerRadius16
-        self.layer.cornerCurve = .continuous
-        self.clipsToBounds = true
+        self.backgroundColor = .getSemomunColor(.white)
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: 500),
             self.heightAnchor.constraint(equalToConstant: 112)
         ])
         self.configureLayout()
         self.configureButton()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addShadowToFrameView(cornerRadius: .cornerRadius16)
     }
     
     func updateRemainingPay(to pay: Int) {
@@ -83,18 +94,24 @@ final class PayStatusView: UIView {
 
 extension PayStatusView {
     private func configureLayout() {
-        self.addSubviews(self.titleLabel, self.bottomStackView, self.payLabel)
+        self.addSubview(self.borderView)
+        self.borderView.addSubviews(self.titleLabel, self.bottomStackView, self.payLabel)
         
         NSLayoutConstraint.activate([
-            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            self.borderView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.borderView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.borderView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            self.bottomStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.bottomStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.bottomStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.titleLabel.topAnchor.constraint(equalTo: self.borderView.topAnchor, constant: 16),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor, constant: 16),
             
-            self.payLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            self.payLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+            self.bottomStackView.trailingAnchor.constraint(equalTo: self.borderView.trailingAnchor),
+            self.bottomStackView.bottomAnchor.constraint(equalTo: self.borderView.bottomAnchor),
+            self.bottomStackView.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor),
+            
+            self.payLabel.topAnchor.constraint(equalTo: self.borderView.topAnchor, constant: 16),
+            self.payLabel.trailingAnchor.constraint(equalTo: self.borderView.trailingAnchor, constant: -16)
         ])
     }
     private func configureButton() {
