@@ -9,6 +9,8 @@ import UIKit
 
 final class SignupVC: UIViewController {
     static let identifier = "SignupVC"
+    /// for design
+    @IBOutlet weak var searchIcon: UIImageView!
     /// action
     @IBOutlet weak var postAuthButton: UIButton!
     @IBOutlet weak var checkAuthButton: UIButton!
@@ -22,7 +24,7 @@ final class SignupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavigationBar()
-        // Do any additional setup after loading the view.
+        self.configureUI()
         self.postAuthButton.backgroundColor = UIColor.getSemomunColor(.blueRegular)
     }
     
@@ -31,7 +33,6 @@ final class SignupVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-   
     @IBAction func postAuthNumber(_ sender: Any) {
         self.phoneStatusLine.backgroundColor = UIColor.systemRed
         self.warningPhoneView.isHidden = false
@@ -48,5 +49,9 @@ extension SignupVC {
         let attributes = [NSAttributedString.Key.font: UIFont.heading4]
         UINavigationBar.appearance().titleTextAttributes = attributes
         self.title = "회원가입"
+    }
+    
+    private func configureUI() {
+        self.searchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
     }
 }
