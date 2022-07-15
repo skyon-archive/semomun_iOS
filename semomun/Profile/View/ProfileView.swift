@@ -10,7 +10,7 @@ import UIKit
 protocol ProfileViewDelegate: AnyObject {
     func showChangeUserInfo()
     func logout()
-    func showPayHistory()
+    func showMyPurchases()
     func showNotice()
     func showServiceCenter()
     func showErrorReport()
@@ -135,7 +135,7 @@ extension ProfileView {
         
         [
             ProfileLinkRow(text: "구매 내역", action: { [weak self] in
-                self?.delegate?.showPayHistory()
+                self?.delegate?.showMyPurchases()
             }),
             ProfileSectionRow(text: ""),
             ProfileLinkRow(text: "공지사항", action: { [weak self] in
