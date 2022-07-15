@@ -7,6 +7,13 @@
 
 import UIKit
 
+enum ProfileVCLongTextType {
+    case termsAndCondition
+    case privacyPolicy
+    case marketingAgree
+    case termsOfTransaction
+}
+
 protocol ProfileViewDelegate: AnyObject {
     func showChangeUserInfo()
     func logout()
@@ -15,10 +22,7 @@ protocol ProfileViewDelegate: AnyObject {
     func showServiceCenter()
     func showErrorReport()
     func resignAccount()
-    func showTermsAndCondition()
-    func showPrivacyPolicy()
-    func showMarketingAgree()
-    func showTermsOfTransaction()
+    func showLongText(type: ProfileVCLongTextType)
 }
 
 final class ProfileView: UIView {
@@ -153,16 +157,16 @@ extension ProfileView {
             ProfileSectionRow(text: "앱정보 및 이용약관"),
             ProfileRowWithSubtitle(title: "버전정보", subtitle: version),
             ProfileDisclosureRow(text: "이용약관", action: { [weak self] in
-                self?.delegate?.showTermsAndCondition()
+                self?.delegate?.showLongText(type: .termsAndCondition)
             }),
             ProfileDisclosureRow(text: "개인정보 처리 방침", action: { [weak self] in
-                self?.delegate?.showPrivacyPolicy()
+                self?.delegate?.showLongText(type: .privacyPolicy)
             }),
             ProfileDisclosureRow(text: "마케팅 수신 동의", action: { [weak self] in
-                self?.delegate?.showMarketingAgree()
+                self?.delegate?.showLongText(type: .marketingAgree)
             }),
             ProfileDisclosureRow(text: "전자금융거래 이용약관", action: { [weak self] in
-                self?.delegate?.showTermsOfTransaction()
+                self?.delegate?.showLongText(type: .termsOfTransaction)
             })
         ].forEach { view in
             self.stackView.addArrangedSubview(view)
