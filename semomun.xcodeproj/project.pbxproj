@@ -218,6 +218,7 @@
 		8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */; };
 		8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8784795727C87F18000C6307 /* SectionResultVM.swift */; };
 		878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878766CC27AED2E7003B975E /* ExplanationView.swift */; };
+		878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878B540828814BDF002B5344 /* SegmentedControlView.swift */; };
 		879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879A52E027D0BE97000B4D97 /* NetworkResult.swift */; };
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC219286955D4007E3508 /* LayoutDelegate.swift */; };
@@ -537,6 +538,7 @@
 		8782DDF227FD3F9600BB5FF7 /* SubmissionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionPage.swift; sourceTree = "<group>"; };
 		8784795727C87F18000C6307 /* SectionResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResultVM.swift; sourceTree = "<group>"; };
 		878766CC27AED2E7003B975E /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
+		878B540828814BDF002B5344 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		879A52E027D0BE97000B4D97 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		879CC219286955D4007E3508 /* LayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDelegate.swift; sourceTree = "<group>"; };
@@ -1212,6 +1214,7 @@
 			isa = PBXGroup;
 			children = (
 				871CD435287D48F500FD9308 /* SegmentedControlWithCountView.swift */,
+				878B540828814BDF002B5344 /* SegmentedControlView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1986,6 +1989,7 @@
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				250B285F287435CA000578BC /* UIImageView.swift in Sources */,
+				878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */,
 				871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */,
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
