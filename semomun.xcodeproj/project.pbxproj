@@ -71,7 +71,6 @@
 		25622C4F283A84330056E0DF /* FormZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622C4E283A84330056E0DF /* FormZero.swift */; };
 		25622C54283AB5590056E0DF /* FormTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25622C53283AB5590056E0DF /* FormTwo.swift */; };
 		2562452127FDE7AA00DB3D22 /* Session+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562452027FDE7AA00DB3D22 /* Session+Extensions.swift */; };
-		25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */; };
 		25627727279EE336006F9370 /* receiveMarketingInfo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25627726279EDE92006F9370 /* receiveMarketingInfo.txt */; };
 		2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627729279EE6C7006F9370 /* MainThemeSwitch.swift */; };
 		2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistoryofDB.swift */; };
@@ -80,8 +79,6 @@
 		2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */; };
 		2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */; };
 		2568CDBF2876CEEF008F34ED /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBE2876CEEF008F34ED /* HomeVC.swift */; };
-		256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3747279DA80800455655 /* LoginedSettingTableVC.swift */; };
-		256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */; };
 		256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */; };
 		2570543127FDAFA4005398F9 /* PayHistoryVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */; };
 		2570543627FDB1CF005398F9 /* ChangeUserInfoVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */; };
@@ -126,8 +123,6 @@
 		25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CBB18B286EE996004F5740 /* UIHostingController.swift */; };
 		25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */; };
 		25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */; };
-		25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */; };
-		25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDDF279D46A700807196 /* SettingVC.swift */; };
 		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
 		25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
@@ -395,7 +390,6 @@
 		25622C4E283A84330056E0DF /* FormZero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormZero.swift; sourceTree = "<group>"; };
 		25622C53283AB5590056E0DF /* FormTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTwo.swift; sourceTree = "<group>"; };
 		2562452027FDE7AA00DB3D22 /* Session+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+Extensions.swift"; sourceTree = "<group>"; };
-		25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedProfileTableVC.swift; sourceTree = "<group>"; };
 		25627726279EDE92006F9370 /* receiveMarketingInfo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = receiveMarketingInfo.txt; sourceTree = "<group>"; };
 		25627729279EE6C7006F9370 /* MainThemeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThemeSwitch.swift; sourceTree = "<group>"; };
 		2562772D27A16C56006F9370 /* PayHistoryofDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryofDB.swift; sourceTree = "<group>"; };
@@ -404,8 +398,6 @@
 		2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackgroundFlowLayout.swift; sourceTree = "<group>"; };
 		2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
 		2568CDBE2876CEEF008F34ED /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		256A3747279DA80800455655 /* LoginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedSettingTableVC.swift; sourceTree = "<group>"; };
-		256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnloginedSettingTableVC.swift; sourceTree = "<group>"; };
 		256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupUsecase.swift; sourceTree = "<group>"; };
 		2570543027FDAFA4005398F9 /* PayHistoryVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayHistoryVMTest.swift; path = semomunTests/ViewModels/Profile/PayHistoryVMTest.swift; sourceTree = SOURCE_ROOT; };
 		2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeUserInfoVMTest.swift; path = SemomunTests/ViewModels/Profile/ChangeUserInfoVMTest.swift; sourceTree = SOURCE_ROOT; };
@@ -452,8 +444,6 @@
 		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPurchasesVMTest.swift; path = semomunTests/ViewModels/Profile/MyPurchasesVMTest.swift; sourceTree = SOURCE_ROOT; };
 		25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPayNetworkUsecase.swift; path = semomunTests/Network/MockPayNetworkUsecase.swift; sourceTree = SOURCE_ROOT; };
-		25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedProfileTableVC.swift; sourceTree = "<group>"; };
-		25D1BDDF279D46A700807196 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
 		25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookSearchParam.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
@@ -882,18 +872,6 @@
 			path = LongText;
 			sourceTree = "<group>";
 		};
-		256A3746279DA7EC00455655 /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				25D1BDDF279D46A700807196 /* SettingVC.swift */,
-				256A3747279DA80800455655 /* LoginedSettingTableVC.swift */,
-				256A3753279ECC7B00455655 /* UnloginedSettingTableVC.swift */,
-				255D637D27ABC24D000991AB /* UserNotice */,
-				25627728279EE6AC006F9370 /* LongText */,
-			);
-			path = Setting;
-			sourceTree = "<group>";
-		};
 		2570543227FDAFF5005398F9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1056,8 +1034,6 @@
 			isa = PBXGroup;
 			children = (
 				8716E948279A611D00B33A5E /* ProfileVC.swift */,
-				25D1BDDD279D3A7900807196 /* LoginedProfileTableVC.swift */,
-				25627722279ED9C9006F9370 /* UnloginedProfileTableVC.swift */,
 				259B6C7F28800B7A0051B2FA /* View */,
 			);
 			path = Profile;
@@ -1214,10 +1190,11 @@
 				8745855D279FB85B00E331F1 /* Purchase */,
 				25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */,
 				25D1BDDC279D3A3300807196 /* Profile */,
+				255D637D27ABC24D000991AB /* UserNotice */,
+				25627728279EE6AC006F9370 /* LongText */,
 				25D1BDE1279D741600807196 /* ChangeUserinfo */,
 				2502CEC927A6D7100072A037 /* MyPurchases */,
 				257AC7E627A5834A005E91EC /* Semopay */,
-				256A3746279DA7EC00455655 /* Setting */,
 				2593970227A3E19900BD5BD3 /* WaitingCharge */,
 				8716E954279A621A00B33A5E /* StudyZone */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
@@ -1967,7 +1944,6 @@
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
 				2568CDBF2876CEEF008F34ED /* HomeVC.swift in Sources */,
 				2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */,
-				25627723279ED9C9006F9370 /* UnloginedProfileTableVC.swift in Sources */,
 				257AB2D42877C32B00771382 /* HomeBookcoverCell.swift in Sources */,
 				2560BB99283B542500A32EC4 /* FormCell.swift in Sources */,
 				2560E1E827914D11003BDAC0 /* SectionCell.swift in Sources */,
@@ -2020,7 +1996,6 @@
 				250ACFE22861A7900027B6A9 /* PracticeTestResult.swift in Sources */,
 				2584162B285B3017003C6A21 /* TestSubjectRankCell.swift in Sources */,
 				8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */,
-				25D1BDDE279D3A7900807196 /* LoginedProfileTableVC.swift in Sources */,
 				2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */,
 				87273C1C2840E559007B7092 /* CorrectImageView.swift in Sources */,
 				8716E95C279A625B00B33A5E /* ConceptVC.swift in Sources */,
@@ -2036,7 +2011,6 @@
 				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
 				874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */,
-				25D1BDE0279D46A700807196 /* SettingVC.swift in Sources */,
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */,
 				25BF7B76287D3DF800A5F6E1 /* HomeTagDetailVC.swift in Sources */,
@@ -2057,7 +2031,6 @@
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */,
-				256A3748279DA80800455655 /* LoginedSettingTableVC.swift in Sources */,
 				87182B9327A1185400BA7294 /* SearchTagsFromTextVC.swift in Sources */,
 				8781442E27C6175400C31104 /* SelectProblemsVM.swift in Sources */,
 				871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */,
@@ -2082,7 +2055,6 @@
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
-				256A3754279ECC7B00455655 /* UnloginedSettingTableVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */,
 				259B6C8128800B890051B2FA /* PayStatusView.swift in Sources */,

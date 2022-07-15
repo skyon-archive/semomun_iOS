@@ -87,8 +87,12 @@ final class PayStatusView: UIView {
         self.addShadowToFrameView(cornerRadius: .cornerRadius16)
     }
     
-    func updateRemainingPay(to pay: Int) {
-        self.payLabel.text = "\(pay)원"
+    func updateRemainingPay(to pay: Int?) {
+        if let pay = pay {
+            self.payLabel.text = "\(pay.withComma)원"
+        } else {
+            self.payLabel.text = "-원"
+        }
     }
 }
 
