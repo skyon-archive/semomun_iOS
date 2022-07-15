@@ -16,6 +16,8 @@ enum SemomunImage: String {
     case GoogleLogo
     case AppleLogo
     case profile
+    case circleRing
+    case checkCircle
     
     case cloudDownloadOutline
     case badgeCheckSolid
