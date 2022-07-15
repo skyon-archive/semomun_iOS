@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad7_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -317,7 +317,7 @@
                                 <rect key="frame" x="0.0" y="24" width="744" height="1016"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ayn-ve-DFU" userLabel="contentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="744" height="1130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="744" height="1118"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5u-R1-5IM" userLabel="sectionOne">
                                                 <rect key="frame" x="0.0" y="0.0" width="744" height="264"/>
@@ -536,10 +536,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGT-6v-yvy" userLabel="sectionTwo">
-                                                <rect key="frame" x="0.0" y="280" width="744" height="578"/>
+                                                <rect key="frame" x="0.0" y="280" width="744" height="566"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="uiB-WA-Y3E">
-                                                        <rect key="frame" x="32" y="20" width="680" height="534"/>
+                                                        <rect key="frame" x="32" y="20" width="680" height="522"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drb-Kp-bP7" userLabel="userHeader">
                                                                 <rect key="frame" x="0.0" y="0.0" width="680" height="40"/>
@@ -958,7 +958,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ksj-FN-qdI" userLabel="graduationInput">
-                                                                <rect key="frame" x="0.0" y="453" width="680" height="81"/>
+                                                                <rect key="frame" x="0.0" y="453" width="680" height="69"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="재학/졸업" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdb-Fw-GUm">
                                                                         <rect key="frame" x="0.0" y="8" width="53.5" height="17"/>
@@ -972,7 +972,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="white"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="bottom" secondItem="sdb-Fw-GUm" secondAttribute="bottom" constant="56" id="L6d-bd-QaU"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="sdb-Fw-GUm" secondAttribute="bottom" constant="44" id="L6d-bd-QaU"/>
                                                                     <constraint firstItem="sdb-Fw-GUm" firstAttribute="top" secondItem="ksj-FN-qdI" secondAttribute="top" constant="8" id="af7-xj-baF"/>
                                                                     <constraint firstItem="sdb-Fw-GUm" firstAttribute="leading" secondItem="ksj-FN-qdI" secondAttribute="leading" id="ohT-qq-V2a"/>
                                                                 </constraints>
@@ -996,7 +996,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OK3-u2-KUl" userLabel="sectionThree">
-                                                <rect key="frame" x="0.0" y="874" width="744" height="240"/>
+                                                <rect key="frame" x="0.0" y="862" width="744" height="240"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fyQ-B0-TvW" userLabel="allAgreeLine">
                                                         <rect key="frame" x="32" y="71" width="680" height="1"/>
@@ -1239,6 +1239,8 @@
                         <outlet property="SignupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
                         <outlet property="authStatusLine" destination="KQB-rd-Cwg" id="goP-TZ-EL6"/>
                         <outlet property="checkAuthButton" destination="c4B-9e-bxD" id="ya5-OK-FsN"/>
+                        <outlet property="graduationInputView" destination="ksj-FN-qdI" id="csk-ii-btW"/>
+                        <outlet property="graduationLabel" destination="sdb-Fw-GUm" id="MQ7-Hm-Aw3"/>
                         <outlet property="phoneStatusLine" destination="PjO-75-jBC" id="XOx-D0-5tf"/>
                         <outlet property="postAuthButton" destination="G2L-hp-kjs" id="f11-aB-Ory"/>
                         <outlet property="searchIcon" destination="l6a-Yn-Jo0" id="YAk-uI-ykF"/>
@@ -1928,12 +1930,12 @@
     </scenes>
     <resources>
         <image name="checkCircle" width="24" height="24"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevronRightOutline" width="24" height="24"/>
         <image name="circleRing" width="24" height="24"/>
         <image name="logo" width="394" height="320"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="searchOutline" width="24" height="24"/>
         <image name="xOutline" width="24" height="24"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
