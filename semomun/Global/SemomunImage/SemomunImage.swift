@@ -13,12 +13,9 @@ enum SemomunImage: String {
     case wrong
     case correct
     case logo
-<<<<<<< HEAD
     case GoogleLogo
     case AppleLogo
-=======
     case profile
->>>>>>> 17bae657 ([Feat] ProfileVC tableView 추가)
     
     case cloudDownloadOutline
     case badgeCheckSolid

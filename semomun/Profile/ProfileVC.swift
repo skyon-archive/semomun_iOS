@@ -31,6 +31,7 @@ final class ProfileVC: UIViewController {
         if let nickname = CoreUsecase.fetchUserInfo()?.nickName {
             self.profileView.updateUsername(to: nickname)
         }
+        self.updateRemainingPay()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,7 +62,9 @@ extension ProfileVC {
         }
         self.networkUsecase?.getRemainingPay { status, credit in
             guard status == .SUCCESS else {
-                self.showAlertWithOK(title: "수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+                if status == .DECODEERROR {
+                    self.showAlertWithOK(title: "수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
+                }
                 return
             }
             if let credit = credit {
