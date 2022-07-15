@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad7_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -600,7 +600,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="postAuthNumber:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="GyC-c3-u29"/>
+                                                                            <action selector="checkNameDuplicated:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="oP9-Wi-OAG"/>
                                                                         </connections>
                                                                     </button>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cq-gJ-8nc" userLabel="phoneStatusLine">
@@ -675,8 +675,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajor:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="rxV-Wh-vAF"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJJ-dy-zzJ">
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJJ-dy-zzJ">
                                                                                 <rect key="frame" x="118" y="0.0" width="106" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="37" id="of6-9l-5qS"/>
@@ -698,8 +701,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajor:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="7Tn-eg-qKL"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnZ-cy-NaF">
+                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnZ-cy-NaF">
                                                                                 <rect key="frame" x="236" y="0.0" width="106" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="106" id="GQA-KO-iNM"/>
@@ -721,6 +727,9 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajor:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="ttP-Dd-uwV"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
@@ -771,8 +780,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajorDetail:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="SKO-LQ-lma"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxF-J0-2Tq">
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxF-J0-2Tq">
                                                                                 <rect key="frame" x="100" y="0.0" width="88" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="88" id="SMb-7r-hsd"/>
@@ -794,8 +806,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajorDetail:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="Fj5-MY-KMV"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="br7-Kz-G7V">
+                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="br7-Kz-G7V">
                                                                                 <rect key="frame" x="200" y="0.0" width="88" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="88" id="Re0-Mq-BCv"/>
@@ -817,8 +832,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajorDetail:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="MZA-0g-s2u"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-cU-bpu">
+                                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-cU-bpu">
                                                                                 <rect key="frame" x="300" y="0.0" width="88" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="88" id="CBB-nI-YU4"/>
@@ -840,8 +858,11 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajorDetail:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="Ssx-b6-Rjj"/>
+                                                                                </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OGy-Ez-LtQ">
+                                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OGy-Ez-LtQ">
                                                                                 <rect key="frame" x="400" y="0.0" width="88" height="37"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="37" id="OF8-CY-m4x"/>
@@ -863,6 +884,9 @@
                                                                                         <color key="value" name="border"/>
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
+                                                                                <connections>
+                                                                                    <action selector="selectMajorDetail:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="Rva-ID-1TC"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
@@ -906,6 +930,9 @@
                                                                         <state key="normal" title="학교 이름을 검색하세요">
                                                                             <color key="titleColor" name="lightGray"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="showSchoolSelectPopup:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="8mS-R6-V6n"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49B-06-TTU" userLabel="schoolLine">
                                                                         <rect key="frame" x="0.0" y="80" width="680" height="1"/>
@@ -1026,6 +1053,9 @@
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" image="circleRing"/>
                                                                 <state key="selected" image="checkCircle"/>
+                                                                <connections>
+                                                                    <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="l86-Ge-7AU"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqr-dJ-lSi">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
@@ -1037,6 +1067,9 @@
                                                                 <state key="normal" title="[필수] 개인정보 처리 방침">
                                                                     <color key="titleColor" name="darkGray"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="showDetailPopup:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="pRW-ew-4Yo"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -1059,6 +1092,9 @@
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" image="circleRing"/>
                                                                 <state key="selected" image="checkCircle"/>
+                                                                <connections>
+                                                                    <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="Enz-XQ-fO5"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MS-KJ-aee">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
@@ -1070,6 +1106,9 @@
                                                                 <state key="normal" title="[필수] 서비스 이용약관">
                                                                     <color key="titleColor" name="darkGray"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="showDetailPopup:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="vIG-8r-4Md"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -1092,6 +1131,9 @@
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" image="circleRing"/>
                                                                 <state key="selected" image="checkCircle"/>
+                                                                <connections>
+                                                                    <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="J4B-9h-m7O"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcx-iQ-u52">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
@@ -1103,6 +1145,9 @@
                                                                 <state key="normal" title="마케팅 수신동의">
                                                                     <color key="titleColor" name="darkGray"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="showDetailPopup:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="i3r-DT-tRB"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -1207,6 +1252,14 @@
                         <outletCollection property="longTextButtons" destination="wqr-dJ-lSi" collectionClass="NSMutableArray" id="Z5o-SH-TKE"/>
                         <outletCollection property="longTextButtons" destination="4MS-KJ-aee" collectionClass="NSMutableArray" id="0ny-rA-trK"/>
                         <outletCollection property="longTextButtons" destination="fcx-iQ-u52" collectionClass="NSMutableArray" id="9rp-L1-M8p"/>
+                        <outletCollection property="majorButtons" destination="6mA-Jf-RUF" collectionClass="NSMutableArray" id="Vd8-X1-MbM"/>
+                        <outletCollection property="majorButtons" destination="CJJ-dy-zzJ" collectionClass="NSMutableArray" id="WWm-4F-Bdx"/>
+                        <outletCollection property="majorButtons" destination="UnZ-cy-NaF" collectionClass="NSMutableArray" id="NSE-Kh-2PT"/>
+                        <outletCollection property="majorDetailButtons" destination="QNB-b1-sJU" collectionClass="NSMutableArray" id="kIj-cg-RhB"/>
+                        <outletCollection property="majorDetailButtons" destination="kxF-J0-2Tq" collectionClass="NSMutableArray" id="zcb-Dk-iRQ"/>
+                        <outletCollection property="majorDetailButtons" destination="br7-Kz-G7V" collectionClass="NSMutableArray" id="iVZ-HD-8bl"/>
+                        <outletCollection property="majorDetailButtons" destination="lM6-cU-bpu" collectionClass="NSMutableArray" id="fid-CG-gfB"/>
+                        <outletCollection property="majorDetailButtons" destination="OGy-Ez-LtQ" collectionClass="NSMutableArray" id="lxM-AJ-2Pw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpg-PQ-30B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1875,12 +1928,12 @@
     </scenes>
     <resources>
         <image name="checkCircle" width="24" height="24"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
-        <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevronRightOutline" width="24" height="24"/>
         <image name="circleRing" width="24" height="24"/>
         <image name="logo" width="394" height="320"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="searchOutline" width="24" height="24"/>
         <image name="xOutline" width="24" height="24"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
