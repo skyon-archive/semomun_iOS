@@ -11,6 +11,8 @@ final class SignupVC: UIViewController {
     static let identifier = "SignupVC"
     /// for design
     @IBOutlet weak var searchIcon: UIImageView!
+    @IBOutlet weak var graduationLabel: UILabel!
+    @IBOutlet weak var graduationInputView: UIView!
     /// action
     @IBOutlet weak var postAuthButton: UIButton!
     @IBOutlet weak var checkAuthButton: UIButton!
@@ -28,6 +30,14 @@ final class SignupVC: UIViewController {
     @IBOutlet var longTextButtons: [UIButton]!
     /// complete
     @IBOutlet weak var SignupCompleteButton: UIButton!
+    private lazy var segmentedControl = SegmentedControlView(buttons: [
+        SegmentedButtonInfo(title: "재학") { [weak self] in
+            print("재학")
+        },
+        SegmentedButtonInfo(title: "졸업") { [weak self] in
+            print("졸업")
+        }
+    ])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +102,12 @@ extension SignupVC {
     
     private func configureUI() {
         self.searchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
+        self.graduationInputView.addSubview(self.segmentedControl)
+        NSLayoutConstraint.activate([
+            self.segmentedControl.topAnchor.constraint(equalTo: self.graduationLabel.bottomAnchor, constant: 16),
+            self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
+        ])
+        self.segmentedControl.selectIndex(to: 0)
     }
 }
 
