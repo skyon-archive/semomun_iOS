@@ -68,7 +68,7 @@ final class SegmentedControlView: UIView {
 
 final class SegmentedButton: UIButton {
     convenience init(info: SegmentedButtonInfo, action: @escaping () -> Void) {
-        self.init(frame: CGRect())
+        self.init(type: .custom)
         self.commonInit(info, action)
     }
     
@@ -85,19 +85,18 @@ final class SegmentedButton: UIButton {
         self.clipsToBounds = true
         self.layer.cornerRadius = 14
         self.layer.cornerCurve = .continuous
-        self.backgroundColor = UIColor.clear
         self.addAction(UIAction(handler: { _ in
             action()
         }), for: .touchUpInside)
     }
     
     func select() {
-        self.titleLabel?.textColor = UIColor.getSemomunColor(.white)
+        self.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
         self.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
     }
     
     func deSelect() {
-        self.titleLabel?.textColor = UIColor.getSemomunColor(.lightGray)
+        self.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
         self.backgroundColor = UIColor.clear
     }
 }

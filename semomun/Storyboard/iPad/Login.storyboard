@@ -1236,7 +1236,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="SignupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
                         <outlet property="authStatusLine" destination="KQB-rd-Cwg" id="goP-TZ-EL6"/>
                         <outlet property="checkAuthButton" destination="c4B-9e-bxD" id="ya5-OK-FsN"/>
                         <outlet property="graduationInputView" destination="ksj-FN-qdI" id="csk-ii-btW"/>
@@ -1244,6 +1243,7 @@
                         <outlet property="phoneStatusLine" destination="PjO-75-jBC" id="XOx-D0-5tf"/>
                         <outlet property="postAuthButton" destination="G2L-hp-kjs" id="f11-aB-Ory"/>
                         <outlet property="searchIcon" destination="l6a-Yn-Jo0" id="YAk-uI-ykF"/>
+                        <outlet property="signupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
                         <outlet property="warningAuthView" destination="Ksu-5z-QP8" id="lb9-tu-XRU"/>
                         <outlet property="warningPhoneView" destination="NwP-dt-jdA" id="b8f-mb-svX"/>
                         <outletCollection property="checkButtons" destination="WVS-tq-cH4" collectionClass="NSMutableArray" id="RDX-k5-Zyq"/>

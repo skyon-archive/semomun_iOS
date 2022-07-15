@@ -29,7 +29,7 @@ final class SignupVC: UIViewController {
     @IBOutlet var checkButtons: [UIButton]!
     @IBOutlet var longTextButtons: [UIButton]!
     /// complete
-    @IBOutlet weak var SignupCompleteButton: UIButton!
+    @IBOutlet weak var signupCompleteButton: UIButton!
     private lazy var segmentedControl = SegmentedControlView(buttons: [
         SegmentedButtonInfo(title: "재학") { [weak self] in
             print("재학")
