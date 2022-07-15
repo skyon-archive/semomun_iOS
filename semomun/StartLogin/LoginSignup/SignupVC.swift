@@ -20,6 +20,9 @@ final class SignupVC: UIViewController {
     /// warning
     @IBOutlet weak var warningPhoneView: UIView!
     @IBOutlet weak var warningAuthView: UIView!
+    /// majors
+    @IBOutlet var majorButtons: [UIButton]!
+    @IBOutlet var majorDetailButtons: [UIButton]!
     /// select agrees
     @IBOutlet var checkButtons: [UIButton]!
     @IBOutlet var longTextButtons: [UIButton]!
@@ -48,9 +51,36 @@ final class SignupVC: UIViewController {
         self.warningAuthView.isHidden = false
     }
     
+    @IBAction func checkNameDuplicated(_ sender: Any) {
+        
+    }
+    
+    @IBAction func selectMajor(_ sender: UIButton) {
+        self.majorButtons[sender.tag].isSelected.toggle()
+        self.updateButtons(self.majorButtons, index: sender.tag)
+    }
+    
+    @IBAction func selectMajorDetail(_ sender: UIButton) {
+        self.majorDetailButtons[sender.tag].isSelected.toggle()
+        self.updateButtons(self.majorDetailButtons, index: sender.tag)
+    }
+    
+    
+    @IBAction func showSchoolSelectPopup(_ sender: Any) {
+        
+    }
+    
     @IBAction func selectAgree(_ sender: UIButton) {
         self.checkButtons[sender.tag].isSelected.toggle()
+        if sender.tag == 0 {
+            self.updateAllChecks(to: self.checkButtons[0].isSelected)
+        }
     }
+    
+    @IBAction func showDetailPopup(_ sender: UIButton) {
+        print(sender.tag)
+    }
+    
 }
 
 extension SignupVC {
@@ -62,5 +92,25 @@ extension SignupVC {
     
     private func configureUI() {
         self.searchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
+    }
+}
+
+extension SignupVC {
+    private func updateButtons(_ buttons: [UIButton], index: Int) {
+        for (idx, button) in buttons.enumerated() {
+            if idx == index {
+                button.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+                button.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
+                button.layer.borderColor = UIColor.clear.cgColor
+            } else {
+                button.backgroundColor = UIColor.getSemomunColor(.white)
+                button.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
+                button.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+            }
+        }
+    }
+    
+    private func updateAllChecks(to: Bool) {
+        self.checkButtons.forEach { $0.isSelected = to }
     }
 }
