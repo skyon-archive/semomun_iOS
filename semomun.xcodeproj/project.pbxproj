@@ -13,6 +13,7 @@
 		2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */; };
 		2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CEC727A593750072A037 /* PayHistoryVM.swift */; };
 		2502CECD27A6E3500072A037 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502CECC27A6E3500072A037 /* Int.swift */; };
+		250654A528811686003C05AD /* ProfileRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250654A428811686003C05AD /* ProfileRows.swift */; };
 		250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 250A4907285DF6F3008D0016 /* PretendardVariable.ttf */; };
 		250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */; };
 		250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */; };
@@ -334,6 +335,7 @@
 		2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSearchUseCase.swift; sourceTree = "<group>"; };
 		2502CEC727A593750072A037 /* PayHistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryVM.swift; sourceTree = "<group>"; };
 		2502CECC27A6E3500072A037 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		250654A428811686003C05AD /* ProfileRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRows.swift; sourceTree = "<group>"; };
 		250A4907285DF6F3008D0016 /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PretendardVariable.ttf; sourceTree = "<group>"; };
 		250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTestResultOfDB.swift; sourceTree = "<group>"; };
 		250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResultVM.swift; sourceTree = "<group>"; };
@@ -961,8 +963,9 @@
 		259B6C7F28800B7A0051B2FA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				259B6C8028800B890051B2FA /* PayStatusView.swift */,
 				259B6C82288011510051B2FA /* ProfileView.swift */,
+				259B6C8028800B890051B2FA /* PayStatusView.swift */,
+				250654A428811686003C05AD /* ProfileRows.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2149,6 +2152,7 @@
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
 				870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */,
 				257AC2D327A9709E00008DD9 /* SectionDateLabel.swift in Sources */,
+				250654A528811686003C05AD /* ProfileRows.swift in Sources */,
 				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
