@@ -15,9 +15,11 @@ final class ProfileVC: UIViewController {
         return view
     }()
     private var networkUsecase: ProfileNetworkUsecase?
+    
     override func loadView() {
         self.view = self.profileView
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNetworkUsecase()
@@ -51,6 +53,12 @@ extension ProfileVC {
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.profileView.payStatusView.updateRemainingPay(to: nil)
+        }
+        NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
+            print("login")
+        }
+        NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .current) { [weak self] _ in
+            print("logout")
         }
     }
     
@@ -118,7 +126,8 @@ extension ProfileVC: ProfileViewDelegate {
     func resignAccount() {
         self.showAlertWithCancelAndOK(title: "정말로 탈퇴하시겠어요?", text: "세모페이와 구매 및 사용내역이 제거됩니다.") { [weak self] in
             self?.networkUsecase?.resign(completion: { status in
-                if status == .SUCCESS {let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
+                if status == .SUCCESS {
+                    let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
                     guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
                     let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
                     nextVC.configureVM(viewModel)

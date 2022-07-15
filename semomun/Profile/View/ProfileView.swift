@@ -73,7 +73,7 @@ final class ProfileView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private weak var delegate: (ProfileViewDelegate)?
+    private weak var delegate: ProfileViewDelegate?
     
     init(isLogined: Bool, delegate: ProfileViewDelegate) {
         self.delegate = delegate
