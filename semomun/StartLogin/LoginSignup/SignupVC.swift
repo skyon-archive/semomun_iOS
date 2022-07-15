@@ -41,7 +41,7 @@ final class SignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureNavigationBar()
+        self.title = "회원가입"
         self.configureUI()
         self.postAuthButton.backgroundColor = UIColor.getSemomunColor(.blueRegular)
     }
@@ -94,12 +94,6 @@ final class SignupVC: UIViewController {
 }
 
 extension SignupVC {
-    private func configureNavigationBar() {
-        let attributes = [NSAttributedString.Key.font: UIFont.heading4]
-        UINavigationBar.appearance().titleTextAttributes = attributes
-        self.title = "회원가입"
-    }
-    
     private func configureUI() {
         self.searchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
         self.graduationInputView.addSubview(self.segmentedControl)
