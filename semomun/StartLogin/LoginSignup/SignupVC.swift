@@ -20,6 +20,11 @@ final class SignupVC: UIViewController {
     /// warning
     @IBOutlet weak var warningPhoneView: UIView!
     @IBOutlet weak var warningAuthView: UIView!
+    /// select agrees
+    @IBOutlet var checkButtons: [UIButton]!
+    @IBOutlet var longTextButtons: [UIButton]!
+    /// complete
+    @IBOutlet weak var SignupCompleteButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +46,10 @@ final class SignupVC: UIViewController {
     @IBAction func checkAuthNumber(_ sender: Any) {
         self.authStatusLine.backgroundColor = UIColor.systemRed
         self.warningAuthView.isHidden = false
+    }
+    
+    @IBAction func selectAgree(_ sender: UIButton) {
+        self.checkButtons[sender.tag].isSelected.toggle()
     }
 }
 
