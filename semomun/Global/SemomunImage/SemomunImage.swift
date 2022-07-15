@@ -33,6 +33,7 @@ enum SemomunImage: String {
     case searchOutline
     case pencilAltOutline
     case logoutOutline
+    case chevronRightOutline
 }
 
 enum SystemImage: String {

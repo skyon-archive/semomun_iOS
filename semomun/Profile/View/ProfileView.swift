@@ -24,9 +24,10 @@ final class ProfileView: UIView {
     let payStatusView = PayStatusView()
     let changeUserInfoButton = ButtonWithImage(image: .pencilAltOutline, title: "개인정보 수정")
     let logoutButton = ButtonWithImage(image: .logoutOutline, title: "로그아웃")
-    let tableView: UITableView = {
-        let view = UITableView()
-        view.register(ProfileTableCell.self, forCellReuseIdentifier: ProfileTableCell.identifier)
+    let stackView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
         return view
     }()
     /* private */
@@ -52,11 +53,17 @@ final class ProfileView: UIView {
         label.textColor = UIColor.getSemomunColor(.black)
         return label
     }()
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     init(isLogined: Bool) {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureLayout()
+        self.configureStackViewContent()
     }
     
     required init?(coder: NSCoder) {
@@ -70,7 +77,8 @@ final class ProfileView: UIView {
 
 extension ProfileView {
     private func configureLayout() {
-        self.addSubviews(self.contentView, self.payStatusView, self.profileImageView, self.usernameLabel, self.changeUserInfoButton, self.logoutButton, self.tableView)
+        self.addSubviews(self.contentView, self.payStatusView, self.profileImageView, self.usernameLabel, self.changeUserInfoButton, self.logoutButton, self.scrollView)
+        self.scrollView.addSubview(self.stackView)
         NSLayoutConstraint.activate([
             self.contentView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 176),
             self.contentView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
@@ -92,10 +100,140 @@ extension ProfileView {
             self.logoutButton.topAnchor.constraint(equalTo: self.changeUserInfoButton.bottomAnchor, constant: 8),
             self.logoutButton.leadingAnchor.constraint(equalTo: self.profileImageView.leadingAnchor),
             
-            self.tableView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 24),
-            self.tableView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -32),
-            self.tableView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 32),
+            self.scrollView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            self.scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            self.scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.widthAnchor),
+            
+            self.stackView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -32),
+            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
+            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor, constant: 32),
         ])
+    }
+    
+    private func configureStackViewContent() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
+        [
+            ProfileLinkRow(text: "구매 내역", action: { }),
+            ProfileSectionRow(text: ""),
+            ProfileLinkRow(text: "공지사항", action: { }),
+            ProfileLinkRow(text: "고객센터", action: { }),
+            ProfileLinkRow(text: "오류 신고", action: { }),
+            ProfileLinkRow(text: "회원탈퇴", action: { }),
+            ProfileSectionRow(text: "앱정보 및 이용약관"),
+            ProfileRowWithSubtitle(title: "버전정보", subtitle: version),
+            ProfileLinkRow(text: "이용약관", action: { }),
+            ProfileLinkRow(text: "개인정보 처리 방침", action: { }),
+            ProfileLinkRow(text: "마케팅 수신 동의", action: { }),
+            ProfileLinkRow(text: "전자금융거래 이용약관", action: { })
+        ].forEach { view in
+            self.stackView.addArrangedSubview(view)
+            self.stackView.addArrangedSubview(ProfileRowDivider())
+            view.widthAnchor.constraint(equalTo: self.stackView.widthAnchor).isActive = true
+        }
+    }
+}
+
+class ProfileSectionRow: UIView {
+    let label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.lightGray)
+        return label
+    }()
+    init(text: String) {
+        super.init(frame: .zero)
+        self.label.text = text
+        self.addSubview(self.label)
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 66),
+            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
+            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        ])
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ProfileLinkRow: UIControl {
+    let label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .largeStyleParagraph
+        label.textColor = .getSemomunColor(.darkGray)
+        return label
+    }()
+    let imageView: UIImageView = {
+        let image = UIImage(.chevronRightOutline)
+        let view = UIImageView(image: image)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setSVGTintColor(to: .getSemomunColor(.lightGray))
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 20),
+            view.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        return view
+    }()
+    init(text: String, action: @escaping () -> Void) {
+        super.init(frame: .zero)
+        self.label.text = text
+        self.addSubviews(self.label, self.imageView)
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 44),
+            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+        self.addAction(UIAction { _ in action() }, for: .touchUpInside)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ProfileRowWithSubtitle: UIView {
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .largeStyleParagraph
+        label.textColor = .getSemomunColor(.darkGray)
+        return label
+    }()
+    let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .largeStyleParagraph
+        label.textColor = .getSemomunColor(.lightGray)
+        return label
+    }()
+    init(title: String, subtitle: String) {
+        super.init(frame: .zero)
+        self.titleLabel.text = title
+        self.subtitleLabel.text = subtitle
+        self.addSubviews(self.titleLabel, self.subtitleLabel)
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 44),
+            self.titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.subtitleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ProfileRowDivider: UIView {
+    convenience init() {
+        self.init(frame: .zero)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        self.backgroundColor = .getSemomunColor(.border)
     }
 }
