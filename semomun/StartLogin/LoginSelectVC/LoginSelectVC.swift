@@ -318,7 +318,7 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
 extension LoginSelectVC {
     private func startSignup() {
         // 생성 예정
-        guard let nextVC = UIStoryboard(name: LoginSignupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: LoginSignupVC.identifier) as? LoginSignupVC else { return }
+        guard let nextVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: SignupVC.identifier) as? SignupVC else { return }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
