@@ -25,6 +25,7 @@ final class ProfileVC: UIViewController {
         self.configureNetworkUsecase()
         self.configureObserver()
         NetworkStatusManager.state()
+        NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +34,7 @@ final class ProfileVC: UIViewController {
         if let nickname = CoreUsecase.fetchUserInfo()?.nickName {
             self.profileView.updateUsername(to: nickname)
         }
-        self.updateRemainingPay()
+//        self.updateRemainingPay()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -49,7 +50,7 @@ extension ProfileVC {
     
     private func configureObserver() {
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
-            self?.updateRemainingPay()
+//            self?.updateRemainingPay()
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.profileView.payStatusView.updateRemainingPay(to: nil)
