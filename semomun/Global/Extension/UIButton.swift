@@ -15,7 +15,7 @@ extension UIButton {
         self.tintColor = UIColor.getSemomunColor(color)
     }
     
-    func setUnderline() {
+    func setTitleUnderline() {
         guard let title = title(for: .normal) else { return }
         let attributedString = NSMutableAttributedString(string: title)
         attributedString.addAttribute(.underlineStyle,

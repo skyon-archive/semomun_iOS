@@ -27,7 +27,7 @@ final class SignupButton: UIButton {
         self.titleLabel?.font = UIFont(name: UIFont.boldFont, size: 16)
         self.setTitleColor(UIColor.getSemomunColor(.orangeRegular), for: .normal)
         self.setTitle("회원가입", for: .normal)
-        self.setUnderline()
+        self.setTitleUnderline()
         
         self.contentEdgeInsets = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
         NSLayoutConstraint.activate([
