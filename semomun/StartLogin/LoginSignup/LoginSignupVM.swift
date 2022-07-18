@@ -13,6 +13,11 @@ final class LoginSignupVM {
     @Published private(set) var alert: LoginSignupAlert?
     @Published private(set) var majors: [String] = []
     @Published private(set) var majorDetails: [String] = []
+    private let majorRawValues: [[String]] = [
+        ["인문", "상경", "사회", "교육", "기타"],
+        ["공학", "자연", "의약", "생활과학", "기타"],
+        ["미술", "음악", "체육", "기타"]
+    ]
     
     private(set) var signupUserInfo = SignupUserInfo() {
         didSet {
@@ -203,5 +208,12 @@ extension LoginSignupVM {
                 self?.majorDetails = firstMajorDetail
             }
         }
+    }
+}
+
+
+extension LoginSignupVM {
+    func selectMajor(to index: Int) {
+        self.majorDetails = self.majorRawValues[index]
     }
 }

@@ -50,8 +50,9 @@ final class SignupVC: UIViewController {
             print("졸업")
         }
     ])
-    private var viewModel: LoginSignupVM?
+    private var viewModel: SignupVM?
     private var cancellables: Set<AnyCancellable> = []
+    private var selectedMajorIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,15 +93,18 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func selectMajor(_ sender: UIButton) {
-        self.majorButtons[sender.tag].isSelected.toggle()
+        self.selectedMajorIndex = sender.tag
         self.updateButtons(self.majorButtons, index: sender.tag)
+        self.updateButtons(self.majorDetailButtons, index: nil)
+        self.viewModel?.selectMajor(to: sender.tag)
     }
     
     @IBAction func selectMajorDetail(_ sender: UIButton) {
-        self.majorDetailButtons[sender.tag].isSelected.toggle()
+        guard let selectedMajorIndex = self.selectedMajorIndex,
+              let major = self.majorButtons[selectedMajorIndex].titleLabel?.text else { return }
         self.updateButtons(self.majorDetailButtons, index: sender.tag)
+        self.viewModel?.selectMajorDetail(major: major, detailIndex: sender.tag)
     }
-    
     
     @IBAction func showSchoolSelectPopup(_ sender: Any) {
         
@@ -121,7 +125,7 @@ final class SignupVC: UIViewController {
 
 extension SignupVC {
     private func configureViewModel() {
-        self.viewModel = LoginSignupVM(networkUseCase: NetworkUsecase(network: Network()))
+        self.viewModel = SignupVM(networkUseCase: NetworkUsecase(network: Network()))
     }
     
     private func configureUI() {
@@ -149,6 +153,7 @@ extension SignupVC {
 extension SignupVC {
     private func bindAll() {
         self.bindStatus()
+        self.bindMajorDetails()
     }
     
     private func bindStatus() {
@@ -195,21 +200,32 @@ extension SignupVC {
                     self?.idWarningLabel.textColor = UIColor.systemGreen
                     self?.dismissKeyboard()
                 case .usernameValid:
-                    print("hello")
+                    return
                 case .userInfoComplete:
-                    print("hello")
+                    return
                 case .userInfoIncomplete:
-                    print("hello")
+                    return
                 case .none:
                     break
                 }
             }
             .store(in: &self.cancellables)
     }
+    
+    private func bindMajorDetails() {
+        self.viewModel?.$majorDetails
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] details in
+                self?.majorDetailButtons[4].isHidden = details.count == 4
+                self?.updateDetailButtonTitles(details)
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 extension SignupVC {
-    private func updateButtons(_ buttons: [UIButton], index: Int) {
+    private func updateButtons(_ buttons: [UIButton], index: Int?) {
         for (idx, button) in buttons.enumerated() {
             if idx == index {
                 button.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
@@ -230,6 +246,12 @@ extension SignupVC {
     private func updateClickable(to: Bool, target: UIButton?) {
         target?.isUserInteractionEnabled = to
         target?.backgroundColor = to ? UIColor.getSemomunColor(.blueRegular) : UIColor.systemGray4
+    }
+    
+    private func updateDetailButtonTitles(_ details: [String]) {
+        for (idx, title) in details.enumerated() {
+            self.majorDetailButtons[idx].setTitle(title, for: .normal)
+        }
     }
 }
 
