@@ -185,12 +185,19 @@ extension SignupVC {
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tagSelectComplete), name: .refreshFavoriteTags, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSelectSocialSignupVC), name: .refreshFavoriteTags, object: nil)
     }
     
-    @objc func tagSelectComplete() {
-        // show apple, google
-        print("complete")
+    @objc func showSelectSocialSignupVC() {
+        Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            guard let selectSocialSignupPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SelectSocialSignupPopupVC.identifier) as? SelectSocialSignupPopupVC else { return }
+            guard let userInfo = self.viewModel?.signupUserInfo else { return }
+            let usecase = SignupUsecase(userInfo: userInfo, networkUsecase: NetworkUsecase(network: Network()))
+            selectSocialSignupPopupVC.configureDelegate(self)
+            selectSocialSignupPopupVC.configureUsecase(usecase)
+            self.present(selectSocialSignupPopupVC, animated: true)
+        }
     }
 }
 
@@ -351,5 +358,11 @@ extension SignupVC: SchoolSelectDelegate {
         self.schoolButton.setTitle(schoolName, for: .normal)
         self.schoolButton.setTitleColor(UIColor.getSemomunColor(.darkGray), for: .normal)
         self.viewModel?.selectSchool(schoolName)
+    }
+}
+
+extension SignupVC: SignupCompleteable {
+    func signupComplete() {
+        // coredata 저장 및 회원가입 완료 로직
     }
 }

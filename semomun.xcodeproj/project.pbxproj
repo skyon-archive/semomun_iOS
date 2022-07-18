@@ -230,6 +230,8 @@
 		879CC21C286957FB007E3508 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC21B286957FB007E3508 /* TestInfo.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemsVC.swift */; };
 		87A376A228741FAC00399DF2 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A376A128741FAC00399DF2 /* TagCell.xib */; };
+		87A615E028858BBD005B37CA /* SelectSocialSignupPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A615DF28858BBD005B37CA /* SelectSocialSignupPopupVC.swift */; };
+		87A615E228858D98005B37CA /* SignupUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A615E128858D98005B37CA /* SignupUsecase.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
 		87AC217B2862FD0F00613609 /* WorkbookGroup_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */; };
@@ -557,6 +559,8 @@
 		879CC21B286957FB007E3508 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVC.swift; sourceTree = "<group>"; };
 		87A376A128741FAC00399DF2 /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
+		87A615DF28858BBD005B37CA /* SelectSocialSignupPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialSignupPopupVC.swift; sourceTree = "<group>"; };
+		87A615E128858D98005B37CA /* SignupUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupUsecase.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
 		87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroup_Core.swift; sourceTree = "<group>"; };
@@ -1371,6 +1375,8 @@
 			children = (
 				87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */,
 				8769EFB2288557A40047A692 /* SchoolCell.swift */,
+				87A615DF28858BBD005B37CA /* SelectSocialSignupPopupVC.swift */,
+				87A615E128858D98005B37CA /* SignupUsecase.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -2011,6 +2017,7 @@
 				873BCE582876E935005A6189 /* WorkbookGroupCellInfo.swift in Sources */,
 				8755ABD627731E7600752745 /* ProblemTimerView.swift in Sources */,
 				253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */,
+				87A615E028858BBD005B37CA /* SelectSocialSignupPopupVC.swift in Sources */,
 				25520FB827D10D5C00CC6015 /* SignupUserInfo.swift in Sources */,
 				87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
@@ -2027,6 +2034,7 @@
 				8769EFB3288557A40047A692 /* SchoolCell.swift in Sources */,
 				879CC21C286957FB007E3508 /* TestInfo.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
+				87A615E228858D98005B37CA /* SignupUsecase.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				250B285F287435CA000578BC /* UIImageView.swift in Sources */,
 				878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */,

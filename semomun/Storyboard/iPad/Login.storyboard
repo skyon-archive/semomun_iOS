@@ -1523,6 +1523,56 @@
             </objects>
             <point key="canvasLocation" x="2975" y="59.576345984112969"/>
         </scene>
+        <!--Select Social Signup PopupVC-->
+        <scene sceneID="liM-7Y-lyj">
+            <objects>
+                <viewController storyboardIdentifier="SelectSocialSignupPopupVC" id="JTU-rG-YWA" customClass="SelectSocialSignupPopupVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fok-iX-PVH">
+                        <rect key="frame" x="0.0" y="0.0" width="744" height="1133"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZQ-C5-HW9">
+                                <rect key="frame" x="136" y="411.5" width="472" height="314"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ny0-sD-VcK">
+                                        <rect key="frame" x="24" y="32" width="213" height="57.5"/>
+                                        <string key="text">계정을 연결한 뒤 
+회원가입을 완료하세요</string>
+                                        <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="24"/>
+                                        <color key="textColor" name="black"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="white"/>
+                                <constraints>
+                                    <constraint firstItem="ny0-sD-VcK" firstAttribute="top" secondItem="iZQ-C5-HW9" secondAttribute="top" constant="32" id="1kk-9t-1EK"/>
+                                    <constraint firstItem="ny0-sD-VcK" firstAttribute="leading" secondItem="iZQ-C5-HW9" secondAttribute="leading" constant="24" id="6Ye-bc-oYi"/>
+                                    <constraint firstAttribute="width" constant="472" id="6sg-aQ-PHj"/>
+                                    <constraint firstAttribute="height" constant="314" id="QMu-UK-Cyh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yCg-HQ-sbt"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iZQ-C5-HW9" firstAttribute="centerY" secondItem="yCg-HQ-sbt" secondAttribute="centerY" id="AHu-bP-FHN"/>
+                            <constraint firstItem="iZQ-C5-HW9" firstAttribute="centerX" secondItem="yCg-HQ-sbt" secondAttribute="centerX" id="i0D-uu-xix"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="iZQ-C5-HW9" id="AWh-gK-JH2"/>
+                        <outlet property="titleLabel" destination="ny0-sD-VcK" id="ssP-Vq-saH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vxm-s3-YDh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3675" y="60"/>
+        </scene>
         <!--Login SignupVC-->
         <scene sceneID="N07-FL-s78">
             <objects>

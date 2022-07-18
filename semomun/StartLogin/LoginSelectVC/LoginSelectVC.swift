@@ -49,7 +49,7 @@ final class LoginSelectVC: UIViewController {
         return stackView
     }()
     private var verticalConstraint: NSLayoutConstraint?
-    private var appleLoginButton = AppleLoginButton()
+    private var appleLoginButton = AppleLoginButton(style: .login)
     
     private let signInConfig = GIDConfiguration.init(clientID: "688270638151-kgmitk0qq9k734nq7nh9jl6adhd00b57.apps.googleusercontent.com")
     private var viewModel: LoginSelectVM?
@@ -186,7 +186,7 @@ extension LoginSelectVC {
     }
     
     private func configureLoginWithGoogleButton() -> UIButton {
-        let button = GoogleLoginButton()
+        let button = GoogleLoginButton(style: .login)
         self.configureButtonAction(button, loginMethod: .google)
         return button
     }
