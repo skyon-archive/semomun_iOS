@@ -21,12 +21,16 @@ final class SignupVC: UIViewController {
     /// action
     @IBOutlet weak var postAuthButton: UIButton!
     @IBOutlet weak var checkAuthButton: UIButton!
+    @IBOutlet weak var checkIdButton: UIButton!
     /// status line
     @IBOutlet weak var phoneStatusLine: UIView!
     @IBOutlet weak var authStatusLine: UIView!
+    @IBOutlet weak var idStatusLine: UIView!
     /// warning
     @IBOutlet weak var warningPhoneView: UIView!
     @IBOutlet weak var warningAuthView: UIView!
+    @IBOutlet weak var phoneWarniingLabel: UILabel!
+    @IBOutlet weak var idWarningLabel: UILabel!
     /// majors
     @IBOutlet var majorButtons: [UIButton]!
     @IBOutlet var majorDetailButtons: [UIButton]!
@@ -83,7 +87,8 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func checkNameDuplicated(_ sender: Any) {
-        
+        guard let id = self.idTextField.text else { return }
+        self.viewModel?.changeUsername(id)
     }
     
     @IBAction func selectMajor(_ sender: UIButton) {
@@ -154,6 +159,10 @@ extension SignupVC {
                 case .phoneNumberInvalid:
                     self?.phoneStatusLine.backgroundColor = UIColor.systemRed
                     self?.warningPhoneView.isHidden = false
+                case .smsLimitExceed:
+                    self?.phoneStatusLine.backgroundColor = UIColor.systemRed
+                    self?.phoneWarniingLabel.text = "인증 회수 초과. 1시간 후 다시 시도해주세요"
+                    self?.warningPhoneView.isHidden = false
                 case .phoneNumberValid:
                     self?.phoneStatusLine.backgroundColor = UIColor.getSemomunColor(.border)
                     self?.warningPhoneView.isHidden = true
@@ -172,12 +181,19 @@ extension SignupVC {
                     self?.checkAuthButton.setTitle("인증 완료", for: .normal)
                     self?.updateClickable(to: false, target: self?.postAuthButton)
                     self?.updateClickable(to: false, target: self?.checkAuthButton)
-                case .usernameAlreadyUsed:
-                    print("hello")
-                case .usernameAvailable:
-                    print("hello")
                 case .usernameInvalid:
-                    print("hello")
+                    self?.idWarningLabel.text = "잘못된 형식입니다. 5~20자의 숫자와 영문자, 언더바(_)의 조합"
+                    self?.idStatusLine.backgroundColor = UIColor.systemRed
+                    self?.idWarningLabel.textColor = UIColor.systemRed
+                case .usernameAlreadyUsed:
+                    self?.idWarningLabel.text = "중복된 아이디입니다. 5~20자의 숫자와 영문자, 언더바(_)의 조합"
+                    self?.idStatusLine.backgroundColor = UIColor.systemRed
+                    self?.idWarningLabel.textColor = UIColor.systemRed
+                case .usernameAvailable:
+                    self?.idStatusLine.backgroundColor = UIColor.systemGray4
+                    self?.idWarningLabel.text = "사용 가능한 아이디입니다"
+                    self?.idWarningLabel.textColor = UIColor.systemGreen
+                    self?.dismissKeyboard()
                 case .usernameValid:
                     print("hello")
                 case .userInfoComplete:
@@ -250,6 +266,8 @@ extension SignupVC: UITextFieldDelegate {
             self.updateClickable(to: updatedText.count == 6, target: self.checkAuthButton)
             return true
         case self.idTextField:
+            let clickable = updatedText.count > 4 && updatedText.count < 21
+            self.updateClickable(to: clickable, target: self.checkIdButton)
             return true
         default:
             return true
