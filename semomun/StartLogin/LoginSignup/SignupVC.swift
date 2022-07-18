@@ -69,6 +69,7 @@ final class SignupVC: UIViewController {
         self.title = "회원가입"
         self.configureViewModel()
         self.configureUI()
+        self.configureTextField()
         self.configureTextFieldDelegate()
         self.configureNotification()
         self.bindAll()
@@ -167,6 +168,12 @@ extension SignupVC {
             self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
         ])
         self.segmentedControl.selectIndex(to: 0)
+    }
+    
+    private func configureTextField() {
+        self.phoneNumTextField.keyboardType = .numberPad
+        self.authNumTextField.keyboardType = .numberPad
+        self.idTextField.keyboardType = .alphabet
     }
     
     private func configureTextFieldDelegate() {
