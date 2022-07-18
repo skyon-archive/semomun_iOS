@@ -21,7 +21,7 @@ final class LoginSignupVC: UIViewController {
     @IBOutlet weak var bodyFrame: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var nicknameFrame: UIView!
+    @IBOutlet weak var nicknameFrame: UIView!  
     @IBOutlet weak var nickname: UITextField!
     
     @IBOutlet weak var phonenumFrame: UIView!
@@ -226,6 +226,8 @@ extension LoginSignupVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
+                case .smsLimitExceed:
+                    print("hello")
                 case .usernameAlreadyUsed:
                     self?.coloredFrameLabels[0].configure(type: .warning("사용할 수 없는 닉네임입니다."))
                 case .usernameAvailable:

@@ -135,7 +135,7 @@ extension LoginSignupVM {
                 case .invalidPhoneNumber:
                     assertionFailure()
                 case .smsSentTooMuch:
-                    self.alert = .snsLimitExceedAlert
+                    self.status = .smsLimitExceed
                 }
             }
         }

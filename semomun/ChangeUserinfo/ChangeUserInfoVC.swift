@@ -286,6 +286,8 @@ extension ChangeUserInfoVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
+                case .smsLimitExceed:
+                    print("hello")
                 case .usernameInvalid:
                     self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 알파벳(최소 하나), 언더바(_)의 조합이 가능합니다."))
                 case .usernameValid:

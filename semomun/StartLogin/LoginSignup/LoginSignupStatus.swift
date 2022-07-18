@@ -45,4 +45,7 @@ enum LoginSignupStatus {
     case userInfoComplete
     /// 회원가입에 필요한 모든 유저 정보가 아직 입력되지 않음
     case userInfoIncomplete
+    
+    /// 인증회수 초과
+    case smsLimitExceed
 }
