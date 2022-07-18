@@ -55,6 +55,7 @@ final class SignupVC: UIViewController {
         self.configureViewModel()
         self.configureUI()
         self.configureTextFieldDelegate()
+        self.configureNotification()
         self.bindAll()
     }
     
@@ -132,6 +133,11 @@ extension SignupVC {
         self.phoneNumTextField.delegate = self
         self.authNumTextField.delegate = self
         self.idTextField.delegate = self
+    }
+    
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 }
 
