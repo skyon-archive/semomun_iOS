@@ -144,8 +144,15 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func showDetailPopup(_ sender: UIButton) {
-        // text 내용 fetch 로직 필요
         guard let longTextPopupVC = self.storyboard?.instantiateViewController(withIdentifier: LongTextPopupVC.identifier) as? LongTextPopupVC else { return }
+        
+        switch sender.tag {
+        case 1: longTextPopupVC.text = .personalInformationProcessingPolicy
+        case 2: longTextPopupVC.text = .termsAndConditions
+        case 3: longTextPopupVC.text = .receiveMarketingInfo
+        default: return
+        }
+        
         self.present(longTextPopupVC, animated: true)
     }
     

@@ -807,7 +807,7 @@
                                                                     <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="l86-Ge-7AU"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqr-dJ-lSi">
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqr-dJ-lSi">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="48" id="HFd-2p-vtb"/>
@@ -846,7 +846,7 @@
                                                                     <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="Enz-XQ-fO5"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MS-KJ-aee">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MS-KJ-aee">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="48" id="ZVA-1U-TIy"/>
@@ -885,7 +885,7 @@
                                                                     <action selector="selectAgree:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="J4B-9h-m7O"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcx-iQ-u52">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcx-iQ-u52">
                                                                 <rect key="frame" x="36" y="0.0" width="644" height="48"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="48" id="5oe-2S-NRz"/>
