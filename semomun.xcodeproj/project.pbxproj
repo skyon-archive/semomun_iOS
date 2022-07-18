@@ -310,6 +310,7 @@
 		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
 		87EF2F52287C1B39007BC217 /* RemoveableTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EF2F51287C1B39007BC217 /* RemoveableTagCell.xib */; };
 		87EF2F54287C1C4E007BC217 /* RemoveableTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EF2F53287C1C4E007BC217 /* RemoveableTagCell.swift */; };
+		87EFCAE028854D030079BAC2 /* SchoolSelectPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */; };
 		87F13F29287EB3BC00AD80C0 /* SearchWarningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F13F28287EB3BC00AD80C0 /* SearchWarningCell.swift */; };
 		87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */; };
 		87F4394B2877E047003C7498 /* BookshelfDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */; };
@@ -635,6 +636,7 @@
 		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
 		87EF2F51287C1B39007BC217 /* RemoveableTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveableTagCell.xib; sourceTree = "<group>"; };
 		87EF2F53287C1C4E007BC217 /* RemoveableTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveableTagCell.swift; sourceTree = "<group>"; };
+		87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectPopupVC.swift; sourceTree = "<group>"; };
 		87F13F28287EB3BC00AD80C0 /* SearchWarningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWarningCell.swift; sourceTree = "<group>"; };
 		87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupInfo.swift; sourceTree = "<group>"; };
 		87F4394A2877E047003C7498 /* BookshelfDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 				251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */,
 				25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */,
 				258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */,
+				87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */,
 			);
 			path = LoginSignup;
 			sourceTree = "<group>";
@@ -1957,6 +1960,7 @@
 				87F13F29287EB3BC00AD80C0 /* SearchWarningCell.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
+				87EFCAE028854D030079BAC2 /* SchoolSelectPopupVC.swift in Sources */,
 				87DD0FCB2875B5C300070F8F /* DropdownOrderButton.swift in Sources */,
 				87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */,
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,

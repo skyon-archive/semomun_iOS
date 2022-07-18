@@ -125,7 +125,9 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func showSchoolSelectPopup(_ sender: Any) {
-        self.viewModel?.selectSchool("서울대학교")
+        guard let schoolSelectPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SchoolSelectPopupVC.identifier) as? SchoolSelectPopupVC else { return }
+        // delegate 연결
+        self.present(schoolSelectPopupVC, animated: true)
     }
     
     @IBAction func selectAgree(_ sender: UIButton) {
