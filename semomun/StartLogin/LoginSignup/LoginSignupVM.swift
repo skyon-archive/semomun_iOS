@@ -21,7 +21,7 @@ final class LoginSignupVM {
     
     private(set) var signupUserInfo = SignupUserInfo() {
         didSet {
-            self.status = self.signupUserInfo.isValid ? .userInfoComplete : .userInfoIncomplete
+            self.status = self.signupUserInfo.isValidForPopupTags ? .userInfoComplete : .userInfoIncomplete
         }
     }
     
@@ -49,7 +49,7 @@ final class LoginSignupVM {
     
     func checkUsernameFormat(_ username: String) -> Bool {
         if username.isValidUsernameDuringTyping {
-            self.status = .usernameValid
+//            self.status = .usernameValid
             return true
         } else {
             self.status = .usernameInvalid

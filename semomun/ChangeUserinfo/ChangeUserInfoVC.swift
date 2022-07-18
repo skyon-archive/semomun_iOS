@@ -290,9 +290,6 @@ extension ChangeUserInfoVC {
                     print("hello")
                 case .usernameInvalid:
                     self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 알파벳(최소 하나), 언더바(_)의 조합이 가능합니다."))
-                case .usernameValid:
-                    self?.coloredFrameLabels[0].isHidden = true
-                    
                 case .phoneNumberInvalid:
                     self?.coloredFrameLabels[1].configure(type: .warning("10-11자리의 숫자를 입력해주세요."))
                 case .phoneNumberValid:

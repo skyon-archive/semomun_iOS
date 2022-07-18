@@ -1211,7 +1211,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="Jd9-kF-Nxa"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="vTD-RT-RWp"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XmJ-nR-XNz">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XmJ-nR-XNz">
                                 <rect key="frame" x="0.0" y="1040" width="744" height="73"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
@@ -1222,6 +1222,9 @@
                                 <state key="normal" title="완료">
                                     <color key="titleColor" name="white"/>
                                 </state>
+                                <connections>
+                                    <action selector="signupComplete:" destination="YM6-Hh-1IT" eventType="touchUpInside" id="6PG-ul-HtI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xad-Q7-JcO"/>

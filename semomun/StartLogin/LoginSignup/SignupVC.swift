@@ -50,6 +50,14 @@ final class SignupVC: UIViewController {
             self?.viewModel?.selectGraduationStatus("졸업")
         }
     ])
+    private var agreeChecks: [Bool] = Array(repeating: false, count: 4) {
+        didSet {
+            self.viewModel?.selectMarketing(to: agreeChecks[3])
+        }
+    }
+    private var agreeCompleted: Bool {
+        return agreeChecks[1] && agreeChecks[2]
+    }
     private var viewModel: SignupVM?
     private var cancellables: Set<AnyCancellable> = []
     private var selectedMajorIndex: Int?
@@ -89,7 +97,7 @@ final class SignupVC: UIViewController {
     
     @IBAction func checkNameDuplicated(_ sender: Any) {
         guard let id = self.idTextField.text else { return }
-        self.viewModel?.changeUsername(id)
+        self.viewModel?.checkIDDuplicated(id)
     }
     
     @IBAction func selectMajor(_ sender: UIButton) {
@@ -107,13 +115,17 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func showSchoolSelectPopup(_ sender: Any) {
-        
+        self.viewModel?.selectSchool("서울대학교")
     }
     
     @IBAction func selectAgree(_ sender: UIButton) {
         self.checkButtons[sender.tag].isSelected.toggle()
+        self.agreeChecks[sender.tag].toggle()
+        
         if sender.tag == 0 {
-            self.updateAllChecks(to: self.checkButtons[0].isSelected)
+            let status = self.agreeChecks[0]
+            self.agreeChecks = Array(repeating: status, count: 4)
+            self.updateAllChecks(to: status)
         }
     }
     
@@ -121,6 +133,9 @@ final class SignupVC: UIViewController {
         print(sender.tag)
     }
     
+    @IBAction func signupComplete(_ sender: Any) {
+        // tags 선택창 표시
+    }
 }
 
 extension SignupVC {
@@ -199,12 +214,12 @@ extension SignupVC {
                     self?.idWarningLabel.text = "사용 가능한 아이디입니다"
                     self?.idWarningLabel.textColor = UIColor.systemGreen
                     self?.dismissKeyboard()
-                case .usernameValid:
-                    return
                 case .userInfoComplete:
-                    return
+                    self?.signupCompleteButton.isUserInteractionEnabled = self?.agreeCompleted == true
+                    self?.signupCompleteButton.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
                 case .userInfoIncomplete:
-                    return
+                    self?.signupCompleteButton.isUserInteractionEnabled = false
+                    self?.signupCompleteButton.backgroundColor = UIColor.systemGray4
                 case .none:
                     break
                 }
@@ -255,22 +270,6 @@ extension SignupVC {
     }
 }
 
-extension SignupVC {
-    private func configureUIForAuthCanceled() {
-//        self.getAuthNumButton.isHidden = false
-//        self.requestAgainButton.isHidden = true
-//        self.verifyAuthNumButton.isHidden = true
-//
-//        self.authNumTextField.isEnabled = false
-//        self.authNumTextField.text = ""
-//
-//        self.coloredFrameLabels[1].isHidden = true
-//        self.coloredFrameLabels[2].isHidden = true
-//
-//        self.phoneNumTextFieldTrailingConstraint.constant = self.phoneNumTextFieldTrailingMargin
-    }
-}
-
 extension SignupVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text, let textRange = Range(range, in: text) else {
@@ -288,6 +287,7 @@ extension SignupVC: UITextFieldDelegate {
             self.updateClickable(to: updatedText.count == 6, target: self.checkAuthButton)
             return true
         case self.idTextField:
+            self.viewModel?.invalidateUsername() // id 정보 nil 로 설정
             let clickable = updatedText.count > 4 && updatedText.count < 21
             self.updateClickable(to: clickable, target: self.checkIdButton)
             return true
@@ -295,30 +295,7 @@ extension SignupVC: UITextFieldDelegate {
             return true
         }
     }
-
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        if textField == self.phoneNumTextField {
-            return self.isPhoneNumberChangeAvailable()
-        } else if textField == self.idTextField {
-            self.viewModel?.invalidateUsername()
-            return true
-        } else {
-            return true
-        }
-    }
-
-    // 인증 중이거나 인증이 완료된 경우 Alert을 띄우고 false를 반환
-    private func isPhoneNumberChangeAvailable() -> Bool {
-        if self.viewModel?.canChangePhoneNumber == false {
-            self.showAlertWithCancelAndOK(title: "전화번호 수정", text: "다른 전화번호로 다시 진행하시겠습니까?") { [weak self] in
-                self?.configureUIForAuthCanceled()
-                self?.viewModel?.cancelAuth()
-            }
-            return false
-        }
-        return true
-    }
-
+    
     @objc func keyboardWillChangeFrame(notification: Notification) {
         guard let userInfo = notification.userInfo,
               let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {

@@ -23,8 +23,12 @@ struct SignupUserInfo: Encodable {
     var graduationStatus: String? = "재학"
     var marketing: Bool = false
     
-    var isValid: Bool {
+    var isValidForPopupTags: Bool {
         return [username, school, major, majorDetail, graduationStatus].allSatisfy { $0 != nil }
         && phone?.isValidPhoneNumberWithCountryCode == true
+    }
+    
+    var isValidForSignup: Bool {
+        return self.isValidForPopupTags && self.favoriteTags.isEmpty == false
     }
 }
