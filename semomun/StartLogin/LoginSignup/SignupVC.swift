@@ -41,6 +41,7 @@ final class SignupVC: UIViewController {
     @IBOutlet weak var signupCompleteButton: UIButton!
     /// for layout
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var completeButtonHeight: NSLayoutConstraint!
     
     private lazy var segmentedControl = SegmentedControlView(buttons: [
         SegmentedButtonInfo(title: "재학") { [weak self] in
@@ -75,6 +76,15 @@ final class SignupVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        /// homebar 가 존재하는 디바이스의 경우 하단 완료 버튼 layout 수정
+        if view.safeAreaInsets.bottom > 0 {
+            self.completeButtonHeight.constant = 73+20
+            self.signupCompleteButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        }
     }
     
     @IBAction func postAuthNumber(_ sender: Any) {
@@ -135,6 +145,7 @@ final class SignupVC: UIViewController {
     
     @IBAction func signupComplete(_ sender: Any) {
         // tags 선택창 표시
+        print("show tagsVC")
     }
 }
 
@@ -215,8 +226,14 @@ extension SignupVC {
                     self?.idWarningLabel.textColor = UIColor.systemGreen
                     self?.dismissKeyboard()
                 case .userInfoComplete:
-                    self?.signupCompleteButton.isUserInteractionEnabled = self?.agreeCompleted == true
-                    self?.signupCompleteButton.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+                    let completeable = self?.agreeCompleted == true
+                    if completeable {
+                        self?.signupCompleteButton.isUserInteractionEnabled = true
+                        self?.signupCompleteButton.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+                    } else {
+                        self?.signupCompleteButton.isUserInteractionEnabled = false
+                        self?.signupCompleteButton.backgroundColor = UIColor.systemGray4
+                    }
                 case .userInfoIncomplete:
                     self?.signupCompleteButton.isUserInteractionEnabled = false
                     self?.signupCompleteButton.backgroundColor = UIColor.systemGray4
@@ -281,7 +298,7 @@ extension SignupVC: UITextFieldDelegate {
 
         switch textField {
         case self.phoneNumTextField:
-            self.updateClickable(to: updatedText.count > 10, target: self.postAuthButton)
+            self.updateClickable(to: updatedText.count > 8, target: self.postAuthButton)
             return true
         case self.authNumTextField:
             self.updateClickable(to: updatedText.count == 6, target: self.checkAuthButton)
