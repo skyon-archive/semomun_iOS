@@ -49,7 +49,7 @@ final class ChangeUserInfoVM {
     /// 사용자가 입력하는 중에도 확인할 수 있는 username 포맷들을 확인합니다. e.g. 사용할 수 없는 문자
     func checkUsernameFormat(_ username: String) -> Bool {
         if username.isValidUsernameDuringTyping {
-            self.status = .usernameValid
+//            self.status = .usernameValid
             return true
         } else {
             self.status = .usernameInvalid

@@ -15,51 +15,28 @@ final class SignupVM {
     @Published private(set) var alert: LoginSignupAlert?
     @Published private(set) var majors: [String] = []
     @Published private(set) var majorDetails: [String] = []
+    private let networkUseCase: LoginSignupVMNetworkUsecase
+    private let phoneAuthenticator: PhoneAuthenticator
     private let majorRawValues: [[String]] = [
         ["인문", "상경", "사회", "교육", "기타"],
         ["공학", "자연", "의약", "생활과학", "기타"],
         ["미술", "음악", "체육", "기타"]
     ]
-    
     private(set) var signupUserInfo = SignupUserInfo() {
         didSet {
-            dump(signupUserInfo)
-            self.status = self.signupUserInfo.isValid ? .userInfoComplete : .userInfoIncomplete
+            self.status = self.signupUserInfo.isValidForPopupTags ? .userInfoComplete : .userInfoIncomplete
         }
-    }
-    
-    /// 전화번호 인증이 완료되었는지 여부
-    private(set) var canChangePhoneNumber = true
-    
-    private var majorWithDetail: [String: [String]] = [:]
-    
-    private let networkUseCase: LoginSignupVMNetworkUsecase
-    private let phoneAuthenticator: PhoneAuthenticator
-    
-    var selectedMajor: String? {
-        return self.signupUserInfo.major
-    }
-    
-    var selectedMajorDetail: String? {
-        return self.signupUserInfo.majorDetail
     }
     
     init(networkUseCase: LoginSignupVMNetworkUsecase) {
         self.networkUseCase = networkUseCase
         self.phoneAuthenticator = PhoneAuthenticator(networkUsecase: networkUseCase)
-        self.fetchMajorInfo()
     }
-    
-    func checkUsernameFormat(_ username: String) -> Bool {
-        if username.isValidUsernameDuringTyping {
-            self.status = .usernameValid
-            return true
-        } else {
-            self.status = .usernameInvalid
-            return false
-        }
-    }
-    
+}
+
+// MARK: Public Functions
+extension SignupVM {
+    /// 전화번호 전송을 위한 전화번호 형식확인
     func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
         if phoneNumber.isNumber && phoneNumber.count < 12 {
             self.status = .phoneNumberValid
@@ -69,63 +46,7 @@ final class SignupVM {
             return false
         }
     }
-    
-    func changeUsername(_ username: String) {
-        guard username.isValidUsername else {
-            self.status = .usernameInvalid
-            return
-        }
-        self.networkUseCase.usernameAvailable(username) { [weak self] status, isAvailable in
-            if status == .SUCCESS {
-                if isAvailable {
-                    self?.signupUserInfo.username = username
-                    self?.status = .usernameAvailable
-                } else {
-                    self?.status = .usernameAlreadyUsed
-                }
-            } else {
-                self?.alert = .networkErrorWithoutPop
-            }
-        }
-    }
-    
-    func selectMajor(at index: Int) {
-        guard let majorName = self.majors[safe: index] else { return }
-        self.signupUserInfo.major = majorName
-        if let majorDetails = self.majorWithDetail[majorName] {
-            self.majorDetails = majorDetails
-        }
-        self.signupUserInfo.majorDetail = nil
-    }
-    
-    func selectMajorDetail(at index: Int) {
-        guard let majorDetailName = self.majorDetails[safe: index] else { return }
-        self.signupUserInfo.majorDetail = majorDetailName
-    }
-    
-    func selectSchool(_ school: String) {
-        self.signupUserInfo.school = school
-    }
-    
-    func selectGraduationStatus(_ graduationStatus: String) {
-        self.signupUserInfo.graduationStatus = graduationStatus
-    }
-    
-    func updateFavoriteTags() {
-        if let tagsData = UserDefaultsManager.favoriteTags,
-           let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
-            self.signupUserInfo.favoriteTags = tags.map(\.tid)
-        }
-    }
-    
-    /// username에 변화가 있는 경우 기존에 있던(예전에 중복확인을 한) username을 무효화
-    func invalidateUsername() {
-        self.signupUserInfo.username = nil
-    }
-}
-
-// MARK: 전화 인증 관련 메소드
-extension SignupVM {
+    /// 전화번호로 인증번호 전송
     func requestPhoneAuth(withPhoneNumber phoneNumber: String) {
         guard phoneNumber.isValidPhoneNumber else {
             self.status = .phoneNumberInvalid
@@ -135,7 +56,6 @@ extension SignupVM {
             switch result {
             case .success(_):
                 self.status = .authCodeSent
-                self.canChangePhoneNumber = false
             case .failure(let error):
                 switch error {
                 case .noNetwork:
@@ -148,7 +68,7 @@ extension SignupVM {
             }
         }
     }
-    
+    /// 인증번호 확인
     func confirmAuthNumber(with code: String) {
         self.phoneAuthenticator.verifySMSCode(code) { result in
             switch result {
@@ -157,6 +77,7 @@ extension SignupVM {
                     self.alert = .networkErrorWithoutPop
                     return
                 }
+                // 전화번호 형식수정 후 반영
                 self.signupUserInfo.phone = phoneNumberWithCountryCode
                 self.status = .authComplete
             case .failure(let error):
@@ -171,60 +92,51 @@ extension SignupVM {
             }
         }
     }
-    
-    func requestAuthAgain() {
-        self.phoneAuthenticator.resendSMSCode { result in
-            switch result {
-            case .success(_):
-                self.status = .authCodeSent
-            case .failure(let error):
-                switch error {
-                case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
-                case .smsSentTooMuch:
-                    self.alert = .snsLimitExceedAlert
+    /// 닉네임 형식 확인 및 중복확인
+    func checkIDDuplicated(_ id: String) {
+        guard id.isValidUsername else {
+            self.status = .usernameInvalid
+            return
+        }
+        self.networkUseCase.usernameAvailable(id) { [weak self] status, isAvailable in
+            if status == .SUCCESS {
+                if isAvailable {
+                    self?.signupUserInfo.username = id
+                    self?.status = .usernameAvailable
+                } else {
+                    self?.status = .usernameAlreadyUsed
                 }
+            } else {
+                self?.alert = .networkErrorWithoutPop
             }
         }
     }
-    
-    func cancelAuth() {
-        self.canChangePhoneNumber = true
-        self.signupUserInfo.phone = nil
+    /// username에 변화가 있는 경우 기존에 있던(예전에 중복확인을 한) username을 무효화
+    func invalidateUsername() {
+        self.signupUserInfo.username = nil
     }
-}
-
-// MARK: Private functions
-extension SignupVM {
-    private func fetchMajorInfo() {
-        self.networkUseCase.getMajors { [weak self] majorFetched in
-            guard let majorFetched = majorFetched else {
-                self?.alert = .networkErrorWithPop
-                return
-            }
-            self?.majors = majorFetched.map(\.name)
-            self?.majorWithDetail = majorFetched.reduce(into: [:]) { result, next in
-                result[next.name] = next.details
-            }
-            if let firstMajorName = self?.majors.first,
-               let firstMajorDetail = self?.majorWithDetail[firstMajorName] {
-                self?.majorDetails = firstMajorDetail
-            }
-        }
-    }
-}
-
-
-extension SignupVM {
+    /// Major 선택 -> MajorDetail 내용 변경, Major, MajorDetail 초기화 반영
     func selectMajor(to index: Int) {
         self.majorDetails = self.majorRawValues[index]
         self.signupUserInfo.major = nil
         self.signupUserInfo.majorDetail = nil
     }
-    
+    /// MajorDetail 선택, Major, MajorDetail 내용 반영
     func selectMajorDetail(major: String, detailIndex: Int) {
         let majorDetail = self.majorDetails[detailIndex]
         self.signupUserInfo.major = major
         self.signupUserInfo.majorDetail = majorDetail
+    }
+    /// 학교정보 반영
+    func selectSchool(_ school: String) {
+        self.signupUserInfo.school = school
+    }
+    /// 졸업여부 반영
+    func selectGraduationStatus(_ graduationStatus: String) {
+        self.signupUserInfo.graduationStatus = graduationStatus
+    }
+    /// 마케팅 반영
+    func selectMarketing(to value: Bool) {
+        self.signupUserInfo.marketing = value
     }
 }

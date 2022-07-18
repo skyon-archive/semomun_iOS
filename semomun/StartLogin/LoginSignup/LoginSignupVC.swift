@@ -85,7 +85,7 @@ final class LoginSignupVC: UIViewController {
         self.viewModel?.updateFavoriteTags()
         
         guard let userInfo = self.viewModel?.signupUserInfo,
-              userInfo.isValid else {
+              userInfo.isValidForPopupTags else {
             self.showAlertWithOK(title: "모든 정보를 입력해주세요", text: "")
             return
         }
@@ -235,8 +235,6 @@ extension LoginSignupVC {
                     self?.coloredFrameLabels[0].configure(type: .success("사용가능한 닉네임입니다."))
                 case .usernameInvalid:
                     self?.coloredFrameLabels[0].configure(type: .warning("5~20자의 숫자와 알파벳(최소 하나), 언더바(_)의 조합이 가능합니다."))
-                case .usernameValid:
-                    self?.coloredFrameLabels[0].isHidden = true
                     
                 case .phoneNumberInvalid:
                     self?.coloredFrameLabels[1].configure(type: .warning("10-11자리의 숫자를 입력해주세요."))
