@@ -23,6 +23,7 @@ final class SignupVM {
     
     private(set) var signupUserInfo = SignupUserInfo() {
         didSet {
+            dump(signupUserInfo)
             self.status = self.signupUserInfo.isValid ? .userInfoComplete : .userInfoIncomplete
         }
     }
