@@ -22,6 +22,7 @@ final class SignupVC: UIViewController {
     @IBOutlet weak var postAuthButton: UIButton!
     @IBOutlet weak var checkAuthButton: UIButton!
     @IBOutlet weak var checkIdButton: UIButton!
+    @IBOutlet weak var schoolButton: UIButton!
     /// status line
     @IBOutlet weak var phoneStatusLine: UIView!
     @IBOutlet weak var authStatusLine: UIView!
@@ -126,7 +127,7 @@ final class SignupVC: UIViewController {
     
     @IBAction func showSchoolSelectPopup(_ sender: Any) {
         guard let schoolSelectPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SchoolSelectPopupVC.identifier) as? SchoolSelectPopupVC else { return }
-        // delegate 연결
+        schoolSelectPopupVC.configureDelegate(self)
         self.present(schoolSelectPopupVC, animated: true)
     }
     
@@ -335,5 +336,13 @@ extension SignupVC: UITextFieldDelegate {
 
     @objc func keyboardWillHide(notification: Notification) {
         self.scrollView.contentInset = UIEdgeInsets.zero
+    }
+}
+
+extension SignupVC: SchoolSelectDelegate {
+    func selectSchool(to schoolName: String) {
+        self.schoolButton.setTitle(schoolName, for: .normal)
+        self.schoolButton.setTitleColor(UIColor.getSemomunColor(.darkGray), for: .normal)
+        self.viewModel?.selectSchool(schoolName)
     }
 }
