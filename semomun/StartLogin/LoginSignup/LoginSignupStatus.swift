@@ -22,10 +22,6 @@ enum LoginSignupAlert {
     static var snsLimitExceedAlert: Self {
         return .alertWithoutPop(title: "인증 횟수 초과", description: "1시간 후 다시 시도해주세요.")
     }
-    
-    static var insufficientData: Self {
-        return .alertWithoutPop(title: "비어있는 정보", description: "모든 정보를 입력하셨는지 확인해주세요.")
-    }
 }
 
 enum LoginSignupStatus {
