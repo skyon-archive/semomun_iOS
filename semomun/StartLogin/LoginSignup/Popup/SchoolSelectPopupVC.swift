@@ -115,6 +115,7 @@ extension SchoolSelectPopupVC: UITextFieldDelegate {
 extension SchoolSelectPopupVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.schoolName = self.schoolListData[indexPath.item]
+        self.dismissKeyboard()
         self.schoolList.reloadData()
     }
 }
