@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & UsernameCheckable & PhonenumVerifiable)
-
 final class LoginSignupVM {
     @Published private(set) var status: LoginSignupStatus?
     @Published private(set) var alert: LoginSignupAlert?
@@ -207,4 +205,3 @@ extension LoginSignupVM {
         }
     }
 }
-

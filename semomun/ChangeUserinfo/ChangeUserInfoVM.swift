@@ -121,7 +121,7 @@ final class ChangeUserInfoVM {
         guard self.status != .wrongAuthCode,
               self.status != .authCodeSent,
               self.newUserInfo?.isValid == true else {
-            self.alert = .insufficientData
+//            self.alert = .insufficientData
             completion(false)
             return
         }

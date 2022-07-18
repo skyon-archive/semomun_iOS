@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class SignupVC: UIViewController {
     static let identifier = "SignupVC"
@@ -13,6 +14,10 @@ final class SignupVC: UIViewController {
     @IBOutlet weak var searchIcon: UIImageView!
     @IBOutlet weak var graduationLabel: UILabel!
     @IBOutlet weak var graduationInputView: UIView!
+    /// textField
+    @IBOutlet weak var phoneNumTextField: UITextField!
+    @IBOutlet weak var authNumTextField: UITextField!
+    @IBOutlet weak var idTextField: UITextField!
     /// action
     @IBOutlet weak var postAuthButton: UIButton!
     @IBOutlet weak var checkAuthButton: UIButton!
@@ -30,6 +35,9 @@ final class SignupVC: UIViewController {
     @IBOutlet var longTextButtons: [UIButton]!
     /// complete
     @IBOutlet weak var signupCompleteButton: UIButton!
+    /// for layout
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     private lazy var segmentedControl = SegmentedControlView(buttons: [
         SegmentedButtonInfo(title: "재학") { [weak self] in
             print("재학")
@@ -38,12 +46,16 @@ final class SignupVC: UIViewController {
             print("졸업")
         }
     ])
+    private var viewModel: LoginSignupVM?
+    private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "회원가입"
+        self.configureViewModel()
         self.configureUI()
-        self.postAuthButton.backgroundColor = UIColor.getSemomunColor(.blueRegular)
+        self.configureTextFieldDelegate()
+        self.bindAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,13 +64,21 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func postAuthNumber(_ sender: Any) {
-        self.phoneStatusLine.backgroundColor = UIColor.systemRed
-        self.warningPhoneView.isHidden = false
+        guard let viewModel = viewModel,
+              let phoneNumber = self.phoneNumTextField.text,
+              viewModel.checkPhoneNumberFormat(phoneNumber) == true else {
+            // 잘못된 전화번호 형식 표시
+            self.phoneStatusLine.backgroundColor = UIColor.systemRed
+            self.warningPhoneView.isHidden = false
+            return
+        }
+        // auth 전송
+        viewModel.requestPhoneAuth(withPhoneNumber: phoneNumber)
     }
     
     @IBAction func checkAuthNumber(_ sender: Any) {
-        self.authStatusLine.backgroundColor = UIColor.systemRed
-        self.warningAuthView.isHidden = false
+        guard let authNumber = self.authNumTextField.text else { return }
+        self.viewModel?.confirmAuthNumber(with: authNumber)
     }
     
     @IBAction func checkNameDuplicated(_ sender: Any) {
@@ -94,6 +114,10 @@ final class SignupVC: UIViewController {
 }
 
 extension SignupVC {
+    private func configureViewModel() {
+        self.viewModel = LoginSignupVM(networkUseCase: NetworkUsecase(network: Network()))
+    }
+    
     private func configureUI() {
         self.searchIcon.setSVGTintColor(to: UIColor.getSemomunColor(.black))
         self.graduationInputView.addSubview(self.segmentedControl)
@@ -102,6 +126,63 @@ extension SignupVC {
             self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
         ])
         self.segmentedControl.selectIndex(to: 0)
+    }
+    
+    private func configureTextFieldDelegate() {
+        self.phoneNumTextField.delegate = self
+        self.authNumTextField.delegate = self
+        self.idTextField.delegate = self
+    }
+}
+
+extension SignupVC {
+    private func bindAll() {
+        self.bindStatus()
+    }
+    
+    private func bindStatus() {
+        self.viewModel?.$status
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                switch status {
+                case .phoneNumberInvalid:
+                    self?.phoneStatusLine.backgroundColor = UIColor.systemRed
+                    self?.warningPhoneView.isHidden = false
+                case .phoneNumberValid:
+                    self?.phoneStatusLine.backgroundColor = UIColor.getSemomunColor(.border)
+                    self?.warningPhoneView.isHidden = true
+                case .authCodeSent:
+                    self?.phoneNumTextField.isUserInteractionEnabled = false
+                    self?.authNumTextField.becomeFirstResponder()
+                case .wrongAuthCode:
+                    self?.authStatusLine.backgroundColor = UIColor.systemRed
+                    self?.warningAuthView.isHidden = false
+                case .authComplete:
+                    self?.authNumTextField.isUserInteractionEnabled = false
+                    self?.idTextField.becomeFirstResponder()
+                    
+                    self?.authStatusLine.backgroundColor = UIColor.getSemomunColor(.border)
+                    self?.warningAuthView.isHidden = true
+                    self?.checkAuthButton.setTitle("인증 완료", for: .normal)
+                    self?.updateClickable(to: false, target: self?.postAuthButton)
+                    self?.updateClickable(to: false, target: self?.checkAuthButton)
+                case .usernameAlreadyUsed:
+                    print("hello")
+                case .usernameAvailable:
+                    print("hello")
+                case .usernameInvalid:
+                    print("hello")
+                case .usernameValid:
+                    print("hello")
+                case .userInfoComplete:
+                    print("hello")
+                case .userInfoIncomplete:
+                    print("hello")
+                case .none:
+                    break
+                }
+            }
+            .store(in: &self.cancellables)
     }
 }
 
@@ -122,5 +203,87 @@ extension SignupVC {
     
     private func updateAllChecks(to: Bool) {
         self.checkButtons.forEach { $0.isSelected = to }
+    }
+    
+    private func updateClickable(to: Bool, target: UIButton?) {
+        target?.isUserInteractionEnabled = to
+        target?.backgroundColor = to ? UIColor.getSemomunColor(.blueRegular) : UIColor.systemGray4
+    }
+}
+
+extension SignupVC {
+    private func configureUIForAuthCanceled() {
+//        self.getAuthNumButton.isHidden = false
+//        self.requestAgainButton.isHidden = true
+//        self.verifyAuthNumButton.isHidden = true
+//
+//        self.authNumTextField.isEnabled = false
+//        self.authNumTextField.text = ""
+//
+//        self.coloredFrameLabels[1].isHidden = true
+//        self.coloredFrameLabels[2].isHidden = true
+//
+//        self.phoneNumTextFieldTrailingConstraint.constant = self.phoneNumTextFieldTrailingMargin
+    }
+}
+
+extension SignupVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text, let textRange = Range(range, in: text) else {
+            return true
+        }
+
+        // replacementString이 적용된 최종 text
+        let updatedText = text.replacingCharacters(in: textRange, with: string)
+
+        switch textField {
+        case self.phoneNumTextField:
+            self.updateClickable(to: updatedText.count > 10, target: self.postAuthButton)
+            return true
+        case self.authNumTextField:
+            self.updateClickable(to: updatedText.count == 6, target: self.checkAuthButton)
+            return true
+        case self.idTextField:
+            return true
+        default:
+            return true
+        }
+    }
+
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == self.phoneNumTextField {
+            return self.isPhoneNumberChangeAvailable()
+        } else if textField == self.idTextField {
+            self.viewModel?.invalidateUsername()
+            return true
+        } else {
+            return true
+        }
+    }
+
+    // 인증 중이거나 인증이 완료된 경우 Alert을 띄우고 false를 반환
+    private func isPhoneNumberChangeAvailable() -> Bool {
+        if self.viewModel?.canChangePhoneNumber == false {
+            self.showAlertWithCancelAndOK(title: "전화번호 수정", text: "다른 전화번호로 다시 진행하시겠습니까?") { [weak self] in
+                self?.configureUIForAuthCanceled()
+                self?.viewModel?.cancelAuth()
+            }
+            return false
+        }
+        return true
+    }
+
+    @objc func keyboardWillChangeFrame(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        self.scrollView.contentInset = contentInset
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        self.scrollView.contentInset = UIEdgeInsets.zero
     }
 }

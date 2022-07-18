@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad7_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -366,7 +366,7 @@
                                                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2L-hp-kjs">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2L-hp-kjs">
                                                                         <rect key="frame" x="556" y="39" width="124" height="28"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
@@ -452,14 +452,15 @@
                                                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4B-9e-bxD">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4B-9e-bxD">
                                                                         <rect key="frame" x="556" y="39" width="124" height="28"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
+                                                                            <constraint firstAttribute="width" constant="124" id="Hw2-qu-AOc"/>
                                                                             <constraint firstAttribute="height" constant="28" id="dry-A6-YvX"/>
-                                                                            <constraint firstAttribute="width" constant="124" id="gjf-Xi-XCK"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                                        <inset key="contentEdgeInsets" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <state key="normal" title="인증번호 확인">
                                                                             <color key="titleColor" name="white"/>
@@ -582,7 +583,7 @@
                                                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-aT-GB0">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-aT-GB0">
                                                                         <rect key="frame" x="580" y="35" width="100" height="28"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
@@ -1236,12 +1237,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="authNumTextField" destination="vF8-EZ-XzY" id="GOW-h7-X2e"/>
                         <outlet property="authStatusLine" destination="KQB-rd-Cwg" id="goP-TZ-EL6"/>
                         <outlet property="checkAuthButton" destination="c4B-9e-bxD" id="ya5-OK-FsN"/>
                         <outlet property="graduationInputView" destination="ksj-FN-qdI" id="csk-ii-btW"/>
                         <outlet property="graduationLabel" destination="sdb-Fw-GUm" id="MQ7-Hm-Aw3"/>
+                        <outlet property="idTextField" destination="26y-xJ-ggB" id="NiM-EW-bes"/>
+                        <outlet property="phoneNumTextField" destination="u99-Je-Sc5" id="Ier-SG-BfY"/>
                         <outlet property="phoneStatusLine" destination="PjO-75-jBC" id="XOx-D0-5tf"/>
                         <outlet property="postAuthButton" destination="G2L-hp-kjs" id="f11-aB-Ory"/>
+                        <outlet property="scrollView" destination="Yak-Jl-qu6" id="zBt-6y-Pmh"/>
                         <outlet property="searchIcon" destination="l6a-Yn-Jo0" id="YAk-uI-ykF"/>
                         <outlet property="signupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
                         <outlet property="warningAuthView" destination="Ksu-5z-QP8" id="lb9-tu-XRU"/>
@@ -1930,12 +1935,12 @@
     </scenes>
     <resources>
         <image name="checkCircle" width="24" height="24"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
-        <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevronRightOutline" width="24" height="24"/>
         <image name="circleRing" width="24" height="24"/>
         <image name="logo" width="394" height="320"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="searchOutline" width="24" height="24"/>
         <image name="xOutline" width="24" height="24"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
