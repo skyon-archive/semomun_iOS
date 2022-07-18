@@ -144,8 +144,10 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func signupComplete(_ sender: Any) {
-        // tags 선택창 표시
-        print("show tagsVC")
+        let networkUsecase = NetworkUsecase(network: Network())
+        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
+        let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .signup)
+        self.present(searchTagVC, animated: true, completion: nil)
     }
 }
 
@@ -173,6 +175,12 @@ extension SignupVC {
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.tagSelectComplete), name: .refreshFavoriteTags, object: nil)
+    }
+    
+    @objc func tagSelectComplete() {
+        // show apple, google
+        print("complete")
     }
 }
 
