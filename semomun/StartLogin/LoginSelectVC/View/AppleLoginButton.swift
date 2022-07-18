@@ -8,8 +8,14 @@
 import UIKit
 
 final class AppleLoginButton: UIButton {
-    convenience init() {
+    enum Style: String {
+        case login = "Apple로 로그인"
+        case `continue` = "Apple로 계속하기"
+    }
+    
+    convenience init(style: Style) {
         self.init(frame: CGRect())
+        self.setTitle(style.rawValue, for: .normal)
         self.configureLayout()
     }
     
@@ -18,7 +24,6 @@ final class AppleLoginButton: UIButton {
         self.backgroundColor = UIColor.getSemomunColor(.black)
         self.titleLabel?.font = UIFont.heading3
         self.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
-        self.setTitle("Apple로 로그인", for: .normal)
         self.setImage(UIImage(.AppleLogo), for: .normal)
         self.layer.cornerRadius = 10
         self.layer.cornerCurve = .continuous
