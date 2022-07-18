@@ -44,10 +44,10 @@ final class SignupVC: UIViewController {
     
     private lazy var segmentedControl = SegmentedControlView(buttons: [
         SegmentedButtonInfo(title: "재학") { [weak self] in
-            print("재학")
+            self?.viewModel?.selectGraduationStatus("재학")
         },
         SegmentedButtonInfo(title: "졸업") { [weak self] in
-            print("졸업")
+            self?.viewModel?.selectGraduationStatus("졸업")
         }
     ])
     private var viewModel: SignupVM?

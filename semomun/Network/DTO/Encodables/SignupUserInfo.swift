@@ -20,7 +20,7 @@ struct SignupUserInfo: Encodable {
     var major: String?
     var majorDetail: String?
     var favoriteTags: [Int] = []
-    var graduationStatus: String?
+    var graduationStatus: String? = "재학"
     var marketing: Bool = false
     
     var isValid: Bool {

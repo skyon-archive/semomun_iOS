@@ -86,6 +86,7 @@ final class SegmentedButton: UIButton {
         self.layer.cornerRadius = 14
         self.layer.cornerCurve = .continuous
         self.addAction(UIAction(handler: { _ in
+            info.action()
             action()
         }), for: .touchUpInside)
     }
