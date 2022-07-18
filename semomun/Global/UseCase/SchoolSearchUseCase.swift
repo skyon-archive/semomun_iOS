@@ -9,6 +9,7 @@ import Foundation
 
 struct SchoolSearchUseCase {
     let networkUseCase: NetworkUsecase?
+    
     init(networkUseCase: NetworkUsecase) {
         self.networkUseCase = networkUseCase
     }
@@ -18,8 +19,9 @@ struct SchoolSearchUseCase {
         case middle = "중학교"
         case high = "고등학교"
         case univ = "대학교"
-        case special = "특수/기타 학교"
-        case alter = "대안학교"
+        case alter = "대안"
+        case special = "특수/기타"
+        
         var key: String {
             switch self {
             case .elementary: return "elem_list"

@@ -206,6 +206,7 @@
 		87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87599FF427A10E1D00E27042 /* SearchVM.swift */; };
 		8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766B1F5277C44A600061CE6 /* FormCellControllable.swift */; };
 		8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */; };
+		8769EFB3288557A40047A692 /* SchoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8769EFB2288557A40047A692 /* SchoolCell.swift */; };
 		87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */; };
 		8775EFF6287FFBC800D3665B /* SignupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775EFF5287FFBC800D3665B /* SignupButton.swift */; };
 		8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8778D28328695331002B1684 /* PracticeTestManager.swift */; };
@@ -532,6 +533,7 @@
 		87599FF427A10E1D00E27042 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		8766B1F5277C44A600061CE6 /* FormCellControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellControllable.swift; sourceTree = "<group>"; };
 		8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemErrorVC.swift; sourceTree = "<group>"; };
+		8769EFB2288557A40047A692 /* SchoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCell.swift; sourceTree = "<group>"; };
 		87739AF2287D27DE007086D6 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
 		8775EFF5287FFBC800D3665B /* SignupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupButton.swift; sourceTree = "<group>"; };
 		8778D28328695331002B1684 /* PracticeTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestManager.swift; sourceTree = "<group>"; };
@@ -755,13 +757,13 @@
 		251DC46F27B3B6FA00F1CE27 /* LoginSignup */ = {
 			isa = PBXGroup;
 			children = (
+				8769EFB1288557870047A692 /* Popup */,
 				87B660602880FE5F009FE9B2 /* SignupVC.swift */,
 				878B540A28816225002B5344 /* SignupVM.swift */,
 				8716E941279A600200B33A5E /* LoginSignupVC.swift */,
 				251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */,
 				25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */,
 				258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */,
-				87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */,
 			);
 			path = LoginSignup;
 			sourceTree = "<group>";
@@ -1362,6 +1364,15 @@
 				251435CB2859A9500084ABA8 /* CellLayoutable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		8769EFB1288557870047A692 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */,
+				8769EFB2288557A40047A692 /* SchoolCell.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 		877B1E3227CBC5B000AC8B84 /* Decoder */ = {
@@ -2013,6 +2024,7 @@
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
 				87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
+				8769EFB3288557A40047A692 /* SchoolCell.swift in Sources */,
 				879CC21C286957FB007E3508 /* TestInfo.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,

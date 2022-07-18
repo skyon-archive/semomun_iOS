@@ -1254,6 +1254,7 @@
                         <outlet property="phoneStatusLine" destination="PjO-75-jBC" id="XOx-D0-5tf"/>
                         <outlet property="phoneWarniingLabel" destination="OfB-2p-I25" id="bWA-Lb-QdT"/>
                         <outlet property="postAuthButton" destination="G2L-hp-kjs" id="f11-aB-Ory"/>
+                        <outlet property="schoolButton" destination="ExX-yk-HbZ" id="EdF-tw-Lq2"/>
                         <outlet property="scrollView" destination="Yak-Jl-qu6" id="zBt-6y-Pmh"/>
                         <outlet property="searchIcon" destination="l6a-Yn-Jo0" id="YAk-uI-ykF"/>
                         <outlet property="signupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
@@ -1302,7 +1303,7 @@
                                         <fontDescription key="fontDescription" name="PretendardVariable-Regular" family="Pretendard Variable" pointSize="16"/>
                                         <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="특수/기타" image="chevronDownOutline">
+                                        <state key="normal" title="초등학교" image="chevronDownOutline">
                                             <color key="titleColor" name="darkGray"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1414,14 +1415,14 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y46-N5-Bla">
                                         <rect key="frame" x="24" y="92" width="424" height="384"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="iKu-c0-Xxm">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="iKu-c0-Xxm">
                                             <size key="itemSize" width="424" height="48"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Tcx-pS-Sb8">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SchoolCell" id="Tcx-pS-Sb8" customClass="SchoolCell" customModule="semomun" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="424" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qjw-ga-Avs">
@@ -1434,29 +1435,6 @@
                                                             <color key="textColor" name="darkGray"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Lu-b9-UdR">
-                                                            <rect key="frame" x="392" y="14" width="20" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="20" id="akm-2I-pPa"/>
-                                                                <constraint firstAttribute="height" constant="20" id="eei-Lz-pgW"/>
-                                                            </constraints>
-                                                            <color key="tintColor" name="blueRegular"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="selected" image="circle.fill" catalog="system">
-                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="16"/>
-                                                            </state>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="10"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                    <real key="value" value="2"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                    <color key="value" name="lightGray"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXc-Ap-HqN" userLabel="underline">
                                                             <rect key="frame" x="0.0" y="47" width="424" height="1"/>
                                                             <color key="backgroundColor" name="border"/>
@@ -1464,19 +1442,42 @@
                                                                 <constraint firstAttribute="height" constant="1" id="AgO-uP-tul"/>
                                                             </constraints>
                                                         </view>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cgi-ng-5Ot">
+                                                            <rect key="frame" x="392" y="14" width="20" height="20"/>
+                                                            <color key="tintColor" name="blueRegular"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="c3m-w1-9Ej"/>
+                                                                <constraint firstAttribute="width" constant="20" id="oDL-ye-zgU"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8.5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" name="lightGray"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="7Lu-b9-UdR" secondAttribute="trailing" constant="12" id="12b-60-oGJ"/>
-                                                        <constraint firstItem="7Lu-b9-UdR" firstAttribute="centerY" secondItem="qjw-ga-Avs" secondAttribute="centerY" id="1cw-dI-89h"/>
+                                                        <constraint firstItem="cgi-ng-5Ot" firstAttribute="leading" secondItem="kPe-4Y-yaN" secondAttribute="trailing" constant="12" id="Mv2-9Y-hgY"/>
                                                         <constraint firstItem="rXc-Ap-HqN" firstAttribute="leading" secondItem="qjw-ga-Avs" secondAttribute="leading" id="RaC-af-2ZF"/>
+                                                        <constraint firstItem="cgi-ng-5Ot" firstAttribute="centerY" secondItem="qjw-ga-Avs" secondAttribute="centerY" id="W3u-qn-Cb9"/>
                                                         <constraint firstAttribute="trailing" secondItem="rXc-Ap-HqN" secondAttribute="trailing" id="XQd-7t-8vx"/>
-                                                        <constraint firstItem="7Lu-b9-UdR" firstAttribute="leading" secondItem="kPe-4Y-yaN" secondAttribute="trailing" constant="12" id="aRQ-f3-6jd"/>
                                                         <constraint firstItem="kPe-4Y-yaN" firstAttribute="leading" secondItem="qjw-ga-Avs" secondAttribute="leading" constant="12" id="erl-lK-n4J"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cgi-ng-5Ot" secondAttribute="trailing" constant="12" id="shs-1v-ca9"/>
                                                         <constraint firstAttribute="bottom" secondItem="rXc-Ap-HqN" secondAttribute="bottom" id="yRD-dX-Wdq"/>
                                                         <constraint firstItem="kPe-4Y-yaN" firstAttribute="centerY" secondItem="qjw-ga-Avs" secondAttribute="centerY" id="zFs-U3-wuN"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="424" height="48"/>
+                                                <connections>
+                                                    <outlet property="checkIcon" destination="cgi-ng-5Ot" id="jW4-Ya-Kkc"/>
+                                                    <outlet property="schoolNameLabel" destination="kPe-4Y-yaN" id="h5T-Dh-Zlk"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
@@ -1512,8 +1513,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="completeButton" destination="T0L-pE-i0R" id="dZZ-0A-PVu"/>
                         <outlet property="schoolCategoryButton" destination="r7n-Uz-wNG" id="oMC-CE-kgI"/>
                         <outlet property="schoolList" destination="y46-N5-Bla" id="uNM-j5-hfS"/>
+                        <outlet property="schoolTextField" destination="HJC-0k-weU" id="GGx-XE-bdq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vq5-9m-dbv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2186,7 +2189,6 @@
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevronDownOutline" width="24" height="24"/>
         <image name="chevronRightOutline" width="24" height="24"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="circleRing" width="24" height="24"/>
         <image name="logo" width="394" height="320"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
