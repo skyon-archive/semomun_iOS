@@ -15,6 +15,7 @@ final class PayHistoryVM {
         case noNetwork
     }
     
+    var isPaging = false
     @Published private(set) var purchaseOfEachMonth: [(section: String, content: [PurchasedItem])] = []
     @Published private(set) var remainingSemopay: Int = 0
     @Published private(set) var alert: Alert?
