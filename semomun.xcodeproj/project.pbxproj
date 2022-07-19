@@ -75,7 +75,6 @@
 		2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25627729279EE6C7006F9370 /* MainThemeSwitch.swift */; };
 		2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772D27A16C56006F9370 /* PayHistoryofDB.swift */; };
 		2562773027A17E00006F9370 /* MyPurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562772F27A17E00006F9370 /* MyPurchaseCell.swift */; };
-		2562773227A19E52006F9370 /* SemopayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562773127A19E51006F9370 /* SemopayCell.swift */; };
 		2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */; };
 		2568CDBD2876B9CB008F34ED /* ScrollingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */; };
 		2568CDBF2876CEEF008F34ED /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CDBE2876CEEF008F34ED /* HomeVC.swift */; };
@@ -149,7 +148,6 @@
 		8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E945279A601700B33A5E /* LoginServicePopupVC.swift */; };
 		8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E948279A611D00B33A5E /* ProfileVC.swift */; };
 		8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */; };
-		8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94C279A618F00B33A5E /* SemopayVC.swift */; };
 		8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94E279A61A700B33A5E /* LongTextVC.swift */; };
 		8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E950279A620200B33A5E /* MyPurchasesVC.swift */; };
 		8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E952279A620D00B33A5E /* WaitingChargeVC.swift */; };
@@ -405,7 +403,6 @@
 		25627729279EE6C7006F9370 /* MainThemeSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThemeSwitch.swift; sourceTree = "<group>"; };
 		2562772D27A16C56006F9370 /* PayHistoryofDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistoryofDB.swift; sourceTree = "<group>"; };
 		2562772F27A17E00006F9370 /* MyPurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchaseCell.swift; sourceTree = "<group>"; };
-		2562773127A19E51006F9370 /* SemopayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayCell.swift; sourceTree = "<group>"; };
 		2568CDBA2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackgroundFlowLayout.swift; sourceTree = "<group>"; };
 		2568CDBC2876B9CB008F34ED /* ScrollingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingBackground.swift; sourceTree = "<group>"; };
 		2568CDBE2876CEEF008F34ED /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -481,7 +478,6 @@
 		8716E945279A601700B33A5E /* LoginServicePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServicePopupVC.swift; sourceTree = "<group>"; };
 		8716E948279A611D00B33A5E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVC.swift; sourceTree = "<group>"; };
-		8716E94C279A618F00B33A5E /* SemopayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayVC.swift; sourceTree = "<group>"; };
 		8716E94E279A61A700B33A5E /* LongTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextVC.swift; sourceTree = "<group>"; };
 		8716E950279A620200B33A5E /* MyPurchasesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesVC.swift; sourceTree = "<group>"; };
 		8716E952279A620D00B33A5E /* WaitingChargeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChargeVC.swift; sourceTree = "<group>"; };
@@ -916,15 +912,6 @@
 			path = ScoreResultView;
 			sourceTree = "<group>";
 		};
-		257AC7E627A5834A005E91EC /* Semopay */ = {
-			isa = PBXGroup;
-			children = (
-				8716E94C279A618F00B33A5E /* SemopayVC.swift */,
-				2562773127A19E51006F9370 /* SemopayCell.swift */,
-			);
-			path = Semopay;
-			sourceTree = "<group>";
-		};
 		25841625285ADC5F003C6A21 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1230,7 +1217,6 @@
 				25627728279EE6AC006F9370 /* LongText */,
 				25D1BDE1279D741600807196 /* ChangeUserinfo */,
 				2502CEC927A6D7100072A037 /* MyPurchases */,
-				257AC7E627A5834A005E91EC /* Semopay */,
 				2593970227A3E19900BD5BD3 /* WaitingCharge */,
 				8716E954279A621A00B33A5E /* StudyZone */,
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
@@ -2005,7 +1991,6 @@
 				257AB2D82877C93F00771382 /* HomeSectionView.swift in Sources */,
 				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
-				2562773227A19E52006F9370 /* SemopayCell.swift in Sources */,
 				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
@@ -2080,7 +2065,6 @@
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
-				8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */,
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
