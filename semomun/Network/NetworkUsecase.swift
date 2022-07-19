@@ -314,9 +314,8 @@ extension NetworkUsecase: UserInfoSendable {
 extension NetworkUsecase: UserHistoryFetchable {
     typealias PayHistoryConforming = PayHistory
     
-    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
-        let type = onlyPurchaseHistory ? "order" : ""
-        let param = ["type": type, "page": String(page)]
+    func getPayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistoryConforming?) -> Void) {
+        let param = ["type": "order", "page": String(page)]
         
         self.network.request(url: NetworkURL.payHistory, param: param, method: .get, tokenRequired: true) { result in
             guard let statusCode = result.statusCode else {

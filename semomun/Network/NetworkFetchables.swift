@@ -74,7 +74,7 @@ protocol UserInfoSendable {
     func putUserSelectedTags(tags: [TagOfDB], completion: @escaping (NetworkStatus) -> Void)
 }
 protocol UserHistoryFetchable {
-    func getPayHistory(onlyPurchaseHistory: Bool, page: Int, completion: @escaping (NetworkStatus, PayHistory?) -> Void)
+    func getPayHistory(page: Int, completion: @escaping (NetworkStatus, PayHistory?) -> Void)
 }
 protocol UserInfoFetchable {
     func getUserSelectedTags(completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
