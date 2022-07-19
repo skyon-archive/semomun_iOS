@@ -42,6 +42,7 @@ final class PayHistoryVM {
             
             self?.isLastPage = result.content.isEmpty
             self?.purchasedItems.append(contentsOf: result.content)
+            self?.page += 1
         }
     }
 }
