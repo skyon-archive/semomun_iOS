@@ -194,20 +194,20 @@ extension LoginSignupVM {
 // MARK: Private functions
 extension LoginSignupVM {
     private func fetchMajorInfo() {
-        self.networkUseCase.getMajors { [weak self] majorFetched in
-            guard let majorFetched = majorFetched else {
-                self?.alert = .networkError
-                return
-            }
-            self?.majors = majorFetched.map(\.name)
-            self?.majorWithDetail = majorFetched.reduce(into: [:]) { result, next in
-                result[next.name] = next.details
-            }
-            if let firstMajorName = self?.majors.first,
-               let firstMajorDetail = self?.majorWithDetail[firstMajorName] {
-                self?.majorDetails = firstMajorDetail
-            }
-        }
+//        self.networkUseCase.getMajors { [weak self] majorFetched in
+//            guard let majorFetched = majorFetched else {
+//                self?.alert = .networkError
+//                return
+//            }
+//            self?.majors = majorFetched.map(\.name)
+//            self?.majorWithDetail = majorFetched.reduce(into: [:]) { result, next in
+//                result[next.name] = next.details
+//            }
+//            if let firstMajorName = self?.majors.first,
+//               let firstMajorDetail = self?.majorWithDetail[firstMajorName] {
+//                self?.majorDetails = firstMajorDetail
+//            }
+//        }
     }
 }
 

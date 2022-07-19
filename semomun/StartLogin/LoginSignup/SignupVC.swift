@@ -141,7 +141,7 @@ final class SignupVC: UIViewController {
         if sender.tag == 0 {
             self.agreeChecks = Array(repeating: self.agreeChecks[0], count: 4)
         } else {
-            self.agreeChecks[0] = self.agreeChecks[1] && self.agreeChecks[2] && self.agreeChecks[3]
+            self.agreeChecks[0] =  self.agreeChecks[1...3].allSatisfy { $0 }
         }
     }
     
@@ -217,7 +217,7 @@ extension SignupVC {
                     self?.warningPhoneView.isHidden = false
                 case .smsLimitExceed:
                     self?.phoneStatusLine.backgroundColor = UIColor.systemRed
-                    self?.phoneWarniingLabel.text = "인증 회수 초과. 1시간 후 다시 시도해주세요"
+                    self?.phoneWarniingLabel.text = "인증 횟수 초과. 1시간 후 다시 시도해주세요"
                     self?.warningPhoneView.isHidden = false
                 case .phoneNumberValid:
                     self?.phoneStatusLine.backgroundColor = UIColor.getSemomunColor(.border)

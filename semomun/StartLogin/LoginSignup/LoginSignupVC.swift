@@ -21,7 +21,7 @@ final class LoginSignupVC: UIViewController {
     @IBOutlet weak var bodyFrame: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var nicknameFrame: UIView!  
+    @IBOutlet weak var nicknameFrame: UIView!
     @IBOutlet weak var nickname: UITextField!
     
     @IBOutlet weak var phonenumFrame: UIView!

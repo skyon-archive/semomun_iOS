@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & UsernameCheckable & PhonenumVerifiable)
+typealias LoginSignupVMNetworkUsecase = (UsernameCheckable & PhonenumVerifiable)
 
 final class SignupVM {
     @Published private(set) var status: LoginSignupStatus?
@@ -24,7 +24,6 @@ final class SignupVM {
     ]
     private(set) var signupUserInfo = SignupUserInfo() {
         didSet {
-            dump(signupUserInfo)
             self.status = self.signupUserInfo.isValidForPopupTags ? .userInfoComplete : .userInfoIncomplete
         }
     }
@@ -40,7 +39,7 @@ final class SignupVM {
 extension SignupVM {
     /// 전화번호 전송을 위한 전화번호 형식확인
     func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
-        if phoneNumber.isNumber && phoneNumber.count < 12 {
+        if phoneNumber.isNumber && phoneNumber.count > 8 {
             self.status = .phoneNumberValid
             return true
         } else {

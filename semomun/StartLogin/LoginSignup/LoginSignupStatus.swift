@@ -17,7 +17,7 @@ enum LoginSignupAlert {
 
 enum LoginSignupStatus {
     case phoneNumberInvalid // 형식에 맞지 않는 전화번호 입력값
-    case smsLimitExceed // 인증 회수 초과상태
+    case smsLimitExceed // 인증 횟수 초과상태
     case phoneNumberValid // 형식에 맞는 전화번호 입력값
     
     case authCodeSent // 인증번호가 전송완료된 상태
