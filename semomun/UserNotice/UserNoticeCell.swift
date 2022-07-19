@@ -12,15 +12,15 @@ final class UserNoticeCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = UIColor.black
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.darkGray)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(.lightGray)
+        label.font = .smallStyleParagraph
+        label.textColor = .getSemomunColor(.lightGray)
         return label
     }()
     
@@ -47,15 +47,15 @@ extension UserNoticeCell {
         self.contentView.addSubview(titleLabel)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 28),
-            self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 22),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 0),
+            self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16)
         ])
         
         self.contentView.addSubview(dateLabel)
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.dateLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
-            self.dateLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 8)
+            self.dateLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4)
         ])
     }
 }

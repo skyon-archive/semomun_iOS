@@ -27,14 +27,15 @@ final class UserNoticeVC: UIViewController {
 extension UserNoticeVC {
     private func configureUI() {
         self.navigationItem.title = "공지사항"
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .getSemomunColor(.background)
         self.configureBackgroundColorView()
         self.configureTableViewLayout()
     }
     
     private func configureBackgroundColorView() {
         let backgroundColorView = UIView()
-        backgroundColorView.backgroundColor = UIColor(.lightGray)
+        backgroundColorView.backgroundColor = .getSemomunColor(.white)
+        backgroundColorView.configureTopCorner(radius: .cornerRadius24)
         backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(backgroundColorView)
         NSLayoutConstraint.activate([
@@ -47,14 +48,15 @@ extension UserNoticeVC {
     
     private func configureTableViewLayout() {
         self.noticeTableView.backgroundColor = .white
+        self.noticeTableView.separatorInset = .zero
         
         self.view.addSubview(noticeTableView)
         self.noticeTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.noticeTableView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -24),
+            self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 24)
         ])
     }
 }
@@ -105,6 +107,6 @@ extension UserNoticeVC: UITableViewDataSource {
 
 extension UserNoticeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 79
+        return 67
     }
 }
