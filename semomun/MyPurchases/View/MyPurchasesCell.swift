@@ -17,7 +17,7 @@ class MyPurchasesCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.layer.masksToBounds = true
-        view.widthAnchor.constraint(equalToConstant: 83).isActive = true
+        view.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.75).isActive = true
         view.heightAnchor.constraint(equalToConstant: 115).isActive = true
         return view
     }()

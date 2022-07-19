@@ -132,7 +132,7 @@ extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(self.view.bounds.width, 147)
+        return .init(self.view.bounds.width-UICollectionView.gridPadding*2, 147)
     }
 }
 
