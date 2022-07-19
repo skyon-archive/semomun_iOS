@@ -1,28 +1,14 @@
 //
-//  LoginProfileView.swift
+//  LogoutProfileView.swift
 //  semomun
 //
-//  Created by SEONG YEOL YI on 2022/07/14.
+//  Created by SEONG YEOL YI on 2022/07/19.
 //
 
 import UIKit
 
-final class LoginProfileView: UIView {
+final class LogoutProfileView: UIView {
     /* public */
-    class ButtonWithImage: UIButton {
-        init(image: SemomunImage, title: String, action: @escaping () -> Void) {
-            super.init(frame: .zero)
-            self.translatesAutoresizingMaskIntoConstraints = false
-            self.setImageWithSVGTintColor(image: .init(image), color: .black)
-            self.setTitle(title, for: .normal)
-            self.titleLabel?.font = .heading5
-            self.addAction(UIAction { _ in action() }, for: .touchUpInside)
-        }
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    let payStatusView = PayStatusView()
     let stackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -30,8 +16,6 @@ final class LoginProfileView: UIView {
         return view
     }()
     /* private */
-    private lazy var changeUserInfoButton = ButtonWithImage(image: .pencilAltOutline, title: "개인정보 수정", action: { [weak self] in self?.delegate?.showChangeUserInfo() })
-    private lazy var logoutButton = ButtonWithImage(image: .logoutOutline, title: "로그아웃", action: { [weak self] in self?.delegate?.logout() })
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,27 +25,32 @@ final class LoginProfileView: UIView {
     }()
     private let profileImageView: UIImageView = {
         let view = UIImageView()
-        let image = UIImage(.profileBlue)
+        let image = UIImage(.profileGray)
         view.image = image
         view.widthAnchor.constraint(equalToConstant: 48).isActive = true
         view.heightAnchor.constraint(equalToConstant: 48).isActive = true
         return view
     }()
-    private let usernameLabel: UILabel = {
+    private let loginLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .heading2
-        label.textColor = UIColor.getSemomunColor(.black)
+        label.textColor = .getSemomunColor(.lightGray)
+        label.text = "로그인이 필요합니다"
         return label
+    }()
+    private lazy var loginButton: ButtonWithImage = {
+        return ButtonWithImage(image: .logoutOutline, title: "로그인 / 회원가입", color: .orangeRegular, action: { [weak self] in
+            self?.delegate?.login()
+        })
     }()
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private weak var delegate: LoginProfileViewDelegate?
+    private weak var delegate: LogoutProfileViewDelegate?
     
-    init(delegate: LoginProfileViewDelegate) {
+    init(delegate: LogoutProfileViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         self.backgroundColor = UIColor.getSemomunColor(.background)
@@ -72,36 +61,26 @@ final class LoginProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func updateUsername(to username: String) {
-        self.usernameLabel.text = username
-    }
 }
 
-extension LoginProfileView {
+extension LogoutProfileView {
     private func configureLayout() {
-        self.addSubviews(self.contentView, self.payStatusView, self.profileImageView, self.usernameLabel, self.changeUserInfoButton, self.logoutButton, self.scrollView)
+        self.addSubviews(self.contentView, self.profileImageView, self.loginLabel, self.loginButton, self.scrollView)
         self.scrollView.addSubview(self.stackView)
         NSLayoutConstraint.activate([
-            self.contentView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 176),
+            self.contentView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 96),
             self.contentView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             self.contentView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
             self.contentView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             
-            self.payStatusView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 24),
-            self.payStatusView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -32),
-            
             self.profileImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 24),
             self.profileImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 32),
             
-            self.usernameLabel.leadingAnchor.constraint(equalTo: self.profileImageView.trailingAnchor, constant: 12),
-            self.usernameLabel.centerYAnchor.constraint(equalTo: self.profileImageView.centerYAnchor),
+            self.loginLabel.centerYAnchor.constraint(equalTo: self.profileImageView.centerYAnchor),
+            self.loginLabel.leadingAnchor.constraint(equalTo: self.profileImageView.trailingAnchor, constant: 12),
             
-            self.changeUserInfoButton.topAnchor.constraint(equalTo: self.profileImageView.bottomAnchor, constant: 14),
-            self.changeUserInfoButton.leadingAnchor.constraint(equalTo: self.profileImageView.leadingAnchor),
-            
-            self.logoutButton.topAnchor.constraint(equalTo: self.changeUserInfoButton.bottomAnchor, constant: 8),
-            self.logoutButton.leadingAnchor.constraint(equalTo: self.profileImageView.leadingAnchor),
+            self.loginButton.centerYAnchor.constraint(equalTo: self.profileImageView.centerYAnchor),
+            self.loginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             
             self.scrollView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             self.scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
@@ -120,10 +99,6 @@ extension LoginProfileView {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "버전 정보 없음"
         
         [
-            ProfileDisclosureRow(text: "구매 내역", action: { [weak self] in
-                self?.delegate?.showMyPurchases()
-            }),
-            ProfileSectionRow(text: ""),
             ProfileDisclosureRow(text: "공지사항", action: { [weak self] in
                 self?.delegate?.showNotice()
             }),
@@ -157,3 +132,4 @@ extension LoginProfileView {
         }
     }
 }
+
