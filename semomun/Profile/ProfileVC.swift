@@ -189,9 +189,6 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func login() {
-        // MARK: 임시 코드
-        guard let vc = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
     }
 }
