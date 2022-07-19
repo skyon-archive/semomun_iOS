@@ -288,7 +288,12 @@ extension SignupVC {
                 guard isShow == true else { return }
                 guard let self = self else { return }
                 guard let selectSocialSignupPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SelectSocialSignupPopupVC.identifier) as? SelectSocialSignupPopupVC else { return }
-                guard let userInfo = self.viewModel?.signupUserInfo else { return }
+                guard let userInfo = self.viewModel?.signupUserInfo,
+                      userInfo.isValidForSignup == true else {
+                    self.showAlertWithOK(title: "회원정보가 부족합니다", text: "모든 정보를 입력해주세요")
+                    return
+                }
+                
                 let usecase = SignupUsecase(userInfo: userInfo, networkUsecase: NetworkUsecase(network: Network()))
                 selectSocialSignupPopupVC.configureDelegate(self)
                 selectSocialSignupPopupVC.configureUsecase(usecase)
