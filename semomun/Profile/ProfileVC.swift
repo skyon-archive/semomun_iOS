@@ -136,8 +136,9 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func showMyPurchases() {
-        let storyboard = UIStoryboard(name: MyPurchasesVC.storyboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: MyPurchasesVC.identifier)
+        let networkUsecase = NetworkUsecase(network: Network())
+        let viewModel = PayHistoryVM(onlyPurchaseHistory: true, networkUsecase: networkUsecase)
+        let vc = MyPurchasesVC(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
