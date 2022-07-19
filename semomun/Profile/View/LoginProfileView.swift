@@ -9,19 +9,6 @@ import UIKit
 
 final class LoginProfileView: UIView {
     /* public */
-    class ButtonWithImage: UIButton {
-        init(image: SemomunImage, title: String, action: @escaping () -> Void) {
-            super.init(frame: .zero)
-            self.translatesAutoresizingMaskIntoConstraints = false
-            self.setImageWithSVGTintColor(image: .init(image), color: .black)
-            self.setTitle(title, for: .normal)
-            self.titleLabel?.font = .heading5
-            self.addAction(UIAction { _ in action() }, for: .touchUpInside)
-        }
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
     let payStatusView = PayStatusView()
     let stackView: UIStackView = {
         let view = UIStackView()
@@ -30,8 +17,8 @@ final class LoginProfileView: UIView {
         return view
     }()
     /* private */
-    private lazy var changeUserInfoButton = ButtonWithImage(image: .pencilAltOutline, title: "개인정보 수정", action: { [weak self] in self?.delegate?.showChangeUserInfo() })
-    private lazy var logoutButton = ButtonWithImage(image: .logoutOutline, title: "로그아웃", action: { [weak self] in self?.delegate?.logout() })
+    private lazy var changeUserInfoButton = ButtonWithImage(image: .pencilAltOutline, title: "개인정보 수정", color: .black, action: { [weak self] in self?.delegate?.showChangeUserInfo() })
+    private lazy var logoutButton = ButtonWithImage(image: .logoutOutline, title: "로그아웃", color: .black, action: { [weak self] in self?.delegate?.logout() })
     private let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
