@@ -81,7 +81,7 @@ final class LoginSignupVM {
                     self?.status = .usernameAlreadyUsed
                 }
             } else {
-                self?.alert = .networkErrorWithoutPop
+//                self?.alert = .networkErrorWithoutPop
             }
         }
     }
@@ -136,7 +136,7 @@ extension LoginSignupVM {
             case .failure(let error):
                 switch error {
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .invalidPhoneNumber:
                     assertionFailure()
                 case .smsSentTooMuch:
@@ -151,7 +151,7 @@ extension LoginSignupVM {
             switch result {
             case .success(let phoneNumber):
                 guard let phoneNumberWithCountryCode = phoneNumber.phoneNumberWithCountryCode else {
-                    self.alert = .networkErrorWithoutPop
+//                    self.alert = .networkErrorWithoutPop
                     return
                 }
                 self.signupUserInfo.phone = phoneNumberWithCountryCode
@@ -161,7 +161,7 @@ extension LoginSignupVM {
                 case .wrongCode:
                     self.status = .wrongAuthCode
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .codeNotSent:
                     assertionFailure()
                 }
@@ -177,9 +177,9 @@ extension LoginSignupVM {
             case .failure(let error):
                 switch error {
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .smsSentTooMuch:
-                    self.alert = .snsLimitExceedAlert
+                    return
                 }
             }
         }
@@ -196,7 +196,7 @@ extension LoginSignupVM {
     private func fetchMajorInfo() {
         self.networkUseCase.getMajors { [weak self] majorFetched in
             guard let majorFetched = majorFetched else {
-                self?.alert = .networkErrorWithPop
+                self?.alert = .networkError
                 return
             }
             self?.majors = majorFetched.map(\.name)

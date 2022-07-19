@@ -90,7 +90,7 @@ final class ChangeUserInfoVM {
                     self?.status = .usernameAlreadyUsed
                 }
             } else {
-                self?.alert = .networkErrorWithoutPop
+//                self?.alert = .networkErrorWithoutPop
             }
         }
     }
@@ -130,7 +130,7 @@ final class ChangeUserInfoVM {
                 self.saveUserInfoToCoreData()
                 completion(true)
             } else {
-                self.alert = .networkErrorWithoutPop
+//                self.alert = .networkErrorWithoutPop
                 completion(false)
             }
         }
@@ -156,11 +156,11 @@ extension ChangeUserInfoVM {
             case .failure(let error):
                 switch error {
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .invalidPhoneNumber:
                     assertionFailure()
                 case .smsSentTooMuch:
-                    self.alert = .snsLimitExceedAlert
+                    return
                 }
             }
         }
@@ -178,7 +178,7 @@ extension ChangeUserInfoVM {
                 case .wrongCode:
                     self.status = .wrongAuthCode
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .codeNotSent:
                     assertionFailure()
                 }
@@ -194,9 +194,9 @@ extension ChangeUserInfoVM {
             case .failure(let error):
                 switch error {
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    return
                 case .smsSentTooMuch:
-                    self.alert = .snsLimitExceedAlert
+                    return
                 }
             }
         }
@@ -217,13 +217,13 @@ extension ChangeUserInfoVM {
                 self.newUserInfo = userInfo
                 self.latestAuthedPhoneNumber = userInfo.phoneNumber
             case .failure(_):
-                self.alert = .networkErrorWithPop
+                self.alert = .networkError
                 completion()
                 return
             }
             
             guard let userCoreData = CoreUsecase.fetchUserInfo() else {
-                self.alert = .networkErrorWithPop
+                self.alert = .networkError
                 return
             }
             
@@ -244,7 +244,7 @@ extension ChangeUserInfoVM {
     private func fetchMajorInfo() {
         self.networkUseCase.getMajors { [weak self] majorFetched in
             guard let majorFetched = majorFetched else {
-                self?.alert = .networkErrorWithPop
+                self?.alert = .networkError
                 return
             }
             self?.majors = majorFetched.map(\.name)

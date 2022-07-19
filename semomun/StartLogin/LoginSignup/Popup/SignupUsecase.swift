@@ -9,7 +9,14 @@ import Foundation
 import Combine
 
 final class SignupUsecase {
+    enum SignupError {
+        case networkError
+        case localError
+        case userAlreadyExist
+    }
+    
     @Published private(set) var signupCompleted: Bool = false
+    @Published private(set) var signupError: SignupError?
     let userInfo: SignupUserInfo
     let networkUsecase: NetworkUsecase
     
@@ -19,13 +26,25 @@ final class SignupUsecase {
     }
     
     func signup(userIDToken: NetworkURL.UserIDToken) {
-//        self.networkUsecase.postLogin(userToken: userIDToken) { [weak self] result in
-//            self?.handleLoginNetworkResult(token: userIDToken.userID, networkResult: result)
-//        }
-        
-        
-        dump(userIDToken)
-        
-        self.signupCompleted = true
+        self.networkUsecase.postSignup(userIDToken: userIDToken, userInfo: userInfo) { [weak self] status, userAlreadyExist in
+            guard userAlreadyExist == false else {
+                self?.signupError = .userAlreadyExist
+                return
+            }
+            
+            guard status == .SUCCESS else {
+                self?.signupError = .networkError
+                return
+            }
+            
+            guard let networkUsecase = self?.networkUsecase else { return }
+            LoginSignupUsecase(networkUsecase: networkUsecase).setLocalDataAfterSignup(token: userIDToken.userID) { [weak self] success in
+                guard success == true else {
+                    self?.signupError = .localError
+                    return
+                }
+                self?.signupCompleted = true
+            }
+        }
     }
 }
