@@ -264,9 +264,7 @@ extension LoginSignupVC {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] alert in
                 switch alert {
-                case .alertWithoutPop(title: let title, description: let description):
-                    self?.showAlertWithOK(title: title, text: description ?? "")
-                case .alertWithPop(title: let title, description: let description):
+                case .alert(title: let title, description: let description):
                     self?.showAlertWithOK(title: title, text: description ?? "") {
                         self?.navigationController?.popViewController(animated: true)
                     }

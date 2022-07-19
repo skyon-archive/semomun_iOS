@@ -194,19 +194,6 @@ extension SignupVC {
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showSelectSocialSignupVC), name: .refreshFavoriteTags, object: nil)
-    }
-    
-    @objc func showSelectSocialSignupVC() {
-        Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { [weak self] _ in
-            guard let self = self else { return }
-            guard let selectSocialSignupPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SelectSocialSignupPopupVC.identifier) as? SelectSocialSignupPopupVC else { return }
-            guard let userInfo = self.viewModel?.signupUserInfo else { return }
-            let usecase = SignupUsecase(userInfo: userInfo, networkUsecase: NetworkUsecase(network: Network()))
-            selectSocialSignupPopupVC.configureDelegate(self)
-            selectSocialSignupPopupVC.configureUsecase(usecase)
-            self.present(selectSocialSignupPopupVC, animated: true)
-        }
     }
 }
 
@@ -214,6 +201,8 @@ extension SignupVC {
     private func bindAll() {
         self.bindStatus()
         self.bindMajorDetails()
+        self.bindShowSocialSignupVC()
+        self.bindAlert()
     }
     
     private func bindStatus() {
@@ -285,6 +274,38 @@ extension SignupVC {
             .sink(receiveValue: { [weak self] details in
                 self?.majorDetailButtons[4].isHidden = details.count == 4
                 self?.updateDetailButtonTitles(details)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindShowSocialSignupVC() {
+        self.viewModel?.$showSocialSignupVC
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] isShow in
+                guard isShow == true else { return }
+                guard let self = self else { return }
+                guard let selectSocialSignupPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SelectSocialSignupPopupVC.identifier) as? SelectSocialSignupPopupVC else { return }
+                guard let userInfo = self.viewModel?.signupUserInfo else { return }
+                let usecase = SignupUsecase(userInfo: userInfo, networkUsecase: NetworkUsecase(network: Network()))
+                selectSocialSignupPopupVC.configureDelegate(self)
+                selectSocialSignupPopupVC.configureUsecase(usecase)
+                self.present(selectSocialSignupPopupVC, animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindAlert() {
+        self.viewModel?.$alert
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] alert in
+                switch alert {
+                case .alert(title: let title, description: let description):
+                    self?.showAlertWithOK(title: title, text: description ?? "")
+                case .none:
+                    return
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -372,6 +393,9 @@ extension SignupVC: SchoolSelectDelegate {
 
 extension SignupVC: SignupCompleteable {
     func signupComplete() {
-        // coredata 저장 및 회원가입 완료 로직
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] _ in
+            self?.presentingViewController?.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: .logined, object: nil)
+        }
     }
 }

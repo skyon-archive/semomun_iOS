@@ -70,12 +70,36 @@ extension SelectSocialSignupPopupVC {
 
 extension SelectSocialSignupPopupVC {
     private func bindAll() {
+        self.bindSignupCompleted()
+        self.bindSignupError()
+    }
+    
+    private func bindSignupCompleted() {
         self.usecase?.$signupCompleted
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] completed in
                 guard completed == true else { return }
+                self?.delegate?.signupComplete()
                 self?.dismiss(animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindSignupError() {
+        self.usecase?.$signupError
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] error in
+                guard let error = error else { return }
+                switch error {
+                case .networkError:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시해주세요")
+                case .localError:
+                    self?.showAlertWithOK(title: "정보 저장 실패", text: "정보를 확인 후 다시 시도해주세요")
+                case .userAlreadyExist:
+                    self?.showAlertWithOK(title: "회원정보가 존재합니다", text: "로그인 해주시기 바랍니다")
+                }
             })
             .store(in: &self.cancellables)
     }

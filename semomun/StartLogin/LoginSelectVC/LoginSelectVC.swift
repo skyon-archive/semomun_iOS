@@ -247,10 +247,8 @@ extension LoginSelectVC {
     }
     
     private func showCompleteAlert() {
-        self.showAlertWithOK(title: "로그인 완료", text: "로그인에 성공하였습니다.") { [weak self] in
-            self?.presentingViewController?.dismiss(animated: true, completion: nil)
-            NotificationCenter.default.post(name: .logined, object: nil)
-        }
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: .logined, object: nil)
     }
 }
 

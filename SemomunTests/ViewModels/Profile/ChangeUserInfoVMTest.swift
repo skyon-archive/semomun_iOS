@@ -141,7 +141,7 @@ class ChangeUserInfoVMTest: XCTestCase {
 extension LoginSignupAlert: Equatable {
     public static func == (lhs: LoginSignupAlert, rhs: LoginSignupAlert) -> Bool {
         switch (lhs, rhs) {
-        case let (.alertWithPop(t1, d1), .alertWithPop(t2, d2)):
+        case let (.alert(t1, d1), .alert(t2, d2)):
             return t1==t2 && d1==d2
         case let (.alertWithoutPop(t1, d1), .alertWithoutPop(t2, d2)):
             return t1==t2 && d1==d2

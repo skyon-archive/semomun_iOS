@@ -13,8 +13,8 @@ typealias LoginSignupVMNetworkUsecase = (MajorFetchable & UserInfoSendable & Use
 final class SignupVM {
     @Published private(set) var status: LoginSignupStatus?
     @Published private(set) var alert: LoginSignupAlert?
-    @Published private(set) var majors: [String] = []
     @Published private(set) var majorDetails: [String] = []
+    @Published private(set) var showSocialSignupVC: Bool = false
     private let networkUseCase: LoginSignupVMNetworkUsecase
     private let phoneAuthenticator: PhoneAuthenticator
     private let majorRawValues: [[String]] = [
@@ -32,6 +32,7 @@ final class SignupVM {
     init(networkUseCase: LoginSignupVMNetworkUsecase) {
         self.networkUseCase = networkUseCase
         self.phoneAuthenticator = PhoneAuthenticator(networkUsecase: networkUseCase)
+        self.configureNotification()
     }
 }
 
@@ -60,7 +61,7 @@ extension SignupVM {
             case .failure(let error):
                 switch error {
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    self.alert = .networkError
                 case .invalidPhoneNumber:
                     assertionFailure()
                 case .smsSentTooMuch:
@@ -75,7 +76,7 @@ extension SignupVM {
             switch result {
             case .success(let phoneNumber):
                 guard let phoneNumberWithCountryCode = phoneNumber.phoneNumberWithCountryCode else {
-                    self.alert = .networkErrorWithoutPop
+                    self.alert = .networkError
                     return
                 }
                 // 전화번호 형식수정 후 반영
@@ -86,7 +87,7 @@ extension SignupVM {
                 case .wrongCode:
                     self.status = .wrongAuthCode
                 case .noNetwork:
-                    self.alert = .networkErrorWithoutPop
+                    self.alert = .networkError
                 case .codeNotSent:
                     assertionFailure()
                 }
@@ -108,7 +109,7 @@ extension SignupVM {
                     self?.status = .usernameAlreadyUsed
                 }
             } else {
-                self?.alert = .networkErrorWithoutPop
+                self?.alert = .networkError
             }
         }
     }
@@ -139,5 +140,19 @@ extension SignupVM {
     /// 마케팅 반영
     func selectMarketing(to value: Bool) {
         self.signupUserInfo.marketing = value
+    }
+}
+
+extension SignupVM {
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
+            if let tagsData = UserDefaultsManager.favoriteTags,
+               let tags = try? PropertyListDecoder().decode([TagOfDB].self, from: tagsData) {
+                self?.signupUserInfo.favoriteTags = tags.map(\.tid)
+                self?.showSocialSignupVC = true
+            } else {
+                self?.signupUserInfo.favoriteTags = []
+            }
+        }
     }
 }
