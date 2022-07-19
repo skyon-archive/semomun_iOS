@@ -393,9 +393,11 @@ extension SignupVC: SchoolSelectDelegate {
 
 extension SignupVC: SignupCompleteable {
     func signupComplete() {
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] _ in
-            self?.presentingViewController?.dismiss(animated: true, completion: nil)
-            NotificationCenter.default.post(name: .logined, object: nil)
-        }
+        NotificationCenter.default.post(name: .logined, object: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func backToLogin() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

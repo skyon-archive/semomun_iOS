@@ -12,6 +12,7 @@ import AuthenticationServices
 
 protocol SignupCompleteable: AnyObject {
     func signupComplete()
+    func backToLogin()
 }
 
 final class SelectSocialSignupPopupVC: UIViewController {
@@ -80,8 +81,9 @@ extension SelectSocialSignupPopupVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] completed in
                 guard completed == true else { return }
-                self?.delegate?.signupComplete()
-                self?.dismiss(animated: true)
+                self?.presentingViewController?.dismiss(animated: true, completion: { [weak self] in
+                    self?.delegate?.signupComplete()
+                })
             })
             .store(in: &self.cancellables)
     }
@@ -98,7 +100,11 @@ extension SelectSocialSignupPopupVC {
                 case .localError:
                     self?.showAlertWithOK(title: "정보 저장 실패", text: "정보를 확인 후 다시 시도해주세요")
                 case .userAlreadyExist:
-                    self?.showAlertWithOK(title: "회원정보가 존재합니다", text: "로그인 해주시기 바랍니다")
+                    self?.showAlertWithOK(title: "회원정보가 존재합니다", text: "로그인 해주시기 바랍니다") { [weak self] in
+                        self?.presentingViewController?.dismiss(animated: true, completion: { [weak self] in
+                            self?.delegate?.backToLogin()
+                        })
+                    }
                 }
             })
             .store(in: &self.cancellables)
