@@ -7,24 +7,6 @@
 
 import UIKit
 
-enum ProfileVCLongTextType {
-    case termsAndCondition
-    case privacyPolicy
-    case marketingAgree
-    case termsOfTransaction
-}
-
-protocol ProfileViewDelegate: AnyObject {
-    func showChangeUserInfo()
-    func logout()
-    func showMyPurchases()
-    func showNotice()
-    func showServiceCenter()
-    func showErrorReport()
-    func resignAccount()
-    func showLongText(type: ProfileVCLongTextType)
-}
-
 final class ProfileView: UIView {
     /* public */
     class ButtonWithImage: UIButton {
@@ -77,9 +59,9 @@ final class ProfileView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private weak var delegate: ProfileViewDelegate?
+    private weak var delegate: LoginProfileViewDelegate?
     
-    init(isLogined: Bool, delegate: ProfileViewDelegate) {
+    init(isLogined: Bool, delegate: LoginProfileViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         self.backgroundColor = UIColor.getSemomunColor(.background)
