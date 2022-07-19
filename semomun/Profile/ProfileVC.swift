@@ -15,14 +15,23 @@ final class ProfileVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private lazy var logoutProfileView: LogoutProfileView = {
+        let view = LogoutProfileView(delegate: self)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private var networkUsecase: ProfileNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.getSemomunColor(.background)
+        if UserDefaultsManager.isLogined == true {
+            self.showLoginProfileView()
+        } else {
+            self.showLogoutProfileView()
+        }
         self.configureObserver()
         NetworkStatusManager.state()
-        self.showLoginProfileView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +60,10 @@ extension ProfileVC {
             self?.loginProfileView.payStatusView.updateRemainingPay(to: nil)
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
-            print("login")
+            self?.showLoginProfileView()
         }
         NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .current) { [weak self] _ in
-            print("logout")
+            self?.showLogoutProfileView()
         }
     }
     
@@ -87,13 +96,24 @@ extension ProfileVC {
     }
     
     private func showLoginProfileView() {
-        // unlogined removefromsuperview
+        self.logoutProfileView.removeFromSuperview()
         self.view.addSubview(self.loginProfileView)
         NSLayoutConstraint.activate([
             self.loginProfileView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.loginProfileView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             self.loginProfileView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.loginProfileView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+    }
+    
+    private func showLogoutProfileView() {
+        self.loginProfileView.removeFromSuperview()
+        self.view.addSubview(self.logoutProfileView)
+        NSLayoutConstraint.activate([
+            self.logoutProfileView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.logoutProfileView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.logoutProfileView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.logoutProfileView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
