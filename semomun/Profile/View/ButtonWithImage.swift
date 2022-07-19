@@ -15,7 +15,7 @@ class ButtonWithImage: UIButton {
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = .heading5
         self.addAction(UIAction { _ in action() }, for: .touchUpInside)
-        
+        self.adjustsImageWhenHighlighted = false
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
