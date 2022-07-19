@@ -15,6 +15,7 @@ struct LogoutUsecase {
         Self.deleteKeychain()
         Self.deleteUserDefaults()
         Session.clearSession()
+        NotificationCenter.default.post(name: .logout, object: nil)
     }
     
     static private func saveUID() {

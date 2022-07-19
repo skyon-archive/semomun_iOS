@@ -39,7 +39,7 @@ final class LogoutProfileView: UIView {
         return label
     }()
     private lazy var loginButton: ButtonWithImage = {
-        return ButtonWithImage(image: .logoutOutline, title: "로그인 / 회원가입", color: .orangeRegular, action: { [weak self] in
+        return ButtonWithImage(image: .loginOutline, title: "로그인 / 회원가입", color: .orangeRegular, action: { [weak self] in
             self?.delegate?.login()
         })
     }()
