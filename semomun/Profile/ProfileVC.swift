@@ -137,7 +137,7 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     
     func showMyPurchases() {
         let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = PayHistoryVM(onlyPurchaseHistory: true, networkUsecase: networkUsecase)
+        let viewModel = PayHistoryVM(networkUsecase: networkUsecase)
         let vc = MyPurchasesVC(viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }

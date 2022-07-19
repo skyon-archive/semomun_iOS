@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias PayNetworkUsecase = (UserHistoryFetchable & UserInfoFetchable)
+typealias PayNetworkUsecase = (UserHistoryFetchable & S3ImageFetchable)
 
 final class PayHistoryVM {
     enum Alert {
@@ -18,21 +18,18 @@ final class PayHistoryVM {
     var isPaging = false
     @Published private(set) var purchasedItems: [PurchasedItem] = []
     @Published private(set) var alert: Alert?
-    let networkUsecase: (PayNetworkUsecase&S3ImageFetchable)
-    
-    private let onlyPurchaseHistory: Bool
+    let networkUsecase: PayNetworkUsecase
     private var page = 1
     private var isLastPage = false
     
-    init(onlyPurchaseHistory: Bool, networkUsecase: (PayNetworkUsecase&S3ImageFetchable)) {
-        self.onlyPurchaseHistory = onlyPurchaseHistory
+    init(networkUsecase: PayNetworkUsecase) {
         self.networkUsecase = networkUsecase
     }
     
     func fetch() {
         guard self.isPaging == false, self.isLastPage == false else { return }
         self.isPaging = true
-        self.networkUsecase.getPayHistory(onlyPurchaseHistory: self.onlyPurchaseHistory, page: page) { [weak self] status, result in
+        self.networkUsecase.getPayHistory(page: page) { [weak self] status, result in
             
             guard status == .SUCCESS,
                   let result = result else {
