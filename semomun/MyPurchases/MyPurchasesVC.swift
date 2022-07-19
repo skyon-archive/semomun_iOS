@@ -35,7 +35,7 @@ final class MyPurchasesVC: UIViewController {
         self.configureCollectionView()
         self.configureHeaderUI()
         self.bindAll()
-        self.viewModel.initPublished()
+        self.viewModel.fetch()
     }
     
     required init?(coder: NSCoder) {
@@ -94,10 +94,10 @@ extension MyPurchasesVC {
         self.bindAlert()
     }
     private func bindPurchaseList() {
-        self.viewModel.$purchaseOfEachMonth
+        self.viewModel.$purchasedItems
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink { [weak self] purchaseList in
+            .sink { [weak self] _ in
                 self?.collectionView.reloadData()
             }
             .store(in: &self.cancellables)
@@ -121,12 +121,14 @@ extension MyPurchasesVC {
 
 extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.purchasedItems.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPurchasesCell.identifier, for: indexPath) as? MyPurchasesCell else {
             return .init()
         }
+        let purchasedItem = self.viewModel.purchasedItems[indexPath.item]
+        cell.configureContent(purchasedItem, networkUsecase: self.viewModel.networkUsecase)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -137,7 +139,7 @@ extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlo
 extension MyPurchasesVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.collectionView.contentOffset.y >= (self.collectionView.contentSize.height - self.collectionView.bounds.size.height) {
-            self.viewModel.tryFetchMoreList()
+            self.viewModel.fetch()
         }
     }
     
