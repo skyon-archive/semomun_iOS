@@ -162,11 +162,6 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
         self.showAlertWithCancelAndOK(title: "정말로 탈퇴하시겠어요?", text: "세모페이와 구매 및 사용내역이 제거됩니다.") { [weak self] in
             self?.networkUsecase?.resign(completion: { status in
                 if status == .SUCCESS {
-                    let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
-                    guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
-                    let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
-                    nextVC.configureVM(viewModel)
-                    self?.navigationController?.pushViewController(nextVC, animated: true)
                     LogoutUsecase.logout()
                 } else {
                     self?.showAlertWithOK(title: "탈퇴 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
