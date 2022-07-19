@@ -104,6 +104,8 @@ extension ProfileVC {
             self.loginProfileView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.loginProfileView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
+        self.updateNickname()
+        self.updateRemainingPay()
     }
     
     private func showLogoutProfileView() {
@@ -187,6 +189,8 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func login() {
-        // MARK: 추가 예정
+        // MARK: 임시 코드
+        guard let nextVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
+        self.present(nextVC, animated: true)
     }
 }
