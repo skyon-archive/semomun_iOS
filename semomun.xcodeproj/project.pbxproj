@@ -120,7 +120,6 @@
 		25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CBB18B286EE996004F5740 /* UIHostingController.swift */; };
 		25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */; };
 		25CF012127F340D300FAB013 /* MockPayNetworkUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */; };
-		25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */; };
 		25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */; };
 		25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */; };
 		25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */; };
@@ -147,6 +146,7 @@
 		8716E946279A601700B33A5E /* LoginServicePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E945279A601700B33A5E /* LoginServicePopupVC.swift */; };
 		8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E948279A611D00B33A5E /* ProfileVC.swift */; };
 		8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */; };
+		8716E94D279A618F00B33A5E /* SemopayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94C279A618F00B33A5E /* SemopayVC.swift */; };
 		8716E94F279A61A700B33A5E /* LongTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E94E279A61A700B33A5E /* LongTextVC.swift */; };
 		8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E950279A620200B33A5E /* MyPurchasesVC.swift */; };
 		8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716E952279A620D00B33A5E /* WaitingChargeVC.swift */; };
@@ -293,6 +293,7 @@
 		87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */; };
 		87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0A56827CF1C5800449AAD /* CoreGraphics.swift */; };
 		87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */; };
+		87D9D9232886A501006585AB /* ChangeUserinfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
@@ -449,7 +450,6 @@
 		25CF011127F3229A00FAB013 /* semomunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semomunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPurchasesVMTest.swift; path = semomunTests/ViewModels/Profile/MyPurchasesVMTest.swift; sourceTree = SOURCE_ROOT; };
 		25CF012027F340D300FAB013 /* MockPayNetworkUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPayNetworkUsecase.swift; path = semomunTests/Network/MockPayNetworkUsecase.swift; sourceTree = SOURCE_ROOT; };
-		25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
 		25D33E41281985A000BAF590 /* WorkbookSearchParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookSearchParam.swift; sourceTree = "<group>"; };
 		25D9E10427799775009256B7 /* LoginSchoolSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSchoolSearchView.swift; sourceTree = "<group>"; };
 		25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectVM.swift; sourceTree = "<group>"; };
@@ -476,6 +476,7 @@
 		8716E945279A601700B33A5E /* LoginServicePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServicePopupVC.swift; sourceTree = "<group>"; };
 		8716E948279A611D00B33A5E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfoVC.swift; sourceTree = "<group>"; };
+		8716E94C279A618F00B33A5E /* SemopayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemopayVC.swift; sourceTree = "<group>"; };
 		8716E94E279A61A700B33A5E /* LongTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextVC.swift; sourceTree = "<group>"; };
 		8716E950279A620200B33A5E /* MyPurchasesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesVC.swift; sourceTree = "<group>"; };
 		8716E952279A620D00B33A5E /* WaitingChargeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingChargeVC.swift; sourceTree = "<group>"; };
@@ -620,6 +621,7 @@
 		87D07C6E278E80BC0036CC22 /* AppstoreVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppstoreVersion.swift; sourceTree = "<group>"; };
 		87D0A56827CF1C5800449AAD /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSolvedProblemsVM.swift; sourceTree = "<group>"; };
+		87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserinfoVC.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
@@ -1046,19 +1048,10 @@
 		25D1BDE1279D741600807196 /* ChangeUserinfo */ = {
 			isa = PBXGroup;
 			children = (
-				25D1BDE2279D742F00807196 /* Cell */,
-				8716E94A279A613500B33A5E /* ChangeUserInfoVC.swift */,
+				87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */,
 				257AC7E427A4F834005E91EC /* ChangeUserInfoVM.swift */,
 			);
 			path = ChangeUserinfo;
-			sourceTree = "<group>";
-		};
-		25D1BDE2279D742F00807196 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				25D1BDE3279D744000807196 /* MajorCollectionViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		25E6FF16279A9B7000FEDCC1 /* Supporting Views */ = {
@@ -2020,11 +2013,11 @@
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
 				87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */,
+				87D9D9232886A501006585AB /* ChangeUserinfoVC.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
 				87CF6491286039A900FA56BE /* WorkbookGroupResultButton.swift in Sources */,
 				250ACFE22861A7900027B6A9 /* PracticeTestResult.swift in Sources */,
 				2584162B285B3017003C6A21 /* TestSubjectRankCell.swift in Sources */,
-				8716E94B279A613500B33A5E /* ChangeUserInfoVC.swift in Sources */,
 				2582D6C527ACFE9F00023A73 /* DefaultStringInterpolation.swift in Sources */,
 				87273C1C2840E559007B7092 /* CorrectImageView.swift in Sources */,
 				8716E95C279A625B00B33A5E /* ConceptVC.swift in Sources */,
@@ -2038,7 +2031,6 @@
 				25BF7B74287D145B00A5F6E1 /* HomeTagDetailVM.swift in Sources */,
 				25FB4B912886738400E7D426 /* ProfileViewDelegates.swift in Sources */,
 				2560BBA1283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift in Sources */,
-				25D1BDE4279D744000807196 /* MajorCollectionViewCell.swift in Sources */,
 				87C85E9A276F6B70001C9C4A /* Section_Core.swift in Sources */,
 				874600D6278C06E5001EB091 /* NetworkURL.swift in Sources */,
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
@@ -2382,7 +2374,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -2417,7 +2409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
