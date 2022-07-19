@@ -116,6 +116,9 @@ extension BookshelfVC {
             self?.viewModel?.reloadWorkbooks()
             self?.currentTab = .workbook
         }
+        NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .current) { [weak self] _ in
+            print("logout")
+        }
     }
 }
 

@@ -396,7 +396,6 @@ extension SignupVC: SchoolSelectDelegate {
 
 extension SignupVC: SignupCompleteable {
     func signupComplete() {
-        NotificationCenter.default.post(name: .logined, object: nil)
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

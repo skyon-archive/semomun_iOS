@@ -32,6 +32,7 @@ struct LoginSignupUsecase: LoginSignupLogic  {
                     self.updateCoreVersion()
                 }
                 UserDefaultsManager.isLogined = true
+                NotificationCenter.default.post(name: .logined, object: nil)
                 completion(true)
             } else {
                 completion(false)
@@ -45,6 +46,7 @@ struct LoginSignupUsecase: LoginSignupLogic  {
             if succeed {
                 self.updateCoreVersion()
                 UserDefaultsManager.isLogined = true
+                NotificationCenter.default.post(name: .logined, object: nil)
                 completion(true)
             } else {
                 completion(false)
