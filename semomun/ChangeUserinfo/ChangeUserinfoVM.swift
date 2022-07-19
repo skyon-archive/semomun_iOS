@@ -21,19 +21,26 @@ final class ChangeUserinfoVM {
     @Published private(set) var newUserInfo: UserInfo? {
         didSet {
             self.isChanged = true
-            self.status = self.newUserInfo?.isValid == true ? .userInfoComplete : .userInfoIncomplete
+            self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
         }
     }
     @Published private(set) var updateUserinfoSuccess: Bool = false
-    private(set) var isChanged: Bool = false
-    /* private */
-    private let networkUseCase: ChangeUserInfoNetworkUseCase
-    private let phoneAuthenticator: PhoneAuthenticator
-    private let majorRawValues: [[String]] = [
+    private(set) var isChanged: Bool = false {
+        didSet {
+            self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
+        }
+    }
+    private var validResult: Bool {
+        return self.newUserInfo?.isValid == true && self.isChanged == true
+    }
+    let majorRawValues: [[String]] = [
         ["인문", "상경", "사회", "교육", "기타"],
         ["공학", "자연", "의약", "생활과학", "기타"],
         ["미술", "음악", "체육", "기타"]
     ]
+    /* private */
+    private let networkUseCase: ChangeUserInfoNetworkUseCase
+    private let phoneAuthenticator: PhoneAuthenticator
     
     init(networkUseCase: ChangeUserInfoNetworkUseCase) {
         self.networkUseCase = networkUseCase
@@ -59,6 +66,8 @@ final class ChangeUserinfoVM {
                 self?.currentUserInfo?.phoneNumber = nil
                 self?.newUserInfo?.phoneNumber = nil
             }
+            self?.isChanged = false
+            self?.status = .userInfoIncomplete
         }
     }
     /// 전화번호 전송을 위한 전화번호 형식확인
@@ -143,8 +152,8 @@ final class ChangeUserinfoVM {
     /// Major 선택 -> MajorDetail 내용 변경, Major, MajorDetail 초기화 반영
     func selectMajor(to index: Int) {
         self.majorDetails = self.majorRawValues[index]
-        self.newUserInfo?.major = self.currentUserInfo?.major
-        self.newUserInfo?.majorDetail = self.currentUserInfo?.majorDetail
+        self.newUserInfo?.major = nil
+        self.newUserInfo?.majorDetail = nil
     }
     /// MajorDetail 선택, Major, MajorDetail 내용 반영
     func selectMajorDetail(major: String, detailIndex: Int) {

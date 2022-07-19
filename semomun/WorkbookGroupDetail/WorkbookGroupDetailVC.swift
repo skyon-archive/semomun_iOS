@@ -332,10 +332,8 @@ extension WorkbookGroupDetailVC {
 // MARK: ChangeVC
 extension WorkbookGroupDetailVC {
     private func showChangeUserinfoVC() {
-        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
-        guard let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
-        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
-        changeUserinfoVC.configureVM(viewModel)
+        let storyboard = UIStoryboard(name: ChangeUserinfoVC.storyboardName, bundle: nil)
+        guard let changeUserinfoVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoVC.identifier) as? ChangeUserinfoVC else { return }
         self.navigationController?.pushViewController(changeUserinfoVC, animated: true)
     }
     

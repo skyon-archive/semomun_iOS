@@ -122,10 +122,8 @@ extension ProfileVC {
 
 extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     func showChangeUserInfo() {
-        let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
-        let viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
-        nextVC.configureVM(viewModel)
+        let storyboard = UIStoryboard(name: ChangeUserinfoVC.storyboardName, bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserinfoVC.identifier) as? ChangeUserinfoVC else { return }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

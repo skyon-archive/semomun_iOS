@@ -10,6 +10,7 @@ import Combine
 
 final class ChangeUserinfoVC: UIViewController {
     static let identifier = "ChangeUserinfoVC"
+    static let storyboardName = "Profile"
     /// for design
     @IBOutlet weak var searchIcon: UIImageView!
     @IBOutlet weak var graduationLabel: UILabel!
@@ -63,6 +64,8 @@ final class ChangeUserinfoVC: UIViewController {
         self.configureTextFieldDelegate()
         self.configureNotification()
         self.bindAll()
+        
+        self.viewModel?.getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,9 +168,20 @@ extension ChangeUserinfoVC {
 
 extension ChangeUserinfoVC {
     private func bindAll() {
+        self.bindUserinfo()
         self.bindStatus()
         self.bindMajorDetails()
         self.bindAlert()
+    }
+    
+    private func bindUserinfo() {
+        self.viewModel?.$currentUserInfo
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] userinfo in
+                guard let userinfo = userinfo else { return }
+                self?.configureDatas(userinfo)
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindStatus() {
@@ -254,18 +268,58 @@ extension ChangeUserinfoVC {
 }
 
 extension ChangeUserinfoVC {
+    private func configureDatas(_ userinfo: UserInfo) {
+        guard let viewModel = self.viewModel else { return }
+        
+        self.phoneNumTextField.text = userinfo.phoneNumber ?? ""
+        self.idTextField.text = userinfo.username
+        
+        var majorIndex = 0
+        for (idx, button) in self.majorButtons.enumerated() {
+            if button.currentTitle == userinfo.major {
+                majorIndex = idx
+                self.selectButton(button)
+            } else {
+                self.deSelectButton(button)
+            }
+        }
+        
+        let majorDetailDatas = viewModel.majorRawValues[majorIndex]
+        for (idx, detail) in majorDetailDatas.enumerated() {
+            self.majorDetailButtons[idx].setTitle(detail, for: .normal)
+            if detail == userinfo.majorDetail {
+                self.selectButton(self.majorDetailButtons[idx])
+            } else {
+                self.deSelectButton(self.majorDetailButtons[idx])
+            }
+        }
+        
+        self.schoolButton.setTitle(userinfo.school, for: .normal)
+        if userinfo.graduationStatus == "졸업" {
+            self.segmentedControl.selectIndex(to: 1)
+        }
+    }
+    
     private func updateButtons(_ buttons: [UIButton], index: Int?) {
         for (idx, button) in buttons.enumerated() {
             if idx == index {
-                button.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
-                button.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
-                button.layer.borderColor = UIColor.clear.cgColor
+                self.selectButton(button)
             } else {
-                button.backgroundColor = UIColor.getSemomunColor(.white)
-                button.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
-                button.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+                self.deSelectButton(button)
             }
         }
+    }
+    
+    private func selectButton(_ button: UIButton) {
+        button.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+        button.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
+        button.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    private func deSelectButton(_ button: UIButton) {
+        button.backgroundColor = UIColor.getSemomunColor(.white)
+        button.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
+        button.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
     }
     
     private func updateClickable(to: Bool, target: UIButton?) {
