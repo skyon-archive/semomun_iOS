@@ -106,14 +106,8 @@ extension MyPurchasesVC {
         self.viewModel.$alert
             .receive(on: DispatchQueue.main)
             .sink { [weak self] alert in
-                switch alert {
-                case .none:
-                    break
-                case .noNetwork:
-                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도하시기 바랍니다.") {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                }
+                guard let alert = alert else { return }
+                self?.showAlertWithOK(title: alert.title, text: alert.message)
             }
             .store(in: &self.cancellables)
     }
