@@ -20,8 +20,10 @@ final class MyPurchasesVC: UIViewController {
         return view
     }()
     private let collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: .init())
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.register(MyPurchasesCell.self, forCellWithReuseIdentifier: MyPurchasesCell.identifier)
+        view.configureDefaultDesign()
         return view
     }()
     
@@ -30,6 +32,7 @@ final class MyPurchasesVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .getSemomunColor(.background)
         self.configureLayout()
+        self.configureCollectionView()
         self.configureHeaderUI()
         self.bindAll()
         self.viewModel.initPublished()
@@ -43,6 +46,15 @@ final class MyPurchasesVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            UIView.performWithoutAnimation {
+                self?.collectionView.collectionViewLayout.invalidateLayout()
+            }
+        })
+    }
 }
 
 // MARK: Configure
@@ -51,6 +63,11 @@ extension MyPurchasesVC {
         self.navigationItem.titleView?.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "구매내역"
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
     
     private func configureLayout() {
@@ -99,6 +116,21 @@ extension MyPurchasesVC {
                 }
             }
             .store(in: &self.cancellables)
+    }
+}
+
+extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPurchasesCell.identifier, for: indexPath) as? MyPurchasesCell else {
+            return .init()
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(self.view.bounds.width, 147)
     }
 }
 

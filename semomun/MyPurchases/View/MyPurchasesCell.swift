@@ -8,6 +8,8 @@
 import UIKit
 
 class MyPurchasesCell: UICollectionViewCell {
+    /* public */
+    static let identifier = "MyPurchasesCell"
     /* private */
     private var requestedUUID: UUID?
     private let imageView: UIImageView = {
@@ -46,6 +48,13 @@ class MyPurchasesCell: UICollectionViewCell {
         label.font = .heading3
         return label
     }()
+    private let divider: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .getSemomunColor(.border)
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -60,7 +69,7 @@ class MyPurchasesCell: UICollectionViewCell {
 // MARK: Configure
 extension MyPurchasesCell {
     private func configureLayout() {
-        self.contentView.addSubviews(self.imageView, self.dateLabel, self.purchaseCompleteLabel, self.titleLabel, self.costLabel)
+        self.contentView.addSubviews(self.imageView, self.dateLabel, self.purchaseCompleteLabel, self.titleLabel, self.costLabel, self.divider)
         NSLayoutConstraint.activate([
             self.imageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
@@ -75,7 +84,10 @@ extension MyPurchasesCell {
             self.titleLabel.leadingAnchor.constraint(equalTo: self.dateLabel.leadingAnchor),
             
             self.costLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4),
-            self.costLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor)
+            self.costLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
+            
+            self.divider.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+            self.divider.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
 }
