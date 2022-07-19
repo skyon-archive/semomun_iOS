@@ -13,11 +13,43 @@ class MyPurchasesCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 83).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 115).isActive = true
         return view
+    }()
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .getSemomunColor(.lightGray)
+        label.font = .regularStyleParagraph
+        return label
+    }()
+    private let purchaseCompleteLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .getSemomunColor(.lightGray)
+        label.font = .regularStyleParagraph
+        label.text = "결제완료"
+        return label
+    }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .getSemomunColor(.darkGray)
+        label.font = .largeStyleParagraph
+        return label
+    }()
+    private let costLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .getSemomunColor(.darkGray)
+        label.font = .heading3
+        return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        self.configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -25,8 +57,39 @@ class MyPurchasesCell: UICollectionViewCell {
     }
 }
 
+// MARK: Configure
 extension MyPurchasesCell {
-    private func configureImage(uuid: UUID, networkUsecase: S3ImageFetchable) {
+    private func configureLayout() {
+        self.contentView.addSubviews(self.imageView, self.dateLabel, self.purchaseCompleteLabel, self.titleLabel, self.costLabel)
+        NSLayoutConstraint.activate([
+            self.imageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            
+            self.dateLabel.topAnchor.constraint(equalTo: self.imageView.topAnchor),
+            self.dateLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 12),
+            
+            self.purchaseCompleteLabel.centerYAnchor.constraint(equalTo: self.dateLabel.centerYAnchor),
+            self.purchaseCompleteLabel.leadingAnchor.constraint(equalTo: self.dateLabel.trailingAnchor, constant: 8),
+            
+            self.titleLabel.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 8),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.dateLabel.leadingAnchor),
+            
+            self.costLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4),
+            self.costLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor)
+        ])
+    }
+}
+
+// MARK: Update
+extension MyPurchasesCell {
+    private func configureContent(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
+        self.updateImage(uuid: purchasedItem.descriptionImageID, networkUsecase: networkUsecase)
+        self.dateLabel.text = purchasedItem.createdDate.yearMonthDayText
+        self.titleLabel.text = purchasedItem.title
+        self.costLabel.text = purchasedItem.transaction.amount.withComma + "원"
+    }
+    
+    private func updateImage(uuid: UUID, networkUsecase: S3ImageFetchable) {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.imageView.image = cachedImage
         } else {
