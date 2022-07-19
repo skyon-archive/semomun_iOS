@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  LoginProfileView.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileView: UIView {
+final class LoginProfileView: UIView {
     /* public */
     class ButtonWithImage: UIButton {
         init(image: SemomunImage, title: String, action: @escaping () -> Void) {
@@ -61,7 +61,7 @@ final class ProfileView: UIView {
     }()
     private weak var delegate: LoginProfileViewDelegate?
     
-    init(isLogined: Bool, delegate: LoginProfileViewDelegate) {
+    init(delegate: LoginProfileViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         self.backgroundColor = UIColor.getSemomunColor(.background)
@@ -78,7 +78,7 @@ final class ProfileView: UIView {
     }
 }
 
-extension ProfileView {
+extension LoginProfileView {
     private func configureLayout() {
         self.addSubviews(self.contentView, self.payStatusView, self.profileImageView, self.usernameLabel, self.changeUserInfoButton, self.logoutButton, self.scrollView)
         self.scrollView.addSubview(self.stackView)

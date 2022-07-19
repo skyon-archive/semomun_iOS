@@ -10,31 +10,28 @@ import UIKit
 typealias ProfileNetworkUsecase = (LoginSignupPostable & UserInfoFetchable)
 
 final class ProfileVC: UIViewController {
-    private lazy var profileView: ProfileView = {
-        let view = ProfileView(isLogined: true, delegate: self)
+    private lazy var loginProfileView: LoginProfileView = {
+        let view = LoginProfileView(delegate: self)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private var networkUsecase: ProfileNetworkUsecase?
-    
-    override func loadView() {
-        self.view = self.profileView
-    }
+    private var networkUsecase: ProfileNetworkUsecase? = NetworkUsecase(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureNetworkUsecase()
+        self.view.backgroundColor = UIColor.getSemomunColor(.background)
         self.configureObserver()
         NetworkStatusManager.state()
-        NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
+        self.showLoginProfileView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        if let nickname = CoreUsecase.fetchUserInfo()?.nickName {
-            self.profileView.updateUsername(to: nickname)
+        if UserDefaultsManager.isLogined == true {
+            self.updateNickname()
+            self.updateRemainingPay()
         }
-//        self.updateRemainingPay()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,16 +41,14 @@ final class ProfileVC: UIViewController {
 }
 
 extension ProfileVC {
-    private func configureNetworkUsecase() {
-        self.networkUsecase = NetworkUsecase(network: Network())
-    }
-    
     private func configureObserver() {
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
-//            self?.updateRemainingPay()
+            guard UserDefaultsManager.isLogined == true else { return }
+            self?.updateRemainingPay()
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
-            self?.profileView.payStatusView.updateRemainingPay(to: nil)
+            guard UserDefaultsManager.isLogined == true else { return }
+            self?.loginProfileView.payStatusView.updateRemainingPay(to: nil)
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             print("login")
@@ -63,10 +58,16 @@ extension ProfileVC {
         }
     }
     
+    private func updateNickname() {
+        if let nickname = CoreUsecase.fetchUserInfo()?.nickName {
+            self.loginProfileView.updateUsername(to: nickname)
+        }
+    }
+    
     private func updateRemainingPay() {
         guard let userInfo = CoreUsecase.fetchUserInfo() else {
             assertionFailure()
-            self.profileView.payStatusView.updateRemainingPay(to: nil)
+            self.loginProfileView.payStatusView.updateRemainingPay(to: nil)
             return
         }
         self.networkUsecase?.getRemainingPay { status, credit in
@@ -77,12 +78,23 @@ extension ProfileVC {
                 return
             }
             if let credit = credit {
-                self.profileView.payStatusView.updateRemainingPay(to: credit)
+                self.loginProfileView.payStatusView.updateRemainingPay(to: credit)
                 userInfo.updateCredit(credit)
             } else {
-                self.profileView.payStatusView.updateRemainingPay(to: nil)
+                self.loginProfileView.payStatusView.updateRemainingPay(to: nil)
             }
         }
+    }
+    
+    private func showLoginProfileView() {
+        // unlogined removefromsuperview
+        self.view.addSubview(self.loginProfileView)
+        NSLayoutConstraint.activate([
+            self.loginProfileView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.loginProfileView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.loginProfileView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.loginProfileView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        ])
     }
 }
 
