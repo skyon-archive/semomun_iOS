@@ -86,7 +86,7 @@ extension ProfileVC {
     }
 }
 
-extension ProfileVC: ProfileViewDelegate {
+extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     func showChangeUserInfo() {
         let storyboard = UIStoryboard(name: ChangeUserInfoVC.storyboardName, bundle: nil)
         guard let nextVC = storyboard.instantiateViewController(withIdentifier: ChangeUserInfoVC.identifier) as? ChangeUserInfoVC else { return }
@@ -152,5 +152,9 @@ extension ProfileVC: ProfileViewDelegate {
         case .termsOfTransaction:
             self.showLongTextVC(title: "전자금융거래 이용약관", txtResourceName: "termsOfElectronicTransaction", marketingInfo: false)
         }
+    }
+    
+    func login() {
+        // MARK: 추가 예정
     }
 }
