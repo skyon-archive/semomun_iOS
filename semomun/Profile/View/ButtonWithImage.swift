@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ButtonWithImage: UIButton {
+final class ButtonWithImage: UIButton {
     init(image: SemomunImage, title: String, color: SemomunColor, action: @escaping () -> Void) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
