@@ -55,6 +55,9 @@ final class SignupVC: UIViewController {
     private var agreeChecks: [Bool] = Array(repeating: false, count: 4) {
         didSet {
             self.viewModel?.selectMarketing(to: agreeChecks[3])
+            for (idx, button) in self.checkButtons.enumerated() {
+                button.isSelected = self.agreeChecks[idx]
+            }
         }
     }
     private var agreeCompleted: Bool {
@@ -133,13 +136,12 @@ final class SignupVC: UIViewController {
     }
     
     @IBAction func selectAgree(_ sender: UIButton) {
-        self.checkButtons[sender.tag].isSelected.toggle()
         self.agreeChecks[sender.tag].toggle()
         
         if sender.tag == 0 {
-            let status = self.agreeChecks[0]
-            self.agreeChecks = Array(repeating: status, count: 4)
-            self.updateAllChecks(to: status)
+            self.agreeChecks = Array(repeating: self.agreeChecks[0], count: 4)
+        } else {
+            self.agreeChecks[0] = self.agreeChecks[1] && self.agreeChecks[2] && self.agreeChecks[3]
         }
     }
     
@@ -324,10 +326,6 @@ extension SignupVC {
                 button.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
             }
         }
-    }
-    
-    private func updateAllChecks(to: Bool) {
-        self.checkButtons.forEach { $0.isSelected = to }
     }
     
     private func updateClickable(to: Bool, target: UIButton?) {
