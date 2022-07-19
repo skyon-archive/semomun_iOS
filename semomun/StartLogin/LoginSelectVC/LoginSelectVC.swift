@@ -7,8 +7,8 @@
 
 import UIKit
 import Combine
-import AuthenticationServices
 import GoogleSignIn
+import AuthenticationServices
 
 final class LoginSelectVC: UIViewController {
     static let identifier = "LoginSelectVC"
