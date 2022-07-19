@@ -232,7 +232,7 @@ extension LoginSelectVC {
                 case .userNotExist:
                     self?.showUserNotExistAlert()
                 case .complete:
-                    self?.showCompleteAlert()
+                    self?.presentingViewController?.dismiss(animated: true, completion: nil)
                 case .none:
                     break
                 }
@@ -244,11 +244,6 @@ extension LoginSelectVC {
         self.showAlertWithOK(title: "회원 정보가 없습니다", text: "회원가입을 진행해주시기 바랍니다.") { [weak self] in
             self?.startSignup()
         }
-    }
-    
-    private func showCompleteAlert() {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
-        NotificationCenter.default.post(name: .logined, object: nil)
     }
 }
 
@@ -312,10 +307,10 @@ extension LoginSelectVC: ASAuthorizationControllerDelegate, ASAuthorizationContr
         }
     }
 }
+
 // MARK: Signup
 extension LoginSelectVC {
     private func startSignup() {
-        // 생성 예정
         guard let nextVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: SignupVC.identifier) as? SignupVC else { return }
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
