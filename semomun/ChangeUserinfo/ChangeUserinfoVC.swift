@@ -49,7 +49,7 @@ final class ChangeUserinfoVC: UIViewController {
             self?.viewModel?.selectGraduationStatus("졸업")
         }
     ])
-    private var viewModel: ChangeUserInfoVM?
+    private var viewModel: ChangeUserinfoVM?
     private var cancellables: Set<AnyCancellable> = []
     private var selectedMajorIndex: Int?
     
@@ -132,7 +132,7 @@ final class ChangeUserinfoVC: UIViewController {
 
 extension ChangeUserinfoVC {
     private func configureViewModel() {
-        self.viewModel = ChangeUserInfoVM(networkUseCase: NetworkUsecase(network: Network()))
+        self.viewModel = ChangeUserinfoVM(networkUseCase: NetworkUsecase(network: Network()))
     }
     
     private func configureUI() {
