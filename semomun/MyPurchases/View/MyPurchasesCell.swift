@@ -15,6 +15,8 @@ class MyPurchasesCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.layer.masksToBounds = true
         view.widthAnchor.constraint(equalToConstant: 83).isActive = true
         view.heightAnchor.constraint(equalToConstant: 115).isActive = true
         return view
@@ -94,7 +96,7 @@ extension MyPurchasesCell {
 
 // MARK: Update
 extension MyPurchasesCell {
-    private func configureContent(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
+    func configureContent(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
         self.updateImage(uuid: purchasedItem.descriptionImageID, networkUsecase: networkUsecase)
         self.dateLabel.text = purchasedItem.createdDate.yearMonthDayText
         self.titleLabel.text = purchasedItem.title
