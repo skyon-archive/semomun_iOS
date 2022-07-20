@@ -178,7 +178,12 @@ extension WorkbookGroupDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] type in
                 guard let type = type else { return }
-                self?.showPopupVC(type: type)
+                switch type {
+                case .login:
+                    NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
+                case .updateUserinfo:
+                    self?.showAlertWithOK(title: "개인정보 수정이 필요합니다", text: "개인정보를 모두 기입 후 다시 시도해주세요")
+                }
             })
             .store(in: &self.cancellables)
     }
@@ -312,13 +317,6 @@ extension WorkbookGroupDetailVC: UICollectionViewDelegate {
 
 // MARK: PopupVC
 extension WorkbookGroupDetailVC {
-    private func showPopupVC(type: WorkbookGroupDetailVM.PopupType) {
-        let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
-        guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
-        popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
-        self.present(popupVC, animated: true)
-    }
-    
     private func showPurchasePopupVC(workbook: WorkbookOfDB) {
         let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
         guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }

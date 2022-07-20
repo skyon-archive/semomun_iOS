@@ -1542,6 +1542,9 @@
                                                         <color key="value" name="border"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="cancel:" destination="9ya-Gs-d1v" eventType="touchUpInside" id="EFZ-lO-k47"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wR-gK-5Q7">
                                                 <rect key="frame" x="216" y="0.0" width="208" height="41"/>
@@ -1563,6 +1566,9 @@
                                                         <real key="value" value="0.0"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="action:" destination="9ya-Gs-d1v" eventType="touchUpInside" id="pH4-c4-eWb"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

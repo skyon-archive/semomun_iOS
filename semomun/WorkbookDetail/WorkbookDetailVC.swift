@@ -258,11 +258,10 @@ extension WorkbookDetailVC {
     
     private func showPopupVC(type: WorkbookDetailVM.PopupType) {
         switch type {
-        case .login, .updateUserinfo:
-            let storyboard = UIStoryboard(name: PurchaseWarningPopupVC.storyboardName, bundle: nil)
-            guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchaseWarningPopupVC.identifier) as? PurchaseWarningPopupVC else { return }
-            popupVC.configureWarning(type: type == .login ? .login : .updateUserinfo)
-            self.present(popupVC, animated: true, completion: nil)
+        case .login:
+            NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
+        case .updateUserinfo:
+            self.showAlertWithOK(title: "개인정보 수정이 필요합니다", text: "개인정보를 모두 기입 후 다시 시도해주세요")
         case .purchase:
             let storyboard = UIStoryboard(name: PurchasePopupVC.storyboardName, bundle: nil)
             guard let popupVC = storyboard.instantiateViewController(withIdentifier: PurchasePopupVC.identifier) as? PurchasePopupVC else { return }

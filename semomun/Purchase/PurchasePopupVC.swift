@@ -44,9 +44,8 @@ final class PurchasePopupVC: UIViewController {
         case .purchase:
             self.authentication()
         case .charge:
-            self.presentingViewController?.dismiss(animated: true, completion: {
-                NotificationCenter.default.post(name: .goToCharge, object: nil)
-            })
+            // MARK: 애플에서 제공하는 외부결제 팝업창 로직이 필요
+            self.presentingViewController?.dismiss(animated: true)
         }
     }
 }
@@ -74,36 +73,35 @@ extension PurchasePopupVC {
         guard let type = self.type,
               let info = self.info,
               let currentMoney = self.currentMoney else { return }
-        self.configureTitle(to: info.title)
-        self.configureMoneyUI(currentMoney: currentMoney, info: info)
+        
+        self.titleLabel.text = info.title
+        self.configurePriceLabel(price: info.price)
+        self.currentMoneyLabel.text = "\(currentMoney.withComma)원"
         
         switch type {
         case .purchase:
-            self.configureActionTitle(to: "구매하고 문제 풀기")
-            self.moneyStatusLabel.text = "구매 후 세모페이 잔액"
-            self.warningLabel.isHidden = true
+            self.necessaryPriceLabel.text = "\(info.price.withComma)원"
         case .charge:
-            self.configureActionTitle(to: "세모페이 충전하기")
+            self.necessaryLabel.textColor = UIColor.systemRed
+            self.necessaryLabel.font = UIFont.heading5
+            self.necessaryLabel.text = "부족한 세모페이"
+            
+            self.necessaryPriceLabel.textColor = UIColor.systemRed
+            self.necessaryPriceLabel.font = UIFont.heading5
+            let necessaryPrice = info.price - currentMoney
+            self.necessaryPriceLabel.text = "\(necessaryPrice.withComma)원"
+            
+            self.purchaseBT.setTitle("세모페이 충전하기", for: .normal)
         }
     }
     
-    private func configureTitle(to title: String) {
-        let fullTitle = "\(title)\n구매하시겠습니까?"
-        let fontSize = UIFont.systemFont(ofSize: 18, weight: .heavy)
-        let attrTitle = NSMutableAttributedString(string: fullTitle)
-        attrTitle.addAttribute(.font, value: fontSize, range: (title as NSString).range(of: title))
-        self.titleLabel.attributedText = attrTitle
-    }
-    
-    private func configureMoneyUI(currentMoney: Int, info: WorkbookOfDB) {
-        self.priceLabel.text = "\(info.price.withComma)원"
-        self.currentMoneyLabel.text = "\(currentMoney.withComma)원"
-        let afterMoney = Int((currentMoney - info.price).magnitude)
-        self.afterMoneyLabel.text = "\(afterMoney.withComma)원"
-    }
-    
-    private func configureActionTitle(to title: String) {
-        self.purchaseBT.setTitle(title, for: .normal)
+    private func configurePriceLabel(price: Int) {
+        if price == 0 {
+            self.usePriceLabel.isHidden = true
+        } else {
+            self.priceLabel.text = "\(price.withComma)원"
+            self.purchaseBT.setTitle("\(price.withComma)원 결제하기", for: .normal)
+        }
     }
 }
 
