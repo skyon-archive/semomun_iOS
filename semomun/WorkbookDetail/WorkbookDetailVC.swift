@@ -83,10 +83,13 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     private var cellAccessable: Bool {
         return (self.viewModel?.downloadQueue.isEmpty ?? false) && (self.viewModel?.deleteFinished ?? false)
     }
+    private var isTitleInNavigationBar: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureScrollView()
+        self.configureNavigationBar()
         self.configureTags()
         self.configureSections()
         self.bindAll()
@@ -144,16 +147,6 @@ extension WorkbookDetailVC {
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
         self.tableFrameView.configureTopCorner(radius: CGFloat.cornerRadius24)
-        // scrollView 상단에 배경색과 다른 뷰 추가
-        self.scrollView.addSubview(self.scrollExtensionBackgroundView)
-        NSLayoutConstraint.activate([
-            self.scrollExtensionBackgroundView.heightAnchor.constraint(equalToConstant: 500),
-            self.scrollExtensionBackgroundView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
-            self.scrollExtensionBackgroundView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
-            self.scrollExtensionBackgroundView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor)
-        ])
-        // 우상단 info 버튼
-        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
         // 구매 전 UI
         guard self.isCoreData == true else {
             self.selectAllSectionButton.isHidden = true
@@ -163,6 +156,29 @@ extension WorkbookDetailVC {
         }
         // 구매 후 UI
         self.purchaseWorkbookButton.isHidden = true
+    }
+    
+    private func configureScrollView() {
+        self.scrollView.delegate = self
+        // scrollView 상단에 배경색과 다른 뷰 추가
+        self.scrollView.addSubview(self.scrollExtensionBackgroundView)
+        NSLayoutConstraint.activate([
+            self.scrollExtensionBackgroundView.heightAnchor.constraint(equalToConstant: 500),
+            self.scrollExtensionBackgroundView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
+            self.scrollExtensionBackgroundView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
+            self.scrollExtensionBackgroundView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor)
+        ])
+    }
+    
+    private func configureNavigationBar() {
+        // 우상단 info 버튼
+        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
+        // 그림자 처리
+        self.navigationController?.navigationBar.layer.masksToBounds = false
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.05
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.navigationController?.navigationBar.layer.shadowRadius = 4
     }
     
     private func configureTags() {
@@ -536,5 +552,30 @@ extension WorkbookDetailVC: WorkbookCellController {
     func downloadStartInSection(index: Int) {
         guard self.cellAccessable == true else { return }
         self.viewModel?.downloadSection(index: index)
+    }
+}
+
+extension WorkbookDetailVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 50 {
+            self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+            guard self.isTitleInNavigationBar == false else { return }
+            self.isTitleInNavigationBar = true
+            self.changeTitle(to: self.viewModel?.workbookInfo?.title ?? "")
+        } else {
+            self.navigationController?.navigationBar.layer.shadowColor = UIColor.clear.cgColor
+            guard self.isTitleInNavigationBar == true else { return }
+            self.isTitleInNavigationBar = false
+            self.changeTitle(to: "")
+        }
+    }
+    
+    private func changeTitle(to title: String) {
+        let fadeTextAnimation = CATransition()
+        fadeTextAnimation.duration = 0.15
+        fadeTextAnimation.type = .fade
+            
+        self.navigationController?.navigationBar.layer.add(fadeTextAnimation, forKey: "fadeText")
+        self.navigationItem.title = title
     }
 }
