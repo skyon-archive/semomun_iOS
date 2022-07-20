@@ -676,8 +676,8 @@
 			children = (
 				8716E950279A620200B33A5E /* MyPurchasesVC.swift */,
 				2502CEC727A593750072A037 /* PayHistoryVM.swift */,
+				25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */,
 				25B8C09227E2150C00AC500F /* Model */,
-				2556E03828616C76008FDEEA /* View */,
 			);
 			path = MyPurchases;
 			sourceTree = "<group>";
@@ -805,14 +805,6 @@
 				25532DA627F70FF000D3603C /* PhoneAuthenticatorTest.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2556E03828616C76008FDEEA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		255D637D27ABC24D000991AB /* UserNotice */ = {
