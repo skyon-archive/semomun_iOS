@@ -30,7 +30,7 @@ final class ChangeUserinfoVM {
             self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
         }
     }
-    private var validResult: Bool {
+    var validResult: Bool {
         return self.newUserInfo?.isValid == true && self.isChanged == true
     }
     let majorRawValues: [[String]] = [
@@ -66,9 +66,14 @@ final class ChangeUserinfoVM {
                 self?.currentUserInfo?.phoneNumber = nil
                 self?.newUserInfo?.phoneNumber = nil
             }
+            
             self?.isChanged = false
             self?.status = .userInfoIncomplete
         }
+    }
+    /// 첫 majorDetails 값 설정
+    func configureMajorDetails(majorIndex: Int) {
+        self.majorDetails = self.majorRawValues[majorIndex]
     }
     /// 전화번호 전송을 위한 전화번호 형식확인
     func checkPhoneNumberFormat(_ phoneNumber: String) -> Bool {
