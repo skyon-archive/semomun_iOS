@@ -120,7 +120,7 @@ final class ChangeUserinfoVC: UIViewController {
     }
     
     @IBAction func showSchoolSelectPopup(_ sender: Any) {
-        guard let schoolSelectPopupVC = self.storyboard?.instantiateViewController(withIdentifier: SchoolSelectPopupVC.identifier) as? SchoolSelectPopupVC else { return }
+        guard let schoolSelectPopupVC = UIStoryboard(name: SchoolSelectPopupVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SchoolSelectPopupVC.identifier) as? SchoolSelectPopupVC else { return }
         schoolSelectPopupVC.configureDelegate(self)
         self.present(schoolSelectPopupVC, animated: true)
     }
