@@ -141,7 +141,8 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func showNotice() {
-        let vc = UserNoticeVC()
+        let networkUsecase = NetworkUsecase(network: Network())
+        let vc = UserNoticeVC(networkUsecase: networkUsecase)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

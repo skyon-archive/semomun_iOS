@@ -18,19 +18,19 @@ final class UserNoticeContentVC: UIViewController {
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = UIColor.black
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.darkGray)
         return label
     }()
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(.lightGray)
+        label.font = .smallStyleParagraph
+        label.textColor = .getSemomunColor(.lightGray)
         return label
     }()
     private let divider: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(.lightGray)
+        view.backgroundColor = .getSemomunColor(.border)
         return view
     }()
     private let textViewAttribute: [NSAttributedString.Key : Any] = {
