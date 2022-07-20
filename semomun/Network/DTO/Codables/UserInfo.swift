@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserInfo: Codable {
+struct UserInfo: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
         case uid, name, username, email, gender, birth, major, majorDetail, school, graduationStatus, credit
         case phoneNumberWithCountryCode = "phone"
