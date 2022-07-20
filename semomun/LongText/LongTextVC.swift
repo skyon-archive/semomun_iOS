@@ -63,7 +63,10 @@ final class LongTextVC: UIViewController {
         return label
     }()
     private lazy var marketingToggleTopConstraint: NSLayoutConstraint = {
-        return self.marketingToggle.topAnchor.constraint(equalTo: self.textView.topAnchor)
+        let constraint = self.marketingToggle.topAnchor.constraint(equalTo: self.textView.topAnchor)
+        constraint.isActive = true
+        constraint.priority = .defaultLow
+        return constraint
     }()
     
     init(resource: Resource) {
@@ -94,7 +97,6 @@ final class LongTextVC: UIViewController {
     }
     
     // TextField의 마지막 줄 하단에 토글 위치
-    // TextField의 내용물이 화면을 가득 채우지 않는다는 전제
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.view.layoutIfNeeded()
@@ -126,12 +128,12 @@ extension LongTextVC {
         NSLayoutConstraint.activate([
             self.marketingToggle.widthAnchor.constraint(equalToConstant: 50),
             self.marketingToggle.heightAnchor.constraint(equalToConstant: 25),
+            self.marketingToggle.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor, constant: -100),
             
             self.marketingToggleLabel.centerYAnchor.constraint(equalTo: self.marketingToggle.centerYAnchor),
             self.marketingToggleLabel.leadingAnchor.constraint(equalTo: self.marketingToggle.trailingAnchor, constant: 8),
             self.marketingToggleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
         ])
-        self.marketingToggleTopConstraint.isActive = true
     }
     
     private func configureMarketingToggleAction() {
