@@ -133,6 +133,7 @@
 		25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B94288677F600E7D426 /* ButtonWithImage.swift */; };
 		25FB4B972886DF5300E7D426 /* MyPurchasesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */; };
 		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
+		613047B63AE60B1563D29FB1 /* libPods-semomun-semomunTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932B661858C14FEF3A384280 /* libPods-semomun-semomunTests.a */; };
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
@@ -163,7 +164,6 @@
 		87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87182B9427A1186600BA7294 /* SearchTagsFromTextVM.swift */; };
 		871861D728618CF100C0371A /* WorkbookGroupOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */; };
 		871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */; };
-		871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E50276EE48D008CEEBA /* AppDelegate.swift */; };
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
 		871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E59276EE48D008CEEBA /* Assets.xcassets */; };
@@ -324,6 +324,9 @@
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 		87FD58A828744930005E8E12 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD58A728744930005E8E12 /* UIButton.swift */; };
+		93CB648127B74E4AAE61602D /* libPods-semomun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */; };
+		D742B0562887E3CA00918D92 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D742B0542887E3CA00918D92 /* AppDelegate.mm */; };
+		D742B0582888021B00918D92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D742B0572888021B00918D92 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -467,6 +470,9 @@
 		25FB4B94288677F600E7D426 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesCell.swift; sourceTree = "<group>"; };
 		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
+		4283761F3F3851EB1DE0A450 /* Pods-semomun-semomunTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun-semomunTests.release.xcconfig"; path = "Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests.release.xcconfig"; sourceTree = "<group>"; };
+		449FA3030DF954FD2377E4FF /* Pods-semomun-semomunTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun-semomunTests.debug.xcconfig"; path = "Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-semomun.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
@@ -498,7 +504,6 @@
 		871861D628618CF100C0371A /* WorkbookGroupOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupOfDB.swift; sourceTree = "<group>"; };
 		871861D828619C0C00C0371A /* WorkbookGroupDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVM.swift; sourceTree = "<group>"; };
 		871B6E4D276EE48D008CEEBA /* semomun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = semomun.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		871B6E50276EE48D008CEEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		871B6E57276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -656,6 +661,13 @@
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
 		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
 		87FD58A728744930005E8E12 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		932B661858C14FEF3A384280 /* libPods-semomun-semomunTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-semomun-semomunTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C468C21FDBC10329121726 /* Pods-semomun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.debug.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.debug.xcconfig"; sourceTree = "<group>"; };
+		B252F8B75106EA27B58EC3E4 /* Pods-semomun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.release.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.release.xcconfig"; sourceTree = "<group>"; };
+		D742B0532887E3C900918D92 /* semomun-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "semomun-Bridging-Header.h"; sourceTree = "<group>"; };
+		D742B0542887E3CA00918D92 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		D742B0552887E3CA00918D92 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D742B0572888021B00918D92 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -663,6 +675,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				613047B63AE60B1563D29FB1 /* libPods-semomun-semomunTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,12 +688,22 @@
 				871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */,
 				8720B032278E775800B8775F /* FirebaseAnalytics in Frameworks */,
 				871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */,
+				93CB648127B74E4AAE61602D /* libPods-semomun.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02F0DDBC608F883E3921D826 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */,
+				932B661858C14FEF3A384280 /* libPods-semomun-semomunTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2502CEC927A6D7100072A037 /* MyPurchases */ = {
 			isa = PBXGroup;
 			children = (
@@ -1121,6 +1144,17 @@
 			path = LoginSelectVC;
 			sourceTree = "<group>";
 		};
+		34482644AD9004E45802ECAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				96C468C21FDBC10329121726 /* Pods-semomun.debug.xcconfig */,
+				B252F8B75106EA27B58EC3E4 /* Pods-semomun.release.xcconfig */,
+				449FA3030DF954FD2377E4FF /* Pods-semomun-semomunTests.debug.xcconfig */,
+				4283761F3F3851EB1DE0A450 /* Pods-semomun-semomunTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8703B099282A4EFA00DA5894 /* TestInfoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1186,6 +1220,8 @@
 				871B6E4F276EE48D008CEEBA /* semomun */,
 				25CF011227F3229A00FAB013 /* semomunTests */,
 				871B6E4E276EE48D008CEEBA /* Products */,
+				34482644AD9004E45802ECAE /* Pods */,
+				02F0DDBC608F883E3921D826 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1201,6 +1237,9 @@
 		871B6E4F276EE48D008CEEBA /* semomun */ = {
 			isa = PBXGroup;
 			children = (
+				D742B0572888021B00918D92 /* main.m */,
+				D742B0552887E3CA00918D92 /* AppDelegate.h */,
+				D742B0542887E3CA00918D92 /* AppDelegate.mm */,
 				8745569C27701BB700E3CBEE /* semomun.entitlements */,
 				87C85E28276F65A0001C9C4A /* Global */,
 				87C85E33276F6613001C9C4A /* CoreData */,
@@ -1221,13 +1260,13 @@
 				2502CEC927A6D7100072A037 /* MyPurchases */,
 				2593970227A3E19900BD5BD3 /* WaitingCharge */,
 				8716E954279A621A00B33A5E /* StudyZone */,
-				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
 				871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */,
 				871B6E5E276EE48D008CEEBA /* Info.plist */,
 				87C85EF9276F7055001C9C4A /* semomun.xcdatamodeld */,
 				8720B035278E7A2200B8775F /* GoogleService-Info.plist */,
+				D742B0532887E3C900918D92 /* semomun-Bridging-Header.h */,
 			);
 			path = semomun;
 			sourceTree = "<group>";
@@ -1811,9 +1850,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25CF011927F3229A00FAB013 /* Build configuration list for PBXNativeTarget "semomunTests" */;
 			buildPhases = (
+				08CDAB0976A6A3037067C817 /* [CP] Check Pods Manifest.lock */,
 				25CF010D27F3229A00FAB013 /* Sources */,
 				25CF010E27F3229A00FAB013 /* Frameworks */,
 				25CF010F27F3229A00FAB013 /* Resources */,
+				39DED3811D7F53336E02723E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1829,9 +1870,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 871B6E61276EE48D008CEEBA /* Build configuration list for PBXNativeTarget "semomun" */;
 			buildPhases = (
+				8AC74D6D9FB16BB86493278B /* [CP] Check Pods Manifest.lock */,
 				871B6E49276EE48D008CEEBA /* Sources */,
 				871B6E4A276EE48D008CEEBA /* Frameworks */,
 				871B6E4B276EE48D008CEEBA /* Resources */,
+				D6AEA0114FC93918F61B21B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1865,6 +1908,7 @@
 					};
 					871B6E4C276EE48D008CEEBA = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -1935,6 +1979,87 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08CDAB0976A6A3037067C817 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-semomun-semomunTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39DED3811D7F53336E02723E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8AC74D6D9FB16BB86493278B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-semomun-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6AEA0114FC93918F61B21B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25CF010D27F3229A00FAB013 /* Sources */ = {
@@ -2029,7 +2154,6 @@
 				250B285B28740860000578BC /* UICollectionView.swift in Sources */,
 				8766B1F6277C44A600061CE6 /* FormCellControllable.swift in Sources */,
 				257AB2D82877C93F00771382 /* HomeSectionView.swift in Sources */,
-				871B6E51276EE48D008CEEBA /* AppDelegate.swift in Sources */,
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
 				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */,
@@ -2067,6 +2191,7 @@
 				87A615E228858D98005B37CA /* SignupUsecase.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				250B285F287435CA000578BC /* UIImageView.swift in Sources */,
+				D742B0582888021B00918D92 /* main.m in Sources */,
 				878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */,
 				871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */,
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
@@ -2233,6 +2358,7 @@
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
+				D742B0562887E3CA00918D92 /* AppDelegate.mm in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
 				250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */,
 			);
@@ -2272,6 +2398,7 @@
 /* Begin XCBuildConfiguration section */
 		25CF011727F3229A00FAB013 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 449FA3030DF954FD2377E4FF /* Pods-semomun-semomunTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -2291,6 +2418,7 @@
 		};
 		25CF011827F3229A00FAB013 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4283761F3F3851EB1DE0A450 /* Pods-semomun-semomunTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -2310,6 +2438,7 @@
 		};
 		871B6E5F276EE48D008CEEBA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96C468C21FDBC10329121726 /* Pods-semomun.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2346,6 +2475,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2364,6 +2494,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2372,6 +2503,7 @@
 		};
 		871B6E60276EE48D008CEEBA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B252F8B75106EA27B58EC3E4 /* Pods-semomun.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -2408,6 +2540,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2419,6 +2552,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -2432,6 +2566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
@@ -2456,6 +2591,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "semomun/semomun-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2467,6 +2604,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
@@ -2491,6 +2629,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.skyon.semomun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "semomun/semomun-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

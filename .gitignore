@@ -130,3 +130,34 @@ iOSInjectionProject/
 #*.xcconfig
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,macos,swiftpm,swiftpackagemanager,cocoapods,firebase,swift
+
+
+ios/.xcode.env.local
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
+
+# Bundle artifact
+*.jsbundle
+
+# Ruby / CocoaPods
+/ios/Pods/
+/vendor/bundle/
