@@ -171,6 +171,7 @@ extension ChangeUserinfoVC {
         self.bindMajorDetails()
         self.bindAlert()
         self.bindUpdateSuccess()
+        self.bindOfflineError()
     }
     
     private func bindUserinfo() {
@@ -271,6 +272,18 @@ extension ChangeUserinfoVC {
             .sink(receiveValue: { [weak self] success in
                 guard success == true else { return }
                 self?.navigationController?.popViewController(animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindOfflineError() {
+        self.viewModel?.$offlineError
+            .dropFirst()
+            .sink(receiveValue: { [weak self] offline in
+                guard offline == true else { return }
+                self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크가 연결되어있지 않습니다.", completion: { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                })
             })
             .store(in: &self.cancellables)
     }
