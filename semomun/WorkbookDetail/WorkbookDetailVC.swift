@@ -47,6 +47,23 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         
         return button
     }()
+    private lazy var purchaseBarButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)
+        button.titleLabel?.font = UIFont.heading5
+        button.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
+        button.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+        button.layer.cornerRadius = 14
+        button.clipsToBounds = true
+        button.layer.cornerCurve = .continuous
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel?.switchPurchase()
+        }), for: .touchUpInside)
+        
+        return button
+    }()
     private let scrollExtensionBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -171,8 +188,15 @@ extension WorkbookDetailVC {
     }
     
     private func configureNavigationBar() {
-        // 우상단 info 버튼
-        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
+        // 우상단 bar button 설정
+        let information = UIBarButtonItem(customView: self.informationButton)
+        let purchase = UIBarButtonItem(customView: self.purchaseBarButton)
+        if self.isCoreData {
+            self.navigationItem.rightBarButtonItem = information
+        } else {
+            self.navigationItem.rightBarButtonItems = [information, purchase]
+            self.purchaseBarButton.alpha = 0
+        }
         // 그림자 처리
         self.navigationController?.navigationBar.layer.masksToBounds = false
         self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
@@ -231,15 +255,6 @@ extension WorkbookDetailVC {
         self.sectionTitleLabel.text = workbookInfo.title
         self.authorLabel.text = workbookInfo.author
         self.publishCompanyLabel.text = workbookInfo.publisher
-        if workbookInfo.price == 0 {
-            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 23.5, bottom: 5.5, right: 23.5)
-            self.purchaseWorkbookButton.setTitle("무료", for: .normal)
-            
-        } else {
-            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)
-            self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
-        }
-        
         
         if let imageData = workbookInfo.imageData {
             self.bookCoverImageView.image = UIImage(data: imageData)
@@ -249,6 +264,18 @@ extension WorkbookDetailVC {
             } else {
                 self.viewModel?.fetchBookcoverImage(bookcover: uuid)
             }
+        }
+        
+        guard self.isCoreData == false else { return }
+        if workbookInfo.price == 0 {
+            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 23.5, bottom: 5.5, right: 23.5)
+            self.purchaseWorkbookButton.setTitle("무료", for: .normal)
+            self.purchaseBarButton.setTitle("무료", for: .normal)
+            
+        } else {
+            self.purchaseWorkbookButton.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)
+            self.purchaseWorkbookButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
+            self.purchaseBarButton.setTitle("\(workbookInfo.price.withComma)원", for: .normal)
         }
     }
     
@@ -561,11 +588,13 @@ extension WorkbookDetailVC: UIScrollViewDelegate {
             self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
             guard self.isTitleInNavigationBar == false else { return }
             self.isTitleInNavigationBar = true
+            self.togglePurchaseBarButton(isShow: true)
             self.changeTitle(to: self.viewModel?.workbookInfo?.title ?? "")
         } else {
             self.navigationController?.navigationBar.layer.shadowColor = UIColor.clear.cgColor
             guard self.isTitleInNavigationBar == true else { return }
             self.isTitleInNavigationBar = false
+            self.togglePurchaseBarButton(isShow: false)
             self.changeTitle(to: "")
         }
     }
@@ -577,5 +606,11 @@ extension WorkbookDetailVC: UIScrollViewDelegate {
             
         self.navigationController?.navigationBar.layer.add(fadeTextAnimation, forKey: "fadeText")
         self.navigationItem.title = title
+    }
+    
+    private func togglePurchaseBarButton(isShow: Bool) {
+        UIView.animate(withDuration: 0.15) {
+            self.purchaseBarButton.alpha = isShow ? 1 : 0
+        }
     }
 }
