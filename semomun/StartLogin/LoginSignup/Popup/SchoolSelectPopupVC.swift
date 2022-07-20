@@ -13,6 +13,7 @@ protocol SchoolSelectDelegate: AnyObject {
 
 final class SchoolSelectPopupVC: UIViewController {
     static let identifier = "SchoolSelectPopupVC"
+    static let storyboardName = "Login"
     
     @IBOutlet weak var schoolCategoryButton: UIButton!
     @IBOutlet weak var schoolList: UICollectionView!
