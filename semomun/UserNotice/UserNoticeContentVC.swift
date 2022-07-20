@@ -62,7 +62,7 @@ final class UserNoticeContentVC: UIViewController {
 
 extension UserNoticeContentVC {
     private func configureUI() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .getSemomunColor(.background)
         self.navigationItem.title = "공지사항"
     }
     
