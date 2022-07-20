@@ -235,7 +235,10 @@ extension WorkbookDetailVC {
     }
     
     private func showWorkbookInfoVC() {
-        print("hello")
+        guard let workbookInfo = self.viewModel?.workbookInfo,
+              let workbookInfoPopupVC = self.storyboard?.instantiateViewController(withIdentifier: WorkbookInfoPopupVC.identifier) as? WorkbookInfoPopupVC else { return }
+        workbookInfoPopupVC.workbookInfo = workbookInfo
+        self.present(workbookInfoPopupVC, animated: true)
     }
 }
 

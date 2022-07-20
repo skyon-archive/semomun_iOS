@@ -129,6 +129,7 @@
 		25FB4B932886774600E7D426 /* LogoutProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B922886774600E7D426 /* LogoutProfileView.swift */; };
 		25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B94288677F600E7D426 /* ButtonWithImage.swift */; };
 		25FB4B972886DF5300E7D426 /* MyPurchasesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */; };
+		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
@@ -455,6 +456,7 @@
 		25FB4B922886774600E7D426 /* LogoutProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutProfileView.swift; sourceTree = "<group>"; };
 		25FB4B94288677F600E7D426 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesCell.swift; sourceTree = "<group>"; };
+		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
@@ -951,6 +953,7 @@
 				25A9B2B2279157F60087E774 /* ViewModel */,
 				2560E1E627914D03003BDAC0 /* Cell */,
 				25A9B2B5279164A50087E774 /* Model */,
+				87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */,
 			);
 			path = WorkbookDetail;
 			sourceTree = "<group>";
@@ -1940,6 +1943,7 @@
 				87EFCAE028854D030079BAC2 /* SchoolSelectPopupVC.swift in Sources */,
 				87DD0FCB2875B5C300070F8F /* DropdownOrderButton.swift in Sources */,
 				87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */,
+				87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */,
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
 				2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */,
