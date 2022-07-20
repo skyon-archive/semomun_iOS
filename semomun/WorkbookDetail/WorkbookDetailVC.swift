@@ -11,6 +11,8 @@ import Combine
 final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
     static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "HomeSearchBookshelf", .phone: "HomeSearchBookshelf_phone"]
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     // topView
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -44,6 +46,12 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
         }), for: .touchUpInside)
         
         return button
+    }()
+    private let scrollExtensionBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.background)
+        return view
     }()
     
     private var isCoreData: Bool = false
@@ -136,6 +144,14 @@ extension WorkbookDetailVC {
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
         self.tableFrameView.configureTopCorner(radius: CGFloat.cornerRadius24)
+        // scrollView 상단에 배경색과 다른 뷰 추가
+        self.scrollView.addSubview(self.scrollExtensionBackgroundView)
+        NSLayoutConstraint.activate([
+            self.scrollExtensionBackgroundView.heightAnchor.constraint(equalToConstant: 500),
+            self.scrollExtensionBackgroundView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
+            self.scrollExtensionBackgroundView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
+            self.scrollExtensionBackgroundView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor)
+        ])
         // 우상단 info 버튼
         self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
         // 구매 전 UI
