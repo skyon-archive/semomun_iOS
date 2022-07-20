@@ -14,6 +14,7 @@ final class ChangeUserinfoVM {
     /* public */
     @Published private(set) var status: LoginSignupStatus?
     @Published private(set) var alert: LoginSignupAlert?
+    @Published private(set) var offlineError: Bool = false
     @Published private(set) var majorDetails: [String] = []
     /// 현재 DB에 존재하는 UserInfo
     @Published private(set) var currentUserInfo: UserInfo?
@@ -49,6 +50,11 @@ final class ChangeUserinfoVM {
     }
     /// VC 에서 fetch 후 시작
     func getUserInfo() {
+        guard NetworkStatusManager.isConnectedToInternet() == true else {
+            self.offlineError = true
+            return
+        }
+        
         SyncUsecase(networkUsecase: self.networkUseCase).syncUserDataFromDB { [weak self] result in
             switch result {
             case .success(let userInfo):
