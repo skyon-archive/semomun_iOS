@@ -35,6 +35,7 @@ enum SemomunImage: String {
     case logoutOutline
     case chevronRightOutline
     case loginOutline
+    case informationCircleOutline
 }
 
 enum SystemImage: String {

@@ -26,6 +26,23 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     @IBOutlet weak var sectionListTableView: UITableView!
     // tableView layout
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    private lazy var informationButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImageWithSVGTintColor(image: UIImage(.informationCircleOutline), color: .black)
+        button.contentEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 0)
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 33),
+            button.heightAnchor.constraint(equalToConstant: 42)
+        ])
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.showWorkbookInfoVC()
+        }), for: .touchUpInside)
+        
+        return button
+    }()
     
     private var isCoreData: Bool = false
     private var viewModel: WorkbookDetailVM?
@@ -116,6 +133,8 @@ extension WorkbookDetailVC {
     private func configureUI() {
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
+        // 우상단 info 버튼
+        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
         // 구매 전 UI
         guard self.isCoreData == true else {
             self.selectAllSectionButton.isHidden = true
@@ -213,6 +232,10 @@ extension WorkbookDetailVC {
     private func removeLoader() {
         self.loadingView.stop()
         self.loadingView.removeFromSuperview()
+    }
+    
+    private func showWorkbookInfoVC() {
+        print("hello")
     }
 }
 
