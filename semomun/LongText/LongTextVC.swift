@@ -93,8 +93,11 @@ final class LongTextVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // TextField의 마지막 줄 하단에 토글 위치
+    // TextField의 내용물이 화면을 가득 채우지 않는다는 전제
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.view.layoutIfNeeded()
         self.marketingToggleTopConstraint.constant = self.textView.contentSize.height
     }
 }
@@ -128,11 +131,6 @@ extension LongTextVC {
             self.marketingToggleLabel.leadingAnchor.constraint(equalTo: self.marketingToggle.trailingAnchor, constant: 8),
             self.marketingToggleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
         ])
-        
-        // TextField의 마지막 줄 하단에 토글 위치
-        // TextField의 내용물이 화면을 가득 채우지 않는다는 전제
-        self.view.layoutIfNeeded()
-        self.marketingToggleTopConstraint.constant = self.textView.contentSize.height
         self.marketingToggleTopConstraint.isActive = true
     }
     
