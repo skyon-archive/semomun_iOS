@@ -1455,6 +1455,7 @@
                         <outlet property="editSectionsButton" destination="qeZ-G8-hCJ" id="L75-s8-fZd"/>
                         <outlet property="publishCompanyLabel" destination="Hgb-cA-aUe" id="ZJZ-4w-EH1"/>
                         <outlet property="purchaseWorkbookButton" destination="lxj-lQ-TWf" id="L3J-z4-Uj1"/>
+                        <outlet property="scrollView" destination="5SS-fs-eVe" id="Crd-dw-J9D"/>
                         <outlet property="sectionListTableView" destination="anc-pp-pOc" id="adK-rg-Tk8"/>
                         <outlet property="sectionTitleLabel" destination="7j3-uR-AIy" id="Ce0-pk-iD2"/>
                         <outlet property="selectAllSectionButton" destination="edb-0e-OCB" id="4Q9-nb-yOE"/>
