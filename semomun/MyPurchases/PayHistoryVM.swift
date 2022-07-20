@@ -12,10 +12,15 @@ typealias PayNetworkUsecase = (UserHistoryFetchable & S3ImageFetchable)
 
 final class PayHistoryVM {
     /* public */
+    enum Alert {
+        /// 아무것도 fetch해오지 못한 경우 VC에서 popVC 처리
+        case nothingFetched
+        case networkError
+    }
     var isPaging = false
     let networkUsecase: PayNetworkUsecase
     @Published private(set) var purchasedItems: [PurchasedItem] = []
-    @Published private(set) var alert: (title: String, message: String)?
+    @Published private(set) var alert: Alert?
     /* private */
     private var page = 1
     private var isLastPage = false
@@ -30,7 +35,7 @@ final class PayHistoryVM {
         self.networkUsecase.getPayHistory(page: page) { [weak self] status, result in
             guard status == .SUCCESS,
                   let result = result else {
-                self?.alert = ("네트워크 에러", "네트워크를 확인 후 다시 시도하시기 바랍니다.")
+                self?.alert = self?.purchasedItems.isEmpty == true ? .nothingFetched : .networkError
                 return
             }
             

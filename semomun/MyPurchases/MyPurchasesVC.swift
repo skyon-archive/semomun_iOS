@@ -30,10 +30,9 @@ final class MyPurchasesVC: UIViewController {
     init(viewModel: PayHistoryVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .getSemomunColor(.background)
         self.configureLayout()
         self.configureCollectionView()
-        self.configureHeaderUI()
+        self.configureUI()
         self.bindAll()
         self.viewModel.fetch()
     }
@@ -59,17 +58,6 @@ final class MyPurchasesVC: UIViewController {
 
 // MARK: Configure
 extension MyPurchasesVC {
-    private func configureHeaderUI() {
-        self.navigationItem.titleView?.backgroundColor = .white
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationItem.title = "구매내역"
-    }
-    
-    private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-    }
-    
     private func configureLayout() {
         self.view.addSubview(self.roundedBackground)
         self.roundedBackground.addSubview(self.collectionView)
@@ -84,6 +72,16 @@ extension MyPurchasesVC {
             self.collectionView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor)
         ])
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    }
+    
+    private func configureUI() {
+        self.view.backgroundColor = .getSemomunColor(.background)
+        self.navigationItem.title = "구매내역"
     }
 }
 
@@ -106,8 +104,16 @@ extension MyPurchasesVC {
         self.viewModel.$alert
             .receive(on: DispatchQueue.main)
             .sink { [weak self] alert in
-                guard let alert = alert else { return }
-                self?.showAlertWithOK(title: alert.title, text: alert.message)
+                switch alert {
+                case .networkError:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도하시기 바랍니다.")
+                case .nothingFetched:
+                    self?.showAlertWithOK(title: "네트워크 에러", text: "네트워크를 확인 후 다시 시도하시기 바랍니다.") {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                case .none:
+                    break
+                }
             }
             .store(in: &self.cancellables)
     }
@@ -122,7 +128,7 @@ extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlo
             return .init()
         }
         let purchasedItem = self.viewModel.purchasedItems[indexPath.item]
-        cell.configureContent(purchasedItem, networkUsecase: self.viewModel.networkUsecase)
+        cell.prepareForReuse(purchasedItem, networkUsecase: self.viewModel.networkUsecase)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
