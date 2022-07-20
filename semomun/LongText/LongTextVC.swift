@@ -8,6 +8,7 @@
 import UIKit
 
 final class LongTextVC: UIViewController {
+    /* public */
     enum Resource: String {
         case termsAndConditions
         case personalInformationProcessingPolicy
@@ -27,10 +28,7 @@ final class LongTextVC: UIViewController {
             }
         }
     }
-    
-    private var networkUsecase: UserInfoSendable? = NetworkUsecase(network: Network())
-    private lazy var syncUsecase: SyncUsecase? = SyncUsecase(networkUsecase: NetworkUsecase(network: Network()))
-    
+    /* private */
     private let backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,13 +41,30 @@ final class LongTextVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = .regularStyleParagraph
         view.textColor = .getSemomunColor(.darkGray)
-        view.textContainerInset = .init(top: 32, left: 24, bottom: 32, right: 24)
+        view.textContainerInset = .init(top: 24, left: 32, bottom: 24, right: 32)
         view.contentInsetAdjustmentBehavior = .never
+        view.isEditable = false
+        view.isSelectable = false
         return view
     }()
-    
-    @IBOutlet weak var labelAboutMarketingAccept: UILabel!
-    @IBOutlet weak var marketingAcceptBottomSpacing: NSLayoutConstraint!
+    private var networkUsecase: UserInfoSendable?
+    private var syncUsecase: SyncUsecase?
+    private lazy var marketingToggle: MainThemeSwitch = {
+        let toggle = MainThemeSwitch()
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        return toggle
+    }()
+    private lazy var marketingToggleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "수신 동의"
+        label.textColor = .getSemomunColor(.darkGray)
+        label.font = .heading5
+        return label
+    }()
+    private lazy var marketingToggleTopConstraint: NSLayoutConstraint = {
+        return self.marketingToggle.topAnchor.constraint(equalTo: self.textView.topAnchor)
+    }()
     
     init(resource: Resource) {
         super.init(nibName: nil, bundle: nil)
@@ -63,14 +78,24 @@ final class LongTextVC: UIViewController {
         self.view.backgroundColor = .getSemomunColor(.background)
         self.textView.text = text
         self.navigationItem.title = resource.title
-        
-        if resource == .receiveMarketingInfo {
-            self.addViewsForMarketingAccept()
-        }
+    }
+    
+    /// 마케팅 수신 동의 화면을 위한 init
+    convenience init(networkUsecase: (UserInfoSendable & SyncFetchable)) {
+        self.init(resource: .receiveMarketingInfo)
+        self.syncUsecase = SyncUsecase(networkUsecase: networkUsecase)
+        self.networkUsecase = networkUsecase
+        self.configureMarketingToggleLayout()
+        self.configureMarketingToggleAction()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.marketingToggleTopConstraint.constant = self.textView.contentSize.height
     }
 }
 
@@ -91,40 +116,39 @@ extension LongTextVC {
         ])
     }
     
-    private func addViewsForMarketingAccept() {
-        // 라벨 설정
-        if self.view.frame.width == 1024 { // 12인치의 경우 수정
-            self.marketingAcceptBottomSpacing.constant = 600
-        }
-        self.labelAboutMarketingAccept.isHidden = false
-        self.view.bringSubviewToFront(labelAboutMarketingAccept)
+    private func configureMarketingToggleLayout() {
+        self.view.addSubview(self.marketingToggle)
+        self.marketingToggle.addSubview(self.marketingToggleLabel)
         
-        // 토글 설정
-        let toggle = MainThemeSwitch()
-        toggle.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(toggle)
         NSLayoutConstraint.activate([
-            toggle.leadingAnchor.constraint(equalTo: labelAboutMarketingAccept.trailingAnchor, constant: 12),
-            toggle.centerYAnchor.constraint(equalTo: labelAboutMarketingAccept.centerYAnchor),
-            toggle.widthAnchor.constraint(equalToConstant: 50),
-            toggle.heightAnchor.constraint(equalToConstant: 25),
+            self.marketingToggle.widthAnchor.constraint(equalToConstant: 50),
+            self.marketingToggle.heightAnchor.constraint(equalToConstant: 25),
+            
+            self.marketingToggleLabel.centerYAnchor.constraint(equalTo: self.marketingToggle.centerYAnchor),
+            self.marketingToggleLabel.leadingAnchor.constraint(equalTo: self.marketingToggle.trailingAnchor, constant: 8),
+            self.marketingToggleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
         ])
-        self.view.bringSubviewToFront(toggle)
         
+        // TextField의 마지막 줄 하단에 토글 위치
+        // TextField의 내용물이 화면을 가득 채우지 않는다는 전제
+        self.view.layoutIfNeeded()
+        self.marketingToggleTopConstraint.constant = self.textView.contentSize.height
+        self.marketingToggleTopConstraint.isActive = true
+    }
+    
+    private func configureMarketingToggleAction() {
         self.syncUsecase?.syncUserDataFromDB { [weak self] result in
             switch result {
             case .success(var userInfo):
-                toggle.isOn = userInfo.marketing
-                toggle.setup { [weak self] isOn in
+                self?.marketingToggle.isOn = userInfo.marketing
+                self?.marketingToggle.setup { [weak self] isOn in
                     userInfo.marketing = isOn
                     self?.networkUsecase?.putUserInfoUpdate(userInfo: userInfo) { status in
                         guard status == .SUCCESS else {
                             self?.showAlertWithOK(title: "네트워크 없음", text: "네트워크 연결 상태를 확인해주세요")
-                            
                             // 네트워크 실패시 변경을 원상태로 복구
-                            toggle.toggle()
+                            self?.marketingToggle.toggle()
                             userInfo.marketing.toggle()
-                            
                             return
                         }
                         CoreDataManager.saveCoreData()
@@ -137,5 +161,4 @@ extension LongTextVC {
             }
         }
     }
-    
 }
