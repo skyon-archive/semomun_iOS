@@ -42,6 +42,7 @@ final class SignupVC: UIViewController {
     @IBOutlet weak var signupCompleteButton: UIButton!
     /// for layout
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollViewLeading: NSLayoutConstraint!
     @IBOutlet weak var completeButtonHeight: NSLayoutConstraint!
     
     private lazy var segmentedControl = SegmentedControlView(buttons: [
@@ -81,6 +82,12 @@ final class SignupVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+        self.scrollViewLeading.constant = leading
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -179,6 +186,9 @@ extension SignupVC {
             self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
         ])
         self.segmentedControl.selectIndex(to: 0)
+        
+        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+        self.scrollViewLeading.constant = leading
     }
     
     private func configureTextField() {

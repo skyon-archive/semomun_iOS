@@ -38,6 +38,7 @@ final class ChangeUserinfoVC: UIViewController {
     @IBOutlet var majorDetailButtons: [UIButton]!
     /// for layout
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollViewLeading: NSLayoutConstraint!
     private lazy var changeCompleteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +89,12 @@ final class ChangeUserinfoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+        self.scrollViewLeading.constant = leading
     }
     
     @IBAction func postAuthNumber(_ sender: Any) {
@@ -147,6 +154,9 @@ extension ChangeUserinfoVC {
             self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
         ])
         self.segmentedControl.selectIndex(to: 0)
+        
+        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+        self.scrollViewLeading.constant = leading
     }
     
     private func configureCompleteButton() {

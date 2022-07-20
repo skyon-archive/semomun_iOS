@@ -1390,9 +1390,9 @@
                         <viewLayoutGuide key="safeArea" id="v2u-Ty-o3X"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
+                            <constraint firstItem="OSQ-HR-enX" firstAttribute="centerX" secondItem="v2u-Ty-o3X" secondAttribute="centerX" id="84O-BT-7M1"/>
                             <constraint firstItem="OSQ-HR-enX" firstAttribute="top" secondItem="v2u-Ty-o3X" secondAttribute="top" id="XTd-GJ-ec1"/>
                             <constraint firstItem="v2u-Ty-o3X" firstAttribute="bottom" secondItem="OSQ-HR-enX" secondAttribute="bottom" id="amy-1w-Wkt"/>
-                            <constraint firstItem="v2u-Ty-o3X" firstAttribute="trailing" secondItem="OSQ-HR-enX" secondAttribute="trailing" id="uuD-5t-SPD"/>
                             <constraint firstItem="OSQ-HR-enX" firstAttribute="leading" secondItem="v2u-Ty-o3X" secondAttribute="leading" id="xCU-85-X6u"/>
                         </constraints>
                     </view>
@@ -1412,6 +1412,7 @@
                         <outlet property="postAuthButton" destination="IA6-r4-c9K" id="eTz-HN-M6m"/>
                         <outlet property="schoolButton" destination="xH6-2w-QEi" id="gug-Gc-KAG"/>
                         <outlet property="scrollView" destination="OSQ-HR-enX" id="hSn-bv-cVV"/>
+                        <outlet property="scrollViewLeading" destination="xCU-85-X6u" id="NxF-nh-Ao4"/>
                         <outlet property="searchIcon" destination="nYk-E5-8hs" id="ZHU-WB-bSn"/>
                         <outlet property="warningAuthView" destination="A5Z-vW-g7C" id="WNm-Jy-7yz"/>
                         <outlet property="warningPhoneView" destination="eDK-O2-ZFi" id="hO8-hf-k7w"/>
