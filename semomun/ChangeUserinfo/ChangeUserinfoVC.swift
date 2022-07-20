@@ -46,10 +46,12 @@ final class ChangeUserinfoVC: UIViewController {
         button.titleLabel?.font = UIFont.heading5
         button.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
         button.setTitle("저장", for: .normal)
+        button.setImageWithSVGTintColor(image: UIImage(.pencilAltOutline), color: .lightGray)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
         
         NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 43),
-            button.heightAnchor.constraint(equalToConstant: 37)
+            button.widthAnchor.constraint(equalToConstant: 51),
+            button.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -84,6 +86,7 @@ final class ChangeUserinfoVC: UIViewController {
         self.bindAll()
         
         self.viewModel?.getUserInfo()
+        print(self.view.bounds)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,8 +96,10 @@ final class ChangeUserinfoVC: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
-        self.scrollViewLeading.constant = leading
+        coordinator.animate { [weak self] _ in
+            let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+            self?.scrollViewLeading.constant = leading
+        }
     }
     
     @IBAction func postAuthNumber(_ sender: Any) {
@@ -247,9 +252,11 @@ extension ChangeUserinfoVC {
                 case .userInfoComplete:
                     self?.changeCompleteButton.isUserInteractionEnabled = true
                     self?.changeCompleteButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+                    self?.changeCompleteButton.setImageWithSVGTintColor(image: UIImage(.pencilAltOutline), color: .blueRegular)
                 case .userInfoIncomplete:
                     self?.changeCompleteButton.isUserInteractionEnabled = false
                     self?.changeCompleteButton.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
+                    self?.changeCompleteButton.setImageWithSVGTintColor(image: UIImage(.pencilAltOutline), color: .lightGray)
                 case .none:
                     break
                 }
