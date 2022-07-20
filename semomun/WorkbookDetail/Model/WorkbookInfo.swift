@@ -22,10 +22,7 @@ struct WorkbookInfo {
         self.title = previewCore.title ?? "문제집 제목 없음"
         self.author = previewCore.author != "" ? (previewCore.author ?? "저자 정보 없음") : "저자 정보 없음"
         self.publisher = previewCore.publisher != "" ? (previewCore.publisher ?? "출판사 정보 없음") : "출판사 정보 없음"
-        self.releaseDate = previewCore.publishedDate?.koreanYearMonthDayText ?? "출판일 정보 없음"
-        if let yearIndex = releaseDate.firstIndex(of: "년") {
-            self.releaseDate.insert("\n", at: releaseDate.index(after: yearIndex))
-        }
+        self.releaseDate = previewCore.publishedDate?.yearMonthDayText ?? "출판일 정보 없음"
         let byteSize = Int(previewCore.fileSize)
         self.fileSize = byteSize.byteToMBString
         self.isbn = previewCore.isbn ?? ""
@@ -39,10 +36,7 @@ struct WorkbookInfo {
         self.title = workbookDTO.title
         self.author = workbookDTO.author != "" ? workbookDTO.author : "저자 정보 없음"
         self.publisher = workbookDTO.publishCompany != "" ? workbookDTO.publishCompany : "출판사 정보 없음"
-        self.releaseDate = workbookDTO.publishedDate.koreanYearMonthDayText
-        if let yearIndex = releaseDate.firstIndex(of: "년") {
-            self.releaseDate.insert("\n", at: releaseDate.index(after: yearIndex))
-        }
+        self.releaseDate = workbookDTO.publishedDate.yearMonthDayText
         let byteSize = sectionInfos.reduce(0, { $0 + $1.fileSize })
         self.fileSize = byteSize.byteToMBString
         self.isbn = workbookDTO.isbn
