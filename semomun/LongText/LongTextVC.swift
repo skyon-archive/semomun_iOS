@@ -81,7 +81,7 @@ final class LongTextVC: UIViewController {
     }
     
     /// 마케팅 수신 동의 화면을 위한 init
-    convenience init(networkUsecase: (UserInfoSendable & SyncFetchable)) {
+    convenience init(withMarketingToggle networkUsecase: (UserInfoSendable & SyncFetchable)) {
         self.init(resource: .receiveMarketingInfo)
         self.syncUsecase = SyncUsecase(networkUsecase: networkUsecase)
         self.networkUsecase = networkUsecase
