@@ -68,6 +68,13 @@ class MyPurchasesCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func prepareForReuse(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
+        self.updateImage(uuid: purchasedItem.descriptionImageID, networkUsecase: networkUsecase)
+        self.dateLabel.text = purchasedItem.createdDate.yearMonthDayText
+        self.titleLabel.text = purchasedItem.title
+        self.costLabel.text = purchasedItem.transaction.amount.withComma + "원"
+    }
 }
 
 // MARK: Configure
@@ -98,13 +105,6 @@ extension MyPurchasesCell {
 
 // MARK: Update
 extension MyPurchasesCell {
-    func configureContent(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
-        self.updateImage(uuid: purchasedItem.descriptionImageID, networkUsecase: networkUsecase)
-        self.dateLabel.text = purchasedItem.createdDate.yearMonthDayText
-        self.titleLabel.text = purchasedItem.title
-        self.costLabel.text = purchasedItem.transaction.amount.withComma + "원"
-    }
-    
     private func updateImage(uuid: UUID, networkUsecase: S3ImageFetchable) {
         if let cachedImage = ImageCacheManager.shared.getImage(uuid: uuid) {
             self.imageView.image = cachedImage
@@ -121,7 +121,7 @@ extension MyPurchasesCell {
                         self?.imageView.image = image
                     }
                 default:
-                    print("HomeWorkbookCell: GET image fail")
+                    print("MyPurchasesCell: GET image fail")
                 }
             })
         }
