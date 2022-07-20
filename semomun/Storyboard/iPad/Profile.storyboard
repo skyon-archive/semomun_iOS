@@ -98,170 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qt-eE-1KD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="237" y="40"/>
-        </scene>
-        <!--충전하기-->
-        <scene sceneID="uTD-tX-5Cw">
-            <objects>
-                <viewController storyboardIdentifier="WaitingChargeVC" title="충전하기" id="D8Z-6o-fNU" customClass="WaitingChargeVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="skV-iA-sd6">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKK-2e-4eg">
-                                <rect key="frame" x="0.0" y="24" width="834" height="20"/>
-                                <color key="backgroundColor" name="grayBackground"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="uVq-oF-f8J"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bce-Q3-M0x">
-                                <rect key="frame" x="257.5" y="492.5" width="319" height="213.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-dx-6eR">
-                                <rect key="frame" x="257.5" y="492.5" width="319" height="21.5"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="세모문">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="웹페이지에서">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="세모">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="페이">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="충전을">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="마치면">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="18"/>
-                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hty-DP-Oo9">
-                                <rect key="frame" x="345" y="606" width="144" height="49"/>
-                                <color key="backgroundColor" name="mainColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="144" id="Za7-x6-Zdg"/>
-                                    <constraint firstAttribute="height" constant="49" id="aWd-BQ-Yw3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <color key="tintColor" name="whiteColor"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="충전완료"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="chargeComplete:" destination="D8Z-6o-fNU" eventType="touchUpInside" id="sW6-ux-Y0F"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아래 [충전완료]를 눌러주세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajn-sl-0Sw">
-                                <rect key="frame" x="312.5" y="525" width="209" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="defaultText"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGV-sk-4ZV">
-                                <rect key="frame" x="392.5" y="677" width="49" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="tintColor" name="grayTextColor"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="취소하기"/>
-                                <connections>
-                                    <action selector="cancel:" destination="D8Z-6o-fNU" eventType="touchUpInside" id="O0f-jh-NKN"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="qHj-37-TCU"/>
-                        <color key="backgroundColor" name="defaultBackground"/>
-                        <constraints>
-                            <constraint firstItem="fqL-dx-6eR" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="1qa-FZ-H2F"/>
-                            <constraint firstItem="vGV-sk-4ZV" firstAttribute="centerX" secondItem="hty-DP-Oo9" secondAttribute="centerX" id="9RB-T8-hsi"/>
-                            <constraint firstItem="VKK-2e-4eg" firstAttribute="leading" secondItem="qHj-37-TCU" secondAttribute="leading" id="9dz-ed-RR7"/>
-                            <constraint firstItem="VKK-2e-4eg" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="HsX-fk-EzY"/>
-                            <constraint firstItem="VKK-2e-4eg" firstAttribute="top" secondItem="qHj-37-TCU" secondAttribute="top" id="Kvm-KR-FIw"/>
-                            <constraint firstItem="Ajn-sl-0Sw" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="OSG-kb-z5L"/>
-                            <constraint firstItem="fqL-dx-6eR" firstAttribute="leading" secondItem="bce-Q3-M0x" secondAttribute="leading" id="PWt-Ex-yd7"/>
-                            <constraint firstItem="hty-DP-Oo9" firstAttribute="top" secondItem="Ajn-sl-0Sw" secondAttribute="bottom" constant="59" id="XwU-1h-Ywm"/>
-                            <constraint firstItem="vGV-sk-4ZV" firstAttribute="top" secondItem="hty-DP-Oo9" secondAttribute="bottom" constant="22" id="amg-AT-K8v"/>
-                            <constraint firstItem="fqL-dx-6eR" firstAttribute="trailing" secondItem="bce-Q3-M0x" secondAttribute="trailing" id="bbl-wZ-QB2"/>
-                            <constraint firstItem="fqL-dx-6eR" firstAttribute="top" secondItem="bce-Q3-M0x" secondAttribute="top" id="hNn-xG-YUv"/>
-                            <constraint firstItem="Ajn-sl-0Sw" firstAttribute="top" secondItem="fqL-dx-6eR" secondAttribute="bottom" constant="11" id="kuN-dG-PU1"/>
-                            <constraint firstItem="bce-Q3-M0x" firstAttribute="centerY" secondItem="qHj-37-TCU" secondAttribute="centerY" id="o3l-pf-TAr"/>
-                            <constraint firstItem="bce-Q3-M0x" firstAttribute="bottom" secondItem="vGV-sk-4ZV" secondAttribute="bottom" id="tTs-wM-rbj"/>
-                            <constraint firstItem="bce-Q3-M0x" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="uWY-eD-g0x"/>
-                            <constraint firstItem="hty-DP-Oo9" firstAttribute="centerX" secondItem="qHj-37-TCU" secondAttribute="centerX" id="zOf-Kw-Mr7"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w73-db-JDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="906" y="40"/>
+            <point key="canvasLocation" x="-1227" y="40"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="U1w-eT-qa1">
@@ -1036,7 +873,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d07-rO-l1N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="237" y="-649"/>
+            <point key="canvasLocation" x="-1227" y="-649"/>
         </scene>
     </scenes>
     <resources>
@@ -1060,20 +897,11 @@
         <namedColor name="defaultBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="defaultText">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="grayBackground">
             <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="grayTextColor">
-            <color red="0.44313725490196076" green="0.44313725490196076" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="lightGray">
             <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="mainColor">
-            <color red="0.015686274509803921" green="0.80784313725490198" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

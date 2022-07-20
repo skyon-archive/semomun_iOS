@@ -21,18 +21,12 @@ final class ChangeUserinfoVM {
     /// VC에서 수정의 대상이 되며 DB로 보내지는 UserInfo
     @Published private(set) var newUserInfo: UserInfo? {
         didSet {
-            self.isChanged = true
             self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
         }
     }
     @Published private(set) var updateUserinfoSuccess: Bool = false
-    private(set) var isChanged: Bool = false {
-        didSet {
-            self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
-        }
-    }
     var validResult: Bool {
-        return self.newUserInfo?.isValid == true && self.isChanged == true
+        return self.newUserInfo?.isValid == true && self.currentUserInfo != self.newUserInfo
     }
     let majorRawValues: [[String]] = [
         ["인문", "상경", "사회", "교육", "기타"],
@@ -73,7 +67,6 @@ final class ChangeUserinfoVM {
                 self?.newUserInfo?.phoneNumber = nil
             }
             
-            self?.isChanged = false
             self?.status = .userInfoIncomplete
         }
     }
@@ -177,7 +170,7 @@ final class ChangeUserinfoVM {
     }
     /// 변동사항 Network 반영
     func submit() {
-        guard self.isChanged == true,
+        guard self.validResult == true,
               let userInfo = self.newUserInfo, userInfo.isValid == true else { return }
         
         self.networkUseCase.putUserInfoUpdate(userInfo: userInfo) { [weak self] status in
