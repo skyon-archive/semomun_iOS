@@ -34,7 +34,7 @@ final class UserNoticeCell: UITableViewCell {
         self.commonInit()
     }
     
-    func configure(using userNotice: UserNotice) {
+    func prepareForReuse(using userNotice: UserNotice) {
         self.titleLabel.text = userNotice.title
         self.dateLabel.text = userNotice.createdDate.yearMonthDayText
     }

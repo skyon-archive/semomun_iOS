@@ -13,6 +13,7 @@ final class UserNoticeVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.separatorInset = .zero
+        view.contentInset = .init(top: 24, left: 0, bottom: 24, right: 0)
         return view
     }()
     private let backgroundView: UIView = {
@@ -65,8 +66,8 @@ extension UserNoticeVC {
             
             self.noticeTableView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -24),
-            self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 24)
+            self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
         ])
     }
     
@@ -101,7 +102,7 @@ extension UserNoticeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserNoticeCell.identifier) as? UserNoticeCell else { return UITableViewCell() }
         let notice = self.noticeFetched[indexPath.row]
-        cell.configure(using: notice)
+        cell.prepareForReuse(using: notice)
         return cell
     }
     
