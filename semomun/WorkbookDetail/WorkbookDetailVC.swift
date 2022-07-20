@@ -19,6 +19,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     @IBOutlet weak var purchaseWorkbookButton: UIButton!
     @IBOutlet weak var workbookTagsCollectionView: UICollectionView!
     // tableView
+    @IBOutlet weak var tableFrameView: UIView!
     @IBOutlet weak var selectAllSectionButton: UIButton!
     @IBOutlet weak var selectedCountLabel: UILabel!
     @IBOutlet weak var deleteSectionsButton: UIButton!
@@ -26,6 +27,7 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     @IBOutlet weak var sectionListTableView: UITableView!
     // tableView layout
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     private lazy var informationButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -133,6 +135,7 @@ extension WorkbookDetailVC {
     private func configureUI() {
         self.selectedCountLabel.isHidden = true
         self.deleteSectionsButton.isHidden = true
+        self.tableFrameView.configureTopCorner(radius: CGFloat.cornerRadius24)
         // 우상단 info 버튼
         self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.informationButton), animated: true)
         // 구매 전 UI
@@ -330,8 +333,9 @@ extension WorkbookDetailVC {
         self.viewModel?.$sectionHeaders
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] sections in
                 self?.updateDownloadbleCount()
+                self?.tableViewHeightConstraint.constant = SectionCell.cellHeight * CGFloat(sections.count)
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -341,7 +345,8 @@ extension WorkbookDetailVC {
         self.viewModel?.$sectionDTOs
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] sections in
+                self?.tableViewHeightConstraint.constant = SectionCell.cellHeight * CGFloat(sections.count)
                 self?.sectionListTableView.reloadData()
             })
             .store(in: &self.cancellables)

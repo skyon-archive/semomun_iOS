@@ -19,6 +19,7 @@ protocol WorkbookCellController: AnyObject {
 final class SectionCell: UITableViewCell {
     /* public */
     static let identifier = "SectionCell"
+    static let cellHeight = CGFloat(48)
     /* private */
     @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var sectionNumber: UILabel!
