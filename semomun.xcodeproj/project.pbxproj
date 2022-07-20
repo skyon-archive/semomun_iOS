@@ -231,7 +231,6 @@
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
 		87AC217B2862FD0F00613609 /* WorkbookGroup_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */; };
 		87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221D27A39FF900B48F9D /* BookshelfCell.swift */; };
-		87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
 		87AE2FF1287FEA6C00C83AF1 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */; };
 		87AE2FF3287FEDCA00C83AF1 /* GoogleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */; };
@@ -556,7 +555,6 @@
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
 		87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroup_Core.swift; sourceTree = "<group>"; };
 		87AC221D27A39FF900B48F9D /* BookshelfCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCell.swift; sourceTree = "<group>"; };
-		87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseWarningPopupVC.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
 		87AE2FF0287FEA6C00C83AF1 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
 		87AE2FF2287FEDCA00C83AF1 /* GoogleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginButton.swift; sourceTree = "<group>"; };
@@ -1296,7 +1294,6 @@
 		8745855D279FB85B00E331F1 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
-				87AC221F27A5419B00B48F9D /* PurchaseWarningPopupVC.swift */,
 				8716E938279A5F9900B33A5E /* PurchasePopupVC.swift */,
 			);
 			path = Purchase;
@@ -2019,7 +2016,6 @@
 				257AB2D62877C91900771382 /* HomeHeaderView.swift in Sources */,
 				25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */,
 				87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */,
-				87AC222027A5419B00B48F9D /* PurchaseWarningPopupVC.swift in Sources */,
 				87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */,
 				25BF7B74287D145B00A5F6E1 /* HomeTagDetailVM.swift in Sources */,
 				25FB4B912886738400E7D426 /* ProfileViewDelegates.swift in Sources */,

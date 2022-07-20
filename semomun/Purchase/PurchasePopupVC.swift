@@ -16,10 +16,10 @@ final class PurchasePopupVC: UIViewController {
     }
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var usePriceLabel: UILabel!
     @IBOutlet weak var currentMoneyLabel: UILabel!
-    @IBOutlet weak var afterMoneyLabel: UILabel!
-    @IBOutlet weak var moneyStatusLabel: UILabel!
-    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var necessaryLabel: UILabel!
+    @IBOutlet weak var necessaryPriceLabel: UILabel!
     @IBOutlet weak var purchaseBT: UIButton!
     
     private var info: WorkbookOfDB?
