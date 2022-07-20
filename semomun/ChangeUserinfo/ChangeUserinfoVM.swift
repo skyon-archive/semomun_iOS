@@ -21,7 +21,6 @@ final class ChangeUserinfoVM {
     /// VC에서 수정의 대상이 되며 DB로 보내지는 UserInfo
     @Published private(set) var newUserInfo: UserInfo? {
         didSet {
-            dump(newUserInfo)
             self.isChanged = true
             self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
         }
