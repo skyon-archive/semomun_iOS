@@ -126,10 +126,8 @@ final class ChangeUserinfoVC: UIViewController {
     }
     
     @IBAction func changeComplete(_ sender: Any) {
-        let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-        let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .signup)
-        self.present(searchTagVC, animated: true, completion: nil)
+        guard self.viewModel?.validResult == true else { return }
+        self.viewModel?.submit()
     }
 }
 
@@ -172,6 +170,7 @@ extension ChangeUserinfoVC {
         self.bindStatus()
         self.bindMajorDetails()
         self.bindAlert()
+        self.bindUpdateSuccess()
     }
     
     private func bindUserinfo() {
@@ -265,6 +264,16 @@ extension ChangeUserinfoVC {
             })
             .store(in: &self.cancellables)
     }
+    
+    private func bindUpdateSuccess() {
+        self.viewModel?.$updateUserinfoSuccess
+            .dropFirst()
+            .sink(receiveValue: { [weak self] success in
+                guard success == true else { return }
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .store(in: &self.cancellables)
+    }
 }
 
 extension ChangeUserinfoVC {
@@ -283,6 +292,8 @@ extension ChangeUserinfoVC {
                 self.deSelectButton(button)
             }
         }
+        self.selectedMajorIndex = majorIndex
+        self.viewModel?.configureMajorDetails(majorIndex: majorIndex)
         
         let majorDetailDatas = viewModel.majorRawValues[majorIndex]
         for (idx, detail) in majorDetailDatas.enumerated() {
