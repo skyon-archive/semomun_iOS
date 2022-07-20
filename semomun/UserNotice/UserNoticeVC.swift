@@ -7,70 +7,80 @@
 
 import UIKit
 
-typealias UserNoticeNetworkUsecase = NoticeFetchable
-
 final class UserNoticeVC: UIViewController {
-    private let noticeTableView = UITableView()
+    private let noticeTableView: UITableView = {
+        let view = UITableView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.separatorInset = .zero
+        return view
+    }()
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .getSemomunColor(.white)
+        view.configureTopCorner(radius: .cornerRadius24)
+        return view
+    }()
     private var noticeFetched: [UserNotice] = []
-    private let networkUsecase: UserNoticeNetworkUsecase? = NetworkUsecase(network: Network())
+    private let networkUsecase: NoticeFetchable
+    
+    init(networkUsecase: NoticeFetchable) {
+        self.networkUsecase = networkUsecase
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.configureUI()
+        self.configureLayout()
         self.configureTableView()
-        self.getData()
+        self.fetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
-// MARK: Confiure layout
+// MARK: Configure
 extension UserNoticeVC {
     private func configureUI() {
         self.navigationItem.title = "공지사항"
         self.view.backgroundColor = .getSemomunColor(.background)
-        self.configureBackgroundColorView()
-        self.configureTableViewLayout()
     }
     
-    private func configureBackgroundColorView() {
-        let backgroundColorView = UIView()
-        backgroundColorView.backgroundColor = .getSemomunColor(.white)
-        backgroundColorView.configureTopCorner(radius: .cornerRadius24)
-        backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(backgroundColorView)
+    private func configureLayout() {
+        self.view.addSubviews(self.backgroundView, self.noticeTableView)
         NSLayoutConstraint.activate([
-            backgroundColorView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            backgroundColorView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            backgroundColorView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundColorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        ])
-    }
-    
-    private func configureTableViewLayout() {
-        self.noticeTableView.backgroundColor = .white
-        self.noticeTableView.separatorInset = .zero
-        
-        self.view.addSubview(noticeTableView)
-        self.noticeTableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            self.backgroundView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.backgroundView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.backgroundView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
             self.noticeTableView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
             self.noticeTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 32),
             self.noticeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -24),
             self.noticeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 24)
         ])
     }
-}
-
-
-extension UserNoticeVC {
+    
     private func configureTableView() {
         self.noticeTableView.register(UserNoticeCell.self, forCellReuseIdentifier: UserNoticeCell.identifier)
         self.noticeTableView.dataSource = self
         self.noticeTableView.delegate = self
     }
-    
-    private func getData() {
-        self.networkUsecase?.getNotices { [weak self] status, userNotices in
+}
+
+
+extension UserNoticeVC {
+    private func fetch() {
+        self.networkUsecase.getNotices { [weak self] status, userNotices in
             if status == .SUCCESS {
                 self?.noticeFetched = userNotices
                 self?.noticeTableView.reloadData()
@@ -92,7 +102,6 @@ extension UserNoticeVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserNoticeCell.identifier) as? UserNoticeCell else { return UITableViewCell() }
         let notice = self.noticeFetched[indexPath.row]
         cell.configure(using: notice)
-        
         return cell
     }
     
