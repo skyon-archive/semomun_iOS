@@ -26,6 +26,14 @@ final class MyPurchasesVC: UIViewController {
         view.configureDefaultDesign()
         return view
     }()
+    private lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.heading5
+        label.textColor = UIColor.getSemomunColor(.lightGray)
+        label.text = "아직 구매내역이 없어요"
+        return label
+    }()
     
     init(viewModel: PayHistoryVM) {
         self.viewModel = viewModel
@@ -83,6 +91,14 @@ extension MyPurchasesVC {
         self.view.backgroundColor = .getSemomunColor(.background)
         self.navigationItem.title = "구매내역"
     }
+    
+    private func configureEmptyLabel() {
+        self.collectionView.addSubview(self.emptyLabel)
+        NSLayoutConstraint.activate([
+            self.emptyLabel.centerXAnchor.constraint(equalTo: self.collectionView.centerXAnchor),
+            self.emptyLabel.topAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: 24)
+        ])
+    }
 }
 
 // MARK: Bindings
@@ -95,8 +111,12 @@ extension MyPurchasesVC {
         self.viewModel.$purchasedItems
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink { [weak self] _ in
-                self?.collectionView.reloadData()
+            .sink { [weak self] purchasedItems in
+                if purchasedItems.isEmpty == true {
+                    self?.configureEmptyLabel()
+                } else {
+                    self?.collectionView.reloadData()
+                }
             }
             .store(in: &self.cancellables)
     }
@@ -132,7 +152,7 @@ extension MyPurchasesVC: UICollectionViewDataSource, UICollectionViewDelegateFlo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(self.view.bounds.width-UICollectionView.gridPadding*2, 147)
+        return .init(collectionView.bounds.width-UICollectionView.gridPadding*2, 147)
     }
 }
 
