@@ -43,6 +43,7 @@ final class UserNoticeCell: UITableViewCell {
 extension UserNoticeCell {
     private func commonInit() {
         self.accessoryType = .disclosureIndicator
+        self.selectionStyle = .none
         
         self.contentView.addSubview(titleLabel)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
