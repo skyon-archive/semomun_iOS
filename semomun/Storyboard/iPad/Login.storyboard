@@ -983,9 +983,9 @@
                             <constraint firstItem="XmJ-nR-XNz" firstAttribute="top" secondItem="Yak-Jl-qu6" secondAttribute="bottom" id="Bf9-wS-dQC"/>
                             <constraint firstAttribute="bottom" secondItem="XmJ-nR-XNz" secondAttribute="bottom" id="EwK-aI-kz8"/>
                             <constraint firstItem="XmJ-nR-XNz" firstAttribute="leading" secondItem="Xad-Q7-JcO" secondAttribute="leading" id="LYE-Me-h2p"/>
+                            <constraint firstItem="Yak-Jl-qu6" firstAttribute="centerX" secondItem="Xad-Q7-JcO" secondAttribute="centerX" id="QFS-Va-UN1"/>
                             <constraint firstItem="Yak-Jl-qu6" firstAttribute="leading" secondItem="Xad-Q7-JcO" secondAttribute="leading" id="dYQ-Fr-yvc"/>
                             <constraint firstItem="Yak-Jl-qu6" firstAttribute="top" secondItem="Xad-Q7-JcO" secondAttribute="top" id="dpE-cY-H9P"/>
-                            <constraint firstItem="Xad-Q7-JcO" firstAttribute="trailing" secondItem="Yak-Jl-qu6" secondAttribute="trailing" id="flZ-R3-oiO"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1005,6 +1005,7 @@
                         <outlet property="postAuthButton" destination="G2L-hp-kjs" id="f11-aB-Ory"/>
                         <outlet property="schoolButton" destination="ExX-yk-HbZ" id="EdF-tw-Lq2"/>
                         <outlet property="scrollView" destination="Yak-Jl-qu6" id="zBt-6y-Pmh"/>
+                        <outlet property="scrollViewLeading" destination="dYQ-Fr-yvc" id="xfm-Ff-XsY"/>
                         <outlet property="searchIcon" destination="l6a-Yn-Jo0" id="YAk-uI-ykF"/>
                         <outlet property="signupCompleteButton" destination="XmJ-nR-XNz" id="4su-Wo-3W8"/>
                         <outlet property="warningAuthView" destination="Ksu-5z-QP8" id="lb9-tu-XRU"/>
