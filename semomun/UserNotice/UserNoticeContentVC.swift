@@ -21,7 +21,6 @@ final class UserNoticeContentVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isEditable = false
         view.isSelectable = false
-        view.textColor = .getSemomunColor(.darkGray)
         view.textContainerInset = .init(top: 16, left: 32, bottom: 16, right: 32)
         return view
     }()
@@ -97,7 +96,8 @@ extension UserNoticeContentVC {
         style.lineHeightMultiple = 2
         let attributes = [
             NSAttributedString.Key.paragraphStyle: style,
-            NSAttributedString.Key.font: UIFont.regularStyleParagraph
+            NSAttributedString.Key.font: UIFont.regularStyleParagraph,
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray)
         ]
         self.contentTextView.attributedText = NSAttributedString(string: text, attributes: attributes)
     }
