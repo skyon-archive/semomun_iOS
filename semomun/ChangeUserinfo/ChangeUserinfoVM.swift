@@ -20,6 +20,7 @@ final class ChangeUserinfoVM {
     /// VC에서 수정의 대상이 되며 DB로 보내지는 UserInfo
     @Published private(set) var newUserInfo: UserInfo? {
         didSet {
+            dump(newUserInfo)
             self.isChanged = true
             self.status = self.validResult ? .userInfoComplete : .userInfoIncomplete
         }
@@ -112,13 +113,8 @@ final class ChangeUserinfoVM {
         self.phoneAuthenticator.verifySMSCode(code) { [weak self] result in
             switch result {
             case .success(let phoneNumber):
-                guard let phoneNumberWithCountryCode = phoneNumber.phoneNumberWithCountryCode else {
-                    self?.alert = .networkError
-                    return
-                }
-                // 전화번호 형식수정 후 반영
-                self?.newUserInfo?.phoneNumber = phoneNumberWithCountryCode
                 self?.status = .authComplete
+                self?.newUserInfo?.phoneNumber = phoneNumber
             case .failure(let error):
                 switch error {
                 case .wrongCode:
@@ -152,7 +148,7 @@ final class ChangeUserinfoVM {
     }
     /// username에 변화가 있는 경우 기존에 있던(예전에 중복확인을 한) username을 무효화
     func invalidateUsername() {
-        self.newUserInfo?.username = self.currentUserInfo?.username
+        self.newUserInfo?.username = nil
     }
     /// Major 선택 -> MajorDetail 내용 변경, Major, MajorDetail 초기화 반영
     func selectMajor(to index: Int) {
