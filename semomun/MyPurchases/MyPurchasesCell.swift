@@ -19,6 +19,8 @@ class MyPurchasesCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.75).isActive = true
         view.heightAnchor.constraint(equalToConstant: 115).isActive = true
+        view.borderWidth = 1
+        view.borderColor = .getSemomunColor(.border)
         return view
     }()
     private let dateLabel: UILabel = {
