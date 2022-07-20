@@ -36,12 +36,28 @@ final class ChangeUserinfoVC: UIViewController {
     /// majors
     @IBOutlet var majorButtons: [UIButton]!
     @IBOutlet var majorDetailButtons: [UIButton]!
-    /// complete
-    @IBOutlet weak var changeCompleteButton: UIButton!
     /// for layout
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var completeButtonHeight: NSLayoutConstraint!
-    
+    private lazy var changeCompleteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
+        button.titleLabel?.font = UIFont.heading5
+        button.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
+        button.setTitle("저장", for: .normal)
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 43),
+            button.heightAnchor.constraint(equalToConstant: 37)
+        ])
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            guard self?.viewModel?.validResult == true else { return }
+            self?.viewModel?.submit()
+        }), for: .touchUpInside)
+        
+        return button
+    }()
     private lazy var segmentedControl = SegmentedControlView(buttons: [
         SegmentedButtonInfo(title: "재학") { [weak self] in
             self?.viewModel?.selectGraduationStatus("재학")
@@ -60,6 +76,7 @@ final class ChangeUserinfoVC: UIViewController {
         self.title = "개인정보 수정"
         self.configureViewModel()
         self.configureUI()
+        self.configureCompleteButton()
         self.configureTextField()
         self.configureTextFieldDelegate()
         self.configureNotification()
@@ -71,15 +88,6 @@ final class ChangeUserinfoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        /// homebar 가 존재하는 디바이스의 경우 하단 완료 버튼 layout 수정
-        if view.safeAreaInsets.bottom > 0 {
-            self.completeButtonHeight.constant = 73+20
-            self.changeCompleteButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
-        }
     }
     
     @IBAction func postAuthNumber(_ sender: Any) {
@@ -124,11 +132,6 @@ final class ChangeUserinfoVC: UIViewController {
         schoolSelectPopupVC.configureDelegate(self)
         self.present(schoolSelectPopupVC, animated: true)
     }
-    
-    @IBAction func changeComplete(_ sender: Any) {
-        guard self.viewModel?.validResult == true else { return }
-        self.viewModel?.submit()
-    }
 }
 
 extension ChangeUserinfoVC {
@@ -144,6 +147,10 @@ extension ChangeUserinfoVC {
             self.segmentedControl.leadingAnchor.constraint(equalTo: self.graduationInputView.leadingAnchor)
         ])
         self.segmentedControl.selectIndex(to: 0)
+    }
+    
+    private func configureCompleteButton() {
+        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.changeCompleteButton), animated: true)
     }
     
     private func configureTextField() {
@@ -229,10 +236,10 @@ extension ChangeUserinfoVC {
                     self?.dismissKeyboard()
                 case .userInfoComplete:
                     self?.changeCompleteButton.isUserInteractionEnabled = true
-                    self?.changeCompleteButton.backgroundColor = UIColor.getSemomunColor(.orangeRegular)
+                    self?.changeCompleteButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
                 case .userInfoIncomplete:
                     self?.changeCompleteButton.isUserInteractionEnabled = false
-                    self?.changeCompleteButton.backgroundColor = UIColor.systemGray4
+                    self?.changeCompleteButton.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
                 case .none:
                     break
                 }

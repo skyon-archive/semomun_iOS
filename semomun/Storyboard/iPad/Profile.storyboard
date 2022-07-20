@@ -680,7 +680,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSQ-HR-enX">
-                                <rect key="frame" x="0.0" y="24" width="834" height="1097"/>
+                                <rect key="frame" x="0.0" y="24" width="834" height="1150"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vqi-pI-6WX" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="862"/>
@@ -1386,41 +1386,21 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="QeE-Qh-1U4"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="RHI-T2-M9P"/>
                             </scrollView>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1C1-jA-5wl">
-                                <rect key="frame" x="0.0" y="1121" width="834" height="73"/>
-                                <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="73" id="8v1-6I-Hlp"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="20"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="변경 내용 저장">
-                                    <color key="titleColor" name="white"/>
-                                </state>
-                                <connections>
-                                    <action selector="changeComplete:" destination="8H8-YT-7eO" eventType="touchUpInside" id="fLv-0B-vod"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="v2u-Ty-o3X"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
-                            <constraint firstItem="v2u-Ty-o3X" firstAttribute="trailing" secondItem="1C1-jA-5wl" secondAttribute="trailing" id="73s-zY-pwz"/>
-                            <constraint firstAttribute="bottom" secondItem="1C1-jA-5wl" secondAttribute="bottom" id="AdU-sf-rlY"/>
                             <constraint firstItem="OSQ-HR-enX" firstAttribute="top" secondItem="v2u-Ty-o3X" secondAttribute="top" id="XTd-GJ-ec1"/>
-                            <constraint firstItem="1C1-jA-5wl" firstAttribute="leading" secondItem="v2u-Ty-o3X" secondAttribute="leading" id="g0y-oc-LeO"/>
+                            <constraint firstItem="v2u-Ty-o3X" firstAttribute="bottom" secondItem="OSQ-HR-enX" secondAttribute="bottom" id="amy-1w-Wkt"/>
                             <constraint firstItem="v2u-Ty-o3X" firstAttribute="trailing" secondItem="OSQ-HR-enX" secondAttribute="trailing" id="uuD-5t-SPD"/>
-                            <constraint firstItem="1C1-jA-5wl" firstAttribute="top" secondItem="OSQ-HR-enX" secondAttribute="bottom" id="w0I-jo-KeW"/>
                             <constraint firstItem="OSQ-HR-enX" firstAttribute="leading" secondItem="v2u-Ty-o3X" secondAttribute="leading" id="xCU-85-X6u"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="authNumTextField" destination="Z41-in-JOW" id="pGr-Na-Meb"/>
                         <outlet property="authStatusLine" destination="Mnr-hi-pbs" id="ytw-dy-4r1"/>
-                        <outlet property="changeCompleteButton" destination="1C1-jA-5wl" id="gwY-CC-T3Q"/>
                         <outlet property="checkAuthButton" destination="8c7-H9-1ZS" id="xRj-Me-FK7"/>
                         <outlet property="checkIdButton" destination="rbi-t1-Axq" id="nXx-5e-spm"/>
-                        <outlet property="completeButtonHeight" destination="8v1-6I-Hlp" id="082-ZW-Oi4"/>
                         <outlet property="graduationInputView" destination="BMf-2i-eye" id="Pn1-Oh-fsN"/>
                         <outlet property="graduationLabel" destination="OsJ-GP-SIE" id="WFd-cs-CEh"/>
                         <outlet property="idStatusLine" destination="cRE-wL-6WH" id="2JY-hc-9Sd"/>
