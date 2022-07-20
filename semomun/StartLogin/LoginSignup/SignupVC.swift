@@ -86,8 +86,10 @@ final class SignupVC: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
-        self.scrollViewLeading.constant = leading
+        coordinator.animate { [weak self] _ in
+            let leading: CGFloat = UIWindow.isLandscape ? 180 : 0
+            self?.scrollViewLeading.constant = leading
+        }
     }
     
     override func viewSafeAreaInsetsDidChange() {
