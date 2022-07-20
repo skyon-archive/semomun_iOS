@@ -171,8 +171,14 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func showLongText(type: LongTextVC.Resource) {
-        let vc = LongTextVC(resource: type)
-        self.navigationController?.pushViewController(vc, animated: true)
+        if type == .receiveMarketingInfo && UserDefaultsManager.isLogined {
+            let networkUsecase = NetworkUsecase(network: Network())
+            let vc = LongTextVC(networkUsecase: networkUsecase)
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = LongTextVC(resource: type)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func login() {

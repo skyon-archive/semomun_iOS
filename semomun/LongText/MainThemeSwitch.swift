@@ -10,8 +10,8 @@ import UIKit
 final class MainThemeSwitch: UIControl {
     var isOn: Bool = false
     
-    private let onTintColor = UIColor(named: "mainColor")
-    private let offTintColor = UIColor.lightGray
+    private let onTintColor = UIColor.getSemomunColor(.orangeRegular)
+    private let offTintColor = UIColor.getSemomunColor(.lightGray)
     
     private let animationDuration = 0.4
     
