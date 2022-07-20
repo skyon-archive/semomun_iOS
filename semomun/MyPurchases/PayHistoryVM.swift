@@ -36,6 +36,7 @@ final class PayHistoryVM {
             guard status == .SUCCESS,
                   let result = result else {
                 self?.alert = self?.purchasedItems.isEmpty == true ? .nothingFetched : .networkError
+                self?.purchasedItems = []
                 return
             }
             

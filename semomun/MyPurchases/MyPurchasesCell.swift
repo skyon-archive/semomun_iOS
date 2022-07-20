@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPurchasesCell: UICollectionViewCell {
+final class MyPurchasesCell: UICollectionViewCell {
     /* public */
     static let identifier = "MyPurchasesCell"
     /* private */
@@ -21,6 +21,7 @@ class MyPurchasesCell: UICollectionViewCell {
         view.heightAnchor.constraint(equalToConstant: 115).isActive = true
         view.borderWidth = 1
         view.borderColor = .getSemomunColor(.border)
+        view.image = UIImage(.loadingBookcover)
         return view
     }()
     private let dateLabel: UILabel = {
@@ -43,6 +44,7 @@ class MyPurchasesCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .getSemomunColor(.darkGray)
         label.font = .largeStyleParagraph
+        label.numberOfLines = 2
         return label
     }()
     private let costLabel: UILabel = {
@@ -69,6 +71,11 @@ class MyPurchasesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = UIImage(.loadingBookcover)
+    }
+    
     func prepareForReuse(_ purchasedItem: PurchasedItem, networkUsecase: S3ImageFetchable) {
         self.updateImage(uuid: purchasedItem.descriptionImageID, networkUsecase: networkUsecase)
         self.dateLabel.text = purchasedItem.createdDate.yearMonthDayText
@@ -93,6 +100,7 @@ extension MyPurchasesCell {
             
             self.titleLabel.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 8),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.dateLabel.leadingAnchor),
+            self.titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
             
             self.costLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4),
             self.costLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
