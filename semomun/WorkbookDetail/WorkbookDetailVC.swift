@@ -138,7 +138,15 @@ final class WorkbookDetailVC: UIViewController, StoryboardController {
     
     @IBAction func deleteSections(_ sender: Any) {
         guard self.cellAccessable == true else { return }
-        self.viewModel?.deleteSelectedSections()
+        let alert = UIAlertController(title: "정말 삭제할까요?", message: "필기와 채점 데이터가 같이 삭제됩니다.", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
+        let delete = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+            self?.viewModel?.deleteSelectedSections()
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func downloadAllSections(_ sender: Any) {
