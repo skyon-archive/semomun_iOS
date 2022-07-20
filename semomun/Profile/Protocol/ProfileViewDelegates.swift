@@ -20,7 +20,7 @@ protocol CommonProfileViewDelegate: AnyObject {
     func showServiceCenter()
     func showErrorReport()
     func resignAccount()
-    func showLongText(type: ProfileVCLongTextType)
+    func showLongText(type: LongTextVC.Resource)
 }
 
 /// ProfileView의 로그인 상태 로직

@@ -70,28 +70,6 @@ extension UIViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowRadius = 4.5
     }
-    
-    func showLongTextVC(title: String, txtResourceName: String, marketingInfo: Bool = false, isPopup: Bool = false) {
-        guard let filepath = Bundle.main.path(forResource: txtResourceName, ofType: "txt") else { return }
-        do {
-            let text = try String(contentsOfFile: filepath)
-            self.showLongTextVC(title: title, text: text, marketingInfo: marketingInfo, isPopup: isPopup)
-        } catch {
-            self.showAlertWithOK(title: "에러", text: "파일로딩에 실패하였습니다.")
-        }
-    }
-    
-    func showLongTextVC(title: String, text: String, marketingInfo: Bool = false, isPopup: Bool = false) {
-        let storyboard = UIStoryboard(controllerType: LongTextVC.self)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: LongTextVC.identifier) as? LongTextVC else { return }
-        vc.configureUI(navigationBarTitle: title, text: text, isPopup: isPopup, marketingInfo: marketingInfo)
-        if isPopup {
-            let navigationView = UINavigationController(rootViewController: vc)
-            self.present(navigationView, animated: true)
-        } else {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
 
     func addPageSwipeGesture() {
         let rightSwipeGesture: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(rightDragged))

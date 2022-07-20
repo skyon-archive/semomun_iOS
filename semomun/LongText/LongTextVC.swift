@@ -7,63 +7,88 @@
 
 import UIKit
 
-final class LongTextVC: UIViewController, StoryboardController {
-    static let identifier = "LongTextVC"
-    static var storyboardNames: [UIUserInterfaceIdiom : String] = [.pad: "Profile", .phone: "Profile_phone"]
+final class LongTextVC: UIViewController {
+    enum Resource: String {
+        case termsAndConditions
+        case personalInformationProcessingPolicy
+        case receiveMarketingInfo
+        case termsOfElectronicTransaction
+        
+        var title: String {
+            switch self {
+            case .termsAndConditions:
+                return "이용약관"
+            case .personalInformationProcessingPolicy:
+                return "개인정보 처리 방침"
+            case .receiveMarketingInfo:
+                return "마케팅 수신 동의"
+            case .termsOfElectronicTransaction:
+                return "전자금융거래 이용약관"
+            }
+        }
+    }
     
     private var networkUsecase: UserInfoSendable? = NetworkUsecase(network: Network())
     private lazy var syncUsecase: SyncUsecase? = SyncUsecase(networkUsecase: NetworkUsecase(network: Network()))
     
-    @IBOutlet weak var textViewBackground: UIView!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var labelAboutMarketingAccept: UILabel!
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .getSemomunColor(.white)
+        view.configureTopCorner(radius: .cornerRadius24)
+        return view
+    }()
+    private let textView: UITextView = {
+        let view = UITextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = .regularStyleParagraph
+        view.textColor = .getSemomunColor(.darkGray)
+        view.textContainerInset = .init(top: 32, left: 24, bottom: 32, right: 24)
+        view.contentInsetAdjustmentBehavior = .never
+        return view
+    }()
     
-    @IBOutlet weak var textViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var textViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelAboutMarketingAccept: UILabel!
     @IBOutlet weak var marketingAcceptBottomSpacing: NSLayoutConstraint!
-}
-
-extension LongTextVC {
-    func configureUI(navigationBarTitle: String, text: String, isPopup: Bool, marketingInfo: Bool = false) {
-        self.loadViewIfNeeded()
-        self.configureBasicUI(navigationBarTitle: navigationBarTitle, text: text)
-        if isPopup {
-            self.configureUIForPopup()
-        } else {
-            self.textViewBackground.addShadow(direction: .top)
+    
+    init(resource: Resource) {
+        super.init(nibName: nil, bundle: nil)
+        self.configureLayout()
+        
+        guard let filepath = Bundle.main.path(forResource: resource.rawValue, ofType: "txt"),
+              let text = try? String(contentsOfFile: filepath) else {
+            return
         }
-        if marketingInfo {
+        
+        self.view.backgroundColor = .getSemomunColor(.background)
+        self.textView.text = text
+        self.navigationItem.title = resource.title
+        
+        if resource == .receiveMarketingInfo {
             self.addViewsForMarketingAccept()
         }
     }
     
-    private func configureBasicUI(navigationBarTitle: String, text: String) {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            self.textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        } else {
-            self.textView.textContainerInset = UIEdgeInsets(top: 67, left: 105, bottom: 67, right: 105)
-        }
-        
-        self.isModalInPresentation = true
-        self.textView.text = text
-        self.navigationItem.title = navigationBarTitle
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    private func configureUIForPopup() {
-        self.textViewBackground.isHidden = true
-        self.textViewLeadingConstraint.constant = 0
-        self.textViewTopConstraint.constant = 0
-        
-        // 우측 상단 닫기 버튼 생성
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium)
-        let closeImage = UIImage(.warning, withConfiguration: imageConfig)
-        let closePopupButton = UIBarButtonItem(image: closeImage, style: .done, target: self, action: #selector(closePopup))
-        closePopupButton.tintColor = .black
-        self.navigationItem.rightBarButtonItem = closePopupButton
-    }
-    
-    @objc private func closePopup() {
-        self.dismiss(animated: true)
+}
+
+extension LongTextVC {
+    private func configureLayout() {
+        self.view.addSubview(self.backgroundView)
+        self.backgroundView.addSubview(self.textView)
+        NSLayoutConstraint.activate([
+            self.backgroundView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.backgroundView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.backgroundView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            self.backgroundView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            
+            self.textView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor),
+            self.textView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor),
+            self.textView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor),
+            self.textView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor)
+        ])
     }
     
     private func addViewsForMarketingAccept() {

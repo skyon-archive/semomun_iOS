@@ -32,74 +32,6 @@
             </objects>
             <point key="canvasLocation" x="-1915" y="-649"/>
         </scene>
-        <!--Long TextVC-->
-        <scene sceneID="flO-3b-ePe">
-            <objects>
-                <viewController storyboardIdentifier="LongTextVC" id="z59-Cz-wcx" customClass="LongTextVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cAZ-fz-Cuw">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GHe-uQ-XiN" userLabel="Background">
-                                <rect key="frame" x="0.0" y="24" width="834" height="1170"/>
-                                <color key="backgroundColor" name="grayBackground"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXO-Sc-YOj" userLabel="Frame">
-                                <rect key="frame" x="20" y="44" width="794" height="1110"/>
-                                <color key="backgroundColor" name="whiteColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGA-4b-zkM">
-                                <rect key="frame" x="20" y="44" width="794" height="1110"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj1-Kl-HEt">
-                                <rect key="frame" x="653" y="756" width="56" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="lMV-Rb-TUr"/>
-                        <color key="backgroundColor" name="defaultBackground"/>
-                        <constraints>
-                            <constraint firstItem="GHe-uQ-XiN" firstAttribute="leading" secondItem="lMV-Rb-TUr" secondAttribute="leading" id="1Ab-Ac-bQF"/>
-                            <constraint firstItem="lMV-Rb-TUr" firstAttribute="bottom" secondItem="aj1-Kl-HEt" secondAttribute="bottom" constant="400" id="1yy-a5-iYy"/>
-                            <constraint firstItem="BXO-Sc-YOj" firstAttribute="centerY" secondItem="lMV-Rb-TUr" secondAttribute="centerY" id="4ti-aI-zyr"/>
-                            <constraint firstItem="GHe-uQ-XiN" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" id="8qk-qH-qw1"/>
-                            <constraint firstItem="BXO-Sc-YOj" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="Cik-wS-jfg"/>
-                            <constraint firstItem="BXO-Sc-YOj" firstAttribute="leading" secondItem="lMV-Rb-TUr" secondAttribute="leading" constant="20" id="GAQ-LN-Xgr"/>
-                            <constraint firstItem="KGA-4b-zkM" firstAttribute="leading" secondItem="lMV-Rb-TUr" secondAttribute="leading" constant="20" id="Iqs-or-2FL"/>
-                            <constraint firstItem="KGA-4b-zkM" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="JJf-Fv-ydn"/>
-                            <constraint firstItem="KGA-4b-zkM" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" constant="20" id="Ppc-F9-8tg"/>
-                            <constraint firstItem="KGA-4b-zkM" firstAttribute="centerY" secondItem="lMV-Rb-TUr" secondAttribute="centerY" id="RvJ-U9-428"/>
-                            <constraint firstItem="KGA-4b-zkM" firstAttribute="trailing" secondItem="aj1-Kl-HEt" secondAttribute="trailing" constant="105" id="XT9-xw-rYa"/>
-                            <constraint firstItem="BXO-Sc-YOj" firstAttribute="top" secondItem="lMV-Rb-TUr" secondAttribute="top" constant="20" id="cFg-fe-78P"/>
-                            <constraint firstAttribute="bottom" secondItem="GHe-uQ-XiN" secondAttribute="bottom" id="mB6-mK-Ixk"/>
-                            <constraint firstItem="GHe-uQ-XiN" firstAttribute="centerX" secondItem="lMV-Rb-TUr" secondAttribute="centerX" id="sJO-fd-cwR"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="labelAboutMarketingAccept" destination="aj1-Kl-HEt" id="y63-3G-w3J"/>
-                        <outlet property="marketingAcceptBottomSpacing" destination="1yy-a5-iYy" id="37f-GF-JQp"/>
-                        <outlet property="textView" destination="KGA-4b-zkM" id="RYO-rV-h0T"/>
-                        <outlet property="textViewBackground" destination="BXO-Sc-YOj" id="TqX-EF-Wu6"/>
-                        <outlet property="textViewLeadingConstraint" destination="Iqs-or-2FL" id="zan-d6-1m7"/>
-                        <outlet property="textViewTopConstraint" destination="Ppc-F9-8tg" id="oQU-Aa-lB3"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Qt-eE-1KD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1227" y="40"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="U1w-eT-qa1">
             <objects>
@@ -894,24 +826,12 @@
         <namedColor name="darkGray">
             <color red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="defaultBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="grayBackground">
-            <color red="0.97647058823529409" green="0.98039215686274506" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="lightGray">
             <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="whiteColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

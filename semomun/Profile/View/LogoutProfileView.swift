@@ -114,16 +114,16 @@ extension LogoutProfileView {
             ProfileSectionRow(text: "앱정보 및 이용약관"),
             ProfileRowWithSubtitle(title: "버전정보", subtitle: version),
             ProfileDisclosureRow(text: "이용약관", action: { [weak self] in
-                self?.delegate?.showLongText(type: .termsAndCondition)
+                self?.delegate?.showLongText(type: .termsAndConditions)
             }),
             ProfileDisclosureRow(text: "개인정보 처리 방침", action: { [weak self] in
-                self?.delegate?.showLongText(type: .privacyPolicy)
+                self?.delegate?.showLongText(type: .personalInformationProcessingPolicy)
             }),
             ProfileDisclosureRow(text: "마케팅 수신 동의", action: { [weak self] in
-                self?.delegate?.showLongText(type: .marketingAgree)
+                self?.delegate?.showLongText(type: .receiveMarketingInfo)
             }),
             ProfileDisclosureRow(text: "전자금융거래 이용약관", action: { [weak self] in
-                self?.delegate?.showLongText(type: .termsOfTransaction)
+                self?.delegate?.showLongText(type: .termsOfElectronicTransaction)
             })
         ].forEach { view in
             self.stackView.addArrangedSubview(view)

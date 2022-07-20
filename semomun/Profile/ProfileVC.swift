@@ -170,17 +170,9 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
         }
     }
     
-    func showLongText(type: ProfileVCLongTextType) {
-        switch type {
-        case .termsAndCondition:
-            self.showLongTextVC(title: "이용약관", txtResourceName: "termsAndConditions")
-        case .privacyPolicy:
-            self.showLongTextVC(title: "개인정보 처리방침", txtResourceName: "personalInformationProcessingPolicy")
-        case .marketingAgree:
-            self.showLongTextVC(title: "마케팅 수신 동의", txtResourceName: "receiveMarketingInfo", marketingInfo: true)
-        case .termsOfTransaction:
-            self.showLongTextVC(title: "전자금융거래 이용약관", txtResourceName: "termsOfElectronicTransaction", marketingInfo: false)
-        }
+    func showLongText(type: LongTextVC.Resource) {
+        let vc = LongTextVC(resource: type)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func login() {
