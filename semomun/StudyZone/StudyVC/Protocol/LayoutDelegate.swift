@@ -8,7 +8,6 @@
 import Foundation
 
 protocol LayoutDelegate: AnyObject {
-    func updateIndicator()
     func showAlert(text: String)
     func dismissSection()
 }

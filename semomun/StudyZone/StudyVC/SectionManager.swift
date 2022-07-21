@@ -23,6 +23,7 @@ final class SectionManager {
     private var timer: Timer!
     private var isRunning: Bool = true
     private let networkUsecase: UserSubmissionSendable
+    private var vids: [Int64] = []
     
     /// WorkbookDetailVC 에서 VM 생성
     init(section: Section_Core, sectionHeader: SectionHeader_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -52,7 +53,13 @@ final class SectionManager {
     }
     
     private func configurePageCount() {
-        let vids = Set(self.problems.compactMap(\.pageCore).map(\.vid))
+        var vids: [Int64] = []
+        self.problems.forEach { problem in
+            if let vid = problem.pageCore?.vid, vids.contains(vid) == false {
+                vids.append(vid)
+            }
+        }
+        self.vids = vids
         self.totalPageCount = vids.count
     }
     
@@ -66,11 +73,8 @@ final class SectionManager {
         guard let page = self.problems[index].pageCore else { return }
         self.currentIndex = index
         
-        if self.currentPage?.vid == Int(page.vid) {
-            self.delegate?.updateIndicator()
-            return
-        }
-        
+        if self.currentPage?.vid == Int(page.vid) { return }
+        self.currentPageIndex = Int(self.vids.firstIndex(of: page.vid) ?? 0)
         let pageData = PageData(page: page)
         self.currentPage = pageData
         self.section.setValue(index, forKey: "lastPageId") // TODO: lastIndex로 수정 예정
