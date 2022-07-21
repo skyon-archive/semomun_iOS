@@ -104,6 +104,9 @@ extension HomeVM {
             self?.logined = true
             self?.fetchLogined()
         }
+        NotificationCenter.default.addObserver(forName: .logout, object: nil, queue: .current) { [weak self] _ in
+            self?.logined = false
+        }
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
             self?.fetchLogined()
         }
