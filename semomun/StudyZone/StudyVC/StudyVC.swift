@@ -26,15 +26,17 @@ final class StudyVC: UIViewController {
     }
     /* private */
     @IBOutlet weak var headerFrameView: UIView!
-    @IBOutlet weak var bottomFrameView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var childFrameView: UIView!
-    @IBOutlet weak var resultBT: UIButton!
-    @IBOutlet weak var beforeFrameView: UIView!
-    @IBOutlet weak var nextFrameView: UIView!
-    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var clickIcon: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var scoringButton: UIButton!
+    @IBOutlet weak var contentsSlideButton: UIButton!
+    @IBOutlet weak var childFrameView: UIView!
+    @IBOutlet weak var bottomProblemIndicatorView: UIView!
+    @IBOutlet weak var previewButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var pageLabel: UILabel!
     
     private var mode: Mode? // default, practiceTest
     private var currentVC: UIViewController?
@@ -69,7 +71,6 @@ final class StudyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureMenu()
-        self.configureCollectionView()
         self.configureManager()
         self.bindAll()
         self.configureShadow()
@@ -142,6 +143,10 @@ final class StudyVC: UIViewController {
     @IBAction func nextPage(_ sender: Any) {
         self.mode == .default ? self.sectionManager?.changeNextPage() : self.practiceTestManager?.changeNextPage()
     }
+    
+    @IBAction func showContentsSlideVC(_ sender: Any) {
+        
+    }
 }
 
 // MARK: Public
@@ -164,13 +169,7 @@ extension StudyVC {
         let reportErrorAction = UIAction(title: "오류신고", image: nil) { [weak self] _ in
             self?.showReportView()
         }
-        let showResultAction = UIAction(title: "결과보기", image: nil) { [weak self] _ in
-            guard let section = self?.sectionManager?.section else { return }
-            self?.showResultViewController(section: section)
-        }
-        // MARK: 실모의 경우 결과보기를 없애는게 맞지 않을까?
-        let children = self.mode == .default ? [reportErrorAction, showResultAction] : [reportErrorAction]
-        self.menuButton.menu = UIMenu(title: "", image: nil, children: children)
+        self.menuButton.menu = UIMenu(title: "", image: nil, children: [reportErrorAction])
         self.menuButton.showsMenuAsPrimaryAction = true
     }
     
@@ -182,16 +181,10 @@ extension StudyVC {
         }
     }
     
-    private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-    }
-    
     private func configureShadow() {
         self.view.layoutIfNeeded()
-        self.setShadow(with: self.childFrameView)
-        self.beforeFrameView.addShadow(direction: .right)
-        self.nextFrameView.addShadow(direction: .left)
+        self.headerFrameView.addShadow()
+        self.bottomProblemIndicatorView.addShadow()
     }
     
     /// 채점 이후 결과창 표시를 위한 observer
@@ -202,7 +195,7 @@ extension StudyVC {
                   let pageData = self?.sectionManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
-            self?.reloadButtons()
+            self?.updateIndicator()
             self?.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
@@ -210,7 +203,7 @@ extension StudyVC {
             guard let pageData = self?.practiceTestManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
-            self?.reloadButtons()
+            self?.updateIndicator()
             self?.practiceTestManager?.postProblemAndPageDatas(isDismiss: false)
             self?.showPracticeTestResultVC()
         }
@@ -219,47 +212,6 @@ extension StudyVC {
         }
         NotificationCenter.default.addObserver(forName: .nextPage, object: nil, queue: .main) { [weak self] _ in
             self?.nextPage()
-        }
-    }
-}
-
-extension StudyVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    // 문제수 반환
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let mode = self.mode else { return 0 }
-        switch mode {
-        case .default: return self.sectionManager?.problems.count ?? 0
-        case .practiceTest: return self.practiceTestManager?.problems.count ?? 0
-        }
-    }
-    
-    // 문제버튼 생성
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemNameCell.identifier, for: indexPath) as? ProblemNameCell else { return UICollectionViewCell() }
-        guard let mode = self.mode else { return cell }
-        
-        switch mode {
-        case .default:
-            guard let problem = self.sectionManager?.problems[safe: indexPath.item],
-                  let currentIndex = self.sectionManager?.currentIndex else { return cell }
-            
-            cell.configure(problem: problem, isCurrent: currentIndex == indexPath.item)
-        case .practiceTest:
-            guard let problem = self.practiceTestManager?.problems[safe: indexPath.item],
-                  let currentIndex = self.practiceTestManager?.currentIndex else { return cell }
-            
-            cell.configureForPracticeTest(problem: problem, isCurrent: currentIndex == indexPath.item)
-        }
-        
-        return cell
-    }
-    
-    // 문제 버튼 클릭시
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let mode = self.mode else { return }
-        switch mode {
-        case .default: self.sectionManager?.changePage(at: indexPath.item)
-        case .practiceTest: self.practiceTestManager?.changePage(at: indexPath.item)
         }
     }
 }
@@ -456,8 +408,8 @@ extension StudyVC: LayoutDelegate {
         self.showVC(to: self.currentVC)
     }
     
-    func reloadButtons() {
-        self.collectionView.reloadData()
+    func updateIndicator() {
+//        self.collectionView.reloadData()
     }
     
     func showAlert(text: String) {
@@ -467,16 +419,12 @@ extension StudyVC: LayoutDelegate {
     func dismissSection() {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
-    func changeResultLabel() {
-        self.resultBT.setTitle("결과보기", for: .normal)
-    }
 }
 
 extension StudyVC: PageDelegate {
     func refreshPageButtons() {
         CoreDataManager.saveCoreData()
-        self.reloadButtons()
+        self.updateIndicator()
     }
     
     func nextPage() {
@@ -496,7 +444,7 @@ extension StudyVC: PageDelegate {
         default:
             return
         }
-        self.reloadButtons()
+        self.updateIndicator()
     }
     
     func addUploadProblem(pid: Int) {
@@ -525,7 +473,6 @@ extension StudyVC: PageDelegate {
 // MARK: Binding
 extension StudyVC {
     private func bindAll() {
-        self.bindTitle()
         self.bindTime()
         self.bindPage()
         self.bindTestInfo()
@@ -533,32 +480,17 @@ extension StudyVC {
         self.bindTernimate()
     }
     
-    private func bindTitle() {
-        self.sectionManager?.$sectionTitle
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] title in
-                self?.titleLabel.text = title
-            })
-            .store(in: &self.cancellables)
-        self.practiceTestManager?.$sectionTitle
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] title in
-                self?.titleLabel.text = title
-            })
-            .store(in: &self.cancellables)
-    }
-    
     private func bindTime() {
         self.sectionManager?.$currentTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] time in
-                self?.backButton.setTitle(time.toTimeString, for: .normal)
+                self?.timeLabel.text = time.toTimeString
             })
             .store(in: &self.cancellables)
         self.practiceTestManager?.$recentTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] time in
-                self?.backButton.setTitle(time.toTimeString, for: .normal)
+                self?.timeLabel.text = time.toTimeString
             })
             .store(in: &self.cancellables)
     }
@@ -569,7 +501,7 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }
                 self?.changeVC(pageData: pageData)
-                self?.reloadButtons()
+                self?.updateIndicator()
             })
             .store(in: &self.cancellables)
         self.practiceTestManager?.$currentPage
@@ -577,7 +509,7 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }
                 self?.changeVC(pageData: pageData)
-                self?.reloadButtons()
+                self?.updateIndicator()
             })
             .store(in: &self.cancellables)
     }
@@ -610,7 +542,7 @@ extension StudyVC {
                 guard let pageData = self?.practiceTestManager?.currentPage else { return }
                 
                 self?.changeVC(pageData: pageData)
-                self?.reloadButtons()
+                self?.updateIndicator()
                 self?.showPracticeTestResultVC()
             })
             .store(in: &self.cancellables)

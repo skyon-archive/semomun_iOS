@@ -76,7 +76,7 @@ extension PracticeTestManager {
         self.currentIndex = index // 하단 button index update
         
         if self.currentPage?.vid == Int(page.vid) {
-            self.delegate?.reloadButtons() // button index update 표시
+            self.delegate?.updateIndicator() // button index update 표시
             return
         }
         
