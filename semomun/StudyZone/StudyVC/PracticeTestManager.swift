@@ -75,10 +75,7 @@ extension PracticeTestManager {
         guard let page = self.problems[index].pageCore else { return }
         self.currentIndex = index // 하단 button index update
         
-        if self.currentPage?.vid == Int(page.vid) {
-            self.delegate?.updateIndicator() // button index update 표시
-            return
-        }
+        if self.currentPage?.vid == Int(page.vid) { return }
         
         let pageData = PageData(page: page)
         self.currentPage = pageData

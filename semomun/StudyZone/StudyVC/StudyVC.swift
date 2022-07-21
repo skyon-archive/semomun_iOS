@@ -206,7 +206,6 @@ extension StudyVC {
                   let pageData = self?.sectionManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
-            self?.updateIndicator()
             self?.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
             self?.showResultViewController(section: section)
         }
@@ -214,7 +213,6 @@ extension StudyVC {
             guard let pageData = self?.practiceTestManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
-            self?.updateIndicator()
             self?.practiceTestManager?.postProblemAndPageDatas(isDismiss: false)
             self?.showPracticeTestResultVC()
         }
@@ -419,10 +417,6 @@ extension StudyVC: LayoutDelegate {
         self.showVC(to: self.currentVC)
     }
     
-    func updateIndicator() {
-//        self.collectionView.reloadData()
-    }
-    
     func showAlert(text: String) {
         self.showAlertWithOK(title: text, text: "")
     }
@@ -435,7 +429,6 @@ extension StudyVC: LayoutDelegate {
 extension StudyVC: PageDelegate {
     func refreshPageButtons() {
         CoreDataManager.saveCoreData()
-        self.updateIndicator()
     }
     
     func nextPage() {
@@ -455,7 +448,6 @@ extension StudyVC: PageDelegate {
         default:
             return
         }
-        self.updateIndicator()
     }
     
     func addUploadProblem(pid: Int) {
@@ -490,6 +482,7 @@ extension StudyVC {
         self.bindWarning()
         self.bindTernimate()
         self.bindPageCount()
+        self.bindCurrentPageIndex()
     }
     
     private func bindTime() {
@@ -513,7 +506,6 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }
                 self?.changeVC(pageData: pageData)
-                self?.updateIndicator()
             })
             .store(in: &self.cancellables)
         self.practiceTestManager?.$currentPage
@@ -521,7 +513,6 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] pageData in
                 guard let pageData = pageData else { return }
                 self?.changeVC(pageData: pageData)
-                self?.updateIndicator()
             })
             .store(in: &self.cancellables)
     }
@@ -554,7 +545,6 @@ extension StudyVC {
                 guard let pageData = self?.practiceTestManager?.currentPage else { return }
                 
                 self?.changeVC(pageData: pageData)
-                self?.updateIndicator()
                 self?.showPracticeTestResultVC()
             })
             .store(in: &self.cancellables)
@@ -566,6 +556,16 @@ extension StudyVC {
             .sink(receiveValue: { [weak self] count in
                 let currentPageIndex = self?.sectionManager?.currentPageIndex ?? 0
                 self?.pageLabel.text = "\(currentPageIndex+1)/\(count)"
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindCurrentPageIndex() {
+        self.sectionManager?.$currentPageIndex
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] index in
+                let totalPageCount = self?.sectionManager?.totalPageCount ?? 0
+                self?.pageLabel.text = "\(index+1)/\(totalPageCount)"
             })
             .store(in: &self.cancellables)
     }
