@@ -190,7 +190,7 @@
                         <outlet property="backButton" destination="Ttk-nb-A4M" id="jlU-Gv-6bH"/>
                         <outlet property="bottomProblemIndicatorView" destination="UG5-vv-sGl" id="p8P-ab-DTo"/>
                         <outlet property="childFrameView" destination="U60-qb-wc3" id="bXM-lf-6ua"/>
-                        <outlet property="clickIcon" destination="eYi-MM-h8W" id="9Gk-8z-1A1"/>
+                        <outlet property="clockIcon" destination="eYi-MM-h8W" id="9Gk-8z-1A1"/>
                         <outlet property="contentsSlideButton" destination="KTa-th-Yga" id="DdN-hn-8l0"/>
                         <outlet property="headerFrameView" destination="5wr-SF-lKi" id="0b3-ah-yhR"/>
                         <outlet property="menuButton" destination="U3g-0B-nFZ" id="5nB-TW-mR6"/>
