@@ -172,6 +172,12 @@ extension BookshelfVM {
             }
         }
     }
+    
+    func resetForLogout() {
+        self.workbooksForRecent = []
+        self.workbooks = []
+        self.workbookGroups = []
+    }
 }
 
 // MARK: Private
