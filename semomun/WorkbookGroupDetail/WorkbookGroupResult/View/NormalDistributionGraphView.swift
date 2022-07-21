@@ -48,6 +48,29 @@ final class NormalDistributionGraphView: UIView {
         layer.fillColor = UIColor.getSemomunColor(.border).cgColor
         return layer
     }()
+    private let percentileBlueLineLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.position = .zero
+        layer.strokeColor = UIColor.getSemomunColor(.blueRegular).cgColor
+        layer.lineWidth = 2
+        return layer
+    }()
+    private let percentileLabel: UILabel = {
+        let label = UILabel()
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.white)
+        label.backgroundColor = .getSemomunColor(.blueRegular)
+        label.widthAnchor.constraint(equalToConstant: 59).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        label.textAlignment = .center
+        label.layer.cornerRadius = .cornerRadius4
+        label.layer.cornerCurve = .continuous
+        label.layer.masksToBounds = true
+        return label
+    }()
+    private lazy var percentileLabelLeadingConstraint: NSLayoutConstraint = {
+        return self.percentileLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+    }()
     private var percentage: Double = 0
     
     init() {
@@ -56,6 +79,7 @@ final class NormalDistributionGraphView: UIView {
         self.backgroundView.layer.addSublayer(self.graphFillLayer)
         self.backgroundView.layer.addSublayer(self.graphOutlineLayer)
         self.graphOutlineLayer.addSublayer(self.graphGridLineLayer)
+        self.graphOutlineLayer.addSublayer(self.percentileBlueLineLayer)
     }
     
     required init?(coder: NSCoder) {
@@ -85,10 +109,20 @@ final class NormalDistributionGraphView: UIView {
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         self.graphFillLayer.mask = maskLayer
+        
+        let blueLinePath = self.createBlueLine()
+        blueLinePath.apply(scale)
+        self.percentileBlueLineLayer.path = blueLinePath.cgPath
+        let blueLineMaskLayer = CAShapeLayer()
+        blueLineMaskLayer.path = newPath.cgPath
+        self.percentileBlueLineLayer.mask = blueLineMaskLayer
+        
+        self.percentileLabelLeadingConstraint.constant = 24 + (self.frame.width-48) * CGFloat(self.percentage) / 100 - 30
     }
     
     func configurePercentage(to percentage: Double) {
         self.percentage = percentage
+        self.percentileLabel.text = String(format: "%.2f%", percentage) + "%"
         self.setNeedsLayout()
     }
 }
@@ -96,7 +130,7 @@ final class NormalDistributionGraphView: UIView {
 extension NormalDistributionGraphView {
     private func configureLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubviews(self.backgroundView, self.titleLabel)
+        self.addSubviews(self.backgroundView, self.titleLabel, self.percentileLabel)
         NSLayoutConstraint.activate([
             self.backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
             self.backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -105,6 +139,9 @@ extension NormalDistributionGraphView {
             
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            
+            self.percentileLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -38),
+            self.percentileLabelLeadingConstraint
         ])
     }
 }
@@ -135,6 +172,13 @@ extension NormalDistributionGraphView {
         }
         path.move(to: .init(0, 1))
         path.addLine(to: .init(1, 1))
+        return path
+    }
+    
+    private func createBlueLine() -> UIBezierPath {
+        let path = UIBezierPath()
+        path.move(to: .init(self.percentage/100, 0))
+        path.addLine(to: .init(self.percentage/100, 1))
         return path
     }
 }
