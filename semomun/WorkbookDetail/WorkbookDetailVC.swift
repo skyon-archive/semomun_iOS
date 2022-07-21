@@ -207,7 +207,7 @@ extension WorkbookDetailVC {
         }
         // 그림자 처리
         self.navigationController?.navigationBar.layer.masksToBounds = false
-        self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.clear.cgColor
         self.navigationController?.navigationBar.layer.shadowOpacity = 0.05
         self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.navigationController?.navigationBar.layer.shadowRadius = 4
@@ -593,17 +593,23 @@ extension WorkbookDetailVC: WorkbookCellController {
 extension WorkbookDetailVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 50 {
-            self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
             guard self.isTitleInNavigationBar == false else { return }
             self.isTitleInNavigationBar = true
+            self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
             self.togglePurchaseBarButton(isShow: true)
             self.changeTitle(to: self.viewModel?.workbookInfo?.title ?? "")
         } else {
-            self.navigationController?.navigationBar.layer.shadowColor = UIColor.clear.cgColor
             guard self.isTitleInNavigationBar == true else { return }
             self.isTitleInNavigationBar = false
+            self.navigationController?.navigationBar.layer.shadowColor = UIColor.clear.cgColor
             self.togglePurchaseBarButton(isShow: false)
             self.changeTitle(to: "")
+        }
+    }
+    
+    private func togglePurchaseBarButton(isShow: Bool) {
+        UIView.animate(withDuration: 0.15) {
+            self.purchaseBarButton.alpha = isShow ? 1 : 0
         }
     }
     
@@ -614,11 +620,5 @@ extension WorkbookDetailVC: UIScrollViewDelegate {
             
         self.navigationController?.navigationBar.layer.add(fadeTextAnimation, forKey: "fadeText")
         self.navigationItem.title = title
-    }
-    
-    private func togglePurchaseBarButton(isShow: Bool) {
-        UIView.animate(withDuration: 0.15) {
-            self.purchaseBarButton.alpha = isShow ? 1 : 0
-        }
     }
 }
