@@ -28,10 +28,18 @@ final class NormalDistributionGraphView: UIView {
     }()
     private let graphOutlineLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.getSemomunColor(.lightGray).cgColor
+        layer.strokeColor = UIColor.getSemomunColor(.darkGray).cgColor
         layer.lineWidth = 2
         layer.position = .init(x: 24, y: 55)
         layer.fillColor = UIColor.clear.cgColor
+        return layer
+    }()
+    private let graphGridLineLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.strokeColor = UIColor.getSemomunColor(.lightGray).cgColor
+        layer.lineWidth = 2
+        layer.position = .zero
+        layer.fillColor = UIColor.blue.cgColor
         return layer
     }()
     private let graphFillLayer: CAShapeLayer = {
@@ -40,12 +48,14 @@ final class NormalDistributionGraphView: UIView {
         layer.fillColor = UIColor.getSemomunColor(.border).cgColor
         return layer
     }()
+    private var percentage: Double = 0
     
     init() {
         super.init(frame: .zero)
         self.configureLayout()
         self.backgroundView.layer.addSublayer(self.graphFillLayer)
         self.backgroundView.layer.addSublayer(self.graphOutlineLayer)
+        self.graphOutlineLayer.addSublayer(self.graphGridLineLayer)
     }
     
     required init?(coder: NSCoder) {
@@ -63,11 +73,23 @@ final class NormalDistributionGraphView: UIView {
         self.graphOutlineLayer.path = newPath.cgPath
         self.graphFillLayer.path = newPath.cgPath
         
-        let path = UIBezierPath(rect: .init(0, 0, 0.6, 1))
+        let gridPath = self.createGridLine()
+        gridPath.apply(scale)
+        self.graphGridLineLayer.path = gridPath.cgPath
+        let gridPathMaskLayer = CAShapeLayer()
+        gridPathMaskLayer.path = newPath.cgPath
+        self.graphGridLineLayer.mask = gridPathMaskLayer
+        
+        let path = UIBezierPath(rect: .init(0, 0, self.percentage/100, 1))
         path.apply(scale)
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
         self.graphFillLayer.mask = maskLayer
+    }
+    
+    func configurePercentage(to percentage: Double) {
+        self.percentage = percentage
+        self.setNeedsLayout()
     }
 }
 
@@ -101,8 +123,18 @@ extension NormalDistributionGraphView {
             controlPoint1: .init(x: 0.65, y: 0),
             controlPoint2: .init(x: 0.65, y: 1)
         )
-        path.close()
         
+        return path
+    }
+    
+    private func createGridLine() -> UIBezierPath {
+        let path = UIBezierPath()
+        for i in stride(from: 1.0, through: 8.0, by: 1.0) {
+            path.move(to: .init(i/9, 1))
+            path.addLine(to: .init(i/9, 0))
+        }
+        path.move(to: .init(0, 1))
+        path.addLine(to: .init(1, 1))
         return path
     }
 }
