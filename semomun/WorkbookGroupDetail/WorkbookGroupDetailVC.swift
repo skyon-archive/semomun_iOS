@@ -91,15 +91,12 @@ extension WorkbookGroupDetailVC {
     }
     
     private func showWorkbookGroupResultVC() {
-        let storyboard = UIStoryboard(controllerType: WorkbookGroupResultVC.self)
-        guard let comprehensiveReportVC = storyboard.instantiateViewController(withIdentifier: WorkbookGroupResultVC.identifier) as? WorkbookGroupResultVC else { return }
-        
         guard let viewModel = self.viewModel else { return }
         
-        let workbookGroupVM = WorkbookGroupResultVM(workbookGroupInfo: viewModel.info, testResults: viewModel.testResults)
-        comprehensiveReportVC.configureViewModel(workbookGroupVM)
+        let vm = WorkbookGroupResultVM(workbookGroupInfo: viewModel.info, testResults: viewModel.testResults)
+        let vc = _WorkbookGroupResultVC(viewModel: vm)
         
-        self.navigationController?.pushViewController(comprehensiveReportVC, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func configureAddObserver() {
