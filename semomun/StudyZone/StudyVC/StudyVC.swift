@@ -27,7 +27,7 @@ final class StudyVC: UIViewController {
     /* private */
     @IBOutlet weak var headerFrameView: UIView!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var clickIcon: UIImageView!
+    @IBOutlet weak var clockIcon: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var scoringButton: UIButton!
@@ -70,6 +70,7 @@ final class StudyVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureUI()
         self.configureMenu()
         self.configureManager()
         self.bindAll()
@@ -165,6 +166,16 @@ extension StudyVC {
 
 // MARK: - Configure
 extension StudyVC {
+    private func configureUI() {
+        self.backButton.setImageWithSVGTintColor(image: UIImage(.chevronLeftOutline), color: .black)
+        self.clockIcon.setSVGTintColor(to: .lightGray)
+        self.menuButton.setImageWithSVGTintColor(image: UIImage(.dotsCircleHorizontalOutline), color: .black)
+        self.scoringButton.setImageWithSVGTintColor(image: UIImage(.clipboardCheckOutline), color: .black)
+        self.contentsSlideButton.setImageWithSVGTintColor(image: UIImage(.menuAlt3Outline), color: .black)
+        self.previewButton.setImageWithSVGTintColor(image: UIImage(.chevronLeftOutline), color: .black)
+        self.nextButton.setImageWithSVGTintColor(image: UIImage(.chevronRightOutline), color: .black)
+    }
+    
     private func configureMenu() {
         let reportErrorAction = UIAction(title: "오류신고", image: nil) { [weak self] _ in
             self?.showReportView()

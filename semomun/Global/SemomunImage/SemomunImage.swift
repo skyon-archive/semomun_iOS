@@ -36,6 +36,10 @@ enum SemomunImage: String {
     case chevronRightOutline
     case loginOutline
     case informationCircleOutline
+    case chevronLeftOutline
+    case clockOutline
+    case dotsCircleHorizontalOutline
+    case menuAlt3Outline
 }
 
 enum SystemImage: String {
