@@ -86,6 +86,8 @@ final class TestSubjectResultView: UIView {
     func configureContent(_ testResult: PrivateTestResultOfDB) {
         self.titleLabel.text = testResult.subject
         self.rankLabel.text = testResult.rank
+        self.percentageLabel.text = "\(testResult.percentile)%"
+        self.standardScoreLabel.text = "\(testResult.standardScore)"
     }
 }
 
@@ -104,17 +106,17 @@ extension TestSubjectResultView {
             self.rankDescriptionLabel.bottomAnchor.constraint(equalTo: self.rankLabel.bottomAnchor, constant: -6),
             self.rankDescriptionLabel.leadingAnchor.constraint(equalTo: self.rankLabel.trailingAnchor, constant: 4),
             
-            self.percentageDescriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
-            self.percentageDescriptionLabel.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 123),
+            self.percentageLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 64),
+            self.percentageLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
-            self.standardScoreDescriptionLabel.trailingAnchor.constraint(equalTo: self.percentageDescriptionLabel.trailingAnchor),
-            self.standardScoreDescriptionLabel.topAnchor.constraint(equalTo: self.percentageDescriptionLabel.bottomAnchor, constant: 4),
+            self.standardScoreLabel.topAnchor.constraint(equalTo: self.percentageLabel.bottomAnchor, constant: 4),
+            self.standardScoreLabel.leadingAnchor.constraint(equalTo: self.percentageLabel.leadingAnchor),
             
-            self.percentageLabel.leadingAnchor.constraint(equalTo: self.percentageDescriptionLabel.trailingAnchor, constant: 12),
-            self.percentageLabel.centerYAnchor.constraint(equalTo: self.percentageDescriptionLabel.centerYAnchor),
+            self.percentageDescriptionLabel.trailingAnchor.constraint(equalTo: self.percentageLabel.leadingAnchor, constant: -12),
+            self.percentageDescriptionLabel.centerYAnchor.constraint(equalTo: self.percentageLabel.centerYAnchor),
             
-            self.standardScoreLabel.leadingAnchor.constraint(equalTo: self.standardScoreDescriptionLabel.trailingAnchor, constant: 12),
-            self.standardScoreLabel.centerYAnchor.constraint(equalTo: self.standardScoreDescriptionLabel.centerYAnchor),
+            self.standardScoreDescriptionLabel.trailingAnchor.constraint(equalTo: self.standardScoreLabel.leadingAnchor, constant: -12),
+            self.standardScoreDescriptionLabel.centerYAnchor.constraint(equalTo: self.standardScoreLabel.centerYAnchor),
             
             self.cutoffStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
             self.cutoffStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
