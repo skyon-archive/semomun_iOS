@@ -95,6 +95,11 @@ final class LongTextVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     // TextField의 마지막 줄 하단에 토글 위치
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

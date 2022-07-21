@@ -40,12 +40,7 @@ final class ProfileVC: UIViewController {
             self.updateNickname()
             self.updateRemainingPay()
         }
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 
