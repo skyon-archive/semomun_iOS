@@ -17,14 +17,16 @@ final class SelectProblemsVC: UIViewController {
         case `default`, practiceTest
     }
     private var mode: Mode? // default, practiceTest
+    
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var workbookTitleLabel: UILabel!
+    @IBOutlet weak var sectionNumLabel: UILabel!
     @IBOutlet weak var sectionTitleLabel: UILabel!
-    @IBOutlet weak var totalProblemsCountLabel: UILabel!
-    @IBOutlet weak var checkingProblemsCountLabel: UILabel!
-    @IBOutlet weak var allSelectIndicator: UIButton!
-    @IBOutlet weak var allSelectButton: UIButton!
+    @IBOutlet weak var showPastResultButton: UIButton!
     @IBOutlet weak var problems: UICollectionView!
-    @IBOutlet weak var startScoringBT: UIButton!
-    @IBOutlet weak var problemCountLabel: UILabel!
+    @IBOutlet weak var scoringSelectedProblemsButton: UIButton!
+    @IBOutlet weak var scoringAllProblemsButton: UIButton!
+    
     private var selectProblemsVM: SelectProblemsVM?
     private var showSolvedProblemsVM: ShowSolvedProblemsVM?
     private var cancellables: Set<AnyCancellable> = []
@@ -37,18 +39,33 @@ final class SelectProblemsVC: UIViewController {
         self.configurePracticeTestMode()
     }
     
-    @IBAction func selectAllProblems(_ sender: Any) {
-        self.allSelectIndicator.isSelected.toggle()
-        self.selectProblemsVM?.selectAll(to: self.allSelectIndicator.isSelected)
-    }
-    
     @IBAction func close(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func startScoring(_ sender: Any) {
+    @IBAction func showPastResult(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: {
+            NotificationCenter.default.post(name: .showSectionResult, object: nil)
+        })
+    }
+    
+    @IBAction func scoringSelectedProblems(_ sender: Any) {
         if self.mode == .default {
-            self.selectProblemsVM?.startScoring() { [weak self] success in
+            self.selectProblemsVM?.startSelectedScoring { [weak self] success in
+                guard success == true else { return }
+                self?.presentingViewController?.dismiss(animated: true, completion: {
+                    NotificationCenter.default.post(name: .showSectionResult, object: nil)
+                })
+            }
+        } else {
+            NotificationCenter.default.post(name: .sectionTerminated, object: nil)
+            self.presentingViewController?.dismiss(animated: true)
+        }
+    }
+    
+    @IBAction func scoringAllProblems(_ sender: Any) {
+        if self.mode == .default {
+            self.selectProblemsVM?.startAllScoring { [weak self] success in
                 guard success == true else { return }
                 self?.presentingViewController?.dismiss(animated: true, completion: {
                     NotificationCenter.default.post(name: .showSectionResult, object: nil)
@@ -83,9 +100,9 @@ extension SelectProblemsVC {
     
     private func configurePracticeTestMode() {
         if self.mode == .practiceTest {
-            self.problemCountLabel.text = "푼 문제"
-            self.allSelectIndicator.isHidden = true
-            self.allSelectButton.isHidden = true
+//            self.problemCountLabel.text = "푼 문제"
+//            self.allSelectIndicator.isHidden = true
+//            self.allSelectButton.isHidden = true
         }
     }
 }
@@ -93,13 +110,34 @@ extension SelectProblemsVC {
 // MARK: Binding
 extension SelectProblemsVC {
     private func bindAll() {
-        self.bindTitle()
-        self.bindProblems()
+        self.bindWorkbookTitle()
+        self.bindSectionNum()
+        self.bindSectionTitle()
         self.bindScoreingQueue()
+        self.bindTotalCount()
+        self.bindShowPastResult()
     }
     
-    private func bindTitle() {
-        self.selectProblemsVM?.$title
+    private func bindWorkbookTitle() {
+        self.selectProblemsVM?.$workbookTitle
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] title in
+                self?.workbookTitleLabel.text = title
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindSectionNum() {
+        self.selectProblemsVM?.$sectionNum
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] sectionNum in
+                self?.sectionNumLabel.text = String(format: "%02d", sectionNum)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindSectionTitle() {
+        self.selectProblemsVM?.$sectionTitle
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] title in
                 self?.sectionTitleLabel.text = title
@@ -113,51 +151,49 @@ extension SelectProblemsVC {
             .store(in: &self.cancellables)
     }
     
-    private func bindProblems() {
-        /// 총 문제 수
-        self.selectProblemsVM?.$problems
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] problems in
-                self?.totalProblemsCountLabel.text = "\(problems.count) 문제"
-            })
-            .store(in: &self.cancellables)
-        self.showSolvedProblemsVM?.$problems
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] problems in
-                self?.totalProblemsCountLabel.text = "\(problems.count) 문제"
-            })
-            .store(in: &self.cancellables)
-    }
-    
     private func bindScoreingQueue() {
         /// 채점할 문제 수
         self.selectProblemsVM?.$scoringQueue
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] scoringQueue in
-                self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
-                self?.problems.reloadData()
-                
+                self?.scoringSelectedProblemsButton.setTitle("선택한 \(scoringQueue.count)문제 채점", for: .normal)
                 if scoringQueue.isEmpty {
                     self?.preventScoring()
                 } else {
                     self?.activeScoring()
                 }
                 
-                guard let totalCount = self?.selectProblemsVM?.scoreableTotalCount else { return }
-                if scoringQueue.count == totalCount {
-                    self?.allSelectIndicator.isSelected = true
-                } else {
-                    self?.allSelectIndicator.isSelected = false
-                }
+                self?.problems.reloadData()
             })
             .store(in: &self.cancellables)
         /// 푼 문제 수
         self.showSolvedProblemsVM?.$scoringQueue
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] scoringQueue in
-                self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
+//                self?.checkingProblemsCountLabel.text = "\(scoringQueue.count) 문제"
                 self?.problems.reloadData()
                 self?.activeScoring()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindTotalCount() {
+        self.selectProblemsVM?.$scoreableTotalCount
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] count in
+                self?.scoringAllProblemsButton.setTitle("\(count)문제 전체 채점", for: .normal)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindShowPastResult() {
+        self.selectProblemsVM?.$showPastResult
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] active in
+                guard active == true else { return }
+                self?.showPastResultButton.backgroundColor = UIColor.getSemomunColor(.background)
+                self?.showPastResultButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+                self?.showPastResultButton.isUserInteractionEnabled = true
             })
             .store(in: &self.cancellables)
     }
@@ -165,13 +201,15 @@ extension SelectProblemsVC {
 
 extension SelectProblemsVC {
     private func preventScoring() {
-        self.startScoringBT.isUserInteractionEnabled = false
-        self.startScoringBT.backgroundColor = UIColor(.lightGray)
+        self.scoringSelectedProblemsButton.isUserInteractionEnabled = false
+        self.scoringSelectedProblemsButton.backgroundColor = UIColor.systemGray4
+        self.scoringSelectedProblemsButton.setTitleColor(UIColor.getSemomunColor(.white), for: .normal)
     }
     
     private func activeScoring() {
-        self.startScoringBT.isUserInteractionEnabled = true
-        self.startScoringBT.backgroundColor = UIColor(.blueRegular)
+        self.scoringSelectedProblemsButton.isUserInteractionEnabled = true
+        self.scoringSelectedProblemsButton.backgroundColor = UIColor.getSemomunColor(.background)
+        self.scoringSelectedProblemsButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
     }
 }
 

@@ -238,4 +238,12 @@ final class SectionManager {
             completion()
         }
     }
+    
+    var workbooktitle: String {
+        return self.workbook.title ?? ""
+    }
+    
+    var sectionNum: Int {
+        return Int(self.sectionHeader.sectionNum)
+    }
 }
