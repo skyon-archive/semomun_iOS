@@ -9,9 +9,11 @@ import CoreData
 import Combine
 
 final class SectionManager {
-    @Published private(set) var sectionTitle: String = "title"
     @Published private(set) var currentTime: Int64 = 0
     @Published private(set) var currentPage: PageData?
+    @Published private(set) var totalPageCount: Int = 0
+    @Published private(set) var currentPageIndex: Int = 0
+    private(set) var sectionTitle: String?
     private(set) var problems: [Problem_Core] = []
     private(set) var section: Section_Core
     private(set) var currentIndex: Int = 0
@@ -33,6 +35,7 @@ final class SectionManager {
     func configureDelegate(to delegate: LayoutDelegate) {
         self.delegate = delegate
         self.configure()
+        self.configurePageCount()
         self.configureStartPage()
         self.startTimer()
         self.configureObservation()
@@ -46,6 +49,11 @@ final class SectionManager {
             return
         }
         self.problems = problems
+    }
+    
+    private func configurePageCount() {
+        let vids = Set(self.problems.compactMap(\.pageCore).map(\.vid))
+        self.totalPageCount = vids.count
     }
     
     private func configureStartPage() {
