@@ -373,14 +373,16 @@ extension SearchVC: UICollectionViewDelegate {
         guard self.status == .searchResult else { return }
         if self.searchType == .workbook {
             guard let workbook = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return }
-            if let workbookCore = CoreUsecase.fetchPreview(wid: workbook.wid) {
+            if UserDefaultsManager.isLogined == true,
+               let workbookCore = CoreUsecase.fetchPreview(wid: workbook.wid) {
                 self.showWorkbookDetailVC(workbookCore: workbookCore)
             } else {
                 self.viewModel?.fetchWorkbookDetailInfo(wid: workbook.wid)
             }
         } else {
             guard let workbookGroup = self.viewModel?.searchResultWorkbookGroups[safe: indexPath.item] else { return }
-            if let workbookGroupCore = CoreUsecase.fetchWorkbookGroup(wgid: workbookGroup.wgid) {
+            if UserDefaultsManager.isLogined == true,
+               let workbookGroupCore = CoreUsecase.fetchWorkbookGroup(wgid: workbookGroup.wgid) {
                 self.showWorkbookGroupDetailVC(workbookGroupCore: workbookGroupCore)
             } else {
                 self.showWorkbookGroupDetailVC(workbookGroupDTO: workbookGroup)
