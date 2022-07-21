@@ -64,7 +64,6 @@ final class LongTextVC: UIViewController {
     }()
     private lazy var marketingToggleTopConstraint: NSLayoutConstraint = {
         let constraint = self.marketingToggle.topAnchor.constraint(equalTo: self.textView.topAnchor)
-        constraint.isActive = true
         constraint.priority = .defaultLow
         return constraint
     }()
@@ -134,6 +133,7 @@ extension LongTextVC {
             self.marketingToggleLabel.leadingAnchor.constraint(equalTo: self.marketingToggle.trailingAnchor, constant: 8),
             self.marketingToggleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -32)
         ])
+        self.marketingToggleTopConstraint.isActive = true
     }
     
     private func configureMarketingToggleAction() {
@@ -151,7 +151,6 @@ extension LongTextVC {
                             userInfo.marketing.toggle()
                             return
                         }
-                        CoreDataManager.saveCoreData()
                     }
                 }
             case .failure:
