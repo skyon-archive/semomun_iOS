@@ -81,6 +81,14 @@ final class StudyVC: UIViewController {
         self.view.subviews.forEach { $0.removeFromSuperview() }
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    
     deinit {
         print("solving deinit")
     }
