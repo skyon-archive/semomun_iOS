@@ -46,10 +46,6 @@ final class SectionManager {
             return
         }
         self.problems = problems
-        
-        if self.section.terminated {
-            self.delegate?.changeResultLabel()
-        }
     }
     
     private func configureStartPage() {
@@ -63,7 +59,7 @@ final class SectionManager {
         self.currentIndex = index
         
         if self.currentPage?.vid == Int(page.vid) {
-            self.delegate?.reloadButtons()
+            self.delegate?.updateIndicator()
             return
         }
         
@@ -156,7 +152,6 @@ final class SectionManager {
             
             self?.workbook.updateProgress()
             CoreDataManager.saveCoreData() // section 풀이 종료시 저장
-            self?.delegate?.changeResultLabel()
         }
     }
     

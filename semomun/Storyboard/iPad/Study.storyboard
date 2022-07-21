@@ -40,6 +40,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="chevronLeftOutline"/>
+                                        <connections>
+                                            <action selector="back:" destination="PAM-8C-mmn" eventType="touchUpInside" id="0Og-K7-1OV"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="53E-ah-o3e">
                                         <rect key="frame" x="41" y="9" width="53" height="18"/>
@@ -76,6 +79,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="menuAlt3Outline"/>
+                                        <connections>
+                                            <action selector="showContentsSlideVC:" destination="PAM-8C-mmn" eventType="touchUpInside" id="Nxj-g9-j7u"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBc-QZ-bov">
                                         <rect key="frame" x="736" y="6" width="49" height="24"/>
@@ -87,6 +93,9 @@
                                         <state key="normal" title="채점" image="clipboardCheckOutline">
                                             <color key="titleColor" name="black"/>
                                         </state>
+                                        <connections>
+                                            <action selector="scoringSection:" destination="PAM-8C-mmn" eventType="touchUpInside" id="lnP-2R-PNq"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="background"/>
@@ -118,6 +127,9 @@
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="chevronLeftOutline"/>
+                                                <connections>
+                                                    <action selector="beforePage:" destination="PAM-8C-mmn" eventType="touchUpInside" id="VhO-Mu-Tr0"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxW-bT-Gai">
                                                 <rect key="frame" x="26" y="0.0" width="18.5" height="18"/>
@@ -133,6 +145,9 @@
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="chevronRightOutline"/>
+                                                <connections>
+                                                    <action selector="nextPage:" destination="PAM-8C-mmn" eventType="touchUpInside" id="p4H-5k-LFC"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -172,7 +187,18 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Ttk-nb-A4M" id="jlU-Gv-6bH"/>
+                        <outlet property="bottomProblemIndicatorView" destination="UG5-vv-sGl" id="p8P-ab-DTo"/>
                         <outlet property="childFrameView" destination="U60-qb-wc3" id="bXM-lf-6ua"/>
+                        <outlet property="clickIcon" destination="eYi-MM-h8W" id="9Gk-8z-1A1"/>
+                        <outlet property="contentsSlideButton" destination="KTa-th-Yga" id="DdN-hn-8l0"/>
+                        <outlet property="headerFrameView" destination="5wr-SF-lKi" id="0b3-ah-yhR"/>
+                        <outlet property="menuButton" destination="U3g-0B-nFZ" id="5nB-TW-mR6"/>
+                        <outlet property="nextButton" destination="oAz-O2-oHR" id="nbI-43-aZ2"/>
+                        <outlet property="pageLabel" destination="JxW-bT-Gai" id="1D2-vN-lDP"/>
+                        <outlet property="previewButton" destination="xfY-Gj-HCi" id="3SL-N3-bzB"/>
+                        <outlet property="scoringButton" destination="BBc-QZ-bov" id="PWE-mT-q0d"/>
+                        <outlet property="timeLabel" destination="ido-AT-qLW" id="M1N-gi-Yhq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Irq-UL-i5G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
