@@ -83,6 +83,17 @@ final class StudyVC: UIViewController {
         self.view.subviews.forEach { $0.removeFromSuperview() }
     }
     
+    deinit {
+        print("solving deinit")
+    }
+    
+    /* homebar 제거 로직 */
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        self.setNeedsUpdateOfScreenEdgesDeferringSystemGestures()
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -91,8 +102,12 @@ final class StudyVC: UIViewController {
         return true
     }
     
-    deinit {
-        print("solving deinit")
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return UIRectEdge.bottom
+    }
+    
+    override var childForHomeIndicatorAutoHidden: UIViewController? {
+        return self.currentVC
     }
     
     @IBAction func back(_ sender: Any) {
