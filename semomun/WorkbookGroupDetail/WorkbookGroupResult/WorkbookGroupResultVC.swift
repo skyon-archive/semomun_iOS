@@ -17,6 +17,7 @@ final class WorkbookGroupResultVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.title = viewModel.title
         self.workbookGroupResultView.configureRankScrollViewContent(viewModel.sortedTestResults)
+        self.workbookGroupResultView.configureSubjectResultStackView(viewModel.sortedTestResults)
     }
     
     required init?(coder: NSCoder) {
