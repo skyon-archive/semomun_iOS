@@ -94,7 +94,7 @@ extension WorkbookGroupDetailVC {
         guard let viewModel = self.viewModel else { return }
         
         let vm = WorkbookGroupResultVM(workbookGroupInfo: viewModel.info, testResults: viewModel.testResults)
-        let vc = _WorkbookGroupResultVC(viewModel: vm)
+        let vc = WorkbookGroupResultVC(viewModel: vm)
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
