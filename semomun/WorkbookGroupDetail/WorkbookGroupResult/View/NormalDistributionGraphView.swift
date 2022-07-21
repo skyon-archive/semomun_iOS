@@ -105,14 +105,4 @@ extension NormalDistributionGraphView {
         
         return path
     }
-    
-    private func createGraphFillLayerMaskPath(percentage: Double) -> UIBezierPath {
-        let path = UIBezierPath()
-        path.move(to: .init(x: 0, y: 0))
-        path.move(to: .init(x: percentage, y: 0))
-        path.move(to: .init(x: percentage, y: 1))
-        path.move(to: .init(x: 0, y: 1))
-        path.close()
-        return path
-    }
 }
