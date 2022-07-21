@@ -9,20 +9,27 @@ import Foundation
 import Combine
 
 final class SelectProblemsVM {
-    @Published private(set) var title: String = ""
-    @Published private(set) var problems: [Problem_Core] = []
+    @Published private(set) var workbookTitle: String = ""
+    @Published private(set) var sectionNum: Int = 0
+    @Published private(set) var sectionTitle: String = ""
     @Published private(set) var scoringQueue: [Int] = []
-    private(set) var uploadQueue: [Int] = []
-    private(set) var scoreableTotalCount: Int = 0
+    @Published private(set) var scoreableTotalCount: Int = 0
+    @Published private(set) var showPastResult: Bool = false
     private let section: Section_Core
+    private(set) var problems: [Problem_Core] = []
+    private(set) var isScoring: Bool = false
+    private(set) var uploadQueue: [Int] = []
     
-    init(section: Section_Core) {
+    init(section: Section_Core, sectionNum: Int, workbookTitle: String) {
+        self.workbookTitle = workbookTitle
+        self.sectionNum = sectionNum
+        self.sectionTitle = section.title ?? ""
         self.section = section
-        self.configureTitle()
         self.configureProblems()
         self.configureScoringQueue()
         self.configureUploadQueue()
         self.configureScoreableTotalCount()
+        self.configureShowPastResult()
     }
 }
 
@@ -47,16 +54,9 @@ extension SelectProblemsVM {
             self.uploadQueue.append(newPid)
         }
     }
-    
-    func selectAll(to allSelect: Bool) {
-        if allSelect {
-            self.configureAllPids()
-        } else {
-            self.scoringQueue = []
-        }
-    }
-    
-    func startScoring(completion: @escaping (Bool) -> Void) {
+    /// 선택한 문제 채점
+    func startSelectedScoring(completion: @escaping (Bool) -> Void) {
+        self.isScoring = true
         // scoringQueue 모든 Problem -> terminate 처리
         self.problems.filter { self.scoringQueue.contains(Int($0.pid)) }.forEach { problem in
             problem.setValue(true, forKey: "terminated")
@@ -73,14 +73,16 @@ extension SelectProblemsVM {
         CoreDataManager.saveCoreData()
         completion(true)
     }
+    /// 전체 채점
+    func startAllScoring(completion: @escaping (Bool) -> Void) {
+        self.isScoring = true
+        self.configureAllPids()
+        self.startSelectedScoring(completion: completion)
+    }
 }
 
 // MARK: Private
 extension SelectProblemsVM {
-    private func configureTitle() {
-        self.title = self.section.title ?? ""
-    }
-    
     private func configureProblems() {
         self.problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex}) ?? []
     }
@@ -100,5 +102,9 @@ extension SelectProblemsVM {
     
     private func configureAllPids() {
         self.scoringQueue = self.problems.filter { !$0.terminated }.map { Int($0.pid) }
+    }
+    
+    private func configureShowPastResult() {
+        self.showPastResult = self.problems.count != self.scoreableTotalCount
     }
 }

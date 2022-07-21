@@ -134,12 +134,14 @@ final class StudyVC: UIViewController {
     
         switch mode {
         case .default:
-            guard let section = self.sectionManager?.section else { return }
+            guard let sectionNum = self.sectionManager?.sectionNum,
+                  let workbookTitle = self.sectionManager?.workbooktitle,
+                  let section = self.sectionManager?.section else { return }
             if section.terminated {
                 self.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
                 self.showResultViewController(section: section)
             } else {
-                self.showSelectProblemsVC(section: section)
+                self.showSelectProblemsVC(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
             }
         case .practiceTest:
             guard let practiceSection = self.practiceTestManager?.section else { return }
@@ -296,10 +298,10 @@ extension StudyVC {
         }
     }
     
-    private func showSelectProblemsVC(section: Section_Core) {
+    private func showSelectProblemsVC(section: Section_Core, sectionNum: Int, workbookTitle: String) {
         let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
         guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
-        let viewModel = SelectProblemsVM(section: section)
+        let viewModel = SelectProblemsVM(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
         selectProblemsVC.configureViewModel(viewModel: viewModel)
         
         self.present(selectProblemsVC, animated: true, completion: nil)
