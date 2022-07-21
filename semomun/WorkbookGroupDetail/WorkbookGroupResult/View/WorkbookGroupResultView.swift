@@ -8,12 +8,14 @@
 import UIKit
 
 final class WorkbookGroupResultView: UIView {
+    /* public */
+    let graphView = NormalDistributionGraphView()
+    /* private */
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let graphView = NormalDistributionGraphView()
     private let rankScrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
