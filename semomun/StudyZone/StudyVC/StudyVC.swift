@@ -146,7 +146,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func showContentsSlideVC(_ sender: Any) {
-        
+        // MARK: 우측 slideVC 표시 로직 구현
     }
 }
 
@@ -489,6 +489,7 @@ extension StudyVC {
         self.bindTestInfo()
         self.bindWarning()
         self.bindTernimate()
+        self.bindPageCount()
     }
     
     private func bindTime() {
@@ -555,6 +556,16 @@ extension StudyVC {
                 self?.changeVC(pageData: pageData)
                 self?.updateIndicator()
                 self?.showPracticeTestResultVC()
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPageCount() {
+        self.sectionManager?.$totalPageCount
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] count in
+                let currentPageIndex = self?.sectionManager?.currentPageIndex ?? 0
+                self?.pageLabel.text = "\(currentPageIndex+1)/\(count)"
             })
             .store(in: &self.cancellables)
     }
