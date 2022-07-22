@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class ShowSolvedProblemsVM {
-    @Published private(set) var title: String = ""
+    @Published private(set) var sectionTitle: String = ""
     @Published private(set) var problems: [Problem_Core] = []
     @Published private(set) var scoringQueue: [Int] = [] // 푼문제
     private(set) var uploadQueue: [Int] = [] // 건드린 문제
@@ -36,7 +36,7 @@ extension ShowSolvedProblemsVM {
 // MARK: Private
 extension ShowSolvedProblemsVM {
     private func configureTitle() {
-        self.title = self.section.title ?? ""
+        self.sectionTitle = self.section.title ?? ""
     }
     
     private func configureProblems() {

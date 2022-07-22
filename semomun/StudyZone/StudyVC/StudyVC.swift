@@ -145,7 +145,7 @@ final class StudyVC: UIViewController {
                 self.practiceTestManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
                 self.showPracticeTestResultVC()
             } else {
-                self.showSelectProblemsVC(practiceSection: practiceSection)
+                self.showSolvedProblemsVC(practiceSection: practiceSection)
             }
         }
     }
@@ -305,13 +305,13 @@ extension StudyVC {
         self.present(selectProblemsVC, animated: true, completion: nil)
     }
     
-    private func showSelectProblemsVC(practiceSection: PracticeTestSection_Core) {
-        let storyboard = UIStoryboard(name: SelectProblemsVC.storyboardName, bundle: nil)
-        guard let selectProblemsVC = storyboard.instantiateViewController(withIdentifier: SelectProblemsVC.identifier) as? SelectProblemsVC else { return }
+    private func showSolvedProblemsVC(practiceSection: PracticeTestSection_Core) {
+        let storyboard = UIStoryboard(name: ShowSolvedProblemsVC.storyboardName, bundle: nil)
+        guard let showSolvedProblemsVC = storyboard.instantiateViewController(withIdentifier: ShowSolvedProblemsVC.identifier) as? ShowSolvedProblemsVC else { return }
         let viewModel = ShowSolvedProblemsVM(practiceSection: practiceSection)
-        selectProblemsVC.configureViewModel(viewModel: viewModel)
+        showSolvedProblemsVC.configureViewModel(viewModel: viewModel)
         
-        self.present(selectProblemsVC, animated: true, completion: nil)
+        self.present(showSolvedProblemsVC, animated: true, completion: nil)
     }
     
     private func showTestInfoView(testInfo: TestInfo) {

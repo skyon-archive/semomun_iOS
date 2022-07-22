@@ -143,7 +143,7 @@ extension SelectProblemsVC {
                 self?.sectionTitleLabel.text = title
             })
             .store(in: &self.cancellables)
-        self.showSolvedProblemsVM?.$title
+        self.showSolvedProblemsVM?.$sectionTitle
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] title in
                 self?.sectionTitleLabel.text = title
