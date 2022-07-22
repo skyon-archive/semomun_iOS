@@ -32,11 +32,11 @@ final class TestCutoffStackView: UIStackView {
             label.textAlignment = .center
             rankStackView.addArrangedSubview(label)
             
-            [String(cutoff.rawScore), String(cutoff.percentile), "??"].forEach { text in
+            [cutoff.rawScore, cutoff.percentile, cutoff.standardScore].forEach { num in
                 let label = UILabel()
                 label.font = .smallStyleParagraph
                 label.textColor = .getSemomunColor(.black)
-                label.text = text
+                label.text = "\(num)"
                 label.textAlignment = .center
                 rankStackView.addArrangedSubview(label)
             }

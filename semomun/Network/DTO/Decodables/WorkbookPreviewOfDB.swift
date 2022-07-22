@@ -39,6 +39,7 @@ struct Cutoff: Codable {
     let rank: String
     let rawScore: Int
     let percentile: Int
+    let standardScore: Int
 }
 
 extension WorkbookPreviewOfDB: HomeBookcoverCellInfo {
