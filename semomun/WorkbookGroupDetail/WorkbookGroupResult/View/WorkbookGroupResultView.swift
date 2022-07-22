@@ -50,14 +50,20 @@ final class WorkbookGroupResultView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureRankScrollViewContent(_ content: [PrivateTestResultOfDB]) {
+    func configureContent(_ testResults: [PrivateTestResultOfDB]) {
+        self.configureRankScrollViewContent(testResults)
+        self.configureSubjectResultStackView(testResults)
+        
+    }
+    
+    private func configureRankScrollViewContent(_ content: [PrivateTestResultOfDB]) {
         content.forEach { privateTestResultOfDB in
             let view = TestSubjectRankView(title: privateTestResultOfDB.subject, rank: privateTestResultOfDB.rank)
             self.rankStackView.addArrangedSubview(view)
         }
     }
     
-    func configureSubjectResultStackView(_ testResults: [PrivateTestResultOfDB]) {
+    private func configureSubjectResultStackView(_ testResults: [PrivateTestResultOfDB]) {
         var temp = Array(testResults.reversed())
         while temp.isEmpty == false {
             let horizontalStackView = UIStackView()

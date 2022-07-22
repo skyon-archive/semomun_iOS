@@ -102,8 +102,8 @@ extension WorkbookGroupDetailVM {
     
     func fetchTestResults() {
         guard UserDefaultsManager.isLogined == true else { return }
-        
         let wgid = self.info.wgid
+        print(wgid)
         self.networkUsecase.getPrivateTestResults(wgid: wgid) { [weak self] _, testResults in
             self?.testResults = testResults
         }
