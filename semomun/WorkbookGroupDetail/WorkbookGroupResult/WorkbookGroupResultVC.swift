@@ -1,5 +1,5 @@
 //
-//  _WorkbookGroupResultVC.swift
+//  WorkbookGroupResultVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/21.
