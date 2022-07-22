@@ -232,6 +232,7 @@
 		87A615E4288596BE005B37CA /* LongTextPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A615E3288596BE005B37CA /* LongTextPopupVC.swift */; };
 		87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */; };
 		87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */; };
+		87AAC5BA288A7F8B002E360D /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AAC5B9288A7F8B002E360D /* UIApplication.swift */; };
 		87AC217B2862FD0F00613609 /* WorkbookGroup_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */; };
 		87AC221E27A39FF900B48F9D /* BookshelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC221D27A39FF900B48F9D /* BookshelfCell.swift */; };
 		87AD6CEE2774196C00996937 /* ProblemTextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD6CED2774196C00996937 /* ProblemTextResultView.swift */; };
@@ -249,6 +250,7 @@
 		87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC26A227A2976500F3418D /* BookshelfVM.swift */; };
 		87BED5B72863F3E30045DC84 /* PracticeTestSection_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BED5B52863F3E30045DC84 /* PracticeTestSection_Core.swift */; };
 		87BF216E288A53B300FF55C5 /* ShowSolvedProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF216D288A53B300FF55C5 /* ShowSolvedProblemsVC.swift */; };
+		87BF2173288A71E300FF55C5 /* SlideSectionContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF2172288A71E300FF55C5 /* SlideSectionContentsView.swift */; };
 		87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3B276F66BC001C9C4A /* PKDrawing.swift */; };
 		87C85E40276F66DF001C9C4A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E3F276F66DF001C9C4A /* UIViewController.swift */; };
 		87C85E42276F66F8001C9C4A /* Int64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E41276F66F8001C9C4A /* Int64.swift */; };
@@ -560,6 +562,7 @@
 		87A615E3288596BE005B37CA /* LongTextPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupVC.swift; sourceTree = "<group>"; };
 		87A9941E278FEAB200E0A7B1 /* NetworkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatus.swift; sourceTree = "<group>"; };
 		87A99420278FF3B900E0A7B1 /* NetworkFetchables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchables.swift; sourceTree = "<group>"; };
+		87AAC5B9288A7F8B002E360D /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		87AC217A2862FD0F00613609 /* WorkbookGroup_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroup_Core.swift; sourceTree = "<group>"; };
 		87AC221D27A39FF900B48F9D /* BookshelfCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCell.swift; sourceTree = "<group>"; };
 		87AD6CED2774196C00996937 /* ProblemTextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTextResultView.swift; sourceTree = "<group>"; };
@@ -577,6 +580,7 @@
 		87BC26A227A2976500F3418D /* BookshelfVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVM.swift; sourceTree = "<group>"; };
 		87BED5B52863F3E30045DC84 /* PracticeTestSection_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestSection_Core.swift; sourceTree = "<group>"; };
 		87BF216D288A53B300FF55C5 /* ShowSolvedProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSolvedProblemsVC.swift; sourceTree = "<group>"; };
+		87BF2172288A71E300FF55C5 /* SlideSectionContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideSectionContentsView.swift; sourceTree = "<group>"; };
 		87C85E3B276F66BC001C9C4A /* PKDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawing.swift; sourceTree = "<group>"; };
 		87C85E3F276F66DF001C9C4A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		87C85E41276F66F8001C9C4A /* Int64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int64.swift; sourceTree = "<group>"; };
@@ -1166,6 +1170,7 @@
 				87BF216F288A636800FF55C5 /* Global */,
 				87A1C35B27C5E6B2009043BE /* StudyVC */,
 				87A1C35A27C5E675009043BE /* ChildVC */,
+				87BF2171288A71AB00FF55C5 /* SlideView */,
 				87A1C35C27C5E6D0009043BE /* PopupVC */,
 			);
 			path = StudyZone;
@@ -1556,6 +1561,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		87BF2171288A71AB00FF55C5 /* SlideView */ = {
+			isa = PBXGroup;
+			children = (
+				87BF2172288A71E300FF55C5 /* SlideSectionContentsView.swift */,
+			);
+			path = SlideView;
+			sourceTree = "<group>";
+		};
 		87C85E28276F65A0001C9C4A /* Global */ = {
 			isa = PBXGroup;
 			children = (
@@ -1640,6 +1653,7 @@
 				250B285A28740860000578BC /* UICollectionView.swift */,
 				250B285E287435CA000578BC /* UIImageView.swift */,
 				87FD58A728744930005E8E12 /* UIButton.swift */,
+				87AAC5B9288A7F8B002E360D /* UIApplication.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1937,6 +1951,7 @@
 				8716E95A279A624A00B33A5E /* SectionResultVC.swift in Sources */,
 				87CF648F2860173700FA56BE /* PrivateTestResultOfDB.swift in Sources */,
 				25520FB427D10CA400CC6015 /* NetworkTokens.swift in Sources */,
+				87AAC5BA288A7F8B002E360D /* UIApplication.swift in Sources */,
 				87C85ED5276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift in Sources */,
 				87C85EBF276F6D26001C9C4A /* SectionResult.swift in Sources */,
 				8716E95E279A626A00B33A5E /* SingleWith5AnswerVC.swift in Sources */,
@@ -2119,6 +2134,7 @@
 				875862A327B274D50035FF22 /* Double.swift in Sources */,
 				254C7F09287BFC380038ACA0 /* HomeDetailVM.swift in Sources */,
 				25100CD627D4A9A8002C18CB /* Alamofire+Extensions.swift in Sources */,
+				87BF2173288A71E300FF55C5 /* SlideSectionContentsView.swift in Sources */,
 				250B28592874080A000578BC /* CGFloat.swift in Sources */,
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,

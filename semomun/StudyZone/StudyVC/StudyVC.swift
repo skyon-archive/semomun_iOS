@@ -67,6 +67,8 @@ final class StudyVC: UIViewController {
     private lazy var singleWithSubProblems = {
         return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
     }()
+    private var didSlideViewShow: Bool = false
+    private lazy var slideSectionContentsVC = SlideSectionContentsVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,7 +161,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func showContentsSlideVC(_ sender: Any) {
-        // MARK: 우측 slideVC 표시 로직 구현
+        self.showSlideSectionContetnsView()
     }
 }
 
@@ -588,5 +590,31 @@ extension StudyVC: TestStartable {
     }
     func dismiss() {
         self.dismiss(animated: true)
+    }
+}
+
+extension StudyVC: JumpProblemPageDelegate {
+    private func showSlideSectionContetnsView() {
+        guard self.didSlideViewShow == false else { return }
+        guard let workbookTitle = self.sectionManager?.workbooktitle,
+              let sectionNum = self.sectionManager?.sectionNum,
+              let sectionTitle = self.sectionManager?.sectionTitle else { return }
+        
+        self.slideSectionContentsVC.configure(workbookTitle: workbookTitle,
+                                              sectionNum: sectionNum,
+                                              sectionTitle: sectionTitle,
+                                              delegate: self)
+        self.slideSectionContentsVC.modalPresentationStyle = .overCurrentContext
+        self.present(self.slideSectionContentsVC, animated: true)
+    }
+    
+    func jumpProblem(pid: Int) {
+        print(pid)
+    }
+    
+    func close() {
+        print("close")
+        guard self.didSlideViewShow == true else { return }
+//        self.slideSectionContentsVC.removeFromParent()
     }
 }
