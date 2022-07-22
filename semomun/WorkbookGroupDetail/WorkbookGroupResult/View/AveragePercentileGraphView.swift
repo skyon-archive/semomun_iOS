@@ -29,12 +29,10 @@ final class AveragePercentileGraphView: UIView {
     }()
     /// 아래의 CALayer들을 묶는 frame layer
     private let graphFrameLayer = CALayer()
-    /// 그래프의 곡선을 나타내는 layer
-    private let graphOutlineLayer: CAShapeLayer = {
+    /// 그래프 내부를 채우는 layer
+    private let graphFillLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.strokeColor = UIColor.getSemomunColor(.darkGray).cgColor
-        layer.lineWidth = 2
-        layer.fillColor = UIColor.clear.cgColor
+        layer.fillColor = UIColor.getSemomunColor(.border).cgColor
         return layer
     }()
     /// 그래프의 세로 격자선과 x축을 나타내는 layer
@@ -46,10 +44,12 @@ final class AveragePercentileGraphView: UIView {
         layer.fillColor = UIColor.blue.cgColor
         return layer
     }()
-    /// 그래프 내부를 채우는 layer
-    private let graphFillLayer: CAShapeLayer = {
+    /// 그래프의 곡선을 나타내는 layer
+    private let graphOutlineLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.fillColor = UIColor.getSemomunColor(.border).cgColor
+        layer.strokeColor = UIColor.getSemomunColor(.darkGray).cgColor
+        layer.lineWidth = 2
+        layer.fillColor = UIColor.clear.cgColor
         return layer
     }()
     /// 사용자 백분율 부분에 파란 선을 표시하는 layer
