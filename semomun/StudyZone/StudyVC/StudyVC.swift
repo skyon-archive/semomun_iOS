@@ -137,12 +137,8 @@ final class StudyVC: UIViewController {
             guard let sectionNum = self.sectionManager?.sectionNum,
                   let workbookTitle = self.sectionManager?.workbooktitle,
                   let section = self.sectionManager?.section else { return }
-            if section.terminated {
-                self.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 결과보기 누를때 submission
-                self.showResultViewController(section: section)
-            } else {
-                self.showSelectProblemsVC(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
-            }
+            /// ternimate 상태와 상관 없이 항상 SelectProblemsVC 가 표시된다.
+            self.showSelectProblemsVC(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
         case .practiceTest:
             guard let practiceSection = self.practiceTestManager?.section else { return }
             if practiceSection.terminated {
