@@ -10,13 +10,35 @@ import CoreData
 import GoogleSignIn
 import Firebase
 
-// @main
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+@main
+final class AppDelegate: UIResponder, UIApplicationDelegate, RCTBridgeDelegate {
+    
+    var window: UIWindow?
     private let screenProtecter = ScreenProtector()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        RCTAppSetupPrepareApp(application)
+        let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)
+
+        let initProps = self.prepareInitialProps()
+        let rootView = RCTAppSetupDefaultRootView(bridge, "semomun", initProps)
+
+        if #available(iOS 13.0, *) {
+            rootView?.backgroundColor = UIColor.systemBackground
+        } else {
+            rootView?.backgroundColor = UIColor.white
+        }
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let rootViewController = UIViewController()
+        rootViewController.view = rootView
+        self.window?.rootViewController = rootViewController
+        self.window?.makeKeyAndVisible()
+
         // Override point for customization after application launch.
         //        self.screenProtecter.startPreventingRecording()
         //        self.screenProtecter.startPreventingScreenshot()
+
+
         FirebaseApp.configure()
         if let userInfo = CoreUsecase.fetchUserInfo(),
            let nickName = userInfo.nickName {
@@ -28,7 +50,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 AnalyticsParameterItemID: "not logined",
             ])
         }
-        
+
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 // Show the app's signed-out state.
@@ -36,14 +58,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Show the app's signed-in state.
             }
         }
-        
+
         let isLogined = UserDefaultsManager.isLogined
         let coreVersion = UserDefaultsManager.coreVersion
-        
+
         if isLogined == false {
             KeychainItem.deleteAllItems()
         }
-        
+
         if isLogined {
             if coreVersion.compare(String.latestCoreVersion, options: .numeric) == .orderedAscending {
                 guard NetworkStatusManager.isConnectedToInternet() == true else {
@@ -71,46 +93,49 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+
         UNUserNotificationCenter.current().delegate = self
         self.requestNotiAuth() // noti 권한 popup 표시
-        
+
+
         return true
     }
-    
+
     func application(
         _ app: UIApplication,
         open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
         var handled: Bool
-        
+
         handled = GIDSignIn.sharedInstance.handle(url)
         if handled {
             return true
         }
-        
+
         // Handle other custom URL types.
-        
+
         // If not handled by this app, return false.
         return false
     }
-    
+
     // MARK: UISceneSession Lifecycle
-    
+
+    /*
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
+
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
+     */
+
     // MARK: - Core Data stack
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -123,7 +148,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
+
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -137,9 +162,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -153,9 +178,25 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
+    }
+}
+
+/// React Native RCT용
+extension AppDelegate {
+    private func prepareInitialProps() -> [AnyHashable : Any] {
+        let initProps: [AnyHashable : Any] = [:]
+        return initProps
+    }
+
+    func sourceURL(for bridge: RCTBridge!) -> URL! {
+        #if DEBUG
+        return RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+        #else
+        return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
+        #endif
     }
 }
 
@@ -163,7 +204,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func requestNotiAuth() {
         let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
-        
+
         UNUserNotificationCenter
             .current()
             .requestAuthorization(options: authOptions) { isSuccess, error in
@@ -172,12 +213,26 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 }
             }
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .badge, .sound])
+    }
+}
+
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
     }
 }

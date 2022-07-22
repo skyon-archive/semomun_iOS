@@ -8,17 +8,25 @@
  * @format
  */
 
+import SearchTagVC from "../components/native/Home/SearchTagVC";
+import HomeVC from "../components/native/Home/HomeVC";
+import WarningOfflineStatus from "../components/native/Home/WarningOfflineStatus";
+import HomeHeader from "../components/native/Home/HomeHeader";
 import React from "react";
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import {View,Text} from "react-native";
+import {View, Text, Button} from "react-native";
+
 
 const App = () => {
+
+
+
     return (
-        <SafeAreaProvider>
-            <View>
-                <Text>
-                    it works!
-                </Text>
+        <SafeAreaProvider style={{height: "100%", width: "100%", display:"flex", flexDirection:"column"}}>
+            <HomeVC />
+            <SearchTagVC/>
+            <View style={{height: "100%", width: "100%", display:"flex", alignItems:"center", justifyContent:"center"}}>
+
             </View>
         </SafeAreaProvider>
     );

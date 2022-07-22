@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 /// - Note: HomeSectionView들의 태그값은 UIStackView내에서의 순서와 같다(zero-based)
-final class HomeVC: UIViewController {
+@objc final class HomeVC: UIViewController {
     /* private */
     /// 고정된 섹션 종류. 각 case의 rawValue는 대응되는 collectionview의 태그값과 같다.
     private enum FixedSectionType: Int, CaseIterable {
@@ -91,8 +91,7 @@ final class HomeVC: UIViewController {
         self.bindAll()
         self.viewModel?.checkLogined()
         self.viewModel?.checkMigration()
-        self.viewModel?.checkNetworkStatus()
-    }
+        self.viewModel?.checkNetworkStatus()    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -112,6 +111,7 @@ final class HomeVC: UIViewController {
             }
         )
     }
+
 }
 
 // MARK: Configure AutoLayout

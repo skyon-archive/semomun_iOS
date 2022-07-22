@@ -325,8 +325,17 @@
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 		87FD58A828744930005E8E12 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD58A728744930005E8E12 /* UIButton.swift */; };
 		93CB648127B74E4AAE61602D /* libPods-semomun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */; };
-		D742B0562887E3CA00918D92 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D742B0542887E3CA00918D92 /* AppDelegate.mm */; };
-		D742B0582888021B00918D92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D742B0572888021B00918D92 /* main.m */; };
+		D77AACA9288ADBDC00E25F9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACA8288ADBDC00E25F9F /* AppDelegate.swift */; };
+		D77AACB0288ADC0400E25F9F /* SearchTagVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */; };
+		D77AACB1288ADC0400E25F9F /* RNTHomeVCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */; };
+		D77AACB2288ADC0400E25F9F /* RNTHomeVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */; };
+		D77AACB3288ADC0400E25F9F /* HomeVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */; };
+		D77AACB4288ADC0400E25F9F /* RNTSearchTagVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */; };
+		D77AACB5288ADC0400E25F9F /* RNTSearchTagVCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */; };
+		D77AACBA288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */; };
+		D77AACBB288ADC1900E25F9F /* HomeHeaderViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */; };
+		D77AACBC288ADC1900E25F9F /* HomeHeaderViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */; };
+		D77AACBD288ADC1900E25F9F /* WarningOfflineStatusViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -665,9 +674,17 @@
 		96C468C21FDBC10329121726 /* Pods-semomun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.debug.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.debug.xcconfig"; sourceTree = "<group>"; };
 		B252F8B75106EA27B58EC3E4 /* Pods-semomun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.release.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.release.xcconfig"; sourceTree = "<group>"; };
 		D742B0532887E3C900918D92 /* semomun-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "semomun-Bridging-Header.h"; sourceTree = "<group>"; };
-		D742B0542887E3CA00918D92 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		D742B0552887E3CA00918D92 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D742B0572888021B00918D92 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D77AACA8288ADBDC00E25F9F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTagVCAdapterView.swift; sourceTree = "<group>"; };
+		D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTHomeVCModule.m; sourceTree = "<group>"; };
+		D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTHomeVCManager.swift; sourceTree = "<group>"; };
+		D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVCAdapterView.swift; sourceTree = "<group>"; };
+		D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTSearchTagVCManager.swift; sourceTree = "<group>"; };
+		D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTSearchTagVCModule.m; sourceTree = "<group>"; };
+		D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningOfflineStatusViewManager.swift; sourceTree = "<group>"; };
+		D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderViewModule.m; sourceTree = "<group>"; };
+		D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderViewManager.swift; sourceTree = "<group>"; };
+		D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarningOfflineStatusViewModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1237,9 +1254,6 @@
 		871B6E4F276EE48D008CEEBA /* semomun */ = {
 			isa = PBXGroup;
 			children = (
-				D742B0572888021B00918D92 /* main.m */,
-				D742B0552887E3CA00918D92 /* AppDelegate.h */,
-				D742B0542887E3CA00918D92 /* AppDelegate.mm */,
 				8745569C27701BB700E3CBEE /* semomun.entitlements */,
 				87C85E28276F65A0001C9C4A /* Global */,
 				87C85E33276F6613001C9C4A /* CoreData */,
@@ -1260,6 +1274,7 @@
 				2502CEC927A6D7100072A037 /* MyPurchases */,
 				2593970227A3E19900BD5BD3 /* WaitingCharge */,
 				8716E954279A621A00B33A5E /* StudyZone */,
+				D77AACA8288ADBDC00E25F9F /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
 				871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */,
@@ -1437,6 +1452,10 @@
 		878766CB27AED290003B975E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */,
+				D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */,
+				D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */,
+				D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */,
 				87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */,
 				257AB2D52877C91900771382 /* HomeHeaderView.swift */,
 				257AB2D72877C93F00771382 /* HomeSectionView.swift */,
@@ -1820,6 +1839,12 @@
 		87F5826A279E84A700A2BD15 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */,
+				D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */,
+				D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */,
+				D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */,
+				D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */,
+				D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */,
 				2568CDBE2876CEEF008F34ED /* HomeVC.swift */,
 				87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */,
 				87319F9227E8D6230040108A /* NoticePopupVC.swift */,
@@ -1855,6 +1880,7 @@
 				25CF010E27F3229A00FAB013 /* Frameworks */,
 				25CF010F27F3229A00FAB013 /* Resources */,
 				39DED3811D7F53336E02723E /* [CP] Copy Pods Resources */,
+				4EC871D2D244416F7AA68A97 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1875,6 +1901,7 @@
 				871B6E4A276EE48D008CEEBA /* Frameworks */,
 				871B6E4B276EE48D008CEEBA /* Resources */,
 				D6AEA0114FC93918F61B21B1 /* [CP] Copy Pods Resources */,
+				FC18BFF0A08A7815EA6F106C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2020,6 +2047,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4EC871D2D244416F7AA68A97 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8AC74D6D9FB16BB86493278B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2057,6 +2101,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC18BFF0A08A7815EA6F106C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-semomun/Pods-semomun-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2157,6 +2218,7 @@
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
 				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */,
+				D77AACB4288ADC0400E25F9F /* RNTSearchTagVCManager.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
 				8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */,
 				8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */,
@@ -2191,7 +2253,6 @@
 				87A615E228858D98005B37CA /* SignupUsecase.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				250B285F287435CA000578BC /* UIImageView.swift in Sources */,
-				D742B0582888021B00918D92 /* main.m in Sources */,
 				878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */,
 				871861D928619C0C00C0371A /* WorkbookGroupDetailVM.swift in Sources */,
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
@@ -2219,6 +2280,7 @@
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */,
 				25BF7B76287D3DF800A5F6E1 /* HomeTagDetailVC.swift in Sources */,
+				D77AACB1288ADC0400E25F9F /* RNTHomeVCModule.m in Sources */,
 				25A950B327C760EC0084513E /* Collection.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
@@ -2232,6 +2294,8 @@
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
+				D77AACBB288ADC1900E25F9F /* HomeHeaderViewModule.m in Sources */,
+				D77AACBA288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift in Sources */,
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
 				87458554279E86B100E331F1 /* HomeVM.swift in Sources */,
 				2582D6C327ACFC3C00023A73 /* UIColor.swift in Sources */,
@@ -2251,6 +2315,7 @@
 				87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
+				D77AACB0288ADC0400E25F9F /* SearchTagVCAdapterView.swift in Sources */,
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
@@ -2288,6 +2353,7 @@
 				87AE2FF1287FEA6C00C83AF1 /* AppleLoginButton.swift in Sources */,
 				877D90AB283D0E5400CE0D81 /* MultipleWithNoAnswerWideVC.swift in Sources */,
 				87C85ED3276F6DC4001C9C4A /* SingleWith4AnswerVM.swift in Sources */,
+				D77AACBD288ADC1900E25F9F /* WarningOfflineStatusViewModule.m in Sources */,
 				25ACC17F2852F06700A171C5 /* SubproblemCollectionView.swift in Sources */,
 				25ACC17D2852F02700A171C5 /* FormOne.swift in Sources */,
 				877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */,
@@ -2301,8 +2367,10 @@
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
 				25EF0922288923F80095BEAC /* TestSubjectResultView.swift in Sources */,
 				872045F12878160A00BDCACB /* BookshelfWarningCell.swift in Sources */,
+				D77AACBC288ADC1900E25F9F /* HomeHeaderViewManager.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				258FA11828642D4B0008701C /* SecretImageView.swift in Sources */,
+				D77AACB5288ADC0400E25F9F /* RNTSearchTagVCModule.m in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
@@ -2310,6 +2378,7 @@
 				2560BB9F283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift in Sources */,
 				87CD7AC028800F37003EA8FB /* SemomunReviewButton.swift in Sources */,
 				25A67920287487A4009F76DF /* TestSubjectCell.swift in Sources */,
+				D77AACB3288ADC0400E25F9F /* HomeVCAdapterView.swift in Sources */,
 				25FB4B932886774600E7D426 /* LogoutProfileView.swift in Sources */,
 				25EC831D288A98140029B242 /* PracticeTestResultVC.swift in Sources */,
 				251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */,
@@ -2318,6 +2387,7 @@
 				87B17A1A2833CAF800DB5F10 /* MultipleWithConceptWideVC.swift in Sources */,
 				87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */,
 				25EF092028891E790095BEAC /* TestSubjectRankView.swift in Sources */,
+				D77AACA9288ADBDC00E25F9F /* AppDelegate.swift in Sources */,
 				2568CDBB2876B98E008F34ED /* ScrollingBackgroundFlowLayout.swift in Sources */,
 				87458559279EA86600E331F1 /* HomeAdCell.swift in Sources */,
 				250D82432772C43400AF1A46 /* String.swift in Sources */,
@@ -2346,6 +2416,7 @@
 				87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
 				254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */,
+				D77AACB2288ADC0400E25F9F /* RNTHomeVCManager.swift in Sources */,
 				87231B8B28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift in Sources */,
 				25F9049E28001C2400A517CC /* JSONParameterEncoder+Extensions.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
@@ -2358,7 +2429,6 @@
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
-				D742B0562887E3CA00918D92 /* AppDelegate.mm in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
 				250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */,
 			);
@@ -2475,7 +2545,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2540,7 +2610,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

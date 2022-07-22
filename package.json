@@ -6,7 +6,8 @@
         "ios": "react-native run-ios --simulator \"iPad Air (5th generation) (16.0)\"",
         "start": "react-native start",
         "test": "jest",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "pod": "cd ios && fabric_enabled=1 hermes_enabled=1 RCT_NEW_ARCH_ENABLED=1 pod install && cd .."
     },
     "dependencies": {
         "react": "18.0.0",
