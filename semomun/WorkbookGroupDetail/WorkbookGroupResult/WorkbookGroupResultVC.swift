@@ -17,10 +17,8 @@ final class WorkbookGroupResultVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.title = viewModel.title
         
-        let averagePercentile = Double(viewModel.sortedTestResults.map(\.percentile).reduce(0, +)) / Double(viewModel.sortedTestResults.count)
-        self.workbookGroupResultView.graphView.configurePercentile(to: averagePercentile/100)
-        
-        self.workbookGroupResultView.configureContent(viewModel.sortedTestResults)
+        self.workbookGroupResultView.graphView.configurePercentile(to: self.viewModel.averagePercentile)
+        self.workbookGroupResultView.configureContent(self.viewModel.sortedTestResults)
     }
     
     required init?(coder: NSCoder) {

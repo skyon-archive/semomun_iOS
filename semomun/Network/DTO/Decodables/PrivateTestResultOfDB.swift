@@ -9,9 +9,7 @@ import Foundation
 
 struct PrivateTestResultOfDB: Decodable {
     let subject: String // 과목명
-    
     let totalTime: Int // 총 소요 시간
-    
     let rank: String // 등급
     let rawScore: Int // 원점수
     let standardScore: Int // 표준 점수
