@@ -16,6 +16,7 @@ final class WorkbookGroupResultView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    /// 가로 스크롤이 가능한 과목별 등급 리스트
     private let rankScrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +25,7 @@ final class WorkbookGroupResultView: UIView {
         view.contentInset = .init(top: 0, left: 32, bottom: 0, right: 32)
         return view
     }()
+    /// rankScrollView의 내부 stackView
     private let rankStackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,9 +55,10 @@ final class WorkbookGroupResultView: UIView {
     func configureContent(_ testResults: [PrivateTestResultOfDB]) {
         self.configureRankScrollViewContent(testResults)
         self.configureSubjectResultStackView(testResults)
-        
     }
-    
+}
+
+extension WorkbookGroupResultView {
     private func configureRankScrollViewContent(_ content: [PrivateTestResultOfDB]) {
         content.forEach { privateTestResultOfDB in
             let view = TestSubjectRankView(title: privateTestResultOfDB.subject, rank: privateTestResultOfDB.rank)
@@ -64,12 +67,14 @@ final class WorkbookGroupResultView: UIView {
     }
     
     private func configureSubjectResultStackView(_ testResults: [PrivateTestResultOfDB]) {
+        // popLast를 하기 위해 reverse
         var temp = Array(testResults.reversed())
         while temp.isEmpty == false {
             let horizontalStackView = UIStackView()
             horizontalStackView.spacing = 16
             horizontalStackView.distribution = .fillEqually
             for _ in 0..<2 {
+                // 총 홀수개의 testResult가 있다면 마지막에는 빈 view를 넣어 width를 맞춘다.
                 guard let testResult = temp.popLast() else {
                     let emptyView = UIView()
                     emptyView.layer.opacity = 0
