@@ -61,15 +61,7 @@ final class TestSubjectResultView: UIView {
         label.textColor = .getSemomunColor(.darkGray)
         return label
     }()
-    private let cutoffStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.borderWidth = 1
-        view.borderColor = .getSemomunColor(.border)
-        view.layer.cornerRadius = 8
-        view.layer.cornerCurve = .continuous
-        return view
-    }()
+    private let cutoffStackView = TestCutoffStackView()
     
     init() {
         super.init(frame: .zero)
@@ -88,6 +80,7 @@ final class TestSubjectResultView: UIView {
         self.rankLabel.text = testResult.rank
         self.percentageLabel.text = "\(testResult.percentile)%"
         self.standardScoreLabel.text = "\(testResult.standardScore)"
+        self.cutoffStackView.configureContent(testResult.cutoff)
     }
 }
 
