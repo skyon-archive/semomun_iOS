@@ -771,8 +771,8 @@
 		25267E5E28890A1500D35FA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				25267E5F28890A4000D35FA1 /* AveragePercentileGraphView.swift */,
 				25267E5C2889093E00D35FA1 /* WorkbookGroupResultView.swift */,
+				25267E5F28890A4000D35FA1 /* AveragePercentileGraphView.swift */,
 				25EF091F28891E790095BEAC /* TestSubjectRankView.swift */,
 				25EF0921288923F80095BEAC /* TestSubjectResultView.swift */,
 				2570B354288A6E3000091977 /* TestCutoffStackView.swift */,
@@ -925,9 +925,9 @@
 		25841627285B235D003C6A21 /* WorkbookGroupResult */ = {
 			isa = PBXGroup;
 			children = (
-				25267E5E28890A1500D35FA1 /* View */,
 				25267E5A2889087700D35FA1 /* WorkbookGroupResultVC.swift */,
 				250F22AE285DD75000955AB7 /* WorkbookGroupResultVM.swift */,
+				25267E5E28890A1500D35FA1 /* View */,
 			);
 			path = WorkbookGroupResult;
 			sourceTree = "<group>";

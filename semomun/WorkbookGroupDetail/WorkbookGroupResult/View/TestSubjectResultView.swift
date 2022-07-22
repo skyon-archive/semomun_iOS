@@ -80,7 +80,7 @@ final class TestSubjectResultView: UIView {
         self.rankLabel.text = testResult.rank
         self.percentageLabel.text = "\(testResult.percentile)%"
         self.standardScoreLabel.text = "\(testResult.standardScore)"
-        self.cutoffStackView.configureContent(testResult.cutoff)
+        self.cutoffStackView.configureContent(cutoffs: testResult.cutoff, userRank: "3")
     }
 }
 
