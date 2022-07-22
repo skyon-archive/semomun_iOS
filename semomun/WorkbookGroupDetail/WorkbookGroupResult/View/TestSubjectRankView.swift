@@ -24,16 +24,12 @@ final class TestSubjectRankView: UIView {
         return label
     }()
     
-    init(title: String, rank: String) {
-        super.init(frame: .zero)
+    convenience init(title: String, rank: String) {
+        self.init(frame: .zero)
         self.configureLayout()
         self.backgroundColor = .white
         self.titleLabel.text = title
         self.rankLabel.text = rank
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

@@ -82,8 +82,8 @@ final class AveragePercentileGraphView: UIView {
     /// path 확대에 사용되는 transform값
     private lazy var scale = CGAffineTransform(scaleX: self.graphSize.width, y: self.graphSize.height)
     
-    init() {
-        super.init(frame: .zero)
+    convenience init() {
+        self.init(frame: .zero)
         self.configureLayout()
         // layer 추가
         self.backgroundView.layer.addSublayer(self.graphFrameLayer)
@@ -96,10 +96,6 @@ final class AveragePercentileGraphView: UIView {
         self.graphOutlineLayer.path = self.createGraphOutlinePath()
         self.graphGridLineLayer.path = self.createGridLinePath()
         self.maskToGraphLine(self.graphGridLineLayer)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {

@@ -42,14 +42,10 @@ final class WorkbookGroupResultView: UIView {
         return view
     }()
 
-    init() {
-        super.init(frame: .zero)
+    convenience init() {
+        self.init(frame: .zero)
         self.backgroundColor = .getSemomunColor(.background)
         self.configureLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func configureContent(_ testResults: [PrivateTestResultOfDB]) {

@@ -63,16 +63,12 @@ final class TestSubjectResultView: UIView {
     }()
     private let cutoffStackView = TestCutoffStackView()
     
-    init() {
-        super.init(frame: .zero)
+    convenience init() {
+        self.init(frame: .zero)
         self.configureLayout()
         self.backgroundColor = .getSemomunColor(.white)
         self.layer.cornerRadius = .cornerRadius12
         self.layer.cornerCurve = .continuous
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func configureContent(_ testResult: PrivateTestResultOfDB) {
@@ -80,7 +76,7 @@ final class TestSubjectResultView: UIView {
         self.rankLabel.text = testResult.rank
         self.percentageLabel.text = "\(testResult.percentile)%"
         self.standardScoreLabel.text = "\(testResult.standardScore)"
-        self.cutoffStackView.configureContent(cutoffs: testResult.cutoff, userRank: "3")
+        self.cutoffStackView.configureContent(cutoffs: testResult.cutoff, userRank: testResult.rank)
     }
 }
 
