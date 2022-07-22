@@ -1146,6 +1146,7 @@
 		8716E954279A621A00B33A5E /* StudyZone */ = {
 			isa = PBXGroup;
 			children = (
+				87BF216F288A636800FF55C5 /* Global */,
 				87A1C35B27C5E6B2009043BE /* StudyVC */,
 				87A1C35A27C5E675009043BE /* ChildVC */,
 				87A1C35C27C5E6D0009043BE /* PopupVC */,
@@ -1516,10 +1517,26 @@
 		87BF216C288A538B00FF55C5 /* ShowSolvedProblems */ = {
 			isa = PBXGroup;
 			children = (
-				87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */,
 				87BF216D288A53B300FF55C5 /* ShowSolvedProblemsVC.swift */,
+				87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */,
 			);
 			path = ShowSolvedProblems;
+			sourceTree = "<group>";
+		};
+		87BF216F288A636800FF55C5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				87BF2170288A636E00FF55C5 /* Cell */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		87BF2170288A636E00FF55C5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		87C85E28276F65A0001C9C4A /* Global */ = {
@@ -1668,7 +1685,6 @@
 			children = (
 				87A1C35827C5E646009043BE /* SelectProblemsVC.swift */,
 				8781442D27C6175400C31104 /* SelectProblemsVM.swift */,
-				8781442B27C6044E00C31104 /* ProblemSelectCell.swift */,
 			);
 			path = SelectProblems;
 			sourceTree = "<group>";
