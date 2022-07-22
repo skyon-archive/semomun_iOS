@@ -9,7 +9,7 @@ import UIKit
 
 final class WorkbookGroupResultView: UIView {
     /* public */
-    let graphView = NormalDistributionGraphView()
+    let graphView = AveragePercentileGraphView()
     /* private */
     private let scrollView: UIScrollView = {
         let view = UIScrollView()

@@ -1,5 +1,5 @@
 //
-//  NormalDistributionGraphView.swift
+//  AveragePercentileGraphView.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/21.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-// 그래프 폭은 600 고정
-final class NormalDistributionGraphView: UIView {
+/// 평균 백분위를 나타내는 정규분포 그래프
+final class AveragePercentileGraphView: UIView {
     /* private */
     private let backgroundView: UIView = {
         let view = UIView()
@@ -27,14 +27,17 @@ final class NormalDistributionGraphView: UIView {
         label.text = "평균 백분위"
         return label
     }()
+    /// 아래의 CALayer들을 묶는 frame layer
+    private let graphFrameLayer = CALayer()
+    /// 그래프의 곡선을 나타내는 layer
     private let graphOutlineLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.getSemomunColor(.darkGray).cgColor
         layer.lineWidth = 2
-        layer.position = .init(x: 24, y: 55)
         layer.fillColor = UIColor.clear.cgColor
         return layer
     }()
+    /// 그래프의 세로 격자선과 x축을 나타내는 layer
     private let graphGridLineLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.strokeColor = UIColor.getSemomunColor(.lightGray).cgColor
@@ -43,13 +46,14 @@ final class NormalDistributionGraphView: UIView {
         layer.fillColor = UIColor.blue.cgColor
         return layer
     }()
+    /// 그래프 내부를 채우는 layer
     private let graphFillLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.position = .init(x: 24, y: 55)
         layer.fillColor = UIColor.getSemomunColor(.border).cgColor
         return layer
     }()
-    private let percentileBlueLineLayer: CAShapeLayer = {
+    /// 사용자 백분율 부분에 파란 선을 표시하는 layer
+    private let blueLineLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.position = .zero
         layer.strokeColor = UIColor.getSemomunColor(.blueRegular).cgColor
@@ -70,17 +74,28 @@ final class NormalDistributionGraphView: UIView {
         return label
     }()
     private lazy var percentileLabelLeadingConstraint: NSLayoutConstraint = {
-        return self.percentileLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        return self.percentileLabel.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor)
     }()
-    private var percentage: Double = 0
+    /// 0과 1 사이의 비율 값
+    private var percentile: Double = 0
+    private let graphSize = CGSize(600, 292)
+    /// path 확대에 사용되는 transform값
+    private lazy var scale = CGAffineTransform(scaleX: self.graphSize.width, y: self.graphSize.height)
     
     init() {
         super.init(frame: .zero)
         self.configureLayout()
-        self.backgroundView.layer.addSublayer(self.graphFillLayer)
-        self.backgroundView.layer.addSublayer(self.graphOutlineLayer)
-        self.graphOutlineLayer.addSublayer(self.graphGridLineLayer)
-        self.graphOutlineLayer.addSublayer(self.percentileBlueLineLayer)
+        // layer 추가
+        self.backgroundView.layer.addSublayer(self.graphFrameLayer)
+        self.graphFrameLayer.addSublayer(self.graphFillLayer)
+        self.graphFrameLayer.addSublayer(self.graphGridLineLayer)
+        self.graphFrameLayer.addSublayer(self.graphOutlineLayer)
+        self.graphFrameLayer.addSublayer(self.blueLineLayer)
+        // layer path 설정
+        self.graphFillLayer.path = self.createGraphOutlinePath()
+        self.graphOutlineLayer.path = self.createGraphOutlinePath()
+        self.graphGridLineLayer.path = self.createGridLinePath()
+        self.maskToGraphLine(self.graphGridLineLayer)
     }
     
     required init?(coder: NSCoder) {
@@ -89,46 +104,27 @@ final class NormalDistributionGraphView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layoutIfNeeded()
-        
-        let scale = CGAffineTransform(scaleX: self.frame.width-48, y: self.frame.height-126)
-        
-        let newPath = self.createGraphBezierPath()
-        newPath.apply(scale)
-        self.graphOutlineLayer.path = newPath.cgPath
-        self.graphFillLayer.path = newPath.cgPath
-        
-        let gridPath = self.createGridLine()
-        gridPath.apply(scale)
-        self.graphGridLineLayer.path = gridPath.cgPath
-        let gridPathMaskLayer = CAShapeLayer()
-        gridPathMaskLayer.path = newPath.cgPath
-        self.graphGridLineLayer.mask = gridPathMaskLayer
-        
-        let path = UIBezierPath(rect: .init(0, 0, self.percentage/100, 1))
-        path.apply(scale)
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        self.graphFillLayer.mask = maskLayer
-        
-        let blueLinePath = self.createBlueLine()
-        blueLinePath.apply(scale)
-        self.percentileBlueLineLayer.path = blueLinePath.cgPath
-        let blueLineMaskLayer = CAShapeLayer()
-        blueLineMaskLayer.path = newPath.cgPath
-        self.percentileBlueLineLayer.mask = blueLineMaskLayer
-        
-        self.percentileLabelLeadingConstraint.constant = 24 + (self.frame.width-48) * CGFloat(self.percentage) / 100 - 30
+        // graph 중앙 정렬
+        let graphXPos = (self.backgroundView.frame.width - self.graphSize.width)/2
+        self.graphFrameLayer.position = .init(graphXPos, 55)
+        // percentile값에 따른 fillLayer의 크기 설정
+        self.removeRightArea(layer: self.graphFillLayer, percentile: 1-self.percentile)
+        // percentile값에 따른 blueLine의 위치 설정
+        self.blueLineLayer.path = self.createBlueLinePath()
+        self.maskToGraphLine(self.blueLineLayer)
+        // 라벨이 blueLine 바로 아래에 오도록 설정, 라벨 중앙에 선이 위치하도록 위해 라벨 width의 절반을 뺀다.
+        self.percentileLabelLeadingConstraint.constant = graphXPos + self.graphSize.width * CGFloat(self.percentile) - self.percentileLabel.frame.width / 2
     }
     
-    func configurePercentage(to percentage: Double) {
-        self.percentage = percentage
-        self.percentileLabel.text = String(format: "%.2f%", percentage) + "%"
+    /// - Parameter percentile: 0이상 1이하의 값
+    func configurePercentile(to percentile: Double) {
+        self.percentile = percentile
+        self.percentileLabel.text = String(format: "%.2f%", percentile*100) + "%"
         self.setNeedsLayout()
     }
 }
 
-extension NormalDistributionGraphView {
+extension AveragePercentileGraphView {
     private func configureLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubviews(self.backgroundView, self.titleLabel, self.percentileLabel)
@@ -147,8 +143,9 @@ extension NormalDistributionGraphView {
     }
 }
 
-extension NormalDistributionGraphView {
-    private func createGraphBezierPath() -> UIBezierPath {
+// 모든 BezierPath는 일단 크기 1의 정사각형 내에서 그려지고, 이후 scale을 통해 확장된다
+extension AveragePercentileGraphView {
+    private func createGraphOutlinePath() -> CGPath {
         let path = UIBezierPath()
         path.move(to: .init(0, 1))
         path.addCurve(
@@ -161,11 +158,11 @@ extension NormalDistributionGraphView {
             controlPoint1: .init(x: 0.65, y: 0),
             controlPoint2: .init(x: 0.65, y: 1)
         )
-        
-        return path
+        path.apply(self.scale)
+        return path.cgPath
     }
     
-    private func createGridLine() -> UIBezierPath {
+    private func createGridLinePath() -> CGPath {
         let path = UIBezierPath()
         for i in stride(from: 1.0, through: 8.0, by: 1.0) {
             path.move(to: .init(i/9, 1))
@@ -173,13 +170,31 @@ extension NormalDistributionGraphView {
         }
         path.move(to: .init(0, 1))
         path.addLine(to: .init(1, 1))
-        return path
+        path.apply(self.scale)
+        return path.cgPath
     }
     
-    private func createBlueLine() -> UIBezierPath {
+    private func createBlueLinePath() -> CGPath {
         let path = UIBezierPath()
-        path.move(to: .init(self.percentage/100, 0))
-        path.addLine(to: .init(self.percentage/100, 1))
-        return path
+        path.move(to: .init(self.percentile, 0))
+        path.addLine(to: .init(self.percentile, 1))
+        path.apply(self.scale)
+        return path.cgPath
+    }
+    
+    /// layer를 그래프 선 밖으로 튀어나가지 않도록 자른다
+    private func maskToGraphLine(_ layer: CALayer) {
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = self.createGraphOutlinePath()
+        layer.mask = maskLayer
+    }
+    
+    /// layer에서 우측 percentile만큼을 제거한다.
+    private func removeRightArea(layer: CALayer, percentile: Double) {
+        let path = UIBezierPath(rect: .init(0, 0, 1-percentile, 1))
+        path.apply(self.scale)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        layer.mask = maskLayer
     }
 }

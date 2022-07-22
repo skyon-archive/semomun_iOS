@@ -18,7 +18,7 @@ final class WorkbookGroupResultVC: UIViewController {
         self.title = viewModel.title
         
         let averagePercentile = Double(viewModel.sortedTestResults.map(\.percentile).reduce(0, +)) / Double(viewModel.sortedTestResults.count)
-        self.workbookGroupResultView.graphView.configurePercentage(to: averagePercentile)
+        self.workbookGroupResultView.graphView.configurePercentile(to: averagePercentile/100)
         
         self.workbookGroupResultView.configureContent(viewModel.sortedTestResults)
     }
