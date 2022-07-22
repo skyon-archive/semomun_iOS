@@ -68,7 +68,17 @@ final class StudyVC: UIViewController {
         return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
     }()
     private var didSlideViewShow: Bool = false
-    private lazy var slideSectionContentsVC = SlideSectionContentsVC()
+    private lazy var slideSectionContentsView = SlideSectionContentsView()
+    private lazy var dimBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.black).withAlphaComponent(0.3)
+        view.alpha = 0
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.closeSlideView))
+        view.addGestureRecognizer(tap)
+        return view
+    }()
+    private var slideViewTrailingConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -600,21 +610,52 @@ extension StudyVC: JumpProblemPageDelegate {
               let sectionNum = self.sectionManager?.sectionNum,
               let sectionTitle = self.sectionManager?.sectionTitle else { return }
         
-        self.slideSectionContentsVC.configure(workbookTitle: workbookTitle,
+        self.slideSectionContentsView.configure(workbookTitle: workbookTitle,
                                               sectionNum: sectionNum,
                                               sectionTitle: sectionTitle,
                                               delegate: self)
-        self.slideSectionContentsVC.modalPresentationStyle = .overCurrentContext
-        self.present(self.slideSectionContentsVC, animated: true)
+        /// dim 추가
+        self.view.addSubview(self.dimBackgroundView)
+        NSLayoutConstraint.activate([
+            self.dimBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.dimBackgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.dimBackgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.dimBackgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        /// slideView 추가
+        self.view.addSubview(self.slideSectionContentsView)
+        NSLayoutConstraint.activate([
+            self.slideSectionContentsView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.slideSectionContentsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+        /// constraint 설정
+        self.slideViewTrailingConstraint = self.slideSectionContentsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: SlideSectionContentsView.width)
+        self.slideViewTrailingConstraint?.isActive = true
+        self.view.layoutIfNeeded()
+        /// animation 설정
+        self.slideViewTrailingConstraint?.constant = 0
+        UIView.animate(withDuration: 0.35) {
+            self.dimBackgroundView.alpha = 1
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.didSlideViewShow = true
+        }
     }
     
     func jumpProblem(pid: Int) {
         print(pid)
     }
     
-    func close() {
-        print("close")
+    @objc func closeSlideView() {
         guard self.didSlideViewShow == true else { return }
-//        self.slideSectionContentsVC.removeFromParent()
+        self.slideViewTrailingConstraint?.constant = SlideSectionContentsView.width
+        UIView.animate(withDuration: 0.3) {
+            self.dimBackgroundView.alpha = 0
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.dimBackgroundView.removeFromSuperview()
+            self.slideSectionContentsView.removeFromSuperview()
+            self.didSlideViewShow = false
+        }
     }
 }

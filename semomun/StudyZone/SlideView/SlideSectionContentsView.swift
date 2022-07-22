@@ -9,10 +9,10 @@ import UIKit
 
 protocol JumpProblemPageDelegate: AnyObject {
     func jumpProblem(pid: Int)
-    func close()
+    func closeSlideView()
 }
 
-final class SlideSectionContentsVC: UIViewController {
+final class SlideSectionContentsView: UIView {
     /* public */
     static let width = CGFloat(320)
     /* private */
@@ -26,17 +26,10 @@ final class SlideSectionContentsVC: UIViewController {
         ])
         
         button .addAction(UIAction(handler: { [weak self] _ in
-            self?.presentingViewController?.dismiss(animated: true)
-            self?.delegate?.close()
+            self?.delegate?.closeSlideView()
         }), for: .touchUpInside)
         
         return button
-    }()
-    private var backgroundView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.getSemomunColor(.background)
-        return view
     }()
     private var contentFrameview: UIView = {
         let view = UIView()
@@ -110,33 +103,31 @@ final class SlideSectionContentsVC: UIViewController {
     }
     
     private func configureLayout() {
-        self.view.addSubview(self.backgroundView)
+        self.backgroundColor = UIColor.getSemomunColor(.background)
+        self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.backgroundView.widthAnchor.constraint(equalToConstant: SlideSectionContentsVC.width),
-            self.backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.widthAnchor.constraint(equalToConstant: SlideSectionContentsView.width)
         ])
         
-        self.backgroundView.addSubview(self.closeButton)
+        self.addSubview(self.closeButton)
         NSLayoutConstraint.activate([
-            self.closeButton.topAnchor.constraint(equalTo: self.backgroundView.topAnchor, constant: 9),
-            self.closeButton.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: -8)
+            self.closeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 9),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
         ])
         
-        self.backgroundView.addSubview(self.contentFrameview)
+        self.addSubview(self.contentFrameview)
         NSLayoutConstraint.activate([
-            self.contentFrameview.topAnchor.constraint(equalTo: self.backgroundView.topAnchor, constant: 42),
-            self.contentFrameview.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor),
-            self.contentFrameview.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor),
-            self.contentFrameview.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor)
+            self.contentFrameview.topAnchor.constraint(equalTo: self.topAnchor, constant: 42),
+            self.contentFrameview.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.contentFrameview.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.contentFrameview.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
         self.contentFrameview.addSubview(self.workbookTitleLabel)
         NSLayoutConstraint.activate([
             self.workbookTitleLabel.topAnchor.constraint(equalTo: self.contentFrameview.topAnchor, constant: 16),
             self.workbookTitleLabel.leadingAnchor.constraint(equalTo: self.contentFrameview.leadingAnchor, constant: 16),
-            self.workbookTitleLabel.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor, constant: -16)
+            self.workbookTitleLabel.trailingAnchor.constraint(equalTo: self.contentFrameview.trailingAnchor, constant: -16)
         ])
         
         self.contentFrameview.addSubview(self.underlineView)
