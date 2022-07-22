@@ -215,12 +215,14 @@ extension StudyVC {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .showSectionResult, object: nil, queue: .current) { [weak self] _ in
             // MARK: Mode 에 따른 분기처리가 필요, 또는 다른 Noti를 사용하는 식으로
-            guard let section = self?.sectionManager?.section,
+            guard let workbookTitle = self?.sectionManager?.workbooktitle,
+                  let sectionNum = self?.sectionManager?.sectionNum,
+                  let section = self?.sectionManager?.section,
                   let pageData = self?.sectionManager?.currentPage else { return }
             
             self?.changeVC(pageData: pageData)
             self?.sectionManager?.postProblemAndPageDatas(isDismiss: false) // 채점 이후 post
-            self?.showResultViewController(section: section)
+            self?.showResultViewController(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
         }
         NotificationCenter.default.addObserver(forName: .showPracticeTestResult, object: nil, queue: .main) { [weak self] _ in
             guard let pageData = self?.practiceTestManager?.currentPage else { return }
@@ -318,10 +320,10 @@ extension StudyVC {
         self.present(hostingVC, animated: true, completion: nil)
     }
     
-    private func showResultViewController(section: Section_Core) {
+    private func showResultViewController(section: Section_Core, sectionNum: Int, workbookTitle: String) {
         let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
         guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }
-        let viewModel = SectionResultVM(section: section)
+        let viewModel = SectionResultVM(section: section, sectionNum: sectionNum, workbookTitle: workbookTitle)
         sectionResultVC.configureViewModel(viewModel: viewModel)
         
         self.present(sectionResultVC, animated: true, completion: nil)

@@ -9,7 +9,10 @@ import Foundation
 import Combine
 
 final class SectionResultVM {
-    @Published private(set) var sectionTitle: String?
+    @Published private(set) var workbookTitle: String = ""
+    @Published private(set) var sectionNum: Int = 0
+    @Published private(set) var sectionTitle: String = ""
+    @Published private(set) var problems: [Problem_Core] = []
     @Published private(set) var result: SectionResult?
     private let section: Section_Core
     private var perfectScore: Double = 0
@@ -17,16 +20,16 @@ final class SectionResultVM {
     private var time: Int64 = 0
     private var wrongProblems: [String] = []
     
-    init(section: Section_Core) {
+    init(section: Section_Core, sectionNum: Int, workbookTitle: String) {
+        self.workbookTitle = workbookTitle
+        self.sectionTitle = section.title ?? ""
+        self.sectionNum = sectionNum
         self.section = section
     }
     
     func calculateResult() {
-        self.sectionTitle = self.section.title
-        let problems = self.section.problemCores?
-            .sorted(by: { $0.orderIndex < $1.orderIndex}) ?? []
-        
-        problems.filter { $0.terminated }.forEach { problem in
+        self.configureProblems()
+        self.problems.filter { $0.terminated }.forEach { problem in
             // 문제 배점 누적
             self.perfectScore += problem.point
             // 문제 걸린시간 누적
@@ -45,5 +48,9 @@ final class SectionResultVM {
         }
         
         self.result = SectionResult(perfectScore: self.perfectScore, score: self.score, time: self.time, wrongProblems: self.wrongProblems)
+    }
+    
+    private func configureProblems() {
+        self.problems = self.section.problemCores?.sorted(by: { $0.orderIndex < $1.orderIndex }) ?? []
     }
 }
