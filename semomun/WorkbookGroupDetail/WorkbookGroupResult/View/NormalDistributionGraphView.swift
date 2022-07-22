@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 그래프 폭은 600 고정
 final class NormalDistributionGraphView: UIView {
     /* private */
     private let backgroundView: UIView = {
