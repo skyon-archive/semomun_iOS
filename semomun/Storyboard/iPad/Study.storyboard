@@ -985,7 +985,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jla-iS-yUa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2244.6043165467627" y="39.698492462311556"/>
+            <point key="canvasLocation" x="2965" y="40"/>
         </scene>
         <!--Single With5 AnswerVC-->
         <scene sceneID="52a-pP-VCm">
@@ -2507,6 +2507,169 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwK-WZ-Qmq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="2079"/>
+        </scene>
+        <!--Show Solved ProblemsVC-->
+        <scene sceneID="kPq-Xg-vLj">
+            <objects>
+                <viewController storyboardIdentifier="ShowSolvedProblemsVC" id="t3L-Ow-fd8" customClass="ShowSolvedProblemsVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7T3-61-Lf7">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auc-Th-rcS">
+                                <rect key="frame" x="181" y="337.5" width="472" height="523"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채점" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52W-47-P8G">
+                                        <rect key="frame" x="24" y="24" width="35" height="24"/>
+                                        <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="20"/>
+                                        <color key="textColor" name="black"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PN8-xk-LFa">
+                                        <rect key="frame" x="424" y="24" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="VZ4-BS-yIV"/>
+                                            <constraint firstAttribute="height" constant="24" id="xX1-of-S2u"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="xOutline"/>
+                                        <connections>
+                                            <action selector="close:" destination="t3L-Ow-fd8" eventType="touchUpInside" id="O7v-pj-J7K"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문제집명" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ld-yR-DeI">
+                                        <rect key="frame" x="24" y="80" width="424" height="19.5"/>
+                                        <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="16"/>
+                                        <color key="textColor" name="black"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRh-LR-dPM">
+                                        <rect key="frame" x="24" y="107.5" width="424" height="1"/>
+                                        <color key="backgroundColor" name="border"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="KdS-eQ-utx"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="xXh-JR-mAp">
+                                        <rect key="frame" x="24" y="456" width="424" height="43"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BM-U1-sh6">
+                                                <rect key="frame" x="0.0" y="0.0" width="424" height="43"/>
+                                                <color key="backgroundColor" name="blueRegular"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="43" id="Cwj-dR-8of"/>
+                                                    <constraint firstAttribute="width" constant="424" id="Mxf-SR-yU2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="PretendardVariable-Bold" family="Pretendard Variable" pointSize="16"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="채점하기">
+                                                    <color key="titleColor" name="white"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="scoringProblems:" destination="t3L-Ow-fd8" eventType="touchUpInside" id="ctr-EU-g5r"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bxY-qf-raJ">
+                                        <rect key="frame" x="0.0" y="132.5" width="472" height="299.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="10" id="iI8-gd-Sp5">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="estimatedItemSize" width="40" height="40"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="24" minY="0.0" maxX="24" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProblemSelectCell" id="wv7-Ev-IbW" customClass="ProblemSelectCell" customModule="semomun" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ayr-ZG-aKN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qT1-ao-8NX">
+                                                            <rect key="frame" x="11" y="11.5" width="18" height="17"/>
+                                                            <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="qT1-ao-8NX" firstAttribute="centerX" secondItem="ayr-ZG-aKN" secondAttribute="centerX" id="k0q-WI-6o4"/>
+                                                        <constraint firstItem="qT1-ao-8NX" firstAttribute="centerY" secondItem="ayr-ZG-aKN" secondAttribute="centerY" id="yWP-OL-WuR"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" name="border"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </collectionViewCellContentView>
+                                                <color key="backgroundColor" name="background"/>
+                                                <size key="customSize" width="40" height="40"/>
+                                                <connections>
+                                                    <outlet property="title" destination="qT1-ao-8NX" id="iwy-0h-6gG"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="xXh-JR-mAp" secondAttribute="bottom" constant="24" id="0r4-UE-mpY"/>
+                                    <constraint firstItem="qRh-LR-dPM" firstAttribute="trailing" secondItem="PN8-xk-LFa" secondAttribute="trailing" id="6Ew-Vy-Qoy"/>
+                                    <constraint firstAttribute="trailing" secondItem="PN8-xk-LFa" secondAttribute="trailing" constant="24" id="EwN-Ed-Ke6"/>
+                                    <constraint firstItem="52W-47-P8G" firstAttribute="leading" secondItem="auc-Th-rcS" secondAttribute="leading" constant="24" id="FaV-Y4-9Nq"/>
+                                    <constraint firstItem="xXh-JR-mAp" firstAttribute="top" secondItem="bxY-qf-raJ" secondAttribute="bottom" constant="24" id="HoK-cp-lSd"/>
+                                    <constraint firstAttribute="width" constant="472" id="JsS-Pi-bBE"/>
+                                    <constraint firstItem="bxY-qf-raJ" firstAttribute="top" secondItem="qRh-LR-dPM" secondAttribute="bottom" constant="24" id="KSW-Hv-M6N"/>
+                                    <constraint firstAttribute="trailing" secondItem="bxY-qf-raJ" secondAttribute="trailing" id="MF1-Em-86G"/>
+                                    <constraint firstItem="PN8-xk-LFa" firstAttribute="centerY" secondItem="52W-47-P8G" secondAttribute="centerY" id="Nje-cM-80k"/>
+                                    <constraint firstItem="qRh-LR-dPM" firstAttribute="leading" secondItem="52W-47-P8G" secondAttribute="leading" id="Nm6-9I-Urg"/>
+                                    <constraint firstAttribute="height" constant="523" id="PAN-cv-aYh"/>
+                                    <constraint firstItem="xXh-JR-mAp" firstAttribute="centerX" secondItem="auc-Th-rcS" secondAttribute="centerX" id="QF5-CM-KHf"/>
+                                    <constraint firstItem="bxY-qf-raJ" firstAttribute="leading" secondItem="auc-Th-rcS" secondAttribute="leading" id="RC1-2J-fCH"/>
+                                    <constraint firstItem="2Ld-yR-DeI" firstAttribute="top" secondItem="52W-47-P8G" secondAttribute="bottom" constant="32" id="U48-t7-h6w"/>
+                                    <constraint firstItem="2Ld-yR-DeI" firstAttribute="leading" secondItem="52W-47-P8G" secondAttribute="leading" id="UqI-gT-33c"/>
+                                    <constraint firstItem="2Ld-yR-DeI" firstAttribute="trailing" secondItem="PN8-xk-LFa" secondAttribute="trailing" id="mPB-cC-TET"/>
+                                    <constraint firstItem="qRh-LR-dPM" firstAttribute="top" secondItem="2Ld-yR-DeI" secondAttribute="bottom" constant="8" id="sg0-KT-j1s"/>
+                                    <constraint firstItem="52W-47-P8G" firstAttribute="top" secondItem="auc-Th-rcS" secondAttribute="top" constant="24" id="xMa-TL-mTI"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="J6a-C0-PlU"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="auc-Th-rcS" firstAttribute="centerY" secondItem="J6a-C0-PlU" secondAttribute="centerY" id="Bie-nB-9SN"/>
+                            <constraint firstItem="auc-Th-rcS" firstAttribute="centerX" secondItem="J6a-C0-PlU" secondAttribute="centerX" id="eak-Jm-ClE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="PN8-xk-LFa" id="Ogt-Ha-xE1"/>
+                        <outlet property="problems" destination="bxY-qf-raJ" id="2C7-cb-VOH"/>
+                        <outlet property="workbookTitleLabel" destination="2Ld-yR-DeI" id="bNF-YO-uoU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w4o-TS-Ykc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2245" y="40"/>
         </scene>
     </scenes>
     <resources>
