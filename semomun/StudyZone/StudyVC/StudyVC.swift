@@ -333,18 +333,14 @@ extension StudyVC {
         guard let wgid = self.practiceTestManager?.wgid else { return }
         guard let section = self.practiceTestManager?.section else { return }
         
-        let storyboard = UIStoryboard(name: PracticeTestResultVC.storyboardName, bundle: nil)
-        guard let practiceTestResultVC = storyboard.instantiateViewController(withIdentifier: PracticeTestResultVC.identifier) as? PracticeTestResultVC else { return }
-        
         let networkUsecase = NetworkUsecase(network: Network())
         let viewModel = PracticeTestResultVM(
             wgid: wgid,
             practiceTestSection: section,
             networkUsecase: networkUsecase
         )
-        practiceTestResultVC.configureViewModel(viewModel)
-        
-        self.present(practiceTestResultVC, animated: true, completion: nil)
+        let vc = _PracticeTestResultVC(viewModel: viewModel)
+        self.present(vc, animated: true)
     }
 }
 

@@ -144,6 +144,7 @@ extension PracticeTestResultVM {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
         return formatter.string(from: TimeInterval(second)) ?? "00:00:00"
     }
     
