@@ -69,6 +69,12 @@ final class PracticeTestResultView: UIView {
         view.spacing = 8
         return view
     }()
+    private let borderView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .getSemomunColor(.border)
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        return view
+    }()
     
     convenience init() {
         self.init(frame: .zero)
@@ -89,7 +95,7 @@ extension PracticeTestResultView {
     private func configureLayout() {
         self.addSubviews(self.backgroundView)
         self.backgroundView.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView)
+        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView)
         
         NSLayoutConstraint.activate([
             self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
@@ -116,7 +122,11 @@ extension PracticeTestResultView {
             self.infoStackView.bottomAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor),
             
             self.progressStackView.topAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor, constant: 24),
-            self.progressStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.leadingAnchor)
+            self.progressStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.leadingAnchor),
+            
+            self.borderView.topAnchor.constraint(equalTo: self.progressStackView.bottomAnchor, constant: 24),
+            self.borderView.widthAnchor.constraint(equalTo: self.progressStackView.widthAnchor),
+            self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
     
@@ -166,9 +176,13 @@ extension PracticeTestResultView {
     }
     
     private func configureProgressStackView(_ practiceTestResult: PracticeTestResult) {
-        let myScoreProgress = Double(practiceTestResult.rawScore) / Double(practiceTestResult.perfectScore)
-        self.progressViews[0].updateProgress(myScoreProgress)
-        let groupAverageProgress = Double(practiceTestResult.groupAverage) / Double(practiceTestResult.perfectScore)
-        self.progressViews[1].updateProgress(groupAverageProgress)
+        self.progressViews[0].updateProgress(
+            rawScore: practiceTestResult.rawScore,
+            perfectScore: practiceTestResult.perfectScore
+        )
+        self.progressViews[1].updateProgress(
+            rawScore: practiceTestResult.groupAverage,
+            perfectScore: practiceTestResult.perfectScore
+        )
     }
 }

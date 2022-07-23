@@ -65,9 +65,9 @@ class ScoreProgressView: UIStackView {
         self.configureProgressForegroundViewLayout()
     }
     
-    func updateProgress(_ progress: Double) {
-        self.progressWidthConstraint.constant = self.progressBarWidth * CGFloat(progress)
-        self.progressLabel.text = "\(Int(progress*100))"
+    func updateProgress(rawScore: Int, perfectScore: Int) {
+        self.progressWidthConstraint.constant = self.progressBarWidth * min(1, CGFloat(rawScore) / CGFloat(perfectScore))
+        self.progressLabel.text = "\(rawScore)"
     }
 }
 
