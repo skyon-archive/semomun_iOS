@@ -54,6 +54,7 @@
 		25532DA927F7104400D3603C /* MockPhoneNumVerifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */; };
 		2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2554C89027D27BCC00AAD262 /* BooleanResult.swift */; };
 		25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25571EC427E43EC0002C72ED /* PurchasedItem.swift */; };
+		25587BA3288C289F008075CC /* ScoreProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25587BA2288C289F008075CC /* ScoreProgressView.swift */; };
 		255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637527ABB03F000991AB /* UserNoticeVC.swift */; };
 		255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637727ABB332000991AB /* UserNoticeCell.swift */; };
 		255D637A27ABBF46000991AB /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255D637927ABBF46000991AB /* UserNotice.swift */; };
@@ -381,6 +382,7 @@
 		25532DA827F7104400D3603C /* MockPhoneNumVerifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockPhoneNumVerifiable.swift; path = SemomunTests/Network/MockPhoneNumVerifiable.swift; sourceTree = SOURCE_ROOT; };
 		2554C89027D27BCC00AAD262 /* BooleanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanResult.swift; sourceTree = "<group>"; };
 		25571EC427E43EC0002C72ED /* PurchasedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItem.swift; sourceTree = "<group>"; };
+		25587BA2288C289F008075CC /* ScoreProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreProgressView.swift; sourceTree = "<group>"; };
 		255D637527ABB03F000991AB /* UserNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeVC.swift; sourceTree = "<group>"; };
 		255D637727ABB332000991AB /* UserNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoticeCell.swift; sourceTree = "<group>"; };
 		255D637927ABBF46000991AB /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 			isa = PBXGroup;
 			children = (
 				25EC831E288A982F0029B242 /* PracticeTestResultView.swift */,
+				25587BA2288C289F008075CC /* ScoreProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1959,6 +1962,7 @@
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
 				25D9E10527799775009256B7 /* LoginSchoolSearchView.swift in Sources */,
+				25587BA3288C289F008075CC /* ScoreProgressView.swift in Sources */,
 				873BCE562876E8FA005A6189 /* WorkbookCellInfo.swift in Sources */,
 				255D637627ABB03F000991AB /* UserNoticeVC.swift in Sources */,
 				8716E964279A629A00B33A5E /* SingleWithNoAnswerVC.swift in Sources */,

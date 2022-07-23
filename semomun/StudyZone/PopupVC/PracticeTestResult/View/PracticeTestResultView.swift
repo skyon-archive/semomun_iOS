@@ -58,15 +58,30 @@ final class PracticeTestResultView: UIView {
         view.spacing = 4
         return view
     }()
+    private let progressViews = [
+        ScoreProgressView(description: "나의 점수", color: .getSemomunColor(.orangeRegular)),
+        ScoreProgressView(description: "평균 점수", color: UIColor(hex: 0xDCDCE5)),
+        ScoreProgressView(description: "세모문 사용자의 평균점수", color: UIColor(hex: 0xDCDCE5))
+    ]
+    private let progressStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 8
+        return view
+    }()
     
     convenience init() {
         self.init(frame: .zero)
         self.configureLayout()
+        self.progressViews.forEach {
+            self.progressStackView.addArrangedSubview($0)
+        }
     }
     
     func configureContent(practiceTestResult: PracticeTestResult) {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
+        self.configureProgressStackView(practiceTestResult)
     }
 }
 
@@ -74,7 +89,7 @@ extension PracticeTestResultView {
     private func configureLayout() {
         self.addSubviews(self.backgroundView)
         self.backgroundView.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView)
+        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView)
         
         NSLayoutConstraint.activate([
             self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
@@ -98,7 +113,10 @@ extension PracticeTestResultView {
             self.rawScoreLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
             
             self.infoStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.trailingAnchor, constant: 24),
-            self.infoStackView.bottomAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor)
+            self.infoStackView.bottomAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor),
+            
+            self.progressStackView.topAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor, constant: 24),
+            self.progressStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.leadingAnchor)
         ])
     }
     
@@ -132,19 +150,24 @@ extension PracticeTestResultView {
             let title = UILabel()
             title.font = .regularStyleParagraph
             title.textColor = .getSemomunColor(.lightGray)
-            title.textAlignment = .left
             title.text = data[0]
             horizontalStackView.addArrangedSubview(title)
             
             let description = UILabel()
             description.font = .regularStyleParagraph
             description.textColor = .getSemomunColor(.darkGray)
-            description.textAlignment = .right
+            description.textAlignment = .left
             description.text = data[1]
             horizontalStackView.addArrangedSubview(description)
             
             self.infoStackView.addArrangedSubview(horizontalStackView)
         }
-        
+    }
+    
+    private func configureProgressStackView(_ practiceTestResult: PracticeTestResult) {
+        let myScoreProgress = Double(practiceTestResult.rawScore) / Double(practiceTestResult.perfectScore)
+        self.progressViews[0].updateProgress(myScoreProgress)
+        let groupAverageProgress = Double(practiceTestResult.groupAverage) / Double(practiceTestResult.perfectScore)
+        self.progressViews[1].updateProgress(groupAverageProgress)
     }
 }
