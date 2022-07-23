@@ -19,7 +19,7 @@ struct TestResultCalculator {
         let rank = (rankCutoff.firstIndex(where: { rawScore >= $0 }) ?? 8) + 1
         
         guard groupStandardDeviation > 0 else {
-            return .init(rank: rank, standardScore: 0, percentile: 0)
+            return .init(rank: String(rank), standardScore: 0, percentile: 0)
         }
         
         // 평균이 0인 표준점수
@@ -29,7 +29,7 @@ struct TestResultCalculator {
         // 백분위
         let percentile = self.normalDistribution(x: zeroAverageDeviation) * 100
         
-        return .init(rank: rank, standardScore: Int(deviation), percentile: Int(percentile))
+        return .init(rank: String(rank), standardScore: Int(deviation), percentile: Int(percentile))
     }
 }
 

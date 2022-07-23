@@ -18,7 +18,7 @@ final class PracticeTestResultVC: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.customView.closeButton.addAction(UIAction { [weak self] _ in
-            self?.dismiss(animated: false)
+            self?.dismiss(animated: true)
         }, for: .touchUpInside)
         self.bindAll()
         self.viewModel.fetchResult()
