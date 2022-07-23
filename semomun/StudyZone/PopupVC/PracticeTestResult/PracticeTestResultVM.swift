@@ -30,6 +30,7 @@ final class PracticeTestResultVM {
     private let deviation: Int
     private let averageScore: Int
     private let totalTime: Int
+    private let groupAverage: Int
     // CoreData값에서 따로 계산되어야하는 프로퍼티
     private let correctProblemCount: Int
     private let totalProblemCount: Int
@@ -56,6 +57,7 @@ final class PracticeTestResultVM {
         self.deviation = Int(practiceTestSection.standardDeviation)
         self.averageScore = Int(practiceTestSection.averageScore)
         self.totalTime = Int(practiceTestSection.totalTime)
+        self.groupAverage = Int(practiceTestSection.averageScore)
         
         guard let problemCores = practiceTestSection.problemCores else {
             self.correctProblemCount = 0
@@ -108,10 +110,8 @@ extension PracticeTestResultVM {
             }
             self?.publicScoreResult = .init(
                 rank: publicTestResultOfDB.rank,
-                rawScore: publicTestResultOfDB.rawScore,
                 standardScore: publicTestResultOfDB.standardScore,
-                percentile: publicTestResultOfDB.percentile,
-                perfectScore: Int(self?.perfectScore ?? 0)
+                percentile: publicTestResultOfDB.percentile
             )
         }
     }
@@ -122,19 +122,19 @@ extension PracticeTestResultVM {
             groupAverage: Int(self.averageScore),
             groupStandardDeviation: Int(self.deviation),
             area: self.area,
-            rankCutoff: self.cutoff,
-            perfectScore: Int(self.perfectScore)
+            rankCutoff: self.cutoff
         )
         
-        let title = "\(self.title) 성적표"
         let totalTimeFormattedString = self.formatDateString(fromSeconds: self.totalTime)
         
         self.practiceTestResult = .init(
-            title: title,
+            rawScore: Int(self.rawScore),
             correctProblemCount: self.correctProblemCount,
             totalProblemCount: self.totalProblemCount,
             totalTimeFormattedString: totalTimeFormattedString,
-            privateScoreResult: privateScoreResult
+            groupAverage: self.groupAverage,
+            privateScoreResult: privateScoreResult,
+            subject: self.subject
         )
         
         self.postTestResult()
@@ -160,7 +160,7 @@ extension PracticeTestResultVM {
             wid: self.wid,
             sid: self.sid,
             rank: String(scoreResult.rank),
-            rawScore: scoreResult.rawScore,
+            rawScore: Int(self.rawScore),
             perfectScore: Int(self.perfectScore),
             standardScore: scoreResult.standardScore,
             percentile: scoreResult.percentile,
