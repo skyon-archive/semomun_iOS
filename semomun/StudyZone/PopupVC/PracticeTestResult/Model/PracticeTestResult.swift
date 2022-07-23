@@ -10,6 +10,7 @@ import Foundation
 struct PracticeTestResult {
     /* public */
     let rawScore: Int
+    let perfectScore: Int
     let correctProblemCount: Int
     let totalProblemCount: Int
     let totalTimeFormattedString: String

@@ -129,6 +129,7 @@ extension PracticeTestResultVM {
         
         self.practiceTestResult = .init(
             rawScore: Int(self.rawScore),
+            perfectScore: Int(self.perfectScore),
             correctProblemCount: self.correctProblemCount,
             totalProblemCount: self.totalProblemCount,
             totalTimeFormattedString: totalTimeFormattedString,
