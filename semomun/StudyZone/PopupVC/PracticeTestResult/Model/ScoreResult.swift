@@ -8,7 +8,7 @@
 import Foundation
 
 struct ScoreResult {
-    let rank: Int
+    let rank: String
     let standardScore: Int
     let percentile: Int
 }

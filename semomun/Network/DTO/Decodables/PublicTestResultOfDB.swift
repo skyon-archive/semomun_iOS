@@ -13,7 +13,7 @@ struct PublicTestResultOfDB: Decodable {
     let wgid: Int
     let sid: Int
     
-    let rank: Int // 등급
+    let rank: String // 등급
     let rawScore: Int // 원점수
     let standardScore: Int // 표준 점수
     let percentile: Int // 백분위

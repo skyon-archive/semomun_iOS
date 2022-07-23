@@ -146,6 +146,7 @@ extension PracticeTestResultView {
         ].forEach { data in
             let horizontalStackView = UIStackView()
             horizontalStackView.spacing = 4
+            horizontalStackView.distribution = .fillEqually
             
             let title = UILabel()
             title.font = .regularStyleParagraph
