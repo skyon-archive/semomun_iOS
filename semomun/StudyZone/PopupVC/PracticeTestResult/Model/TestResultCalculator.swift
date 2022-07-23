@@ -15,11 +15,11 @@ struct TestResultCalculator {
     ///   - area: 영역 이름
     ///   - rankCutoff: 1등급부터의 등급컷을 표현하는 길이 8의 배열. 9등급의 등급컷은 의미 없기 때문.
     ///   - perfectScore: 시험의 만점
-    static func getScoreResult(rawScore: Int, groupAverage: Int, groupStandardDeviation: Int, area: String, rankCutoff: [Int], perfectScore: Int) -> ScoreResult {
+    static func getScoreResult(rawScore: Int, groupAverage: Int, groupStandardDeviation: Int, area: String, rankCutoff: [Int]) -> ScoreResult {
         let rank = (rankCutoff.firstIndex(where: { rawScore >= $0 }) ?? 8) + 1
         
         guard groupStandardDeviation > 0 else {
-            return .init(rank: rank, rawScore: rawScore, standardScore: 0, percentile: 0, perfectScore: perfectScore)
+            return .init(rank: rank, standardScore: 0, percentile: 0)
         }
         
         // 평균이 0인 표준점수
@@ -29,7 +29,7 @@ struct TestResultCalculator {
         // 백분위
         let percentile = self.normalDistribution(x: zeroAverageDeviation) * 100
         
-        return .init(rank: rank, rawScore: rawScore, standardScore: Int(deviation), percentile: Int(percentile), perfectScore: perfectScore)
+        return .init(rank: rank, standardScore: Int(deviation), percentile: Int(percentile))
     }
 }
 
@@ -55,4 +55,3 @@ extension TestResultCalculator {
         return 0.5 * erfc(-x * 0.5.squareRoot())
     }
 }
-

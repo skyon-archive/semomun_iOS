@@ -65,7 +65,7 @@ final class PracticeTestResultView: UIView {
     }
     
     func configureContent(practiceTestResult: PracticeTestResult) {
-        self.configureRawScoreLabel(practiceTestResult.privateScoreResult.rawScore)
+        self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
     }
 }

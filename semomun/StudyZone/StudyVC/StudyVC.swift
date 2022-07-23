@@ -339,7 +339,7 @@ extension StudyVC {
             practiceTestSection: section,
             networkUsecase: networkUsecase
         )
-        let vc = _PracticeTestResultVC(viewModel: viewModel)
+        let vc = PracticeTestResultVC(viewModel: viewModel)
         self.present(vc, animated: true)
     }
 }
