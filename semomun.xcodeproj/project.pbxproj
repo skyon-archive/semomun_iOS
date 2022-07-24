@@ -225,6 +225,8 @@
 		879B172A2772C6F70042478F /* UserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879B17282772C6F70042478F /* UserCoreData.swift */; };
 		879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC219286955D4007E3508 /* LayoutDelegate.swift */; };
 		879CC21C286957FB007E3508 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879CC21B286957FB007E3508 /* TestInfo.swift */; };
+		879D3C97288D7C0E0075568C /* ProblemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 879D3C96288D7C0E0075568C /* ProblemCell.xib */; };
+		879D3C99288D7CD50075568C /* ProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D3C98288D7CD50075568C /* ProblemCell.swift */; };
 		87A1C35927C5E646009043BE /* SelectProblemsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A1C35827C5E646009043BE /* SelectProblemsVC.swift */; };
 		87A376A228741FAC00399DF2 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A376A128741FAC00399DF2 /* TagCell.xib */; };
 		87A615E028858BBD005B37CA /* SelectSocialSignupPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A615DF28858BBD005B37CA /* SelectSocialSignupPopupVC.swift */; };
@@ -555,6 +557,8 @@
 		879B17282772C6F70042478F /* UserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreData.swift; sourceTree = "<group>"; };
 		879CC219286955D4007E3508 /* LayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutDelegate.swift; sourceTree = "<group>"; };
 		879CC21B286957FB007E3508 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
+		879D3C96288D7C0E0075568C /* ProblemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProblemCell.xib; sourceTree = "<group>"; };
+		879D3C98288D7CD50075568C /* ProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemCell.swift; sourceTree = "<group>"; };
 		87A1C35827C5E646009043BE /* SelectProblemsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProblemsVC.swift; sourceTree = "<group>"; };
 		87A376A128741FAC00399DF2 /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		87A615DF28858BBD005B37CA /* SelectSocialSignupPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSocialSignupPopupVC.swift; sourceTree = "<group>"; };
@@ -1565,6 +1569,8 @@
 			isa = PBXGroup;
 			children = (
 				87BF2172288A71E300FF55C5 /* SlideSectionContentsView.swift */,
+				879D3C96288D7C0E0075568C /* ProblemCell.xib */,
+				879D3C98288D7CD50075568C /* ProblemCell.swift */,
 			);
 			path = SlideView;
 			sourceTree = "<group>";
@@ -1908,6 +1914,7 @@
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				258FA11A286446CA0008701C /* TestPrivateTestResultOfDBJSON.json in Resources */,
 				87A376A228741FAC00399DF2 /* TagCell.xib in Resources */,
+				879D3C97288D7C0E0075568C /* ProblemCell.xib in Resources */,
 				871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */,
 				250A4908285DF6F3008D0016 /* PretendardVariable.ttf in Resources */,
 				871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */,
@@ -2115,6 +2122,7 @@
 				250B2857287405B2000578BC /* UIFont.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
 				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
+				879D3C99288D7CD50075568C /* ProblemCell.swift in Sources */,
 				87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,

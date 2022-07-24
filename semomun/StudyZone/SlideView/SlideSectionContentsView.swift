@@ -150,6 +150,15 @@ final class SlideSectionContentsView: UIView {
         stackView.spacing = 8
         return stackView
     }()
+    private var problemsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     enum Mode {
         case contents
@@ -250,5 +259,18 @@ final class SlideSectionContentsView: UIView {
             self.sectionStackView.leadingAnchor.constraint(equalTo: self.underlineView.leadingAnchor),
             self.sectionStackView.trailingAnchor.constraint(equalTo: self.underlineView.trailingAnchor)
         ])
+        
+        self.contentFrameview.addSubviews(self.problemsCollectionView)
+        NSLayoutConstraint.activate([
+            self.problemsCollectionView.topAnchor.constraint(equalTo: self.sectionStackView.bottomAnchor, constant: 16),
+            self.problemsCollectionView.leadingAnchor.constraint(equalTo: self.contentFrameview.leadingAnchor, constant: 16),
+            self.problemsCollectionView.trailingAnchor.constraint(equalTo: self.contentFrameview.trailingAnchor, constant: -16),
+            self.problemsCollectionView.bottomAnchor.constraint(equalTo: self.contentFrameview.bottomAnchor, constant: -16)
+        ])
+    }
+    
+    func configureDelegate(_ delegate: (UICollectionViewDelegate & UICollectionViewDataSource)) {
+        self.problemsCollectionView.delegate = delegate
+        self.problemsCollectionView.dataSource = delegate
     }
 }
