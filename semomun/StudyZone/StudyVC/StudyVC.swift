@@ -585,6 +585,13 @@ extension StudyVC {
                 self?.pageLabel.text = "\(currentPageIndex+1)/\(count)"
             })
             .store(in: &self.cancellables)
+        self.practiceTestManager?.$totalPageCount
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] count in
+                let currentPageIndex = self?.practiceTestManager?.currentPageIndex ?? 0
+                self?.pageLabel.text = "\(currentPageIndex+1)/\(count)"
+            })
+            .store(in: &self.cancellables)
     }
     
     private func bindCurrentPageIndex() {
@@ -592,6 +599,13 @@ extension StudyVC {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] index in
                 let totalPageCount = self?.sectionManager?.totalPageCount ?? 0
+                self?.pageLabel.text = "\(index+1)/\(totalPageCount)"
+            })
+            .store(in: &self.cancellables)
+        self.practiceTestManager?.$currentPageIndex
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] index in
+                let totalPageCount = self?.practiceTestManager?.totalPageCount ?? 0
                 self?.pageLabel.text = "\(index+1)/\(totalPageCount)"
             })
             .store(in: &self.cancellables)
@@ -610,14 +624,25 @@ extension StudyVC: TestStartable {
 extension StudyVC {
     private func showSlideSectionContetnsView() {
         guard self.didSlideViewShow == false else { return }
-        guard let workbookTitle = self.sectionManager?.workbooktitle,
-              let sectionNum = self.sectionManager?.sectionNum,
-              let sectionTitle = self.sectionManager?.sectionTitle else { return }
+        if self.mode == .default {
+            guard let workbookTitle = self.sectionManager?.workbooktitle,
+                  let sectionNum = self.sectionManager?.sectionNum,
+                  let sectionTitle = self.sectionManager?.sectionTitle else { return }
+            
+            self.slideSectionContentsView.configure(workbookTitle: workbookTitle,
+                                                  sectionNum: sectionNum,
+                                                  sectionTitle: sectionTitle,
+                                                  delegate: self)
+        } else {
+            guard let workbookTitle = self.practiceTestManager?.workbooktitle,
+                  let sectionNum = self.practiceTestManager?.sectionNum,
+                  let sectionTitle = self.practiceTestManager?.sectionTitle else { return }
+            self.slideSectionContentsView.configure(workbookTitle: workbookTitle,
+                                                    sectionNum: sectionNum,
+                                                    sectionTitle: sectionTitle,
+                                                    delegate: self)
+        }
         
-        self.slideSectionContentsView.configure(workbookTitle: workbookTitle,
-                                              sectionNum: sectionNum,
-                                              sectionTitle: sectionTitle,
-                                              delegate: self)
         self.slideSectionContentsView.reload()
         /// dim 추가
         self.view.addSubview(self.dimBackgroundView)
