@@ -16,6 +16,69 @@ final class SlideSectionContentsView: UIView {
     /* public */
     static let width = CGFloat(320)
     /* private */
+    private lazy var contentsModeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.heading4
+        button.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+        button.setTitle("목차", for: .normal)
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 28),
+            button.heightAnchor.constraint(equalToConstant: 42)
+        ])
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.mode = .contents
+        }), for: .touchUpInside)
+        
+        return button
+    }()
+    private lazy var bookmarkModeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.heading4
+        button.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+        button.setTitle("북마크", for: .normal)
+        
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 42),
+            button.heightAnchor.constraint(equalToConstant: 42)
+        ])
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.mode = .bookmark
+        }), for: .touchUpInside)
+        
+        return button
+    }()
+    private lazy var modeButtonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.contentsModeButton, self.bookmarkModeButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        return stackView
+    }()
+    private var contentsUnderline: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.blueRegular)
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: 3)
+        ])
+        view.alpha = 1
+        return view
+    }()
+    private var bookmakrUnderline: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.getSemomunColor(.blueRegular)
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: 3)
+        ])
+        view.alpha = 0
+        return view
+    }()
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +151,28 @@ final class SlideSectionContentsView: UIView {
         return stackView
     }()
     
+    enum Mode {
+        case contents
+        case bookmark
+    }
+    
     private weak var delegate: JumpProblemPageDelegate?
+    private var mode: Mode = .contents {
+        didSet {
+            switch mode {
+            case .contents:
+                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+                self.contentsUnderline.alpha = 1
+                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+                self.bookmakrUnderline.alpha = 0
+            case .bookmark:
+                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+                self.contentsUnderline.alpha = 0
+                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+                self.bookmakrUnderline.alpha = 1
+            }
+        }
+    }
     
     func configure(workbookTitle: String, sectionNum: Int, sectionTitle: String, delegate: JumpProblemPageDelegate) {
         self.delegate = delegate
@@ -107,6 +191,26 @@ final class SlideSectionContentsView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: SlideSectionContentsView.width)
+        ])
+        
+        self.addSubviews(self.modeButtonsStackView)
+        NSLayoutConstraint.activate([
+            self.modeButtonsStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.modeButtonsStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
+        ])
+        
+        self.contentsModeButton.addSubviews(self.contentsUnderline)
+        NSLayoutConstraint.activate([
+            self.contentsUnderline.bottomAnchor.constraint(equalTo: self.contentsModeButton.bottomAnchor),
+            self.contentsUnderline.leadingAnchor.constraint(equalTo: self.contentsModeButton.leadingAnchor),
+            self.contentsUnderline.trailingAnchor.constraint(equalTo: self.contentsModeButton.trailingAnchor)
+        ])
+        
+        self.bookmarkModeButton.addSubviews(self.bookmakrUnderline)
+        NSLayoutConstraint.activate([
+            self.bookmakrUnderline.bottomAnchor.constraint(equalTo: self.bookmarkModeButton.bottomAnchor),
+            self.bookmakrUnderline.leadingAnchor.constraint(equalTo: self.bookmarkModeButton.leadingAnchor),
+            self.bookmakrUnderline.trailingAnchor.constraint(equalTo: self.bookmarkModeButton.trailingAnchor)
         ])
         
         self.addSubview(self.closeButton)
