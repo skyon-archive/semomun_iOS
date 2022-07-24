@@ -95,6 +95,7 @@ final class PracticeTestResultView: UIView {
     }
 }
 
+// MARK: Configure
 extension PracticeTestResultView {
     func configureLocalContent(practiceTestResult: PracticeTestResult) {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
@@ -113,8 +114,11 @@ extension PracticeTestResultView {
             userRank: practiceTestResult.rank
         )
     }
-    
-    func configureServerContent(publicTestResult: PublicTestResultOfDB, perfectScore: Int) {
+}
+
+// MARK: Update
+extension PracticeTestResultView {
+    func updateServerContent(publicTestResult: PublicTestResultOfDB, perfectScore: Int) {
         self.progressViews[2].updateProgress(rawScore: publicTestResult.rawScore, perfectScore: perfectScore)
         self.publicScoreResultView.configureContent(
             rank: publicTestResult.rank,
@@ -123,66 +127,13 @@ extension PracticeTestResultView {
         )
     }
     
-    func configureNoInternetUI() {
+    func updateNoInternetUI() {
         self.progressViews[2].removeProgess()
         self.publicScoreResultView.configureNoInternetUI()
     }
 }
 
 extension PracticeTestResultView {
-    private func configureLayout() {
-        self.addSubviews(self.backgroundView)
-        self.backgroundView.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView, self.privateScoreResultView, self.publicScoreResultView, self.cutoffDescriptionLabel, self.cutoffStackView)
-        
-        NSLayoutConstraint.activate([
-            self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            self.backgroundView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
-            self.backgroundView.topAnchor.constraint(greaterThanOrEqualTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            
-            self.scrollView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor),
-            self.scrollView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor),
-            self.scrollView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor),
-            self.scrollView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor),
-            self.scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.widthAnchor),
-            self.scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: self.backgroundView.widthAnchor),
-            
-            self.titleLabel.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
-            
-            self.closeButton.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
-            self.closeButton.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
-            
-            self.rawScoreLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4),
-            self.rawScoreLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
-            
-            self.infoStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.trailingAnchor, constant: 24),
-            self.infoStackView.bottomAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor),
-            
-            self.progressStackView.topAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor, constant: 24),
-            self.progressStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.leadingAnchor),
-            
-            self.borderView.topAnchor.constraint(equalTo: self.progressStackView.bottomAnchor, constant: 24),
-            self.borderView.widthAnchor.constraint(equalTo: self.progressStackView.widthAnchor),
-            self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            self.privateScoreResultView.topAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: 24),
-            self.privateScoreResultView.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor),
-            
-            self.publicScoreResultView.topAnchor.constraint(equalTo: self.privateScoreResultView.bottomAnchor, constant: 57),
-            self.publicScoreResultView.leadingAnchor.constraint(equalTo: self.privateScoreResultView.leadingAnchor),
-            
-            self.cutoffDescriptionLabel.topAnchor.constraint(equalTo: self.privateScoreResultView.topAnchor),
-            self.cutoffDescriptionLabel.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.centerXAnchor, constant: 6),
-            
-            self.cutoffStackView.topAnchor.constraint(equalTo: self.cutoffDescriptionLabel.bottomAnchor, constant: 16),
-            self.cutoffStackView.leadingAnchor.constraint(equalTo: self.cutoffDescriptionLabel.leadingAnchor),
-            self.cutoffStackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 0),
-            self.cutoffStackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
-            self.cutoffStackView.heightAnchor.constraint(equalToConstant: 315)
-        ])
-    }
-    
     private func configureRawScoreLabel(_ rawScore: Int) {
         let rawScoreText = NSMutableAttributedString(string: "\(rawScore)점")
         rawScoreText.setAttributes(
@@ -237,5 +188,61 @@ extension PracticeTestResultView {
             rawScore: practiceTestResult.groupAverage,
             perfectScore: practiceTestResult.perfectScore
         )
+    }
+}
+
+// MARK: Layout
+extension PracticeTestResultView {
+    private func configureLayout() {
+        self.addSubviews(self.backgroundView)
+        self.backgroundView.addSubview(self.scrollView)
+        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView, self.privateScoreResultView, self.publicScoreResultView, self.cutoffDescriptionLabel, self.cutoffStackView)
+        
+        NSLayoutConstraint.activate([
+            self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            self.backgroundView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            self.backgroundView.topAnchor.constraint(greaterThanOrEqualTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            
+            self.scrollView.topAnchor.constraint(equalTo: self.backgroundView.topAnchor),
+            self.scrollView.leadingAnchor.constraint(equalTo: self.backgroundView.leadingAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.backgroundView.bottomAnchor),
+            self.scrollView.trailingAnchor.constraint(equalTo: self.backgroundView.trailingAnchor),
+            self.scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.widthAnchor),
+            self.scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: self.backgroundView.widthAnchor),
+            
+            self.titleLabel.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            
+            self.closeButton.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
+            self.closeButton.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            
+            self.rawScoreLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 4),
+            self.rawScoreLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
+            
+            self.infoStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.trailingAnchor, constant: 24),
+            self.infoStackView.bottomAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor),
+            
+            self.progressStackView.topAnchor.constraint(equalTo: self.rawScoreLabel.bottomAnchor, constant: 24),
+            self.progressStackView.leadingAnchor.constraint(equalTo: self.rawScoreLabel.leadingAnchor),
+            
+            self.borderView.topAnchor.constraint(equalTo: self.progressStackView.bottomAnchor, constant: 24),
+            self.borderView.widthAnchor.constraint(equalTo: self.progressStackView.widthAnchor),
+            self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            self.privateScoreResultView.topAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: 24),
+            self.privateScoreResultView.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor),
+            
+            self.publicScoreResultView.topAnchor.constraint(equalTo: self.privateScoreResultView.bottomAnchor, constant: 57),
+            self.publicScoreResultView.leadingAnchor.constraint(equalTo: self.privateScoreResultView.leadingAnchor),
+            
+            self.cutoffDescriptionLabel.topAnchor.constraint(equalTo: self.privateScoreResultView.topAnchor),
+            self.cutoffDescriptionLabel.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.centerXAnchor, constant: 6),
+            
+            self.cutoffStackView.topAnchor.constraint(equalTo: self.cutoffDescriptionLabel.bottomAnchor, constant: 16),
+            self.cutoffStackView.leadingAnchor.constraint(equalTo: self.cutoffDescriptionLabel.leadingAnchor),
+            self.cutoffStackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 0),
+            self.cutoffStackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            self.cutoffStackView.heightAnchor.constraint(equalToConstant: 315)
+        ])
     }
 }

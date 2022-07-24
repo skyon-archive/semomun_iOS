@@ -58,7 +58,7 @@ extension PracticeTestResultVC {
             .sink(receiveValue: { [weak self] publicScoreResult in
                 guard let publicScoreResult = publicScoreResult else { return }
                 guard let perfectScore = self?.viewModel.perfectScore else { return }
-                self?.customView.configureServerContent(publicTestResult: publicScoreResult, perfectScore: Int(perfectScore))
+                self?.customView.updateServerContent(publicTestResult: publicScoreResult, perfectScore: Int(perfectScore))
             })
             .store(in: &self.cancellables)
     }
@@ -69,7 +69,7 @@ extension PracticeTestResultVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] notConnectedToInternet in
                 guard notConnectedToInternet == true else { return }
-                self?.customView.configureNoInternetUI()
+                self?.customView.updateNoInternetUI()
             })
             .store(in: &self.cancellables)
     }

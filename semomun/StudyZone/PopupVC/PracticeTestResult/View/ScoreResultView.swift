@@ -42,30 +42,29 @@ final class ScoreResultView: UIView {
         self.titleLabel.text = title
         self.rankLabel.textColor = rankLabelColor
     }
-    
+}
+
+// MARK: Public
+extension ScoreResultView {
     func configureContent(rank: String, standardScore: Int, percentile: Int) {
         self.rankLabel.text = rank
-        self.configureStackViewContent(standardScoreStr: "\(standardScore)", percentileStr: "\(percentile)%")
+        self.updateStackViewContent(standardScoreStr: "\(standardScore)", percentileStr: "\(percentile)%")
     }
-    
     func configureNoInternetUI() {
         self.rankLabel.text = "-"
-        self.configureStackViewContent(standardScoreStr: "-", percentileStr: "-")
+        self.updateStackViewContent(standardScoreStr: "-", percentileStr: "-")
     }
 }
 
 // MARK: Private
 extension ScoreResultView {
-    private func configureStackViewContent(standardScoreStr: String, percentileStr: String) {
+    private func updateStackViewContent(standardScoreStr: String, percentileStr: String) {
         self.stackView.arrangedSubviews.forEach {
             self.stackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
         
-        [
-            ["예상 표준점수", standardScoreStr],
-            ["예상 백분위", percentileStr]
-        ].forEach { data in
+        [["예상 표준점수", standardScoreStr], ["예상 백분위", percentileStr]].forEach { data in
             let groupStackView = UIStackView()
             groupStackView.axis = .vertical
             groupStackView.spacing = 4

@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 로컬 정보
+/// PracticeTestResultVC에 필요한 정보 중 로컬 정보로 계산할 수 있는 것들. 
 struct PracticeTestResult {
     let rawScore: Int
     let perfectScore: Int
