@@ -18,7 +18,6 @@
 		250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */; };
 		250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */; };
 		250ACFE22861A7900027B6A9 /* PracticeTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */; };
-		250ACFE62861D9CE0027B6A9 /* ScoreResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */; };
 		250B2857287405B2000578BC /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B2856287405B2000578BC /* UIFont.swift */; };
 		250B28592874080A000578BC /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B28582874080A000578BC /* CGFloat.swift */; };
 		250B285B28740860000578BC /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B285A28740860000578BC /* UICollectionView.swift */; };
@@ -345,7 +344,6 @@
 		250ACFDB28619BE60027B6A9 /* PublicTestResultOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTestResultOfDB.swift; sourceTree = "<group>"; };
 		250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResultVM.swift; sourceTree = "<group>"; };
 		250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestResult.swift; sourceTree = "<group>"; };
-		250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResult.swift; sourceTree = "<group>"; };
 		250B2856287405B2000578BC /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		250B28582874080A000578BC /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		250B285A28740860000578BC /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
@@ -797,7 +795,6 @@
 			isa = PBXGroup;
 			children = (
 				250ACFE12861A7900027B6A9 /* PracticeTestResult.swift */,
-				250ACFE52861D9CE0027B6A9 /* ScoreResult.swift */,
 				254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */,
 			);
 			path = Model;
@@ -2214,7 +2211,6 @@
 				87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */,
 				255D637827ABB332000991AB /* UserNoticeCell.swift in Sources */,
 				250F22AF285DD75000955AB7 /* WorkbookGroupResultVM.swift in Sources */,
-				250ACFE62861D9CE0027B6A9 /* ScoreResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

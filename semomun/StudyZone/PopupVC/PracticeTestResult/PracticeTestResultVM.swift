@@ -11,7 +11,7 @@ import Combine
 final class PracticeTestResultVM {
     /* public */
     @Published private(set) var practiceTestResult: PracticeTestResult?
-    @Published private(set) var publicScoreResult: ScoreResult?
+    @Published private(set) var publicScoreResult: PublicTestResultOfDB?
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
     @Published private(set) var notConnectedToInternet: Bool?
     /* private */
@@ -98,64 +98,44 @@ extension PracticeTestResultVM {
     
     private func makeResult() {
         self.makePracticeTestResult()
-        
         // 네트워크 유무를 우선 확인
         guard NetworkStatusManager.isConnectedToInternet() else {
             self.notConnectedToInternet = true
             return
         }
-        
-        self.networkUsecase.getPublicTestResult(wid: Int(self.wid)) { [weak self] _, publicTestResultOfDB in
-            guard let publicTestResultOfDB = publicTestResultOfDB else {
-                self?.notConnectedToInternet = true
-                return
-            }
-            self?.publicScoreResult = .init(
-                rank: publicTestResultOfDB.rank,
-                standardScore: publicTestResultOfDB.standardScore,
-                percentile: publicTestResultOfDB.percentile
-            )
-        }
+        self.getPublicTestResult()
     }
     
+    /// 로컬 정보로부터 사용자 점수의 표준 점수, 백분율 등을 계산
     private func makePracticeTestResult() {
-        let privateScoreResult: ScoreResult = TestResultCalculator.getScoreResult(
+        let calculatedTestResult = TestResultCalculator(
             rawScore: Int(self.rawScore),
             groupAverage: Int(self.averageScore),
             groupStandardDeviation: Int(self.deviation),
             area: self.area,
             rankCutoff: self.cutoff.map(\.rawScore)
         )
-        
-        let totalTimeFormattedString = self.formatDateString(fromSeconds: self.totalTime)
-        
         self.practiceTestResult = .init(
             rawScore: Int(self.rawScore),
             perfectScore: Int(self.perfectScore),
             correctProblemCount: self.correctProblemCount,
             totalProblemCount: self.totalProblemCount,
-            totalTimeFormattedString: totalTimeFormattedString,
+            totalTimeFormattedString: self.totalTime.toYearMonthDayString,
             groupAverage: self.groupAverage,
-            privateScoreResult: privateScoreResult,
+            rank: String(calculatedTestResult.rank),
+            standardScore: Int(calculatedTestResult.standardScore),
+            percentile: Int(calculatedTestResult.percentile),
             subject: self.subject,
             cutoff: self.cutoff
         )
-        
         self.postTestResult()
     }
     
-    private func formatDateString(fromSeconds second: Int) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: TimeInterval(second)) ?? "00:00:00"
-    }
-    
+    /// 계산된 정보를 서버로 POST
     private func postTestResult() {
         guard self.testResultPosted == false else { return }
         
-        guard let scoreResult = self.practiceTestResult?.privateScoreResult else {
+        guard let practiceTestResult = self.practiceTestResult else {
             return
         }
         
@@ -163,11 +143,11 @@ extension PracticeTestResultVM {
             wgid: self.wgid,
             wid: self.wid,
             sid: self.sid,
-            rank: String(scoreResult.rank),
+            rank: String(practiceTestResult.rank),
             rawScore: Int(self.rawScore),
             perfectScore: Int(self.perfectScore),
-            standardScore: scoreResult.standardScore,
-            percentile: scoreResult.percentile,
+            standardScore: practiceTestResult.standardScore,
+            percentile: practiceTestResult.percentile,
             correctProblemCount: self.correctProblemCount,
             totalProblemCount: self.totalProblemCount,
             totalTime: self.totalTime,
@@ -176,6 +156,16 @@ extension PracticeTestResultVM {
         self.networkUsecase.sendUserTestResult(testResult: calculatedTestResult) { result in
             guard result == .SUCCESS else { return }
             self.checkTestResultPosted()
+        }
+    }
+    
+    private func getPublicTestResult() {
+        self.networkUsecase.getPublicTestResult(wid: Int(self.wid)) { [weak self] _, publicTestResultOfDB in
+            guard let publicTestResultOfDB = publicTestResultOfDB else {
+                self?.notConnectedToInternet = true
+                return
+            }
+            self?.publicScoreResult = publicTestResultOfDB
         }
     }
 }

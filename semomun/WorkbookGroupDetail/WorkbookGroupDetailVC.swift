@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+// MARK: 해당 창에서 로그인 한 경우 대응 필요
 final class WorkbookGroupDetailVC: UIViewController {
     /* public */
     static let identifier = "WorkbookGroupDetailVC"

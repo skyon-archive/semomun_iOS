@@ -56,7 +56,7 @@ extension PracticeTestResultVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] publicScoreResult in
                 guard let publicScoreResult = publicScoreResult else { return }
-                self?.customView.configureServerContent(publicScoreResult: publicScoreResult)
+                self?.customView.configureServerContent(publicTestResult: publicScoreResult)
             })
             .store(in: &self.cancellables)
     }
