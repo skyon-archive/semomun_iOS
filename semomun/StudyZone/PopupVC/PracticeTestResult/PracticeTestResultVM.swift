@@ -14,6 +14,7 @@ final class PracticeTestResultVM {
     @Published private(set) var publicScoreResult: PublicTestResultOfDB?
     /// 인터넷이 없는 상태의 UI를 보여야하는지 여부
     @Published private(set) var notConnectedToInternet: Bool?
+    let perfectScore: Double
     /* private */
     private let wgid: Int
     private let networkUsecase: (UserTestResultFetchable & UserTestResultSendable)
@@ -34,7 +35,6 @@ final class PracticeTestResultVM {
     // CoreData값에서 따로 계산되어야하는 프로퍼티
     private let correctProblemCount: Int
     private let totalProblemCount: Int
-    private let perfectScore: Double
     private let rawScore: Double
     
     init(wgid: Int64, practiceTestSection: PracticeTestSection_Core, networkUsecase: (UserTestResultFetchable & UserTestResultSendable)) {

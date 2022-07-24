@@ -112,7 +112,8 @@ final class PracticeTestResultView: UIView {
         )
     }
     
-    func configureServerContent(publicTestResult: PublicTestResultOfDB) {
+    func configureServerContent(publicTestResult: PublicTestResultOfDB, perfectScore: Int) {
+        self.progressViews[2].updateProgress(rawScore: publicTestResult.rawScore, perfectScore: perfectScore)
         self.publicScoreResultView.configureContent(
             rank: publicTestResult.rank,
             standardScore: publicTestResult.standardScore,

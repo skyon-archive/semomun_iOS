@@ -56,7 +56,8 @@ extension PracticeTestResultVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] publicScoreResult in
                 guard let publicScoreResult = publicScoreResult else { return }
-                self?.customView.configureServerContent(publicTestResult: publicScoreResult)
+                guard let perfectScore = self?.viewModel.perfectScore else { return }
+                self?.customView.configureServerContent(publicTestResult: publicScoreResult, perfectScore: Int(perfectScore))
             })
             .store(in: &self.cancellables)
     }
