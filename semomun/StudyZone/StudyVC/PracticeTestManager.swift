@@ -14,12 +14,14 @@ final class PracticeTestManager {
     enum PushNotification {
         static let practiceTest5min = "practiceTest5min"
     }
-    @Published private(set) var sectionTitle: String = "title"
     @Published private(set) var recentTime: Int64 = 0
     @Published private(set) var currentPage: PageData?
     @Published private(set) var showTestInfo: TestInfo?
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var practiceTestTernimate: Bool = false
+    @Published private(set) var totalPageCount: Int = 0
+    @Published private(set) var currentPageIndex: Int = 0
+    private(set) var sectionTitle: String = "title"
     private(set) var section: PracticeTestSection_Core
     private(set) var problems: [Problem_Core] = []
     private(set) var currentIndex: Int = 0
@@ -34,6 +36,7 @@ final class PracticeTestManager {
     private var remainingTime: Int64 {
         return self.section.timelimit - self.section.totalTime
     }
+    private var vids: [Int64] = []
     
     /// WorkbookGroupDetailVC 에서 VM 생성
     init(section: PracticeTestSection_Core, workbookGroup: WorkbookGroup_Core, workbook: Preview_Core, networkUsecase: UserSubmissionSendable) {
@@ -65,6 +68,7 @@ extension PracticeTestManager {
         CoreDataManager.saveCoreData()
         
         self.configureProblems()
+        self.configurePageCount()
         self.configureStartPage()
         self.updateRecentTime()
         self.startTimer()
@@ -76,7 +80,7 @@ extension PracticeTestManager {
         self.currentIndex = index // 하단 button index update
         
         if self.currentPage?.vid == Int(page.vid) { return }
-        
+        self.currentPageIndex = Int(self.vids.firstIndex(of: page.vid) ?? 0)
         let pageData = PageData(page: page)
         self.currentPage = pageData
         self.section.setValue(index, forKey: PracticeTestSection_Core.Attribute.lastIndex.rawValue) // 사실상 의미없는 로직
@@ -216,6 +220,7 @@ extension PracticeTestManager {
             self.showTestInfo = TestInfo(title: title, area: area, subject: subject)
         } else {
             self.configureProblems()
+            self.configurePageCount()
             self.configureStartPage()
             self.updateRecentTime()
             
@@ -252,6 +257,17 @@ extension PracticeTestManager {
             return
         }
         self.problems = problems
+    }
+    
+    private func configurePageCount() {
+        var vids: [Int64] = []
+        self.problems.forEach { problem in
+            if let vid = problem.pageCore?.vid, vids.contains(vid) == false {
+                vids.append(vid)
+            }
+        }
+        self.vids = vids
+        self.totalPageCount = vids.count
     }
     
     private func startTimer() {
@@ -323,6 +339,14 @@ extension PracticeTestManager {
     private func removeNotification() {
         // 응시가 종료된 경우만 불린다
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
+    var workbooktitle: String {
+        return self.workbook.title ?? ""
+    }
+    
+    var sectionNum: Int {
+        return 0
     }
     
     var bookmarkedProblems: [Problem_Core] {
