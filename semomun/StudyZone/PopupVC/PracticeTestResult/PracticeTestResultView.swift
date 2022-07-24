@@ -93,7 +93,9 @@ final class PracticeTestResultView: UIView {
             self.progressStackView.addArrangedSubview($0)
         }
     }
-    
+}
+
+extension PracticeTestResultView {
     func configureLocalContent(practiceTestResult: PracticeTestResult) {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
@@ -119,6 +121,11 @@ final class PracticeTestResultView: UIView {
             standardScore: publicTestResult.standardScore,
             percentile: publicTestResult.percentile
         )
+    }
+    
+    func configureNoInternetUI() {
+        self.progressViews[2].removeProgess()
+        self.publicScoreResultView.configureNoInternetUI()
     }
 }
 

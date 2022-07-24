@@ -64,13 +64,21 @@ class ScoreProgressView: UIStackView {
         self.progressForegroundView.backgroundColor = color
         self.configureProgressForegroundViewLayout()
     }
-    
+}
+
+// MARK: Public
+extension ScoreProgressView {
     func updateProgress(rawScore: Int, perfectScore: Int) {
         self.progressWidthConstraint.constant = self.progressBarWidth * min(1, CGFloat(rawScore) / CGFloat(perfectScore))
         self.progressLabel.text = "\(rawScore)"
     }
+    func removeProgess() {
+        self.progressWidthConstraint.constant = 0
+        self.progressLabel.text = "-"
+    }
 }
 
+// MARK: Layout
 extension ScoreProgressView {
     private func configureProgressForegroundViewLayout() {
         self.progressBackgroundView.addSubview(self.progressForegroundView)

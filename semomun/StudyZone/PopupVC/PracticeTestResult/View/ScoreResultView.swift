@@ -45,10 +45,26 @@ final class ScoreResultView: UIView {
     
     func configureContent(rank: String, standardScore: Int, percentile: Int) {
         self.rankLabel.text = rank
+        self.configureStackViewContent(standardScoreStr: "\(standardScore)", percentileStr: "\(percentile)%")
+    }
+    
+    func configureNoInternetUI() {
+        self.rankLabel.text = "-"
+        self.configureStackViewContent(standardScoreStr: "-", percentileStr: "-")
+    }
+}
+
+// MARK: Private
+extension ScoreResultView {
+    private func configureStackViewContent(standardScoreStr: String, percentileStr: String) {
+        self.stackView.arrangedSubviews.forEach {
+            self.stackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
         
         [
-            ["예상 표준점수", "\(standardScore)"],
-            ["예상 백분위", "\(percentile)%"]
+            ["예상 표준점수", standardScoreStr],
+            ["예상 백분위", percentileStr]
         ].forEach { data in
             let groupStackView = UIStackView()
             groupStackView.axis = .vertical
@@ -72,6 +88,7 @@ final class ScoreResultView: UIView {
     }
 }
 
+// MARK: Layout
 extension ScoreResultView {
     private func configureLayout() {
         self.addSubviews(self.titleLabel, self.rankLabel, self.stackView)
