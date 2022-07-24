@@ -328,6 +328,11 @@ extension PracticeTestManager {
     var bookmarkedProblems: [Problem_Core] {
         return self.problems.filter { $0.star == true }
     }
+    
+    func selecteProblem(to problem: Problem_Core) {
+        guard let index = self.problems.firstIndex(of: problem) else { return }
+        self.changePage(at: index)
+    }
 }
 
 // MARK: Network post

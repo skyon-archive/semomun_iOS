@@ -80,17 +80,3 @@ extension ProblemCell {
         self.bookmarkIcon.setSVGTintColor(to: Self.selectedTitleColor)
     }
 }
-
-// default + deSelected
-// default + bookmark + deSelected
-// default + selected
-// default + bookmark + selected
-// terminated + wrong + deSelected
-// terminated + wrong + bookmark + deSelected
-// terminated + wrong + selected
-// terminated + wrong + bookmark + selected
-// terminated + correct + deSelected
-// terminated + correct + bookmark + deSelected
-// terminated + correct + selected
-// terminated + correct + bookmark + selected
-
