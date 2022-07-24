@@ -246,4 +246,8 @@ final class SectionManager {
     var sectionNum: Int {
         return Int(self.sectionHeader.sectionNum)
     }
+    
+    var bookmarkedProblems: [Problem_Core] {
+        return self.problems.filter { $0.star == true }
+    }
 }

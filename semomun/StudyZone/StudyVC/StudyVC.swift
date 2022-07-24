@@ -68,7 +68,11 @@ final class StudyVC: UIViewController {
         return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
     }()
     private var didSlideViewShow: Bool = false
-    private lazy var slideSectionContentsView = SlideSectionContentsView()
+    private lazy var slideSectionContentsView: SlideSectionContentsView = {
+        let view = SlideSectionContentsView()
+        view.configureDelegate(self)
+        return view
+    }()
     private lazy var dimBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -603,7 +607,7 @@ extension StudyVC: TestStartable {
     }
 }
 
-extension StudyVC: JumpProblemPageDelegate {
+extension StudyVC {
     private func showSlideSectionContetnsView() {
         guard self.didSlideViewShow == false else { return }
         guard let workbookTitle = self.sectionManager?.workbooktitle,
@@ -614,6 +618,7 @@ extension StudyVC: JumpProblemPageDelegate {
                                               sectionNum: sectionNum,
                                               sectionTitle: sectionTitle,
                                               delegate: self)
+        self.slideSectionContentsView.reload()
         /// dim 추가
         self.view.addSubview(self.dimBackgroundView)
         NSLayoutConstraint.activate([
@@ -641,11 +646,9 @@ extension StudyVC: JumpProblemPageDelegate {
             self.didSlideViewShow = true
         }
     }
-    
-    func jumpProblem(pid: Int) {
-        print(pid)
-    }
-    
+}
+
+extension StudyVC: StudyContentsSlideDelegate {
     @objc func closeSlideView() {
         guard self.didSlideViewShow == true else { return }
         self.slideViewTrailingConstraint?.constant = SlideSectionContentsView.width
@@ -657,5 +660,63 @@ extension StudyVC: JumpProblemPageDelegate {
             self.slideSectionContentsView.removeFromSuperview()
             self.didSlideViewShow = false
         }
+    }
+}
+
+extension StudyVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
+}
+
+extension StudyVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch self.slideSectionContentsView.mode {
+        case .contents:
+            if self.mode == .default {
+                return self.sectionManager?.problems.count ?? 0
+            } else {
+                return self.practiceTestManager?.problems.count ?? 0
+            }
+        case .bookmark:
+            if self.mode == .default {
+                return self.sectionManager?.bookmarkedProblems.count ?? 0
+            } else {
+                return self.practiceTestManager?.bookmarkedProblems.count ?? 0
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProblemCell.identifier, for: indexPath) as? ProblemCell else { return .init() }
+        switch self.slideSectionContentsView.mode {
+        case .contents:
+            if self.mode == .default {
+                let dataSource = self.sectionManager?.problems ?? []
+                guard let problem = dataSource[safe: indexPath.item] else { return cell }
+                cell.configure(problem: problem, isSelected: self.sectionManager?.currentIndex == indexPath.item)
+            } else {
+                let dataSource = self.practiceTestManager?.problems ?? []
+                guard let problem = dataSource[safe: indexPath.item] else { return cell }
+                cell.configure(problem: problem, isSelected: self.practiceTestManager?.currentIndex == indexPath.item)
+            }
+        case.bookmark:
+            if self.mode == .default {
+                let dataSource = self.sectionManager?.bookmarkedProblems ?? []
+                guard let problem = dataSource[safe: indexPath.item] else { return cell }
+                cell.configure(problem: problem, isSelected: false)
+            } else {
+                let dataSource = self.practiceTestManager?.bookmarkedProblems ?? []
+                guard let problem = dataSource[safe: indexPath.item] else { return cell }
+                cell.configure(problem: problem, isSelected: false)
+            }
+        }
+        return cell
+    }
+}
+
+extension StudyVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(40, 40)
     }
 }
