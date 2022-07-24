@@ -37,6 +37,7 @@ extension PracticeTestResultVC {
     private func bindAll() {
         self.bindPracticeTestResult()
         self.bindPublicScoreResult()
+        self.bindNotconnectedToInternet()
     }
     
     private func bindPracticeTestResult() {
@@ -58,6 +59,17 @@ extension PracticeTestResultVC {
                 guard let publicScoreResult = publicScoreResult else { return }
                 guard let perfectScore = self?.viewModel.perfectScore else { return }
                 self?.customView.configureServerContent(publicTestResult: publicScoreResult, perfectScore: Int(perfectScore))
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindNotconnectedToInternet() {
+        self.viewModel.$notConnectedToInternet
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] notConnectedToInternet in
+                guard notConnectedToInternet == true else { return }
+                self?.customView.configureNoInternetUI()
             })
             .store(in: &self.cancellables)
     }

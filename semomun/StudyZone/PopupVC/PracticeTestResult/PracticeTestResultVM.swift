@@ -79,6 +79,7 @@ final class PracticeTestResultVM {
 // MARK: Public
 extension PracticeTestResultVM {
     func fetchResult() {
+        self.makePracticeTestResult()
         self.listenNetworkState()
         NetworkStatusManager.state()
     }
@@ -89,21 +90,14 @@ extension PracticeTestResultVM {
     private func listenNetworkState() {
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
             self?.notConnectedToInternet = false
-            self?.makeResult()
+            if self?.testResultPosted == false {
+                self?.postTestResult()
+            }
+            self?.getPublicTestResult()
         }
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.notConnectedToInternet = true
         }
-    }
-    
-    private func makeResult() {
-        self.makePracticeTestResult()
-        // 네트워크 유무를 우선 확인
-        guard NetworkStatusManager.isConnectedToInternet() else {
-            self.notConnectedToInternet = true
-            return
-        }
-        self.getPublicTestResult()
     }
     
     /// 로컬 정보로부터 사용자 점수의 표준 점수, 백분율 등을 계산
@@ -128,13 +122,10 @@ extension PracticeTestResultVM {
             subject: self.subject,
             cutoff: self.cutoff
         )
-        self.postTestResult()
     }
     
     /// 계산된 정보를 서버로 POST
     private func postTestResult() {
-        guard self.testResultPosted == false else { return }
-        
         guard let practiceTestResult = self.practiceTestResult else {
             return
         }
