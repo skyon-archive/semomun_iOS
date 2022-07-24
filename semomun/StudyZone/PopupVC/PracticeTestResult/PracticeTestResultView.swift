@@ -75,6 +75,7 @@ final class PracticeTestResultView: UIView {
         view.heightAnchor.constraint(equalToConstant: 1).isActive = true
         return view
     }()
+    private let privateScoreResult = ScoreResultView(title: "나의 예상 등급", rankLabelColor: .getSemomunColor(.orangeRegular))
     
     convenience init() {
         self.init(frame: .zero)
@@ -88,6 +89,7 @@ final class PracticeTestResultView: UIView {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
         self.configureProgressStackView(practiceTestResult)
+        self.privateScoreResult.configureContent(practiceTestResult.privateScoreResult)
     }
 }
 
@@ -95,7 +97,7 @@ extension PracticeTestResultView {
     private func configureLayout() {
         self.addSubviews(self.backgroundView)
         self.backgroundView.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView)
+        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView, self.privateScoreResult)
         
         NSLayoutConstraint.activate([
             self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
@@ -126,7 +128,10 @@ extension PracticeTestResultView {
             
             self.borderView.topAnchor.constraint(equalTo: self.progressStackView.bottomAnchor, constant: 24),
             self.borderView.widthAnchor.constraint(equalTo: self.progressStackView.widthAnchor),
-            self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            self.privateScoreResult.topAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: 24),
+            self.privateScoreResult.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor)
         ])
     }
     

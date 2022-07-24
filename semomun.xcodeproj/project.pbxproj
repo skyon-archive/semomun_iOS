@@ -82,6 +82,7 @@
 		2570543627FDB1CF005398F9 /* ChangeUserInfoVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */; };
 		2570543827FDB212005398F9 /* MockUserInfoVMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */; };
 		2570B355288A6E3000091977 /* TestCutoffStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570B354288A6E3000091977 /* TestCutoffStackView.swift */; };
+		2570B37C288D4CBF001E8EAE /* ScoreResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570B37B288D4CBF001E8EAE /* ScoreResultView.swift */; };
 		2571F6902853114B00D94524 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571F68F2853114B00D94524 /* CGSize.swift */; };
 		25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C6D27929C97002A6676 /* ConceptVM.swift */; };
 		25738C722792D553002A6676 /* SingleWithNoAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */; };
@@ -410,6 +411,7 @@
 		2570543527FDB1CF005398F9 /* ChangeUserInfoVMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeUserInfoVMTest.swift; path = SemomunTests/ViewModels/Profile/ChangeUserInfoVMTest.swift; sourceTree = SOURCE_ROOT; };
 		2570543727FDB212005398F9 /* MockUserInfoVMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockUserInfoVMNetwork.swift; path = SemomunTests/Network/MockUserInfoVMNetwork.swift; sourceTree = SOURCE_ROOT; };
 		2570B354288A6E3000091977 /* TestCutoffStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCutoffStackView.swift; sourceTree = "<group>"; };
+		2570B37B288D4CBF001E8EAE /* ScoreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreResultView.swift; sourceTree = "<group>"; };
 		2571F68F2853114B00D94524 /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		25738C6D27929C97002A6676 /* ConceptVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConceptVM.swift; sourceTree = "<group>"; };
 		25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithNoAnswerVM.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 			isa = PBXGroup;
 			children = (
 				25EC831C288A98140029B242 /* PracticeTestResultVC.swift */,
+				25EC831E288A982F0029B242 /* PracticeTestResultView.swift */,
 				250ACFDF28619F050027B6A9 /* PracticeTestResultVM.swift */,
 				254C2BF72862DC1200D7BB70 /* Model */,
 				25587BA1288C2811008075CC /* View */,
@@ -823,8 +826,8 @@
 		25587BA1288C2811008075CC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				25EC831E288A982F0029B242 /* PracticeTestResultView.swift */,
 				25587BA2288C289F008075CC /* ScoreProgressView.swift */,
+				2570B37B288D4CBF001E8EAE /* ScoreResultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2128,6 +2131,7 @@
 				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
 				873315962779A181004E4A98 /* Majors.swift in Sources */,
 				8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */,
+				2570B37C288D4CBF001E8EAE /* ScoreResultView.swift in Sources */,
 				25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				2562452127FDE7AA00DB3D22 /* Session+Extensions.swift in Sources */,

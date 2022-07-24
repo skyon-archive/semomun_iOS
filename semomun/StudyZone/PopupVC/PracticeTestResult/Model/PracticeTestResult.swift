@@ -7,8 +7,8 @@
 
 import Foundation
 
+/// PracticeTestResultVM에서 VC로 published를 통해 전달되는 정보의 집합
 struct PracticeTestResult {
-    /* public */
     let rawScore: Int
     let perfectScore: Int
     let correctProblemCount: Int
