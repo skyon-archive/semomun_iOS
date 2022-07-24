@@ -81,6 +81,7 @@ extension ScoreResultView {
             
             self.rankLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
             self.rankLabel.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
+            self.rankLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
             self.stackView.topAnchor.constraint(equalTo: self.rankLabel.topAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.rankLabel.trailingAnchor, constant: 16)

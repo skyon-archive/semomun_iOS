@@ -36,6 +36,7 @@ final class PracticeTestResultVC: UIViewController {
 extension PracticeTestResultVC {
     private func bindAll() {
         self.bindPracticeTestResult()
+        self.bindPublicScoreResult()
     }
     
     private func bindPracticeTestResult() {
@@ -44,7 +45,18 @@ extension PracticeTestResultVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] practiceTestResult in
                 guard let practiceTestResult = practiceTestResult else { return }
-                self?.customView.configureContent(practiceTestResult: practiceTestResult)
+                self?.customView.configureLocalContent(practiceTestResult: practiceTestResult)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindPublicScoreResult() {
+        self.viewModel.$publicScoreResult
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] publicScoreResult in
+                guard let publicScoreResult = publicScoreResult else { return }
+                self?.customView.configureServerContent(publicScoreResult: publicScoreResult)
             })
             .store(in: &self.cancellables)
     }

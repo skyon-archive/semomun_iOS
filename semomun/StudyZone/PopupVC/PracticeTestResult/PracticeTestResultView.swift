@@ -75,7 +75,16 @@ final class PracticeTestResultView: UIView {
         view.heightAnchor.constraint(equalToConstant: 1).isActive = true
         return view
     }()
-    private let privateScoreResult = ScoreResultView(title: "나의 예상 등급", rankLabelColor: .getSemomunColor(.orangeRegular))
+    private let privateScoreResultView = ScoreResultView(title: "나의 예상 등급", rankLabelColor: .getSemomunColor(.orangeRegular))
+    private let publicScoreResultView = ScoreResultView(title: "세모문 사용자 중 예상 등급", rankLabelColor: .getSemomunColor(.blueRegular))
+    private let cutoffDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.darkGray)
+        return label
+    }()
+    private let cutoffStackView = TestCutoffStackView()
     
     convenience init() {
         self.init(frame: .zero)
@@ -85,11 +94,17 @@ final class PracticeTestResultView: UIView {
         }
     }
     
-    func configureContent(practiceTestResult: PracticeTestResult) {
+    func configureLocalContent(practiceTestResult: PracticeTestResult) {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
         self.configureProgressStackView(practiceTestResult)
-        self.privateScoreResult.configureContent(practiceTestResult.privateScoreResult)
+        self.privateScoreResultView.configureContent(practiceTestResult.privateScoreResult)
+        self.cutoffDescriptionLabel.text = practiceTestResult.subject
+        self.cutoffStackView.configureContent(cutoffs: practiceTestResult.cutoff, userRank: practiceTestResult.privateScoreResult.rank)
+    }
+    
+    func configureServerContent(publicScoreResult: ScoreResult) {
+        self.publicScoreResultView.configureContent(publicScoreResult)
     }
 }
 
@@ -97,7 +112,7 @@ extension PracticeTestResultView {
     private func configureLayout() {
         self.addSubviews(self.backgroundView)
         self.backgroundView.addSubview(self.scrollView)
-        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView, self.privateScoreResult)
+        self.scrollView.addSubviews(self.titleLabel, self.closeButton, self.rawScoreLabel, self.infoStackView, self.progressStackView, self.borderView, self.privateScoreResultView, self.publicScoreResultView, self.cutoffDescriptionLabel, self.cutoffStackView)
         
         NSLayoutConstraint.activate([
             self.backgroundView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
@@ -130,8 +145,20 @@ extension PracticeTestResultView {
             self.borderView.widthAnchor.constraint(equalTo: self.progressStackView.widthAnchor),
             self.borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            self.privateScoreResult.topAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: 24),
-            self.privateScoreResult.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor)
+            self.privateScoreResultView.topAnchor.constraint(equalTo: self.borderView.bottomAnchor, constant: 24),
+            self.privateScoreResultView.leadingAnchor.constraint(equalTo: self.borderView.leadingAnchor),
+            
+            self.publicScoreResultView.topAnchor.constraint(equalTo: self.privateScoreResultView.bottomAnchor, constant: 57),
+            self.publicScoreResultView.leadingAnchor.constraint(equalTo: self.privateScoreResultView.leadingAnchor),
+            
+            self.cutoffDescriptionLabel.topAnchor.constraint(equalTo: self.privateScoreResultView.topAnchor),
+            self.cutoffDescriptionLabel.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.centerXAnchor, constant: 6),
+            
+            self.cutoffStackView.topAnchor.constraint(equalTo: self.cutoffDescriptionLabel.bottomAnchor, constant: 16),
+            self.cutoffStackView.leadingAnchor.constraint(equalTo: self.cutoffDescriptionLabel.leadingAnchor),
+            self.cutoffStackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 0),
+            self.cutoffStackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            self.cutoffStackView.heightAnchor.constraint(equalToConstant: 315)
         ])
     }
     
