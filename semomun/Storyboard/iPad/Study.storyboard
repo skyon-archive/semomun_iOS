@@ -685,7 +685,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Ig-Hz-KdH">
                                         <rect key="frame" x="28" y="14" width="132" height="32"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVE-Nz-856">
+                                            <button opaque="NO" contentMode="scaleAspectFit" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVE-Nz-856">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="f8h-LY-RPn"/>
@@ -693,8 +693,8 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
-                                                <state key="selected" image="bookmarkFill">
+                                                <state key="normal" image="bookmarkOutline"/>
+                                                <state key="selected" image="bookmarkSolid">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
                                                 <connections>
@@ -924,7 +924,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
+                                                <state key="normal" image="bookmarkOutline"/>
                                                 <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
@@ -1150,7 +1150,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
+                                                <state key="normal" image="bookmarkOutline"/>
                                                 <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
@@ -1354,7 +1354,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
+                                                <state key="normal" image="bookmarkOutline"/>
                                                 <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
@@ -1525,7 +1525,7 @@
                                                                     </constraints>
                                                                     <color key="tintColor" name="deepMint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="bookmark"/>
+                                                                    <state key="normal" image="bookmarkOutline"/>
                                                                     <state key="selected" image="bookmarkFill">
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                                     </state>
@@ -1672,7 +1672,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
+                                                <state key="normal" image="bookmarkOutline"/>
                                                 <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
@@ -1730,7 +1730,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="deepMint"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmark"/>
+                                                <state key="normal" image="bookmarkOutline"/>
                                                 <state key="selected" image="bookmarkFill">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
@@ -1869,7 +1869,7 @@
                                                                     </constraints>
                                                                     <color key="tintColor" name="deepMint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="bookmark"/>
+                                                                    <state key="normal" image="bookmarkOutline"/>
                                                                     <state key="selected" image="bookmarkFill">
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                                     </state>
@@ -2082,7 +2082,7 @@
                                                                     </constraints>
                                                                     <color key="tintColor" name="deepMint"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="bookmark"/>
+                                                                    <state key="normal" image="bookmarkOutline"/>
                                                                     <state key="selected" image="bookmarkFill">
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                                     </state>
@@ -2357,8 +2357,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bookmark" width="48" height="48"/>
         <image name="bookmarkFill" width="48" height="48"/>
+        <image name="bookmarkOutline" width="24" height="24"/>
+        <image name="bookmarkSolid" width="20" height="20"/>
         <image name="chevronLeftOutline" width="24" height="24"/>
         <image name="chevronRightOutline" width="24" height="24"/>
         <image name="clipboardCheckOutline" width="24" height="24"/>

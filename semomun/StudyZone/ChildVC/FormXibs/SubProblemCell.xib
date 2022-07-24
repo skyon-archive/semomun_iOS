@@ -32,7 +32,7 @@
                                         </constraints>
                                         <color key="tintColor" name="deepMint"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="bookmark"/>
+                                        <state key="normal" image="bookmarkOutline"/>
                                         <state key="selected" image="bookmarkFill">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
@@ -234,8 +234,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bookmark" width="48" height="48"/>
         <image name="bookmarkFill" width="48" height="48"/>
+        <image name="bookmarkOutline" width="24" height="24"/>
         <image name="return" catalog="system" width="128" height="101"/>
         <namedColor name="deepMint">
             <color red="0.10196078431372549" green="0.5607843137254902" blue="0.51764705882352946" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
