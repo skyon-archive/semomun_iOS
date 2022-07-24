@@ -639,7 +639,7 @@ extension StudyVC {
         self.view.layoutIfNeeded()
         /// animation 설정
         self.slideViewTrailingConstraint?.constant = 0
-        UIView.animate(withDuration: 0.35) {
+        UIView.animate(withDuration: 0.25) {
             self.dimBackgroundView.alpha = 1
             self.view.layoutIfNeeded()
         } completion: { _ in
@@ -652,7 +652,7 @@ extension StudyVC: StudyContentsSlideDelegate {
     @objc func closeSlideView() {
         guard self.didSlideViewShow == true else { return }
         self.slideViewTrailingConstraint?.constant = SlideSectionContentsView.width
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.25) {
             self.dimBackgroundView.alpha = 0
             self.view.layoutIfNeeded()
         } completion: { _ in
@@ -665,7 +665,25 @@ extension StudyVC: StudyContentsSlideDelegate {
 
 extension StudyVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        switch self.slideSectionContentsView.mode {
+        case .contents:
+            if self.mode == .default {
+                guard let selectedProblem = self.sectionManager?.problems[safe: indexPath.item] else { return }
+                self.sectionManager?.selecteProblem(to: selectedProblem)
+            } else {
+                guard let selectedProblem = self.practiceTestManager?.problems[safe: indexPath.item] else { return }
+                self.practiceTestManager?.selecteProblem(to: selectedProblem)
+            }
+        case .bookmark:
+            if self.mode == .default {
+                guard let selectedProblem = self.sectionManager?.bookmarkedProblems[safe: indexPath.item] else { return }
+                self.sectionManager?.selecteProblem(to: selectedProblem)
+            } else {
+                guard let selectedProblem = self.practiceTestManager?.bookmarkedProblems[safe: indexPath.item] else { return }
+                self.practiceTestManager?.selecteProblem(to: selectedProblem)
+            }
+        }
+        self.closeSlideView()
     }
 }
 
