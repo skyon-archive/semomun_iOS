@@ -25,7 +25,7 @@ final class PracticeTestResultVM {
     private let sid: Int
     private let title: String
     private let subject: String
-    private let cutoff: [Int]
+    private let cutoff: [Cutoff]
     private let area: String
     private let deviation: Int
     private let averageScore: Int
@@ -49,9 +49,11 @@ final class PracticeTestResultVM {
         self.subject = practiceTestSection.subject ?? ""
         if let cutoffData = practiceTestSection.cutoff,
            let decodedCutoff = try? JSONDecoder().decode([Cutoff].self, from: cutoffData) {
-            self.cutoff = decodedCutoff.map(\.rawScore).sorted(by: >)
+            self.cutoff = decodedCutoff
         } else {
-            self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20]
+            self.cutoff = [90, 80, 70, 60, 50, 40, 30, 20].map {
+                .init(rank: String($0), rawScore: $0, percentile: $0, standardScore: $0)
+            }
         }
         self.area = practiceTestSection.area ?? ""
         self.deviation = Int(practiceTestSection.standardDeviation)
@@ -122,7 +124,7 @@ extension PracticeTestResultVM {
             groupAverage: Int(self.averageScore),
             groupStandardDeviation: Int(self.deviation),
             area: self.area,
-            rankCutoff: self.cutoff
+            rankCutoff: self.cutoff.map(\.rawScore)
         )
         
         let totalTimeFormattedString = self.formatDateString(fromSeconds: self.totalTime)
@@ -135,7 +137,8 @@ extension PracticeTestResultVM {
             totalTimeFormattedString: totalTimeFormattedString,
             groupAverage: self.groupAverage,
             privateScoreResult: privateScoreResult,
-            subject: self.subject
+            subject: self.subject,
+            cutoff: self.cutoff
         )
         
         self.postTestResult()

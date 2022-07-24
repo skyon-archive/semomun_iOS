@@ -17,4 +17,5 @@ struct PracticeTestResult {
     let groupAverage: Int
     let privateScoreResult: ScoreResult
     let subject: String
+    let cutoff: [Cutoff]
 }
