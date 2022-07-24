@@ -8,18 +8,16 @@
 import UIKit
 
 final class ProblemTimerView: UIView {
-    private let color = UIColor(.blueRegular)
-    
     private lazy var clockImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(.warning)
-        imageView.tintColor = self.color
+        imageView.image = UIImage(.clockOutline)
+        imageView.setSVGTintColor(.lightGray)
         return imageView
     }()
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = self.color
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = .heading5
+        label.textColor = .getSemomunColor(.lightGray)
         label.contentMode = .left
         return label
     }()
@@ -36,15 +34,15 @@ final class ProblemTimerView: UIView {
         self.backgroundColor = UIColor.clear
         
         NSLayoutConstraint.activate([
-            self.clockImageView.widthAnchor.constraint(equalToConstant: 24),
-            self.clockImageView.heightAnchor.constraint(equalToConstant: 24),
+            self.clockImageView.widthAnchor.constraint(equalToConstant: 18),
+            self.clockImageView.heightAnchor.constraint(equalToConstant: 18),
             self.clockImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             self.clockImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
             self.timeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            self.timeLabel.leadingAnchor.constraint(equalTo: self.clockImageView.trailingAnchor, constant: 12),
+            self.timeLabel.leadingAnchor.constraint(equalTo: self.clockImageView.trailingAnchor, constant: 4),
             self.timeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }

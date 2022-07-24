@@ -22,17 +22,13 @@
                         <rect key="frame" x="0.0" y="6" width="528" height="45"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="snu-XR-4zu">
-                                <rect key="frame" x="5" y="10" width="122" height="30"/>
+                                <rect key="frame" x="5" y="10" width="90" height="29"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daa-NS-YLI">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="ZxK-UD-FlP"/>
-                                            <constraint firstAttribute="height" constant="30" id="vXe-5z-Mqu"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="29"/>
                                         <color key="tintColor" name="deepMint"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="bookmarkAltSolid"/>
+                                        <state key="normal" image="bookmarkOutline"/>
                                         <state key="selected" image="bookmarkFill">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                         </state>
@@ -41,10 +37,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlc-nV-Vs2">
-                                        <rect key="frame" x="33" y="0.0" width="43" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="43" id="pLh-aP-1Rw"/>
-                                        </constraints>
+                                        <rect key="frame" x="27" y="0.0" width="30" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="해설">
@@ -55,10 +48,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62j-Qp-n0O">
-                                        <rect key="frame" x="79" y="0.0" width="43" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="43" id="Tei-gE-zes"/>
-                                        </constraints>
+                                        <rect key="frame" x="60" y="0.0" width="30" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="정답">
@@ -238,7 +228,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bookmarkAltSolid" width="20" height="20"/>
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="bookmarkOutline" width="24" height="24"/>
         <namedColor name="deepMint">

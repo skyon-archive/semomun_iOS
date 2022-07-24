@@ -129,7 +129,7 @@ extension SingleWithTextAnswerVC {
         
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 15)
+            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 12)
         ])
     }
 }
