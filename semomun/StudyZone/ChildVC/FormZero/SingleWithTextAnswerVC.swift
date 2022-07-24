@@ -30,6 +30,7 @@ final class SingleWithTextAnswerVC: FormZero {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bookmarkBT.setImageWithSVGTintColor(semomunImage: .bookmarkOutline, color: .lightGray)
         self.configureTextField()
         self.configureTimerViewLayout()
     }
@@ -161,7 +162,7 @@ extension SingleWithTextAnswerVC {
             self.answerBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.answerBT.isUserInteractionEnabled = true
-            self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
+            self.answerBT.setTitleColor(.getSemomunColor(.black), for: .normal)
         }
     }
     
@@ -172,7 +173,7 @@ extension SingleWithTextAnswerVC {
             self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
         } else {
             self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
+            self.explanationBT.setTitleColor(.getSemomunColor(.black), for: .normal)
         }
     }
     

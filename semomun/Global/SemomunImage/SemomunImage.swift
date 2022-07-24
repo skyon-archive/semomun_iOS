@@ -40,6 +40,7 @@ enum SemomunImage: String {
     case clockOutline
     case dotsCircleHorizontalOutline
     case menuAlt3Outline
+    case bookmarkOutline
 }
 
 enum SystemImage: String {

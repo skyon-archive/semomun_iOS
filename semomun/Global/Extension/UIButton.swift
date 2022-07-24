@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIButton {
+    func setImageWithSVGTintColor(semomunImage: SemomunImage, color: SemomunColor) {
+        self.setImageWithSVGTintColor(image: UIImage(semomunImage), color: color)
+    }
+    
     func setImageWithSVGTintColor(image: UIImage, color: SemomunColor) {
         let image = image.withRenderingMode(.alwaysTemplate)
         self.setImage(image, for: .normal)
