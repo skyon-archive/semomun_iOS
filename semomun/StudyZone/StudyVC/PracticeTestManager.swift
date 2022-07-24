@@ -324,6 +324,10 @@ extension PracticeTestManager {
         // 응시가 종료된 경우만 불린다
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
+    
+    var bookmarkedProblems: [Problem_Core] {
+        return self.problems.filter { $0.star == true }
+    }
 }
 
 // MARK: Network post

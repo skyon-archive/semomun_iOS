@@ -21,9 +21,9 @@ final class ProblemCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.problemNameLabel.textColor = UIColor.getSemomunColor(.background)
-        self.contentView.backgroundColor = UIColor.getSemomunColor(.background)
-        self.contentView.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+        self.problemNameLabel.textColor = Self.defaultTitleColor
+        self.contentView.backgroundColor = Self.selectedTitleColor
+        self.contentView.layer.borderColor = Self.borderDefaultColor.cgColor
     }
 }
 
@@ -46,7 +46,7 @@ extension ProblemCell {
     }
     
     private func configureTitleColor(isSelected: Bool) {
-        self.problemNameLabel.textColor = isSelected ? Self.defaultTitleColor : Self.selectedTitleColor
+        self.problemNameLabel.textColor = isSelected ? Self.selectedTitleColor : Self.defaultTitleColor
     }
     
     private func configureBackgroundColor(terminated: Bool, correct: Bool, isSelected: Bool) {

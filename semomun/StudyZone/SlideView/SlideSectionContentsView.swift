@@ -7,14 +7,34 @@
 
 import UIKit
 
-protocol JumpProblemPageDelegate: AnyObject {
-    func jumpProblem(pid: Int)
+protocol StudyContentsSlideDelegate: AnyObject {
     func closeSlideView()
 }
 
 final class SlideSectionContentsView: UIView {
     /* public */
     static let width = CGFloat(320)
+    enum Mode {
+        case contents
+        case bookmark
+    }
+    var mode: Mode = .contents {
+        didSet {
+            switch mode {
+            case .contents:
+                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+                self.contentsUnderline.alpha = 1
+                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+                self.bookmakrUnderline.alpha = 0
+            case .bookmark:
+                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
+                self.contentsUnderline.alpha = 0
+                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
+                self.bookmakrUnderline.alpha = 1
+            }
+            self.problemsCollectionView.reloadData()
+        }
+    }
     /* private */
     private lazy var contentsModeButton: UIButton = {
         let button = UIButton()
@@ -153,6 +173,7 @@ final class SlideSectionContentsView: UIView {
     private var problemsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 4
         layout.minimumLineSpacing = 12
         layout.sectionInset = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -160,34 +181,7 @@ final class SlideSectionContentsView: UIView {
         return collectionView
     }()
     
-    enum Mode {
-        case contents
-        case bookmark
-    }
-    
-    private weak var delegate: JumpProblemPageDelegate?
-    private var mode: Mode = .contents {
-        didSet {
-            switch mode {
-            case .contents:
-                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
-                self.contentsUnderline.alpha = 1
-                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
-                self.bookmakrUnderline.alpha = 0
-            case .bookmark:
-                self.contentsModeButton.setTitleColor(UIColor.getSemomunColor(.black), for: .normal)
-                self.contentsUnderline.alpha = 0
-                self.bookmarkModeButton.setTitleColor(UIColor.getSemomunColor(.blueRegular), for: .normal)
-                self.bookmakrUnderline.alpha = 1
-            }
-        }
-    }
-    
-    func configure(workbookTitle: String, sectionNum: Int, sectionTitle: String, delegate: JumpProblemPageDelegate) {
-        self.delegate = delegate
-        self.commonInit(workbookTitle: workbookTitle, sectionNum: sectionNum, sectionTitle: sectionTitle)
-        self.configureLayout()
-    }
+    private weak var delegate: StudyContentsSlideDelegate?
     
     private func commonInit(workbookTitle: String, sectionNum: Int, sectionTitle: String) {
         self.workbookTitleLabel.text = workbookTitle
@@ -269,8 +263,27 @@ final class SlideSectionContentsView: UIView {
         ])
     }
     
+    private func configureCollectionView() {
+        let problemCellNib = UINib(nibName: ProblemCell.identifier, bundle: nil)
+        self.problemsCollectionView.register(problemCellNib, forCellWithReuseIdentifier: ProblemCell.identifier)
+    }
+}
+
+// MARK: Public functions
+extension SlideSectionContentsView {
+    func configure(workbookTitle: String, sectionNum: Int, sectionTitle: String, delegate: StudyContentsSlideDelegate) {
+        self.delegate = delegate
+        self.commonInit(workbookTitle: workbookTitle, sectionNum: sectionNum, sectionTitle: sectionTitle)
+        self.configureLayout()
+        self.configureCollectionView()
+    }
+    
     func configureDelegate(_ delegate: (UICollectionViewDelegate & UICollectionViewDataSource)) {
         self.problemsCollectionView.delegate = delegate
         self.problemsCollectionView.dataSource = delegate
+    }
+    
+    func reload() {
+        self.problemsCollectionView.reloadData()
     }
 }
