@@ -98,13 +98,26 @@ final class PracticeTestResultView: UIView {
         self.configureRawScoreLabel(practiceTestResult.rawScore)
         self.configureInfoStackView(practiceTestResult)
         self.configureProgressStackView(practiceTestResult)
-        self.privateScoreResultView.configureContent(practiceTestResult.privateScoreResult)
+        
+        self.privateScoreResultView.configureContent(
+            rank: practiceTestResult.rank,
+            standardScore: practiceTestResult.standardScore,
+            percentile: practiceTestResult.percentile
+        )
+        
         self.cutoffDescriptionLabel.text = practiceTestResult.subject
-        self.cutoffStackView.configureContent(cutoffs: practiceTestResult.cutoff, userRank: practiceTestResult.privateScoreResult.rank)
+        self.cutoffStackView.configureContent(
+            cutoffs: practiceTestResult.cutoff,
+            userRank: practiceTestResult.rank
+        )
     }
     
-    func configureServerContent(publicScoreResult: ScoreResult) {
-        self.publicScoreResultView.configureContent(publicScoreResult)
+    func configureServerContent(publicTestResult: PublicTestResultOfDB) {
+        self.publicScoreResultView.configureContent(
+            rank: publicTestResult.rank,
+            standardScore: publicTestResult.standardScore,
+            percentile: publicTestResult.percentile
+        )
     }
 }
 

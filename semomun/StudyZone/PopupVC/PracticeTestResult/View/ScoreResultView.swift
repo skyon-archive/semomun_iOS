@@ -43,12 +43,12 @@ final class ScoreResultView: UIView {
         self.rankLabel.textColor = rankLabelColor
     }
     
-    func configureContent(_ scoreResult: ScoreResult) {
-        self.rankLabel.text = scoreResult.rank
+    func configureContent(rank: String, standardScore: Int, percentile: Int) {
+        self.rankLabel.text = rank
         
         [
-            ["예상 표준점수", "\(scoreResult.standardScore)"],
-            ["예상 백분위", "\(scoreResult.percentile)%"]
+            ["예상 표준점수", "\(standardScore)"],
+            ["예상 백분위", "\(percentile)%"]
         ].forEach { data in
             let groupStackView = UIStackView()
             groupStackView.axis = .vertical

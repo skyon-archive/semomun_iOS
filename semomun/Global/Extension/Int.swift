@@ -31,4 +31,11 @@ extension Int {
         let size = Double(self)/1000000
         return String(format: "%.1fMB", size)
     }
+    var toYearMonthDayString: String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter.string(from: TimeInterval(self)) ?? "00:00:00"
+    }
 }

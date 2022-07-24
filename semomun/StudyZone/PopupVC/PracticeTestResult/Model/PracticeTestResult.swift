@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// PracticeTestResultVM에서 VC로 published를 통해 전달되는 정보의 집합
+/// 로컬 정보
 struct PracticeTestResult {
     let rawScore: Int
     let perfectScore: Int
@@ -15,7 +15,11 @@ struct PracticeTestResult {
     let totalProblemCount: Int
     let totalTimeFormattedString: String
     let groupAverage: Int
-    let privateScoreResult: ScoreResult
+    
+    let rank: String
+    let standardScore: Int
+    let percentile: Int
+    
     let subject: String
     let cutoff: [Cutoff]
 }
