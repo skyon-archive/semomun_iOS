@@ -88,11 +88,6 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
     }
     
     // MARK: 자식 클래스에서 설정 필수
-    func configureCellRegister(nibName: String, reuseIdentifier: String) {
-        let cellNib = UINib(nibName: nibName, bundle: nil)
-        self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: reuseIdentifier)
-    }
-    
     func configureCellRegister(cellClass: UICollectionViewCell.Type, reuseIdentifier: String) {
         self.subproblemCollectionView.register(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
     }
