@@ -14,6 +14,10 @@ protocol StudyToolbarViewDelegate: AnyObject {
 
 final class StudyToolbarView: UIStackView {
     /* public */
+    enum AnswerType {
+        case none
+        case some(String?)
+    }
     static let height: CGFloat = 36
     var bookmarkSelected: Bool {
         return self.bookmarkButton.isSelected
@@ -89,23 +93,26 @@ final class StudyToolbarView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateUI(mode: StudyVC.Mode, problem: Problem_Core?, answer: String?) {
-        if let answer = answer {
-            self.answerView.configureAnswer(to: answer)
+    func updateUI(mode: StudyVC.Mode, problem: Problem_Core?, answer: AnswerType) {
+        switch answer {
+        case .none:
+            self.answerButton.isHidden = true
+        case .some(let optionalAnswer):
+            self.answerButton.isHidden = false
+            self.answerView.configureAnswer(to: optionalAnswer ?? "")
+            
+            if optionalAnswer != nil {
+                self.answerButton.isUserInteractionEnabled = true
+                self.answerButton.setTitleColor(.getSemomunColor(.black), for: .normal)
+            } else {
+                self.answerButton.isUserInteractionEnabled = false
+                self.answerButton.setTitleColor(.getSemomunColor(.lightGray), for: .normal)
+            }
         }
         
         self.answerButton.isHidden = problem?.terminated ?? true
         self.bookmarkButton.isSelected = problem?.star ?? false
         self.bookmarkButton.tintColor = self.bookmarkButton.isSelected ? .getSemomunColor(.blueRegular) : .getSemomunColor(.lightGray)
-        
-        self.answerButton.isHidden = false
-        if answer != nil {
-            self.answerButton.isUserInteractionEnabled = true
-            self.answerButton.setTitleColor(.getSemomunColor(.black), for: .normal)
-        } else {
-            self.answerButton.isUserInteractionEnabled = false
-            self.answerButton.setTitleColor(.getSemomunColor(.lightGray), for: .normal)
-        }
         
         self.explanationButton.isHidden = false
         self.explanationButton.isSelected = false

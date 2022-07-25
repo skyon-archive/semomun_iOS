@@ -20,6 +20,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     /* private */
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
         super.prepareForReuse(contentImage, problem, toolPicker)
-        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: nil)
+        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: .none)
     }
 }

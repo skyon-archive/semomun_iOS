@@ -1427,64 +1427,6 @@
             </objects>
             <point key="canvasLocation" x="824" y="1404"/>
         </scene>
-        <!--ConceptVC-->
-        <scene sceneID="rDj-qu-aSd">
-            <objects>
-                <viewController storyboardIdentifier="ConceptVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kdM-wi-V0h" customClass="ConceptVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tqe-io-r3j">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhH-XY-3OI" userLabel="topView">
-                                <rect key="frame" x="0.0" y="24" width="834" height="50"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Blu-IC-hNX">
-                                        <rect key="frame" x="28" y="14" width="32" height="32"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2c-cc-QWU">
-                                                <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="AIp-Lz-kGo"/>
-                                                    <constraint firstAttribute="width" constant="32" id="nv2-ui-p7o"/>
-                                                </constraints>
-                                                <color key="tintColor" name="deepMint"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmarkOutline"/>
-                                                <state key="selected" image="bookmarkFill">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="toggleBookmark:" destination="kdM-wi-V0h" eventType="touchUpInside" id="ZkV-Mt-Aq1"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="6cC-zk-YQV"/>
-                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="top" secondItem="vhH-XY-3OI" secondAttribute="top" constant="14" id="YoK-tz-rxc"/>
-                                    <constraint firstItem="Blu-IC-hNX" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" constant="28" id="c0u-wa-XT1"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="N5S-Yf-jeA"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="trailing" secondItem="vhH-XY-3OI" secondAttribute="trailing" id="08F-59-GjV"/>
-                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="top" secondItem="vhH-XY-3OI" secondAttribute="top" id="nhn-6W-w5R"/>
-                            <constraint firstItem="N5S-Yf-jeA" firstAttribute="leading" secondItem="vhH-XY-3OI" secondAttribute="leading" id="pUc-MH-BHN"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="bookmarkBT" destination="M2c-cc-QWU" id="Hn0-2O-J92"/>
-                        <outlet property="topView" destination="vhH-XY-3OI" id="Mwp-d6-mt2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Igk-iZ-am9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="132" y="738"/>
-        </scene>
         <!--Single With No AnswerVC-->
         <scene sceneID="sql-iM-JOA">
             <objects>
