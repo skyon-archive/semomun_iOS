@@ -56,7 +56,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.updateUIIfTerminated()
         
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
-        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
+        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: .some(answer))
     }
 }
 

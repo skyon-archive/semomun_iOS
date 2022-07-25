@@ -54,9 +54,7 @@ final class StudyVC: UIViewController {
         return UIStoryboard(name: SingleWith4AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith4AnswerVC.identifier) as? SingleWith4AnswerVC ?? SingleWith4AnswerVC()
     }()
     private lazy var multipleWithNoAnswer = MultipleWithNoAnswerVC()
-    private lazy var concept: ConceptVC = {
-        return UIStoryboard(name: ConceptVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: ConceptVC.identifier) as? ConceptVC ?? ConceptVC()
-    }()
+    private lazy var concept = ConceptVC()
     private lazy var singleWithNoAnswer: SingleWithNoAnswerVC = {
         return UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC ?? SingleWithNoAnswerVC()
     }()
