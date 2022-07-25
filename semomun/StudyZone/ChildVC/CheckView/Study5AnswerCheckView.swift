@@ -23,14 +23,12 @@ final class Study5AnswerCheckView: UIView {
     
     convenience init() {
         self.init(frame: CGRect())
-        
         self.commonInit()
         self.configureButtons()
         self.configureLayout()
     }
     
     private func commonInit() {
-        
         self.clipsToBounds = true
         self.backgroundColor = UIColor.getSemomunColor(.background)
         self.layer.cornerRadius = CGFloat.cornerRadius12
