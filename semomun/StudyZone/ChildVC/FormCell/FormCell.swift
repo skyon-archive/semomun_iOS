@@ -20,8 +20,9 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         return 51
     }
     // MARK: 자식 클래스에서 배치가 필요
-    let answerView = AnswerView()
     let timerView = ProblemTimerView()
+    // MARK: 자식 클래스에서 설정이 필요
+    lazy var toolbarView = StudyToolbarView(delegate: self)
     /* private */
     private var toolPicker: PKToolPicker?
     private var isCanvasDrawingLoaded: Bool = false
@@ -32,29 +33,21 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }()
     private let background: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(.lightGray)
+        view.backgroundColor = .getSemomunColor(.background)
         return view
     }()
     private let correctImageView = CorrectImageView()
     private let canvasView = RotationableCanvasView()
-    private lazy var testLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .blue
-        self.contentView.addSubview(label)
-        label.text = "ASDASD"
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
-        ])
-        return label
-    }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.configureSubViews()
-        print(testLabel)
+        self.configureToolbarLayout()
         self.configureTimerLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
@@ -64,7 +57,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.timerView.isHidden = true
         self.isCanvasDrawingLoaded = false
         // AnswerView가 표시되는 중에 reuse될 수 있다고 생각하여 제거
-        self.answerView.removeFromSuperview()
+        self.toolbarView.hideAnswerView()
     }
     
     // MARK: Rotation
@@ -113,7 +106,7 @@ extension FormCell {
 // MARK: Configure
 extension FormCell {
     private func configureSubViews() {
-        self.contentView.addSubviews(self.canvasView, self.background)
+        self.contentView.addSubviews(self.canvasView, self.background, self.toolbarView)
         self.contentView.sendSubviewToBack(self.canvasView)
         self.contentView.sendSubviewToBack(self.background)
         
@@ -122,6 +115,13 @@ extension FormCell {
         self.canvasView.sendSubviewToBack(self.imageView)
         
         self.imageView.addSubview(self.correctImageView)
+    }
+    
+    private func configureToolbarLayout() {
+        NSLayoutConstraint.activate([
+            self.toolbarView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 32),
+            self.toolbarView.bottomAnchor.constraint(equalTo: self.contentView.topAnchor, constant: self.internalTopViewHeight)
+        ])
     }
 }
 
@@ -229,5 +229,19 @@ extension FormCell: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.adjustLayouts()
+    }
+}
+
+extension FormCell: StudyToolbarViewDelegate {
+    func toggleBookmark() {
+        let status = self.toolbarView.bookmarkSelected
+        self.problem?.setValue(status, forKey: "star")
+        self.delegate?.refreshPageButtons()
+    }
+    
+    func toggleExplanation() {
+        guard let imageData = self.problem?.explanationImage,
+              let pid = self.problem?.pid else { return }
+        self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
     }
 }

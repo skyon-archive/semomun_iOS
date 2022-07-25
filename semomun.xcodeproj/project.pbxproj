@@ -40,7 +40,6 @@
 		25267E5D2889093E00D35FA1 /* WorkbookGroupResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25267E5C2889093E00D35FA1 /* WorkbookGroupResultView.swift */; };
 		25267E6028890A4000D35FA1 /* AveragePercentileGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25267E5F28890A4000D35FA1 /* AveragePercentileGraphView.swift */; };
 		253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253FC519283CED340014EA4F /* SavedAnswerCell.swift */; };
-		2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2549D182283B3020005878E2 /* MultipleWith5Cell.xib */; };
 		254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
 		254C7F07287BFC320038ACA0 /* HomeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */; };
@@ -373,7 +372,6 @@
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		253FC519283CED340014EA4F /* SavedAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAnswerCell.swift; sourceTree = "<group>"; };
-		2549D182283B3020005878E2 /* MultipleWith5Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleWith5Cell.xib; sourceTree = "<group>"; };
 		254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultCalculator.swift; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
 		254C7F06287BFC320038ACA0 /* HomeDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVC.swift; sourceTree = "<group>"; };
@@ -793,7 +791,6 @@
 		253E57F5283C914200E6A2F1 /* FormXibs */ = {
 			isa = PBXGroup;
 			children = (
-				2549D182283B3020005878E2 /* MultipleWith5Cell.xib */,
 				877D90A6283D047000CE0D81 /* MultipleWithConceptCell.xib */,
 				8748F9D3283DE65C0080B946 /* MultipleWithNoAnswerCell.xib */,
 				2560BBA2283B869700A32EC4 /* SubProblemCell.xib */,
@@ -1911,7 +1908,6 @@
 			files = (
 				8748F9D4283DE67C0080B946 /* MultipleWithNoAnswerCell.xib in Resources */,
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
-				2549D183283B3020005878E2 /* MultipleWith5Cell.xib in Resources */,
 				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */,
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,

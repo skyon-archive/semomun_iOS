@@ -25,11 +25,15 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    @IBOutlet weak var bookmarkBT: UIButton!
-    @IBOutlet weak var explanationBT: UIButton!
-    @IBOutlet weak var answerBT: UIButton!
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet var checkButtons: [UIButton]!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.delegate = delegate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -46,90 +50,58 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.updateCheckedButtons()
     }
     
-    @IBAction func toggleBookmark(_ sender: Any) {
-        self.bookmarkBT.isSelected.toggle()
-        let status = self.bookmarkBT.isSelected
-        
-        self.problem?.setValue(status, forKey: "star")
-        self.delegate?.refreshPageButtons()
-    }
-    
-    @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.problem?.explanationImage,
-              let pid = self.problem?.pid else { return }
-        self.delegate?.selectExplanation(image: UIImage(data: imageData), pid: Int(pid))
-    }
-    
-    @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
-        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
-        self.answerView.configureAnswer(to: answerConverted)
-        
-        self.contentView.addSubview(self.answerView)
-        NSLayoutConstraint.activate([
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
-            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
-        ])
-        self.answerView.showShortTime()
-    }
-    
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
         super.prepareForReuse(contentImage, problem, toolPicker, mode)
         self.updateCheckedButtons()
-        self.updateBookmarkBT()
-        self.updateAnswerBT()
-        self.updateExplanationBT()
         self.updateUIIfTerminated()
-        self.updateModeUI()
+        
+        let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
+        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
     }
     
     // MARK: override 구현
     override func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
+//        self.contentView.addSubview(self.timerView)
+//
+//        NSLayoutConstraint.activate([
+//            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
+//            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
+//        ])
     }
     
     override func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
     }
     
     override func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
     }
 }
 
 // MARK: Update
 extension MultipleWith5Cell {
     private func updateCheckedButtons() {
-        self.checkButtons.forEach { $0.isSelected = false }
-        if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
-            self.checkButtons[solvedIndex-1].isSelected = true
-        }
-        self.updateButtonUI()
+//        self.checkButtons.forEach { $0.isSelected = false }
+//        if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
+//            self.checkButtons[solvedIndex-1].isSelected = true
+//        }
+//        self.updateButtonUI()
     }
-    
+
     private func updateButtonUI() {
-        self.checkButtons.forEach { button in
-            if button.isSelected {
-                button.backgroundColor = UIColor(.blueRegular)
-                button.setTitleColor(UIColor.white, for: .normal)
-            } else {
-                button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(.blueRegular), for: .normal)
-            }
-        }
+//        self.checkButtons.forEach { button in
+//            if button.isSelected {
+//                button.backgroundColor = UIColor(.blueRegular)
+//                button.setTitleColor(UIColor.white, for: .normal)
+//            } else {
+//                button.backgroundColor = UIColor.white
+//                button.setTitleColor(UIColor(.blueRegular), for: .normal)
+//            }
+//        }
     }
     
     private func updateUIIfTerminated() {
         guard let problem = self.problem else { return }
         
         if problem.terminated {
-            self.answerBT.isHidden = true
             if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
                 self.showCheckImage(to: solvedIndex-1)
             }
@@ -137,64 +109,23 @@ extension MultipleWith5Cell {
             if problem.answer != nil {
                 self.showCorrectImage(isCorrect: problem.correct)
             }
-        } else {
-            self.answerBT.isHidden = false
-        }
-    }
-    
-    private func updateBookmarkBT() {
-        self.bookmarkBT.isSelected = self.problem?.star ?? false
-    }
-    
-    private func updateAnswerBT() {
-        self.answerBT.isHidden = false
-        if self.problem?.answer == nil {
-            self.answerBT.isUserInteractionEnabled = false
-            self.answerBT.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.answerBT.isUserInteractionEnabled = true
-            self.answerBT.setTitleColor(UIColor(.blueRegular), for: .normal)
-        }
-    }
-    
-    private func updateExplanationBT() {
-        self.explanationBT.isHidden = false
-        self.explanationBT.isSelected = false
-        if self.problem?.explanationImage == nil {
-            self.explanationBT.isUserInteractionEnabled = false
-            self.explanationBT.setTitleColor(UIColor.gray, for: .normal)
-        } else {
-            self.explanationBT.isUserInteractionEnabled = true
-            self.explanationBT.setTitleColor(UIColor(.blueRegular), for: .normal)
-        }
-    }
-    
-    private func updateModeUI() {
-        guard let terminated = self.problem?.terminated, terminated == false else { return }
-        
-        switch self.mode {
-        case .default:
-            return
-        case.practiceTest:
-            self.explanationBT.isHidden = true
-            self.answerBT.isHidden = true
         }
     }
 }
 
 extension MultipleWith5Cell {
     private func showCheckImage(to index: Int) {
-        self.checkImageView.image = UIImage(named: "check")
-        self.checkButtons[index].addSubview(self.checkImageView)
-        
-        NSLayoutConstraint.activate([
-            self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
-            self.checkImageView.heightAnchor.constraint(equalToConstant: 70),
-            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 9),
-            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -9)
-        ])
+//        self.checkImageView.image = UIImage(named: "check")
+//        self.checkButtons[index].addSubview(self.checkImageView)
+//
+//        NSLayoutConstraint.activate([
+//            self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
+//            self.checkImageView.heightAnchor.constraint(equalToConstant: 70),
+//            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 9),
+//            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -9)
+//        ])
     }
     private func hideCheckImage() {
-        self.checkImageView.removeFromSuperview()
+//        self.checkImageView.removeFromSuperview()
     }
 }
