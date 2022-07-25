@@ -60,6 +60,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.configureToolbarLayout()
         self.configureTimerLayout()
         self.addPageSwipeGesture()
+        self.view.backgroundColor = .getSemomunColor(.white)
     }
     
     override func viewWillAppear(_ animated: Bool) {

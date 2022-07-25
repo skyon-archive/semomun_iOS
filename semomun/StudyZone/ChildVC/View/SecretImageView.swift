@@ -18,6 +18,12 @@ final class SecretImageView: UIView {
         return hiddenView
     }()
     private let imageView = UIImageView()
+    private let borderView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+        return view
+    }()
     
     var image: UIImage? {
         get { return self.imageView.image }
@@ -30,6 +36,7 @@ final class SecretImageView: UIView {
             if self.preventCapture {
                 self.hiddenView.frame = frame
             }
+            self.borderView.frame = .init(-1, -1, frame.width + 2, frame.height + 2)
         }
     }
     
@@ -42,6 +49,7 @@ final class SecretImageView: UIView {
         } else {
             self.addSubview(self.imageView)
         }
+        self.addSubview(self.borderView)
     }
     
     required init?(coder: NSCoder) {

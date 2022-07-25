@@ -26,12 +26,12 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private var isCanvasDrawingLoaded: Bool = false
     private let imageView: SecretImageView = {
         let imageView = SecretImageView(preventCapture: false)
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .getSemomunColor(.white)
         return imageView
     }()
     private let background: UIView = {
         let view = UIView()
-        view.backgroundColor = .getSemomunColor(.background)
+        view.backgroundColor = .getSemomunColor(.white)
         return view
     }()
     private let timerView = ProblemTimerView()
