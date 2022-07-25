@@ -7,8 +7,9 @@
 
 import UIKit
 
+@objc(HomeVCAdapterView)
 class HomeVCAdapterView: UIView {
-    weak var homeVC: HomeVC?
+    weak var viewController: UIViewController?
     
     var config: NSDictionary = [:] {
         didSet {
@@ -24,10 +25,10 @@ class HomeVCAdapterView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if homeVC == nil {
+        if viewController == nil {
             embed()
         } else {
-            homeVC?.view.frame = bounds
+            viewController?.view.frame = bounds
         }
     }
     
@@ -42,6 +43,6 @@ class HomeVCAdapterView: UIView {
         addSubview(vc.view)
         vc.view.frame = bounds
         vc.didMove(toParent: parentVC)
-        self.homeVC = vc
+        self.viewController = vc
     }
 }

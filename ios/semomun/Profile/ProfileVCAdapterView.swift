@@ -1,15 +1,16 @@
 //
-//  SearchTagVCAdapterView.swift
+//  ProfileVCAdapterView.swift
 //  semomun
 //
-//  Created by 신영민 on 2022/07/22.
+//  Created by 신영민 on 2022/07/23.
 //
 
 import UIKit
 
-@objc(SearchTagVCAdapterView)
-class SearchTagVCAdapterView: UIView {
+@objc(ProfileVCAdapterView)
+class ProfileVCAdapterView: UIView {
     weak var viewController: UIViewController?
+    @objc var onNavigate: RCTDirectEventBlock?
     
     var config: NSDictionary = [:] {
         didSet {
@@ -38,14 +39,15 @@ class SearchTagVCAdapterView: UIView {
             let parentVC = parentViewController else {
             return
         }
-
-        let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-        let vc = SearchTagVC(viewModel: viewModel, mode: .home)
+        
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
         parentVC.addChild(vc)
         addSubview(vc.view)
         vc.view.frame = bounds
         vc.didMove(toParent: parentVC)
+        vc.navigate = onNavigate
         self.viewController = vc
     }
+    
 }

@@ -1,14 +1,14 @@
 //
-//  SearchTagVCAdapterView.swift
+//  BookshelfVCAdapterView.swift
 //  semomun
 //
-//  Created by 신영민 on 2022/07/22.
+//  Created by 신영민 on 2022/07/23.
 //
 
 import UIKit
 
-@objc(SearchTagVCAdapterView)
-class SearchTagVCAdapterView: UIView {
+@objc(BookshelfVCAdapterView)
+class BookshelfVCAdapterView: UIView {
     weak var viewController: UIViewController?
     
     var config: NSDictionary = [:] {
@@ -38,10 +38,9 @@ class SearchTagVCAdapterView: UIView {
             let parentVC = parentViewController else {
             return
         }
-
-        let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-        let vc = SearchTagVC(viewModel: viewModel, mode: .home)
+        
+        let storyboard = UIStoryboard(name: "HomeSearchBookshelf", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "BookshelfVC")
         parentVC.addChild(vc)
         addSubview(vc.view)
         vc.view.frame = bounds

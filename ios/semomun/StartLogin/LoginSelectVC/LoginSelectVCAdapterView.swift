@@ -1,16 +1,15 @@
 //
-//  SearchTagVCAdapterView.swift
+//  LoginSelectVCAdapterView.swift
 //  semomun
 //
-//  Created by 신영민 on 2022/07/22.
+//  Created by 신영민 on 2022/07/23.
 //
 
 import UIKit
 
-@objc(SearchTagVCAdapterView)
-class SearchTagVCAdapterView: UIView {
+@objc(LoginSelectVCAdapterView)
+class LoginSelectVCAdapterView: UIView {
     weak var viewController: UIViewController?
-    
     var config: NSDictionary = [:] {
         didSet {
             setNeedsLayout()
@@ -30,7 +29,6 @@ class SearchTagVCAdapterView: UIView {
         } else {
             viewController?.view.frame = bounds
         }
-        
     }
     
     private func embed() {
@@ -38,10 +36,10 @@ class SearchTagVCAdapterView: UIView {
             let parentVC = parentViewController else {
             return
         }
+        
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: LoginSelectVC.identifier) as? LoginSelectVC else { return }
 
-        let networkUsecase = NetworkUsecase(network: Network())
-        let viewModel = SearchTagVM(networkUsecase: networkUsecase)
-        let vc = SearchTagVC(viewModel: viewModel, mode: .home)
         parentVC.addChild(vc)
         addSubview(vc.view)
         vc.view.frame = bounds

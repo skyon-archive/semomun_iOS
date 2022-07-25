@@ -10,6 +10,7 @@ import CoreData
 import GoogleSignIn
 import Firebase
 
+@objc(AppDelegate)
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate, RCTBridgeDelegate {
     
@@ -136,7 +137,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate, RCTBridgeDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    @objc lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -236,3 +237,4 @@ extension UIView {
         return nil
     }
 }
+

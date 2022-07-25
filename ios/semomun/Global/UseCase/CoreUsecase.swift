@@ -8,8 +8,9 @@
 import Foundation
 import CoreData
 
-struct CoreUsecase {
-    static func sectionOfCoreData(sid: Int) -> Section_Core? {
+@objc(CoreUsecase)
+class CoreUsecase: NSObject {
+    @objc static func sectionOfCoreData(sid: Int) -> Section_Core? {
         let fetchRequest: NSFetchRequest<Section_Core> = Section_Core.fetchRequest()
         let filter = NSPredicate(format: "sid = %@", "\(sid)")
         fetchRequest.predicate = filter
@@ -359,7 +360,7 @@ struct CoreUsecase {
         }
     }
     
-    static func fetchUserInfo() -> UserCoreData? {
+    @objc static func fetchUserInfo() -> UserCoreData? {
         let fetchRequest: NSFetchRequest<UserCoreData> = UserCoreData.fetchRequest()
         
         if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {

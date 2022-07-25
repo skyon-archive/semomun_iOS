@@ -8,13 +8,14 @@
 import UIKit
 import CoreData
 
-class CoreDataManager {
-    static let shared: CoreDataManager = CoreDataManager()
+@objc(CoreDataManager)
+class CoreDataManager: NSObject {
+    @objc static let shared: CoreDataManager = CoreDataManager()
     
-    private init() {}
+    override private init() {}
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    lazy var context = appDelegate.persistentContainer.viewContext
+    @objc lazy var context = appDelegate.persistentContainer.viewContext
     
     static func saveCoreData() {
         guard CoreDataManager.shared.context.hasChanges else { return }

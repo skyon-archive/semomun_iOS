@@ -10,6 +10,7 @@ import UIKit
 typealias ProfileNetworkUsecase = (LoginSignupPostable & UserInfoFetchable)
 
 final class ProfileVC: UIViewController {
+    var navigate: RCTDirectEventBlock?
     private lazy var loginProfileView: LoginProfileView = {
         let view = LoginProfileView(delegate: self)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -177,6 +178,11 @@ extension ProfileVC: LoginProfileViewDelegate & LogoutProfileViewDelegate {
     }
     
     func login() {
-        NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
+        if self.navigate == nil {
+            return
+        }
+        navigate!(["navigateTo": "Login"])
+        
+        //NotificationCenter.default.post(name: .showLoginStartVC, object: nil)
     }
 }

@@ -14,3 +14,7 @@
 
 #import <React/RCTView.h>
 #import <React/RCTViewManager.h>
+
+#import <React/RCTComponent.h>
+#import <React/RCTDevLoadingView.h>
+#import "React/RCTEventEmitter.h"

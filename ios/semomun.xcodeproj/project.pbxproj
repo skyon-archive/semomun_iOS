@@ -132,8 +132,8 @@
 		25FB4B932886774600E7D426 /* LogoutProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B922886774600E7D426 /* LogoutProfileView.swift */; };
 		25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B94288677F600E7D426 /* ButtonWithImage.swift */; };
 		25FB4B972886DF5300E7D426 /* MyPurchasesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */; };
-		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
 		613047B63AE60B1563D29FB1 /* libPods-semomun-semomunTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932B661858C14FEF3A384280 /* libPods-semomun-semomunTests.a */; };
+		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
@@ -325,17 +325,24 @@
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 		87FD58A828744930005E8E12 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD58A728744930005E8E12 /* UIButton.swift */; };
 		93CB648127B74E4AAE61602D /* libPods-semomun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */; };
+		D703F9C3288BDEB900BC556D /* LoginSelectVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D703F9C2288BDEB900BC556D /* LoginSelectVCAdapterView.swift */; };
+		D703F9C5288BDF5600BC556D /* RNTLoginSelectVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D703F9C4288BDF5600BC556D /* RNTLoginSelectVCManager.m */; };
+		D703F9C7288C056900BC556D /* RNTCoreUseCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D703F9C6288C056900BC556D /* RNTCoreUseCase.m */; };
 		D77AACA9288ADBDC00E25F9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACA8288ADBDC00E25F9F /* AppDelegate.swift */; };
 		D77AACB0288ADC0400E25F9F /* SearchTagVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */; };
-		D77AACB1288ADC0400E25F9F /* RNTHomeVCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */; };
-		D77AACB2288ADC0400E25F9F /* RNTHomeVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */; };
+		D77AACB1288ADC0400E25F9F /* RNTHomeVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAB288ADC0400E25F9F /* RNTHomeVCManager.m */; };
 		D77AACB3288ADC0400E25F9F /* HomeVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */; };
-		D77AACB4288ADC0400E25F9F /* RNTSearchTagVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */; };
-		D77AACB5288ADC0400E25F9F /* RNTSearchTagVCModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */; };
+		D77AACB5288ADC0400E25F9F /* RNTSearchTagVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACAF288ADC0400E25F9F /* RNTSearchTagVCManager.m */; };
 		D77AACBA288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */; };
 		D77AACBB288ADC1900E25F9F /* HomeHeaderViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */; };
 		D77AACBC288ADC1900E25F9F /* HomeHeaderViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */; };
 		D77AACBD288ADC1900E25F9F /* WarningOfflineStatusViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */; };
+		D7E1BE68288AFEDC00E8D296 /* SearchVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE67288AFEDC00E8D296 /* SearchVCAdapterView.swift */; };
+		D7E1BE6A288AFF6D00E8D296 /* RNTSearchVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE69288AFF6D00E8D296 /* RNTSearchVCManager.m */; };
+		D7E1BE6C288B026100E8D296 /* BookshelfVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE6B288B026100E8D296 /* BookshelfVCAdapterView.swift */; };
+		D7E1BE6E288B02AE00E8D296 /* RNTBookshelfVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE6D288B02AE00E8D296 /* RNTBookshelfVCManager.m */; };
+		D7E1BE70288B036C00E8D296 /* ProfileVCAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE6F288B036C00E8D296 /* ProfileVCAdapterView.swift */; };
+		D7E1BE72288B03B700E8D296 /* RNTProfileVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E1BE71288B03B700E8D296 /* RNTProfileVCManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,10 +485,10 @@
 		25FB4B922886774600E7D426 /* LogoutProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutProfileView.swift; sourceTree = "<group>"; };
 		25FB4B94288677F600E7D426 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		25FB4B962886DF5300E7D426 /* MyPurchasesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPurchasesCell.swift; sourceTree = "<group>"; };
-		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
 		4283761F3F3851EB1DE0A450 /* Pods-semomun-semomunTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun-semomunTests.release.xcconfig"; path = "Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests.release.xcconfig"; sourceTree = "<group>"; };
 		449FA3030DF954FD2377E4FF /* Pods-semomun-semomunTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun-semomunTests.debug.xcconfig"; path = "Target Support Files/Pods-semomun-semomunTests/Pods-semomun-semomunTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B010DAAAAACEDBE4CE470F6 /* libPods-semomun.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-semomun.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
@@ -673,18 +680,25 @@
 		932B661858C14FEF3A384280 /* libPods-semomun-semomunTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-semomun-semomunTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96C468C21FDBC10329121726 /* Pods-semomun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.debug.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.debug.xcconfig"; sourceTree = "<group>"; };
 		B252F8B75106EA27B58EC3E4 /* Pods-semomun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-semomun.release.xcconfig"; path = "Target Support Files/Pods-semomun/Pods-semomun.release.xcconfig"; sourceTree = "<group>"; };
+		D703F9C2288BDEB900BC556D /* LoginSelectVCAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectVCAdapterView.swift; sourceTree = "<group>"; };
+		D703F9C4288BDF5600BC556D /* RNTLoginSelectVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTLoginSelectVCManager.m; sourceTree = "<group>"; };
+		D703F9C6288C056900BC556D /* RNTCoreUseCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTCoreUseCase.m; sourceTree = "<group>"; };
 		D742B0532887E3C900918D92 /* semomun-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "semomun-Bridging-Header.h"; sourceTree = "<group>"; };
 		D77AACA8288ADBDC00E25F9F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTagVCAdapterView.swift; sourceTree = "<group>"; };
-		D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTHomeVCModule.m; sourceTree = "<group>"; };
-		D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTHomeVCManager.swift; sourceTree = "<group>"; };
+		D77AACAB288ADC0400E25F9F /* RNTHomeVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTHomeVCManager.m; sourceTree = "<group>"; };
 		D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVCAdapterView.swift; sourceTree = "<group>"; };
-		D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTSearchTagVCManager.swift; sourceTree = "<group>"; };
-		D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTSearchTagVCModule.m; sourceTree = "<group>"; };
+		D77AACAF288ADC0400E25F9F /* RNTSearchTagVCManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTSearchTagVCManager.m; sourceTree = "<group>"; };
 		D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningOfflineStatusViewManager.swift; sourceTree = "<group>"; };
 		D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderViewModule.m; sourceTree = "<group>"; };
 		D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderViewManager.swift; sourceTree = "<group>"; };
 		D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WarningOfflineStatusViewModule.m; sourceTree = "<group>"; };
+		D7E1BE67288AFEDC00E8D296 /* SearchVCAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCAdapterView.swift; sourceTree = "<group>"; };
+		D7E1BE69288AFF6D00E8D296 /* RNTSearchVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTSearchVCManager.m; sourceTree = "<group>"; };
+		D7E1BE6B288B026100E8D296 /* BookshelfVCAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVCAdapterView.swift; sourceTree = "<group>"; };
+		D7E1BE6D288B02AE00E8D296 /* RNTBookshelfVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTBookshelfVCManager.m; sourceTree = "<group>"; };
+		D7E1BE6F288B036C00E8D296 /* ProfileVCAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCAdapterView.swift; sourceTree = "<group>"; };
+		D7E1BE71288B03B700E8D296 /* RNTProfileVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTProfileVCManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1097,6 +1111,8 @@
 		25D1BDDC279D3A3300807196 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				D7E1BE71288B03B700E8D296 /* RNTProfileVCManager.m */,
+				D7E1BE6F288B036C00E8D296 /* ProfileVCAdapterView.swift */,
 				8716E948279A611D00B33A5E /* ProfileVC.swift */,
 				259B6C7F28800B7A0051B2FA /* View */,
 				25FB4B8F2886737100E7D426 /* Protocol */,
@@ -1126,6 +1142,8 @@
 		25E6FF1C279AA6ED00FEDCC1 /* Bookshelf */ = {
 			isa = PBXGroup;
 			children = (
+				D7E1BE6D288B02AE00E8D296 /* RNTBookshelfVCManager.m */,
+				D7E1BE6B288B026100E8D296 /* BookshelfVCAdapterView.swift */,
 				8716E934279A5F7300B33A5E /* BookshelfVC.swift */,
 				87BC26A227A2976500F3418D /* BookshelfVM.swift */,
 				873BCE542876E8EF005A6189 /* Model */,
@@ -1153,6 +1171,8 @@
 		25FC119227B16BD800B88F70 /* LoginSelectVC */ = {
 			isa = PBXGroup;
 			children = (
+				D703F9C4288BDF5600BC556D /* RNTLoginSelectVCManager.m */,
+				D703F9C2288BDEB900BC556D /* LoginSelectVCAdapterView.swift */,
 				8716E943279A600B00B33A5E /* LoginSelectVC.swift */,
 				25F5E66427D8F90300309BC0 /* LoginSelectVM.swift */,
 				256F3BFF27DB6E6C0012EE95 /* LoginSignupUsecase.swift */,
@@ -1366,6 +1386,8 @@
 		8745855C279FB84700E331F1 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				D7E1BE69288AFF6D00E8D296 /* RNTSearchVCManager.m */,
+				D7E1BE67288AFEDC00E8D296 /* SearchVCAdapterView.swift */,
 				8716E932279A5F5D00B33A5E /* SearchVC.swift */,
 				87182B9227A1185400BA7294 /* SearchTagsFromTextVC.swift */,
 				8745856127A000C300E331F1 /* ViewModel */,
@@ -1452,10 +1474,10 @@
 		878766CB27AED290003B975E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */,
 				D77AACB7288ADC1900E25F9F /* HomeHeaderViewModule.m */,
-				D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */,
+				D77AACB8288ADC1900E25F9F /* HomeHeaderViewManager.swift */,
 				D77AACB9288ADC1900E25F9F /* WarningOfflineStatusViewModule.m */,
+				D77AACB6288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift */,
 				87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */,
 				257AB2D52877C91900771382 /* HomeHeaderView.swift */,
 				257AB2D72877C93F00771382 /* HomeSectionView.swift */,
@@ -1478,6 +1500,7 @@
 		879B172C2772CC030042478F /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				D703F9C6288C056900BC556D /* RNTCoreUseCase.m */,
 				87C85E91276F6B16001C9C4A /* CoreUsecase.swift */,
 				87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */,
 				2502533E277AB7500049F342 /* SchoolSearchUseCase.swift */,
@@ -1839,13 +1862,11 @@
 		87F5826A279E84A700A2BD15 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D77AACAB288ADC0400E25F9F /* RNTHomeVCManager.m */,
 				D77AACAD288ADC0400E25F9F /* HomeVCAdapterView.swift */,
-				D77AACAC288ADC0400E25F9F /* RNTHomeVCManager.swift */,
-				D77AACAB288ADC0400E25F9F /* RNTHomeVCModule.m */,
-				D77AACAE288ADC0400E25F9F /* RNTSearchTagVCManager.swift */,
-				D77AACAF288ADC0400E25F9F /* RNTSearchTagVCModule.m */,
-				D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */,
 				2568CDBE2876CEEF008F34ED /* HomeVC.swift */,
+				D77AACAF288ADC0400E25F9F /* RNTSearchTagVCManager.m */,
+				D77AACAA288ADC0400E25F9F /* SearchTagVCAdapterView.swift */,
 				87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */,
 				87319F9227E8D6230040108A /* NoticePopupVC.swift */,
 				254C7F05287BFC1F0038ACA0 /* HomeDetail */,
@@ -2151,6 +2172,7 @@
 				25100CDC27D4C2E0002C18CB /* LogoutUsecase.swift in Sources */,
 				87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */,
 				87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */,
+				D7E1BE6C288B026100E8D296 /* BookshelfVCAdapterView.swift in Sources */,
 				87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				87BF216E288A53B300FF55C5 /* ShowSolvedProblemsVC.swift in Sources */,
@@ -2166,6 +2188,7 @@
 				87C85E96276F6B50001C9C4A /* Preview_Core.swift in Sources */,
 				2511296428780425008A0EF9 /* UserTagListView.swift in Sources */,
 				2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */,
+				D703F9C3288BDEB900BC556D /* LoginSelectVCAdapterView.swift in Sources */,
 				87C85ECF276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift in Sources */,
 				87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */,
 				877D90A8283D04BB00CE0D81 /* MultipleWithConceptCell.swift in Sources */,
@@ -2198,12 +2221,14 @@
 				25622C54283AB5590056E0DF /* FormTwo.swift in Sources */,
 				87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */,
 				2554C89127D27BCC00AAD262 /* BooleanResult.swift in Sources */,
+				D7E1BE6E288B02AE00E8D296 /* RNTBookshelfVCManager.m in Sources */,
 				8781442C27C6044E00C31104 /* ProblemSelectCell.swift in Sources */,
 				87B17A1C2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift in Sources */,
 				8716E966279A62B400B33A5E /* MultipleWith5AnswerVC.swift in Sources */,
 				8782DDF127FD3F8000BB5FF7 /* SubmissionProblem.swift in Sources */,
 				25F96AC92805562F00A0FD5F /* ErrorReport.swift in Sources */,
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
+				D7E1BE72288B03B700E8D296 /* RNTProfileVCManager.m in Sources */,
 				2568CDBF2876CEEF008F34ED /* HomeVC.swift in Sources */,
 				2560BB9D283B7F6200A32EC4 /* SubProblemCheckButton.swift in Sources */,
 				257AB2D42877C32B00771382 /* HomeBookcoverCell.swift in Sources */,
@@ -2218,7 +2243,6 @@
 				25B7B0C527D863F40012F0FF /* PhoneAuthenticator.swift in Sources */,
 				250194C927C25AD8003B8C6B /* PageVM.swift in Sources */,
 				25FB4B95288677F600E7D426 /* ButtonWithImage.swift in Sources */,
-				D77AACB4288ADC0400E25F9F /* RNTSearchTagVCManager.swift in Sources */,
 				8716E953279A620D00B33A5E /* WaitingChargeVC.swift in Sources */,
 				8716E951279A620200B33A5E /* MyPurchasesVC.swift in Sources */,
 				8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */,
@@ -2237,6 +2261,7 @@
 				25267E6028890A4000D35FA1 /* AveragePercentileGraphView.swift in Sources */,
 				87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
+				D703F9C5288BDF5600BC556D /* RNTLoginSelectVCManager.m in Sources */,
 				877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */,
 				254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
@@ -2280,7 +2305,7 @@
 				87EB46962783454700052BCE /* ScreenProtector.swift in Sources */,
 				250ACFDC28619BE60027B6A9 /* PublicTestResultOfDB.swift in Sources */,
 				25BF7B76287D3DF800A5F6E1 /* HomeTagDetailVC.swift in Sources */,
-				D77AACB1288ADC0400E25F9F /* RNTHomeVCModule.m in Sources */,
+				D77AACB1288ADC0400E25F9F /* RNTHomeVCManager.m in Sources */,
 				25A950B327C760EC0084513E /* Collection.swift in Sources */,
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
@@ -2294,6 +2319,7 @@
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
+				D703F9C7288C056900BC556D /* RNTCoreUseCase.m in Sources */,
 				D77AACBB288ADC1900E25F9F /* HomeHeaderViewModule.m in Sources */,
 				D77AACBA288ADC1900E25F9F /* WarningOfflineStatusViewManager.swift in Sources */,
 				25A9B2B7279164B80087E774 /* WorkbookInfo.swift in Sources */,
@@ -2321,6 +2347,7 @@
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87273C1E2841121B007B7092 /* RotationableCanvasView.swift in Sources */,
+				D7E1BE68288AFEDC00E8D296 /* SearchVCAdapterView.swift in Sources */,
 				25A6791E2874807C009F76DF /* BookcoverCell.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
@@ -2337,6 +2364,7 @@
 				87C85E94276F6B36001C9C4A /* CoreDataManager.swift in Sources */,
 				8716E933279A5F5D00B33A5E /* SearchVC.swift in Sources */,
 				2502CEC827A593750072A037 /* PayHistoryVM.swift in Sources */,
+				D7E1BE6A288AFF6D00E8D296 /* RNTSearchVCManager.m in Sources */,
 				255EDB69283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift in Sources */,
 				87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */,
 				878766CD27AED2E7003B975E /* ExplanationView.swift in Sources */,
@@ -2370,7 +2398,7 @@
 				D77AACBC288ADC1900E25F9F /* HomeHeaderViewManager.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
 				258FA11828642D4B0008701C /* SecretImageView.swift in Sources */,
-				D77AACB5288ADC0400E25F9F /* RNTSearchTagVCModule.m in Sources */,
+				D77AACB5288ADC0400E25F9F /* RNTSearchTagVCManager.m in Sources */,
 				25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */,
 				25A9B2B4279158020087E774 /* WorkbookDetailVM.swift in Sources */,
 				25D33E42281985A000BAF590 /* WorkbookSearchParam.swift in Sources */,
@@ -2405,6 +2433,7 @@
 				870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */,
 				250654A528811686003C05AD /* ProfileRows.swift in Sources */,
 				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
+				D7E1BE70288B036C00E8D296 /* ProfileVCAdapterView.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
 				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87B660612880FE5F009FE9B2 /* SignupVC.swift in Sources */,
@@ -2416,7 +2445,6 @@
 				87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
 				254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */,
-				D77AACB2288ADC0400E25F9F /* RNTHomeVCManager.swift in Sources */,
 				87231B8B28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift in Sources */,
 				25F9049E28001C2400A517CC /* JSONParameterEncoder+Extensions.swift in Sources */,
 				87B6F0BF2782C40100E6FF8A /* SemomunImage.swift in Sources */,
