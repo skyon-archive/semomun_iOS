@@ -1101,119 +1101,6 @@
             </objects>
             <point key="canvasLocation" x="2246" y="738"/>
         </scene>
-        <!--Single With Text AnswerVC-->
-        <scene sceneID="Rp6-1d-Dnu">
-            <objects>
-                <viewController storyboardIdentifier="SingleWithTextAnswerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DV8-mz-Cyh" customClass="SingleWithTextAnswerVC" customModule="semomun" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wdC-YV-WF1">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGo-VU-8az" userLabel="topView">
-                                <rect key="frame" x="0.0" y="24" width="834" height="50"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="N4f-2G-u4n">
-                                        <rect key="frame" x="28" y="14" width="132" height="36"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQ7-8b-HuO">
-                                                <rect key="frame" x="12" y="0.0" width="24" height="36"/>
-                                                <color key="tintColor" name="lightGray"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="bookmarkOutline"/>
-                                                <state key="selected" image="bookmarkFill">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="toggleBookmark:" destination="DV8-mz-Cyh" eventType="touchUpInside" id="j8t-Bi-4GD"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNC-vK-v3y">
-                                                <rect key="frame" x="48" y="0.0" width="30" height="36"/>
-                                                <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                                                <color key="tintColor" name="black"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="해설">
-                                                    <color key="titleColor" name="black"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showExplanation:" destination="DV8-mz-Cyh" eventType="touchUpInside" id="KAa-mc-hsK"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i8G-zw-Cfj">
-                                                <rect key="frame" x="90" y="0.0" width="30" height="36"/>
-                                                <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                                                <color key="tintColor" name="black"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="정답">
-                                                    <color key="titleColor" name="black"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="showAnswer:" destination="DV8-mz-Cyh" eventType="touchUpInside" id="JqD-bL-spJ"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" name="background"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="b8E-r9-8i5"/>
-                                        </constraints>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="12"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" name="border"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </stackView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-Ph-yJC">
-                                        <rect key="frame" x="598" y="14" width="208" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="208" id="kMd-5a-AA1"/>
-                                            <constraint firstAttribute="height" constant="32" id="xdK-JS-vS4"/>
-                                        </constraints>
-                                        <color key="textColor" name="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <action selector="solveInputChanged:" destination="DV8-mz-Cyh" eventType="editingDidEnd" id="XLv-4X-Wmu"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" name="gray_light"/>
-                                <constraints>
-                                    <constraint firstItem="N4f-2G-u4n" firstAttribute="top" secondItem="uGo-VU-8az" secondAttribute="top" constant="14" id="7Yh-zS-e6W"/>
-                                    <constraint firstItem="N4f-2G-u4n" firstAttribute="leading" secondItem="uGo-VU-8az" secondAttribute="leading" constant="28" id="CGX-7U-VRB"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZBf-Ph-yJC" secondAttribute="trailing" constant="28" id="HYM-LD-aIf"/>
-                                    <constraint firstAttribute="height" constant="50" id="YN9-T7-TyC"/>
-                                    <constraint firstItem="ZBf-Ph-yJC" firstAttribute="top" secondItem="uGo-VU-8az" secondAttribute="top" constant="14" id="xFI-cZ-RDc"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="yQz-e3-RIP"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="uGo-VU-8az" firstAttribute="leading" secondItem="yQz-e3-RIP" secondAttribute="leading" id="0Mj-08-SV1"/>
-                            <constraint firstItem="yQz-e3-RIP" firstAttribute="trailing" secondItem="uGo-VU-8az" secondAttribute="trailing" id="Q2U-wN-hla"/>
-                            <constraint firstItem="yQz-e3-RIP" firstAttribute="top" secondItem="uGo-VU-8az" secondAttribute="top" id="d04-2L-Pq9"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="answerBT" destination="i8G-zw-Cfj" id="IeS-E2-yje"/>
-                        <outlet property="bookmarkBT" destination="lQ7-8b-HuO" id="G3z-4A-G9x"/>
-                        <outlet property="explanationBT" destination="XNC-vK-v3y" id="Nhl-EZ-K0i"/>
-                        <outlet property="solveInput" destination="ZBf-Ph-yJC" id="Bry-UG-coY"/>
-                        <outlet property="topView" destination="uGo-VU-8az" id="hgm-RL-Ay2"/>
-                        <outlet property="topViewTrailing" destination="Q2U-wN-hla" id="iuI-6S-WJd"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZTw-d8-rh2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1529" y="738"/>
-        </scene>
         <!--Multiple With No AnswerVC-->
         <scene sceneID="726-Sz-vu3">
             <objects>
@@ -2036,9 +1923,6 @@
         </namedColor>
         <namedColor name="lightGray">
             <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="textColor">
-            <color red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

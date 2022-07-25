@@ -55,9 +55,7 @@ final class StudyVC: UIViewController {
     }()
     private lazy var multipleWithNoAnswer = MultipleWithNoAnswerVC()
     private lazy var concept = ConceptVC()
-    private lazy var singleWithNoAnswer: SingleWithNoAnswerVC = {
-        return UIStoryboard(name: SingleWithNoAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithNoAnswerVC.identifier) as? SingleWithNoAnswerVC ?? SingleWithNoAnswerVC()
-    }()
+    private lazy var singleWithNoAnswer = SingleWithNoAnswerVC()
     private var multipleWith5AnswerWide = MultipleWith5AnswerWideVC()
     private var multipleWithSubProblemsWide = MultipleWithSubProblemsWideVC()
     private var multipleWithConceptWide = MultipleWithConceptWideVC()
