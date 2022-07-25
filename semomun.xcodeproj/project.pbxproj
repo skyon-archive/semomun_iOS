@@ -133,6 +133,10 @@
 		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
+		870BB565288E5EFC00794295 /* Study5AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */; };
+		870BB568288E5F5600794295 /* StudyCircleAnswerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */; };
+		870BB56A288E62A000794295 /* StudyAnswerViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */; };
+		870BB56D288E68C100794295 /* AnswerCheckDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */; };
 		870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */; };
@@ -462,6 +466,10 @@
 		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study5AnswerCheckView.swift; sourceTree = "<group>"; };
+		870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCircleAnswerButton.swift; sourceTree = "<group>"; };
+		870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyAnswerViewTopBar.swift; sourceTree = "<group>"; };
+		870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCheckDelegate.swift; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupPreviewOfDB.swift; sourceTree = "<group>"; };
 		870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestWorkbookGroupOfDBJSON.json; sourceTree = "<group>"; };
@@ -1117,6 +1125,24 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
+		870BB566288E5F3100794295 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */,
+				870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		870BB56B288E689A00794295 /* CheckView */ = {
+			isa = PBXGroup;
+			children = (
+				870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */,
+				870BB566288E5F3100794295 /* View */,
+			);
+			path = CheckView;
+			sourceTree = "<group>";
+		};
 		870D29BA2861A78F007E0C94 /* TestJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -1255,6 +1281,7 @@
 			isa = PBXGroup;
 			children = (
 				87273C192840B2A7007B7092 /* TimeRecordControllable.swift */,
+				870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1419,6 +1446,7 @@
 		87A1C35A27C5E675009043BE /* ChildVC */ = {
 			isa = PBXGroup;
 			children = (
+				870BB56B288E689A00794295 /* CheckView */,
 				87273C182840B25E007B7092 /* Protocol */,
 				87E151622787DD160080D39A /* FormCell */,
 				25622C50283A8F7A0056E0DF /* FormZero */,
@@ -2046,6 +2074,7 @@
 				2502001127C613A80075744A /* SyncUsecase.swift in Sources */,
 				87A9941F278FEAB200E0A7B1 /* NetworkStatus.swift in Sources */,
 				87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */,
+				870BB56A288E62A000794295 /* StudyAnswerViewTopBar.swift in Sources */,
 				87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */,
 				87D9D9232886A501006585AB /* ChangeUserinfoVC.swift in Sources */,
 				25978AF727A3D347007CBD57 /* UITableView.swift in Sources */,
@@ -2146,6 +2175,7 @@
 				2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
+				870BB568288E5F5600794295 /* StudyCircleAnswerButton.swift in Sources */,
 				25EF0922288923F80095BEAC /* TestSubjectResultView.swift in Sources */,
 				872045F12878160A00BDCACB /* BookshelfWarningCell.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,
@@ -2175,6 +2205,7 @@
 				8742544827795D3900D60264 /* QueryListButton.swift in Sources */,
 				251E2F7E287FDE24005FBDC4 /* SearchTagView.swift in Sources */,
 				251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */,
+				870BB56D288E68C100794295 /* AnswerCheckDelegate.swift in Sources */,
 				87C85EEE276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift in Sources */,
 				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
 				25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */,
@@ -2201,6 +2232,7 @@
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */,
 				259E994127AD1093000012AF /* CALayer.swift in Sources */,
+				870BB565288E5EFC00794295 /* Study5AnswerCheckView.swift in Sources */,
 				879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,
