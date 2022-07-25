@@ -187,15 +187,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         ])
     }
     
-    override func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    override func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
-    }
-    
     private func configureAfterTermination() {
         guard let answer = problem?.answer else { return }
         
