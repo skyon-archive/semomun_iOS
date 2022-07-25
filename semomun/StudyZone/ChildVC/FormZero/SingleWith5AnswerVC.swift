@@ -22,6 +22,7 @@ final class SingleWith5AnswerVC: FormZero {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.configureCheckView()
+        self.tempConfigure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,12 +36,17 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     private func configureCheckView() {
-        self.view.layoutIfNeeded()
         self.answerCheckView.configureDelegate(delegate: self)
         self.view.addSubview(self.answerCheckView)
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
         let size = Study5AnswerCheckView.size
         self.answerCheckView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
+    }
+    
+    private func tempConfigure() {
+        let tempView = Study4AnswerCheckView()
+        self.view.addSubview(tempView)
+        tempView.frame = CGRect(origin: CGPoint(16, self.answerCheckView.frame.minY), size: Study4AnswerCheckView.size)
     }
     
     private func updateCheckView() {
