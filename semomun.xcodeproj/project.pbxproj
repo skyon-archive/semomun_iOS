@@ -139,6 +139,8 @@
 		870BB56D288E68C100794295 /* AnswerCheckDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */; };
 		870BB56F288E83BD00794295 /* Study4AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */; };
 		870BB571288E857500794295 /* Study2AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB570288E857500794295 /* Study2AnswerCheckView.swift */; };
+		870BB573288E872F00794295 /* StudySimpleAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB572288E872F00794295 /* StudySimpleAnswerView.swift */; };
+		870BB575288E89B400794295 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB574288E89B400794295 /* UITextField.swift */; };
 		870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BEB7E27AACED10020A6AC /* UINavigationController.swift */; };
 		870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */; };
 		870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */; };
@@ -474,6 +476,8 @@
 		870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCheckDelegate.swift; sourceTree = "<group>"; };
 		870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study4AnswerCheckView.swift; sourceTree = "<group>"; };
 		870BB570288E857500794295 /* Study2AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study2AnswerCheckView.swift; sourceTree = "<group>"; };
+		870BB572288E872F00794295 /* StudySimpleAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySimpleAnswerView.swift; sourceTree = "<group>"; };
+		870BB574288E89B400794295 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		870BEB7E27AACED10020A6AC /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		870CC12A286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupPreviewOfDB.swift; sourceTree = "<group>"; };
 		870D29BD2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestWorkbookGroupOfDBJSON.json; sourceTree = "<group>"; };
@@ -1144,6 +1148,7 @@
 				870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */,
 				870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */,
 				870BB570288E857500794295 /* Study2AnswerCheckView.swift */,
+				870BB572288E872F00794295 /* StudySimpleAnswerView.swift */,
 				870BB566288E5F3100794295 /* View */,
 			);
 			path = CheckView;
@@ -1671,6 +1676,7 @@
 				250B285E287435CA000578BC /* UIImageView.swift */,
 				87FD58A728744930005E8E12 /* UIButton.swift */,
 				87AAC5B9288A7F8B002E360D /* UIApplication.swift */,
+				870BB574288E89B400794295 /* UITextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2046,6 +2052,7 @@
 				8716E968279A62C400B33A5E /* MultipleWithNoAnswerVC.swift in Sources */,
 				87C85E48276F6726001C9C4A /* UIView.swift in Sources */,
 				87D07C6F278E80BC0036CC22 /* AppstoreVersion.swift in Sources */,
+				870BB575288E89B400794295 /* UITextField.swift in Sources */,
 				871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */,
 				250ACFE028619F050027B6A9 /* PracticeTestResultVM.swift in Sources */,
 				8716E935279A5F7300B33A5E /* BookshelfVC.swift in Sources */,
@@ -2144,6 +2151,7 @@
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
+				870BB573288E872F00794295 /* StudySimpleAnswerView.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */,
 				259B6C8128800B890051B2FA /* PayStatusView.swift in Sources */,
