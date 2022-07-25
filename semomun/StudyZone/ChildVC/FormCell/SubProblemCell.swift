@@ -177,16 +177,6 @@ class SubProblemCell: FormCell, CellLayoutable {
         }
     }
     
-    // MARK: override 구현
-    override func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
-    }
-    
     private func configureAfterTermination() {
         guard let answer = problem?.answer else { return }
         

@@ -19,8 +19,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         assertionFailure("override error: internalTopViewHeight")
         return 51
     }
-    // MARK: 자식 클래스에서 배치가 필요
-    let timerView = ProblemTimerView()
     // MARK: 자식 클래스에서 설정이 필요
     lazy var toolbarView = StudyToolbarView(delegate: self)
     /* private */
@@ -36,6 +34,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         view.backgroundColor = .getSemomunColor(.background)
         return view
     }()
+    private let timerView = ProblemTimerView()
     private let correctImageView = CorrectImageView()
     private let canvasView = RotationableCanvasView()
     
@@ -66,8 +65,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.adjustLayouts(frameUpdate: true)
         self.updateCanvasViewDataAndDelegate()
     }
-    
-    func configureTimerLayout() { assertionFailure("override error: configureTimerLayout()") }
  
     // MARK: cellForItemAt에서 데이터 주입을 위해 사용. 자식 클래스에서도 같은 목적으로 override하여 사용.
     func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
@@ -102,7 +99,7 @@ extension FormCell {
 // MARK: Configure
 extension FormCell {
     private func configureSubViews() {
-        self.contentView.addSubviews(self.canvasView, self.background, self.toolbarView)
+        self.contentView.addSubviews(self.canvasView, self.background, self.toolbarView, self.timerView)
         self.contentView.sendSubviewToBack(self.canvasView)
         self.contentView.sendSubviewToBack(self.background)
         
@@ -117,6 +114,13 @@ extension FormCell {
         NSLayoutConstraint.activate([
             self.toolbarView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 32),
             self.toolbarView.bottomAnchor.constraint(equalTo: self.contentView.topAnchor, constant: self.internalTopViewHeight)
+        ])
+    }
+    
+    private func configureTimerLayout() {
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.toolbarView.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.toolbarView.trailingAnchor, constant: 12)
         ])
     }
 }
