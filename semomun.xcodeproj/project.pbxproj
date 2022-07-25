@@ -29,7 +29,6 @@
 		2511296428780425008A0EF9 /* UserTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2511296328780425008A0EF9 /* UserTagListView.swift */; };
 		2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2511944828597E2B0028F743 /* ExplanationSelectable.swift */; };
 		251435CC2859A9500084ABA8 /* CellLayoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251435CB2859A9500084ABA8 /* CellLayoutable.swift */; };
-		251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */; };
 		251DC47127B63F0900F1CE27 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC47027B63F0800F1CE27 /* UIImage.swift */; };
 		251E2F7B287FC7E1005FBDC4 /* SearchBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E2F7A287FC7E1005FBDC4 /* SearchBarTextField.swift */; };
 		251E2F7E287FDE24005FBDC4 /* SearchTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E2F7D287FDE24005FBDC4 /* SearchTagView.swift */; };
@@ -270,7 +269,6 @@
 		87C85E9C276F6B7F001C9C4A /* Page_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9B276F6B7F001C9C4A /* Page_Core.swift */; };
 		87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */; };
 		87C85EB3276F6CBE001C9C4A /* SectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB2276F6CBE001C9C4A /* SectionManager.swift */; };
-		87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */; };
 		87C85EB9276F6CF1001C9C4A /* MultipleWith5Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */; };
 		87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBA276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift */; };
 		87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C85EBC276F6D13001C9C4A /* PageData.swift */; };
@@ -356,7 +354,6 @@
 		2511296328780425008A0EF9 /* UserTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagListView.swift; sourceTree = "<group>"; };
 		2511944828597E2B0028F743 /* ExplanationSelectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationSelectable.swift; sourceTree = "<group>"; };
 		251435CB2859A9500084ABA8 /* CellLayoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLayoutable.swift; sourceTree = "<group>"; };
-		251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredFrameLabel.swift; sourceTree = "<group>"; };
 		251DC47027B63F0800F1CE27 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		251E2F7A287FC7E1005FBDC4 /* SearchBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTextField.swift; sourceTree = "<group>"; };
 		251E2F7D287FDE24005FBDC4 /* SearchTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagView.swift; sourceTree = "<group>"; };
@@ -599,7 +596,6 @@
 		87C85E9B276F6B7F001C9C4A /* Page_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page_Core.swift; sourceTree = "<group>"; };
 		87C85E9D276F6B8E001C9C4A /* Problem_Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem_Core.swift; sourceTree = "<group>"; };
 		87C85EB2276F6CBE001C9C4A /* SectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionManager.swift; sourceTree = "<group>"; };
-		87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemNameCell.swift; sourceTree = "<group>"; };
 		87C85EB8276F6CF1001C9C4A /* MultipleWith5Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith5Cell.swift; sourceTree = "<group>"; };
 		87C85EBA276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithNoAnswerCell.swift; sourceTree = "<group>"; };
 		87C85EBC276F6D13001C9C4A /* PageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageData.swift; sourceTree = "<group>"; };
@@ -763,7 +759,6 @@
 				8769EFB1288557870047A692 /* Popup */,
 				87B660602880FE5F009FE9B2 /* SignupVC.swift */,
 				878B540A28816225002B5344 /* SignupVM.swift */,
-				251DC46D27B3B6F300F1CE27 /* ColoredFrameLabel.swift */,
 				25B7B0C227D85A500012F0FF /* LoginSignupVM.swift */,
 				258162C627D8AF6500ECDC27 /* LoginSignupStatus.swift */,
 			);
@@ -1441,7 +1436,6 @@
 				8716E955279A623500B33A5E /* StudyVC.swift */,
 				87C85EB2276F6CBE001C9C4A /* SectionManager.swift */,
 				8778D28328695331002B1684 /* PracticeTestManager.swift */,
-				87C85EB6276F6CE3001C9C4A /* ProblemNameCell.swift */,
 				879CC218286955C4007E3508 /* Protocol */,
 				87C85EA9276F6C55001C9C4A /* Model */,
 			);
@@ -2082,7 +2076,6 @@
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
-				87C85EB7276F6CE3001C9C4A /* ProblemNameCell.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
@@ -2101,7 +2094,6 @@
 				87C85E7F276F69CD001C9C4A /* UserInfo.swift in Sources */,
 				250B2857287405B2000578BC /* UIFont.swift in Sources */,
 				2502533D277AB30F0049F342 /* SchoolDTO.swift in Sources */,
-				251DC46E27B3B6F300F1CE27 /* ColoredFrameLabel.swift in Sources */,
 				879D3C99288D7CD50075568C /* ProblemCell.swift in Sources */,
 				87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
