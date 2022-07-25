@@ -34,6 +34,24 @@ final class StudyShortTextAnswerView: UIView {
         textField.backgroundColor = UIColor.getSemomunColor(.white)
         return textField
     }()
+    private var answerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.smallStyleParagraph
+        label.textColor = UIColor.systemRed
+        NSLayoutConstraint.activate([
+            label.heightAnchor.constraint(equalToConstant: 14),
+            label.widthAnchor.constraint(equalToConstant: 156)
+        ])
+        return label
+    }()
+    private var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        return stackView
+    }()
     private var terminated: Bool = false
     
     convenience init() {
@@ -58,12 +76,15 @@ final class StudyShortTextAnswerView: UIView {
             self.topBar.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
-        self.addSubview(self.textField)
+        self.stackView.addArrangedSubview(self.textField)
+        self.stackView.addArrangedSubview(self.answerLabel)
+        self.answerLabel.isHidden = true
+        self.addSubview(self.stackView)
         NSLayoutConstraint.activate([
-            self.textField.topAnchor.constraint(equalTo: self.topBar.bottomAnchor, constant: 8),
-            self.textField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            self.textField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            self.textField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
+            self.stackView.topAnchor.constraint(equalTo: self.topBar.bottomAnchor, constant: 8),
+            self.stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            self.stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            self.stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
         ])
     }
 }
@@ -74,10 +95,20 @@ extension StudyShortTextAnswerView {
     }
     
     func configureUserAnsser(_ userAnswer: String?) {
+        self.answerLabel.isHidden = true
+        self.textField.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
         self.textField.text = userAnswer ?? ""
     }
     
     func terminate(answer: String, userAnswer: String?) {
-        
+        if userAnswer == answer {
+            self.textField.text = userAnswer
+            self.textField.layer.borderColor = UIColor.systemGreen.cgColor
+        } else {
+            self.answerLabel.text = answer
+            self.textField.text = userAnswer
+            self.textField.layer.borderColor = UIColor.systemRed.cgColor
+            self.answerLabel.isHidden = false
+        }
     }
 }
