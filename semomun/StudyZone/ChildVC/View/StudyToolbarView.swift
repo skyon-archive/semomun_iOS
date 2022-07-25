@@ -10,57 +10,129 @@ import UIKit
 protocol StudyToolbarViewDelegate: AnyObject {
     func toggleBookmark()
     func toggleExplanation()
-    func showAnswer()
 }
 
 final class StudyToolbarView: UIStackView {
-    private let delegate: StudyToolbarViewDelegate
-    
-    private lazy var bookmarkImageView: UIButton = {
+    /* public */
+    static let height: CGFloat = 36
+    var bookmarkSelected: Bool {
+        return self.bookmarkButton.isSelected
+    }
+    /* private */
+    private weak var delegate: StudyToolbarViewDelegate?
+    private let answerView = AnswerView()
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .getSemomunColor(.background)
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+        view.layer.cornerRadius = .cornerRadius12
+        view.layer.cornerCurve = .continuous
+        view.layer.masksToBounds = true
+        return view
+    }()
+    private lazy var bookmarkButton: UIButton = {
         let button = UIButton(type: .custom)
         button.widthAnchor.constraint(equalToConstant: 22).isActive = true
         button.setImageWithSVGTintColor(semomunImage: .bookmarkOutline, color: .lightGray)
-        button.addAction(UIAction { [weak self] _ in self?.delegate.toggleBookmark() }, for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in
+            button.isSelected.toggle()
+            button.tintColor = button.isSelected ? .getSemomunColor(.blueRegular) : .getSemomunColor(.lightGray)
+            self?.delegate?.toggleBookmark()
+        }, for: .touchUpInside)
         return button
     }()
     private lazy var explanationButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.titleLabel?.text = "해설"
+        button.setTitle("해설", for: .normal)
+        button.setTitleColor(.getSemomunColor(.black), for: .normal)
         button.titleLabel?.font = .heading5
-        button.titleLabel?.textColor = .getSemomunColor(.black)
-        button.addAction(UIAction { [weak self] _ in self?.delegate.toggleExplanation() }, for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in self?.delegate?.toggleExplanation() }, for: .touchUpInside)
         return button
     }()
     private lazy var answerButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.titleLabel?.text = "정답"
+        button.setTitle("정답", for: .normal)
+        button.setTitleColor(.getSemomunColor(.black), for: .normal)
         button.titleLabel?.font = .heading5
-        button.titleLabel?.textColor = .getSemomunColor(.black)
-        button.addAction(UIAction { [weak self] _ in self?.delegate.showAnswer() }, for: .touchUpInside)
+        button.addAction(UIAction { [weak self] _ in self?.showAnswer() }, for: .touchUpInside)
         return button
     }()
+    private var answer: String?
     
     init(delegate: StudyToolbarViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
+        
         self.translatesAutoresizingMaskIntoConstraints = false
         self.spacing = 12
-        self.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
-        self.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        self.backgroundColor = .getSemomunColor(.background)
+        self.directionalLayoutMargins = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
+        self.isLayoutMarginsRelativeArrangement = true
+        self.heightAnchor.constraint(equalToConstant: Self.height).isActive = true
         
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
-        self.layer.cornerRadius = .cornerRadius12
-        self.layer.cornerCurve = .continuous
-        self.layer.masksToBounds = true
+        self.addSubview(self.backgroundView)
+        NSLayoutConstraint.activate([
+            self.backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
         
-        self.addArrangedSubview(self.bookmarkImageView)
+        self.addArrangedSubview(self.bookmarkButton)
         self.addArrangedSubview(self.answerButton)
         self.addArrangedSubview(self.answerButton)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateUI(mode: StudyVC.Mode, problem: Problem_Core?, answer: String?) {
+        if let answer = answer {
+            self.answerView.configureAnswer(to: answer)
+        }
+        
+        self.answerButton.isHidden = problem?.terminated ?? true
+        self.bookmarkButton.isSelected = problem?.star ?? false
+        
+        self.answerButton.isHidden = false
+        if answer != nil {
+            self.answerButton.isUserInteractionEnabled = true
+            self.answerButton.setTitleColor(.getSemomunColor(.black), for: .normal)
+        } else {
+            self.answerButton.isUserInteractionEnabled = false
+            self.answerButton.setTitleColor(.getSemomunColor(.lightGray), for: .normal)
+        }
+        
+        self.explanationButton.isHidden = false
+        self.explanationButton.isSelected = false
+        if problem?.explanationImage != nil {
+            self.explanationButton.isUserInteractionEnabled = true
+            self.explanationButton.setTitleColor(.getSemomunColor(.black), for: .normal)
+        } else {
+            self.explanationButton.isUserInteractionEnabled = false
+            self.explanationButton.setTitleColor(.getSemomunColor(.lightGray), for: .normal)
+        }
+        
+        if mode == .practiceTest && (problem?.terminated == false) {
+            self.explanationButton.isHidden = true
+            self.answerButton.isHidden = true
+        }
+    }
+    
+    func hideAnswerView() {
+        self.answerView.removeFromSuperview()
+    }
+}
+
+extension StudyToolbarView {
+    private func showAnswer() {
+        self.addSubview(self.answerView)
+        NSLayoutConstraint.activate([
+            self.answerView.topAnchor.constraint(equalTo: self.answerButton.bottomAnchor),
+            self.answerView.leadingAnchor.constraint(equalTo: self.answerButton.centerXAnchor)
+        ])
+        self.answerView.showShortTime()
     }
 }

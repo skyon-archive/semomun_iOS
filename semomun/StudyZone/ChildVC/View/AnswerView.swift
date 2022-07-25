@@ -42,6 +42,10 @@ final class AnswerView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    func configureAnswer(to answer: String) {
+        self.answerLabel.text = answer
+    }
+    
     /// 뷰를 짧은 시간 보이고 상위 뷰에서 제거.
     func showShortTime() {
         UIView.animate(withDuration: 0.2) { [weak self] in
@@ -83,14 +87,9 @@ final class AnswerView: UIView {
             self.triangle.widthAnchor.constraint(equalToConstant: 28),
         ])
     }
-    
-    func configureAnswer(to answer: String) {
-        self.answerLabel.text = answer
-    }
 }
 
 class TriangleView : UIView {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

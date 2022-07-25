@@ -16,8 +16,7 @@ class MultipleWith5AnswerVC: FormOne  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cellIdentifier = MultipleWith5Cell.identifier
-        self.configureCellRegister(nibName: cellIdentifier, reuseIdentifier: cellIdentifier)
+        self.configureCellRegister(cellClass: MultipleWith5Cell.self, reuseIdentifier: MultipleWith5Cell.identifier)
         self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     

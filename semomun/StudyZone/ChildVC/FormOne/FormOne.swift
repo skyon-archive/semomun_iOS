@@ -93,6 +93,10 @@ class FormOne: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate  {
         self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
+    func configureCellRegister(cellClass: UICollectionViewCell.Type, reuseIdentifier: String) {
+        self.subproblemCollectionView.register(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
     // MARK: 자식 클래스에서 설정 필수
     func configurePagePencilData(data: Data?, width: Double?) {
         self.pagePencilData = data

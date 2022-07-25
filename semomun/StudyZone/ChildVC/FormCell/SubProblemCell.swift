@@ -109,25 +109,25 @@ class SubProblemCell: FormCell, CellLayoutable {
     }
     
     @IBAction func showAnswer(_ sender: Any) {
-        guard let answer = self.problem?.answer else { return }
-        self.answerView.removeFromSuperview()
-        
-        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
-        self.answerView.configureAnswer(to: answerConverted)
-        self.contentView.addSubview(self.answerView)
-        self.answerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
-            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
-        ])
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.answerView.alpha = 1
-        } completion: { [weak self] _ in
-            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
-                self?.answerView.alpha = 0
-            }
-        }
+//        guard let answer = self.problem?.answer else { return }
+//        self.answerView.removeFromSuperview()
+//        
+//        let answerConverted = answer.split(separator: "$").joined(separator: ", ")
+//        self.answerView.configureAnswer(to: answerConverted)
+//        self.contentView.addSubview(self.answerView)
+//        self.answerView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            self.answerView.topAnchor.constraint(equalTo: self.answerBT.bottomAnchor),
+//            self.answerView.leadingAnchor.constraint(equalTo: self.answerBT.centerXAnchor),
+//        ])
+//        UIView.animate(withDuration: 0.2) { [weak self] in
+//            self?.answerView.alpha = 1
+//        } completion: { [weak self] _ in
+//            UIView.animate(withDuration: 0.2, delay: 2) { [weak self] in
+//                self?.answerView.alpha = 0
+//            }
+//        }
     }
     
     @IBAction func returnButtonAction(_ sender: Any) {
