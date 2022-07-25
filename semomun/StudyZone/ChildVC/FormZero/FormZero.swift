@@ -53,11 +53,11 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         return 51
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLoader()
         self.configureSubViews()
+        self.configureToolbarLayout()
         self.configureTimerLayout()
         self.addPageSwipeGesture()
     }
@@ -116,17 +116,19 @@ extension FormZero {
     }
     
     private func configureSubViews() {
-        self.view.backgroundColor = .getSemomunColor(.background)
-        self.view.addSubview(self.canvasView)
+        self.view.backgroundColor = .getSemomunColor(.white)
+        self.view.addSubviews(self.canvasView, self.toolbarView, self.timerView)
         
         self.canvasView.addDoubleTabGesture()
         self.canvasView.addSubview(self.imageView)
         self.canvasView.sendSubviewToBack(self.imageView)
     }
     
-    private func stopLoader() {
-        self.loader.isHidden = true
-        self.loader.stopAnimating()
+    private func configureToolbarLayout() {
+        NSLayoutConstraint.activate([
+            self.toolbarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 32),
+            self.toolbarView.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: self.topViewHeight)
+        ])
     }
     
     private func configureTimerLayout() {
@@ -134,6 +136,11 @@ extension FormZero {
             self.timerView.centerYAnchor.constraint(equalTo: self.toolbarView.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.toolbarView.trailingAnchor, constant: 12)
         ])
+    }
+    
+    private func stopLoader() {
+        self.loader.isHidden = true
+        self.loader.stopAnimating()
     }
 }
 

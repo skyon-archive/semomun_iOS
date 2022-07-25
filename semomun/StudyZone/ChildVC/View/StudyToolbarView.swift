@@ -96,6 +96,7 @@ final class StudyToolbarView: UIStackView {
         
         self.answerButton.isHidden = problem?.terminated ?? true
         self.bookmarkButton.isSelected = problem?.star ?? false
+        self.bookmarkButton.tintColor = self.bookmarkButton.isSelected ? .getSemomunColor(.blueRegular) : .getSemomunColor(.lightGray)
         
         self.answerButton.isHidden = false
         if answer != nil {
