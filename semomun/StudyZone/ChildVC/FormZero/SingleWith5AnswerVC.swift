@@ -17,6 +17,10 @@ final class SingleWith5AnswerVC: FormZero {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         self.configureCheckView()
     }
     
@@ -31,12 +35,12 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     private func configureCheckView() {
+        self.view.layoutIfNeeded()
         self.answerCheckView.configureDelegate(delegate: self)
         self.view.addSubview(self.answerCheckView)
-        NSLayoutConstraint.activate([
-            self.answerCheckView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -16),
-            self.answerCheckView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
-        ])
+        let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
+        let size = Study5AnswerCheckView.size
+        self.answerCheckView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
     }
     
     private func updateCheckView() {

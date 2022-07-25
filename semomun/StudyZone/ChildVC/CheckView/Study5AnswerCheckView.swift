@@ -8,6 +8,7 @@
 import UIKit
 
 final class Study5AnswerCheckView: UIView {
+    static let size = CGSize(172, 56)
     private weak var delegate: AnswerCheckDelegate?
     private var topBar = StudyAnswerViewTopBar()
     private var answersStackView: UIStackView = {
@@ -22,14 +23,14 @@ final class Study5AnswerCheckView: UIView {
     
     convenience init() {
         self.init(frame: CGRect())
-        self.translatesAutoresizingMaskIntoConstraints = false
+        
         self.commonInit()
         self.configureButtons()
         self.configureLayout()
     }
     
     private func commonInit() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        
         self.clipsToBounds = true
         self.backgroundColor = UIColor.getSemomunColor(.background)
         self.layer.cornerRadius = CGFloat.cornerRadius12
