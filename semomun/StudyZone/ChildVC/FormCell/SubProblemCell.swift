@@ -116,7 +116,7 @@ class SubProblemCell: FormCell, CellLayoutable {
         super.prepareForReuse(contentImage, problem, toolPicker)
 
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
-        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: .some(answer))
+        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
         
 //        guard let subProblemCount = problem?.subProblemsCount, subProblemCount > 0 else { return }
 //

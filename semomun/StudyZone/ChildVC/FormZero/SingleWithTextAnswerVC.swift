@@ -33,7 +33,7 @@ final class SingleWithTextAnswerVC: FormZero {
         self.updateSolved()
         self.updateUIIfTerminated()
         if let viewModel = viewModel {
-            self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer: .some( viewModel.answerStringForUser()))
+            self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer:  viewModel.answerStringForUser())
             self.toolbarView.configureDelegate(self)
         }
     }
