@@ -61,9 +61,6 @@ final class SingleWithNoAnswerVC: FormZero {
     override var topViewHeight: CGFloat {
         return self.topView.frame.height
     }
-    override var topViewTrailingConstraint: NSLayoutConstraint? {
-        return nil
-    }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()

@@ -28,6 +28,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     /* 자식 VC에서 설정가능한 View들 */
     let answerView = AnswerView()
     let timerView = ProblemTimerView()
+    let toolbarView = StudyToolbarView()
     
     lazy var correctImageView: CorrectImageView = {
         let imageView = CorrectImageView()
@@ -51,13 +52,13 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         assertionFailure()
         return 51
     }
-    var topViewTrailingConstraint: NSLayoutConstraint? { return nil }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureLoader()
         self.configureSubViews()
+        self.configureTimerLayout()
         self.addPageSwipeGesture()
     }
     
@@ -115,7 +116,7 @@ extension FormZero {
     }
     
     private func configureSubViews() {
-        self.view.backgroundColor = UIColor(.lightGray)
+        self.view.backgroundColor = .getSemomunColor(.background)
         self.view.addSubview(self.canvasView)
         
         self.canvasView.addDoubleTabGesture()
@@ -126,6 +127,13 @@ extension FormZero {
     private func stopLoader() {
         self.loader.isHidden = true
         self.loader.stopAnimating()
+    }
+    
+    private func configureTimerLayout() {
+        NSLayoutConstraint.activate([
+            self.timerView.centerYAnchor.constraint(equalTo: self.toolbarView.centerYAnchor),
+            self.timerView.leadingAnchor.constraint(equalTo: self.toolbarView.trailingAnchor, constant: 12)
+        ])
     }
 }
 
@@ -170,8 +178,6 @@ extension FormZero {
         if self.shouldShowExplanation, frameUpdate {
             self.explanationView.updateFrame(contentSize: self.view.frame.size, topHeight: self.topViewHeight)
         }
-        // explanation 여부에 따른 topViewTrailing 조절
-        self.updateTopViewTrailing()
         // 문제 이미지 크기 설정
         self.imageView.frame.size = self.canvasView.contentSize
         // 채점 이미지 크기 설정
@@ -193,14 +199,6 @@ extension FormZero {
             } else {
                 self.canvasView.updateDrawingRatio(imageSize: imageSize)
             }
-        }
-    }
-    
-    private func updateTopViewTrailing() {
-        if self.shouldShowExplanation && UIWindow.isLandscape {
-            self.topViewTrailingConstraint?.constant = self.view.frame.width/2
-        } else {
-            self.topViewTrailingConstraint?.constant = 0
         }
     }
     

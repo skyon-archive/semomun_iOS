@@ -61,7 +61,8 @@ final class StudyToolbarView: UIStackView {
     }()
     private var answer: String?
     
-    init(delegate: StudyToolbarViewDelegate) {
+    /// FormZero에서는 init으로 delegate를 전달
+    init(delegate: StudyToolbarViewDelegate? = nil) {
         self.delegate = delegate
         super.init(frame: .zero)
         
@@ -119,6 +120,11 @@ final class StudyToolbarView: UIStackView {
             self.explanationButton.isHidden = true
             self.answerButton.isHidden = true
         }
+    }
+    
+    /// FormOne에서는 configure로 Delegate 전달
+    func configureDelegate(_ delegate: StudyToolbarViewDelegate) {
+        self.delegate = delegate
     }
     
     func hideAnswerView() {

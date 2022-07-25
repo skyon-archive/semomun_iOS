@@ -44,7 +44,7 @@ final class StudyVC: UIViewController {
     private var practiceTestManager: PracticeTestManager?
     private var cancellables: Set<AnyCancellable> = []
     private lazy var singleWith5Answer: SingleWith5AnswerVC = {
-        return UIStoryboard(name: SingleWith5AnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWith5AnswerVC.identifier) as? SingleWith5AnswerVC ?? SingleWith5AnswerVC()
+        return SingleWith5AnswerVC()
     }()
     private lazy var singleWithTextAnswer: SingleWithTextAnswerVC = {
         return UIStoryboard(name: SingleWithTextAnswerVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithTextAnswerVC.identifier) as? SingleWithTextAnswerVC ?? SingleWithTextAnswerVC()
