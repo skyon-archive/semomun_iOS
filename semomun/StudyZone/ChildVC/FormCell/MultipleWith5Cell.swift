@@ -58,16 +58,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
         self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
     }
-    
-    // MARK: override 구현
-    override func configureTimerLayout() {
-//        self.contentView.addSubview(self.timerView)
-//
-//        NSLayoutConstraint.activate([
-//            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-//            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-//        ])
-    }
 }
 
 // MARK: Update

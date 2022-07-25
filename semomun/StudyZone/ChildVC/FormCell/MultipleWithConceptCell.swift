@@ -33,17 +33,6 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
         super.prepareForReuse(contentImage, problem, toolPicker)
         self.configureStar()
     }
-    
-    // MARK: override 구현
-    override func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        self.timerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.bookmarkBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.bookmarkBT.trailingAnchor, constant: 9)
-        ])
-    }
 }
 
 // MARK: Update

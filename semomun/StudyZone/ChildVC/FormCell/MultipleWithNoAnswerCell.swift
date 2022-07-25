@@ -22,11 +22,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     @IBOutlet weak var explanationBT: UIButton!
     @IBOutlet weak var topView: UIView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.configureTimerLayout()
-    }
-    
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
         let status = self.bookmarkBT.isSelected
@@ -45,16 +40,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
         super.prepareForReuse(contentImage, problem, toolPicker)
         self.updateStar()
         self.updateExplanationBT()
-    }
-    
-    // MARK: override 구현
-    override func configureTimerLayout() {
-        self.contentView.addSubview(self.timerView)
-        
-        NSLayoutConstraint.activate([
-            self.timerView.centerYAnchor.constraint(equalTo: self.explanationBT.centerYAnchor),
-            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
-        ])
     }
 }
 
