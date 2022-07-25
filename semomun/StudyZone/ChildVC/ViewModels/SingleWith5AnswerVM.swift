@@ -46,7 +46,11 @@ final class SingleWith5AnswerVM: PageVM {
     func updateSolved(userAnswer: String, problem: Problem_Core? = nil) {
         if self.shouldChooseMultipleAnswer {
             var selectedAnswers = self.savedSolved
-            if selectedAnswers.contains(userAnswer) == false { selectedAnswers.append(userAnswer) }
+            if selectedAnswers.contains(userAnswer) == false {
+                selectedAnswers.append(userAnswer)
+            } else {
+                selectedAnswers.removeAll(where: { $0 == userAnswer })
+            }
             let answersConverted = selectedAnswers.sorted().map { String($0) }.joined(separator: ",")
             self.updateSolved(withSelectedAnswer: answersConverted, problem: problem)
         } else {

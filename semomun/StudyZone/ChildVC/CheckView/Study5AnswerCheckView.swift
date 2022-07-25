@@ -52,13 +52,12 @@ final class Study5AnswerCheckView: UIView {
     }
     
     private func updateButtonsUI(selectedTag: Int) {
-        self.answersStackView.arrangedSubviews.forEach { button in
-            if let button = button as? StudyCircleAnswerButton {
-                if button.tag == selectedTag {
-                    button.select()
-                } else {
-                    button.deSelect()
-                }
+        let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
+        if self.shouldMultipleAnswer == true {
+            buttons[selectedTag-1].isSelected.toggle()
+        } else {
+            buttons.forEach { button in
+                button.isSelected = button.tag == selectedTag
             }
         }
     }
@@ -90,19 +89,17 @@ extension Study5AnswerCheckView {
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
         self.shouldMultipleAnswer = shouldMultipleAnswer
         if shouldMultipleAnswer == true { // 여러 문제 select
-            
+            buttons.forEach { button in
+                button.isSelected = userAnswer.contains(button.answer)
+            }
         } else { // 한문제 select
             guard let userAnswer = userAnswer.first else {
-                buttons.forEach { $0.deSelect() }
+                buttons.forEach { $0.isSelected = false }
                 return
             }
             
             buttons.forEach { button in
-                if button.answer == userAnswer {
-                    button.select()
-                } else {
-                    button.deSelect()
-                }
+                button.isSelected = button.answer == userAnswer
             }
         }
     }
