@@ -153,6 +153,9 @@ final class SlideSectionContentsView: UIView {
         label.font = UIFont.heading4
         label.textColor = UIColor.getSemomunColor(.black)
         label.textAlignment = .left
+        NSLayoutConstraint.activate([
+            label.widthAnchor.constraint(equalToConstant: 22)
+        ])
         return label
     }()
     private var sectionTitleLabel: UILabel = {
