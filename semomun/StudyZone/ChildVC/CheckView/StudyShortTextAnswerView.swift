@@ -1,5 +1,5 @@
 //
-//  StudySimpleAnswerView.swift
+//  StudyShortTextAnswerView.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StudySimpleAnswerView: UIView {
+final class StudyShortTextAnswerView: UIView {
     static func size(terminated: Bool, isCorrect: Bool) -> CGSize {
         if terminated == false {
             return CGSize(172, 60)
@@ -68,7 +68,7 @@ final class StudySimpleAnswerView: UIView {
     }
 }
 
-extension StudySimpleAnswerView {
+extension StudyShortTextAnswerView {
     func configureDelegate(delegate: UITextFieldDelegate) {
         self.textField.delegate = delegate
     }

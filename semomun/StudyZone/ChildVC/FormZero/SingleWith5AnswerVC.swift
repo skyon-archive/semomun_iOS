@@ -44,9 +44,9 @@ final class SingleWith5AnswerVC: FormZero {
     }
     
     private func tempConfigure() {
-        let tempView = StudySimpleAnswerView()
+        let tempView = StudyLongTextAnswerView()
         self.view.addSubview(tempView)
-        tempView.frame = CGRect(origin: CGPoint(16, self.answerCheckView.frame.minY), size: StudySimpleAnswerView.size(terminated: false, isCorrect: false))
+        tempView.frame = CGRect(origin: CGPoint(16, self.answerCheckView.frame.minY-16), size: StudyLongTextAnswerView.size)
     }
     
     private func updateCheckView() {
