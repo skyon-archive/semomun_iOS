@@ -56,9 +56,7 @@ final class StudyVC: UIViewController {
     private var multipleWithSubProblemsWide = MultipleWithSubProblemsWideVC()
     private var multipleWithConceptWide = MultipleWithConceptWideVC()
     private var multipleWithNoAnswerWide = MultipleWithNoAnswerWideVC()
-    private lazy var singleWithSubProblems = {
-        return UIStoryboard(name: SingleWithSubProblemsVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: SingleWithSubProblemsVC.identifier) as? SingleWithSubProblemsVC ?? SingleWithSubProblemsVC()
-    }()
+    private lazy var singleWithSubProblems = SingleWithSubProblemsVC()
     private var didSlideViewShow: Bool = false
     private lazy var slideSectionContentsView: SlideSectionContentsView = {
         let view = SlideSectionContentsView()
