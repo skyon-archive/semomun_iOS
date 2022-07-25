@@ -1,5 +1,5 @@
 //
-//  Study4AnswerCheckView.swift
+//  Study2AnswerCheckView.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/25.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class Study4AnswerCheckView: UIView {
-    static let size = CGSize(140, 56)
+final class Study2AnswerCheckView: UIView {
+    static let size = CGSize(76, 56)
     private weak var delegate: AnswerCheckDelegate?
     private var topBar = StudyAnswerViewTopBar()
     private var answersStackView: UIStackView = {
@@ -19,7 +19,6 @@ final class Study4AnswerCheckView: UIView {
         return stackView
     }()
     private var terminated: Bool = false
-    private var shouldMultipleAnswer: Bool = false
     
     convenience init() {
         self.init(frame: CGRect())
@@ -38,7 +37,7 @@ final class Study4AnswerCheckView: UIView {
     }
     
     private func configureButtons() {
-        [("1", 1), ("2", 2), ("3", 3), ("4", 4)].forEach { answer, tag in
+        [("O", 1), ("X", 2)].forEach { answer, tag in
             let button = StudyCircleAnswerButton(answer: answer, tag: tag)
             self.answersStackView.addArrangedSubview(button)
             button.addAction(UIAction(handler: { [weak self] _ in
@@ -52,12 +51,8 @@ final class Study4AnswerCheckView: UIView {
     
     private func updateButtonsUI(selectedTag: Int) {
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
-        if self.shouldMultipleAnswer == true {
-            buttons[selectedTag-1].isSelected.toggle()
-        } else {
-            buttons.forEach { button in
-                button.isSelected = button.tag == selectedTag
-            }
+        buttons.forEach { button in
+            button.isSelected = button.tag == selectedTag
         }
     }
     
@@ -78,39 +73,27 @@ final class Study4AnswerCheckView: UIView {
     }
 }
 
-extension Study4AnswerCheckView {
+extension Study2AnswerCheckView {
     func configureDelegate(delegate: AnswerCheckDelegate) {
         self.delegate = delegate
     }
     
-    func configureUserAnswer(_ userAnswer: [String], _ terminated: Bool, shouldMultipleAnswer: Bool) {
+    func configureUserAnswer(_ userAnswer: String?, _ terminated: Bool) {
         self.terminated = terminated
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
-        self.shouldMultipleAnswer = shouldMultipleAnswer
-        if shouldMultipleAnswer == true { // 여러 문제 select
-            buttons.forEach { button in
-                button.isSelected = userAnswer.contains(button.answer)
-            }
-        } else { // 한문제 select
-            guard let userAnswer = userAnswer.first else {
-                buttons.forEach { $0.isSelected = false }
-                return
-            }
-            
-            buttons.forEach { button in
-                button.isSelected = button.answer == userAnswer
-            }
+        buttons.forEach { button in
+            button.isSelected = button.answer == userAnswer
         }
     }
     
-    func terminate(answer: [String], userAnswer: [String]) {
+    func terminate(answer: String, userAnswer: String?) {
         self.terminated = true
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
         buttons.forEach { button in
-            if answer.contains(button.answer) {
-                button.correct(isSelected: userAnswer.contains(button.answer))
+            if answer == button.answer {
+                button.correct(isSelected: userAnswer == button.answer)
             } else {
-                button.wrong(isSelected: userAnswer.contains(button.answer))
+                button.wrong(isSelected: userAnswer == button.answer)
             }
         }
     }
