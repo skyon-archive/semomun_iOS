@@ -2367,10 +2367,7 @@
     <resources>
         <image name="bookmarkFill" width="48" height="48"/>
         <image name="bookmarkOutline" width="24" height="24"/>
-<<<<<<< HEAD
         <image name="bookmarkSolid" width="20" height="20"/>
-=======
->>>>>>> d239dbc7 ([Feat] SingleWithTextAnswerVC 새로운 디자인 일부 적용)
         <image name="chevronLeftOutline" width="24" height="24"/>
         <image name="chevronRightOutline" width="24" height="24"/>
         <image name="clipboardCheckOutline" width="24" height="24"/>

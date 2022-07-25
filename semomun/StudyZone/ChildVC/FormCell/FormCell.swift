@@ -37,10 +37,23 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     }()
     private let correctImageView = CorrectImageView()
     private let canvasView = RotationableCanvasView()
+    private lazy var testLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .blue
+        self.contentView.addSubview(label)
+        label.text = "ASDASD"
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
+        ])
+        return label
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureSubViews()
+        print(testLabel)
         self.configureTimerLayout()
     }
     
