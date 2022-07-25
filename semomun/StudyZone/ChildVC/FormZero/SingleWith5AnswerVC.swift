@@ -11,7 +11,6 @@ import PencilKit
 final class SingleWith5AnswerVC: FormZero {
     /* public */
     static let identifier = "SingleWith5AnswerVC" // form == 0 && type == 5
-    static let storyboardName = "Study"
     var viewModel: SingleWith5AnswerVM?
     /* private */
 //    @IBOutlet var checkButtons: [UIButton]!
@@ -37,8 +36,9 @@ final class SingleWith5AnswerVC: FormZero {
         super.viewWillAppear(animated)
         self.updateCheckedButtons()
         self.updateUIIfTerminated()
-        if let viewModel = viewModel{
+        if let viewModel = viewModel {
             self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer: viewModel.answerStringForUser())
+            self.toolbarView.configureDelegate(self)
         }
     }
     
