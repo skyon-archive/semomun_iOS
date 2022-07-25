@@ -37,7 +37,7 @@ final class ConceptVC: FormZero {
         super.viewWillDisappear(animated)
         self.endTimeRecord()
     }
-    
+    /Users/seongyeolyi/Developer/semomun_iOS/semomun/StudyZone/ChildVC/FormZero/ConceptVC.swift
     @IBAction func toggleBookmark(_ sender: Any) {
         self.bookmarkBT.isSelected.toggle()
         self.viewModel?.updateStar(to: self.bookmarkBT.isSelected)
