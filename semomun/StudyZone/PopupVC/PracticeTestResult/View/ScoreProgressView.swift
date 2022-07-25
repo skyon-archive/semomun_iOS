@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScoreProgressView: UIStackView {
+final class ScoreProgressView: UIStackView {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class ScoreProgressView: UIStackView {
         label.font = .heading5
         label.textColor = .getSemomunColor(.lightGray)
         label.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        label.text = "- "
+        label.text = "-"
         return label
     }()
     private let progressBarWidth: CGFloat = 350
