@@ -43,6 +43,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.configureSubViews()
         self.configureToolbarLayout()
         self.configureTimerLayout()
+        self.configureBorderLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -121,6 +122,19 @@ extension FormCell {
         NSLayoutConstraint.activate([
             self.timerView.centerYAnchor.constraint(equalTo: self.toolbarView.centerYAnchor),
             self.timerView.leadingAnchor.constraint(equalTo: self.toolbarView.trailingAnchor, constant: 12)
+        ])
+    }
+    
+    private func configureBorderLayout() {
+        let borderView = UIView()
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        borderView.backgroundColor = .getSemomunColor(.border)
+        self.contentView.addSubview(borderView)
+        NSLayoutConstraint.activate([
+            borderView.heightAnchor.constraint(equalToConstant: 1),
+            borderView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            borderView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            borderView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor)
         ])
     }
 }
