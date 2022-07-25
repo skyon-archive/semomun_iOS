@@ -251,7 +251,7 @@ final class SectionManager {
         return self.problems.filter { $0.star == true }
     }
     
-    func selecteProblem(to problem: Problem_Core) {
+    func selectProblem(to problem: Problem_Core) {
         guard let index = self.problems.firstIndex(of: problem) else { return }
         self.changePage(at: index)
     }

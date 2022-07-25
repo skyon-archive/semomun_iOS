@@ -175,6 +175,7 @@ final class SlideSectionContentsView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 4
         layout.minimumLineSpacing = 12
+        layout.itemSize = CGSize(40, 40)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -188,7 +189,29 @@ final class SlideSectionContentsView: UIView {
         self.sectionNumLabel.text = String(format: "%02d", sectionNum)
         self.sectionTitleLabel.text = sectionTitle
     }
+}
+
+// MARK: Public functions
+extension SlideSectionContentsView {
+    func configure(workbookTitle: String, sectionNum: Int, sectionTitle: String, delegate: StudyContentsSlideDelegate) {
+        self.delegate = delegate
+        self.commonInit(workbookTitle: workbookTitle, sectionNum: sectionNum, sectionTitle: sectionTitle)
+        self.configureLayout()
+        self.configureCollectionView()
+    }
     
+    func configureDelegate(_ delegate: (UICollectionViewDelegate & UICollectionViewDataSource)) {
+        self.problemsCollectionView.delegate = delegate
+        self.problemsCollectionView.dataSource = delegate
+    }
+    
+    func reload() {
+        self.problemsCollectionView.reloadData()
+    }
+}
+
+// MARK: Private configure functions
+extension SlideSectionContentsView {
     private func configureLayout() {
         self.backgroundColor = UIColor.getSemomunColor(.background)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -266,24 +289,5 @@ final class SlideSectionContentsView: UIView {
     private func configureCollectionView() {
         let problemCellNib = UINib(nibName: ProblemCell.identifier, bundle: nil)
         self.problemsCollectionView.register(problemCellNib, forCellWithReuseIdentifier: ProblemCell.identifier)
-    }
-}
-
-// MARK: Public functions
-extension SlideSectionContentsView {
-    func configure(workbookTitle: String, sectionNum: Int, sectionTitle: String, delegate: StudyContentsSlideDelegate) {
-        self.delegate = delegate
-        self.commonInit(workbookTitle: workbookTitle, sectionNum: sectionNum, sectionTitle: sectionTitle)
-        self.configureLayout()
-        self.configureCollectionView()
-    }
-    
-    func configureDelegate(_ delegate: (UICollectionViewDelegate & UICollectionViewDataSource)) {
-        self.problemsCollectionView.delegate = delegate
-        self.problemsCollectionView.dataSource = delegate
-    }
-    
-    func reload() {
-        self.problemsCollectionView.reloadData()
     }
 }
