@@ -12,10 +12,10 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "MultipleWith5Cell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        return 51
+        return Study5AnswerCheckView.size.height+16
     }
     override var internalTopViewHeight: CGFloat {
-        return 51
+        return Study5AnswerCheckView.size.height+16
     }
     /* private */
     private lazy var checkImageView: UIImageView = {
@@ -25,86 +25,54 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    private let answerCheckView = Study5AnswerCheckView()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.hideCheckImage()
-    }
-
-    @IBAction func selectAnswer(_ sender: UIButton) {
-        guard let problem = self.problem,
-        problem.terminated == false else { return }
-        
-        let selectedAnswer: Int = sender.tag
-        self.updateSolved(input: "\(selectedAnswer)")
-        
-        self.updateCheckedButtons()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
         super.prepareForReuse(contentImage, problem, toolPicker, mode)
-        self.updateCheckedButtons()
-        self.updateUIIfTerminated()
         
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
         self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
-    }
-}
-
-// MARK: Update
-extension MultipleWith5Cell {
-    private func updateCheckedButtons() {
-//        self.checkButtons.forEach { $0.isSelected = false }
-//        if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
-//            self.checkButtons[solvedIndex-1].isSelected = true
-//        }
-//        self.updateButtonUI()
-    }
-
-    private func updateButtonUI() {
-//        self.checkButtons.forEach { button in
-//            if button.isSelected {
-//                button.backgroundColor = UIColor(.blueRegular)
-//                button.setTitleColor(UIColor.white, for: .normal)
-//            } else {
-//                button.backgroundColor = UIColor.white
-//                button.setTitleColor(UIColor(.blueRegular), for: .normal)
-//            }
-//        }
+        self.updateCheckView(problem: problem)
     }
     
-    private func updateUIIfTerminated() {
-        guard let problem = self.problem else { return }
-        
-        if problem.terminated {
-            if let solved = self.problem?.solved, let solvedIndex = Int(solved) {
-                self.showCheckImage(to: solvedIndex-1)
-            }
-            
-            if problem.answer != nil {
-                self.showCorrectImage(isCorrect: problem.correct)
-            }
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.configureCheckView()
     }
 }
 
+// MARK: CheckView
 extension MultipleWith5Cell {
-    private func showCheckImage(to index: Int) {
-//        self.checkImageView.image = UIImage(named: "check")
-//        self.checkButtons[index].addSubview(self.checkImageView)
-//
-//        NSLayoutConstraint.activate([
-//            self.checkImageView.widthAnchor.constraint(equalToConstant: 70),
-//            self.checkImageView.heightAnchor.constraint(equalToConstant: 70),
-//            self.checkImageView.centerXAnchor.constraint(equalTo: self.checkButtons[index].centerXAnchor, constant: 9),
-//            self.checkImageView.centerYAnchor.constraint(equalTo: self.checkButtons[index].centerYAnchor, constant: -9)
-//        ])
+    private func configureCheckView() {
+        self.answerCheckView.configureDelegate(delegate: self)
+        self.contentView.addSubview(self.answerCheckView)
+        let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
+        let size = Study5AnswerCheckView.size
+        let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
+        self.answerCheckView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
     }
-    private func hideCheckImage() {
-//        self.checkImageView.removeFromSuperview()
+    
+    private func updateCheckView(problem: Problem_Core?) {
+        guard let problem = problem else { return }
+        let userAnswer = problem.solved != nil ? [problem.solved!] : []
+        let terminated = problem.terminated
+        self.answerCheckView.configureUserAnswer(userAnswer, terminated, shouldMultipleAnswer: false)
+        
+        guard terminated == true, let answer = problem.answer else { return }
+        self.answerCheckView.terminate(answer: [answer], userAnswer: userAnswer)
+    }
+}
+
+extension MultipleWith5Cell: AnswerCheckDelegate {
+    func selectAnswer(to answer: String) {
+        self.updateSolved(input: answer)
     }
 }
