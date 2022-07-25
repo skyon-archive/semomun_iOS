@@ -68,12 +68,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
 //            self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
 //        ])
     }
-    
-    override func addTopShadow() {
-    }
-    
-    override func removeTopShadow() {
-    }
 }
 
 // MARK: Update

@@ -56,15 +56,6 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
             self.timerView.leadingAnchor.constraint(equalTo: self.explanationBT.trailingAnchor, constant: 9)
         ])
     }
-    
-    override func addTopShadow() {
-        self.topView.addAccessibleShadow()
-        self.topView.clipAccessibleShadow(at: .exceptTop)
-    }
-    
-    override func removeTopShadow() {
-        self.topView.removeAccessibleShadow()
-    }
 }
 
 // MARK: Update
