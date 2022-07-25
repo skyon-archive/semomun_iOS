@@ -694,18 +694,18 @@ extension StudyVC: UICollectionViewDelegate {
         case .contents:
             if self.mode == .default {
                 guard let selectedProblem = self.sectionManager?.problems[safe: indexPath.item] else { return }
-                self.sectionManager?.selecteProblem(to: selectedProblem)
+                self.sectionManager?.selectProblem(to: selectedProblem)
             } else {
                 guard let selectedProblem = self.practiceTestManager?.problems[safe: indexPath.item] else { return }
-                self.practiceTestManager?.selecteProblem(to: selectedProblem)
+                self.practiceTestManager?.selectProblem(to: selectedProblem)
             }
         case .bookmark:
             if self.mode == .default {
                 guard let selectedProblem = self.sectionManager?.bookmarkedProblems[safe: indexPath.item] else { return }
-                self.sectionManager?.selecteProblem(to: selectedProblem)
+                self.sectionManager?.selectProblem(to: selectedProblem)
             } else {
                 guard let selectedProblem = self.practiceTestManager?.bookmarkedProblems[safe: indexPath.item] else { return }
-                self.practiceTestManager?.selecteProblem(to: selectedProblem)
+                self.practiceTestManager?.selectProblem(to: selectedProblem)
             }
         }
         self.closeSlideView()
@@ -755,11 +755,5 @@ extension StudyVC: UICollectionViewDataSource {
             }
         }
         return cell
-    }
-}
-
-extension StudyVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(40, 40)
     }
 }
