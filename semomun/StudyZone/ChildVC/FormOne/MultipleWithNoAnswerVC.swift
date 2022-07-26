@@ -16,7 +16,7 @@ class MultipleWithNoAnswerVC: FormOne {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCellRegister(cellClass: MultipleWithNoAnswerCell.self, reuseIdentifier: MultipleWithNoAnswerCell.identifier)
+        self.configureCellRegister(MultipleWithNoAnswerCell.self)
         self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     
