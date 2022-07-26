@@ -8,34 +8,36 @@
 import UIKit
 import PencilKit
 
+/// form == 0 && type == 1
 final class SingleWithTextAnswerVC: FormZero {
     /* public */
-    static let identifier = "SingleWithTextAnswerVC" // form == 0 && type == 1
+    static let identifier = "SingleWithTextAnswerVC"
     static let storyboardName = "Study"
     var viewModel: SingleWithTextAnswerVM?
     /* private */
-//    @IBOutlet weak var solveInput: UITextField!
-    
-    private lazy var answerResultView: ProblemTextResultView = {
-        let answerResultView = ProblemTextResultView()
-        answerResultView.translatesAutoresizingMaskIntoConstraints = false
-        return answerResultView
-    }()
+    private let answerView = StudyShortTextAnswerView()
     
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureTextField()
+        self.answerView.configureDelegate(delegate: self)
+        self.view.addSubview(self.answerView)
+        self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.updateCheckViewFrame()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.updateSolved()
-        self.updateUIIfTerminated()
         if let viewModel = viewModel {
             self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer:  viewModel.answerStringForUser())
             self.toolbarView.configureDelegate(self)
         }
+        self.updateUIIfTerminated()
+        self.updateCheckView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,30 +47,7 @@ final class SingleWithTextAnswerVC: FormZero {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.answerResultView.removeFromSuperview()
         self.endTimeRecord()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-//        self.solveInput.layer.addBorder([.bottom], color: UIColor(.blueRegular) ?? .black, width: 1)
-    }
-    
-    // 주관식 입력 부분
-    @IBAction func solveInputChanged(_ sender: UITextField) {
-        guard let input = sender.text else { return }
-        self.viewModel?.updateSolved(withSelectedAnswer: "\(input)")
-    }
-    
-    @IBAction func showExplanation(_ sender: Any) {
-        guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-        let explanationImage = UIImage(data: imageData)
-        
-        if self.explanationShown {
-            self.closeExplanation()
-        } else {
-            self.showExplanation(to: explanationImage)
-        }
     }
     
     /* 상위 class를 위하여 override가 필요한 Property들 */
@@ -76,8 +55,7 @@ final class SingleWithTextAnswerVC: FormZero {
         return self.viewModel?.problem
     }
     override var topViewHeight: CGFloat {
-//        return self.topView.frame.height
-        return 72
+        return StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false).height
     }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -86,48 +64,35 @@ final class SingleWithTextAnswerVC: FormZero {
     }
 }
 
-
-// MARK: Configures
-extension SingleWithTextAnswerVC {
-    private func configureTextField() {
-//        self.solveInput.delegate = self
-//        self.solveInput.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
-    }
-}
-
 // MARK: Updates
 extension SingleWithTextAnswerVC {
-    private func updateSolved() {
-//        guard let problem = self.viewModel?.problem else { return }
-//        self.solveInput.text = problem.solved ?? ""
-    }
-    
     private func updateUIIfTerminated() {
-//        guard let problem = self.viewModel?.problem else { return }
-//        if problem.terminated, let answer = problem.answer {
-//            self.solveInput.isHidden = true
-//            self.configureResultView(answer: answer)
-//            self.showResultImage(to: problem.correct)
-//        }
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated == true {
+            self.showResultImage(to: problem.correct)
+        }
     }
 }
 
+// MARK: CheckView
 extension SingleWithTextAnswerVC {
-    private func configureResultView(answer: String) {
-//        self.view.addSubview(self.answerResultView)
-//
-//        NSLayoutConstraint.activate([
-//            self.answerResultView.heightAnchor.constraint(equalToConstant: 32),
-//            self.answerResultView.centerYAnchor.constraint(equalTo: self.solveInput.centerYAnchor),
-//            self.answerResultView.trailingAnchor.constraint(equalTo: self.solveInput.trailingAnchor)
-//        ])
-//
-//        if let solved = self.viewModel?.problem?.solved {
-//            self.answerResultView.configureSolvedAnswer(to: solved)
-//        } else {
-//            self.answerResultView.configureSolvedAnswer(to: "미기입")
-//        }
-//        self.answerResultView.configureAnswer(to: answer)
+    private func updateCheckViewFrame() {
+        let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
+        let size = StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false)
+        self.answerView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
+    }
+    
+    private func updateCheckView() {
+        guard let userAnswer = self.viewModel?.problem?.solved,
+              let terminated = self.viewModel?.problem?.terminated else {
+            self.answerView.configureUserAnswer("")
+            return
+        }
+        
+        self.answerView.configureUserAnswer(userAnswer)
+        
+        guard terminated == true, let answer = self.viewModel?.problem?.answer else { return }
+        self.answerView.terminate(answer: answer, userAnswer: userAnswer)
     }
 }
 
@@ -139,13 +104,14 @@ extension SingleWithTextAnswerVC: TimeRecordControllable {
 
 extension SingleWithTextAnswerVC: UITextFieldDelegate {
     @objc private func updateAnswer() {
-//        guard let solved = self.solveInput.text else { return }
-//        self.viewModel?.updateSolved(withSelectedAnswer: solved)
+        if let text = self.answerView.textField.text {
+            self.viewModel?.updateSolved(withSelectedAnswer: text)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        self.updateAnswer()
-//        self.solveInput.resignFirstResponder()
+        self.updateAnswer()
+        textField.resignFirstResponder()
         return true
     }
 }
