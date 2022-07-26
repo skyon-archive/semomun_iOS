@@ -44,6 +44,7 @@ final class StudySubProblemsAnswerView: UIView {
     }()
     private var terminated: Bool = false
     private var subProblems: [StudySubProblemInputView] = []
+    private var currentTextField: Int = 0
     
     convenience init() {
         self.init(frame: CGRect())
@@ -98,9 +99,9 @@ extension StudySubProblemsAnswerView {
         let userAnswers = self.userAnswers(coreUserAnswers: problem.solved, answerCount: count)
         
         for idx in 0..<count {
-            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "", userAnswer: userAnswers[safe: idx] ?? "")
+            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "", userAnswer: userAnswers[safe: idx] ?? "", tag: idx)
             subProblemInputView.configureDelegate(delegate)
-            subProblemInputView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
+            subProblemInputView.textField.addTarget(self, action: #selector(updateAnswer(_:)), for: .editingChanged)
             self.answersStackView.addArrangedSubview(subProblemInputView)
             self.subProblems.append(subProblemInputView)
         }
@@ -116,8 +117,18 @@ extension StudySubProblemsAnswerView {
         self.wrongCount = self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
     }
     
-    @objc private func updateAnswer() {
+    @objc private func updateAnswer(_ textField: UITextField) {
+        self.currentTextField = textField.tag
         self.saveUserAnswer()
+    }
+    
+    func changeToNextTextField() {
+        if currentTextField == self.subProblems.count-1 {
+            self.subProblems[self.currentTextField].textField.resignFirstResponder()
+        } else {
+            self.currentTextField = min(self.subProblems.count-1, self.currentTextField+1)
+            self.subProblems[self.currentTextField].textField.becomeFirstResponder()
+        }
     }
 }
 
