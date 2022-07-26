@@ -305,6 +305,7 @@
 		87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */; };
 		87D9D9232886A501006585AB /* ChangeUserinfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */; };
 		87DB04F8288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */; };
+		87DB04FA288FA24600D7E8C6 /* StudySubProblemInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB04F9288FA24600D7E8C6 /* StudySubProblemInputView.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
@@ -643,6 +644,7 @@
 		87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSolvedProblemsVM.swift; sourceTree = "<group>"; };
 		87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserinfoVC.swift; sourceTree = "<group>"; };
 		87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySubProblemsAnswerView.swift; sourceTree = "<group>"; };
+		87DB04F9288FA24600D7E8C6 /* StudySubProblemInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySubProblemInputView.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
@@ -1145,6 +1147,7 @@
 			children = (
 				870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */,
 				870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */,
+				87DB04F9288FA24600D7E8C6 /* StudySubProblemInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1993,6 +1996,7 @@
 				872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */,
 				87231B8828250B41001CA2F7 /* WorkbookGroupDetailVC.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
+				87DB04FA288FA24600D7E8C6 /* StudySubProblemInputView.swift in Sources */,
 				87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */,
 				256F3C0027DB6E6D0012EE95 /* LoginSignupUsecase.swift in Sources */,
 				25267E5B2889087700D35FA1 /* WorkbookGroupResultVC.swift in Sources */,
