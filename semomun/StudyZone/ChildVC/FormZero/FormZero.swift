@@ -224,7 +224,7 @@ extension FormZero {
 
 // MARK: Child Accessible
 extension FormZero {
-    func showResultImage(to: Bool) {
+    func updateCorrectImage(to: Bool) {
         self.correctImageView.show(isCorrect: to)
     }
     

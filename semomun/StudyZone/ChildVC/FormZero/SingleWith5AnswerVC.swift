@@ -34,7 +34,7 @@ final class SingleWith5AnswerVC: FormZero {
             self.toolbarView.configureDelegate(self)
         }
         self.updateCheckView()
-        self.updateResultImage()
+        self.updateCorrectImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,10 +63,10 @@ final class SingleWith5AnswerVC: FormZero {
 
 // MARK: Update
 extension SingleWith5AnswerVC {
-    private func updateResultImage() {
+    private func updateCorrectImage() {
         guard let problem = self.viewModel?.problem else { return }
         if problem.terminated == true {
-            self.showResultImage(to: problem.correct)
+            self.updateCorrectImage(to: problem.correct)
         }
     }
 }

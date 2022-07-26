@@ -38,6 +38,7 @@ final class SingleWithTextAnswerVC: FormZero {
             self.toolbarView.configureDelegate(self)
         }
         self.updateCheckView()
+        self.updateCorrectImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,6 +66,16 @@ final class SingleWithTextAnswerVC: FormZero {
     
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+}
+
+// MARK: Update
+extension SingleWithTextAnswerVC {
+    private func updateCorrectImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated == true {
+            self.updateCorrectImage(to: problem.correct)
+        }
     }
 }
 
