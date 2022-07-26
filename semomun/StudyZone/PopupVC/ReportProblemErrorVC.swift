@@ -79,7 +79,7 @@ final class ReportProblemErrorVC: UIViewController {
         view.spacing = 24
         return view
     }()
-    private let textView: UITextView = {
+    private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
@@ -88,6 +88,9 @@ final class ReportProblemErrorVC: UIViewController {
         textView.layer.masksToBounds = true
         textView.heightAnchor.constraint(equalToConstant: 90).isActive = true
         textView.isHidden = true
+        textView.text = "오류에 대해 입력해주세요"
+        textView.textColor = self.placeholderTextColor
+        
         return textView
     }()
     private lazy var reportErrorButton: UIButton = {
@@ -109,6 +112,7 @@ final class ReportProblemErrorVC: UIViewController {
         }), for: .touchUpInside)
         return button
     }()
+    private let placeholderTextColor = UIColor.getSemomunColor(.lightGray)
     
     convenience init(pageData: PageData, workbookTitle: String, sectionNum: Int, sectionTitle: String) {
         self.init(nibName: nil, bundle: nil)
@@ -136,7 +140,7 @@ final class ReportProblemErrorVC: UIViewController {
         sectionNumLabel.translatesAutoresizingMaskIntoConstraints = false
         sectionNumLabel.font = .heading4
         sectionNumLabel.textColor = .getSemomunColor(.black)
-        sectionNumLabel.text = "\(sectionNum)"
+        sectionNumLabel.text =  String(format: "%02d", sectionNum)
         
         let sectionTitleLabel = UILabel()
         sectionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -209,7 +213,7 @@ final class ReportProblemErrorVC: UIViewController {
         label.text = "오류에 대해서 알려주세요"
         stackView.addArrangedSubview(label)
         
-        let button = UIButton()
+        let button = ReportButton(title: "\(self.selectedErrorType)")
         let actions = ErrorType.allCases.map { errorType in
             UIAction(title: "\(errorType)") { [weak self] _ in
                  self?.selectedErrorType = errorType
@@ -217,19 +221,6 @@ final class ReportProblemErrorVC: UIViewController {
              }
         }
         button.menu = .init(title: "오류 유형", children: actions)
-        button.showsMenuAsPrimaryAction = true
-        button.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        button.setTitle("\(self.selectedErrorType)", for: .normal)
-        button.titleLabel?.font = .heading5
-        button.setTitleColor(.getSemomunColor(.black), for: .normal)
-        button.contentHorizontalAlignment = .leading
-        button.contentEdgeInsets = .init(top: 0, left: 12, bottom: 0, right: 0)
-        button.backgroundColor = .getSemomunColor(.background)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
-        button.layer.cornerRadius = .cornerRadius12
-        button.layer.cornerCurve = .continuous
-        button.layer.masksToBounds = true
         stackView.addArrangedSubview(button)
         
         self.textView.delegate = self
@@ -288,7 +279,7 @@ final class ReportProblemErrorVC: UIViewController {
         }
         
         if self.selectedErrorType == .others {
-            if self.textView.text.isEmpty {
+            if self.textView.text.isEmpty || self.textView.textColor == self.placeholderTextColor {
                 self.reportErrorButton.backgroundColor = .getSemomunColor(.lightGray)
                 self.reportErrorButton.isUserInteractionEnabled = false
             } else {
@@ -305,6 +296,20 @@ final class ReportProblemErrorVC: UIViewController {
 extension ReportProblemErrorVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.updateReportErrorButtonStatus()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == self.placeholderTextColor {
+            textView.text = ""
+            textView.textColor = .getSemomunColor(.black)
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "오류에 대해 입력해주세요"
+            textView.textColor = self.placeholderTextColor
+        }
     }
 }
 
@@ -328,5 +333,36 @@ fileprivate final class SelectProblemButton: UIButton {
         didSet {
             self.backgroundColor = self.isSelected ? .getSemomunColor(.black) : .getSemomunColor(.background)
         }
+    }
+}
+
+fileprivate final class ReportButton: UIButton {
+    convenience init(title: String) {
+        self.init(type: .custom)
+        self.showsMenuAsPrimaryAction = true
+        self.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        self.setTitle(title, for: .normal)
+        self.titleLabel?.font = .heading5
+        self.setTitleColor(.getSemomunColor(.black), for: .normal)
+        self.contentHorizontalAlignment = .leading
+        self.contentEdgeInsets = .init(top: 0, left: 12, bottom: 0, right: 0)
+        self.backgroundColor = .getSemomunColor(.background)
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
+        self.layer.cornerRadius = .cornerRadius12
+        self.layer.cornerCurve = .continuous
+        self.layer.masksToBounds = true
+        
+        let image = UIImage(.chevronDownOutline)
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setSVGTintColor(.lightGray)
+        self.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            imageView.widthAnchor.constraint(equalToConstant: 20),
+            imageView.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
 }
