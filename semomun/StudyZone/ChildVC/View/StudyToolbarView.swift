@@ -105,6 +105,7 @@ final class StudyToolbarView: UIStackView {
         
         self.explanationButton.isSelected = false
         if problem?.explanationImage != nil {
+            self.explanationButton.isHidden = false
             self.explanationButton.isUserInteractionEnabled = true
             self.explanationButton.setTitleColor(.getSemomunColor(.black), for: .normal)
         } else {
