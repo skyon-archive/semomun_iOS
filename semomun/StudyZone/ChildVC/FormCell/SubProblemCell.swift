@@ -16,23 +16,20 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
         guard problem?.terminated == true else {
             return StudySubProblemsAnswerView.size(terminated: false, problemCount: Int(problemCount), wrongCount: 0).height + 16
         }
-        print("answer: \(problem?.answer)")
-        print("userAnswer: \(problem?.solved)")
         var answers: [String] = []
         if let answer = problem?.answer {
-            answers = answer.split(separator: "$").map { String($0) }
+            answers = answer.components(separatedBy: "$").map { String($0) }
         } else {
             answers = Array(repeating: "", count: Int(problemCount))
         }
-        var userAnswer: [String] = []
-        if let userAnswers = problem?.solved {
-            userAnswer = userAnswers.split(separator: "$").map { $0 == "" ? "" : String($0) }
+        var userAnswers: [String] = []
+        if let userAnswer = problem?.solved {
+            userAnswers = userAnswer.components(separatedBy: "$").map { String($0) }
         } else {
-            userAnswer = Array(repeating: "", count: Int(problemCount))
+            userAnswers = Array(repeating: "", count: Int(problemCount))
         }
-        print("answer(\(answers.count)): \(answers)")
-        print("userAnswers(\(userAnswer.count)): \(userAnswer)")
-        let wrongCount = zip(userAnswer, answers).filter { $0 != $1 }.count
+        let wrongCount = zip(userAnswers, answers).filter { $0 != $1 }.count
+        
         return StudySubProblemsAnswerView.size(terminated: true, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
     }
     override var internalTopViewHeight: CGFloat {
