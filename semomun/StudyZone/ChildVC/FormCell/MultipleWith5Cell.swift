@@ -18,7 +18,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable, CellRegisterable {
         return Study5AnswerCheckView.size.height+16
     }
     /* private */
-    private let answerCheckView = Study5AnswerCheckView()
+    private let answerView = Study5AnswerCheckView()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,8 +26,8 @@ final class MultipleWith5Cell: FormCell, CellLayoutable, CellRegisterable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.answerCheckView.configureDelegate(delegate: self)
-        self.contentView.addSubview(self.answerCheckView)
+        self.answerView.configureDelegate(delegate: self)
+        self.contentView.addSubview(self.answerView)
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
@@ -36,14 +36,13 @@ final class MultipleWith5Cell: FormCell, CellLayoutable, CellRegisterable {
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
         self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
         
-        self.updateCheckView(problem: problem)
-        
+        self.updateAnswerView()
         self.updateCorrectImage()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.updateCheckViewFrame()
+        self.updateAnswerViewFrame()
     }
 }
 
@@ -59,21 +58,21 @@ extension MultipleWith5Cell {
 
 // MARK: CheckView
 extension MultipleWith5Cell {
-    private func updateCheckViewFrame() {
+    private func updateAnswerViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
         let size = Study5AnswerCheckView.size
         let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
-        self.answerCheckView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
+        self.answerView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
     }
     
-    private func updateCheckView(problem: Problem_Core?) {
-        guard let problem = problem else { return }
+    private func updateAnswerView() {
+        guard let problem = self.problem else { return }
         let userAnswer = problem.solved != nil ? [problem.solved!] : []
         let terminated = problem.terminated
-        self.answerCheckView.configureUserAnswer(userAnswer, terminated, shouldMultipleAnswer: false)
+        self.answerView.configureUserAnswer(userAnswer, terminated, shouldMultipleAnswer: false)
         
         guard terminated == true, let answer = problem.answer else { return }
-        self.answerCheckView.terminate(answer: [answer], userAnswer: userAnswer)
+        self.answerView.terminate(answer: [answer], userAnswer: userAnswer)
     }
 }
 

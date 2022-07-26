@@ -23,7 +23,7 @@ final class SingleWithSubProblemsVM: PageVM {
         return answer.components(separatedBy: "$").joined(separator: ", ")
     }
     
-    private func updateSolved(userAnswer: String, correctCount: Int) {
+    func updateSolved(userAnswer: String, correctCount: Int) {
         self.updateSolved(withSelectedAnswer: userAnswer)
         self.problem?.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
