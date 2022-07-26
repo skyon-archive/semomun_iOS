@@ -20,10 +20,10 @@ final class SingleWithTextAnswerVC: FormZero {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.answerView.configureDelegate(delegate: self)
-        self.view.addSubview(self.answerView)
-        self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
         self.configureNotification()
+        self.answerView.configureDelegate(delegate: self)
+        self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
+        self.view.addSubview(self.answerView)
     }
     
     override func viewDidLayoutSubviews() {
@@ -88,12 +88,8 @@ extension SingleWithTextAnswerVC {
     }
     
     private func updateCheckView() {
-        guard let userAnswer = self.viewModel?.problem?.solved,
-              let terminated = self.viewModel?.problem?.terminated else {
-            self.answerView.configureUserAnswer("")
-            return
-        }
-        
+        let terminated = self.viewModel?.problem?.terminated ?? false
+        let userAnswer = self.viewModel?.problem?.solved
         self.answerView.configureUserAnswer(userAnswer)
         
         guard terminated == true, let answer = self.viewModel?.problem?.answer else { return }
