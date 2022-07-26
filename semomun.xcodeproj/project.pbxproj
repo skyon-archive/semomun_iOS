@@ -309,7 +309,6 @@
 		87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941227BA6D93008F6105 /* LoadingView.swift */; };
 		87DD0FCB2875B5C300070F8F /* DropdownOrderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DD0FCA2875B5C300070F8F /* DropdownOrderButton.swift */; };
 		87DE6BF927E0A163002B902C /* WarningOfflineStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */; };
-		87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E23A662774E64500260C5E /* WrongProblemCell.swift */; };
 		87E5203F27A0ED9C001344F2 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E5203E27A0ED9C001344F2 /* TagCell.swift */; };
 		87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */; };
 		87E7A54B277EBEB000359BAE /* termsAndConditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 87E7A54A277EBEB000359BAE /* termsAndConditions.txt */; };
@@ -646,7 +645,6 @@
 		87DC941227BA6D93008F6105 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		87DD0FCA2875B5C300070F8F /* DropdownOrderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownOrderButton.swift; sourceTree = "<group>"; };
 		87DE6BF827E0A163002B902C /* WarningOfflineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningOfflineStatusView.swift; sourceTree = "<group>"; };
-		87E23A662774E64500260C5E /* WrongProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongProblemCell.swift; sourceTree = "<group>"; };
 		87E5203E27A0ED9C001344F2 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		87E7A548277EBD4600359BAE /* LongTextPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextPopupViewController.swift; sourceTree = "<group>"; };
 		87E7A54A277EBEB000359BAE /* termsAndConditions.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = termsAndConditions.txt; sourceTree = "<group>"; };
@@ -1491,7 +1489,6 @@
 			isa = PBXGroup;
 			children = (
 				8766FF5D27B4F97E00D57C91 /* ReportProblemErrorVC.swift */,
-				87E23A662774E64500260C5E /* WrongProblemCell.swift */,
 				87D45C75286AEE1600FD7608 /* SelectProblems */,
 				87BF216C288A538B00FF55C5 /* ShowSolvedProblems */,
 				255D9B722862FB8600A89422 /* SectionResult */,
@@ -2124,7 +2121,6 @@
 				2560BB9B283B7EA700A32EC4 /* SubProblemCell.swift in Sources */,
 				8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */,
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
-				87E23A672774E64500260C5E /* WrongProblemCell.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
 				870BB571288E857500794295 /* Study2AnswerCheckView.swift in Sources */,
