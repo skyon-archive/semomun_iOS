@@ -38,14 +38,22 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         
         self.updateCheckView(problem: problem)
         
-        if self.problem?.terminated == true {
-            self.updateCorrectImage(isCorrect: self.problem?.correct ?? false)
-        }
+        self.updateCorrectImage()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.updateCheckViewFrame()
+    }
+}
+
+// MARK: Update
+extension MultipleWith5Cell {
+    private func updateCorrectImage() {
+        guard let problem = self.problem else { return }
+        if problem.terminated == true {
+            self.updateCorrectImage(isCorrect: problem.correct)
+        }
     }
 }
 
