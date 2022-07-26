@@ -17,6 +17,12 @@ final class SingleWithSubProblemsVM: PageVM {
         return input == answer
     }
     
+    override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
+        guard let answer = self.problem?.answer else { return nil }
+        
+        return answer.components(separatedBy: "$").joined(separator: ", ")
+    }
+    
     private func updateSolved(userAnswer: String, correctCount: Int) {
         self.updateSolved(withSelectedAnswer: userAnswer)
         self.problem?.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)

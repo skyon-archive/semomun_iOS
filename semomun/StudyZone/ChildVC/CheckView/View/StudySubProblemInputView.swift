@@ -111,6 +111,7 @@ extension StudySubProblemInputView {
     }
     
     func terminateUI() -> Bool {
+        self.textField.isUserInteractionEnabled = false
         let userAnswer = self.textField.text ?? ""
         if userAnswer == self.answer {
             self.nameLabel.textColor = UIColor.systemGreen
