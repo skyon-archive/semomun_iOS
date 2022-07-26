@@ -44,7 +44,7 @@ class FormTwo: UIViewController {
         self.configureSubViews()
         self.configureCollectionView()
         self.configureGesture()
-        self.view.backgroundColor = UIColor(.lightGray)
+        self.view.backgroundColor = .getSemomunColor(.white)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,10 +87,9 @@ class FormTwo: UIViewController {
     }
     
     // MARK: 자식 클래스에서 설정 필수
-    func configureCellRegisters(identifiers: [String]) {
-        identifiers.forEach { identifier in
-            let cellNib = UINib(nibName: identifier, bundle: nil)
-            self.subproblemCollectionView.register(cellNib, forCellWithReuseIdentifier: identifier)
+    func configureCellRegisters(_ cellRegisterables: [CellRegisterable.Type]) {
+        cellRegisterables.forEach {
+            self.subproblemCollectionView.register($0.self, forCellWithReuseIdentifier: $0.identifier)
         }
     }
     // MARK: 자식 클래스에서 설정 필수

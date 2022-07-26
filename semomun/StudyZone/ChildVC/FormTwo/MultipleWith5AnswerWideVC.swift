@@ -34,8 +34,7 @@ final class MultipleWith5AnswerWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWith5AnswerWideVC {
     private func configureCellRegister() {
-        let cellIdentifiers: [String] = [MultipleWith5Cell.identifier]
-        self.configureCellRegisters(identifiers: cellIdentifiers)
+        self.configureCellRegisters([MultipleWith5Cell.self])
     }
 }
 

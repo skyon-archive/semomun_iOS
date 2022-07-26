@@ -34,8 +34,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWithNoAnswerWideVC {
     private func configureCellRegister() {
-        let cellIdentifiers: [String] = [MultipleWithNoAnswerCell.identifier]
-        self.configureCellRegisters(identifiers: cellIdentifiers)
+        self.configureCellRegisters([MultipleWithNoAnswerCell.self])
     }
 }
 
