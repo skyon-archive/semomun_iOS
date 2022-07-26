@@ -12,10 +12,10 @@ class MultipleWithConceptCell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "MultipleWithConceptCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        return 52
+        return StudyToolbarView.height + 16
     }
     override var internalTopViewHeight: CGFloat {
-        return 52
+        return StudyToolbarView.height + 16
     }
     /* private */
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
