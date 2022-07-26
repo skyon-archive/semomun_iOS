@@ -37,7 +37,9 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     private let timerView = ProblemTimerView()
     private let correctImageView = CorrectImageView()
     private let canvasView = RotationableCanvasView()
-    private var studyToolbarLeadingConstraint: NSLayoutConstraint?
+    private lazy var studyToolbarLeadingConstraint: NSLayoutConstraint = {
+        return self.toolbarView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 32)
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +68,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         super.layoutSubviews()
         self.adjustLayouts(frameUpdate: true)
         self.updateCanvasViewDataAndDelegate()
-        self.studyToolbarLeadingConstraint?.constant = UIWindow.isLandscape ? 32 : 16
+        self.studyToolbarLeadingConstraint.constant = UIWindow.isLandscape ? 32 : 16
     }
  
     // MARK: cellForItemAt에서 데이터 주입을 위해 사용. 자식 클래스에서도 같은 목적으로 override하여 사용.
@@ -114,8 +116,7 @@ extension FormCell {
     }
     
     private func configureToolbarLayout() {
-        self.studyToolbarLeadingConstraint = self.toolbarView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 32)
-        self.studyToolbarLeadingConstraint?.isActive = true
+        self.studyToolbarLeadingConstraint.isActive = true
         NSLayoutConstraint.activate([
             self.toolbarView.bottomAnchor.constraint(equalTo: self.contentView.topAnchor, constant: self.internalTopViewHeight)
         ])

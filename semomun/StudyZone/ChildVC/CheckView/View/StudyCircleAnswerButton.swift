@@ -49,7 +49,7 @@ final class StudyCircleAnswerButton: UIButton {
         self.setTitleColor(UIColor.getSemomunColor(.lightGray), for: .normal)
     }
     
-    func correct(isSelected: Bool) { // 정답인 경우
+    func terminatedAnswerUI(isSelected: Bool) { // 정답인 경우
         if isSelected {
             self.layer.borderColor = UIColor.clear.cgColor
             self.backgroundColor = UIColor.systemGreen
@@ -61,7 +61,7 @@ final class StudyCircleAnswerButton: UIButton {
         }
     }
     
-    func wrong(isSelected: Bool) { // 정답이 아닌 경우
+    func terminatedNotAnswerUI(isSelected: Bool) { // 정답이 아닌 경우
         if isSelected {
             self.layer.borderColor = UIColor.clear.cgColor
             self.backgroundColor = UIColor.getSemomunColor(.lightGray)

@@ -18,13 +18,6 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         return Study5AnswerCheckView.size.height+16
     }
     /* private */
-    private lazy var checkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     private let answerCheckView = Study5AnswerCheckView()
     
     required init?(coder: NSCoder) {
@@ -33,6 +26,8 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.answerCheckView.configureDelegate(delegate: self)
+        self.contentView.addSubview(self.answerCheckView)
     }
     
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
@@ -45,15 +40,13 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.configureCheckView()
+        self.updateCheckViewFrame()
     }
 }
 
 // MARK: CheckView
 extension MultipleWith5Cell {
-    private func configureCheckView() {
-        self.answerCheckView.configureDelegate(delegate: self)
-        self.contentView.addSubview(self.answerCheckView)
+    private func updateCheckViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
         let size = Study5AnswerCheckView.size
         let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
