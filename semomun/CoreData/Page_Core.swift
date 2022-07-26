@@ -85,6 +85,7 @@ public class Page_Core: NSManagedObject {
             case 4: return SingleWith4AnswerVC.identifier
             case 5: return SingleWith5AnswerVC.identifier
             case 6: return SingleWithSubProblemsVC.identifier
+            case 7: return SingleWithTextAnswerVC.identifier
             default:
                 assertionFailure("form: 0, type: \(type)")
                 return SingleWith5AnswerVC.identifier

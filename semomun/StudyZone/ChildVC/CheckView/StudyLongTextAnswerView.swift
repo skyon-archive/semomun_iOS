@@ -10,7 +10,8 @@ import UIKit
 final class StudyLongTextAnswerView: UIView {
     static let size = CGSize(240, 78)
     private var topBar = StudyAnswerViewTopBar()
-    private var textView: UITextView = {
+    private let textViewPlaceHolder = "서술형\n(두 줄)"
+    private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = CGFloat.cornerRadius4
@@ -25,7 +26,7 @@ final class StudyLongTextAnswerView: UIView {
         textView.textColor = UIColor.getSemomunColor(.lightGray)
         textView.backgroundColor = UIColor.getSemomunColor(.white)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        textView.text = "서술형\n(두 줄)"
+        textView.text = self.textViewPlaceHolder
         return textView
     }()
     private var terminated: Bool = false
@@ -68,10 +69,12 @@ extension StudyLongTextAnswerView {
     }
     
     func configureUserAnsser(_ userAnswer: String?) {
-        self.textView.text = userAnswer ?? "서술형\n(두 줄)"
-    }
-    
-    func terminate(answer: String, userAnswer: String?) {
-        
+        if let userAnswer = userAnswer {
+            self.textView.textColor = UIColor.getSemomunColor(.black)
+            self.textView.text = userAnswer
+        } else {
+            self.textView.textColor = UIColor.getSemomunColor(.lightGray)
+            self.textView.text = self.textViewPlaceHolder
+        }
     }
 }
