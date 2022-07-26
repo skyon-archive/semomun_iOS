@@ -80,6 +80,7 @@ extension SingleWith4AnswerVC {
     }
 }
 
+// MARK: StudyToolbar
 extension SingleWith4AnswerVC: StudyToolbarViewDelegate {
     func toggleBookmark() {
         self.viewModel?.updateStar(to: self.toolbarView.bookmarkSelected)

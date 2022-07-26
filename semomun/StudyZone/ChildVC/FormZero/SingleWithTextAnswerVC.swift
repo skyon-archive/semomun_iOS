@@ -101,9 +101,19 @@ extension SingleWithTextAnswerVC {
     }
 }
 
-extension SingleWithTextAnswerVC: TimeRecordControllable {
-    func endTimeRecord() {
-        self.viewModel?.endTimeRecord()
+// MARK: StudyToolbar
+extension SingleWithTextAnswerVC: StudyToolbarViewDelegate {
+    func toggleBookmark() {
+        self.viewModel?.updateStar(to: self.toolbarView.bookmarkSelected)
+    }
+    
+    func toggleExplanation() {
+        if self.explanationShown {
+            self.closeExplanation()
+        } else {
+            guard let imageData = self.viewModel?.problem?.explanationImage else { return }
+            self.showExplanation(to: UIImage(data: imageData))
+        }
     }
 }
 
@@ -138,17 +148,8 @@ extension SingleWithTextAnswerVC: UITextFieldDelegate {
     }
 }
 
-extension SingleWithTextAnswerVC: StudyToolbarViewDelegate {
-    func toggleBookmark() {
-        self.viewModel?.updateStar(to: self.toolbarView.bookmarkSelected)
-    }
-    
-    func toggleExplanation() {
-        if self.explanationShown {
-            self.closeExplanation()
-        } else {
-            guard let imageData = self.viewModel?.problem?.explanationImage else { return }
-            self.showExplanation(to: UIImage(data: imageData))
-        }
+extension SingleWithTextAnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }
