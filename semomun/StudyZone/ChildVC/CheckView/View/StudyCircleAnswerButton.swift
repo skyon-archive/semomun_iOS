@@ -9,7 +9,7 @@ import UIKit
 
 final class StudyCircleAnswerButton: UIButton {
     /* pubic */
-    var answer: String = ""
+    private(set) var answer: String = ""
     convenience init(answer: String, tag: Int) {
         self.init(frame: CGRect())
         self.answer = answer
