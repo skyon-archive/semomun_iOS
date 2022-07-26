@@ -37,7 +37,7 @@ final class SingleWithNoAnswerVC: FormZero {
         return self.viewModel?.problem
     }
     override var topViewHeight: CGFloat {
-        return 52
+        return StudyToolbarView.height + 16
     }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {

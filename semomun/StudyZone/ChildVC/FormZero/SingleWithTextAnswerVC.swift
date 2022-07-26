@@ -37,7 +37,6 @@ final class SingleWithTextAnswerVC: FormZero {
             self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer:  viewModel.answerStringForUser())
             self.toolbarView.configureDelegate(self)
         }
-        self.updateUIIfTerminated()
         self.updateCheckView()
     }
     
@@ -56,7 +55,7 @@ final class SingleWithTextAnswerVC: FormZero {
         return self.viewModel?.problem
     }
     override var topViewHeight: CGFloat {
-        return StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false).height
+        return StudyToolbarView.height + 16
     }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -66,16 +65,6 @@ final class SingleWithTextAnswerVC: FormZero {
     
     private func configureNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
-}
-
-// MARK: Updates
-extension SingleWithTextAnswerVC {
-    private func updateUIIfTerminated() {
-        guard let problem = self.viewModel?.problem else { return }
-        if problem.terminated == true {
-            self.showResultImage(to: problem.correct)
-        }
     }
 }
 

@@ -96,8 +96,7 @@ final class SingleWithSubProblemsVC: FormZero {
         return self.viewModel?.problem
     }
     override var topViewHeight: CGFloat {
-//        return self.topView.frame.height
-        return 72
+        return StudyToolbarView.height + 16
     }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
