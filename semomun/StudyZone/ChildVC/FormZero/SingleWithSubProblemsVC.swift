@@ -129,6 +129,7 @@ extension SingleWithSubProblemsVC: TimeRecordControllable {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.answerView.changeToNextTextField()
         self.answerView.saveUserAnswer()
         return true
     }
