@@ -90,6 +90,12 @@ extension SingleWith4AnswerVC {
     }
 }
 
+extension SingleWith4AnswerVC: AnswerCheckDelegate {
+    func selectAnswer(to answer: String) {
+        self.viewModel?.updateSolved(userAnswer: answer)
+    }
+}
+
 // MARK: StudyToolbar
 extension SingleWith4AnswerVC: StudyToolbarViewDelegate {
     func toggleBookmark() {
@@ -103,12 +109,6 @@ extension SingleWith4AnswerVC: StudyToolbarViewDelegate {
             guard let imageData = self.viewModel?.problem?.explanationImage else { return }
             self.showExplanation(to: UIImage(data: imageData))
         }
-    }
-}
-
-extension SingleWith4AnswerVC: AnswerCheckDelegate {
-    func selectAnswer(to answer: String) {
-        self.viewModel?.updateSolved(userAnswer: answer)
     }
 }
 
