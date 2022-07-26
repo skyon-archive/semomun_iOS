@@ -304,6 +304,7 @@
 		87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0A56827CF1C5800449AAD /* CoreGraphics.swift */; };
 		87D45C77286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */; };
 		87D9D9232886A501006585AB /* ChangeUserinfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */; };
+		87DB04F8288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */; };
 		87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */; };
 		87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC940E27BA2257008F6105 /* SearchTagVM.swift */; };
 		87DC941127BA465A008F6105 /* CoreMigrationUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */; };
@@ -641,6 +642,7 @@
 		87D0A56827CF1C5800449AAD /* CoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		87D45C76286AEE6B00FD7608 /* ShowSolvedProblemsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSolvedProblemsVM.swift; sourceTree = "<group>"; };
 		87D9D9222886A501006585AB /* ChangeUserinfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserinfoVC.swift; sourceTree = "<group>"; };
+		87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySubProblemsAnswerView.swift; sourceTree = "<group>"; };
 		87DC940C27BA1FCD008F6105 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		87DC940E27BA2257008F6105 /* SearchTagVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVM.swift; sourceTree = "<group>"; };
 		87DC941027BA465A008F6105 /* CoreMigrationUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMigrationUsecase.swift; sourceTree = "<group>"; };
@@ -1155,6 +1157,7 @@
 				870BB570288E857500794295 /* Study2AnswerCheckView.swift */,
 				870BB572288E872F00794295 /* StudyShortTextAnswerView.swift */,
 				870BB576288E8DB900794295 /* StudyLongTextAnswerView.swift */,
+				87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */,
 				870BB566288E5F3100794295 /* View */,
 			);
 			path = CheckView;
@@ -2075,6 +2078,7 @@
 				87D0A56927CF1C5800449AAD /* CoreGraphics.swift in Sources */,
 				87C85E98276F6B60001C9C4A /* SectionHeader_Core.swift in Sources */,
 				877B1E3127CBC4B000AC8B84 /* JSONDecoder+Extensions.swift in Sources */,
+				87DB04F8288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift in Sources */,
 				254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */,
 				87DC940F27BA2257008F6105 /* SearchTagVM.swift in Sources */,
 				2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */,
