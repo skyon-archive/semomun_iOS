@@ -8,6 +8,7 @@
 import UIKit
 
 final class StudyShortTextAnswerView: UIView {
+    /* public */
     static func size(terminated: Bool, isCorrect: Bool) -> CGSize {
         if terminated == false {
             return CGSize(172, 60)
@@ -15,8 +16,7 @@ final class StudyShortTextAnswerView: UIView {
             return CGSize(172, isCorrect ? 60 : 78)
         }
     }
-    private var topBar = StudyAnswerViewTopBar()
-    private var textField: UITextField = {
+    let textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = CGFloat.cornerRadius4
@@ -34,7 +34,9 @@ final class StudyShortTextAnswerView: UIView {
         textField.backgroundColor = UIColor.getSemomunColor(.white)
         return textField
     }()
-    private var answerLabel: UILabel = {
+    /* private */
+    private let topBar = StudyAnswerViewTopBar()
+    private let answerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.smallStyleParagraph
@@ -45,7 +47,7 @@ final class StudyShortTextAnswerView: UIView {
         ])
         return label
     }()
-    private var stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -94,7 +96,7 @@ extension StudyShortTextAnswerView {
         self.textField.delegate = delegate
     }
     
-    func configureUserAnsser(_ userAnswer: String?) {
+    func configureUserAnswer(_ userAnswer: String?) {
         self.answerLabel.isHidden = true
         self.textField.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
         self.textField.text = userAnswer ?? ""

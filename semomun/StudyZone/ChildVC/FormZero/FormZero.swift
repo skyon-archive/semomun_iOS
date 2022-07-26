@@ -26,7 +26,6 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
     /* 자식 VC에서 접근가능한 View */
     private(set) var canvasView = RotationableCanvasView()
     /* 자식 VC에서 설정가능한 View들 */
-    let answerView = AnswerView()
     let timerView = ProblemTimerView()
     let toolbarView = StudyToolbarView()
     
@@ -85,7 +84,7 @@ class FormZero: UIViewController, PKToolPickerObserver, PKCanvasViewDelegate {
         self.canvasDrawingLoaded = false
         self.shouldShowExplanation = false
         self.closeExplanation()
-        self.answerView.removeFromSuperview()
+        self.toolbarView.hideAnswerView()
     }
     
     // MARK: Rotation
