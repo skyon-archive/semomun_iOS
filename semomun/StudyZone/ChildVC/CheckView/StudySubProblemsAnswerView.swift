@@ -9,6 +9,9 @@ import UIKit
 
 final class StudySubProblemsAnswerView: UIView {
     /* public */
+    static let korLabels = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ"]
+    static let EngLabels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    static let engLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
     static let stackViewTopMargin = CGFloat(20)
     static let stackViewBottomMargin = CGFloat(8)
     static let subProblemHeight = CGFloat(33)
@@ -29,7 +32,7 @@ final class StudySubProblemsAnswerView: UIView {
     /* prvate */
     private weak var delegate: AnswerCheckDelegate?
     private var topBar = StudyAnswerViewTopBar()
-    private var answersStadkView: UIStackView = {
+    private var answersStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -37,6 +40,7 @@ final class StudySubProblemsAnswerView: UIView {
         return stackView
     }()
     private var terminated: Bool = false
+    private var subProblems: [StudySubProblemInputView] = []
     
     convenience init() {
         self.init(frame: CGRect())
@@ -60,30 +64,45 @@ final class StudySubProblemsAnswerView: UIView {
             self.topBar.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
-        self.addSubview(self.answersStadkView)
+        self.addSubview(self.answersStackView)
         NSLayoutConstraint.activate([
-            self.answersStadkView.topAnchor.constraint(equalTo: self.topBar.bottomAnchor, constant: 8),
-            self.answersStadkView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            self.answersStadkView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            self.answersStadkView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
+            self.answersStackView.topAnchor.constraint(equalTo: self.topBar.bottomAnchor, constant: 8),
+            self.answersStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            self.answersStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            self.answersStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8)
         ])
     }
 }
 
 extension StudySubProblemsAnswerView {
-    func configureDelegate(_ delegate: (AnswerCheckDelegate & UITextFieldDelegate)) {
-        self.delegate = delegate
-        // textField 들의 delegate 연결이 필요
-    }
-    
     func configureUserAnswer(problem: Problem_Core) {
         self.terminated = false
+        self.answersStackView.arrangedSubviews.forEach {
+            self.answersStackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
+        self.subProblems.removeAll()
+        
+        guard let answer = problem.answer else { return }
+        let answers = answer.components(separatedBy: "$").map { String($0) }
+        
+        for (idx, answer) in answers.enumerated() {
+            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answer)
+            self.answersStackView.addArrangedSubview(subProblemInputView)
+            self.subProblems.append(subProblemInputView)
+        }
+    }
+    
+    func configureDelegate(_ delegate: (AnswerCheckDelegate & UITextFieldDelegate)) {
+        self.delegate = delegate
+        self.subProblems.forEach { subProblem in
+            subProblem.configureDelegate(delegate)
+        }
     }
     
     func saveUserAnswer() {
-        let answer = "1$2"
-        // 각 view 들의 값들을 $처리 후 answer 로 변경하는 로직 필요
-        self.delegate?.selectAnswer(to: answer)
+        let userAnswer = self.subProblems.map { $0.textField.text ?? "" }.joined(separator: "$")
+        self.delegate?.selectAnswer(to: userAnswer)
     }
     
     func terminate(problem: Problem_Core) {
