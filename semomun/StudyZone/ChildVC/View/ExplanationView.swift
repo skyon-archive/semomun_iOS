@@ -15,16 +15,15 @@ final class ExplanationView: UIView {
     private weak var delegate: ExplanationRemovable?
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
-    private let xmarkImage: UIImage? = {
+    private let xmarkImage: UIImage = {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .medium, scale: .default)
-        return UIImage(.warning, withConfiguration: largeConfig)
+        return UIImage(.xOutline, withConfiguration: largeConfig)
     }()
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(self.xmarkImage, for: .normal)
-        button.tintColor = .black
+        button.setImageWithSVGTintColor(image: self.xmarkImage, color: .black)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.delegate?.closeExplanation()
         }), for: .touchUpInside)
