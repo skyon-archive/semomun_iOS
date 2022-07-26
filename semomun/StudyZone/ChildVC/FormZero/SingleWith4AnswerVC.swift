@@ -34,6 +34,7 @@ final class SingleWith4AnswerVC: FormZero {
             self.toolbarView.configureDelegate(self)
         }
         self.updateCheckView()
+        self.updateCorrectImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +58,16 @@ final class SingleWith4AnswerVC: FormZero {
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data, width: Double(self.canvasView.frame.width))
+    }
+}
+
+// MARK: Update
+extension SingleWith4AnswerVC {
+    private func updateCorrectImage() {
+        guard let problem = self.viewModel?.problem else { return }
+        if problem.terminated == true {
+            self.updateCorrectImage(to: problem.correct)
+        }
     }
 }
 
