@@ -39,6 +39,7 @@
 		25267E5D2889093E00D35FA1 /* WorkbookGroupResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25267E5C2889093E00D35FA1 /* WorkbookGroupResultView.swift */; };
 		25267E6028890A4000D35FA1 /* AveragePercentileGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25267E5F28890A4000D35FA1 /* AveragePercentileGraphView.swift */; };
 		253F12EE288FC13700F5AB5A /* CellRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253F12ED288FC13700F5AB5A /* CellRegisterable.swift */; };
+		253F12F0288FEB4900F5AB5A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253F12EF288FEB4900F5AB5A /* Font.swift */; };
 		253FC51A283CED340014EA4F /* SavedAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253FC519283CED340014EA4F /* SavedAnswerCell.swift */; };
 		254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
@@ -375,6 +376,7 @@
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		253F12ED288FC13700F5AB5A /* CellRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRegisterable.swift; sourceTree = "<group>"; };
+		253F12EF288FEB4900F5AB5A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		253FC519283CED340014EA4F /* SavedAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAnswerCell.swift; sourceTree = "<group>"; };
 		254C2BF82862DC2D00D7BB70 /* TestResultCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultCalculator.swift; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
@@ -1131,6 +1133,7 @@
 			children = (
 				8703EF13282B53510001EF2D /* View+Extension.swift */,
 				25CBB18B286EE996004F5740 /* UIHostingController.swift */,
+				253F12EF288FEB4900F5AB5A /* Font.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2085,6 +2088,7 @@
 				879CC21C286957FB007E3508 /* TestInfo.swift in Sources */,
 				8716E939279A5F9900B33A5E /* PurchasePopupVC.swift in Sources */,
 				87A615E228858D98005B37CA /* SignupUsecase.swift in Sources */,
+				253F12F0288FEB4900F5AB5A /* Font.swift in Sources */,
 				87C85E9E276F6B8E001C9C4A /* Problem_Core.swift in Sources */,
 				250B285F287435CA000578BC /* UIImageView.swift in Sources */,
 				878B540928814BDF002B5344 /* SegmentedControlView.swift in Sources */,
