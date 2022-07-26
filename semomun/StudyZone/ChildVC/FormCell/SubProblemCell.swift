@@ -29,12 +29,11 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
             userAnswer = Array(repeating: "", count: Int(totalCount))
         }
         let wrongCount = zip(userAnswer, answers).filter { $0 != $1 }.count
-        
         return StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
     }
     override var internalTopViewHeight: CGFloat {
-        let terminated = problem?.terminated ?? false
-        let problemCount = problem?.subProblemsCount ?? 0
+        let terminated = self.problem?.terminated ?? false
+        let problemCount = self.problem?.subProblemsCount ?? 0
         let wrongCount = self.answerView.wrongCount
         
         return StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
@@ -64,8 +63,8 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
         self.updateAnswerViewFrame()
+        super.layoutSubviews()
     }
 }
 
