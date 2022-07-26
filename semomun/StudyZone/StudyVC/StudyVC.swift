@@ -286,15 +286,31 @@ extension StudyVC {
     private func showReportView() {
         switch self.mode {
         case .default:
-            guard let pageData = self.sectionManager?.currentPage else { return }
-            guard let title = self.sectionManager?.sectionTitle else { return }
-            let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
+            guard let sectionManager = self.sectionManager,
+                  let pageData = sectionManager.currentPage else {
+                return
+            }
+            
+            let reportVC = ReportProblemErrorVC(
+                pageData: pageData,
+                workbookTitle: sectionManager.workbooktitle,
+                sectionNum: sectionManager.sectionNum,
+                sectionTitle: sectionManager.sectionTitle ?? ""
+            )
             
             self.present(reportVC, animated: true, completion: nil)
         case .practiceTest:
-            guard let pageData = self.practiceTestManager?.currentPage else { return }
-            guard let title = self.practiceTestManager?.sectionTitle else { return }
-            let reportVC = ReportProblemErrorVC(pageData: pageData, title: title)
+            guard let practiceTestManager = self.practiceTestManager,
+                  let pageData = practiceTestManager.currentPage else {
+                return
+            }
+            
+            let reportVC = ReportProblemErrorVC(
+                pageData: pageData,
+                workbookTitle: practiceTestManager.workbooktitle,
+                sectionNum: practiceTestManager.sectionNum,
+                sectionTitle: practiceTestManager.sectionTitle
+            )
             
             self.present(reportVC, animated: true, completion: nil)
         default:
