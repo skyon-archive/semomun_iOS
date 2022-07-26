@@ -34,8 +34,7 @@ final class MultipleWithSubProblemsWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWithSubProblemsWideVC {
     private func configureCellRegister() {
-        let cellIdentifiers: [String] = [SubProblemCell.identifier]
-        self.configureCellRegisters(identifiers: cellIdentifiers)
+        self.configureCellRegisters([SubProblemCell.self])
     }
 }
 

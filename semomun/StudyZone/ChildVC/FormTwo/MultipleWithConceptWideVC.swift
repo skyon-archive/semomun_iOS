@@ -34,8 +34,7 @@ final class MultipleWithConceptWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWithConceptWideVC {
     private func configureCellRegister() {
-        let cellIdentifiers: [String] = [MultipleWithConceptCell.identifier]
-        self.configureCellRegisters(identifiers: cellIdentifiers)
+        self.configureCellRegisters([MultipleWithConceptCell.self])
     }
 }
 

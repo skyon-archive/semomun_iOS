@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
+class MultipleWithNoAnswerCell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
     static let identifier = "MultipleWithNoAnswerCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
