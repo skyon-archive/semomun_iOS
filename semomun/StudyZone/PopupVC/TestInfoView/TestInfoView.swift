@@ -15,7 +15,6 @@ protocol TestStartable: AnyObject {
 struct TestInfoView: View {
     @State private var startTest = false
     @State private var titleTopPadding: CGFloat = 117
-    @State private var startButtonBottomPadding: CGFloat = 90
     @Environment(\.presentationMode) var presentationMode
     private weak var delegate: TestStartable?
     
@@ -26,7 +25,6 @@ struct TestInfoView: View {
         self.delegate = delegate
         if UIWindow.isLandscape {
             self._titleTopPadding = State(initialValue: 30)
-            self._startButtonBottomPadding = State(initialValue: 30)
         }
     }
     
@@ -35,8 +33,8 @@ struct TestInfoView: View {
             ZStack(alignment: .top) {
                 self.TitleView
                 HStack(alignment: .top) {
-                    Spacer()
                     self.CloseButton
+                    Spacer()
                 }
             }
             Spacer()
@@ -45,9 +43,13 @@ struct TestInfoView: View {
             self.StartTestButton
         }
         .onRotate { newOrientation in
-            self.titleTopPadding = newOrientation.isPortrait ? 117 : 30
-            self.startButtonBottomPadding = newOrientation.isPortrait ? 90 : 30
+            if newOrientation.isPortrait {
+                self.titleTopPadding = 117
+            } else if newOrientation.isLandscape {
+                self.titleTopPadding = 30
+            }
         }
+        .ignoresSafeArea(.all, edges: .bottom)
     }
 }
 
@@ -64,16 +66,20 @@ extension TestInfoView {
     }
     
     var CloseButton: some View {
-        Button(action: {
+        let image = UIImage(.chevronLeftOutline).withRenderingMode(.alwaysTemplate)
+        return Button(action: {
             self.presentationMode.wrappedValue.dismiss()
             self.delegate?.dismiss()
         }) {
-            Image(systemName: "xmark")
-                .resizable()
-                .foregroundColor(.black)
-                .frame(width: 26, height: 26)
+            HStack(spacing: 2) {
+                Image(uiImage: image)
+                    .frame(width: 24, height: 24, alignment: .center)
+                Text("뒤로")
+                    .font(Font(uiFont: .heading5))
+            }
         }
-        .padding(40)
+        .foregroundColor(Color(.getSemomunColor(.orangeRegular)))
+        .padding(10)
     }
     
     var CenterBorderView: some View {
@@ -108,13 +114,15 @@ extension TestInfoView {
             self.delegate?.startTest()
             self.presentationMode.wrappedValue.dismiss()
         }) {
-            Text("시험시작")
-                .font(.system(size: 20, weight: .medium))
-                .frame(width: 345, height: 54)
+            Text("시험 시작")
+                .font(Font(uiFont: .heading3))
+                .foregroundColor(Color(.getSemomunColor(.white)))
+                .offset(x: 0, y: -4.5)
         }
         .foregroundColor(.white)
-        .background(RoundedRectangle(cornerRadius: 5).fill(Color(SemomunColor.blueRegular.rawValue)))
-        .padding(.bottom, self.startButtonBottomPadding)
+        .frame(height: 73)
+        .frame(maxWidth: .infinity)
+        .background(Rectangle().fill(Color(.getSemomunColor(.orangeRegular))))
     }
 }
 
@@ -123,7 +131,7 @@ struct TestInfoView_Previews: PreviewProvider {
         let info = TestInfo(title: "2022년 1회차 고3 실전 모의고사", area: "사회탐구", subject: "윤리와 사상")
         if #available(iOS 15.0, *) {
             TestInfoView(info: info, delegate: StudyVC())
-                .previewInterfaceOrientation(.landscapeLeft)
+//                .previewInterfaceOrientation(.landscapeLeft)
         } else {
             // Fallback on earlier versions
         }
