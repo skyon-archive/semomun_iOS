@@ -31,6 +31,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let mainViewController = storyboard.instantiateInitialViewController() else { return }
         self.window?.rootViewController = mainViewController
         self.configureNavigationBarColor()
+        self.configureTabBarAppearance()
         self.window?.makeKeyAndVisible()
     }
     
@@ -100,6 +101,33 @@ extension SceneDelegate {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
+    private func configureTabBarAppearance() {
+        let tabBarItemAppearance = UITabBarItemAppearance()
+        tabBarItemAppearance.normal.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: UIFont.boldFont, size: 14) ?? .systemFont(ofSize: 14, weight: .bold),
+            .foregroundColor: UIColor.getSemomunColor(.black),
+        ]
+        tabBarItemAppearance.selected.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: UIFont.boldFont, size: 14) ?? .systemFont(ofSize: 14, weight: .bold),
+            .foregroundColor: UIColor.getSemomunColor(.blueRegular),
+        ]
+        tabBarItemAppearance.normal.iconColor = .getSemomunColor(.black)
+        tabBarItemAppearance.selected.iconColor = .getSemomunColor(.blueRegular)
+        
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithDefaultBackground()
+        tabBarAppearance.backgroundColor = .getSemomunColor(.background)
+        tabBarAppearance.shadowColor = .clear
+        
+        tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
+        tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
+        
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 }
 
