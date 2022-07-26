@@ -23,6 +23,7 @@ final class SingleWithTextAnswerVC: FormZero {
         self.answerView.configureDelegate(delegate: self)
         self.view.addSubview(self.answerView)
         self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
+        self.configureNotification()
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,6 +62,10 @@ final class SingleWithTextAnswerVC: FormZero {
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         let data = self.canvasView.drawing.dataRepresentation()
         self.viewModel?.updatePencilData(to: data, width: Double(self.canvasView.frame.width))
+    }
+    
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
 }
 
@@ -113,6 +118,23 @@ extension SingleWithTextAnswerVC: UITextFieldDelegate {
         self.updateAnswer()
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func keyboardWillChangeFrame(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
+        let size = StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false)
+        let defaultAnswerViewFrame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
+        
+        if defaultAnswerViewFrame.origin.y == self.answerView.frame.origin.y {
+            self.answerView.frame.origin.y -= frame.height
+        } else {
+            self.answerView.frame = defaultAnswerViewFrame
+        }
     }
 }
 

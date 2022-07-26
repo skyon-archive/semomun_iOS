@@ -97,12 +97,14 @@ extension StudyShortTextAnswerView {
     }
     
     func configureUserAnswer(_ userAnswer: String?) {
+        self.textField.isUserInteractionEnabled = true
         self.answerLabel.isHidden = true
         self.textField.layer.borderColor = UIColor.getSemomunColor(.border).cgColor
         self.textField.text = userAnswer ?? ""
     }
     
     func terminate(answer: String, userAnswer: String?) {
+        self.textField.isUserInteractionEnabled = false
         if userAnswer == answer {
             self.answerLabel.isHidden = true
             self.textField.text = userAnswer
