@@ -97,7 +97,6 @@ extension SingleWithSubProblemsVC {
         
         guard problem.terminated == true else { return }
         self.answerView.terminate()
-        self.updateAnswerViewFrame()
     }
 }
 
@@ -119,7 +118,9 @@ extension SingleWithSubProblemsVC: StudyToolbarViewDelegate {
 
 extension SingleWithSubProblemsVC: SubproblemsAnswerViewDelegate {
     func selectAnswer(to answer: String) {
-        self.viewModel?.updateSolved(withSelectedAnswer: answer)
+        guard let count = self.viewModel?.problem?.subProblemsCount else { return }
+        let correctCount = Int(count) - self.answerView.wrongCount
+        self.viewModel?.updateSolved(userAnswer: answer, correctCount: correctCount)
     }
 }
 
