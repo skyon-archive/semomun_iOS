@@ -7,6 +7,8 @@
 
 import UIKit
 
+typealias SubproblemsAnswerViewDelegate = (AnswerCheckDelegate & UITextFieldDelegate)
+
 final class StudySubProblemsAnswerView: UIView {
     /* public */
     static let korLabels = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ"]
@@ -29,8 +31,9 @@ final class StudySubProblemsAnswerView: UIView {
             return CGSize(200, heightMargin + stackViewHeight + answerLabelHeights)
         }
     }
+    private(set) var wrongCount: Int = 0
     /* prvate */
-    private weak var delegate: AnswerCheckDelegate?
+    private weak var delegate: SubproblemsAnswerViewDelegate?
     private var topBar = StudyAnswerViewTopBar()
     private var answersStackView: UIStackView = {
         let stackView = UIStackView()
@@ -75,14 +78,20 @@ final class StudySubProblemsAnswerView: UIView {
 }
 
 extension StudySubProblemsAnswerView {
+    func configureDelegate(delegate: SubproblemsAnswerViewDelegate) {
+        self.delegate = delegate
+    }
+    
     func configureUserAnswer(problem: Problem_Core) {
         self.terminated = false
+        self.wrongCount = 0
         self.answersStackView.arrangedSubviews.forEach {
             self.answersStackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
         self.subProblems.removeAll()
         
+        guard let delegate = self.delegate else { return }
         guard let answer = problem.answer else { return }
         let count = Int(problem.subProblemsCount)
         let answers = answer.components(separatedBy: "$").map { String($0) }
@@ -90,15 +99,10 @@ extension StudySubProblemsAnswerView {
         
         for idx in 0..<count {
             let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "", userAnswer: userAnswers[safe: idx] ?? "")
+            subProblemInputView.configureDelegate(delegate)
+            subProblemInputView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
             self.answersStackView.addArrangedSubview(subProblemInputView)
             self.subProblems.append(subProblemInputView)
-        }
-    }
-    
-    func configureDelegate(_ delegate: (AnswerCheckDelegate & UITextFieldDelegate)) {
-        self.delegate = delegate
-        self.subProblems.forEach { subProblem in
-            subProblem.configureDelegate(delegate)
         }
     }
     
@@ -107,9 +111,13 @@ extension StudySubProblemsAnswerView {
         self.delegate?.selectAnswer(to: userAnswer)
     }
     
-    func terminate(problem: Problem_Core) -> Int {
+    func terminate() {
         self.terminated = true
-        return self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
+        self.wrongCount = self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
+    }
+    
+    @objc private func updateAnswer() {
+        self.saveUserAnswer()
     }
 }
 

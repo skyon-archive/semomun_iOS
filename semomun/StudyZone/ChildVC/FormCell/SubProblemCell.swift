@@ -186,7 +186,7 @@ class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
     }
 }
 
-extension SubProblemCell: SubProblemCheckObservable {
+extension SubProblemCell {
     func checkButton(index: Int) {
 //        guard let targetButton = self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton else {
 //            assertionFailure()
@@ -223,12 +223,12 @@ extension SubProblemCell: SubProblemCheckObservable {
 //        }
     }
     
-    private func updateStackview(except button: SubProblemCheckButton) {
+//    private func updateStackview(except button: SubProblemCheckButton) {
 //        self.stackView.arrangedSubviews
 //            .filter { $0 != button }
 //            .compactMap { $0 as? SubProblemCheckButton }
 //            .forEach { $0.isSelected = false; }
-    }
+//    }
 }
 
 extension SubProblemCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -375,30 +375,29 @@ extension SubProblemCell: UITextFieldDelegate {
         self.updateSolved(input: solvingConverted)
         self.updateCorrectPoints()
         // 현재문제 deselect
-        guard let subCount = self.problem?.subProblemsCount,
-              let currentButton = self.subProblemButton(index: currentProblemIndex) else { return }
-        currentButton.isSelected = false
-        // 다음문제 있는 경우 다음문제 select
-        if currentProblemIndex+1 < Int(subCount),
-           let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
-            self.currentProblemIndex = currentProblemIndex+1
-            nextButton.isSelected = true
-            self.updateStackview(except: nextButton)
-        }
-        // 마지막 문제인 경우 keyboard 내림
-        else if currentProblemIndex+1 == Int(subCount) {
-            self.currentProblemIndex = nil
-            self.hideTextField(animation: true)
-            self.endEditing(true)
-        }
+        return
+//        currentButton.isSelected = false
+//        // 다음문제 있는 경우 다음문제 select
+//        if currentProblemIndex+1 < Int(subCount),
+//           let nextButton = self.subProblemButton(index: currentProblemIndex+1) {
+//            self.currentProblemIndex = currentProblemIndex+1
+//            nextButton.isSelected = true
+////            self.updateStackview(except: nextButton)
+//        }
+//        // 마지막 문제인 경우 keyboard 내림
+//        else if currentProblemIndex+1 == Int(subCount) {
+//            self.currentProblemIndex = nil
+//            self.hideTextField(animation: true)
+//            self.endEditing(true)
+//        }
     }
 }
 
 extension SubProblemCell {
-    private func subProblemButton(index: Int) -> SubProblemCheckButton? {
+//    private func subProblemButton(index: Int) -> SubProblemCheckButton? {
 //        return self.stackView.arrangedSubviews[safe: index] as? SubProblemCheckButton ?? nil
-        return nil
-    }
+//        return nil
+//    }
     
     private func updateCorrectPoints() {
         guard let answer = self.problem?.answer else {

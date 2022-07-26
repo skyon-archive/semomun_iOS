@@ -441,7 +441,7 @@ extension StudyVC: LayoutDelegate {
             
         case SingleWithSubProblemsVC.identifier:
             self.currentVC = self.singleWithSubProblems
-            self.singleWithSubProblems.configureViewModel(delegate: self, pageData: pageData, mode: self.mode)
+            self.singleWithSubProblems.viewModel = SingleWithSubProblemsVM(delegate: self, pageData: pageData, mode: self.mode)
             self.singleWithSubProblems.image = self.getImage(data: pageData.problems[0].contentImage)
         
         default:
