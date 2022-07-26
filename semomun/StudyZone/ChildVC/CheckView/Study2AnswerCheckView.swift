@@ -91,9 +91,9 @@ extension Study2AnswerCheckView {
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
         buttons.forEach { button in
             if answer == button.answer {
-                button.correct(isSelected: userAnswer == button.answer)
+                button.terminatedAnswerUI(isSelected: userAnswer == button.answer)
             } else {
-                button.wrong(isSelected: userAnswer == button.answer)
+                button.terminatedNotAnswerUI(isSelected: userAnswer == button.answer)
             }
         }
     }

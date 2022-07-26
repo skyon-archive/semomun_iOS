@@ -17,12 +17,13 @@ final class SingleWith5AnswerVC: FormZero {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.answerCheckView.configureDelegate(delegate: self)
+        self.view.addSubview(self.answerCheckView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.configureCheckView()
-        self.tempConfigure()
+        self.updateCheckViewFrame()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,33 +32,7 @@ final class SingleWith5AnswerVC: FormZero {
             self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer: viewModel.answerStringForUser())
             self.toolbarView.configureDelegate(self)
         }
-        
         self.updateCheckView()
-    }
-    
-    private func configureCheckView() {
-        self.answerCheckView.configureDelegate(delegate: self)
-        self.view.addSubview(self.answerCheckView)
-        let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
-        let size = Study5AnswerCheckView.size
-        self.answerCheckView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
-    }
-    
-    private func tempConfigure() {
-        let tempView = StudyShortTextAnswerView()
-        tempView.terminate(answer: "395", userAnswer: "395")
-        self.view.addSubview(tempView)
-        tempView.frame = CGRect(origin: CGPoint(16, self.answerCheckView.frame.minY-16), size: StudyShortTextAnswerView.size(terminated: true, isCorrect: true))
-    }
-    
-    private func updateCheckView() {
-        guard let userAnswer = self.viewModel?.savedSolved,
-              let terminated = self.viewModel?.problem?.terminated,
-              let shouldMultipleAnswer = self.viewModel?.shouldChooseMultipleAnswer else { return }
-        self.answerCheckView.configureUserAnswer(userAnswer, terminated, shouldMultipleAnswer: shouldMultipleAnswer)
-        
-        guard terminated == true, let answer = self.viewModel?.answer else { return }
-        self.answerCheckView.terminate(answer: answer, userAnswer: userAnswer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,7 +50,7 @@ final class SingleWith5AnswerVC: FormZero {
         return self.viewModel?.problem
     }
     override var topViewHeight: CGFloat {
-        return 72
+        return Study5AnswerCheckView.size.height+16
     }
     /* 상위 class를 위하여 override가 필요한 메소드들 */
     override func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -84,12 +59,26 @@ final class SingleWith5AnswerVC: FormZero {
     }
 }
 
-extension SingleWith5AnswerVC: TimeRecordControllable {
-    func endTimeRecord() {
-        self.viewModel?.endTimeRecord()
+// MARK: CheckView
+extension SingleWith5AnswerVC {
+    private func updateCheckViewFrame() {
+        let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
+        let size = Study5AnswerCheckView.size
+        self.answerCheckView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
+    }
+    
+    private func updateCheckView() {
+        guard let userAnswer = self.viewModel?.savedSolved,
+              let terminated = self.viewModel?.problem?.terminated,
+              let shouldMultipleAnswer = self.viewModel?.shouldChooseMultipleAnswer else { return }
+        self.answerCheckView.configureUserAnswer(userAnswer, terminated, shouldMultipleAnswer: shouldMultipleAnswer)
+        
+        guard terminated == true, let answer = self.viewModel?.answer else { return }
+        self.answerCheckView.terminate(answer: answer, userAnswer: userAnswer)
     }
 }
 
+// MARK: StudyToolbar
 extension SingleWith5AnswerVC: StudyToolbarViewDelegate {
     func toggleBookmark() {
         self.viewModel?.updateStar(to: self.toolbarView.bookmarkSelected)
@@ -108,5 +97,11 @@ extension SingleWith5AnswerVC: StudyToolbarViewDelegate {
 extension SingleWith5AnswerVC: AnswerCheckDelegate {
     func selectAnswer(to answer: String) {
         self.viewModel?.updateSolved(userAnswer: answer)
+    }
+}
+
+extension SingleWith5AnswerVC: TimeRecordControllable {
+    func endTimeRecord() {
+        self.viewModel?.endTimeRecord()
     }
 }
