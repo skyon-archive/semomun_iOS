@@ -12,18 +12,18 @@ final class SingleWith4AnswerVM: PageVM {
     let shouldChooseMultipleAnswer: Bool
     
     /// CoreData에 저장된, 유저가 선택한 선지들
-    var savedSolved: [Int] {
+    var savedSolved: [String] {
         guard let solved = self.problem?.solved else { return [] }
         return solved
             .split(separator: ",")
-            .compactMap { Int($0) }
+            .compactMap { String($0) }
     }
     
-    /// 문제의 정답.a
-    var answer: [Int] {
+    /// 문제의 정답.
+    var answer: [String] {
         guard let answer = self.problem?.answer else { return [] }
         
-        return answer.split(separator: ",").compactMap { Int($0) }
+        return answer.split(separator: ",").compactMap { String($0) }
     }
     
     override init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
@@ -43,14 +43,18 @@ final class SingleWith4AnswerVM: PageVM {
         return input == answer
     }
     
-    func updateSolved(withSelectedAnswers selectedAnswers: [Int], problem: Problem_Core? = nil) {
+    func updateSolved(userAnswer: String, problem: Problem_Core? = nil) {
         if self.shouldChooseMultipleAnswer {
-            let answersConverted = selectedAnswers.sorted().map { String($0) }.joined(separator: ",")
+            var selectedAnswers = self.savedSolved
+            if selectedAnswers.contains(userAnswer) == false {
+                selectedAnswers.append(userAnswer)
+            } else {
+                selectedAnswers.removeAll(where: { $0 == userAnswer })
+            }
+            let answersConverted = selectedAnswers.sorted().joined(separator: ",")
             self.updateSolved(withSelectedAnswer: answersConverted, problem: problem)
         } else {
-            if let selectedAnswer = selectedAnswers.first {
-                self.updateSolved(withSelectedAnswer: String(selectedAnswer), problem: problem)
-            }
+            self.updateSolved(withSelectedAnswer: userAnswer, problem: problem)
         }
     }
 }

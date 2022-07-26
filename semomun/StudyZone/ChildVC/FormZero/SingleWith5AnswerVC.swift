@@ -8,9 +8,10 @@
 import UIKit
 import PencilKit
 
+/// form == 0 && type == 5
 final class SingleWith5AnswerVC: FormZero {
     /* public */
-    static let identifier = "SingleWith5AnswerVC" // form == 0 && type == 5
+    static let identifier = "SingleWith5AnswerVC"
     var viewModel: SingleWith5AnswerVM?
     /* private */
     private let answerCheckView = Study5AnswerCheckView()
