@@ -66,7 +66,7 @@ extension SingleWith5AnswerVC {
     private func updateCorrectImage() {
         guard let problem = self.viewModel?.problem else { return }
         if problem.terminated == true {
-            self.updateCorrectImage(to: problem.correct)
+            self.updateCorrectImage(isCorrect: problem.correct)
         }
     }
 }

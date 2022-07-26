@@ -39,7 +39,7 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         self.updateCheckView(problem: problem)
         
         if self.problem?.terminated == true {
-            self.showCorrectImage(isCorrect: self.problem?.correct ?? false)
+            self.updateCorrectImage(isCorrect: self.problem?.correct ?? false)
         }
     }
     
