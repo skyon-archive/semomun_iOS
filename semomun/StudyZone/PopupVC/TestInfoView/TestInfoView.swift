@@ -114,13 +114,16 @@ extension TestInfoView {
             self.delegate?.startTest()
             self.presentationMode.wrappedValue.dismiss()
         }) {
-            Text("시험 시작")
-                .font(Font(uiFont: .heading3))
-                .foregroundColor(Color(.getSemomunColor(.white)))
-                .offset(x: 0, y: -4.5)
+            VStack(spacing: 0) {
+                Text("시험 시작")
+                    .font(Font(uiFont: .heading3))
+                    .foregroundColor(Color(.getSemomunColor(.white)))
+                    .padding(.top, 20)
+                Spacer()
+            }
         }
         .foregroundColor(.white)
-        .frame(height: 73)
+        .frame(height: (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) > 0 ? 73 : 64)
         .frame(maxWidth: .infinity)
         .background(Rectangle().fill(Color(.getSemomunColor(.orangeRegular))))
     }
