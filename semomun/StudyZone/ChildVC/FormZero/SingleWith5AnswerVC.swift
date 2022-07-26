@@ -25,6 +25,19 @@ final class SingleWith5AnswerVC: FormZero {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.updateCheckViewFrame()
+        self.tempView()
+    }
+    
+    private func tempView() {
+        let tempView = StudySubProblemsAnswerView()
+        let tempProblemCore = Problem_Core(context: CoreDataManager.shared.context)
+        tempProblemCore.answer = "성열$봉크$야호$민호$야호"
+        tempProblemCore.subProblemsCount = 5
+        tempView.configureUserAnswer(problem: tempProblemCore)
+        let wrongCount = tempView.terminate(problem: tempProblemCore)
+        self.view.addSubview(tempView)
+        let size = StudySubProblemsAnswerView.size(terminated: true, problemCount: 5, wrongCount: wrongCount)
+        tempView.frame = CGRect(origin: CGPoint(16, self.answerCheckView.frame.maxY - size.height), size: size)
     }
     
     override func viewWillAppear(_ animated: Bool) {

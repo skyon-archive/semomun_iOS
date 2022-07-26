@@ -77,6 +77,7 @@ final class StudySubProblemInputView: UIView {
     
     convenience init(name: String, answer: String) {
         self.init(frame: CGRect())
+        self.answer = answer
         self.nameLabel.text = name
         self.answerLabel.text = answer
         self.configureLayout()
@@ -108,15 +109,17 @@ extension StudySubProblemInputView {
         self.textField.delegate = delegate
     }
     
-    func terminateUI() {
+    func terminateUI() -> Bool {
         let userAnswer = self.textField.text ?? ""
         if userAnswer == self.answer {
             self.nameLabel.textColor = UIColor.systemGreen
             self.textField.layer.borderColor = UIColor.systemGreen.cgColor
+            return false
         } else {
             self.nameLabel.textColor = UIColor.systemRed
             self.textField.layer.borderColor = UIColor.systemRed.cgColor
             self.answerHorizontalStackView.isHidden = false
+            return true
         }
     }
 }
