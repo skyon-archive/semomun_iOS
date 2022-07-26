@@ -51,7 +51,7 @@ final class SingleWith5AnswerVM: PageVM {
             } else {
                 selectedAnswers.removeAll(where: { $0 == userAnswer })
             }
-            let answersConverted = selectedAnswers.sorted().map { String($0) }.joined(separator: ",")
+            let answersConverted = selectedAnswers.sorted().joined(separator: ",")
             self.updateSolved(withSelectedAnswer: answersConverted, problem: problem)
         } else {
             self.updateSolved(withSelectedAnswer: userAnswer, problem: problem)

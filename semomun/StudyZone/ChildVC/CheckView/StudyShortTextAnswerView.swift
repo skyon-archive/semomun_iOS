@@ -102,6 +102,7 @@ extension StudyShortTextAnswerView {
     
     func terminate(answer: String, userAnswer: String?) {
         if userAnswer == answer {
+            self.answerLabel.isHidden = true
             self.textField.text = userAnswer
             self.textField.layer.borderColor = UIColor.systemGreen.cgColor
         } else {
