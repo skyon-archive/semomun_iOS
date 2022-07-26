@@ -70,7 +70,6 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.adjustLayouts(frameUpdate: true)
-        self.updateCanvasViewDataAndDelegate()
         self.studyToolbarLeadingConstraint.constant = UIWindow.isLandscape ? 32 : 16
         self.studyToolbarBottomConstraint.constant = self.internalTopViewHeight
     }
@@ -82,6 +81,12 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
         self.updateImageView(contentImage)
         self.updateToolPicker(toolPicker)
         self.updateTimerView()
+    }
+    
+    func updateInternalTopViewHeight() {
+        self.adjustLayouts(frameUpdate: true)
+        self.studyToolbarLeadingConstraint.constant = UIWindow.isLandscape ? 32 : 16
+        self.studyToolbarBottomConstraint.constant = self.internalTopViewHeight
     }
 }
 
