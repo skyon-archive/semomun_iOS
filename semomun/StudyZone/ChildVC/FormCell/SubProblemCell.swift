@@ -12,31 +12,31 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
     static let identifier = "SubProblemCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        let terminated = problem?.terminated ?? false
         let problemCount = problem?.subProblemsCount ?? 0
-        
-        let totalCount = problem?.subProblemsCount ?? 0
+        guard problem?.terminated == true else {
+            return StudySubProblemsAnswerView.size(terminated: false, problemCount: Int(problemCount), wrongCount: 0).height + 16
+        }
+        print("answer: \(problem?.answer)")
+        print("userAnswer: \(problem?.solved)")
         var answers: [String] = []
         if let answer = problem?.answer {
             answers = answer.split(separator: "$").map { String($0) }
         } else {
-            answers = Array(repeating: "", count: Int(totalCount))
+            answers = Array(repeating: "", count: Int(problemCount))
         }
         var userAnswer: [String] = []
         if let userAnswers = problem?.solved {
-            userAnswer = userAnswers.split(separator: "$").map { String($0) }
+            userAnswer = userAnswers.split(separator: "$").map { $0 == "" ? "" : String($0) }
         } else {
-            userAnswer = Array(repeating: "", count: Int(totalCount))
+            userAnswer = Array(repeating: "", count: Int(problemCount))
         }
+        print("answer(\(answers.count)): \(answers)")
+        print("userAnswers(\(userAnswer.count)): \(userAnswer)")
         let wrongCount = zip(userAnswer, answers).filter { $0 != $1 }.count
-        return StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
+        return StudySubProblemsAnswerView.size(terminated: true, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
     }
     override var internalTopViewHeight: CGFloat {
-        let terminated = self.problem?.terminated ?? false
-        let problemCount = self.problem?.subProblemsCount ?? 0
-        let wrongCount = self.answerView.wrongCount
-        
-        return StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
+        return Self.topViewHeight(with: self.problem)
     }
     /* private */
     private let answerView = StudySubProblemsAnswerView()
@@ -63,8 +63,8 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
     }
     
     override func layoutSubviews() {
-        self.updateAnswerViewFrame()
         super.layoutSubviews()
+        self.updateAnswerViewFrame()
     }
 }
 

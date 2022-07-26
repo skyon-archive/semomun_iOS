@@ -28,6 +28,7 @@ final class StudySubProblemsAnswerView: UIView {
             let heightMargin = Self.stackViewTopMargin + Self.stackViewBottomMargin
             let stackViewHeight = CGFloat(problemCount)*Self.subProblemHeight + CGFloat(problemCount-1)*Self.stackViewSpacing
             let answerLabelHeights = CGFloat(wrongCount)*Self.answerLabelHeight
+            print("wrong: \(wrongCount) - \(heightMargin+stackViewHeight+answerLabelHeights)")
             return CGSize(200, heightMargin + stackViewHeight + answerLabelHeights)
         }
     }
