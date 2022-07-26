@@ -75,9 +75,10 @@ final class StudySubProblemInputView: UIView {
         return stackView
     }()
     
-    convenience init(name: String, answer: String) {
+    convenience init(name: String, answer: String, userAnswer: String) {
         self.init(frame: CGRect())
         self.answer = answer
+        self.textField.text = userAnswer
         self.nameLabel.text = name
         self.answerLabel.text = answer
         self.configureLayout()
