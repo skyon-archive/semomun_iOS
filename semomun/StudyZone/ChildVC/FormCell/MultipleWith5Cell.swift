@@ -35,7 +35,12 @@ final class MultipleWith5Cell: FormCell, CellLayoutable {
         
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
         self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
+        
         self.updateCheckView(problem: problem)
+        
+        if self.problem?.terminated == true {
+            self.showCorrectImage(isCorrect: self.problem?.correct ?? false)
+        }
     }
     
     override func layoutSubviews() {
