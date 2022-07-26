@@ -12,10 +12,10 @@ class MultipleWithNoAnswerCell: FormCell, CellLayoutable {
     /* public */
     static let identifier = "MultipleWithNoAnswerCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        return 51
+        return 52
     }
     override var internalTopViewHeight: CGFloat {
-        return 51
+        return 52
     }
     /* private */
     override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
