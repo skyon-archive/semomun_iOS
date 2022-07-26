@@ -85,9 +85,10 @@ extension StudySubProblemsAnswerView {
         
         guard let answer = problem.answer else { return }
         let answers = answer.components(separatedBy: "$").map { String($0) }
+        let count = Int(problem.subProblemsCount)
         
-        for (idx, answer) in answers.enumerated() {
-            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answer)
+        for idx in 0..<count {
+            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "")
             self.answersStackView.addArrangedSubview(subProblemInputView)
             self.subProblems.append(subProblemInputView)
         }
@@ -105,7 +106,8 @@ extension StudySubProblemsAnswerView {
         self.delegate?.selectAnswer(to: userAnswer)
     }
     
-    func terminate(problem: Problem_Core) {
+    func terminate(problem: Problem_Core) -> Int {
         self.terminated = true
+        return self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
     }
 }
