@@ -84,11 +84,12 @@ extension StudySubProblemsAnswerView {
         self.subProblems.removeAll()
         
         guard let answer = problem.answer else { return }
-        let answers = answer.components(separatedBy: "$").map { String($0) }
         let count = Int(problem.subProblemsCount)
+        let answers = answer.components(separatedBy: "$").map { String($0) }
+        let userAnswers = self.userAnswers(coreUserAnswers: problem.solved, answerCount: count)
         
         for idx in 0..<count {
-            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "")
+            let subProblemInputView = StudySubProblemInputView(name: Self.korLabels[idx], answer: answers[safe: idx] ?? "", userAnswer: userAnswers[safe: idx] ?? "")
             self.answersStackView.addArrangedSubview(subProblemInputView)
             self.subProblems.append(subProblemInputView)
         }
@@ -109,5 +110,15 @@ extension StudySubProblemsAnswerView {
     func terminate(problem: Problem_Core) -> Int {
         self.terminated = true
         return self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
+    }
+}
+
+extension StudySubProblemsAnswerView {
+    private func userAnswers(coreUserAnswers: String?, answerCount: Int) -> [String] {
+        if let userAnswers = coreUserAnswers {
+            return userAnswers.components(separatedBy: "$").map { String($0) }
+        } else {
+            return Array(repeating: "", count: answerCount)
+        }
     }
 }
