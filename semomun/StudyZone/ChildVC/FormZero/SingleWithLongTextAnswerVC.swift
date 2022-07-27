@@ -12,7 +12,7 @@ import PencilKit
 final class SingleWithLongTextAnswerVC: FormZero {
     /* public */
     static let identifier = "SingleWithLongTextAnswerVC"
-    var viewModel: SingleWithTextAnswerVM?
+    var viewModel: SingleWithLongTextAnswerVM?
     /* private */
     private let answerView = StudyLongTextAnswerView()
     
@@ -21,7 +21,6 @@ final class SingleWithLongTextAnswerVC: FormZero {
         super.viewDidLoad()
         self.configureNotification()
         self.answerView.configureDelegate(delegate: self)
-//        self.answerView.textView.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
         self.view.addSubview(self.answerView)
     }
     
@@ -89,6 +88,8 @@ extension SingleWithLongTextAnswerVC {
     private func updateAnswerView() {
         let userAnswer = self.viewModel?.problem?.solved
         self.answerView.configureUserAnswer(userAnswer)
+        guard self.problem?.terminated == true else { return }
+        self.answerView.terminate()
     }
 }
 
@@ -109,7 +110,7 @@ extension SingleWithLongTextAnswerVC: StudyToolbarViewDelegate {
 }
 
 extension SingleWithLongTextAnswerVC: UITextViewDelegate {
-    @objc private func updateAnswer() {
+    private func updateAnswer() {
         if let text = self.answerView.textView.text {
             self.viewModel?.updateSolved(answer: text)
         }
@@ -119,6 +120,11 @@ extension SingleWithLongTextAnswerVC: UITextViewDelegate {
         self.updateAnswer()
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("change: \(textView.text)")
+        self.updateAnswer()
     }
     
     @objc func keyboardWillChangeFrame(notification: Notification) {

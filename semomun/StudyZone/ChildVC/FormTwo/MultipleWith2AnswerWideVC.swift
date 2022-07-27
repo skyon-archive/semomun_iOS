@@ -11,7 +11,7 @@ import PencilKit
 final class MultipleWith2AnswerWideVC: FormTwo {
     static let identifier = "MultipleWith2AnswerWideVC"
     /* public */
-    var viewModel: MultipleWith2AnswerVM?
+    var viewModel: MultipleWith2AnswerWideVM?
     var subImages: [UIImage?]?
     
     override func viewDidLoad() {
