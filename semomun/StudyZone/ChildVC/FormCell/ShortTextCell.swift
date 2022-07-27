@@ -34,7 +34,7 @@ final class ShortTextCell: FormCell, CellLayoutable, CellRegisterable {
         self.contentView.addSubview(self.answerView)
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode?) {
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = nil) {
         super.prepareForReuse(contentImage, problem, toolPicker, mode)
         
         self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: self.problem?.answer ?? "")

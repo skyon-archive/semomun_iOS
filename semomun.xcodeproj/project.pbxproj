@@ -335,6 +335,8 @@
 		E48BFD202891233300C61295 /* MultipleWith2AnswerWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */; };
 		E48BFD222891238000C61295 /* MultipleWith2AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD212891238000C61295 /* MultipleWith2AnswerVM.swift */; };
 		E48BFD242891254600C61295 /* ShortTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD232891254600C61295 /* ShortTextCell.swift */; };
+		E48BFD2628912A9100C61295 /* MultipleWithShortTextWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2528912A9100C61295 /* MultipleWithShortTextWideVC.swift */; };
+		E48BFD2828912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -678,6 +680,8 @@
 		E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith2AnswerWideVC.swift; sourceTree = "<group>"; };
 		E48BFD212891238000C61295 /* MultipleWith2AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith2AnswerVM.swift; sourceTree = "<group>"; };
 		E48BFD232891254600C61295 /* ShortTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTextCell.swift; sourceTree = "<group>"; };
+		E48BFD2528912A9100C61295 /* MultipleWithShortTextWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithShortTextWideVC.swift; sourceTree = "<group>"; };
+		E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithShortTextAnswerVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -904,11 +908,12 @@
 			isa = PBXGroup;
 			children = (
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
+				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
+				877D90AA283D0E5400CE0D81 /* MultipleWithNoAnswerWideVC.swift */,
+				E48BFD2528912A9100C61295 /* MultipleWithShortTextWideVC.swift */,
 				E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
 				2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift */,
-				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
-				877D90AA283D0E5400CE0D81 /* MultipleWithNoAnswerWideVC.swift */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1733,6 +1738,7 @@
 				25738C712792D553002A6676 /* SingleWithNoAnswerVM.swift */,
 				2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */,
 				877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */,
+				E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2037,6 +2043,7 @@
 				87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */,
 				87F13F29287EB3BC00AD80C0 /* SearchWarningCell.swift in Sources */,
 				25B7B0C327D85A500012F0FF /* LoginSignupVM.swift in Sources */,
+				E48BFD2828912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift in Sources */,
 				87C85E7D276F69BD001C9C4A /* KeychainItem.swift in Sources */,
 				87EFCAE028854D030079BAC2 /* SchoolSelectPopupVC.swift in Sources */,
 				87DD0FCB2875B5C300070F8F /* DropdownOrderButton.swift in Sources */,
@@ -2121,6 +2128,7 @@
 				E48BFD242891254600C61295 /* ShortTextCell.swift in Sources */,
 				257AB2D62877C91900771382 /* HomeHeaderView.swift in Sources */,
 				25571EC527E43EC0002C72ED /* PurchasedItem.swift in Sources */,
+				E48BFD2628912A9100C61295 /* MultipleWithShortTextWideVC.swift in Sources */,
 				87C85EB9276F6CF1001C9C4A /* Form5Cell.swift in Sources */,
 				87B17A1E2833D71100DB5F10 /* SingleWithSubProblemsVC.swift in Sources */,
 				25BF7B74287D145B00A5F6E1 /* HomeTagDetailVM.swift in Sources */,
