@@ -333,6 +333,8 @@
 		87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */; };
 		87FA0A9527D60899005B6925 /* WorkbookLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA0A9427D60899005B6925 /* WorkbookLog.swift */; };
 		87FD58A828744930005E8E12 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD58A728744930005E8E12 /* UIButton.swift */; };
+		E48BFD202891233300C61295 /* MultipleWith2AnswerWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */; };
+		E48BFD222891238000C61295 /* MultipleWith2AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD212891238000C61295 /* MultipleWith2AnswerVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -674,6 +676,8 @@
 		87FA0A9227D5BAE9005B6925 /* TagOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagOfDB.swift; sourceTree = "<group>"; };
 		87FA0A9427D60899005B6925 /* WorkbookLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookLog.swift; sourceTree = "<group>"; };
 		87FD58A728744930005E8E12 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith2AnswerWideVC.swift; sourceTree = "<group>"; };
+		E48BFD212891238000C61295 /* MultipleWith2AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith2AnswerVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -900,6 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				25622C53283AB5590056E0DF /* FormTwo.swift */,
+				E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
 				2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift */,
 				87B17A192833CAF800DB5F10 /* MultipleWithConceptWideVC.swift */,
@@ -1729,6 +1734,7 @@
 				255EDB68283FA7D9003A9B71 /* SingleWithSubProblemsVM.swift */,
 				87C85ECE276F6DA8001C9C4A /* SingleWithTextAnswerVM.swift */,
 				87C85ED0276F6DB5001C9C4A /* MultipleWith5AnswerVM.swift */,
+				E48BFD212891238000C61295 /* MultipleWith2AnswerVM.swift */,
 				87C85ED4276F6DD2001C9C4A /* MultipleWithNoAnswerVM.swift */,
 				87C85ED2276F6DC4001C9C4A /* SingleWith4AnswerVM.swift */,
 				25738C6D27929C97002A6676 /* ConceptVM.swift */,
@@ -2172,10 +2178,12 @@
 				257AC2D127A9592400008DD9 /* Date.swift in Sources */,
 				87273C1E2841121B007B7092 /* RotationableCanvasView.swift in Sources */,
 				25A6791E2874807C009F76DF /* BookcoverCell.swift in Sources */,
+				E48BFD222891238000C61295 /* MultipleWith2AnswerVM.swift in Sources */,
 				87C85EBD276F6D13001C9C4A /* PageData.swift in Sources */,
 				8766FF5E27B4F97E00D57C91 /* ReportProblemErrorVC.swift in Sources */,
 				87C85E4C276F6794001C9C4A /* CircularProgressView.swift in Sources */,
 				870BB573288E872F00794295 /* StudyShortTextAnswerView.swift in Sources */,
+				E48BFD202891233300C61295 /* MultipleWith2AnswerWideVC.swift in Sources */,
 				8716E962279A628A00B33A5E /* SingleWithTextAnswerVC.swift in Sources */,
 				8784795827C87F18000C6307 /* SectionResultVM.swift in Sources */,
 				259B6C8128800B890051B2FA /* PayStatusView.swift in Sources */,
