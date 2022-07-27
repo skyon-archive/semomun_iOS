@@ -79,7 +79,7 @@ extension SingleWithSubProblemsVC {
     }
 }
 
-// MARK: CheckView
+// MARK: AnswerView
 extension SingleWithSubProblemsVC {
     private func updateAnswerViewFrame() {
         guard let terminated = self.viewModel?.problem?.terminated,

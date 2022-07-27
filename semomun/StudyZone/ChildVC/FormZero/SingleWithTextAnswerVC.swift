@@ -28,7 +28,7 @@ final class SingleWithTextAnswerVC: FormZero {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.updateCheckViewFrame()
+        self.updateAnswerViewFrame()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +37,7 @@ final class SingleWithTextAnswerVC: FormZero {
             self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer:  viewModel.answerStringForUser())
             self.toolbarView.configureDelegate(self)
         }
-        self.updateCheckView()
+        self.updateAnswerView()
         self.updateCorrectImage()
     }
     
@@ -79,15 +79,15 @@ extension SingleWithTextAnswerVC {
     }
 }
 
-// MARK: CheckView
+// MARK: AnswerView
 extension SingleWithTextAnswerVC {
-    private func updateCheckViewFrame() {
+    private func updateAnswerViewFrame() {
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
         let size = StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false)
         self.answerView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
     }
     
-    private func updateCheckView() {
+    private func updateAnswerView() {
         let terminated = self.viewModel?.problem?.terminated ?? false
         let userAnswer = self.viewModel?.problem?.solved
         self.answerView.configureUserAnswer(userAnswer)

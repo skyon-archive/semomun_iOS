@@ -80,7 +80,7 @@ extension SubProblemCell {
     }
 }
 
-// MARK: CheckView
+// MARK: AnswerView
 extension SubProblemCell {
     private func updateAnswerViewFrame() {
         guard let terminated = self.problem?.terminated,
