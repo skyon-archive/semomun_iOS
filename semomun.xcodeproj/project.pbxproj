@@ -339,6 +339,8 @@
 		E48BFD2828912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */; };
 		E48BFD2A2891378A00C61295 /* SingleWith2AnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD292891378A00C61295 /* SingleWith2AnswerVC.swift */; };
 		E48BFD2C2891380B00C61295 /* SingleWith2AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */; };
+		E48BFD2E28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2D28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift */; };
+		E48BFD3028913AAE00C61295 /* SingleWithLongTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -686,6 +688,8 @@
 		E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithShortTextAnswerVM.swift; sourceTree = "<group>"; };
 		E48BFD292891378A00C61295 /* SingleWith2AnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith2AnswerVC.swift; sourceTree = "<group>"; };
 		E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith2AnswerVM.swift; sourceTree = "<group>"; };
+		E48BFD2D28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithLongTextAnswerVC.swift; sourceTree = "<group>"; };
+		E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithLongTextAnswerVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -895,6 +899,7 @@
 				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
 				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
 				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
+				E48BFD2D28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift */,
 			);
 			path = FormZero;
 			sourceTree = "<group>";
@@ -1745,6 +1750,7 @@
 				877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */,
 				E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */,
 				E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */,
+				E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2213,6 +2219,7 @@
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
 				E48BFD2C2891380B00C61295 /* SingleWith2AnswerVM.swift in Sources */,
 				2562452127FDE7AA00DB3D22 /* Session+Extensions.swift in Sources */,
+				E48BFD3028913AAE00C61295 /* SingleWithLongTextAnswerVM.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
 				25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */,
 				87C85EF4276F6EFE001C9C4A /* SectionOfDB.swift in Sources */,
@@ -2266,6 +2273,7 @@
 				2571F6902853114B00D94524 /* CGSize.swift in Sources */,
 				25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */,
 				8716E944279A600B00B33A5E /* LoginSelectVC.swift in Sources */,
+				E48BFD2E28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift in Sources */,
 				870CC12B286001A100FBB8C4 /* WorkbookGroupPreviewOfDB.swift in Sources */,
 				250654A528811686003C05AD /* ProfileRows.swift in Sources */,
 				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
