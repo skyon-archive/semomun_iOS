@@ -196,6 +196,7 @@
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		873A34342890E7A3005F9AAA /* SolvedUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */; };
+		873A3436289107BD005F9AAA /* DropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A3435289107BD005F9AAA /* DropdownButton.swift */; };
 		873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */; };
 		873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */; };
 		873BCE532876D186005A6189 /* BookshelfDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */; };
@@ -534,6 +535,7 @@
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvedUpdateable.swift; sourceTree = "<group>"; };
+		873A3435289107BD005F9AAA /* DropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownButton.swift; sourceTree = "<group>"; };
 		873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfHomeHeaderView.xib; sourceTree = "<group>"; };
 		873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeHeaderView.swift; sourceTree = "<group>"; };
 		873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -1759,6 +1761,7 @@
 			isa = PBXGroup;
 			children = (
 				87DD0FCA2875B5C300070F8F /* DropdownOrderButton.swift */,
+				873A3435289107BD005F9AAA /* DropdownButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -2136,6 +2139,7 @@
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
 				870BB571288E857500794295 /* Study2AnswerCheckView.swift in Sources */,
+				873A3436289107BD005F9AAA /* DropdownButton.swift in Sources */,
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* MultipleWithNoAnswerCell.swift in Sources */,
 				87182B9527A1186600BA7294 /* SearchTagsFromTextVM.swift in Sources */,
