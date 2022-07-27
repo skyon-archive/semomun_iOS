@@ -10,6 +10,8 @@ import UIKit
 final class StudyLongTextAnswerView: UIView {
     /* public */
     static let size = CGSize(240, 78)
+    static let placeholderTextColor = UIColor.getSemomunColor(.lightGray)
+    static let placeHolder = "서술형\n(두 줄)"
     lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,15 +24,14 @@ final class StudyLongTextAnswerView: UIView {
             textView.heightAnchor.constraint(equalToConstant: 50)
         ])
         textView.font = UIFont.heading5
-        textView.textColor = UIColor.getSemomunColor(.lightGray)
         textView.backgroundColor = UIColor.getSemomunColor(.white)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        textView.text = self.textViewPlaceHolder
+        textView.textColor = Self.placeholderTextColor
+        textView.text = Self.placeHolder
         return textView
     }()
     /* private */
     private var topBar = StudyAnswerViewTopBar()
-    private let textViewPlaceHolder = "서술형\n(두 줄)"
     private var terminated: Bool = false
     
     convenience init() {
@@ -72,12 +73,12 @@ extension StudyLongTextAnswerView {
     
     func configureUserAnswer(_ userAnswer: String?) {
         self.textView.isUserInteractionEnabled = true
-        if let userAnswer = userAnswer {
+        if let userAnswer = userAnswer, userAnswer != "" {
             self.textView.textColor = UIColor.getSemomunColor(.black)
             self.textView.text = userAnswer
         } else {
-            self.textView.textColor = UIColor.getSemomunColor(.lightGray)
-            self.textView.text = self.textViewPlaceHolder
+            self.textView.textColor = Self.placeholderTextColor
+            self.textView.text = Self.placeHolder
         }
     }
     
