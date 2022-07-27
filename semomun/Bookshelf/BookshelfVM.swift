@@ -17,6 +17,7 @@ final class BookshelfVM {
     @Published private(set) var warning: (title: String, text: String)?
     var currentWorkbooksOrder: DropdownOrderButton.BookshelfOrder = .recentPurchase
     var currentWorkbookGroupsOrder: DropdownOrderButton.BookshelfOrder = .recentRead
+    var filteredSubject: DropdownButton.BookshelfSubject = .all
     /* private */
     private var workbooksNotFiltered: [WorkbookCellInfo] = []
     
@@ -34,13 +35,16 @@ extension BookshelfVM {
         case .home:
             self.currentWorkbooksOrder = .recentPurchase
             self.currentWorkbookGroupsOrder = .recentRead
+            self.filteredSubject = .all
             self.reloadWorkbooks()
             self.reloadWorkbooksForRecent()
             self.reloadWorkbookGroups()
         case .workbook:
+            self.filteredSubject = .all
             self.reloadWorkbooks()
             self.fetchWorkbooks()
         case .practiceTest:
+            self.filteredSubject = .all
             self.reloadWorkbookGroups()
             self.fetchWorkbookGroups()
         }
@@ -84,15 +88,22 @@ extension BookshelfVM {
         }
         
         // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
+        var beforeSubjectFiltered: [WorkbookCellInfo] = []
         switch self.currentWorkbooksOrder {
         case .recentPurchase:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
         case .recentRead:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
         case .titleDescending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
         case .titleAscending:
-            self.workbooks = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
+            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
+        }
+        
+        if self.filteredSubject == .all {
+            self.workbooks = beforeSubjectFiltered
+        } else {
+            self.workbooks = beforeSubjectFiltered.filter { $0.tags.contains(self.filteredSubject.rawValue) }
         }
     }
     
