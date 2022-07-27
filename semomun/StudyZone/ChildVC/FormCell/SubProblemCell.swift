@@ -13,27 +13,32 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
     static let identifier = "SubProblemCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         let problemCount = problem?.subProblemsCount ?? 0
-        guard problem?.terminated == true else {
+        guard let problem = problem, problem.terminated == true else {
             return StudySubProblemsAnswerView.size(terminated: false, problemCount: Int(problemCount), wrongCount: 0).height + 16
         }
+        
+        let wrongCount = Self.wrongCount(problem: problem)
+        return StudySubProblemsAnswerView.size(terminated: true, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
+    }
+    override var internalTopViewHeight: CGFloat {
+        return Self.topViewHeight(with: self.problem)
+    }
+    static func wrongCount(problem: Problem_Core) -> Int {
+        let problemCount = problem.subProblemsCount
         var answers: [String] = []
-        if let answer = problem?.answer {
+        if let answer = problem.answer {
             answers = answer.components(separatedBy: "$").map { String($0) }
         } else {
             answers = Array(repeating: "", count: Int(problemCount))
         }
         var userAnswers: [String] = []
-        if let userAnswer = problem?.solved {
+        if let userAnswer = problem.solved {
             userAnswers = userAnswer.components(separatedBy: "$").map { String($0) }
         } else {
             userAnswers = Array(repeating: "", count: Int(problemCount))
         }
-        let wrongCount = zip(userAnswers, answers).filter { $0 != $1 }.count
         
-        return StudySubProblemsAnswerView.size(terminated: true, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
-    }
-    override var internalTopViewHeight: CGFloat {
-        return Self.topViewHeight(with: self.problem)
+        return zip(userAnswers, answers).filter { $0 != $1 }.count
     }
     /* private */
     private let answerView = StudySubProblemsAnswerView()
@@ -99,10 +104,14 @@ extension SubProblemCell {
 
 extension SubProblemCell: SubproblemsAnswerViewDelegate {
     func selectAnswer(to answer: String) {
-        guard let count = self.problem?.subProblemsCount else { return }
-        let correctCount = Int(count) - self.answerView.wrongCount
+        // userAnswer 저장
         self.updateSolved(input: answer)
-        self.problem?.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)
+        // answer, userAnwer 비교 후 score 계산
+        guard let problem = self.problem else { return }
+        let wrongCount = Self.wrongCount(problem: problem)
+        let correctCount = Int(problem.subProblemsCount) - wrongCount
+        problem.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)
+        print("answer: \(answer), score: \(correctCount)")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
