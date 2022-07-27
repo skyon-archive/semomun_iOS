@@ -134,7 +134,7 @@
 		87013B592887DA3E005D65DF /* WorkbookInfoPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */; };
 		8703B09B282A4F1900DA5894 /* TestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B09A282A4F1900DA5894 /* TestInfoView.swift */; };
 		8703EF14282B53510001EF2D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703EF13282B53510001EF2D /* View+Extension.swift */; };
-		870BB565288E5EFC00794295 /* Study5AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */; };
+		870BB565288E5EFC00794295 /* Study5AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB564288E5EFC00794295 /* Study5AnswerView.swift */; };
 		870BB568288E5F5600794295 /* StudyCircleAnswerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */; };
 		870BB56A288E62A000794295 /* StudyAnswerViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */; };
 		870BB56D288E68C100794295 /* AnswerCheckDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */; };
@@ -476,7 +476,7 @@
 		87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoPopupVC.swift; sourceTree = "<group>"; };
 		8703B09A282A4F1900DA5894 /* TestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfoView.swift; sourceTree = "<group>"; };
 		8703EF13282B53510001EF2D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
-		870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study5AnswerCheckView.swift; sourceTree = "<group>"; };
+		870BB564288E5EFC00794295 /* Study5AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study5AnswerView.swift; sourceTree = "<group>"; };
 		870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCircleAnswerButton.swift; sourceTree = "<group>"; };
 		870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyAnswerViewTopBar.swift; sourceTree = "<group>"; };
 		870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCheckDelegate.swift; sourceTree = "<group>"; };
@@ -1154,10 +1154,10 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		870BB56B288E689A00794295 /* CheckView */ = {
+		870BB56B288E689A00794295 /* AnswerView */ = {
 			isa = PBXGroup;
 			children = (
-				870BB564288E5EFC00794295 /* Study5AnswerCheckView.swift */,
+				870BB564288E5EFC00794295 /* Study5AnswerView.swift */,
 				870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */,
 				870BB570288E857500794295 /* Study2AnswerCheckView.swift */,
 				870BB572288E872F00794295 /* StudyShortTextAnswerView.swift */,
@@ -1165,7 +1165,7 @@
 				87DB04F7288F975E00D7E8C6 /* StudySubProblemsAnswerView.swift */,
 				870BB566288E5F3100794295 /* View */,
 			);
-			path = CheckView;
+			path = AnswerView;
 			sourceTree = "<group>";
 		};
 		870D29BA2861A78F007E0C94 /* TestJSON */ = {
@@ -1472,7 +1472,7 @@
 		87A1C35A27C5E675009043BE /* ChildVC */ = {
 			isa = PBXGroup;
 			children = (
-				870BB56B288E689A00794295 /* CheckView */,
+				870BB56B288E689A00794295 /* AnswerView */,
 				87273C182840B25E007B7092 /* Protocol */,
 				87E151622787DD160080D39A /* FormCell */,
 				25622C50283A8F7A0056E0DF /* FormZero */,
@@ -2268,7 +2268,7 @@
 				8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */,
 				87FA0A9327D5BAE9005B6925 /* TagOfDB.swift in Sources */,
 				259E994127AD1093000012AF /* CALayer.swift in Sources */,
-				870BB565288E5EFC00794295 /* Study5AnswerCheckView.swift in Sources */,
+				870BB565288E5EFC00794295 /* Study5AnswerView.swift in Sources */,
 				879CC21A286955D4007E3508 /* LayoutDelegate.swift in Sources */,
 				87C85EF2276F6EF0001C9C4A /* SectionHeaderOfDB.swift in Sources */,
 				87C85E42276F66F8001C9C4A /* Int64.swift in Sources */,

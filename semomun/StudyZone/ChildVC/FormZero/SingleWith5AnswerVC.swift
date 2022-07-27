@@ -14,7 +14,7 @@ final class SingleWith5AnswerVC: FormZero {
     static let identifier = "SingleWith5AnswerVC"
     var viewModel: SingleWith5AnswerVM?
     /* private */
-    private let answerCheckView = Study5AnswerCheckView()
+    private let answerCheckView = Study5AnswerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,7 @@ extension SingleWith5AnswerVC {
 extension SingleWith5AnswerVC {
     private func updateCheckViewFrame() {
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
-        let size = Study5AnswerCheckView.size
+        let size = Study5AnswerView.size
         self.answerCheckView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
     }
     

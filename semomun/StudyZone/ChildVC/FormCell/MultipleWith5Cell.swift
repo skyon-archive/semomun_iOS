@@ -12,13 +12,13 @@ final class MultipleWith5Cell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
     static let identifier = "MultipleWith5Cell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        return Study5AnswerCheckView.size.height+16
+        return Study5AnswerView.size.height+16
     }
     override var internalTopViewHeight: CGFloat {
-        return Study5AnswerCheckView.size.height+16
+        return Study5AnswerView.size.height+16
     }
     /* private */
-    private let answerView = Study5AnswerCheckView()
+    private let answerView = Study5AnswerView()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -60,7 +60,7 @@ extension MultipleWith5Cell {
 extension MultipleWith5Cell {
     private func updateAnswerViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
-        let size = Study5AnswerCheckView.size
+        let size = Study5AnswerView.size
         let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
         self.answerView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
     }
