@@ -45,7 +45,7 @@ extension MultipleWithShortTextWideVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubProblemCell.identifier, for: indexPath) as? ShortTextCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShortTextCell.identifier, for: indexPath) as? ShortTextCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
@@ -63,7 +63,7 @@ extension MultipleWithShortTextWideVC {
         let problem = self.viewModel?.problems[indexPath.item]
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = SubProblemCell.topViewHeight(with: problem)
+        let topViewHeight: CGFloat = ShortTextCell.topViewHeight(with: problem)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         

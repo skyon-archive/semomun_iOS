@@ -62,6 +62,7 @@ final class StudyVC: UIViewController {
     private lazy var multipleWith2AnswerWide = MultipleWith2AnswerWideVC()
     private lazy var multipleWith5AnswerWide = MultipleWith5AnswerWideVC()
     private lazy var multipleWithSubProblemsWide = MultipleWithSubProblemsWideVC()
+    private lazy var multipleWithLongTextWide = MultipleWithLongTextWideVC()
     
     private var didSlideViewShow: Bool = false
     private lazy var slideSectionContentsView: SlideSectionContentsView = {
@@ -474,6 +475,13 @@ extension StudyVC: LayoutDelegate {
             self.multipleWithSubProblemsWide.viewModel = MultipleWithSubProblemsVM(delegate: self, pageData: pageData, mode: self.mode)
             self.multipleWithSubProblemsWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
             self.multipleWithSubProblemsWide.subImages = self.getImages(problems: pageData.problems)
+            
+        case MultipleWithLongTextWideVC.identifier:
+            self.multipleWithLongTextWide = .init()
+            self.currentVC = self.multipleWithLongTextWide
+            self.multipleWithLongTextWide.viewModel = MultipleWithLongTextAnswerVM(delegate: self, pageData: pageData, mode: self.mode)
+            self.multipleWithLongTextWide.mainImage = self.getImage(data: pageData.pageCore.materialImage)
+            self.multipleWithLongTextWide.subImages = self.getImages(problems: pageData.problems)
             
         default:
             break

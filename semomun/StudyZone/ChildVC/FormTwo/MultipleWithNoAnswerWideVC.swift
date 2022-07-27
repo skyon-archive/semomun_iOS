@@ -62,7 +62,7 @@ extension MultipleWithNoAnswerWideVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = Form5Cell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = NoAnswerCell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         

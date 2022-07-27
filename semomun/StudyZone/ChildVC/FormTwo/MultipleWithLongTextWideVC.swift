@@ -1,17 +1,17 @@
 //
-//  MultipleWithConceptVC.swift
+//  MultipleWithLongTextWideVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/05/17.
+//  Created by Kang Minsang on 2022/07/27.
 //
 
 import UIKit
 import PencilKit
 
-final class MultipleWithConceptWideVC: FormTwo {
-    static let identifier = "MultipleWithConceptWideVC"
+final class MultipleWithLongTextWideVC: FormTwo {
+    static let identifier = "MultipleWithLongTextWideVC"
     /* public */
-    var viewModel: MultipleWithConceptWideVM?
+    var viewModel: MultipleWithLongTextAnswerVM?
     var subImages: [UIImage?]?
     
     override func viewDidLoad() {
@@ -32,20 +32,20 @@ final class MultipleWithConceptWideVC: FormTwo {
 }
 
 // MARK: Configure
-extension MultipleWithConceptWideVC {
+extension MultipleWithLongTextWideVC {
     private func configureCellRegister() {
-        self.configureCellRegisters([ConceptCell.self])
+        self.configureCellRegisters([LongTextCell.self])
     }
 }
 
 // MARK: Override 필수인 것들
-extension MultipleWithConceptWideVC {
+extension MultipleWithLongTextWideVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.problems.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConceptCell.identifier, for: indexPath) as? ConceptCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LongTextCell.identifier, for: indexPath) as? LongTextCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
@@ -60,9 +60,10 @@ extension MultipleWithConceptWideVC {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var imageSize = self.subImages?[indexPath.row]?.size ?? UIImage(.warning).size
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
+        let problem = self.viewModel?.problems[indexPath.item]
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = ConceptCell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = LongTextCell.topViewHeight(with: problem)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         
@@ -74,7 +75,7 @@ extension MultipleWithConceptWideVC {
     }
 }
 
-extension MultipleWithConceptWideVC: FormCellControllable {
+extension MultipleWithLongTextWideVC: FormCellControllable {
     func refreshPageButtons() {
         self.viewModel?.delegate?.refreshPageButtons()
     }
@@ -88,15 +89,14 @@ extension MultipleWithConceptWideVC: FormCellControllable {
     }
 }
 
-extension MultipleWithConceptWideVC: TimerTerminateable {
+extension MultipleWithLongTextWideVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }
 }
 
-extension MultipleWithConceptWideVC: SolvedUpdateable {
+extension MultipleWithLongTextWideVC: SolvedUpdateable {
     func updateSolved(answer: String, problem: Problem_Core) {
-        assertionFailure()
-        return
+        self.viewModel?.updateSolved(withSelectedAnswer: answer, problem: problem)
     }
 }
