@@ -124,7 +124,7 @@ extension SingleWithSubProblemsVC: SubproblemsAnswerViewDelegate {
     }
 }
 
-extension SingleWithSubProblemsVC: TimeRecordControllable {
+extension SingleWithSubProblemsVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

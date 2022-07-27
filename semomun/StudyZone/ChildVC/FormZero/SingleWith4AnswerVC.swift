@@ -112,7 +112,7 @@ extension SingleWith4AnswerVC: StudyToolbarViewDelegate {
     }
 }
 
-extension SingleWith4AnswerVC: TimeRecordControllable {
+extension SingleWith4AnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

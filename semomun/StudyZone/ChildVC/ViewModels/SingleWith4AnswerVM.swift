@@ -43,7 +43,9 @@ final class SingleWith4AnswerVM: PageVM {
         return input == answer
     }
     
-    func updateSolved(userAnswer: String, problem: Problem_Core? = nil) {
+    func updateSolved(userAnswer: String) {
+        guard let problem = self.problem else { return }
+        
         if self.shouldChooseMultipleAnswer {
             var selectedAnswers = self.savedSolved
             if selectedAnswers.contains(userAnswer) == false {

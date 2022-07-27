@@ -10,7 +10,7 @@ import PencilKit
 
 class FormCell: UICollectionViewCell, PKToolPickerObserver {
     /* public */
-    weak var delegate: (FormCellControllable&ExplanationSelectable)?
+    weak var delegate: (FormCellControllable&ExplanationSelectable&SolvedUpdateable)?
     var problem: Problem_Core?
     var showTopShadow: Bool = false
     var mode: StudyVC.Mode = .default
@@ -91,12 +91,7 @@ extension FormCell {
     /// answer값이 존재하는 경우 string 단순 비교를 통해 정답 여부도 저장.
     func updateSolved(input: String) {
         guard let problem = self.problem else { return }
-        problem.setValue(input, forKey: Problem_Core.Attribute.solved.rawValue)
-        
-        if let answer = problem.answer {
-            let correct = (input == answer)
-            problem.setValue(correct, forKey: Problem_Core.Attribute.correct.rawValue)
-        }
+        self.delegate?.updateSolved(answer: input, problem: problem)
         self.delegate?.addScoring(pid: Int(problem.pid))
     }
     

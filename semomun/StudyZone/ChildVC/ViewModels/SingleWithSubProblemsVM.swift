@@ -24,7 +24,8 @@ final class SingleWithSubProblemsVM: PageVM {
     }
     
     func updateSolved(userAnswer: String, correctCount: Int) {
-        self.updateSolved(withSelectedAnswer: userAnswer)
+        guard let problem = self.problem else { return }
+        self.updateSolved(withSelectedAnswer: userAnswer, problem: problem)
         self.problem?.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)
     }
 }

@@ -116,7 +116,7 @@ extension SingleWithTextAnswerVC: StudyToolbarViewDelegate {
 extension SingleWithTextAnswerVC: UITextFieldDelegate {
     @objc private func updateAnswer() {
         if let text = self.answerView.textField.text {
-            self.viewModel?.updateSolved(withSelectedAnswer: text)
+            self.viewModel?.updateSolved(answer: text)
         }
     }
     
@@ -144,7 +144,7 @@ extension SingleWithTextAnswerVC: UITextFieldDelegate {
     }
 }
 
-extension SingleWithTextAnswerVC: TimeRecordControllable {
+extension SingleWithTextAnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

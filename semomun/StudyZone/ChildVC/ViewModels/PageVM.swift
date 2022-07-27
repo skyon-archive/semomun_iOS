@@ -16,7 +16,10 @@ class PageVM {
     /* private */
     private var beforePid: Int64?
     private var startTime: Date? // 페이지 진입시점 시각 및 input 마지막 시각 (term 계산 기준값)
-    private var problemsBaseTimes: [Int64] = [] // 페이지 진입시점 문제별 기존 누적시간값 (term값과 합산을 위한 값)
+    private var inputEndTime: Date? // 다른 문제입력으로 전환시 term 계산 기준값
+    private var problemsBaseTimes: [Int64] = [] {
+        didSet { print(problemsBaseTimes) }
+    } // 페이지 진입시점 문제별 기존 누적시간값 (term값과 합산을 위한 값)
     private var isTimeRecording = false
     private var pageData: PageData
     
@@ -89,18 +92,18 @@ class PageVM {
             return
         }
         
+        self.inputEndTime = Date()
         self.updateStartTime(pid: nil)
         self.isTimeRecording = true
     }
     
-    func updateStartTime(pid: Int64?) {
+    private func updateStartTime(pid: Int64?) {
         self.beforePid = pid
         self.startTime = Date()
         self.problemsBaseTimes = self.problems.map(\.time)
     }
     
-    func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {
-        guard let problem = problem ?? self.problem else { return }
+    func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core) {
         problem.setValue(selectedAnswer, forKey: "solved") // 사용자 입력 값 저장
         
         if let answer = problem.answer { // 정답이 있는 경우 정답여부 업데이트
@@ -111,29 +114,30 @@ class PageVM {
         self.delegate?.addScoring(pid: Int(problem.pid))
     }
     
-    func updateTime(problem: Problem_Core) {
+    private func updateTime(problem: Problem_Core) {
         // term 계산하여 시간 update
-        let term = self.startTime?.interval(to: Date()) ?? 0
-        if self.problems.count == 1 {
-            print("timeUpdate: \(self.problemsBaseTimes[0]+Int64(term))")
-            problem.setValue(self.problemsBaseTimes[0]+Int64(term), forKey: Problem_Core.Attribute.time.rawValue)
+        var term: Int = 0
+        if self.beforePid != problem.pid {
+            term = self.inputEndTime?.interval(to: Date()) ?? 0
         } else {
-            guard let targetIndex = self.problems.firstIndex(of: problem) else { return }
-            print("timeUpdate: \(self.problemsBaseTimes[targetIndex]+Int64(term))")
-            problem.setValue(self.problemsBaseTimes[targetIndex]+Int64(term), forKey: Problem_Core.Attribute.time.rawValue)
+            term = self.startTime?.interval(to: Date()) ?? 0
         }
+        guard let targetIndex = self.problems.firstIndex(of: problem) else { return }
+        problem.setValue(self.problemsBaseTimes[targetIndex]+Int64(term), forKey: Problem_Core.Attribute.time.rawValue)
         CoreDataManager.saveCoreData()
-        // 같은문제의 경우 기준값 reset 패스
-        if self.beforePid == nil || self.beforePid == problem.pid { return }
-        self.updateStartTime(pid: problem.pid)
+        
+        self.inputEndTime = Date()
+        if self.beforePid != problem.pid {
+            self.updateStartTime(pid: problem.pid)
+        }
     }
     
     func endTimeRecord() {
         print("end time record")
         self.startTime = nil
+        self.inputEndTime = nil
         self.problemsBaseTimes = []
         self.beforePid = nil
-        self.startTime = nil
         self.isTimeRecording = false
         CoreDataManager.saveCoreData()
     }

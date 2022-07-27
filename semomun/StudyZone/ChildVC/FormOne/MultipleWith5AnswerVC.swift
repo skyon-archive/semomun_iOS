@@ -81,8 +81,14 @@ extension MultipleWith5AnswerVC: FormCellControllable {
     }
 }
 
-extension MultipleWith5AnswerVC: TimeRecordControllable {
+extension MultipleWith5AnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension MultipleWith5AnswerVC: SolvedUpdateable {
+    func updateSolved(answer: String, problem: Problem_Core) {
+        self.viewModel?.updateSolved(withSelectedAnswer: answer, problem: problem)
     }
 }

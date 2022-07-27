@@ -89,8 +89,14 @@ extension MultipleWithSubProblemsWideVC: FormCellControllable {
     }
 }
 
-extension MultipleWithSubProblemsWideVC: TimeRecordControllable {
+extension MultipleWithSubProblemsWideVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension MultipleWithSubProblemsWideVC: SolvedUpdateable {
+    func updateSolved(answer: String, problem: Problem_Core) {
+        self.viewModel?.updateSolved(withSelectedAnswer: answer, problem: problem)
     }
 }
