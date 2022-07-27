@@ -1,5 +1,5 @@
 //
-//  MultipleWith2Cell.swift
+//  ShortTextCell.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/27.
@@ -8,17 +8,20 @@
 import UIKit
 import PencilKit
 
-final class MultipleWith2Cell: FormCell, CellLayoutable, CellRegisterable {
+final class ShortTextCell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
-    static let identifier = "MultipleWith2Cell"
+    static let identifier = "ShortTextCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
-        return Study2AnswerView.size.height+16
+        guard let problem = problem, problem.terminated == true else {
+            return StudyShortTextAnswerView.size(terminated: false, isCorrect: false).height+16
+        }
+        return StudyShortTextAnswerView.size(terminated: true, isCorrect: problem.correct).height+16
     }
     override var internalTopViewHeight: CGFloat {
-        return Study2AnswerView.size.height+16
+        return Self.topViewHeight(with: self.problem)
     }
     /* private */
-    private let answerView = Study2AnswerView()
+    private let answerView = StudyShortTextAnswerView()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -27,6 +30,7 @@ final class MultipleWith2Cell: FormCell, CellLayoutable, CellRegisterable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.answerView.configureDelegate(delegate: self)
+        self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
         self.contentView.addSubview(self.answerView)
     }
     
@@ -46,7 +50,7 @@ final class MultipleWith2Cell: FormCell, CellLayoutable, CellRegisterable {
 }
 
 // MARK: Update
-extension MultipleWith2Cell {
+extension ShortTextCell {
     private func updateCorrectImage() {
         guard let problem = self.problem else { return }
         if problem.terminated == true {
@@ -56,10 +60,13 @@ extension MultipleWith2Cell {
 }
 
 // MARK: AnswerView
-extension MultipleWith2Cell {
+extension ShortTextCell {
     private func updateAnswerViewFrame() {
+        guard let terminated = self.problem?.terminated,
+              let correct = self.problem?.correct else { return }
+        
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
-        let size = Study2AnswerView.size
+        let size = StudyShortTextAnswerView.size(terminated: terminated, isCorrect: correct)
         let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
         self.answerView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
     }
@@ -74,8 +81,22 @@ extension MultipleWith2Cell {
     }
 }
 
-extension MultipleWith2Cell: AnswerCheckDelegate {
+extension ShortTextCell: AnswerViewDelegate {
     func selectAnswer(to answer: String) {
         self.updateSolved(input: answer)
+    }
+}
+
+extension ShortTextCell: UITextFieldDelegate {
+    @objc private func updateAnswer() {
+        if let text = self.answerView.textField.text {
+            self.selectAnswer(to: text)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.updateAnswer()
+        textField.resignFirstResponder()
+        return true
     }
 }

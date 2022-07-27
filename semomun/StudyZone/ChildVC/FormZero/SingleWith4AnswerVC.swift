@@ -90,7 +90,7 @@ extension SingleWith4AnswerVC {
     }
 }
 
-extension SingleWith4AnswerVC: AnswerCheckDelegate {
+extension SingleWith4AnswerVC: AnswerViewDelegate {
     func selectAnswer(to answer: String) {
         self.viewModel?.updateSolved(userAnswer: answer)
     }

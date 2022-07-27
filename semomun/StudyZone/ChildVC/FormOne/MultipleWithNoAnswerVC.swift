@@ -16,7 +16,7 @@ class MultipleWithNoAnswerVC: FormOne {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCellRegister(MultipleWithNoAnswerCell.self)
+        self.configureCellRegister(NoAnswerCell.self)
         self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     
@@ -38,7 +38,7 @@ extension MultipleWithNoAnswerVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoAnswerCell.identifier, for: indexPath) as? MultipleWithNoAnswerCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoAnswerCell.identifier, for: indexPath) as? NoAnswerCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
         let problem = self.viewModel?.problems[indexPath.item]
@@ -54,7 +54,7 @@ extension MultipleWithNoAnswerVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = MultipleWithNoAnswerCell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = NoAnswerCell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         

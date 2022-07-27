@@ -34,7 +34,7 @@ final class MultipleWithConceptWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWithConceptWideVC {
     private func configureCellRegister() {
-        self.configureCellRegisters([MultipleWithConceptCell.self])
+        self.configureCellRegisters([ConceptCell.self])
     }
 }
 
@@ -45,7 +45,7 @@ extension MultipleWithConceptWideVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithConceptCell.identifier, for: indexPath) as? MultipleWithConceptCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConceptCell.identifier, for: indexPath) as? ConceptCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
@@ -62,7 +62,7 @@ extension MultipleWithConceptWideVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = Form5Cell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         

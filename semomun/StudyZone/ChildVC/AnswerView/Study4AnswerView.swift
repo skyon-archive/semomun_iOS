@@ -9,7 +9,7 @@ import UIKit
 
 final class Study4AnswerView: UIView {
     static let size = CGSize(140, 56)
-    private weak var delegate: AnswerCheckDelegate?
+    private weak var delegate: AnswerViewDelegate?
     private var topBar = StudyAnswerViewTopBar()
     private var answersStackView: UIStackView = {
         let stackView = UIStackView()
@@ -79,7 +79,7 @@ final class Study4AnswerView: UIView {
 }
 
 extension Study4AnswerView {
-    func configureDelegate(delegate: AnswerCheckDelegate) {
+    func configureDelegate(delegate: AnswerViewDelegate) {
         self.delegate = delegate
     }
     
