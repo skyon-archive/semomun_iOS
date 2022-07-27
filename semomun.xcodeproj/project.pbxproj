@@ -1305,7 +1305,6 @@
 			children = (
 				87273C192840B2A7007B7092 /* TimerTerminateable.swift */,
 				870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */,
-				873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1385,6 +1384,7 @@
 				2511944828597E2B0028F743 /* ExplanationSelectable.swift */,
 				251435CB2859A9500084ABA8 /* CellLayoutable.swift */,
 				253F12ED288FC13700F5AB5A /* CellRegisterable.swift */,
+				873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
