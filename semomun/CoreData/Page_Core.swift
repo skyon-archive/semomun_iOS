@@ -105,6 +105,7 @@ public class Page_Core: NSManagedObject {
             switch type {
             case -1: return MultipleWithConceptWideVC.identifier
             case 0: return MultipleWithNoAnswerWideVC.identifier
+            case 1: return MultipleWithShortTextWideVC.identifier
             case 2: return MultipleWith2AnswerWideVC.identifier
             case 5: return MultipleWith5AnswerWideVC.identifier
             case 6: return MultipleWithSubProblemsWideVC.identifier
