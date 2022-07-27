@@ -138,7 +138,7 @@
 		870BB568288E5F5600794295 /* StudyCircleAnswerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */; };
 		870BB56A288E62A000794295 /* StudyAnswerViewTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */; };
 		870BB56D288E68C100794295 /* AnswerCheckDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */; };
-		870BB56F288E83BD00794295 /* Study4AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */; };
+		870BB56F288E83BD00794295 /* Study4AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB56E288E83BD00794295 /* Study4AnswerView.swift */; };
 		870BB571288E857500794295 /* Study2AnswerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB570288E857500794295 /* Study2AnswerCheckView.swift */; };
 		870BB573288E872F00794295 /* StudyShortTextAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB572288E872F00794295 /* StudyShortTextAnswerView.swift */; };
 		870BB575288E89B400794295 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870BB574288E89B400794295 /* UITextField.swift */; };
@@ -480,7 +480,7 @@
 		870BB567288E5F5600794295 /* StudyCircleAnswerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCircleAnswerButton.swift; sourceTree = "<group>"; };
 		870BB569288E62A000794295 /* StudyAnswerViewTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyAnswerViewTopBar.swift; sourceTree = "<group>"; };
 		870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCheckDelegate.swift; sourceTree = "<group>"; };
-		870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study4AnswerCheckView.swift; sourceTree = "<group>"; };
+		870BB56E288E83BD00794295 /* Study4AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study4AnswerView.swift; sourceTree = "<group>"; };
 		870BB570288E857500794295 /* Study2AnswerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study2AnswerCheckView.swift; sourceTree = "<group>"; };
 		870BB572288E872F00794295 /* StudyShortTextAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyShortTextAnswerView.swift; sourceTree = "<group>"; };
 		870BB574288E89B400794295 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
@@ -1158,7 +1158,7 @@
 			isa = PBXGroup;
 			children = (
 				870BB564288E5EFC00794295 /* Study5AnswerView.swift */,
-				870BB56E288E83BD00794295 /* Study4AnswerCheckView.swift */,
+				870BB56E288E83BD00794295 /* Study4AnswerView.swift */,
 				870BB570288E857500794295 /* Study2AnswerCheckView.swift */,
 				870BB572288E872F00794295 /* StudyShortTextAnswerView.swift */,
 				870BB576288E8DB900794295 /* StudyLongTextAnswerView.swift */,
@@ -2161,7 +2161,7 @@
 				87739AF3287D27DE007086D6 /* SearchResultHeaderView.swift in Sources */,
 				257E133C28019EFC00368ACF /* Banner.swift in Sources */,
 				87C85EF6276F6F0C001C9C4A /* ProblemOfDB.swift in Sources */,
-				870BB56F288E83BD00794295 /* Study4AnswerCheckView.swift in Sources */,
+				870BB56F288E83BD00794295 /* Study4AnswerView.swift in Sources */,
 				2502CECD27A6E3500072A037 /* Int.swift in Sources */,
 				87C85EF0276F6EE3001C9C4A /* WorkbookOfDB.swift in Sources */,
 				87C85EFB276F7055001C9C4A /* semomun.xcdatamodeld in Sources */,

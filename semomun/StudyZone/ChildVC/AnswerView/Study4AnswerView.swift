@@ -1,5 +1,5 @@
 //
-//  Study4AnswerCheckView.swift
+//  Study4AnswerView.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class Study4AnswerCheckView: UIView {
+final class Study4AnswerView: UIView {
     static let size = CGSize(140, 56)
     private weak var delegate: AnswerCheckDelegate?
     private var topBar = StudyAnswerViewTopBar()
@@ -78,7 +78,7 @@ final class Study4AnswerCheckView: UIView {
     }
 }
 
-extension Study4AnswerCheckView {
+extension Study4AnswerView {
     func configureDelegate(delegate: AnswerCheckDelegate) {
         self.delegate = delegate
     }
