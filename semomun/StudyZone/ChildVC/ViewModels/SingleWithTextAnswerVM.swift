@@ -14,7 +14,7 @@ final class SingleWithTextAnswerVM: PageVM {
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {
-        return true
+        return input == answer
     }
     
     func updateSolved(answer: String) {

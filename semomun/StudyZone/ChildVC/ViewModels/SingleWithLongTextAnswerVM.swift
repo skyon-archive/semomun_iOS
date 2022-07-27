@@ -12,7 +12,7 @@ final class SingleWithLongTextAnswerVM: PageVM {
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {
-        return input == answer
+        return true
     }
     
     func updateSolved(answer: String) {

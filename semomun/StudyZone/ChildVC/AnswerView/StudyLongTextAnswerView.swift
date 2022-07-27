@@ -71,6 +71,7 @@ extension StudyLongTextAnswerView {
     }
     
     func configureUserAnswer(_ userAnswer: String?) {
+        self.textView.isUserInteractionEnabled = true
         if let userAnswer = userAnswer {
             self.textView.textColor = UIColor.getSemomunColor(.black)
             self.textView.text = userAnswer
@@ -78,5 +79,9 @@ extension StudyLongTextAnswerView {
             self.textView.textColor = UIColor.getSemomunColor(.lightGray)
             self.textView.text = self.textViewPlaceHolder
         }
+    }
+    
+    func terminate() {
+        self.textView.isUserInteractionEnabled = false
     }
 }
