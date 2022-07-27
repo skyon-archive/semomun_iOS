@@ -25,4 +25,9 @@ extension Date {
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: self)
     }
+    
+    func interval(to: Date) -> Int {
+        let timeComponents = Calendar.current.dateComponents([.hour, .minute, .second], from: self, to: to)
+        return (timeComponents.hour ?? 0)*3600 + (timeComponents.minute ?? 0)*60 + (timeComponents.second ?? 0)
+    }
 }

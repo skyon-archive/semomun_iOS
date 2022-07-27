@@ -14,11 +14,11 @@ class PageVM {
     private(set) var problems: [Problem_Core]
     private(set) var mode: StudyVC.Mode = .default
     /* private */
-    private var startTime: Date?
+    private var beforePid: Int64?
+    private var startTime: Date? // 페이지 진입시점 시각 및 input 마지막 시각 (term 계산 기준값)
+    private var problemsBaseTimes: [Int64] = [] // 페이지 진입시점 문제별 기존 누적시간값 (term값과 합산을 위한 값)
     private var isTimeRecording = false
-    
     private var pageData: PageData
-    private var timeSpentPerProblems: [Int64]
     
     /// - Note: 문제가 하나인 VC를 위한 편의 프로퍼티
     var problem: Problem_Core? {
@@ -39,7 +39,6 @@ class PageVM {
         self.problems = pageData.problems
         self.mode = mode ?? .default
         self.pageData = pageData
-        self.timeSpentPerProblems = self.problems.map(\.time)
         
         guard problems.isEmpty == false else {
             assertionFailure("문제수가 0인 페이지가 존재합니다.")
@@ -51,7 +50,7 @@ class PageVM {
     func updatePageData(_ pageData: PageData) {
         self.pageData = pageData
         self.problems = pageData.problems
-        self.timeSpentPerProblems = self.problems.map(\.time)
+        self.problemsBaseTimes = self.problems.map(\.time)
         
         guard problems.isEmpty == false else {
             assertionFailure("문제수가 0인 페이지가 존재합니다.")
@@ -79,47 +78,25 @@ class PageVM {
         return false
     }
     
-    // TODO: 앱을 종료할때도 저장 가능하도록 수정
     func startTimeRecord() {
         print("start time record")
         guard self.isTimeRecording == false else {
-            // TODO: 회사 아이패드에서 두 번 실행되는 문제 확인
-//            assertionFailure("타이머가 중복 실행되려고합니다.")
             return
         }
         // 모든 문제가 terminated 된 상태일 경우 timer를 반영 안한다
-        if self.problems.allSatisfy(\.terminated) { return }
+        if self.problems.allSatisfy(\.terminated) {
+            print("timer not working")
+            return
+        }
         
-        self.startTime = Date()
+        self.updateStartTime(pid: nil)
         self.isTimeRecording = true
     }
     
-    func endTimeRecord() {
-        print("end time record")
-        guard let startTime = startTime else { return }
-
-        let timeSpentOnPage = Int64(startTime.timeIntervalSinceNow) * -1
-        if self.problems.count == 1 {
-            self.timeSpentPerProblems[0] += timeSpentOnPage
-            self.problem?.setValue(self.timeSpentPerProblems[0], forKey: "time")
-        } else {
-            let targetProblemsCount = self.problems.filter({ $0.terminated == false }).count
-            // MARK: ChangeVC 되기 전에 실행되는 경우 0으로 나뉠 수 있는 경우가 생김에 따라 코드 추가
-            guard targetProblemsCount != 0 else { return }
-            
-            let timeSpentPerProblems = Double(timeSpentOnPage) / Double(targetProblemsCount)
-            let perTime = Int64(ceil(timeSpentPerProblems))
-            
-            for (idx, problem) in problems.enumerated() where problem.terminated == false {
-                self.timeSpentPerProblems[idx] += perTime
-                problem.setValue(self.timeSpentPerProblems[idx], forKey: "time")
-            }
-        }
-        self.startTime = nil
-        self.isTimeRecording = false
-        
-        print("총 시간: \(timeSpentOnPage), 문제별 시간: \(self.timeSpentPerProblems)")
-        CoreDataManager.saveCoreData()
+    func updateStartTime(pid: Int64?) {
+        self.beforePid = pid
+        self.startTime = Date()
+        self.problemsBaseTimes = self.problems.map(\.time)
     }
     
     func updateSolved(withSelectedAnswer selectedAnswer: String, problem: Problem_Core? = nil) {
@@ -130,7 +107,35 @@ class PageVM {
             let correct = self.isCorrect(input: selectedAnswer, answer: answer)
             problem.setValue(correct, forKey: "correct")
         }
+        self.updateTime(problem: problem)
         self.delegate?.addScoring(pid: Int(problem.pid))
+    }
+    
+    func updateTime(problem: Problem_Core) {
+        // term 계산하여 시간 update
+        let term = self.startTime?.interval(to: Date()) ?? 0
+        if self.problems.count == 1 {
+            print("timeUpdate: \(self.problemsBaseTimes[0]+Int64(term))")
+            problem.setValue(self.problemsBaseTimes[0]+Int64(term), forKey: Problem_Core.Attribute.time.rawValue)
+        } else {
+            guard let targetIndex = self.problems.firstIndex(of: problem) else { return }
+            print("timeUpdate: \(self.problemsBaseTimes[targetIndex]+Int64(term))")
+            problem.setValue(self.problemsBaseTimes[targetIndex]+Int64(term), forKey: Problem_Core.Attribute.time.rawValue)
+        }
+        CoreDataManager.saveCoreData()
+        // 같은문제의 경우 기준값 reset 패스
+        if self.beforePid == nil || self.beforePid == problem.pid { return }
+        self.updateStartTime(pid: problem.pid)
+    }
+    
+    func endTimeRecord() {
+        print("end time record")
+        self.startTime = nil
+        self.problemsBaseTimes = []
+        self.beforePid = nil
+        self.startTime = nil
+        self.isTimeRecording = false
+        CoreDataManager.saveCoreData()
     }
     
     func updateStar(to status: Bool, problem: Problem_Core? = nil) {
