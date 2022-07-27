@@ -405,7 +405,8 @@ extension BookshelfVC: BookshelfDetailDelegate {
     }
     
     func filterSubject(subject: DropdownButton.BookshelfSubject) {
-        print(subject.rawValue)
+        self.viewModel?.filteredSubject = subject
+        self.viewModel?.reloadWorkbooks()
     }
 }
 
