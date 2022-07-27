@@ -78,8 +78,8 @@ extension Study2AnswerView {
         self.delegate = delegate
     }
     
-    func configureUserAnswer(_ userAnswer: String?, _ terminated: Bool) {
-        self.terminated = terminated
+    func configureUserAnswer(_ userAnswer: String?) {
+        self.terminated = false
         let buttons = self.answersStackView.arrangedSubviews.compactMap { $0 as? StudyCircleAnswerButton }
         buttons.forEach { button in
             button.isSelected = button.answer == userAnswer
