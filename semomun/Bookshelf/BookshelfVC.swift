@@ -318,7 +318,8 @@ extension BookshelfVC: UICollectionViewDataSource {
         } else {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfDetailHeaderView.identifier, for: indexPath) as? BookshelfDetailHeaderView else { return UICollectionReusableView() }
             guard let order = self.currentTab == .workbook ? self.viewModel?.currentWorkbooksOrder : self.viewModel?.currentWorkbookGroupsOrder else { return header }
-            header.configure(delegate: self, order: order, subject: .all)
+            let subject = self.currentTab == .workbook ? self.viewModel?.filteredSubject ?? .all : nil
+            header.configure(delegate: self, order: order, subject: subject)
             return header
         }
     }

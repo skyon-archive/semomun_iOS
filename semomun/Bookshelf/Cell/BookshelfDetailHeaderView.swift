@@ -40,10 +40,15 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
         self.delegate?.refreshWorkbooks()
     }
     
-    func configure(delegate: BookshelfDetailDelegate, order: DropdownOrderButton.BookshelfOrder, subject: DropdownButton.BookshelfSubject) {
+    func configure(delegate: BookshelfDetailDelegate, order: DropdownOrderButton.BookshelfOrder, subject: DropdownButton.BookshelfSubject?) {
         self.delegate = delegate
         self.orderButton.changeOrder(to: order)
-        self.subjectButton.changeOrder(to: subject)
+        if let subject = subject {
+            self.subjectButton.isHidden = false
+            self.subjectButton.changeOrder(to: subject)
+        } else {
+            self.subjectButton.isHidden = true
+        }
     }
 }
 

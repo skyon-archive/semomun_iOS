@@ -14,6 +14,7 @@ struct WorkbookCellInfo {
     let imageData: Data?
     let recentDate: Date?
     let purchasedDate: Date?
+    let tags: [String]
 
     init(core: Preview_Core) {
         self.wid = Int(core.wid)
@@ -22,5 +23,6 @@ struct WorkbookCellInfo {
         self.imageData = core.image
         self.recentDate = core.recentDate
         self.purchasedDate = core.purchasedDate
+        self.tags = core.tags
     }
 }
