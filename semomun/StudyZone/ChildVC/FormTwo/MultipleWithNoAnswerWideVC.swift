@@ -34,7 +34,7 @@ final class MultipleWithNoAnswerWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWithNoAnswerWideVC {
     private func configureCellRegister() {
-        self.configureCellRegisters([MultipleWithNoAnswerCell.self])
+        self.configureCellRegisters([NoAnswerCell.self])
     }
 }
 
@@ -45,7 +45,7 @@ extension MultipleWithNoAnswerWideVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleWithNoAnswerCell.identifier, for: indexPath) as? MultipleWithNoAnswerCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoAnswerCell.identifier, for: indexPath) as? NoAnswerCell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
@@ -62,7 +62,7 @@ extension MultipleWithNoAnswerWideVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = MultipleWith5Cell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = Form5Cell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias SubproblemsAnswerViewDelegate = (AnswerCheckDelegate & UITextFieldDelegate)
+typealias SubproblemsAnswerViewDelegate = (AnswerViewDelegate & UITextFieldDelegate)
 
 final class StudySubProblemsAnswerView: UIView {
     /* public */

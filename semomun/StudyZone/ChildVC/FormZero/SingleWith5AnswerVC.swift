@@ -106,7 +106,7 @@ extension SingleWith5AnswerVC: StudyToolbarViewDelegate {
     }
 }
 
-extension SingleWith5AnswerVC: AnswerCheckDelegate {
+extension SingleWith5AnswerVC: AnswerViewDelegate {
     func selectAnswer(to answer: String) {
         self.viewModel?.updateSolved(userAnswer: answer)
     }

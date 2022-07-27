@@ -1,5 +1,5 @@
 //
-//  MultipleWithNoAnswerCell.swift
+//  ConceptCell.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -8,9 +8,9 @@
 import UIKit
 import PencilKit
 
-class MultipleWithNoAnswerCell: FormCell, CellLayoutable, CellRegisterable {
+class ConceptCell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
-    static let identifier = "MultipleWithNoAnswerCell"
+    static let identifier = "ConceptCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return StudyToolbarView.height + 16
     }
