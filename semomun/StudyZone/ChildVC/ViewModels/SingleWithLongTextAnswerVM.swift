@@ -1,20 +1,18 @@
 //
-//  SingleWithTextAnswerViewModel.swift
+//  SingleWithLongTextAnswerVM.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2021/12/19.
+//  Created by Kang Minsang on 2022/07/27.
 //
 
-import Foundation
-
-final class SingleWithTextAnswerVM: PageVM {
+final class SingleWithLongTextAnswerVM: PageVM {
     override func answerStringForUser(_ problem: Problem_Core? = nil) -> String? {
         let problem = problem ?? self.problem
         return problem?.answer
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {
-        return true
+        return input == answer
     }
     
     func updateSolved(answer: String) {

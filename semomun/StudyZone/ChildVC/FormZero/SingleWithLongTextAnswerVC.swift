@@ -1,27 +1,27 @@
 //
-//  SingleWithTextVC.swift
+//  SingleWithLongTextAnswerVC.swift
 //  semomun
 //
-//  Created by Kang Minsang on 2022/01/21.
+//  Created by Kang Minsang on 2022/07/27.
 //
 
 import UIKit
 import PencilKit
 
-/// form == 0 && type == 1
-final class SingleWithTextAnswerVC: FormZero {
+/// form == 0 && type == 2
+final class SingleWithLongTextAnswerVC: FormZero {
     /* public */
-    static let identifier = "SingleWithTextAnswerVC"
+    static let identifier = "SingleWithLongTextAnswerVC"
     var viewModel: SingleWithTextAnswerVM?
     /* private */
-    private let answerView = StudyShortTextAnswerView()
+    private let answerView = StudyLongTextAnswerView()
     
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNotification()
         self.answerView.configureDelegate(delegate: self)
-        self.answerView.textField.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
+//        self.answerView.textView.addTarget(self, action: #selector(updateAnswer), for: .editingChanged)
         self.view.addSubview(self.answerView)
     }
     
@@ -69,7 +69,7 @@ final class SingleWithTextAnswerVC: FormZero {
 }
 
 // MARK: Update
-extension SingleWithTextAnswerVC {
+extension SingleWithLongTextAnswerVC {
     private func updateCorrectImage() {
         guard let problem = self.viewModel?.problem else { return }
         if problem.terminated == true {
@@ -79,25 +79,21 @@ extension SingleWithTextAnswerVC {
 }
 
 // MARK: AnswerView
-extension SingleWithTextAnswerVC {
+extension SingleWithLongTextAnswerVC {
     private func updateAnswerViewFrame() {
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
-        let size = StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false)
+        let size = StudyLongTextAnswerView.size
         self.answerView.frame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
     }
     
     private func updateAnswerView() {
-        let terminated = self.viewModel?.problem?.terminated ?? false
         let userAnswer = self.viewModel?.problem?.solved
         self.answerView.configureUserAnswer(userAnswer)
-        
-        guard terminated == true, let answer = self.viewModel?.problem?.answer else { return }
-        self.answerView.terminate(answer: answer, userAnswer: userAnswer)
     }
 }
 
 // MARK: StudyToolbar
-extension SingleWithTextAnswerVC: StudyToolbarViewDelegate {
+extension SingleWithLongTextAnswerVC: StudyToolbarViewDelegate {
     func toggleBookmark() {
         self.viewModel?.updateStar(to: self.toolbarView.bookmarkSelected)
     }
@@ -112,9 +108,9 @@ extension SingleWithTextAnswerVC: StudyToolbarViewDelegate {
     }
 }
 
-extension SingleWithTextAnswerVC: UITextFieldDelegate {
+extension SingleWithLongTextAnswerVC: UITextViewDelegate {
     @objc private func updateAnswer() {
-        if let text = self.answerView.textField.text {
+        if let text = self.answerView.textView.text {
             self.viewModel?.updateSolved(answer: text)
         }
     }
@@ -132,7 +128,7 @@ extension SingleWithTextAnswerVC: UITextFieldDelegate {
         }
         
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
-        let size = StudyShortTextAnswerView.size(terminated: self.viewModel?.problem?.terminated ?? false, isCorrect: self.viewModel?.problem?.correct ?? false)
+        let size = StudyLongTextAnswerView.size
         let defaultAnswerViewFrame = CGRect(origin: CGPoint(bottomPoint.x - 16 - size.width, bottomPoint.y - 16 - size.height), size: size)
         
         if defaultAnswerViewFrame.origin.y == self.answerView.frame.origin.y {
@@ -143,7 +139,7 @@ extension SingleWithTextAnswerVC: UITextFieldDelegate {
     }
 }
 
-extension SingleWithTextAnswerVC: TimerTerminateable {
+extension SingleWithLongTextAnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }
