@@ -10,7 +10,7 @@ import PencilKit
 
 final class MultipleWith2Cell: FormCell, CellLayoutable, CellRegisterable {
     /* public */
-    static let identifier = "MultipleWith5Cell"
+    static let identifier = "MultipleWith2Cell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return Study2AnswerView.size.height+16
     }
