@@ -56,7 +56,7 @@ extension MultipleWith5Cell {
     }
 }
 
-// MARK: CheckView
+// MARK: AnswerView
 extension MultipleWith5Cell {
     private func updateAnswerViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
