@@ -337,6 +337,8 @@
 		E48BFD242891254600C61295 /* ShortTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD232891254600C61295 /* ShortTextCell.swift */; };
 		E48BFD2628912A9100C61295 /* MultipleWithShortTextWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2528912A9100C61295 /* MultipleWithShortTextWideVC.swift */; };
 		E48BFD2828912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */; };
+		E48BFD2A2891378A00C61295 /* SingleWith2AnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD292891378A00C61295 /* SingleWith2AnswerVC.swift */; };
+		E48BFD2C2891380B00C61295 /* SingleWith2AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -682,6 +684,8 @@
 		E48BFD232891254600C61295 /* ShortTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTextCell.swift; sourceTree = "<group>"; };
 		E48BFD2528912A9100C61295 /* MultipleWithShortTextWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithShortTextWideVC.swift; sourceTree = "<group>"; };
 		E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithShortTextAnswerVM.swift; sourceTree = "<group>"; };
+		E48BFD292891378A00C61295 /* SingleWith2AnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith2AnswerVC.swift; sourceTree = "<group>"; };
+		E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith2AnswerVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -885,11 +889,12 @@
 			children = (
 				25622C4E283A84330056E0DF /* FormZero.swift */,
 				8716E95B279A625B00B33A5E /* ConceptVC.swift */,
+				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
+				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
+				E48BFD292891378A00C61295 /* SingleWith2AnswerVC.swift */,
+				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
 				8716E95D279A626A00B33A5E /* SingleWith5AnswerVC.swift */,
 				87B17A1D2833D71100DB5F10 /* SingleWithSubProblemsVC.swift */,
-				8716E963279A629A00B33A5E /* SingleWithNoAnswerVC.swift */,
-				8716E95F279A627C00B33A5E /* SingleWith4AnswerVC.swift */,
-				8716E961279A628A00B33A5E /* SingleWithTextAnswerVC.swift */,
 			);
 			path = FormZero;
 			sourceTree = "<group>";
@@ -1739,6 +1744,7 @@
 				2560BB9E283B845B00A32EC4 /* MultipleWithSubProblemsVM.swift */,
 				877D90A4283D032E00CE0D81 /* MultipleWithConceptWideVM.swift */,
 				E48BFD2728912B5A00C61295 /* MultipleWithShortTextAnswerVM.swift */,
+				E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2149,6 +2155,7 @@
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
 				255D637A27ABBF46000991AB /* UserNotice.swift in Sources */,
 				870BB571288E857500794295 /* Study2AnswerView.swift in Sources */,
+				E48BFD2A2891378A00C61295 /* SingleWith2AnswerVC.swift in Sources */,
 				873A3436289107BD005F9AAA /* DropdownButton.swift in Sources */,
 				259B6C83288011510051B2FA /* LoginProfileView.swift in Sources */,
 				87C85EBB276F6D00001C9C4A /* NoAnswerCell.swift in Sources */,
@@ -2204,6 +2211,7 @@
 				2570B37C288D4CBF001E8EAE /* ScoreResultView.swift in Sources */,
 				25F5E66527D8F90300309BC0 /* LoginSelectVM.swift in Sources */,
 				87C85E6F276F6957001C9C4A /* FavoriteCategoryCell.swift in Sources */,
+				E48BFD2C2891380B00C61295 /* SingleWith2AnswerVM.swift in Sources */,
 				2562452127FDE7AA00DB3D22 /* Session+Extensions.swift in Sources */,
 				87C85E61276F68CE001C9C4A /* CertificationUseCase.swift in Sources */,
 				25B514C027F9D0270047FC16 /* OAuthCredential.swift in Sources */,
