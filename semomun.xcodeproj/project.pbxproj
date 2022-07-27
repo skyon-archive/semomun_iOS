@@ -199,6 +199,8 @@
 		873A3438289119F8005F9AAA /* Form2Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A3437289119F8005F9AAA /* Form2Cell.swift */; };
 		873A343A28916ADC005F9AAA /* MultipleWith2AnswerWideVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A343928916ADC005F9AAA /* MultipleWith2AnswerWideVM.swift */; };
 		873A343C289173AE005F9AAA /* LongTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A343B289173AE005F9AAA /* LongTextCell.swift */; };
+		873A343E28917630005F9AAA /* MultipleWithLongTextWideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A343D28917630005F9AAA /* MultipleWithLongTextWideVC.swift */; };
+		873A344028917791005F9AAA /* MultipleWithLongTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A343F28917791005F9AAA /* MultipleWithLongTextAnswerVM.swift */; };
 		873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */; };
 		873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */; };
 		873BCE532876D186005A6189 /* BookshelfDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */; };
@@ -549,6 +551,8 @@
 		873A3437289119F8005F9AAA /* Form2Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form2Cell.swift; sourceTree = "<group>"; };
 		873A343928916ADC005F9AAA /* MultipleWith2AnswerWideVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWith2AnswerWideVM.swift; sourceTree = "<group>"; };
 		873A343B289173AE005F9AAA /* LongTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextCell.swift; sourceTree = "<group>"; };
+		873A343D28917630005F9AAA /* MultipleWithLongTextWideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithLongTextWideVC.swift; sourceTree = "<group>"; };
+		873A343F28917791005F9AAA /* MultipleWithLongTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleWithLongTextAnswerVM.swift; sourceTree = "<group>"; };
 		873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfHomeHeaderView.xib; sourceTree = "<group>"; };
 		873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeHeaderView.swift; sourceTree = "<group>"; };
 		873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -928,6 +932,7 @@
 				E48BFD1F2891233300C61295 /* MultipleWith2AnswerWideVC.swift */,
 				87B17A1B2833D4BF00DB5F10 /* MultipleWith5AnswerWideVC.swift */,
 				2560BBA0283B84CA00A32EC4 /* MultipleWithSubProblemWideVC.swift */,
+				873A343D28917630005F9AAA /* MultipleWithLongTextWideVC.swift */,
 			);
 			path = FormTwo;
 			sourceTree = "<group>";
@@ -1756,6 +1761,7 @@
 				E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */,
 				E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */,
 				873A343928916ADC005F9AAA /* MultipleWith2AnswerWideVM.swift */,
+				873A343F28917791005F9AAA /* MultipleWithLongTextAnswerVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2076,6 +2082,7 @@
 				8782DDF127FD3F8000BB5FF7 /* SubmissionProblem.swift in Sources */,
 				25F96AC92805562F00A0FD5F /* ErrorReport.swift in Sources */,
 				25738C6E27929C98002A6676 /* ConceptVM.swift in Sources */,
+				873A343E28917630005F9AAA /* MultipleWithLongTextWideVC.swift in Sources */,
 				2568CDBF2876CEEF008F34ED /* HomeVC.swift in Sources */,
 				257AB2D42877C32B00771382 /* HomeBookcoverCell.swift in Sources */,
 				2560BB99283B542500A32EC4 /* FormCell.swift in Sources */,
@@ -2118,6 +2125,7 @@
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
 				25267E5D2889093E00D35FA1 /* WorkbookGroupResultView.swift in Sources */,
+				873A344028917791005F9AAA /* MultipleWithLongTextAnswerVM.swift in Sources */,
 				87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8769EFB3288557A40047A692 /* SchoolCell.swift in Sources */,
