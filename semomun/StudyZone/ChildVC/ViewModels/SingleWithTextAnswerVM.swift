@@ -12,7 +12,13 @@ final class SingleWithTextAnswerVM: PageVM {
         let problem = problem ?? self.problem
         return problem?.answer
     }
+    
     override func isCorrect(input: String, answer: String) -> Bool {
         return input == answer
+    }
+    
+    func updateSolved(answer: String) {
+        guard let problem = self.problem else { return }
+        self.updateSolved(withSelectedAnswer: answer, problem: problem)
     }
 }

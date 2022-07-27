@@ -112,7 +112,7 @@ extension SingleWith5AnswerVC: AnswerCheckDelegate {
     }
 }
 
-extension SingleWith5AnswerVC: TimeRecordControllable {
+extension SingleWith5AnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

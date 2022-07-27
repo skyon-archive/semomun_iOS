@@ -80,8 +80,15 @@ extension MultipleWithNoAnswerVC: FormCellControllable {
     }
 }
 
-extension MultipleWithNoAnswerVC: TimeRecordControllable {
+extension MultipleWithNoAnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension MultipleWithNoAnswerVC: SolvedUpdateable {
+    func updateSolved(answer: String, problem: Problem_Core) {
+        assertionFailure()
+        return
     }
 }

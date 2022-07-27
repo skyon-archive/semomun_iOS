@@ -187,7 +187,7 @@
 		87231B8828250B41001CA2F7 /* WorkbookGroupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */; };
 		87231B8B28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */; };
 		8726CB10278D2051004D9CC0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */; };
-		87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C192840B2A7007B7092 /* TimeRecordControllable.swift */; };
+		87273C1A2840B2A7007B7092 /* TimerTerminateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C192840B2A7007B7092 /* TimerTerminateable.swift */; };
 		87273C1C2840E559007B7092 /* CorrectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C1B2840E559007B7092 /* CorrectImageView.swift */; };
 		87273C1E2841121B007B7092 /* RotationableCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87273C1D2841121B007B7092 /* RotationableCanvasView.swift */; };
 		872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872BD38A27FC69E100BDBADE /* ImageCacheManager.swift */; };
@@ -195,6 +195,7 @@
 		87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87319F9227E8D6230040108A /* NoticePopupVC.swift */; };
 		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
+		873A34342890E7A3005F9AAA /* SolvedUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */; };
 		873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */; };
 		873BCE512876D16B005A6189 /* BookshelfHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */; };
 		873BCE532876D186005A6189 /* BookshelfDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */; };
@@ -524,7 +525,7 @@
 		87231B8728250B41001CA2F7 /* WorkbookGroupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailVC.swift; sourceTree = "<group>"; };
 		87231B8A28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupDetailHeaderView.swift; sourceTree = "<group>"; };
 		8726CB0F278D2051004D9CC0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		87273C192840B2A7007B7092 /* TimeRecordControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRecordControllable.swift; sourceTree = "<group>"; };
+		87273C192840B2A7007B7092 /* TimerTerminateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTerminateable.swift; sourceTree = "<group>"; };
 		87273C1B2840E559007B7092 /* CorrectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectImageView.swift; sourceTree = "<group>"; };
 		87273C1D2841121B007B7092 /* RotationableCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationableCanvasView.swift; sourceTree = "<group>"; };
 		872BD38A27FC69E100BDBADE /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
@@ -532,6 +533,7 @@
 		87319F9227E8D6230040108A /* NoticePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupVC.swift; sourceTree = "<group>"; };
 		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
+		873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvedUpdateable.swift; sourceTree = "<group>"; };
 		873BCE4D2876CCFF005A6189 /* BookshelfHomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookshelfHomeHeaderView.xib; sourceTree = "<group>"; };
 		873BCE502876D16B005A6189 /* BookshelfHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfHomeHeaderView.swift; sourceTree = "<group>"; };
 		873BCE522876D186005A6189 /* BookshelfDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -1301,8 +1303,9 @@
 		87273C182840B25E007B7092 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				87273C192840B2A7007B7092 /* TimeRecordControllable.swift */,
+				87273C192840B2A7007B7092 /* TimerTerminateable.swift */,
 				870BB56C288E68C100794295 /* AnswerCheckDelegate.swift */,
+				873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -2127,6 +2130,7 @@
 				87C85E81276F69E9001C9C4A /* Validate.swift in Sources */,
 				87C85ECD276F6D9A001C9C4A /* SingleWith5AnswerVM.swift in Sources */,
 				2560BB9B283B7EA700A32EC4 /* SubProblemCell.swift in Sources */,
+				873A34342890E7A3005F9AAA /* SolvedUpdateable.swift in Sources */,
 				8782DDF327FD3F9600BB5FF7 /* SubmissionPage.swift in Sources */,
 				87DC940D27BA1FCD008F6105 /* SearchTagVC.swift in Sources */,
 				87F58269279E654E00A2BD15 /* TagsLayout.swift in Sources */,
@@ -2249,7 +2253,7 @@
 				8775EFF6287FFBC800D3665B /* SignupButton.swift in Sources */,
 				8778D28428695331002B1684 /* PracticeTestManager.swift in Sources */,
 				87C85EEB276F6EBB001C9C4A /* NetworkUsecase.swift in Sources */,
-				87273C1A2840B2A7007B7092 /* TimeRecordControllable.swift in Sources */,
+				87273C1A2840B2A7007B7092 /* TimerTerminateable.swift in Sources */,
 				258162C727D8AF6500ECDC27 /* LoginSignupStatus.swift in Sources */,
 				254C2BF92862DC2D00D7BB70 /* TestResultCalculator.swift in Sources */,
 				87231B8B28250D3F001CA2F7 /* WorkbookGroupDetailHeaderView.swift in Sources */,

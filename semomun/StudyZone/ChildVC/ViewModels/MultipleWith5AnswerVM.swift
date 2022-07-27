@@ -7,4 +7,8 @@
 
 import Foundation
 
-final class MultipleWith5AnswerVM: PageVM { }
+final class MultipleWith5AnswerVM: PageVM {
+    override func isCorrect(input: String, answer: String) -> Bool {
+        return input == answer
+    }
+}

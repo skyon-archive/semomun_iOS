@@ -55,7 +55,7 @@ extension SingleWithNoAnswerVC {
     }
 }
 
-extension SingleWithNoAnswerVC: TimeRecordControllable {
+extension SingleWithNoAnswerVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

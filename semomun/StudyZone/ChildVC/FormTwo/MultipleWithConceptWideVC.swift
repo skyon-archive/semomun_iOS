@@ -88,8 +88,15 @@ extension MultipleWithConceptWideVC: FormCellControllable {
     }
 }
 
-extension MultipleWithConceptWideVC: TimeRecordControllable {
+extension MultipleWithConceptWideVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
+    }
+}
+
+extension MultipleWithConceptWideVC: SolvedUpdateable {
+    func updateSolved(answer: String, problem: Problem_Core) {
+        assertionFailure()
+        return
     }
 }

@@ -54,7 +54,7 @@ extension ConceptVC {
     }
 }
 
-extension ConceptVC: TimeRecordControllable {
+extension ConceptVC: TimerTerminateable {
     func endTimeRecord() {
         self.viewModel?.endTimeRecord()
     }

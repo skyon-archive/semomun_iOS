@@ -117,7 +117,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        if let vc = self.currentVC as? TimeRecordControllable {
+        if let vc = self.currentVC as? TimerTerminateable {
             vc.endTimeRecord()
         }
         guard let mode = self.mode else { return }
@@ -133,7 +133,7 @@ final class StudyVC: UIViewController {
     }
     
     @IBAction func scoringSection(_ sender: Any) {
-        if let vc = self.currentVC as? TimeRecordControllable {
+        if let vc = self.currentVC as? TimerTerminateable {
             vc.endTimeRecord()
         }
         guard let mode = self.mode else { return }
