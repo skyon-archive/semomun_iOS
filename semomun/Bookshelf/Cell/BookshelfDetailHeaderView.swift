@@ -10,6 +10,7 @@ import UIKit
 protocol BookshelfDetailDelegate: AnyObject {
     func refreshWorkbooks()
     func changeOrder(to: DropdownOrderButton.BookshelfOrder)
+    func filterSubject(subject: DropdownButton.BookshelfSubject)
 }
 
 final class BookshelfDetailHeaderView: UICollectionReusableView {
@@ -20,10 +21,12 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
     @IBOutlet weak var refreshIcon: UIImageView!
     private weak var delegate: BookshelfDetailDelegate?
     private lazy var orderButton = DropdownOrderButton(order: .recentRead)
+    private lazy var subjectButton = DropdownButton()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureOrderButton()
+        self.configureSubjectButton()
         self.configureRefreshIcon()
     }
     
@@ -37,9 +40,10 @@ final class BookshelfDetailHeaderView: UICollectionReusableView {
         self.delegate?.refreshWorkbooks()
     }
     
-    func configure(delegate: BookshelfDetailDelegate, order: DropdownOrderButton.BookshelfOrder) {
+    func configure(delegate: BookshelfDetailDelegate, order: DropdownOrderButton.BookshelfOrder, subject: DropdownButton.BookshelfSubject) {
         self.delegate = delegate
         self.orderButton.changeOrder(to: order)
+        self.subjectButton.changeOrder(to: subject)
     }
 }
 
@@ -53,6 +57,17 @@ extension BookshelfDetailHeaderView {
         self.orderButton.configureBookshelfMenu(action: { [weak self] order in
             self?.delegate?.changeOrder(to: order)
         })
+    }
+    
+    private func configureSubjectButton() {
+        self.addSubview(self.subjectButton)
+        NSLayoutConstraint.activate([
+            self.subjectButton.centerYAnchor.constraint(equalTo: self.orderButton.centerYAnchor),
+            self.subjectButton.trailingAnchor.constraint(equalTo: self.orderButton.leadingAnchor, constant: -10)
+        ])
+        self.subjectButton.configureBookshelfMenu { [weak self] subject in
+            self?.delegate?.filterSubject(subject: subject)
+        }
     }
     
     private func configureRefreshIcon() {

@@ -318,7 +318,7 @@ extension BookshelfVC: UICollectionViewDataSource {
         } else {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BookshelfDetailHeaderView.identifier, for: indexPath) as? BookshelfDetailHeaderView else { return UICollectionReusableView() }
             guard let order = self.currentTab == .workbook ? self.viewModel?.currentWorkbooksOrder : self.viewModel?.currentWorkbookGroupsOrder else { return header }
-            header.configure(delegate: self, order: order)
+            header.configure(delegate: self, order: order, subject: .all)
             return header
         }
     }
@@ -401,6 +401,10 @@ extension BookshelfVC: BookshelfDetailDelegate {
             self.viewModel?.currentWorkbookGroupsOrder = order
             self.viewModel?.reloadWorkbookGroups()
         }
+    }
+    
+    func filterSubject(subject: DropdownButton.BookshelfSubject) {
+        print(subject.rawValue)
     }
 }
 

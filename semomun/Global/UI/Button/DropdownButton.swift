@@ -31,8 +31,6 @@ final class DropdownButton: UIButton {
     }
     
     private func commonInit() {
-        self.setImageWithSVGTintColor(semomunImage: .chevronDownOutline, color: .lightGray)
-        self.semanticContentAttribute = .forceRightToLeft
         self.tintColor = UIColor.getSemomunColor(.black)
         self.titleLabel?.font = UIFont.heading5
         self.backgroundColor = UIColor.getSemomunColor(.background)
@@ -47,9 +45,15 @@ final class DropdownButton: UIButton {
     private func configureLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 40)
-        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
+        self.addSubview(self.rightIcon)
         NSLayoutConstraint.activate([
+            self.rightIcon.widthAnchor.constraint(equalToConstant: 20),
+            self.rightIcon.heightAnchor.constraint(equalToConstant: 20),
+            self.rightIcon.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.rightIcon.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8),
+            
             self.heightAnchor.constraint(equalToConstant: 36)
         ])
     }
