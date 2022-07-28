@@ -22,6 +22,7 @@ final class HomeCategoryDetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 32
+        stackView.clipsToBounds = false
         
         return stackView
     }()
@@ -47,8 +48,12 @@ final class HomeCategoryDetailView: UIView {
 // MARK: Configure
 extension HomeCategoryDetailView {
     func configureCollectionViews(tagOfDBs: [TagOfDB], delegate: (UICollectionViewDelegate&UICollectionViewDataSource), action: @escaping OpenTagVC) {
-        self.sections = tagOfDBs.map { tagOfDB in
-            return Section(tagOfDB: tagOfDB, action: { action(tagOfDB) })
+        self.sections = tagOfDBs.enumerated().map { index, tagOfDB in
+            let section = Section(tagOfDB: tagOfDB, action: { action(tagOfDB) })
+            section.collectionView.tag = index
+            section.collectionView.delegate = delegate
+            section.collectionView.dataSource = delegate
+            return section
         }
         self.sections.forEach {
             self.stackView.addArrangedSubview($0)
@@ -60,6 +65,10 @@ extension HomeCategoryDetailView {
 extension HomeCategoryDetailView {
     func reloadCollectionView(at index: Int) {
         self.sections[index].collectionView.reloadData()
+    }
+    
+    func invalidateCollectionViewLayout() {
+        self.sections.forEach { $0.collectionView.collectionViewLayout.invalidateLayout() }
     }
 }
 
@@ -84,10 +93,10 @@ extension HomeCategoryDetailView {
             self.scrollView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor),
             
             self.stackView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 24),
-            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor, constant: -UICollectionView.gridPadding),
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
             // 위에서 설정한 여백 값만큼 아래 여백을 설정
-            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: -UICollectionView.gridPadding-500),
-            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor, constant: UICollectionView.gridPadding),
+            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: -524),
+            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
         ])
     }
 }
@@ -96,6 +105,8 @@ fileprivate final class Section: UIView {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = UICollectionView.gutterWidth
+        
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
         // 셀 그림자 잘림 방지
@@ -129,16 +140,16 @@ fileprivate final class Section: UIView {
         self.addSubviews(self.titleLabel, self.seeAllButton, self.collectionView)
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
             
             self.seeAllButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
-            self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.seeAllButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             
             self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
-            self.collectionView.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor),
-            self.collectionView.trailingAnchor.constraint(equalTo: self.seeAllButton.trailingAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.collectionView.heightAnchor.constraint(equalToConstant: 225.75)
+            self.collectionView.heightAnchor.constraint(equalToConstant: UICollectionView.bookcoverCellSize.height)
         ])
         
         self.titleLabel.text = tagOfDB.name

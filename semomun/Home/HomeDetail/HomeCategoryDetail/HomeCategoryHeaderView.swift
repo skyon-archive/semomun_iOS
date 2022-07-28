@@ -14,7 +14,7 @@ final class HomeCategoryHeaderView: UIView {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsHorizontalScrollIndicator = false
-        
+        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: UICollectionView.gridPadding)
         return view
     }()
     private let tagStackView: UIStackView = {
@@ -23,7 +23,6 @@ final class HomeCategoryHeaderView: UIView {
         view.axis = .horizontal
         view.spacing = 12
         view.distribution = .equalSpacing
-        
         return view
     }()
     

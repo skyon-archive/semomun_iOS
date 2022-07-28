@@ -17,10 +17,8 @@ final class HomeCategoryDetailVC: UIViewController {
     init(viewModel: HomeCategoryDetailVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-
-        self.customView.headerView.configureTagList(["1학년", "2학년", "3학년"])
-        self.customView.configureCollectionViews(tagOfDBs: [.init(tid: 0, name: "테스트1"), .init(tid: 1, name: "테스트2")], delegate: self, action: { print($0) })
-        
+        self.title = viewModel.categoryName
+        self.bindAll()
         self.viewModel.fetch()
     }
     
@@ -30,6 +28,11 @@ final class HomeCategoryDetailVC: UIViewController {
     
     override func loadView() {
         self.view = self.customView
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.customView.invalidateCollectionViewLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,14 +48,20 @@ final class HomeCategoryDetailVC: UIViewController {
 
 extension HomeCategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.sectionData[section].count
+        return self.viewModel.sectionData[collectionView.tag].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeBookcoverCell.identifier, for: indexPath) as? HomeBookcoverCell else { return .init() }
-        let data = self.viewModel.sectionData[indexPath.section][indexPath.item]
+        let data = self.viewModel.sectionData[collectionView.tag][indexPath.item]
         cell.configure(data, networkUsecase: self.viewModel.networkUsecase)
         return cell
+    }
+}
+
+extension HomeCategoryDetailVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return UICollectionView.bookcoverCellSize
     }
 }
 
@@ -63,11 +72,14 @@ extension HomeCategoryDetailVC {
     }
     
     private func bindTagNames() {
-        self.viewModel.$tagNames
+        self.viewModel.$tagOfDBs
             .receive(on: DispatchQueue.main)
             .dropFirst()
-            .sink(receiveValue: { [weak self] tagNames in
-                                
+            .sink(receiveValue: { [weak self] tagOfDBs in
+                guard let self = self else { return }
+                self.customView.headerView.configureTagList(tagOfDBs.map(\.name))
+                self.customView.configureCollectionViews(tagOfDBs: tagOfDBs, delegate: self, action: { print($0) })
+                self.viewModel.fetchWorkbooks()
             })
             .store(in: &self.cancellables)
     }
@@ -78,7 +90,7 @@ extension HomeCategoryDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] index in
                 guard let index = index else { return }
-                
+                self?.customView.reloadCollectionView(at: index)
             })
             .store(in: &self.cancellables)
     }
