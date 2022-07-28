@@ -69,7 +69,7 @@ extension SearchVM {
             return
         }
         
-        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .popularity, cid: nil) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 self?.favoriteTags = Array(tags.prefix(10))

@@ -24,7 +24,7 @@ final class SearchFavoriteTagsVM {
             return
         }
         
-        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .popularity, cid: nil) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 let count = min(30, tags.count)

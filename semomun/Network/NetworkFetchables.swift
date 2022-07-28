@@ -23,7 +23,7 @@ protocol BestSellersFetchable {
     func getBestSellers(completion: @escaping (NetworkStatus, [WorkbookPreviewOfDB]) -> Void)
 }
 protocol TagsFetchable {
-    func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
+    func getTags(order: NetworkURL.TagsOrder, cid: Int?, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
 }
 protocol MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void)

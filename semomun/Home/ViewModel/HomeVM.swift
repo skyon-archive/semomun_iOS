@@ -273,7 +273,7 @@ extension HomeVM {
     }
     
     private func fetchPopularTagContents() {
-        self.networkUsecase.getTags(order: .popularity) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .popularity, cid: nil) { [weak self] status, tags in
             guard let sectionSize = self?.cellPerSection,
                   let popularTagSectionCount = self?.popularTagSectionCount else {
                 return
