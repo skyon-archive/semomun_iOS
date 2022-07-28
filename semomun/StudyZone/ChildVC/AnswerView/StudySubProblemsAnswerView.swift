@@ -12,8 +12,6 @@ typealias SubproblemsAnswerViewDelegate = (AnswerViewDelegate & UITextFieldDeleg
 final class StudySubProblemsAnswerView: UIView {
     /* public */
     static let korLabels = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ"]
-    static let EngLabels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    static let engLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
     static let stackViewTopMargin = CGFloat(20)
     static let stackViewBottomMargin = CGFloat(8)
     static let subProblemHeight = CGFloat(33)
@@ -31,7 +29,23 @@ final class StudySubProblemsAnswerView: UIView {
             return CGSize(200, heightMargin + stackViewHeight + answerLabelHeights)
         }
     }
-    private(set) var wrongCount: Int = 0
+    static func wrongCount(problem: Problem_Core) -> Int {
+        let problemCount = problem.subProblemsCount
+        var answers: [String] = []
+        if let answer = problem.answer {
+            answers = answer.components(separatedBy: "$").map { String($0) }
+        } else {
+            answers = Array(repeating: "", count: Int(problemCount))
+        }
+        var userAnswers: [String] = []
+        if let userAnswer = problem.solved {
+            userAnswers = userAnswer.components(separatedBy: "$").map { String($0) }
+        } else {
+            userAnswers = Array(repeating: "", count: Int(problemCount))
+        }
+        
+        return zip(userAnswers, answers).filter { $0 != $1 }.count
+    }
     /* prvate */
     private weak var delegate: SubproblemsAnswerViewDelegate?
     private var topBar = StudyAnswerViewTopBar()
@@ -42,9 +56,8 @@ final class StudySubProblemsAnswerView: UIView {
         stackView.spacing = 4
         return stackView
     }()
-    private var terminated: Bool = false
     private var subProblems: [StudySubProblemInputView] = []
-    private var currentTextField: Int = 0
+    private var currentTextFieldIndex: Int = 0
     
     convenience init() {
         self.init(frame: CGRect())
@@ -84,8 +97,6 @@ extension StudySubProblemsAnswerView {
     }
     
     func configureUserAnswer(problem: Problem_Core) {
-        self.terminated = false
-        self.wrongCount = 0
         self.answersStackView.arrangedSubviews.forEach {
             self.answersStackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
@@ -113,21 +124,20 @@ extension StudySubProblemsAnswerView {
     }
     
     func terminate() {
-        self.terminated = true
-        self.wrongCount = self.subProblems.map { $0.terminateUI() }.filter { $0 == true }.count
+        self.subProblems.forEach { $0.terminateUI() }
     }
     
     @objc private func updateAnswer(_ textField: UITextField) {
-        self.currentTextField = textField.tag
+        self.currentTextFieldIndex = textField.tag
         self.saveUserAnswer()
     }
     
     func changeToNextTextField() {
-        if currentTextField == self.subProblems.count-1 {
-            self.subProblems[self.currentTextField].textField.resignFirstResponder()
+        if currentTextFieldIndex == self.subProblems.count-1 {
+            self.subProblems[self.currentTextFieldIndex].textField.resignFirstResponder()
         } else {
-            self.currentTextField = min(self.subProblems.count-1, self.currentTextField+1)
-            self.subProblems[self.currentTextField].textField.becomeFirstResponder()
+            self.currentTextFieldIndex = min(self.subProblems.count-1, self.currentTextFieldIndex+1)
+            self.subProblems[self.currentTextFieldIndex].textField.becomeFirstResponder()
         }
     }
 }

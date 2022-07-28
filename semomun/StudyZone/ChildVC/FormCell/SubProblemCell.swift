@@ -17,29 +17,13 @@ final class SubProblemCell: FormCell, CellLayoutable, CellRegisterable {
             return StudySubProblemsAnswerView.size(terminated: false, problemCount: Int(problemCount), wrongCount: 0).height + 16
         }
         
-        let wrongCount = Self.wrongCount(problem: problem)
+        let wrongCount = StudySubProblemsAnswerView.wrongCount(problem: problem)
         return StudySubProblemsAnswerView.size(terminated: true, problemCount: Int(problemCount), wrongCount: wrongCount).height + 16
     }
     override var internalTopViewHeight: CGFloat {
         return Self.topViewHeight(with: self.problem)
     }
-    static func wrongCount(problem: Problem_Core) -> Int {
-        let problemCount = problem.subProblemsCount
-        var answers: [String] = []
-        if let answer = problem.answer {
-            answers = answer.components(separatedBy: "$").map { String($0) }
-        } else {
-            answers = Array(repeating: "", count: Int(problemCount))
-        }
-        var userAnswers: [String] = []
-        if let userAnswer = problem.solved {
-            userAnswers = userAnswer.components(separatedBy: "$").map { String($0) }
-        } else {
-            userAnswers = Array(repeating: "", count: Int(problemCount))
-        }
-        
-        return zip(userAnswers, answers).filter { $0 != $1 }.count
-    }
+    
     /* private */
     private let answerView = StudySubProblemsAnswerView()
     
@@ -83,12 +67,13 @@ extension SubProblemCell {
 // MARK: AnswerView
 extension SubProblemCell {
     private func updateAnswerViewFrame() {
-        guard let terminated = self.problem?.terminated,
-              let problemCount = self.problem?.subProblemsCount else { return }
-        let wrongCount = self.answerView.wrongCount
+        guard let problem = self.problem else { return }
+        let terminated = problem.terminated
+        let problemCount = Int(problem.subProblemsCount)
+        let wrongCount = StudySubProblemsAnswerView.wrongCount(problem: problem)
         
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
-        let size = StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount)
+        let size = StudySubProblemsAnswerView.size(terminated: terminated, problemCount: problemCount, wrongCount: wrongCount)
         let rightMargin: CGFloat = UIWindow.isLandscape ? 32 : 16
         self.answerView.frame = CGRect(origin: CGPoint(rightCorner.x - rightMargin - size.width, rightCorner.y + 16), size: size)
     }
@@ -108,7 +93,7 @@ extension SubProblemCell: SubproblemsAnswerViewDelegate {
         self.updateSolved(input: answer)
         // answer, userAnwer 비교 후 score 계산
         guard let problem = self.problem else { return }
-        let wrongCount = Self.wrongCount(problem: problem)
+        let wrongCount = StudySubProblemsAnswerView.wrongCount(problem: problem)
         let correctCount = Int(problem.subProblemsCount) - wrongCount
         problem.setValue(Int64(correctCount), forKey: Problem_Core.Attribute.correctPoints.rawValue)
         print("answer: \(answer), score: \(correctCount)")

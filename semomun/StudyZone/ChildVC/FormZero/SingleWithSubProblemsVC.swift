@@ -82,9 +82,10 @@ extension SingleWithSubProblemsVC {
 // MARK: AnswerView
 extension SingleWithSubProblemsVC {
     private func updateAnswerViewFrame() {
-        guard let terminated = self.viewModel?.problem?.terminated,
-              let problemCount = self.viewModel?.problem?.subProblemsCount else { return }
-        let wrongCount = self.answerView.wrongCount
+        guard let problem = self.problem else { return }
+        let terminated = problem.terminated
+        let problemCount = Int(problem.subProblemsCount)
+        let wrongCount = StudySubProblemsAnswerView.wrongCount(problem: problem)
         
         let bottomPoint = CGPoint(self.view.frame.maxX, self.view.frame.maxY)
         let size = StudySubProblemsAnswerView.size(terminated: terminated, problemCount: Int(problemCount), wrongCount: wrongCount)
@@ -118,8 +119,9 @@ extension SingleWithSubProblemsVC: StudyToolbarViewDelegate {
 
 extension SingleWithSubProblemsVC: SubproblemsAnswerViewDelegate {
     func selectAnswer(to answer: String) {
-        guard let count = self.viewModel?.problem?.subProblemsCount else { return }
-        let correctCount = Int(count) - self.answerView.wrongCount
+        guard let problem = self.problem else { return }
+        let count = Int(problem.subProblemsCount)
+        let correctCount = count - StudySubProblemsAnswerView.wrongCount(problem: problem)
         self.viewModel?.updateSolved(userAnswer: answer, correctCount: correctCount)
     }
 }

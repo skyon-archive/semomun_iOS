@@ -111,18 +111,16 @@ extension StudySubProblemInputView {
         self.textField.delegate = delegate
     }
     
-    func terminateUI() -> Bool {
+    func terminateUI() {
         self.textField.isUserInteractionEnabled = false
         let userAnswer = self.textField.text ?? ""
         if userAnswer == self.answer {
             self.nameLabel.textColor = UIColor.systemGreen
             self.textField.layer.borderColor = UIColor.systemGreen.cgColor
-            return false
         } else {
             self.nameLabel.textColor = UIColor.systemRed
             self.textField.layer.borderColor = UIColor.systemRed.cgColor
             self.answerHorizontalStackView.isHidden = false
-            return true
         }
     }
 }
