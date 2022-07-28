@@ -327,8 +327,6 @@
 		87EDCC812864495F0030066E /* CalculatedTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC802864495F0030066E /* CalculatedTestResult.swift */; };
 		87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */; };
 		87EEC2912805752C0050854D /* WorkbookInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EEC2902805752C0050854D /* WorkbookInfoCell.swift */; };
-		87EF2F52287C1B39007BC217 /* RemoveableTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87EF2F51287C1B39007BC217 /* RemoveableTagCell.xib */; };
-		87EF2F54287C1C4E007BC217 /* RemoveableTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EF2F53287C1C4E007BC217 /* RemoveableTagCell.swift */; };
 		87EFCAE028854D030079BAC2 /* SchoolSelectPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */; };
 		87F13F29287EB3BC00AD80C0 /* SearchWarningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F13F28287EB3BC00AD80C0 /* SearchWarningCell.swift */; };
 		87F177F828655DFB00150153 /* WorkbookGroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */; };
@@ -685,8 +683,6 @@
 		87EDCC802864495F0030066E /* CalculatedTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatedTestResult.swift; sourceTree = "<group>"; };
 		87EDCC8228644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedWorkbookGroupInfoOfDB.swift; sourceTree = "<group>"; };
 		87EEC2902805752C0050854D /* WorkbookInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookInfoCell.swift; sourceTree = "<group>"; };
-		87EF2F51287C1B39007BC217 /* RemoveableTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveableTagCell.xib; sourceTree = "<group>"; };
-		87EF2F53287C1C4E007BC217 /* RemoveableTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveableTagCell.swift; sourceTree = "<group>"; };
 		87EFCADF28854D030079BAC2 /* SchoolSelectPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectPopupVC.swift; sourceTree = "<group>"; };
 		87F13F28287EB3BC00AD80C0 /* SearchWarningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWarningCell.swift; sourceTree = "<group>"; };
 		87F177F728655DFB00150153 /* WorkbookGroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkbookGroupInfo.swift; sourceTree = "<group>"; };
@@ -1558,8 +1554,6 @@
 			children = (
 				87A376A128741FAC00399DF2 /* TagCell.xib */,
 				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
-				87EF2F51287C1B39007BC217 /* RemoveableTagCell.xib */,
-				87EF2F53287C1C4E007BC217 /* RemoveableTagCell.swift */,
 				E4D5E45A2892572900DE8683 /* CategoryTagCell.xib */,
 				E4D5E45C289258B400DE8683 /* CategoryTagCell.swift */,
 				E4DEF9272892697700AD32BD /* RemoveableCategoryTagCell.xib */,
@@ -2001,7 +1995,6 @@
 				8716E92C279A5D9E00B33A5E /* Profile.storyboard in Resources */,
 				873BCE4E2876CCFF005A6189 /* BookshelfHomeHeaderView.xib in Resources */,
 				870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */,
-				87EF2F52287C1B39007BC217 /* RemoveableTagCell.xib in Resources */,
 				8716E928279A5D8400B33A5E /* Login.storyboard in Resources */,
 				8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */,
 				E4D5E45B2892572900DE8683 /* CategoryTagCell.xib in Resources */,
@@ -2265,7 +2258,6 @@
 				25ACC17F2852F06700A171C5 /* SubproblemCollectionView.swift in Sources */,
 				25ACC17D2852F02700A171C5 /* FormOne.swift in Sources */,
 				877D90A5283D032E00CE0D81 /* MultipleWithConceptWideVM.swift in Sources */,
-				87EF2F54287C1C4E007BC217 /* RemoveableTagCell.swift in Sources */,
 				8716E949279A611D00B33A5E /* ProfileVC.swift in Sources */,
 				251E2F7B287FC7E1005FBDC4 /* SearchBarTextField.swift in Sources */,
 				87B6F0BC2782BC8900E6FF8A /* SemomunColor.swift in Sources */,
