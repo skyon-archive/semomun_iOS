@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-final class LongTextCell: FormCell, CellLayoutable, CellRegisterable {
+final class LongTextCell: StudyCell, CellLayoutable, CellRegisterable {
     /* public */
     static let identifier = "LongTextCell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
