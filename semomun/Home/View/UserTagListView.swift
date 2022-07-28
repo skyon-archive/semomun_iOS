@@ -54,7 +54,7 @@ final class UserTagListView: UIView {
         }
         tags.forEach { tag in
             // MARK: 임시 카테고리 이름
-            let tagView = TagView(categoryName: "테스트", tagName: tag.name)
+            let tagView = TagView(tagName: tag.name, categoryName: "테스트")
             self.stackView.addArrangedSubview(tagView)
         }
     }
@@ -95,8 +95,8 @@ extension UserTagListView {
     }
 }
 
-fileprivate final class TagView: UILabel {
-    convenience init(categoryName: String, tagName: String) {
+final class TagView: UILabel {
+    convenience init(tagName: String, categoryName: String? = nil) {
         self.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.font = .heading5
@@ -108,7 +108,7 @@ fileprivate final class TagView: UILabel {
         self.layer.masksToBounds = true
         self.layer.cornerCurve = .continuous
         
-        let text = self.makeAttributedText(categoryName: categoryName, tagName: tagName)
+        let text = self.makeAttributedText(tagName: tagName, categoryName: categoryName)
         self.attributedText = text
         
         // 16은 텍스트 양쪽에서 셀 가장자리까지의 거리
@@ -120,16 +120,18 @@ fileprivate final class TagView: UILabel {
         ])
     }
     
-    private func makeAttributedText(categoryName: String, tagName: String) -> NSAttributedString {
+    private func makeAttributedText(tagName: String, categoryName: String?) -> NSAttributedString {
         let text = NSMutableAttributedString()
-        text.append(NSMutableAttributedString(string: categoryName, attributes:[
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
-            NSAttributedString.Key.font: UIFont.heading5
-        ]))
-        text.append(NSMutableAttributedString(string: " / ", attributes:[
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
-            NSAttributedString.Key.font: UIFont.heading5
-        ]))
+        if let categoryName = categoryName {
+            text.append(NSMutableAttributedString(string: categoryName, attributes:[
+                NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
+                NSAttributedString.Key.font: UIFont.heading5
+            ]))
+            text.append(NSMutableAttributedString(string: " / ", attributes:[
+                NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
+                NSAttributedString.Key.font: UIFont.heading5
+            ]))
+        }
         text.append(NSMutableAttributedString(string: tagName, attributes:[
             NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.black),
             NSAttributedString.Key.font: UIFont.heading5
