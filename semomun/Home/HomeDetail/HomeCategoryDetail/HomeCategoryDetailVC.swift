@@ -39,11 +39,6 @@ final class HomeCategoryDetailVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
 }
 
 extension HomeCategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -77,8 +72,8 @@ extension HomeCategoryDetailVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tagOfDBs in
                 guard let self = self else { return }
-                self.customView.headerView.configureTagList(tagOfDBs.map(\.name))
-                self.customView.configureCollectionViews(tagOfDBs: tagOfDBs, delegate: self, action: { print($0) })
+                self.customView.headerView.configureTagList(tagOfDBs: tagOfDBs, action: self.openTagDetailVC)
+                self.customView.configureCollectionViews(tagOfDBs: tagOfDBs, delegate: self, action: self.openTagDetailVC)
                 self.viewModel.fetchWorkbooks()
             })
             .store(in: &self.cancellables)
@@ -93,5 +88,26 @@ extension HomeCategoryDetailVC {
                 self?.customView.reloadCollectionView(at: index)
             })
             .store(in: &self.cancellables)
+    }
+}
+
+extension HomeCategoryDetailVC {
+    private func openTagDetailVC(tagOfDB: TagOfDB) {
+        let networkUsecase = NetworkUsecase(network: Network())
+        let cellDataFetcher: HomeDetailVM<WorkbookPreviewOfDB>.CellDataFetcher = { page, order, completion in
+            networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param, cid: nil) { _, preview in
+                guard let preview = preview?.workbooks else {
+                    completion(nil)
+                    return
+                }
+                completion(preview)
+            }
+        }
+        let vm = HomeDetailVM<WorkbookPreviewOfDB>(
+            networkUsecase: networkUsecase,
+            cellDataFetcher: cellDataFetcher
+        )
+        let vc = TagDetailVC<WorkbookPreviewOfDB>(viewModel: vm, tagOfDB: tagOfDB)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

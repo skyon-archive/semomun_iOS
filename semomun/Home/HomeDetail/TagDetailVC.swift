@@ -23,13 +23,14 @@ final class TagDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVC<T> {
 
 extension TagDetailVC {
     private func configureNavigationTitleView(tagOfDB: TagOfDB) {
-        // MARK: 임시 변수
-        let categoryName = "테스트"
         let button = UIButton(type: .custom)
-        let title = NSMutableAttributedString(string: "\(categoryName) / ", attributes:[
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
-            NSAttributedString.Key.font: UIFont.heading4
-        ])
+        let title = NSMutableAttributedString()
+        if let categoryName = tagOfDB.category?.name {
+            title.append(NSMutableAttributedString(string: "\(categoryName) / ", attributes:[
+                NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
+                NSAttributedString.Key.font: UIFont.heading4
+            ]))
+        }
         title.append(NSMutableAttributedString(string: tagOfDB.name, attributes:[
             NSAttributedString.Key.font: UIFont.heading4
         ]))
