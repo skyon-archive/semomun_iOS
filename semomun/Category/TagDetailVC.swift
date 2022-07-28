@@ -41,8 +41,8 @@ extension TagDetailVC {
     }
     private func showCategoryView() {
         guard let categoryOfDB = self.tagOfDB.category else { return }
-        let vm = HomeCategoryDetailVM(categoryOfDB: categoryOfDB, networkUsecase: NetworkUsecase(network: Network()))
-        let vc = HomeCategoryDetailVC(viewModel: vm)
+        let vm = CategoryDetailVM(categoryOfDB: categoryOfDB, networkUsecase: NetworkUsecase(network: Network()))
+        let vc = CategoryDetailVC(viewModel: vm)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
