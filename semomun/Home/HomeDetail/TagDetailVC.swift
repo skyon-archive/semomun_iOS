@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeCategoryDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVC<T> {
+final class TagDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVC<T> {
     private let tagOfDB: TagOfDB
     
     init(viewModel: HomeDetailVM<T>, tagOfDB: TagOfDB) {
@@ -21,7 +21,7 @@ final class HomeCategoryDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVC<T> {
     }
 }
 
-extension HomeCategoryDetailVC {
+extension TagDetailVC {
     private func configureNavigationTitleView(tagOfDB: TagOfDB) {
         // MARK: 임시 변수
         let categoryName = "테스트"
