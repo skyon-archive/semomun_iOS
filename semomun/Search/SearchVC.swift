@@ -458,14 +458,11 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
-                guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
-                // MARK: 임시 카테고리 이름
-                let categoryName = "카테고리"
-                return CategoryTagCell.size(categoryName: categoryName, tagName: tagName)
+                guard let tag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return CGSize(width: 100, height: 32) }
+                return CategoryTagCell.size(categoryName: tag.category?.name ?? "카테고리 없음", tagName: tag.name)
             } else {
-                let categoryName = "카테고리"
-                guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
-                return RemoveableCategoryTagCell.size(categoryName: categoryName, tagName: tagName)
+                guard let tag = self.viewModel?.selectedTags[safe: indexPath.item] else { return CGSize(width: 100, height: 32) }
+                return RemoveableCategoryTagCell.size(categoryName: tag.category?.name ?? "카테고리 없음", tagName: tag.name)
             }
         }
         // warningCell 의 cell 반환
