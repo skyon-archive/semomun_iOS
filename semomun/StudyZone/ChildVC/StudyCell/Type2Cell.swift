@@ -1,5 +1,5 @@
 //
-//  Form2Cell.swift
+//  Type2Cell.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2022/07/27.
@@ -8,9 +8,9 @@
 import UIKit
 import PencilKit
 
-final class Form2Cell: StudyCell, CellLayoutable, CellRegisterable {
+final class Type2Cell: StudyCell, CellLayoutable, CellRegisterable {
     /* public */
-    static let identifier = "Form2Cell"
+    static let identifier = "Type2Cell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return Study2AnswerView.size.height+16
     }
@@ -46,7 +46,7 @@ final class Form2Cell: StudyCell, CellLayoutable, CellRegisterable {
 }
 
 // MARK: Update
-extension Form2Cell {
+extension Type2Cell {
     private func updateCorrectImage() {
         guard let problem = self.problem else { return }
         if problem.terminated == true {
@@ -56,7 +56,7 @@ extension Form2Cell {
 }
 
 // MARK: AnswerView
-extension Form2Cell {
+extension Type2Cell {
     private func updateAnswerViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
         let size = Study2AnswerView.size
@@ -74,7 +74,7 @@ extension Form2Cell {
     }
 }
 
-extension Form2Cell: AnswerViewDelegate {
+extension Type2Cell: AnswerViewDelegate {
     func selectAnswer(to answer: String) {
         self.updateSolved(input: answer)
     }

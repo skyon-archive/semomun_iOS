@@ -34,7 +34,7 @@ final class MultipleWith2AnswerWideVC: FormTwo {
 // MARK: Configure
 extension MultipleWith2AnswerWideVC {
     private func configureCellRegister() {
-        self.configureCellRegisters([Form2Cell.self])
+        self.configureCellRegisters([Type2Cell.self])
     }
 }
 
@@ -45,7 +45,7 @@ extension MultipleWith2AnswerWideVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Form2Cell.identifier, for: indexPath) as? Form2Cell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Type2Cell.identifier, for: indexPath) as? Type2Cell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item]
         let problem = self.viewModel?.problems[indexPath.item]
@@ -62,7 +62,7 @@ extension MultipleWith2AnswerWideVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = Form2Cell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = Type2Cell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         
