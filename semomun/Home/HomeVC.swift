@@ -258,11 +258,11 @@ extension HomeVC {
                 NotificationCenter.default.post(name: .showRecentWorkbooks, object: nil)
             }
         case .tag:
-            let vm = HomeTagDetailVM(
+            let vm = HomeUserTagDetailVM(
                 networkUsecase: viewModel.networkUsecase,
                 cellDataFetcher: viewModel.fetchTags
             )
-            let vc = HomeTagDetailVC(viewModel: vm, title: sectionTitle)
+            let vc = HomeUserTagDetailVC(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
         case .workbookGroup:
             let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(
@@ -671,7 +671,7 @@ extension HomeVC {
                         networkUsecase: viewModel.networkUsecase,
                         cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, order: $1, page: $0, completion: $2)}
                     )
-                    let vc = HomeDetailVC<WorkbookPreviewOfDB>(viewModel: vm, title: tagContent.tag.name)
+                    let vc = HomeCategoryDetailVC<WorkbookPreviewOfDB>(viewModel: vm, tagOfDB: tagContent.tag)
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })

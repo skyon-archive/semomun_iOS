@@ -1,5 +1,5 @@
 //
-//  HomeTagDetailVC.swift
+//  HomeUserTagDetailVC.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/12.
@@ -8,10 +8,10 @@
 import UIKit
 import Combine
 
-final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
+final class HomeUserTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
     private var tags: [String] = []
     
-    init(viewModel: HomeTagDetailVM, title: String) {
+    init(viewModel: HomeUserTagDetailVM, title: String) {
         super.init(viewModel: viewModel, title: title)
     }
     
@@ -41,9 +41,9 @@ final class HomeTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
 }
 
 // MARK: Configure
-extension HomeTagDetailVC {
+extension HomeUserTagDetailVC {
     private func bindTag() {
-        guard let viewModel = self.viewModel as? HomeTagDetailVM else { return }
+        guard let viewModel = self.viewModel as? HomeUserTagDetailVM else { return }
         viewModel.$tags
             .receive(on: DispatchQueue.main)
             .dropFirst()

@@ -29,7 +29,7 @@ class HomeDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVCDelegates {
     init(viewModel: HomeDetailVM<T>, title: String) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.navigationItem.title = title
+        self.title = title
     }
     
     required init?(coder: NSCoder) {
