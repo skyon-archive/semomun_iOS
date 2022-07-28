@@ -152,9 +152,9 @@ extension SearchVC {
         self.mainCollectionView.collectionViewLayout = flowLayout
         self.mainCollectionView.configureDefaultDesign(topInset: 24)
         
-        let tagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        let categoryTagCellNib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
         let removeableTagCellNib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
-        self.tagsCollectionView.register(tagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
+        self.tagsCollectionView.register(categoryTagCellNib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
         self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
         self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
         self.mainCollectionView.register(SearchWarningCell.self, forCellWithReuseIdentifier: SearchWarningCell.identifier)
@@ -410,9 +410,9 @@ extension SearchVC: UICollectionViewDataSource {
         /// tagsCollectionView
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
                 guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return cell }
-                cell.configure(tag: tagName)
+                cell.configure(category: "카테고리", tag: tagName)
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
@@ -459,7 +459,10 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
-                return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
+                let categoryName = "카테고리"
+                let categoryWidth = categoryName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width
+                let tagWidth = tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width
+                return CGSize(width: categoryWidth + tagWidth + CategoryTagCell.horizontalInset, height: 32)
             } else {
                 guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
                 return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)

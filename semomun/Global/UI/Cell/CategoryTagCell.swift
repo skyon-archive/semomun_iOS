@@ -11,8 +11,9 @@ final class CategoryTagCell: UICollectionViewCell {
     static let identifier = "CategoryTagCell"
     static let stackViewInnerSpacing = CGFloat(8)
     static let slashWidth = CGFloat(5.5)
+    static let horizontalMargin = CGFloat(32)
     static var horizontalInset: CGFloat {
-        return Self.stackViewInnerSpacing + Self.slashWidth
+        return Self.stackViewInnerSpacing + Self.slashWidth + Self.horizontalMargin
     }
     
     @IBOutlet weak var categoryNameLabel: UILabel!
