@@ -15,11 +15,9 @@ final class CategoryTagCell: UICollectionViewCell {
         let horizontalMargin = CGFloat(32)
         
         let categoryWidth = NSMutableAttributedString(string: categoryName, attributes:[
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
             NSAttributedString.Key.font: UIFont.heading4
         ]).size().width
         let nameWidth = NSMutableAttributedString(string: tagName, attributes:[
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.black),
             NSAttributedString.Key.font: UIFont.heading4
         ]).size().width
         
