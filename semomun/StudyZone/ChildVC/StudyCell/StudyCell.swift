@@ -1,5 +1,5 @@
 //
-//  FormCell.swift
+//  StudyCell.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/05/23.
@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 
-class FormCell: UICollectionViewCell, PKToolPickerObserver {
+class StudyCell: UICollectionViewCell, PKToolPickerObserver {
     /* public */
     weak var delegate: (FormCellControllable&ExplanationSelectable&SolvedUpdateable)?
     var problem: Problem_Core?
@@ -86,7 +86,7 @@ class FormCell: UICollectionViewCell, PKToolPickerObserver {
 }
 
 // MARK: Child Accessible
-extension FormCell {
+extension StudyCell {
     /// 사용자가 문제가 풀었음을 input 답과 함께 저장.
     /// answer값이 존재하는 경우 string 단순 비교를 통해 정답 여부도 저장.
     func updateSolved(input: String) {
@@ -101,7 +101,7 @@ extension FormCell {
 }
 
 // MARK: Configure
-extension FormCell {
+extension StudyCell {
     private func configureSubViews() {
         self.contentView.addSubviews(self.canvasView, self.background, self.toolbarView, self.timerView)
         self.contentView.sendSubviewToBack(self.canvasView)
@@ -141,7 +141,7 @@ extension FormCell {
 }
 
 // MARK: Update
-extension FormCell {
+extension StudyCell {
     private func updateCanvasViewDataAndDelegate() {
         guard self.isCanvasDrawingLoaded == false else { return }
         
@@ -187,7 +187,7 @@ extension FormCell {
 }
 
 // MARK: Rotation
-extension FormCell {
+extension StudyCell {
     private func adjustLayouts(frameUpdate: Bool = false) {
         let contentSize = self.contentView.frame.size
         guard let imageSize = self.imageView.image?.size else {
@@ -215,7 +215,7 @@ extension FormCell {
 }
 
 // MARK: Drawing Detect
-extension FormCell: PKCanvasViewDelegate {
+extension StudyCell: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guard let problem = self.problem else { return }
         
@@ -229,7 +229,7 @@ extension FormCell: PKCanvasViewDelegate {
 }
 
 // MARK: Zooming
-extension FormCell: UIScrollViewDelegate {
+extension StudyCell: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
@@ -239,7 +239,7 @@ extension FormCell: UIScrollViewDelegate {
     }
 }
 
-extension FormCell: StudyToolbarViewDelegate {
+extension StudyCell: StudyToolbarViewDelegate {
     func toggleBookmark() {
         let status = self.toolbarView.bookmarkSelected
         self.problem?.setValue(status, forKey: "star")
