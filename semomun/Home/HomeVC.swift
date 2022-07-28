@@ -239,6 +239,11 @@ extension HomeVC {
     }
     
     private func showHomeDetailVC(sectionType: FixedSectionType) {
+        let vm = HomeCategoryDetailVM(cid: 0, networkUsecase: NetworkUsecase(network: Network()))
+        let vc = HomeCategoryDetailVC(viewModel: vm)
+        self.navigationController?.pushViewController(vc, animated: true)
+        return
+        
         guard let viewModel = self.viewModel,
               let sectionTitle = self.fixedSectionViews[sectionType]?.title else {
             return
