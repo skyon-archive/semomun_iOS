@@ -501,7 +501,7 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] tags in
                 let tagSectionView = self?.fixedSectionViews[.tag]
-                tagSectionView?.tagList.updateTagList(tagNames: tags.map(\.name))
+                tagSectionView?.tagList.updateTagList(tags: tags)
             })
             .store(in: &self.cancellables)
         
