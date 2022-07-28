@@ -34,7 +34,7 @@ final class HomeCategoryDetailView: UIView {
         
         return roundedBackground
     }()
-    private var sections: [Section] = []
+    private var sections: [TagSection] = []
     
     convenience init() {
         self.init(frame: .zero)
@@ -49,7 +49,7 @@ final class HomeCategoryDetailView: UIView {
 extension HomeCategoryDetailView {
     func configureCollectionViews(tagOfDBs: [TagOfDB], delegate: (UICollectionViewDelegate&UICollectionViewDataSource), action: @escaping OpenTagVC) {
         self.sections = tagOfDBs.enumerated().map { index, tagOfDB in
-            let section = Section(tagOfDB: tagOfDB, action: { action(tagOfDB) })
+            let section = TagSection(tagOfDB: tagOfDB, action: { action(tagOfDB) })
             section.collectionView.tag = index
             section.collectionView.delegate = delegate
             section.collectionView.dataSource = delegate
@@ -101,7 +101,7 @@ extension HomeCategoryDetailView {
     }
 }
 
-fileprivate final class Section: UIView {
+fileprivate final class TagSection: UIView {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
