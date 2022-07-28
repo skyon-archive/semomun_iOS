@@ -83,9 +83,10 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.configure(tag: tagName)
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
-            let tagName = self.viewModel.searchResult[indexPath.item].name
-            cell.configure(tag: tagName)
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
+            let tagOfDB = self.viewModel.searchResult[indexPath.item]
+            // MARK: 임시 카테고리 이름
+            cell.configure(category: "테스트", tag: tagOfDB.name)
             return cell
         }
     }
@@ -106,8 +107,9 @@ extension SearchTagVC: UICollectionViewDelegateFlowLayout {
             let tagName = self.viewModel.userTags[indexPath.item].name
             return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
         } else {
-            let tagName = self.viewModel.searchResult[indexPath.item].name
-            return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)
+            let tagOfDB = self.viewModel.searchResult[indexPath.item]
+            // MARK: 임시 카테고리 이름
+            return CategoryTagCell.size(categoryName: "테스트", tagName: tagOfDB.name)
         }
     }
 }
