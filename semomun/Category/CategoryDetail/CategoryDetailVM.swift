@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class HomeCategoryDetailVM {
+final class CategoryDetailVM {
     /* public */
     typealias NetworkUsecase = (TagsFetchable&S3ImageFetchable&PreviewsSearchable&WorkbookSearchable)
     @Published private(set) var tagOfDBs: [TagOfDB] = []

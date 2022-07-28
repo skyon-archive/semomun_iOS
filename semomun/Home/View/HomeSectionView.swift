@@ -25,8 +25,7 @@ final class HomeSectionView: UIView {
         view.clipsToBounds = false
         view.register(HomeBookcoverCell.self, forCellWithReuseIdentifier: HomeBookcoverCell.identifier)
         view.showsHorizontalScrollIndicator = false
-        // right Inset 확인
-        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
+        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: UICollectionView.gridPadding)
         
         return view
     }()

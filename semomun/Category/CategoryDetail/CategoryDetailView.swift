@@ -1,5 +1,5 @@
 //
-//  HomeCategoryDetailView.swift
+//  CategoryDetailView.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/28.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeCategoryDetailView: UIView {
+final class CategoryDetailView: UIView {
     /* public */
     typealias OpenTagVC = (TagOfDB) -> Void
     let headerView = HomeCategoryHeaderView()
@@ -46,7 +46,7 @@ final class HomeCategoryDetailView: UIView {
 }
 
 // MARK: Configure
-extension HomeCategoryDetailView {
+extension CategoryDetailView {
     func configureCollectionViews(tagOfDBs: [TagOfDB], delegate: (UICollectionViewDelegate&UICollectionViewDataSource), action: @escaping OpenTagVC) {
         self.sections = tagOfDBs.enumerated().map { index, tagOfDB in
             let section = TagSection(tagOfDB: tagOfDB, action: { action(tagOfDB) })
@@ -62,7 +62,7 @@ extension HomeCategoryDetailView {
 }
 
 // MARK: Update
-extension HomeCategoryDetailView {
+extension CategoryDetailView {
     func reloadCollectionView(at index: Int) {
         self.sections[index].collectionView.reloadData()
     }
@@ -72,7 +72,7 @@ extension HomeCategoryDetailView {
     }
 }
 
-extension HomeCategoryDetailView {
+extension CategoryDetailView {
     private func configureLayout() {
         self.addSubview(self.roundedBackground)
         self.roundedBackground.addSubview(self.scrollView)

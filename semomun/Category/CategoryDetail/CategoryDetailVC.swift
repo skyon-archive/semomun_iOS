@@ -8,13 +8,13 @@
 import UIKit
 import Combine
 
-final class HomeCategoryDetailVC: UIViewController {
+final class CategoryDetailVC: UIViewController {
     /* private */
-    private let customView = HomeCategoryDetailView()
-    private let viewModel: HomeCategoryDetailVM
+    private let customView = CategoryDetailView()
+    private let viewModel: CategoryDetailVM
     private var cancellables: Set<AnyCancellable> = []
     
-    init(viewModel: HomeCategoryDetailVM) {
+    init(viewModel: CategoryDetailVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.title = viewModel.categoryName
@@ -41,7 +41,7 @@ final class HomeCategoryDetailVC: UIViewController {
     }
 }
 
-extension HomeCategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.sectionData[collectionView.tag].count
     }
@@ -59,13 +59,13 @@ extension HomeCategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-extension HomeCategoryDetailVC: UICollectionViewDelegateFlowLayout {
+extension CategoryDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return UICollectionView.bookcoverCellSize
     }
 }
 
-extension HomeCategoryDetailVC {
+extension CategoryDetailVC {
     private func bindAll() {
         self.bindTagNames()
         self.bindFetchedIndex()
@@ -120,7 +120,7 @@ extension HomeCategoryDetailVC {
     }
 }
 
-extension HomeCategoryDetailVC {
+extension CategoryDetailVC {
     private func openTagDetailVC(tagOfDB: TagOfDB) {
         let networkUsecase = NetworkUsecase(network: Network())
         let cellDataFetcher: HomeDetailVM<WorkbookPreviewOfDB>.CellDataFetcher = { page, order, completion in
