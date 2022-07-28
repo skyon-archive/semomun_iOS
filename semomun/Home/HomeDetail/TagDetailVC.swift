@@ -27,11 +27,11 @@ extension TagDetailVC {
         let categoryName = "테스트"
         let button = UIButton(type: .custom)
         let title = NSMutableAttributedString(string: "\(categoryName) / ", attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
             NSAttributedString.Key.font: UIFont.heading4
         ])
         title.append(NSMutableAttributedString(string: tagOfDB.name, attributes:[
-            NSAttributedString.Key.font: UIFont.heading4,
-            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray)
+            NSAttributedString.Key.font: UIFont.heading4
         ]))
         button.setAttributedTitle(title, for: .normal)
         button.addAction(UIAction { [weak self] _ in self?.showCategoryView()  }, for: .touchUpInside)
