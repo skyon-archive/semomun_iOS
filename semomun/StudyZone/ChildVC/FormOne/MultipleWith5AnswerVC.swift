@@ -16,7 +16,7 @@ class MultipleWith5AnswerVC: FormOne  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureCellRegister(Form5Cell.self)
+        self.configureCellRegister(Type5Cell.self)
         self.configurePagePencilData(data: self.viewModel?.pagePencilData, width: self.viewModel?.pagePencilDataWidth)
     }
     
@@ -38,7 +38,7 @@ extension MultipleWith5AnswerVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Form5Cell.identifier, for: indexPath) as? Form5Cell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Type5Cell.identifier, for: indexPath) as? Type5Cell else { return UICollectionViewCell() }
         
         let contentImage = self.subImages?[indexPath.item] ?? nil
         let problem = self.viewModel?.problems[indexPath.item]
@@ -55,7 +55,7 @@ extension MultipleWith5AnswerVC {
         if imageSize.hasValidSize == false { imageSize = UIImage(.warning).size }
         
         let width: CGFloat = collectionView.bounds.width - 10
-        let topViewHeight: CGFloat = Form5Cell.topViewHeight(with: nil)
+        let topViewHeight: CGFloat = Type5Cell.topViewHeight(with: nil)
         let imageHeight = imageSize.height * (width/imageSize.width)
         let height = topViewHeight + imageHeight
         
