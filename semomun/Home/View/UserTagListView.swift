@@ -95,21 +95,21 @@ extension UserTagListView {
     }
 }
 
-final class TagView: UILabel {
+final class TagView: UIButton {
     convenience init(tagName: String, categoryName: String? = nil) {
-        self.init(frame: .zero)
+        self.init(type: .custom)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = .heading5
+        self.titleLabel?.font = .heading5
         self.backgroundColor = UIColor.getSemomunColor(.white)
         self.borderWidth = 1
         self.borderColor = UIColor.getSemomunColor(.border)
-        self.textAlignment = .center
+        self.titleLabel?.textAlignment = .center
         self.layer.cornerRadius = .cornerRadius12
         self.layer.masksToBounds = true
         self.layer.cornerCurve = .continuous
         
         let text = self.makeAttributedText(tagName: tagName, categoryName: categoryName)
-        self.attributedText = text
+        self.setAttributedTitle(text, for: .normal)
         
         // 16은 텍스트 양쪽에서 셀 가장자리까지의 거리
         let width = text.size().width + (16 * 2)

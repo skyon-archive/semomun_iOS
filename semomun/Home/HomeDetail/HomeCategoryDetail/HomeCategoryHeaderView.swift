@@ -50,9 +50,10 @@ final class HomeCategoryHeaderView: UIView {
         ])
     }
     
-    func configureTagList(_ tagNames: [String]) {
-        tagNames.forEach { name in
-            let view = TagView(tagName: name)
+    func configureTagList(tagOfDBs: [TagOfDB], action: @escaping (TagOfDB) -> Void) {
+        tagOfDBs.forEach { tagOfDB in
+            let view = TagView(tagName: tagOfDB.name)
+            view.addAction(UIAction { _ in action(tagOfDB) }, for: .touchUpInside)
             self.tagStackView.addArrangedSubview(view)
         }
     }
