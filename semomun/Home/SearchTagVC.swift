@@ -78,9 +78,10 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.searchTagView.searchTagCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableCategoryTagCell.identifier, for: indexPath) as? RemoveableCategoryTagCell else { return .init() }
+            let categoryName = "카테고리"
             let tagName = self.viewModel.userTags[indexPath.item].name
-            cell.configure(tag: tagName)
+            cell.configure(category: categoryName, tag: tagName)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
@@ -104,8 +105,9 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension SearchTagVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.searchTagView.searchTagCollectionView {
+            let categoryName = "카테고리"
             let tagName = self.viewModel.userTags[indexPath.item].name
-            return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
+            return RemoveableCategoryTagCell.size(categoryName: categoryName, tagName: tagName)
         } else {
             let tagOfDB = self.viewModel.searchResult[indexPath.item]
             // MARK: 임시 카테고리 이름

@@ -153,9 +153,9 @@ extension SearchVC {
         self.mainCollectionView.configureDefaultDesign(topInset: 24)
         
         let categoryTagCellNib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
-        let removeableTagCellNib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
+        let removeableCategoryTagCellNib = UINib(nibName: RemoveableCategoryTagCell.identifier, bundle: nil)
         self.tagsCollectionView.register(categoryTagCellNib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
-        self.tagsCollectionView.register(removeableTagCellNib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
+        self.tagsCollectionView.register(removeableCategoryTagCellNib, forCellWithReuseIdentifier: RemoveableCategoryTagCell.identifier)
         self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
         self.mainCollectionView.register(SearchWarningCell.self, forCellWithReuseIdentifier: SearchWarningCell.identifier)
         self.mainCollectionView.register(SearchResultHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchResultHeaderView.identifier)
@@ -415,9 +415,10 @@ extension SearchVC: UICollectionViewDataSource {
                 cell.configure(category: "카테고리", tag: tagName)
                 return cell
             } else {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableCategoryTagCell.identifier, for: indexPath) as? RemoveableCategoryTagCell else { return .init() }
+                let categoryName = "카테고리"
                 guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return cell }
-                cell.configure(tag: tagName)
+                cell.configure(category: categoryName, tag: tagName)
                 return cell
             }
         }
@@ -463,8 +464,9 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
                 let categoryName = "카테고리"
                 return CategoryTagCell.size(categoryName: categoryName, tagName: tagName)
             } else {
+                let categoryName = "카테고리"
                 guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
-                return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
+                return RemoveableCategoryTagCell.size(categoryName: categoryName, tagName: tagName)
             }
         }
         // warningCell 의 cell 반환

@@ -27,8 +27,8 @@ class SearchTagView: UIView {
         view.showsHorizontalScrollIndicator = false
         view.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
-        let nib = UINib(nibName: RemoveableTagCell.identifier, bundle: nil)
-        view.register(nib, forCellWithReuseIdentifier: RemoveableTagCell.identifier)
+        let nib = UINib(nibName: RemoveableCategoryTagCell.identifier, bundle: nil)
+        view.register(nib, forCellWithReuseIdentifier: RemoveableCategoryTagCell.identifier)
         
         return view
     }()
