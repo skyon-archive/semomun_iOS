@@ -459,10 +459,9 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
+                // MARK: 임시 카테고리 이름
                 let categoryName = "카테고리"
-                let categoryWidth = categoryName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width
-                let tagWidth = tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width
-                return CGSize(width: categoryWidth + tagWidth + CategoryTagCell.horizontalInset, height: 32)
+                return CategoryTagCell.size(categoryName: categoryName, tagName: tagName)
             } else {
                 guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return CGSize(width: 100, height: 32) }
                 return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)

@@ -9,11 +9,21 @@ import UIKit
 
 final class CategoryTagCell: UICollectionViewCell {
     static let identifier = "CategoryTagCell"
-    static let stackViewInnerSpacing = CGFloat(8)
-    static let slashWidth = CGFloat(5.5)
-    static let horizontalMargin = CGFloat(32)
-    static var horizontalInset: CGFloat {
-        return Self.stackViewInnerSpacing + Self.slashWidth + Self.horizontalMargin
+    static func size(categoryName: String, tagName: String) -> CGSize {
+        let stackViewInnerSpacing = CGFloat(8)
+        let slashWidth = CGFloat(5.5)
+        let horizontalMargin = CGFloat(32)
+        
+        let categoryWidth = NSMutableAttributedString(string: categoryName, attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
+            NSAttributedString.Key.font: UIFont.heading4
+        ]).size().width
+        let nameWidth = NSMutableAttributedString(string: tagName, attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.black),
+            NSAttributedString.Key.font: UIFont.heading4
+        ]).size().width
+        
+        return .init(stackViewInnerSpacing + slashWidth + horizontalMargin + categoryWidth + nameWidth, 32)
     }
     
     @IBOutlet weak var categoryNameLabel: UILabel!
