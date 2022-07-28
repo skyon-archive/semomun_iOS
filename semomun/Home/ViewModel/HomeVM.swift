@@ -34,7 +34,7 @@ final class HomeVM {
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.popularTagContents = .init(repeating: (.init(tid: 0, name: ""), []), count: self.popularTagSectionCount)
+        self.popularTagContents = .init(repeating: (.init(tid: 0, cid: 0, name: "", category: .init(cid: 0, name: "")), []), count: self.popularTagSectionCount)
     }
     
     // MARK: VC에서 바인딩 연결 완료 후 호출

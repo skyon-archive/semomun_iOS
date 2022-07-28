@@ -14,5 +14,7 @@ struct SearchTags: Decodable {
 
 struct TagOfDB: Equatable, Codable {
     let tid: Int
+    let cid: Int
     let name: String
+    let category: CategoryOfDB
 }
