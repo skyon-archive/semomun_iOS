@@ -99,7 +99,7 @@ extension SearchVM {
         self.isPaging = true
         self.pageCount += 1
         
-        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbooks in
+        self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param, cid: nil) { [weak self] status, workbooks in
             switch status {
             case .SUCCESS:
                 self?.workbooksCount = workbooks?.count ?? 0
@@ -169,7 +169,7 @@ extension SearchVM {
                 self?.workbookGroupsCount = workbookGroupInfo?.count ?? 0
             }
         } else {
-            self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil) { [weak self] status, workbookInfo in
+            self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil, cid: nil) { [weak self] status, workbookInfo in
                 guard status == .SUCCESS else {
                     self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                     return

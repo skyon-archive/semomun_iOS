@@ -61,7 +61,7 @@ extension NetworkUsecase: BestSellersFetchable {
 }
 extension NetworkUsecase: TagsFetchable {
     func getTags(order: NetworkURL.TagsOrder, cid: Int?, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void) {
-        let param = cid == nil ? ["order": order.rawValue] : ["order": order.rawValue, "category": "\(cid!)"]
+        let param = cid == nil ? ["order": order.rawValue] : ["order": order.rawValue, "cid": "\(cid!)"]
         self.network.request(url: NetworkURL.tags, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
@@ -147,9 +147,9 @@ extension NetworkUsecase: S3ImageFetchable {
 
 // MARK: - Searchable
 extension NetworkUsecase: PreviewsSearchable {
-    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookPreviews?) -> Void) {
+    func getPreviews(tags: [TagOfDB], keyword: String, page: Int, limit: Int, order: String?, cid: Int?, completion: @escaping (NetworkStatus, SearchWorkbookPreviews?) -> Void) {
         let tids = tags.isEmpty ? nil : tags.map(\.tid) // tags가 빈배열일때 문제인가 싶어 nil로 시도
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order, cid: cid)
         
         self.network.request(url: NetworkURL.workbooks, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
@@ -181,7 +181,7 @@ extension NetworkUsecase: WorkbookSearchable {
 extension NetworkUsecase: WorkbookGroupSearchable {
     func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void) {
         let tids = tags?.map(\.tid)
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order)
+        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order, cid: nil)
         
         self.network.request(url: NetworkURL.workbookGroups, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {

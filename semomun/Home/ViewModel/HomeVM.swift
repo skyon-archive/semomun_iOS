@@ -224,7 +224,7 @@ extension HomeVM {
     }
     
     private func fetchWorkbooksWithTags() {
-        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.cellPerSection, order: nil) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: self.tags, keyword: "", page: 1, limit: self.cellPerSection, order: nil, cid: nil) { [weak self] status, previews in
             switch status {
             case .SUCCESS:
                 guard let sectionSize = self?.cellPerSection else { return }
@@ -283,7 +283,7 @@ extension HomeVM {
                 return
             }
             tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil) { [weak self] status, preview in
+                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil, cid: nil) { [weak self] status, preview in
                     if status == .SUCCESS {
                         guard let preview = preview?.workbooks else {
                             self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
@@ -318,7 +318,7 @@ extension HomeVM {
             return
         }
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30, order: order.param) { [weak self] status, previews in
+        self.networkUsecase.getPreviews(tags: tags, keyword: "", page: page, limit: 30, order: order.param, cid: nil) { [weak self] status, previews in
             guard status == .SUCCESS else {
                 completion(nil)
                 return
@@ -370,7 +370,7 @@ extension HomeVM {
     
     func fetchTagContent(tagOfDB: TagOfDB, order: DropdownOrderButton.SearchOrder, page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param) { status, preview in
+        self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param, cid: nil) { status, preview in
             guard status == .SUCCESS else {
                 completion(nil)
                 return
