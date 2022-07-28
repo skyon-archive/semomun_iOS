@@ -40,6 +40,9 @@ extension TagDetailVC {
         self.navigationItem.titleView = button
     }
     private func showCategoryView() {
-        print(self.tagOfDB)
+        guard let categoryOfDB = self.tagOfDB.category else { return }
+        let vm = HomeCategoryDetailVM(categoryOfDB: categoryOfDB, networkUsecase: NetworkUsecase(network: Network()))
+        let vc = HomeCategoryDetailVC(viewModel: vm)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
