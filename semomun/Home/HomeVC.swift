@@ -671,7 +671,7 @@ extension HomeVC {
                         networkUsecase: viewModel.networkUsecase,
                         cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, order: $1, page: $0, completion: $2)}
                     )
-                    let vc = HomeCategoryDetailVC<WorkbookPreviewOfDB>(viewModel: vm, tagOfDB: tagContent.tag)
+                    let vc = TagDetailVC<WorkbookPreviewOfDB>(viewModel: vm, tagOfDB: tagContent.tag)
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
