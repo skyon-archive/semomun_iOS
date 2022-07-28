@@ -1,5 +1,5 @@
 //
-//  HomeTagDetailVM.swift
+//  HomeUserTagDetailVM.swift
 //  semomun
 //
 //  Created by SEONG YEOL YI on 2022/07/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HomeTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
+final class HomeUserTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
     /* public */
     @Published private(set) var tags: [String] = []
     
@@ -22,7 +22,7 @@ final class HomeTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
     }
 }
 
-extension HomeTagDetailVM {
+extension HomeUserTagDetailVM {
     private func configureTagObserver() {
         NotificationCenter.default.addObserver(forName: .refreshFavoriteTags, object: nil, queue: .current) { [weak self] _ in
             self?.fetch()
