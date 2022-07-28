@@ -10,19 +10,49 @@ import Combine
 
 final class HomeCategoryDetailVM {
     /* public */
-    @Published private(set) var tagNames: [TagOfDB] = []
+    typealias NetworkUsecase = (TagsFetchable&S3ImageFetchable&PreviewsSearchable)
+    @Published private(set) var tagOfDBs: [TagOfDB] = []
     @Published private(set) var fetchedIndex: Int?
+    @Published private(set) var networkWarning: (String, String)?
     private(set) var sectionData: [[WorkbookPreviewOfDB]] = []
-    private(set) var networkUsecase: S3ImageFetchable
+    private(set) var networkUsecase: NetworkUsecase
+    var categoryName: String {
+        self.categoryOfDB.name
+    }
     /* private */
-    private let cid: Int
+    private let categoryOfDB: CategoryOfDB
     
-    init(cid: Int, networkUsecase: S3ImageFetchable) {
-        self.cid = cid
+    init(categoryOfDB: CategoryOfDB, networkUsecase: NetworkUsecase) {
+        self.categoryOfDB = categoryOfDB
         self.networkUsecase = networkUsecase
     }
     
     func fetch() {
-        
+        self.networkUsecase.getTags(order: .name, cid: self.categoryOfDB.cid) { [weak self] status, result in
+            guard status == .SUCCESS else {
+                self?.networkWarning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            self?.tagOfDBs = result
+        }
+    }
+    
+    func fetchWorkbooks() {
+        self.sectionData = Array(repeating: [], count: self.tagOfDBs.count)
+        self.tagOfDBs.enumerated().forEach { index, tagOfDB in
+            self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: 1, limit: 15, order: nil, cid: nil) { [weak self] status, result in
+                guard status == .SUCCESS else {
+                    self?.networkWarning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                    return
+                }
+                guard let workbooks = result?.workbooks else { return }
+                self?.sectionData[index] = workbooks
+                self?.fetchedIndex = index
+            }
+        }
     }
 }
+
+extension HomeCategoryDetailVM {
+}
+
