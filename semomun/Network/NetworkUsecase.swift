@@ -67,6 +67,7 @@ extension NetworkUsecase: TagsFetchable {
             case 200:
                 guard let data = result.data,
                       let searchTags: SearchTags = self.decodeRequested(SearchTags.self, from: data) else {
+                    print("\(String(data: result.data!, encoding: .utf8))")
                     completion(.DECODEERROR, [])
                     return
                 }
