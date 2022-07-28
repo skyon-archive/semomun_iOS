@@ -1,5 +1,5 @@
 //
-//  Form5Cell.swift
+//  Type5Cell.swift
 //  semomun
 //
 //  Created by Kang Minsang on 2021/12/19.
@@ -8,9 +8,9 @@
 import UIKit
 import PencilKit
 
-final class Form5Cell: StudyCell, CellLayoutable, CellRegisterable {
+final class Type5Cell: StudyCell, CellLayoutable, CellRegisterable {
     /* public */
-    static let identifier = "Form5Cell"
+    static let identifier = "Type5Cell"
     static func topViewHeight(with problem: Problem_Core?) -> CGFloat {
         return Study5AnswerView.size.height+16
     }
@@ -47,7 +47,7 @@ final class Form5Cell: StudyCell, CellLayoutable, CellRegisterable {
 }
 
 // MARK: Update
-extension Form5Cell {
+extension Type5Cell {
     private func updateCorrectImage() {
         guard let problem = self.problem else { return }
         if problem.terminated == true {
@@ -57,7 +57,7 @@ extension Form5Cell {
 }
 
 // MARK: AnswerView
-extension Form5Cell {
+extension Type5Cell {
     private func updateAnswerViewFrame() {
         let rightCorner = CGPoint(self.contentView.frame.maxX, 0)
         let size = Study5AnswerView.size
@@ -76,7 +76,7 @@ extension Form5Cell {
     }
 }
 
-extension Form5Cell: AnswerViewDelegate {
+extension Type5Cell: AnswerViewDelegate {
     func selectAnswer(to answer: String) {
         self.updateSolved(input: answer)
     }
