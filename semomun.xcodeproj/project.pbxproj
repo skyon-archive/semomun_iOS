@@ -1500,7 +1500,7 @@
 			children = (
 				870BB56B288E689A00794295 /* AnswerView */,
 				87273C182840B25E007B7092 /* Protocol */,
-				87E151622787DD160080D39A /* FormCell */,
+				87E151622787DD160080D39A /* StudyCell */,
 				25622C50283A8F7A0056E0DF /* FormZero */,
 				25622C51283A8F810056E0DF /* FormOne */,
 				25622C52283A8F850056E0DF /* FormTwo */,
@@ -1808,7 +1808,7 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		87E151622787DD160080D39A /* FormCell */ = {
+		87E151622787DD160080D39A /* StudyCell */ = {
 			isa = PBXGroup;
 			children = (
 				2560BB98283B542500A32EC4 /* FormCell.swift */,
@@ -1821,7 +1821,7 @@
 				873A343B289173AE005F9AAA /* LongTextCell.swift */,
 				8766B1F4277C448300061CE6 /* Protocol */,
 			);
-			path = FormCell;
+			path = StudyCell;
 			sourceTree = "<group>";
 		};
 		87EB46942783452100052BCE /* Secure */ = {
