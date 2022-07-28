@@ -52,6 +52,11 @@ extension HomeCategoryDetailVC: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configure(data, networkUsecase: self.viewModel.networkUsecase)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = self.viewModel.sectionData[collectionView.tag][indexPath.item]
+        self.viewModel.fetchWorkbook(wid: data.wid)
+    }
 }
 
 extension HomeCategoryDetailVC: UICollectionViewDelegateFlowLayout {
@@ -64,6 +69,8 @@ extension HomeCategoryDetailVC {
     private func bindAll() {
         self.bindTagNames()
         self.bindFetchedIndex()
+        self.bindWorkbook()
+        self.bindNetworkWarning()
     }
     
     private func bindTagNames() {
@@ -86,6 +93,28 @@ extension HomeCategoryDetailVC {
             .sink(receiveValue: { [weak self] index in
                 guard let index = index else { return }
                 self?.customView.reloadCollectionView(at: index)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindWorkbook() {
+        self.viewModel.$workbookDTO
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] workbook in
+                guard let workbook = workbook else { return }
+                self?.showWorkbookDetailVC(workbookDTO: workbook)
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    private func bindNetworkWarning() {
+        self.viewModel.$networkWarning
+            .receive(on: DispatchQueue.main)
+            .dropFirst()
+            .sink(receiveValue: { [weak self] content in
+                guard let content = content else { return }
+                self?.showAlertWithOK(title: content.0, text: content.1)
             })
             .store(in: &self.cancellables)
     }

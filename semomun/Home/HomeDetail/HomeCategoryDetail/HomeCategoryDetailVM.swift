@@ -10,9 +10,10 @@ import Combine
 
 final class HomeCategoryDetailVM {
     /* public */
-    typealias NetworkUsecase = (TagsFetchable&S3ImageFetchable&PreviewsSearchable)
+    typealias NetworkUsecase = (TagsFetchable&S3ImageFetchable&PreviewsSearchable&WorkbookSearchable)
     @Published private(set) var tagOfDBs: [TagOfDB] = []
     @Published private(set) var fetchedIndex: Int?
+    @Published private(set) var workbookDTO: WorkbookOfDB?
     @Published private(set) var networkWarning: (String, String)?
     private(set) var sectionData: [[WorkbookPreviewOfDB]] = []
     private(set) var networkUsecase: NetworkUsecase
@@ -49,6 +50,16 @@ final class HomeCategoryDetailVM {
                 self?.sectionData[index] = workbooks
                 self?.fetchedIndex = index
             }
+        }
+    }
+    
+    func fetchWorkbook(wid: Int) {
+        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
+            guard let workbook = workbook else {
+                self?.networkWarning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
+                return
+            }
+            self?.workbookDTO = workbook
         }
     }
 }
