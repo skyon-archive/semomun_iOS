@@ -10,13 +10,16 @@ import Combine
 
 final class HomeCategoryDetailVM {
     /* public */
-    @Published private(set) var sectionData: [[WorkbookPreviewOfDB]] = []
+    @Published private(set) var tagNames: [TagOfDB] = []
     @Published private(set) var fetchedIndex: Int?
+    private(set) var sectionData: [[WorkbookPreviewOfDB]] = []
+    private(set) var networkUsecase: S3ImageFetchable
     /* private */
     private let cid: Int
     
-    init(cid: Int) {
+    init(cid: Int, networkUsecase: S3ImageFetchable) {
         self.cid = cid
+        self.networkUsecase = networkUsecase
     }
     
     func fetch() {
