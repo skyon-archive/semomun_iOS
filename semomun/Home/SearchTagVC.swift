@@ -79,8 +79,9 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.searchTagView.searchTagCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
-            let tagName = self.viewModel.userTags[indexPath.item].name
-            cell.configure(tag: tagName)
+            let tagOfDB = self.viewModel.userTags[indexPath.item]
+            // MARK: 테스트용
+            cell.configure(categoryName: "테스트", tagName: tagOfDB.name)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
@@ -103,8 +104,10 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension SearchTagVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.searchTagView.searchTagCollectionView {
-            let tagName = self.viewModel.userTags[indexPath.item].name
-            return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + RemoveableTagCell.horizontalMargin, height: 32)
+            let tagOfDB = self.viewModel.userTags[indexPath.item]
+            // MARK: 테스트용 카테고리 이름
+            let textSize = RemoveableTagCell.makeAttributedText(categoryName: "테스트", tagName: tagOfDB.name)
+            return .init(textSize.size().width + RemoveableTagCell.horizontalMargin, 32)
         } else {
             let tagName = self.viewModel.searchResult[indexPath.item].name
             return CGSize(width: tagName.size(withAttributes: [NSAttributedString.Key.font : UIFont.heading5]).width + 32, height: 32)

@@ -416,8 +416,9 @@ extension SearchVC: UICollectionViewDataSource {
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableTagCell.identifier, for: indexPath) as? RemoveableTagCell else { return .init() }
-                guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return cell }
-                cell.configure(tag: tagName)
+                guard let tagOfDB = self.viewModel?.selectedTags[safe: indexPath.item] else { return cell }
+                // MARK: 테스트용 카테고리 이름
+                cell.configure(categoryName: "테스트", tagName: tagOfDB.name)
                 return cell
             }
         }
