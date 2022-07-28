@@ -240,6 +240,7 @@ extension HomeVC {
     }
     
     private func showHomeDetailVC(sectionType: FixedSectionType) {
+        // MARK: 테스트용 로직
         let vm = HomeCategoryDetailVM(categoryOfDB: .init(cid: 1, name: "테스트 카테고리"), networkUsecase: NetworkUsecase(network: Network()))
         let vc = HomeCategoryDetailVC(viewModel: vm)
         self.navigationController?.pushViewController(vc, animated: true)
