@@ -17,8 +17,3 @@ struct TagOfDB: Equatable, Codable {
     let name: String
     let category: CategoryOfDB?
 }
-
-struct CategoryOfDB: Equatable, Codable {
-    let cid: Int
-    let name: String
-}

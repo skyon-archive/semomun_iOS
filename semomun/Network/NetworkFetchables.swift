@@ -24,6 +24,7 @@ protocol BestSellersFetchable {
 }
 protocol TagsFetchable {
     func getTags(order: NetworkURL.TagsOrder, cid: Int?, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void)
+    func getCategories(completion: @escaping (NetworkStatus, [CategoryOfDB]) -> Void)
 }
 protocol MajorFetchable {
     func getMajors(completion: @escaping([Major]?) -> Void)
