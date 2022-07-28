@@ -9,7 +9,7 @@ import Foundation
 
 final class HomeUserTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
     /* public */
-    @Published private(set) var tags: [String] = []
+    @Published private(set) var tags: [TagOfDB] = []
     
     override init(networkUsecase: HomeDetailVMNetworkUsecase, cellDataFetcher: @escaping CellDataFetcher) {
         super.init(networkUsecase: networkUsecase, cellDataFetcher: cellDataFetcher)
@@ -17,7 +17,7 @@ final class HomeUserTagDetailVM: HomeDetailVM<WorkbookPreviewOfDB> {
     }
     
     override func fetch() {
-        self.tags = self.getFavoriteTag().map(\.name)
+        self.tags = self.getFavoriteTag()
         super.fetch()
     }
 }

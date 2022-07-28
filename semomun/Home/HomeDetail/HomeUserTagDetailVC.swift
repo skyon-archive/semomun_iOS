@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 final class HomeUserTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
-    private var tags: [String] = []
+    private var tags: [TagOfDB] = []
     
     init(viewModel: HomeUserTagDetailVM, title: String) {
         super.init(viewModel: viewModel, title: title)
@@ -34,7 +34,7 @@ final class HomeUserTagDetailVC: HomeDetailVC<WorkbookPreviewOfDB> {
             let searchTagVC = SearchTagVC(viewModel: viewModel, mode: .home)
             self?.present(searchTagVC, animated: true, completion: nil)
         })
-        view.tagList.updateTagList(tagNames: self.tags)
+        view.tagList.updateTagList(tags: self.tags)
         
         return view
     }

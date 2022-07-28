@@ -47,14 +47,15 @@ final class UserTagListView: UIView {
     }
     
     // MARK: 반드시 호출해야하는 메소드
-    func updateTagList(tagNames: [String]) {
+    func updateTagList(tags: [TagOfDB]) {
         self.stackView.arrangedSubviews.forEach { view in
             self.stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
-        tagNames.forEach { name in
-            let tagView = self.makeTagView(withName: name)
-            self.stackView.addArrangedSubview(tagView)
+        tags.forEach { tag in
+            // MARK: 임시 변수
+            let tagLabel = TagLabel(categoryName: "테스트", tagName: tag.name)
+            self.stackView.addArrangedSubview(tagLabel)
         }
     }
     
@@ -92,28 +93,47 @@ extension UserTagListView {
             editButtonLeadingConstraint
         ])
     }
-    
-    private func makeTagView(withName name: String) -> UIView {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .heading5
-        view.text = name
-        view.backgroundColor = UIColor.getSemomunColor(.white)
-        view.borderWidth = 1
-        view.borderColor = UIColor.getSemomunColor(.border)
-        view.textAlignment = .center
-        view.layer.cornerRadius = .cornerRadius12
-        view.layer.masksToBounds = true
-        view.layer.cornerCurve = .continuous
+}
+
+fileprivate final class TagLabel: UILabel {
+    convenience init(categoryName: String, tagName: String) {
+        self.init(frame: .zero)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.font = .heading5
+        self.backgroundColor = UIColor.getSemomunColor(.white)
+        self.borderWidth = 1
+        self.borderColor = UIColor.getSemomunColor(.border)
+        self.textAlignment = .center
+        self.layer.cornerRadius = .cornerRadius12
+        self.layer.masksToBounds = true
+        self.layer.cornerCurve = .continuous
+        
+        let text = self.makeAttributedText(categoryName: categoryName, tagName: tagName)
+        self.attributedText = text
         
         // 16은 텍스트 양쪽에서 셀 가장자리까지의 거리
-        let width = name.size(withAttributes: [.font: UIFont.heading5]).width + (16 * 2)
+        let width = text.size().width + (16 * 2)
         
         NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: width),
-            view.heightAnchor.constraint(equalToConstant: 32)
+            self.widthAnchor.constraint(equalToConstant: width),
+            self.heightAnchor.constraint(equalToConstant: 32)
         ])
-        
-        return view
+    }
+    
+    private func makeAttributedText(categoryName: String, tagName: String) -> NSAttributedString {
+        let text = NSMutableAttributedString()
+        text.append(NSMutableAttributedString(string: categoryName, attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
+            NSAttributedString.Key.font: UIFont.heading4
+        ]))
+        text.append(NSMutableAttributedString(string: " / ", attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
+            NSAttributedString.Key.font: UIFont.heading5
+        ]))
+        text.append(NSMutableAttributedString(string: tagName, attributes:[
+            NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.black),
+            NSAttributedString.Key.font: UIFont.heading4
+        ]))
+        return text
     }
 }
