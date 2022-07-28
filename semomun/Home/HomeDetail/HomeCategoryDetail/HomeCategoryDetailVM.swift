@@ -63,7 +63,3 @@ final class HomeCategoryDetailVM {
         }
     }
 }
-
-extension HomeCategoryDetailVM {
-}
-
