@@ -76,6 +76,22 @@ extension NetworkUsecase: TagsFetchable {
             }
         }
     }
+    
+    func getCategories(completion: @escaping (NetworkStatus, [CategoryOfDB]) -> Void) {
+        self.network.request(url: NetworkURL.categories, method: .get, tokenRequired: false) { result in
+            switch result.statusCode {
+            case 200:
+                guard let data = result.data,
+                      let searchCategories: SearchCategories = self.decodeRequested(SearchCategories.self, from: data) else {
+                    completion(.DECODEERROR, [])
+                    return
+                }
+                completion(.SUCCESS, searchCategories.categories)
+            default:
+                completion(.FAIL, [])
+            }
+        }
+    }
 }
 extension NetworkUsecase: MajorFetchable {
     func getMajors(completion: @escaping ([Major]?) -> Void) {

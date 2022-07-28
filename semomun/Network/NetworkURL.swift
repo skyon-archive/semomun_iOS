@@ -81,6 +81,7 @@ enum NetworkURL {
     static let images: String = base + "/images"
     static let majors: String = base + "/info/major"
     static let tags: String = base + "/tags"
+    static let categories: String = base + "/categories"
     static let tagsSelf = tags + "/self"
     static let login: String = base + "/auth/login"
     static let signup: String = base + "/auth/signup"
