@@ -411,14 +411,13 @@ extension SearchVC: UICollectionViewDataSource {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
-                guard let tagName = self.viewModel?.favoriteTags[safe: indexPath.item]?.name else { return cell }
-                cell.configure(category: "카테고리", tag: tagName)
+                guard let tag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return cell }
+                cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableCategoryTagCell.identifier, for: indexPath) as? RemoveableCategoryTagCell else { return .init() }
-                let categoryName = "카테고리"
-                guard let tagName = self.viewModel?.selectedTags[safe: indexPath.item]?.name else { return cell }
-                cell.configure(category: categoryName, tag: tagName)
+                guard let tag = self.viewModel?.selectedTags[safe: indexPath.item] else { return cell }
+                cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
                 return cell
             }
         }
