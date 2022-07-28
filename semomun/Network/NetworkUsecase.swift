@@ -60,14 +60,13 @@ extension NetworkUsecase: BestSellersFetchable {
     }
 }
 extension NetworkUsecase: TagsFetchable {
-    func getTags(order: NetworkURL.TagsOrder, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void) {
-        let param = ["order": order.rawValue]
+    func getTags(order: NetworkURL.TagsOrder, cid: Int?, completion: @escaping (NetworkStatus, [TagOfDB]) -> Void) {
+        let param = cid == nil ? ["order": order.rawValue] : ["order": order.rawValue, "category": "\(cid!)"]
         self.network.request(url: NetworkURL.tags, param: param, method: .get, tokenRequired: false) { result in
             switch result.statusCode {
             case 200:
                 guard let data = result.data,
                       let searchTags: SearchTags = self.decodeRequested(SearchTags.self, from: data) else {
-                    print("\(String(data: result.data!, encoding: .utf8))")
                     completion(.DECODEERROR, [])
                     return
                 }

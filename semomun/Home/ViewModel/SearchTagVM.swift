@@ -73,7 +73,7 @@ extension SearchTagVM {
     }
     
     private func fetchFromServer() {
-        self.networkUsecase.getTags(order: .name) { [weak self] status, tags in
+        self.networkUsecase.getTags(order: .name, cid: nil) { [weak self] status, tags in
             switch status {
             case .SUCCESS:
                 self?.totalTags = tags
