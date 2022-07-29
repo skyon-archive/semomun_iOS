@@ -26,7 +26,7 @@ final class HomeVM {
     @Published private(set) var isMigration: Bool = false
     /// popularTagContents의 element 중 DB에서 값을 받아온 것의 인덱스
     @Published private(set) var updatedPopularTagIndex: Int? = nil
-    private(set) var popularTagContents: [(tag: TagOfDB, previews: [WorkbookPreviewOfDB])] = []
+    private(set) var popularCategoryContents: [(category: CategoryOfDB, previews: [WorkbookPreviewOfDB])] = []
     let popularTagSectionCount = 15
     /* private */
     private let cellPerSection = 15
@@ -34,7 +34,10 @@ final class HomeVM {
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.popularTagContents = .init(repeating: (.init(tid: 0, name: "", category: .init(cid: 0, name: "")), []), count: self.popularTagSectionCount)
+        self.popularCategoryContents = .init(
+            repeating: (CategoryOfDB(cid: 1, name: ""), []),
+            count: self.popularTagSectionCount
+        )
     }
     
     // MARK: VC에서 바인딩 연결 완료 후 호출
@@ -273,7 +276,7 @@ extension HomeVM {
     }
     
     private func fetchPopularTagContents() {
-        self.networkUsecase.getTags(order: .popularity, cid: nil) { [weak self] status, tags in
+        self.networkUsecase.getCategories { [weak self] status, categories in
             guard let sectionSize = self?.cellPerSection,
                   let popularTagSectionCount = self?.popularTagSectionCount else {
                 return
@@ -282,14 +285,14 @@ extension HomeVM {
                 self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                 return
             }
-            tags.prefix(popularTagSectionCount).enumerated().forEach { idx, tag in
-                self?.networkUsecase.getPreviews(tags: [tag], keyword: "", page: 1, limit: sectionSize, order: nil, cid: nil) { [weak self] status, preview in
+            categories.prefix(popularTagSectionCount).enumerated().forEach { idx, category in
+                self?.networkUsecase.getPreviews(tags: [], keyword: "", page: 1, limit: sectionSize, order: nil, cid: category.cid) { [weak self] status, preview in
                     if status == .SUCCESS {
                         guard let preview = preview?.workbooks else {
                             self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
                             return
                         }
-                        self?.popularTagContents[idx] = (tag, preview)
+                        self?.popularCategoryContents[idx] = (category, preview)
                         self?.updatedPopularTagIndex = idx
                     } else {
                         self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")

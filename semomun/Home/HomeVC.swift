@@ -20,7 +20,7 @@ final class HomeVC: UIViewController {
     }
     private var fixedSectionViews: [FixedSectionType: HomeSectionView] = [:]
     /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열
-    private var popularTagSectionViews: [HomeSectionView] = []
+    private var popularCategorySectionViews: [HomeSectionView] = []
     private lazy var loadingView: LoadingView = {
         let view = LoadingView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +107,7 @@ final class HomeVC: UIViewController {
                 self?.fixedSectionViews.values.forEach {
                     $0.collectionView.collectionViewLayout.invalidateLayout()
                 }
-                self?.popularTagSectionViews.forEach {
+                self?.popularCategorySectionViews.forEach {
                     $0.collectionView.collectionViewLayout.invalidateLayout()
                 }
             }
@@ -179,7 +179,7 @@ extension HomeVC {
 extension HomeVC {
     private func configureStackViewContent() {
         self.configureFixedSection()
-        self.configurePopularTagSection()
+        self.configurePopularCategorySection()
     }
     
     private func configureFixedSection() {
@@ -216,9 +216,9 @@ extension HomeVC {
     }
     
     /// - Warning: ViewModel이 필요한 메소드
-    private func configurePopularTagSection() {
+    private func configurePopularCategorySection() {
         guard let viewModel = self.viewModel else { return }
-        self.popularTagSectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
+        self.popularCategorySectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
             let sectionView = HomeSectionView(hasTagList: false)
             self.addSectionToStackView(sectionView)
             
@@ -240,12 +240,6 @@ extension HomeVC {
     }
     
     private func showHomeDetailVC(sectionType: FixedSectionType) {
-        // MARK: 테스트용 로직
-        let vm = CategoryDetailVM(categoryOfDB: .init(cid: 1, name: "테스트 카테고리"), networkUsecase: NetworkUsecase(network: Network()))
-        let vc = CategoryDetailVC(viewModel: vm)
-        self.navigationController?.pushViewController(vc, animated: true)
-        return
-        
         guard let viewModel = self.viewModel,
               let sectionTitle = self.fixedSectionViews[sectionType]?.title else {
             return
@@ -325,7 +319,7 @@ extension HomeVC: UICollectionViewDataSource {
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            let tagContent = self.viewModel?.popularTagContents[safe: popularTagSectionIndex]
+            let tagContent = self.viewModel?.popularCategoryContents[safe: popularTagSectionIndex]
             return tagContent?.previews.count ?? 0
         }
     }
@@ -359,7 +353,7 @@ extension HomeVC: UICollectionViewDataSource {
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let tagContent = self.viewModel?.popularTagContents[safe: popularTagSectionIndex] else { return cell }
+            guard let tagContent = self.viewModel?.popularCategoryContents[safe: popularTagSectionIndex] else { return cell }
             let preview = tagContent.previews[indexPath.item]
             cell.configure(with: preview, networkUsecase: networkUsecase)
         }
@@ -390,7 +384,7 @@ extension HomeVC: UICollectionViewDelegate {
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let wid = self.viewModel?.popularTagContents[popularTagSectionIndex].previews[indexPath.item].wid else { return }
+            guard let wid = self.viewModel?.popularCategoryContents[popularTagSectionIndex].previews[indexPath.item].wid else { return }
             self.searchWorkbook(wid: wid)
         }
     }
@@ -663,22 +657,20 @@ extension HomeVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] idx in
                 guard let idx = idx,
-                      let sectionView = self?.popularTagSectionViews[safe: idx],
-                      let tagContent = self?.viewModel?.popularTagContents[safe: idx] else {
+                      let sectionView = self?.popularCategorySectionViews[safe: idx],
+                      let categoryContent = self?.viewModel?.popularCategoryContents[safe: idx] else {
                     return
                 }
                 
-                sectionView.configureTitle(to: tagContent.tag.name)
+                sectionView.configureTitle(to: categoryContent.category.name)
                 sectionView.collectionView.reloadData()
                 
                 guard let viewModel = self?.viewModel else { return }
                 
                 sectionView.configureSeeAllAction { [weak self] in
-                    let vm = HomeDetailVM<WorkbookPreviewOfDB>(
-                        networkUsecase: viewModel.networkUsecase,
-                        cellDataFetcher: { viewModel.fetchTagContent(tagOfDB: tagContent.tag, order: $1, page: $0, completion: $2)}
-                    )
-                    let vc = TagDetailVC<WorkbookPreviewOfDB>(viewModel: vm, tagOfDB: tagContent.tag)
+                    let networkUsecase = NetworkUsecase(network: Network())
+                    let vm = CategoryDetailVM(categoryOfDB: categoryContent.category, networkUsecase: networkUsecase)
+                    let vc =  CategoryDetailVC(viewModel: vm)
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
