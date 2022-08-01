@@ -59,7 +59,6 @@ final class WorkbookDetailVM {
     }
     
     func getTags(wid: Int) {
-        guard NetworkStatusManager.isConnectedToInternet() == true else { return }
         self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
             guard let workbook = workbook else { return }
             self?.tags = workbook.tags
