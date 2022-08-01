@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable & WorkbookSearchable)
+typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable)
 
 final class WorkbookDetailVM {
     enum PopupType {
@@ -18,7 +18,7 @@ final class WorkbookDetailVM {
     private(set) var previewCore: Preview_Core?
     private(set) var workbookDTO: WorkbookOfDB?
     private(set) var credit: Int?
-    @Published private(set) var tags: [TagOfDB] = []
+    @Published private(set) var tags: [String] = []
     @Published private(set) var workbookInfo: WorkbookInfo?
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var sectionHeaders: [SectionHeader_Core] = []
@@ -50,18 +50,11 @@ final class WorkbookDetailVM {
         if isCoreData {
             guard let previewCore = self.previewCore else { return }
             self.workbookInfo = WorkbookInfo(previewCore: previewCore)
-            self.getTags(wid: Int(previewCore.wid))
+            self.tags = previewCore.tags
         } else {
             guard let workbookDTO = self.workbookDTO else { return }
             self.workbookInfo = WorkbookInfo(workbookDTO: workbookDTO)
-            self.tags = workbookDTO.tags
-        }
-    }
-    
-    func getTags(wid: Int) {
-        self.networkUsecase.getWorkbook(wid: wid) { [weak self] workbook in
-            guard let workbook = workbook else { return }
-            self?.tags = workbook.tags
+            self.tags = workbookDTO.tags.map(\.name)
         }
     }
     
