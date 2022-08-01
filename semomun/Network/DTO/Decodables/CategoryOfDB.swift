@@ -15,6 +15,6 @@ struct SearchCategories: Decodable {
 struct CategoryOfDB: Equatable, Codable {
     let cid: Int
     let name: String
-    let tagCount: Int?
+    let TagCount: Int?
 }
 

@@ -35,7 +35,7 @@ final class HomeVM {
         self.networkUsecase = networkUsecase
         self.configureObservation()
         self.popularCategoryContents = .init(
-            repeating: (CategoryOfDB(cid: 1, name: "", tagCount: nil), []),
+            repeating: (CategoryOfDB(cid: 1, name: "", TagCount: nil), []),
             count: self.popularTagSectionCount
         )
     }
