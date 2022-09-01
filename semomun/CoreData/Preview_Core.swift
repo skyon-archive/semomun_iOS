@@ -62,6 +62,8 @@ extension Preview_Core {
     @NSManaged public var terminated: Bool // 부활: WorkbookGroup 진도율 계산에서 사용
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
+    @NSManaged public var subject: String? //Deprecated(1.1.3)
+    @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var category: String? //Deprecated(1.1.3)
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var year: String? //Deprecated(1.1.3)
